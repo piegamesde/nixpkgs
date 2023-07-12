@@ -117,7 +117,9 @@ stdenv.mkDerivation {
     }
   '';
 
-  passthru.tests = { multipass = nixosTests.multipass; };
+  passthru.tests = {
+    multipass = nixosTests.multipass;
+  };
 
   meta = with lib; {
     description = "Ubuntu VMs on demand for any workstation.";

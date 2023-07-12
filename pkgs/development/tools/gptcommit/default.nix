@@ -35,7 +35,9 @@ rustPlatform.buildRustPackage {
     ++ lib.optionals stdenv.isLinux [ openssl ]
   ;
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A git prepare-commit-msg hook for authoring commit messages with GPT-3. ";

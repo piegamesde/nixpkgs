@@ -32,7 +32,9 @@ in
   compiler =
     let
 
-      gnomeArgs = { inherit (gnome2) GConf gnome_vfs; };
+      gnomeArgs = {
+        inherit (gnome2) GConf gnome_vfs;
+      };
 
       bootstrapArgs = gnomeArgs // {
         openjfx = openjfx11; # need this despite next line :-(

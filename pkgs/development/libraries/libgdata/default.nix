@@ -77,7 +77,9 @@ stdenv.mkDerivation rec {
       versionPolicy = "none"; # Stable version has not been updated for a long time.
     };
 
-    tests = { installedTests = nixosTests.installed-tests.libgdata; };
+    tests = {
+      installedTests = nixosTests.installed-tests.libgdata;
+    };
   };
 
   meta = with lib; {

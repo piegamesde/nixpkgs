@@ -130,7 +130,9 @@ stdenv.mkDerivation (
         [ lua.luaOnBuild ]
     ;
 
-    passthru = { updateScript = nix-update-script { }; };
+    passthru = {
+      updateScript = nix-update-script { };
+    };
 
     meta = with lib; {
       description = "A package manager for Lua";

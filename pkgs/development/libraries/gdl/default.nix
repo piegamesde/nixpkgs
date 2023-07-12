@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  passthru = { updateScript = gnome.updateScript { packageName = "gdl"; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = "gdl"; };
+  };
 
   meta = with lib; {
     description = "Gnome docking library";

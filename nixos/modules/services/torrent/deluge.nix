@@ -316,7 +316,9 @@ in
     };
 
     users.groups = mkIf (cfg.group == "deluge") {
-      deluge = { gid = config.ids.gids.deluge; };
+      deluge = {
+        gid = config.ids.gids.deluge;
+      };
     };
   };
 }

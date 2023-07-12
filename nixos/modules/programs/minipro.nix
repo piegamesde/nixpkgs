@@ -28,5 +28,7 @@ in
     services.udev.packages = [ cfg.package ];
   };
 
-  meta = { maintainers = with lib.maintainers; [ infinidoge ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ infinidoge ];
+  };
 }

@@ -132,5 +132,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 
-  passthru.tests = { inherit (nixosTests) frr; };
+  passthru.tests = {
+    inherit (nixosTests) frr;
+  };
 }

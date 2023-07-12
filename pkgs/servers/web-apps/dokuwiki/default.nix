@@ -112,7 +112,9 @@ stdenv.mkDerivation rec {
         }
       )
     ;
-    tests = { inherit (nixosTests) dokuwiki; };
+    tests = {
+      inherit (nixosTests) dokuwiki;
+    };
   };
 
   meta = with lib; {

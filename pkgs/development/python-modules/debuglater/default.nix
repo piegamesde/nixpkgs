@@ -26,7 +26,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ colorama ];
 
-  passthru.optional-dependencies = { all = [ dill ]; };
+  passthru.optional-dependencies = {
+    all = [ dill ];
+  };
 
   nativeCheckInputs =
     [

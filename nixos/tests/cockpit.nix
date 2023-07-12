@@ -11,7 +11,9 @@ import ./make-test-python.nix (
   in
   {
     name = "cockpit";
-    meta = { maintainers = with lib.maintainers; [ lucasew ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ lucasew ];
+    };
     nodes = {
       server =
         {
@@ -21,11 +23,17 @@ import ./make-test-python.nix (
         {
           imports = [ ./common/user-account.nix ];
           security.polkit.enable = true;
-          users.users.${user} = { extraGroups = [ "wheel" ]; };
+          users.users.${user} = {
+            extraGroups = [ "wheel" ];
+          };
           services.cockpit = {
             enable = true;
             openFirewall = true;
-            settings = { WebService = { Origins = "https://server:9090"; }; };
+            settings = {
+              WebService = {
+                Origins = "https://server:9090";
+              };
+            };
           };
         }
       ;

@@ -23,7 +23,9 @@ let
   cfgFile = format.generate "00-default.conf" cfg.settings;
 in
 {
-  meta = { maintainers = teams.podman.members; };
+  meta = {
+    maintainers = teams.podman.members;
+  };
 
   options.virtualisation.cri-o = {
     enable = mkEnableOption (

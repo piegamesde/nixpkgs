@@ -76,7 +76,9 @@ stdenv.mkDerivation rec {
       freeze = true;
     };
 
-    tests = { inherit gssdp-tools; };
+    tests = {
+      inherit gssdp-tools;
+    };
   };
 
   meta = with lib; {

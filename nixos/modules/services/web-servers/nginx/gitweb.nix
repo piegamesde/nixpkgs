@@ -64,7 +64,9 @@ in
     systemd.services.gitweb = {
       description = "GitWeb service";
       script = "${package}/gitweb.cgi --fastcgi --nproc=1";
-      environment = { FCGI_SOCKET_PATH = "/run/gitweb/gitweb.sock"; };
+      environment = {
+        FCGI_SOCKET_PATH = "/run/gitweb/gitweb.sock";
+      };
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -75,7 +77,9 @@ in
 
     services.nginx = {
       virtualHosts.${cfg.virtualHost} = {
-        locations."${cfg.location}/static/" = { alias = "${package}/static/"; };
+        locations."${cfg.location}/static/" = {
+          alias = "${package}/static/";
+        };
         locations."${cfg.location}/" = {
           extraConfig = ''
             include ${config.services.nginx.package}/conf/fastcgi_params;

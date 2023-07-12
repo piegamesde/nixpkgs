@@ -74,7 +74,11 @@ mkYarnPackage rec {
     runHook postDist
   '';
 
-  passthru = { tests = { inherit (nixosTests) hedgedoc; }; };
+  passthru = {
+    tests = {
+      inherit (nixosTests) hedgedoc;
+    };
+  };
 
   meta = with lib; {
     description = "Realtime collaborative markdown notes on all platforms";

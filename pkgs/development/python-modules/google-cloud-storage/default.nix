@@ -34,7 +34,9 @@ buildPythonPackage rec {
     requests
   ];
 
-  passthru.optional-dependencies = { protobuf = [ protobuf ]; };
+  passthru.optional-dependencies = {
+    protobuf = [ protobuf ];
+  };
 
   nativeCheckInputs = [
     google-cloud-iam

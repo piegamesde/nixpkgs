@@ -11,7 +11,9 @@ let
   cfg = config.programs.thunar;
 in
 {
-  meta = { maintainers = teams.xfce.members; };
+  meta = {
+    maintainers = teams.xfce.members;
+  };
 
   options = {
     programs.thunar = {

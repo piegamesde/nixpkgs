@@ -606,7 +606,9 @@ in
           RestartSec = 5;
         };
 
-        unitConfig = { StartLimitIntervalSec = 0; };
+        unitConfig = {
+          StartLimitIntervalSec = 0;
+        };
       };
 
       services.etcd = {
@@ -629,7 +631,9 @@ in
         apiserver-kubelet-api-admin-crb = {
           apiVersion = "rbac.authorization.k8s.io/v1";
           kind = "ClusterRoleBinding";
-          metadata = { name = "system:kube-apiserver:kubelet-api-admin"; };
+          metadata = {
+            name = "system:kube-apiserver:kubelet-api-admin";
+          };
           roleRef = {
             apiGroup = "rbac.authorization.k8s.io";
             kind = "ClusterRole";
@@ -677,7 +681,9 @@ in
         clusterAdmin = mkCert {
           name = "cluster-admin";
           CN = "cluster-admin";
-          fields = { O = "system:masters"; };
+          fields = {
+            O = "system:masters";
+          };
           privateKeyOwner = "root";
         };
         etcd = mkCert {

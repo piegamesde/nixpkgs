@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "containers-extra_veth";
-    meta = { maintainers = with lib.maintainers; [ kampfschlaefer ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ kampfschlaefer ];
+    };
 
     nodes.machine =
       {
@@ -20,8 +22,12 @@ import ./make-test-python.nix (
 
         networking.useDHCP = false;
         networking.bridges = {
-          br0 = { interfaces = [ ]; };
-          br1 = { interfaces = [ ]; };
+          br0 = {
+            interfaces = [ ];
+          };
+          br1 = {
+            interfaces = [ ];
+          };
         };
         networking.interfaces = {
           br0 = {
@@ -58,7 +64,9 @@ import ./make-test-python.nix (
               localAddress = "192.168.2.100";
             };
           };
-          config = { networking.firewall.allowedTCPPorts = [ 80 ]; };
+          config = {
+            networking.firewall.allowedTCPPorts = [ 80 ];
+          };
         };
 
         virtualisation.additionalPaths = [ pkgs.stdenv ];

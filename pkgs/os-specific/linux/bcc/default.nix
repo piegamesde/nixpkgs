@@ -115,7 +115,9 @@ python.pkgs.buildPythonApplication rec {
     "man"
   ];
 
-  passthru.tests = { bpf = nixosTests.bpf; };
+  passthru.tests = {
+    bpf = nixosTests.bpf;
+  };
 
   meta = with lib; {
     description = "Dynamic Tracing Tools for Linux";

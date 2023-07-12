@@ -145,5 +145,7 @@ in
     };
   };
 
-  meta = { maintainers = with lib.maintainers; [ dotlambda ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ dotlambda ];
+  };
 }

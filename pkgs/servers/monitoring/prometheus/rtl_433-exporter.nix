@@ -21,7 +21,9 @@ buildGoModule rec {
 
   vendorSha256 = "03mnmzq72844hzyw7iq5g4gm1ihpqkg4i9dgj2yln1ghwk843hq6";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) rtl_433; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) rtl_433;
+  };
 
   meta = with lib; {
     description = "Prometheus time-series DB exporter for rtl_433 433MHz radio packet decoder";

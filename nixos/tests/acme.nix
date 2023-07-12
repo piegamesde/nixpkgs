@@ -53,7 +53,11 @@ let
   };
 
   simpleConfig = {
-    security.acme = { certs."http.example.test" = { listenHTTP = ":80"; }; };
+    security.acme = {
+      certs."http.example.test" = {
+        listenHTTP = ":80";
+      };
+    };
 
     networking.firewall.allowedTCPPorts = [ 80 ];
   };
@@ -85,7 +89,9 @@ let
             security.acme = {
               defaults = (dnsConfig nodes);
               # One manual wildcard cert
-              certs."example.test" = { domain = "*.example.test"; };
+              certs."example.test" = {
+                domain = "*.example.test";
+              };
             };
 
             users.users."${config.services."${server}".user}".extraGroups = [
@@ -391,7 +397,9 @@ in
                 security.acme = {
                   defaults = (dnsConfig nodes);
                   # One manual wildcard cert
-                  certs."example.test" = { domain = "*.example.test"; };
+                  certs."example.test" = {
+                    domain = "*.example.test";
+                  };
                 };
 
                 users.users."${config.services.caddy.user}".extraGroups = [
@@ -422,7 +430,11 @@ in
               }:
               lib.mkMerge [
                 (baseCaddyConfig { inherit nodes config; })
-                { security.acme.certs."example.test" = { keyType = "ec384"; }; }
+                {
+                  security.acme.certs."example.test" = {
+                    keyType = "ec384";
+                  };
+                }
               ]
             ;
 

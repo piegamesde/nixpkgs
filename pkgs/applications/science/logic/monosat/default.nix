@@ -72,7 +72,9 @@ let
       cp monosat.jar $out/share/java
     '';
 
-    passthru = { inherit python; };
+    passthru = {
+      inherit python;
+    };
 
     meta = {
       description = "SMT solver for Monotonic Theories";

@@ -39,7 +39,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
-  passthru.tests = { inherit nix; };
+  passthru.tests = {
+    inherit nix;
+  };
 
   meta = with lib; {
     description = "C99 library implementation of AWS client-side authentication";

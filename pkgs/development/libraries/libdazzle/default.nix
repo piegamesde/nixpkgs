@@ -72,7 +72,9 @@ stdenv.mkDerivation rec {
       meson test --print-errorlogs
   '';
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "A library to delight your users with fancy features";

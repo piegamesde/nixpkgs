@@ -34,5 +34,7 @@ buildDotnetPackage {
     ];
   };
 
-  passthru = { shellPath = "/bin/pash"; };
+  passthru = {
+    shellPath = "/bin/pash";
+  };
 }

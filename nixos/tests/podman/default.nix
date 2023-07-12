@@ -6,7 +6,9 @@ import ../make-test-python.nix (
   }:
   {
     name = "podman";
-    meta = { maintainers = lib.teams.podman.members; };
+    meta = {
+      maintainers = lib.teams.podman.members;
+    };
 
     nodes = {
       rootful =
@@ -30,7 +32,9 @@ import ../make-test-python.nix (
         {
           virtualisation.podman.enable = true;
 
-          users.users.alice = { isNormalUser = true; };
+          users.users.alice = {
+            isNormalUser = true;
+          };
         }
       ;
       dns =
@@ -63,7 +67,9 @@ import ../make-test-python.nix (
             extraGroups = [ "podman" ];
           };
 
-          users.users.mallory = { isNormalUser = true; };
+          users.users.mallory = {
+            isNormalUser = true;
+          };
         }
       ;
     };

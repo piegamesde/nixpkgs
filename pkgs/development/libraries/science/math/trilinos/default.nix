@@ -98,7 +98,9 @@ stdenv.mkDerivation rec {
       ''
   ;
 
-  passthru = { inherit withMPI; };
+  passthru = {
+    inherit withMPI;
+  };
 
   meta = with lib; {
     description = "Engineering and scientific problems algorithms";

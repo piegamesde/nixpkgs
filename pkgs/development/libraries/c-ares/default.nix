@@ -41,7 +41,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit curl grpc; };
+  passthru.tests = {
+    inherit curl grpc;
+  };
 
   meta = with lib; {
     description = "A C library for asynchronous DNS requests";

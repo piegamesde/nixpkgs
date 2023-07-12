@@ -108,9 +108,13 @@ import ./make-test-python.nix (
                   registration_open = true;
                 };
 
-                ":media_proxy" = { enabled = false; };
+                ":media_proxy" = {
+                  enabled = false;
+                };
 
-                "Pleroma.Web.Endpoint" = { url.host = "akkoma.nixos.test"; };
+                "Pleroma.Web.Endpoint" = {
+                  url.host = "akkoma.nixos.test";
+                };
               };
             };
 

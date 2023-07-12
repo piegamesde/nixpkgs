@@ -154,7 +154,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru = { inherit dcompiler; };
+  passthru = {
+    inherit dcompiler;
+  };
 
   meta = with lib; {
     description = "D binding and OO wrapper for GTK";

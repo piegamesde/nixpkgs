@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
       sh -c "install -Dm755 {} $out/bin/infnoise-\$(basename {})" \;
   '';
 
-  passthru = { tests.version = testers.testVersion { package = infnoise; }; };
+  passthru = {
+    tests.version = testers.testVersion { package = infnoise; };
+  };
 
   meta = with lib; {
     homepage = "https://github.com/leetronics/infnoise";

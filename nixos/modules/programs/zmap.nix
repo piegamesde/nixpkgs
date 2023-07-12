@@ -11,7 +11,9 @@ let
   cfg = config.programs.zmap;
 in
 {
-  options.programs.zmap = { enable = mkEnableOption (lib.mdDoc "ZMap"); };
+  options.programs.zmap = {
+    enable = mkEnableOption (lib.mdDoc "ZMap");
+  };
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.zmap ];

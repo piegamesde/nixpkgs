@@ -53,9 +53,13 @@ in
     {
       services.nginx = mkIf (cfg.domain != null) {
         upstreams = {
-          odoo.servers = { "127.0.0.1:8069" = { }; };
+          odoo.servers = {
+            "127.0.0.1:8069" = { };
+          };
 
-          odoochat.servers = { "127.0.0.1:8072" = { }; };
+          odoochat.servers = {
+            "127.0.0.1:8072" = { };
+          };
         };
 
         virtualHosts."${cfg.domain}" = {
@@ -71,7 +75,9 @@ in
           '';
 
           locations = {
-            "/longpolling" = { proxyPass = "http://odoochat"; };
+            "/longpolling" = {
+              proxyPass = "http://odoochat";
+            };
 
             "/" = {
               proxyPass = "http://odoo";
@@ -83,7 +89,9 @@ in
         };
       };
 
-      services.odoo.settings.options = { proxy_mode = cfg.domain != null; };
+      services.odoo.settings.options = {
+        proxy_mode = cfg.domain != null;
+      };
 
       users.users.odoo = {
         isSystemUser = true;
@@ -121,7 +129,9 @@ in
 
         ensureUsers = [ {
           name = "odoo";
-          ensurePermissions = { "DATABASE odoo" = "ALL PRIVILEGES"; };
+          ensurePermissions = {
+            "DATABASE odoo" = "ALL PRIVILEGES";
+          };
         } ];
         ensureDatabases = [ "odoo" ];
       };

@@ -46,5 +46,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 
-  passthru = { shellPath = "/bin/es"; };
+  passthru = {
+    shellPath = "/bin/es";
+  };
 }

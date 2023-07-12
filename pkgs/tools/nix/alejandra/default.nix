@@ -19,7 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-tF8E9mnvkTXoViVss9cNjpU4UkEsARp4RtlxKWq55hc=";
 
-  passthru.tests = { version = testers.testVersion { package = alejandra; }; };
+  passthru.tests = {
+    version = testers.testVersion { package = alejandra; };
+  };
 
   meta = with lib; {
     description = "The Uncompromising Nix Code Formatter";

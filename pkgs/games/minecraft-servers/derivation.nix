@@ -31,7 +31,9 @@ stdenv.mkDerivation {
   dontUnpack = true;
 
   passthru = {
-    tests = { inherit (nixosTests) minecraft-server; };
+    tests = {
+      inherit (nixosTests) minecraft-server;
+    };
     updateScript = ./update.py;
   };
 

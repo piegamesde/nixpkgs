@@ -178,7 +178,9 @@ in
                   ]
                 );
                 default = { };
-                example = { default_max_list_members = 3; };
+                example = {
+                  default_max_list_members = 3;
+                };
                 description = lib.mdDoc ''
                   The {file}`robot.conf` configuration file as key value set.
                   See <https://sympa-community.github.io/gpldoc/man/sympa.conf.5.html>
@@ -476,7 +478,9 @@ in
       )
     ));
 
-    environment = { systemPackages = [ pkg ]; };
+    environment = {
+      systemPackages = [ pkg ];
+    };
 
     users.users.${user} = {
       description = "Sympa mailing list manager user";
@@ -693,7 +697,9 @@ in
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [ {
         name = cfg.database.user;
-        ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "${cfg.database.name}.*" = "ALL PRIVILEGES";
+        };
       } ];
     };
 

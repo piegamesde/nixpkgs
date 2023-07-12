@@ -7,7 +7,9 @@
 with lib;
 
 {
-  meta = { maintainers = [ maintainers.joachifm ]; };
+  meta = {
+    maintainers = [ maintainers.joachifm ];
+  };
 
   imports = [
     (lib.mkRenamedOptionModule

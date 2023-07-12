@@ -124,7 +124,9 @@ stdenv.mkDerivation rec {
   PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
 
   passthru = {
-    tests = { installedTests = nixosTests.installed-tests.colord; };
+    tests = {
+      installedTests = nixosTests.installed-tests.colord;
+    };
   };
 
   meta = with lib; {

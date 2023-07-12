@@ -18,7 +18,11 @@ let
 in
 
 runCommand "test-haskell-writers"
-  { meta = { inherit (tests.writers.meta) platforms; }; }
+  {
+    meta = {
+      inherit (tests.writers.meta) platforms;
+    };
+  }
   ''
     ${writeTest "success" "test-haskell-bin-writer"
       "${bin.haskell}/bin/${bin.haskell.name}"}

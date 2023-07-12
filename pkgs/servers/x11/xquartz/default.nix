@@ -238,7 +238,9 @@ stdenv.mkDerivation {
       --subst-var-by "FONTCONFIG_FILE" "$fontsConfPath"
   '';
 
-  passthru = { inherit pkgs; };
+  passthru = {
+    inherit pkgs;
+  };
 
   meta = with lib; {
     platforms = platforms.darwin;

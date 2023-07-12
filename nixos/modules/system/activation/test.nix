@@ -11,7 +11,9 @@ let
     }:
     {
       system.forbiddenDependenciesRegex = "-dev$";
-      environment.etc."dev-dependency" = { text = "${expect.dev}"; };
+      environment.etc."dev-dependency" = {
+        text = "${expect.dev}";
+      };
       documentation.enable = false;
       fileSystems."/".device = "ignore-root-device";
       boot.loader.grub.enable = false;

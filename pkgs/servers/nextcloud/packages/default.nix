@@ -13,7 +13,9 @@ let
   packages =
     self:
     let
-      generatedJson = { inherit apps; };
+      generatedJson = {
+        inherit apps;
+      };
     in
     {
       # Create a derivation from the official Nextcloud apps.

@@ -18,7 +18,9 @@ let
       {
         __impureHostDeps = [ path ];
 
-        meta = { platforms = lib.platforms.darwin; };
+        meta = {
+          platforms = lib.platforms.darwin;
+        };
       }
       ''
         if ! [ -x ${path} ]; then

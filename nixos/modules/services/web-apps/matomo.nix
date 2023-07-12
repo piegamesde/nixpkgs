@@ -360,7 +360,9 @@ in
           # so that they can easily be extended with additional locations if required
           # without needing to redefine the Matomo ones.
           # disadvantage: not shown as default in docs.
-          locations."/" = { index = "index.php"; };
+          locations."/" = {
+            index = "index.php";
+          };
           # allow index.php for webinterface
           locations."= /index.php".extraConfig = ''
             fastcgi_pass unix:${fpm.socket};

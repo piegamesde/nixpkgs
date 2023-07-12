@@ -22,7 +22,9 @@ let
 
   bordeaux-threads = import ./bordeaux-threads.nix;
 
-  sbclPackages = { inherit bordeaux-threads; };
+  sbclPackages = {
+    inherit bordeaux-threads;
+  };
 
   sbclWithPackages =
     pkgs.lispPackages_new.lispWithPackagesInternal

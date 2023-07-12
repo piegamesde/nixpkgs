@@ -235,7 +235,9 @@ rec {
 
       unitConfig = mkOption {
         default = { };
-        example = { RequiresMountsFor = "/data"; };
+        example = {
+          RequiresMountsFor = "/data";
+        };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -364,7 +366,9 @@ rec {
 
         serviceConfig = mkOption {
           default = { };
-          example = { RestartSec = 5; };
+          example = {
+            RestartSec = 5;
+          };
           type = types.addCheck (types.attrsOf unitOption) checkService;
           description = lib.mdDoc ''
             Each attribute in this set specifies an option in the
@@ -577,7 +581,9 @@ rec {
 
       socketConfig = mkOption {
         default = { };
-        example = { ListenStream = "/run/my-socket"; };
+        example = {
+          ListenStream = "/run/my-socket";
+        };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -706,7 +712,9 @@ rec {
 
       mountConfig = mkOption {
         default = { };
-        example = { DirectoryMode = "0775"; };
+        example = {
+          DirectoryMode = "0775";
+        };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -745,7 +753,9 @@ rec {
 
       automountConfig = mkOption {
         default = { };
-        example = { DirectoryMode = "0775"; };
+        example = {
+          DirectoryMode = "0775";
+        };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -775,7 +785,9 @@ rec {
 
       sliceConfig = mkOption {
         default = { };
-        example = { MemoryMax = "2G"; };
+        example = {
+          MemoryMax = "2G";
+        };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the

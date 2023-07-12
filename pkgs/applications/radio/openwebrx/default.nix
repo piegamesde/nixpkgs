@@ -110,7 +110,9 @@ buildPythonApplication rec {
     "test"
   ];
 
-  passthru = { inherit js8py owrx_connector; };
+  passthru = {
+    inherit js8py owrx_connector;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/jketterl/openwebrx";

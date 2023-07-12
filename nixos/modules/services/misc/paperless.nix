@@ -428,7 +428,9 @@ in
         home = cfg.dataDir;
       };
 
-      groups.${defaultUser} = { gid = config.ids.gids.paperless; };
+      groups.${defaultUser} = {
+        gid = config.ids.gids.paperless;
+      };
     };
   };
 }

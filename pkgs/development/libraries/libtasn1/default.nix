@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
     if stdenv.isDarwin then "export DYLD_LIBRARY_PATH=`pwd`/lib/.libs" else null
   ;
 
-  passthru.tests = { inherit gnutls samba qemu; };
+  passthru.tests = {
+    inherit gnutls samba qemu;
+  };
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/libtasn1/";

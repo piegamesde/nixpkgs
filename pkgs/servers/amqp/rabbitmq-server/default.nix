@@ -110,7 +110,9 @@ stdenv.mkDerivation rec {
     rm $out/INSTALL
   '';
 
-  passthru.tests = { vm-test = nixosTests.rabbitmq; };
+  passthru.tests = {
+    vm-test = nixosTests.rabbitmq;
+  };
 
   meta = with lib; {
     homepage = "https://www.rabbitmq.com/";

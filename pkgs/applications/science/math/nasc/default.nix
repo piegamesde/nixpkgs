@@ -70,7 +70,9 @@ stdenv.mkDerivation rec {
       --replace "link_with: 'libqalculate_lib_static'" "link_with: libqalculate_lib_static"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Do maths like a normal person, designed for elementary OS";

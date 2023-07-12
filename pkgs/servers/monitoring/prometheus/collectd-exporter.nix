@@ -23,7 +23,9 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) collectd; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) collectd;
+  };
 
   meta = with lib; {
     description = "Relay server for exporting metrics from collectd to Prometheus";

@@ -38,7 +38,9 @@ let
             lib.platforms.${stdenv.hostPlatform.parsed.kernel.name}
               or lib.platforms.all;
         };
-        passthru = { inherit provider; };
+        passthru = {
+          inherit provider;
+        };
         preferLocalBuild = true;
       }
       ''
@@ -78,7 +80,9 @@ let
       linux = pkgs.util-linux;
       darwin = pkgs.netbsd.column;
     };
-    eject = { linux = pkgs.util-linux; };
+    eject = {
+      linux = pkgs.util-linux;
+    };
     getconf = {
       linux =
         if stdenv.hostPlatform.libc == "glibc" then
@@ -129,7 +133,9 @@ let
       linux = pkgs.glibc;
       darwin = pkgs.netbsd.locale;
     };
-    logger = { linux = pkgs.util-linux; };
+    logger = {
+      linux = pkgs.util-linux;
+    };
     more = {
       linux = pkgs.util-linux;
       darwin = more_compat;
@@ -178,7 +184,9 @@ let
       linux = pkgs.util-linux;
       darwin = pkgs.darwin.shell_cmds;
     };
-    wall = { linux = pkgs.util-linux; };
+    wall = {
+      linux = pkgs.util-linux;
+    };
     watch = {
       linux = pkgs.procps;
 

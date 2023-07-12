@@ -124,7 +124,9 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "cloudinit" ];
 
   passthru = {
-    tests = { inherit (nixosTests) cloud-init cloud-init-hostname; };
+    tests = {
+      inherit (nixosTests) cloud-init cloud-init-hostname;
+    };
     updateScript = gitUpdater { ignoredVersions = ".ubuntu.*"; };
   };
 

@@ -42,7 +42,9 @@ let
           runHook postInstall
         '';
 
-        passthru.tests = { unifi = nixosTests.unifi; };
+        passthru.tests = {
+          unifi = nixosTests.unifi;
+        };
 
         meta = with lib; {
           homepage = "http://www.ubnt.com/";

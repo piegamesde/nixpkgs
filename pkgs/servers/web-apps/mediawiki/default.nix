@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  passthru.tests = { inherit (nixosTests.mediawiki) mysql postgresql; };
+  passthru.tests = {
+    inherit (nixosTests.mediawiki) mysql postgresql;
+  };
 
   meta = with lib; {
     description = "The collaborative editing software that runs Wikipedia";

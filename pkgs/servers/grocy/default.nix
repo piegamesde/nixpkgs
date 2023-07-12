@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  passthru.tests = { inherit (nixosTests) grocy; };
+  passthru.tests = {
+    inherit (nixosTests) grocy;
+  };
 
   installPhase = ''
     mkdir -p $out/

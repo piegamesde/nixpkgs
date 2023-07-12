@@ -129,7 +129,9 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
 
-  passthru.tests = { inherit (nixosTests) brscan5; };
+  passthru.tests = {
+    inherit (nixosTests) brscan5;
+  };
 
   meta = {
     description = "Brother brscan5 sane backend driver";

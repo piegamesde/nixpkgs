@@ -475,7 +475,9 @@ with self;
     postPatch = ''
       patchShebangs src/discover.sh
     '';
-    meta = { description = "Jane Street Capital's standard library overlay"; };
+    meta = {
+      description = "Jane Street Capital's standard library overlay";
+    };
   };
 
   # Jane Street async packages
@@ -552,7 +554,9 @@ with self;
       core_extended
       async
     ];
-    meta = { description = "Shell helpers for Async"; };
+    meta = {
+      description = "Shell helpers for Async";
+    };
   };
 
   async_ssl = janePackage {
@@ -628,14 +632,18 @@ with self;
     pname = "core_bench";
     hash = "1m2q7217nmcsck29i59djkm0h6z3aj0i01niijzr5f6ilbnmyd3h";
     propagatedBuildInputs = [ core_extended ];
-    meta = { description = "Micro-benchmarking library for OCaml"; };
+    meta = {
+      description = "Micro-benchmarking library for OCaml";
+    };
   };
 
   core_profiler = janePackage {
     pname = "core_profiler";
     hash = "1ir2v3wdfbf5xzqcma16asc73mkx2q6dzq5y1bx6q1rpa7iznx44";
     propagatedBuildInputs = [ core_extended ];
-    meta = { description = "Profiling library"; };
+    meta = {
+      description = "Profiling library";
+    };
   };
 
   csvfields = janePackage {
@@ -662,7 +670,9 @@ with self;
       magic-mime
       ounit
     ];
-    meta = { description = "E-mail message parser"; };
+    meta = {
+      description = "E-mail message parser";
+    };
   };
 
   incremental_kernel = janePackage {

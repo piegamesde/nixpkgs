@@ -58,7 +58,9 @@ py.pkgs.buildPythonApplication rec {
     # PYTHONPATH of all dependencies used by the package
     pythonPath = py.pkgs.makePythonPath propagatedBuildInputs;
 
-    tests = { inherit (nixosTests) healthchecks; };
+    tests = {
+      inherit (nixosTests) healthchecks;
+    };
   };
 
   meta = with lib; {

@@ -21315,7 +21315,9 @@ let
       sources."zwitch-1.0.5"
     ];
     buildInputs = globalBuildInputs;
-    meta = { license = "Apache-2.0"; };
+    meta = {
+      license = "Apache-2.0";
+    };
     production = false;
     bypassCache = true;
     reconstructLock = false;

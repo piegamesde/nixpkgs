@@ -10968,7 +10968,9 @@ let
       sources."ylru-1.2.1"
     ];
     buildInputs = globalBuildInputs;
-    meta = { license = "MIT"; };
+    meta = {
+      license = "MIT";
+    };
     production = false;
     bypassCache = true;
     reconstructLock = false;

@@ -28,7 +28,9 @@ in
         inherit (settingsFormat) type;
         default = { };
         example = {
-          Global = { "uam list" = "uams_guest.so"; };
+          Global = {
+            "uam list" = "uams_guest.so";
+          };
           Homes = {
             path = "afp-data";
             "basedir regex" = "/home";

@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "containers-physical_interfaces";
-    meta = { maintainers = with lib.maintainers; [ kampfschlaefer ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ kampfschlaefer ];
+    };
 
     nodes = {
       server =

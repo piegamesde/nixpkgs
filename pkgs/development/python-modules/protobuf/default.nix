@@ -66,7 +66,9 @@ buildPythonPackage {
     "google.protobuf.internal._api_implementation" # Verify that --cpp_implementation worked
   ];
 
-  passthru = { inherit protobuf; };
+  passthru = {
+    inherit protobuf;
+  };
 
   meta = with lib; {
     description = "Protocol Buffers are Google's data interchange format";

@@ -59,12 +59,18 @@ rec {
     let
       sdk = buildIosSdk;
     in
-    runCommand "libSystem-prebuilt" { passthru = { inherit sdk; }; } ''
-      if ! [ -d ${sdk} ]; then
-          echo "You must have version ${sdk.version} of the ${sdk.platform} sdk installed at ${sdk}" >&2
-          exit 1
-      fi
-      ln -s ${sdk}/usr $out
-    ''
+    runCommand "libSystem-prebuilt"
+      {
+        passthru = {
+          inherit sdk;
+        };
+      }
+      ''
+        if ! [ -d ${sdk} ]; then
+            echo "You must have version ${sdk.version} of the ${sdk.platform} sdk installed at ${sdk}" >&2
+            exit 1
+        fi
+        ln -s ${sdk}/usr $out
+      ''
   ;
 }

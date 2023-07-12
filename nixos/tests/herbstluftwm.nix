@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   {
     name = "herbstluftwm";
 
-    meta = { maintainers = with lib.maintainers; [ thibautmarty ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ thibautmarty ];
+    };
 
     nodes.machine =
       {

@@ -11,7 +11,9 @@ import ../make-test-python.nix (
 
     nodes =
       let
-        coreSite = { "fs.defaultFS" = "hdfs://ns1"; };
+        coreSite = {
+          "fs.defaultFS" = "hdfs://ns1";
+        };
         hdfsSite = {
           # HA Quorum Journal Manager configuration
           "dfs.nameservices" = "ns1";

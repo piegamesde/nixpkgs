@@ -74,7 +74,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit vlc; };
+  passthru.tests = {
+    inherit vlc;
+  };
 
   meta = with lib; {
     homepage = "http://www.live555.com/liveMedia/";

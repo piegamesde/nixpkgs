@@ -67,7 +67,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { hello = callPackage ./tests/hello { }; };
+  passthru.tests = {
+    hello = callPackage ./tests/hello { };
+  };
 
   meta = with lib; {
     homepage = "https://reasonml.github.io/";

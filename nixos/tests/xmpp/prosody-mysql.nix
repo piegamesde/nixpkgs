@@ -102,7 +102,9 @@ import ../make-test-python.nix {
             ssl.key = "${cert pkgs}/key.pem";
           };
           muc = [ { domain = "conference.example.com"; } ];
-          uploadHttp = { domain = "uploads.example.com"; };
+          uploadHttp = {
+            domain = "uploads.example.com";
+          };
           extraConfig = ''
             storage = "sql"
             sql = {

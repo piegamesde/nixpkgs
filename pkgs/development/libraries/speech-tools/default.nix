@@ -58,6 +58,8 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateInfo = { downloadPage = "http://www.festvox.org/packed/festival/"; };
+    updateInfo = {
+      downloadPage = "http://www.festvox.org/packed/festival/";
+    };
   };
 }

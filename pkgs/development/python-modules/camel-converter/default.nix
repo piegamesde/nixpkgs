@@ -29,7 +29,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  passthru.optional-dependencies = { pydantic = [ pydantic ]; };
+  passthru.optional-dependencies = {
+    pydantic = [ pydantic ];
+  };
 
   nativeCheckInputs =
     [ pytestCheckHook ] ++ passthru.optional-dependencies.pydantic;

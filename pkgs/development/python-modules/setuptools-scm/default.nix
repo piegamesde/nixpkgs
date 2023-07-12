@@ -41,7 +41,9 @@ buildPythonPackage rec {
   # check in passthru.tests.pytest to escape infinite recursion on pytest
   doCheck = false;
 
-  passthru.tests = { pytest = callPackage ./tests.nix { }; };
+  passthru.tests = {
+    pytest = callPackage ./tests.nix { };
+  };
 
   meta = with lib; {
     homepage = "https://github.com/pypa/setuptools_scm/";

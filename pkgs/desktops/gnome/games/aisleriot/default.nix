@@ -58,7 +58,9 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dtheme_kde=false" ];
 
-  passthru = { updateScript = gitUpdater { }; };
+  passthru = {
+    updateScript = gitUpdater { };
+  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Aisleriot";

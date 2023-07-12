@@ -30,7 +30,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sly ];
 
-  passthru.optional-dependencies = { django-query = [ django ]; };
+  passthru.optional-dependencies = {
+    django-query = [ django ];
+  };
 
   pythonImportsCheck = [ "scim2_filter_parser" ];
 

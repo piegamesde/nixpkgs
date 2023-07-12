@@ -238,7 +238,9 @@ buildPythonPackage {
     ];
 
   # Ultimately, torch is our test suite:
-  passthru.tests = { inherit torchWithRocm; };
+  passthru.tests = {
+    inherit torchWithRocm;
+  };
 
   pythonRemoveDeps = [
     # Circular dependency, cf. https://github.com/openai/triton/issues/1374

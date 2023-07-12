@@ -10,7 +10,9 @@
 
 with frameworks;
 with libs; {
-  AGL = { inherit Carbon OpenGL; };
+  AGL = {
+    inherit Carbon OpenGL;
+  };
   AVFoundation = {
     inherit
       ApplicationServices
@@ -21,7 +23,9 @@ with libs; {
   };
   AVKit = { };
   Accounts = { };
-  AddressBook = { inherit libobjc Carbon ContactsPersistence; };
+  AddressBook = {
+    inherit libobjc Carbon ContactsPersistence;
+  };
   AppKit = {
     inherit
       ApplicationServices
@@ -35,19 +39,31 @@ with libs; {
   AppKitScripting = { };
   AppleScriptKit = { };
   AppleScriptObjC = { };
-  AudioToolbox = { inherit CoreAudio CoreMIDI; };
-  AudioUnit = { inherit AudioToolbox Carbon CoreAudio; };
-  AudioVideoBridging = { inherit Foundation; };
+  AudioToolbox = {
+    inherit CoreAudio CoreMIDI;
+  };
+  AudioUnit = {
+    inherit AudioToolbox Carbon CoreAudio;
+  };
+  AudioVideoBridging = {
+    inherit Foundation;
+  };
   Automator = { };
   CFNetwork = { };
   CalendarStore = { };
-  Cocoa = { inherit AppKit CoreData; };
+  Cocoa = {
+    inherit AppKit CoreData;
+  };
   Collaboration = { };
   # Impure version of CoreFoundation, this should not be used unless another
   # framework includes headers that are not available in the pure version.
   CoreFoundation = { };
-  CoreAudio = { inherit IOKit; };
-  CoreAudioKit = { inherit AudioUnit; };
+  CoreAudio = {
+    inherit IOKit;
+  };
+  CoreAudioKit = {
+    inherit AudioUnit;
+  };
   CoreData = { };
   CoreGraphics = {
     inherit
@@ -60,7 +76,9 @@ with libs; {
   CoreImage = { };
   CoreLocation = { };
   CoreMIDI = { };
-  CoreMIDIServer = { inherit CoreMIDI; };
+  CoreMIDIServer = {
+    inherit CoreMIDI;
+  };
   CoreMedia = {
     inherit
       ApplicationServices
@@ -71,8 +89,12 @@ with libs; {
       CoreVideo
     ;
   };
-  CoreMediaIO = { inherit CoreMedia; };
-  CoreText = { inherit CoreGraphics; };
+  CoreMediaIO = {
+    inherit CoreMedia;
+  };
+  CoreText = {
+    inherit CoreGraphics;
+  };
   CoreVideo = {
     inherit
       ApplicationServices
@@ -81,16 +103,24 @@ with libs; {
       OpenGL
     ;
   };
-  CoreWLAN = { inherit SecurityFoundation; };
+  CoreWLAN = {
+    inherit SecurityFoundation;
+  };
   DVDPlayback = { };
   DirectoryService = { };
-  DiscRecording = { inherit libobjc CoreServices IOKit; };
+  DiscRecording = {
+    inherit libobjc CoreServices IOKit;
+  };
   DiscRecordingUI = { };
-  DiskArbitration = { inherit IOKit; };
+  DiskArbitration = {
+    inherit IOKit;
+  };
   EventKit = { };
   ExceptionHandling = { };
   FWAUserLib = { };
-  ForceFeedback = { inherit IOKit; };
+  ForceFeedback = {
+    inherit IOKit;
+  };
   Foundation = {
     inherit
       libobjc
@@ -101,7 +131,9 @@ with libs; {
     ;
   };
   GLKit = { };
-  GLUT = { inherit OpenGL; };
+  GLUT = {
+    inherit OpenGL;
+  };
   GSS = { };
   GameCenter = { };
   GameController = { };
@@ -121,38 +153,66 @@ with libs; {
   };
   GameplayKit = { };
   Hypervisor = { };
-  ICADevices = { inherit libobjc Carbon IOBluetooth; };
+  ICADevices = {
+    inherit libobjc Carbon IOBluetooth;
+  };
   IMServicePlugIn = { };
-  IOBluetoothUI = { inherit IOBluetooth; };
+  IOBluetoothUI = {
+    inherit IOBluetooth;
+  };
   IOKit = { };
-  IOSurface = { inherit IOKit xpc; };
+  IOSurface = {
+    inherit IOKit xpc;
+  };
   ImageCaptureCore = { };
-  ImageIO = { inherit CoreGraphics; };
-  InputMethodKit = { inherit Carbon; };
+  ImageIO = {
+    inherit CoreGraphics;
+  };
+  InputMethodKit = {
+    inherit Carbon;
+  };
   InstallerPlugins = { };
   InstantMessage = { };
   JavaFrameEmbedding = { };
   JavaNativeFoundation = { };
   JavaRuntimeSupport = { };
-  JavaScriptCore = { inherit libobjc; };
+  JavaScriptCore = {
+    inherit libobjc;
+  };
   Kerberos = { };
-  Kernel = { inherit IOKit; };
+  Kernel = {
+    inherit IOKit;
+  };
   LDAP = { };
-  LatentSemanticMapping = { inherit Carbon; };
+  LatentSemanticMapping = {
+    inherit Carbon;
+  };
   LocalAuthentication = { };
   MapKit = { };
-  MediaAccessibility = { inherit CoreGraphics CoreText QuartzCore; };
+  MediaAccessibility = {
+    inherit CoreGraphics CoreText QuartzCore;
+  };
   MediaPlayer = { };
-  MediaToolbox = { inherit AudioToolbox AudioUnit CoreMedia; };
+  MediaToolbox = {
+    inherit AudioToolbox AudioUnit CoreMedia;
+  };
   Metal = { };
-  MetalKit = { inherit ModelIO Metal; };
+  MetalKit = {
+    inherit ModelIO Metal;
+  };
   ModelIO = { };
   NetFS = { };
-  OSAKit = { inherit Carbon; };
+  OSAKit = {
+    inherit Carbon;
+  };
   OpenAL = { };
-  OpenCL = { inherit IOSurface OpenGL; };
+  OpenCL = {
+    inherit IOSurface OpenGL;
+  };
   OpenGL = { };
-  PCSC = { inherit CoreData; };
+  PCSC = {
+    inherit CoreData;
+  };
   PreferencePanes = { };
   PubSub = { };
   QTKit = {
@@ -164,24 +224,40 @@ with libs; {
       VideoToolbox
     ;
   };
-  QuickLook = { inherit ApplicationServices; };
+  QuickLook = {
+    inherit ApplicationServices;
+  };
   SceneKit = { };
   ScreenSaver = { };
   Scripting = { };
   ScriptingBridge = { };
-  Security = { inherit IOKit; };
+  Security = {
+    inherit IOKit;
+  };
   SecurityFoundation = { };
-  SecurityInterface = { inherit Security SecurityFoundation; };
-  ServiceManagement = { inherit Security; };
+  SecurityInterface = {
+    inherit Security SecurityFoundation;
+  };
+  ServiceManagement = {
+    inherit Security;
+  };
   Social = { };
   SpriteKit = { };
   StoreKit = { };
   SyncServices = { };
-  SystemConfiguration = { inherit Security; };
-  TWAIN = { inherit Carbon; };
+  SystemConfiguration = {
+    inherit Security;
+  };
+  TWAIN = {
+    inherit Carbon;
+  };
   Tcl = { };
-  VideoDecodeAcceleration = { inherit CoreVideo; };
-  VideoToolbox = { inherit CoreMedia CoreVideo; };
+  VideoDecodeAcceleration = {
+    inherit CoreVideo;
+  };
+  VideoToolbox = {
+    inherit CoreMedia CoreVideo;
+  };
   WebKit = {
     inherit
       libobjc
@@ -193,7 +269,9 @@ with libs; {
   };
 
   # Umbrellas
-  Accelerate = { inherit CoreWLAN IOBluetooth; };
+  Accelerate = {
+    inherit CoreWLAN IOBluetooth;
+  };
   ApplicationServices = {
     inherit
       CoreGraphics
@@ -228,10 +306,14 @@ with libs; {
       ServiceManagement
     ;
   };
-  IOBluetooth = { inherit CoreBluetooth IOKit; };
+  IOBluetooth = {
+    inherit CoreBluetooth IOKit;
+  };
   JavaVM = { };
   OpenDirectory = { };
-  Quartz = { inherit QuartzCore QuickLook QTKit; };
+  Quartz = {
+    inherit QuartzCore QuickLook QTKit;
+  };
   QuartzCore = {
     inherit
       libobjc

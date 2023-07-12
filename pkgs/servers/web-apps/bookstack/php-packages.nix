@@ -1048,5 +1048,7 @@ composerEnv.buildPackage {
   src = composerEnv.filterSrc ./.;
   executable = false;
   symlinkDependencies = false;
-  meta = { license = "MIT"; };
+  meta = {
+    license = "MIT";
+  };
 }

@@ -72,7 +72,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    tests = { installed-tests = nixosTests.installed-tests.libjcat; };
+    tests = {
+      installed-tests = nixosTests.installed-tests.libjcat;
+    };
   };
 
   meta = with lib; {

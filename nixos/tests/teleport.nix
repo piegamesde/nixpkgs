@@ -37,7 +37,9 @@ let
           };
           ssh_service = {
             enabled = true;
-            labels = { role = "client"; };
+            labels = {
+              role = "client";
+            };
           };
           proxy_service.enabled = false;
           auth_service.enabled = false;

@@ -110,7 +110,9 @@ buildPythonApplication rec {
     popd
   '';
 
-  passthru.tests = { inherit (gst_all_1) gstreamer gst-plugins-base; };
+  passthru.tests = {
+    inherit (gst_all_1) gstreamer gst-plugins-base;
+  };
 
   meta = with lib; {
     description = "The tastiest API documentation system";

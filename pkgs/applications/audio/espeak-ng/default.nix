@@ -85,7 +85,9 @@ stdenv.mkDerivation rec {
       --set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib
   '';
 
-  passthru = { inherit mbrolaSupport; };
+  passthru = {
+    inherit mbrolaSupport;
+  };
 
   meta = with lib; {
     description = "Open source speech synthesizer that supports over 70 languages, based on eSpeak";

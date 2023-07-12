@@ -146,7 +146,9 @@ in
       description = "Node-RED Service";
       wantedBy = [ "multi-user.target" ];
       after = [ "networking.target" ];
-      environment = { HOME = cfg.userDir; };
+      environment = {
+        HOME = cfg.userDir;
+      };
       serviceConfig = mkMerge [
         {
           User = cfg.user;

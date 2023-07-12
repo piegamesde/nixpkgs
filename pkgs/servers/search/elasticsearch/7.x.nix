@@ -81,7 +81,9 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/elasticsearch-plugin --set JAVA_HOME "${jre_headless}"
   '';
 
-  passthru = { enableUnfree = true; };
+  passthru = {
+    enableUnfree = true;
+  };
 
   meta = {
     description = "Open Source, Distributed, RESTful Search Engine";

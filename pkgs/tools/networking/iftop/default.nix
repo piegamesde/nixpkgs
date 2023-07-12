@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
   #     iftop.o:/build/iftop-1.0pre4/ui_common.h:41: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  passthru.tests = { inherit (nixosTests) iftop; };
+  passthru.tests = {
+    inherit (nixosTests) iftop;
+  };
 
   meta = with lib; {
     description = "Display bandwidth usage on a network interface";

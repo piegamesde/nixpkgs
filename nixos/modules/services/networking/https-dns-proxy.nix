@@ -45,7 +45,9 @@ let
       ];
       url = "https://doh.opendns.com/dns-query";
     };
-    custom = { inherit (cfg.provider) ips url; };
+    custom = {
+      inherit (cfg.provider) ips url;
+    };
   };
 
   defaultProvider = "quad9";

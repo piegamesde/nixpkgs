@@ -41,7 +41,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) pdns-recursor ncdns; };
+  passthru.tests = {
+    inherit (nixosTests) pdns-recursor ncdns;
+  };
 
   meta = with lib; {
     description = "A recursive DNS server";

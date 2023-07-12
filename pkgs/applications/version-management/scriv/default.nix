@@ -47,7 +47,9 @@ python3.pkgs.buildPythonApplication rec {
       "test_real_get_github_repos"
     ];
 
-  passthru.tests = { version = testers.testVersion { package = scriv; }; };
+  passthru.tests = {
+    version = testers.testVersion { package = scriv; };
+  };
 
   meta = {
     description = "Command-line tool for helping developers maintain useful changelogs.";

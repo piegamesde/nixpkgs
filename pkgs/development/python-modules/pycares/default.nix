@@ -34,7 +34,9 @@ buildPythonPackage rec {
   # Requires network access
   doCheck = false;
 
-  passthru.tests = { inherit aiodns tornado; };
+  passthru.tests = {
+    inherit aiodns tornado;
+  };
 
   pythonImportsCheck = [ "pycares" ];
 

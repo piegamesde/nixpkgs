@@ -307,7 +307,9 @@ in
         ]
         ++ (optional cfg.prosody.enable "prosody.service")
       ;
-      serviceConfig = { Type = "oneshot"; };
+      serviceConfig = {
+        Type = "oneshot";
+      };
 
       script =
         let

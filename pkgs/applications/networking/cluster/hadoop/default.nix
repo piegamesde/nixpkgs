@@ -105,7 +105,9 @@ let
         + libPatches
       ;
 
-      passthru = { inherit tests; };
+      passthru = {
+        inherit tests;
+      };
 
       meta =
         recursiveUpdate

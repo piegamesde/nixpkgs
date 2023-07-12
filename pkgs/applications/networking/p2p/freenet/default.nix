@@ -137,7 +137,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) freenet; };
+  passthru.tests = {
+    inherit (nixosTests) freenet;
+  };
 
   meta = {
     description = "Decentralised and censorship-resistant network";

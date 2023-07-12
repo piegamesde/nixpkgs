@@ -84,7 +84,9 @@ stdenv.mkDerivation rec {
     "framedir=$(out)/Library/Frameworks/SASL2.framework"
   ];
 
-  passthru.tests = { inherit (nixosTests) parsedmarc postfix; };
+  passthru.tests = {
+    inherit (nixosTests) parsedmarc postfix;
+  };
 
   meta = with lib; {
     homepage = "https://www.cyrusimap.org/sasl";

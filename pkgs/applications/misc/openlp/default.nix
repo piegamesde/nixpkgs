@@ -122,5 +122,7 @@ mkDerivation {
     hydraPlatforms = [ ]; # this is only the wrapper; baseLib gets built
   };
 
-  passthru = { inherit baseLib; };
+  passthru = {
+    inherit baseLib;
+  };
 }

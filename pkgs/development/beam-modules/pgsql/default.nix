@@ -36,7 +36,9 @@ let
         maintainers = with lib.maintainers; [ ericbmerritt ];
       };
 
-      passthru = { env = shell self; };
+      passthru = {
+        env = shell self;
+      };
     }
   ;
 in

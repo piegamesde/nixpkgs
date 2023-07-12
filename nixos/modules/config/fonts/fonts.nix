@@ -53,5 +53,7 @@ in
     };
   };
 
-  config = { fonts.fonts = mkIf cfg.enableDefaultFonts defaultFonts; };
+  config = {
+    fonts.fonts = mkIf cfg.enableDefaultFonts defaultFonts;
+  };
 }

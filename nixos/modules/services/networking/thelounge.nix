@@ -129,5 +129,7 @@ in
     environment.systemPackages = [ pkgs.thelounge ];
   };
 
-  meta = { maintainers = with lib.maintainers; [ winter ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ winter ];
+  };
 }

@@ -133,7 +133,9 @@ in
       group = "spamd";
     };
 
-    users.groups.spamd = { gid = config.ids.gids.spamd; };
+    users.groups.spamd = {
+      gid = config.ids.gids.spamd;
+    };
 
     systemd.services.sa-update = {
       # Needs to be able to contact the update server.

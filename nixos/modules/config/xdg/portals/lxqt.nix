@@ -11,7 +11,9 @@ let
   cfg = config.xdg.portal.lxqt;
 in
 {
-  meta = { maintainers = teams.lxqt.members; };
+  meta = {
+    maintainers = teams.lxqt.members;
+  };
 
   options.xdg.portal.lxqt = {
     enable = mkEnableOption (

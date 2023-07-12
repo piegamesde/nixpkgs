@@ -43,7 +43,9 @@ buildPythonPackage rec {
     ++ google-api-core.optional-dependencies.grpc
   ;
 
-  passthru.optional-dependencies = { libcst = [ libcst ]; };
+  passthru.optional-dependencies = {
+    libcst = [ libcst ];
+  };
 
   nativeCheckInputs = [
     google-cloud-testutils

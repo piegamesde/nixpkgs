@@ -74,7 +74,9 @@ in
       enable = true;
       ensureUsers = [ {
         name = "atuin";
-        ensurePermissions = { "DATABASE atuin" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "DATABASE atuin" = "ALL PRIVILEGES";
+        };
       } ];
       ensureDatabases = [ "atuin" ];
     };

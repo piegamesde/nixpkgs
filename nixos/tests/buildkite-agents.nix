@@ -19,7 +19,9 @@ import ./make-test-python.nix (
             privateSshKeyPath = (import ./ssh-keys.nix pkgs).snakeOilPrivateKey;
             tokenPath = (pkgs.writeText "my-token" "5678");
           };
-          two = { tokenPath = (pkgs.writeText "my-token" "1234"); };
+          two = {
+            tokenPath = (pkgs.writeText "my-token" "1234");
+          };
         };
       }
     ;

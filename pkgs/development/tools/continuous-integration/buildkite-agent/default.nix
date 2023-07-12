@@ -49,7 +49,9 @@ buildGoModule rec {
       }'
   '';
 
-  passthru.tests = { smoke-test = nixosTests.buildkite-agents; };
+  passthru.tests = {
+    smoke-test = nixosTests.buildkite-agents;
+  };
 
   meta = with lib; {
     description = "Build runner for buildkite.com";

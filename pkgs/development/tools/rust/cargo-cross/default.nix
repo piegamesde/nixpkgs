@@ -20,7 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   checkFlags = [ "--skip=docker::shared::tests::directories::test_host" ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Zero setup cross compilation and cross testing";

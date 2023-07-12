@@ -20,7 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  env = { GEN_ARTIFACTS = "artifacts"; };
+  env = {
+    GEN_ARTIFACTS = "artifacts";
+  };
 
   postInstall = ''
     installManPage artifacts/nix-melt.1

@@ -802,7 +802,9 @@ in
         '';
         type = types.nullOr (types.submodule uploadHttpOpts);
         default = null;
-        example = { domain = "uploads.my-xmpp-example-host.org"; };
+        example = {
+          domain = "uploads.my-xmpp-example-host.org";
+        };
       };
 
       muc = mkOption {

@@ -11,7 +11,9 @@ let
   cfg = config.services.touchegg;
 in
 {
-  meta = { maintainers = teams.pantheon.members; };
+  meta = {
+    maintainers = teams.pantheon.members;
+  };
 
   ###### interface
   options.services.touchegg = {

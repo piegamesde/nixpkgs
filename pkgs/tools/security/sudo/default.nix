@@ -73,7 +73,9 @@ stdenv.mkDerivation rec {
     rm $out/share/doc/sudo/ChangeLog
   '';
 
-  passthru.tests = { inherit (nixosTests) sudo; };
+  passthru.tests = {
+    inherit (nixosTests) sudo;
+  };
 
   meta = {
     description = "A command to run commands as root";

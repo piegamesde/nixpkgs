@@ -152,7 +152,9 @@ stdenv.mkDerivation rec {
                 "${util-linux}/bin/mount"
   '';
 
-  passthru.tests = { service = nixosTests.aesmd; };
+  passthru.tests = {
+    service = nixosTests.aesmd;
+  };
 
   meta = with lib; {
     description = "Intel SGX Architectural Enclave Service Manager";

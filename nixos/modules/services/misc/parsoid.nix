@@ -15,7 +15,9 @@ let
 
   confTree = {
     worker_heartbeat_timeout = 300000;
-    logging = { level = "info"; };
+    logging = {
+      level = "info";
+    };
     services = [ {
       module = "lib/index.js";
       entrypoint = "apiServiceWorker";

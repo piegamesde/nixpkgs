@@ -77,7 +77,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit gnupg libotr rsyslog; };
+  passthru.tests = {
+    inherit gnupg libotr rsyslog;
+  };
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/libgcrypt/";

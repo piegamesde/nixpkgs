@@ -66,7 +66,9 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/gen-error-map.py
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A library for managing single signon credentials which can be used from GLib applications";

@@ -10,7 +10,9 @@ in
 runCommand "python-setup-hook.sh"
   {
     strictDeps = true;
-    env = { inherit sitePackages; };
+    env = {
+      inherit sitePackages;
+    };
   }
   ''
     cp ${hook} hook.sh

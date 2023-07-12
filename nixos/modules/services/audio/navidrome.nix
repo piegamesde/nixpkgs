@@ -26,7 +26,9 @@ in
           Address = "127.0.0.1";
           Port = 4533;
         };
-        example = { MusicFolder = "/mnt/music"; };
+        example = {
+          MusicFolder = "/mnt/music";
+        };
         description = lib.mdDoc ''
           Configuration for Navidrome, see <https://www.navidrome.org/docs/usage/configuration-options/> for supported values.
         '';

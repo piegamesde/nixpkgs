@@ -7,7 +7,9 @@ import ./make-test-python.nix {
         ...
       }:
       {
-        virtualisation = { emptyDiskImages = [ 512 ]; };
+        virtualisation = {
+          emptyDiskImages = [ 512 ];
+        };
         zramSwap = {
           enable = true;
           priority = 10;

@@ -97,7 +97,9 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    users.groups = { rss2email.gid = config.ids.gids.rss2email; };
+    users.groups = {
+      rss2email.gid = config.ids.gids.rss2email;
+    };
 
     users.users = {
       rss2email = {

@@ -20,7 +20,9 @@ let
       environment.systemPackages = with pkgs; [ wireguard-tools ];
       systemd.network = {
         enable = true;
-        config = { routeTables.custom = 23; };
+        config = {
+          routeTables.custom = 23;
+        };
         netdevs = {
           "90-wg0" = {
             netdevConfig = {
@@ -56,7 +58,9 @@ let
             linkConfig.Unmanaged = true;
           };
           "90-wg0" = {
-            matchConfig = { Name = "wg0"; };
+            matchConfig = {
+              Name = "wg0";
+            };
             address = [ "10.0.0.${nodeId}/32" ];
             routes = [
               {
@@ -75,7 +79,9 @@ let
             ];
           };
           "30-eth1" = {
-            matchConfig = { Name = "eth1"; };
+            matchConfig = {
+              Name = "eth1";
+            };
             address = [
               "192.168.1.${nodeId}/24"
               "fe80::${nodeId}/64"

@@ -28,7 +28,9 @@ import ./make-test-python.nix (
           services.botamusique = {
             enable = true;
             settings = {
-              server = { channel = "NixOS tests"; };
+              server = {
+                channel = "NixOS tests";
+              };
               bot = {
                 version = false;
                 auto_check_update = false;

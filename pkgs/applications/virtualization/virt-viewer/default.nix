@@ -109,6 +109,8 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
   };
   passthru = {
-    updateInfo = { downloadPage = "http://virt-manager.org/download.html"; };
+    updateInfo = {
+      downloadPage = "http://virt-manager.org/download.html";
+    };
   };
 }

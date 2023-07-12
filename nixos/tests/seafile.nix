@@ -59,7 +59,9 @@ import ./make-test-python.nix (
               };
             };
           };
-          networking.firewall = { allowedTCPPorts = [ 80 ]; };
+          networking.firewall = {
+            allowedTCPPorts = [ 80 ];
+          };
         }
       ;
       client1 = client pkgs;

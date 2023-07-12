@@ -492,7 +492,9 @@ let
 
     passthru = {
       updateScript = ./update.py;
-      chromiumDeps = { gn = gnChromium; };
+      chromiumDeps = {
+        gn = gnChromium;
+      };
     };
   };
 in

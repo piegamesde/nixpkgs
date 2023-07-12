@@ -16,7 +16,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        services.jirafeau = { enable = true; };
+        services.jirafeau = {
+          enable = true;
+        };
       }
     ;
 

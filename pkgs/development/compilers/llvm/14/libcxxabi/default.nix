@@ -108,7 +108,9 @@ stdenv.mkDerivation rec {
       ''
   ;
 
-  passthru = { libName = "c++abi"; };
+  passthru = {
+    libName = "c++abi";
+  };
 
   meta = llvm_meta // {
     homepage = "https://libcxxabi.llvm.org/";

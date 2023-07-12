@@ -19,7 +19,9 @@ in
 
   ###### interface
   options = {
-    services.flatpak = { enable = mkEnableOption (lib.mdDoc "flatpak"); };
+    services.flatpak = {
+      enable = mkEnableOption (lib.mdDoc "flatpak");
+    };
   };
 
   ###### implementation

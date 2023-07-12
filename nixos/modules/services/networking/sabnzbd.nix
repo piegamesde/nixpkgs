@@ -63,7 +63,9 @@ in
       createHome = true;
     };
 
-    users.groups.sabnzbd = { gid = config.ids.gids.sabnzbd; };
+    users.groups.sabnzbd = {
+      gid = config.ids.gids.sabnzbd;
+    };
 
     systemd.services.sabnzbd = {
       description = "sabnzbd server";

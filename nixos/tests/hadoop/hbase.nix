@@ -14,7 +14,9 @@ import ../make-test-python.nix (
 
     nodes =
       let
-        coreSite = { "fs.defaultFS" = "hdfs://namenode:8020"; };
+        coreSite = {
+          "fs.defaultFS" = "hdfs://namenode:8020";
+        };
         defOpts = {
           enable = true;
           openFirewall = true;
@@ -37,7 +39,9 @@ import ../make-test-python.nix (
           }:
           {
             services.hadoop = {
-              hdfs = { namenode = defOpts // { formatOnInit = true; }; };
+              hdfs = {
+                namenode = defOpts // { formatOnInit = true; };
+              };
               inherit coreSite;
             };
           }

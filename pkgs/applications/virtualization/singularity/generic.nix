@@ -16,7 +16,9 @@
 let
   # Workaround for vendor-related attributes not overridable (#86349)
   # should be removed when the issue is resolved
-  _defaultGoVendorArgs = { inherit vendorHash deleteVendor proxyVendor; };
+  _defaultGoVendorArgs = {
+    inherit vendorHash deleteVendor proxyVendor;
+  };
 in
 {
   lib,

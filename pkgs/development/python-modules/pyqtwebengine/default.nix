@@ -86,7 +86,9 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  passthru = { inherit wrapQtAppsHook; };
+  passthru = {
+    inherit wrapQtAppsHook;
+  };
 
   meta = with lib; {
     description = "Python bindings for Qt5";

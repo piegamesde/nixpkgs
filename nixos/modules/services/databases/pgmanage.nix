@@ -215,7 +215,9 @@ in
         createHome = true;
         isSystemUser = true;
       };
-      groups.${pgmanage} = { name = pgmanage; };
+      groups.${pgmanage} = {
+        name = pgmanage;
+      };
     };
   };
 }

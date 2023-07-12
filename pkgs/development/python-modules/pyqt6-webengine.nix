@@ -64,7 +64,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyqt6 ];
 
-  passthru = { inherit sip; };
+  passthru = {
+    inherit sip;
+  };
 
   dontConfigure = true;
 

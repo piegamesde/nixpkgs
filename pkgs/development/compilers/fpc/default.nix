@@ -99,7 +99,9 @@ stdenv.mkDerivation rec {
     $out/lib/fpc/*/samplecfg $out/lib/fpc/${version} $out/etc
   '';
 
-  passthru = { bootstrap = startFPC; };
+  passthru = {
+    bootstrap = startFPC;
+  };
 
   meta = with lib; {
     description = "Free Pascal Compiler from a source distribution";

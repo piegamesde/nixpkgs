@@ -31,7 +31,9 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      environment = { PORT = builtins.toString cfg.port; };
+      environment = {
+        PORT = builtins.toString cfg.port;
+      };
 
       serviceConfig = {
         ExecStart = "${pkgs.haskellPackages.duckling}/bin/duckling-example-exe --no-access-log --no-error-log";

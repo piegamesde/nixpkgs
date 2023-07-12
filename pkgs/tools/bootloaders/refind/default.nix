@@ -137,7 +137,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { uefiCdrom = nixosTests.boot.uefiCdrom; };
+  passthru.tests = {
+    uefiCdrom = nixosTests.boot.uefiCdrom;
+  };
 
   meta = with lib; {
     description = "A graphical {,U}EFI boot manager";

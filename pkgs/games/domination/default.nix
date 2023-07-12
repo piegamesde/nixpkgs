@@ -85,7 +85,9 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.tests = { domination-starts = nixosTests.domination; };
+  passthru.tests = {
+    domination-starts = nixosTests.domination;
+  };
 
   meta = with lib; {
     homepage = "https://domination.sourceforge.net/";

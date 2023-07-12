@@ -561,7 +561,9 @@ let
               ipv4.addresses = mkOverride 0 [ ];
               useDHCP = true;
             };
-            interfaces.macvlan = { useDHCP = true; };
+            interfaces.macvlan = {
+              useDHCP = true;
+            };
           };
         }
       ;
@@ -618,7 +620,9 @@ let
               prefixLength = 24;
             } ];
             fooOverUDP = {
-              fou1 = { port = 9001; };
+              fou1 = {
+                port = 9001;
+              };
               fou2 = {
                 port = 9002;
                 protocol = 41;
@@ -1426,7 +1430,9 @@ let
           {
             boot.kernelModules = [ "mac80211_hwsim" ];
             networking.wlanInterfaces = {
-              wlan0 = { device = "wlan0"; };
+              wlan0 = {
+                device = "wlan0";
+              };
               wap0 = {
                 device = "wlan0";
                 mac = testMac;

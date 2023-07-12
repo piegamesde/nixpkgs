@@ -110,7 +110,9 @@ stdenv.mkDerivation rec {
     && !stdenv.hostPlatform.isDarwin
   ;
 
-  passthru.tests = { nixos = nixosTests.man; };
+  passthru.tests = {
+    nixos = nixosTests.man;
+  };
 
   meta = with lib; {
     homepage = "http://man-db.nongnu.org";

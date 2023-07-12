@@ -146,7 +146,9 @@ in
       };
     };
 
-    users.groups = { hqplayer.gid = config.ids.gids.hqplayer; };
+    users.groups = {
+      hqplayer.gid = config.ids.gids.hqplayer;
+    };
 
     users.users = {
       hqplayer = {

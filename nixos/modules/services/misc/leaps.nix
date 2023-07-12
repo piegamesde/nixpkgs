@@ -50,7 +50,9 @@ in
         createHome = true;
       };
 
-      groups.leaps = { gid = config.ids.gids.leaps; };
+      groups.leaps = {
+        gid = config.ids.gids.leaps;
+      };
     };
 
     systemd.services.leaps = {

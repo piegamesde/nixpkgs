@@ -78,7 +78,9 @@ stdenv.mkDerivation rec {
   pname = "root";
   version = "6.26.10";
 
-  passthru = { tests = import ./tests { inherit callPackage; }; };
+  passthru = {
+    tests = import ./tests { inherit callPackage; };
+  };
 
   src = fetchurl {
     url = "https://root.cern.ch/download/root_v${version}.source.tar.gz";

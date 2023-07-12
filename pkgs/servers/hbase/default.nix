@@ -34,7 +34,9 @@ let
           --set-default HBASE_CONF_DIR "$out/conf/"
       '';
 
-      passthru = { inherit tests; };
+      passthru = {
+        inherit tests;
+      };
 
       meta = with lib; {
         description = "A distributed, scalable, big data store";

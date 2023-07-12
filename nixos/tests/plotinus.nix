@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "plotinus";
-    meta = { maintainers = pkgs.plotinus.meta.maintainers; };
+    meta = {
+      maintainers = pkgs.plotinus.meta.maintainers;
+    };
 
     nodes.machine =
       {

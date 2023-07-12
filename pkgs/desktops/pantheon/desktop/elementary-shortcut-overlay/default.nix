@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     libgee
   ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A native OS-wide shortcut overlay to be launched by Gala";

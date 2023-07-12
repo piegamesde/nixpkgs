@@ -42,5 +42,7 @@ stdenv.mkDerivation {
       --add-flags "+set fs_basepath ${env}"
   '';
 
-  meta = { inherit description; };
+  meta = {
+    inherit description;
+  };
 }

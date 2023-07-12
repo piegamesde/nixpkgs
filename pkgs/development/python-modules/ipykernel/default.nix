@@ -46,7 +46,9 @@ buildPythonPackage rec {
   # check in passthru.tests.pytest to escape infinite recursion with ipyparallel
   doCheck = false;
 
-  passthru.tests = { pytest = callPackage ./tests.nix { }; };
+  passthru.tests = {
+    pytest = callPackage ./tests.nix { };
+  };
 
   meta = {
     description = "IPython Kernel for Jupyter";

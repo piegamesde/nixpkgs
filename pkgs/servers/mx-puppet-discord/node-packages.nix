@@ -3768,7 +3768,9 @@ let
       sources."yallist-4.0.0"
     ];
     buildInputs = globalBuildInputs;
-    meta = { description = ""; };
+    meta = {
+      description = "";
+    };
     production = true;
     bypassCache = true;
     reconstructLock = true;

@@ -56,6 +56,8 @@ rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (
       installManPage cargo-auditable/cargo-auditable.1
     '';
 
-    passthru = { inherit bootstrap; };
+    passthru = {
+      inherit bootstrap;
+    };
   }
 )

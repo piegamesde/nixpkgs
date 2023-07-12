@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  passthru.tests = { inherit (nixosTests) earlyoom; };
+  passthru.tests = {
+    inherit (nixosTests) earlyoom;
+  };
 
   meta = with lib; {
     description = "Early OOM Daemon for Linux";

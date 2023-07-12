@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
       placeholder "out"
     }/lib/NetworkManager/VPN";
 
-  passthru = { networkManagerPlugin = "VPN/nm-strongswan-service.name"; };
+  passthru = {
+    networkManagerPlugin = "VPN/nm-strongswan-service.name";
+  };
 
   meta = with lib; {
     description = "NetworkManager's strongswan plugin";

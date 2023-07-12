@@ -222,7 +222,9 @@ in
             "pm.max_spare_servers" = 5;
             "catch_workers_output" = true;
           };
-          phpEnv = { FRESHRSS_DATA_PATH = "${cfg.dataDir}"; };
+          phpEnv = {
+            FRESHRSS_DATA_PATH = "${cfg.dataDir}";
+          };
         };
       };
 
@@ -281,7 +283,9 @@ in
             StateDirectory = "freshrss";
             WorkingDirectory = cfg.package;
           };
-          environment = { FRESHRSS_DATA_PATH = cfg.dataDir; };
+          environment = {
+            FRESHRSS_DATA_PATH = cfg.dataDir;
+          };
 
           script = ''
             # do installation or reconfigure
@@ -305,7 +309,9 @@ in
         after = [ "freshrss-config.service" ];
         wantedBy = [ "multi-user.target" ];
         startAt = "*:0/5";
-        environment = { FRESHRSS_DATA_PATH = cfg.dataDir; };
+        environment = {
+          FRESHRSS_DATA_PATH = cfg.dataDir;
+        };
         serviceConfig = defaultServiceConfig // {
           ExecStart = "${cfg.package}/app/actualize_script.php";
         };

@@ -17,7 +17,9 @@ import ./make-test-python.nix (
         {
           services.vikunja = {
             enable = true;
-            database = { type = "sqlite"; };
+            database = {
+              type = "sqlite";
+            };
             frontendScheme = "http";
             frontendHostname = "localhost";
           };

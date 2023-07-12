@@ -20,7 +20,9 @@ buildGoModule rec {
 
   vendorSha256 = "0k6bd052pjfg5c1ba1yhni8msv3wl512vfzy2hrk49jibh8h052n";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) fritzbox; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) fritzbox;
+  };
 
   meta = with lib; {
     description = "Prometheus Exporter for FRITZ!Box (TR64 and UPnP)";

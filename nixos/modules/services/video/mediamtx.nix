@@ -45,7 +45,9 @@ in
         type = with types; attrsOf anything;
         description = lib.mdDoc "Extra environment variables for MediaMTX";
         default = { };
-        example = { MTX_CONFKEY = "mykey"; };
+        example = {
+          MTX_CONFKEY = "mykey";
+        };
       };
     };
   };

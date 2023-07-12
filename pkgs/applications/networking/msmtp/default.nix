@@ -152,5 +152,7 @@ symlinkJoin {
     binaries
     scripts
   ];
-  passthru = { inherit binaries scripts; };
+  passthru = {
+    inherit binaries scripts;
+  };
 }

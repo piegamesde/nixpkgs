@@ -91,7 +91,9 @@ let
       ln -nsf ../zulu-11.jdk/Contents/Home/man $out/share/man
     '';
 
-    passthru = { home = jdk; };
+    passthru = {
+      home = jdk;
+    };
 
     meta = import ./meta.nix lib version;
   };

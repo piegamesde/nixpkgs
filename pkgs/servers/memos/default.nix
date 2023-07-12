@@ -47,7 +47,9 @@ buildGoModule rec {
     cp -r ${frontend} server/dist
   '';
 
-  passthru = { updateScript = ./update.sh; };
+  passthru = {
+    updateScript = ./update.sh;
+  };
 
   meta = with lib; {
     homepage = "https://usememos.com";

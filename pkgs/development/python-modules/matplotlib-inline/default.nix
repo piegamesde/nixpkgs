@@ -29,7 +29,9 @@ buildPythonPackage rec {
       #"matplotlib_inline"
     ];
 
-  passthru.tests = { inherit ipython; };
+  passthru.tests = {
+    inherit ipython;
+  };
 
   meta = with lib; {
     description = "Matplotlib Inline Back-end for IPython and Jupyter";

@@ -77,7 +77,9 @@ import ../make-test-python.nix (
             after = [ "postgresql.service" ];
           };
 
-          services.postgresql = { enable = true; };
+          services.postgresql = {
+            enable = true;
+          };
           systemd.services.postgresql.postStart = pkgs.lib.mkAfter ''
             password=$(cat ${passFile})
             ${config.services.postgresql.package}/bin/psql <<EOF

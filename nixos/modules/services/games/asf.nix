@@ -72,8 +72,12 @@ in
           };
         };
       };
-      default = { enable = true; };
-      example = { enable = false; };
+      default = {
+        enable = true;
+      };
+      example = {
+        enable = false;
+      };
       description = lib.mdDoc "The Web-UI hosted on 127.0.0.1:1242.";
     };
 
@@ -103,7 +107,9 @@ in
         `Headless` is also always set to `true` because there is no way to provide inputs via a systemd service.
         You should try to keep ASF up to date since upstream does not provide support for anything but the latest version and you're exposing yourself to all kinds of issues - as is outlined [here](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration#updateperiod).
       '';
-      example = { Statistics = false; };
+      example = {
+        Statistics = false;
+      };
       default = { };
     };
 
@@ -123,7 +129,13 @@ in
         All options can be found [here](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/IPC#custom-configuration).
       '';
       example = {
-        Kestrel = { Endpoints = { HTTP = { Url = "http://*:1242"; }; }; };
+        Kestrel = {
+          Endpoints = {
+            HTTP = {
+              Url = "http://*:1242";
+            };
+          };
+        };
       };
       default = { };
     };
@@ -169,7 +181,9 @@ in
         exampleBot = {
           username = "alice";
           passwordFile = "/var/lib/asf/secrets/password";
-          settings = { SteamParentalCode = "1234"; };
+          settings = {
+            SteamParentalCode = "1234";
+          };
         };
       };
       default = { };

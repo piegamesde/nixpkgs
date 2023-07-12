@@ -93,7 +93,9 @@ in
 
         extraOptions = mkOption {
           type = iniFields;
-          default = { allowlist = false; };
+          default = {
+            allowlist = false;
+          };
           description = lib.mdDoc ''
             Extra options for the server. See
             {manpage}`nbd-server(5)`.

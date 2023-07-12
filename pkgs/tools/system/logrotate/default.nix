@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ popt ] ++ lib.optionals aclSupport [ acl ];
 
-  passthru.tests = { nixos-logrotate = nixosTests.logrotate; };
+  passthru.tests = {
+    nixos-logrotate = nixosTests.logrotate;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/logrotate/logrotate";

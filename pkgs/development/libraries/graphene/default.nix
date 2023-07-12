@@ -114,7 +114,9 @@ stdenv.mkDerivation rec {
   ;
 
   passthru = {
-    tests = { installedTests = nixosTests.installed-tests.graphene; };
+    tests = {
+      installedTests = nixosTests.installed-tests.graphene;
+    };
 
     updateScript = nix-update-script { };
   };

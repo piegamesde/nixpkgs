@@ -40,7 +40,9 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  passthru.optional-dependencies = { pook = [ pook ]; };
+  passthru.optional-dependencies = {
+    pook = [ pook ];
+  };
 
   nativeCheckInputs =
     [

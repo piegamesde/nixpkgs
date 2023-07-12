@@ -20,7 +20,9 @@ buildGoModule rec {
     sha256 = "sha256-QZTYhRz65VLs3Ytv0k8ptfeQ/36M2VBXFaD9zhQXDh8=";
   };
 
-  passthru.tests = { smoke-test = nixosTests.shiori; };
+  passthru.tests = {
+    smoke-test = nixosTests.shiori;
+  };
 
   meta = with lib; {
     description = "Simple bookmark manager built with Go";

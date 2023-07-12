@@ -19,7 +19,9 @@ stdenv.mkDerivation rec {
     cp "$src" "$out/webapps/airsonic.war"
   '';
 
-  passthru.tests = { airsonic-starts = nixosTests.airsonic; };
+  passthru.tests = {
+    airsonic-starts = nixosTests.airsonic;
+  };
 
   meta = with lib; {
     description = "Personal media streamer";

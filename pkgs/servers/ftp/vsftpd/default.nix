@@ -48,7 +48,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { tests = { inherit (nixosTests) vsftpd; }; };
+  passthru = {
+    tests = {
+      inherit (nixosTests) vsftpd;
+    };
+  };
 
   meta = with lib; {
     description = "A very secure FTP daemon";

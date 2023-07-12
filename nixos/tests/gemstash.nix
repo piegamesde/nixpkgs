@@ -8,7 +8,9 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  common_meta = { maintainers = [ maintainers.viraptor ]; };
+  common_meta = {
+    maintainers = [ maintainers.viraptor ];
+  };
 in
 {
   gemstash_works = makeTest {
@@ -22,7 +24,9 @@ in
         ...
       }:
       {
-        services.gemstash = { enable = true; };
+        services.gemstash = {
+          enable = true;
+        };
       }
     ;
 
@@ -49,7 +53,9 @@ in
         services.gemstash = {
           enable = true;
           openFirewall = true;
-          settings = { bind = "tcp://0.0.0.0:12345"; };
+          settings = {
+            bind = "tcp://0.0.0.0:12345";
+          };
         };
       }
     ;

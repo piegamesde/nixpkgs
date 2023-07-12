@@ -28,7 +28,9 @@ import ../make-test-python.nix (
         krb5 = {
           enable = true;
           kerberos = pkgs.krb5;
-          libdefaults = { default_realm = "FOO.BAR"; };
+          libdefaults = {
+            default_realm = "FOO.BAR";
+          };
           realms = {
             "FOO.BAR" = {
               admin_server = "machine";
@@ -36,7 +38,9 @@ import ../make-test-python.nix (
             };
           };
         };
-        users.extraUsers.alice = { isNormalUser = true; };
+        users.extraUsers.alice = {
+          isNormalUser = true;
+        };
       }
     ;
 

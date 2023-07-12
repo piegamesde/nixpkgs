@@ -54,7 +54,9 @@ buildPythonPackage rec {
   # No tests in repo
   doCheck = false;
 
-  passthru.tests = { inherit localstack; };
+  passthru.tests = {
+    inherit localstack;
+  };
 
   meta = with lib; {
     description = "Extensions for LocalStack";

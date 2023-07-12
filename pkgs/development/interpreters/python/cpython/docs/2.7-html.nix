@@ -18,5 +18,7 @@ stdenv.mkDerivation {
     mkdir -p $out/share/doc/python27
     cp -R ./ $out/share/doc/python27/html
   '';
-  meta = { maintainers = [ ]; };
+  meta = {
+    maintainers = [ ];
+  };
 }

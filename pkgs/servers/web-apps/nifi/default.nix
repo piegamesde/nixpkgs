@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
       --replace "#export JAVA_HOME=/usr/java/jdk1.8.0/" "export JAVA_HOME=${jdk11}"
   '';
 
-  passthru = { tests.nifi = nixosTests.nifi; };
+  passthru = {
+    tests.nifi = nixosTests.nifi;
+  };
 
   meta = with lib; {
     description = "Easy to use, powerful, and reliable system to process and distribute data";

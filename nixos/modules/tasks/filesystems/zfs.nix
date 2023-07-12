@@ -166,7 +166,9 @@ let
       ];
       wantedBy = (getPoolMounts prefix pool) ++ [ "local-fs.target" ];
       before = (getPoolMounts prefix pool) ++ [ "local-fs.target" ];
-      unitConfig = { DefaultDependencies = "no"; };
+      unitConfig = {
+        DefaultDependencies = "no";
+      };
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -797,7 +799,9 @@ in
             nameValuePair "zfs-sync-${pool}" {
               description = ''Sync ZFS pool "${pool}"'';
               wantedBy = [ "shutdown.target" ];
-              unitConfig = { DefaultDependencies = false; };
+              unitConfig = {
+                DefaultDependencies = false;
+              };
               serviceConfig = {
                 Type = "oneshot";
                 RemainAfterExit = true;
@@ -963,7 +967,9 @@ in
       systemd.services.zfs-scrub = {
         description = "ZFS pools scrubbing";
         after = [ "zfs-import.target" ];
-        serviceConfig = { Type = "simple"; };
+        serviceConfig = {
+          Type = "simple";
+        };
         script = ''
           ${cfgZfs.package}/bin/zpool scrub -w ${
             if cfgScrub.pools != [ ] then

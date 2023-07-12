@@ -314,7 +314,9 @@ python.pkgs.buildPythonApplication rec {
 
   passthru = {
     inherit python path frontend;
-    tests = { inherit (nixosTests) paperless; };
+    tests = {
+      inherit (nixosTests) paperless;
+    };
   };
 
   meta = with lib; {

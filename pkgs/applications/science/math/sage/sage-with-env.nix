@@ -157,5 +157,7 @@ stdenv.mkDerivation rec {
       --subst-var-by sage-local "$out"
   '';
 
-  passthru = { env = sage-env; };
+  passthru = {
+    env = sage-env;
+  };
 }

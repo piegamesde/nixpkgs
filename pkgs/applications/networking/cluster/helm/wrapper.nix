@@ -39,7 +39,9 @@ let
       preferLocalBuild = true;
 
       nativeBuildInputs = [ makeWrapper ];
-      passthru = { unwrapped = helm; };
+      passthru = {
+        unwrapped = helm;
+      };
 
       meta = helm.meta // {
         # To prevent builds on hydra

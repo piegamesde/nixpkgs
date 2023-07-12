@@ -8,7 +8,11 @@ import ./make-test-python.nix (
     name = "cri-o";
     meta.maintainers = with pkgs.lib; teams.podman.members;
 
-    nodes = { crio = { virtualisation.cri-o.enable = true; }; };
+    nodes = {
+      crio = {
+        virtualisation.cri-o.enable = true;
+      };
+    };
 
     testScript = ''
       start_all()

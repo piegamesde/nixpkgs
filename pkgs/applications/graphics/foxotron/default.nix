@@ -94,7 +94,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "General purpose model viewer";

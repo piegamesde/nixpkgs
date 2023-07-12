@@ -21,7 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-PdKqWMxTtBJbNqITs3IjNcpijXy6MHitEY4jDp4jZro=";
 
-  passthru = { updateScript = gitUpdater { rev-prefix = "v"; }; };
+  passthru = {
+    updateScript = gitUpdater { rev-prefix = "v"; };
+  };
 
   nativeBuildInputs = [ makeWrapper ];
 

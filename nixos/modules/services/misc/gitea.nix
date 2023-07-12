@@ -672,14 +672,18 @@ in
         (mkIf usePostgresql { SSL_MODE = "disable"; })
       ];
 
-      repository = { ROOT = cfg.repositoryRoot; };
+      repository = {
+        ROOT = cfg.repositoryRoot;
+      };
 
       server = mkIf cfg.lfs.enable {
         LFS_START_SERVER = true;
         LFS_JWT_SECRET = "#lfsjwtsecret#";
       };
 
-      session = { COOKIE_NAME = lib.mkDefault "session"; };
+      session = {
+        COOKIE_NAME = lib.mkDefault "session";
+      };
 
       security = {
         SECRET_KEY = "#secretkey#";
@@ -691,7 +695,9 @@ in
         PASSWD = "#mailerpass#";
       };
 
-      oauth2 = { JWT_SECRET = "#oauth2jwtsecret#"; };
+      oauth2 = {
+        JWT_SECRET = "#oauth2jwtsecret#";
+      };
 
       lfs = mkIf cfg.lfs.enable { PATH = cfg.lfs.contentDir; };
     };
@@ -718,7 +724,9 @@ in
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [ {
         name = cfg.database.user;
-        ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "${cfg.database.name}.*" = "ALL PRIVILEGES";
+        };
       } ];
     };
 

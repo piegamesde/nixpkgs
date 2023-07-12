@@ -85,7 +85,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru.tests = { libresprite-can-open-png = nixosTests.libresprite; };
+  passthru.tests = {
+    libresprite-can-open-png = nixosTests.libresprite;
+  };
 
   meta = with lib; {
     homepage = "https://libresprite.github.io/";

@@ -128,7 +128,9 @@ stdenv.mkDerivation rec {
     chmod +x "$out"/lib/*.{so,dylib}
   '';
 
-  passthru.tests = { inherit (nixosTests) openldap; };
+  passthru.tests = {
+    inherit (nixosTests) openldap;
+  };
 
   meta = with lib; {
     homepage = "https://www.openldap.org/";

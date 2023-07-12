@@ -50,7 +50,9 @@ in
   config = lib.mkIf cfg.enable {
     environment = {
       systemPackages = [ pkgs.miriway ];
-      etc = { "xdg/xdg-miriway/miriway-shell.config".text = cfg.config; };
+      etc = {
+        "xdg/xdg-miriway/miriway-shell.config".text = cfg.config;
+      };
     };
 
     hardware.opengl.enable = lib.mkDefault true;

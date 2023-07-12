@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "cloudlog";
-    meta = { maintainers = with pkgs.lib.maintainers; [ melling ]; };
+    meta = {
+      maintainers = with pkgs.lib.maintainers; [ melling ];
+    };
     nodes = {
       machine = {
         services.mysql.package = pkgs.mariadb;

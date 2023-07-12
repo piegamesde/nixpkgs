@@ -30,7 +30,9 @@ let
   };
   eval = lib.evalModules {
     modules = (map (m: "${modulesPath}/${m}") modules) ++ [ config ];
-    specialArgs = { inherit config pkgs utils; };
+    specialArgs = {
+      inherit config pkgs utils;
+    };
   };
   docs = import "${nixosPath}/doc/manual" {
     pkgs = pkgs // {

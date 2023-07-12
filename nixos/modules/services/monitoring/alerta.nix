@@ -110,7 +110,9 @@ in
       description = "Alerta Monitoring System";
       wantedBy = [ "multi-user.target" ];
       after = [ "networking.target" ];
-      environment = { ALERTA_SVR_CONF_FILE = alertaConf; };
+      environment = {
+        ALERTA_SVR_CONF_FILE = alertaConf;
+      };
       serviceConfig = {
         ExecStart = "${pkgs.alerta-server}/bin/alertad run --port ${
             toString cfg.port
@@ -127,6 +129,8 @@ in
       description = "Alerta user";
     };
 
-    users.groups.alerta = { gid = config.ids.gids.alerta; };
+    users.groups.alerta = {
+      gid = config.ids.gids.alerta;
+    };
   };
 }

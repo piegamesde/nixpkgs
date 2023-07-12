@@ -29,5 +29,7 @@ stdenv.mkDerivation {
     cp -v *.jar $out/share/java
   '';
 
-  meta = { platforms = lib.platforms.unix; };
+  meta = {
+    platforms = lib.platforms.unix;
+  };
 }

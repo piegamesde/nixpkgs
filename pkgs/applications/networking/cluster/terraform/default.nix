@@ -204,7 +204,9 @@ rec {
     patches = [ ./provider-path-0_15.patch ];
     passthru = {
       inherit plugins;
-      tests = { inherit terraform_plugins_test; };
+      tests = {
+        inherit terraform_plugins_test;
+      };
     };
   };
 

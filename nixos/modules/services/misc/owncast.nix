@@ -106,5 +106,7 @@ in
         [ cfg.rtmp-port ] ++ optional (cfg.listen != "127.0.0.1") cfg.port;
     };
   };
-  meta = { maintainers = with lib.maintainers; [ MayNiklas ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ MayNiklas ];
+  };
 }

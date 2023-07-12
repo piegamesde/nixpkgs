@@ -60,7 +60,9 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    tests = { inherit (nixosTests) zram-generator; };
+    tests = {
+      inherit (nixosTests) zram-generator;
+    };
     updateScript = ./update.sh;
   };
 

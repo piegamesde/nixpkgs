@@ -201,7 +201,9 @@ let
         connectTo = mkOption {
           description = mdDoc "Server address and port to connect to.";
           type = types.submodule hostPortSubmodule;
-          example = { host = "example.com"; };
+          example = {
+            host = "example.com";
+          };
         };
 
         enableHTTPS = mkOption {
@@ -345,7 +347,9 @@ let
           ;
           type = types.attrsOf types.str;
           default = { };
-          example = { "X-Some-Header" = "some-value"; };
+          example = {
+            "X-Some-Header" = "some-value";
+          };
         };
       };
     }

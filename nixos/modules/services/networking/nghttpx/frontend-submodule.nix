@@ -30,7 +30,9 @@
       type = lib.types.nullOr (
         lib.types.submodule (import ./frontend-params-submodule.nix)
       );
-      example = { tls = "tls"; };
+      example = {
+        tls = "tls";
+      };
       default = null;
       description = lib.mdDoc ''
         Parameters to configure a backend.

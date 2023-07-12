@@ -38,7 +38,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS:BOOL=ON" ];
 
-  passthru.tests = { inherit nix; };
+  passthru.tests = {
+    inherit nix;
+  };
 
   meta = with lib; {
     description = "C99 implementation of the vnd.amazon.eventstream content-type";

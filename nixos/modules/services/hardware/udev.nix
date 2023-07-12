@@ -484,7 +484,9 @@ in
       fi
     '';
 
-    systemd.services.systemd-udevd = { restartTriggers = cfg.packages; };
+    systemd.services.systemd-udevd = {
+      restartTriggers = cfg.packages;
+    };
   };
 
   imports = [

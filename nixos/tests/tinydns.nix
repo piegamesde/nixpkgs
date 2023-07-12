@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "tinydns";
-    meta = { maintainers = with lib.maintainers; [ basvandijk ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ basvandijk ];
+    };
     nodes = {
       nameserver =
         {

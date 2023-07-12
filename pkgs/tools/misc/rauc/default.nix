@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
       hash = "sha256-QgIUagioRo61PeC0JyKjZtnauFiYP1Fz9wrxGEikBGI=";
     })
   ];
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   enableParallelBuilding = true;
 

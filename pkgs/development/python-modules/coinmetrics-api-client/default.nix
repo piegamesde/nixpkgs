@@ -51,7 +51,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "coinmetrics.api_client" ];
 
   passthru = {
-    optional-dependencies = { pandas = [ pandas ]; };
+    optional-dependencies = {
+      pandas = [ pandas ];
+    };
     updateScript = nix-update-script { };
   };
 

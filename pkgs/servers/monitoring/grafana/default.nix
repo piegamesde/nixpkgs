@@ -94,7 +94,9 @@ buildGoModule rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) grafana; };
+    tests = {
+      inherit (nixosTests) grafana;
+    };
     updateScript = ./update.sh;
   };
 

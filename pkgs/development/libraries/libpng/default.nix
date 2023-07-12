@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru = { inherit zlib; };
+  passthru = {
+    inherit zlib;
+  };
 
   meta = with lib; {
     description =

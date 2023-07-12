@@ -76,7 +76,9 @@ stdenv.mkDerivation rec {
     find . -type d -name .libs | xargs rm -rf
   '';
 
-  passthru.tests = { inherit (nixosTests.installer) lvm; };
+  passthru.tests = {
+    inherit (nixosTests.installer) lvm;
+  };
 
   meta = with lib; {
     homepage = "https://xfs.org/";

@@ -16,7 +16,9 @@ in
 runCommand "llvm-binutils-${version}"
   {
     preferLocalBuild = true;
-    passthru = { isLLVM = true; };
+    passthru = {
+      isLLVM = true;
+    };
   }
   ''
     mkdir -p $out/bin

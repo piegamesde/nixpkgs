@@ -247,7 +247,9 @@ in
     extraConfig = mkOption {
       type = with types; attrsOf str;
       default = { };
-      example = { "ms bind ipv6" = "true"; };
+      example = {
+        "ms bind ipv6" = "true";
+      };
       description = lib.mdDoc ''
         Extra configuration to add to the global section. Use for setting values that are common for all daemons in the cluster.
       '';
@@ -450,7 +452,9 @@ in
       extraGroups = [ "disk" ];
     };
 
-    users.groups.ceph = { gid = config.ids.gids.ceph; };
+    users.groups.ceph = {
+      gid = config.ids.gids.ceph;
+    };
 
     systemd.services =
       let

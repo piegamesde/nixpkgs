@@ -8,9 +8,15 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  baseline = { virtualisation.useBootLoader = true; };
-  grub = { boot.loader.grub.enable = true; };
-  systemd-boot = { boot.loader.systemd-boot.enable = true; };
+  baseline = {
+    virtualisation.useBootLoader = true;
+  };
+  grub = {
+    boot.loader.grub.enable = true;
+  };
+  systemd-boot = {
+    boot.loader.systemd-boot.enable = true;
+  };
   uefi = {
     virtualisation.useEFIBoot = true;
     boot.loader.efi.canTouchEfiVariables = true;

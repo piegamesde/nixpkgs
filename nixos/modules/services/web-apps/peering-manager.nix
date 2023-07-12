@@ -202,7 +202,9 @@ in
           description = "Peering Manager migrations";
           wantedBy = [ "peering-manager.target" ];
 
-          environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = {
+            PYTHONPATH = pkg.pythonPath;
+          };
 
           serviceConfig = defaultServiceConfig // {
             Type = "oneshot";
@@ -221,7 +223,9 @@ in
             ${pkg}/bin/peering-manager remove_stale_contenttypes --no-input
           '';
 
-          environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = {
+            PYTHONPATH = pkg.pythonPath;
+          };
 
           serviceConfig = defaultServiceConfig // {
             ExecStart = ''
@@ -237,7 +241,9 @@ in
           wantedBy = [ "peering-manager.target" ];
           after = [ "peering-manager.service" ];
 
-          environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = {
+            PYTHONPATH = pkg.pythonPath;
+          };
 
           serviceConfig = defaultServiceConfig // {
             ExecStart = ''
@@ -250,7 +256,9 @@ in
           description = "Peering Manager housekeeping job";
           after = [ "peering-manager.service" ];
 
-          environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = {
+            PYTHONPATH = pkg.pythonPath;
+          };
 
           serviceConfig = defaultServiceConfig // {
             Type = "oneshot";
@@ -266,7 +274,9 @@ in
       description = "Run Peering Manager housekeeping job";
       wantedBy = [ "timers.target" ];
 
-      timerConfig = { OnCalendar = "daily"; };
+      timerConfig = {
+        OnCalendar = "daily";
+      };
     };
 
     users.users.peering-manager = {

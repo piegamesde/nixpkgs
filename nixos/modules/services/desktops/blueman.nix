@@ -14,7 +14,9 @@ in
 {
   ###### interface
   options = {
-    services.blueman = { enable = mkEnableOption (lib.mdDoc "blueman"); };
+    services.blueman = {
+      enable = mkEnableOption (lib.mdDoc "blueman");
+    };
   };
 
   ###### implementation

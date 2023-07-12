@@ -24,7 +24,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  passthru.optional-dependencies = { aio = [ httpx ]; };
+  passthru.optional-dependencies = {
+    aio = [ httpx ];
+  };
 
   nativeCheckInputs = [ pytestCheckHook ];
 

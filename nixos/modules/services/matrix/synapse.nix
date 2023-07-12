@@ -1198,7 +1198,9 @@ in
       uid = config.ids.uids.matrix-synapse;
     };
 
-    users.groups.matrix-synapse = { gid = config.ids.gids.matrix-synapse; };
+    users.groups.matrix-synapse = {
+      gid = config.ids.gids.matrix-synapse;
+    };
 
     systemd.services.matrix-synapse = {
       description = "Synapse Matrix homeserver";

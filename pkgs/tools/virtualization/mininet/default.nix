@@ -52,7 +52,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Emulator for rapid prototyping of Software Defined Networks";
-    license = { fullName = "Mininet 2.3.0 License"; };
+    license = {
+      fullName = "Mininet 2.3.0 License";
+    };
     platforms = platforms.linux;
     homepage = "https://github.com/mininet/mininet";
     maintainers = with maintainers; [ teto ];

@@ -125,7 +125,9 @@ in
       service = {
         frontendurl = "${cfg.frontendScheme}://${cfg.frontendHostname}/";
       };
-      files = { basepath = "/var/lib/vikunja/files"; };
+      files = {
+        basepath = "/var/lib/vikunja/files";
+      };
     };
 
     systemd.services.vikunja-api = {

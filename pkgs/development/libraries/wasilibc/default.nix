@@ -58,7 +58,9 @@ stdenv.mkDerivation {
     ln -s $share/share/undefined-symbols.txt $out/lib/wasi.imports
   '';
 
-  passthru.tests = { inherit firefox-unwrapped firefox-esr-unwrapped; };
+  passthru.tests = {
+    inherit firefox-unwrapped firefox-esr-unwrapped;
+  };
 
   meta = with lib; {
     changelog = "https://github.com/WebAssembly/wasi-sdk/releases/tag/wasi-sdk-${version}";

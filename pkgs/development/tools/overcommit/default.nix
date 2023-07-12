@@ -9,7 +9,9 @@ bundlerApp {
   gemdir = ./.;
   exes = [ "overcommit" ];
 
-  passthru = { updateScript = bundlerUpdateScript "overcommit"; };
+  passthru = {
+    updateScript = bundlerUpdateScript "overcommit";
+  };
 
   meta = with lib; {
     description = "Tool to manage and configure Git hooks";

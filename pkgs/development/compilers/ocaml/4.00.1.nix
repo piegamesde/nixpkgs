@@ -62,7 +62,9 @@ stdenv.mkDerivation rec {
     ln -sv $out/lib/ocaml/caml $out/include/caml
   '';
 
-  passthru = { nativeCompilers = useNativeCompilers; };
+  passthru = {
+    nativeCompilers = useNativeCompilers;
+  };
 
   meta = with lib; {
     homepage = "http://caml.inria.fr/ocaml";

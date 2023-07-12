@@ -176,7 +176,9 @@ let
       rev = "8afa57abc8229d611c4937165d20e2a2d9fc5a12";
       sha256 = "061lsvqdidq9xa2hwrcvwi9ixflr2c2lfpc8drr159g68zi8bp4v";
     };
-    files = { "face_landmark_model.dat" = "7505c44ca4eb54b4ab1e4777cb96ac05"; };
+    files = {
+      "face_landmark_model.dat" = "7505c44ca4eb54b4ab1e4777cb96ac05";
+    };
     dst = ".cache/data";
   };
 

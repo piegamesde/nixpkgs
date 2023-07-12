@@ -18,7 +18,9 @@ let
   format = pkgs.formats.toml { };
   settings = {
     human_logs = true;
-    syncstorage = { database_url = dbURL; };
+    syncstorage = {
+      database_url = dbURL;
+    };
     tokenserver = {
       node_type = "mysql";
       database_url = dbURL;
@@ -258,7 +260,9 @@ in
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [ {
         name = cfg.database.user;
-        ensurePermissions = { "${cfg.database.name}.*" = "all privileges"; };
+        ensurePermissions = {
+          "${cfg.database.name}.*" = "all privileges";
+        };
       } ];
     };
 

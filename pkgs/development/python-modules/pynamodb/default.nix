@@ -34,7 +34,9 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
   ;
 
-  passthru.optional-dependencies = { signal = [ blinker ]; };
+  passthru.optional-dependencies = {
+    signal = [ blinker ];
+  };
 
   nativeCheckInputs =
     [

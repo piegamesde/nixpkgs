@@ -28,7 +28,9 @@ buildGoModule rec {
     }
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) ipmi; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) ipmi;
+  };
 
   ldflags = [
     "-s"

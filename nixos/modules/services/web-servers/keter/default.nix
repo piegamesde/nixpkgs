@@ -8,7 +8,9 @@ let
   cfg = config.services.keter;
 in
 {
-  meta = { maintainers = with lib.maintainers; [ jappie ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ jappie ];
+  };
 
   options.services.keter = {
     enable = lib.mkEnableOption (

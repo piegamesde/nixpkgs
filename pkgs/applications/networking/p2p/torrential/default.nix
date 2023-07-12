@@ -70,7 +70,9 @@ stdenv.mkDerivation rec {
       --replace "gtk-update-icon-cache" "gtk4-update-icon-cache"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Download torrents in style with this speedy, minimalist torrent client for elementary OS";

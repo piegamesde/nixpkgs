@@ -38,7 +38,9 @@ in
         # Allow setting the STATIC_ROOT from within the configuration and setting a custom redis URL
         ./config.patch
       ];
-    tests = { inherit (nixosTests) netbox; };
+    tests = {
+      inherit (nixosTests) netbox;
+    };
 
     maintainers = with lib.maintainers; [
       minijackson

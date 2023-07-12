@@ -13,7 +13,9 @@ bundlerApp {
     "asciidoctor-pdf"
   ];
 
-  passthru = { updateScript = bundlerUpdateScript "asciidoctor"; };
+  passthru = {
+    updateScript = bundlerUpdateScript "asciidoctor";
+  };
 
   meta = with lib; {
     description = "A faster Asciidoc processor written in Ruby";

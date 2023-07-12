@@ -25,7 +25,9 @@ in
       lists = mkOption {
         type = types.attrsOf (types.nonEmptyListOf types.path);
 
-        default = { WORDLIST = [ "${pkgs.scowl}/share/dict/words.txt" ]; };
+        default = {
+          WORDLIST = [ "${pkgs.scowl}/share/dict/words.txt" ];
+        };
 
         defaultText = literalExpression ''
           {

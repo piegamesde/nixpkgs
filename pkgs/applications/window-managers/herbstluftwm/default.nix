@@ -113,7 +113,9 @@ stdenv.mkDerivation rec {
     "test_rules" # timeouts
   ];
 
-  passthru = { tests.herbstluftwm = nixosTests.herbstluftwm; };
+  passthru = {
+    tests.herbstluftwm = nixosTests.herbstluftwm;
+  };
 
   meta = with lib; {
     description = "A manual tiling window manager for X";

@@ -83,7 +83,9 @@ let
       native = [ doxygen ];
       cmakeEnableFlag = "DOXYGEN";
     };
-    man-pages = { cmakeEnableFlag = "MANPAGES"; };
+    man-pages = {
+      cmakeEnableFlag = "MANPAGES";
+    };
     python-support = {
       pythonRuntime = [ python.pkgs.six ];
       native = [ python ];
@@ -93,7 +95,9 @@ let
       native = [ cppunit ];
       cmakeEnableFlag = "TESTING";
     };
-    post-install = { cmakeEnableFlag = "POSTINSTALL"; };
+    post-install = {
+      cmakeEnableFlag = "POSTINSTALL";
+    };
     gnuradio-runtime = {
       cmakeEnableFlag = "GNURADIO_RUNTIME";
       pythonRuntime = [ python.pkgs.pybind11 ];
@@ -140,7 +144,9 @@ let
           libsndfile
         ];
     };
-    gr-fec = { cmakeEnableFlag = "GR_FEC"; };
+    gr-fec = {
+      cmakeEnableFlag = "GR_FEC";
+    };
     gr-fft = {
       runtime = [ fftwFloat ];
       cmakeEnableFlag = "GR_FFT";
@@ -153,9 +159,15 @@ let
         pyqtgraph
       ];
     };
-    gr-analog = { cmakeEnableFlag = "GR_ANALOG"; };
-    gr-digital = { cmakeEnableFlag = "GR_DIGITAL"; };
-    gr-dtv = { cmakeEnableFlag = "GR_DTV"; };
+    gr-analog = {
+      cmakeEnableFlag = "GR_ANALOG";
+    };
+    gr-digital = {
+      cmakeEnableFlag = "GR_DIGITAL";
+    };
+    gr-dtv = {
+      cmakeEnableFlag = "GR_DTV";
+    };
     gr-audio = {
       runtime =
         [ ]
@@ -167,7 +179,9 @@ let
       ;
       cmakeEnableFlag = "GR_AUDIO";
     };
-    gr-channels = { cmakeEnableFlag = "GR_CHANNELS"; };
+    gr-channels = {
+      cmakeEnableFlag = "GR_CHANNELS";
+    };
     gr-pdu = {
       cmakeEnableFlag = "GR_PDU";
       runtime = [
@@ -179,7 +193,9 @@ let
       cmakeEnableFlag = "GR_IIO";
       runtime = [ libiio ];
     };
-    common-precompiled-headers = { cmakeEnableFlag = "COMMON_PCH"; };
+    common-precompiled-headers = {
+      cmakeEnableFlag = "COMMON_PCH";
+    };
     gr-qtgui = {
       runtime = [
         qt5.qtbase
@@ -188,7 +204,9 @@ let
       pythonRuntime = [ python.pkgs.pyqt5 ];
       cmakeEnableFlag = "GR_QTGUI";
     };
-    gr-trellis = { cmakeEnableFlag = "GR_TRELLIS"; };
+    gr-trellis = {
+      cmakeEnableFlag = "GR_TRELLIS";
+    };
     gr-uhd = {
       runtime = [ uhd ];
       cmakeEnableFlag = "GR_UHD";
@@ -216,7 +234,9 @@ let
       ];
       cmakeEnableFlag = "GR_MODTOOL";
     };
-    gr-blocktool = { cmakeEnableFlag = "GR_BLOCKTOOL"; };
+    gr-blocktool = {
+      cmakeEnableFlag = "GR_BLOCKTOOL";
+    };
     gr-video-sdl = {
       runtime = [ SDL ];
       cmakeEnableFlag = "GR_VIDEO_SDL";
@@ -239,7 +259,9 @@ let
       runtime = [ cppzmq ];
       cmakeEnableFlag = "GR_ZEROMQ";
     };
-    gr-network = { cmakeEnableFlag = "GR_NETWORK"; };
+    gr-network = {
+      cmakeEnableFlag = "GR_NETWORK";
+    };
     gr-soapy = {
       cmakeEnableFlag = "GR_SOAPY";
       runtime = [ soapysdr ];

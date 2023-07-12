@@ -85,7 +85,9 @@ let
     zlib = nativePlatforms;
   };
 
-  darwinCommon = { buildPackages.binutils = darwin; };
+  darwinCommon = {
+    buildPackages.binutils = darwin;
+  };
 
   rpiCommon = linuxCommon // {
     vim = nativePlatforms;

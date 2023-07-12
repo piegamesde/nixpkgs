@@ -6,7 +6,9 @@
 }:
 
 with lib; {
-  meta = { maintainers = teams.freedesktop.members; };
+  meta = {
+    maintainers = teams.freedesktop.members;
+  };
 
   options = {
     xdg.sounds.enable = mkOption {

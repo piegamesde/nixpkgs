@@ -280,7 +280,9 @@ in
     systemd.generators = mkOption {
       type = types.attrsOf types.path;
       default = { };
-      example = { systemd-gpt-auto-generator = "/dev/null"; };
+      example = {
+        systemd-gpt-auto-generator = "/dev/null";
+      };
       description = lib.mdDoc ''
         Definition of systemd generators.
         For each `NAME = VALUE` pair of the attrSet, a link is generated from
@@ -327,7 +329,9 @@ in
         )
       ;
       default = { };
-      example = { TZ = "CET"; };
+      example = {
+        TZ = "CET";
+      };
       description = lib.mdDoc ''
         Environment variables passed to *all* systemd units.
       '';
@@ -347,7 +351,9 @@ in
         )
       ;
       default = { };
-      example = { SYSTEMD_LOG_LEVEL = "debug"; };
+      example = {
+        SYSTEMD_LOG_LEVEL = "debug";
+      };
       description = lib.mdDoc ''
         Environment variables of PID 1. These variables are
         *not* passed to started units.
@@ -605,7 +611,9 @@ in
         "systemd/system-generators" = {
           source = hooks "generators" cfg.generators;
         };
-        "systemd/system-shutdown" = { source = hooks "shutdown" cfg.shutdown; };
+        "systemd/system-shutdown" = {
+          source = hooks "shutdown" cfg.shutdown;
+        };
       })
     ;
 

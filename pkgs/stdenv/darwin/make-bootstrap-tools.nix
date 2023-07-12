@@ -219,7 +219,9 @@ rec {
 
     allowedReferences = [ ];
 
-    meta = { maintainers = [ lib.maintainers.copumpkin ]; };
+    meta = {
+      maintainers = [ lib.maintainers.copumpkin ];
+    };
   };
 
   dist = stdenv.mkDerivation {
@@ -233,7 +235,9 @@ rec {
 
   bootstrapLlvmVersion = llvmPackages.llvm.version;
 
-  bootstrapFiles = { tools = "${build}/pack"; };
+  bootstrapFiles = {
+    tools = "${build}/pack";
+  };
 
   bootstrapTools = derivation {
     inherit system;

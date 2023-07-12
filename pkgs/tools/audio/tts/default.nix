@@ -181,7 +181,9 @@ python.pkgs.buildPythonApplication rec {
     "tests/tts_tests/test_overflow.py"
   ];
 
-  passthru = { inherit python; };
+  passthru = {
+    inherit python;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/coqui-ai/TTS";

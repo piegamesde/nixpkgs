@@ -36,7 +36,9 @@ buildPythonPackage rec {
 
   propagatedBuildInput = [ pip ];
 
-  passthru.optional-dependencies = { graphviz = [ graphviz ]; };
+  passthru.optional-dependencies = {
+    graphviz = [ graphviz ];
+  };
 
   nativeCheckInputs =
     [

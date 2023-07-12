@@ -53,7 +53,9 @@ rustPlatform.buildRustPackage rec {
     runHook postCheck
   '';
 
-  passthru.tests = { inherit (nixosTests) atuin; };
+  passthru.tests = {
+    inherit (nixosTests) atuin;
+  };
 
   meta = with lib; {
     description = "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines";

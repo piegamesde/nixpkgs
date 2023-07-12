@@ -85,7 +85,9 @@ mkDerivation rec {
       --replace '=''${prefix}//' '=/'
   '';
 
-  passthru = { inherit ffmpeg; };
+  passthru = {
+    inherit ffmpeg;
+  };
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

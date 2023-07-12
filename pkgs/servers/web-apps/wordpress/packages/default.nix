@@ -15,7 +15,9 @@ let
   packages =
     self:
     let
-      generatedJson = { inherit plugins themes languages; };
+      generatedJson = {
+        inherit plugins themes languages;
+      };
     in
     {
       # Create a generic WordPress package. Most arguments are just passed

@@ -85,7 +85,9 @@ stdenv.mkDerivation rec {
     export GETTEXT_DIR="${gettext}"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Matrix group messaging app";

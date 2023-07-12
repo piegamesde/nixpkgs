@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  passthru.tests = { inherit ffmpeg sshping wireshark; };
+  passthru.tests = {
+    inherit ffmpeg sshping wireshark;
+  };
 
   meta = with lib; {
     description = "SSH client library";

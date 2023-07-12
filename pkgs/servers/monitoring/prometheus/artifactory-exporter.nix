@@ -30,7 +30,9 @@ buildGoModule rec {
     "-X github.com/prometheus/common/version.BuildDate=19700101-00:00:00"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) artifactory; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) artifactory;
+  };
 
   meta = with lib; {
     description = "JFrog Artifactory Prometheus Exporter";

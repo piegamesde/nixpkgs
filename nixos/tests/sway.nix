@@ -54,7 +54,9 @@ import ./make-test-python.nix (
 
           # To help with OCR:
           etc."xdg/foot/foot.ini".text = lib.generators.toINI { } {
-            main = { font = "inconsolata:size=14"; };
+            main = {
+              font = "inconsolata:size=14";
+            };
             colors = rec {
               foreground = "000000";
               background = "ffffff";

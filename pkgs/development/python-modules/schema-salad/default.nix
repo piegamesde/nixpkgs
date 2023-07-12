@@ -53,7 +53,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "schema_salad" ];
 
-  passthru.optional-dependencies = { pycodegen = [ black ]; };
+  passthru.optional-dependencies = {
+    pycodegen = [ black ];
+  };
 
   meta = with lib; {
     description = "Semantic Annotations for Linked Avro Data";

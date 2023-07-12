@@ -85,7 +85,9 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = gitUpdater { odd-unstable = true; };
 
-    tests = { test = nixosTests.terminal-emulators.gnome-terminal; };
+    tests = {
+      test = nixosTests.terminal-emulators.gnome-terminal;
+    };
   };
 
   meta = with lib; {

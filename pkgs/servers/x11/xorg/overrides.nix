@@ -417,7 +417,9 @@ self: super:
       postInstall = ''
         sed "/^Requires:/s/$/, freetype2/" -i "$dev/lib/pkgconfig/xft.pc"
       '';
-      passthru = { inherit freetype fontconfig; };
+      passthru = {
+        inherit freetype fontconfig;
+      };
     }
   );
 

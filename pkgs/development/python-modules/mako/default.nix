@@ -32,7 +32,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ markupsafe ];
 
-  passthru.optional-dependencies = { babel = [ babel ]; };
+  passthru.optional-dependencies = {
+    babel = [ babel ];
+  };
 
   nativeCheckInputs =
     [

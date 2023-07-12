@@ -20,7 +20,9 @@ rustPlatform.buildRustPackage {
     hash = "sha256-4Z3XASFlALCnX1guDqhBfvGNZ0V1XSruJvvSm0xr/t4=";
   };
 
-  cargoLock = { lockFile = ./Cargo.lock; };
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+  };
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
@@ -33,7 +35,9 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [ oniguruma ];
 
-  env = { RUSTONIG_SYSTEM_LIBONIG = true; };
+  env = {
+    RUSTONIG_SYSTEM_LIBONIG = true;
+  };
 
   postInstall = ''
     wrapProgram $out/bin/codemov \

@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) google-oslogin; };
+  passthru.tests = {
+    inherit (nixosTests) google-oslogin;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/GoogleCloudPlatform/compute-image-packages";

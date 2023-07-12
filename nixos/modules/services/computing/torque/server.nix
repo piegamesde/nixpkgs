@@ -53,7 +53,9 @@ in
         RemainAfterExit = true;
       };
 
-      unitConfig = { ConditionPathExists = "!/var/spool/torque"; };
+      unitConfig = {
+        ConditionPathExists = "!/var/spool/torque";
+      };
     };
 
     systemd.services.trqauthd = {

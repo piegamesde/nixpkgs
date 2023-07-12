@@ -48,7 +48,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru.tests = { testing-vaultwarden = nixosTests.vaultwarden; };
+  passthru.tests = {
+    testing-vaultwarden = nixosTests.vaultwarden;
+  };
 
   meta = with lib; {
     description = "Bindings for Selenium WebDriver";

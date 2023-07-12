@@ -70,7 +70,9 @@ stdenv.mkDerivation rec {
   # https://gitlab.freedesktop.org/pipewire/pipewire-rs/-/issues/55
   env.NIX_CFLAGS_COMPILE = toString [ "-DPW_ENABLE_DEPRECATED" ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Tool for playing with XDG desktop portals";

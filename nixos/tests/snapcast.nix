@@ -46,7 +46,9 @@ import ./make-test-python.nix (
         };
         environment.systemPackages = [ pkgs.snapcast ];
       };
-      client = { environment.systemPackages = [ pkgs.snapcast ]; };
+      client = {
+        environment.systemPackages = [ pkgs.snapcast ];
+      };
     };
 
     testScript = ''

@@ -39,7 +39,9 @@ stdenv.mkDerivation {
   ];
   buildInputs = [ ssl_implementation ];
 
-  passthru = { inherit ssl_implementation; };
+  passthru = {
+    inherit ssl_implementation;
+  };
 
   meta = with lib; {
     description = "ustream SSL wrapper";

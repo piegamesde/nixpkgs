@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   {
     name = "coturn";
     nodes = {
-      default = { services.coturn.enable = true; };
+      default = {
+        services.coturn.enable = true;
+      };
       secretsfile = {
         boot.postBootCommands = ''
           echo "some-very-secret-string" > /run/coturn-secret

@@ -7,7 +7,9 @@ import ./make-test-python.nix (
 
   {
     name = "tinywl";
-    meta = { maintainers = with lib.maintainers; [ primeos ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ primeos ];
+    };
 
     nodes.machine =
       {

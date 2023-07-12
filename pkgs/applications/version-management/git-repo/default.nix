@@ -56,7 +56,9 @@ stdenv.mkDerivation rec {
       }"
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Android's repo management tool";

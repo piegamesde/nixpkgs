@@ -65,7 +65,9 @@ toPythonModule (
       ln -s ../${python3.sitePackages}/searx/static $out/share/
     '';
 
-    passthru.tests = { inherit (nixosTests) searx; };
+    passthru.tests = {
+      inherit (nixosTests) searx;
+    };
 
     meta = with lib; {
       homepage = "https://github.com/searx/searx";

@@ -95,7 +95,9 @@ in
     )
   ];
 
-  meta = { maintainers = teams.gnome.members; };
+  meta = {
+    maintainers = teams.gnome.members;
+  };
 
   ###### interface
 
@@ -136,7 +138,9 @@ in
       settings = mkOption {
         type = settingsFormat.type;
         default = { };
-        example = { debug.enable = true; };
+        example = {
+          debug.enable = true;
+        };
         description = lib.mdDoc ''
           Options passed to the gdm daemon.
           See [here](https://help.gnome.org/admin/gdm/stable/configuration.html.en#daemonconfig) for supported options.

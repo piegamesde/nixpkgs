@@ -80,7 +80,9 @@ mkChromiumDerivation (
         $out/share/applications/chromium-browser.desktop
     '';
 
-    passthru = { inherit sandboxExecutableName; };
+    passthru = {
+      inherit sandboxExecutableName;
+    };
 
     requiredSystemFeatures = [ "big-parallel" ];
 

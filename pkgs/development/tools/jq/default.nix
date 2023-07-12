@@ -66,7 +66,9 @@ stdenv.mkDerivation rec {
     $bin/bin/jq -r '.values[1]' <<< '{"values":["hello","world"]}' | grep '^world$' > /dev/null
   '';
 
-  passthru = { inherit onigurumaSupport; };
+  passthru = {
+    inherit onigurumaSupport;
+  };
 
   meta = with lib; {
     description = "A lightweight and flexible command-line JSON processor";

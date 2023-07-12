@@ -14,7 +14,9 @@ import ./make-test-python.nix (
       }:
       {
         services.atd.enable = true;
-        users.users.alice = { isNormalUser = true; };
+        users.users.alice = {
+          isNormalUser = true;
+        };
       }
     ;
 

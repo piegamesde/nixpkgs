@@ -255,7 +255,9 @@ stdenv.mkDerivation {
     ;
   };
 
-  passthru = { inherit boostBuildPatches; };
+  passthru = {
+    inherit boostBuildPatches;
+  };
 
   preConfigure =
     lib.optionalString useMpi ''

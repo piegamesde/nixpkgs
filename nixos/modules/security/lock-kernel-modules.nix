@@ -8,7 +8,9 @@
 with lib;
 
 {
-  meta = { maintainers = [ maintainers.joachifm ]; };
+  meta = {
+    maintainers = [ maintainers.joachifm ];
+  };
 
   options = {
     security.lockKernelModules = mkOption {

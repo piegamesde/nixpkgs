@@ -57,7 +57,11 @@ let
   );
 
   repositories = writeText "repositories" (
-    builtins.toJSON { ${repoTag1} = { ${tag} = lib.last layers; }; }
+    builtins.toJSON {
+      ${repoTag1} = {
+        ${tag} = lib.last layers;
+      };
+    }
   );
 
   imageFileStorePaths = writeText "imageFileStorePaths.txt" (
@@ -83,5 +87,7 @@ stdenv.mkDerivation {
   ;
   inherit imageFileStorePaths;
 
-  passthru = { inherit image; };
+  passthru = {
+    inherit image;
+  };
 }

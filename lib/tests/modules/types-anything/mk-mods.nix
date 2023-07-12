@@ -21,7 +21,9 @@
         }
         (lib.mkIf true {
           foo = lib.mkIf true (lib.mkForce 1);
-          bar = { baz = lib.mkDefault "baz"; };
+          bar = {
+            baz = lib.mkDefault "baz";
+          };
         })
       ];
     }

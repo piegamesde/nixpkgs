@@ -16,14 +16,18 @@ import ./make-test-python.nix (
         users.groups = {
           foobar = { };
           barfoo = { };
-          baz = { gid = 1337; };
+          baz = {
+            gid = 1337;
+          };
         };
         users.users = {
           test0 = {
             isNormalUser = true;
             extraGroups = [ "wheel" ];
           };
-          test1 = { isNormalUser = true; };
+          test1 = {
+            isNormalUser = true;
+          };
           test2 = {
             isNormalUser = true;
             extraGroups = [ "foobar" ];
@@ -36,9 +40,15 @@ import ./make-test-python.nix (
             isNormalUser = true;
             extraGroups = [ "baz" ];
           };
-          test5 = { isNormalUser = true; };
-          test6 = { isNormalUser = true; };
-          test7 = { isNormalUser = true; };
+          test5 = {
+            isNormalUser = true;
+          };
+          test6 = {
+            isNormalUser = true;
+          };
+          test7 = {
+            isNormalUser = true;
+          };
         };
 
         security.doas = {

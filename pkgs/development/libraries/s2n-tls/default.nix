@@ -52,7 +52,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru.tests = { inherit nix; };
+  passthru.tests = {
+    inherit nix;
+  };
 
   meta = with lib; {
     description = "C99 implementation of the TLS/SSL protocols";

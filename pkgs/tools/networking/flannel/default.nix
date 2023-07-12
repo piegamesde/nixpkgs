@@ -24,7 +24,9 @@ buildGoModule rec {
   # TestRouteCache/TestV6RouteCache fail with "Failed to create newns: operation not permitted"
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests) flannel; };
+  passthru.tests = {
+    inherit (nixosTests) flannel;
+  };
 
   meta = with lib; {
     description = "Network fabric for containers, designed for Kubernetes";

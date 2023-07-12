@@ -44,7 +44,9 @@ buildGoModule rec {
     done
   '';
 
-  passthru = { inherit server; };
+  passthru = {
+    inherit server;
+  };
 
   meta = with lib; {
     description = "Redpanda client";

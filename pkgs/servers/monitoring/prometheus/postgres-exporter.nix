@@ -20,7 +20,9 @@ buildGoModule rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) postgres; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) postgres;
+  };
 
   meta = with lib; {
     inherit (src.meta) homepage;

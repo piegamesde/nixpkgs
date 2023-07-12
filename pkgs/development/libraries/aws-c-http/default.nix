@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
-  passthru.tests = { inherit nix; };
+  passthru.tests = {
+    inherit nix;
+  };
 
   meta = with lib; {
     description = "C99 implementation of the HTTP/1.1 and HTTP/2 specifications";

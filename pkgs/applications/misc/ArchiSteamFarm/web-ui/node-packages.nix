@@ -7479,7 +7479,9 @@ let
       sources."yocto-queue-0.1.0"
     ];
     buildInputs = globalBuildInputs;
-    meta = { description = "The official web interface for ASF"; };
+    meta = {
+      description = "The official web interface for ASF";
+    };
     production = false;
     bypassCache = true;
     reconstructLock = false;

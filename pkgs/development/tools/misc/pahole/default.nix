@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     "-DLIBBPF_EMBEDDED=OFF"
   ];
 
-  passthru.tests = { inherit (nixosTests) bpf; };
+  passthru.tests = {
+    inherit (nixosTests) bpf;
+  };
 
   meta = with lib; {
     homepage = "https://git.kernel.org/pub/scm/devel/pahole/pahole.git/";

@@ -15,7 +15,9 @@ import ./make-test-python.nix (
     nodes.machine = {
       services.syncthing = {
         enable = true;
-        devices.testDevice = { id = testId; };
+        devices.testDevice = {
+          id = testId;
+        };
         folders.testFolder = {
           path = "/tmp/test";
           devices = [ "testDevice" ];

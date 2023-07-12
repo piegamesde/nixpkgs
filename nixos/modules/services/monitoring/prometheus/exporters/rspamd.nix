@@ -95,7 +95,9 @@ in
   extraOpts = {
     extraLabels = mkOption {
       type = types.attrsOf types.str;
-      default = { host = config.networking.hostName; };
+      default = {
+        host = config.networking.hostName;
+      };
       defaultText = literalExpression "{ host = config.networking.hostName; }";
       example = literalExpression ''
         {

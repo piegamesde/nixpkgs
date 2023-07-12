@@ -49,5 +49,7 @@ qtModule {
     wrapQtApp $bin/bin/servicefw
   '';
 
-  meta = { maintainers = with lib.maintainers; [ OPNA2608 ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ OPNA2608 ];
+  };
 }

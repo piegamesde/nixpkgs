@@ -37,7 +37,9 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   # run package tests as a separate nixos test
-  passthru.tests = { nixosTest = nixosTests.sqlite3-to-mysql; };
+  passthru.tests = {
+    nixosTest = nixosTests.sqlite3-to-mysql;
+  };
 
   meta = with lib; {
     description = "A simple Python tool to transfer data from SQLite 3 to MySQL";

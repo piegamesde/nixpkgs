@@ -18,7 +18,9 @@ buildGoModule rec {
     sha256 = "sha256-q6rnD8JCtB1zTkUfZt6f2Uyo91uFi3HYI7WFlZdzpBM=";
   };
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) systemd; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) systemd;
+  };
 
   meta = with lib; {
     description = "Exporter for systemd unit metrics";

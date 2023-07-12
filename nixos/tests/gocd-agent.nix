@@ -34,8 +34,12 @@ import ./make-test-python.nix (
         }:
         {
           virtualisation.memorySize = 2046;
-          services.gocd-agent = { enable = true; };
-          services.gocd-server = { enable = true; };
+          services.gocd-agent = {
+            enable = true;
+          };
+          services.gocd-server = {
+            enable = true;
+          };
         }
       ;
     };

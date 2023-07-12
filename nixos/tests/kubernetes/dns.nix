@@ -38,7 +38,9 @@ let
           port = 6379;
           targetPort = 6379;
         } ];
-        selector = { name = "redis"; };
+        selector = {
+          name = "redis";
+        };
       };
     }
   );

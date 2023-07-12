@@ -23,7 +23,13 @@ let
       }
     ;
 
-    github = cfg: { github = { inherit (cfg.github) org team; }; };
+    github =
+      cfg: {
+        github = {
+          inherit (cfg.github) org team;
+        };
+      }
+    ;
 
     google =
       cfg: {

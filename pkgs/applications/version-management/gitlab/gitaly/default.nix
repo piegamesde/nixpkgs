@@ -75,7 +75,9 @@ buildGoModule (
   {
     pname = "gitaly";
 
-    passthru = { inherit rubyEnv; };
+    passthru = {
+      inherit rubyEnv;
+    };
 
     subPackages = [
       "cmd/gitaly"

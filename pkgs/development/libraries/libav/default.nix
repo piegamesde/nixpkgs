@@ -177,7 +177,9 @@ let
       doInstallCheck = false; # fails randomly
       installCheckTarget = "check"; # tests need to be run *after* installation
 
-      passthru = { inherit vdpauSupport; };
+      passthru = {
+        inherit vdpauSupport;
+      };
 
       meta = with lib; {
         homepage = "https://libav.org/";

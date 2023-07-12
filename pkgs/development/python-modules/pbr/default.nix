@@ -21,7 +21,9 @@ buildPythonPackage rec {
   # check in passthru.tests.pytest to escape infinite recursion with fixtures
   doCheck = false;
 
-  passthru.tests = { tests = callPackage ./tests.nix { }; };
+  passthru.tests = {
+    tests = callPackage ./tests.nix { };
+  };
 
   pythonImportsCheck = [ "pbr" ];
 

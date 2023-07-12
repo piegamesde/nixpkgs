@@ -41,7 +41,9 @@ buildPgxExtension rec {
   postInstall = ''
     ln -s $out/lib/promscale-${version}.so $out/lib/promscale.so
   '';
-  passthru.tests = { promscale = nixosTests.promscale; };
+  passthru.tests = {
+    promscale = nixosTests.promscale;
+  };
 
   # tests take really long
   doCheck = false;

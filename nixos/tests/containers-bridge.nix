@@ -31,7 +31,11 @@ import ./make-test-python.nix (
         imports = [ ../modules/installer/cd-dvd/channel.nix ];
         virtualisation.writableStore = true;
 
-        networking.bridges = { br0 = { interfaces = [ ]; }; };
+        networking.bridges = {
+          br0 = {
+            interfaces = [ ];
+          };
+        };
         networking.interfaces = {
           br0 = {
             ipv4.addresses = [ {

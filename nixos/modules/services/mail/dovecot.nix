@@ -298,8 +298,12 @@ in
                     "Additional entries to add to the mail_plugins variable for all protocols"
                 ;
                 type = plugins "top-level";
-                example = { enable = [ "virtual" ]; };
-                default = { enable = [ ]; };
+                example = {
+                  enable = [ "virtual" ];
+                };
+                default = {
+                  enable = [ ];
+                };
               };
               perProtocol = mkOption {
                 description =
@@ -308,7 +312,9 @@ in
                 ;
                 type = attrsOf (plugins "corresponding per-protocol");
                 default = { };
-                example = { imap = [ "imap_acl" ]; };
+                example = {
+                  imap = [ "imap_acl" ];
+                };
               };
             };
           }

@@ -131,7 +131,9 @@ stdenv.mkDerivation rec {
     ln -s "$lib/bin/dbus-launch" "$out/bin/"
   '';
 
-  passthru = { dbus-launch = "${dbus.lib}/bin/dbus-launch"; };
+  passthru = {
+    dbus-launch = "${dbus.lib}/bin/dbus-launch";
+  };
 
   meta = with lib; {
     description = "Simple interprocess messaging system";

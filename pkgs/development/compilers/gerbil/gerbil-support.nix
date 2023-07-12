@@ -54,7 +54,9 @@ rec {
         version
         nativeBuildInputs
       ;
-      passthru = { inherit gerbil-package version-path; };
+      passthru = {
+        inherit gerbil-package version-path;
+      };
       buildInputs = [ gerbil ] ++ gerbilInputs ++ buildInputs_;
       postPatch = ''
         set -e ;

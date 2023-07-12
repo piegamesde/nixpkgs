@@ -310,7 +310,9 @@ let
           );
           # plugins with dependencies
           plugins = findDependenciesRecursively specifiedPlugins;
-          vamPackages.vam = { start = plugins; };
+          vamPackages.vam = {
+            start = plugins;
+          };
         in
         nativeImpl vamPackages
       ;

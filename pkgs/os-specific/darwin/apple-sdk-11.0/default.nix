@@ -31,7 +31,9 @@ let
           pbzx $src | cpio -idm
         '';
 
-        passthru = { inherit (args) version; };
+        passthru = {
+          inherit (args) version;
+        };
       }
     )
   ;

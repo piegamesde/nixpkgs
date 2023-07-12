@@ -41,7 +41,9 @@ in
       settings = mkOption {
         default = { };
         type = toml.type;
-        example = { global.bitrate = 320; };
+        example = {
+          global.bitrate = 320;
+        };
         description = lib.mdDoc ''
           Configuration for Spotifyd. For syntax and directives, see
           <https://github.com/Spotifyd/spotifyd#Configuration>.

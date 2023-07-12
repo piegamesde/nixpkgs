@@ -34,5 +34,7 @@ stdenv.mkDerivation {
     sed -i '2iPATH="${binPath}:$PATH"' $out/bin/mumble-overlay
   '';
 
-  meta = { platforms = lib.platforms.linux; };
+  meta = {
+    platforms = lib.platforms.linux;
+  };
 }

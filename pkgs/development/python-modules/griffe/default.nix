@@ -44,7 +44,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  passthru.optional-dependencies = { async = [ aiofiles ]; };
+  passthru.optional-dependencies = {
+    async = [ aiofiles ];
+  };
 
   pythonImportsCheck = [ "griffe" ];
 

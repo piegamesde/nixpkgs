@@ -94,7 +94,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { installedTests = nixosTests.installed-tests.json-glib; };
+    tests = {
+      installedTests = nixosTests.installed-tests.json-glib;
+    };
 
     updateScript = gnome.updateScript {
       packageName = pname;

@@ -94,7 +94,9 @@ stdenv.mkDerivation rec {
     cd ..
   '';
 
-  passthru = { nativeCompilers = true; };
+  passthru = {
+    nativeCompilers = true;
+  };
 
   meta = with lib; {
     description = "Multi-Stage Programming extension for OCaml";

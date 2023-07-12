@@ -48,7 +48,9 @@ in
 
 {
 
-  meta = { maintainers = teams.gnome.members; };
+  meta = {
+    maintainers = teams.gnome.members;
+  };
 
   # Added 2021-05-07
   imports = [

@@ -99,7 +99,9 @@ buildPythonPackage rec {
     "--enable-maintainer-mode"
   ];
 
-  passthru = { inherit mpi; };
+  passthru = {
+    inherit mpi;
+  };
 
   /* This test is taken from the MEEP tutorial "Fields in a Waveguide" at
      <https://meep.readthedocs.io/en/latest/Python_Tutorials/Basics/>.

@@ -28,5 +28,7 @@ buildDunePackage rec {
 
   inherit (topkg) buildPhase installPhase;
 
-  meta = { inherit (ocaml.meta) platforms; };
+  meta = {
+    inherit (ocaml.meta) platforms;
+  };
 }

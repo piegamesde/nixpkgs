@@ -115,7 +115,9 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    tests = { installedTests = nixosTests.installed-tests.gsconnect; };
+    tests = {
+      installedTests = nixosTests.installed-tests.gsconnect;
+    };
   };
 
   meta = with lib; {

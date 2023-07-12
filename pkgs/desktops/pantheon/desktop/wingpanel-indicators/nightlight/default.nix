@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
     wingpanel
   ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Night Light Indicator for Wingpanel";

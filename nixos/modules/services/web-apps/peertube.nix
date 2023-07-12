@@ -413,7 +413,9 @@ in
 
     services.peertube.settings = lib.mkMerge [
       {
-        listen = { port = cfg.listenHttp; };
+        listen = {
+          port = cfg.listenHttp;
+        };
         webserver = {
           https = (if cfg.enableWebHttps then true else false);
           hostname = "${cfg.localDomain}";
@@ -463,7 +465,9 @@ in
         };
       }
       (lib.mkIf cfg.redis.enableUnixSocket {
-        redis = { socket = "/run/redis-peertube/redis.sock"; };
+        redis = {
+          socket = "/run/redis-peertube/redis.sock";
+        };
       })
     ];
 

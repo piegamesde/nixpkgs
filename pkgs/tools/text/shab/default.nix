@@ -42,7 +42,9 @@ let
       [[ "$(echo 'Hello $entity' | entity=world $out/bin/shab)" == 'Hello world' ]]
     '';
 
-    passthru = { inherit render renderText; };
+    passthru = {
+      inherit render renderText;
+    };
 
     meta = with lib; {
       description = "The bash templating language";
@@ -60,7 +62,9 @@ let
   render =
     shabScript: parameters:
     let
-      extraParams = { inherit shabScript; };
+      extraParams = {
+        inherit shabScript;
+      };
     in
     runCommand "out" (parameters // extraParams) ''
       ${shab}/bin/shab "$shabScript" >$out

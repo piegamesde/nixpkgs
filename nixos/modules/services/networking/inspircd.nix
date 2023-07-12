@@ -11,7 +11,9 @@ let
   configFile = pkgs.writeText "inspircd.conf" cfg.config;
 in
 {
-  meta = { maintainers = [ lib.maintainers.sternenseemann ]; };
+  meta = {
+    maintainers = [ lib.maintainers.sternenseemann ];
+  };
 
   options = {
     services.inspircd = {

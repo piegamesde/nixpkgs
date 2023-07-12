@@ -10,7 +10,11 @@ with lib;
 let
   cfg = config.services.x2goserver;
 
-  defaults = { superenicer = { enable = cfg.superenicer.enable; }; };
+  defaults = {
+    superenicer = {
+      enable = cfg.superenicer.enable;
+    };
+  };
   confText = generators.toINI { } (recursiveUpdate defaults cfg.settings);
   x2goServerConf = pkgs.writeText "x2goserver.conf" confText;
 

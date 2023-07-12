@@ -68,7 +68,9 @@ in
         toString ./runtime-closure.nix.template
       }
     '';
-    tests = { nixos = nixosTests.lorri; };
+    tests = {
+      nixos = nixosTests.lorri;
+    };
   };
 
   meta = with lib; {

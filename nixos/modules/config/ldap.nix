@@ -272,7 +272,9 @@ in
     system.nssDatabases.shadow = optional cfg.nsswitch "ldap";
 
     users = mkIf cfg.daemon.enable {
-      groups.nslcd = { gid = config.ids.gids.nslcd; };
+      groups.nslcd = {
+        gid = config.ids.gids.nslcd;
+      };
 
       users.nslcd = {
         uid = config.ids.uids.nslcd;

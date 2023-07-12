@@ -492,7 +492,9 @@ in
     });
 
     users.groups = optionalAttrs (cfg.group == "transmission") ({
-      transmission = { gid = config.ids.gids.transmission; };
+      transmission = {
+        gid = config.ids.gids.transmission;
+      };
     });
 
     networking.firewall = mkMerge [

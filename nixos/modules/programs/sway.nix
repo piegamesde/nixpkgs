@@ -71,7 +71,9 @@ in
     wrapperFeatures = mkOption {
       type = wrapperOptions;
       default = { };
-      example = { gtk = true; };
+      example = {
+        gtk = true;
+      };
       description = lib.mdDoc ''
         Attribute set of features to enable in the wrapper.
       '';

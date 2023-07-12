@@ -22,7 +22,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools-scm ];
 
-  passthru.optional-dependencies = { images = [ pillow ]; };
+  passthru.optional-dependencies = {
+    images = [ pillow ];
+  };
 
   postPatch = ''
     substituteInPlace setup.cfg \

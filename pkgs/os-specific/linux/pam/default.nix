@@ -61,7 +61,9 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # fails
 
-  passthru.tests = { inherit (nixosTests) pam-oath-login pam-u2f shadow; };
+  passthru.tests = {
+    inherit (nixosTests) pam-oath-login pam-u2f shadow;
+  };
 
   meta = with lib; {
     homepage = "http://www.linux-pam.org/";

@@ -1066,8 +1066,12 @@ in
             wakeupUnusedComponent = false;
             maxproc = 1;
           };
-          rewrite = { command = "trivial-rewrite"; };
-          bounce = { maxproc = 0; };
+          rewrite = {
+            command = "trivial-rewrite";
+          };
+          bounce = {
+            maxproc = 0;
+          };
           defer = {
             maxproc = 0;
             command = "bounce";
@@ -1076,27 +1080,43 @@ in
             maxproc = 0;
             command = "bounce";
           };
-          verify = { maxproc = 1; };
+          verify = {
+            maxproc = 1;
+          };
           flush = {
             private = false;
             wakeup = 1000;
             wakeupUnusedComponent = false;
             maxproc = 0;
           };
-          proxymap = { command = "proxymap"; };
+          proxymap = {
+            command = "proxymap";
+          };
           proxywrite = {
             maxproc = 1;
             command = "proxymap";
           };
-          showq = { private = false; };
+          showq = {
+            private = false;
+          };
           error = { };
-          retry = { command = "error"; };
+          retry = {
+            command = "error";
+          };
           discard = { };
-          local = { privileged = true; };
-          virtual = { privileged = true; };
+          local = {
+            privileged = true;
+          };
+          virtual = {
+            privileged = true;
+          };
           lmtp = { };
-          anvil = { maxproc = 1; };
-          scache = { maxproc = 1; };
+          anvil = {
+            maxproc = 1;
+          };
+          scache = {
+            maxproc = 1;
+          };
         } // optionalAttrs cfg.enableSubmission {
           submission = {
             type = "inet";

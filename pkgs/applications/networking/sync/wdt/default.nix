@@ -43,7 +43,9 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-DWDT_USE_SYSTEM_FOLLY=ON" ];
 
-  passthru = { updateScript = unstableGitUpdater { }; };
+  passthru = {
+    updateScript = unstableGitUpdater { };
+  };
 
   meta = with lib; {
     description = "Warp speed Data Transfer";

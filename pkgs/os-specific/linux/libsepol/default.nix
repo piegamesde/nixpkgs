@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { inherit se_url; };
+  passthru = {
+    inherit se_url;
+  };
 
   meta = with lib; {
     description = "SELinux binary policy manipulation library";

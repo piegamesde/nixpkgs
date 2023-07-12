@@ -34,7 +34,9 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.tests = { bittorrent-integration = nixosTests.bittorrent; };
+  passthru.tests = {
+    bittorrent-integration = nixosTests.bittorrent;
+  };
 
   meta = with lib; {
     homepage = "https://erdgeist.org/arts/software/opentracker/";

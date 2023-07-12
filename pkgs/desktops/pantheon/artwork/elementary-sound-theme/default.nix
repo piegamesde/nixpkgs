@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A set of system sounds for elementary";

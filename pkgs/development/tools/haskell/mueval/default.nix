@@ -37,5 +37,7 @@ stdenv.mkDerivation {
 
   '';
 
-  passthru = { inherit defaultPkgs; };
+  passthru = {
+    inherit defaultPkgs;
+  };
 }

@@ -73,7 +73,9 @@ in
       description = "pdnsd user";
     };
 
-    users.groups.${pdnsdGroup} = { gid = config.ids.gids.pdnsd; };
+    users.groups.${pdnsdGroup} = {
+      gid = config.ids.gids.pdnsd;
+    };
 
     systemd.services.pdnsd = {
       wantedBy = [ "multi-user.target" ];
@@ -84,7 +86,9 @@ in
         chown -R ${pdnsdUser}:${pdnsdGroup} "${cfg.cacheDir}"
       '';
       description = "pdnsd";
-      serviceConfig = { ExecStart = "${pdnsd}/bin/pdnsd -c ${pdnsdConf}"; };
+      serviceConfig = {
+        ExecStart = "${pdnsd}/bin/pdnsd -c ${pdnsdConf}";
+      };
     };
   };
 }

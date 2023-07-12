@@ -203,7 +203,9 @@ stdenv.mkDerivation rec {
   doInstallCheck = true;
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) trafficserver; };
+  passthru.tests = {
+    inherit (nixosTests) trafficserver;
+  };
 
   meta = with lib; {
     homepage = "https://trafficserver.apache.org";

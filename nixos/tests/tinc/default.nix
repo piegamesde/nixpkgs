@@ -68,8 +68,12 @@ import ../make-test-python.nix (
                     config.virtualisation.vlans
                 ;
               };
-              dynamic1 = { subnet = "10.0.0.21"; };
-              dynamic2 = { subnet = "10.0.0.22"; };
+              dynamic1 = {
+                subnet = "10.0.0.21";
+              };
+              dynamic2 = {
+                subnet = "10.0.0.22";
+              };
             };
           };
 

@@ -115,7 +115,9 @@ in
         SKYDNS_DOMAIN = cfg.domain;
         SKYDNS_NAMESERVERS = concatStringsSep "," cfg.nameservers;
       };
-      serviceConfig = { ExecStart = "${cfg.package}/bin/skydns"; };
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/skydns";
+      };
     };
 
     environment.systemPackages = [ cfg.package ];

@@ -29,7 +29,9 @@ buildKodiAddon rec {
     inputstreamhelper
   ];
 
-  passthru = { pythonPath = "resources/lib"; };
+  passthru = {
+    pythonPath = "resources/lib";
+  };
 
   meta = with lib; {
     homepage = "https://github.com/TheAssassin/kodi-invidious-plugin";

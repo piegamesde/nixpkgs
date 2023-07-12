@@ -126,7 +126,9 @@ in
       useDefaultShell = true;
     };
 
-    users.groups.${cfg.group} = { gid = config.ids.gids.mlmmj; };
+    users.groups.${cfg.group} = {
+      gid = config.ids.gids.mlmmj;
+    };
 
     services.postfix = {
       enable = true;

@@ -62,7 +62,9 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson/meson_post_install.py
   '';
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "GNOME translation making program";

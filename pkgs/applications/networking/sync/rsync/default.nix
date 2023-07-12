@@ -62,7 +62,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) rsyncd; };
+  passthru.tests = {
+    inherit (nixosTests) rsyncd;
+  };
 
   meta = with lib; {
     description = "Fast incremental file transfer utility";

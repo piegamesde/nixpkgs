@@ -22,7 +22,9 @@ import ./make-test-python.nix (
           pkgs.curl
           pkgs.jq
         ];
-        networking.hosts = { "127.0.0.1" = [ host ]; };
+        networking.hosts = {
+          "127.0.0.1" = [ host ];
+        };
         services.mattermost =
           lib.recursiveUpdate
             {

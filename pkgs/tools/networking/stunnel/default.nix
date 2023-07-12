@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
     "localstatedir=\${TMPDIR}"
   ];
 
-  passthru.tests = { stunnel = nixosTests.stunnel; };
+  passthru.tests = {
+    stunnel = nixosTests.stunnel;
+  };
 
   meta = {
     description = "Universal tls/ssl wrapper";

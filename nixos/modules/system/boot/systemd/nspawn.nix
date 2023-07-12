@@ -106,7 +106,9 @@ let
     options = (getAttrs [ "enable" ] sharedOptions) // {
       execConfig = mkOption {
         default = { };
-        example = { Parameters = "/bin/sh"; };
+        example = {
+          Parameters = "/bin/sh";
+        };
         type = types.addCheck (types.attrsOf unitOption) checkExec;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -117,7 +119,9 @@ let
 
       filesConfig = mkOption {
         default = { };
-        example = { Bind = [ "/home/alice" ]; };
+        example = {
+          Bind = [ "/home/alice" ];
+        };
         type = types.addCheck (types.attrsOf unitOption) checkFiles;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -128,7 +132,9 @@ let
 
       networkConfig = mkOption {
         default = { };
-        example = { Private = false; };
+        example = {
+          Private = false;
+        };
         type = types.addCheck (types.attrsOf unitOption) checkNetwork;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the

@@ -25,5 +25,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = { description = "Latin Modern font"; };
+  meta = {
+    description = "Latin Modern font";
+  };
 }

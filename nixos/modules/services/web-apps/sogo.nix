@@ -75,7 +75,9 @@ in
       '';
       type = attrsOf str;
       default = { };
-      example = { LDAP_BINDPW = "/var/lib/secrets/sogo/ldappw"; };
+      example = {
+        LDAP_BINDPW = "/var/lib/secrets/sogo/ldappw";
+      };
     };
 
     extraConfig = mkOption {

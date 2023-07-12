@@ -27,7 +27,9 @@ buildGoModule rec {
   # needs a redis server
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) redis; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) redis;
+  };
 
   meta = with lib; {
     description = "Prometheus exporter for Redis metrics";

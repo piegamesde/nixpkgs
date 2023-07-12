@@ -164,7 +164,9 @@ buildPerlPackage rec {
     mv sa_config $sa_config
   '';
 
-  passthru.tests = { nixos-public-inbox = nixosTests.public-inbox; };
+  passthru.tests = {
+    nixos-public-inbox = nixosTests.public-inbox;
+  };
 
   meta = with lib; {
     homepage = "https://public-inbox.org/";

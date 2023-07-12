@@ -188,7 +188,9 @@ rustPlatform.buildRustPackage {
   doCheck = false;
 
   passthru = {
-    updater = { inherit update-all-grammars; };
+    updater = {
+      inherit update-all-grammars;
+    };
     inherit
       grammars
       buildGrammar

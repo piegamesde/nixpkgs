@@ -113,7 +113,9 @@ in
       ];
     };
 
-    systemd.user.sockets.gpg-agent = { wantedBy = [ "sockets.target" ]; };
+    systemd.user.sockets.gpg-agent = {
+      wantedBy = [ "sockets.target" ];
+    };
 
     systemd.user.sockets.gpg-agent-ssh = mkIf cfg.agent.enableSSHSupport {
       wantedBy = [ "sockets.target" ];

@@ -17,7 +17,9 @@ let
     Name = lib.toLower xcodePlatform;
   };
 
-  Version = { ProjectName = "OSXPlatformSupport"; };
+  Version = {
+    ProjectName = "OSXPlatformSupport";
+  };
 
   # These files are all based off of Xcode spec fies found in
   # /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources.
@@ -175,7 +177,9 @@ let
       Type = "PackageType";
       BasedOn = "com.apple.package-type.wrapper";
       Name = "Application Wrapper";
-      DefaultBuildSettings = { GENERATE_PKGINFO_FILE = "YES"; };
+      DefaultBuildSettings = {
+        GENERATE_PKGINFO_FILE = "YES";
+      };
       ProductReference = {
         FileType = "wrapper.application";
         Name = "$(WRAPPER_NAME)";

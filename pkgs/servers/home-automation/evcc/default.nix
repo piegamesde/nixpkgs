@@ -81,7 +81,9 @@ buildGoModule rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) evcc; };
+    tests = {
+      inherit (nixosTests) evcc;
+    };
     updateScript = nix-update-script { };
   };
 

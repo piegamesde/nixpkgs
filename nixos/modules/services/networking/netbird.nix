@@ -36,7 +36,9 @@ in
     networking.dhcpcd.denyInterfaces = [ interfaceName ];
 
     systemd.network.networks."50-netbird" = mkIf config.networking.useNetworkd {
-      matchConfig = { Name = interfaceName; };
+      matchConfig = {
+        Name = interfaceName;
+      };
       linkConfig = {
         Unmanaged = true;
         ActivationPolicy = "manual";

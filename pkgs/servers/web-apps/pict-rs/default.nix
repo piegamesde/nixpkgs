@@ -44,7 +44,9 @@ rustPlatform.buildRustPackage rec {
         }"
   '';
 
-  passthru.tests = { inherit (nixosTests) pict-rs; };
+  passthru.tests = {
+    inherit (nixosTests) pict-rs;
+  };
 
   meta = with lib; {
     description = "A simple image hosting service";

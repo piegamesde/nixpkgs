@@ -119,7 +119,11 @@ let
             enable = true;
             virtualHosts = {
               localhost = {
-                locations = { "/zfskey" = { return = ''200 "httpkeyabc"''; }; };
+                locations = {
+                  "/zfskey" = {
+                    return = ''200 "httpkeyabc"'';
+                  };
+                };
               };
             };
           };

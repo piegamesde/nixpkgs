@@ -76,10 +76,14 @@ let
 
   legacyModules =
     lib.optional (evalConfigArgs ? extraArgs) {
-      config = { _module.args = extraArgs; };
+      config = {
+        _module.args = extraArgs;
+      };
     }
     ++ lib.optional (evalConfigArgs ? check) {
-      config = { _module.check = lib.mkDefault check; };
+      config = {
+        _module.check = lib.mkDefault check;
+      };
     }
   ;
 

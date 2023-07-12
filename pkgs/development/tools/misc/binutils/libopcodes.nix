@@ -16,7 +16,9 @@ stdenv.mkDerivation {
     binutils-unwrapped-all-targets.lib
   ];
 
-  passthru = { inherit (binutils-unwrapped-all-targets) dev hasPluginAPI; };
+  passthru = {
+    inherit (binutils-unwrapped-all-targets) dev hasPluginAPI;
+  };
 
   meta = with lib; {
     description = "A library from binutils for manipulating machine code";

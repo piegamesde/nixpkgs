@@ -49,7 +49,9 @@ import ../../make-test-python.nix (
             ];
           };
 
-          security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
+          security = {
+            pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+          };
 
           services.redis.servers.mastodon = {
             enable = true;
@@ -66,7 +68,9 @@ import ../../make-test-python.nix (
               createLocally = false;
               fromAddress = "mastodon@mastodon.local";
             };
-            extraConfig = { EMAIL_DOMAIN_ALLOWLIST = "example.com"; };
+            extraConfig = {
+              EMAIL_DOMAIN_ALLOWLIST = "example.com";
+            };
           };
 
           services.nginx = {
@@ -96,7 +100,9 @@ import ../../make-test-python.nix (
             extraHosts = hosts;
           };
 
-          security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
+          security = {
+            pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+          };
         }
       ;
     };

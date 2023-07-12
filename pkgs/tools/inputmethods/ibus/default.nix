@@ -180,7 +180,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { installed-tests = nixosTests.installed-tests.ibus; };
+    tests = {
+      installed-tests = nixosTests.installed-tests.ibus;
+    };
   };
 
   meta = with lib; {

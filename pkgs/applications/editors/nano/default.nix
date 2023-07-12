@@ -58,7 +58,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    tests = { expect = callPackage ./test-with-expect.nix { }; };
+    tests = {
+      expect = callPackage ./test-with-expect.nix { };
+    };
 
     updateScript = writeScript "update.sh" ''
       #!${stdenv.shell}

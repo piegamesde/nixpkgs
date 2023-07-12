@@ -256,7 +256,9 @@ in
 
   config = mkMerge [
     {
-      environment.etc = { "pulse/client.conf".source = clientConf; };
+      environment.etc = {
+        "pulse/client.conf".source = clientConf;
+      };
 
       hardware.pulseaudio.configFile =
         mkDefault
@@ -325,7 +327,9 @@ in
     })
 
     (mkIf nonSystemWide {
-      environment.etc = { "pulse/default.pa".source = myConfigFile; };
+      environment.etc = {
+        "pulse/default.pa".source = myConfigFile;
+      };
       systemd.user = {
         services.pulseaudio = {
           restartIfChanged = true;
@@ -336,7 +340,9 @@ in
         } // optionalAttrs config.services.jack.jackd.enable {
           environment.JACK_PROMISCUOUS_SERVER = "jackaudio";
         };
-        sockets.pulseaudio = { wantedBy = [ "sockets.target" ]; };
+        sockets.pulseaudio = {
+          wantedBy = [ "sockets.target" ];
+        };
       };
     })
 

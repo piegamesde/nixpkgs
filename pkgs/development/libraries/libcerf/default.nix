@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  passthru.tests = { inherit gnuplot; };
+  passthru.tests = {
+    inherit gnuplot;
+  };
 
   meta = with lib; {
     description = "Complex error (erf), Dawson, Faddeeva, and Voigt function library";

@@ -11,7 +11,9 @@ let
   cfg = config.services.pppd;
 in
 {
-  meta = { maintainers = with maintainers; [ danderson ]; };
+  meta = {
+    maintainers = with maintainers; [ danderson ];
+  };
 
   options = {
     services.pppd = {

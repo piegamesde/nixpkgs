@@ -11,7 +11,9 @@ let
   cfg = config.services.xserver.desktopManager.xfce;
 in
 {
-  meta = { maintainers = teams.xfce.members; };
+  meta = {
+    maintainers = teams.xfce.members;
+  };
 
   imports = [
     # added 2019-08-18

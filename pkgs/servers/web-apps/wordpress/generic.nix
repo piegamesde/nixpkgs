@@ -35,7 +35,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) wordpress; };
+  passthru.tests = {
+    inherit (nixosTests) wordpress;
+  };
 
   passthru.updateScript = writeScript "update.sh" ''
     #!/usr/bin/env nix-shell

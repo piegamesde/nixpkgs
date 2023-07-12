@@ -12,7 +12,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "containers-macvlans";
-    meta = { maintainers = with lib.maintainers; [ montag451 ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ montag451 ];
+    };
 
     nodes = {
 

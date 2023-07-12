@@ -17,7 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-F4WPLrxiMiDQEg0fqNQo0DPd50nEvDWzPYGmatf5NIA=";
   };
 
-  passthru = { inherit mpi; };
+  passthru = {
+    inherit mpi;
+  };
 
   postPatch = ''
     substituteInPlace test/test_spawn.py --replace \

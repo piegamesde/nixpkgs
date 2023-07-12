@@ -22,7 +22,9 @@ buildNpmPackage rec {
     substituteInPlace package.json --replace "@cvent/pnpm-lock-export" "pnpm-lock-export"
   '';
 
-  passthru = { updateScript = ./update.sh; };
+  passthru = {
+    updateScript = ./update.sh;
+  };
 
   meta = with lib; {
     description = "A utility for converting pnpm-lock.yaml to other lockfile formats";

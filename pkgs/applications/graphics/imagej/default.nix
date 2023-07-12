@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  passthru = { inherit jre; };
+  passthru = {
+    inherit jre;
+  };
 
   # JAR files that are intended to be used by other packages
   # should go to $out/share/java.

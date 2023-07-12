@@ -73,7 +73,9 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru = { inherit listparser; };
+  passthru = {
+    inherit listparser;
+  };
 
   meta = with lib; {
     description = "An RSS/Atom feed reader for GNOME";

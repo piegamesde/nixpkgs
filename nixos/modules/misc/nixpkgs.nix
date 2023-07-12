@@ -281,7 +281,9 @@ in
 
     localSystem = mkOption {
       type = types.attrs; # TODO utilize lib.systems.parsedPlatform
-      default = { inherit (cfg) system; };
+      default = {
+        inherit (cfg) system;
+      };
       example = {
         system = "aarch64-linux";
         config = "aarch64-unknown-linux-gnu";
@@ -390,7 +392,9 @@ in
   };
 
   config = {
-    _module.args = { pkgs = finalPkgs.__splicedPackages; };
+    _module.args = {
+      pkgs = finalPkgs.__splicedPackages;
+    };
 
     assertions = [
       (

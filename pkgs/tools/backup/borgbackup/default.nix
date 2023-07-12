@@ -122,7 +122,9 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$TEMP
   '';
 
-  passthru.tests = { inherit (nixosTests) borgbackup; };
+  passthru.tests = {
+    inherit (nixosTests) borgbackup;
+  };
 
   outputs = [
     "out"

@@ -73,7 +73,9 @@ in
           flannel-cr = {
             apiVersion = "rbac.authorization.k8s.io/v1";
             kind = "ClusterRole";
-            metadata = { name = "flannel"; };
+            metadata = {
+              name = "flannel";
+            };
             rules = [
               {
                 apiGroups = [ "" ];
@@ -99,7 +101,9 @@ in
           flannel-crb = {
             apiVersion = "rbac.authorization.k8s.io/v1";
             kind = "ClusterRoleBinding";
-            metadata = { name = "flannel"; };
+            metadata = {
+              name = "flannel";
+            };
             roleRef = {
               apiGroup = "rbac.authorization.k8s.io";
               kind = "ClusterRole";

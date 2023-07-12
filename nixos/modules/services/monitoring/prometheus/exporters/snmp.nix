@@ -31,7 +31,9 @@ in
       example = {
         "default" = {
           "version" = 2;
-          "auth" = { "community" = "public"; };
+          "auth" = {
+            "community" = "public";
+          };
         };
       };
     };

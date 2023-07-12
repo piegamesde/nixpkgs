@@ -8,7 +8,9 @@
 with lib;
 
 {
-  meta = { maintainers = teams.pantheon.members; };
+  meta = {
+    maintainers = teams.pantheon.members;
+  };
 
   ###### interface
   options = {

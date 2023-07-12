@@ -36,7 +36,9 @@ buildGoModule rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests) uptermd; };
+  passthru.tests = {
+    inherit (nixosTests) uptermd;
+  };
 
   __darwinAllowLocalNetworking = true;
 

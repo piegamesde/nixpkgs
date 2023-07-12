@@ -30,7 +30,9 @@ in
 {
   mysql = testLib.makeTest {
     name = "mediawiki-mysql";
-    nodes.machine = { services.mediawiki.database.type = "mysql"; };
+    nodes.machine = {
+      services.mediawiki.database.type = "mysql";
+    };
     testScript = ''
       start_all()
 
@@ -43,7 +45,9 @@ in
 
   postgresql = testLib.makeTest {
     name = "mediawiki-postgres";
-    nodes.machine = { services.mediawiki.database.type = "postgres"; };
+    nodes.machine = {
+      services.mediawiki.database.type = "postgres";
+    };
     testScript = ''
       start_all()
 
@@ -56,7 +60,9 @@ in
 
   nohttpd = testLib.makeTest {
     name = "mediawiki-nohttpd";
-    nodes.machine = { services.mediawiki.webserver = "none"; };
+    nodes.machine = {
+      services.mediawiki.webserver = "none";
+    };
     testScript =
       {
         nodes,

@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-i7c1jSawHshj1kaXl8tdpelIKU24okeg9K5/+ht6t2k=";
   };
 
-  passthru = { inherit libtorrent; };
+  passthru = {
+    inherit libtorrent;
+  };
 
   nativeBuildInputs = [ cmake ];
 

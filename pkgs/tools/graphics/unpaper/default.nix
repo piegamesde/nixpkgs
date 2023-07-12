@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ffmpeg_5-headless ];
 
-  passthru.tests = { inherit (nixosTests) paperless; };
+  passthru.tests = {
+    inherit (nixosTests) paperless;
+  };
 
   meta = with lib; {
     homepage = "https://www.flameeyes.eu/projects/unpaper";

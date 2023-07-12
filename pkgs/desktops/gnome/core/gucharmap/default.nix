@@ -108,7 +108,9 @@ stdenv.mkDerivation rec {
       gucharmap/gen-guch-unicode-tables.pl
   '';
 
-  passthru = { updateScript = gitUpdater { }; };
+  passthru = {
+    updateScript = gitUpdater { };
+  };
 
   meta = with lib; {
     description = "GNOME Character Map, based on the Unicode Character Database";

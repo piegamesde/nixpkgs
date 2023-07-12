@@ -20,7 +20,9 @@ stdenv.mkDerivation rec {
     cp $src $out/share/grep.py
   '';
 
-  passthru = { scripts = [ "grep.py" ]; };
+  passthru = {
+    scripts = [ "grep.py" ];
+  };
 
   meta = with lib; {
     description = "Search in Weechat buffers and logs (for Weechat 0.3.*)";

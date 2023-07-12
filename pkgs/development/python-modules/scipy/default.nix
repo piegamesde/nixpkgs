@@ -94,7 +94,9 @@ buildPythonPackage rec {
 
   requiredSystemFeatures = [ "big-parallel" ]; # the tests need lots of CPU time
 
-  passthru = { blas = numpy.blas; };
+  passthru = {
+    blas = numpy.blas;
+  };
 
   setupPyBuildFlags = [ "--fcompiler='gnu95'" ];
 

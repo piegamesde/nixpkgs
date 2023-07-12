@@ -18,7 +18,9 @@ buildKodiAddon rec {
 
   propagatedBuildInputs = [ vfs-libarchive ];
 
-  passthru = { pythonPath = "lib"; };
+  passthru = {
+    pythonPath = "lib";
+  };
 
   meta = with lib; {
     homepage = "https://github.com/zach-morris/script.module.archive_tool";

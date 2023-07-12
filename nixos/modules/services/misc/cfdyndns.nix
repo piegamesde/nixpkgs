@@ -83,6 +83,10 @@ in
       };
     };
 
-    users.groups = { cfdyndns = { gid = config.ids.gids.cfdyndns; }; };
+    users.groups = {
+      cfdyndns = {
+        gid = config.ids.gids.cfdyndns;
+      };
+    };
   };
 }

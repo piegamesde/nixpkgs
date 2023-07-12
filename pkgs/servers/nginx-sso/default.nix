@@ -23,7 +23,9 @@ buildGoModule rec {
     cp -R $src/frontend $out/share
   '';
 
-  passthru.tests = { inherit (nixosTests) nginx-sso; };
+  passthru.tests = {
+    inherit (nixosTests) nginx-sso;
+  };
 
   meta = with lib; {
     description = "SSO authentication provider for the auth_request nginx module";

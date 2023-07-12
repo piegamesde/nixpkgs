@@ -36,7 +36,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests) traefik; };
+  passthru.tests = {
+    inherit (nixosTests) traefik;
+  };
 
   meta = with lib; {
     homepage = "https://traefik.io";

@@ -204,6 +204,8 @@ in
       home = cfg.dataDir;
     };
 
-    users.groups.kapacitor = { gid = config.ids.gids.kapacitor; };
+    users.groups.kapacitor = {
+      gid = config.ids.gids.kapacitor;
+    };
   };
 }

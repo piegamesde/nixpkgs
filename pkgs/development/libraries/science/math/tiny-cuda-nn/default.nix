@@ -153,7 +153,9 @@ stdenv.mkDerivation (
       ''
     ;
 
-    passthru = { inherit cudaPackages; };
+    passthru = {
+      inherit cudaPackages;
+    };
 
     meta = with lib; {
       description = "Lightning fast C++/CUDA neural network framework";

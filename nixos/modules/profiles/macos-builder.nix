@@ -200,7 +200,9 @@ in
       );
     };
 
-    users.users."${user}" = { isNormalUser = true; };
+    users.users."${user}" = {
+      isNormalUser = true;
+    };
 
     security.polkit.enable = true;
 

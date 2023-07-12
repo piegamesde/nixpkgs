@@ -492,7 +492,9 @@ in
       home = home;
     };
 
-    users.groups.xtreemfs = { gid = config.ids.gids.xtreemfs; };
+    users.groups.xtreemfs = {
+      gid = config.ids.gids.xtreemfs;
+    };
 
     systemd.services.xtreemfs-dir = mkIf cfg.dir.enable {
       description = "XtreemFS-DIR Server";

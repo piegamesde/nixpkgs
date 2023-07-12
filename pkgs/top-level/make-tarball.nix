@@ -103,5 +103,7 @@ pkgs.releaseTools.sourceTarball {
     (cd .. && tar cfa $out/tarballs/$releaseName.tar.xz $releaseName) || false
   '';
 
-  meta = { maintainers = [ ]; };
+  meta = {
+    maintainers = [ ];
+  };
 }

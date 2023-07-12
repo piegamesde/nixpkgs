@@ -63,7 +63,9 @@ rustPlatform.buildRustPackage rec {
     "jumpy"
   ];
 
-  env = { ZSTD_SYS_USE_PKG_CONFIG = true; };
+  env = {
+    ZSTD_SYS_USE_PKG_CONFIG = true;
+  };
 
   postInstall = ''
     mkdir $out/share

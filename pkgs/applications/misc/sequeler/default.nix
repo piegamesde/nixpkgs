@@ -67,7 +67,9 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson_post_install.py
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Friendly SQL Client";

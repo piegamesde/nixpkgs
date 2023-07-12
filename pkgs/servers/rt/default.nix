@@ -176,5 +176,7 @@ stdenv.mkDerivation rec {
     ln -s /var/lib/rt/gpg $out/var/data/gpg
   '';
 
-  meta = { platforms = lib.platforms.unix; };
+  meta = {
+    platforms = lib.platforms.unix;
+  };
 }

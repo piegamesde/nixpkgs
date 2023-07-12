@@ -47,7 +47,9 @@ stdenv.mkDerivation rec {
     libadwaita
   ];
 
-  passthru = { updateScript = gnome.updateScript { packageName = "d-spy"; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = "d-spy"; };
+  };
 
   meta = with lib; {
     description = "D-Bus exploration tool";

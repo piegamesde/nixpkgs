@@ -40,7 +40,9 @@ in
       ListenPort = 8080;
       ListenAddress = "localhost";
       DataBackend = "file";
-      DataBackendConfig = { Directory = "/var/lib/plikd"; };
+      DataBackendConfig = {
+        Directory = "/var/lib/plikd";
+      };
       MetadataBackendConfig = {
         Driver = "sqlite3";
         ConnectionString = "/var/lib/plikd/plik.db";

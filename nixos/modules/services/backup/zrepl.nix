@@ -58,7 +58,9 @@ in
       path = [ config.boot.zfs.package ];
       restartTriggers = [ configFile ];
 
-      serviceConfig = { Restart = "on-failure"; };
+      serviceConfig = {
+        Restart = "on-failure";
+      };
     };
   };
 }

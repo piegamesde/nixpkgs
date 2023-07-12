@@ -170,7 +170,9 @@ buildPythonApplication rec {
     ])
   ;
 
-  passthru = { python = python3; };
+  passthru = {
+    python = python3;
+  };
 
   meta = with lib; {
     description = "An open source ecosystem for IoT development";

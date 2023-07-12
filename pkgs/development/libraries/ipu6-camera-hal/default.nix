@@ -63,7 +63,9 @@ stdenv.mkDerivation {
       --replace 'prefix=/usr' "prefix=$out"
   '';
 
-  passthru = { inherit (ipu6-camera-bin) ipuVersion; };
+  passthru = {
+    inherit (ipu6-camera-bin) ipuVersion;
+  };
 
   meta = with lib; {
     description = "HAL for processing of images in userspace";

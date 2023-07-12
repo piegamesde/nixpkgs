@@ -27,5 +27,7 @@ in
     hardware.firmware = [ pkgs.xow_dongle-firmware ];
   };
 
-  meta = { maintainers = with maintainers; [ rhysmdnz ]; };
+  meta = {
+    maintainers = with maintainers; [ rhysmdnz ];
+  };
 }

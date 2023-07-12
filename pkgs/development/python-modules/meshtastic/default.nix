@@ -48,7 +48,9 @@ buildPythonPackage rec {
     timeago
   ];
 
-  passthru.optional-dependencies = { tunnel = [ pytap2 ]; };
+  passthru.optional-dependencies = {
+    tunnel = [ pytap2 ];
+  };
 
   nativeCheckInputs = [
     pytap2

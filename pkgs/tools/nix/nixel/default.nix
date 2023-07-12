@@ -24,7 +24,9 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
   #
   # Let's test it runs
-  passthru.tests = { version = testers.testVersion { package = nixel; }; };
+  passthru.tests = {
+    version = testers.testVersion { package = nixel; };
+  };
 
   meta = with lib; {
     description = "Lexer, Parser, Abstract Syntax Tree and Concrete Syntax Tree for the Nix Expressions Language";

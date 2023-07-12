@@ -38,7 +38,9 @@ buildGoModule rec {
     cp -r ${ui}/libexec/gotify-ui/deps/gotify-ui/build ui/build && go run hack/packr/packr.go
   '';
 
-  passthru = { updateScript = ./update.sh; };
+  passthru = {
+    updateScript = ./update.sh;
+  };
 
   # Otherwise, all other subpackages are built as well and from some reason,
   # produce binaries which panic when executed and are not interesting at all

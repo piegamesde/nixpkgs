@@ -46,7 +46,9 @@ import ./make-test-python.nix (
           (builtins.readFile ./common/acme/server/ca.cert.pem)
         ];
 
-        services.nginx = { enable = true; };
+        services.nginx = {
+          enable = true;
+        };
 
         services.lxd-image-server = {
           enable = true;
@@ -62,7 +64,9 @@ import ./make-test-python.nix (
           sslCertificateKey = ./common/acme/server/acme.test.key.pem;
         };
 
-        networking.hosts = { "::1" = [ "acme.test" ]; };
+        networking.hosts = {
+          "::1" = [ "acme.test" ];
+        };
       }
     ;
 

@@ -136,7 +136,9 @@ stdenv.mkDerivation rec {
     glib-compile-schemas "$out/share/glib-2.0/schemas"
   '';
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Tracker";

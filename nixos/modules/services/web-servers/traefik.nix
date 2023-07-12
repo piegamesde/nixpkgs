@@ -90,7 +90,9 @@ in
         Static configuration for Traefik.
       '';
       type = jsonValue;
-      default = { entryPoints.http.address = ":80"; };
+      default = {
+        entryPoints.http.address = ":80";
+      };
       example = {
         entryPoints.web.address = ":8080";
         entryPoints.http.address = ":80";

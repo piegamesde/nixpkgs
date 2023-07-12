@@ -69,7 +69,9 @@ rec {
       # TODO reenable once manual-config's config actually builds a .dtb and this is checked to be working
       #DTB = true;
     };
-    gcc = { arch = "armv5te"; };
+    gcc = {
+      arch = "armv5te";
+    };
   };
 
   sheevaplug = {
@@ -180,7 +182,9 @@ rec {
       target = "uImage";
       DTB = true; # Beyond 3.10
     };
-    gcc = { arch = "armv5te"; };
+    gcc = {
+      arch = "armv5te";
+    };
   };
 
   raspberrypi = {
@@ -376,7 +380,9 @@ rec {
       '';
       target = "Image";
     };
-    gcc = { arch = "armv8-a"; };
+    gcc = {
+      arch = "armv8-a";
+    };
   };
 
   apple-m1 = {
@@ -391,7 +397,9 @@ rec {
   ##
 
   ben_nanonote = {
-    linux-kernel = { name = "ben_nanonote"; };
+    linux-kernel = {
+      name = "ben_nanonote";
+    };
     gcc = {
       arch = "mips32";
       float = "soft";

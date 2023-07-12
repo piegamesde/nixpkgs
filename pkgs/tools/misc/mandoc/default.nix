@@ -58,7 +58,9 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ perl ];
   preCheck = "patchShebangs --build regress/regress.pl";
 
-  passthru.tests = { nixos = nixosTests.man; };
+  passthru.tests = {
+    nixos = nixosTests.man;
+  };
 
   meta = with lib; {
     # check if we can execute binaries for the host platform on the build platform

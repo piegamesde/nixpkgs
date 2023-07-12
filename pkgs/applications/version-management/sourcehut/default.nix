@@ -47,7 +47,9 @@ recurseIntoAttrs (
     pagessrht = callPackage ./pages.nix { };
     pastesrht = toPythonApplication pastesrht;
     todosrht = toPythonApplication todosrht;
-    passthru.tests = { nixos-sourcehut = nixosTests.sourcehut; };
+    passthru.tests = {
+      nixos-sourcehut = nixosTests.sourcehut;
+    };
   } // lib.optionalAttrs config.allowAliases {
     # Added 2022-10-29
     dispatchsrht =

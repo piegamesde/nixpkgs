@@ -411,5 +411,7 @@ in
     ];
   };
 
-  meta = { maintainers = [ lib.maintainers.cmm ]; };
+  meta = {
+    maintainers = [ lib.maintainers.cmm ];
+  };
 }

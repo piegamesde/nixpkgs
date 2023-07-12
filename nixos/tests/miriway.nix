@@ -70,7 +70,9 @@ import ./make-test-python.nix (
 
           # To help with OCR
           etc."xdg/foot/foot.ini".text = lib.generators.toINI { } {
-            main = { font = "inconsolata:size=16"; };
+            main = {
+              font = "inconsolata:size=16";
+            };
             colors = rec {
               foreground = "000000";
               background = "ffffff";
@@ -90,7 +92,9 @@ import ./make-test-python.nix (
                 foreground = "0x000000";
                 background = "0xffffff";
               };
-              normal = { green = primary.foreground; };
+              normal = {
+                green = primary.foreground;
+              };
             };
           };
         };

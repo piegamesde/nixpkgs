@@ -21,7 +21,9 @@ import ./make-test-python.nix (
         users.groups = {
           foobar = { };
           barfoo = { };
-          baz = { gid = 1337; };
+          baz = {
+            gid = 1337;
+          };
         };
         users.users = {
           test0 = {
@@ -45,7 +47,9 @@ import ./make-test-python.nix (
             isNormalUser = true;
             extraGroups = [ "baz" ];
           };
-          test5 = { isNormalUser = true; };
+          test5 = {
+            isNormalUser = true;
+          };
         };
 
         security.sudo = {
@@ -126,7 +130,9 @@ import ./make-test-python.nix (
             isNormalUser = true;
             extraGroups = [ "wheel" ];
           };
-          noadmin = { isNormalUser = true; };
+          noadmin = {
+            isNormalUser = true;
+          };
         };
 
         security.sudo = {

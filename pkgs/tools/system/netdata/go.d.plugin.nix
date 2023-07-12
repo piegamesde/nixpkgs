@@ -31,7 +31,9 @@ buildGoModule rec {
     cp -r config/* $out/lib/netdata/conf.d
   '';
 
-  passthru.tests = { inherit (nixosTests) netdata; };
+  passthru.tests = {
+    inherit (nixosTests) netdata;
+  };
 
   meta = with lib; {
     description = "Netdata orchestrator for data collection modules written in go";

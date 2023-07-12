@@ -277,7 +277,9 @@ with pkgs;
     makeSetupHook
       {
         name = "canonicalize-jars-hook";
-        substitutions = { canonicalize_jar = canonicalize-jar; };
+        substitutions = {
+          canonicalize_jar = canonicalize-jar;
+        };
       }
       ../build-support/setup-hooks/canonicalize-jars.sh
   ;
@@ -438,7 +440,9 @@ with pkgs;
     makeSetupHook
       {
         name = "update-autotools-gnu-config-scripts-hook";
-        substitutions = { gnu_config = gnu-config; };
+        substitutions = {
+          gnu_config = gnu-config;
+        };
       }
       ../build-support/setup-hooks/update-autotools-gnu-config-scripts.sh
   ;
@@ -1299,7 +1303,9 @@ with pkgs;
               throw "makeWrapper/makeShellWrapper must be in nativeBuildInputs"
           ;
         };
-        passthru = { tests = tests.makeWrapper; };
+        passthru = {
+          tests = tests.makeWrapper;
+        };
       }
       ../build-support/setup-hooks/make-wrapper.sh
   ;
@@ -1445,7 +1451,9 @@ with pkgs;
     makeSetupHook
       {
         name = "fix-darwin-dylib-names-hook";
-        substitutions = { inherit (binutils) targetPrefix; };
+        substitutions = {
+          inherit (binutils) targetPrefix;
+        };
         meta.platforms = lib.platforms.darwin;
       }
       ../build-support/setup-hooks/fix-darwin-dylib-names.sh
@@ -26922,7 +26930,9 @@ with pkgs;
     makeSetupHook
       {
         name = "qmake4.8-hook";
-        substitutions = { qt4 = qt48; };
+        substitutions = {
+          qt4 = qt48;
+        };
       }
       ../development/libraries/qt-4.x/4.8/qmake-hook.sh
   ;
@@ -40490,7 +40500,9 @@ with pkgs;
       (
         _: rec {
           pname = "vim-darwin";
-          meta = { platforms = lib.platforms.darwin; };
+          meta = {
+            platforms = lib.platforms.darwin;
+          };
         }
       )
   ;

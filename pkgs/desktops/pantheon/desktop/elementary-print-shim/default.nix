@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gtk3 ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Simple shim for printing support via Contractor";

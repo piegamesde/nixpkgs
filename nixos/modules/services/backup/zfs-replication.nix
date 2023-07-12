@@ -104,5 +104,7 @@ in
     };
   };
 
-  meta = { maintainers = with lib.maintainers; [ alunduil ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ alunduil ];
+  };
 }

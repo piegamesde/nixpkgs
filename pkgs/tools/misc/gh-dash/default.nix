@@ -25,7 +25,9 @@ buildGoModule rec {
     "-X github.com/dlvhdr/gh-dash/cmd.Version=${version}"
   ];
 
-  passthru.tests = { version = testers.testVersion { package = gh-dash; }; };
+  passthru.tests = {
+    version = testers.testVersion { package = gh-dash; };
+  };
 
   meta = {
     description = "gh extension to display a dashboard with pull requests and issues";

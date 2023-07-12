@@ -8,7 +8,9 @@
 
 let
   wolfram-jupyter = jupyter.override {
-    definitions = { wolfram = wolfram-for-jupyter-kernel.definition; };
+    definitions = {
+      wolfram = wolfram-for-jupyter-kernel.definition;
+    };
   };
 in
 writeScriptBin "wolfram-notebook" ''

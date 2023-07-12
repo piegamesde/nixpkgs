@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
     substituteInPlace "$out/bin/pon" --replace "/usr/sbin" "$out/bin"
   '';
 
-  passthru.tests = { inherit (nixosTests) pppd; };
+  passthru.tests = {
+    inherit (nixosTests) pppd;
+  };
 
   meta = with lib; {
     homepage = "https://ppp.samba.org";

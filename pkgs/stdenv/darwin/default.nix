@@ -479,7 +479,9 @@ rec {
               mkdir -p $out/lib
               ln -s ${bootstrapTools}/lib/libc++abi.dylib $out/lib/libc++abi.dylib
             '';
-            passthru = { libName = "c++abi"; };
+            passthru = {
+              libName = "c++abi";
+            };
           };
 
           compiler-rt = stdenv.mkDerivation {

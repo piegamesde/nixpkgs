@@ -78,7 +78,9 @@ rustPlatform.buildRustPackage rec {
       --zsh zsh-completions/_pxar
   '';
 
-  cargoLock = { lockFileContents = builtins.readFile ./Cargo.lock; };
+  cargoLock = {
+    lockFileContents = builtins.readFile ./Cargo.lock;
+  };
 
   cargoBuildFlags = [
     "--package=proxmox-backup-client"

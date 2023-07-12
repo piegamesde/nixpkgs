@@ -31,8 +31,12 @@ let
         ;
 
         testers = builtins.mapAttrs makeTestPlay {
-          testPlay = { inherit (pkgs) sox alsa-utils; };
-          testPlay32 = { inherit (pkgs.pkgsi686Linux) sox alsa-utils; };
+          testPlay = {
+            inherit (pkgs) sox alsa-utils;
+          };
+          testPlay32 = {
+            inherit (pkgs.pkgsi686Linux) sox alsa-utils;
+          };
         };
       in
       {

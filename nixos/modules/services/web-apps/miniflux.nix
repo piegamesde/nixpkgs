@@ -78,7 +78,9 @@ in
       enable = true;
       ensureUsers = [ {
         name = dbUser;
-        ensurePermissions = { "DATABASE ${dbName}" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "DATABASE ${dbName}" = "ALL PRIVILEGES";
+        };
       } ];
       ensureDatabases = [ dbName ];
     };

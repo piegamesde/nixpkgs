@@ -122,7 +122,11 @@ let
     if mattermostPlugins == null then
       { }
     else
-      { PluginSettings = { Enable = true; }; }
+      {
+        PluginSettings = {
+          Enable = true;
+        };
+      }
   );
 
   mattermostConfJSON = pkgs.writeText "mattermost-config.json" (

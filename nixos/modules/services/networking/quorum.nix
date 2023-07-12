@@ -214,7 +214,9 @@ in
       description = "Quorum daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      environment = { PRIVATE_CONFIG = "${cfg.privateconfig}"; };
+      environment = {
+        PRIVATE_CONFIG = "${cfg.privateconfig}";
+      };
       preStart = ''
         if [ ! -d ${dataDir}/geth ]; then
           if [ ! -d ${dataDir}/keystore ]; then

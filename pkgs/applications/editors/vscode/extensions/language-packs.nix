@@ -19,7 +19,9 @@ let
         publisher = "MS-CEINTL";
         inherit version sha256;
       };
-      meta = { license = lib.licenses.mit; };
+      meta = {
+        license = lib.licenses.mit;
+      };
     }
   ;
 in

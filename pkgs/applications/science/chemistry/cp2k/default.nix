@@ -154,7 +154,9 @@ stdenv.mkDerivation rec {
     cp -r data/* $out/share/cp2k
   '';
 
-  passthru = { inherit mpi; };
+  passthru = {
+    inherit mpi;
+  };
 
   meta = with lib; {
     description = "Quantum chemistry and solid state physics program";

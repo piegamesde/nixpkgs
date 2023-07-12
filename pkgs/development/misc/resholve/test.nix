@@ -95,7 +95,9 @@ rec {
     # LOGLEVEL="DEBUG";
     solutions = {
       openssl = {
-        fix = { aliases = true; };
+        fix = {
+          aliases = true;
+        };
         scripts = [
           "bin/openssl.sh"
           "libexec/invokeme"

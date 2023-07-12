@@ -95,7 +95,9 @@ in
       extraConfig = mkOption {
         type = types.attrs;
         default = { };
-        example = { STATS_PRINT_PERIOD = 600; };
+        example = {
+          STATS_PRINT_PERIOD = 600;
+        };
         description = lib.mdDoc ''
           Extra configuration options for mtprotoproxy.
         '';

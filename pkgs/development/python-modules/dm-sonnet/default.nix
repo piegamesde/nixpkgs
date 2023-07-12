@@ -39,7 +39,9 @@ buildPythonPackage rec {
     ++ etils.optional-dependencies.epath
   ;
 
-  passthru.optional-dependencies = { tensorflow = [ tensorflow ]; };
+  passthru.optional-dependencies = {
+    tensorflow = [ tensorflow ];
+  };
 
   nativeCheckInputs = [
     docutils

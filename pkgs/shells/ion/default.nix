@@ -48,7 +48,9 @@ rustPlatform.buildRustPackage rec {
       ]
   ;
 
-  passthru = { shellPath = "/bin/ion"; };
+  passthru = {
+    shellPath = "/bin/ion";
+  };
 
   meta = with lib; {
     description = "Modern system shell with simple (and powerful) syntax";

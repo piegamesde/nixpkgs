@@ -26,7 +26,9 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = { inherit pname version; };
+  passthru = {
+    inherit pname version;
+  };
 
   meta = with lib; {
     description = "Creative Commons symbol font";

@@ -129,7 +129,9 @@ in
       extraConfig = mkOption {
         type = types.attrs;
         default = { };
-        example = { nameserver = "8.8.8.8"; };
+        example = {
+          nameserver = "8.8.8.8";
+        };
         description = lib.mdDoc ''
           Additional configuration for shadowsocks that is not covered by the
           provided options. The provided attrset will be serialized to JSON and

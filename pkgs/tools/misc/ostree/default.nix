@@ -153,7 +153,9 @@ stdenv.mkDerivation rec {
   ;
 
   passthru = {
-    tests = { installedTests = nixosTests.installed-tests.ostree; };
+    tests = {
+      installedTests = nixosTests.installed-tests.ostree;
+    };
   };
 
   meta = with lib; {

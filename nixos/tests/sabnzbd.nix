@@ -14,7 +14,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        services.sabnzbd = { enable = true; };
+        services.sabnzbd = {
+          enable = true;
+        };
 
         # unrar is unfree
         nixpkgs.config.allowUnfreePredicate =

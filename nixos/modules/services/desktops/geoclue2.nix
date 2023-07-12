@@ -268,10 +268,18 @@ in
             ++ defaultWhitelist
           );
         };
-        network-nmea = { enable = cfg.enableNmea; };
-        "3g" = { enable = cfg.enable3G; };
-        cdma = { enable = cfg.enableCDMA; };
-        modem-gps = { enable = cfg.enableModemGPS; };
+        network-nmea = {
+          enable = cfg.enableNmea;
+        };
+        "3g" = {
+          enable = cfg.enable3G;
+        };
+        cdma = {
+          enable = cfg.enableCDMA;
+        };
+        modem-gps = {
+          enable = cfg.enableModemGPS;
+        };
         wifi = {
           enable = cfg.enableWifi;
           url = cfg.geoProviderUrl;

@@ -85,7 +85,11 @@ in
           };
         };
       };
-      default = { listen = { address = "127.0.0.1"; }; };
+      default = {
+        listen = {
+          address = "127.0.0.1";
+        };
+      };
       description = mdDoc ''
         Karma dashboard configuration as nix attributes.
 

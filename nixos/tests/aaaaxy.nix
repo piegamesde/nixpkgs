@@ -7,7 +7,9 @@
   name = "aaaaxy";
   meta.maintainers = with lib.maintainers; [ Luflosi ];
 
-  nodes.machine = { hardware.opengl.enable = true; };
+  nodes.machine = {
+    hardware.opengl.enable = true;
+  };
 
   # This starts the game from a known state, feeds it a prerecorded set of button presses
   # and then checks if the final game state is identical to the expected state.

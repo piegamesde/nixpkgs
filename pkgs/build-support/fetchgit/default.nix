@@ -151,5 +151,7 @@ else
 
       inherit preferLocalBuild meta allowedRequisites;
 
-      passthru = { gitRepoUrl = url; };
+      passthru = {
+        gitRepoUrl = url;
+      };
     }

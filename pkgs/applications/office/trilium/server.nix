@@ -47,5 +47,7 @@ stdenv.mkDerivation rec {
     chmod a+x $out/bin/trilium-server
   '';
 
-  passthru.tests = { trilium-server = nixosTests.trilium-server; };
+  passthru.tests = {
+    trilium-server = nixosTests.trilium-server;
+  };
 }

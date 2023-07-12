@@ -21,7 +21,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        virtualisation = { lxd.enable = true; };
+        virtualisation = {
+          lxd.enable = true;
+        };
 
         networking = {
           firewall.enable = false;

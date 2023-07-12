@@ -106,7 +106,9 @@ let
       CC_OPTIMIZE_FOR_SIZE = no;
     };
 
-    memtest = { MEMTEST = yes; };
+    memtest = {
+      MEMTEST = yes;
+    };
 
     # Include the CFQ I/O scheduler in the kernel, rather than as a
     # module, so that the initrd gets a good I/O scheduler.
@@ -128,7 +130,9 @@ let
     };
 
     # Enable NUMA.
-    numa = { NUMA = option yes; };
+    numa = {
+      NUMA = option yes;
+    };
 
     networking = {
       NET = yes;

@@ -75,7 +75,9 @@ buildPythonApplication rec {
     pytest
   '';
 
-  passthru.tests = { inherit (nixosTests) isso; };
+  passthru.tests = {
+    inherit (nixosTests) isso;
+  };
 
   meta = with lib; {
     description = "A commenting server similar to Disqus";

@@ -23,7 +23,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-sCxscs4D2p7LNDpcrKfAc315/NbxbQXtsyc33zUmccM=";
   };
 
-  cargoLock = { lockFile = ./Cargo.lock; };
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+  };
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
@@ -49,7 +51,9 @@ rustPlatform.buildRustPackage rec {
     popd
   '';
 
-  passthru.tests = { inherit (python3.pkgs) pillow; };
+  passthru.tests = {
+    inherit (python3.pkgs) pillow;
+  };
 
   meta = with lib; {
     homepage = "https://pngquant.org/lib/";

@@ -10,7 +10,9 @@ let
   kclockPkg = pkgs.libsForQt5.kclock;
 in
 {
-  options.programs.kclock = { enable = mkEnableOption (lib.mdDoc "KClock"); };
+  options.programs.kclock = {
+    enable = mkEnableOption (lib.mdDoc "KClock");
+  };
 
   config = mkIf cfg.enable {
     services.dbus.packages = [ kclockPkg ];

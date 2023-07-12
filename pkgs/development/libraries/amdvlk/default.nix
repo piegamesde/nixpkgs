@@ -105,7 +105,9 @@ stdenv.mkDerivation rec {
     setHash "$hash"
   '';
 
-  passthru.impureTests = { amdvlk = callPackage ./test.nix { }; };
+  passthru.impureTests = {
+    amdvlk = callPackage ./test.nix { };
+  };
 
   meta = with lib; {
     description = "AMD Open Source Driver For Vulkan";

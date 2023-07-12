@@ -58,7 +58,9 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 
-  passthru = { shellPath = "/bin/mksh"; };
+  passthru = {
+    shellPath = "/bin/mksh";
+  };
 }
 # TODO [ AndersonTorres ]: lksh
 # TODO [ AndersonTorres ]: a more accurate licensing info

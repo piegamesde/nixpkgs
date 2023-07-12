@@ -257,5 +257,7 @@ in
     security.polkit.enable = true;
   };
 
-  meta = { maintainers = pkgs.fwupd.meta.maintainers; };
+  meta = {
+    maintainers = pkgs.fwupd.meta.maintainers;
+  };
 }

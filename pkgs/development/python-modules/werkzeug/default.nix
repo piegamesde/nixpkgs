@@ -60,7 +60,9 @@ buildPythonPackage rec {
       "-m 'not filterwarnings'"
     ];
 
-  passthru.tests = { inherit moto sentry-sdk; };
+  passthru.tests = {
+    inherit moto sentry-sdk;
+  };
 
   meta = with lib; {
     homepage = "https://palletsprojects.com/p/werkzeug/";

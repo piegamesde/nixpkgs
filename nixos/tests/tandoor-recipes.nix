@@ -35,7 +35,9 @@ import ./make-test-python.nix (
         };
 
         systemd.services = {
-          tandoor-recipes = { after = [ "postgresql.service" ]; };
+          tandoor-recipes = {
+            after = [ "postgresql.service" ];
+          };
         };
       }
     ;

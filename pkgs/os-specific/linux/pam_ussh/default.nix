@@ -52,7 +52,9 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) pam-ussh; };
+  passthru.tests = {
+    inherit (nixosTests) pam-ussh;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/uber/pam-ussh";

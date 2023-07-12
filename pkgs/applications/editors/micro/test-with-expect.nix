@@ -31,7 +31,9 @@ runCommand "micro-test-expect"
       micro
       expect
     ];
-    passthru = { inherit expect-script; };
+    passthru = {
+      inherit expect-script;
+    };
   }
   ''
     # Micro really wants a writable $HOME for its config directory.

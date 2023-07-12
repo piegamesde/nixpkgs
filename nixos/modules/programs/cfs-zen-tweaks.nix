@@ -16,7 +16,9 @@ in
 
 {
 
-  meta = { maintainers = with maintainers; [ mkg20001 ]; };
+  meta = {
+    maintainers = with maintainers; [ mkg20001 ];
+  };
 
   options = {
     programs.cfs-zen-tweaks.enable = mkEnableOption (

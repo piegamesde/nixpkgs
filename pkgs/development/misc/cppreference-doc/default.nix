@@ -24,7 +24,9 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = { inherit pname version; };
+  passthru = {
+    inherit pname version;
+  };
 
   meta = with lib; {
     description = "C++ standard library reference";

@@ -26,7 +26,9 @@ in
               gnutar
               lbzip2
             ];
-            substitutions = { inherit pythonSitePackages; };
+            substitutions = {
+              inherit pythonSitePackages;
+            };
           }
           ./conda-install-hook.sh
       )
@@ -76,7 +78,9 @@ in
           {
             name = "egg-install-hook.sh";
             propagatedBuildInputs = [ setuptools ];
-            substitutions = { inherit pythonInterpreter pythonSitePackages; };
+            substitutions = {
+              inherit pythonInterpreter pythonSitePackages;
+            };
           }
           ./egg-install-hook.sh
       )
@@ -110,7 +114,9 @@ in
           {
             name = "flit-build-hook";
             propagatedBuildInputs = [ flit ];
-            substitutions = { inherit pythonInterpreter; };
+            substitutions = {
+              inherit pythonInterpreter;
+            };
           }
           ./flit-build-hook.sh
       )
@@ -132,7 +138,9 @@ in
               pip
               wheel
             ];
-            substitutions = { inherit pythonInterpreter pythonSitePackages; };
+            substitutions = {
+              inherit pythonInterpreter pythonSitePackages;
+            };
           }
           ./pip-build-hook.sh
       )
@@ -150,7 +158,9 @@ in
           {
             name = "pip-install-hook";
             propagatedBuildInputs = [ pip ];
-            substitutions = { inherit pythonInterpreter pythonSitePackages; };
+            substitutions = {
+              inherit pythonInterpreter pythonSitePackages;
+            };
           }
           ./pip-install-hook.sh
       )
@@ -168,7 +178,9 @@ in
           {
             name = "pytest-check-hook";
             propagatedBuildInputs = [ pytest ];
-            substitutions = { inherit pythonCheckInterpreter; };
+            substitutions = {
+              inherit pythonCheckInterpreter;
+            };
           }
           ./pytest-check-hook.sh
       )
@@ -223,7 +235,9 @@ in
         makePythonHook
           {
             name = "python-namespaces-hook.sh";
-            substitutions = { inherit pythonSitePackages findutils; };
+            substitutions = {
+              inherit pythonSitePackages findutils;
+            };
           }
           ./python-namespaces-hook.sh
       )
@@ -280,7 +294,9 @@ in
           {
             name = "python-relax-deps-hook";
             propagatedBuildInputs = [ wheel ];
-            substitutions = { inherit pythonInterpreter; };
+            substitutions = {
+              inherit pythonInterpreter;
+            };
           }
           ./python-relax-deps-hook.sh
       )
@@ -308,7 +324,9 @@ in
         makePythonHook
           {
             name = "python-remove-tests-dir-hook";
-            substitutions = { inherit pythonSitePackages; };
+            substitutions = {
+              inherit pythonSitePackages;
+            };
           }
           ./python-remove-tests-dir-hook.sh
       )
@@ -350,7 +368,9 @@ in
           {
             name = "setuptools-check-hook";
             propagatedBuildInputs = [ setuptools ];
-            substitutions = { inherit pythonCheckInterpreter setuppy; };
+            substitutions = {
+              inherit pythonCheckInterpreter setuppy;
+            };
           }
           ./setuptools-check-hook.sh
       )
@@ -366,7 +386,9 @@ in
         makePythonHook
           {
             name = "unittest-check-hook";
-            substitutions = { inherit pythonCheckInterpreter; };
+            substitutions = {
+              inherit pythonCheckInterpreter;
+            };
           }
           ./unittest-check-hook.sh
       )
@@ -384,7 +406,9 @@ in
           {
             name = "venv-shell-hook";
             propagatedBuildInputs = [ ensureNewerSourcesForZipFilesHook ];
-            substitutions = { inherit pythonInterpreter; };
+            substitutions = {
+              inherit pythonInterpreter;
+            };
           }
           ./venv-shell-hook.sh
       )

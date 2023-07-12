@@ -75,7 +75,9 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru = { updateScript = gitUpdater { ignoredVersions = "master.*"; }; };
+  passthru = {
+    updateScript = gitUpdater { ignoredVersions = "master.*"; };
+  };
 
   meta = with lib; {
     description = "A sticky notes app for the linux desktop";

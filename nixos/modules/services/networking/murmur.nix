@@ -361,7 +361,9 @@ in
       uid = config.ids.uids.murmur;
       group = "murmur";
     };
-    users.groups.murmur = { gid = config.ids.gids.murmur; };
+    users.groups.murmur = {
+      gid = config.ids.gids.murmur;
+    };
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [ cfg.port ];

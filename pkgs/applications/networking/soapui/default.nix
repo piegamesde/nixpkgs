@@ -55,7 +55,9 @@ stdenv.mkDerivation rec {
       '')
     ];
 
-  passthru.tests = { inherit (nixosTests) soapui; };
+  passthru.tests = {
+    inherit (nixosTests) soapui;
+  };
 
   meta = with lib; {
     description = "The Most Advanced REST & SOAP Testing Tool in the World";

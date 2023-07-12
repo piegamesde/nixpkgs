@@ -8,16 +8,22 @@ import ./make-test-python.nix (
     client_base = {
       containers.test1 = {
         autoStart = true;
-        config = { environment.etc.check.text = "client_base"; };
+        config = {
+          environment.etc.check.text = "client_base";
+        };
       };
 
       # prevent make-test-python.nix to change IP
-      networking.interfaces = { eth1.ipv4.addresses = lib.mkOverride 0 [ ]; };
+      networking.interfaces = {
+        eth1.ipv4.addresses = lib.mkOverride 0 [ ];
+      };
     };
   in
   {
     name = "containers-reloadable";
-    meta = { maintainers = with lib.maintainers; [ danbst ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ danbst ];
+    };
 
     nodes = {
       client =

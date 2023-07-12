@@ -28,7 +28,9 @@ in
           "Extra environment variables to pass to the Garage server."
       ;
       default = { };
-      example = { RUST_BACKTRACE = "yes"; };
+      example = {
+        RUST_BACKTRACE = "yes";
+      };
     };
 
     logLevel = mkOption {
@@ -111,7 +113,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc."garage.toml" = { source = configFile; };
+    environment.etc."garage.toml" = {
+      source = configFile;
+    };
 
     environment.systemPackages = [ cfg.package ]; # For administration
 

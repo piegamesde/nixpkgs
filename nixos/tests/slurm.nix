@@ -73,7 +73,9 @@ import ./make-test-python.nix (
             imports = [ slurmconfig ];
             # TODO slurmd port and slurmctld port should be configurations and
             # automatically allowed by the  firewall.
-            services.slurm = { client.enable = true; };
+            services.slurm = {
+              client.enable = true;
+            };
           }
         ;
       in
@@ -85,7 +87,9 @@ import ./make-test-python.nix (
           }:
           {
             imports = [ slurmconfig ];
-            services.slurm = { server.enable = true; };
+            services.slurm = {
+              server.enable = true;
+            };
           }
         ;
 
@@ -95,7 +99,9 @@ import ./make-test-python.nix (
           }:
           {
             imports = [ slurmconfig ];
-            services.slurm = { enableStools = true; };
+            services.slurm = {
+              enableStools = true;
+            };
           }
         ;
 
@@ -125,7 +131,9 @@ import ./make-test-python.nix (
               '';
               ensureDatabases = [ "slurm_acct_db" ];
               ensureUsers = [ {
-                ensurePermissions = { "slurm_acct_db.*" = "ALL PRIVILEGES"; };
+                ensurePermissions = {
+                  "slurm_acct_db.*" = "ALL PRIVILEGES";
+                };
                 name = "slurm";
               } ];
               settings.mysqld = {

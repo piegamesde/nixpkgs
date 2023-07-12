@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { smoke-test = nixosTests.limesurvey; };
+  passthru.tests = {
+    smoke-test = nixosTests.limesurvey;
+  };
 
   meta = with lib; {
     description = "Open source survey application";

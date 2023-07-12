@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit nix; };
+  passthru.tests = {
+    inherit nix;
+  };
 
   meta = with lib; {
     description = "AWS SDK utility library";

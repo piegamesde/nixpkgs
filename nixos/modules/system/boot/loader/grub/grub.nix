@@ -237,7 +237,11 @@ in
 
       users = mkOption {
         default = { };
-        example = { root = { hashedPasswordFile = "/path/to/file"; }; };
+        example = {
+          root = {
+            hashedPasswordFile = "/path/to/file";
+          };
+        };
         description = lib.mdDoc ''
           User accounts for GRUB. When specified, the GRUB command line and
           all boot options except the default are password-protected.

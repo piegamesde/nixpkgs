@@ -339,7 +339,9 @@ in
         home = "/var/lib/munin";
       };
 
-      users.groups.munin = { gid = config.ids.gids.munin; };
+      users.groups.munin = {
+        gid = config.ids.gids.munin;
+      };
     })
     (mkIf nodeCfg.enable {
 

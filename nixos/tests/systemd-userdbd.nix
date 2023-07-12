@@ -15,7 +15,9 @@ import ./make-test-python.nix (
       {
         services.userdbd.enable = true;
 
-        users.users.test-user-nss = { isNormalUser = true; };
+        users.users.test-user-nss = {
+          isNormalUser = true;
+        };
 
         environment.etc."userdb/test-user-dropin.user".text = builtins.toJSON {
           userName = "test-user-dropin";

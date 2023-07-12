@@ -132,7 +132,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { libinput-module = nixosTests.libinput; };
+    tests = {
+      libinput-module = nixosTests.libinput;
+    };
     updateScript = gitUpdater { patchlevel-unstable = true; };
   };
 

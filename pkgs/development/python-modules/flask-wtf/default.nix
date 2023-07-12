@@ -26,7 +26,9 @@ buildPythonPackage rec {
     wtforms
   ];
 
-  passthru.optional-dependencies = { email = [ email-validator ]; };
+  passthru.optional-dependencies = {
+    email = [ email-validator ];
+  };
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -427,7 +427,9 @@ let
         };
       };
 
-      config = { name = mkDefault name; };
+      config = {
+        name = mkDefault name;
+      };
 
       # Renamed or removed options
       imports =
@@ -804,7 +806,9 @@ in
       example = {
         vs0.interfaces = {
           eth0 = { };
-          lo1 = { type = "internal"; };
+          lo1 = {
+            type = "internal";
+          };
         };
         vs1.interfaces = [
           { name = "eth2"; }
@@ -1113,7 +1117,9 @@ in
             dev = "eth0";
           };
         };
-        backup = { port = 9002; };
+        backup = {
+          port = 9002;
+        };
       };
       description = lib.mdDoc ''
         This option allows you to configure Foo Over UDP and Generic UDP Encapsulation
@@ -1168,7 +1174,9 @@ in
                   }
                 );
                 default = null;
-                example = { address = "203.0.113.22"; };
+                example = {
+                  address = "203.0.113.22";
+                };
                 description = lib.mdDoc ''
                   Local address (and optionally device) to bind to using the given port.
                 '';

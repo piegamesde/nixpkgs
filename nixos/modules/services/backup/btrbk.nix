@@ -180,7 +180,9 @@ in
                         target = "/mnt/btr_backup/mylaptop";
                         subvolume = {
                           "rootfs" = { };
-                          "home" = { snapshot_create = "always"; };
+                          "home" = {
+                            snapshot_create = "always";
+                          };
                         };
                       };
                     };

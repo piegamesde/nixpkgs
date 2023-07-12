@@ -128,7 +128,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { inherit compat28 compat30 unicode; };
+  passthru = {
+    inherit compat28 compat30 unicode;
+  };
 
   meta = with lib; {
     homepage = "https://www.wxwidgets.org/";

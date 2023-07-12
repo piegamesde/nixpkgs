@@ -61,7 +61,9 @@ stdenv.mkDerivation rec {
   # Stripping breaks ndi-record.
   dontStrip = true;
 
-  passthru.tests = { inherit (obs-studio-plugins) obs-ndi; };
+  passthru.tests = {
+    inherit (obs-studio-plugins) obs-ndi;
+  };
   passthru.updateScript = ./update.py;
 
   meta = with lib; {

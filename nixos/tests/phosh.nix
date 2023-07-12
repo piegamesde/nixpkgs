@@ -33,7 +33,11 @@ import ./make-test-python.nix (
             user = "nixos";
             group = "users";
 
-            phocConfig = { outputs.Virtual-1 = { scale = 2; }; };
+            phocConfig = {
+              outputs.Virtual-1 = {
+                scale = 2;
+              };
+            };
           };
 
           systemd.services.phosh = {

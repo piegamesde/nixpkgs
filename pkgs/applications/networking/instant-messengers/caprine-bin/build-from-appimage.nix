@@ -20,7 +20,9 @@ in
 (appimageTools.wrapType2 {
   inherit pname version src;
 
-  passthru = { inherit pname version src; };
+  passthru = {
+    inherit pname version src;
+  };
 
   profile = ''
     export LC_ALL=C.UTF-8

@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LZ/e59NhlU/uUyEApQ5gKCbJzBFT+M0Fe6pl7VfpAoM=";
   };
 
-  passthru = { inherit blas64; };
+  passthru = {
+    inherit blas64;
+  };
 
   nativeBuildInputs = [
     cmake

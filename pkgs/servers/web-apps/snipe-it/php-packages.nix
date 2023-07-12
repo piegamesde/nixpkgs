@@ -1678,5 +1678,7 @@ composerEnv.buildPackage {
   src = composerEnv.filterSrc ./.;
   executable = false;
   symlinkDependencies = false;
-  meta = { license = "AGPL-3.0-or-later"; };
+  meta = {
+    license = "AGPL-3.0-or-later";
+  };
 }

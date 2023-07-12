@@ -56,5 +56,9 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
   };
 
-  passthru = { updateInfo = { downloadPage = "fbpanel.sourceforge.net"; }; };
+  passthru = {
+    updateInfo = {
+      downloadPage = "fbpanel.sourceforge.net";
+    };
+  };
 }

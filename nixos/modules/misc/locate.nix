@@ -271,7 +271,9 @@ in
       }
     ;
 
-    nixpkgs.config = { locate.dbfile = cfg.output; };
+    nixpkgs.config = {
+      locate.dbfile = cfg.output;
+    };
 
     environment.systemPackages = [ cfg.locate ];
 

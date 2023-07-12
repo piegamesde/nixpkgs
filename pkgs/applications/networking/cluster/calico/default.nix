@@ -71,8 +71,12 @@ builtins.mapAttrs
         "pod2daemon/nodeagent"
       ];
     };
-    calico-typha = { subPackages = [ "typha/cmd/..." ]; };
-    calicoctl = { subPackages = [ "calicoctl/calicoctl" ]; };
+    calico-typha = {
+      subPackages = [ "typha/cmd/..." ];
+    };
+    calicoctl = {
+      subPackages = [ "calicoctl/calicoctl" ];
+    };
     confd-calico = {
       mainProgram = "confd";
       subPackages = [ "confd" ];

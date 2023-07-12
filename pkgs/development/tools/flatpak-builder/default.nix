@@ -155,7 +155,9 @@ stdenv.mkDerivation rec {
       gnumake
     ];
 
-    tests = { installedTests = nixosTests.installed-tests.flatpak-builder; };
+    tests = {
+      installedTests = nixosTests.installed-tests.flatpak-builder;
+    };
   };
 
   meta = with lib; {

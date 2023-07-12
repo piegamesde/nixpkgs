@@ -7,7 +7,9 @@ import ./make-test-python.nix (
   {
     name = "mate";
 
-    meta = { maintainers = lib.teams.mate.members; };
+    meta = {
+      maintainers = lib.teams.mate.members;
+    };
 
     nodes.machine =
       {

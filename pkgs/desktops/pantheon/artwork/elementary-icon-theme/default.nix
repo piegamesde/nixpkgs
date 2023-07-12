@@ -48,7 +48,9 @@ stdenvNoCC.mkDerivation rec {
 
   postFixup = "gtk-update-icon-cache $out/share/icons/elementary";
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Named, vector icons for elementary OS";

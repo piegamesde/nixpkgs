@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
     xorg.libXcursor
   ];
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "Provides mouse accessibility enhancements for the GNOME desktop";

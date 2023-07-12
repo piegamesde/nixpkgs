@@ -132,7 +132,11 @@ let
 in
 
 runCommand "test-writeShellScript-overriding"
-  { passthru = { inherit writeTextOverrides; }; }
+  {
+    passthru = {
+      inherit writeTextOverrides;
+    };
+  }
   ''
     ${lib.concatMapStrings
       (test: ''

@@ -49,7 +49,9 @@ buildPythonPackage rec {
       "test_identify_old_namespace_package_protocol"
     ];
 
-  passthru.tests = { inherit pylint; };
+  passthru.tests = {
+    inherit pylint;
+  };
 
   meta = with lib; {
     changelog = "https://github.com/PyCQA/astroid/blob/${src.rev}/ChangeLog";

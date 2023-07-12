@@ -18,7 +18,9 @@ import ./make-test-python.nix (
             port = 9093;
             openFirewall = true;
             configuration = {
-              global = { resolve_timeout = "1m"; };
+              global = {
+                resolve_timeout = "1m";
+              };
               route = {
                 # Root route node
                 receiver = "test";

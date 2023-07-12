@@ -97,16 +97,22 @@ import ./make-test-python.nix (
             ];
             services.mosquitto = {
               enable = true;
-              settings = { sys_interval = 1; };
+              settings = {
+                sys_interval = 1;
+              };
               listeners = [
                 {
                   inherit port;
                   users = {
-                    password_store = { inherit password; };
+                    password_store = {
+                      inherit password;
+                    };
                     password_file = {
                       passwordFile = pkgs.writeText "mqtt-password" password;
                     };
-                    hashed_store = { inherit hashedPassword; };
+                    hashed_store = {
+                      inherit hashedPassword;
+                    };
                     hashed_file = {
                       hashedPasswordFile =
                         pkgs.writeText "mqtt-hashed-password"
@@ -129,7 +135,9 @@ import ./make-test-python.nix (
                 }
                 {
                   port = tlsPort;
-                  users.client1 = { acl = [ "read $SYS/#" ]; };
+                  users.client1 = {
+                    acl = [ "read $SYS/#" ];
+                  };
                   settings = {
                     cafile = "${snakeOil}/ca.crt";
                     certfile = "${snakeOil}/server.crt";

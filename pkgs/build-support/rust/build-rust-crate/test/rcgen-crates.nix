@@ -226,7 +226,9 @@ rec {
           "Alice Maz <alice@alicemaz.com>"
           "Marshall Pierce <marshall@mpierce.org>"
         ];
-        features = { "default" = [ "std" ]; };
+        features = {
+          "default" = [ "std" ];
+        };
         resolvedDefaultFeatures = [
           "default"
           "std"
@@ -238,7 +240,9 @@ rec {
         edition = "2018";
         sha256 = "0p4was874qc90q2chm2i14m9mn8zmxjis8vaxihd6a2x4aqxkd76";
         authors = [ "RustCrypto Developers" ];
-        features = { "std" = [ "alloc" ]; };
+        features = {
+          "std" = [ "alloc" ];
+        };
       };
       "bitflags" = rec {
         crateName = "bitflags";
@@ -332,7 +336,9 @@ rec {
         edition = "2018";
         sha256 = "0456lv9xi1a5bcm32arknf33ikv76p3fr9yzki4lb2897p2qkh8l";
         authors = [ "Andrew Gallant <jamslam@gmail.com>" ];
-        features = { "default" = [ "std" ]; };
+        features = {
+          "default" = [ "std" ];
+        };
       };
       "cc" = rec {
         crateName = "cc";
@@ -559,7 +565,9 @@ rec {
             packageId = "syn";
           }
         ];
-        features = { "default" = [ "std" ]; };
+        features = {
+          "default" = [ "std" ];
+        };
         resolvedDefaultFeatures = [
           "default"
           "std"
@@ -601,7 +609,9 @@ rec {
           name = "version_check";
           packageId = "version_check";
         } ];
-        features = { "serde" = [ "dep:serde" ]; };
+        features = {
+          "serde" = [ "dep:serde" ];
+        };
       };
       "getrandom" = rec {
         crateName = "getrandom";
@@ -786,7 +796,9 @@ rec {
         edition = "2018";
         sha256 = "16ppc5g84aijpri4jzv14rvcnslvlpphbszc7zzp6vfkddf4qdb8";
         authors = [ "Alex Huszagh <ahuszagh@gmail.com>" ];
-        features = { "default" = [ "std" ]; };
+        features = {
+          "default" = [ "std" ];
+        };
         resolvedDefaultFeatures = [ "std" ];
       };
       "nom" = rec {
@@ -1155,7 +1167,9 @@ rec {
             rename = "ffi";
           }
         ];
-        features = { "vendored" = [ "ffi/vendored" ]; };
+        features = {
+          "vendored" = [ "ffi/vendored" ];
+        };
       };
       "openssl-sys" = rec {
         crateName = "openssl-sys";
@@ -1222,7 +1236,9 @@ rec {
           name = "base64ct";
           packageId = "base64ct";
         } ];
-        features = { "std" = [ "alloc" ]; };
+        features = {
+          "std" = [ "alloc" ];
+        };
         resolvedDefaultFeatures = [ "alloc" ];
       };
       "pkcs1" = rec {
@@ -1367,7 +1383,9 @@ rec {
         edition = "2018";
         sha256 = "0wkqwnvnfcgqlrahphl45vdlgi2f1bs7nqcsalsllp1y4dp9x7zb";
         authors = [ "The CryptoCorrosion Contributors" ];
-        features = { "default" = [ "std" ]; };
+        features = {
+          "default" = [ "std" ];
+        };
         resolvedDefaultFeatures = [
           "simd"
           "std"
@@ -1386,7 +1404,9 @@ rec {
           name = "unicode-xid";
           packageId = "unicode-xid";
         } ];
-        features = { "default" = [ "proc-macro" ]; };
+        features = {
+          "default" = [ "proc-macro" ];
+        };
         resolvedDefaultFeatures = [
           "default"
           "proc-macro"
@@ -1989,7 +2009,9 @@ rec {
           packageId = "der";
           features = [ "oid" ];
         } ];
-        features = { "std" = [ "der/std" ]; };
+        features = {
+          "std" = [ "der/std" ];
+        };
       };
       "subtle" = rec {
         crateName = "subtle";
@@ -2386,7 +2408,9 @@ rec {
             packageId = "wasm-bindgen-shared";
           }
         ];
-        features = { "extra-traits" = [ "syn/extra-traits" ]; };
+        features = {
+          "extra-traits" = [ "syn/extra-traits" ];
+        };
         resolvedDefaultFeatures = [ "spans" ];
       };
       "wasm-bindgen-macro" = rec {
@@ -3978,7 +4002,9 @@ rec {
             ;
           }
         ];
-        features = { "debug" = [ "impl-debug" ]; };
+        features = {
+          "debug" = [ "impl-debug" ];
+        };
         resolvedDefaultFeatures = [
           "ntsecapi"
           "wtypesbase"

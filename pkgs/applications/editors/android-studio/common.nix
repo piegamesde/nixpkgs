@@ -220,7 +220,9 @@ runCommand drvName
     '';
     preferLocalBuild = true;
     allowSubstitutes = false;
-    passthru = { unwrapped = androidStudio; };
+    passthru = {
+      unwrapped = androidStudio;
+    };
     meta = with lib; {
       description = "The Official IDE for Android (${channel} channel)";
       longDescription = ''

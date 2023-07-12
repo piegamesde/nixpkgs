@@ -151,7 +151,9 @@ buildGoModule rec {
 
   doCheck = !stdenv.isDarwin; # https://hydra.nixos.org/build/130673870/nixlog/1
 
-  passthru.tests = { inherit (nixosTests) prometheus; };
+  passthru.tests = {
+    inherit (nixosTests) prometheus;
+  };
 
   meta = with lib; {
     description = "Service monitoring system and time series database";

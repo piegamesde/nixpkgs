@@ -33,7 +33,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "charset_normalizer" ];
 
-  passthru.tests = { inherit aiohttp requests; };
+  passthru.tests = {
+    inherit aiohttp requests;
+  };
 
   meta = with lib; {
     description = "Python module for encoding and language detection";

@@ -32,7 +32,9 @@ rustPlatform.buildRustPackage rec {
     installManPage docs/netavark.1
   '';
 
-  passthru.tests = { inherit (nixosTests) podman; };
+  passthru.tests = {
+    inherit (nixosTests) podman;
+  };
 
   meta = with lib; {
     changelog = "https://github.com/containers/netavark/releases/tag/${src.rev}";

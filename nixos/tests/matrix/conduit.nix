@@ -25,7 +25,9 @@ import ../make-test-python.nix (
               forceSSL = false;
               enableSSL = false;
 
-              locations."/_matrix" = { proxyPass = "http://[::1]:6167"; };
+              locations."/_matrix" = {
+                proxyPass = "http://[::1]:6167";
+              };
             };
           };
           networking.firewall.allowedTCPPorts = [ 80 ];

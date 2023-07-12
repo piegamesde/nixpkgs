@@ -734,7 +734,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             # Don't use stdenv's shell but our own
             shell = self.bash + "/bin/bash";
             # Build expand-response-params with last stage like below
-            buildPackages = { inherit (prevStage) stdenv; };
+            buildPackages = {
+              inherit (prevStage) stdenv;
+            };
           };
 
           # To allow users' overrides inhibit dependencies too heavy for
@@ -745,7 +747,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             nativeTools = false;
             nativeLibc = false;
             isGNU = true;
-            buildPackages = { inherit (prevStage) stdenv; };
+            buildPackages = {
+              inherit (prevStage) stdenv;
+            };
             cc = prevStage.gcc-unwrapped;
             bintools = self.binutils;
             libc = getLibc self;

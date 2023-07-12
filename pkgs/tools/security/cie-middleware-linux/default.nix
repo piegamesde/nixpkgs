@@ -155,7 +155,9 @@ stdenv.mkDerivation {
     strip-nondeterminism "$out/share/cieid/cieid.jar"
   '';
 
-  passthru = { inherit javaDeps; };
+  passthru = {
+    inherit javaDeps;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/M0Rf30/cie-middleware-linux";

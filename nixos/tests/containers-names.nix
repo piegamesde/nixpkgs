@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   }:
   {
     name = "containers-names";
-    meta = { maintainers = with lib.maintainers; [ patryk27 ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ patryk27 ];
+    };
 
     nodes.machine =
       {

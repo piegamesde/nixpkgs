@@ -43,7 +43,9 @@ buildGoModule rec {
     "-X github.com/prometheus/common/version.BuildDate=unknown"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) node; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) node;
+  };
 
   meta = with lib; {
     description = "Prometheus exporter for machine metrics";

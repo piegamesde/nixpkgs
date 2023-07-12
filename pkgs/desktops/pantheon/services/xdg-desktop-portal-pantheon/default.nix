@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user" ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Backend implementation for xdg-desktop-portal for the Pantheon desktop environment";

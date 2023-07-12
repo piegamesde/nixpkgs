@@ -53,7 +53,9 @@ stdenv.mkDerivation rec {
     xorg.xkeyboardconfig
   ];
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Keyboard Indicator for Wingpanel";

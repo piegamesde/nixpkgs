@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
     cp -r ip/. $out/
   '';
 
-  passthru.tests = { inherit (nixosTests) invoiceplane; };
+  passthru.tests = {
+    inherit (nixosTests) invoiceplane;
+  };
 
   meta = with lib; {
     description = "Self-hosted open source application for managing your invoices, clients and payments";

@@ -76,7 +76,9 @@ buildGoModule rec {
     # if overriding replace the postPatch to put your web UI output in internal/server/public_html
     inherit web;
     updateScript = ./update.sh;
-    tests = { inherit (nixosTests) authelia; };
+    tests = {
+      inherit (nixosTests) authelia;
+    };
   };
 
   meta = with lib; {

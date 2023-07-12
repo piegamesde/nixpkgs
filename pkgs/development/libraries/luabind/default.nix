@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ lua ];
 
-  passthru = { inherit lua; };
+  passthru = {
+    inherit lua;
+  };
 
   meta = {
     homepage = "https://github.com/luabind/luabind";

@@ -6,7 +6,9 @@
 }:
 
 {
-  meta = { maintainers = lib.teams.freedesktop.members; };
+  meta = {
+    maintainers = lib.teams.freedesktop.members;
+  };
 
   options.programs.nm-applet = {
     enable = lib.mkEnableOption (lib.mdDoc "nm-applet");

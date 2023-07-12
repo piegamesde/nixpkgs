@@ -75,7 +75,9 @@ buildPythonPackage rec {
   # Tests that rely on Gurobi are activated only when Gurobi support is enabled
   disabledTests = lib.optional (!gurobiSupport) "gurobi";
 
-  passthru.optional-dependencies = { inherit gurobipy numpy; };
+  passthru.optional-dependencies = {
+    inherit gurobipy numpy;
+  };
 
   meta = with lib; {
     homepage = "https://python-mip.com/";

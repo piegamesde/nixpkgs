@@ -9,5 +9,7 @@
     user = "alice";
   };
 
-  virtualisation = { qemu.options = [ "-vga virtio" ]; };
+  virtualisation = {
+    qemu.options = [ "-vga virtio" ];
+  };
 }

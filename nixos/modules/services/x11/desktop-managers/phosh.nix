@@ -56,7 +56,11 @@ let
           Output configurations.
         '';
         type = types.attrsOf phocOutputType;
-        default = { DSI-1 = { scale = 2; }; };
+        default = {
+          DSI-1 = {
+            scale = 2;
+          };
+        };
       };
     };
   };

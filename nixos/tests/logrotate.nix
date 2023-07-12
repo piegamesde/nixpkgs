@@ -6,7 +6,9 @@ let
       ...
     }:
     {
-      services.logrotate.settings.import = { olddir = false; };
+      services.logrotate.settings.import = {
+        olddir = false;
+      };
     }
   ;
 in
@@ -59,9 +61,13 @@ import ./make-test-python.nix (
               shred = true;
             };
             # using mail somewhere should add --mail to logrotate invokation
-            sendmail = { mail = "user@domain.tld"; };
+            sendmail = {
+              mail = "user@domain.tld";
+            };
             # postrotate should be suffixed by 'endscript'
-            postrotate = { postrotate = "touch /dev/null"; };
+            postrotate = {
+              postrotate = "touch /dev/null";
+            };
             # check checkConfig works as expected: there is nothing to check here
             # except that the file build passes
             checkConf = {
@@ -79,7 +85,9 @@ import ./make-test-python.nix (
             };
             # overriding imported path should keep existing attributes
             # (e.g. olddir is still set)
-            import = { notifempty = true; };
+            import = {
+              notifempty = true;
+            };
           };
         }
       ;

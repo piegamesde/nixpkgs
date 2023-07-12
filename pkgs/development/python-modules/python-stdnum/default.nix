@@ -26,7 +26,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru.optional-dependencies = { SOAP = [ zeep ]; };
+  passthru.optional-dependencies = {
+    SOAP = [ zeep ];
+  };
 
   pythonImportsCheck = [ "stdnum" ];
 

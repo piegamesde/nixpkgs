@@ -124,7 +124,9 @@ stdenv.mkDerivation rec {
     rm -rf $out/etc/apparmor.d $out/etc/init $out/etc/pam.d
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     homepage = "https://github.com/canonical/lightdm";

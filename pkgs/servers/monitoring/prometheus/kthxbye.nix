@@ -27,7 +27,9 @@ buildGoModule rec {
     install -Dm755 ./kthxbye -t $out/bin
   '';
 
-  passthru.tests = { kthxbye = nixosTests.kthxbye; };
+  passthru.tests = {
+    kthxbye = nixosTests.kthxbye;
+  };
 
   meta = with lib; {
     description = "Prometheus Alertmanager alert acknowledgement management daemon";

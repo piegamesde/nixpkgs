@@ -8,7 +8,9 @@ import ../make-test-python.nix (
   in
   {
     name = "matrix-appservice-irc";
-    meta = { maintainers = pkgs.matrix-appservice-irc.meta.maintainers; };
+    meta = {
+      maintainers = pkgs.matrix-appservice-irc.meta.maintainers;
+    };
 
     nodes = {
       homeserver =

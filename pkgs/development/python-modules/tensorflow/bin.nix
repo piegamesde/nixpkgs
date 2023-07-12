@@ -210,7 +210,9 @@ buildPythonPackage {
     "tensorflow.python.framework"
   ];
 
-  passthru = { inherit cudaPackages; };
+  passthru = {
+    inherit cudaPackages;
+  };
 
   meta = with lib; {
     description = "Computation using data flow graphs for scalable machine learning";

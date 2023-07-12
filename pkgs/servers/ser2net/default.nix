@@ -20,7 +20,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-jF1tk/JeZ3RGHol+itwtkTF/cn5FHm/vhUgXJzi9J9E=";
   };
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   nativeBuildInputs = [
     pkg-config

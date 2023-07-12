@@ -26,7 +26,9 @@ in
 mkCoqDerivation {
   pname = "coq${coq.coq-version}-VST";
   namePrefix = [ ];
-  displayVersion = { coq = false; };
+  displayVersion = {
+    coq = false;
+  };
   owner = "PrincetonUniversity";
   repo = "VST";
   inherit version;

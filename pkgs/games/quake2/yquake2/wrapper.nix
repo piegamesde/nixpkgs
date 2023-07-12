@@ -38,5 +38,7 @@ stdenv.mkDerivation {
         games
   ;
 
-  meta = { inherit description; };
+  meta = {
+    inherit description;
+  };
 }

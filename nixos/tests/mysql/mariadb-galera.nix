@@ -95,7 +95,9 @@ let
                 ensureDatabases = lib.mkIf isFirstClusterNode [ "testdb" ];
                 ensureUsers = lib.mkIf isFirstClusterNode [ {
                   name = "testuser";
-                  ensurePermissions = { "testdb.*" = "ALL PRIVILEGES"; };
+                  ensurePermissions = {
+                    "testdb.*" = "ALL PRIVILEGES";
+                  };
                 } ];
                 initialScript = lib.mkIf isFirstClusterNode (
                   pkgs.writeText "mariadb-init.sql" ''
@@ -104,7 +106,9 @@ let
                   ''
                 );
                 settings = {
-                  mysqld = { bind_address = "0.0.0.0"; };
+                  mysqld = {
+                    bind_address = "0.0.0.0";
+                  };
                   galera = {
                     wsrep_on = "ON";
                     wsrep_debug = "NONE";

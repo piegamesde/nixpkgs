@@ -67,7 +67,9 @@ let
         };
       };
 
-      config = { name = mkDefault name; };
+      config = {
+        name = mkDefault name;
+      };
     }
   ;
 in

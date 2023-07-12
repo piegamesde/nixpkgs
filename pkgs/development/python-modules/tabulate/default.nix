@@ -28,7 +28,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  passthru.optional-dependencies = { widechars = [ wcwidth ]; };
+  passthru.optional-dependencies = {
+    widechars = [ wcwidth ];
+  };
 
   nativeCheckInputs =
     [ pytestCheckHook ]

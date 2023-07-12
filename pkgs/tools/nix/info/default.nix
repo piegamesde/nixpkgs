@@ -54,5 +54,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = { platforms = lib.platforms.all; };
+  meta = {
+    platforms = lib.platforms.all;
+  };
 }

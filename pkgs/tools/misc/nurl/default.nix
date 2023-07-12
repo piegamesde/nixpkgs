@@ -54,7 +54,9 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion artifacts/nurl.{bash,fish} --zsh artifacts/_nurl
   '';
 
-  env = { GEN_ARTIFACTS = "artifacts"; };
+  env = {
+    GEN_ARTIFACTS = "artifacts";
+  };
 
   meta = with lib; {
     description = "Command-line tool to generate Nix fetcher calls from repository URLs";

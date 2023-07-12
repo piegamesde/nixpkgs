@@ -16,7 +16,11 @@ import ./make-test-python.nix (
 
         services.sympa = {
           enable = true;
-          domains = { "lists.example.org" = { webHost = "localhost"; }; };
+          domains = {
+            "lists.example.org" = {
+              webHost = "localhost";
+            };
+          };
           listMasters = [ "bob@example.org" ];
           web.enable = true;
           web.https = false;

@@ -42,7 +42,9 @@ buildPythonPackage rec {
 
   doCheck = false; # Reports "Fatal Python error"
 
-  passthru.tests = { inherit napari; };
+  passthru.tests = {
+    inherit napari;
+  };
 
   meta = with lib; {
     description = "Build GUIs from python functions, using magic.  (napari/magicgui)";

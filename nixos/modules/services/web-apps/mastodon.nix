@@ -1001,7 +1001,9 @@ in
 
             locations."/system/".alias = "/var/lib/mastodon/public-system/";
 
-            locations."/" = { tryFiles = "$uri @proxy"; };
+            locations."/" = {
+              tryFiles = "$uri @proxy";
+            };
 
             locations."@proxy" = {
               proxyPass =

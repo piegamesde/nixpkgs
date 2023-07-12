@@ -112,7 +112,9 @@ import ./make-test-python.nix (
           enable = true;
           ipv4 = {
             address = "192.0.2.0";
-            router = { address = "192.0.2.1"; };
+            router = {
+              address = "192.0.2.1";
+            };
             pool = {
               address = "192.0.2.0";
               prefixLength = 24;
@@ -120,7 +122,9 @@ import ./make-test-python.nix (
           };
           ipv6 = {
             address = "2001:db8::1";
-            router = { address = "64:ff9b::1"; };
+            router = {
+              address = "64:ff9b::1";
+            };
             pool = {
               address = "64:ff9b::";
               prefixLength = 96;
@@ -165,7 +169,9 @@ import ./make-test-python.nix (
           enable = true;
           ipv4 = {
             address = "192.0.2.0";
-            router = { address = "192.0.2.1"; };
+            router = {
+              address = "192.0.2.1";
+            };
             pool = {
               address = "192.0.2.0";
               prefixLength = 24;
@@ -173,7 +179,9 @@ import ./make-test-python.nix (
           };
           ipv6 = {
             address = "2001:db8::1";
-            router = { address = "64:ff9b::1"; };
+            router = {
+              address = "64:ff9b::1";
+            };
             pool = {
               address = "64:ff9b::";
               prefixLength = 96;

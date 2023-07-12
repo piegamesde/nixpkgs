@@ -66,7 +66,9 @@ backendStdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { inherit cudaPackages; };
+  passthru = {
+    inherit cudaPackages;
+  };
 
   meta = with lib; {
     description = "Multi-GPU and multi-node collective communication primitives for NVIDIA GPUs";

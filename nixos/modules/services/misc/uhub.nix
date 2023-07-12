@@ -87,7 +87,9 @@ in
                             "Settings specific to this plugin."
                         ;
                         type = with types; attrsOf str;
-                        example = { file = "/etc/uhub/users.db"; };
+                        example = {
+                          file = "/etc/uhub/users.db";
+                        };
                       };
                     };
                   }

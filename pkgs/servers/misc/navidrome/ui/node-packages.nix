@@ -15209,7 +15209,9 @@ let
       sources."yocto-queue-0.1.0"
     ];
     buildInputs = globalBuildInputs;
-    meta = { homepage = "."; };
+    meta = {
+      homepage = ".";
+    };
     production = false;
     bypassCache = true;
     reconstructLock = false;

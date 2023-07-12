@@ -34,7 +34,9 @@ buildPythonPackage rec {
     ++ google-api-core.optional-dependencies.grpc
   ;
 
-  passthru.optional-dependencies = { pandas = [ pandas ]; };
+  passthru.optional-dependencies = {
+    pandas = [ pandas ];
+  };
 
   nativeCheckInputs =
     [

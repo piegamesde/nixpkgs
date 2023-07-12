@@ -12,7 +12,9 @@
   isoImage.edition = "plasma5";
 
   services.xserver = {
-    desktopManager.plasma5 = { enable = true; };
+    desktopManager.plasma5 = {
+      enable = true;
+    };
 
     # Automatically login as nixos.
     displayManager = {

@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
     "-framework Cocoa"
   ];
 
-  passthru.tests = { ft2-clone-starts = nixosTests.ft2-clone; };
+  passthru.tests = {
+    ft2-clone-starts = nixosTests.ft2-clone;
+  };
 
   meta = with lib; {
     description = "A highly accurate clone of the classic Fasttracker II software for MS-DOS";

@@ -10,7 +10,9 @@ bundlerApp {
 
   exes = [ "xcpretty" ];
 
-  passthru = { updateScript = bundlerUpdateScript "xcpretty"; };
+  passthru = {
+    updateScript = bundlerUpdateScript "xcpretty";
+  };
 
   meta = with lib; {
     description = "Flexible and fast xcodebuild formatter";

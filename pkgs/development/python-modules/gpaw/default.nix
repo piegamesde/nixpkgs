@@ -124,7 +124,9 @@ buildPythonPackage rec {
   doCheck = false; # Requires MPI runtime to work in the sandbox
   pythonImportsCheckHook = [ "gpaw" ];
 
-  passthru = { inherit mpi; };
+  passthru = {
+    inherit mpi;
+  };
 
   meta = with lib; {
     description = "Density functional theory and beyond within the projector-augmented wave method";

@@ -42,5 +42,7 @@ in
     users.groups.usbrelay = { };
   };
 
-  meta = { maintainers = with lib.maintainers; [ wentasah ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ wentasah ];
+  };
 }

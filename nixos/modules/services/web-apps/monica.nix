@@ -351,7 +351,9 @@ in
       ensureDatabases = [ db.name ];
       ensureUsers = [ {
         name = db.user;
-        ensurePermissions = { "${db.name}.*" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "${db.name}.*" = "ALL PRIVILEGES";
+        };
       } ];
     };
 

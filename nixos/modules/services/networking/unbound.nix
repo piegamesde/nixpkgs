@@ -267,7 +267,9 @@ in
     users.groups = mkIf (cfg.group == "unbound") { unbound = { }; };
 
     networking = mkIf cfg.resolveLocalQueries {
-      resolvconf = { useLocalResolver = mkDefault true; };
+      resolvconf = {
+        useLocalResolver = mkDefault true;
+      };
 
       networkmanager.dns = "unbound";
     };

@@ -102,7 +102,11 @@ in
       settings = mkOption {
         type = cfgFmt.type;
         default = { };
-        example = { General = { ControllerMode = "bredr"; }; };
+        example = {
+          General = {
+            ControllerMode = "bredr";
+          };
+        };
         description =
           lib.mdDoc
             "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf)."
@@ -127,7 +131,11 @@ in
       network = mkOption {
         type = cfgFmt.type;
         default = { };
-        example = { General = { DisableSecurity = true; }; };
+        example = {
+          General = {
+            DisableSecurity = true;
+          };
+        };
         description =
           lib.mdDoc
             "Set configuration for the network service (/etc/bluetooth/network.conf)."

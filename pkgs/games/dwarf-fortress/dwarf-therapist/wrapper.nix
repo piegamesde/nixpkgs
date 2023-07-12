@@ -31,7 +31,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  passthru = { inherit dwarf-fortress dwarf-therapist; };
+  passthru = {
+    inherit dwarf-fortress dwarf-therapist;
+  };
 
   buildCommand = ''
     mkdir -p $out/bin

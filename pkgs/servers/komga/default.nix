@@ -22,7 +22,9 @@ stdenvNoCC.mkDerivation rec {
     makeWrapper ${jdk11_headless}/bin/java $out/bin/komga --add-flags "-jar $src"
   '';
 
-  passthru.tests = { komga = nixosTests.komga; };
+  passthru.tests = {
+    komga = nixosTests.komga;
+  };
 
   meta = with lib; {
     description = "Free and open source comics/mangas server";

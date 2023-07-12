@@ -242,7 +242,9 @@ in
         "nss-lookup.target"
       ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig = { User = "nntp-proxy"; };
+      serviceConfig = {
+        User = "nntp-proxy";
+      };
       serviceConfig.ExecStart = "${nntp-proxy}/bin/nntp-proxy ${confFile}";
       preStart = ''
         if [ ! \( -f ${cfg.sslCert} -a -f ${cfg.sslKey} \) ]; then

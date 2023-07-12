@@ -13,7 +13,9 @@ let
   inherit (lib) getBin optionalString;
   inherit (lib.generators) toPlist;
 
-  ToolchainInfo = { Identifier = toolchainName; };
+  ToolchainInfo = {
+    Identifier = toolchainName;
+  };
 
   # We could pull this out of developer_cmds but it adds an annoying
   # loop if we want to bootstrap and this is just a tiny script so I'm

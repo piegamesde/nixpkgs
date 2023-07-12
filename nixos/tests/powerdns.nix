@@ -29,7 +29,9 @@ import ./make-test-python.nix (
           ensureDatabases = [ "powerdns" ];
           ensureUsers = lib.singleton {
             name = "pdns";
-            ensurePermissions = { "powerdns.*" = "ALL PRIVILEGES"; };
+            ensurePermissions = {
+              "powerdns.*" = "ALL PRIVILEGES";
+            };
           };
         };
 

@@ -40,7 +40,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.nextdns = {
       description = "NextDNS DNS/53 to DoH Proxy";
-      environment = { SERVICE_RUN_MODE = "1"; };
+      environment = {
+        SERVICE_RUN_MODE = "1";
+      };
       startLimitIntervalSec = 5;
       startLimitBurst = 10;
       serviceConfig = {

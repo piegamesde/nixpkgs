@@ -26,7 +26,9 @@ buildGoModule {
     installManPage $src/man/mailexporter.conf.5
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) mail; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) mail;
+  };
 
   meta = with lib; {
     description = "Export Prometheus-style metrics about mail server functionality";

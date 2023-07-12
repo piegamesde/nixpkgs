@@ -63,7 +63,9 @@ stdenv.mkDerivation rec {
     }"
   '';
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   meta = with lib; {
     description = "Backend implementation for xdg-desktop-portal for the GNOME desktop environment";

@@ -142,7 +142,9 @@ assert xarSupport -> libxml2 != null;
       platforms = platforms.all;
     };
 
-    passthru.tests = { inherit cmake nix samba; };
+    passthru.tests = {
+      inherit cmake nix samba;
+    };
   }
 )).overrideAttrs
   (

@@ -66,5 +66,7 @@ stdenv.mkDerivation rec {
     changelog = "https://www.oilshell.org/release/${version}/changelog.html";
   };
 
-  passthru = { shellPath = "/bin/osh"; };
+  passthru = {
+    shellPath = "/bin/osh";
+  };
 }

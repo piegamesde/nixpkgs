@@ -249,7 +249,9 @@ in
         else
           "network-online.target"
       );
-      serviceConfig = { RemainAfterExit = true; };
+      serviceConfig = {
+        RemainAfterExit = true;
+      };
       restartIfChanged = false;
 
       preStart = ''

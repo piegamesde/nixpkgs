@@ -70,7 +70,9 @@ in
     systemd = {
       packages = [ config.boot.kernelPackages.hyperv-daemons.lib ];
 
-      targets.hyperv-daemons = { wantedBy = [ "multi-user.target" ]; };
+      targets.hyperv-daemons = {
+        wantedBy = [ "multi-user.target" ];
+      };
     };
   };
 }

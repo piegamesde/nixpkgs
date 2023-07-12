@@ -36,7 +36,9 @@ import ./make-test-python.nix (
             networks = {
               "01-eth1" = {
                 name = "eth1";
-                networkConfig = { Address = "10.0.0.1/29"; };
+                networkConfig = {
+                  Address = "10.0.0.1/29";
+                };
               };
             };
           };
@@ -67,7 +69,9 @@ import ./make-test-python.nix (
               # Enable communication between dhcp4 and a local dhcp-ddns
               # instance.
               # https://kea.readthedocs.io/en/kea-2.2.0/arm/dhcp4-srv.html#ddns-for-dhcpv4
-              dhcp-ddns = { enable-updates = true; };
+              dhcp-ddns = {
+                enable-updates = true;
+              };
 
               ddns-send-updates = true;
               ddns-qualifying-suffix = "lan.nixos.test.";
@@ -115,7 +119,9 @@ import ./make-test-python.nix (
             networks = {
               "01-eth1" = {
                 name = "eth1";
-                networkConfig = { Address = "10.0.0.2/29"; };
+                networkConfig = {
+                  Address = "10.0.0.2/29";
+                };
               };
             };
           };

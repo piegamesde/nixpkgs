@@ -419,7 +419,9 @@ in
 
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      unitConfig = { RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}"; };
+      unitConfig = {
+        RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}";
+      };
 
       serviceConfig =
         let

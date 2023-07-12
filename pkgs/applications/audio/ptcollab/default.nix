@@ -46,7 +46,9 @@ mkDerivation rec {
     ln -s $out/{Applications/ptcollab.app/Contents/MacOS,bin}/ptcollab
   '';
 
-  passthru = { updateScript = nix-update-script { }; };
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "Experimental pxtone editor where you can collaborate with friends";

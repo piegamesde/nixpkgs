@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   {
     name = "trilium-server";
     nodes = {
-      default = { services.trilium-server.enable = true; };
+      default = {
+        services.trilium-server.enable = true;
+      };
       configured = {
         services.trilium-server = {
           enable = true;

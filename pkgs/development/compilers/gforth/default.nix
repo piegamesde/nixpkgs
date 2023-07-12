@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ libffi ];
 
-  passthru = { inherit bootForth; };
+  passthru = {
+    inherit bootForth;
+  };
 
   configureFlags =
     [ "--with-lispdir=${lispDir}" ]

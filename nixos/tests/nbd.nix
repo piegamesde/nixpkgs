@@ -17,7 +17,9 @@ import ./make-test-python.nix (
           ${pkgs.lib.optionalString loop
             "${pkgs.util-linux}/bin/losetup --find ${path}"}
         '';
-        serviceConfig = { Type = "oneshot"; };
+        serviceConfig = {
+          Type = "oneshot";
+        };
         wantedBy = [ "multi-user.target" ];
         before = [ "nbd-server.service" ];
       }
@@ -62,8 +64,12 @@ import ./make-test-python.nix (
           services.nbd.server = {
             enable = true;
             exports = {
-              aaa = { path = "/aaa.disk"; };
-              vault-pub = { path = "/vault-pub.disk"; };
+              aaa = {
+                path = "/aaa.disk";
+              };
+              vault-pub = {
+                path = "/vault-pub.disk";
+              };
               vault-priv = {
                 path = "/dev/loop0";
                 allowAddresses = [

@@ -425,7 +425,9 @@ in
         inherit nativeComp;
         treeSitter = withTreeSitter;
         pkgs = recurseIntoAttrs (emacsPackagesFor finalAttrs.finalPackage);
-        tests = { inherit (nixosTests) emacs-daemon; };
+        tests = {
+          inherit (nixosTests) emacs-daemon;
+        };
       };
 
       meta = with lib; {

@@ -127,7 +127,9 @@ in
     # A user must be a member of the openrazer group in order to start
     # the openrazer-daemon. Therefore we make sure that the group
     # exists.
-    users.groups.openrazer = { members = cfg.users; };
+    users.groups.openrazer = {
+      members = cfg.users;
+    };
 
     systemd.user.services.openrazer-daemon = {
       description = "Daemon to manage razer devices in userspace";
@@ -145,5 +147,7 @@ in
     };
   };
 
-  meta = { maintainers = with lib.maintainers; [ roelvandijk ]; };
+  meta = {
+    maintainers = with lib.maintainers; [ roelvandijk ];
+  };
 }

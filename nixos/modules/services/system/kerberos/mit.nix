@@ -104,7 +104,9 @@ in
       environment = env;
     };
 
-    environment.etc = { "krb5kdc/kdc.conf".source = kdcConfFile; };
+    environment.etc = {
+      "krb5kdc/kdc.conf".source = kdcConfFile;
+    };
     environment.variables = env;
   };
 }

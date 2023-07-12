@@ -31,7 +31,9 @@ rustPlatform.buildRustPackage rec {
     darwin.apple_sdk.frameworks.CoreServices
   ];
 
-  env = { GEN_ARTIFACTS = "artifacts"; };
+  env = {
+    GEN_ARTIFACTS = "artifacts";
+  };
 
   postInstall = ''
     installManPage cli/artifacts/*.1

@@ -156,7 +156,9 @@ stdenv.mkDerivation rec {
       --prefix PATH : "${which}/bin"
   '';
 
-  passthru = { inherit lua; };
+  passthru = {
+    inherit lua;
+  };
 
   meta = with lib; {
     description = "Highly configurable, dynamic window manager for X";

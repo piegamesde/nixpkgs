@@ -186,7 +186,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru.tests = { inherit (nixosTests) sssd sssd-ldap; };
+  passthru.tests = {
+    inherit (nixosTests) sssd sssd-ldap;
+  };
 
   meta = with lib; {
     description = "System Security Services Daemon";

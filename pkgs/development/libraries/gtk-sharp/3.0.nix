@@ -53,7 +53,11 @@ stdenv.mkDerivation rec {
 
   inherit monoDLLFixer;
 
-  passthru = { inherit gtk3; };
+  passthru = {
+    inherit gtk3;
+  };
 
-  meta = { platforms = lib.platforms.linux; };
+  meta = {
+    platforms = lib.platforms.linux;
+  };
 }

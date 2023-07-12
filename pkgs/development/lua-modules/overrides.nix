@@ -530,7 +530,9 @@ with prev; {
       buildInputs = [ libuv ];
 
       # Use system libuv instead of building local and statically linking
-      extraVariables = { WITH_SHARED_LIBUV = "ON"; };
+      extraVariables = {
+        WITH_SHARED_LIBUV = "ON";
+      };
 
       # we unset the LUA_PATH since the hook erases the interpreter defaults (To fix)
       # tests is not run since they are not part of the tarball anymore

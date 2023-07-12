@@ -112,7 +112,9 @@ in
       group = cfg.group;
     };
 
-    users.groups.${cfg.group} = { gid = config.ids.gids.exim; };
+    users.groups.${cfg.group} = {
+      gid = config.ids.gids.exim;
+    };
 
     security.wrappers.exim = {
       setuid = true;

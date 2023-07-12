@@ -10,7 +10,11 @@ with lib;
 let
   cfg = config.services.spacecookie;
 
-  spacecookieConfig = { listen = { inherit (cfg) port; }; } // cfg.settings;
+  spacecookieConfig = {
+    listen = {
+      inherit (cfg) port;
+    };
+  } // cfg.settings;
 
   format = pkgs.formats.json { };
 
@@ -197,7 +201,9 @@ in
       description = "Socket for the Spacecookie Gopher Server";
       wantedBy = [ "sockets.target" ];
       listenStreams = [ "${cfg.address}:${toString cfg.port}" ];
-      socketConfig = { BindIPv6Only = "both"; };
+      socketConfig = {
+        BindIPv6Only = "both";
+      };
     };
 
     systemd.services.spacecookie = {

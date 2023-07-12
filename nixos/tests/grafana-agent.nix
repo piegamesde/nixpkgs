@@ -6,7 +6,13 @@ import ./make-test-python.nix (
   }:
 
   let
-    nodes = { machine = { services.grafana-agent = { enable = true; }; }; };
+    nodes = {
+      machine = {
+        services.grafana-agent = {
+          enable = true;
+        };
+      };
+    };
   in
   {
     name = "grafana-agent";

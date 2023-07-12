@@ -14,7 +14,9 @@ let
 in
 
 {
-  meta = { maintainers = teams.lumina.members; };
+  meta = {
+    maintainers = teams.lumina.members;
+  };
 
   options = {
 

@@ -55,7 +55,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "wlroots" ];
 
-  passthru.tests = { inherit qtile; };
+  passthru.tests = {
+    inherit qtile;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/flacjacket/pywlroots";

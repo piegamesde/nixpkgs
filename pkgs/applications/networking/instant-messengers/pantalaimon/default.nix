@@ -87,7 +87,9 @@ buildPythonApplication rec {
     installManPage docs/man/*.[1-9]
   '';
 
-  passthru.tests = { inherit (nixosTests) pantalaimon; };
+  passthru.tests = {
+    inherit (nixosTests) pantalaimon;
+  };
 
   meta = with lib; {
     description = "An end-to-end encryption aware Matrix reverse proxy daemon";

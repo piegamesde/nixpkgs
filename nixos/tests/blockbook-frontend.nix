@@ -12,7 +12,9 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        services.blockbook-frontend."test" = { enable = true; };
+        services.blockbook-frontend."test" = {
+          enable = true;
+        };
         services.bitcoind.mainnet = {
           enable = true;
           rpc = {

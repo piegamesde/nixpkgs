@@ -294,7 +294,9 @@ in
     extraConfig = mkOption {
       type = types.attrs;
       default = { };
-      example = { commitlog_sync_batch_window_in_ms = 3; };
+      example = {
+        commitlog_sync_batch_window_in_ms = 3;
+      };
       description = mdDoc ''
         Extra options to be merged into {file}`cassandra.yaml` as nix attribute set.
       '';

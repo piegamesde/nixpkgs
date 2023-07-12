@@ -87,7 +87,9 @@ stdenv.mkDerivation (
     pname = "breitbandmessung";
     inherit version;
 
-    passthru.tests = { inherit (nixosTests) breitbandmessung; };
+    passthru.tests = {
+      inherit (nixosTests) breitbandmessung;
+    };
 
     meta = with lib; {
       description = "Broadband internet speed test app from the german Bundesnetzagentur";

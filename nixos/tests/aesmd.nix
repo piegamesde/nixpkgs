@@ -47,7 +47,9 @@
           {
             services.aesmd = {
               quoteProviderLibrary = pkgs.sgx-azure-dcap-client;
-              environment = { AZDCAP_DEBUG_LOG_LEVEL = "INFO"; };
+              environment = {
+                AZDCAP_DEBUG_LOG_LEVEL = "INFO";
+              };
             };
           }
         ;

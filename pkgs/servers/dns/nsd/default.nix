@@ -65,7 +65,9 @@ stdenv.mkDerivation rec {
     sed 's@$(INSTALL_DATA) nsd.conf.sample $(DESTDIR)$(nsdconfigfile).sample@@g' -i Makefile.in
   '';
 
-  passthru.tests = { inherit (nixosTests) nsd; };
+  passthru.tests = {
+    inherit (nixosTests) nsd;
+  };
 
   meta = with lib; {
     homepage = "http://www.nlnetlabs.nl";

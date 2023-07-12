@@ -52,7 +52,9 @@ let
               virtualisation.memorySize = 2048;
               services.gitea = {
                 enable = true;
-                database = { inherit type; };
+                database = {
+                  inherit type;
+                };
                 package = giteaPackage;
                 settings.service.DISABLE_REGISTRATION = true;
                 settings."repository.signing".SIGNING_KEY = signingPrivateKeyId;

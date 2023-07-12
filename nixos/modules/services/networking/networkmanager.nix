@@ -171,7 +171,9 @@ let
 in
 {
 
-  meta = { maintainers = teams.freedesktop.members; };
+  meta = {
+    maintainers = teams.freedesktop.members;
+  };
 
   ###### interface
 

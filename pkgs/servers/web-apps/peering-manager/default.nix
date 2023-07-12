@@ -98,6 +98,8 @@ py.pkgs.buildPythonApplication rec {
     python = py;
     pythonPath = py.pkgs.makePythonPath propagatedBuildInputs;
 
-    tests = { inherit (nixosTests) peering-manager; };
+    tests = {
+      inherit (nixosTests) peering-manager;
+    };
   };
 }

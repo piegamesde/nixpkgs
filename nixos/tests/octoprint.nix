@@ -22,7 +22,9 @@ import ./make-test-python.nix (
         services.octoprint = {
           enable = true;
           extraConfig = {
-            server = { firstRun = false; };
+            server = {
+              firstRun = false;
+            };
             api = {
               enabled = true;
               key = apikey;

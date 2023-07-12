@@ -332,7 +332,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             configuration = {
               imports = [ ../../nixos/modules/profiles/macos-builder.nix ];
 
-              virtualisation.host = { inherit pkgs; };
+              virtualisation.host = {
+                inherit pkgs;
+              };
             };
 
             system = toGuest stdenv.hostPlatform.system;

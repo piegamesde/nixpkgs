@@ -83,11 +83,15 @@ let
               ensureUsers = [
                 {
                   name = "testuser";
-                  ensurePermissions = { "testdb.*" = "ALL PRIVILEGES"; };
+                  ensurePermissions = {
+                    "testdb.*" = "ALL PRIVILEGES";
+                  };
                 }
                 {
                   name = "testuser2";
-                  ensurePermissions = { "testdb2.*" = "ALL PRIVILEGES"; };
+                  ensurePermissions = {
+                    "testdb2.*" = "ALL PRIVILEGES";
+                  };
                 }
               ];
               package = package;

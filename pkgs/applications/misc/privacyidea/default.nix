@@ -263,7 +263,9 @@ python3'.pkgs.buildPythonPackage rec {
     segno
   ];
 
-  passthru.tests = { inherit (nixosTests) privacyidea; };
+  passthru.tests = {
+    inherit (nixosTests) privacyidea;
+  };
 
   nativeCheckInputs = with python3'.pkgs; [
     openssl

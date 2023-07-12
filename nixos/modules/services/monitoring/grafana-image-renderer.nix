@@ -154,7 +154,9 @@ in
       after = [ "network.target" ];
       description = " A Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
 
-      environment = { PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"; };
+      environment = {
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true";
+      };
 
       serviceConfig = {
         DynamicUser = true;

@@ -101,7 +101,11 @@ in
     };
 
     backends = mkOption {
-      default = { icinga = { resource = "icinga_ido"; }; };
+      default = {
+        icinga = {
+          resource = "icinga_ido";
+        };
+      };
       description = lib.mdDoc "Monitoring backends to define";
       type = attrsOf (
         submodule (

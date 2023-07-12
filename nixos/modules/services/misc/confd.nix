@@ -90,10 +90,14 @@ in
       description = "Confd Service.";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      serviceConfig = { ExecStart = "${cfg.package}/bin/confd"; };
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/confd";
+      };
     };
 
-    environment.etc = { "confd/confd.toml".text = confdConfig; };
+    environment.etc = {
+      "confd/confd.toml".text = confdConfig;
+    };
 
     environment.systemPackages = [ cfg.package ];
 

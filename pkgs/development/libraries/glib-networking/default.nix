@@ -84,7 +84,9 @@ stdenv.mkDerivation rec {
       versionPolicy = "odd-unstable";
     };
 
-    tests = { installedTests = nixosTests.installed-tests.glib-networking; };
+    tests = {
+      installedTests = nixosTests.installed-tests.glib-networking;
+    };
   };
 
   meta = with lib; {

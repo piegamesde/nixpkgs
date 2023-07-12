@@ -95,7 +95,9 @@ let
       {
         url = "${baseUrl}/archive/${rev}.tar.gz";
 
-        passthru = { inherit gitRepoUrl; };
+        passthru = {
+          inherit gitRepoUrl;
+        };
       }
   ) // privateAttrs // passthruAttrs // {
     inherit name;

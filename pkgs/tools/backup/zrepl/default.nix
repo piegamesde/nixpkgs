@@ -39,7 +39,9 @@ buildGoModule rec {
       --prefix PATH : ${lib.makeBinPath [ openssh ]}
   '';
 
-  passthru.tests = { inherit (nixosTests) zrepl; };
+  passthru.tests = {
+    inherit (nixosTests) zrepl;
+  };
 
   meta = with lib; {
     homepage = "https://zrepl.github.io/";

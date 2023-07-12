@@ -144,7 +144,9 @@ in
 
     forwardZonesRecurse = mkOption {
       type = types.attrs;
-      example = { eth = "[::1]:5353"; };
+      example = {
+        eth = "[::1]:5353";
+      };
       default = { };
       description = lib.mdDoc ''
         DNS zones to be forwarded to other recursive servers.

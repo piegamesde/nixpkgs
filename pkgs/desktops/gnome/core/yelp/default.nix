@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-good
   ];
 
-  passthru = { updateScript = gnome.updateScript { packageName = "yelp"; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = "yelp"; };
+  };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Yelp";

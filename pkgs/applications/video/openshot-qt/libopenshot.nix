@@ -81,5 +81,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 
-  passthru = { inherit libopenshot-audio; };
+  passthru = {
+    inherit libopenshot-audio;
+  };
 }

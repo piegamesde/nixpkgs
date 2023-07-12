@@ -114,7 +114,9 @@ stdenv.mkDerivation rec {
     rm -rf "$TMP/bin"
   '';
 
-  passthru.tests = { inherit (nixosTests) sympa; };
+  passthru.tests = {
+    inherit (nixosTests) sympa;
+  };
 
   meta = with lib; {
     description = "Open source mailing list manager";

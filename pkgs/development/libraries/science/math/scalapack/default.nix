@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GNVGWrIWdfyTfbz7c31Vjt9eDlVzCd/aLHoWq2DMyX4=";
   };
 
-  passthru = { inherit (blas) isILP64; };
+  passthru = {
+    inherit (blas) isILP64;
+  };
 
   # upstream patch, remove with next release
   patches = [

@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  passthru = { extraLdLibraries = [ lua ]; };
+  passthru = {
+    extraLdLibraries = [ lua ];
+  };
 
   meta = with lib; {
     description = "Lua support for Fcitx 5";

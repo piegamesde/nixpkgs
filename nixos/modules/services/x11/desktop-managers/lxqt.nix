@@ -14,7 +14,9 @@ let
 in
 
 {
-  meta = { maintainers = teams.lxqt.members; };
+  meta = {
+    maintainers = teams.lxqt.members;
+  };
 
   options = {
 

@@ -33,7 +33,9 @@ let
     backend:
     makeTest {
       name = "vaultwarden-${backend}";
-      meta = { maintainers = with pkgs.lib.maintainers; [ jjjollyjim ]; };
+      meta = {
+        maintainers = with pkgs.lib.maintainers; [ jjjollyjim ];
+      };
 
       nodes = {
         server =

@@ -54,7 +54,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional szipSupport szip
   ;
 
-  passthru = { inherit mpiSupport mpi; };
+  passthru = {
+    inherit mpiSupport mpi;
+  };
 
   configureFlags =
     [

@@ -10,7 +10,9 @@ let
 
     soundpack = { };
 
-    tileset = { UndeadPeople = callPackage ./tilesets/UndeadPeople { }; };
+    tileset = {
+      UndeadPeople = callPackage ./tilesets/UndeadPeople { };
+    };
   };
 
   pkgs' = lib.mapAttrs (_: mods: lib.filterAttrs isAvailable mods) pkgs;

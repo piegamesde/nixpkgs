@@ -384,7 +384,9 @@ in
             RemainAfterExit = "yes";
           };
 
-          unitConfig = { ConditionFileNotEmpty = "${cfg.stateDir}/conf.php"; };
+          unitConfig = {
+            ConditionFileNotEmpty = "${cfg.stateDir}/conf.php";
+          };
         };
 
         users.users.dolibarr = mkIf (cfg.user == "dolibarr") {

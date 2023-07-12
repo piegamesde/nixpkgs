@@ -326,7 +326,9 @@ in
                 description = lib.mdDoc ''
                   Custom query parameters to send with the Authorize Endpoint request.
                 '';
-                example = { domain_hint = "example.com"; };
+                example = {
+                  domain_hint = "example.com";
+                };
               };
 
               allowed_domains = mkOption {

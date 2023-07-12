@@ -98,7 +98,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru = { inherit broker; };
+  passthru = {
+    inherit broker;
+  };
 
   meta = with lib; {
     description = "Network analysis framework much different from a typical IDS";

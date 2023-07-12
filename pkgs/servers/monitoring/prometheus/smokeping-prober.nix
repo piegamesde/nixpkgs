@@ -43,7 +43,9 @@ buildGoModule rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) smokeping; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) smokeping;
+  };
 
   meta = with lib; {
     description = "Prometheus exporter for sending continual ICMP/UDP pings";

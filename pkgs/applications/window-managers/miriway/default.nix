@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = unstableGitUpdater { };
     providedSessions = [ "miriway" ];
-    tests = { inherit (nixosTests) miriway; };
+    tests = {
+      inherit (nixosTests) miriway;
+    };
   };
 
   meta = with lib; {

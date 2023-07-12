@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lintl";
 
-  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
+  passthru = {
+    updateScript = gnome.updateScript { packageName = pname; };
+  };
 
   # We need to do this in pre-configure before the data/ folder disappears.
   preConfigure = ''

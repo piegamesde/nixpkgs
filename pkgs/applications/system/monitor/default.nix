@@ -84,7 +84,9 @@ stdenv.mkDerivation rec {
       "meson.get_compiler('c').find_library('libcurl', dirs: '${curl.out}/lib')"
   '';
 
-  passthru = { updateScript = gitUpdater { ignoredVersions = "ci.*"; }; };
+  passthru = {
+    updateScript = gitUpdater { ignoredVersions = "ci.*"; };
+  };
 
   meta = with lib; {
     description = "Manage processes and monitor system resources";

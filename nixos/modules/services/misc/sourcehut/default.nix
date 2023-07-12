@@ -221,7 +221,9 @@ in
       '';
     };
 
-    minio = { enable = mkEnableOption (lib.mdDoc "local minio integration"); };
+    minio = {
+      enable = mkEnableOption (lib.mdDoc "local minio integration");
+    };
 
     nginx = {
       enable = mkEnableOption (lib.mdDoc "local nginx integration");
@@ -685,7 +687,9 @@ in
           ;
           type = with types; attrsOf int;
           default = { };
-          example = { "git.sr.ht" = 12345; };
+          example = {
+            "git.sr.ht" = 12345;
+          };
         };
         options."meta.sr.ht::billing" = {
           enabled = mkEnableOption (lib.mdDoc "the billing system");
@@ -1199,7 +1203,9 @@ in
             ];
           }
           (mkIf cfg.builds.enableWorker {
-            users.groups = { docker.members = [ cfg.builds.user ]; };
+            users.groups = {
+              docker.members = [ cfg.builds.user ];
+            };
           })
           (mkIf (cfg.builds.enableWorker && cfg.nginx.enable) {
             # Allow nginx access to buildlogs

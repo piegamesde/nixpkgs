@@ -131,9 +131,15 @@ rec {
       ;
 
       legacyModules =
-        optional (evalModulesArgs ? args) { config = { _module.args = args; }; }
+        optional (evalModulesArgs ? args) {
+          config = {
+            _module.args = args;
+          };
+        }
         ++ optional (evalModulesArgs ? check) {
-          config = { _module.check = mkDefault check; };
+          config = {
+            _module.check = mkDefault check;
+          };
         }
       ;
       regularModules = modules ++ legacyModules;

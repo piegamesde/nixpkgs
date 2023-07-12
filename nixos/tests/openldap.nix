@@ -102,7 +102,9 @@ import ./make-test-python.nix (
                     # cn=root,dc=example
                     base64 = "Y249cm9vdCxkYz1leGFtcGxl";
                   };
-                  olcRootPW = { path = "/etc/openldap/root_password"; };
+                  olcRootPW = {
+                    path = "/etc/openldap/root_password";
+                  };
                 };
               };
             };

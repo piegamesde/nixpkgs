@@ -84,7 +84,9 @@ python.pkgs.buildPythonApplication rec {
 
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests) etesync-dav; };
+  passthru.tests = {
+    inherit (nixosTests) etesync-dav;
+  };
 
   meta = with lib; {
     homepage = "https://www.etesync.com/";

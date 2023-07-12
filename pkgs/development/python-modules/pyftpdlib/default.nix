@@ -23,7 +23,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pysendfile ];
 
-  passthru.optional-dependencies = { ssl = [ pyopenssl ]; };
+  passthru.optional-dependencies = {
+    ssl = [ pyopenssl ];
+  };
 
   nativeCheckInputs = [
     mock

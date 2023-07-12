@@ -139,7 +139,9 @@ in
         };
       };
 
-      client = { enable = mkEnableOption (lib.mdDoc "slurm client daemon"); };
+      client = {
+        enable = mkEnableOption (lib.mdDoc "slurm client daemon");
+      };
 
       enableStools = mkOption {
         type = types.bool;

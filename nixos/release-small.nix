@@ -70,8 +70,12 @@ rec {
         proxy
         simple
       ;
-      installer = { inherit (nixos'.tests.installer) lvm separateBoot simple; };
-      boot = { inherit (nixos'.tests.boot) biosCdrom uefiCdrom; };
+      installer = {
+        inherit (nixos'.tests.installer) lvm separateBoot simple;
+      };
+      boot = {
+        inherit (nixos'.tests.boot) biosCdrom uefiCdrom;
+      };
     };
   };
 

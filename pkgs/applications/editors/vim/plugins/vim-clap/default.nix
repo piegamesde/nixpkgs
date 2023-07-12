@@ -62,5 +62,7 @@ vimUtils.buildVimPluginFrom2Nix {
     ln -s ${maple}/bin/maple $out/bin/maple
   '';
 
-  passthru = { inherit maple; };
+  passthru = {
+    inherit maple;
+  };
 }

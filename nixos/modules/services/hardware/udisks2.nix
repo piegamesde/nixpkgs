@@ -50,7 +50,9 @@ in
               modules = [ "*" ];
               modules_load_preference = "ondemand";
             };
-            defaults = { encryption = "luks2"; };
+            defaults = {
+              encryption = "luks2";
+            };
           };
         };
         example = literalExpression ''

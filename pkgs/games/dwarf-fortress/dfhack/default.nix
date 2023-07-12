@@ -198,7 +198,9 @@ stdenv.mkDerivation {
     ln -s ${ruby}/lib/libruby-*.so $out/hack/libruby.so
   '';
 
-  passthru = { inherit dfVersion; };
+  passthru = {
+    inherit dfVersion;
+  };
 
   meta = with lib; {
     description = "Memory hacking library for Dwarf Fortress and a set of tools that use it";

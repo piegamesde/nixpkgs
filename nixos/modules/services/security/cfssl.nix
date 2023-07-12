@@ -200,7 +200,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups.cfssl = { gid = config.ids.gids.cfssl; };
+    users.groups.cfssl = {
+      gid = config.ids.gids.cfssl;
+    };
 
     users.users.cfssl = {
       description = "cfssl user";

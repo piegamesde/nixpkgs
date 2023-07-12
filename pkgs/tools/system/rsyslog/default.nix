@@ -186,7 +186,9 @@ stdenv.mkDerivation rec {
     (enableFeature true "generate-man-pages")
   ];
 
-  passthru.tests = { nixos-rsyslogd = nixosTests.rsyslogd; };
+  passthru.tests = {
+    nixos-rsyslogd = nixosTests.rsyslogd;
+  };
 
   meta = with lib; {
     homepage = "https://www.rsyslog.com/";

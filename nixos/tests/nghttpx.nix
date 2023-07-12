@@ -19,7 +19,9 @@ import ./make-test-python.nix (
 
         services.nginx = {
           enable = true;
-          virtualHosts.server = { locations."/".root = nginxRoot; };
+          virtualHosts.server = {
+            locations."/".root = nginxRoot;
+          };
         };
       };
 
@@ -33,7 +35,9 @@ import ./make-test-python.nix (
               port = 80;
             };
 
-            params = { tls = "no-tls"; };
+            params = {
+              tls = "no-tls";
+            };
           } ];
           backends = [ {
             server = {

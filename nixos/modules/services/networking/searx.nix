@@ -158,7 +158,9 @@ in
 
       uwsgiConfig = mkOption {
         type = options.services.uwsgi.instance.type;
-        default = { http = ":8080"; };
+        default = {
+          http = ":8080";
+        };
         example = literalExpression ''
           {
             disable-logging = true;

@@ -54,6 +54,8 @@ stdenv.mkDerivation (
       platforms = platforms.linux;
     };
 
-    passthru = { shellPath = "/bin/loksh"; };
+    passthru = {
+      shellPath = "/bin/loksh";
+    };
   }
 )

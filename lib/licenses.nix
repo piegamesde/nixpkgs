@@ -457,7 +457,9 @@ lib.mapAttrs
         free = false;
       };
 
-      free = { fullName = "Unspecified free software license"; };
+      free = {
+        fullName = "Unspecified free software license";
+      };
 
       ftl = {
         spdxId = "FTL";
@@ -847,7 +849,9 @@ lib.mapAttrs
         url = "https://docs.python.org/license.html";
       };
 
-      publicDomain = { fullName = "Public Domain"; };
+      publicDomain = {
+        fullName = "Public Domain";
+      };
 
       purdueBsd = {
         fullName = " Purdue BSD-Style License"; # also know as lsof license
@@ -892,7 +896,9 @@ lib.mapAttrs
 
       # Gentoo seems to treat it as a license:
       # https://gitweb.gentoo.org/repo/gentoo.git/tree/licenses/SGMLUG?id=7d999af4a47bf55e53e54713d98d145f935935c1
-      sgmlug = { fullName = "SGML UG SGML Parser Materials license"; };
+      sgmlug = {
+        fullName = "SGML UG SGML Parser Materials license";
+      };
 
       sleepycat = {
         spdxId = "Sleepycat";

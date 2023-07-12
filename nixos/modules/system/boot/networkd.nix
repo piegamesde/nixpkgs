@@ -1648,7 +1648,9 @@ let
 
     matchConfig = mkOption {
       default = { };
-      example = { Name = "eth0"; };
+      example = {
+        Name = "eth0";
+      };
       type = types.attrsOf unitOption;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1687,7 +1689,9 @@ let
 
     dhcpV4Config = mkOption {
       default = { };
-      example = { DUIDType = "vendor"; };
+      example = {
+        DUIDType = "vendor";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.global.sectionDHCPv4
@@ -1701,7 +1705,9 @@ let
 
     dhcpV6Config = mkOption {
       default = { };
-      example = { DUIDType = "vendor"; };
+      example = {
+        DUIDType = "vendor";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.global.sectionDHCPv6
@@ -1726,7 +1732,9 @@ let
 
     linkConfig = mkOption {
       default = { };
-      example = { MACAddress = "00:ff:ee:aa:cc:dd"; };
+      example = {
+        MACAddress = "00:ff:ee:aa:cc:dd";
+      };
       type = types.addCheck (types.attrsOf unitOption) check.link.sectionLink;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1790,7 +1798,9 @@ let
 
     vlanConfig = mkOption {
       default = { };
-      example = { Id = 4; };
+      example = {
+        Id = 4;
+      };
       type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionVLAN;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1801,7 +1811,9 @@ let
 
     macvlanConfig = mkOption {
       default = { };
-      example = { Mode = "private"; };
+      example = {
+        Mode = "private";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionMACVLAN
@@ -1828,7 +1840,9 @@ let
 
     tunnelConfig = mkOption {
       default = { };
-      example = { Remote = "192.168.1.1"; };
+      example = {
+        Remote = "192.168.1.1";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionTunnel
@@ -1842,7 +1856,9 @@ let
 
     fooOverUDPConfig = mkOption {
       default = { };
-      example = { Port = 9001; };
+      example = {
+        Port = 9001;
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.netdev.sectionFooOverUDP
@@ -1856,7 +1872,9 @@ let
 
     peerConfig = mkOption {
       default = { };
-      example = { Name = "veth2"; };
+      example = {
+        Name = "veth2";
+      };
       type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionPeer;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1867,7 +1885,9 @@ let
 
     tunConfig = mkOption {
       default = { };
-      example = { User = "openvpn"; };
+      example = {
+        User = "openvpn";
+      };
       type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionTun;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1878,7 +1898,9 @@ let
 
     tapConfig = mkOption {
       default = { };
-      example = { User = "openvpn"; };
+      example = {
+        User = "openvpn";
+      };
       type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionTap;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1966,7 +1988,9 @@ let
 
     bondConfig = mkOption {
       default = { };
-      example = { Mode = "802.3ad"; };
+      example = {
+        Mode = "802.3ad";
+      };
       type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionBond;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1977,7 +2001,9 @@ let
 
     xfrmConfig = mkOption {
       default = { };
-      example = { InterfaceId = 1; };
+      example = {
+        InterfaceId = 1;
+      };
       type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionXfrm;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1988,7 +2014,9 @@ let
 
     vrfConfig = mkOption {
       default = { };
-      example = { Table = 2342; };
+      example = {
+        Table = 2342;
+      };
       type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionVRF;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2020,7 +2048,9 @@ let
   addressOptions = {
     options = {
       addressConfig = mkOption {
-        example = { Address = "192.168.0.100/24"; };
+        example = {
+          Address = "192.168.0.100/24";
+        };
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionAddress
@@ -2060,7 +2090,9 @@ let
     options = {
       routeConfig = mkOption {
         default = { };
-        example = { Gateway = "192.168.0.1"; };
+        example = {
+          Gateway = "192.168.0.1";
+        };
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionRoute
@@ -2078,7 +2110,9 @@ let
     options = {
       ipv6PrefixConfig = mkOption {
         default = { };
-        example = { Prefix = "fd00::/64"; };
+        example = {
+          Prefix = "fd00::/64";
+        };
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionIPv6Prefix
@@ -2096,7 +2130,9 @@ let
     options = {
       ipv6RoutePrefixConfig = mkOption {
         default = { };
-        example = { Route = "fd00::/64"; };
+        example = {
+          Route = "fd00::/64";
+        };
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionIPv6RoutePrefix
@@ -2181,7 +2217,9 @@ let
     options = {
       bridgeMDBConfig = mkOption {
         default = { };
-        example = { VLAN = 20; };
+        example = {
+          VLAN = 20;
+        };
         type =
           types.addCheck (types.attrsOf unitOption)
             check.network.sectionBridgeVLAN
@@ -2199,7 +2237,9 @@ let
 
     linkConfig = mkOption {
       default = { };
-      example = { Unmanaged = true; };
+      example = {
+        Unmanaged = true;
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionLink
@@ -2213,7 +2253,9 @@ let
 
     networkConfig = mkOption {
       default = { };
-      example = { Description = "My Network"; };
+      example = {
+        Description = "My Network";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionNetwork
@@ -2255,7 +2297,9 @@ let
 
     dhcpV6Config = mkOption {
       default = { };
-      example = { UseDNS = true; };
+      example = {
+        UseDNS = true;
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionDHCPv6
@@ -2451,7 +2495,9 @@ let
 
     lldpConfig = mkOption {
       default = { };
-      example = { MUDURL = "https://things.example.org/product_abc123/v5"; };
+      example = {
+        MUDURL = "https://things.example.org/product_abc123/v5";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionLLDP
@@ -2490,7 +2536,9 @@ let
 
     qdiscConfig = mkOption {
       default = { };
-      example = { Parent = "ingress"; };
+      example = {
+        Parent = "ingress";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionQDisc
@@ -2654,7 +2702,9 @@ let
 
     pfifoFastConfig = mkOption {
       default = { };
-      example = { Parent = "ingress"; };
+      example = {
+        Parent = "ingress";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionPFIFOFast
@@ -2703,7 +2753,9 @@ let
 
     deficitRoundRobinSchedulerConfig = mkOption {
       default = { };
-      example = { Parent = "root"; };
+      example = {
+        Parent = "root";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionDeficitRoundRobinScheduler
@@ -2822,7 +2874,9 @@ let
 
     hierarchyTokenBucketConfig = mkOption {
       default = { };
-      example = { Parent = "root"; };
+      example = {
+        Parent = "root";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionHierarchyTokenBucket
@@ -2870,7 +2924,9 @@ let
 
     quickFairQueueingConfig = mkOption {
       default = { };
-      example = { Parent = "root"; };
+      example = {
+        Parent = "root";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionQuickFairQueueing
@@ -2901,7 +2957,9 @@ let
 
     bridgeVLANConfig = mkOption {
       default = { };
-      example = { VLAN = "10-20"; };
+      example = {
+        VLAN = "10-20";
+      };
       type =
         types.addCheck (types.attrsOf unitOption)
           check.network.sectionBridgeVLAN
@@ -2915,7 +2973,11 @@ let
 
     bridgeVLANs = mkOption {
       default = [ ];
-      example = [ { bridgeVLANConfig = { VLAN = "10-20"; }; } ];
+      example = [ {
+        bridgeVLANConfig = {
+          VLAN = "10-20";
+        };
+      } ];
       type = with types; listOf (submodule bridgeVLANOptions);
       description = lib.mdDoc ''
         A list of BridgeVLAN sections to be added to the unit.  See
@@ -3111,7 +3173,9 @@ let
       options = {
         routeTables = mkOption {
           default = { };
-          example = { foo = 27; };
+          example = {
+            foo = 27;
+          };
           type = with types; attrsOf int;
           description = lib.mdDoc ''
             Defines route table names as an attrset of name to number.
@@ -3596,7 +3660,9 @@ let
                   mapAttrs (_: x: x // { internal = true; })
                     concreteUnitOptions
                 ;
-                config = { unit = mkDefault (makeUnit name config); };
+                config = {
+                  unit = mkDefault (makeUnit name config);
+                };
               }
             )
           )

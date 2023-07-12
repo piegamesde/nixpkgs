@@ -251,7 +251,9 @@ rec {
           libPath = "src/my_lib.rs";
           src = mkLib "src/my_lib.rs";
         };
-        srcLib = { src = mkLib "src/lib.rs"; };
+        srcLib = {
+          src = mkLib "src/lib.rs";
+        };
 
         # This used to be supported by cargo but as of 1.40.0 I can't make it work like that with just cargo anymore.
         # This might be a regression or deprecated thing they finally removed…
@@ -309,7 +311,9 @@ rec {
               src = mkLib "src/lib.rs";
             })
           ];
-          crateRenames = { "foo" = "foo_renamed"; };
+          crateRenames = {
+            "foo" = "foo_renamed";
+          };
         };
         crateBinRename2 = {
           crateBin = [ { name = "my-binary-rename2"; } ];
@@ -321,7 +325,9 @@ rec {
               src = mkLib "src/lib.rs";
             })
           ];
-          crateRenames = { "foo" = "foo_renamed"; };
+          crateRenames = {
+            "foo" = "foo_renamed";
+          };
         };
         crateBinRenameMultiVersion =
           let

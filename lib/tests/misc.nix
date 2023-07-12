@@ -94,7 +94,9 @@ runTests {
 
   testFix = {
     expr = fix (x: { a = if x ? a then "a" else "b"; });
-    expected = { a = "a"; };
+    expected = {
+      a = "a";
+    };
   };
 
   testComposeExtensions = {
@@ -204,7 +206,9 @@ runTests {
 
   testFunctionArgsSetFunctionArgs = {
     expr = functionArgs (setFunctionArgs (args: args.x) { x = false; });
-    expected = { x = false; };
+    expected = {
+      x = false;
+    };
   };
 
   # STRINGS
@@ -841,7 +845,11 @@ runTests {
           "a"
           "b"
         ]
-        { a = { b = "yey"; }; }
+        {
+          a = {
+            b = "yey";
+          };
+        }
     ;
     expected = true;
   };
@@ -853,7 +861,11 @@ runTests {
           "a"
           "b"
         ]
-        { a = { c = "yey"; }; }
+        {
+          a = {
+            c = "yey";
+          };
+        }
     ;
     expected = false;
   };
@@ -959,7 +971,9 @@ runTests {
 
   testOverrideExistingDisjoint = {
     expr = overrideExisting { b = 2; } { a = 1; };
-    expected = { b = 2; };
+    expected = {
+      b = 2;
+    };
   };
 
   testOverrideExistingOverride = {
@@ -1058,7 +1072,9 @@ runTests {
 
   testToINIDefaultEscapes = {
     expr = generators.toINI { } {
-      "no [ and ] allowed unescaped" = { "and also no = in keys" = 42; };
+      "no [ and ] allowed unescaped" = {
+        "and also no = in keys" = 42;
+      };
     };
     expected = ''
       [no \[ and \] allowed unescaped]
@@ -1074,7 +1090,9 @@ runTests {
         # booleans are converted verbatim by default
         boolean = false;
       };
-      "foo[]" = { "he\\h=he" = "this is okay"; };
+      "foo[]" = {
+        "he\\h=he" = "this is okay";
+      };
     };
     expected = ''
       [foo\[\]]
@@ -1102,7 +1120,9 @@ runTests {
           attribute1 = 5;
           x = "Me-se JarJar Binx";
         };
-        "foo" = { "he\\h=he" = "this is okay"; };
+        "foo" = {
+          "he\\h=he" = "this is okay";
+        };
       };
     in
     {
@@ -1125,7 +1145,9 @@ runTests {
           attribute1 = 5;
           x = "Me-se JarJar Binx";
         };
-        "foo" = { "he\\h=he" = "this is okay"; };
+        "foo" = {
+          "he\\h=he" = "this is okay";
+        };
       };
     };
     expected = ''
@@ -1449,7 +1471,9 @@ runTests {
   testToLuaBindings = {
     expr = generators.toLua { asBindings = true; } {
       x1 = 41;
-      _y = { a = 43; };
+      _y = {
+        a = 43;
+      };
     };
     expected = ''
       _y = {
@@ -1473,7 +1497,11 @@ runTests {
           asBindings = true;
           indent = "  ";
         }
-        { x = { y = 42; }; }
+        {
+          x = {
+            y = 42;
+          };
+        }
     ;
     expected = "  x = {\n    [\"y\"] = 42\n  }\n";
   };
@@ -1961,8 +1989,14 @@ runTests {
         { a.b.c = 0; }
     ;
     expected = {
-      a = { b = { d = 1; }; };
-      x = { y = "xy"; };
+      a = {
+        b = {
+          d = 1;
+        };
+      };
+      x = {
+        y = "xy";
+      };
     };
   };
 

@@ -48,7 +48,9 @@ import ./make-test-python.nix {
             };
           }
         ;
-        gen2.configuration = { security.dhparams.params.foo.bits = 1026; };
+        gen2.configuration = {
+          security.dhparams.params.foo.bits = 1026;
+        };
         gen3.configuration = { };
         gen4.configuration = {
           security.dhparams.stateful = false;

@@ -169,7 +169,9 @@ in
     users.groups = {
       frr = { };
       # Members of the frrvty group can use vtysh to inspect the FRR daemons
-      frrvty = { members = [ "frr" ]; };
+      frrvty = {
+        members = [ "frr" ];
+      };
     };
 
     environment.etc =

@@ -12,7 +12,9 @@ import ../make-test-python.nix (
   }:
   {
     inherit name;
-    meta = { maintainers = with lib.maintainers; [ hmenke ]; };
+    meta = {
+      maintainers = with lib.maintainers; [ hmenke ];
+    };
 
     nodes = {
       server = {

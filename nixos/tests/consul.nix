@@ -13,7 +13,9 @@ import ./make-test-python.nix (
 
     defaultExtraConfig = {
       inherit retry_interval;
-      performance = { inherit raft_multiplier; };
+      performance = {
+        inherit raft_multiplier;
+      };
     };
 
     allConsensusServerHosts = [

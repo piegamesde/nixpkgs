@@ -204,7 +204,9 @@ in
         "cockpit-wsinstance-http.socket"
         "cockpit-wsinstance-https-factory.socket"
       ];
-      environment = { G_MESSAGES_DEBUG = "cockpit-ws,cockpit-bridge"; };
+      environment = {
+        G_MESSAGES_DEBUG = "cockpit-ws,cockpit-bridge";
+      };
       serviceConfig = {
         RuntimeDirectory = "cockpit/tls";
         ExecStartPre =

@@ -63,7 +63,9 @@ mkCoqDerivation {
     (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);
 
   # This is meant to ease future troubleshooting of cvc4 build failures
-  passthru = { inherit cvc4; };
+  passthru = {
+    inherit cvc4;
+  };
 
   meta = with lib; {
     description = "Communication between Coq and SAT/SMT solvers ";

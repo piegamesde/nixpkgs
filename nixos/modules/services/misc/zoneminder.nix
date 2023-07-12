@@ -232,7 +232,9 @@ in
         ensureDatabases = [ cfg.database.name ];
         ensureUsers = [ {
           name = cfg.database.username;
-          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
         } ];
       };
 
@@ -406,7 +408,9 @@ in
       };
     };
 
-    users.groups.${user} = { gid = config.ids.gids.zoneminder; };
+    users.groups.${user} = {
+      gid = config.ids.gids.zoneminder;
+    };
 
     users.users.${user} = {
       uid = config.ids.uids.zoneminder;

@@ -52,7 +52,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru = { tests = { inherit ocrmypdf; }; };
+  passthru = {
+    tests = {
+      inherit ocrmypdf;
+    };
+  };
 
   meta = with lib; {
     description = "PDF parser and analyzer";

@@ -17,7 +17,9 @@ import ./make-test-python.nix (
   {
     name = "systemd-credentials-tpm2";
 
-    meta = { maintainers = with pkgs.lib.maintainers; [ tmarkus ]; };
+    meta = {
+      maintainers = with pkgs.lib.maintainers; [ tmarkus ];
+    };
 
     nodes.machine =
       {

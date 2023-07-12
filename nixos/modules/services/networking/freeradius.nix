@@ -67,7 +67,9 @@ in
 
   ###### interface
 
-  options = { services.freeradius = freeradiusConfig; };
+  options = {
+    services.freeradius = freeradiusConfig;
+  };
 
   ###### implementation
 

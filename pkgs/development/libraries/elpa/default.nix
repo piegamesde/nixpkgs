@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   pname = "elpa";
   version = "2022.11.001";
 
-  passthru = { inherit (blas) isILP64; };
+  passthru = {
+    inherit (blas) isILP64;
+  };
 
   src = fetchurl {
     url = "https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/${version}/elpa-${version}.tar.gz";

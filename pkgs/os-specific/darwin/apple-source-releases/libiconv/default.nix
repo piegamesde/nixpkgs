@@ -34,5 +34,7 @@ appleDerivation {
     ../../../../development/libraries/libiconv/setup-hook.sh
   ];
 
-  meta = { platforms = lib.platforms.darwin; };
+  meta = {
+    platforms = lib.platforms.darwin;
+  };
 }

@@ -7,7 +7,9 @@ let
 
   moduleWithKey = {
     key = 123;
-    config = { enable = true; };
+    config = {
+      enable = true;
+    };
   };
 in
 {

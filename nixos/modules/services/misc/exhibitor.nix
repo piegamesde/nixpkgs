@@ -73,7 +73,9 @@ let
       fsconfiglockprefix = cfg.fsConfigLockPrefix;
       fsConfigName = fsConfigName;
     };
-    none = { noneconfigdir = configDir; };
+    none = {
+      noneconfigdir = configDir;
+    };
   };
   cliOptions = concatStringsSep " " (
     mapAttrsToList (k: v: "--${k} ${v}") (
@@ -404,7 +406,9 @@ in
       description = "Exhibitor Daemon";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      environment = { ZOO_LOG_DIR = cfg.baseDir; };
+      environment = {
+        ZOO_LOG_DIR = cfg.baseDir;
+      };
       serviceConfig = {
         /* **
              Exhibitor is a bit un-nixy. It wants to present to you a user interface in order to
