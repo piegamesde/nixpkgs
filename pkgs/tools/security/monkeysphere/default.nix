@@ -104,7 +104,8 @@ stdenv.mkDerivation rec {
         "--prefix PERL5LIB : "
         + (
           with perlPackages;
-          makePerlPath [ # Optional (only required for keytrans)
+          makePerlPath [
+            # Optional (only required for keytrans)
             CryptOpenSSLRSA
             CryptOpenSSLBignum
           ]

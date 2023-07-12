@@ -114,7 +114,8 @@ buildPythonPackage rec {
       ++ xbr
     ;
     accelerate =
-      [ # wsaccel
+      [
+        # wsaccel
       ];
     compress = [ python-snappy ];
     encryption = [

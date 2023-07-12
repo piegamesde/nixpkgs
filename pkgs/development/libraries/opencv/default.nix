@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ # Don't include a copy of the CMake status output in the
+    [
+      # Don't include a copy of the CMake status output in the
       # build. This causes a runtime dependency on GCC.
       ./no-build-info.patch
     ];

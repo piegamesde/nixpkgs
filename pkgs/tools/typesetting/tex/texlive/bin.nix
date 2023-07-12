@@ -120,7 +120,8 @@ let
     && !stdenv.hostPlatform.isRiscV
   ;
 in
-rec { # un-indented
+rec {
+  # un-indented
 
   inherit (common) cleanBrokenLinks;
   texliveYear = year;
@@ -287,7 +288,8 @@ rec { # un-indented
   };
 
   inherit (core-big) metafont mflua metapost luatex luahbtex luajittex xetex;
-  core-big = stdenv.mkDerivation { # TODO: upmendex
+  core-big = stdenv.mkDerivation {
+    # TODO: upmendex
     pname = "texlive-core-big.bin";
     inherit version;
 

@@ -162,7 +162,8 @@ let
   pname = "tensorflow${variant}";
 
   pythonEnv = python.withPackages (
-    _: [ # python deps needed during wheel build time (not runtime, see the buildPythonPackage part for that)
+    _: [
+      # python deps needed during wheel build time (not runtime, see the buildPythonPackage part for that)
       # This list can likely be shortened, but each trial takes multiple hours so won't bother for now.
       absl-py
       astunparse

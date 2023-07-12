@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
   pname = "amidst";
   version = "4.7";
 
-  src = fetchurl { # TODO: Compile from src
+  src = fetchurl {
+    # TODO: Compile from src
     url =
       "https://github.com/toolbox4minecraft/amidst/releases/download/v${version}/amidst-v${
         lib.replaceStrings [ "." ] [ "-" ] version

@@ -9,7 +9,8 @@
 with lib;
 
 {
-  imports = [ # Enable devices which are usually scanned, because we don't know the
+  imports = [
+    # Enable devices which are usually scanned, because we don't know the
     # target system.
     ../installer/scan/detected.nix
     ../installer/scan/not-detected.nix

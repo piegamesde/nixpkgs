@@ -74,7 +74,8 @@ let
         ]
       );
 
-      common = rec { # attributes common to both builds
+      common = rec {
+        # attributes common to both builds
         inherit version;
 
         src = fetchurl {

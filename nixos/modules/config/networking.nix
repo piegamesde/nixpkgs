@@ -226,7 +226,8 @@ in
       ]
     ;
 
-    environment.etc = { # /etc/services: TCP/UDP port assignments.
+    environment.etc = {
+      # /etc/services: TCP/UDP port assignments.
       services.source = pkgs.iana-etc + "/etc/services";
 
       # /etc/protocols: IP protocol numbers.

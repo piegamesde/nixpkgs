@@ -16,7 +16,8 @@ in
   # The initrd has to contain any module that might be necessary for
   # supporting the most important parts of HW like drives.
   boot.initrd.availableKernelModules =
-    [ # SATA/PATA support.
+    [
+      # SATA/PATA support.
       "ahci"
 
       "ata_piix"

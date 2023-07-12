@@ -98,7 +98,8 @@ let # un-indented, over the whole file
         gnutls
         lmdb
       ]
-      ++ optionals stdenv.isLinux [ # lib
+      ++ optionals stdenv.isLinux [
+        # lib
         systemd
         libcap_ng
       ]

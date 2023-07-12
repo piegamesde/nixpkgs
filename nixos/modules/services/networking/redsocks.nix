@@ -245,7 +245,8 @@ in
 
         ${redsocks_blocks}
       '';
-      internetOnly = [ # TODO: add ipv6-equivalent
+      internetOnly = [
+        # TODO: add ipv6-equivalent
         "-d 0.0.0.0/8"
         "-d 10.0.0.0/8"
         "-d 127.0.0.0/8"

@@ -102,7 +102,8 @@ let
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
   patches =
-    [ # Look in C_INCLUDE_PATH and LIBRARY_PATH for stuff.
+    [
+      # Look in C_INCLUDE_PATH and LIBRARY_PATH for stuff.
       ./search-path.patch
 
       # Python recompiles a Python if the mtime stored *in* the

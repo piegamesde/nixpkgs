@@ -22,9 +22,7 @@
 
   widgetset ? "qt5",
   # See https://github.com/Alexey-T/CudaText-lexers
-  additionalLexers ? [
-    "Nix"
-  ],
+  additionalLexers ? [ "Nix" ],
 }:
 
 assert builtins.elem widgetset [

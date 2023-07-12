@@ -109,7 +109,8 @@ let
         excludes = [ "gcc/cp/ChangeLog" ];
       })
     ]
-    ++ [ # glibc-2.26
+    ++ [
+      # glibc-2.26
       ../struct-ucontext-4.8.patch
       ../sigsegv-not-declared.patch
       ../res_state-not-declared.patch

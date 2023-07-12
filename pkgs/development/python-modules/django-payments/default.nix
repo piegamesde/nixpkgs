@@ -62,7 +62,8 @@ buildPythonPackage rec {
     ];
     braintree = [ braintree ];
     cybersource =
-      [ # suds-community
+      [
+        # suds-community
       ];
     docs = [ sphinx-rtd-theme ];
     mercadopago = [ mercadopago ];

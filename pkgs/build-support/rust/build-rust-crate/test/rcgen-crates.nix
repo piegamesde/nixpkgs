@@ -18,9 +18,7 @@
   # This is used as the `crateOverrides` argument for `buildRustCrate`.
   defaultCrateOverrides ? pkgs.defaultCrateOverrides,
   # The features to enable for the root_crate or the workspace_members.
-  rootFeatures ? [
-    "default"
-  ],
+  rootFeatures ? [ "default" ],
   # If true, throw errors instead of issueing deprecation warnings.
   strictDeprecation ? false,
   # Used for conditional compilation based on CPU feature detection.

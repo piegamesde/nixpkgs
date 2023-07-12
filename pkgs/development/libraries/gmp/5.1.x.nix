@@ -16,7 +16,8 @@ let
     pname = "gmp";
     version = "5.1.3";
 
-    src = fetchurl { # we need to use bz2, others aren't in bootstrapping stdenv
+    src = fetchurl {
+      # we need to use bz2, others aren't in bootstrapping stdenv
       urls = [
         "mirror://gnu/gmp/gmp-${version}.tar.bz2"
         "ftp://ftp.gmplib.org/pub/gmp-${version}/gmp-${version}.tar.bz2"

@@ -1181,7 +1181,8 @@ in
             virtualisation.docker.enable = true;
 
             services.sourcehut.settings = mkMerge [
-              { # Note that git.sr.ht::dispatch is not a typo,
+              {
+                # Note that git.sr.ht::dispatch is not a typo,
                 # gitsrht-dispatch always use this section
                 "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" =
                   mkDefault

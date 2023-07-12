@@ -29,9 +29,7 @@
   # Extension for the compressed tarball
   compressionExtension ? ".xz",
   # extra inputs, like the compressor to use
-  extraInputs ? [
-    pixz
-  ],
+  extraInputs ? [ pixz ],
 }:
 
 let

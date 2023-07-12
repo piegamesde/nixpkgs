@@ -101,7 +101,8 @@ buildPythonPackage rec {
     ssl = [ pyopenssl ];
     # not packaged yet
     xcgi =
-      [ # flup
+      [
+        # flup
       ];
   };
 

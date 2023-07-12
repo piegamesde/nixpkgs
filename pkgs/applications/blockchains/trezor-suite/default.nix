@@ -24,7 +24,8 @@ let
     url =
       "https://github.com/trezor/${pname}/releases/download/v${version}/Trezor-Suite-${version}-${suffix}.AppImage";
     sha512 =
-      { # curl -Lfs https://github.com/trezor/trezor-suite/releases/latest/download/latest-linux{-arm64,}.yml | grep ^sha512 | sed 's/: /-/'
+      {
+        # curl -Lfs https://github.com/trezor/trezor-suite/releases/latest/download/latest-linux{-arm64,}.yml | grep ^sha512 | sed 's/: /-/'
         aarch64-linux =
           "sha512-cZZFc1Ij7KrF0Kc1Xmtg/73ASv56a6SFWFy3Miwl3P5u8ieZGXVDlSQyv84CsuYMbE0Vga3X0XS/BiF7nKNcnA==";
         x86_64-linux =

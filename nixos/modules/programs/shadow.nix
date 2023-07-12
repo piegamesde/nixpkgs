@@ -87,7 +87,8 @@ in
           config.users.defaultUserShell
     ;
 
-    environment.etc = { # /etc/login.defs: global configuration for pwdutils.  You
+    environment.etc = {
+      # /etc/login.defs: global configuration for pwdutils.  You
       # cannot login without it!
       "login.defs".source = pkgs.writeText "login.defs" loginDefs;
 

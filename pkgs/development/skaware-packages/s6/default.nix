@@ -14,7 +14,8 @@ buildPackage {
   # NOTE lib: cannot split lib from bin at the moment,
   # since some parts of lib depend on executables in bin.
   # (the `*_startf` functions in `libs6`)
-  outputs = [ # "bin" "lib"
+  outputs = [
+    # "bin" "lib"
     "out"
     "dev"
     "doc"

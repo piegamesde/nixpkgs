@@ -15,9 +15,7 @@
   pkg-config,
   protobuf,
   # default list of APIs: https://github.com/googleapis/google-cloud-cpp/blob/v1.32.1/CMakeLists.txt#L173
-  apis ? [
-    "*"
-  ],
+  apis ? [ "*" ],
   staticOnly ? stdenv.hostPlatform.isStatic,
 }:
 let

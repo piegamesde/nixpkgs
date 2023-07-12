@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   # doesn't depend on the Avahi libraries.  Instead, it contains
   # hand-written D-Bus code to talk to the Avahi daemon.
 
-  configureFlags = [ # Try to use the Avahi daemon before resolving on our own.
+  configureFlags = [
+    # Try to use the Avahi daemon before resolving on our own.
     "--enable-avahi"
 
     # Connect to the daemon at `/var/run/avahi-daemon/socket'.

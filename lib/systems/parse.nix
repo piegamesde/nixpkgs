@@ -614,7 +614,8 @@ rec {
         execFormat = unknown;
         families = { };
       };
-    } // { # aliases
+    } // {
+      # aliases
       # 'darwin' is the kernel for all of them. We choose macOS by default.
       darwin = kernels.macos;
       watchos = kernels.ios;

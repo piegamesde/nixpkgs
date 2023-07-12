@@ -12,7 +12,8 @@
   fontconfig,
   ghostscript,
 
-  tex ? texlive.combine { # satisfy all packages that ./configure mentions
+  tex ? texlive.combine {
+    # satisfy all packages that ./configure mentions
     inherit (texlive)
       scheme-basic
       epstopdf

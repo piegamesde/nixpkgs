@@ -990,7 +990,8 @@ with pkgs;
     git = buildPackages.gitMinimal;
     cacert = buildPackages.cacert;
     git-lfs = buildPackages.git-lfs;
-  }) // { # fetchgit is a function, so we use // instead of passthru.
+  }) // {
+    # fetchgit is a function, so we use // instead of passthru.
     tests = pkgs.tests.fetchgit;
   };
 
@@ -25823,7 +25824,8 @@ with pkgs;
     let
       inherit (python3.pkgs) libxml2;
     in
-    pkgs.buildEnv { # slightly hacky
+    pkgs.buildEnv {
+      # slightly hacky
       name = "libxml2+py-${res.libxml2.version}";
       paths = with libxml2; [
         dev
@@ -26712,7 +26714,8 @@ with pkgs;
 
   poppler_gi = lowPrio (poppler.override { introspectionSupport = true; });
 
-  poppler_min = poppler.override { # TODO: maybe reduce even more
+  poppler_min = poppler.override {
+    # TODO: maybe reduce even more
     # this is currently only used by texlive.bin.
     minimal = true;
     suffix = "min";
@@ -27166,7 +27169,8 @@ with pkgs;
   SDL2_image = callPackage ../development/libraries/SDL2_image {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
-  SDL2_image_2_0_5 = SDL2_image.override ({ # Pinned for pygame, toppler
+  SDL2_image_2_0_5 = SDL2_image.override ({
+    # Pinned for pygame, toppler
     version = "2.0.5";
     hash = "sha256-vdX24CZoL31+G+C2BRsgnaL0AqLdi9HEvZwlrSYxCNA";
   });
@@ -30407,7 +30411,8 @@ with pkgs;
 
       # backwards compatibility
       server = server-pgsql;
-    } // lib.optionalAttrs (version != "v40") { # agent2 is not supported in v4
+    } // lib.optionalAttrs (version != "v40") {
+      # agent2 is not supported in v4
       agent2 =
         (callPackages ../servers/monitoring/zabbix/agent2.nix { }).${version};
     }

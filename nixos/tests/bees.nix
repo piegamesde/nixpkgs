@@ -23,11 +23,13 @@ import ./make-test-python.nix (
           4096
         ];
         virtualisation.fileSystems = {
-          "/aux1" = { # filesystem configured to be deduplicated
+          "/aux1" = {
+            # filesystem configured to be deduplicated
             device = "/dev/disk/by-label/aux1";
             fsType = "btrfs";
           };
-          "/aux2" = { # filesystem not configured to be deduplicated
+          "/aux2" = {
+            # filesystem not configured to be deduplicated
             device = "/dev/disk/by-label/aux2";
             fsType = "btrfs";
           };

@@ -44,7 +44,8 @@ stdenv.mkDerivation {
     license = lib.licenses.lgpl21;
     platforms = with lib.platforms; linux;
     maintainers =
-      [ # Add your name here!
+      [
+        # Add your name here!
         lib.maintainers.maggesi
       ];
   };
