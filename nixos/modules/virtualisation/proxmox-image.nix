@@ -104,13 +104,15 @@ with lib;
       };
     };
     qemuExtraConf = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           oneOf [
             str
             int
           ]
-        );
+        )
+      ;
       default = { };
       example = literalExpression ''
         {

@@ -43,12 +43,14 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  pythonPath = with python3Packages;
+  pythonPath =
+    with python3Packages;
     [
       rdflib
       pyliblo
     ]
-    ++ lib.optional withFrontend pyqt5;
+    ++ lib.optional withFrontend pyqt5
+  ;
 
   buildInputs =
     [

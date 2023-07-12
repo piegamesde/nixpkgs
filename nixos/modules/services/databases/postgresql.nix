@@ -432,7 +432,8 @@ in
       };
 
       settings = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               bool
@@ -440,7 +441,8 @@ in
               int
               str
             ]
-          );
+          )
+        ;
         default = { };
         description = lib.mdDoc ''
           PostgreSQL configuration. Refer to

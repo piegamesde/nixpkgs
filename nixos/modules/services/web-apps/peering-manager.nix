@@ -63,12 +63,14 @@ let
     )).override
       { inherit (cfg) plugins; }
   ;
-  peeringManagerManageScript = with pkgs;
+  peeringManagerManageScript =
+    with pkgs;
     (writeScriptBin "peering-manager-manage" ''
       #!${stdenv.shell}
       export PYTHONPATH=${pkg.pythonPath}
       sudo -u peering-manager ${pkg}/bin/peering-manager "$@"
-    '');
+    '')
+  ;
 in
 {
   options.services.peering-manager = {

@@ -53,7 +53,8 @@
 let
   perlDeps = buildEnv {
     name = "hydra-perl-deps";
-    paths = with perlPackages;
+    paths =
+      with perlPackages;
       lib.closePropagation [
         AuthenSASL
         CatalystActionREST
@@ -122,7 +123,8 @@ let
         YAML
         nix.perl-bindings
         git
-      ];
+      ]
+    ;
   };
 in
 stdenv.mkDerivation rec {

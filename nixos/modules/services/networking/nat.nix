@@ -103,7 +103,8 @@ in
     };
 
     networking.nat.forwardPorts = mkOption {
-      type = with types;
+      type =
+        with types;
         listOf (
           submodule {
             options = {
@@ -144,7 +145,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
       default = [ ];
       example = [
         {

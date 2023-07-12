@@ -13,13 +13,15 @@ mkCoqDerivation {
   release."1.7".sha256 = "sha256-qoyteQ5W2Noxf12uACOVeHhPLvgmTzrvEo6Ts+FKTGI=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [ {
         case = range "8.10" "8.16";
         out = "1.7";
       } ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs = [ mathcomp-ssreflect ];
 

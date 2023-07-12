@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
   # Disabled because the tests can time-out.
   doCheck = false;
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       description = "Embeddable HTTP server library";
 
@@ -73,5 +74,6 @@ stdenv.mkDerivation rec {
         fpletz
       ];
       platforms = platforms.unix;
-    } // meta_;
+    } // meta_
+  ;
 }

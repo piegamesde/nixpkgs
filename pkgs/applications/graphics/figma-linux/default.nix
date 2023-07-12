@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     dpkg
   ];
 
-  buildInputs = with pkgs;
+  buildInputs =
+    with pkgs;
     [
       alsa-lib
       at-spi2-atk
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
         libxcb
         libxshmfence
       ]
-    );
+    )
+  ;
 
   runtimeDependencies = with pkgs; [ eudev ];
 

@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     coqPackages.coq
   ];
 
-  buildInputs = with ocamlPackages;
+  buildInputs =
+    with ocamlPackages;
     [
       ocamlgraph
       zarith
@@ -55,7 +56,8 @@ stdenv.mkDerivation rec {
           coq
           flocq
         ]
-      );
+      )
+  ;
 
   propagatedBuildInputs = with ocamlPackages; [
     camlzip

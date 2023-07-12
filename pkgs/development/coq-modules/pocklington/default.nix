@@ -14,13 +14,15 @@ mkCoqDerivation {
     "sha256-0xBrw9+4g14niYdNqp0nx00fPJoSSnaDSDEaIVpPfjs=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [ {
         case = isGe "8.7";
         out = "8.12.0";
       } ]
-      null;
+      null
+  ;
 
   meta = with lib; {
     description = "Pocklington's criterion for primality in Coq";

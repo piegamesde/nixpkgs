@@ -19,7 +19,8 @@ mkCoqDerivation rec {
   release."8.13+no".sha256 =
     "sha256-gXoxtLcHPoyjJkt7WqvzfCMCQlh6kL2KtCGe3N6RC/A=";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -39,7 +40,8 @@ mkCoqDerivation rec {
           out = "8.13+no";
         }
       ]
-      null;
+      null
+  ;
 
   mlPlugin = true;
   nativeBuildInputs = (with coq.ocamlPackages; [ ocamlbuild ]);

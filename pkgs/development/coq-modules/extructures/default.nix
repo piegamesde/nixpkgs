@@ -12,7 +12,8 @@
   owner = "arthuraa";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch
       [
         coq.coq-version
@@ -41,7 +42,8 @@
           out = "0.2.2";
         }
       ]
-      null;
+      null
+  ;
 
   releaseRev = v: "v${v}";
 

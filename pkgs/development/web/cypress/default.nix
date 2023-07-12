@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  buildInputs = with xorg;
+  buildInputs =
+    with xorg;
     [
       libXScrnSaver
       libXdamage
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
       alsa-lib
       gtk3
       mesa # for libgbm
-    ];
+    ]
+  ;
 
   runtimeDependencies = [ (lib.getLib udev) ];
 

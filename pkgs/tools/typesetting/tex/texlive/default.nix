@@ -179,7 +179,8 @@ let
   # need to be used instead. Ideally, for the release branches of NixOS we
   # should be switching to the tlnet-final versions
   # (https://tug.org/historic/).
-  urlPrefixes = with version;
+  urlPrefixes =
+    with version;
     lib.optionals final [
       # tlnet-final snapshot; used when texlive.tlpdb is frozen
       # the TeX Live yearly freeze typically happens in mid-March
@@ -194,7 +195,8 @@ let
       # please note that this server is not meant for large scale deployment and should be avoided on release branches
       # https://tug.org/pipermail/tex-live/2019-November/044456.html
       "https://texlive.info/tlnet-archive/${year}/${month}/${day}/tlnet"
-    ];
+    ]
+  ;
 
   tlpdbxz = fetchurl {
     urls = map (up: "${up}/tlpkg/texlive.tlpdb.xz") urlPrefixes;
@@ -337,7 +339,8 @@ tl // {
 
   # Pre-defined combined packages for TeX Live schemes,
   # to make nix-env usage more comfortable and build selected on Hydra.
-  combined = with lib;
+  combined =
+    with lib;
     recurseIntoAttrs (
       mapAttrs
         (
@@ -352,8 +355,10 @@ tl // {
               combine {
                 ${pname} = attrs;
                 extraName = "combined" + lib.removePrefix "scheme" pname;
-                extraVersion = with version;
-                  if final then "-final" else ".${year}${month}${day}";
+                extraVersion =
+                  with version;
+                  if final then "-final" else ".${year}${month}${day}"
+                ;
               }
             )
         )
@@ -370,5 +375,6 @@ tl // {
             scheme-tetex
           ;
         }
-    );
+    )
+  ;
 }

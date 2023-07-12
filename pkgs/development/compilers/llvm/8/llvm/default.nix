@@ -218,7 +218,8 @@ stdenv.mkDerivation (
       ln -sv $PWD/lib $out
     '';
 
-    cmakeFlags = with stdenv;
+    cmakeFlags =
+      with stdenv;
       let
         # These flags influence llvm-config's BuildVariables.inc in addition to the
         # general build. We need to make sure these are also passed via

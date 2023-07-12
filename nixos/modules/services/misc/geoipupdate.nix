@@ -64,7 +64,8 @@ in
           {file}`/run/keys/proxy_pass` file.
         '';
         type = lib.types.submodule {
-          freeformType = with lib.types;
+          freeformType =
+            with lib.types;
             let
               type = oneOf [
                 str

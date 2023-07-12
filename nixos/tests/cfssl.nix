@@ -53,11 +53,13 @@ import ./make-test-python.nix (
 
     testScript =
       let
-        cfsslrequest = with pkgs;
+        cfsslrequest =
+          with pkgs;
           writeScript "cfsslrequest" ''
             curl -f -X POST -H "Content-Type: application/json" -d @${csr} \
               http://localhost:8888/api/v1/cfssl/newkey | ${cfssl}/bin/cfssljson /tmp/certificate
-          '';
+          ''
+        ;
         csr = pkgs.writeText "csr.json" (
           builtins.toJSON {
             CN = "www.example.com";

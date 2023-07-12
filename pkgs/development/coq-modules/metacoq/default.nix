@@ -13,7 +13,8 @@ with builtins // lib;
 let
   repo = "metacoq";
   owner = "MetaCoq";
-  defaultVersion = with versions;
+  defaultVersion =
+    with versions;
     lib.switch coq.coq-version
       [
         {
@@ -39,7 +40,8 @@ let
           out = "1.1-8.16";
         }
       ]
-      null;
+      null
+  ;
   release = {
     "1.0-beta2-8.11".sha256 =
       "sha256-I9YNk5Di6Udvq5/xpLSNflfjRyRH8fMnRzbo3uhpXNs=";

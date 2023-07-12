@@ -49,7 +49,8 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = with gst_all_1;
+  buildInputs =
+    with gst_all_1;
     [
       gdk-pixbuf
       glib
@@ -66,9 +67,11 @@ python3.pkgs.buildPythonApplication rec {
       pango
       totem-pl-parser
     ]
-    ++ lib.optional lastFMSupport libsecret;
+    ++ lib.optional lastFMSupport libsecret
+  ;
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       beautifulsoup4
       pillow
@@ -76,7 +79,8 @@ python3.pkgs.buildPythonApplication rec {
       pygobject3
     ]
     ++ lib.optional lastFMSupport pylast
-    ++ lib.optional youtubeSupport youtube-dl;
+    ++ lib.optional youtubeSupport youtube-dl
+  ;
 
   postPatch = ''
     chmod +x meson_post_install.py

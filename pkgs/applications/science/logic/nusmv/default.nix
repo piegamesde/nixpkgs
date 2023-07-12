@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
   pname = "NuSMV";
   version = "2.6.0";
 
-  src = with stdenv;
+  src =
+    with stdenv;
     fetchurl (
       if isx86_64 && isLinux then
         {
@@ -23,7 +24,8 @@ stdenv.mkDerivation rec {
         }
       else
         throw "only linux x86_64 and x86_32 are currently supported"
-    );
+    )
+  ;
 
   nativeBuildInputs = [ autoPatchelfHook ];
 

@@ -17,10 +17,12 @@ buildNimPackage rec {
   propagatedBuildInputs = [ sqlite ];
   patches = [ ./nil.patch ];
   doCheck = true;
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Spry virtual machine";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    };
+    }
+  ;
 }

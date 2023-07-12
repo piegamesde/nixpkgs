@@ -482,7 +482,8 @@ buildPythonPackage rec {
     psutil
   ];
 
-  checkPhase = with lib.versions;
+  checkPhase =
+    with lib.versions;
     with lib.strings;
     concatStringsSep " " [
       "runHook preCheck"
@@ -499,7 +500,8 @@ buildPythonPackage rec {
         (optionalString (majorMinor version == "1.3") "tensorboard")
       ])
       "runHook postCheck"
-    ];
+    ]
+  ;
 
   pythonRemoveDeps =
     [
@@ -578,8 +580,10 @@ buildPythonPackage rec {
       thoughtpolice
       tscholak
     ]; # tscholak esp. for darwin-related builds
-    platforms = with platforms;
-      linux ++ lib.optionals (!cudaSupport || !rocmSupport) darwin;
+    platforms =
+      with platforms;
+      linux ++ lib.optionals (!cudaSupport || !rocmSupport) darwin
+    ;
     broken = rocmSupport && cudaSupport; # CUDA and ROCm are mutually exclusive
   };
 }

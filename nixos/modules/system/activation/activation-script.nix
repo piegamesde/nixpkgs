@@ -95,7 +95,8 @@ let
     ''
   ;
 
-  path = with pkgs;
+  path =
+    with pkgs;
     map getBin [
       coreutils
       gnugrep
@@ -105,7 +106,8 @@ let
       shadow
       nettools # needed for hostname
       util-linux # needed for mount and mountpoint
-    ];
+    ]
+  ;
 
   scriptType =
     withDry:

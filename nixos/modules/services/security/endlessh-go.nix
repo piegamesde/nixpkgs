@@ -94,7 +94,8 @@ in
         in
         {
           Restart = "always";
-          ExecStart = with cfg;
+          ExecStart =
+            with cfg;
             concatStringsSep " " (
               [
                 "${pkgs.endlessh-go}/bin/endlessh-go"
@@ -108,7 +109,8 @@ in
                 "-prometheus_port=${toString prometheus.port}"
               ]
               ++ extraOptions
-            );
+            )
+          ;
           DynamicUser = true;
           RootDirectory = rootDirectory;
           BindReadOnlyPaths = [ builtins.storeDir ];
@@ -151,11 +153,13 @@ in
       ;
     };
 
-    networking.firewall.allowedTCPPorts = with cfg;
+    networking.firewall.allowedTCPPorts =
+      with cfg;
       optionals openFirewall [
         port
         prometheus.port
-      ];
+      ]
+    ;
   };
 
   meta.maintainers = with maintainers; [ azahi ];

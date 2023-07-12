@@ -137,7 +137,8 @@ in
         documentation](${getManualUrl "plugin.config"}) for more details.
       '';
 
-      type = with types;
+      type =
+        with types;
         listOf (
           submodule {
             options.path = mkOption {
@@ -155,11 +156,13 @@ in
               description = lib.mdDoc "arguments to pass to the plugin";
             };
           }
-        );
+        )
+      ;
     };
 
     records = mkOption {
-      type = with types;
+      type =
+        with types;
         let
           valueType = (attrsOf (
             oneOf [

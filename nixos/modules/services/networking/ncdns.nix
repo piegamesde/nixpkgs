@@ -14,7 +14,8 @@ let
   dataDir = "/var/lib/ncdns";
   username = "ncdns";
 
-  valueType = with types;
+  valueType =
+    with types;
     oneOf [
       int
       str
@@ -22,9 +23,11 @@ let
       path
     ] // {
       description = "setting type (integer, string, bool or path)";
-    };
+    }
+  ;
 
-  configType = with types;
+  configType =
+    with types;
     attrsOf (nullOr (either valueType configType)) // {
       description = ''
         ncdns.conf configuration type. The format consists of an
@@ -32,7 +35,8 @@ let
         a value or an attribute set. The allowed values are integers,
         strings, booleans or paths.
       '';
-    };
+    }
+  ;
 
   configFile =
     pkgs.runCommand "ncdns.conf"

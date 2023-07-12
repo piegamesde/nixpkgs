@@ -10,7 +10,8 @@ mkCoqDerivation {
   pname = "color";
   owner = "fblanqui";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.version
       [
         {
@@ -30,7 +31,8 @@ mkCoqDerivation {
           out = "1.4.0";
         }
       ]
-      null;
+      null
+  ;
 
   release."1.8.2".sha256 =
     "sha256:1gvx5cxm582793vxzrvsmhxif7px18h9xsb2jljy2gkphdmsnpqj";

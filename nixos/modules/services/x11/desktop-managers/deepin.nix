@@ -133,7 +133,8 @@ in
       session   include       login
     '';
 
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       with deepin;
       let
         requiredPackages = [

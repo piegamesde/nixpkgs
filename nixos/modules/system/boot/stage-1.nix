@@ -788,7 +788,8 @@ in
     };
 
     fileSystems = mkOption {
-      type = with lib.types;
+      type =
+        with lib.types;
         attrsOf (
           submodule {
             options.neededForBoot = mkOption {
@@ -806,7 +807,8 @@ in
               '';
             };
           }
-        );
+        )
+      ;
     };
   };
 

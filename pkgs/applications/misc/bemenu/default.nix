@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals waylandSupport [ wayland-scanner ]
   ;
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       cairo
       fribidi
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
       xorg.libXdmcp
       xorg.libpthreadstubs
       xorg.libxcb
-    ];
+    ]
+  ;
 
   makeFlags = [ "PREFIX=$(out)" ];
 

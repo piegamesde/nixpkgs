@@ -15,7 +15,8 @@ stdenv.mkDerivation (
     ];
 
     src = fetchzip {
-      url = with attrs;
+      url =
+        with attrs;
         "https://github.com/cyrealtype/${pname}/releases/download/v${version}/${pname}-v${version}.zip"
       ;
       stripRoot = false;

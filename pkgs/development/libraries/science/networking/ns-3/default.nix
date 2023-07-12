@@ -101,14 +101,16 @@ stdenv.mkDerivation rec {
     patchShebangs doc/ns3_html_theme/get_version.sh
   '';
 
-  wafConfigureFlags = with lib;
+  wafConfigureFlags =
+    with lib;
     [
       "--enable-modules=${concatStringsSep "," modules}"
       "--with-python=${pythonEnv.interpreter}"
     ]
     ++ optional (build_profile != null) "--build-profile=${build_profile}"
     ++ optional withExamples " --enable-examples "
-    ++ optional doCheck " --enable-tests ";
+    ++ optional doCheck " --enable-tests "
+  ;
 
   doCheck = true;
 
@@ -121,7 +123,8 @@ stdenv.mkDerivation rec {
   # to prevent fatal error: 'backward_warning.h' file not found
   CXXFLAGS = "-D_GLIBCXX_PERMIT_BACKWARD_HASH";
 
-  postBuild = with lib;
+  postBuild =
+    with lib;
     let
       flags = concatStringsSep ";" (
         optional enableDoxygen "./waf doxygen"

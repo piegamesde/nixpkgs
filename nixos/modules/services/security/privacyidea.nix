@@ -285,7 +285,8 @@ in
         };
 
         settings = mkOption {
-          type = with types;
+          type =
+            with types;
             attrsOf (
               attrsOf (
                 oneOf [
@@ -295,7 +296,8 @@ in
                   (listOf str)
                 ]
               )
-            );
+            )
+          ;
           default = { };
           description = lib.mdDoc ''
             Attribute-set containing the settings for `privacyidea-ldap-proxy`.

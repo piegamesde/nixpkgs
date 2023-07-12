@@ -236,7 +236,8 @@ let
         ;
         sha256 = "0wp23cs3i6a89dibifiz6559la5nk58d1n17xvbxq4nrl8cqsllf";
       };
-      lispLibs = with ql;
+      lispLibs =
+        with ql;
         [
           alexandria
           babel
@@ -246,7 +247,8 @@ let
           parachute
           osicat
         ]
-        ++ [ cl-tar-file ];
+        ++ [ cl-tar-file ]
+      ;
       systems = [
         "tar"
         "tar/common-extract"

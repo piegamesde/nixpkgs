@@ -104,7 +104,8 @@ python3Packages.buildPythonApplication {
     ++ lib.optional withQt5 qt5.wrapQtAppsHook
   ;
 
-  pythonPath = with python3Packages;
+  pythonPath =
+    with python3Packages;
     [
       dbus
       pillow
@@ -119,7 +120,8 @@ python3Packages.buildPythonApplication {
       pyqt5
       pyqt5_sip
       enum-compat
-    ];
+    ]
+  ;
 
   makeWrapperArgs = [
     "--prefix"

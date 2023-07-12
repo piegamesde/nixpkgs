@@ -222,7 +222,8 @@ in
       };
 
       sessionPackages = mkOption {
-        type = with types;
+        type =
+          with types;
           listOf (
             package // {
               description = "package with provided sessions";
@@ -245,7 +246,8 @@ in
                   ''
               ;
             }
-          );
+          )
+        ;
         default = [ ];
         description = lib.mdDoc ''
           A list of packages containing x11 or wayland session files to be passed to the display manager.
@@ -310,7 +312,8 @@ in
       };
 
       defaultSession = mkOption {
-        type = with types;
+        type =
+          with types;
           nullOr str // {
             description = "session name";
             check =
@@ -332,7 +335,8 @@ in
                     }
                 ''
             ;
-          };
+          }
+        ;
         default =
           if dmDefault != null || wmDefault != null then
             defaultSessionFromLegacyOptions

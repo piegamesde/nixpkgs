@@ -11,7 +11,8 @@ let
 
   self = packages // (overrides self packages);
 
-  packages = with beamPackages;
+  packages =
+    with beamPackages;
     with self; {
       accept = buildRebar3 rec {
         name = "accept";
@@ -1874,6 +1875,7 @@ let
 
         beamDeps = [ ];
       };
-    };
+    }
+  ;
 in
 self

@@ -61,12 +61,14 @@ in
 stdenv.mkDerivation rec {
   inherit pname version;
 
-  src = with sourcesPath;
+  src =
+    with sourcesPath;
     fetchurl {
       url =
         "https://github.com/pulsar-edit/pulsar/releases/download/v${version}/${tarname}";
       inherit hash;
-    };
+    }
+  ;
 
   patches = [ ./001-patch-wrapper.patch ];
 

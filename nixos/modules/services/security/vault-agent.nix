@@ -20,7 +20,8 @@ let
         Attribute set of ${flavour} instances.
         Creates independent `${flavour}-''${name}.service` systemd units for each instance defined here.
       '';
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule (
             {
@@ -110,7 +111,8 @@ let
               };
             }
           )
-        );
+        )
+      ;
     }
   ;
 

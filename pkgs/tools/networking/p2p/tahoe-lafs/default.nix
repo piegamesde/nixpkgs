@@ -71,7 +71,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   # The `backup' command requires `sqlite3'.
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     [
       appdirs
       beautifulsoup4
@@ -99,7 +100,8 @@ python3Packages.buildPythonApplication rec {
       zope_interface
     ]
     ++ twisted.optional-dependencies.tls
-    ++ twisted.optional-dependencies.conch;
+    ++ twisted.optional-dependencies.conch
+  ;
 
   nativeCheckInputs = with python3Packages; [
     mock

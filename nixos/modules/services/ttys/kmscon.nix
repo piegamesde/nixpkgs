@@ -49,7 +49,8 @@ in
         default = null;
         example = lib.literalExpression ''
           [ { name = "Source Code Pro"; package = pkgs.source-code-pro; } ]'';
-        type = with types;
+        type =
+          with types;
           let
             fontType = submodule {
               options = {

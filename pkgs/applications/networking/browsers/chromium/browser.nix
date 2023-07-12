@@ -103,7 +103,8 @@ mkChromiumDerivation (
         else
           "https://www.chromium.org/"
       ;
-      maintainers = with lib.maintainers;
+      maintainers =
+        with lib.maintainers;
         if ungoogled then
           [
             squalus
@@ -114,7 +115,8 @@ mkChromiumDerivation (
           [
             primeos
             thefloweringash
-          ];
+          ]
+      ;
       license =
         if enableWideVine then lib.licenses.unfree else lib.licenses.bsd3;
       platforms = lib.platforms.linux;

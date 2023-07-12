@@ -19,7 +19,8 @@ mkCoqDerivation {
   releaseRev = (v: "v${v}");
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -31,7 +32,8 @@ mkCoqDerivation {
           out = "0.4";
         }
       ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs = [
     mathcomp-ssreflect

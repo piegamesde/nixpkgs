@@ -216,11 +216,13 @@ stdenv.mkDerivation rec {
       licenses.zlib
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers;
+    maintainers =
+      with maintainers;
       [
         matejc
         ftrvxmtrx
       ]
-      ++ teams.enlightenment.members;
+      ++ teams.enlightenment.members
+    ;
   };
 }

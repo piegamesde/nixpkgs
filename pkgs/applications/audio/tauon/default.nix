@@ -91,7 +91,8 @@ stdenv.mkDerivation rec {
     wavpack
   ];
 
-  pythonPath = with python3Packages;
+  pythonPath =
+    with python3Packages;
     [
       beautifulsoup4
       gst-python
@@ -114,7 +115,8 @@ stdenv.mkDerivation rec {
       setproctitle
     ]
     ++ lib.optional withDiscordRPC pypresence
-    ++ lib.optional stdenv.isLinux pulsectl;
+    ++ lib.optional stdenv.isLinux pulsectl
+  ;
 
   makeWrapperArgs = [
     "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}"

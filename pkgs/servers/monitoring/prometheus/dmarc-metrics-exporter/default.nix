@@ -26,7 +26,8 @@ python3.pkgs.buildPythonApplication rec {
     pythonRelaxDepsHook
   ];
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       bite-parser
       dataclasses-serialization
@@ -35,7 +36,8 @@ python3.pkgs.buildPythonApplication rec {
       uvicorn
       xsdata
     ]
-    ++ uvicorn.optional-dependencies.standard;
+    ++ uvicorn.optional-dependencies.standard
+  ;
 
   nativeCheckInputs = with python3.pkgs; [
     aiohttp

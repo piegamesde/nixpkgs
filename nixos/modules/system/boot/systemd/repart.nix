@@ -57,7 +57,8 @@ in
       };
 
       partitions = lib.mkOption {
-        type = with lib.types;
+        type =
+          with lib.types;
           attrsOf (
             attrsOf (
               oneOf [
@@ -66,7 +67,8 @@ in
                 bool
               ]
             )
-          );
+          )
+        ;
         default = { };
         example = {
           "10-root" = { Type = "root"; };

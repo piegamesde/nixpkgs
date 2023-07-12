@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
       "export CC=${hdf5.mpi}/bin/mpicc"
   ;
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       hdf5
       libjpeg
@@ -40,7 +41,8 @@ stdenv.mkDerivation rec {
     ]
     ++ optional hdf5.mpiSupport hdf5.mpi
     ++ optional (hdf4 != null) hdf4
-    ++ optional (libmatheval != null) libmatheval;
+    ++ optional (libmatheval != null) libmatheval
+  ;
 
   meta = with lib; {
     description =

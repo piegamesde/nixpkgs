@@ -119,7 +119,8 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  wrapperPath = with lib;
+  wrapperPath =
+    with lib;
     makeBinPath (
       [
         coreutils
@@ -146,7 +147,8 @@ stdenv.mkDerivation rec {
         xdotool
         dmenu
       ]
-    );
+    )
+  ;
 
   postFixup =
     ''

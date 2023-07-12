@@ -37,7 +37,8 @@ buildLinux (
       [ rt-patch ] ++ kernelPatches
     ;
 
-    structuredExtraConfig = with lib.kernel;
+    structuredExtraConfig =
+      with lib.kernel;
       {
         PREEMPT_RT = yes;
         # Fix error: unused option: PREEMPT_RT.
@@ -49,7 +50,8 @@ buildLinux (
           lib.mkForce
             (option no)
         ; # Removed by sched-disable-rt-group-sched-on-rt.patch.
-      } // structuredExtraConfig;
+      } // structuredExtraConfig
+    ;
 
     extraMeta = extraMeta // { inherit branch; };
   } // argsOverride

@@ -229,14 +229,16 @@ in
       };
 
       settings = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               int
               str
               (listOf str)
             ]
-          );
+          )
+        ;
         default = { };
         description = lib.mdDoc ''
           Zabbix Server configuration. Refer to

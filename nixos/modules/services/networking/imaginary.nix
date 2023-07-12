@@ -39,7 +39,8 @@ in
         options.
       '';
       type = types.submodule {
-        freeformType = with types;
+        freeformType =
+          with types;
           attrsOf (
             oneOf [
               bool
@@ -47,7 +48,8 @@ in
               (nonEmptyListOf str)
               str
             ]
-          );
+          )
+        ;
 
         options = {
           return-size = mkOption {

@@ -801,7 +801,8 @@ in
 
       outTunnels = mkOption {
         default = { };
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule (
               {
@@ -822,7 +823,8 @@ in
                 config = { name = mkDefault name; };
               }
             )
-          );
+          )
+        ;
         description = lib.mdDoc ''
           Connect to someone as a client and establish a local accept endpoint
         '';
@@ -830,7 +832,8 @@ in
 
       inTunnels = mkOption {
         default = { };
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule (
               {
@@ -859,7 +862,8 @@ in
                 config = { name = mkDefault name; };
               }
             )
-          );
+          )
+        ;
         description = lib.mdDoc ''
           Serve something on I2P network at port and delegate requests to address inPort.
         '';

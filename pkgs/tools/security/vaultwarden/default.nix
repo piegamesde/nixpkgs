@@ -34,7 +34,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [ openssl ]
     ++ optionals stdenv.isDarwin [
       libiconv
@@ -42,7 +43,8 @@ rustPlatform.buildRustPackage rec {
       CoreServices
     ]
     ++ optional (dbBackend == "mysql") libmysqlclient
-    ++ optional (dbBackend == "postgresql") postgresql;
+    ++ optional (dbBackend == "postgresql") postgresql
+  ;
 
   buildFeatures = dbBackend;
 

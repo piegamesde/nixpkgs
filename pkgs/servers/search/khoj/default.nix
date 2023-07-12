@@ -38,12 +38,14 @@ python3.pkgs.buildPythonApplication rec {
       --replace "uvicorn == 0.17.6" "uvicorn"
   '';
 
-  nativeBuildInputs = with python3.pkgs;
+  nativeBuildInputs =
+    with python3.pkgs;
     [
       hatch-vcs
       hatchling
     ]
-    ++ (with qt6; [ wrapQtAppsHook ]);
+    ++ (with qt6; [ wrapQtAppsHook ])
+  ;
 
   buildInputs =
     lib.optionals stdenv.isLinux [ qt6.qtwayland ]

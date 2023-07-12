@@ -149,7 +149,8 @@ let
 
   certtool = "${pkgs.gnutls.bin}/bin/certtool";
 
-  nixos-taskserver = with pkgs.python3.pkgs;
+  nixos-taskserver =
+    with pkgs.python3.pkgs;
     buildPythonApplication {
       name = "nixos-taskserver";
 
@@ -179,7 +180,8 @@ let
       ;
 
       propagatedBuildInputs = [ click ];
-    };
+    }
+  ;
 in
 {
   options = {

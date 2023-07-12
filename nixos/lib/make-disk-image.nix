@@ -339,7 +339,8 @@ let
     echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
   '';
 
-  binPath = with pkgs;
+  binPath =
+    with pkgs;
     makeBinPath (
       [
         rsync
@@ -355,7 +356,8 @@ let
       ]
       ++ lib.optional deterministic gptfdisk
       ++ stdenv.initialPath
-    );
+    )
+  ;
 
   # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate
   # image building logic. The comment right below this now appears in 4 different places in nixpkgs :)

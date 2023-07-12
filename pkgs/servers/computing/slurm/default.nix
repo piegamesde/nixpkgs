@@ -112,7 +112,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableGtk2 [ gtk2 ]
   ;
 
-  configureFlags = with lib;
+  configureFlags =
+    with lib;
     [
       "--with-freeipmi=${freeipmi}"
       "--with-http-parser=${http-parser}"
@@ -128,7 +129,8 @@ stdenv.mkDerivation rec {
       "--with-bpf=${libbpf}"
     ]
     ++ (optional enableGtk2 "--disable-gtktest")
-    ++ (optional (!enableX11) "--disable-x11");
+    ++ (optional (!enableX11) "--disable-x11")
+  ;
 
   preConfigure = ''
     patchShebangs ./doc/html/shtml2html.py

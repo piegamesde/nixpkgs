@@ -84,11 +84,13 @@ in
     };
 
     repository = lib.mkOption {
-      type = with lib.types;
+      type =
+        with lib.types;
         oneOf [
           path
           str
-        ];
+        ]
+      ;
 
       description = lib.mdDoc ''
         The repository to fetch from. Must be properly formatted for git.
@@ -161,14 +163,16 @@ in
 
       restartIfChanged = false;
 
-      path = with pkgs;
+      path =
+        with pkgs;
         [
           git
           gnutar
           gzip
           nix
         ]
-        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
+        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ]
+      ;
 
       script = ''
         if [ ! -e ${repositoryDirectory} ]; then

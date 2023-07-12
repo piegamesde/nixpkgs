@@ -5,7 +5,8 @@
 }:
 
 let
-  self = with python3.pkgs;
+  self =
+    with python3.pkgs;
     buildPythonApplication rec {
       pname = "mutmut";
       version = "2.2.0";
@@ -44,6 +45,7 @@ let
         license = licenses.bsd3;
         maintainers = with maintainers; [ synthetica ];
       };
-    };
+    }
+  ;
 in
 self

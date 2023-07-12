@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     ./fix-failing-test.patch
   ];
 
-  postPatch = with deps;
+  postPatch =
+    with deps;
     ''
       mkdir -p lib/compile
       cp ${fastutil} lib/compile/${fastutil.name}
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
           }
         '')
         testInputs}
-    '';
+    ''
+  ;
 
   nativeBuildInputs = [
     jdk

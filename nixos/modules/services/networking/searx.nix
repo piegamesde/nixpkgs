@@ -30,7 +30,8 @@ let
     done
   '';
 
-  settingType = with types;
+  settingType =
+    with types;
     (oneOf [
       bool
       int
@@ -40,7 +41,8 @@ let
       (attrsOf settingType)
     ]) // {
       description = "JSON value";
-    };
+    }
+  ;
 in
 
 {

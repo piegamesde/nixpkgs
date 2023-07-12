@@ -20,13 +20,15 @@ let
     config.simutrans.paksets
       or "pak64 pak64.japan pak128 pak128.britain pak128.german";
 
-  result = with lib;
+  result =
+    with lib;
     withPaks (
       if paksets == "*" then
         attrValues pakSpec # taking all
       else
         map (name: pakSpec.${name}) (splitString " " paksets)
-    );
+    )
+  ;
 
   ver1 = "121";
   ver2 = "0";

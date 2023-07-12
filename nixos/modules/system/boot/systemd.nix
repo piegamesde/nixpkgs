@@ -313,7 +313,8 @@ in
     };
 
     systemd.globalEnvironment = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           nullOr (
             oneOf [
@@ -322,7 +323,8 @@ in
               package
             ]
           )
-        );
+        )
+      ;
       default = { };
       example = { TZ = "CET"; };
       description = lib.mdDoc ''
@@ -331,7 +333,8 @@ in
     };
 
     systemd.managerEnvironment = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           nullOr (
             oneOf [
@@ -340,7 +343,8 @@ in
               package
             ]
           )
-        );
+        )
+      ;
       default = { };
       example = { SYSTEMD_LOG_LEVEL = "debug"; };
       description = lib.mdDoc ''

@@ -8,7 +8,8 @@
 mkCoqDerivation {
   pname = "paramcoq";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.version
       [
         {
@@ -20,7 +21,8 @@ mkCoqDerivation {
           out = "1.1.2+coq${coq.coq-version}";
         }
       ]
-      null;
+      null
+  ;
   displayVersion = { paramcoq = "..."; };
   release."1.1.3+coq8.17".sha256 =
     "sha256-m8QGGuwj1lHzDprf4LHgAuzwfoblxtDIHunHBdpmiuM=";

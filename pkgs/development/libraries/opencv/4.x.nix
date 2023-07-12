@@ -254,7 +254,8 @@ let
   inherit (cudaPackages) backendStdenv cudaFlags cudaVersion;
   inherit (cudaFlags) cudaCapabilities;
 
-  cuda-common-redist = with cudaPackages;
+  cuda-common-redist =
+    with cudaPackages;
     [
       cuda_cccl # <thrust/*>
       libnpp # npp.h
@@ -267,16 +268,19 @@ let
     ]
     ++ lib.optionals enableCufft [
       libcufft # cufft.h
-    ];
+    ]
+  ;
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
-    paths = with cudaPackages;
+    paths =
+      with cudaPackages;
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
       ]
-      ++ cuda-common-redist;
+      ++ cuda-common-redist
+    ;
   };
 
   cuda-redist = symlinkJoin {

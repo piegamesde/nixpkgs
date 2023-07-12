@@ -81,14 +81,16 @@ let
       smtp = mkOption {
         type = listOf (
           submodule {
-            freeformType = with types;
+            freeformType =
+              with types;
               attrsOf (
                 oneOf [
                   str
                   int
                   bool
                 ]
-              );
+              )
+            ;
 
             options = {
               enabled = mkEnableOption (
@@ -132,12 +134,14 @@ let
       "bounce.mailboxes" = mkOption {
         type = listOf (
           submodule {
-            freeformType = with types;
+            freeformType =
+              with types;
               oneOf [
                 str
                 int
                 bool
-              ];
+              ]
+            ;
           }
         );
         default = [ ];

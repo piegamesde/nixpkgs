@@ -110,7 +110,8 @@ in
       firmwares = mkOption {
         description = lib.mdDoc "Firmwares klipper should manage";
         default = { };
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule {
               options = {
@@ -136,7 +137,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
       };
     };
   };
@@ -262,7 +264,8 @@ in
       }
     ;
 
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       let
         default = a: b: if a != null then a else b;
         firmwares = filterAttrs (n: v: v != null) (

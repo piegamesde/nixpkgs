@@ -69,7 +69,8 @@ in
       };
 
       params = mkOption {
-        type = with types;
+        type =
+          with types;
           let
             coerce = bits: { inherit bits; };
           in

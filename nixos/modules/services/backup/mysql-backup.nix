@@ -101,7 +101,8 @@ in
 
     services.mysql.ensureUsers = [ {
       name = cfg.user;
-      ensurePermissions = with lib;
+      ensurePermissions =
+        with lib;
         let
           privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
           grant = db: nameValuePair "${db}.*" privs;

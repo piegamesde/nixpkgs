@@ -40,7 +40,8 @@ python.pkgs.buildPythonPackage rec {
 
   patches = [ ./0001-Re-add-entrypoint.patch ];
 
-  propagatedBuildInputs = with python.pkgs;
+  propagatedBuildInputs =
+    with python.pkgs;
     (
       [
         ruamel-yaml
@@ -73,7 +74,8 @@ python.pkgs.buildPythonPackage rec {
         pycryptodome
         unpaddedbase64
       ]
-    );
+    )
+  ;
 
   # has no tests
   doCheck = false;

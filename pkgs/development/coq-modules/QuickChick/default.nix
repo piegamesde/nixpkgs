@@ -15,7 +15,8 @@ in
   pname = "QuickChick";
   owner = "QuickChick";
   inherit version;
-  defaultVersion = with lib;
+  defaultVersion =
+    with lib;
     with versions;
     lib.switch
       [
@@ -95,7 +96,8 @@ in
           out = "20170512";
         }
       ]
-      null;
+      null
+  ;
   release."1.6.4".sha256 =
     "sha256-C1060wPSU33yZAFLxGmZlAMXASnx98qz3oSLO8DO+mM=";
   release."1.6.2".sha256 =

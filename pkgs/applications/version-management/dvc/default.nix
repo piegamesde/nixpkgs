@@ -36,7 +36,8 @@ python3.pkgs.buildPythonApplication rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       appdirs
       colorama
@@ -80,7 +81,8 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optionals enableAzure [ dvc-azure ]
     ++ lib.optionals enableSSH [ dvc-ssh ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+  ;
 
   # Tests require access to real cloud services
   doCheck = false;

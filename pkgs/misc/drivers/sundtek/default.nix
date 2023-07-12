@@ -12,7 +12,8 @@ let
     "$out/lib"
     "$out/bin"
   ];
-  platform = with stdenv;
+  platform =
+    with stdenv;
     if isx86_64 then
       "64bit"
     else if isi686 then
@@ -21,11 +22,13 @@ let
       throw
         "${system} not considered in build derivation. Might still be supported."
   ;
-  sha256 = with stdenv;
+  sha256 =
+    with stdenv;
     if isx86_64 then
       "1jfsng5n3phw5rqpkid9m5j7m7zgj5bifh7swvba7f97y6imdaax"
     else
-      "15y6r5w306pcq4g1rn9f7vf70f3a7qhq237ngaf0wxh2nr0aamxp";
+      "15y6r5w306pcq4g1rn9f7vf70f3a7qhq237ngaf0wxh2nr0aamxp"
+  ;
 in
 stdenv.mkDerivation {
   src = fetchurl {

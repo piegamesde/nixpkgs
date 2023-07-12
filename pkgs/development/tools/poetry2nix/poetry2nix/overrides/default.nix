@@ -265,7 +265,8 @@ lib.composeManyExtensions [
                     pkgs.libiconv
                   ]
             ;
-            nativeBuildInputs = with pkgs;
+            nativeBuildInputs =
+              with pkgs;
               (old.nativeBuildInputs or [ ])
               ++ lib.optionals (lib.versionAtLeast old.version "4") (
                 with pkgs.rustPlatform; [
@@ -274,7 +275,8 @@ lib.composeManyExtensions [
                   cargoSetupHook
                   self.setuptools-rust
                 ]
-              );
+              )
+            ;
           } // lib.optionalAttrs (lib.versionAtLeast old.version "4") {
             cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
               src = old.src;
@@ -1477,20 +1479,24 @@ lib.composeManyExtensions [
 
       lxml = super.lxml.overridePythonAttrs (
         old: {
-          nativeBuildInputs = with pkgs.buildPackages;
+          nativeBuildInputs =
+            with pkgs.buildPackages;
             (old.nativeBuildInputs or [ ])
             ++ [
               pkg-config
               libxml2.dev
               libxslt.dev
             ]
-            ++ lib.optionals stdenv.isDarwin [ xcodebuild ];
-          buildInputs = with pkgs;
+            ++ lib.optionals stdenv.isDarwin [ xcodebuild ]
+          ;
+          buildInputs =
+            with pkgs;
             (old.buildInputs or [ ])
             ++ [
               libxml2
               libxslt
-            ];
+            ]
+          ;
         }
       );
 
@@ -2138,7 +2144,8 @@ lib.composeManyExtensions [
               self.pytest-runner
             ]
           ;
-          buildInputs = with pkgs;
+          buildInputs =
+            with pkgs;
             (old.buildInputs or [ ])
             ++ [
               freetype
@@ -2156,7 +2163,8 @@ lib.composeManyExtensions [
             ++ lib.optionals (self.isPyPy) [
               tk
               xorg.libX11
-            ];
+            ]
+          ;
           preConfigure = lib.optional (old.format != "wheel") preConfigure;
         }
       );
@@ -3581,7 +3589,8 @@ lib.composeManyExtensions [
         {
           DOXYGEN = "${pkgs.doxygen}/bin/doxygen";
 
-          nativeBuildInputs = with pkgs;
+          nativeBuildInputs =
+            with pkgs;
             [
               which
               doxygen
@@ -3589,9 +3598,11 @@ lib.composeManyExtensions [
               pkg-config
               autoPatchelfHook
             ]
-            ++ (old.nativeBuildInputs or [ ]);
+            ++ (old.nativeBuildInputs or [ ])
+          ;
 
-          buildInputs = with pkgs;
+          buildInputs =
+            with pkgs;
             [
               gtk3
               webkitgtk
@@ -3609,7 +3620,8 @@ lib.composeManyExtensions [
               libglvnd
               mesa
             ]
-            ++ old.buildInputs;
+            ++ old.buildInputs
+          ;
 
           buildPhase = ''
             ${localPython.interpreter} build.py -v build_wx

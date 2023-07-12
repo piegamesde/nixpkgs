@@ -472,12 +472,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           )
         ];
         skipIncludesPhase = true;
-        buildInputs = with self;
+        buildInputs =
+          with self;
           compatIfNeeded
           ++ [
             libmd
             libnetbsd
-          ];
+          ]
+        ;
         makeFlags =
           [
             "STRIP=-s" # flag to install, not command
@@ -710,12 +712,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         byacc
         file2c
       ];
-      buildInputs = with self;
+      buildInputs =
+        with self;
         compatIfNeeded
         ++ [
           libnv
           libsbuf
-        ];
+        ]
+      ;
     };
     ##
     ## END COMMAND LINE TOOLS
@@ -976,14 +980,16 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
         # flex byacc file2c
       ];
-      buildInputs = with self;
+      buildInputs =
+        with self;
         compatIfNeeded
         ++ [
           libelf
           libdwarf
           zlib
           libspl
-        ];
+        ]
+      ;
       meta.license = lib.licenses.cddl;
     };
 

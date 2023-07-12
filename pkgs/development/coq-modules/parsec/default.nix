@@ -20,7 +20,8 @@ mkCoqDerivation {
   releaseRev = (v: "v${v}");
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.version
       [
         {
@@ -32,7 +33,8 @@ mkCoqDerivation {
           out = "0.1.0";
         }
       ]
-      null;
+      null
+  ;
   release."0.1.1".sha256 =
     "sha256:1c0l18s68pzd4c8i3jimh2yz0pqm4g38pca4bm7fr18r8xmqf189";
   release."0.1.0".sha256 =

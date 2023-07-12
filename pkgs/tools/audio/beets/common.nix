@@ -74,7 +74,8 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     [
       confuse
       gst-python
@@ -88,7 +89,8 @@ python3Packages.buildPythonApplication rec {
       reflink
       unidecode
     ]
-    ++ (concatMap (p: p.propagatedBuildInputs) (attrValues enabledPlugins));
+    ++ (concatMap (p: p.propagatedBuildInputs) (attrValues enabledPlugins))
+  ;
 
   nativeBuildInputs = [
     gobject-introspection
@@ -147,14 +149,16 @@ python3Packages.buildPythonApplication rec {
     "--prefix PATH : ${lib.makeBinPath pluginWrapperBins}"
   ];
 
-  nativeCheckInputs = with python3Packages;
+  nativeCheckInputs =
+    with python3Packages;
     [
       pytest
       mock
       rarfile
       responses
     ]
-    ++ pluginWrapperBins;
+    ++ pluginWrapperBins
+  ;
 
   disabledTestPaths = lib.flatten (
     attrValues (

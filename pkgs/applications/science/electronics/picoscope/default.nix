@@ -31,12 +31,14 @@ let
     lib:
     with lib; {
       homepage = "https://www.picotech.com/downloads/linux";
-      maintainers = with maintainers;
+      maintainers =
+        with maintainers;
         [
           expipiplus1
           wirew0rm
         ]
-        ++ teams.lumiguide.members;
+        ++ teams.lumiguide.members
+      ;
       platforms = [ "x86_64-linux" ];
       license = licenses.unfree;
     }
@@ -70,11 +72,13 @@ let
             install -Dt $out/usr/share/doc/libpicoipp usr/share/doc/libpicoipp/copyright
             runHook postInstall
           '';
-          meta = with lib;
+          meta =
+            with lib;
             shared_meta lib // {
               sourceProvenance = with sourceTypes; [ binaryNativeCode ];
               description = "library for picotech oscilloscope software";
-            };
+            }
+          ;
         }
       )
       { }
@@ -108,10 +112,12 @@ let
         cp -d opt/picoscope/lib/* $out/lib
          runHook postInstall
       '';
-      meta = with lib;
+      meta =
+        with lib;
         shared_meta lib // {
           description = "library for picotech oscilloscope ${name} series";
-        };
+        }
+      ;
     }
   ;
 
@@ -174,7 +180,8 @@ stdenv.mkDerivation rec {
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="0ce9", MODE="664",GROUP="pico"
   '';
 
-  meta = with lib;
+  meta =
+    with lib;
     shared_meta lib // {
       description =
         "Oscilloscope application that works with all PicoScope models";
@@ -190,5 +197,6 @@ stdenv.mkDerivation rec {
         users, or exported in text, CSV and MathWorks MATLAB 4 formats.
       '';
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    };
+    }
+  ;
 }

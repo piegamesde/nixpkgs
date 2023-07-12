@@ -121,7 +121,8 @@ in
                   { command = '''/home/baz/cmd2.sh ""'''; options = [ "SETENV" ]; } ]; }
         ]
       '';
-      type = with types;
+      type =
+        with types;
         listOf (
           submodule {
             options = {
@@ -165,7 +166,8 @@ in
                 description = lib.mdDoc ''
                   The commands for which the rule should apply.
                 '';
-                type = with types;
+                type =
+                  with types;
                   listOf (
                     either str (
                       submodule {
@@ -181,7 +183,8 @@ in
                           };
 
                           options = mkOption {
-                            type = with types;
+                            type =
+                              with types;
                               listOf (
                                 enum [
                                   "NOPASSWD"
@@ -195,7 +198,8 @@ in
                                   "LOG_OUTPUT"
                                   "NOLOG_OUTPUT"
                                 ]
-                              );
+                              )
+                            ;
                             description = lib.mdDoc ''
                               Options for running the command. Refer to the [sudo manual](https://www.sudo.ws/man/1.7.10/sudoers.man.html).
                             '';
@@ -204,11 +208,13 @@ in
                         };
                       }
                     )
-                  );
+                  )
+                ;
               };
             };
           }
-        );
+        )
+      ;
     };
 
     security.sudo.extraConfig = mkOption {

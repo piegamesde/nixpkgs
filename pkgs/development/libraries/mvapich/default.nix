@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
     zlib
     opensm
   ];
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       numactl
       libxml2
@@ -69,9 +70,11 @@ stdenv.mkDerivation rec {
       libpsm2
       libfabric
     ]
-    ++ optional useSlurm slurm;
+    ++ optional useSlurm slurm
+  ;
 
-  configureFlags = with lib;
+  configureFlags =
+    with lib;
     [
       "--with-pm=hydra"
       "--enable-fortran=all"
@@ -90,7 +93,8 @@ stdenv.mkDerivation rec {
     ++ optionals (network == "omnipath") [
       "--with-device=ch3:psm"
       "--with-psm2=${libpsm2}"
-    ];
+    ]
+  ;
 
   doCheck = true;
 

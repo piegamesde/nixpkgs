@@ -27,12 +27,14 @@ let
 
     google =
       cfg: {
-        google = with cfg.google;
+        google =
+          with cfg.google;
           optionalAttrs (groups != [ ]) {
             admin-email = adminEmail;
             service-account = serviceAccountJSON;
             group = groups;
-          };
+          }
+        ;
       }
     ;
   };
@@ -45,7 +47,8 @@ let
   getProviderOptions =
     cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
 
-  allConfig = with cfg;
+  allConfig =
+    with cfg;
     {
       inherit (cfg) provider scope upstream;
       approval-prompt = approvalPrompt;
@@ -84,7 +87,8 @@ let
       tls-cert-file = tls.certificate;
       tls-key-file = tls.key;
       https-address = tls.httpsAddress;
-    } // (getProviderOptions cfg cfg.provider) // cfg.extraConfig;
+    } // (getProviderOptions cfg cfg.provider) // cfg.extraConfig
+  ;
 
   mapConfig =
     key: attr:

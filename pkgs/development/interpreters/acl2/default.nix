@@ -189,7 +189,8 @@ stdenv.mkDerivation rec {
     ;
     homepage = "https://www.cs.utexas.edu/users/moore/acl2/";
     downloadPage = "https://github.com/acl2-devel/acl2-devel/releases";
-    license = with licenses;
+    license =
+      with licenses;
       [
         # ACL2 itself is bsd3
         bsd3
@@ -203,7 +204,8 @@ stdenv.mkDerivation rec {
         cc0
         publicDomain
         unfreeRedistributable
-      ];
+      ]
+    ;
     maintainers = with maintainers; [
       kini
       raskin

@@ -65,7 +65,8 @@ buildGoModule rec {
     command = "docker-credential-pass version";
   };
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       description =
         "Suite of programs to use native stores to keep Docker credentials safe";
@@ -74,5 +75,6 @@ buildGoModule rec {
       maintainers = with maintainers; [ marsam ];
     } // lib.optionalAttrs stdenv.isDarwin {
       mainProgram = "docker-credential-osxkeychain";
-    };
+    }
+  ;
 }

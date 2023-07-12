@@ -36,7 +36,8 @@ in
         '';
         default = { };
         type = types.submodule {
-          freeformType = with types;
+          freeformType =
+            with types;
             (attrsOf (
               nullOr (
                 oneOf [
@@ -47,7 +48,8 @@ in
               )
             )) // {
               description = "settings option";
-            };
+            }
+          ;
           options.admin = mkOption {
             type = with types; listOf str;
             default = [ ];

@@ -324,7 +324,8 @@ in
           lib.mdDoc
             "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*"
         ;
-        type = with lib.types;
+        type =
+          with lib.types;
           attrsOf (
             submodule {
               options = {
@@ -353,7 +354,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
         default = {
           all = {
             jobClasses = [ ];

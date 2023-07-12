@@ -46,7 +46,8 @@ gcc9Stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       perl
       flex
@@ -60,7 +61,8 @@ gcc9Stdenv.mkDerivation rec {
     ++ optional gifSupport giflib
     ++ optional tiffSupport libtiff
     ++ optional jpegSupport libjpeg
-    ++ optional pngSupport libpng;
+    ++ optional pngSupport libpng
+  ;
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString x11Support "-lSDL";
 

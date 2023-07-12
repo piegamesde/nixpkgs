@@ -27,7 +27,8 @@ let
     + lib.concatMapStrings makeSpin (lib.range 0 24)
   );
 
-  helper = with haskellPackages;
+  helper =
+    with haskellPackages;
     mkDerivation rec {
       pname = "uqm3donix";
       version = "0.1.0.0";
@@ -52,7 +53,8 @@ let
 
       description = "Extract video files from a Star Control II 3DO image";
       license = lib.licenses.bsd3;
-    };
+    }
+  ;
 in
 stdenv.mkDerivation {
   name = "uqm-3dovideo";

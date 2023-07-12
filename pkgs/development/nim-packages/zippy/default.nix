@@ -20,10 +20,12 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Pure Nim implementation of deflate, zlib, gzip and zip";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    };
+    }
+  ;
 }

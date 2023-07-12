@@ -363,13 +363,15 @@ in
             # Keeping in line with the tradition of unnecessarily specific types, allow users to set
             # freeform settings either globally under the `publicinbox` section, or for specific
             # inboxes through additional nesting.
-            freeformType = with types;
+            freeformType =
+              with types;
               attrsOf (
                 oneOf [
                   iniAtom
                   (attrsOf iniAtom)
                 ]
-              );
+              )
+            ;
 
             options.css = mkOption {
               type = with types; listOf str;
@@ -389,12 +391,14 @@ in
               description = lib.mdDoc "NNTP URLs to this public-inbox instance";
             };
             options.wwwlisting = mkOption {
-              type = with types;
+              type =
+                with types;
                 enum [
                   "all"
                   "404"
                   "match=domain"
-                ];
+                ]
+              ;
               default = "404";
               description = lib.mdDoc ''
                 Controls which lists (if any) are listed for when the root
@@ -404,11 +408,13 @@ in
           };
         };
         options.publicinboxmda.spamcheck = mkOption {
-          type = with types;
+          type =
+            with types;
             enum [
               "spamc"
               "none"
-            ];
+            ]
+          ;
           default = "none";
           description = lib.mdDoc ''
             If set to spamc, {manpage}`public-inbox-watch(1)` will filter spam
@@ -416,11 +422,13 @@ in
           '';
         };
         options.publicinboxwatch.spamcheck = mkOption {
-          type = with types;
+          type =
+            with types;
             enum [
               "spamc"
               "none"
-            ];
+            ]
+          ;
           default = "none";
           description = lib.mdDoc ''
             If set to spamc, {manpage}`public-inbox-watch(1)` will filter spam

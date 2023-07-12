@@ -1591,8 +1591,10 @@ builtins.intersectAttrs super {
   hashes =
     overrideCabal
       {
-        doCheck = with pkgs.stdenv;
-          hostPlatform == buildPlatform && buildPlatform.isx86;
+        doCheck =
+          with pkgs.stdenv;
+          hostPlatform == buildPlatform && buildPlatform.isx86
+        ;
       }
       super.hashes
   ;

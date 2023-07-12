@@ -1855,9 +1855,11 @@ let
 
       rhdf5filters = old.rhdf5filters.overrideAttrs (
         attrs: {
-          propagatedBuildInputs = with pkgs;
+          propagatedBuildInputs =
+            with pkgs;
             attrs.propagatedBuildInputs
-            ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
+            ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ]
+          ;
           patches = [ ./patches/rhdf5filters.patch ];
         }
       );

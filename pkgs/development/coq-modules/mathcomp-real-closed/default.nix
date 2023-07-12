@@ -27,7 +27,8 @@ mkCoqDerivation {
     "1.0.1".sha256 = "0j81gkjbza5vg89v4n9z598mfdbql416963rj4b8fzm7dp2r4rxg";
   };
 
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch
       [
         coq.version
@@ -84,7 +85,8 @@ mkCoqDerivation {
           out = "1.0.1";
         }
       ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs = [
     mathcomp.ssreflect

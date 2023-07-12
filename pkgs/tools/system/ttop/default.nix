@@ -23,11 +23,13 @@ nimPackages.buildNimPackage rec {
     zippy
   ];
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Top-like system monitoring tool";
       license = licenses.mit;
       platforms = platforms.linux;
       maintainers = with maintainers; [ sikmir ];
-    };
+    }
+  ;
 }

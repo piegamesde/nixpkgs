@@ -41,17 +41,21 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     concatLists (
       mapAttrsToList
         (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ]))
         features
-    );
+    )
+  ;
 
   enableParallelBuilding = true;
 
-  configureFlags = with lib;
-    mapAttrsToList (feat: enabled: strings.enableFeature enabled feat) features;
+  configureFlags =
+    with lib;
+    mapAttrsToList (feat: enabled: strings.enableFeature enabled feat) features
+  ;
 
   meta = with lib; {
     description = "Universal configuration library parser";

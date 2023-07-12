@@ -207,7 +207,8 @@ in
 
       services.hadoop.gatewayRole.enable = true;
 
-      services.hadoop.yarnSiteInternal = with cfg.yarn.nodemanager;
+      services.hadoop.yarnSiteInternal =
+        with cfg.yarn.nodemanager;
         mkMerge [
           ({
             "yarn.nodemanager.local-dirs" = mkIf (localDir != null) (
@@ -229,7 +230,8 @@ in
             "yarn.nodemanager.linux-container-executor.cgroups.mount-path" =
               "/run/wrappers/yarn-nodemanager/cgroup";
           })
-        ];
+        ]
+      ;
 
       networking.firewall.allowedTCPPortRanges = [
         (mkIf (cfg.yarn.nodemanager.openFirewall) {

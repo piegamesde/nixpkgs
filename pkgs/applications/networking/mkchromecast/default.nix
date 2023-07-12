@@ -43,7 +43,8 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-dxsIcBPrZaXlsfzOEXhYj2qoK5LRducJG2ggMrMMl9Y=";
   };
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     (
       [
         pychromecast
@@ -55,7 +56,8 @@ python3Packages.buildPythonApplication rec {
         pyqt5
       ]
       ++ lib.optionals enableSonos [ soco ]
-    );
+    )
+  ;
 
   postPatch = ''
     substituteInPlace setup.py \

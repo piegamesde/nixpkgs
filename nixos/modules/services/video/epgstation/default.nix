@@ -232,7 +232,8 @@ in
           '';
         };
 
-        options.mirakurunPath = with mirakurun;
+        options.mirakurunPath =
+          with mirakurun;
           lib.mkOption {
             type = lib.types.str;
             default =
@@ -242,7 +243,8 @@ in
             '';
             example = "http://localhost:40772";
             description = lib.mdDoc "URL to connect to Mirakurun.";
-          };
+          }
+        ;
 
         options.encodeProcessNum = lib.mkOption {
           type = lib.types.ints.positive;

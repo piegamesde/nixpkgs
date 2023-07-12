@@ -17,10 +17,12 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "A Nim library to parse TOML files";
       license = [ licenses.mit ];
       maintainers = with maintainers; [ sikmir ];
-    };
+    }
+  ;
 }

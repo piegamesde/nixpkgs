@@ -35,7 +35,8 @@ buildPythonApplication rec {
 
   # `rofi` and the `waylandSupport` and `x11Support` dependencies
   # contain binaries needed at runtime.
-  propagatedBuildInputs = with lib;
+  propagatedBuildInputs =
+    with lib;
     [
       configargparse
       rofi
@@ -47,7 +48,8 @@ buildPythonApplication rec {
     ++ optionals x11Support [
       xdotool
       xsel
-    ];
+    ]
+  ;
 
   # The 'extractors' sub-module is used for development
   # and has additional dependencies.

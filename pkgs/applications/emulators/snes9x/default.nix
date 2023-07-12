@@ -102,7 +102,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     let
       interface = if withGtk then "GTK" else "X11";
     in

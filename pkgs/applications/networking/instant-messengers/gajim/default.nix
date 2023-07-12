@@ -85,7 +85,8 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       nbxmpp
       pygobject3
@@ -107,7 +108,8 @@ python3.pkgs.buildPythonApplication rec {
       python-axolotl
       qrcode
     ]
-    ++ extraPythonPackages python3.pkgs;
+    ++ extraPythonPackages python3.pkgs
+  ;
 
   nativeCheckInputs = [
     xvfb-run

@@ -66,12 +66,14 @@ let
 
       enableParallelBuilding = true;
 
-      meta = with lib;
+      meta =
+        with lib;
         {
           license = licenses.free;
           mainProgram = "jam";
           platforms = platforms.unix;
-        } // meta;
+        } // meta
+      ;
     }
   ;
 in

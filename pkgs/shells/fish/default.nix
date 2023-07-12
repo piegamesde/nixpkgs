@@ -265,7 +265,8 @@ let
       make test
     '';
 
-    postInstall = with lib;
+    postInstall =
+      with lib;
       ''
         sed -r "s|command grep|command ${gnugrep}/bin/grep|" \
             -i "$out/share/fish/functions/grep.fish"
@@ -315,7 +316,8 @@ let
       ''
       + ''
         tee -a $out/share/fish/__fish_build_paths.fish < ${fishPreInitHooks}
-      '';
+      ''
+    ;
 
     meta = with lib; {
       description = "Smart and user-friendly command line shell";

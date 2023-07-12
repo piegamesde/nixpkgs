@@ -43,7 +43,8 @@ let
   release."0.2.3".sha256 =
     "0p9mr8g1qma6h10qf7014dv98ln90dfkwn76ynagpww7qap8s966";
 
-  defaultVersion = with versions;
+  defaultVersion =
+    with versions;
     lib.switch
       [
         coq.version
@@ -114,7 +115,8 @@ let
           out = "0.2.3";
         }
       ]
-      null;
+      null
+  ;
 
   # list of analysis packages sorted by dependency order
   packages = [

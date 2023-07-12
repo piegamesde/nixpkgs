@@ -242,7 +242,8 @@ rec {
 
       # Additional dependencies that are not picked up by gen-frameworks.py.
       # Some of these are simply private frameworks the generator does not see.
-      extraDeps = with libs;
+      extraDeps =
+        with libs;
         with frameworks;
         let
           inherit (pkgs.darwin.apple_sdk_11_0) libnetwork;

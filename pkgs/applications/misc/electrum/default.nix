@@ -62,7 +62,8 @@ python3.pkgs.buildPythonApplication {
 
   nativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       aiohttp
       aiohttp-socks
@@ -89,7 +90,8 @@ python3.pkgs.buildPythonApplication {
     ++ lib.optionals enableQt [
       pyqt5
       qdarkstyle
-    ];
+    ]
+  ;
 
   postPatch =
     ''

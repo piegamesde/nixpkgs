@@ -10,12 +10,14 @@ with lib;
 let
   cfgs = config.services.cgit;
 
-  settingType = with types;
+  settingType =
+    with types;
     oneOf [
       bool
       int
       str
-    ];
+    ]
+  ;
 
   genAttrs' = names: f: listToAttrs (map f names);
 

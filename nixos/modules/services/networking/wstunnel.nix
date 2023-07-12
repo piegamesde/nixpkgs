@@ -370,7 +370,8 @@ let
           in
           {
             Type = "simple";
-            ExecStart = with serverCfg;
+            ExecStart =
+              with serverCfg;
               let
                 resolvedTlsCertificate =
                   if useACMEHost != null then

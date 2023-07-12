@@ -130,7 +130,8 @@ in
           lower = "01:00";
           upper = "05:00";
         };
-        type = with types;
+        type =
+          with types;
           nullOr (
             submodule {
               options = {
@@ -147,7 +148,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
       };
 
       persistent = mkOption {

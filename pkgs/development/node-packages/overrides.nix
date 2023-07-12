@@ -33,7 +33,8 @@ final: prev: {
 
   "@forge/cli" = prev."@forge/cli".override {
     nativeBuildInputs = [ pkgs.pkg-config ];
-    buildInputs = with pkgs;
+    buildInputs =
+      with pkgs;
       [
         libsecret
         final.node-gyp-build
@@ -42,14 +43,16 @@ final: prev: {
       ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
-      ];
+      ]
+    ;
   };
 
   "@githubnext/github-copilot-cli" = pkgs.github-copilot-cli;
 
   "@medable/mdctl-cli" = prev."@medable/mdctl-cli".override (
     oldAttrs: {
-      nativeBuildInputs = with pkgs;
+      nativeBuildInputs =
+        with pkgs;
         with darwin.apple_sdk.frameworks;
         [
           glib
@@ -59,7 +62,8 @@ final: prev: {
         ++ lib.optionals stdenv.isDarwin [
           AppKit
           Security
-        ];
+        ]
+      ;
       buildInputs = [
         final.node-gyp-build
         final.node-pre-gyp
@@ -110,9 +114,11 @@ final: prev: {
 
   bitwarden-cli = prev."@bitwarden/cli".override {
     name = "bitwarden-cli";
-    nativeBuildInputs = with pkgs;
+    nativeBuildInputs =
+      with pkgs;
       [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ]
+    ;
     buildInputs = with pkgs; [
       pixman
       cairo
@@ -296,7 +302,8 @@ final: prev: {
 
   joplin = prev.joplin.override {
     nativeBuildInputs = [ pkgs.pkg-config ];
-    buildInputs = with pkgs;
+    buildInputs =
+      with pkgs;
       [
         # required by sharp
         # https://sharp.pixelplumbing.com/install
@@ -313,7 +320,8 @@ final: prev: {
       ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
-      ];
+      ]
+    ;
   };
 
   jsonplaceholder = prev.jsonplaceholder.override {
@@ -331,13 +339,15 @@ final: prev: {
 
   keyoxide = prev.keyoxide.override {
     nativeBuildInputs = [ pkgs.pkg-config ];
-    buildInputs = with pkgs;
+    buildInputs =
+      with pkgs;
       [
         pixman
         cairo
         pango
       ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ]
+    ;
   };
 
   makam = prev.makam.override {
@@ -712,7 +722,8 @@ final: prev: {
 
   vega-cli = prev.vega-cli.override {
     nativeBuildInputs = [ pkgs.pkg-config ];
-    buildInputs = with pkgs;
+    buildInputs =
+      with pkgs;
       [
         final.node-pre-gyp
         pixman
@@ -720,7 +731,8 @@ final: prev: {
         pango
         libjpeg
       ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ]
+    ;
   };
 
   vega-lite = prev.vega-lite.override {
@@ -748,14 +760,16 @@ final: prev: {
     ];
     # These dependencies are required by
     # https://github.com/Automattic/node-canvas.
-    buildInputs = with pkgs;
+    buildInputs =
+      with pkgs;
       [
         giflib
         pixman
         cairo
         pango
       ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ]
+    ;
   };
 
   webtorrent-cli = prev.webtorrent-cli.override {

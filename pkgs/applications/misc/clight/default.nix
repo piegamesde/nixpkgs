@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
     bash-completion
   ];
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       gsl
       popt
@@ -57,7 +58,8 @@ stdenv.mkDerivation rec {
       libmodule
     ]
     ++ optional withGeoclue geoclue2
-    ++ optional withUpower upower;
+    ++ optional withUpower upower
+  ;
 
   cmakeFlags = [
     # bash-completion.pc completionsdir=${bash-completion.out}

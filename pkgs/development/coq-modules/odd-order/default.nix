@@ -18,7 +18,8 @@ mkCoqDerivation {
   releaseRev = v: "mathcomp-odd-order.${v}";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch mathcomp.character.version
       [
         {
@@ -34,7 +35,8 @@ mkCoqDerivation {
           out = "1.12.0";
         }
       ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs = [
     mathcomp.character

@@ -120,7 +120,8 @@ in
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type = with types;
+        type =
+          with types;
           attrsOf (
             attrsOf (
               nullOr (
@@ -131,7 +132,8 @@ in
                 ]
               )
             )
-          );
+          )
+        ;
         example = {
           fancyWebserver = {
             accept = 443;
@@ -150,7 +152,8 @@ in
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type = with types;
+        type =
+          with types;
           attrsOf (
             attrsOf (
               nullOr (
@@ -161,7 +164,8 @@ in
                 ]
               )
             )
-          );
+          )
+        ;
 
         apply =
           let

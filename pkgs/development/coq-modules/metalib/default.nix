@@ -9,7 +9,8 @@ mkCoqDerivation {
   pname = "metalib";
   owner = "plclub";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -21,7 +22,8 @@ mkCoqDerivation {
           out = "8.10";
         }
       ]
-      null;
+      null
+  ;
   releaseRev = v: "coq${v}";
   release."8.15".sha256 =
     "0wbp058zwa4bkdjj38aysy2g1avf9nrh8q23a3dil0q00qczi616";

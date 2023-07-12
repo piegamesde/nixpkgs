@@ -23,7 +23,8 @@ let
       ''
   ;
 
-  configType = with types;
+  configType =
+    with types;
     let
       atom = oneOf [
         int

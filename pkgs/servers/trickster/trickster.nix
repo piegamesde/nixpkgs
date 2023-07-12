@@ -22,7 +22,8 @@ buildGoModule rec {
 
   preBuild =
     let
-      ldflags = with lib;
+      ldflags =
+        with lib;
         concatStringsSep " " (
           [
             "-extldflags '-static'"
@@ -35,7 +36,8 @@ buildGoModule rec {
             GoVersion = "$(go env GOVERSION)";
             GoArch = "$(go env GOARCH)";
           })
-        );
+        )
+      ;
     in
     ''
       buildFlagsArray+=("-ldflags=${ldflags}")

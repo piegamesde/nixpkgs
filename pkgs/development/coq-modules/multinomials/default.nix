@@ -19,7 +19,8 @@ mkCoqDerivation {
   owner = "math-comp";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch
       [
         coq.version
@@ -76,7 +77,8 @@ mkCoqDerivation {
           out = "1.1";
         }
       ]
-      null;
+      null
+  ;
   release = {
     "1.5.6".sha256 = "sha256-cMixgc34T9Ic6v+tYmL49QUNpZpPV5ofaNuHqblX6oY=";
     "1.5.5".sha256 = "sha256-VdXA51vr7DZl/wT/15YYMywdD7Gh91dMP9t7ij47qNQ=";

@@ -31,7 +31,8 @@ python3.pkgs.buildPythonApplication rec {
     unidecode
   ];
 
-  nativeCheckInputs = with python3.pkgs;
+  nativeCheckInputs =
+    with python3.pkgs;
     [
       blinker
       flask
@@ -39,7 +40,8 @@ python3.pkgs.buildPythonApplication rec {
       mock
       pytestCheckHook
     ]
-    ++ [ ncurses ];
+    ++ [ ncurses ]
+  ;
 
   preBuild = ''
     export HOME=$(mktemp -d)

@@ -12,7 +12,8 @@ makeInstalledTest {
   testConfig = {
     programs.dconf.enable = true;
     services.gnome.at-spi2-core.enable = true; # needed for dogtail
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       [
         # gsettings tool with access to gsettings-desktop-schemas
         (stdenv.mkDerivation {
@@ -30,7 +31,8 @@ makeInstalledTest {
             runHook postInstall
           '';
         })
-      ];
+      ]
+    ;
     services.dbus.packages = with pkgs; [ gnome-photos ];
   };
 

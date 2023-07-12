@@ -53,7 +53,8 @@ let
     };
   };
 
-  mkValue = with lib;
+  mkValue =
+    with lib;
     val:
     let
       isNumber =

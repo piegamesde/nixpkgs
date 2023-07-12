@@ -130,14 +130,16 @@ let
         };
 
         settings = mkOption {
-          type = with types;
+          type =
+            with types;
             attrsOf (
               oneOf [
                 str
                 int
                 bool
               ]
-            );
+            )
+          ;
           default = { };
           description = lib.mdDoc ''
             PHP-FPM pool directives. Refer to the "List of pool directives" section of
@@ -210,14 +212,16 @@ in
   options = {
     services.phpfpm = {
       settings = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               str
               int
               bool
             ]
-          );
+          )
+        ;
         default = { };
         description = lib.mdDoc ''
           PHP-FPM global directives. Refer to the "List of global php-fpm.conf directives" section of

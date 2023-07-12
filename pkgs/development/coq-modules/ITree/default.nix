@@ -11,7 +11,8 @@ mkCoqDerivation rec {
   pname = "InteractionTrees";
   owner = "DeepSpec";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.version
       [
         {
@@ -23,7 +24,8 @@ mkCoqDerivation rec {
           out = "4.0.0";
         }
       ]
-      null;
+      null
+  ;
   release."5.1.0".sha256 =
     "sha256-ny7Mi1KgWADiFznkNJiRgD7Djc5SUclNgKOmWRxK+eo=";
   release."4.0.0".sha256 =

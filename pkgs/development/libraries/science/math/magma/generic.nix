@@ -105,7 +105,8 @@ let
   # Build-time dependencies
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
-    paths = with cudaPackages;
+    paths =
+      with cudaPackages;
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
@@ -116,7 +117,8 @@ let
       ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
         cuda_profiler_api # <cuda_profiler_api.h>
       ]
-      ++ cuda-common-redist;
+      ++ cuda-common-redist
+    ;
   };
 
   # Run-time dependencies

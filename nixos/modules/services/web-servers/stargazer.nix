@@ -144,7 +144,8 @@ in
     routes = lib.mkOption {
       type = lib.types.listOf (
         lib.types.submodule {
-          freeformType = with lib.types;
+          freeformType =
+            with lib.types;
             attrsOf (
               nullOr (
                 oneOf [
@@ -156,7 +157,8 @@ in
               ) // {
                 description = "INI atom (null, bool, int, float or string)";
               }
-            );
+            )
+          ;
           options.route = lib.mkOption {
             type = lib.types.str;
             description = lib.mdDoc "Route section name";

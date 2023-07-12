@@ -84,7 +84,8 @@ rec {
 
   types.cpuType = enum (attrValues cpuTypes);
 
-  cpuTypes = with significantBytes;
+  cpuTypes =
+    with significantBytes;
     setTypes types.openCpuType {
       arm = {
         bits = 32;
@@ -380,7 +381,8 @@ rec {
         significantByte = littleEndian;
         family = "javascript";
       };
-    };
+    }
+  ;
 
   # GNU build systems assume that older NetBSD architectures are using a.out.
   gnuNetBSDDefaultExecFormat =
@@ -538,7 +540,8 @@ rec {
 
   types.kernel = enum (attrValues kernels);
 
-  kernels = with execFormats;
+  kernels =
+    with execFormats;
     with kernelFamilies;
     setTypes types.openKernel {
       # TODO(@Ericson2314): Don't want to mass-rebuild yet to keeping 'darwin' as
@@ -617,7 +620,8 @@ rec {
       watchos = kernels.ios;
       tvos = kernels.ios;
       win32 = kernels.windows;
-    };
+    }
+  ;
 
   ################################################################################
 

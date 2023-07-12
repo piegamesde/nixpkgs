@@ -8,7 +8,8 @@
 
 let
   version = "2.8.8";
-  folder = with builtins;
+  folder =
+    with builtins;
     let
       parts = splitVersion version;
     in

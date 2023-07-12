@@ -54,7 +54,8 @@ py.pkgs.buildPythonPackage rec {
       --replace 'sigs_path = os.path.join(get_default_root(), "sigs")' 'sigs_path = "'"$out"'/share/flare-floss/sigs"'
   '';
 
-  propagatedBuildInputs = with py.pkgs;
+  propagatedBuildInputs =
+    with py.pkgs;
     [
       halo
       networkx
@@ -64,7 +65,8 @@ py.pkgs.buildPythonPackage rec {
       viv-utils
       vivisect
     ]
-    ++ viv-utils.optional-dependencies.flirt;
+    ++ viv-utils.optional-dependencies.flirt
+  ;
 
   nativeCheckInputs = with py.pkgs; [
     pytest-sugar

@@ -889,7 +889,8 @@ let
     )
   ;
 
-  limitsType = with lib.types;
+  limitsType =
+    with lib.types;
     listOf (
       submodule (
         {
@@ -950,7 +951,8 @@ let
           };
         }
       )
-    );
+    )
+  ;
 
   motd =
     if config.users.motdFile == null then

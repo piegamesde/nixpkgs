@@ -69,7 +69,8 @@ rec {
 
     passthru.tests.nim = nimPackages.getdns;
 
-    meta = with lib;
+    meta =
+      with lib;
       metaCommon // {
         description = "A modern asynchronous DNS API";
         longDescription = ''
@@ -84,7 +85,8 @@ rec {
           their applications.
         '';
         homepage = "https://getdnsapi.net";
-      };
+      }
+    ;
   };
 
   stubby = stdenv.mkDerivation rec {
@@ -125,7 +127,8 @@ rec {
     passthru.settingsExample =
       with builtins; fromJSON (readFile stubby.stubbyExampleJson);
 
-    meta = with lib;
+    meta =
+      with lib;
       metaCommon // {
         description = "A local DNS Privacy stub resolver (using DNS-over-TLS)";
         longDescription = ''
@@ -136,6 +139,7 @@ rec {
           the getdns team.
         '';
         homepage = "https://dnsprivacy.org/wiki/x/JYAT";
-      };
+      }
+    ;
   };
 }

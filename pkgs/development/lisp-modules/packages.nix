@@ -211,7 +211,8 @@ let
           ;
           sha256 = "0wp23cs3i6a89dibifiz6559la5nk58d1n17xvbxq4nrl8cqsllf";
         };
-        lispLibs = with super;
+        lispLibs =
+          with super;
           [
             alexandria
             babel
@@ -221,7 +222,8 @@ let
             parachute
             osicat
           ]
-          ++ [ self.cl-tar-file ];
+          ++ [ self.cl-tar-file ]
+        ;
         systems = [
           "tar"
           "tar/common-extract"
@@ -570,12 +572,14 @@ let
           rev = "e18f621b996fd986d9829d590203c690440dee64";
           hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
         };
-        lispLibs = with super;
+        lispLibs =
+          with super;
           [ cl-gobject-introspection-wrapper ]
           ++ [
             self.cl-glib
             self.cl-glib_dot_gio
-          ];
+          ]
+        ;
         nativeBuildInputs = [
           pkgs.gobject-introspection
           pkgs.gtk4

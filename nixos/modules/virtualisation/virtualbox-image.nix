@@ -62,7 +62,8 @@ in
         '';
       };
       params = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               str
@@ -70,7 +71,8 @@ in
               bool
               (listOf str)
             ]
-          );
+          )
+        ;
         example = {
           audio = "alsa";
           rtcuseutc = "on";
@@ -83,7 +85,8 @@ in
         '';
       };
       exportParams = mkOption {
-        type = with types;
+        type =
+          with types;
           listOf (
             oneOf [
               str
@@ -91,7 +94,8 @@ in
               bool
               (listOf str)
             ]
-          );
+          )
+        ;
         example = [
           "--vsys"
           "0"
@@ -154,7 +158,8 @@ in
         '';
       };
       storageController = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               str
@@ -162,7 +167,8 @@ in
               bool
               (listOf str)
             ]
-          );
+          )
+        ;
         example = {
           name = "SCSI";
           add = "scsi";

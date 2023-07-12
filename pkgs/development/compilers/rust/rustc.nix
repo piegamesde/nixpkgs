@@ -307,13 +307,15 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.rust-lang.org/";
     description = "A safe, concurrent, practical language";
-    maintainers = with maintainers;
+    maintainers =
+      with maintainers;
       [
         cstrahan
         globin
         havvy
       ]
-      ++ teams.rust.members;
+      ++ teams.rust.members
+    ;
     license = [
       licenses.mit
       licenses.asl20

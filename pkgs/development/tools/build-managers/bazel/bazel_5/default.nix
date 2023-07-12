@@ -160,8 +160,10 @@ let
   system = if stdenv.hostPlatform.isDarwin then "darwin" else "linux";
 
   # on aarch64 Darwin, `uname -m` returns "arm64"
-  arch = with stdenv.hostPlatform;
-    if isDarwin && isAarch64 then "arm64" else parsed.cpu.name;
+  arch =
+    with stdenv.hostPlatform;
+    if isDarwin && isAarch64 then "arm64" else parsed.cpu.name
+  ;
 
   bazelRC = writeTextFile {
     name = "bazel-rc";

@@ -321,7 +321,8 @@ rec {
 
         environment = mkOption {
           default = { };
-          type = with types;
+          type =
+            with types;
             attrsOf (
               nullOr (
                 oneOf [
@@ -330,7 +331,8 @@ rec {
                   package
                 ]
               )
-            );
+            )
+          ;
           example = {
             PATH = "/foo/bar/bin";
             LANG = "nl_NL.UTF-8";
@@ -343,13 +345,15 @@ rec {
 
         path = mkOption {
           default = [ ];
-          type = with types;
+          type =
+            with types;
             listOf (
               oneOf [
                 package
                 str
               ]
-            );
+            )
+          ;
           description = lib.mdDoc ''
             Packages added to the service's {env}`PATH`
             environment variable.  Both the {file}`bin`

@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = false;
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       wayland
       wlroots
@@ -107,7 +108,8 @@ stdenv.mkDerivation rec {
     ++ optional traySupport libdbusmenu-gtk3
     ++ optional udevSupport udev
     ++ optional upowerSupport upower
-    ++ optional wireplumberSupport wireplumber;
+    ++ optional wireplumberSupport wireplumber
+  ;
 
   nativeCheckInputs = [ catch2_3 ];
   doCheck = runTests;

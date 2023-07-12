@@ -18,14 +18,16 @@
   qtmultimedia,
 }:
 let
-  gstreamerPath = with gst_all_1;
+  gstreamerPath =
+    with gst_all_1;
     lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
       gstreamer
       gst-plugins-base
       gst-plugins-good
       gst-plugins-bad
       gst-plugins-ugly
-    ];
+    ]
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "qt-video-wlr";

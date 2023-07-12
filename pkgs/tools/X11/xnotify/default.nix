@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     libXinerama
   ];
 
-  postPatch = with lib;
+  postPatch =
+    with lib;
     let
       configFile =
         if isDerivation conf || builtins.isPath conf then

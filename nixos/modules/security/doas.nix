@@ -125,7 +125,8 @@ in
             setEnv = [ "-SSH_AUTH_SOCK" "ALPHA=1" "BETA" ]; }
         ]
       '';
-      type = with types;
+      type =
+        with types;
         listOf (
           submodule {
             options = {
@@ -243,7 +244,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     extraConfig = mkOption {

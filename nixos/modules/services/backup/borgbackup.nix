@@ -236,8 +236,10 @@ let
 
   mkPassAssertion =
     name: cfg: {
-      assertion = with cfg.encryption;
-        mode != "none" -> passCommand != null || passphrase != null;
+      assertion =
+        with cfg.encryption;
+        mode != "none" -> passCommand != null || passphrase != null
+      ;
       message =
         "passCommand or passphrase has to be specified because"
         + ''borgbackup.jobs.${name}.encryption != "none"''
@@ -638,8 +640,10 @@ in
               # Specifying e.g. `prune.keep.yearly = -1`
               # means there is no limit of yearly archives to keep
               # The regex is for use with e.g. --keep-within 1y
-              type = with types;
-                attrsOf (either int (strMatching "[[:digit:]]+[Hdwmy]"));
+              type =
+                with types;
+                attrsOf (either int (strMatching "[[:digit:]]+[Hdwmy]"))
+              ;
               description = lib.mdDoc ''
                 Prune a repository by deleting all archives not matching any of the
                 specified retention options. See {command}`borg help prune`

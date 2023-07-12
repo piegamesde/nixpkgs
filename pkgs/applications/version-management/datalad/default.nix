@@ -24,7 +24,8 @@ python3.pkgs.buildPythonApplication rec {
     git
   ];
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       # core
       platformdirs
@@ -76,7 +77,8 @@ python3.pkgs.buildPythonApplication rec {
       distro
     ]
     ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
-    ++ lib.optionals (python3.pythonOlder "3.10") [ importlib-metadata ];
+    ++ lib.optionals (python3.pythonOlder "3.10") [ importlib-metadata ]
+  ;
 
   postInstall = ''
     installShellCompletion --cmd datalad \

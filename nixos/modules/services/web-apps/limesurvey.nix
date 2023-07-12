@@ -19,7 +19,8 @@ let
 
   pkg = pkgs.limesurvey;
 
-  configType = with types;
+  configType =
+    with types;
     oneOf [
       (attrsOf configType)
       str
@@ -28,7 +29,8 @@ let
     ] // {
       description =
         "limesurvey config type (str, int, bool or attribute set thereof)";
-    };
+    }
+  ;
 
   limesurveyConfig = pkgs.writeText "config.php" ''
     <?php
@@ -168,14 +170,16 @@ in
     };
 
     poolConfig = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           oneOf [
             str
             int
             bool
           ]
-        );
+        )
+      ;
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;

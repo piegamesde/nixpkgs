@@ -135,7 +135,8 @@ in
 
       settings = mkOption {
         default = { };
-        type = with types;
+        type =
+          with types;
           submodule {
 
             freeformType =
@@ -177,7 +178,8 @@ in
                 internal = true;
               };
             };
-          };
+          }
+        ;
         example = literalExpression ''
           {
             server = {

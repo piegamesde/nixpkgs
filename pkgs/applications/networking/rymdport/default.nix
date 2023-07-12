@@ -25,7 +25,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = with xorg;
+  buildInputs =
+    with xorg;
     [
       libGL
       libX11
@@ -40,7 +41,8 @@ buildGoModule rec {
       Carbon
       Cocoa
       IOKit
-    ];
+    ]
+  ;
 
   meta = {
     description =

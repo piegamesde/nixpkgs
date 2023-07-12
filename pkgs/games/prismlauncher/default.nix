@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
 
   qtWrapperArgs =
     let
-      libpath = with xorg;
+      libpath =
+        with xorg;
         lib.makeLibraryPath (
           [
             libX11
@@ -105,7 +106,8 @@ stdenv.mkDerivation rec {
             stdenv.cc.cc.lib
           ]
           ++ lib.optional gamemodeSupport gamemode.lib
-        );
+        )
+      ;
     in
     [
       "--set LD_LIBRARY_PATH /run/opengl-driver/lib:${libpath}"

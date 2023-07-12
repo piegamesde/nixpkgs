@@ -10,7 +10,8 @@ let
     lib.optionalString cfg.ocsp-stapling.enabled
       "/var/cache/hitch/ocsp"
   ;
-  hitchConfig = with lib;
+  hitchConfig =
+    with lib;
     pkgs.writeText "hitch.conf" (
       concatStringsSep "\n" [
         (''backend = "${cfg.backend}"'')
@@ -32,7 +33,8 @@ let
         ''group = "${cfg.group}"''
         cfg.extraConfig
       ]
-    );
+    )
+  ;
 in
 with lib; {
   options = {

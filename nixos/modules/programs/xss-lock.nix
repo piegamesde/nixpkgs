@@ -38,7 +38,8 @@ in
       description = "XSS Lock Daemon";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      serviceConfig.ExecStart = with lib;
+      serviceConfig.ExecStart =
+        with lib;
         strings.concatStringsSep " " (
           [
             "${pkgs.xss-lock}/bin/xss-lock"
@@ -49,7 +50,8 @@ in
             "--"
             cfg.lockerCommand
           ]
-        );
+        )
+      ;
     };
   };
 }

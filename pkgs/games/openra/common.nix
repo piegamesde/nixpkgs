@@ -66,7 +66,8 @@ in
   ;
 
   packageAttrs = {
-    buildInputs = with dotnetPackages;
+    buildInputs =
+      with dotnetPackages;
       [
         FuzzyLogicLibrary
         MaxMindDb
@@ -83,7 +84,8 @@ in
         StyleCopMSBuild
         StyleCopPlusMSBuild
       ]
-      ++ [ libGL ];
+      ++ [ libGL ]
+    ;
 
     # TODO: Test if this is correct.
     nativeBuildInputs = [

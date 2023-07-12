@@ -161,7 +161,8 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   # install filters early, so their shebangs are patched too
-  postPatch = with lib;
+  postPatch =
+    with lib;
     ''
       mkdir -p "$out/etc/asciidoc/filters"
       mkdir -p "$out/etc/asciidoc/backends"
@@ -298,7 +299,8 @@ python3.pkgs.buildPythonApplication rec {
       # We want to use asciidoc from the build platform to build the documentation.
       substituteInPlace Makefile.in \
         --replace "python3 -m asciidoc.a2x" "${buildPackages.asciidoc}/bin/a2x"
-    '';
+    ''
+  ;
 
   postBuild = ''
     make manpages
@@ -333,8 +335,10 @@ python3.pkgs.buildPythonApplication rec {
       the backend output markups (which can be almost any type of SGML/XML
       markup) can be customized and extended by the user.
     '';
-    sourceProvenance = with sourceTypes;
-      [ fromSource ] ++ lib.optional _enableDitaaFilter binaryBytecode;
+    sourceProvenance =
+      with sourceTypes;
+      [ fromSource ] ++ lib.optional _enableDitaaFilter binaryBytecode
+    ;
     homepage = "https://asciidoc-py.github.io/";
     changelog =
       "https://github.com/asciidoc-py/asciidoc-py/blob/${version}/CHANGELOG.adoc";

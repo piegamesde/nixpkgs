@@ -246,14 +246,16 @@ runCommand drvName
       # binaries are also distributed as proprietary software (unlike the
       # source-code itself).
       platforms = [ "x86_64-linux" ];
-      maintainers = with maintainers;
+      maintainers =
+        with maintainers;
         rec {
           stable = [ alapshin ];
           beta = [ alapshin ];
           canary = [ alapshin ];
           dev = canary;
         }
-        ."${channel}";
+        ."${channel}"
+      ;
       mainProgram = pname;
     };
   }

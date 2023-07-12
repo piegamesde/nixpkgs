@@ -5,7 +5,8 @@
 }:
 
 let
-  bech32 = with python3Packages;
+  bech32 =
+    with python3Packages;
     buildPythonPackage rec {
       pname = "bech32";
       version = "1.2.0";
@@ -14,10 +15,12 @@ let
         inherit pname version;
         sha256 = "sha256-fW24IUYDvXhx/PpsCCbvaLhbCr2Q+iHChanF4h0r2Jk=";
       };
-    };
+    }
+  ;
 
   # onlykey requires a patched version of libagent
-  lib-agent = with python3Packages;
+  lib-agent =
+    with python3Packages;
     libagent.overridePythonAttrs (
       oa: rec {
         version = "1.0.4";
@@ -48,7 +51,8 @@ let
           maintainers = with lib.maintainers; [ kalbasit ];
         };
       }
-    );
+    )
+  ;
 in
 python3Packages.buildPythonApplication rec {
   pname = "onlykey-agent";

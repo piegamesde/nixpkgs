@@ -438,7 +438,8 @@ in
       };
 
       backup.skip = mkOption {
-        type = with types;
+        type =
+          with types;
           let
             value = enum [
               "db"
@@ -820,7 +821,8 @@ in
         '';
 
         type = types.submodule {
-          freeformType = with types;
+          freeformType =
+            with types;
             attrsOf (
               nullOr (
                 oneOf [
@@ -830,7 +832,8 @@ in
                   attrs
                 ]
               )
-            );
+            )
+          ;
 
           options = {
             listen-http = mkOption {

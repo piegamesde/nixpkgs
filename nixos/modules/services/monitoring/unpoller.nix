@@ -224,13 +224,15 @@ in
             '';
           };
           sites = mkOption {
-            type = with types;
+            type =
+              with types;
               either
                 (enum [
                   "default"
                   "all"
                 ])
-                (listOf str);
+                (listOf str)
+            ;
             default = "all";
             description = lib.mdDoc ''
               List of site names for which statistics should be exported.

@@ -16,7 +16,8 @@ mkCoqDerivation {
   pname = "apery";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch
       [
         coq.version
@@ -29,7 +30,8 @@ mkCoqDerivation {
         ];
         out = "1.0.2";
       } ]
-      null;
+      null
+  ;
 
   release."1.0.2".sha256 =
     "sha256-llxyMKYvWUA7fyroG1S/jtpioAoArmarR1edi3cikcY=";

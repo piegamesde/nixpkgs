@@ -99,7 +99,8 @@ buildPythonApplication rec {
     ++ lib.optional withNvenc cudatoolkit
   ;
 
-  buildInputs = with xorg;
+  buildInputs =
+    with xorg;
     [
       libX11
       libXcomposite
@@ -139,9 +140,11 @@ buildPythonApplication rec {
       x264
       x265
     ]
-    ++ lib.optional withNvenc nvencHeaders;
+    ++ lib.optional withNvenc nvencHeaders
+  ;
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     (
       [
         cryptography
@@ -170,7 +173,8 @@ buildPythonApplication rec {
         pycuda
         pynvml
       ]
-    );
+    )
+  ;
 
   # error: 'import_cairo' defined but not used
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";

@@ -246,14 +246,16 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           ]
         ;
 
-        nativeBuildInputs = with buildPackages.netbsd;
+        nativeBuildInputs =
+          with buildPackages.netbsd;
           commonDeps
           ++ [
             bsdSetupHook
             netbsdSetupHook
             makeMinimal
             rsync
-          ];
+          ]
+        ;
 
         buildInputs = with self; commonDeps;
 
@@ -331,7 +333,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
               --subst-var-by version ${version}
           ''
         ;
-        extraPaths = with self;
+        extraPaths =
+          with self;
           [
             include.src
             libc.src
@@ -347,7 +350,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             )
           ]
           ++ libutil.extraPaths
-          ++ _mainLibcExtraPaths;
+          ++ _mainLibcExtraPaths
+        ;
       }
     );
 
@@ -379,12 +383,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           rsync
         ];
         skipIncludesPhase = true;
-        buildInputs = with self;
+        buildInputs =
+          with self;
           compatIfNeeded
           # fts header is needed. glibc already has this header, but musl doesn't,
           # so make sure pkgsMusl.netbsd.install still builds in case you want to
           # remove it!
-          ++ [ fts ];
+          ++ [ fts ]
+        ;
         installPhase = ''
           runHook preInstall
 
@@ -1135,13 +1141,15 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       sha256 = "1y9c13igg0kai07sqvf9cm6yqmd8lhfd8hq3q7biilbgs1l99as3";
       USE_FORT = "yes";
       MKPROFILE = "no";
-      extraPaths = with self;
+      extraPaths =
+        with self;
         _mainLibcExtraPaths
         ++ [
           (fetchNetBSD "external/bsd/jemalloc" "9.2"
             "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb"
           )
-        ];
+        ]
+      ;
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook

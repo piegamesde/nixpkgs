@@ -16,7 +16,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-FXSGG13/Al8QVFy55f91+ZyQKeZA4wFGd06kIj6NjaI=";
   };
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       appdirs
       cached-property
@@ -38,7 +39,8 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optionals (pythonOlder "3.8") [
       backports.cached-property
       importlib_metadata
-    ];
+    ]
+  ;
 
   nativeCheckInputs = with python3.pkgs; [
     hypothesis

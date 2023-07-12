@@ -12,7 +12,8 @@ let
 
   dataDir = "/var/lib/magnetico";
 
-  credFile = with cfg.web;
+  credFile =
+    with cfg.web;
     if credentialsFile != null then
       credentialsFile
     else
@@ -24,7 +25,8 @@ let
             '')
             cfg.web.credentials
         )
-      );
+      )
+  ;
 
   # default options in magneticod/main.go
   dbURI = concatStrings [
@@ -34,7 +36,8 @@ let
     "&_foreign_keys=true"
   ];
 
-  crawlerArgs = with cfg.crawler;
+  crawlerArgs =
+    with cfg.crawler;
     escapeShellArgs (
       [
         "--database=${dbURI}"
@@ -43,9 +46,11 @@ let
         "--leech-max-n=${toString maxLeeches}"
       ]
       ++ extraOptions
-    );
+    )
+  ;
 
-  webArgs = with cfg.web;
+  webArgs =
+    with cfg.web;
     escapeShellArgs (
       [
         "--database=${dbURI}"
@@ -60,7 +65,8 @@ let
         "--addr=${address}:${toString port}"
       ]
       ++ extraOptions
-    );
+    )
+  ;
 in
 {
 

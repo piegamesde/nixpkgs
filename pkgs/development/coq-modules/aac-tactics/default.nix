@@ -38,7 +38,8 @@ mkCoqDerivation {
     "sha256-7yNxJn6CH5xS5w/zsXfcZYORa6e5/qS9v8PUq2o02h4=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -86,7 +87,8 @@ mkCoqDerivation {
           out = "8.5.0";
         }
       ]
-      null;
+      null
+  ;
 
   mlPlugin = true;
 

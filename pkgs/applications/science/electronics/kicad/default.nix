@@ -149,7 +149,8 @@ stdenv.mkDerivation rec {
     [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
   # We are emulating wrapGAppsHook, along with other variables to the wrapper
-  makeWrapperArgs = with passthru.libraries;
+  makeWrapperArgs =
+    with passthru.libraries;
     [
       "--prefix XDG_DATA_DIRS : ${base}/share"
       "--prefix XDG_DATA_DIRS : ${hicolor-icon-theme}/share"
@@ -177,7 +178,8 @@ stdenv.mkDerivation rec {
     # infinisil's workaround for #39493
     ++ [
       "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-    ];
+    ]
+  ;
 
   # why does $makeWrapperArgs have to be added explicitly?
   # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?

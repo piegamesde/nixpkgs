@@ -103,19 +103,23 @@ stdenv.mkDerivation rec {
     export HOME=$PWD/test-home
   '';
 
-  enableFeatures = with lib;
+  enableFeatures =
+    with lib;
     optional threadSupport "sb-thread"
     ++ optional linkableRuntime "sb-linkable-runtime"
     ++ optional coreCompression "sb-core-compression"
-    ++ optional stdenv.isAarch32 "arm";
+    ++ optional stdenv.isAarch32 "arm"
+  ;
 
-  disableFeatures = with lib;
+  disableFeatures =
+    with lib;
     optional (!threadSupport) "sb-thread"
     ++ optionals disableImmobileSpace [
       "immobile-space"
       "immobile-code"
       "compact-instance-header"
-    ];
+    ]
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals (lib.versionOlder version "2.1.10") [

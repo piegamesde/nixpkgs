@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
     sed -i "s@pkg_get_variable(POLKIT_ACTION_DIR.*@set(POLKIT_ACTION_DIR $POLKIT_ACTION_DIR)@" CMakeLists.txt
   '';
 
-  cmakeFlags = with lib;
+  cmakeFlags =
+    with lib;
     [
       "-DSYSTEMD_SERVICE_DIR=${placeholder "out"}/lib/systemd/system"
       "-DDBUS_CONFIG_DIR=${placeholder "out"}/etc/dbus-1/system.d"
@@ -59,7 +60,8 @@ stdenv.mkDerivation rec {
     ++ optional enableDpms "-DENABLE_DPMS=1"
     ++ optional enableGamma "-DENABLE_GAMMA=1"
     ++ optional enableScreen "-DENABLE_SCREEN=1"
-    ++ optional enableYoctolight "-DENABLE_YOCTOLIGHT=1";
+    ++ optional enableYoctolight "-DENABLE_YOCTOLIGHT=1"
+  ;
 
   nativeBuildInputs = [
     dbus
@@ -67,7 +69,8 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       glib
       udev
@@ -87,7 +90,8 @@ stdenv.mkDerivation rec {
     ++ optionals (enableDpms || enableGamma || enableScreen) [
       libdrm
       wayland
-    ];
+    ]
+  ;
 
   postInstall = ''
     mkdir -p $out/bin

@@ -61,8 +61,10 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = cfg.settings;
-      path = with pkgs;
-        [ unixtools.ping ] ++ lib.optional cfg.appriseSupport apprise;
+      path =
+        with pkgs;
+        [ unixtools.ping ] ++ lib.optional cfg.appriseSupport apprise
+      ;
       serviceConfig = {
         Type = "simple";
         StateDirectory = "uptime-kuma";

@@ -17,10 +17,12 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Console ascii line graphs in pure Nim";
       license = [ licenses.mit ];
       maintainers = with maintainers; [ sikmir ];
-    };
+    }
+  ;
 }

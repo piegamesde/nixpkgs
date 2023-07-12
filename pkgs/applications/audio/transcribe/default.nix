@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
 
-  libPath = with gst_all_1;
+  libPath =
+    with gst_all_1;
     lib.makeLibraryPath [
       stdenv.cc.cc
       glib
@@ -69,7 +70,8 @@ stdenv.mkDerivation rec {
       gstreamer
       gst-plugins-base
       zlib
-    ];
+    ]
+  ;
 
   installPhase = ''
     mkdir -p $out/bin $out/libexec $out/share/doc

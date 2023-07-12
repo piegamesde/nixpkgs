@@ -515,9 +515,11 @@ in
 
       security.pam.services.gnome-flashback = { enableGnomeKeyring = true; };
 
-      systemd.packages = with pkgs.gnome;
+      systemd.packages =
+        with pkgs.gnome;
         [ gnome-flashback ]
-        ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
+        ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms
+      ;
 
       # gnome-panel needs these for menu applet
       environment.sessionVariables.XDG_DATA_DIRS = [
@@ -618,12 +620,14 @@ in
         gnome-shell
       ];
 
-      services.udev.packages = with pkgs.gnome;
+      services.udev.packages =
+        with pkgs.gnome;
         [
           # Force enable KMS modifiers for devices that require them.
           # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1443
           mutter
-        ];
+        ]
+      ;
 
       services.avahi.enable = mkDefault true;
 
@@ -684,7 +688,8 @@ in
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst
     (mkIf serviceCfg.core-utilities.enable {
-      environment.systemPackages = with pkgs.gnome;
+      environment.systemPackages =
+        with pkgs.gnome;
         utils.removePackagesByName
           (
             [
@@ -718,7 +723,8 @@ in
               gnome-software
             ]
           )
-          config.environment.gnome.excludePackages;
+          config.environment.gnome.excludePackages
+      ;
 
       # Enable default program modules
       # Since some of these have a corresponding package, we only
@@ -747,7 +753,8 @@ in
     })
 
     (mkIf serviceCfg.games.enable {
-      environment.systemPackages = with pkgs.gnome;
+      environment.systemPackages =
+        with pkgs.gnome;
         utils.removePackagesByName
           [
             aisleriot
@@ -771,12 +778,14 @@ in
             swell-foop
             tali
           ]
-          config.environment.gnome.excludePackages;
+          config.environment.gnome.excludePackages
+      ;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/-/blob/3.38.0/elements/core/meta-gnome-core-developer-tools.bst
     (mkIf serviceCfg.core-developer-tools.enable {
-      environment.systemPackages = with pkgs.gnome;
+      environment.systemPackages =
+        with pkgs.gnome;
         utils.removePackagesByName
           [
             dconf-editor
@@ -788,7 +797,8 @@ in
             # https://github.com/NixOS/nixpkgs/issues/60908
             # gnome-boxes
           ]
-          config.environment.gnome.excludePackages;
+          config.environment.gnome.excludePackages
+      ;
 
       services.sysprof.enable = notExcluded pkgs.sysprof;
     })

@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     cp -a contrib/git-* $out/bin/
   '';
 
-  wrapperPath = with lib;
+  wrapperPath =
+    with lib;
     makeBinPath (
       [
         coreutils
@@ -40,7 +41,8 @@ stdenv.mkDerivation rec {
         gnused
       ]
       ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-    );
+    )
+  ;
 
   postFixup = ''
     wrap_path="${wrapperPath}":$out/bin

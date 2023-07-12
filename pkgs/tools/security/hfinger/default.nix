@@ -17,12 +17,14 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-QKnrprDDBq+D8N1brkqgcfK4E+6ssvgPtRaSxkF0C84=";
   };
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       fnvhash
       python-magic
     ]
-    ++ [ wireshark-cli ];
+    ++ [ wireshark-cli ]
+  ;
 
   # Project has no tests
   doCheck = false;

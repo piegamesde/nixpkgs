@@ -12,7 +12,8 @@ import ./make-test-python.nix (
         ...
       }:
       {
-        users.users = with lib;
+        users.users =
+          with lib;
           mkMerge [
             (listToAttrs (
               map (n: nameValuePair n { isNormalUser = true; }) (
@@ -20,7 +21,8 @@ import ./make-test-python.nix (
               )
             ))
             { user0.extraGroups = [ "wheel" ]; }
-          ];
+          ]
+        ;
 
         security.please = {
           enable = true;

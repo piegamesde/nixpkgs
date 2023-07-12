@@ -69,7 +69,8 @@ python3Packages.buildPythonApplication rec {
     libadwaita
   ];
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     [
       pathvalidate
       pycurl
@@ -102,7 +103,8 @@ python3Packages.buildPythonApplication rec {
       lsb-release
       pciutils
       procps
-    ];
+    ]
+  ;
 
   format = "other";
   dontWrapGApps = true; # prevent double wrapping

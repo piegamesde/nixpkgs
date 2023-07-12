@@ -133,7 +133,8 @@ in
         systemPackages = with pkgs; [ snapraid ];
 
         etc."snapraid.conf" = {
-          text = with cfg;
+          text =
+            with cfg;
             let
               prependData = mkPrepend "data ";
               prependContent = mkPrepend "content ";

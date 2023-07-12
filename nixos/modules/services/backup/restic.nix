@@ -56,7 +56,8 @@ in
             };
 
             rcloneOptions = mkOption {
-              type = with types;
+              type =
+                with types;
                 nullOr (
                   attrsOf (
                     oneOf [
@@ -64,7 +65,8 @@ in
                       bool
                     ]
                   )
-                );
+                )
+              ;
               default = null;
               description = lib.mdDoc ''
                 Options to pass to rclone to control its behavior.
@@ -81,7 +83,8 @@ in
             };
 
             rcloneConfig = mkOption {
-              type = with types;
+              type =
+                with types;
                 nullOr (
                   attrsOf (
                     oneOf [
@@ -89,7 +92,8 @@ in
                       bool
                     ]
                   )
-                );
+                )
+              ;
               default = null;
               description = lib.mdDoc ''
                 Configuration for the rclone remote being used for backup.

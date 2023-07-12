@@ -68,7 +68,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.vaultproject.io";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mpl20;
-    maintainers = with maintainers;
+    maintainers =
+      with maintainers;
       teams.serokell.members
       ++ [
         offline
@@ -76,7 +77,8 @@ stdenv.mkDerivation rec {
         Chili-Man
         techknowlogick
         mkaito
-      ];
+      ]
+    ;
     mainProgram = "vault";
     platforms = [
       "x86_64-linux"

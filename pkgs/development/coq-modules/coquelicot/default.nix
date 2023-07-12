@@ -12,7 +12,8 @@ mkCoqDerivation {
   owner = "coquelicot";
   domain = "gitlab.inria.fr";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -32,7 +33,8 @@ mkCoqDerivation {
           out = "3.0.2";
         }
       ]
-      null;
+      null
+  ;
   release."3.3.0".sha256 =
     "sha256-bh9qP/EhWrHpTe2GMGG3S2vgBSSK088mFfhAIGejVoU=";
   release."3.2.0".sha256 =

@@ -9,7 +9,8 @@ mkCoqDerivation {
   pname = "coqtail-math";
   owner = "coq-community";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -21,7 +22,8 @@ mkCoqDerivation {
           out = "20201124";
         }
       ]
-      null;
+      null
+  ;
 
   release."8.14".sha256 =
     "sha256:1k8f8idjnx0mf4z479vcx55iz42rjxrbplbznv80m2famxakq03c";

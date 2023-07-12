@@ -559,7 +559,8 @@ in
         };
 
       settings = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               str
@@ -567,7 +568,8 @@ in
               bool
               (listOf str)
             ]
-          );
+          )
+        ;
         example = literalExpression ''
           {
             ZED_DEBUG_LOG = "/tmp/zed.debug.log";

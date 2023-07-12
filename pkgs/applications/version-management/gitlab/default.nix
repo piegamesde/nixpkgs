@@ -246,7 +246,8 @@ stdenv.mkDerivation {
     tests = { nixos-test-passes = nixosTests.gitlab; };
   };
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       homepage = "http://www.gitlab.com/";
       platforms = platforms.linux;
@@ -271,5 +272,6 @@ stdenv.mkDerivation {
           longDescription =
             "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider.";
         }
-    );
+    )
+  ;
 }

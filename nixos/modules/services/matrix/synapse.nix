@@ -644,7 +644,8 @@ in
 
           Secrets should be passed in by using the `extraConfigFiles` option.
         '';
-        type = with types;
+        type =
+          with types;
           submodule {
             freeformType = format.type;
             options = {
@@ -1152,7 +1153,8 @@ in
                 '';
               };
             };
-          };
+          }
+        ;
       };
 
       extraConfigFiles = mkOption {

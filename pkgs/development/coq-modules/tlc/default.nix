@@ -10,7 +10,8 @@
   owner = "charguer";
   inherit version;
   displayVersion = { tlc = false; };
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -30,7 +31,8 @@
           out = "20181116";
         }
       ]
-      null;
+      null
+  ;
   release."20211215".sha256 =
     "sha256:0m4d4jhdcyq8p2gpz9j3nd6jqzmz2bjmbpc0q06b38b8i550mamp";
   release."20210316".sha256 =

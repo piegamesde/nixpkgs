@@ -95,13 +95,15 @@ let
     '';
   };
   optionPort = mkOption {
-    type = with types;
+    type =
+      with types;
       nullOr (
         oneOf [
           port
           (enum [ "auto" ])
         ]
-      );
+      )
+    ;
     default = null;
   };
   optionPorts =
@@ -112,7 +114,8 @@ let
       description = lib.mdDoc (descriptionGeneric optionName);
     }
   ;
-  optionIsolablePort = with types;
+  optionIsolablePort =
+    with types;
     oneOf [
       port
       (enum [ "auto" ])
@@ -147,7 +150,8 @@ let
           };
         }
       ))
-    ];
+    ]
+  ;
   optionIsolablePorts =
     optionName:
     mkOption {
@@ -238,7 +242,8 @@ let
     mkOption {
       default = [ ];
       example = 443;
-      type = with types;
+      type =
+        with types;
         oneOf [
           port
           (enum [ "auto" ])
@@ -278,7 +283,8 @@ let
               ))
             ]
           ))
-        ];
+        ]
+      ;
       description = lib.mdDoc (descriptionGeneric optionName);
     }
   ;
@@ -950,8 +956,10 @@ in
                             '';
                           };
                           clientNames = mkOption {
-                            type = with types;
-                              nonEmptyListOf (strMatching "[A-Za-z0-9+-_]+");
+                            type =
+                              with types;
+                              nonEmptyListOf (strMatching "[A-Za-z0-9+-_]+")
+                            ;
                             description = lib.mdDoc ''
                               Only clients that are listed here are authorized to access the hidden service.
                               Generated authorization data can be found in {file}`${stateDir}/onion/$name/hostname`.
@@ -983,7 +991,8 @@ in
                   description = lib.mdDoc (
                     descriptionGeneric "HiddenServicePort"
                   );
-                  type = with types;
+                  type =
+                    with types;
                     listOf (
                       oneOf [
                         port
@@ -1015,7 +1024,8 @@ in
                           }
                         ))
                       ]
-                    );
+                    )
+                  ;
                   apply = map (
                     v:
                     if isInt v then
@@ -1031,13 +1041,15 @@ in
                   description = lib.mdDoc (
                     descriptionGeneric "HiddenServiceVersion"
                   );
-                  type = with types;
+                  type =
+                    with types;
                     nullOr (
                       enum [
                         2
                         3
                       ]
-                    );
+                    )
+                  ;
                   default = null;
                 };
                 options.settings = mkOption {
@@ -1047,7 +1059,8 @@ in
                   '';
                   default = { };
                   type = types.submodule {
-                    freeformType = with types;
+                    freeformType =
+                      with types;
                       (attrsOf (
                         nullOr (
                           oneOf [
@@ -1059,7 +1072,8 @@ in
                         )
                       )) // {
                         description = "settings option";
-                      };
+                      }
+                    ;
                     options.HiddenServiceAllowUnknownPorts =
                       optionBool
                         "HiddenServiceAllowUnknownPorts"
@@ -1138,7 +1152,8 @@ in
         '';
         default = { };
         type = types.submodule {
-          freeformType = with types;
+          freeformType =
+            with types;
             (attrsOf (
               nullOr (
                 oneOf [
@@ -1150,7 +1165,8 @@ in
               )
             )) // {
               description = "settings option";
-            };
+            }
+          ;
           options.Address = optionString "Address";
           options.AssumeReachable = optionBool "AssumeReachable";
           options.AccountingMax = optionBandwidth "AccountingMax";
@@ -1228,7 +1244,8 @@ in
             description = lib.mdDoc (descriptionGeneric "ControlPort");
             default = [ ];
             example = [ { port = 9051; } ];
-            type = with types;
+            type =
+              with types;
               oneOf [
                 port
                 (enum [ "auto" ])
@@ -1268,7 +1285,8 @@ in
                     ))
                   ]
                 ))
-              ];
+              ]
+            ;
           };
           options.ControlPortFileGroupReadable =
             optionBool
@@ -1358,7 +1376,8 @@ in
           options.ExtORPort = mkOption {
             description = lib.mdDoc (descriptionGeneric "ExtORPort");
             default = null;
-            type = with types;
+            type =
+              with types;
               nullOr (
                 oneOf [
                   port
@@ -1375,7 +1394,8 @@ in
                     }
                   ))
                 ]
-              );
+              )
+            ;
             apply = p: if isInt p || isString p then { port = p; } else p;
           };
           options.ExtORPortCookieAuthFile =
@@ -1412,7 +1432,8 @@ in
           options.HidServAuth = mkOption {
             description = lib.mdDoc (descriptionGeneric "HidServAuth");
             default = [ ];
-            type = with types;
+            type =
+              with types;
               listOf (
                 oneOf [
                   (submodule {
@@ -1429,7 +1450,8 @@ in
                     };
                   })
                 ]
-              );
+              )
+            ;
             example = [ {
               onion = "xxxxxxxxxxxxxxxx.onion";
               auth = "xxxxxxxxxxxxxxxxxxxxxx";
@@ -1486,7 +1508,8 @@ in
             description = lib.mdDoc (
               descriptionGeneric "PublishServerDescriptor"
             );
-            type = with types;
+            type =
+              with types;
               nullOr (
                 enum [
                   false
@@ -1498,7 +1521,8 @@ in
                   "v3"
                   "bridge"
                 ]
-              );
+              )
+            ;
             default = null;
           };
           options.ReducedExitPolicy = optionBool "ReducedExitPolicy";
@@ -1535,7 +1559,8 @@ in
                 (descriptionGeneric "ServerTransportPlugin")
             ;
             default = null;
-            type = with types;
+            type =
+              with types;
               nullOr (
                 submodule (
                   {
@@ -1563,7 +1588,8 @@ in
                     };
                   }
                 )
-              );
+              )
+            ;
           };
           options.ShutdownWaitLength = mkOption {
             type = types.int;
@@ -1592,7 +1618,8 @@ in
           options.TransPort = optionIsolablePorts "TransPort";
           options.TransProxyType = mkOption {
             description = lib.mdDoc (descriptionGeneric "TransProxyType");
-            type = with types;
+            type =
+              with types;
               nullOr (
                 enum [
                   "default"
@@ -1600,7 +1627,8 @@ in
                   "ipfw"
                   "pf-divert"
                 ]
-              );
+              )
+            ;
             default = null;
           };
           #options.TruncateLogFile

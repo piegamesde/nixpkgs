@@ -77,7 +77,8 @@ with prev; {
   cqueues = prev.cqueues.overrideAttrs (
     oa: rec {
       # Parse out a version number without the Lua version inserted
-      version = with lib;
+      version =
+        with lib;
         let
           version' = prev.cqueues.version;
           rel = splitVersion version';

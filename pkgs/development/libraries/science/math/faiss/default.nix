@@ -43,7 +43,8 @@ let
 
   cudaJoined = symlinkJoin {
     name = "cuda-packages-unsplit";
-    paths = with cudaPackages;
+    paths =
+      with cudaPackages;
       [
         cuda_cudart # cuda_runtime.h
         libcublas
@@ -56,7 +57,8 @@ let
       ]
       ++ lib.optionals (!(cudaPackages ? cuda_profiler_api)) [
         cuda_nvprof # cuda_profiler_api.h
-      ];
+      ]
+    ;
   };
 in
 stdenv.mkDerivation {

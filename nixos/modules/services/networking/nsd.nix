@@ -443,7 +443,8 @@ let
       };
 
       rrlWhitelist = mkOption {
-        type = with types;
+        type =
+          with types;
           listOf (
             enum [
               "nxdomain"
@@ -457,7 +458,8 @@ let
               "positive"
               "all"
             ]
-          );
+          )
+        ;
         default = [ ];
         description = lib.mdDoc ''
           Whitelists the given rrl-types.

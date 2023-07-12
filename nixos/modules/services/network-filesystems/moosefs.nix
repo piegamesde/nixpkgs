@@ -32,7 +32,8 @@ let
       ;
     in
     {
-      type = with types;
+      type =
+        with types;
         let
           valueType = oneOf ([ (listOf valueType) ] ++ allowedTypes) // {
             description = "Flat key-value file";

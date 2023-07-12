@@ -66,7 +66,8 @@ python.pkgs.buildPythonApplication rec {
     })
   ];
 
-  propagatedBuildInputs = with python.pkgs;
+  propagatedBuildInputs =
+    with python.pkgs;
     [
       appdirs
       etebase
@@ -79,7 +80,8 @@ python.pkgs.buildPythonApplication rec {
       requests
       types-setuptools
     ]
-    ++ requests.optional-dependencies.socks;
+    ++ requests.optional-dependencies.socks
+  ;
 
   doCheck = false;
 

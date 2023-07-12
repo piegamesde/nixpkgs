@@ -119,7 +119,8 @@ stdenv.mkDerivation rec {
     ++ map (p: p.name) enabledPlugins
   ;
 
-  cmakeFlags = with lib;
+  cmakeFlags =
+    with lib;
     [
       "-DENABLE_MAN=ON"
       "-DENABLE_DOC=ON"
@@ -130,7 +131,8 @@ stdenv.mkDerivation rec {
     ]
     ++
       map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF"))
-        plugins;
+        plugins
+  ;
 
   nativeBuildInputs =
     [
@@ -140,7 +142,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableTests cpputest
   ;
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       ncurses
       openssl
@@ -156,7 +159,8 @@ stdenv.mkDerivation rec {
       libresolv
     ]
     ++ concatMap (p: p.buildInputs) enabledPlugins
-    ++ extraBuildInputs;
+    ++ extraBuildInputs
+  ;
 
   env.NIX_CFLAGS_COMPILE =
     "-I${python}/include/${python.libPrefix}"

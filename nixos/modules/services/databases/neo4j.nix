@@ -523,7 +523,8 @@ in
     };
 
     ssl.policies = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule (
             {
@@ -703,7 +704,8 @@ in
               ;
             }
           )
-        );
+        )
+      ;
       default = { };
       description = lib.mdDoc ''
         Defines the SSL policies for use with Neo4j connectors. Each attribute

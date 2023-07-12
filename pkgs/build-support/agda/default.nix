@@ -146,14 +146,16 @@ let
       ;
 
       # Retrieve all packages from the finished package set that have the current package as a dependency and build them
-      passthru.tests = with builtins;
+      passthru.tests =
+        with builtins;
         lib.filterAttrs
           (
             name: pkg:
             self.lib.isUnbrokenAgdaPackage pkg
             && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
           )
-          self;
+          self
+      ;
     }
   ;
 in

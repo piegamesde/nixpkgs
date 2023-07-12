@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.sanoid;
 
-  datasetSettingsType = with types;
+  datasetSettingsType =
+    with types;
     (attrsOf (
       nullOr (
         oneOf [
@@ -22,7 +23,8 @@ let
       )
     )) // {
       description = "dataset/template options";
-    };
+    }
+  ;
 
   commonOptions = {
     hourly = mkOption {
@@ -82,11 +84,13 @@ let
         recursively in an atomic way without the possibility to
         override settings for child datasets.
       '';
-      type = with types;
+      type =
+        with types;
         oneOf [
           bool
           (enum [ "zfs" ])
-        ];
+        ]
+      ;
       default = false;
     };
 

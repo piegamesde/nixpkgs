@@ -9,7 +9,8 @@
 with rec {
   # SIMD instruction sets to compile for. If none are specified by the user,
   # an appropriate one is selected based on the detected host system
-  isas = with stdenv.hostPlatform;
+  isas =
+    with stdenv.hostPlatform;
     if simdExtensions != null then
       lib.toList simdExtensions
     else if avx2Support then
@@ -21,7 +22,8 @@ with rec {
     else if isAarch64 then
       [ "NEON" ]
     else
-      [ "NONE" ];
+      [ "NONE" ]
+  ;
 
   archFlags = lib.optionals stdenv.hostPlatform.isAarch64 [ "-DARCH=aarch64" ];
 

@@ -23,7 +23,8 @@ let
     ${cfg.extraConfig}
   '';
 
-  snmpGlobalDefs = with cfg.snmp;
+  snmpGlobalDefs =
+    with cfg.snmp;
     optionalString enable (
       optionalString (socket != null) ''
         snmp_socket ${socket}
@@ -44,7 +45,8 @@ let
         enable_snmp_rfcv3
       ''
       + optionalString enableTraps "enable_traps"
-    );
+    )
+  ;
 
   vrrpScriptStr = concatStringsSep "\n" (
     map

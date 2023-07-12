@@ -15,7 +15,8 @@ symlinkJoin {
   nativeBuildInputs = [ makeWrapper ];
   paths = [ obs-studio ] ++ plugins;
 
-  postBuild = with lib;
+  postBuild =
+    with lib;
     let
       # Some plugins needs extra environment, see obs-gstreamer for an example.
       pluginArguments =

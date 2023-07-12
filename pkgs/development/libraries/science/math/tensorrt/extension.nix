@@ -13,7 +13,8 @@ let
   majorMinorPatch =
     str: lib.concatStringsSep "." (lib.take 3 (lib.splitVersion str));
 
-  tensorRTPackages = with lib;
+  tensorRTPackages =
+    with lib;
     let
       # Check whether a file is supported for our cuda version
       isSupported = fileData: elem cudaVersion fileData.supportedCudaVersions;

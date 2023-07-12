@@ -207,26 +207,30 @@ lib.makeScope pkgs.newScope (
     elm-test-rs = callPackage ./packages/elm-test-rs.nix { };
 
     elm-test = nodePkgs.elm-test // {
-      meta = with lib;
+      meta =
+        with lib;
         nodePkgs.elm-test.meta // {
           description = "Runs elm-test suites from Node.js";
           homepage = "https://github.com/rtfeldman/node-test-runner";
           license = licenses.bsd3;
           maintainers = [ maintainers.turbomack ];
-        };
+        }
+      ;
     };
   } // (hs810Pkgs self).elmPkgs // (hs92Pkgs self).elmPkgs // (
     with elmLib;
     with (hs810Pkgs self).elmPkgs; {
       elm-verify-examples =
         patchBinwrap [ elmi-to-json ] nodePkgs.elm-verify-examples // {
-          meta = with lib;
+          meta =
+            with lib;
             nodePkgs.elm-verify-examples.meta // {
               description = "Verify examples in your docs";
               homepage = "https://github.com/stoeffel/elm-verify-examples";
               license = licenses.bsd3;
               maintainers = [ maintainers.turbomack ];
-            };
+            }
+          ;
         };
 
       elm-coverage =
@@ -257,30 +261,35 @@ lib.makeScope pkgs.newScope (
                 ln -sf ${elm-instrument}/bin/elm-instrument unpacked_bin/elm-instrument
               ''
             ;
-            meta = with lib;
+            meta =
+              with lib;
               nodePkgs.elm-coverage.meta // {
                 description =
                   "Work in progress - Code coverage tooling for Elm";
                 homepage = "https://github.com/zwilias/elm-coverage";
                 license = licenses.bsd3;
                 maintainers = [ maintainers.turbomack ];
-              };
+              }
+            ;
           }
         )
       ;
 
       create-elm-app = patchNpmElm nodePkgs.create-elm-app // {
-        meta = with lib;
+        meta =
+          with lib;
           nodePkgs.create-elm-app.meta // {
             description = "Create Elm apps with no build configuration";
             homepage = "https://github.com/halfzebra/create-elm-app";
             license = licenses.mit;
             maintainers = [ maintainers.turbomack ];
-          };
+          }
+        ;
       };
 
       elm-review = nodePkgs.elm-review // {
-        meta = with lib;
+        meta =
+          with lib;
           nodePkgs.elm-review.meta // {
             description =
               "Analyzes Elm projects, to help find mistakes before your users find them";
@@ -288,17 +297,20 @@ lib.makeScope pkgs.newScope (
               "https://package.elm-lang.org/packages/jfmengels/elm-review/${nodePkgs.elm-review.version}";
             license = licenses.bsd3;
             maintainers = [ maintainers.turbomack ];
-          };
+          }
+        ;
       };
 
       elm-language-server = nodePkgs."@elm-tooling/elm-language-server" // {
-        meta = with lib;
+        meta =
+          with lib;
           nodePkgs."@elm-tooling/elm-language-server".meta // {
             description = "Language server implementation for Elm";
             homepage = "https://github.com/elm-tooling/elm-language-server";
             license = licenses.mit;
             maintainers = [ maintainers.turbomack ];
-          };
+          }
+        ;
       };
 
       elm-spa = nodePkgs."elm-spa".overrideAttrs (
@@ -311,25 +323,29 @@ lib.makeScope pkgs.newScope (
             ]
           ;
 
-          meta = with lib;
+          meta =
+            with lib;
             nodePkgs."elm-spa".meta // {
               description = "A tool for building single page apps in Elm";
               homepage = "https://www.elm-spa.dev/";
               license = licenses.bsd3;
               maintainers = [ maintainers.ilyakooo0 ];
-            };
+            }
+          ;
         }
       );
 
       elm-optimize-level-2 = nodePkgs."elm-optimize-level-2" // {
-        meta = with lib;
+        meta =
+          with lib;
           nodePkgs."elm-optimize-level-2".meta // {
             description =
               "A second level of optimization for the Javascript that the Elm Compiler produces";
             homepage = "https://github.com/mdgriffith/elm-optimize-level-2";
             license = licenses.bsd3;
             maintainers = [ maintainers.turbomack ];
-          };
+          }
+        ;
       };
 
       elm-pages = nodePkgs."elm-pages".overrideAttrs (
@@ -362,7 +378,8 @@ lib.makeScope pkgs.newScope (
             }
           '';
 
-          meta = with lib;
+          meta =
+            with lib;
             nodePkgs."elm-pages".meta // {
               description = "A statically typed site generator for Elm.";
               homepage = "https://github.com/dillonkearns/elm-pages";
@@ -371,7 +388,8 @@ lib.makeScope pkgs.newScope (
                 maintainers.turbomack
                 maintainers.jali-clarke
               ];
-            };
+            }
+          ;
         }
       );
 

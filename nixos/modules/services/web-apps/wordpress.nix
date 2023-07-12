@@ -211,7 +211,8 @@ let
         };
 
         plugins = mkOption {
-          type = with types;
+          type =
+            with types;
             coercedTo (listOf path)
               (
                 l:
@@ -227,7 +228,8 @@ let
                       l
                   )
               )
-              (attrsOf path);
+              (attrsOf path)
+          ;
           default = { };
           description = lib.mdDoc ''
             Path(s) to respective plugin(s) which are copied from the 'plugins' directory.
@@ -244,7 +246,8 @@ let
         };
 
         themes = mkOption {
-          type = with types;
+          type =
+            with types;
             coercedTo (listOf path)
               (
                 l:
@@ -260,7 +263,8 @@ let
                       l
                   )
               )
-              (attrsOf path);
+              (attrsOf path)
+          ;
           default = {
             inherit (pkgs.wordpressPackages.themes) twentytwentythree;
           };
@@ -393,14 +397,16 @@ let
         };
 
         poolConfig = mkOption {
-          type = with types;
+          type =
+            with types;
             attrsOf (
               oneOf [
                 str
                 int
                 bool
               ]
-            );
+            )
+          ;
           default = {
             "pm" = "dynamic";
             "pm.max_children" = 32;

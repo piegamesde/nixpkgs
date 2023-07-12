@@ -34,7 +34,8 @@ mkDerivation rec {
     qtquickcontrols2
     qtgraphicaleffects
   ];
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       libsavitar
       numpy-stl
@@ -47,7 +48,8 @@ mkDerivation rec {
       trimesh
       keyring
     ]
-    ++ plugins;
+    ++ plugins
+  ;
   nativeBuildInputs = [
     cmake
     python3.pkgs.wrapPython

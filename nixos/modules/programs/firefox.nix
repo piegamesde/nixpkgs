@@ -58,14 +58,16 @@ in
     };
 
     preferences = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           oneOf [
             bool
             int
             string
           ]
-        );
+        )
+      ;
       default = { };
       description = mdDoc ''
         Preferences to set from `about:config`.
@@ -235,12 +237,14 @@ in
     environment.systemPackages = [
       (cfg.package.override {
         extraPrefs = cfg.autoConfig;
-        extraNativeMessagingHosts = with pkgs;
+        extraNativeMessagingHosts =
+          with pkgs;
           optionals nmh.ff2mpv [ ff2mpv ]
           ++ optionals nmh.euwebid [ web-eid-app ]
           ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
           ++ optionals nmh.jabref [ jabref ]
-          ++ optionals nmh.passff [ passff-host ];
+          ++ optionals nmh.passff [ passff-host ]
+        ;
       })
     ];
 

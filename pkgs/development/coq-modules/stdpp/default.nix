@@ -10,7 +10,8 @@ mkCoqDerivation rec {
   inherit version;
   domain = "gitlab.mpi-sws.org";
   owner = "iris";
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -30,7 +31,8 @@ mkCoqDerivation rec {
           out = "1.4.0";
         }
       ]
-      null;
+      null
+  ;
   release."1.8.0".sha256 =
     "sha256-VkIGBPHevHeHCo/Q759Q7y9WyhSF/4SMht4cOPuAXHU=";
   release."1.7.0".sha256 =
