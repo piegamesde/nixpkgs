@@ -449,43 +449,41 @@ let
           (mkRemovedOptionModule [ "subnetMask" ] ''
             Supply a prefix length instead; use option
             networking.interfaces.<name>.ipv{4,6}.addresses'')
-          (
-            mkMergedOptionModule
-              [
-                [ "ipAddress" ]
-                [ "prefixLength" ]
-              ]
-              [
-                "ipv4"
-                "addresses"
-              ]
-              (
-                cfg:
-                with cfg;
-                optional (defined ipAddress && defined prefixLength) {
-                  address = ipAddress;
-                  prefixLength = prefixLength;
-                }
-              )
+          (mkMergedOptionModule
+            [
+              [ "ipAddress" ]
+              [ "prefixLength" ]
+            ]
+            [
+              "ipv4"
+              "addresses"
+            ]
+            (
+              cfg:
+              with cfg;
+              optional (defined ipAddress && defined prefixLength) {
+                address = ipAddress;
+                prefixLength = prefixLength;
+              }
+            )
           )
-          (
-            mkMergedOptionModule
-              [
-                [ "ipv6Address" ]
-                [ "ipv6PrefixLength" ]
-              ]
-              [
-                "ipv6"
-                "addresses"
-              ]
-              (
-                cfg:
-                with cfg;
-                optional (defined ipv6Address && defined ipv6PrefixLength) {
-                  address = ipv6Address;
-                  prefixLength = ipv6PrefixLength;
-                }
-              )
+          (mkMergedOptionModule
+            [
+              [ "ipv6Address" ]
+              [ "ipv6PrefixLength" ]
+            ]
+            [
+              "ipv6"
+              "addresses"
+            ]
+            (
+              cfg:
+              with cfg;
+              optional (defined ipv6Address && defined ipv6PrefixLength) {
+                address = ipv6Address;
+                prefixLength = ipv6PrefixLength;
+              }
+            )
           )
 
           ({

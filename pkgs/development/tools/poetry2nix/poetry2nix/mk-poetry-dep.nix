@@ -263,13 +263,12 @@ pythonPackages.callPackage
                   else
                     "HEAD"
                 );
-            } // (
-              lib.optionalAttrs
-                (
-                  (sourceSpec ? rev)
-                  && (lib.versionAtLeast builtins.nixVersion "2.4")
-                )
-                { allRefs = true; }
+            } // (lib.optionalAttrs
+              (
+                (sourceSpec ? rev)
+                && (lib.versionAtLeast builtins.nixVersion "2.4")
+              )
+              { allRefs = true; }
             )
           ))
         else if isWheelUrl then

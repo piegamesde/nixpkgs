@@ -87,13 +87,12 @@ stdenv.mkDerivation rec {
         sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
       }
     ]
-    ++ (
-      map
-        (id: {
-          name = "${id}-${version}.qdz";
-          sha256 = lib.getAttr id componentHashes;
-        })
-        (lib.attrValues supportedDeviceIds)
+    ++ (map
+      (id: {
+        name = "${id}-${version}.qdz";
+        sha256 = lib.getAttr id componentHashes;
+      })
+      (lib.attrValues supportedDeviceIds)
     )
   );
 

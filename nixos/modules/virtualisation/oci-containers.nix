@@ -319,9 +319,8 @@ let
           "-d"
           "--replace"
         ]
-        ++ (
-          mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
-            container.environment
+        ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
+          container.environment
         )
         ++ map (f: "--env-file ${escapeShellArg f}") container.environmentFiles
         ++ map (p: "-p ${escapeShellArg p}") container.ports
@@ -380,27 +379,26 @@ let
 in
 {
   imports = [
-    (
-      lib.mkChangedOptionModule [ "docker-containers" ]
-        [
-          "virtualisation"
-          "oci-containers"
-        ]
-        (
-          oldcfg: {
-            backend = "docker";
-            containers =
-              lib.mapAttrs
-                (
-                  n: v:
-                  builtins.removeAttrs
-                    (v // { extraOptions = v.extraDockerOptions or [ ]; })
-                    [ "extraDockerOptions" ]
-                )
-                oldcfg.docker-containers
-            ;
-          }
-        )
+    (lib.mkChangedOptionModule [ "docker-containers" ]
+      [
+        "virtualisation"
+        "oci-containers"
+      ]
+      (
+        oldcfg: {
+          backend = "docker";
+          containers =
+            lib.mapAttrs
+              (
+                n: v:
+                builtins.removeAttrs
+                  (v // { extraOptions = v.extraDockerOptions or [ ]; })
+                  [ "extraDockerOptions" ]
+              )
+              oldcfg.docker-containers
+          ;
+        }
+      )
     )
   ];
 

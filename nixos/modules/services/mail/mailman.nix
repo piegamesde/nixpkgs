@@ -92,44 +92,41 @@ in
   ###### interface
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "mailman"
-          "hyperkittyBaseUrl"
-        ]
-        [
-          "services"
-          "mailman"
-          "hyperkitty"
-          "baseUrl"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "mailman"
+        "hyperkittyBaseUrl"
+      ]
+      [
+        "services"
+        "mailman"
+        "hyperkitty"
+        "baseUrl"
+      ]
     )
 
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "mailman"
-          "hyperkittyApiKey"
-        ]
-        ''
-          The Hyperkitty API key is now generated on first run, and not
-          stored in the world-readable Nix store.  To continue using
-          Hyperkitty, you must set services.mailman.hyperkitty.enable = true.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mailman"
+        "hyperkittyApiKey"
+      ]
+      ''
+        The Hyperkitty API key is now generated on first run, and not
+        stored in the world-readable Nix store.  To continue using
+        Hyperkitty, you must set services.mailman.hyperkitty.enable = true.
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "mailman"
-          "package"
-        ]
-        ''
-          Didn't have an effect for several years.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mailman"
+        "package"
+      ]
+      ''
+        Didn't have an effect for several years.
+      ''
     )
   ];
 
@@ -472,21 +469,19 @@ in
           '';
         }
         (requirePostfixHash [ "relayDomains" ] "postfix_domains")
-        (
-          requirePostfixHash
-            [
-              "config"
-              "transport_maps"
-            ]
-            "postfix_lmtp"
+        (requirePostfixHash
+          [
+            "config"
+            "transport_maps"
+          ]
+          "postfix_lmtp"
         )
-        (
-          requirePostfixHash
-            [
-              "config"
-              "local_recipient_maps"
-            ]
-            "postfix_lmtp"
+        (requirePostfixHash
+          [
+            "config"
+            "local_recipient_maps"
+          ]
+          "postfix_lmtp"
         )
       ])
     ;

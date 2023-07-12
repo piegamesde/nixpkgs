@@ -149,10 +149,9 @@ rec {
       ;
     in
     licstr:
-    spdxLicenses.${lib.toLower licstr} or (
-      lib.warn
-        "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}"
-        { shortName = licstr; }
+    spdxLicenses.${lib.toLower licstr} or (lib.warn
+      "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}"
+      { shortName = licstr; }
     )
   ;
 

@@ -134,9 +134,8 @@ in
       script =
         "${pkgs.git}/bin/git daemon --reuseaddr "
         + (optionalString (cfg.basePath != "") "--base-path=${cfg.basePath} ")
-        + (
-          optionalString (cfg.listenAddress != "")
-            "--listen=${cfg.listenAddress} "
+        + (optionalString (cfg.listenAddress != "")
+          "--listen=${cfg.listenAddress} "
         )
         + "--port=${
             toString cfg.port

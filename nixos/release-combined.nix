@@ -84,13 +84,12 @@ rec {
         [ "nixos.channel" ]
         (onFullSupported "nixos.dummy")
         (onAllSupported "nixos.iso_minimal")
-        (
-          onSystems
-            [
-              "x86_64-linux"
-              "aarch64-linux"
-            ]
-            "nixos.amazonImage"
+        (onSystems
+          [
+            "x86_64-linux"
+            "aarch64-linux"
+          ]
+          "nixos.amazonImage"
         )
         (onFullSupported "nixos.iso_plasma5")
         (onFullSupported "nixos.iso_gnome")
@@ -118,9 +117,8 @@ rec {
         (onSystems [ "x86_64-linux" ] "nixos.tests.hibernate")
         (onFullSupported "nixos.tests.i3wm")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSimple")
-        (
-          onSystems [ "x86_64-linux" ]
-            "nixos.tests.installer.btrfsSubvolDefault"
+        (onSystems [ "x86_64-linux" ]
+          "nixos.tests.installer.btrfsSubvolDefault"
         )
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvolEscape")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvols")
@@ -130,9 +128,8 @@ rec {
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.separateBoot")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleLabels")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleProvided")
-        (
-          onSystems [ "x86_64-linux" ]
-            "nixos.tests.installer.simpleUefiSystemdBoot"
+        (onSystems [ "x86_64-linux" ]
+          "nixos.tests.installer.simpleUefiSystemdBoot"
         )
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simple")
         (onSystems [ "x86_64-linux" ] "nixos.tests.installer.swraid")
@@ -188,18 +185,15 @@ rec {
         (onFullSupported "nixos.tests.php.pcre")
         (onFullSupported "nixos.tests.plasma5")
         (onSystems [ "x86_64-linux" ] "nixos.tests.podman")
-        (
-          onFullSupported
-            "nixos.tests.predictable-interface-names.predictableNetworkd"
+        (onFullSupported
+          "nixos.tests.predictable-interface-names.predictableNetworkd"
         )
         (onFullSupported "nixos.tests.predictable-interface-names.predictable")
-        (
-          onFullSupported
-            "nixos.tests.predictable-interface-names.unpredictableNetworkd"
+        (onFullSupported
+          "nixos.tests.predictable-interface-names.unpredictableNetworkd"
         )
-        (
-          onFullSupported
-            "nixos.tests.predictable-interface-names.unpredictable"
+        (onFullSupported
+          "nixos.tests.predictable-interface-names.unpredictable"
         )
         (onFullSupported "nixos.tests.printing-service")
         (onFullSupported "nixos.tests.printing-socket")

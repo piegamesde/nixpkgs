@@ -188,13 +188,12 @@ recursiveUpdate lib (rec {
       ;
     in
     switch-if
-      (
-        map
-          (cl: {
-            cond = combine cl var;
-            inherit (cl) out;
-          })
-          clauses
+      (map
+        (cl: {
+          cond = combine cl var;
+          inherit (cl) out;
+        })
+        clauses
       )
       default
   ;

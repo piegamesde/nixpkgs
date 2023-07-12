@@ -113,38 +113,35 @@ let
 in
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "awstats"
-          "service"
-          "enable"
-        ]
-        "Please enable per domain with `services.awstats.configs.<name>.webService.enable`"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "awstats"
+        "service"
+        "enable"
+      ]
+      "Please enable per domain with `services.awstats.configs.<name>.webService.enable`"
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "awstats"
-          "service"
-          "urlPrefix"
-        ]
-        "Please set per domain with `services.awstats.configs.<name>.webService.urlPrefix`"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "awstats"
+        "service"
+        "urlPrefix"
+      ]
+      "Please set per domain with `services.awstats.configs.<name>.webService.urlPrefix`"
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "awstats"
-          "vardir"
-        ]
-        [
-          "services"
-          "awstats"
-          "dataDir"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "awstats"
+        "vardir"
+      ]
+      [
+        "services"
+        "awstats"
+        "dataDir"
+      ]
     )
   ];
 

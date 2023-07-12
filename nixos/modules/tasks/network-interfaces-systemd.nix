@@ -478,24 +478,21 @@ in
                 tunnelConfig =
                   (optionalAttrs (sit.remote != null) { Remote = sit.remote; })
                   // (optionalAttrs (sit.local != null) { Local = sit.local; })
-                  // (optionalAttrs (sit.ttl != null) { TTL = sit.ttl; }) // (
-                    optionalAttrs (sit.encapsulation != null)
-                      (
-                        {
-                          FooOverUDP = true;
-                          Encapsulation =
-                            if sit.encapsulation.type == "fou" then
-                              "FooOverUDP"
-                            else
-                              "GenericUDPEncapsulation"
-                          ;
-                          FOUDestinationPort = sit.encapsulation.port;
-                        } // (
-                          optionalAttrs (sit.encapsulation.sourcePort != null)
-                            { FOUSourcePort = sit.encapsulation.sourcePort; }
-                        )
-                      )
-                  );
+                  // (optionalAttrs (sit.ttl != null) { TTL = sit.ttl; })
+                  // (optionalAttrs (sit.encapsulation != null) (
+                    {
+                      FooOverUDP = true;
+                      Encapsulation =
+                        if sit.encapsulation.type == "fou" then
+                          "FooOverUDP"
+                        else
+                          "GenericUDPEncapsulation"
+                      ;
+                      FOUDestinationPort = sit.encapsulation.port;
+                    } // (optionalAttrs (sit.encapsulation.sourcePort != null) {
+                      FOUSourcePort = sit.encapsulation.sourcePort;
+                    })
+                  ));
               };
               networks = mkIf (sit.dev != null) {
                 "40-${sit.dev}" =

@@ -25,14 +25,13 @@ in
   ###### interface
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "mailhog"
-          "user"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mailhog"
+        "user"
+      ]
+      ""
     )
   ];
 

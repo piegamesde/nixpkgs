@@ -281,14 +281,13 @@ in
           "--port=${toString cfg.port}"
           "--bind=${cfg.bind}"
           (optionalString (!cfg.loadLatestSave) "--start-server=${
-                mkSavePath cfg.saveName
-              }")
+              mkSavePath cfg.saveName
+            }")
           "--server-settings=${serverSettingsFile}"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
           (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
-          (
-            optionalString (cfg.admins != [ ])
-              "--server-adminlist=${serverAdminsFile}"
+          (optionalString (cfg.admins != [ ])
+            "--server-adminlist=${serverAdminsFile}"
           )
         ];
 

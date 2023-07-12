@@ -16,27 +16,25 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "locate"
-          "period"
-        ]
-        [
-          "services"
-          "locate"
-          "interval"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "locate"
+        "period"
+      ]
+      [
+        "services"
+        "locate"
+        "interval"
+      ]
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "locate"
-          "includeStore"
-        ]
-        "Use services.locate.prunePaths"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "locate"
+        "includeStore"
+      ]
+      "Use services.locate.prunePaths"
     )
   ];
 

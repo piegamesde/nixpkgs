@@ -16,33 +16,31 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "hardware"
-          "logitech"
-          "enable"
-        ]
-        [
-          "hardware"
-          "logitech"
-          "wireless"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "logitech"
+        "enable"
+      ]
+      [
+        "hardware"
+        "logitech"
+        "wireless"
+        "enable"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "hardware"
-          "logitech"
-          "enableGraphical"
-        ]
-        [
-          "hardware"
-          "logitech"
-          "wireless"
-          "enableGraphical"
-        ]
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "logitech"
+        "enableGraphical"
+      ]
+      [
+        "hardware"
+        "logitech"
+        "wireless"
+        "enableGraphical"
+      ]
     )
   ];
 

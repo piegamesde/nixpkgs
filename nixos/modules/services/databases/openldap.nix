@@ -120,12 +120,11 @@ let
         lib.flatten (lib.mapAttrsToList valueToLdif attrs)
       )}
     '' ]
-    ++ (
-      map
-        (path: ''
-          include: file://${path}
-        '')
-        includes
+    ++ (map
+      (path: ''
+        include: file://${path}
+      '')
+      includes
     )
     ++ (lib.flatten (
       lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value)
@@ -343,43 +342,41 @@ in
             supported with user-managed configuration.
           '';
         } ]
-        ++ (
-          map
-            (dn: {
-              assertion = (getAttr dn dbSettings) ? "olcDbDirectory";
-              # olcDbDirectory is necessary to prepopulate database using `slapadd`.
-              message = ''
-                Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
-                `olcDbDirectory` configured.
-              '';
-            })
-            (attrNames cfg.declarativeContents)
+        ++ (map
+          (dn: {
+            assertion = (getAttr dn dbSettings) ? "olcDbDirectory";
+            # olcDbDirectory is necessary to prepopulate database using `slapadd`.
+            message = ''
+              Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
+              `olcDbDirectory` configured.
+            '';
+          })
+          (attrNames cfg.declarativeContents)
         )
-        ++ (
-          mapAttrsToList
-            (
-              dn:
-              {
-                olcDbDirectory ? null,
-                ...
-              }:
-              {
-                # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
-                # directories with `declarativeContents`.
-                assertion =
-                  (olcDbDirectory != null)
-                  -> (
-                    (hasPrefix "/var/lib/openldap/" olcDbDirectory)
-                    && (olcDbDirectory != "/var/lib/openldap/")
-                  )
-                ;
-                message = ''
-                  Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
-                  `/var/lib/openldap/`.
-                '';
-              }
-            )
-            dbSettings
+        ++ (mapAttrsToList
+          (
+            dn:
+            {
+              olcDbDirectory ? null,
+              ...
+            }:
+            {
+              # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
+              # directories with `declarativeContents`.
+              assertion =
+                (olcDbDirectory != null)
+                -> (
+                  (hasPrefix "/var/lib/openldap/" olcDbDirectory)
+                  && (olcDbDirectory != "/var/lib/openldap/")
+                )
+              ;
+              message = ''
+                Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
+                `/var/lib/openldap/`.
+              '';
+            }
+          )
+          dbSettings
         )
       ;
       environment.systemPackages = [ openldap ];
@@ -414,18 +411,17 @@ in
               "+${pkgs.coreutils}/bin/chown $USER ${configDir}"
             ]
             ++ (lib.optional (cfg.configDir == null) writeConfig)
-            ++ (
-              mapAttrsToList
-                (
-                  dn: content:
-                  lib.escapeShellArgs [
-                    writeContents
-                    dn
-                    (getAttr dn dbSettings).olcDbDirectory
-                    content
-                  ]
-                )
-                contentsFiles
+            ++ (mapAttrsToList
+              (
+                dn: content:
+                lib.escapeShellArgs [
+                  writeContents
+                  dn
+                  (getAttr dn dbSettings).olcDbDirectory
+                  content
+                ]
+              )
+              contentsFiles
             )
             ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ]
           ;
@@ -446,16 +442,15 @@ in
           RuntimeDirectory = "openldap";
           StateDirectory =
             [ "openldap" ]
-            ++ (
-              map
-                (
-                  {
-                    olcDbDirectory,
-                    ...
-                  }:
-                  removePrefix "/var/lib/" olcDbDirectory
-                )
-                (attrValues dbSettings)
+            ++ (map
+              (
+                {
+                  olcDbDirectory,
+                  ...
+                }:
+                removePrefix "/var/lib/" olcDbDirectory
+              )
+              (attrValues dbSettings)
             )
           ;
           StateDirectoryMode = "700";

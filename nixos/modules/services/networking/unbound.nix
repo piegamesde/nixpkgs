@@ -34,9 +34,8 @@ let
   ;
 
   confNoServer = concatStringsSep "\n" (
-    (
-      mapAttrsToList (toConf "")
-        (builtins.removeAttrs cfg.settings [ "server" ])
+    (mapAttrsToList (toConf "")
+      (builtins.removeAttrs cfg.settings [ "server" ])
     )
     ++ [ "" ]
   );
@@ -358,75 +357,71 @@ in
   };
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "unbound"
-          "interfaces"
-        ]
-        [
-          "services"
-          "unbound"
-          "settings"
-          "server"
-          "interface"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "unbound"
+        "interfaces"
+      ]
+      [
+        "services"
+        "unbound"
+        "settings"
+        "server"
+        "interface"
+      ]
     )
-    (
-      mkChangedOptionModule
-        [
-          "services"
-          "unbound"
-          "allowedAccess"
-        ]
-        [
-          "services"
-          "unbound"
-          "settings"
-          "server"
-          "access-control"
-        ]
-        (
-          config:
-          map (value: "${value} allow") (
-            getAttrFromPath
-              [
-                "services"
-                "unbound"
-                "allowedAccess"
-              ]
-              config
-          )
+    (mkChangedOptionModule
+      [
+        "services"
+        "unbound"
+        "allowedAccess"
+      ]
+      [
+        "services"
+        "unbound"
+        "settings"
+        "server"
+        "access-control"
+      ]
+      (
+        config:
+        map (value: "${value} allow") (
+          getAttrFromPath
+            [
+              "services"
+              "unbound"
+              "allowedAccess"
+            ]
+            config
         )
+      )
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "unbound"
-          "forwardAddresses"
-        ]
-        ''
-          Add a new setting:
-          services.unbound.settings.forward-zone = [{
-            name = ".";
-            forward-addr = [ # Your current services.unbound.forwardAddresses ];
-          }];
-          If any of those addresses are local addresses (127.0.0.1 or ::1), you must
-          also set services.unbound.settings.server.do-not-query-localhost to false.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "unbound"
+        "forwardAddresses"
+      ]
+      ''
+        Add a new setting:
+        services.unbound.settings.forward-zone = [{
+          name = ".";
+          forward-addr = [ # Your current services.unbound.forwardAddresses ];
+        }];
+        If any of those addresses are local addresses (127.0.0.1 or ::1), you must
+        also set services.unbound.settings.server.do-not-query-localhost to false.
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "unbound"
-          "extraConfig"
-        ]
-        ''
-          You can use services.unbound.settings to add any configuration you want.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "unbound"
+        "extraConfig"
+      ]
+      ''
+        You can use services.unbound.settings to add any configuration you want.
+      ''
     )
   ];
 }

@@ -90,16 +90,15 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "bitwarden_rs"
-        ]
-        [
-          "services"
-          "vaultwarden"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "bitwarden_rs"
+      ]
+      [
+        "services"
+        "vaultwarden"
+      ]
     )
   ];
 

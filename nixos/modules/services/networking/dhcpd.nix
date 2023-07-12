@@ -218,16 +218,15 @@ in
 
   imports =
     [
-      (
-        mkRenamedOptionModule
-          [
-            "services"
-            "dhcpd"
-          ]
-          [
-            "services"
-            "dhcpd4"
-          ]
+      (mkRenamedOptionModule
+        [
+          "services"
+          "dhcpd"
+        ]
+        [
+          "services"
+          "dhcpd4"
+        ]
       )
     ]
     ++

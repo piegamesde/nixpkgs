@@ -36222,9 +36222,8 @@ lib.makeScope pkgs.newScope (
           });
         systems = [ "com.clearly-useful.generic-collection-interface.test" ];
         lispLibs = [
-          (
-            getAttr "com_dot_clearly-useful_dot_generic-collection-interface"
-              self
+          (getAttr "com_dot_clearly-useful_dot_generic-collection-interface"
+            self
           )
         ];
         meta = { hydraPlatforms = [ ]; };
@@ -36244,9 +36243,8 @@ lib.makeScope pkgs.newScope (
           });
         systems = [ "com.clearly-useful.iterate+" ];
         lispLibs = [
-          (
-            getAttr "com_dot_clearly-useful_dot_generic-collection-interface"
-              self
+          (getAttr "com_dot_clearly-useful_dot_generic-collection-interface"
+            self
           )
           (getAttr "com_dot_clearly-useful_dot_iterator-protocol" self)
           (getAttr "com_dot_clearly-useful_dot_protocols" self)
@@ -36269,9 +36267,8 @@ lib.makeScope pkgs.newScope (
           });
         systems = [ "com.clearly-useful.iterator-protocol" ];
         lispLibs = [
-          (
-            getAttr "com_dot_clearly-useful_dot_generic-collection-interface"
-              self
+          (getAttr "com_dot_clearly-useful_dot_generic-collection-interface"
+            self
           )
           (getAttr "com_dot_clearly-useful_dot_protocols" self)
         ];
@@ -50173,9 +50170,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_common" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
           (getAttr "hu_dot_dwim_dot_util" self)
@@ -50261,9 +50257,8 @@ lib.makeScope pkgs.newScope (
         systems = [ "hu.dwim.computed-class.test" ];
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
-          (
-            getAttr "hu_dot_dwim_dot_computed-class_plus_hu_dot_dwim_dot_logger"
-              self
+          (getAttr "hu_dot_dwim_dot_computed-class_plus_hu_dot_dwim_dot_logger"
+            self
           )
           (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" self)
         ];
@@ -50332,9 +50327,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_debug" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
         ];
         meta = { hydraPlatforms = [ ]; };
@@ -50543,9 +50537,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_defclass-star_plus_contextl" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
         ];
         meta = { hydraPlatforms = [ ]; };
@@ -50653,9 +50646,8 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_common" self)
           (getAttr "hu_dot_dwim_dot_graphviz" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
         ];
         meta = { hydraPlatforms = [ ]; };
@@ -50679,9 +50671,8 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_def" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_common" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
           (getAttr "hu_dot_dwim_dot_util" self)
           (getAttr "local-time" self)
@@ -50771,9 +50762,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_logger" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
         ];
         meta = { hydraPlatforms = [ ]; };
@@ -50796,10 +50786,9 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_common" self)
           (getAttr "hu_dot_dwim_dot_def" self)
-          (
-            getAttr
-              "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def_plus_contextl"
-              self
+          (getAttr
+            "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def_plus_contextl"
+            self
           )
           (getAttr "hu_dot_dwim_dot_logger" self)
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
@@ -50847,9 +50836,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_partial-eval" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
           (getAttr "hu_dot_dwim_dot_util" self)
         ];
@@ -50880,9 +50868,8 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_def_plus_contextl" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_common" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_delico" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
           (getAttr "hu_dot_dwim_dot_logger" self)
           (getAttr "hu_dot_dwim_dot_rdbms" self)
@@ -51167,10 +51154,9 @@ lib.makeScope pkgs.newScope (
         systems = [ "hu.dwim.perec.test" ];
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
-          (
-            getAttr
-              "hu_dot_dwim_dot_perec_plus_hu_dot_dwim_dot_quasi-quote_dot_xml"
-              self
+          (getAttr
+            "hu_dot_dwim_dot_perec_plus_hu_dot_dwim_dot_quasi-quote_dot_xml"
+            self
           )
           (getAttr "hu_dot_dwim_dot_perec_plus_iolib" self)
           (getAttr "hu_dot_dwim_dot_perec_plus_swank" self)
@@ -51309,9 +51295,8 @@ lib.makeScope pkgs.newScope (
           (getAttr "babel-streams" self)
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_common" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
           (getAttr "hu_dot_dwim_dot_util" self)
@@ -51465,9 +51450,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "babel" self)
           (getAttr "hu_dot_dwim_dot_asdf" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
           (getAttr "hu_dot_dwim_dot_logger" self)
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
@@ -51686,9 +51670,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_rdbms" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
         ];
         meta = { hydraPlatforms = [ ]; };
@@ -51828,9 +51811,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_serializer" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
         ];
         meta = { hydraPlatforms = [ ]; };
@@ -51973,9 +51955,8 @@ lib.makeScope pkgs.newScope (
         systems = [ "hu.dwim.syntax-sugar.test" ];
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
           (getAttr "hu_dot_dwim_dot_walker" self)
@@ -52021,9 +52002,8 @@ lib.makeScope pkgs.newScope (
         systems = [ "hu.dwim.uri.test" ];
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
           (getAttr "hu_dot_dwim_dot_uri" self)
           (getAttr "hu_dot_dwim_dot_util" self)
@@ -52047,9 +52027,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_common" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
         ];
@@ -52093,9 +52072,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_presentation" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
         ];
         meta = { hydraPlatforms = [ ]; };
@@ -52127,17 +52105,15 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_def" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_common" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
           (getAttr "hu_dot_dwim_dot_delico" self)
           (getAttr "hu_dot_dwim_dot_logger" self)
           (getAttr "hu_dot_dwim_dot_perec_dot_postgresql" self)
           (getAttr "hu_dot_dwim_dot_quasi-quote_dot_xml" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
           (getAttr "hu_dot_dwim_dot_util" self)
@@ -52169,9 +52145,8 @@ lib.makeScope pkgs.newScope (
           (getAttr "contextl" self)
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_def_plus_contextl" self)
-          (
-            getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
-              self
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def"
+            self
           )
           (getAttr "hu_dot_dwim_dot_util" self)
           (getAttr "metabang-bind" self)
@@ -52206,10 +52181,9 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_def_plus_contextl" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_delico" self)
           (getAttr "hu_dot_dwim_dot_logger_plus_iolib" self)
-          (
-            getAttr
-              "hu_dot_dwim_dot_quasi-quote_dot_xml_plus_hu_dot_dwim_dot_quasi-quote_dot_js"
-              self
+          (getAttr
+            "hu_dot_dwim_dot_quasi-quote_dot_xml_plus_hu_dot_dwim_dot_quasi-quote_dot_js"
+            self
           )
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
           (getAttr "hu_dot_dwim_dot_uri" self)
@@ -52345,13 +52319,11 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "drakma" self)
           (getAttr "hu_dot_dwim_dot_asdf" self)
-          (
-            getAttr "hu_dot_dwim_dot_computed-class_plus_hu_dot_dwim_dot_logger"
-              self
+          (getAttr "hu_dot_dwim_dot_computed-class_plus_hu_dot_dwim_dot_logger"
+            self
           )
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
           (getAttr "hu_dot_dwim_dot_web-server" self)
           (getAttr "hu_dot_dwim_dot_web-server_plus_swank" self)
@@ -71442,9 +71414,8 @@ lib.makeScope pkgs.newScope (
         lispLibs = [
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_logger" self)
-          (
-            getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-              self
+          (getAttr "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+            self
           )
           (getAttr "projectured_dot_document" self)
           (getAttr "projectured_dot_editor" self)

@@ -68,28 +68,26 @@ let
 in
 runCommand basicEnv.name cmdArgs ''
   mkdir -p $out/bin
-  ${(
-    lib.concatMapStrings
-      (x: ''
-        ln -s '${basicEnv}/bin/${x}' $out/bin/${x};
-      '')
-      exes
+  ${(lib.concatMapStrings
+    (x: ''
+      ln -s '${basicEnv}/bin/${x}' $out/bin/${x};
+    '')
+    exes
   )}
-  ${(
-    lib.concatMapStrings
-      (
-        s:
-        "makeWrapper $out/bin/$(basename ${s}) $srcdir/${s} "
-        + "--set BUNDLE_GEMFILE ${basicEnv.confFiles}/Gemfile "
-        + "--unset BUNDLE_PATH "
-        + "--set BUNDLE_FROZEN 1 "
-        + "--set GEM_HOME ${basicEnv}/${ruby.gemPath} "
-        + "--set GEM_PATH ${basicEnv}/${ruby.gemPath} "
-        + ''
-          --chdir "$srcdir";
-        ''
-      )
-      scripts
+  ${(lib.concatMapStrings
+    (
+      s:
+      "makeWrapper $out/bin/$(basename ${s}) $srcdir/${s} "
+      + "--set BUNDLE_GEMFILE ${basicEnv.confFiles}/Gemfile "
+      + "--unset BUNDLE_PATH "
+      + "--set BUNDLE_FROZEN 1 "
+      + "--set GEM_HOME ${basicEnv}/${ruby.gemPath} "
+      + "--set GEM_PATH ${basicEnv}/${ruby.gemPath} "
+      + ''
+        --chdir "$srcdir";
+      ''
+    )
+    scripts
   )}
 
   ${lib.optionalString installManpages ''

@@ -123,13 +123,12 @@ let
       version = component.version.version_string;
       src =
         lib.optionalString
-          (
-            lib.hasAttrByPath
-              [
-                "data"
-                "source"
-              ]
-              component
+          (lib.hasAttrByPath
+            [
+              "data"
+              "source"
+            ]
+            component
           )
           "${baseUrl}/${component.data.source}"
       ;

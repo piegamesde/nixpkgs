@@ -14,14 +14,13 @@ in
   meta.doc = ./lemmy.md;
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "lemmy"
-          "jwtSecretPath"
-        ]
-        "As of v0.13.0, Lemmy auto-generates the JWT secret."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "lemmy"
+        "jwtSecretPath"
+      ]
+      "As of v0.13.0, Lemmy auto-generates the JWT secret."
     )
   ];
 

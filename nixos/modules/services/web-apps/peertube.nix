@@ -999,20 +999,19 @@ in
           home = cfg.package;
         };
       })
-      (
-        lib.attrsets.setAttrByPath
-          [
-            cfg.user
-            "packages"
-          ]
-          [
-            cfg.package
-            peertubeEnv
-            peertubeCli
-            pkgs.ffmpeg
-            pkgs.nodejs_16
-            pkgs.yarn
-          ]
+      (lib.attrsets.setAttrByPath
+        [
+          cfg.user
+          "packages"
+        ]
+        [
+          cfg.package
+          peertubeEnv
+          peertubeCli
+          pkgs.ffmpeg
+          pkgs.nodejs_16
+          pkgs.yarn
+        ]
       )
       (lib.mkIf cfg.redis.enableUnixSocket {
         ${config.services.peertube.user}.extraGroups = [ "redis-peertube" ];

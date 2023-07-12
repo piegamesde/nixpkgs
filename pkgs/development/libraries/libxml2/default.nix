@@ -122,9 +122,8 @@ let
       (lib.enableFeature enableShared "shared")
       (lib.withFeature icuSupport "icu")
       (lib.withFeature pythonSupport "python")
-      (
-        lib.optionalString pythonSupport
-          "PYTHON=${python.pythonForBuild.interpreter}"
+      (lib.optionalString pythonSupport
+        "PYTHON=${python.pythonForBuild.interpreter}"
       )
     ];
 

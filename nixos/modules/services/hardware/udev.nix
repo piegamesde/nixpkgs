@@ -489,20 +489,19 @@ in
   };
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "udev"
-          "initrdRules"
-        ]
-        [
-          "boot"
-          "initrd"
-          "services"
-          "udev"
-          "rules"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "udev"
+        "initrdRules"
+      ]
+      [
+        "boot"
+        "initrd"
+        "services"
+        "udev"
+        "rules"
+      ]
     )
   ];
 }

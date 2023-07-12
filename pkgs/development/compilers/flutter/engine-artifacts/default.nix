@@ -11,9 +11,8 @@
 
 let
   hashes =
-    (import ./hashes.nix).${engineVersion} or (
-      throw
-        "There are no known artifact hashes for Flutter engine version ${engineVersion}."
+    (import ./hashes.nix).${engineVersion} or (throw
+      "There are no known artifact hashes for Flutter engine version ${engineVersion}."
     );
 
   artifacts = {
@@ -24,40 +23,39 @@ let
       };
     };
     platform = {
-      android = (
-        lib.genAttrs
-          [
-            "arm"
-            "arm64"
-            "x64"
-          ]
-          (
-            arch: {
-              base = [ { archive = "artifacts.zip"; } ];
-              variants =
-                lib.genAttrs
-                  [
-                    "profile"
-                    "release"
-                  ]
-                  (
-                    variant: [
-                      { archive = "artifacts.zip"; }
-                      {
-                        archive =
-                          "${lib.toLower hostPlatform.uname.system}-x64.zip";
-                      }
-                    ]
-                  )
-              ;
-            }
-          )
-      ) // {
-          "x86" = {
+      android = (lib.genAttrs
+        [
+          "arm"
+          "arm64"
+          "x64"
+        ]
+        (
+          arch: {
             base = [ { archive = "artifacts.zip"; } ];
-            variants.jit-release = [ { archive = "artifacts.zip"; } ];
-          };
+            variants =
+              lib.genAttrs
+                [
+                  "profile"
+                  "release"
+                ]
+                (
+                  variant: [
+                    { archive = "artifacts.zip"; }
+                    {
+                      archive =
+                        "${lib.toLower hostPlatform.uname.system}-x64.zip";
+                    }
+                  ]
+                )
+            ;
+          }
+        )
+      ) // {
+        "x86" = {
+          base = [ { archive = "artifacts.zip"; } ];
+          variants.jit-release = [ { archive = "artifacts.zip"; } ];
         };
+      };
 
       linux =
         lib.genAttrs
@@ -93,9 +91,8 @@ let
                             == "flutter-artifact-linux-x64-artifacts"
                           )
                           (throw "Could not find the x64 artifact archive.")
-                          (
-                            throw
-                              "Could not find the correct x64 artifact archive."
+                          (throw
+                            "Could not find the correct x64 artifact archive."
                           )
                           artifactDerivations.platform.linux.x64.base
                       }/shader_lib .

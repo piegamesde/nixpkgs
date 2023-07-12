@@ -42,19 +42,18 @@ let
         in
         vhostConfig // {
           inherit serverName certName;
-        } // (
-          optionalAttrs
-            (vhostConfig.enableACME || vhostConfig.useACMEHost != null)
-            {
-              sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
-              sslCertificateKey = "${certs.${certName}.directory}/key.pem";
-              sslTrustedCertificate =
-                if vhostConfig.sslTrustedCertificate != null then
-                  vhostConfig.sslTrustedCertificate
-                else
-                  "${certs.${certName}.directory}/chain.pem"
-              ;
-            }
+        } // (optionalAttrs
+          (vhostConfig.enableACME || vhostConfig.useACMEHost != null)
+          {
+            sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
+            sslCertificateKey = "${certs.${certName}.directory}/key.pem";
+            sslTrustedCertificate =
+              if vhostConfig.sslTrustedCertificate != null then
+                vhostConfig.sslTrustedCertificate
+              else
+                "${certs.${certName}.directory}/chain.pem"
+            ;
+          }
         )
       )
       cfg.virtualHosts
@@ -1237,113 +1236,106 @@ in
   };
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "nginx"
-          "stateDir"
-        ]
-        ''
-          The Nginx log directory has been moved to /var/log/nginx, the cache directory
-          to /var/cache/nginx. The option services.nginx.stateDir has been removed.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "nginx"
+        "stateDir"
+      ]
+      ''
+        The Nginx log directory has been moved to /var/log/nginx, the cache directory
+        to /var/cache/nginx. The option services.nginx.stateDir has been removed.
+      ''
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "nginx"
-          "proxyCache"
-          "inactive"
-        ]
-        [
-          "services"
-          "nginx"
-          "proxyCachePath"
-          ""
-          "inactive"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nginx"
+        "proxyCache"
+        "inactive"
+      ]
+      [
+        "services"
+        "nginx"
+        "proxyCachePath"
+        ""
+        "inactive"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "nginx"
-          "proxyCache"
-          "useTempPath"
-        ]
-        [
-          "services"
-          "nginx"
-          "proxyCachePath"
-          ""
-          "useTempPath"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nginx"
+        "proxyCache"
+        "useTempPath"
+      ]
+      [
+        "services"
+        "nginx"
+        "proxyCachePath"
+        ""
+        "useTempPath"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "nginx"
-          "proxyCache"
-          "levels"
-        ]
-        [
-          "services"
-          "nginx"
-          "proxyCachePath"
-          ""
-          "levels"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nginx"
+        "proxyCache"
+        "levels"
+      ]
+      [
+        "services"
+        "nginx"
+        "proxyCachePath"
+        ""
+        "levels"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "nginx"
-          "proxyCache"
-          "keysZoneSize"
-        ]
-        [
-          "services"
-          "nginx"
-          "proxyCachePath"
-          ""
-          "keysZoneSize"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nginx"
+        "proxyCache"
+        "keysZoneSize"
+      ]
+      [
+        "services"
+        "nginx"
+        "proxyCachePath"
+        ""
+        "keysZoneSize"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "nginx"
-          "proxyCache"
-          "keysZoneName"
-        ]
-        [
-          "services"
-          "nginx"
-          "proxyCachePath"
-          ""
-          "keysZoneName"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nginx"
+        "proxyCache"
+        "keysZoneName"
+      ]
+      [
+        "services"
+        "nginx"
+        "proxyCachePath"
+        ""
+        "keysZoneName"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "nginx"
-          "proxyCache"
-          "enable"
-        ]
-        [
-          "services"
-          "nginx"
-          "proxyCachePath"
-          ""
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "nginx"
+        "proxyCache"
+        "enable"
+      ]
+      [
+        "services"
+        "nginx"
+        "proxyCachePath"
+        ""
+        "enable"
+      ]
     )
   ];
 
@@ -1540,9 +1532,8 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute =
           !(
-            (
-              builtins.any (mod: (mod.allowMemoryWriteExecute or false))
-                cfg.package.modules
+            (builtins.any (mod: (mod.allowMemoryWriteExecute or false))
+              cfg.package.modules
             )
             || (cfg.package == pkgs.openresty)
           )

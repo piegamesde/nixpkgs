@@ -15,17 +15,16 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "vmwareGuest"
-        ]
-        [
-          "virtualisation"
-          "vmware"
-          "guest"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "vmwareGuest"
+      ]
+      [
+        "virtualisation"
+        "vmware"
+        "guest"
+      ]
     )
   ];
 

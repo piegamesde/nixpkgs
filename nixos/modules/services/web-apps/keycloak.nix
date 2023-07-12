@@ -41,85 +41,79 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "keycloak"
-          "bindAddress"
-        ]
-        [
-          "services"
-          "keycloak"
-          "settings"
-          "http-host"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "keycloak"
+        "bindAddress"
+      ]
+      [
+        "services"
+        "keycloak"
+        "settings"
+        "http-host"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "keycloak"
-          "forceBackendUrlToFrontendUrl"
-        ]
-        [
-          "services"
-          "keycloak"
-          "settings"
-          "hostname-strict-backchannel"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "keycloak"
+        "forceBackendUrlToFrontendUrl"
+      ]
+      [
+        "services"
+        "keycloak"
+        "settings"
+        "hostname-strict-backchannel"
+      ]
     )
-    (
-      mkChangedOptionModule
-        [
-          "services"
-          "keycloak"
-          "httpPort"
-        ]
-        [
-          "services"
-          "keycloak"
-          "settings"
-          "http-port"
-        ]
-        (config: builtins.fromJSON config.services.keycloak.httpPort)
+    (mkChangedOptionModule
+      [
+        "services"
+        "keycloak"
+        "httpPort"
+      ]
+      [
+        "services"
+        "keycloak"
+        "settings"
+        "http-port"
+      ]
+      (config: builtins.fromJSON config.services.keycloak.httpPort)
     )
-    (
-      mkChangedOptionModule
-        [
-          "services"
-          "keycloak"
-          "httpsPort"
-        ]
-        [
-          "services"
-          "keycloak"
-          "settings"
-          "https-port"
-        ]
-        (config: builtins.fromJSON config.services.keycloak.httpsPort)
+    (mkChangedOptionModule
+      [
+        "services"
+        "keycloak"
+        "httpsPort"
+      ]
+      [
+        "services"
+        "keycloak"
+        "settings"
+        "https-port"
+      ]
+      (config: builtins.fromJSON config.services.keycloak.httpsPort)
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "keycloak"
-          "frontendUrl"
-        ]
-        ''
-          Set `services.keycloak.settings.hostname' and `services.keycloak.settings.http-relative-path' instead.
-          NOTE: You likely want to set 'http-relative-path' to '/auth' to keep compatibility with your clients.
-                See its description for more information.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "keycloak"
+        "frontendUrl"
+      ]
+      ''
+        Set `services.keycloak.settings.hostname' and `services.keycloak.settings.http-relative-path' instead.
+        NOTE: You likely want to set 'http-relative-path' to '/auth' to keep compatibility with your clients.
+              See its description for more information.
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "keycloak"
-          "extraConfig"
-        ]
-        "Use `services.keycloak.settings' instead."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "keycloak"
+        "extraConfig"
+      ]
+      "Use `services.keycloak.settings' instead."
     )
   ];
 

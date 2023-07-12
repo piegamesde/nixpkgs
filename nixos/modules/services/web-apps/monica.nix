@@ -220,9 +220,8 @@ in
     nginx = mkOption {
       type = types.submodule (
         recursiveUpdate
-          (
-            import ../web-servers/nginx/vhost-options.nix
-              { inherit config lib; }
+          (import ../web-servers/nginx/vhost-options.nix
+            { inherit config lib; }
           )
           { }
       );

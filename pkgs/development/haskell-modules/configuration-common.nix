@@ -129,9 +129,8 @@ self: super:
   haskell-language-server =
     (lib.pipe super.haskell-language-server [
       dontCheck
-      (
-        disableCabalFlag
-          "stan"
+      (disableCabalFlag
+        "stan"
       ) # Sorry stan is totally unmaintained and terrible to get to run. It only works on ghc 8.8 or 8.10 anyways …
     ]).overrideScope
       (
@@ -1160,19 +1159,18 @@ self: super:
 
   # Make elisp files available at a location where people expect it.
   hindent =
-    (
-      overrideCabal
-        (drv: {
-          # We cannot easily byte-compile these files, unfortunately, because they
-          # depend on a new version of haskell-mode that we don't have yet.
-          postInstall = ''
-            local lispdir=( "$data/share/${self.ghc.targetPrefix}${self.ghc.haskellCompilerName}/"*"/${drv.pname}-"*"/elisp" )
-            mkdir -p $data/share/emacs
-            ln -s $lispdir $data/share/emacs/site-lisp
-          '';
-          doCheck = false; # https://github.com/chrisdone/hindent/issues/299
-        })
-        super.hindent
+    (overrideCabal
+      (drv: {
+        # We cannot easily byte-compile these files, unfortunately, because they
+        # depend on a new version of haskell-mode that we don't have yet.
+        postInstall = ''
+          local lispdir=( "$data/share/${self.ghc.targetPrefix}${self.ghc.haskellCompilerName}/"*"/${drv.pname}-"*"/elisp" )
+          mkdir -p $data/share/emacs
+          ln -s $lispdir $data/share/emacs/site-lisp
+        '';
+        doCheck = false; # https://github.com/chrisdone/hindent/issues/299
+      })
+      super.hindent
     );
 
   # https://github.com/basvandijk/concurrent-extra/issues/12
@@ -2018,27 +2016,26 @@ self: super:
         ;
       })
       (
-        (
-          appendPatches
-            [
-              (fetchpatch {
-                url =
-                  "https://github.com/reflex-frp/reflex-dom/commit/1814640a14c6c30b1b2299e74d08fb6fcaadfb94.patch";
-                sha256 = "sha256-QyX2MLd7Tk0M1s0DU0UV3szXs8ngz775i3+KI62Q3B8=";
-                relative = "reflex-dom-core";
-              })
-              (fetchpatch {
-                url =
-                  "https://github.com/reflex-frp/reflex-dom/commit/56fa8a484ccfc7d3365d07fea3caa430155dbcac.patch";
-                sha256 = "sha256-IogAYJZac17Bg99ZnnFX/7I44DAnHo2PRBWD0iVHbNA=";
-                relative = "reflex-dom-core";
-              })
-            ]
-            (
-              doDistribute (
-                unmarkBroken (dontCheck (doJailbreak super.reflex-dom-core))
-              )
+        (appendPatches
+          [
+            (fetchpatch {
+              url =
+                "https://github.com/reflex-frp/reflex-dom/commit/1814640a14c6c30b1b2299e74d08fb6fcaadfb94.patch";
+              sha256 = "sha256-QyX2MLd7Tk0M1s0DU0UV3szXs8ngz775i3+KI62Q3B8=";
+              relative = "reflex-dom-core";
+            })
+            (fetchpatch {
+              url =
+                "https://github.com/reflex-frp/reflex-dom/commit/56fa8a484ccfc7d3365d07fea3caa430155dbcac.patch";
+              sha256 = "sha256-IogAYJZac17Bg99ZnnFX/7I44DAnHo2PRBWD0iVHbNA=";
+              relative = "reflex-dom-core";
+            })
+          ]
+          (
+            doDistribute (
+              unmarkBroken (dontCheck (doJailbreak super.reflex-dom-core))
             )
+          )
         )
       )
   ;

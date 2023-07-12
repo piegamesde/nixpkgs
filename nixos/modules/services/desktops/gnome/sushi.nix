@@ -16,20 +16,19 @@ with lib;
   imports =
     [
       # Added 2021-05-07
-      (
-        mkRenamedOptionModule
-          [
-            "services"
-            "gnome3"
-            "sushi"
-            "enable"
-          ]
-          [
-            "services"
-            "gnome"
-            "sushi"
-            "enable"
-          ]
+      (mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "sushi"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "sushi"
+          "enable"
+        ]
       )
     ];
 

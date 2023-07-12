@@ -282,26 +282,25 @@ rec {
     else if length defs == 1 then
       (head defs).value
     else
-      (
-        foldl'
-          (
-            first: def:
-            if def.value != first.value then
-              throw ''
-                The option `${
-                  showOption loc
-                }' has conflicting definition values:${
-                  showDefs [
-                    first
-                    def
-                  ]
-                }
-                ${prioritySuggestion}''
-            else
-              first
-          )
-          (head defs)
-          (tail defs)
+      (foldl'
+        (
+          first: def:
+          if def.value != first.value then
+            throw ''
+              The option `${
+                showOption loc
+              }' has conflicting definition values:${
+                showDefs [
+                  first
+                  def
+                ]
+              }
+              ${prioritySuggestion}''
+          else
+            first
+        )
+        (head defs)
+        (tail defs)
       ).value
   ;
 

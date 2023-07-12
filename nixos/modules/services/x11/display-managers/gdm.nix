@@ -48,53 +48,50 @@ in
 
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "gdm"
-          "autoLogin"
-          "enable"
-        ]
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "autoLogin"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "gdm"
+        "autoLogin"
+        "enable"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "autoLogin"
+        "enable"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "gdm"
-          "autoLogin"
-          "user"
-        ]
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "autoLogin"
-          "user"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "gdm"
+        "autoLogin"
+        "user"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "autoLogin"
+        "user"
+      ]
     )
 
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "gdm"
-          "nvidiaWayland"
-        ]
-        "We defer to GDM whether Wayland should be enabled."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "gdm"
+        "nvidiaWayland"
+      ]
+      "We defer to GDM whether Wayland should be enabled."
     )
   ];
 

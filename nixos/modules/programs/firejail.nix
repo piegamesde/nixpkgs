@@ -40,8 +40,8 @@ let
                 args = lib.escapeShellArgs (
                   opts.extraArgs
                   ++ (optional (opts.profile != null) "--profile=${
-                        toString opts.profile
-                      }")
+                      toString opts.profile
+                    }")
                 );
               in
               ''

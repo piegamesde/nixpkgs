@@ -11,22 +11,21 @@
     ];
     platform = {
       android = lib.optionalAttrs stdenv.hostPlatform.isx86_64 (
-        (
-          lib.genAttrs
-            [
-              "arm"
-              "arm64"
-              "x64"
+        (lib.genAttrs
+          [
+            "arm"
+            "arm64"
+            "x64"
+          ]
+          (
+            architecture: [
+              "profile"
+              "release"
             ]
-            (
-              architecture: [
-                "profile"
-                "release"
-              ]
-            )
+          )
         ) // {
-            x86 = [ "jit-release" ];
-          }
+          x86 = [ "jit-release" ];
+        }
       );
       linux = lib.optionals stdenv.hostPlatform.isLinux (
         lib.genAttrs
@@ -94,73 +93,67 @@ let
       in
       ''
         ${builtins.concatStringsSep "\n" (
-          (
-            map
-              (
-                name:
-                mkCommonArtifactLinkCommand {
-                  artifact = engineArtifacts.common.${name};
-                }
-              )
-              (
-                if includedEngineArtifacts ? common then
-                  includedEngineArtifacts.common
-                else
-                  [ ]
-              )
+          (map
+            (
+              name:
+              mkCommonArtifactLinkCommand {
+                artifact = engineArtifacts.common.${name};
+              }
+            )
+            (
+              if includedEngineArtifacts ? common then
+                includedEngineArtifacts.common
+              else
+                [ ]
+            )
           )
-          ++ (
-            builtins.foldl'
-              (
-                commands: os:
-                commands
-                ++ (
-                  builtins.foldl'
+          ++ (builtins.foldl'
+            (
+              commands: os:
+              commands
+              ++ (builtins.foldl'
+                (
+                  commands: architecture:
+                  commands
+                  ++ (builtins.foldl'
                     (
-                      commands: architecture:
+                      commands: variant:
                       commands
-                      ++ (
-                        builtins.foldl'
-                          (
-                            commands: variant:
-                            commands
-                            ++ (
-                              map
-                                (
-                                  artifact:
-                                  mkPlatformArtifactLinkCommand {
-                                    inherit artifact os architecture variant;
-                                  }
-                                )
-                                engineArtifacts.platform.${os}.${architecture}.variants.${variant}
-                            )
-                          )
-                          (
-                            map
-                              (
-                                artifact:
-                                mkPlatformArtifactLinkCommand {
-                                  inherit artifact os architecture;
-                                }
-                              )
-                              engineArtifacts.platform.${os}.${architecture}.base
-                          )
-                          includedEngineArtifacts.platform.${os}.${architecture}
+                      ++ (map
+                        (
+                          artifact:
+                          mkPlatformArtifactLinkCommand {
+                            inherit artifact os architecture variant;
+                          }
+                        )
+                        engineArtifacts.platform.${os}.${architecture}.variants.${variant}
                       )
                     )
-                    [ ]
-                    (builtins.attrNames includedEngineArtifacts.platform.${os})
+                    (map
+                      (
+                        artifact:
+                        mkPlatformArtifactLinkCommand {
+                          inherit artifact os architecture;
+                        }
+                      )
+                      engineArtifacts.platform.${os}.${architecture}.base
+                    )
+                    includedEngineArtifacts.platform.${os}.${architecture}
+                  )
                 )
+                [ ]
+                (builtins.attrNames includedEngineArtifacts.platform.${os})
               )
-              [ ]
-              (
-                builtins.attrNames (
-                  if includedEngineArtifacts ? platform then
-                    includedEngineArtifacts.platform
-                  else
-                    { }
-                )
+            )
+            [ ]
+            (
+              builtins.attrNames (
+                if includedEngineArtifacts ? platform then
+                  includedEngineArtifacts.platform
+                else
+                  { }
               )
+            )
           )
         )}
       ''

@@ -29,30 +29,29 @@ import ./make-test-python.nix (
       '');
 
     nspawnImages =
-      (
-        pkgs.runCommand "localhost"
-          {
-            buildInputs = [
-              pkgs.coreutils
-              pkgs.gnupg
-            ];
-          }
-          ''
-            mkdir -p $out
-            cd $out
+      (pkgs.runCommand "localhost"
+        {
+          buildInputs = [
+            pkgs.coreutils
+            pkgs.gnupg
+          ];
+        }
+        ''
+          mkdir -p $out
+          cd $out
 
-            # produce a testimage.raw
-            dd if=/dev/urandom of=$out/testimage.raw bs=$((1024*1024+7)) count=5
+          # produce a testimage.raw
+          dd if=/dev/urandom of=$out/testimage.raw bs=$((1024*1024+7)) count=5
 
-            # produce a testimage2.tar.xz, containing the hello store path
-            tar cvJpf testimage2.tar.xz ${pkgs.hello}
+          # produce a testimage2.tar.xz, containing the hello store path
+          tar cvJpf testimage2.tar.xz ${pkgs.hello}
 
-            # produce signature(s)
-            sha256sum testimage* > SHA256SUMS
-            export GNUPGHOME="$(mktemp -d)"
-            cp -R ${gpgKeyring}/* $GNUPGHOME
-            gpg --batch --sign --detach-sign --output SHA256SUMS.gpg SHA256SUMS
-          ''
+          # produce signature(s)
+          sha256sum testimage* > SHA256SUMS
+          export GNUPGHOME="$(mktemp -d)"
+          cp -R ${gpgKeyring}/* $GNUPGHOME
+          gpg --batch --sign --detach-sign --output SHA256SUMS.gpg SHA256SUMS
+        ''
       );
   in
   {

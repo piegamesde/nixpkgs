@@ -288,60 +288,55 @@ in
 {
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "gitlab"
-          "stateDir"
-        ]
-        [
-          "services"
-          "gitlab"
-          "statePath"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab"
+        "stateDir"
+      ]
+      [
+        "services"
+        "gitlab"
+        "statePath"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "gitlab"
-          "backupPath"
-        ]
-        [
-          "services"
-          "gitlab"
-          "backup"
-          "path"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitlab"
+        "backupPath"
+      ]
+      [
+        "services"
+        "gitlab"
+        "backup"
+        "path"
+      ]
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "gitlab"
-          "satelliteDir"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitlab"
+        "satelliteDir"
+      ]
+      ""
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "gitlab"
-          "logrotate"
-          "extraConfig"
-        ]
-        "Modify services.logrotate.settings.gitlab directly instead"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitlab"
+        "logrotate"
+        "extraConfig"
+      ]
+      "Modify services.logrotate.settings.gitlab directly instead"
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "gitlab"
-          "pagesExtraArgs"
-        ]
-        "Use services.gitlab.pages.settings instead"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitlab"
+        "pagesExtraArgs"
+      ]
+      "Use services.gitlab.pages.settings instead"
     )
   ];
 
@@ -1623,15 +1618,13 @@ in
       ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
-      environment = gitlabEnv // (
-        optionalAttrs cfg.sidekiq.memoryKiller.enable
-          {
-            SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
-            SIDEKIQ_MEMORY_KILLER_GRACE_TIME =
-              cfg.sidekiq.memoryKiller.graceTime;
-            SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT =
-              cfg.sidekiq.memoryKiller.shutdownWait;
-          }
+      environment = gitlabEnv // (optionalAttrs cfg.sidekiq.memoryKiller.enable
+        {
+          SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
+          SIDEKIQ_MEMORY_KILLER_GRACE_TIME = cfg.sidekiq.memoryKiller.graceTime;
+          SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT =
+            cfg.sidekiq.memoryKiller.shutdownWait;
+        }
       );
       path = with pkgs; [
         postgresqlPackage

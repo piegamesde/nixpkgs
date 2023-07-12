@@ -165,9 +165,8 @@ let
 
         # Copy resize2fs if any ext* filesystems are to be resized
         ${optionalString
-          (
-            any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType))
-              fileSystems
+          (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType))
+            fileSystems
           )
           ''
             # We need mke2fs in the initrd.
@@ -491,13 +490,12 @@ let
         ;
         symlink = "/etc/multipath.conf";
       } ]
-      ++ (
-        lib.mapAttrsToList
-          (symlink: options: {
-            inherit symlink;
-            object = options.source;
-          })
-          config.boot.initrd.extraFiles
+      ++ (lib.mapAttrsToList
+        (symlink: options: {
+          inherit symlink;
+          object = options.source;
+        })
+        config.boot.initrd.extraFiles
       )
     ;
   };
@@ -877,20 +875,19 @@ in
   };
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "boot"
-          "initrd"
-          "mdadmConf"
-        ]
-        [
-          "boot"
-          "initrd"
-          "services"
-          "swraid"
-          "mdadmConf"
-        ]
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "initrd"
+        "mdadmConf"
+      ]
+      [
+        "boot"
+        "initrd"
+        "services"
+        "swraid"
+        "mdadmConf"
+      ]
     )
   ];
 }

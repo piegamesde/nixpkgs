@@ -13,18 +13,17 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "programs"
-          "unity3d"
-          "enable"
-        ]
-        [
-          "security"
-          "chromiumSuidSandbox"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "programs"
+        "unity3d"
+        "enable"
+      ]
+      [
+        "security"
+        "chromiumSuidSandbox"
+        "enable"
+      ]
     )
   ];
 

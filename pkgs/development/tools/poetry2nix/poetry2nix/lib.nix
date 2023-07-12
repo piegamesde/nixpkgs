@@ -229,16 +229,15 @@ let
     }:
     let
       pathParts =
-        (
-          builtins.filter
-            (
-              {
-                prefix,
-                path,
-              }:
-              "NETRC" == prefix
-            )
-            builtins.nixPath
+        (builtins.filter
+          (
+            {
+              prefix,
+              path,
+            }:
+            "NETRC" == prefix
+          )
+          builtins.nixPath
         );
       netrc_file =
         if (pathParts != [ ]) then (builtins.head pathParts).path else "";

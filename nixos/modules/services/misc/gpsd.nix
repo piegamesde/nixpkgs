@@ -19,14 +19,13 @@ in
   ###### interface
 
   imports = [
-    (
-      lib.mkRemovedOptionModule
-        [
-          "services"
-          "gpsd"
-          "device"
-        ]
-        "Use `services.gpsd.devices` instead."
+    (lib.mkRemovedOptionModule
+      [
+        "services"
+        "gpsd"
+        "device"
+      ]
+      "Use `services.gpsd.devices` instead."
     )
   ];
 

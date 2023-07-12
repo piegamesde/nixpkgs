@@ -318,9 +318,8 @@ in
               "jibri-auth-secret"
               "jibri-recorder-secret"
             ]
-            ++ (
-              optional (cfg.videobridge.passwordFile == null)
-                "videobridge-secret"
+            ++ (optional (cfg.videobridge.passwordFile == null)
+              "videobridge-secret"
             )
           ;
         in

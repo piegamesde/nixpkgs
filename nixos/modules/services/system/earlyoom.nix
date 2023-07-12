@@ -142,39 +142,36 @@ in
   };
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "earlyoom"
-          "useKernelOOMKiller"
-        ]
-        ''
-          This option is deprecated and ignored by earlyoom since 1.2.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "earlyoom"
+        "useKernelOOMKiller"
+      ]
+      ''
+        This option is deprecated and ignored by earlyoom since 1.2.
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "earlyoom"
-          "notificationsCommand"
-        ]
-        ''
-          This option was removed in earlyoom 1.6, but was reimplemented in 1.7
-          and is available as the new option `services.earlyoom.killHook`.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "earlyoom"
+        "notificationsCommand"
+      ]
+      ''
+        This option was removed in earlyoom 1.6, but was reimplemented in 1.7
+        and is available as the new option `services.earlyoom.killHook`.
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "earlyoom"
-          "ignoreOOMScoreAdjust"
-        ]
-        ''
-          This option is deprecated and ignored by earlyoom since 1.7.
-        ''
+    (mkRemovedOptionModule
+      [
+        "services"
+        "earlyoom"
+        "ignoreOOMScoreAdjust"
+      ]
+      ''
+        This option is deprecated and ignored by earlyoom since 1.7.
+      ''
     )
   ];
 

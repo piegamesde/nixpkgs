@@ -125,23 +125,22 @@ builtins.intersectAttrs super {
   # haskell-language-server plugins all use the same test harness so we give them what they want in this loop.
   # Every hls plugin should either be in the test disabled list below, or up here in the list fixing it’s tests.
   inherit
-    (
-      pkgs.lib.mapAttrs
-        (
-          _:
-          overrideCabal (
-            drv: {
-              testToolDepends = (drv.testToolDepends or [ ]) ++ [ pkgs.git ];
-              preCheck =
-                ''
-                  export HOME=$TMPDIR/home
-                ''
-                + (drv.preCheck or "")
-              ;
-            }
-          )
+    (pkgs.lib.mapAttrs
+      (
+        _:
+        overrideCabal (
+          drv: {
+            testToolDepends = (drv.testToolDepends or [ ]) ++ [ pkgs.git ];
+            preCheck =
+              ''
+                export HOME=$TMPDIR/home
+              ''
+              + (drv.preCheck or "")
+            ;
+          }
         )
-        super
+      )
+      super
     )
     hls-brittany-plugin
     hls-floskell-plugin

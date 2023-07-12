@@ -249,126 +249,117 @@ in
           ];
         })
 
-        (
-          mkIf
-            (
-              cfg.earlySetup
-              && cfg.font != null
-              && !config.boot.initrd.systemd.enable
-            )
-            {
-              boot.initrd.extraUtilsCommands = ''
-                mkdir -p $out/share/consolefonts
-                ${if substring 0 1 cfg.font == "/" then
-                  ''
-                    font="${cfg.font}"
-                  ''
-                else
-                  ''
-                    font="$(echo ${
-                      consoleEnv pkgs.kbd
-                    }/share/consolefonts/${cfg.font}.*)"
-                  ''}
-                if [[ $font == *.gz ]]; then
-                  gzip -cd $font > $out/share/consolefonts/font.psf
-                else
-                  cp -L $font $out/share/consolefonts/font.psf
-                fi
-              '';
-            }
+        (mkIf
+          (
+            cfg.earlySetup
+            && cfg.font != null
+            && !config.boot.initrd.systemd.enable
+          )
+          {
+            boot.initrd.extraUtilsCommands = ''
+              mkdir -p $out/share/consolefonts
+              ${if substring 0 1 cfg.font == "/" then
+                ''
+                  font="${cfg.font}"
+                ''
+              else
+                ''
+                  font="$(echo ${
+                    consoleEnv pkgs.kbd
+                  }/share/consolefonts/${cfg.font}.*)"
+                ''}
+              if [[ $font == *.gz ]]; then
+                gzip -cd $font > $out/share/consolefonts/font.psf
+              else
+                cp -L $font $out/share/consolefonts/font.psf
+              fi
+            '';
+          }
         )
       ]
     ))
   ];
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "i18n"
-          "consoleFont"
-        ]
-        [
-          "console"
-          "font"
-        ]
+    (mkRenamedOptionModule
+      [
+        "i18n"
+        "consoleFont"
+      ]
+      [
+        "console"
+        "font"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "i18n"
-          "consoleKeyMap"
-        ]
-        [
-          "console"
-          "keyMap"
-        ]
+    (mkRenamedOptionModule
+      [
+        "i18n"
+        "consoleKeyMap"
+      ]
+      [
+        "console"
+        "keyMap"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "i18n"
-          "consoleColors"
-        ]
-        [
-          "console"
-          "colors"
-        ]
+    (mkRenamedOptionModule
+      [
+        "i18n"
+        "consoleColors"
+      ]
+      [
+        "console"
+        "colors"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "i18n"
-          "consolePackages"
-        ]
-        [
-          "console"
-          "packages"
-        ]
+    (mkRenamedOptionModule
+      [
+        "i18n"
+        "consolePackages"
+      ]
+      [
+        "console"
+        "packages"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "i18n"
-          "consoleUseXkbConfig"
-        ]
-        [
-          "console"
-          "useXkbConfig"
-        ]
+    (mkRenamedOptionModule
+      [
+        "i18n"
+        "consoleUseXkbConfig"
+      ]
+      [
+        "console"
+        "useXkbConfig"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "boot"
-          "earlyVconsoleSetup"
-        ]
-        [
-          "console"
-          "earlySetup"
-        ]
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "earlyVconsoleSetup"
+      ]
+      [
+        "console"
+        "earlySetup"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "boot"
-          "extraTTYs"
-        ]
-        [
-          "console"
-          "extraTTYs"
-        ]
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "extraTTYs"
+      ]
+      [
+        "console"
+        "extraTTYs"
+      ]
     )
-    (
-      mkRemovedOptionModule
-        [
-          "console"
-          "extraTTYs"
-        ]
-        ''
-          Since NixOS switched to systemd (circa 2012), TTYs have been spawned on
-          demand, so there is no need to configure them manually.
-        ''
+    (mkRemovedOptionModule
+      [
+        "console"
+        "extraTTYs"
+      ]
+      ''
+        Since NixOS switched to systemd (circa 2012), TTYs have been spawned on
+        demand, so there is no need to configure them manually.
+      ''
     )
   ];
 }

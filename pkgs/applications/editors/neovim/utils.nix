@@ -186,13 +186,12 @@ let
           opt ? [ ],
         }:
         start
-        ++ (
-          map
-            (p: {
-              plugin = p;
-              optional = true;
-            })
-            opt
+        ++ (map
+          (p: {
+            plugin = p;
+            optional = true;
+          })
+          opt
         )
       ;
 

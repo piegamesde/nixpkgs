@@ -14,19 +14,17 @@ let
     pkgs.writeText "hitch.conf" (
       concatStringsSep "\n" [
         (''backend = "${cfg.backend}"'')
-        (
-          concatMapStrings
-            (s: ''
-              frontend = "${s}"
-            '')
-            cfg.frontend
+        (concatMapStrings
+          (s: ''
+            frontend = "${s}"
+          '')
+          cfg.frontend
         )
-        (
-          concatMapStrings
-            (s: ''
-              pem-file = "${s}"
-            '')
-            cfg.pem-files
+        (concatMapStrings
+          (s: ''
+            pem-file = "${s}"
+          '')
+          cfg.pem-files
         )
         (''ciphers = "${cfg.ciphers}"'')
         (''ocsp-dir = "${ocspDir}"'')

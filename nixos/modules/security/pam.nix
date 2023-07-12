@@ -635,63 +635,62 @@ let
             # We use try_first_pass the second time to avoid prompting password twice.
             #
             # The same principle applies to systemd-homed
-            (
-              optionalString
-                (
-                  (cfg.unixAuth || config.services.homed.enable)
-                  && (
-                    config.security.pam.enableEcryptfs
-                    || config.security.pam.enableFscrypt
-                    || cfg.pamMount
-                    || cfg.enableKwallet
-                    || cfg.enableGnomeKeyring
-                    || cfg.googleAuthenticator.enable
-                    || cfg.gnupg.enable
-                    || cfg.failDelay.enable
-                    || cfg.duoSecurity.enable
-                  )
+            (optionalString
+              (
+                (cfg.unixAuth || config.services.homed.enable)
+                && (
+                  config.security.pam.enableEcryptfs
+                  || config.security.pam.enableFscrypt
+                  || cfg.pamMount
+                  || cfg.enableKwallet
+                  || cfg.enableGnomeKeyring
+                  || cfg.googleAuthenticator.enable
+                  || cfg.gnupg.enable
+                  || cfg.failDelay.enable
+                  || cfg.duoSecurity.enable
                 )
-                (
-                  optionalString config.services.homed.enable ''
-                    auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
-                  ''
-                  + optionalString cfg.unixAuth ''
-                    auth optional pam_unix.so ${
-                      optionalString cfg.allowNullPassword "nullok"
-                    } ${optionalString cfg.nodelay "nodelay"} likeauth
-                  ''
-                  + optionalString config.security.pam.enableEcryptfs ''
-                    auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap
-                  ''
-                  + optionalString config.security.pam.enableFscrypt ''
-                    auth optional ${pkgs.fscrypt-experimental}/lib/security/pam_fscrypt.so
-                  ''
-                  + optionalString cfg.pamMount ''
-                    auth optional ${pkgs.pam_mount}/lib/security/pam_mount.so disable_interactive
-                  ''
-                  + optionalString cfg.enableKwallet ''
-                    auth optional ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so kwalletd=${pkgs.plasma5Packages.kwallet.bin}/bin/kwalletd5
-                  ''
-                  + optionalString cfg.enableGnomeKeyring ''
-                    auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-                  ''
-                  + optionalString cfg.gnupg.enable ''
-                    auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
-                      optionalString cfg.gnupg.storeOnly " store-only"
-                    }
-                  ''
-                  + optionalString cfg.failDelay.enable ''
-                    auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${
-                      toString cfg.failDelay.delay
-                    }
-                  ''
-                  + optionalString cfg.googleAuthenticator.enable ''
-                    auth required ${pkgs.google-authenticator}/lib/security/pam_google_authenticator.so no_increment_hotp
-                  ''
-                  + optionalString cfg.duoSecurity.enable ''
-                    auth required ${pkgs.duo-unix}/lib/security/pam_duo.so
-                  ''
-                )
+              )
+              (
+                optionalString config.services.homed.enable ''
+                  auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
+                ''
+                + optionalString cfg.unixAuth ''
+                  auth optional pam_unix.so ${
+                    optionalString cfg.allowNullPassword "nullok"
+                  } ${optionalString cfg.nodelay "nodelay"} likeauth
+                ''
+                + optionalString config.security.pam.enableEcryptfs ''
+                  auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap
+                ''
+                + optionalString config.security.pam.enableFscrypt ''
+                  auth optional ${pkgs.fscrypt-experimental}/lib/security/pam_fscrypt.so
+                ''
+                + optionalString cfg.pamMount ''
+                  auth optional ${pkgs.pam_mount}/lib/security/pam_mount.so disable_interactive
+                ''
+                + optionalString cfg.enableKwallet ''
+                  auth optional ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so kwalletd=${pkgs.plasma5Packages.kwallet.bin}/bin/kwalletd5
+                ''
+                + optionalString cfg.enableGnomeKeyring ''
+                  auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
+                ''
+                + optionalString cfg.gnupg.enable ''
+                  auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
+                    optionalString cfg.gnupg.storeOnly " store-only"
+                  }
+                ''
+                + optionalString cfg.failDelay.enable ''
+                  auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${
+                    toString cfg.failDelay.delay
+                  }
+                ''
+                + optionalString cfg.googleAuthenticator.enable ''
+                  auth required ${pkgs.google-authenticator}/lib/security/pam_google_authenticator.so no_increment_hotp
+                ''
+                + optionalString cfg.duoSecurity.enable ''
+                  auth required ${pkgs.duo-unix}/lib/security/pam_duo.so
+                ''
+              )
             )
           + optionalString config.services.homed.enable ''
             auth sufficient ${config.systemd.package}/lib/security/pam_systemd_home.so
@@ -971,19 +970,18 @@ in
 {
 
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "security"
-          "pam"
-          "enableU2F"
-        ]
-        [
-          "security"
-          "pam"
-          "u2f"
-          "enable"
-        ]
+    (mkRenamedOptionModule
+      [
+        "security"
+        "pam"
+        "enableU2F"
+      ]
+      [
+        "security"
+        "pam"
+        "u2f"
+        "enable"
+      ]
     )
   ];
 

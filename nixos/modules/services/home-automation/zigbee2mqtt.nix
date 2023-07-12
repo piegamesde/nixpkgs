@@ -22,18 +22,17 @@ in
   imports =
     [
       # Remove warning before the 21.11 release
-      (
-        mkRenamedOptionModule
-          [
-            "services"
-            "zigbee2mqtt"
-            "config"
-          ]
-          [
-            "services"
-            "zigbee2mqtt"
-            "settings"
-          ]
+      (mkRenamedOptionModule
+        [
+          "services"
+          "zigbee2mqtt"
+          "config"
+        ]
+        [
+          "services"
+          "zigbee2mqtt"
+          "settings"
+        ]
       )
     ];
 

@@ -213,9 +213,8 @@ let
 
     buildInputs =
       [
-        (
-          libpng.override
-            { apngSupport = false; }
+        (libpng.override
+          { apngSupport = false; }
         ) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
         bzip2
         flac

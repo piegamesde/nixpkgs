@@ -229,32 +229,29 @@ in
     };
   };
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "usbguard"
-          "ruleFile"
-        ]
-        "The usbguard module now uses ${defaultRuleFile} as ruleFile. Alternatively, use services.usbguard.rules to configure rules."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "usbguard"
+        "ruleFile"
+      ]
+      "The usbguard module now uses ${defaultRuleFile} as ruleFile. Alternatively, use services.usbguard.rules to configure rules."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "usbguard"
-          "IPCAccessControlFiles"
-        ]
-        "The usbguard module now hardcodes IPCAccessControlFiles to /var/lib/usbguard/IPCAccessControl.d."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "usbguard"
+        "IPCAccessControlFiles"
+      ]
+      "The usbguard module now hardcodes IPCAccessControlFiles to /var/lib/usbguard/IPCAccessControl.d."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "usbguard"
-          "auditFilePath"
-        ]
-        "Removed usbguard module audit log files. Audit logs can be found in the systemd journal."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "usbguard"
+        "auditFilePath"
+      ]
+      "Removed usbguard module audit log files. Audit logs can be found in the systemd journal."
     )
   ];
 }

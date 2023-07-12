@@ -26,9 +26,8 @@
 
 let
   upstream-info =
-    (
-      lib.importJSON
-        ../../../../applications/networking/browsers/chromium/upstream-info.json
+    (lib.importJSON
+      ../../../../applications/networking/browsers/chromium/upstream-info.json
     ).stable.chromedriver;
   allSpecs = {
     x86_64-linux = {
@@ -49,9 +48,8 @@ let
 
   spec =
     allSpecs.${stdenv.hostPlatform.system}
-      or (
-        throw
-          "missing chromedriver binary for ${stdenv.hostPlatform.system}"
+      or (throw
+        "missing chromedriver binary for ${stdenv.hostPlatform.system}"
       );
 
   libs = lib.makeLibraryPath [

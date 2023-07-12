@@ -16,18 +16,17 @@ let
 in
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "yggdrasil"
-          "config"
-        ]
-        [
-          "services"
-          "yggdrasil"
-          "settings"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "yggdrasil"
+        "config"
+      ]
+      [
+        "services"
+        "yggdrasil"
+        "settings"
+      ]
     )
   ];
 
@@ -190,8 +189,8 @@ in
               "echo "
 
               + (lib.optionalString settingsProvided "'${
-                    builtins.toJSON cfg.settings
-                  }'")
+                  builtins.toJSON cfg.settings
+                }'")
               + (lib.optionalString configFileProvided ''
                 $(${binHjson} -c "$CREDENTIALS_DIRECTORY/yggdrasil.conf")'')
               + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")

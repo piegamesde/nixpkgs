@@ -16,20 +16,19 @@ with lib;
   imports =
     [
       # Added 2021-05-07
-      (
-        mkRenamedOptionModule
-          [
-            "services"
-            "gnome3"
-            "gnome-user-share"
-            "enable"
-          ]
-          [
-            "services"
-            "gnome"
-            "gnome-user-share"
-            "enable"
-          ]
+      (mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "gnome-user-share"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "gnome-user-share"
+          "enable"
+        ]
       )
     ];
 

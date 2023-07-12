@@ -301,12 +301,11 @@ in
             ;
             innerElementsForVirtualHost =
               virtualHost:
-              (
-                map
-                  (alias: ''
-                    <Alias>${alias}</Alias>
-                  '')
-                  virtualHost.aliases
+              (map
+                (alias: ''
+                  <Alias>${alias}</Alias>
+                '')
+                virtualHost.aliases
               )
               ++ (optional cfg.logPerVirtualHost ''
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"

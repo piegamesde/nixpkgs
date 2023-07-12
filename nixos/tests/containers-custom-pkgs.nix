@@ -30,9 +30,8 @@ import ./make-test-python.nix (
         assertions =
           let
             helloName =
-              (
-                builtins.head
-                  config.containers.test.config.system.extraDependencies
+              (builtins.head
+                config.containers.test.config.system.extraDependencies
               ).name;
           in
           [ {

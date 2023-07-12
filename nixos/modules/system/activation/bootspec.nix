@@ -73,17 +73,16 @@ let
           specialisationInjector =
             let
               specialisationLoader =
-                (
-                  lib.mapAttrsToList
-                    (
-                      childName: childToplevel:
-                      lib.escapeShellArgs [
-                        "--slurpfile"
-                        childName
-                        "${childToplevel}/${filename}"
-                      ]
-                    )
-                    children
+                (lib.mapAttrsToList
+                  (
+                    childName: childToplevel:
+                    lib.escapeShellArgs [
+                      "--slurpfile"
+                      childName
+                      "${childToplevel}/${filename}"
+                    ]
+                  )
+                  children
                 );
             in
             lib.escapeShellArgs [

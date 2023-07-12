@@ -83,23 +83,21 @@ in
 
 {
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "samba"
-          "defaultShare"
-        ]
-        ""
+    (mkRemovedOptionModule
+      [
+        "services"
+        "samba"
+        "defaultShare"
+      ]
+      ""
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "samba"
-          "syncPasswordsByPam"
-        ]
-        "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "samba"
+        "syncPasswordsByPam"
+      ]
+      "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10"
     )
   ];
 

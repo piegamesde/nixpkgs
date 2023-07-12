@@ -925,136 +925,126 @@ in
   };
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "security"
-          "acme"
-          "production"
-        ]
-        ''
-          Use security.acme.server to define your staging ACME server URL instead.
+    (mkRemovedOptionModule
+      [
+        "security"
+        "acme"
+        "production"
+      ]
+      ''
+        Use security.acme.server to define your staging ACME server URL instead.
 
-          To use the let's encrypt staging server, use security.acme.server =
-          "https://acme-staging-v02.api.letsencrypt.org/directory".
-        ''
+        To use the let's encrypt staging server, use security.acme.server =
+        "https://acme-staging-v02.api.letsencrypt.org/directory".
+      ''
     )
-    (
-      mkRemovedOptionModule
-        [
-          "security"
-          "acme"
-          "directory"
-        ]
-        "ACME Directory is now hardcoded to /var/lib/acme and its permissions are managed by systemd. See https://github.com/NixOS/nixpkgs/issues/53852 for more info."
+    (mkRemovedOptionModule
+      [
+        "security"
+        "acme"
+        "directory"
+      ]
+      "ACME Directory is now hardcoded to /var/lib/acme and its permissions are managed by systemd. See https://github.com/NixOS/nixpkgs/issues/53852 for more info."
     )
-    (
-      mkRemovedOptionModule
-        [
-          "security"
-          "acme"
-          "preDelay"
-        ]
-        "This option has been removed. If you want to make sure that something executes before certificates are provisioned, add a RequiredBy=acme-\${cert}.service to the service you want to execute before the cert renewal"
+    (mkRemovedOptionModule
+      [
+        "security"
+        "acme"
+        "preDelay"
+      ]
+      "This option has been removed. If you want to make sure that something executes before certificates are provisioned, add a RequiredBy=acme-\${cert}.service to the service you want to execute before the cert renewal"
     )
-    (
-      mkRemovedOptionModule
-        [
-          "security"
-          "acme"
-          "activationDelay"
-        ]
-        "This option has been removed. If you want to make sure that something executes before certificates are provisioned, add a RequiredBy=acme-\${cert}.service to the service you want to execute before the cert renewal"
+    (mkRemovedOptionModule
+      [
+        "security"
+        "acme"
+        "activationDelay"
+      ]
+      "This option has been removed. If you want to make sure that something executes before certificates are provisioned, add a RequiredBy=acme-\${cert}.service to the service you want to execute before the cert renewal"
     )
-    (
-      mkChangedOptionModule
-        [
-          "security"
-          "acme"
-          "validMin"
-        ]
-        [
-          "security"
-          "acme"
-          "defaults"
-          "validMinDays"
-        ]
-        (config: config.security.acme.validMin / (24 * 3600))
+    (mkChangedOptionModule
+      [
+        "security"
+        "acme"
+        "validMin"
+      ]
+      [
+        "security"
+        "acme"
+        "defaults"
+        "validMinDays"
+      ]
+      (config: config.security.acme.validMin / (24 * 3600))
     )
-    (
-      mkChangedOptionModule
-        [
-          "security"
-          "acme"
-          "validMinDays"
-        ]
-        [
-          "security"
-          "acme"
-          "defaults"
-          "validMinDays"
-        ]
-        (config: config.security.acme.validMinDays)
+    (mkChangedOptionModule
+      [
+        "security"
+        "acme"
+        "validMinDays"
+      ]
+      [
+        "security"
+        "acme"
+        "defaults"
+        "validMinDays"
+      ]
+      (config: config.security.acme.validMinDays)
     )
-    (
-      mkChangedOptionModule
-        [
-          "security"
-          "acme"
-          "renewInterval"
-        ]
-        [
-          "security"
-          "acme"
-          "defaults"
-          "renewInterval"
-        ]
-        (config: config.security.acme.renewInterval)
+    (mkChangedOptionModule
+      [
+        "security"
+        "acme"
+        "renewInterval"
+      ]
+      [
+        "security"
+        "acme"
+        "defaults"
+        "renewInterval"
+      ]
+      (config: config.security.acme.renewInterval)
     )
-    (
-      mkChangedOptionModule
-        [
-          "security"
-          "acme"
-          "email"
-        ]
-        [
-          "security"
-          "acme"
-          "defaults"
-          "email"
-        ]
-        (config: config.security.acme.email)
+    (mkChangedOptionModule
+      [
+        "security"
+        "acme"
+        "email"
+      ]
+      [
+        "security"
+        "acme"
+        "defaults"
+        "email"
+      ]
+      (config: config.security.acme.email)
     )
-    (
-      mkChangedOptionModule
-        [
-          "security"
-          "acme"
-          "server"
-        ]
-        [
-          "security"
-          "acme"
-          "defaults"
-          "server"
-        ]
-        (config: config.security.acme.server)
+    (mkChangedOptionModule
+      [
+        "security"
+        "acme"
+        "server"
+      ]
+      [
+        "security"
+        "acme"
+        "defaults"
+        "server"
+      ]
+      (config: config.security.acme.server)
     )
-    (
-      mkChangedOptionModule
-        [
-          "security"
-          "acme"
-          "enableDebugLogs"
-        ]
-        [
-          "security"
-          "acme"
-          "defaults"
-          "enableDebugLogs"
-        ]
-        (config: config.security.acme.enableDebugLogs)
+    (mkChangedOptionModule
+      [
+        "security"
+        "acme"
+        "enableDebugLogs"
+      ]
+      [
+        "security"
+        "acme"
+        "defaults"
+        "enableDebugLogs"
+      ]
+      (config: config.security.acme.enableDebugLogs)
     )
   ];
 
@@ -1179,21 +1169,20 @@ in
 
       systemd.services = {
         "acme-fixperms" = userMigrationService;
-      } // (
-        mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
-          certConfigs
+      } // (mapAttrs'
+        (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
+        certConfigs
       ) // (optionalAttrs (cfg.preliminarySelfsigned) (
-          {
-            "acme-selfsigned-ca" = selfsignCAService;
-          } // (
-            mapAttrs'
-              (
-                cert: conf:
-                nameValuePair "acme-selfsigned-${cert}" conf.selfsignService
-              )
-              certConfigs
+        {
+          "acme-selfsigned-ca" = selfsignCAService;
+        } // (mapAttrs'
+          (
+            cert: conf:
+            nameValuePair "acme-selfsigned-${cert}" conf.selfsignService
           )
-        ));
+          certConfigs
+        )
+      ));
 
       systemd.timers =
         mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)

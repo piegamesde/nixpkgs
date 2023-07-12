@@ -16,20 +16,19 @@ with lib;
   imports =
     [
       # Added 2021-05-07
-      (
-        mkRenamedOptionModule
-          [
-            "services"
-            "gnome3"
-            "tracker-miners"
-            "enable"
-          ]
-          [
-            "services"
-            "gnome"
-            "tracker-miners"
-            "enable"
-          ]
+      (mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "tracker-miners"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "tracker-miners"
+          "enable"
+        ]
       )
     ];
 

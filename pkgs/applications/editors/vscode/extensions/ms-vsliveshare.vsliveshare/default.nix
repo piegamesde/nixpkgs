@@ -38,17 +38,15 @@ let
     util-linux # libuuid
   ];
 in
-(
-  (vscode-utils.override { stdenv = gccStdenv; })
-  .buildVscodeMarketplaceExtension
-    {
-      mktplcRef = {
-        name = "vsliveshare";
-        publisher = "ms-vsliveshare";
-        version = "1.0.5834";
-        sha256 = "sha256-+KfivY8W1VtUxhdXuUKI5e1elo6Ert1Tsf4xVXsKB3Y=";
-      };
-    }
+((vscode-utils.override { stdenv = gccStdenv; }).buildVscodeMarketplaceExtension
+  {
+    mktplcRef = {
+      name = "vsliveshare";
+      publisher = "ms-vsliveshare";
+      version = "1.0.5834";
+      sha256 = "sha256-+KfivY8W1VtUxhdXuUKI5e1elo6Ert1Tsf4xVXsKB3Y=";
+    };
+  }
 ).overrideAttrs
   (
     {

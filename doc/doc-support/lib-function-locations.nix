@@ -82,27 +82,26 @@ let
 
   urlPrefix = "https://github.com/NixOS/nixpkgs/blob/${revision}";
   xmlstrings =
-    (
-      nixpkgsLib.strings.concatMapStrings
-        (
-          {
-            name,
-            value,
-          }:
-          ''
-            <section><title>${name}</title>
-              <para xml:id="${sanitizeId name}">
-              Located at
-              <link
-                xlink:href="${urlPrefix}/${value.file}#L${
-                  builtins.toString value.line
-                }">${value.file}:${builtins.toString value.line}</link>
-              in  <literal>&lt;nixpkgs&gt;</literal>.
-              </para>
-              </section>
-          ''
-        )
-        relativeLocs
+    (nixpkgsLib.strings.concatMapStrings
+      (
+        {
+          name,
+          value,
+        }:
+        ''
+          <section><title>${name}</title>
+            <para xml:id="${sanitizeId name}">
+            Located at
+            <link
+              xlink:href="${urlPrefix}/${value.file}#L${
+                builtins.toString value.line
+              }">${value.file}:${builtins.toString value.line}</link>
+            in  <literal>&lt;nixpkgs&gt;</literal>.
+            </para>
+            </section>
+        ''
+      )
+      relativeLocs
     );
 in
 pkgs.writeText "locations.xml" ''

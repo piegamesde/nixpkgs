@@ -64,29 +64,26 @@ let
           ]
         ));
       mkRepoRubyArguments = lib.lists.flatten [
-        (
-          builtins.map
-            (package: [
-              "--packages"
-              "${package}"
-            ])
-            packages
+        (builtins.map
+          (package: [
+            "--packages"
+            "${package}"
+          ])
+          packages
         )
-        (
-          builtins.map
-            (image: [
-              "--images"
-              "${image}"
-            ])
-            images
+        (builtins.map
+          (image: [
+            "--images"
+            "${image}"
+          ])
+          images
         )
-        (
-          builtins.map
-            (addon: [
-              "--addons"
-              "${addon}"
-            ])
-            addons
+        (builtins.map
+          (addon: [
+            "--addons"
+            "${addon}"
+          ])
+          addons
         )
       ];
     in

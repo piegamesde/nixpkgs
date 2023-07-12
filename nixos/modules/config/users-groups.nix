@@ -382,14 +382,13 @@ let
         (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
           hashedPassword = mkDefault config.initialHashedPassword;
         })
-        (
-          mkIf
-            (
-              config.isNormalUser
-              && config.subUidRanges == [ ]
-              && config.subGidRanges == [ ]
-            )
-            { autoSubUidGidRange = mkDefault true; }
+        (mkIf
+          (
+            config.isNormalUser
+            && config.subUidRanges == [ ]
+            && config.subGidRanges == [ ]
+          )
+          { autoSubUidGidRange = mkDefault true; }
         )
       ];
     }
@@ -478,42 +477,41 @@ let
 
   idsAreUnique =
     set: idAttr:
-    !(
-      foldr
-        (
-          name:
-          args@{
-            dup,
-            acc,
-          }:
-          let
-            id = builtins.toString (
-              builtins.getAttr idAttr (builtins.getAttr name set)
-            );
-            exists = builtins.hasAttr id acc;
-            newAcc = acc // (builtins.listToAttrs [ {
-              name = id;
-              value = true;
-            } ]);
-          in
-          if dup then
-            args
-          else if exists then
-            builtins.trace "Duplicate ${idAttr} ${id}" {
-              dup = true;
-              acc = null;
-            }
-          else
-            {
-              dup = false;
-              acc = newAcc;
-            }
-        )
-        {
-          dup = false;
-          acc = { };
-        }
-        (builtins.attrNames set)
+    !(foldr
+      (
+        name:
+        args@{
+          dup,
+          acc,
+        }:
+        let
+          id = builtins.toString (
+            builtins.getAttr idAttr (builtins.getAttr name set)
+          );
+          exists = builtins.hasAttr id acc;
+          newAcc = acc // (builtins.listToAttrs [ {
+            name = id;
+            value = true;
+          } ]);
+        in
+        if dup then
+          args
+        else if exists then
+          builtins.trace "Duplicate ${idAttr} ${id}" {
+            dup = true;
+            acc = null;
+          }
+        else
+          {
+            dup = false;
+            acc = newAcc;
+          }
+      )
+      {
+        dup = false;
+        acc = { };
+      }
+      (builtins.attrNames set)
     ).dup
   ;
 
@@ -577,40 +575,37 @@ let
 in
 {
   imports = [
-    (
-      mkAliasOptionModuleMD
-        [
-          "users"
-          "extraUsers"
-        ]
-        [
-          "users"
-          "users"
-        ]
+    (mkAliasOptionModuleMD
+      [
+        "users"
+        "extraUsers"
+      ]
+      [
+        "users"
+        "users"
+      ]
     )
-    (
-      mkAliasOptionModuleMD
-        [
-          "users"
-          "extraGroups"
-        ]
-        [
-          "users"
-          "groups"
-        ]
+    (mkAliasOptionModuleMD
+      [
+        "users"
+        "extraGroups"
+      ]
+      [
+        "users"
+        "groups"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "security"
-          "initialRootPassword"
-        ]
-        [
-          "users"
-          "users"
-          "root"
-          "initialHashedPassword"
-        ]
+    (mkRenamedOptionModule
+      [
+        "security"
+        "initialRootPassword"
+      ]
+      [
+        "users"
+        "users"
+        "root"
+        "initialHashedPassword"
+      ]
     )
   ];
 
@@ -1043,26 +1038,25 @@ in
                 '';
               }
             ]
-            ++ (
-              map
-                (shell: {
-                  assertion =
-                    (user.shell == pkgs.${shell})
-                    -> (config.programs.${shell}.enable == true)
-                  ;
-                  message = ''
-                    users.users.${user.name}.shell is set to ${shell}, but
-                    programs.${shell}.enable is not true. This will cause the ${shell}
-                    shell to lack the basic nix directories in its PATH and might make
-                    logging in as that user impossible. You can fix it with:
-                    programs.${shell}.enable = true;
-                  '';
-                })
-                [
-                  "fish"
-                  "xonsh"
-                  "zsh"
-                ]
+            ++ (map
+              (shell: {
+                assertion =
+                  (user.shell == pkgs.${shell})
+                  -> (config.programs.${shell}.enable == true)
+                ;
+                message = ''
+                  users.users.${user.name}.shell is set to ${shell}, but
+                  programs.${shell}.enable is not true. This will cause the ${shell}
+                  shell to lack the basic nix directories in its PATH and might make
+                  logging in as that user impossible. You can fix it with:
+                  programs.${shell}.enable = true;
+                '';
+              })
+              [
+                "fish"
+                "xonsh"
+                "zsh"
+              ]
             )
           )
         )

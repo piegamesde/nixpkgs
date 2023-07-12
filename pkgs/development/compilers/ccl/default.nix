@@ -42,9 +42,8 @@ let
   };
   cfg =
     options.${stdenv.hostPlatform.system}
-      or (
-        throw
-          "missing source url for platform ${stdenv.hostPlatform.system}"
+      or (throw
+        "missing source url for platform ${stdenv.hostPlatform.system}"
       );
 
   # The 1.12 github release of CCL seems to be missing the usual

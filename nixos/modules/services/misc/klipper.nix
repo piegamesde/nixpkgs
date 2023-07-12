@@ -163,13 +163,12 @@ in
               (
                 mcu: _:
                 mcu != null
-                -> (
-                  hasAttrByPath
-                    [
-                      "${mcu}"
-                      "serial"
-                    ]
-                    cfg.settings
+                -> (hasAttrByPath
+                  [
+                    "${mcu}"
+                    "serial"
+                  ]
+                  cfg.settings
                 )
               )
               cfg.firmwares

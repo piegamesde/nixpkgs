@@ -20,12 +20,11 @@ let
 
   isNonEmpty =
     s:
-    (
-      builtins.match
-        ''
-          [ 	
-          ]*''
-        s
+    (builtins.match
+      ''
+        [ 	
+        ]*''
+      s
     ) == null
   ;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;

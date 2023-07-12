@@ -1058,16 +1058,15 @@ in
               inherit (cfg) group;
             };
           })
-          (
-            lib.attrsets.setAttrByPath
-              [
-                cfg.user
-                "packages"
-              ]
-              [
-                cfg.package
-                pkgs.imagemagick
-              ]
+          (lib.attrsets.setAttrByPath
+            [
+              cfg.user
+              "packages"
+            ]
+            [
+              cfg.package
+              pkgs.imagemagick
+            ]
           )
         ];
 

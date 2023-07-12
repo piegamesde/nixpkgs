@@ -587,17 +587,16 @@ in
 
   imports =
     [
-      (
-        mkRemovedOptionModule
-          [
-            "services"
-            "syncthing"
-            "useInotify"
-          ]
-          ''
-            This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
-            It can be enabled on a per-folder basis through the web interface.
-          ''
+      (mkRemovedOptionModule
+        [
+          "services"
+          "syncthing"
+          "useInotify"
+        ]
+        ''
+          This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
+          It can be enabled on a per-folder basis through the web interface.
+        ''
       )
     ]
     ++

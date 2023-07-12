@@ -468,10 +468,9 @@ let
      ${updateImpl} print-all-grammars-nix-file "$(< ${
        jsonFile "all-grammars.json" {
          allGrammars =
-           (
-             lib.mapAttrsToList
-               (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; })
-               allGrammars
+           (lib.mapAttrsToList
+             (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; })
+             allGrammars
            );
          inherit outputDir;
        }

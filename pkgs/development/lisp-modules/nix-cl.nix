@@ -230,16 +230,15 @@ let
             mkSystemsRegex =
               systems:
               concatMapStringsSep "\\|"
-                (
-                  replaceStrings
-                    [
-                      "."
-                      "+"
-                    ]
-                    [
-                      "[.]"
-                      "[+]"
-                    ]
+                (replaceStrings
+                  [
+                    "."
+                    "+"
+                  ]
+                  [
+                    "[.]"
+                    "[+]"
+                  ]
                 )
                 systems
             ;

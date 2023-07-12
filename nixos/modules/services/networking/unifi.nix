@@ -214,27 +214,25 @@ in
     };
   };
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "unifi"
-          "dataDir"
-        ]
-        "You should move contents of dataDir to /var/lib/unifi/data"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "unifi"
+        "dataDir"
+      ]
+      "You should move contents of dataDir to /var/lib/unifi/data"
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "unifi"
-          "openPorts"
-        ]
-        [
-          "services"
-          "unifi"
-          "openFirewall"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "unifi"
+        "openPorts"
+      ]
+      [
+        "services"
+        "unifi"
+        "openFirewall"
+      ]
     )
   ];
 

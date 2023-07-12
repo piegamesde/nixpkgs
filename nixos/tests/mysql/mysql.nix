@@ -174,7 +174,7 @@ lib.mapAttrs
       useSocketAuth = false;
     }
   )
-  mysqlPackages // (
-  lib.mapAttrs (_: package: makeMySQLTest { inherit package; })
-    mariadbPackages
+  mysqlPackages
+// (lib.mapAttrs (_: package: makeMySQLTest { inherit package; })
+  mariadbPackages
 )

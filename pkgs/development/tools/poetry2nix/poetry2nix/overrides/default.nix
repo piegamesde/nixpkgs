@@ -245,10 +245,9 @@ lib.composeManyExtensions [
               "4.0.0" = "sha256-HvfRLyUhlXVuvxWrtSDKx3rMKJbjvuiMcDY6g+pYFS0=";
               "4.0.1" = "sha256-lDWX69YENZFMu7pyBmavUZaalGvFqbHSHfkwkzmDQaY=";
             }
-            .${version} or (
-              lib.warn
-                "Unknown bcrypt version: '${version}'. Please update getCargoHash."
-                lib.fakeHash
+            .${version} or (lib.warn
+              "Unknown bcrypt version: '${version}'. Please update getCargoHash."
+              lib.fakeHash
             )
           ;
         in
@@ -469,10 +468,9 @@ lib.composeManyExtensions [
               "40.0.0" = "sha256-/TBANavYria9YrBpMgjtFyqg5feBcloETcYJ8fdBgkI=";
               "40.0.1" = "sha256-gFfDTc2QWBWHBCycVH1dYlCsWQMVcRZfOBIau+njtDU=";
             }
-            .${version} or (
-              lib.warn
-                "Unknown cryptography version: '${version}'. Please update getCargoHash."
-                lib.fakeHash
+            .${version} or (lib.warn
+              "Unknown cryptography version: '${version}'. Please update getCargoHash."
+              lib.fakeHash
             )
           ;
           sha256 = getCargoHash super.cryptography.version;
@@ -2005,10 +2003,9 @@ lib.composeManyExtensions [
               "3.8.7" = "sha256-JBO8nl0sC+XIn17vI7hC8+nA1HYI9jfvZrl9nCE3k1s=";
               "3.8.8" = "sha256-AK4HtqPKg2O2FeLHCbY9o+N1BV4QFMNaHVE1NaFYHa4=";
             }
-            .${version} or (
-              lib.warn
-                "Unknown orjson version: '${version}'. Please update getCargoHash."
-                lib.fakeHash
+            .${version} or (lib.warn
+              "Unknown orjson version: '${version}'. Please update getCargoHash."
+              lib.fakeHash
             )
           ;
         in
@@ -3332,10 +3329,9 @@ lib.composeManyExtensions [
       # Stop infinite recursion by using bootstrapped pkg from nixpkgs
       bootstrapped-pip = super.bootstrapped-pip.override {
         wheel =
-          (
-            (if self.python.isPy2 then pkgs.python2 else pkgs.python3)
-            .pkgs.override
-              { python = self.python; }
+          ((if self.python.isPy2 then pkgs.python2 else pkgs.python3)
+          .pkgs.override
+            { python = self.python; }
           ).wheel;
       };
 

@@ -622,63 +622,59 @@ in
   };
 
   imports = [
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "desktopManagerHandlesLidAndPower"
-        ]
-        "The option is no longer necessary because all display managers have already delegated lid management to systemd."
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "desktopManagerHandlesLidAndPower"
+      ]
+      "The option is no longer necessary because all display managers have already delegated lid management to systemd."
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "job"
-          "logsXsession"
-        ]
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "job"
-          "logToFile"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "job"
+        "logsXsession"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "job"
+        "logToFile"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "logToJournal"
-        ]
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "job"
-          "logToJournal"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "logToJournal"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "job"
+        "logToJournal"
+      ]
     )
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "extraSessionFilesPackages"
-        ]
-        [
-          "services"
-          "xserver"
-          "displayManager"
-          "sessionPackages"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "extraSessionFilesPackages"
+      ]
+      [
+        "services"
+        "xserver"
+        "displayManager"
+        "sessionPackages"
+      ]
     )
   ];
 }

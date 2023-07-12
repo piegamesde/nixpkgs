@@ -43,18 +43,17 @@ in
   );
 
   inherit
-    (
-      lib.genAttrs
-        [
-          "epgtableid0"
-          "hello"
-          "osddemo"
-          "pictures"
-          "servicedemo"
-          "status"
-          "svdrpdemo"
-        ]
-        mkPlugin
+    (lib.genAttrs
+      [
+        "epgtableid0"
+        "hello"
+        "osddemo"
+        "pictures"
+        "servicedemo"
+        "status"
+        "svdrpdemo"
+      ]
+      mkPlugin
     )
   ;
 

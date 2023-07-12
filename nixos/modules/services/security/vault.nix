@@ -51,13 +51,12 @@ let
     ++
       lib.optional (cfg.dev && cfg.devRootTokenID != null)
         "-dev-root-token-id=${cfg.devRootTokenID}"
-    ++ (
-      concatMap
-        (p: [
-          "-config"
-          p
-        ])
-        allConfigPaths
+    ++ (concatMap
+      (p: [
+        "-config"
+        p
+      ])
+      allConfigPaths
     )
   );
 in

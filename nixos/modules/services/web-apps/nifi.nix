@@ -364,16 +364,15 @@ in
           home = cfg.package;
         };
       })
-      (
-        lib.attrsets.setAttrByPath
-          [
-            cfg.user
-            "packages"
-          ]
-          [
-            cfg.package
-            nifiEnv
-          ]
+      (lib.attrsets.setAttrByPath
+        [
+          cfg.user
+          "packages"
+        ]
+        [
+          cfg.package
+          nifiEnv
+        ]
       )
     ];
 

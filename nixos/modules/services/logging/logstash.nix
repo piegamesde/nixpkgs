@@ -47,27 +47,25 @@ in
 
 {
   imports = [
-    (
-      mkRenamedOptionModule
-        [
-          "services"
-          "logstash"
-          "address"
-        ]
-        [
-          "services"
-          "logstash"
-          "listenAddress"
-        ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "logstash"
+        "address"
+      ]
+      [
+        "services"
+        "logstash"
+        "listenAddress"
+      ]
     )
-    (
-      mkRemovedOptionModule
-        [
-          "services"
-          "logstash"
-          "enableWeb"
-        ]
-        "The web interface was removed from logstash"
+    (mkRemovedOptionModule
+      [
+        "services"
+        "logstash"
+        "enableWeb"
+      ]
+      "The web interface was removed from logstash"
     )
   ];
 

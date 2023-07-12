@@ -14,13 +14,12 @@ in
 {
 
   imports = [
-    (
-      lib.mkRemovedOptionModule
-        [
-          "zramSwap"
-          "numDevices"
-        ]
-        "Using ZRAM devices as general purpose ephemeral block devices is no longer supported"
+    (lib.mkRemovedOptionModule
+      [
+        "zramSwap"
+        "numDevices"
+      ]
+      "Using ZRAM devices as general purpose ephemeral block devices is no longer supported"
     )
   ];
 
