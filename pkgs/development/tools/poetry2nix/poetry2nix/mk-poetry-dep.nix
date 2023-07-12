@@ -62,8 +62,7 @@ pythonPackages.callPackage
               version
             + ".*$"
           )
-          fname
-          != null
+          fname != null
           ;
         hasSupportedExtension =
           fname: builtins.match supportedRegex fname != null;

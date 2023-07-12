@@ -505,92 +505,79 @@ runTests {
 
   testToIntFails = testAllTrue [
     (
-      builtins.tryEval (toInt "")
-      == {
+      builtins.tryEval (toInt "") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt "123 123")
-      == {
+      builtins.tryEval (toInt "123 123") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt "0 123")
-      == {
+      builtins.tryEval (toInt "0 123") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt " 0d ")
-      == {
+      builtins.tryEval (toInt " 0d ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt " 1d ")
-      == {
+      builtins.tryEval (toInt " 1d ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt " d0 ")
-      == {
+      builtins.tryEval (toInt " d0 ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt "00")
-      == {
+      builtins.tryEval (toInt "00") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt "01")
-      == {
+      builtins.tryEval (toInt "01") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt "002")
-      == {
+      builtins.tryEval (toInt "002") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt " 002 ")
-      == {
+      builtins.tryEval (toInt " 002 ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt " foo ")
-      == {
+      builtins.tryEval (toInt " foo ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt " foo 123 ")
-      == {
+      builtins.tryEval (toInt " foo 123 ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toInt " foo123 ")
-      == {
+      builtins.tryEval (toInt " foo123 ") == {
         success = false;
         value = false;
       }
@@ -629,71 +616,61 @@ runTests {
 
   testToIntBase10Fails = testAllTrue [
     (
-      builtins.tryEval (toIntBase10 "")
-      == {
+      builtins.tryEval (toIntBase10 "") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 "123 123")
-      == {
+      builtins.tryEval (toIntBase10 "123 123") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 "0 123")
-      == {
+      builtins.tryEval (toIntBase10 "0 123") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 " 0d ")
-      == {
+      builtins.tryEval (toIntBase10 " 0d ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 " 1d ")
-      == {
+      builtins.tryEval (toIntBase10 " 1d ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 " d0 ")
-      == {
+      builtins.tryEval (toIntBase10 " d0 ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 " foo ")
-      == {
+      builtins.tryEval (toIntBase10 " foo ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 " foo 123 ")
-      == {
+      builtins.tryEval (toIntBase10 " foo 123 ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 " foo 00123 ")
-      == {
+      builtins.tryEval (toIntBase10 " foo 00123 ") == {
         success = false;
         value = false;
       }
     )
     (
-      builtins.tryEval (toIntBase10 " foo00123 ")
-      == {
+      builtins.tryEval (toIntBase10 " foo00123 ") == {
         success = false;
         value = false;
       }
@@ -748,27 +725,14 @@ runTests {
 
   testTake = testAllTrue [
     (
-      [ ]
-      == (take 0 [
+      [ ] == (take 0 [
         1
         2
         3
       ])
     )
     (
-      [ 1 ]
-      == (take 1 [
-        1
-        2
-        3
-      ])
-    )
-    (
-      [
-        1
-        2
-      ]
-      == (take 2 [
+      [ 1 ] == (take 1 [
         1
         2
         3
@@ -778,9 +742,7 @@ runTests {
       [
         1
         2
-        3
-      ]
-      == (take 3 [
+      ] == (take 2 [
         1
         2
         3
@@ -791,8 +753,18 @@ runTests {
         1
         2
         3
-      ]
-      == (take 4 [
+      ] == (take 3 [
+        1
+        2
+        3
+      ])
+    )
+    (
+      [
+        1
+        2
+        3
+      ] == (take 4 [
         1
         2
         3

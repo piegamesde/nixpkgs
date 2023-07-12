@@ -162,8 +162,7 @@ rec {
         )
         null
         null
-        scripts
-        != null
+        scripts != null
         ;
       validateFeatures =
         if hasCommitSupport then
@@ -203,8 +202,7 @@ rec {
             )
             scripts
           )
-        )
-        == 1
+        ) == 1
       )
       "Combining update scripts with different attr paths is currently unsupported.";
 

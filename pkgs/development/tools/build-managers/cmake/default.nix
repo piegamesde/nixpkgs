@@ -39,8 +39,7 @@ assert lib.subtractLists
     "ncurses"
     "qt5"
   ]
-  uiToolkits
-  == [ ];
+  uiToolkits == [ ];
 # Minimal, bootstrap cmake does not have toolkits
 assert isBootstrap -> (uiToolkits == [ ]);
 stdenv.mkDerivation rec {

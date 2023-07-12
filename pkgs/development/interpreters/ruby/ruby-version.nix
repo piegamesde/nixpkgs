@@ -15,8 +15,7 @@ let
           p = lib.removePrefix "p" tail;
           isPosInt =
             num:
-            0
-            == lib.stringLength (
+            0 == lib.stringLength (
               lib.replaceStrings
               [
                 "0"

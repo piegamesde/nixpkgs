@@ -239,8 +239,7 @@ let
           ++ propagatedBuildInputs
           ++ depsTargetTarget
           ++ depsTargetTargetPropagated
-        )
-        == 0
+        ) == 0
         ;
       dontAddHostSuffix =
         attrs ? outputHash && !noNonNativeDeps || !stdenv.hasCC;

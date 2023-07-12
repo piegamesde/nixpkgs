@@ -1600,8 +1600,7 @@ in
             mapAttrsToList
             (n: o: o.clientAuthorizations)
             cfg.client.onionServices
-          )
-          != [ ]
+          ) != [ ]
         )
         {
           ClientOnionAuthDir = runDir + "/ClientOnionAuthDir";

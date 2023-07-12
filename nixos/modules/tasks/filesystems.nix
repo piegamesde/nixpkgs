@@ -24,8 +24,7 @@ let
       ''
         [ 	
         ]*''
-      s)
-    == null
+      s) == null
     ;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;
 

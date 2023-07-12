@@ -271,8 +271,7 @@ assert x11Support
         libart_lgpl
       ]
       ++ xlibs
-    ))
-    == [ ];
+    )) == [ ];
 
 stdenv.mkDerivation (
   {

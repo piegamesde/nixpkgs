@@ -22,8 +22,7 @@ let
         "value"
       ]
       null
-      ex)
-    == "Swoosh.Adapters.SMTP"
+      ex) == "Swoosh.Adapters.SMTP"
     ;
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";

@@ -1350,8 +1350,7 @@ in
                 (onlySSL || enableSSL)
                 forceSSL
                 rejectSSL
-              ]
-              <= 1
+              ] <= 1
             )
             (attrValues virtualHosts);
           message = ''

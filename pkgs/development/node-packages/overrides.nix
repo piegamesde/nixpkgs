@@ -191,10 +191,9 @@ final: prev: {
       dependencies = builtins.filter
         (
           d:
-          d.packageName
-          != "@expo/traveling-fastlane-${
-              if stdenv.isLinux then "darwin" else "linux"
-            }"
+          d.packageName != "@expo/traveling-fastlane-${
+            if stdenv.isLinux then "darwin" else "linux"
+          }"
         )
         oldAttrs.dependencies;
     }

@@ -468,8 +468,7 @@ let
             ''
               [ 	
               ]*''
-            x
-            == null
+            x == null
           ;
         inherit (str) merge;
       };

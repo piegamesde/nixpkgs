@@ -76,8 +76,7 @@ assert !(
     opensslSupport
     wolfsslSupport
     rustlsSupport
-  ])
-  > 1
+  ]) > 1
 );
 
 stdenv.mkDerivation (

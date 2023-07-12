@@ -578,8 +578,7 @@ in
                                       (
                                         builtins.compareVersions
                                         kernelVersion
-                                        "5.8"
-                                        <= 0
+                                        "5.8" <= 0
                                       )
                                       -> config.privateNetwork
                                       -> stringLength name <= 11

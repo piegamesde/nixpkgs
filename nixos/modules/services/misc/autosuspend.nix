@@ -37,8 +37,7 @@ let
     class:
     (filterAttrs
       (n: v: v.enabled && (if v.class == null then n else v.class) == class)
-      cfg.checks)
-    != { }
+      cfg.checks) != { }
     ;
 
   # Dependencies needed by specific checks

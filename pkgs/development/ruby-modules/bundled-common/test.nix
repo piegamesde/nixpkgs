@@ -49,8 +49,7 @@ builtins.concatLists [
       inherit ruby;
       groups = [ "default" ];
     }
-    set
-    == { }
+    set == { }
   ))
   (
     let
@@ -73,8 +72,7 @@ builtins.concatLists [
           "z"
         ];
       }
-      set
-      == gemSet
+      set == gemSet
     )
   )
   (
@@ -88,8 +86,7 @@ builtins.concatLists [
         inherit ruby;
         groups = [ ];
       }
-      set
-      == gemSet
+      set == gemSet
     )
   )
   (
@@ -110,8 +107,7 @@ builtins.concatLists [
         inherit ruby;
         groups = [ ];
       }
-      set
-      == gemSet
+      set == gemSet
     )
   )
   (
@@ -135,8 +131,7 @@ builtins.concatLists [
           "b"
         ];
       }
-      set
-      == { }
+      set == { }
     )
   )
 ]
