@@ -255,7 +255,8 @@ in
         })
 
         (mkIf
-          (cfg.earlySetup
+          (
+            cfg.earlySetup
             && cfg.font != null
             && !config.boot.initrd.systemd.enable
           )

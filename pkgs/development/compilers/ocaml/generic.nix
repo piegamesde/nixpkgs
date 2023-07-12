@@ -130,7 +130,8 @@ stdenv.mkDerivation (
         (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
         "-no-shared-libs"
       ++ optionals
-        (stdenv.hostPlatform != stdenv.buildPlatform
+        (
+          stdenv.hostPlatform != stdenv.buildPlatform
           && lib.versionOlder version "4.08"
         )
         [
@@ -145,7 +146,8 @@ stdenv.mkDerivation (
     # does not exist. So, disable these configure flags on `aarch64-darwin`.
     # See #144785 for details.
     configurePlatforms = lib.optionals
-      (lib.versionAtLeast version "4.08"
+      (
+        lib.versionAtLeast version "4.08"
         && !(stdenv.isDarwin && stdenv.isAarch64)
       )
       [

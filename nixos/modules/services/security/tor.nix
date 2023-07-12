@@ -1512,7 +1512,8 @@ in
     # sends a lot of stats
     warnings =
       optional
-      (cfg.settings.BridgeRelay
+      (
+        cfg.settings.BridgeRelay
         && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ]
       )
       ''
@@ -1620,9 +1621,12 @@ in
           } ];
           AutomapHostsOnResolve = true;
         } // optionalAttrs
-        (flatten (
-          mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices
-        )
+        (
+          flatten (
+            mapAttrsToList
+            (n: o: o.clientAuthorizations)
+            cfg.client.onionServices
+          )
           != [ ]
         )
         {
@@ -1665,7 +1669,8 @@ in
         ExecStartPre = [
           "${cfg.package}/bin/tor -f ${torrc} --verify-config"
           # DOC: Appendix G of https://spec.torproject.org/rend-spec-v3
-          ("+"
+          (
+            "+"
             + pkgs.writeShellScript "ExecStartPre" (
               concatStringsSep "\n" (
                 flatten (

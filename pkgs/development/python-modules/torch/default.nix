@@ -157,7 +157,8 @@ let
   gpuArchWarner =
     supported: unsupported:
     trivial.throwIf (supported == [ ])
-    ("No supported GPU targets specified. Requested GPU targets: "
+    (
+      "No supported GPU targets specified. Requested GPU targets: "
       + strings.concatStringsSep ", " unsupported
     )
     supported
@@ -294,7 +295,8 @@ buildPythonPackage rec {
     # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     + lib.optionalString
-      (stdenv.isDarwin
+      (
+        stdenv.isDarwin
         && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0"
       )
       ''
@@ -378,7 +380,8 @@ buildPythonPackage rec {
   # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
   # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
   env.NIX_CFLAGS_COMPILE = toString (
-    (lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
+    (
+      lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
       # Suppress gcc regression: avx512 math function raises uninitialized variable warning
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939

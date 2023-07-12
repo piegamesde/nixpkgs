@@ -228,7 +228,8 @@ in
   ###### implementation
 
   config = mkIf
-    (cfg.client.enable
+    (
+      cfg.client.enable
       || cfg.master.enable
       || cfg.metalogger.enable
       || cfg.chunkserver.enable
@@ -270,10 +271,10 @@ in
 
       # Create system user account for daemons
       users = mkIf
-        (cfg.runAsUser
-          && (cfg.master.enable
-            || cfg.metalogger.enable
-            || cfg.chunkserver.enable
+        (
+          cfg.runAsUser
+          && (
+            cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable
           )
         )
         {

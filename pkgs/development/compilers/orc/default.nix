@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
 
   # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/41
   doCheck =
-    !(stdenv.isLinux
+    !(
+      stdenv.isLinux
       && stdenv.isAarch64
       && stdenv.cc.isGNU
       && lib.versionAtLeast stdenv.cc.version "12"

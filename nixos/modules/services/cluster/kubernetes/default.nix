@@ -330,7 +330,8 @@ in
     })
 
     (mkIf
-      (cfg.apiserver.enable
+      (
+        cfg.apiserver.enable
         || cfg.scheduler.enable
         || cfg.controllerManager.enable
         || cfg.kubelet.enable

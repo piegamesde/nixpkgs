@@ -62,7 +62,8 @@
 }:
 
 assert langJava
-  -> zip != null
+  ->
+    zip != null
     && unzip != null
     && zlib != null
     && boehmgc != null
@@ -317,13 +318,14 @@ in
 
 # We need all these X libraries when building AWT with GTK.
 assert x11Support
-  -> (filter (x: x == null) (
-    [
-      gtk2
-      libart_lgpl
-    ]
-    ++ xlibs
-  ))
+  ->
+    (filter (x: x == null) (
+      [
+        gtk2
+        libart_lgpl
+      ]
+      ++ xlibs
+    ))
     == [ ];
 
 stdenv.mkDerivation (
@@ -524,7 +526,8 @@ stdenv.mkDerivation (
   }
 
   // optionalAttrs
-  (targetPlatform != hostPlatform
+  (
+    targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
     && crossStageStatic
   )

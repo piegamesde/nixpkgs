@@ -261,7 +261,8 @@ in
         encryptionnonce = cfg.encryptionNonce;
         encryptionsecretboxkey = cfg.encryptionKey;
         force_ssl = mkIf
-          (cfg.virtualHost.addSSL
+          (
+            cfg.virtualHost.addSSL
             || cfg.virtualHost.forceSSL
             || cfg.virtualHost.onlySSL
           )

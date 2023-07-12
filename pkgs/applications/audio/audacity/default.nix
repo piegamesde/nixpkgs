@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
         --replace /usr/include/linux/magic.h ${linuxHeaders}/include/linux/magic.h
     ''
     + lib.optionalString
-      (stdenv.isDarwin
+      (
+        stdenv.isDarwin
         && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0"
       )
       ''

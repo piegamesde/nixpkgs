@@ -49,7 +49,8 @@ let
           in
           if
             srvMatch == null # Include sections shared by all services
-            || head srvMatch
+            ||
+              head srvMatch
               == srv # Include sections for the service being configured
           then
             v
@@ -1500,7 +1501,8 @@ in
                 in
                 # Configure client(s) as "preauthorized"
                 optionalString
-                (srvMatch != null
+                (
+                  srvMatch != null
                   && cfg.${srv}.enable
                   && ((s.oauth-client-id or null) != null)
                 )

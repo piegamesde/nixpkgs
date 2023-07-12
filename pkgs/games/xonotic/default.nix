@@ -124,9 +124,10 @@ let
     '';
 
     buildPhase =
-      (lib.optionalString withDedicated ''
-        make -j $NIX_BUILD_CORES sv-${target}
-      ''
+      (
+        lib.optionalString withDedicated ''
+          make -j $NIX_BUILD_CORES sv-${target}
+        ''
         + lib.optionalString withGLX ''
           make -j $NIX_BUILD_CORES cl-${target}
         ''

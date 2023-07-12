@@ -471,7 +471,8 @@ in
         in
         concatLists [
           (optional
-            (type == "oneshot"
+            (
+              type == "oneshot"
               && (restart == "always" || restart == "on-success")
             )
             "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'")

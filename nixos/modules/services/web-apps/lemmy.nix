@@ -167,7 +167,8 @@ in
     assertions = [ {
       assertion =
         cfg.database.createLocally
-        -> cfg.settings.database.host == "localhost"
+        ->
+          cfg.settings.database.host == "localhost"
           || cfg.settings.database.host == "/run/postgresql"
         ;
       message =

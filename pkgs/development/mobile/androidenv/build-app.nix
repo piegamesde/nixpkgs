@@ -20,7 +20,8 @@
 }@args:
 
 assert release
-  -> keyStore != null
+  ->
+    keyStore != null
     && keyAlias != null
     && keyStorePassword != null
     && keyAliasPassword != null;

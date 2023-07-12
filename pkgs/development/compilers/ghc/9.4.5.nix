@@ -29,7 +29,8 @@
   , # GHC can be built with system libffi or a bundled one.
   libffi ? null,
 
-  useLLVM ? !(stdenv.targetPlatform.isx86
+  useLLVM ? !(
+    stdenv.targetPlatform.isx86
     || stdenv.targetPlatform.isPower
     || stdenv.targetPlatform.isSparc
     || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
@@ -41,7 +42,8 @@
 
   , # If enabled, GHC will be built with the GPL-free but slightly slower native
   # bignum backend instead of the faster but GPLed gmp backend.
-  enableNativeBignum ? !(lib.meta.availableOn stdenv.hostPlatform gmp
+  enableNativeBignum ? !(
+    lib.meta.availableOn stdenv.hostPlatform gmp
     && lib.meta.availableOn stdenv.targetPlatform gmp
   ),
   gmp
@@ -225,7 +227,8 @@ let
   # see #84670 and #49071 for more background.
   useLdGold =
     targetPlatform.linker == "gold"
-    || (targetPlatform.linker == "bfd"
+    || (
+      targetPlatform.linker == "bfd"
       && (targetCC.bintools.bintools.hasGold or false)
       && !targetPlatform.isMusl
     )
@@ -398,7 +401,8 @@ stdenv.mkDerivation (
         "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
       ]
       ++ lib.optionals
-        (targetPlatform == hostPlatform
+        (
+          targetPlatform == hostPlatform
           && hostPlatform.libc != "glibc"
           && !targetPlatform.isWindows
         )

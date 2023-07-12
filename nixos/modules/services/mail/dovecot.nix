@@ -566,7 +566,8 @@ in
       {
         assertion =
           (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
-          && (cfg.sslCACert != null
+          && (
+            cfg.sslCACert != null
             -> !(cfg.sslServerCert == null || cfg.sslServerKey == null)
           )
           ;

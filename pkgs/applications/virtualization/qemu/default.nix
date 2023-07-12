@@ -96,7 +96,8 @@
   hostCpuOnly ? false,
   hostCpuTargets ? (
     if hostCpuOnly then
-      (lib.optional stdenv.isx86_64 "i386-softmmu"
+      (
+        lib.optional stdenv.isx86_64 "i386-softmmu"
         ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ]
       )
     else

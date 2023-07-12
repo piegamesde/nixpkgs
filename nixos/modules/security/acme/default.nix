@@ -432,7 +432,8 @@ let
             '')
             ;
         } // optionalAttrs
-          (data.listenHTTP != null
+          (
+            data.listenHTTP != null
             && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024
           )
           {

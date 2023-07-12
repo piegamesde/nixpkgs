@@ -326,7 +326,8 @@ in
       }
       {
         assertion =
-          !((builtins.hasAttr "Pinning" cfg.settings)
+          !(
+            (builtins.hasAttr "Pinning" cfg.settings)
             && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning)
           )
           ;

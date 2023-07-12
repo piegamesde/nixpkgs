@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
 
   # error: invalid version number in 'MACOSX_DEPLOYMENT_TARGET=11.0'
   preConfigure = lib.optionalString
-    (stdenv.isDarwin
+    (
+      stdenv.isDarwin
       && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
     )
     ''

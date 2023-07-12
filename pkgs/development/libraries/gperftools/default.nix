@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   # tcmalloc uses libunwind in a way that works correctly only on non-ARM dynamically linked linux
   buildInputs = lib.optional
-    (stdenv.isLinux
+    (
+      stdenv.isLinux
       && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic)
     )
     libunwind;

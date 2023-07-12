@@ -375,7 +375,8 @@ in
       };
     in
     mkIf
-    (cfg.enableStools
+    (
+      cfg.enableStools
       || cfg.client.enable
       || cfg.server.enable
       || cfg.dbdserver.enable

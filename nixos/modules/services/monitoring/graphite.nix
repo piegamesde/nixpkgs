@@ -393,7 +393,8 @@ in
     })
 
     (mkIf
-      (cfg.carbon.enableCache
+      (
+        cfg.carbon.enableCache
         || cfg.carbon.enableAggregator
         || cfg.carbon.enableRelay
       )
@@ -490,7 +491,8 @@ in
     })
 
     (mkIf
-      (cfg.carbon.enableCache
+      (
+        cfg.carbon.enableCache
         || cfg.carbon.enableAggregator
         || cfg.carbon.enableRelay
         || cfg.web.enable

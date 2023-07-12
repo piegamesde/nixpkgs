@@ -119,7 +119,8 @@ rec {
   */
   availableOn =
     platform: pkg:
-    ((!pkg ? meta.platforms)
+    (
+      (!pkg ? meta.platforms)
       || lib.any (platformMatch platform) pkg.meta.platforms
     )
     && lib.all (elem: !platformMatch platform elem) (

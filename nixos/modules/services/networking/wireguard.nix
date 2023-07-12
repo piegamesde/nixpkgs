@@ -553,7 +553,8 @@ let
 
         ${ipPreMove} link add dev "${name}" type wireguard
         ${optionalString
-        (values.interfaceNamespace != null
+        (
+          values.interfaceNamespace != null
           && values.interfaceNamespace != values.socketNamespace
         )
         ''${ipPreMove} link set "${name}" netns "${ns}"''}

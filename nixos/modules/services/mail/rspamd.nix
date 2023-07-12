@@ -182,7 +182,8 @@ let
         };
       };
       config = mkIf
-        (name == "normal"
+        (
+          name == "normal"
           || name == "controller"
           || name == "fuzzy"
           || name == "rspamd_proxy"

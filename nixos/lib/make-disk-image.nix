@@ -217,8 +217,10 @@ assert (lib.assertMsg
   (partitionTableType != "none" -> fsType == "ext4")
   "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4");
 assert (lib.assertMsg
-  (touchEFIVars
-    -> partitionTableType == "hybrid"
+  (
+    touchEFIVars
+    ->
+      partitionTableType == "hybrid"
       || partitionTableType == "efi"
       || partitionTableType == "legacy+gpt"
   )

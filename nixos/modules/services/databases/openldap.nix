@@ -371,7 +371,8 @@ in
               # directories with `declarativeContents`.
               assertion =
                 (olcDbDirectory != null)
-                -> ((hasPrefix "/var/lib/openldap/" olcDbDirectory)
+                -> (
+                  (hasPrefix "/var/lib/openldap/" olcDbDirectory)
                   && (olcDbDirectory != "/var/lib/openldap/")
                 )
                 ;

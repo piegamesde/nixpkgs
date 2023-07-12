@@ -46,7 +46,8 @@ let
       (
         feat: info:
         (lib.optionals
-          ((unwrapped.hasFeature feat)
+          (
+            (unwrapped.hasFeature feat)
             && (builtins.hasAttr "pythonRuntime" info)
           )
           info.pythonRuntime)
@@ -62,7 +63,8 @@ let
     [ ]
     # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals
-      ((unwrapped.hasFeature "gnuradio-companion")
+      (
+        (unwrapped.hasFeature "gnuradio-companion")
         || (unwrapped.hasFeature "gr-qtgui")
       )
       [

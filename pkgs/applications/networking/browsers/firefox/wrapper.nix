@@ -52,7 +52,8 @@ let
       pname ? applicationName,
       version ? lib.getVersion browser,
       desktopName ? # applicationName with first letter capitalized
-        (lib.toUpper (lib.substring 0 1 applicationName)
+        (
+          lib.toUpper (lib.substring 0 1 applicationName)
           + lib.substring 1 (-1) applicationName
         ),
       nameSuffix ? "",

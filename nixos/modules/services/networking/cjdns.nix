@@ -341,7 +341,8 @@ in
     assertions = [
       {
         assertion =
-          (cfg.ETHInterface.bind != ""
+          (
+            cfg.ETHInterface.bind != ""
             || cfg.UDPInterface.bind != ""
             || cfg.confFile != null
           );

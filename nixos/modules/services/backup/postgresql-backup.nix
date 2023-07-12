@@ -175,11 +175,13 @@ in
         {
           assertion =
             cfg.compression == "none"
-            || (cfg.compression == "gzip"
+            || (
+              cfg.compression == "gzip"
               && cfg.compressionLevel >= 1
               && cfg.compressionLevel <= 9
             )
-            || (cfg.compression == "zstd"
+            || (
+              cfg.compression == "zstd"
               && cfg.compressionLevel >= 1
               && cfg.compressionLevel <= 19
             )

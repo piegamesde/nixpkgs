@@ -18,7 +18,8 @@ assert langAda -> gnat-bootstrap != null;
 let
   needsLib =
     (lib.versionOlder version "7" && (langJava || langGo))
-    || (lib.versions.major version == "4"
+    || (
+      lib.versions.major version == "4"
       && lib.versions.minor version == "9"
       && targetPlatform.isDarwin
     )
@@ -52,7 +53,8 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # `gas`.
 #
 + lib.optionalString
-  (langAda
+  (
+    langAda
     && buildPlatform == hostPlatform
     && hostPlatform == targetPlatform
     && targetPlatform.isx86_64
@@ -107,7 +109,8 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # actually different we need to convince the configure script that it
 # is in fact building a cross compiler although it doesn't believe it.
 + lib.optionalString
-  (targetPlatform.config == hostPlatform.config
+  (
+    targetPlatform.config == hostPlatform.config
     && targetPlatform != hostPlatform
   )
   ''

@@ -145,7 +145,8 @@ in
       {
         assertion =
           cfg.settings != null
-          -> cfg.mutableSettings
+          ->
+            cfg.mutableSettings
             || (hasAttrByPath
               [
                 "dns"
@@ -165,7 +166,8 @@ in
       {
         assertion =
           cfg.settings != null
-          -> cfg.mutableSettings
+          ->
+            cfg.mutableSettings
             || hasAttrByPath
               [
                 "dns"

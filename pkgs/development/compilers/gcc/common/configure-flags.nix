@@ -137,7 +137,8 @@ let
             "--disable-libsanitizer"
           ]
         ++ lib.optional
-          (targetPlatform.libc == "newlib"
+          (
+            targetPlatform.libc == "newlib"
             || targetPlatform.libc == "newlib-nano"
           )
           "--with-newlib"

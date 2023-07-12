@@ -60,7 +60,8 @@ let
   gpuArchWarner =
     supported: unsupported:
     trivial.throwIf (supported == [ ])
-    ("No supported GPU targets specified. Requested GPU targets: "
+    (
+      "No supported GPU targets specified. Requested GPU targets: "
       + strings.concatStringsSep ", " unsupported
     )
     supported

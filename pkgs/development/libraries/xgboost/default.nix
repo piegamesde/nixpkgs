@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
       "-DCMAKE_CXX_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/g++"
     ]
     ++ lib.optionals
-      (cudaSupport
+      (
+        cudaSupport
         && lib.versionAtLeast cudaPackages.cudatoolkit.version "11.4.0"
       )
       [

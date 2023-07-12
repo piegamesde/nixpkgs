@@ -1170,8 +1170,8 @@ in
       {
         assertion =
           config.boot.initrd.systemd.enable
-          -> options.boot.initrd.luks.reusePassphrases.highestPrio
-            == defaultPrio
+          ->
+            options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio
           ;
         message =
           "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";

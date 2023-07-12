@@ -173,7 +173,8 @@ stdenv.mkDerivation rec {
         --replace "-F/System/Library/PrivateFrameworks" ""
     ''
     + lib.optionalString
-      (stdenv.isDarwin
+      (
+        stdenv.isDarwin
         && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
       )
       ''

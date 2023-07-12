@@ -69,7 +69,8 @@ stdenv.mkDerivation {
       "--disable-site-fndir"
     ]
     ++ lib.optionals
-      (stdenv.hostPlatform != stdenv.buildPlatform
+      (
+        stdenv.hostPlatform != stdenv.buildPlatform
         && !stdenv.hostPlatform.isStatic
       )
       [

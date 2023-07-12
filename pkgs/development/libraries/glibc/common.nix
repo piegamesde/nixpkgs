@@ -172,7 +172,8 @@ stdenv.mkDerivation (
         "--with-__thread"
       ]
       ++ lib.optionals
-        (stdenv.hostPlatform == stdenv.buildPlatform
+        (
+          stdenv.hostPlatform == stdenv.buildPlatform
           && stdenv.hostPlatform.isAarch32
         )
         [

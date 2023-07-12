@@ -243,7 +243,8 @@ in
               check =
                 p:
                 assertMsg
-                (package.check p
+                (
+                  package.check p
                   && p ? providedSessions
                   && p.providedSessions != [ ]
                   && all isString p.providedSessions
@@ -326,8 +327,10 @@ in
             check =
               d:
               assertMsg
-              (d != null
-                -> (str.check d
+              (
+                d != null
+                -> (
+                  str.check d
                   && elem d cfg.displayManager.sessionData.sessionNames
                 )
               )
@@ -462,8 +465,8 @@ in
         assertion =
           cfg.desktopManager.default != null
           || cfg.windowManager.default != null
-          -> cfg.displayManager.defaultSession
-            == defaultSessionFromLegacyOptions
+          ->
+            cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions
           ;
         message =
           "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";

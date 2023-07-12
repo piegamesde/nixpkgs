@@ -298,7 +298,8 @@ let
       "--verbose"
       "--prefix=$out"
       # Note: This must be kept in sync manually with mkGhcLibdir
-      ("--libdir=\\$prefix/lib/\\$compiler"
+      (
+        "--libdir=\\$prefix/lib/\\$compiler"
         + lib.optionalString (ghc ? hadrian) "/lib"
       )
       "--libsubdir=\\$abi/\\$libname"
@@ -325,7 +326,8 @@ let
         useCpphs
         "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp")
       (enableFeature
-        (enableDeadCodeElimination
+        (
+          enableDeadCodeElimination
           && !stdenv.hostPlatform.isAarch32
           && !stdenv.hostPlatform.isAarch64
           && (versionAtLeast "8.0.1" ghc.version)
@@ -333,7 +335,8 @@ let
         "split-objs")
       (enableFeature enableLibraryProfiling "library-profiling")
       (optionalString
-        ((enableExecutableProfiling || enableLibraryProfiling)
+        (
+          (enableExecutableProfiling || enableLibraryProfiling)
           && versionOlder "8" ghc.version
         )
         "--profiling-detail=${profilingDetail}")
@@ -600,7 +603,8 @@ lib.fix (
         ''
         # It is not clear why --extra-framework-dirs does work fine on Linux
         + optionalString
-          (!stdenv.buildPlatform.isDarwin
+          (
+            !stdenv.buildPlatform.isDarwin
             || versionAtLeast nativeGhc.version "8.0"
           )
           ''
@@ -615,7 +619,9 @@ lib.fix (
         # "dynamic-library-dirs" point to nonexistent paths, and the ln command becomes
         # "ln -s $out/lib/links", which tries to recreate the links dir and fails
         + (optionalString
-          (stdenv.isDarwin && (enableSharedLibraries || enableSharedExecutables)
+          (
+            stdenv.isDarwin
+            && (enableSharedLibraries || enableSharedExecutables)
           )
           ''
             # Work around a limit in the macOS Sierra linker on the number of paths
@@ -781,7 +787,8 @@ lib.fix (
         doCoverage
         "mkdir -p $out/share && cp -r dist/hpc $out/share"}
         ${optionalString
-        (enableSharedExecutables
+        (
+          enableSharedExecutables
           && isExecutable
           && !isGhcjs
           && stdenv.isDarwin

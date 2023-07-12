@@ -48,7 +48,8 @@ pythonPackages.callPackage
         matchesVersion =
           fname:
           builtins.match
-          ("^.*"
+          (
+            "^.*"
             + builtins.replaceStrings
               [
                 "."
@@ -207,7 +208,8 @@ pythonPackages.callPackage
       ;
 
     buildInputs =
-      (lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
+      (
+        lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
         ++ lib.optional isDirectory buildSystemPkgs
         ++ lib.optional
           (stdenv.buildPlatform != stdenv.hostPlatform)
@@ -266,7 +268,8 @@ pythonPackages.callPackage
                   "HEAD"
               );
           } // (lib.optionalAttrs
-            ((sourceSpec ? rev)
+            (
+              (sourceSpec ? rev)
               && (lib.versionAtLeast builtins.nixVersion "2.4")
             )
             {

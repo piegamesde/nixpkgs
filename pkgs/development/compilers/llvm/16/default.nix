@@ -296,7 +296,8 @@ let
             (!stdenv.targetPlatform.isWasm)
             "--unwindlib=libunwind"
           ++ lib.optional
-            (!stdenv.targetPlatform.isWasm
+            (
+              !stdenv.targetPlatform.isWasm
               && stdenv.targetPlatform.useLLVM or false
             )
             "-lunwind"

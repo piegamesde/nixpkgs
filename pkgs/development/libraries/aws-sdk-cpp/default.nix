@@ -80,7 +80,8 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals
-      (stdenv.isDarwin
+      (
+        stdenv.isDarwin
         && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))
       )
       [

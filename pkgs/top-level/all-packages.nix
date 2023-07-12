@@ -47,7 +47,8 @@ with pkgs;
     }
 
     // lib.optionalAttrs
-    (stdenv.hostPlatform.isDarwin
+    (
+      stdenv.hostPlatform.isDarwin
       && (stdenv.hostPlatform != stdenv.buildPlatform)
     )
     {
@@ -84,7 +85,8 @@ with pkgs;
   stdenvNoLibs =
     if
       stdenv.hostPlatform != stdenv.buildPlatform
-      && (stdenv.hostPlatform.isDarwin
+      && (
+        stdenv.hostPlatform.isDarwin
         || stdenv.hostPlatform.isDarwin.useLLVM or false
       )
     then

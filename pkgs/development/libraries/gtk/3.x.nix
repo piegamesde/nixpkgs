@@ -130,7 +130,8 @@ stdenv.mkDerivation (
         libxml2
       ]
       ++ lib.optionals
-        (withIntrospection
+        (
+          withIntrospection
           && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
         )
         [

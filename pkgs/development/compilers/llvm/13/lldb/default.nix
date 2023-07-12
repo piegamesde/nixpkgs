@@ -55,7 +55,8 @@ stdenv.mkDerivation (
       # See here for some context:
       # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
       ++ lib.optional
-        (stdenv.targetPlatform.isDarwin
+        (
+          stdenv.targetPlatform.isDarwin
           && !stdenv.targetPlatform.isAarch64
           && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
         )

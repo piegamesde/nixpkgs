@@ -1994,7 +1994,8 @@ in
       # is specified, this can be achieved by using the file/env provider:
       # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
       (optional
-        (doesntUseFileProvider cfg.settings.database.password ""
+        (
+          doesntUseFileProvider cfg.settings.database.password ""
           || doesntUseFileProvider cfg.settings.security.admin_password "admin"
         )
         ''

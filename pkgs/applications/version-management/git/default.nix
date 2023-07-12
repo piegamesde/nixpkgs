@@ -78,7 +78,8 @@ stdenv.mkDerivation (
       "git"
       + lib.optionalString svnSupport "-with-svn"
       + lib.optionalString
-        (!svnSupport
+        (
+          !svnSupport
           && !guiSupport
           && !sendEmailSupport
           && !withManual

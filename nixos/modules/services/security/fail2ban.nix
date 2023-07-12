@@ -313,7 +313,8 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion =
-        (cfg.bantime-increment.formula == null
+        (
+          cfg.bantime-increment.formula == null
           || cfg.bantime-increment.multipliers == null
         );
       message = ''

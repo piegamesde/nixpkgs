@@ -885,7 +885,8 @@ in
         }
       ]
       ++ optionals
-        (config.boot.loader.grub.memtest86.enable
+        (
+          config.boot.loader.grub.memtest86.enable
           && config.isoImage.makeBiosBootable
           && canx86BiosBoot
         )
@@ -915,7 +916,8 @@ in
               null
             ;
         } // optionalAttrs
-        (config.isoImage.makeUsbBootable
+        (
+          config.isoImage.makeUsbBootable
           && config.isoImage.makeBiosBootable
           && canx86BiosBoot
         )

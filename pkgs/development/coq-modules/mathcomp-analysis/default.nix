@@ -195,7 +195,8 @@ let
       patched-derivation1 = derivation.overrideAttrs (
         o:
         optionalAttrs
-        (o.pname != null
+        (
+          o.pname != null
           && o.pname != "mathcomp-analysis"
           && o.version != null
           && o.version != "dev"
@@ -210,7 +211,8 @@ let
       patched-derivation2 = patched-derivation1.overrideAttrs (
         o:
         optionalAttrs
-        (o.pname != null
+        (
+          o.pname != null
           && o.pname == "mathcomp-analysis"
           && o.version != null
           && o.version != "dev"
@@ -223,7 +225,8 @@ let
       patched-derivation = patched-derivation2.overrideAttrs (
         o:
         optionalAttrs
-        (o.version != null
+        (
+          o.version != null
           && (o.version == "dev" || versions.isGe "0.3.4" o.version)
         )
         {

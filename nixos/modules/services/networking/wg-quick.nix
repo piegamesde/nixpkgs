@@ -246,7 +246,8 @@ let
   generateUnit =
     name: values:
     assert assertMsg
-      (values.configFile != null
+      (
+        values.configFile != null
         || ((values.privateKey != null) != (values.privateKeyFile != null))
       )
       "Only one of privateKey, configFile or privateKeyFile may be set";
@@ -332,7 +333,8 @@ let
               peer:
               assert assertMsg
                 (
-                  !((peer.presharedKeyFile != null)
+                  !(
+                    (peer.presharedKeyFile != null)
                     && (peer.presharedKey != null)
                   )
                 )

@@ -168,7 +168,8 @@ stdenv.mkDerivation (
             "--enable-ft"
           ]
         else
-          (optional xcbSupport "--enable-xcb"
+          (
+            optional xcbSupport "--enable-xcb"
             ++ optional glSupport "--enable-gl"
             ++ optional pdfSupport "--enable-pdf"
           )

@@ -135,7 +135,8 @@ stdenv.mkDerivation rec {
         if stdenv.isDarwin then
           "liblua.${version}.dylib"
         else
-          ("liblua.a"
+          (
+            "liblua.a"
             + lib.optionalString
               (!staticOnly)
               " liblua.so liblua.so.${luaversion} liblua.so.${version}"

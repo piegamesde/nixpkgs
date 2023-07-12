@@ -428,7 +428,8 @@ in
           name: instance: [ {
             assertion =
               instance.secrets.manual
-              || (instance.secrets.jwtSecretFile != null
+              || (
+                instance.secrets.jwtSecretFile != null
                 && instance.secrets.storageEncryptionKeyFile != null
               )
               ;

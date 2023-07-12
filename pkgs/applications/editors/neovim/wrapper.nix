@@ -59,7 +59,8 @@ let
           # (lib.intersperse "|" hostProviderViml)
         ]
         ++ lib.optionals
-          (packpathDirs.myNeovimPackages.start != [ ]
+          (
+            packpathDirs.myNeovimPackages.start != [ ]
             || packpathDirs.myNeovimPackages.opt != [ ]
           )
           [

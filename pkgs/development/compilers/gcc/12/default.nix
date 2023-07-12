@@ -92,7 +92,8 @@ let
     # We only apply this patch when building a native toolchain for aarch64-darwin, as it breaks building
     # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
     ++ optional
-      (stdenv.isDarwin
+      (
+        stdenv.isDarwin
         && stdenv.isAarch64
         && buildPlatform == hostPlatform
         && hostPlatform == targetPlatform
@@ -164,7 +165,8 @@ let
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++ optional
-      (!crossStageStatic
+      (
+        !crossStageStatic
         && targetPlatform.isMinGW
         && threadsCross.model == "mcf"
       )
@@ -383,7 +385,8 @@ lib.pipe
         target =
           lib.optionalString (profiledCompiler) "profiled"
           + lib.optionalString
-            (targetPlatform == hostPlatform
+            (
+              targetPlatform == hostPlatform
               && hostPlatform == buildPlatform
               && !disableBootstrap
             )
@@ -460,7 +463,8 @@ lib.pipe
   }
 
   // optionalAttrs
-  (targetPlatform != hostPlatform
+  (
+    targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
     && crossStageStatic
   )

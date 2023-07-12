@@ -188,7 +188,8 @@ let
   compressFirmware =
     firmware:
     if
-      (config.boot.kernelPackages.kernelAtLeast "5.3"
+      (
+        config.boot.kernelPackages.kernelAtLeast "5.3"
         && (firmware.compressFirmware or true)
       )
     then
@@ -389,7 +390,8 @@ in
       ;
 
     boot.initrd.extraUdevRulesCommands = optionalString
-      (!config.boot.initrd.systemd.enable
+      (
+        !config.boot.initrd.systemd.enable
         && config.boot.initrd.services.udev.rules != ""
       )
       ''

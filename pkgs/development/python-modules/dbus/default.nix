@@ -32,7 +32,8 @@ buildPythonPackage rec {
   patches = [ ./fix-includedir.patch ];
 
   preConfigure = lib.optionalString
-    (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+    (
+      lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
       && stdenv.isDarwin
     )
     ''

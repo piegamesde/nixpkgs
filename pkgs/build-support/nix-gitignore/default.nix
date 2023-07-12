@@ -99,7 +99,8 @@ rec {
           escape = s: map (c: "\\" + c) (chars s);
         in
         replaceStrings
-        ((chars special)
+        (
+          (chars special)
           ++ (escape escs)
           ++ [
             "**/"

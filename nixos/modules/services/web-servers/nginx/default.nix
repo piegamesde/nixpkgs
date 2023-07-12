@@ -1528,9 +1528,10 @@ in
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute =
-          !((builtins.any
-            (mod: (mod.allowMemoryWriteExecute or false))
-            cfg.package.modules)
+          !(
+            (builtins.any
+              (mod: (mod.allowMemoryWriteExecute or false))
+              cfg.package.modules)
             || (cfg.package == pkgs.openresty)
           )
           ;
@@ -1545,7 +1546,8 @@ in
             "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
           ]
           ++ optionals
-            ((cfg.package != pkgs.tengine)
+            (
+              (cfg.package != pkgs.tengine)
               && (cfg.package != pkgs.openresty)
               && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)
             )

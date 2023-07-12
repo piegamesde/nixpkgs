@@ -65,7 +65,8 @@ in
       }
 
       (mkIf
-        ((elem "bcachefs" config.boot.initrd.supportedFilesystems)
+        (
+          (elem "bcachefs" config.boot.initrd.supportedFilesystems)
           || (bootFs != { })
         )
         {

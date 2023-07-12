@@ -703,13 +703,15 @@ in
 
     systemd.services.httpd.after =
       optional
-      (cfg.webserver == "apache"
+      (
+        cfg.webserver == "apache"
         && cfg.database.createLocally
         && cfg.database.type == "mysql"
       )
       "mysql.service"
       ++ optional
-        (cfg.webserver == "apache"
+        (
+          cfg.webserver == "apache"
           && cfg.database.createLocally
           && cfg.database.type == "postgres"
         )

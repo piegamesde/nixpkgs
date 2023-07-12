@@ -18,7 +18,8 @@
   vpnc-scripts,
   PCSC,
   useDefaultExternalBrowser ? stdenv.isLinux
-    && stdenv.buildPlatform
+    &&
+      stdenv.buildPlatform
       == stdenv.hostPlatform # xdg-utils doesn't cross-compile
   ,
   xdg-utils,

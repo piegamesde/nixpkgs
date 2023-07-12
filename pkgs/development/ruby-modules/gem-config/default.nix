@@ -523,7 +523,8 @@ in
         [ pkg-config ]
         ++ lib.optional stdenv.isDarwin cctools
         ++ lib.optional
-          (lib.versionAtLeast attrs.version "1.53.0"
+          (
+            lib.versionAtLeast attrs.version "1.53.0"
             && stdenv.isDarwin
             && stdenv.isAarch64
           )

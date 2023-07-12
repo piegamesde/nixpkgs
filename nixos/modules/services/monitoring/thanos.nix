@@ -813,7 +813,8 @@ in
         }
         {
           assertion =
-            !(config.services.prometheus.globalConfig.external_labels == null
+            !(
+              config.services.prometheus.globalConfig.external_labels == null
               || config.services.prometheus.globalConfig.external_labels == { }
             )
             ;

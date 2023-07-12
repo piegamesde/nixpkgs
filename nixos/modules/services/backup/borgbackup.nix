@@ -292,7 +292,8 @@ let
     name: cfg: {
       users.${cfg.user} = {
         openssh.authorizedKeys.keys =
-          (map (mkAuthorizedKey cfg false) cfg.authorizedKeys
+          (
+            map (mkAuthorizedKey cfg false) cfg.authorizedKeys
             ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly
           );
         useDefaultShell = true;

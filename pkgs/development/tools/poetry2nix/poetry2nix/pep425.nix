@@ -167,7 +167,8 @@ let
             (
               p:
               p == "any"
-              || (hasInfix "macosx" p
+              || (
+                hasInfix "macosx" p
                 && lib.lists.any (e: hasSuffix e p) [
                   "arm64"
                   "aarch64"

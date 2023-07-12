@@ -124,7 +124,8 @@ in
       [ {
         assertion =
           config.location.provider == "manual"
-          -> inRange config.location.latitude (-90) 90
+          ->
+            inRange config.location.latitude (-90) 90
             && inRange config.location.longitude (-180) 180
           ;
         message =

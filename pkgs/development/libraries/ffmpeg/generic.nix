@@ -45,7 +45,8 @@
   withAom ? withFullDeps # AV1 reference encoder
   ,
   withAss ? withHeadlessDeps
-    && stdenv.hostPlatform
+    &&
+      stdenv.hostPlatform
       == stdenv.buildPlatform # (Advanced) SubStation Alpha subtitle rendering
   ,
   withBluray ? withFullDeps # BluRay reading
@@ -417,12 +418,14 @@ assert withUnfree -> withGPL && withGPLv3;
 assert withPixelutils -> buildAvutil;
 # *  Program dependencies
 assert buildFfmpeg
-  -> buildAvcodec
+  ->
+    buildAvcodec
     && buildAvfilter
     && buildAvformat
     && (buildSwresample || buildAvresample);
 assert buildFfplay
-  -> buildAvcodec
+  ->
+    buildAvcodec
     && buildAvformat
     && buildSwscale
     && (buildSwresample || buildAvresample);

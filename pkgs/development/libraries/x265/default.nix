@@ -7,7 +7,8 @@
   nasm,
 
   # NUMA support enabled by default on NUMA platforms:
-  numaSupport ? (stdenv.hostPlatform.isLinux
+  numaSupport ? (
+    stdenv.hostPlatform.isLinux
     && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
   ),
   numactl,
@@ -25,7 +26,8 @@
   ,
   ppaSupport ? false # PPA profiling instrumentation
   ,
-  unittestsSupport ? (stdenv.is64bit && !(stdenv.isDarwin && stdenv.isAarch64)
+  unittestsSupport ? (
+    stdenv.is64bit && !(stdenv.isDarwin && stdenv.isAarch64)
   ) # Unit tests - only testing x64 assembly
   ,
   vtuneSupport ? false # Vtune profiling instrumentation

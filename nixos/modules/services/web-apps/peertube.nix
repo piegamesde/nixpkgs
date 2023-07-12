@@ -358,7 +358,8 @@ in
       }
       {
         assertion =
-          !(cfg.redis.enableUnixSocket
+          !(
+            cfg.redis.enableUnixSocket
             && (cfg.redis.host != null || cfg.redis.port != null)
           )
           ;

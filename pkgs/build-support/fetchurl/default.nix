@@ -211,7 +211,8 @@ stdenvNoCC.mkDerivation (
 
     SSL_CERT_FILE =
       if
-        (hash_.outputHash == ""
+        (
+          hash_.outputHash == ""
           || hash_.outputHash == lib.fakeSha256
           || hash_.outputHash == lib.fakeSha512
           || hash_.outputHash == lib.fakeHash

@@ -91,7 +91,8 @@ let
           # to reach credentials wherever they are.
           # Note that each systemd service gets its own ${runDir}/config.ini file.
           ExecStartPre = mkBefore [
-            ("+"
+            (
+              "+"
               + pkgs.writeShellScript "${serviceName}-credentials" ''
                 set -x
                 # Replace values beginning with a '<' by the content of the file whose name is after.
@@ -257,7 +258,8 @@ in
           groups = {
             "${srvCfg.group}" = { };
           } // optionalAttrs
-            (cfg.postgresql.enable
+            (
+              cfg.postgresql.enable
               && hasSuffix "0" (
                 postgresql.settings.unix_socket_permissions or ""
               )
@@ -265,7 +267,8 @@ in
             {
               "postgres".members = [ srvCfg.user ];
             } // optionalAttrs
-            (cfg.redis.enable
+            (
+              cfg.redis.enable
               && hasSuffix "0" (redis.settings.unixsocketperm or "")
             )
             {

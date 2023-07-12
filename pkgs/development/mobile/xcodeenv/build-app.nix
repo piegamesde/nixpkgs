@@ -28,7 +28,8 @@
 }@args:
 
 assert release
-  -> certificateFile != null
+  ->
+    certificateFile != null
     && certificatePassword != null
     && provisioningProfile != null
     && signMethod != null

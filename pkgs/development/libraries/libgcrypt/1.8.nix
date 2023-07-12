@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ]
     ++ lib.optional
-      (stdenv.hostPlatform.isMusl
+      (
+        stdenv.hostPlatform.isMusl
         || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
       )
       "--disable-asm"

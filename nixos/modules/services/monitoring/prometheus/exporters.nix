@@ -369,7 +369,8 @@ in
           {
             assertion =
               cfg.snmp.enable
-              -> ((cfg.snmp.configurationPath == null)
+              -> (
+                (cfg.snmp.configurationPath == null)
                 != (cfg.snmp.configuration == null)
               )
               ;
@@ -381,7 +382,8 @@ in
           {
             assertion =
               cfg.mikrotik.enable
-              -> ((cfg.mikrotik.configFile == null)
+              -> (
+                (cfg.mikrotik.configFile == null)
                 != (cfg.mikrotik.configuration == null)
               )
               ;
@@ -393,7 +395,8 @@ in
           {
             assertion =
               cfg.mail.enable
-              -> ((cfg.mail.configFile == null)
+              -> (
+                (cfg.mail.configFile == null)
                 != (cfg.mail.configuration == null)
               )
               ;
@@ -405,8 +408,8 @@ in
           {
             assertion =
               cfg.sql.enable
-              -> ((cfg.sql.configFile == null)
-                != (cfg.sql.configuration == null)
+              -> (
+                (cfg.sql.configFile == null) != (cfg.sql.configuration == null)
               )
               ;
             message = ''

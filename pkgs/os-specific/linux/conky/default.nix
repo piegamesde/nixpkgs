@@ -63,7 +63,8 @@
 }:
 
 assert docsSupport
-  -> docbook2x != null
+  ->
+    docbook2x != null
     && libxslt != null
     && man != null
     && less != null

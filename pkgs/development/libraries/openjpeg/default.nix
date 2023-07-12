@@ -94,7 +94,8 @@ stdenv.mkDerivation rec {
     ;
 
   doCheck =
-    (!stdenv.isAarch64 && !stdenv.hostPlatform.isPower64
+    (
+      !stdenv.isAarch64 && !stdenv.hostPlatform.isPower64
     ); # tests fail on aarch64-linux and powerpc64
   nativeCheckInputs = [ jpylyzer ];
   checkPhase = ''

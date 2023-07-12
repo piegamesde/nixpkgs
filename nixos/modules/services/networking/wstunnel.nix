@@ -509,7 +509,8 @@ let
           AmbientCapabilities =
             (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
             ++ (optionals
-              ((clientCfg.dynamicToRemote.port or 1024) < 1024
+              (
+                (clientCfg.dynamicToRemote.port or 1024) < 1024
                 || (any (x: x.local.port < 1024) clientCfg.localToRemote)
               )
               [
@@ -590,7 +591,8 @@ in
       (mapAttrsToList
         (name: serverCfg: {
           assertion =
-            !(serverCfg.useACMEHost != null
+            !(
+              serverCfg.useACMEHost != null
               && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
             )
             ;
@@ -602,7 +604,8 @@ in
       ++ (mapAttrsToList
         (name: serverCfg: {
           assertion =
-            !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
+            !(
+              (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
               && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null)
             )
             ;
@@ -614,7 +617,8 @@ in
       ++ (mapAttrsToList
         (name: clientCfg: {
           assertion =
-            !(clientCfg.localToRemote == [ ]
+            !(
+              clientCfg.localToRemote == [ ]
               && clientCfg.dynamicToRemote == null
             )
             ;

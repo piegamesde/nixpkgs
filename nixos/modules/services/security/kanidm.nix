@@ -272,8 +272,10 @@ in
       {
         assertion =
           !cfg.enableServer
-          || (cfg.serverSettings.domain == null
-            -> cfg.serverSettings.role == "WriteReplica"
+          || (
+            cfg.serverSettings.domain == null
+            ->
+              cfg.serverSettings.role == "WriteReplica"
               || cfg.serverSettings.role == "WriteReplicaNoUI"
           )
           ;

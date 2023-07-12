@@ -228,10 +228,13 @@ in
       }
       {
         assertion =
-          ((cfg.storageBackend == "file"
-            -> (cfg.storagePath != null && cfg.storageConfig == null)
-          )
-            && (cfg.storagePath != null
+          (
+            (
+              cfg.storageBackend == "file"
+              -> (cfg.storagePath != null && cfg.storageConfig == null)
+            )
+            && (
+              cfg.storagePath != null
               -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft")
             )
           );
