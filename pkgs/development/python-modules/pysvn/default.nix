@@ -40,10 +40,7 @@ buildPythonPackage rec {
       neon
       openssl
     ]
-    ++ lib.optionals stdenv.isLinux [
-      0.0
-      fsprogs
-    ]
+    ++ lib.optionals stdenv.isLinux [ e2fsprogs ]
     ++ lib.optionals stdenv.isDarwin [ gcc ]
   ;
 

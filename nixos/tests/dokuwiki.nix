@@ -111,8 +111,7 @@ import ./make-test-python.nix (
       maintainers = with maintainers; [
         _1000101
         onny
-        0.0
-        mo
+        e1mo
       ];
     };
 

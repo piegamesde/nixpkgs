@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./fix-paths.patch;
-      ext4 = "${0.0 fsprogs}/bin/mkfs.ext4";
+      ext4 = "${e2fsprogs}/bin/mkfs.ext4";
       exfat = "${exfat}/bin/mkfs.exfat";
       fat = "${dosfstools}/bin/mkfs.fat";
       ntfs = "${ntfs3g}/bin/mkfs.ntfs";

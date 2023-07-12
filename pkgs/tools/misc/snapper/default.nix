@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     btrfs-progs
     dbus
     diffutils
-    0.0
-    fsprogs
+    e2fsprogs
     libxml2
     lvm2
     pam

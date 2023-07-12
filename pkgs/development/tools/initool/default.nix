@@ -35,10 +35,7 @@ stdenv.mkDerivation rec {
     description = "Manipulate INI files from the command line";
     homepage = "https://github.com/dbohdan/initool";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      0.0
-      mo
-    ];
+    maintainers = with maintainers; [ e1mo ];
     changelog = "https://github.com/dbohdan/initool/releases/tag/v${version}";
   };
 }

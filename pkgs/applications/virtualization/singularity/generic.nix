@@ -36,7 +36,7 @@ in
   cryptsetup,
   e2fsprogs,
   fakeroot,
-  fuse2fs ? 0.0 fsprogs.fuse2fs,
+  fuse2fs ? e2fsprogs.fuse2fs,
   go,
   gpgme,
   libseccomp,

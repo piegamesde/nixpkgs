@@ -149,8 +149,7 @@ let
       config.system.build.nixos-enter
       config.system.build.nixos-install
       dosfstools
-      0.0
-      fsprogs
+      e2fsprogs
       gptfdisk
       nix
       parted

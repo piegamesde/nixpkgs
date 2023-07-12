@@ -85,8 +85,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   nativeCheckInputs = with python3.pkgs; [
-    0.0
-    fsprogs
+    e2fsprogs
     py
     python-dateutil
     pytest-benchmark

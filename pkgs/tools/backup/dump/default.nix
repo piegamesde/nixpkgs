@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    0.0
-    fsprogs
+    e2fsprogs
     ncurses
     readline
   ];

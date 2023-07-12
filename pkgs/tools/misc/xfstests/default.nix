@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     for f in common/* tools/* tests/*/*; do
       sed -i $f -e 's|/bin/bash|${bash}/bin/bash|'
       sed -i $f -e 's|/bin/true|true|'
-      sed -i $f -e 's|/usr/sbin/filefrag|${0.0 fsprogs}/bin/filefrag|'
+      sed -i $f -e 's|/usr/sbin/filefrag|${e2fsprogs}/bin/filefrag|'
       sed -i $f -e 's|hostname -s|hostname|'   # `hostname -s` seems problematic on NixOS
       sed -i $f -e 's|$(_yp_active)|1|'        # NixOS won't ever have Yellow Pages enabled
     done
@@ -138,8 +138,7 @@ stdenv.mkDerivation rec {
         acl
         attr
         bc
-        0.0
-        fsprogs
+        e2fsprogs
         fio
         gawk
         keyutils

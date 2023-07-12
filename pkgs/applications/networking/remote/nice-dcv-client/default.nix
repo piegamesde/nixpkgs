@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
     libkrb5
     libxml2
     libva
-    0.0
-    fsprogs
+    e2fsprogs
     libX11
     openssl
     pcsclite

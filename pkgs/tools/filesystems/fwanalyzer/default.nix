@@ -27,8 +27,7 @@ buildGoModule rec {
   postInstall = ''
     wrapProgram "$out/bin/fwanalyzer" --prefix PATH : "${
       lib.makeBinPath [
-        0.0
-        tools
+        e2tools
         mtools
       ]
     }"

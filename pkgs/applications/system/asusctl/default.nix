@@ -44,9 +44,7 @@ rustPlatform.buildRustPackage rec {
       substituteInPlace $file --replace /usr/share $out/share
     done
 
-    substituteInPlace daemon/src/ctrl_platform.rs --replace /usr/bin/chattr ${
-      0.0 fsprogs
-    }/bin/chattr
+    substituteInPlace daemon/src/ctrl_platform.rs --replace /usr/bin/chattr ${e2fsprogs}/bin/chattr
 
     substituteInPlace data/asusd.rules --replace systemctl ${systemd}/bin/systemctl
     substituteInPlace data/asusd.service \

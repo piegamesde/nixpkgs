@@ -127,8 +127,7 @@ python3Packages.buildPythonApplication rec {
       cpio
       db
       diffutils
-      0.0
-      fsprogs
+      e2fsprogs
       file
       findutils
       fontforge-fonttools

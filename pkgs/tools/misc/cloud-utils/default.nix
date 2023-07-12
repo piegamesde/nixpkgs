@@ -18,8 +18,7 @@
 let
   # according to https://packages.debian.org/sid/cloud-image-utils + https://packages.debian.org/sid/admin/cloud-guest-utils
   guestDeps = [
-    0.0
-    fsprogs
+    e2fsprogs
     gptfdisk
     gawk
     gnused

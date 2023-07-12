@@ -222,8 +222,7 @@ rec {
         alsa-lib
 
         harfbuzz
-        0.0
-        fsprogs
+        e2fsprogs
         libgpg-error
         keyutils.lib
         libjack2

@@ -14,10 +14,7 @@ stdenv.mkDerivation {
     sha256 = "1x0r7ylxlp9lbj3d7sqf6j2a222dwy2nfpff05jd6mkh4ihxvyd1";
   };
 
-  buildInputs = [
-    0.0
-    fsprogs
-  ];
+  buildInputs = [ e2fsprogs ];
 
   # inode field i_dir_acl was repurposed as i_size_high in e2fsprogs 1.44,
   # breaking the build

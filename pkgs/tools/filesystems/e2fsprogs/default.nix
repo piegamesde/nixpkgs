@@ -99,8 +99,8 @@ stdenv.mkDerivation rec {
     simple-filesystem = runCommand "e2fsprogs-create-fs" { } ''
       mkdir -p $out
       truncate -s10M $out/disc
-      ${0.0 fsprogs}/bin/mkfs.ext4 $out/disc | tee $out/success
-      ${0.0 fsprogs}/bin/e2fsck -n $out/disc | tee $out/success
+      ${e2fsprogs}/bin/mkfs.ext4 $out/disc | tee $out/success
+      ${e2fsprogs}/bin/e2fsck -n $out/disc | tee $out/success
       [ -e $out/success ]
     '';
   };

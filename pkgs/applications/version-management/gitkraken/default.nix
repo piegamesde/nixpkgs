@@ -137,8 +137,7 @@ let
       at-spi2-atk
       at-spi2-core
       libuuid
-      0.0
-      fsprogs
+      e2fsprogs
       krb5
       libdrm
       mesa

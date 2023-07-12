@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     file
     libuuid
-    0.0
-    fsprogs
+    e2fsprogs
     zlib
     bzip2
   ];

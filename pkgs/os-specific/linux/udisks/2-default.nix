@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
         btrfs-progs
         coreutils
         dosfstools
-        0.0
-        fsprogs
+        e2fsprogs
         exfat
         f2fs-tools
         nilfs-utils

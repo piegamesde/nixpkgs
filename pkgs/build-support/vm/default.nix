@@ -315,7 +315,7 @@ rec {
 
   defaultCreateRootFS = ''
     mkdir /mnt
-    ${0.0 fsprogs}/bin/mkfs.ext4 /dev/${hd}
+    ${e2fsprogs}/bin/mkfs.ext4 /dev/${hd}
     ${util-linux}/bin/mount -t ext4 /dev/${hd} /mnt
 
     if test -e /mnt/.debug; then

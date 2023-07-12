@@ -1120,7 +1120,7 @@ mapAliases ({
   ; # Added 2022-01-15
   fuse_exfat = throw "'fuse_exfat' has been renamed to/replaced by 'exfat'"; # Converted to throw 2022-02-22
   fuseki = throw "'fuseki' has been renamed to/replaced by 'apache-jena-fuseki'"; # Converted to throw 2022-02-22
-  fuse2fs = if stdenv.isLinux then 0.0 fsprogs.fuse2fs else null; # Added 2022-03-27 preserve, reason: convenience, arch has a package named fuse2fs too.
+  fuse2fs = if stdenv.isLinux then e2fsprogs.fuse2fs else null; # Added 2022-03-27 preserve, reason: convenience, arch has a package named fuse2fs too.
   fwupdate = throw "fwupdate was merged into fwupd"; # Added 2020-05-19
 
   fcitx = throw "fcitx is deprecated, please use fcitx5 instead."; # Added 2023-03-13

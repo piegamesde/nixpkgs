@@ -44,8 +44,7 @@ stdenv.mkDerivation {
     zstd
     xz
     libgcrypt
-    0.0
-    fsprogs
+    e2fsprogs
     util-linux
     libgpg-error
   ];

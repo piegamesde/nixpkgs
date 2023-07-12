@@ -94,8 +94,7 @@ stdenv.mkDerivation rec {
     curl
     glib
     systemd
-    0.0
-    fsprogs
+    e2fsprogs
     libsoup
     glib-networking
     gpgme

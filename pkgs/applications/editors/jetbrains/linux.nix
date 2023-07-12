@@ -116,8 +116,7 @@ lib.makeOverridable mkDerivation (
               # Some internals want libstdc++.so.6
               stdenv.cc.cc.lib
               libsecret
-              0.0
-              fsprogs
+              e2fsprogs
               libnotify
             ]
             ++ extraLdPath

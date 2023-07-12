@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    0.0
-    fsprogs
+    e2fsprogs
     installShellFiles
   ];
 

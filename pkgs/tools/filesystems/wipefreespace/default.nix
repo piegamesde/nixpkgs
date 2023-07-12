@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
 
   # missed: Reiser3 FAT12/16/32 MinixFS HFS+ OCFS
   buildInputs = [
-    0.0
-    fsprogs
+    e2fsprogs
     ntfs3g
     xfsprogs
     reiser4progs

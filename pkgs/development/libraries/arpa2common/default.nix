@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   ];
 
   propagatedBuildInputs = [
-    0.0
-    fsprogs
+    e2fsprogs
     lmdb
     openssl
     ragel
