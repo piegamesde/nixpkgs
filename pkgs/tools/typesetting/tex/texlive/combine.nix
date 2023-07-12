@@ -37,9 +37,7 @@ let
       splitBin.right
       ++
         lib.optional
-          (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop")
-            splitBin.wrong
-          )
+          (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong)
           (lib.getBin ghostscript)
     ;
     nonbin = splitBin.wrong;
@@ -226,8 +224,7 @@ in
               2,/^-- END of language.us.lua/p;
             ''
             +
-              lib.concatMapStrings
-                (pname: section "^-- from ${pname}:$" "^}$|^-- from")
+              lib.concatMapStrings (pname: section "^-- from ${pname}:$" "^}$|^-- from")
                 hyphenPNames
             + ''
               $p;
@@ -290,9 +287,7 @@ in
             --set-default TEXMFCNF "$TEXMFCNF" \
             --set-default FONTCONFIG_FILE "${
               # neccessary for XeTeX to find the fonts distributed with texlive
-              makeFontsConf {
-                fontDirectories = [ "${texmfroot}/texmf-dist/fonts" ];
-              }
+              makeFontsConf { fontDirectories = [ "${texmfroot}/texmf-dist/fonts" ]; }
             }"
 
           # avoid using non-nix shebang in $target by calling interpreter

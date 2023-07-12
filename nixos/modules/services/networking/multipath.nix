@@ -70,28 +70,19 @@ in
             vendor = mkOption {
               type = str;
               example = "COMPELNT";
-              description =
-                lib.mdDoc
-                  "Regular expression to match the vendor name"
-              ;
+              description = lib.mdDoc "Regular expression to match the vendor name";
             };
 
             product = mkOption {
               type = str;
               example = "Compellent Vol";
-              description =
-                lib.mdDoc
-                  "Regular expression to match the product name"
-              ;
+              description = lib.mdDoc "Regular expression to match the product name";
             };
 
             revision = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "Regular expression to match the product revision"
-              ;
+              description = lib.mdDoc "Regular expression to match the product revision";
             };
 
             product_blacklist = mkOption {
@@ -132,10 +123,7 @@ in
                 ]
               );
               default = null;
-              description =
-                lib.mdDoc
-                  "The hardware handler to use for this device type"
-              ;
+              description = lib.mdDoc "The hardware handler to use for this device type";
             };
 
             # Optional arguments
@@ -202,10 +190,7 @@ in
                 "none"
               ];
               default = "tur";
-              description =
-                lib.mdDoc
-                  "The default method used to determine the paths state"
-              ;
+              description = lib.mdDoc "The default method used to determine the paths state";
             };
 
             prio = mkOption {
@@ -235,19 +220,13 @@ in
             prio_args = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "Arguments to pass to to the prio function"
-              ;
+              description = lib.mdDoc "Arguments to pass to to the prio function";
             };
 
             features = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "Specify any device-mapper features to be used"
-              ;
+              description = lib.mdDoc "Specify any device-mapper features to be used";
             };
 
             failback = mkOption {
@@ -458,10 +437,7 @@ in
             marginal_path_err_rate_threshold = mkOption {
               type = nullOr int;
               default = null;
-              description =
-                lib.mdDoc
-                  "The error rate threshold as a permillage (1/1000)"
-              ;
+              description = lib.mdDoc "The error rate threshold as a permillage (1/1000)";
             };
 
             marginal_path_err_recheck_gap_time = mkOption {
@@ -691,10 +667,7 @@ in
             }
           ''
         ;
-        multipaths =
-          lib.concatMapStringsSep "\n" mkMultipathBlock
-            cfg.pathGroups
-        ;
+        multipaths = lib.concatMapStringsSep "\n" mkMultipathBlock cfg.pathGroups;
       in
       ''
         devices {

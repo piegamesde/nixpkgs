@@ -45,8 +45,7 @@ let
   mkDbExtraCommand =
     contents:
     let
-      contentsList =
-        if builtins.isList contents then contents else [ contents ];
+      contentsList = if builtins.isList contents then contents else [ contents ];
     in
     ''
       echo "Generating the nix database..."
@@ -502,9 +501,7 @@ rec {
         echo "Adding contents..."
         for item in ${escapeShellArgs (map (c: "${c}") (toList copyToRoot))}; do
           echo "Adding $item..."
-          rsync -a${
-            if keepContentsDirlinks then "K" else "k"
-          } --chown=0:0 $item/ layer/
+          rsync -a${if keepContentsDirlinks then "K" else "k"} --chown=0:0 $item/ layer/
         done
 
         chmod ug+w layer
@@ -703,9 +700,7 @@ rec {
               if tag != null then
                 tag
               else
-                lib.head (
-                  lib.strings.splitString "-" (baseNameOf result.outPath)
-                )
+                lib.head (lib.strings.splitString "-" (baseNameOf result.outPath))
             ;
           }
           ''
@@ -1011,8 +1006,7 @@ rec {
         }
       );
 
-      contentsList =
-        if builtins.isList contents then contents else [ contents ];
+      contentsList = if builtins.isList contents then contents else [ contents ];
 
       # We store the customisation layer as a tarball, to make sure that
       # things like permissions set on 'extraCommands' are not overridden
@@ -1065,9 +1059,7 @@ rec {
             customisationLayer
           ])
       ;
-      overallClosure = writeText "closure" (
-        lib.concatStringsSep " " closureRoots
-      );
+      overallClosure = writeText "closure" (lib.concatStringsSep " " closureRoots);
 
       # These derivations are only created as implementation details of docker-tools,
       # so they'll be excluded from the created images.
@@ -1112,8 +1104,7 @@ rec {
 
             paths() {
               cat $paths ${
-                lib.concatMapStringsSep " "
-                  (path: "| (grep -v ${path} || true)")
+                lib.concatMapStringsSep " " (path: "| (grep -v ${path} || true)")
                   unnecessaryDrvs
               }
             }
@@ -1291,9 +1282,7 @@ rec {
               str = stringValue value;
             in
             if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then
-              lib.nameValuePair "${name}Path" (
-                writeText "pass-as-text-${name}" str
-              )
+              lib.nameValuePair "${name}Path" (writeText "pass-as-text-${name}" str)
             else
               lib.nameValuePair name str
           )
@@ -1357,9 +1346,7 @@ rec {
           # Slightly differs however: We use the passed-in homeDirectory instead of sandboxBuildDir.
           # We're doing this because it's arguably a bug in Nix that sandboxBuildDir is used here: https://github.com/NixOS/nix/issues/6379
           extraPasswdLines = [
-            "nixbld:x:${toString uid}:${
-              toString gid
-            }:Build user:${homeDirectory}:/noshell"
+            "nixbld:x:${toString uid}:${toString gid}:Build user:${homeDirectory}:/noshell"
           ];
           extraGroupLines = [ "nixbld:!:${toString gid}:" ];
         })

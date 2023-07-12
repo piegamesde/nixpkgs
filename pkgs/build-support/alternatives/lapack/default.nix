@@ -63,9 +63,7 @@ stdenv.mkDerivation {
       ''
         mkdir -p $out/lib $dev/include $dev/lib/pkgconfig
 
-        liblapack="${
-          lib.getLib lapackProvider'
-        }/lib/liblapack${canonicalExtension}"
+        liblapack="${lib.getLib lapackProvider'}/lib/liblapack${canonicalExtension}"
 
         if ! [ -e "$liblapack" ]; then
           echo "$liblapack does not exist, ${lapackProvider'.name} does not provide liblapack."
@@ -101,9 +99,7 @@ stdenv.mkDerivation {
         Libs: -L$out/lib -llapack
         EOF
 
-          liblapacke="${
-            lib.getLib lapackProvider'
-          }/lib/liblapacke${canonicalExtension}"
+          liblapacke="${lib.getLib lapackProvider'}/lib/liblapacke${canonicalExtension}"
 
           if ! [ -e "$liblapacke" ]; then
             echo "$liblapacke does not exist, ${lapackProvider'.name} does not provide liblapacke."

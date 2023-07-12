@@ -145,14 +145,8 @@ let
           elm-format-lib = doJailbreak (
             self.callPackage ./packages/elm-format-lib.nix { }
           );
-          elm-format-test-lib =
-            self.callPackage ./packages/elm-format-test-lib.nix
-              { }
-          ;
-          elm-format-markdown =
-            self.callPackage ./packages/elm-format-markdown.nix
-              { }
-          ;
+          elm-format-test-lib = self.callPackage ./packages/elm-format-test-lib.nix { };
+          elm-format-markdown = self.callPackage ./packages/elm-format-markdown.nix { };
 
           # elm-format requires text >= 2.0
           text = self.text_2_0_2;
@@ -217,8 +211,8 @@ lib.makeScope pkgs.newScope (
   } // (hs810Pkgs self).elmPkgs // (hs92Pkgs self).elmPkgs // (
     with elmLib;
     with (hs810Pkgs self).elmPkgs; {
-      elm-verify-examples =
-        patchBinwrap [ elmi-to-json ] nodePkgs.elm-verify-examples // {
+      elm-verify-examples = patchBinwrap [ elmi-to-json ] nodePkgs.elm-verify-examples
+        // {
           meta =
             with lib;
             nodePkgs.elm-verify-examples.meta // {
@@ -232,9 +226,7 @@ lib.makeScope pkgs.newScope (
 
       elm-coverage =
         let
-          patched = patchNpmElm (
-            patchBinwrap [ elmi-to-json ] nodePkgs.elm-coverage
-          );
+          patched = patchNpmElm (patchBinwrap [ elmi-to-json ] nodePkgs.elm-coverage);
         in
         patched.override (
           old: {
@@ -391,8 +383,7 @@ lib.makeScope pkgs.newScope (
       elm-doc-preview = nodePkgs."elm-doc-preview".overrideAttrs (
         old: {
           nativeBuildInputs =
-            (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ]
-          ;
+            (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ];
         }
       );
 

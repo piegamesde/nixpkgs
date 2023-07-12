@@ -127,8 +127,7 @@ runCommand name
       ++ lib.optional strip binutils
     ;
 
-    STRIP =
-      if strip then "${pkgsBuildHost.binutils.targetPrefix}strip" else null;
+    STRIP = if strip then "${pkgsBuildHost.binutils.targetPrefix}strip" else null;
   })
   ''
     mkdir -p ./root/var/empty

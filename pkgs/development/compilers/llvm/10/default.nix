@@ -97,11 +97,7 @@ let
       ;
 
       bintoolsNoLibc' =
-        if bootBintoolsNoLibc == null then
-          tools.bintoolsNoLibc
-        else
-          bootBintoolsNoLibc
-      ;
+        if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
       bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
@@ -112,9 +108,7 @@ let
       # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
       llvm = tools.libllvm;
 
-      libclang = callPackage ./clang {
-        inherit clang-tools-extra_src llvm_meta;
-      };
+      libclang = callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
 
       clang-unwrapped = tools.libclang;
 
@@ -208,10 +202,7 @@ let
           ''
           +
             lib.optionalString
-              (
-                !stdenv.targetPlatform.isWasm
-                && stdenv.targetPlatform.useLLVM or false
-              )
+              (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
               ''
                 echo "-lunwind" >> $out/nix-support/cc-ldflags
               ''

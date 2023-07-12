@@ -18,12 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qnb0yB/NNJV257dsLmP84brajoRG03U+Ja1ACYbBvbE=";
   };
 
-  postPatch =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-      ''
-        substituteInPlace configure --replace "./conftest" "echo"
-      ''
-  ;
+  postPatch = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    substituteInPlace configure --replace "./conftest" "echo"
+  '';
 
   enableParallelBuilding = true;
 

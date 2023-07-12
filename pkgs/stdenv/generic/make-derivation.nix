@@ -242,8 +242,7 @@ let
           ++ depsTargetTargetPropagated
         ) == 0
       ;
-      dontAddHostSuffix =
-        attrs ? outputHash && !noNonNativeDeps || !stdenv.hasCC;
+      dontAddHostSuffix = attrs ? outputHash && !noNonNativeDeps || !stdenv.hasCC;
 
       hardeningDisable' =
         if
@@ -271,10 +270,7 @@ let
       defaultHardeningFlags =
         let
           # not ready for this by default
-          supportedHardeningFlags' =
-            lib.remove "fortify3"
-              supportedHardeningFlags
-          ;
+          supportedHardeningFlags' = lib.remove "fortify3" supportedHardeningFlags;
         in
         if
           stdenv.hostPlatform.isMusl
@@ -292,9 +288,7 @@ let
         if builtins.elem "all" hardeningDisable' then
           [ ]
         else
-          lib.subtractLists hardeningDisable' (
-            defaultHardeningFlags ++ hardeningEnable
-          )
+          lib.subtractLists hardeningDisable' (defaultHardeningFlags ++ hardeningEnable)
       ;
       # hardeningDisable additionally supports "all".
       erroneousHardeningFlags = lib.subtractLists supportedHardeningFlags (
@@ -318,9 +312,7 @@ let
           else
             throw
               "Dependency is not of a valid type: ${
-                lib.concatMapStrings (ix: "element ${toString ix} of ") (
-                  [ index ] ++ positions
-                )
+                lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)
               }${name} for ${attrs.name or attrs.pname}"
         )
       ;
@@ -396,22 +388,18 @@ let
         propagatedDependencies = map (map lib.chooseDevOutputs) [
           [
             (map (drv: drv.__spliced.buildBuild or drv) (
-              checkDependencyList "depsBuildBuildPropagated"
-                depsBuildBuildPropagated
+              checkDependencyList "depsBuildBuildPropagated" depsBuildBuildPropagated
             ))
             (map (drv: drv.__spliced.buildHost or drv) (
-              checkDependencyList "propagatedNativeBuildInputs"
-                propagatedNativeBuildInputs
+              checkDependencyList "propagatedNativeBuildInputs" propagatedNativeBuildInputs
             ))
             (map (drv: drv.__spliced.buildTarget or drv) (
-              checkDependencyList "depsBuildTargetPropagated"
-                depsBuildTargetPropagated
+              checkDependencyList "depsBuildTargetPropagated" depsBuildTargetPropagated
             ))
           ]
           [
             (map (drv: drv.__spliced.hostHost or drv) (
-              checkDependencyList "depsHostHostPropagated"
-                depsHostHostPropagated
+              checkDependencyList "depsHostHostPropagated" depsHostHostPropagated
             ))
             (map (drv: drv.__spliced.hostTarget or drv) (
               checkDependencyList "propagatedBuildInputs" propagatedBuildInputs
@@ -419,8 +407,7 @@ let
           ]
           [
             (map (drv: drv.__spliced.targetTarget or drv) (
-              checkDependencyList "depsTargetTargetPropagated"
-                depsTargetTargetPropagated
+              checkDependencyList "depsTargetTargetPropagated" depsTargetTargetPropagated
             ))
           ]
         ];
@@ -472,48 +459,38 @@ let
             "propagatedSandboxProfile"
           ]
           ++ lib.optional (__structuredAttrs || envIsExportable) "env"
-        )) // (lib.optionalAttrs
-          (attrs ? name || (attrs ? pname && attrs ? version))
-          {
-            name =
-              let
-                # Indicate the host platform of the derivation if cross compiling.
-                # Fixed-output derivations like source tarballs shouldn't get a host
-                # suffix. But we have some weird ones with run-time deps that are
-                # just used for their side-affects. Those might as well since the
-                # hash can't be the same. See #32986.
-                hostSuffix =
-                  lib.optionalString
-                    (
-                      stdenv.hostPlatform != stdenv.buildPlatform
-                      && !dontAddHostSuffix
-                    )
-                    "-${stdenv.hostPlatform.config}"
-                ;
+        )) // (lib.optionalAttrs (attrs ? name || (attrs ? pname && attrs ? version)) {
+          name =
+            let
+              # Indicate the host platform of the derivation if cross compiling.
+              # Fixed-output derivations like source tarballs shouldn't get a host
+              # suffix. But we have some weird ones with run-time deps that are
+              # just used for their side-affects. Those might as well since the
+              # hash can't be the same. See #32986.
+              hostSuffix =
+                lib.optionalString
+                  (stdenv.hostPlatform != stdenv.buildPlatform && !dontAddHostSuffix)
+                  "-${stdenv.hostPlatform.config}"
+              ;
 
-                # Disambiguate statically built packages. This was originally
-                # introduce as a means to prevent nix-env to get confused between
-                # nix and nixStatic. This should be also achieved by moving the
-                # hostSuffix before the version, so we could contemplate removing
-                # it again.
-                staticMarker =
-                  lib.optionalString stdenv.hostPlatform.isStatic
-                    "-static"
-                ;
-              in
-              lib.strings.sanitizeDerivationName (
-                if attrs ? name then
-                  attrs.name + hostSuffix
-                else
-                  # we cannot coerce null to a string below
-                  assert lib.assertMsg
-                      (attrs ? version && attrs.version != null)
-                      "The ‘version’ attribute cannot be null.";
-                  "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
-              )
-            ;
-          }
-        ) // lib.optionalAttrs __structuredAttrs { env = checkedEnv; } // {
+              # Disambiguate statically built packages. This was originally
+              # introduce as a means to prevent nix-env to get confused between
+              # nix and nixStatic. This should be also achieved by moving the
+              # hostSuffix before the version, so we could contemplate removing
+              # it again.
+              staticMarker = lib.optionalString stdenv.hostPlatform.isStatic "-static";
+            in
+            lib.strings.sanitizeDerivationName (
+              if attrs ? name then
+                attrs.name + hostSuffix
+              else
+                # we cannot coerce null to a string below
+                assert lib.assertMsg (attrs ? version && attrs.version != null)
+                    "The ‘version’ attribute cannot be null.";
+                "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
+            )
+          ;
+        }) // lib.optionalAttrs __structuredAttrs { env = checkedEnv; } // {
           builder = attrs.realBuilder or stdenv.shell;
           args =
             attrs.args or [
@@ -541,30 +518,15 @@ let
           buildInputs = lib.elemAt (lib.elemAt dependencies 1) 1;
           depsTargetTarget = lib.elemAt (lib.elemAt dependencies 2) 0;
 
-          depsBuildBuildPropagated =
-            lib.elemAt (lib.elemAt propagatedDependencies 0)
-              0
-          ;
+          depsBuildBuildPropagated = lib.elemAt (lib.elemAt propagatedDependencies 0) 0;
           propagatedNativeBuildInputs =
             lib.elemAt (lib.elemAt propagatedDependencies 0)
               1
           ;
-          depsBuildTargetPropagated =
-            lib.elemAt (lib.elemAt propagatedDependencies 0)
-              2
-          ;
-          depsHostHostPropagated =
-            lib.elemAt (lib.elemAt propagatedDependencies 1)
-              0
-          ;
-          propagatedBuildInputs =
-            lib.elemAt (lib.elemAt propagatedDependencies 1)
-              1
-          ;
-          depsTargetTargetPropagated =
-            lib.elemAt (lib.elemAt propagatedDependencies 2)
-              0
-          ;
+          depsBuildTargetPropagated = lib.elemAt (lib.elemAt propagatedDependencies 0) 2;
+          depsHostHostPropagated = lib.elemAt (lib.elemAt propagatedDependencies 1) 0;
+          propagatedBuildInputs = lib.elemAt (lib.elemAt propagatedDependencies 1) 1;
+          depsTargetTargetPropagated = lib.elemAt (lib.elemAt propagatedDependencies 2) 0;
 
           # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
           configureFlags =
@@ -621,8 +583,7 @@ let
                 [
                   "-DCMAKE_SYSTEM_NAME=${
                     lib.findFirst lib.isString "Generic" (
-                      lib.optional (!stdenv.hostPlatform.isRedox)
-                        stdenv.hostPlatform.uname.system
+                      lib.optional (!stdenv.hostPlatform.isRedox) stdenv.hostPlatform.uname.system
                     )
                   }"
                 ]
@@ -638,20 +599,16 @@ let
                 ++ lib.optionals (stdenv.buildPlatform.uname.system != null) [
                   "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
                 ]
-                ++
-                  lib.optionals (stdenv.buildPlatform.uname.processor != null)
-                    [
-                      "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
-                    ]
+                ++ lib.optionals (stdenv.buildPlatform.uname.processor != null) [
+                  "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
+                ]
                 ++ lib.optionals (stdenv.buildPlatform.uname.release != null) [
                   "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
                 ]
               ;
             in
             explicitFlags
-            ++
-              lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-                crossFlags
+            ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) crossFlags
           ;
 
           mesonFlags =
@@ -688,29 +645,21 @@ let
               crossFile = builtins.toFile "cross-file.conf" ''
                 [properties]
                 needs_exe_wrapper = ${
-                  lib.boolToString (
-                    !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-                  )
+                  lib.boolToString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
                 }
 
                 [host_machine]
                 system = '${stdenv.targetPlatform.parsed.kernel.name}'
                 cpu_family = '${cpuFamily stdenv.targetPlatform}'
                 cpu = '${stdenv.targetPlatform.parsed.cpu.name}'
-                endian = ${
-                  if stdenv.targetPlatform.isLittleEndian then
-                    "'little'"
-                  else
-                    "'big'"
-                }
+                endian = ${if stdenv.targetPlatform.isLittleEndian then "'little'" else "'big'"}
 
                 [binaries]
                 llvm-config = 'llvm-config-native'
               '';
-              crossFlags =
-                lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-                  [ "--cross-file=${crossFile}" ]
-              ;
+              crossFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+                "--cross-file=${crossFile}"
+              ];
             in
             crossFlags ++ explicitFlags
           ;
@@ -732,12 +681,9 @@ let
           enableParallelInstalling = attrs.enableParallelInstalling or true;
         } // lib.optionalAttrs
             (
-              hardeningDisable != [ ]
-              || hardeningEnable != [ ]
-              || stdenv.hostPlatform.isMusl
+              hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl
             )
-            { NIX_HARDENING_ENABLE = enabledHardeningOptions; }
-          // lib.optionalAttrs
+            { NIX_HARDENING_ENABLE = enabledHardeningOptions; } // lib.optionalAttrs
             (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch)
             {
               requiredSystemFeatures =
@@ -835,9 +781,7 @@ let
 
         checkedEnv =
           let
-            overlappingNames = lib.attrNames (
-              builtins.intersectAttrs env derivationArg
-            );
+            overlappingNames = lib.attrNames (builtins.intersectAttrs env derivationArg);
           in
           assert lib.assertMsg envIsExportable
               "When using structured attributes, `env` must be an attribute set of environment variables.";
@@ -849,12 +793,7 @@ let
             (
               n: v:
               assert lib.assertMsg
-                  (
-                    lib.isString v
-                    || lib.isBool v
-                    || lib.isInt v
-                    || lib.isDerivation v
-                  )
+                  (lib.isString v || lib.isBool v || lib.isInt v || lib.isDerivation v)
                   "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
                     builtins.typeOf v
                   }.";
@@ -911,11 +850,7 @@ let
           # derivation (e.g., in assertions).
           passthru
         )
-        (
-          derivation (
-            derivationArg // lib.optionalAttrs envIsExportable checkedEnv
-          )
-        )
+        (derivation (derivationArg // lib.optionalAttrs envIsExportable checkedEnv))
   ;
 in
 fnOrAttrs:

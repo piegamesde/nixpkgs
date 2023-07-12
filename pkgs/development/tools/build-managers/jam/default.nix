@@ -31,20 +31,17 @@ let
       # host platform. This looks a little ridiculous because the vast majority of
       # build tools don't embed target-specific information into their binary, but
       # in this case we behave more like a compiler than a make(1)-alike.
-      postPatch =
-        lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform)
-          ''
-            cat >>jam.h <<EOF
-            #undef OSMAJOR
-            #undef OSMINOR
-            #undef OSPLAT
-            $(
-              ${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc -E -dM jam.h \
-                | grep -E '^#define (OSMAJOR|OSMINOR|OSPLAT) '
-            )
-            EOF
-          ''
-      ;
+      postPatch = lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform) ''
+        cat >>jam.h <<EOF
+        #undef OSMAJOR
+        #undef OSMINOR
+        #undef OSPLAT
+        $(
+          ${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc -E -dM jam.h \
+            | grep -E '^#define (OSMAJOR|OSMINOR|OSPLAT) '
+        )
+        EOF
+      '';
 
       LOCATE_TARGET = "bin.unix";
 

@@ -43,9 +43,7 @@ import ./make-test-python.nix (
                 Type = "simple";
                 ExecPreStartPre = "mkdir -p ${iiDir}";
                 ExecStart = ''
-                  ${
-                    lib.getBin pkgs.ii
-                  }/bin/ii -n ${client} -s ${server} -i ${iiDir}
+                  ${lib.getBin pkgs.ii}/bin/ii -n ${client} -s ${server} -i ${iiDir}
                 '';
                 User = "alice";
               };
@@ -100,8 +98,7 @@ import ./make-test-python.nix (
         ;
 
         # foldl', but requires a non-empty list instead of a start value
-        reduce =
-          f: list: builtins.foldl' f (builtins.head list) (builtins.tail list);
+        reduce = f: list: builtins.foldl' f (builtins.head list) (builtins.tail list);
       in
       ''
         start_all()
@@ -113,9 +110,7 @@ import ./make-test-python.nix (
         # to the next one.
       ''
       + lib.concatStrings (
-        reduce (lib.zipListsWith (cs: c: cs + c)) (
-          builtins.map clientScript clients
-        )
+        reduce (lib.zipListsWith (cs: c: cs + c)) (builtins.map clientScript clients)
       )
     ;
   }

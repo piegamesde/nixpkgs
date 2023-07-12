@@ -331,10 +331,7 @@ let
       {
         listsAsDuplicateKeys = true;
         mkKeyValue =
-          k:
-          generators.mkKeyValueDefault { mkValueString = mkValueString k; } " "
-            k
-        ;
+          k: generators.mkKeyValueDefault { mkValueString = mkValueString k; } " " k;
       }
       (
         lib.mapAttrs
@@ -722,9 +719,7 @@ in
                       You might want to disable this if you plan running a dedicated Tor relay''
         );
 
-        transparentProxy.enable = mkEnableOption (
-          lib.mdDoc "transparent proxy"
-        );
+        transparentProxy.enable = mkEnableOption (lib.mdDoc "transparent proxy");
         dns.enable = mkEnableOption (lib.mdDoc "DNS resolver");
 
         socksListenAddress = mkOption {
@@ -928,9 +923,7 @@ in
                   '';
                 };
                 options.authorizeClient = mkOption {
-                  description = lib.mdDoc (
-                    descriptionGeneric "HiddenServiceAuthorizeClient"
-                  );
+                  description = lib.mdDoc (descriptionGeneric "HiddenServiceAuthorizeClient");
                   default = null;
                   type = types.nullOr (
                     types.submodule (
@@ -951,10 +944,7 @@ in
                             '';
                           };
                           clientNames = mkOption {
-                            type =
-                              with types;
-                              nonEmptyListOf (strMatching "[A-Za-z0-9+-_]+")
-                            ;
+                            type = with types; nonEmptyListOf (strMatching "[A-Za-z0-9+-_]+");
                             description = lib.mdDoc ''
                               Only clients that are listed here are authorized to access the hidden service.
                               Generated authorization data can be found in {file}`${stateDir}/onion/$name/hostname`.
@@ -983,9 +973,7 @@ in
                   ];
                 };
                 options.map = mkOption {
-                  description = lib.mdDoc (
-                    descriptionGeneric "HiddenServicePort"
-                  );
+                  description = lib.mdDoc (descriptionGeneric "HiddenServicePort");
                   type =
                     with types;
                     listOf (
@@ -1033,9 +1021,7 @@ in
                   );
                 };
                 options.version = mkOption {
-                  description = lib.mdDoc (
-                    descriptionGeneric "HiddenServiceVersion"
-                  );
+                  description = lib.mdDoc (descriptionGeneric "HiddenServiceVersion");
                   type =
                     with types;
                     nullOr (
@@ -1078,16 +1064,12 @@ in
                         "HiddenServiceDirGroupReadable"
                     ;
                     options.HiddenServiceExportCircuitID = mkOption {
-                      description = lib.mdDoc (
-                        descriptionGeneric "HiddenServiceExportCircuitID"
-                      );
+                      description = lib.mdDoc (descriptionGeneric "HiddenServiceExportCircuitID");
                       type = with types; nullOr (enum [ "haproxy" ]);
                       default = null;
                     };
                     options.HiddenServiceMaxStreams = mkOption {
-                      description = lib.mdDoc (
-                        descriptionGeneric "HiddenServiceMaxStreams"
-                      );
+                      description = lib.mdDoc (descriptionGeneric "HiddenServiceMaxStreams");
                       type = with types; nullOr (ints.between 0 65535);
                       default = null;
                     };
@@ -1102,17 +1084,13 @@ in
                       type = with types; nullOr (ints.between 0 20);
                       default = null;
                     };
-                    options.HiddenServiceSingleHopMode =
-                      optionBool
-                        "HiddenServiceSingleHopMode"
-                    ;
+                    options.HiddenServiceSingleHopMode = optionBool "HiddenServiceSingleHopMode";
                     options.RendPostPeriod = optionString "RendPostPeriod";
                   };
                 };
                 config = {
                   path = mkDefault (
-                    (if config.secretKey == null then stateDir else runDir)
-                    + "/onion/${name}"
+                    (if config.secretKey == null then stateDir else runDir) + "/onion/${name}"
                   );
                   settings.HiddenServiceVersion = config.version;
                   settings.HiddenServiceAuthorizeClient =
@@ -1124,13 +1102,7 @@ in
                       null
                   ;
                   settings.HiddenServicePort =
-                    map
-                      (
-                        p:
-                        mkValueString "" p.port
-                        + " "
-                        + mkValueString "" p.target
-                      )
+                    map (p: mkValueString "" p.port + " " + mkValueString "" p.target)
                       config.map
                   ;
                 };
@@ -1166,44 +1138,27 @@ in
           options.AssumeReachable = optionBool "AssumeReachable";
           options.AccountingMax = optionBandwidth "AccountingMax";
           options.AccountingStart = optionString "AccountingStart";
-          options.AuthDirHasIPv6Connectivity =
-            optionBool
-              "AuthDirHasIPv6Connectivity"
-          ;
+          options.AuthDirHasIPv6Connectivity = optionBool "AuthDirHasIPv6Connectivity";
           options.AuthDirListBadExits = optionBool "AuthDirListBadExits";
           options.AuthDirPinKeys = optionBool "AuthDirPinKeys";
-          options.AuthDirSharedRandomness =
-            optionBool
-              "AuthDirSharedRandomness"
-          ;
-          options.AuthDirTestEd25519LinkKeys =
-            optionBool
-              "AuthDirTestEd25519LinkKeys"
-          ;
+          options.AuthDirSharedRandomness = optionBool "AuthDirSharedRandomness";
+          options.AuthDirTestEd25519LinkKeys = optionBool "AuthDirTestEd25519LinkKeys";
           options.AuthoritativeDirectory = optionBool "AuthoritativeDirectory";
           options.AutomapHostsOnResolve = optionBool "AutomapHostsOnResolve";
-          options.AutomapHostsSuffixes = optionStrings "AutomapHostsSuffixes"
-            // {
-              default = [
-                ".onion"
-                ".exit"
-              ];
-              example = [ ".onion" ];
-            };
+          options.AutomapHostsSuffixes = optionStrings "AutomapHostsSuffixes" // {
+            default = [
+              ".onion"
+              ".exit"
+            ];
+            example = [ ".onion" ];
+          };
           options.BandwidthBurst = optionBandwidth "BandwidthBurst";
           options.BandwidthRate = optionBandwidth "BandwidthRate";
           options.BridgeAuthoritativeDir = optionBool "BridgeAuthoritativeDir";
-          options.BridgeRecordUsageByCountry =
-            optionBool
-              "BridgeRecordUsageByCountry"
-          ;
-          options.BridgeRelay =
-            optionBool "BridgeRelay" // { default = false; };
+          options.BridgeRecordUsageByCountry = optionBool "BridgeRecordUsageByCountry";
+          options.BridgeRelay = optionBool "BridgeRelay" // { default = false; };
           options.CacheDirectory = optionPath "CacheDirectory";
-          options.CacheDirectoryGroupReadable =
-            optionBool
-              "CacheDirectoryGroupReadable"
-          ; # default is null and like "auto"
+          options.CacheDirectoryGroupReadable = optionBool "CacheDirectoryGroupReadable"; # default is null and like "auto"
           options.CellStatistics = optionBool "CellStatistics";
           options.ClientAutoIPv6ORPort = optionBool "ClientAutoIPv6ORPort";
           options.ClientDNSRejectInternalAddresses =
@@ -1215,10 +1170,7 @@ in
             default = null;
             type = with types; nullOr path;
           };
-          options.ClientPreferIPv6DirPort =
-            optionBool
-              "ClientPreferIPv6DirPort"
-          ; # default is null and like "auto"
+          options.ClientPreferIPv6DirPort = optionBool "ClientPreferIPv6DirPort"; # default is null and like "auto"
           options.ClientPreferIPv6ORPort = optionBool "ClientPreferIPv6ORPort"; # default is null and like "auto"
           options.ClientRejectInternalAddresses =
             optionBool
@@ -1226,10 +1178,7 @@ in
           ;
           options.ClientUseIPv4 = optionBool "ClientUseIPv4";
           options.ClientUseIPv6 = optionBool "ClientUseIPv6";
-          options.ConnDirectionStatistics =
-            optionBool
-              "ConnDirectionStatistics"
-          ;
+          options.ConnDirectionStatistics = optionBool "ConnDirectionStatistics";
           options.ConstrainedSockets = optionBool "ConstrainedSockets";
           options.ContactInfo = optionString "ContactInfo";
           options.ControlPort = mkOption rec {
@@ -1286,31 +1235,15 @@ in
           ;
           options.ControlPortWriteToFile = optionPath "ControlPortWriteToFile";
           options.ControlSocket = optionPath "ControlSocket";
-          options.ControlSocketsGroupWritable =
-            optionBool
-              "ControlSocketsGroupWritable"
-          ;
+          options.ControlSocketsGroupWritable = optionBool "ControlSocketsGroupWritable";
           options.CookieAuthFile = optionPath "CookieAuthFile";
-          options.CookieAuthFileGroupReadable =
-            optionBool
-              "CookieAuthFileGroupReadable"
-          ;
+          options.CookieAuthFileGroupReadable = optionBool "CookieAuthFileGroupReadable";
           options.CookieAuthentication = optionBool "CookieAuthentication";
-          options.DataDirectory =
-            optionPath "DataDirectory" // { default = stateDir; };
-          options.DataDirectoryGroupReadable =
-            optionBool
-              "DataDirectoryGroupReadable"
-          ;
+          options.DataDirectory = optionPath "DataDirectory" // { default = stateDir; };
+          options.DataDirectoryGroupReadable = optionBool "DataDirectoryGroupReadable";
           options.DirPortFrontPage = optionPath "DirPortFrontPage";
-          options.DirAllowPrivateAddresses =
-            optionBool
-              "DirAllowPrivateAddresses"
-          ;
-          options.DormantCanceledByStartup =
-            optionBool
-              "DormantCanceledByStartup"
-          ;
+          options.DirAllowPrivateAddresses = optionBool "DirAllowPrivateAddresses";
+          options.DormantCanceledByStartup = optionBool "DormantCanceledByStartup";
           options.DormantOnFirstStartup = optionBool "DormantOnFirstStartup";
           options.DormantTimeoutDisabledByIdleStreams =
             optionBool
@@ -1326,17 +1259,11 @@ in
           options.DirPort = optionORPort "DirPort";
           options.DirReqStatistics = optionBool "DirReqStatistics";
           options.DisableAllSwap = optionBool "DisableAllSwap";
-          options.DisableDebuggerAttachment =
-            optionBool
-              "DisableDebuggerAttachment"
-          ;
+          options.DisableDebuggerAttachment = optionBool "DisableDebuggerAttachment";
           options.DisableNetwork = optionBool "DisableNetwork";
           options.DisableOOSCheck = optionBool "DisableOOSCheck";
           options.DNSPort = optionIsolablePorts "DNSPort";
-          options.DoSCircuitCreationEnabled =
-            optionBool
-              "DoSCircuitCreationEnabled"
-          ;
+          options.DoSCircuitCreationEnabled = optionBool "DoSCircuitCreationEnabled";
           options.DoSConnectionEnabled = optionBool "DoSConnectionEnabled"; # default is null and like "auto"
           options.DoSRefuseSingleHopClientRendezvous =
             optionBool
@@ -1353,10 +1280,7 @@ in
             optionBool
               "ExitPolicyRejectLocalInterfaces"
           ;
-          options.ExitPolicyRejectPrivate =
-            optionBool
-              "ExitPolicyRejectPrivate"
-          ;
+          options.ExitPolicyRejectPrivate = optionBool "ExitPolicyRejectPrivate";
           options.ExitPortStatistics = optionBool "ExitPortStatistics";
           options.ExitRelay = optionBool "ExitRelay"; # default is null and like "auto"
           options.ExtORPort = mkOption {
@@ -1384,31 +1308,19 @@ in
             ;
             apply = p: if isInt p || isString p then { port = p; } else p;
           };
-          options.ExtORPortCookieAuthFile =
-            optionPath
-              "ExtORPortCookieAuthFile"
-          ;
+          options.ExtORPortCookieAuthFile = optionPath "ExtORPortCookieAuthFile";
           options.ExtORPortCookieAuthFileGroupReadable =
             optionBool
               "ExtORPortCookieAuthFileGroupReadable"
           ;
-          options.ExtendAllowPrivateAddresses =
-            optionBool
-              "ExtendAllowPrivateAddresses"
-          ;
+          options.ExtendAllowPrivateAddresses = optionBool "ExtendAllowPrivateAddresses";
           options.ExtraInfoStatistics = optionBool "ExtraInfoStatistics";
           options.FascistFirewall = optionBool "FascistFirewall";
           options.FetchDirInfoEarly = optionBool "FetchDirInfoEarly";
           options.FetchDirInfoExtraEarly = optionBool "FetchDirInfoExtraEarly";
-          options.FetchHidServDescriptors =
-            optionBool
-              "FetchHidServDescriptors"
-          ;
+          options.FetchHidServDescriptors = optionBool "FetchHidServDescriptors";
           options.FetchServerDescriptors = optionBool "FetchServerDescriptors";
-          options.FetchUselessDescriptors =
-            optionBool
-              "FetchUselessDescriptors"
-          ;
+          options.FetchUselessDescriptors = optionBool "FetchUselessDescriptors";
           options.ReachableAddresses = optionStrings "ReachableAddresses";
           options.ReachableDirAddresses = optionStrings "ReachableDirAddresses";
           options.ReachableORAddresses = optionStrings "ReachableORAddresses";
@@ -1447,31 +1359,19 @@ in
             optionBool
               "HiddenServiceNonAnonymousMode"
           ;
-          options.HiddenServiceStatistics =
-            optionBool
-              "HiddenServiceStatistics"
-          ;
+          options.HiddenServiceStatistics = optionBool "HiddenServiceStatistics";
           options.HSLayer2Nodes = optionStrings "HSLayer2Nodes";
           options.HSLayer3Nodes = optionStrings "HSLayer3Nodes";
           options.HTTPTunnelPort = optionIsolablePorts "HTTPTunnelPort";
           options.IPv6Exit = optionBool "IPv6Exit";
           options.KeyDirectory = optionPath "KeyDirectory";
-          options.KeyDirectoryGroupReadable =
-            optionBool
-              "KeyDirectoryGroupReadable"
-          ;
+          options.KeyDirectoryGroupReadable = optionBool "KeyDirectoryGroupReadable";
           options.LogMessageDomains = optionBool "LogMessageDomains";
           options.LongLivedPorts = optionPorts "LongLivedPorts";
           options.MainloopStats = optionBool "MainloopStats";
-          options.MaxAdvertisedBandwidth =
-            optionBandwidth
-              "MaxAdvertisedBandwidth"
-          ;
+          options.MaxAdvertisedBandwidth = optionBandwidth "MaxAdvertisedBandwidth";
           options.MaxCircuitDirtiness = optionInt "MaxCircuitDirtiness";
-          options.MaxClientCircuitsPending =
-            optionInt
-              "MaxClientCircuitsPending"
-          ;
+          options.MaxClientCircuitsPending = optionInt "MaxClientCircuitsPending";
           options.NATDPort = optionIsolablePorts "NATDPort";
           options.NewCircuitPeriod = optionInt "NewCircuitPeriod";
           options.Nickname = optionString "Nickname";
@@ -1483,14 +1383,9 @@ in
           options.PerConnBWRate = optionBandwidth "PerConnBWRate";
           options.PidFile = optionPath "PidFile";
           options.ProtocolWarnings = optionBool "ProtocolWarnings";
-          options.PublishHidServDescriptors =
-            optionBool
-              "PublishHidServDescriptors"
-          ;
+          options.PublishHidServDescriptors = optionBool "PublishHidServDescriptors";
           options.PublishServerDescriptor = mkOption {
-            description = lib.mdDoc (
-              descriptionGeneric "PublishServerDescriptor"
-            );
+            description = lib.mdDoc (descriptionGeneric "PublishServerDescriptor");
             type =
               with types;
               nullOr (
@@ -1515,28 +1410,17 @@ in
           options.RelayBandwidthRate = optionBandwidth "RelayBandwidthRate";
           #options.RunAsDaemon
           options.Sandbox = optionBool "Sandbox";
-          options.ServerDNSAllowBrokenConfig =
-            optionBool
-              "ServerDNSAllowBrokenConfig"
-          ;
+          options.ServerDNSAllowBrokenConfig = optionBool "ServerDNSAllowBrokenConfig";
           options.ServerDNSAllowNonRFC953Hostnames =
             optionBool
               "ServerDNSAllowNonRFC953Hostnames"
           ;
-          options.ServerDNSDetectHijacking =
-            optionBool
-              "ServerDNSDetectHijacking"
-          ;
+          options.ServerDNSDetectHijacking = optionBool "ServerDNSDetectHijacking";
           options.ServerDNSRandomizeCase = optionBool "ServerDNSRandomizeCase";
-          options.ServerDNSResolvConfFile =
-            optionPath
-              "ServerDNSResolvConfFile"
-          ;
+          options.ServerDNSResolvConfFile = optionPath "ServerDNSResolvConfFile";
           options.ServerDNSSearchDomains = optionBool "ServerDNSSearchDomains";
           options.ServerTransportPlugin = mkOption {
-            description = lib.mdDoc (
-              descriptionGeneric "ServerTransportPlugin"
-            );
+            description = lib.mdDoc (descriptionGeneric "ServerTransportPlugin");
             default = null;
             type =
               with types;
@@ -1559,10 +1443,7 @@ in
                       };
                       exec = mkOption {
                         type = types.str;
-                        description =
-                          lib.mdDoc
-                            "Command of pluggable transport."
-                        ;
+                        description = lib.mdDoc "Command of pluggable transport.";
                       };
                     };
                   }
@@ -1615,22 +1496,13 @@ in
           options.UseDefaultFallbackDirs = optionBool "UseDefaultFallbackDirs";
           options.UseMicrodescriptors = optionBool "UseMicrodescriptors";
           options.V3AuthUseLegacyKey = optionBool "V3AuthUseLegacyKey";
-          options.V3AuthoritativeDirectory =
-            optionBool
-              "V3AuthoritativeDirectory"
-          ;
+          options.V3AuthoritativeDirectory = optionBool "V3AuthoritativeDirectory";
           options.VersioningAuthoritativeDirectory =
             optionBool
               "VersioningAuthoritativeDirectory"
           ;
-          options.VirtualAddrNetworkIPv4 =
-            optionString
-              "VirtualAddrNetworkIPv4"
-          ;
-          options.VirtualAddrNetworkIPv6 =
-            optionString
-              "VirtualAddrNetworkIPv6"
-          ;
+          options.VirtualAddrNetworkIPv4 = optionString "VirtualAddrNetworkIPv4";
+          options.VirtualAddrNetworkIPv6 = optionString "VirtualAddrNetworkIPv6";
           options.WarnPlaintextPorts = optionPorts "WarnPlaintextPorts";
         };
       };
@@ -1644,9 +1516,7 @@ in
       optional
         (
           cfg.settings.BridgeRelay
-          &&
-            flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices)
-            != [ ]
+          && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ]
         )
         ''
           Running Tor hidden services on a public relay makes the
@@ -1716,10 +1586,7 @@ in
             BridgeRelay = true;
             ExtORPort.port = mkDefault "auto";
             ServerTransportPlugin.transports = mkDefault [ "obfs4" ];
-            ServerTransportPlugin.exec =
-              mkDefault
-                "${pkgs.obfs4}/bin/obfs4proxy managed"
-            ;
+            ServerTransportPlugin.exec = mkDefault "${pkgs.obfs4}/bin/obfs4proxy managed";
           } // optionalAttrs (cfg.relay.role == "private-bridge") {
             ExtraInfoStatistics = false;
             PublishServerDescriptor = false;
@@ -1756,10 +1623,8 @@ in
           AutomapHostsOnResolve = true;
         } // optionalAttrs
           (
-            flatten (
-              mapAttrsToList (n: o: o.clientAuthorizations)
-                cfg.client.onionServices
-            ) != [ ]
+            flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices)
+            != [ ]
           )
           { ClientOnionAuthDir = runDir + "/ClientOnionAuthDir"; }
       ))
@@ -1813,9 +1678,9 @@ in
                         name: onion:
                         optional (onion.authorizedClients != [ ]) ''
                           rm -rf ${escapeShellArg onion.path}/authorized_clients
-                          install -d -o tor -g tor -m 0700 ${
+                          install -d -o tor -g tor -m 0700 ${escapeShellArg onion.path} ${
                             escapeShellArg onion.path
-                          } ${escapeShellArg onion.path}/authorized_clients
+                          }/authorized_clients
                         ''
                         ++
                           imap0
@@ -1827,17 +1692,11 @@ in
                             '')
                             onion.authorizedClients
                         ++ optional (onion.secretKey != null) ''
-                          install -d -o tor -g tor -m 0700 ${
-                            escapeShellArg onion.path
-                          }
-                          key="$(cut -f1 -d: ${
-                            escapeShellArg onion.secretKey
-                          } | head -1)"
+                          install -d -o tor -g tor -m 0700 ${escapeShellArg onion.path}
+                          key="$(cut -f1 -d: ${escapeShellArg onion.secretKey} | head -1)"
                           case "$key" in
                            ("== ed25519v"*"-secret")
-                            install -o tor -g tor -m 0400 ${
-                              escapeShellArg onion.secretKey
-                            } ${
+                            install -o tor -g tor -m 0400 ${escapeShellArg onion.secretKey} ${
                               escapeShellArg onion.path
                             }/hs_ed25519_secret_key;;
                            (*) echo >&2 "NixOS does not (yet) support secret key type for onion: ${name}"; exit 1;;
@@ -1856,13 +1715,11 @@ in
                               hostname = removeSuffix ".onion" name;
                             in
                             ''
-                              printf "%s:" ${escapeShellArg hostname} | cat - ${
-                                escapeShellArg prvKeyPath
-                              } |
+                              printf "%s:" ${escapeShellArg hostname} | cat - ${escapeShellArg prvKeyPath} |
                               install -o tor -g tor -m 0700 /dev/stdin \
-                               ${runDir}/ClientOnionAuthDir/${
-                                 escapeShellArg hostname
-                               }.${toString i}.auth_private
+                               ${runDir}/ClientOnionAuthDir/${escapeShellArg hostname}.${
+                                 toString i
+                               }.auth_private
                             ''
                           )
                           onion.clientAuthorizations
@@ -1895,10 +1752,7 @@ in
           ]
           ++ flatten (
             mapAttrsToList
-              (
-                name: onion:
-                optional (onion.secretKey == null) "tor/onion/${name}"
-              )
+              (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
               cfg.relay.onionServices
           )
         ;

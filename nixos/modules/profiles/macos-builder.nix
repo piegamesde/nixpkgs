@@ -178,9 +178,7 @@ in
         );
       in
       script.overrideAttrs (
-        old: {
-          meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
-        }
+        old: { meta = (old.meta or { }) // { platforms = lib.platforms.darwin; }; }
       )
     ;
 

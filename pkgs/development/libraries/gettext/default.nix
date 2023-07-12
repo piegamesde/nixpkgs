@@ -93,9 +93,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ bash ]
     # HACK, see #10874 (and 14664)
-    ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [
-      libiconv
-    ]
+    ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [ libiconv ]
   ;
 
   setupHooks = [

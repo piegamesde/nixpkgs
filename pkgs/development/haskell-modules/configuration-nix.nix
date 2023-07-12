@@ -442,10 +442,7 @@ builtins.intersectAttrs super {
   digitalocean-kzs = dontCheck super.digitalocean-kzs; # https://github.com/KazumaSATO/digitalocean-kzs/issues/1
   github-types = dontCheck super.github-types; # http://hydra.cryp.to/build/1114046/nixlog/1/raw
   hadoop-rpc = dontCheck super.hadoop-rpc; # http://hydra.cryp.to/build/527461/nixlog/2/raw
-  hjsonschema =
-    overrideCabal (drv: { testTarget = "local"; })
-      super.hjsonschema
-  ;
+  hjsonschema = overrideCabal (drv: { testTarget = "local"; }) super.hjsonschema;
   marmalade-upload = dontCheck super.marmalade-upload; # http://hydra.cryp.to/build/501904/nixlog/1/raw
   mongoDB = dontCheck super.mongoDB;
   network-transport-tcp = dontCheck super.network-transport-tcp;
@@ -519,9 +516,7 @@ builtins.intersectAttrs super {
 
   # wxc supports wxGTX >= 3.0, but our current default version points to 2.8.
   # http://hydra.cryp.to/build/1331287/log/raw
-  wxc = (addBuildDepend self.split super.wxc).override {
-    wxGTK = pkgs.wxGTK32;
-  };
+  wxc = (addBuildDepend self.split super.wxc).override { wxGTK = pkgs.wxGTK32; };
   wxcore = super.wxcore.override { wxGTK = pkgs.wxGTK32; };
 
   # Test suite wants to connect to $DISPLAY.
@@ -736,12 +731,7 @@ builtins.intersectAttrs super {
           (drv.libraryHaskellDepends or [ ])
           ++
             lib.optionals
-              (
-                !(
-                  pkgs.stdenv.hostPlatform.isAarch64
-                  || pkgs.stdenv.hostPlatform.isx86_64
-                )
-              )
+              (!(pkgs.stdenv.hostPlatform.isAarch64 || pkgs.stdenv.hostPlatform.isx86_64))
               [ self.unbounded-delays ]
         ;
       })
@@ -1023,15 +1013,13 @@ builtins.intersectAttrs super {
           ''
           + (drv.postFixup or "")
         ;
-        buildTools =
-          [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
+        buildTools = [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
       })
       (
         super.git-annex.override {
           dbus = if pkgs.stdenv.isLinux then self.dbus else null;
           fdo-notify = if pkgs.stdenv.isLinux then self.fdo-notify else null;
-          hinotify =
-            if pkgs.stdenv.isLinux then self.hinotify else self.fsnotify;
+          hinotify = if pkgs.stdenv.isLinux then self.hinotify else self.fsnotify;
         }
       )
   ;
@@ -1319,8 +1307,7 @@ builtins.intersectAttrs super {
   taglib =
     overrideCabal
       (drv: {
-        librarySystemDepends =
-          [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]);
+        librarySystemDepends = [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]);
       })
       super.taglib
   ;
@@ -1353,8 +1340,7 @@ builtins.intersectAttrs super {
   cabal2nix-unstable =
     overrideCabal
       (drv: {
-        buildTools =
-          (drv.buildTools or [ ]) ++ [ pkgs.buildPackages.makeWrapper ];
+        buildTools = (drv.buildTools or [ ]) ++ [ pkgs.buildPackages.makeWrapper ];
         postInstall = ''
           wrapProgram $out/bin/cabal2nix \
             --prefix PATH ":" "${
@@ -1391,8 +1377,7 @@ builtins.intersectAttrs super {
       (drv: {
         # test needs network
         doCheck = false;
-        buildTools =
-          drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
+        buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
         postInstall =
           drv.postInstall or ""
           + ''
@@ -1542,9 +1527,7 @@ builtins.intersectAttrs super {
     overrideCabal
       {
         doCheck =
-          with pkgs.stdenv;
-          hostPlatform == buildPlatform && buildPlatform.isx86
-        ;
+          with pkgs.stdenv; hostPlatform == buildPlatform && buildPlatform.isx86;
       }
       super.hashes
   ;

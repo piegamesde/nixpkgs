@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optionals
         (
-          stdenv.isDarwin
-          && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+          stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
         )
         [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]
   ;

@@ -123,8 +123,7 @@ let
     let
       archived =
         name: date:
-        throw
-          "the ${name} terraform provider has been archived by upstream on ${date}"
+        throw "the ${name} terraform provider has been archived by upstream on ${date}"
       ;
       license =
         name: date:

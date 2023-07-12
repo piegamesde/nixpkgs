@@ -13,9 +13,7 @@ runCommand "fc-cache"
     passAsFile = [ "fontDirs" ];
     fontDirs = ''
       <!-- Font directories -->
-      ${lib.concatStringsSep "\n" (
-        map (font: "<dir>${font}</dir>") fontDirectories
-      )}
+      ${lib.concatStringsSep "\n" (map (font: "<dir>${font}</dir>") fontDirectories)}
     '';
   }
   ''

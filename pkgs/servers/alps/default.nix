@@ -23,9 +23,7 @@ buildGoModule rec {
     "-s"
     "-w"
     "-X main.themesPath=${placeholder "out"}/share/alps/themes"
-    "-X git.sr.ht/~migadu/alps.PluginDir=${
-      placeholder "out"
-    }/share/alps/plugins"
+    "-X git.sr.ht/~migadu/alps.PluginDir=${placeholder "out"}/share/alps/plugins"
   ];
 
   patches = [

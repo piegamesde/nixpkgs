@@ -71,10 +71,7 @@ in
 
       redis = {
         enable = mkOption {
-          description =
-            lib.mdDoc
-              "Whether to enable caching of ripple data to redis."
-          ;
+          description = lib.mdDoc "Whether to enable caching of ripple data to redis.";
           default = true;
           type = types.bool;
         };
@@ -134,10 +131,7 @@ in
       };
 
       rippleds = mkOption {
-        description =
-          lib.mdDoc
-            "List of rippleds to be used by ripple data api."
-        ;
+        description = lib.mdDoc "List of rippleds to be used by ripple data api.";
         default = [
           "http://s_east.ripple.com:51234"
           "http://s_west.ripple.com:51234"

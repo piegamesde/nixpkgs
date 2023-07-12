@@ -48,10 +48,7 @@ let
       key,
     }:
     foldl'
-      (
-        acc: n:
-        if n.key < key && (acc == null || n.key > acc.key) then n else acc
-      )
+      (acc: n: if n.key < key && (acc == null || n.key > acc.key) then n else acc)
       null
       namesSorted
   ;

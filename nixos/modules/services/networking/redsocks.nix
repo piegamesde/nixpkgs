@@ -151,10 +151,7 @@ in
               redirectInternetOnly = mkOption {
                 type = types.bool;
                 default = true;
-                description =
-                  lib.mdDoc
-                    "Exclude all non-globally-routable IPs from redsocks"
-                ;
+                description = lib.mdDoc "Exclude all non-globally-routable IPs from redsocks";
               };
 
               doNotRedirect = mkOption {
@@ -214,14 +211,8 @@ in
                 port = ${elemAt proxy 1};
                 type = ${block.type};
 
-                ${
-                  optionalString (block.login != null)
-                    ''login = "${block.login}";''
-                }
-                ${
-                  optionalString (block.password != null)
-                    ''password = "${block.password}";''
-                }
+                ${optionalString (block.login != null) ''login = "${block.login}";''}
+                ${optionalString (block.password != null) ''password = "${block.password}";''}
 
                 disclose_src = ${block.disclose_src};
               }
@@ -258,8 +249,7 @@ in
       ];
       redCond =
         block:
-        optionalString (isString block.redirectCondition)
-          block.redirectCondition
+        optionalString (isString block.redirectCondition) block.redirectCondition
       ;
       iptables =
         concatImapStrings
@@ -269,14 +259,8 @@ in
               chain = "REDSOCKS${toString idx}";
               doNotRedirect =
                 concatMapStringsSep "\n"
-                  (
-                    f:
-                    "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true"
-                  )
-                  (
-                    block.doNotRedirect
-                    ++ (optionals block.redirectInternetOnly internetOnly)
-                  )
+                  (f: "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true")
+                  (block.doNotRedirect ++ (optionals block.redirectInternetOnly internetOnly))
               ;
             in
             optionalString (block.redirectCondition != false) ''

@@ -108,12 +108,7 @@ let
               libkrb5
               systemd
             ]
-            ++ (
-              if (lib.versionOlder version "10.6") then
-                [ libaio ]
-              else
-                [ liburing ]
-            )
+            ++ (if (lib.versionOlder version "10.6") then [ libaio ] else [ liburing ])
           )
           ++ lib.optionals stdenv.hostPlatform.isDarwin [
             CoreServices
@@ -146,11 +141,7 @@ let
           # Fixes a build issue as documented on
           # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
           ++
-            lib.optional
-              (
-                !stdenv.hostPlatform.isLinux
-                && lib.versionAtLeast version "10.6"
-              )
+            lib.optional (!stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6")
               ./patch/macos-MDEV-26769-regression-fix.patch
         ;
 
@@ -195,10 +186,7 @@ let
           ]
           ++
             lib.optionals
-              (
-                stdenv.hostPlatform.isDarwin
-                && lib.versionAtLeast version "10.6"
-              )
+              (stdenv.hostPlatform.isDarwin && lib.versionAtLeast version "10.6")
               [
                 # workaround for https://jira.mariadb.org/browse/MDEV-29925
                 "-Dhave_C__Wl___as_needed="
@@ -206,9 +194,7 @@ let
           ++ lib.optionals isCross [
             # revisit this if nixpkgs supports any architecture whose stack grows upwards
             "-DSTACK_DIRECTION=-1"
-            "-DCMAKE_CROSSCOMPILING_EMULATOR=${
-              stdenv.hostPlatform.emulator buildPackages
-            }"
+            "-DCMAKE_CROSSCOMPILING_EMULATOR=${stdenv.hostPlatform.emulator buildPackages}"
           ]
         ;
 
@@ -234,9 +220,7 @@ let
         passthru.tests =
           let
             testVersion = "mariadb_${
-                builtins.replaceStrings [ "." ] [ "" ] (
-                  lib.versions.majorMinor version
-                )
+                builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)
               }";
           in
           {
@@ -326,9 +310,7 @@ let
               msgpack
               zeromq
             ]
-            ++ lib.optionals (lib.versionAtLeast common.version "10.7") [
-              fmt_8
-            ]
+            ++ lib.optionals (lib.versionAtLeast common.version "10.7") [ fmt_8 ]
           ;
 
           propagatedBuildInputs = lib.optional withNuma numactl;
@@ -356,12 +338,10 @@ let
             ++ lib.optionals withNuma [ "-DWITH_NUMA=ON" ]
             ++ lib.optionals (!withStorageMroonga) [ "-DWITHOUT_MROONGA=1" ]
             ++ lib.optionals (!withStorageRocks) [ "-DWITHOUT_ROCKSDB=1" ]
-            ++
-              lib.optionals (!stdenv.hostPlatform.isDarwin && withStorageRocks)
-                [ "-DWITH_ROCKSDB_JEMALLOC=ON" ]
-            ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-              "-DWITH_JEMALLOC=yes"
+            ++ lib.optionals (!stdenv.hostPlatform.isDarwin && withStorageRocks) [
+              "-DWITH_ROCKSDB_JEMALLOC=ON"
             ]
+            ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ "-DWITH_JEMALLOC=yes" ]
             ++ lib.optionals stdenv.hostPlatform.isDarwin [
               "-DPLUGIN_AUTH_PAM=NO"
               "-DPLUGIN_AUTH_PAM_V1=NO"
@@ -386,10 +366,7 @@ let
             ''
             +
               lib.optionalString
-                (
-                  !stdenv.hostPlatform.isDarwin
-                  && lib.versionAtLeast common.version "10.4"
-                )
+                (!stdenv.hostPlatform.isDarwin && lib.versionAtLeast common.version "10.4")
                 ''
                   mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
                   mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
@@ -397,14 +374,8 @@ let
                 ''
           ;
 
-          CXXFLAGS =
-            lib.optionalString stdenv.hostPlatform.isi686
-              "-fpermissive"
-          ;
-          NIX_LDFLAGS =
-            lib.optionalString stdenv.hostPlatform.isRiscV
-              "-latomic"
-          ;
+          CXXFLAGS = lib.optionalString stdenv.hostPlatform.isi686 "-fpermissive";
+          NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
         }
       );
     in

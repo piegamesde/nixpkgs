@@ -266,24 +266,17 @@ rec {
                 enableDocs = false;
                 hostCpuTargets = [ "${final.qemuArch}-linux-user" ];
               };
-              wine =
-                (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}")
-                .minimal;
+              wine = (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}").minimal;
             in
             if
-              final.parsed.kernel.name
-              == pkgs.stdenv.hostPlatform.parsed.kernel.name
+              final.parsed.kernel.name == pkgs.stdenv.hostPlatform.parsed.kernel.name
               && pkgs.stdenv.hostPlatform.canExecute final
             then
               ''${pkgs.runtimeShell} -c '"$@"' --''
             else if final.isWindows then
-              "${wine}/bin/wine${
-                lib.optionalString (final.parsed.cpu.bits == 64) "64"
-              }"
+              "${wine}/bin/wine${lib.optionalString (final.parsed.cpu.bits == 64) "64"}"
             else if
-              final.isLinux
-              && pkgs.stdenv.hostPlatform.isLinux
-              && final.qemuArch != null
+              final.isLinux && pkgs.stdenv.hostPlatform.isLinux && final.qemuArch != null
             then
               "${qemu-user}/bin/qemu-${final.qemuArch}"
             else if final.isWasi then
@@ -306,8 +299,8 @@ rec {
           ;
         }
       ) // mapAttrs (n: v: v final.parsed) inspect.predicates
-        // mapAttrs (n: v: v final.gcc.arch or "default")
-          architectures.predicates // args;
+        // mapAttrs (n: v: v final.gcc.arch or "default") architectures.predicates
+        // args;
     in
     assert final.useAndroidPrebuilt -> final.isAndroid;
     assert lib.foldl

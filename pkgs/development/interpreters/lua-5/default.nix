@@ -45,9 +45,7 @@ let
                 lua = self;
               };
               generatedPackages =
-                if
-                  (builtins.pathExists ../../lua-modules/generated-packages.nix)
-                then
+                if (builtins.pathExists ../../lua-modules/generated-packages.nix) then
                   (
                     final: prev:
                     callPackage ../../lua-modules/generated-packages.nix
@@ -58,10 +56,7 @@ let
                 else
                   (final: prev: { })
               ;
-              overriddenPackages =
-                callPackage ../../lua-modules/overrides.nix
-                  { }
-              ;
+              overriddenPackages = callPackage ../../lua-modules/overrides.nix { };
 
               otherSplices = {
                 selfBuildBuild = luaOnBuildForBuild.pkgs;
@@ -94,9 +89,7 @@ let
         makeWrapper = makeBinaryWrapper;
         inherit (luaPackages) requiredLuaModules;
       };
-      withPackages = import ./with-packages.nix {
-        inherit buildEnv luaPackages;
-      };
+      withPackages = import ./with-packages.nix { inherit buildEnv luaPackages; };
       pkgs = luaPackages;
       interpreter = "${self}/bin/${executable}";
       inherit executable luaversion;
@@ -169,9 +162,7 @@ rec {
     makeWrapper = makeBinaryWrapper;
     inherit passthruFun;
     patches =
-      [ ./CVE-2022-28805.patch ]
-      ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch
-    ;
+      [ ./CVE-2022-28805.patch ] ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch;
   };
 
   lua5_2_compat = lua5_2.override ({
@@ -186,9 +177,7 @@ rec {
     makeWrapper = makeBinaryWrapper;
     inherit passthruFun;
     patches =
-      (lib.optional stdenv.isDarwin ./5.1.darwin.patch)
-      ++ [ ./CVE-2014-5461.patch ]
-    ;
+      (lib.optional stdenv.isDarwin ./5.1.darwin.patch) ++ [ ./CVE-2014-5461.patch ];
   };
 
   luajit_2_0 = import ../luajit/2.0.nix {

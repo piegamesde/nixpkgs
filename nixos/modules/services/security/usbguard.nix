@@ -36,9 +36,7 @@ let
     PresentDevicePolicy=${cfg.presentDevicePolicy}
     PresentControllerPolicy=${cfg.presentControllerPolicy}
     InsertedDevicePolicy=${cfg.insertedDevicePolicy}
-    RestoreControllerDeviceState=${
-      boolToString cfg.restoreControllerDeviceState
-    }
+    RestoreControllerDeviceState=${boolToString cfg.restoreControllerDeviceState}
     # this does not seem useful for endusers to change
     DeviceManagerBackend=uevent
     IPCAllowedUsers=${concatStringsSep " " cfg.IPCAllowedUsers}

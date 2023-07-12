@@ -60,10 +60,7 @@ lib.throwIf (attrs ? name)
           nativeBuildInputs =
             nativeBuildInputs
             ++ (
-              if stdenv.buildPlatform != stdenv.hostPlatform then
-                [ perl.mini ]
-              else
-                [ perl ]
+              if stdenv.buildPlatform != stdenv.hostPlatform then [ perl.mini ] else [ perl ]
             )
           ;
 

@@ -102,14 +102,8 @@
                   keep = lib.extends hooks pythonPackagesFun;
                   extra = _: { };
                   optionalExtensions = cond: as: lib.optionals cond as;
-                  pythonExtension =
-                    import
-                      ../../../top-level/python-packages.nix
-                  ;
-                  python2Extension =
-                    import
-                      ../../../top-level/python2-packages.nix
-                  ;
+                  pythonExtension = import ../../../top-level/python-packages.nix;
+                  python2Extension = import ../../../top-level/python2-packages.nix;
                   extensions = lib.composeManyExtensions (
                     [ pythonExtension ]
                     ++ (optionalExtensions (!self.isPy3k) [ python2Extension ])
@@ -119,8 +113,7 @@
                   aliases =
                     self: super:
                     lib.optionalAttrs config.allowAliases (
-                      import ../../../top-level/python-aliases.nix lib self
-                        super
+                      import ../../../top-level/python-aliases.nix lib self super
                     )
                   ;
                 in
@@ -152,9 +145,7 @@
           python = self;
           inherit (pythonPackages) requiredPythonModules;
         };
-        withPackages = import ./with-packages.nix {
-          inherit buildEnv pythonPackages;
-        };
+        withPackages = import ./with-packages.nix { inherit buildEnv pythonPackages; };
         pkgs = pythonPackages;
         interpreter = "${self}/bin/${executable}";
         inherit

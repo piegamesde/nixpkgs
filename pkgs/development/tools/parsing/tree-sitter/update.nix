@@ -406,8 +406,7 @@ let
         inherit knownTreeSitterOrgGrammarRepos ignoredTreeSitterOrgRepos;
       }
       (
-        writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; }
-          ./update_impl.py
+        writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; } ./update_impl.py
       )
   ;
 
@@ -456,12 +455,7 @@ let
          '')
          (
            lib.mapAttrsToList
-             (
-               nixRepoAttrName: attrs:
-               attrs // {
-                 inherit nixRepoAttrName outputDir;
-               }
-             )
+             (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; })
              allGrammars
          )
      }

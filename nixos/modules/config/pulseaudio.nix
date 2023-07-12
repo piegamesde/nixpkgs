@@ -34,8 +34,7 @@ let
     cfg.support32Bit
     && stdenv.isx86_64
     && (
-      pkgs.pkgsi686Linux.alsa-lib != null
-      && pkgs.pkgsi686Linux.libpulseaudio != null
+      pkgs.pkgsi686Linux.alsa-lib != null && pkgs.pkgsi686Linux.libpulseaudio != null
     )
   ;
 
@@ -57,9 +56,7 @@ let
         ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
         ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
         ${addModuleIf cfg.tcp.enable (
-          concatStringsSep " " (
-            [ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon
-          )
+          concatStringsSep " " ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon)
         )}
         ${addModuleIf config.services.jack.jackd.enable "module-jack-sink"}
         ${addModuleIf config.services.jack.jackd.enable "module-jack-source"}
@@ -287,10 +284,7 @@ in
       hardware.pulseaudio.daemon.config.flat-volumes = mkDefault "no";
 
       # Upstream defaults to speex-float-1 which results in audible artifacts
-      hardware.pulseaudio.daemon.config.resample-method =
-        mkDefault
-          "speex-float-5"
-      ;
+      hardware.pulseaudio.daemon.config.resample-method = mkDefault "speex-float-5";
 
       # Allow PulseAudio to get realtime priority using rtkit.
       security.rtkit.enable = true;

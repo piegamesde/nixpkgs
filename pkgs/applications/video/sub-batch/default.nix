@@ -23,9 +23,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
-    wrapProgram "$out/bin/sub-batch" --prefix PATH : "${
-      lib.makeBinPath [ alass ]
-    }"
+    wrapProgram "$out/bin/sub-batch" --prefix PATH : "${lib.makeBinPath [ alass ]}"
   '';
 
   meta = with lib; {

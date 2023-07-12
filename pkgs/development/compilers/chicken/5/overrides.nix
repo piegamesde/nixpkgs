@@ -9,8 +9,7 @@ let
     pkg: old: { buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg; };
   addToPropagatedBuildInputs =
     pkg: old: {
-      propagatedBuildInputs =
-        (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
+      propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
     }
   ;
   addPkgConfig =
@@ -38,8 +37,7 @@ in
   blosc = addToBuildInputs pkgs.c-blosc;
   cairo =
     old:
-    (addToBuildInputsWithPkgConfig pkgs.cairo old)
-    // (addToPropagatedBuildInputs
+    (addToBuildInputsWithPkgConfig pkgs.cairo old) // (addToPropagatedBuildInputs
       (
         with chickenEggs; [
           srfi-1

@@ -93,9 +93,7 @@ let
             ;
 
             options = {
-              enabled = mkEnableOption (
-                lib.mdDoc "this SMTP server for listmonk"
-              );
+              enabled = mkEnableOption (lib.mdDoc "this SMTP server for listmonk");
               host = mkOption {
                 type = types.str;
                 description = lib.mdDoc "Hostname for the SMTP server";
@@ -118,10 +116,7 @@ let
                   "STARTTLS"
                   "TLS"
                 ];
-                description =
-                  lib.mdDoc
-                    "Type of TLS authentication with the SMTP server"
-                ;
+                description = lib.mdDoc "Type of TLS authentication with the SMTP server";
               };
             };
           }
@@ -246,8 +241,7 @@ in
     systemd.services.listmonk = {
       description = "Listmonk - newsletter and mailing list manager";
       after =
-        [ "network.target" ]
-        ++ optional cfg.database.createLocally "postgresql.service"
+        [ "network.target" ] ++ optional cfg.database.createLocally "postgresql.service"
       ;
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
@@ -257,8 +251,7 @@ in
           # StateDirectory cannot be used when DynamicUser = true is set this way.
           # Indeed, it will try to create all the folders and realize one of them already exist.
           # Therefore, we have to create it ourselves.
-          ''
-            ${pkgs.coreutils}/bin/mkdir -p "''${STATE_DIRECTORY}/listmonk/uploads"''
+          ''${pkgs.coreutils}/bin/mkdir -p "''${STATE_DIRECTORY}/listmonk/uploads"''
           "${cfg.package}/bin/listmonk --config ${cfgFile} --idempotent --install --upgrade --yes"
           "${updateDatabaseConfigScript}/bin/update-database-config.sh"
         ];

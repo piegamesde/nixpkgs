@@ -32,8 +32,7 @@ rec {
     "/etc"
     "/usr"
   ];
-  fsNeededForBoot =
-    fs: fs.neededForBoot || elem fs.mountPoint pathsNeededForBoot;
+  fsNeededForBoot = fs: fs.neededForBoot || elem fs.mountPoint pathsNeededForBoot;
 
   # Check whenever `b` depends on `a` as a fileSystem
   fsBefore =
@@ -49,8 +48,7 @@ rec {
       # Here a.mountPoint *is* a prefix of b.device even though a.mountPoint is
       # *not* a parent of b.device. If we add a slash at the end of each string,
       # though, this is not a problem: "/aaa/" is not a prefix of "/aaaa/".
-      normalisePath =
-        path: "${path}${optionalString (!(hasSuffix "/" path)) "/"}";
+      normalisePath = path: "${path}${optionalString (!(hasSuffix "/" path)) "/"}";
       normalise =
         mount:
         mount // {
@@ -191,8 +189,7 @@ rec {
             )
             (attrNames item)
         else if isList item then
-          imap0 (index: item: recurse (prefix + "[${toString index}]") item)
-            item
+          imap0 (index: item: recurse (prefix + "[${toString index}]") item) item
         else
           [ ]
       ;
@@ -312,9 +309,7 @@ rec {
 
   systemdUtils = {
     lib = import ./systemd-lib.nix { inherit lib config pkgs; };
-    unitOptions = import ./systemd-unit-options.nix {
-      inherit lib systemdUtils;
-    };
+    unitOptions = import ./systemd-unit-options.nix { inherit lib systemdUtils; };
     types = import ./systemd-types.nix { inherit lib systemdUtils pkgs; };
   };
 }

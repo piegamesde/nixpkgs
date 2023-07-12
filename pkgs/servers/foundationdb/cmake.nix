@@ -116,10 +116,7 @@ let
         ]
         ++
           lib.optionals
-            (
-              lib.versionAtLeast version "7.1.0"
-              && lib.versionOlder version "7.2.0"
-            )
+            (lib.versionAtLeast version "7.1.0" && lib.versionOlder version "7.2.0")
             [
               # FIXME: why can't openssl be found automatically?
               "-DOPENSSL_USE_STATIC_LIBS=FALSE"
@@ -197,10 +194,9 @@ let
         license = licenses.asl20;
         platforms =
           [ "x86_64-linux" ]
-          ++
-            lib.optionals
-              (lib.versionAtLeast version "7.1.0" && !(avxEnabled version))
-              [ "aarch64-linux" ]
+          ++ lib.optionals (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [
+            "aarch64-linux"
+          ]
         ;
         maintainers = with maintainers; [
           thoughtpolice

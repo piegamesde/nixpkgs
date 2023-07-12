@@ -98,14 +98,12 @@ stdenv.mkDerivation (
             }
         done
       ''
-      +
-        lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-          ''
-            installShellCompletion --cmd luarocks \
-              --bash <($out/bin/luarocks completion bash) \
-              --fish <($out/bin/luarocks completion fish) \
-              --zsh <($out/bin/luarocks completion zsh)
-          ''
+      + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+        installShellCompletion --cmd luarocks \
+          --bash <($out/bin/luarocks completion bash) \
+          --fish <($out/bin/luarocks completion fish) \
+          --zsh <($out/bin/luarocks completion zsh)
+      ''
     ;
 
     propagatedBuildInputs = [

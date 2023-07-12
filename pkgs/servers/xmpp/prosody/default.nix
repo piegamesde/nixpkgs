@@ -92,9 +92,7 @@ stdenv.mkDerivation rec {
       '')
       (
         lib.lists.unique (
-          nixosModuleDeps
-          ++ withCommunityModules
-          ++ withOnlyInstalledCommunityModules
+          nixosModuleDeps ++ withCommunityModules ++ withOnlyInstalledCommunityModules
         )
       )}
     wrapProgram $out/bin/prosodyctl \

@@ -67,8 +67,7 @@ let
       ,
       # The implementation of `mkDerivation`, parameterized with the final stdenv so we can tie the knot.
       # This is convient to have as a parameter so the stdenv "adapters" work better
-      mkDerivationFromStdenv ?
-        import ./make-derivation.nix { inherit lib config; },
+      mkDerivationFromStdenv ? import ./make-derivation.nix { inherit lib config; },
     }:
 
     let
@@ -136,22 +135,17 @@ let
               (
                 hostPlatform.isDarwin
                 || (
-                  hostPlatform.parsed.kernel.execFormat
-                  != lib.systems.parse.execFormats.elf
-                  &&
-                    hostPlatform.parsed.kernel.execFormat
-                    != lib.systems.parse.execFormats.macho
+                  hostPlatform.parsed.kernel.execFormat != lib.systems.parse.execFormats.elf
+                  && hostPlatform.parsed.kernel.execFormat != lib.systems.parse.execFormats.macho
                 )
               )
               ''
                 export NIX_DONT_SET_RPATH=1
                 export NIX_NO_SELF_RPATH=1
               ''
-          +
-            lib.optionalString (hostPlatform.isDarwin && hostPlatform.isMacOS)
-              ''
-                export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
-              ''
+          + lib.optionalString (hostPlatform.isDarwin && hostPlatform.isMacOS) ''
+            export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
+          ''
         # TODO this should be uncommented, but it causes stupid mass rebuilds. I
         # think the best solution would just be to fixup linux RPATHs so we don't
         # need to set `-rpath` anywhere.
@@ -228,13 +222,10 @@ let
       shellDryRun = "${stdenv.shell} -n -O extglob";
 
       tests = {
-        succeedOnFailure = import ../tests/succeedOnFailure.nix {
-          inherit stdenv;
-        };
+        succeedOnFailure = import ../tests/succeedOnFailure.nix { inherit stdenv; };
       };
       passthru.tests =
-        lib.warn
-          "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail."
+        lib.warn "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail."
           stdenv.tests
       ;
     }

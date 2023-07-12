@@ -71,8 +71,7 @@ buildDotnetPackage rec {
         map
           (
             p:
-            replaceStrings [ "$PATH$" ]
-              [ (unsafeDiscardStringContext (toString p)) ]
+            replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ]
               loadTemplate
           )
           plugins

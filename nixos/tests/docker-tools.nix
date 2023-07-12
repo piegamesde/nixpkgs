@@ -16,8 +16,7 @@ import ./make-test-python.nix (
         layer1 = pkgs.dockerTools.buildImage { name = "empty"; };
         layer2 = layer1.overrideAttrs (_: { fromImage = layer1; });
         repeatedRootfsDiffs =
-          pkgs.runCommandNoCC "image-with-links.tar"
-            { nativeBuildInputs = [ pkgs.jq ]; }
+          pkgs.runCommandNoCC "image-with-links.tar" { nativeBuildInputs = [ pkgs.jq ]; }
             ''
               mkdir contents
               tar -xf "${layer2}" -C contents
@@ -385,10 +384,7 @@ import ./make-test-python.nix (
                   + "| ${pkgs.jq}/bin/jq -r .[].Architecture"
               ).strip()
               == "${
-                if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
-                  "amd64"
-                else
-                  "arm64"
+                if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then "amd64" else "arm64"
               }"
           )
 

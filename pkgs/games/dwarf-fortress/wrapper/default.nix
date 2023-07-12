@@ -94,56 +94,53 @@ let
       throw "dwarf-fortress: unsupported configuration value ${toString v}"
   ;
 
-  config =
-    runCommand "dwarf-fortress-config" { nativeBuildInputs = [ gawk ]; }
-      (
-        ''
-          mkdir -p $out/data/init
+  config = runCommand "dwarf-fortress-config" { nativeBuildInputs = [ gawk ]; } (
+    ''
+      mkdir -p $out/data/init
 
-          edit_setting() {
-            v=''${v//'&'/'\&'}
-            if ! gawk -i inplace -v RS='\r?\n' '
-              { n += sub("\\[" ENVIRON["k"] ":[^]]*\\]", "[" ENVIRON["k"] ":" ENVIRON["v"] "]"); print }
-              END { exit(!n) }
-            ' "$out/$file"; then
-              echo "error: no setting named '$k' in $file" >&2
-              exit 1
-            fi
-          }
-        ''
-        + forEach settings_ (
-          file: kv:
-          ''
-            file=data/init/${lib.escapeShellArg file}.txt
-            cp ${baseEnv}/"$file" "$out/$file"
-          ''
-          + forEach kv (
-            k: v:
-            lib.optionalString (v != null) ''
-              export k=${lib.escapeShellArg k} v=${lib.escapeShellArg (toTxt v)}
-              edit_setting
-            ''
-          )
-        )
-        + lib.optionalString enableDFHack ''
-          mkdir -p $out/hack
-
-          # Patch the MD5
-          orig_md5=$(< "${dwarf-fortress}/hash.md5.orig")
-          patched_md5=$(< "${dwarf-fortress}/hash.md5")
-          input_file="${dfhack_}/hack/symbols.xml"
-          output_file="$out/hack/symbols.xml"
-
-          echo "[DFHack Wrapper] Fixing Dwarf Fortress MD5:"
-          echo "  Input:   $input_file"
-          echo "  Search:  $orig_md5"
-          echo "  Output:  $output_file"
-          echo "  Replace: $patched_md5"
-
-          substitute "$input_file" "$output_file" --replace "$orig_md5" "$patched_md5"
+      edit_setting() {
+        v=''${v//'&'/'\&'}
+        if ! gawk -i inplace -v RS='\r?\n' '
+          { n += sub("\\[" ENVIRON["k"] ":[^]]*\\]", "[" ENVIRON["k"] ":" ENVIRON["v"] "]"); print }
+          END { exit(!n) }
+        ' "$out/$file"; then
+          echo "error: no setting named '$k' in $file" >&2
+          exit 1
+        fi
+      }
+    ''
+    + forEach settings_ (
+      file: kv:
+      ''
+        file=data/init/${lib.escapeShellArg file}.txt
+        cp ${baseEnv}/"$file" "$out/$file"
+      ''
+      + forEach kv (
+        k: v:
+        lib.optionalString (v != null) ''
+          export k=${lib.escapeShellArg k} v=${lib.escapeShellArg (toTxt v)}
+          edit_setting
         ''
       )
-  ;
+    )
+    + lib.optionalString enableDFHack ''
+      mkdir -p $out/hack
+
+      # Patch the MD5
+      orig_md5=$(< "${dwarf-fortress}/hash.md5.orig")
+      patched_md5=$(< "${dwarf-fortress}/hash.md5")
+      input_file="${dfhack_}/hack/symbols.xml"
+      output_file="$out/hack/symbols.xml"
+
+      echo "[DFHack Wrapper] Fixing Dwarf Fortress MD5:"
+      echo "  Input:   $input_file"
+      echo "  Search:  $orig_md5"
+      echo "  Output:  $output_file"
+      echo "  Replace: $patched_md5"
+
+      substitute "$input_file" "$output_file" --replace "$orig_md5" "$patched_md5"
+    ''
+  );
 
   # This is a separate environment because the config files to modify may come
   # from any of the paths in baseEnv.

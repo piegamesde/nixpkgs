@@ -11,9 +11,7 @@ import ./make-test-python.nix (
     overrides =
       pkgs: {
         quake3game = pkgs.quake3game.override (
-          args: {
-            stdenv = pkgs.stdenvAdapters.addCoverageInstrumentation args.stdenv;
-          }
+          args: { stdenv = pkgs.stdenvAdapters.addCoverageInstrumentation args.stdenv; }
         );
       }
     ;

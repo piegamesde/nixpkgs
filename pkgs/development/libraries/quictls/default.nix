@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
       else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32 then
         "./Configure BSD-x86"
         +
-          lib.optionalString
-            (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+          lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
             "-elf"
       else if stdenv.hostPlatform.isBSD then
         "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
@@ -118,14 +117,11 @@ stdenv.mkDerivation rec {
           )
         }"
       else if stdenv.hostPlatform.isLinux then
-        "./Configure linux-generic${
-          toString stdenv.hostPlatform.parsed.cpu.bits
-        }"
+        "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
       else if stdenv.hostPlatform.isiOS then
         "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
       else
-        throw
-          "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
+        throw "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
     );
 
   # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.

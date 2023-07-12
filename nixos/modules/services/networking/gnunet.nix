@@ -119,10 +119,7 @@ in
         type = types.package;
         default = pkgs.gnunet;
         defaultText = literalExpression "pkgs.gnunet";
-        description =
-          lib.mdDoc
-            "Overridable attribute of the gnunet package to use."
-        ;
+        description = lib.mdDoc "Overridable attribute of the gnunet package to use.";
         example = literalExpression "pkgs.gnunet_git";
       };
 

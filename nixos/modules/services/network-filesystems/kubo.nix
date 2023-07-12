@@ -12,8 +12,7 @@ let
   settingsFormat = pkgs.formats.json { };
 
   rawDefaultConfig = lib.importJSON (
-    pkgs.runCommand "kubo-default-config"
-      { nativeBuildInputs = [ cfg.package ]; }
+    pkgs.runCommand "kubo-default-config" { nativeBuildInputs = [ cfg.package ]; }
       ''
         export IPFS_PATH="$TMPDIR"
         ipfs init --empty-repo --profile=${profile}
@@ -197,10 +196,7 @@ in
       enableGC = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable automatic garbage collection"
-        ;
+        description = lib.mdDoc "Whether to enable automatic garbage collection";
       };
 
       emptyRepo = mkOption {
@@ -252,10 +248,7 @@ in
                 "/ip6/::/udp/4001/quic-v1"
                 "/ip6/::/udp/4001/quic-v1/webtransport"
               ];
-              description =
-                lib.mdDoc
-                  "Where Kubo listens for incoming p2p connections"
-              ;
+              description = lib.mdDoc "Where Kubo listens for incoming p2p connections";
             };
           };
         };
@@ -354,9 +347,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "ipfs") {
-      ipfs.gid = config.ids.gids.ipfs;
-    };
+    users.groups = mkIf (cfg.group == "ipfs") { ipfs.gid = config.ids.gids.ipfs; };
 
     systemd.tmpfiles.rules =
       [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ]
@@ -433,9 +424,7 @@ in
       } // optionalAttrs (cfg.serviceFdlimit != null) {
         LimitNOFILE = cfg.serviceFdlimit;
       };
-    } // optionalAttrs (!cfg.startWhenNeeded) {
-      wantedBy = [ "default.target" ];
-    };
+    } // optionalAttrs (!cfg.startWhenNeeded) { wantedBy = [ "default.target" ]; };
 
     systemd.sockets.ipfs-gateway = {
       wantedBy = [ "sockets.target" ];
@@ -443,8 +432,7 @@ in
         ListenStream =
           [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
         ListenDatagram =
-          [ "" ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway)
-        ;
+          [ "" ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
       };
     };
 

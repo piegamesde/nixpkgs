@@ -121,28 +121,19 @@ in
       powerEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Shell commands to execute on a button/power.* event."
-        ;
+        description = lib.mdDoc "Shell commands to execute on a button/power.* event.";
       };
 
       lidEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Shell commands to execute on a button/lid.* event."
-        ;
+        description = lib.mdDoc "Shell commands to execute on a button/lid.* event.";
       };
 
       acEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Shell commands to execute on an ac_adapter.* event."
-        ;
+        description = lib.mdDoc "Shell commands to execute on an ac_adapter.* event.";
       };
     };
   };

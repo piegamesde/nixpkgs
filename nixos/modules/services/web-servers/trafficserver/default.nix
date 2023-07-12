@@ -22,9 +22,7 @@ let
   mkYamlConf =
     name: cfg:
     if cfg != null then
-      {
-        "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg;
-      }
+      { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; }
     else
       { "trafficserver/${name}.yaml".text = ""; }
   ;
@@ -41,10 +39,8 @@ let
       "CONFIG ${concatStringsSep "." path} STRING ${toString value}"
   ;
 
-  mkRecordsConfig =
-    cfg: concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
-  mkPluginConfig =
-    cfg: concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg);
+  mkRecordsConfig = cfg: concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
+  mkPluginConfig = cfg: concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg);
 in
 {
   options.services.trafficserver = {
@@ -70,9 +66,7 @@ in
         Partition the cache according to origin server or domain
 
         Consult the [
-        upstream documentation](${
-          getManualUrl "hosting.config"
-        }) for more details.
+        upstream documentation](${getManualUrl "hosting.config"}) for more details.
       '';
     };
 
@@ -185,9 +179,7 @@ in
         List of configurable variables used by Traffic Server.
 
         Consult the [
-        upstream documentation](${
-          getManualUrl "records.config"
-        }) for more details.
+        upstream documentation](${getManualUrl "records.config"}) for more details.
       '';
     };
 
@@ -199,9 +191,7 @@ in
         URL remapping rules used by Traffic Server.
 
         Consult the [
-        upstream documentation](${
-          getManualUrl "remap.config"
-        }) for more details.
+        upstream documentation](${getManualUrl "remap.config"}) for more details.
       '';
     };
 
@@ -217,9 +207,7 @@ in
         conditions.
 
         Consult the [
-        upstream documentation](${
-          getManualUrl "splitdns.config"
-        }) for more details.
+        upstream documentation](${getManualUrl "splitdns.config"}) for more details.
       '';
     };
 
@@ -265,9 +253,7 @@ in
         List all the storage that make up the Traffic Server cache.
 
         Consult the [
-        upstream documentation](${
-          getManualUrl "storage.config"
-        }) for more details.
+        upstream documentation](${getManualUrl "storage.config"}) for more details.
       '';
     };
 
@@ -279,9 +265,7 @@ in
         algorithms used to select the next proxy.
 
         Consult the [
-        upstream documentation](${
-          getManualUrl "strategies.yaml"
-        }) for more details.
+        upstream documentation](${getManualUrl "strategies.yaml"}) for more details.
       '';
     };
 
@@ -294,9 +278,7 @@ in
         creating cache volumes of different sizes.
 
         Consult the [
-        upstream documentation](${
-          getManualUrl "volume.config"
-        }) for more details.
+        upstream documentation](${getManualUrl "volume.config"}) for more details.
       '';
     };
   };
@@ -313,9 +295,8 @@ in
       "trafficserver/ssl_multicert.config".text = cfg.sslMulticert;
       "trafficserver/storage.config".text = cfg.storage;
       "trafficserver/volume.config".text = cfg.volume;
-    } // (mkYamlConf "ip_allow" cfg.ipAllow)
-      // (mkYamlConf "logging" cfg.logging) // (mkYamlConf "sni" cfg.sni)
-      // (mkYamlConf "strategies" cfg.strategies);
+    } // (mkYamlConf "ip_allow" cfg.ipAllow) // (mkYamlConf "logging" cfg.logging)
+      // (mkYamlConf "sni" cfg.sni) // (mkYamlConf "strategies" cfg.strategies);
 
     environment.systemPackages = [ pkgs.trafficserver ];
     systemd.packages = [ pkgs.trafficserver ];

@@ -31,9 +31,7 @@ let
     ''
       mkdir -p "$out/lib/haxe/${withCommas libname}/${withCommas version}"
       echo -n "${version}" > $out/lib/haxe/${withCommas libname}/.current
-      cp -dpR ${files} "$out/lib/haxe/${withCommas libname}/${
-        withCommas version
-      }/"
+      cp -dpR ${files} "$out/lib/haxe/${withCommas libname}/${withCommas version}/"
     ''
   ;
 
@@ -126,9 +124,7 @@ in
       }/{,project/libs/nekoapi/}bin/Linux{,64}/*; do
         chmod +w "$f"
         patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker)   "$f" || true
-        patchelf --set-rpath ${
-          lib.makeLibraryPath [ stdenv.cc.cc ]
-        }  "$f" || true
+        patchelf --set-rpath ${lib.makeLibraryPath [ stdenv.cc.cc ]}  "$f" || true
       done
     '';
     meta.description = "Runtime support library for the Haxe C++ backend";

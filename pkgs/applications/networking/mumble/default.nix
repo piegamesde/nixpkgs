@@ -139,8 +139,7 @@ let
           wrapProgram $out/bin/mumble \
             --prefix LD_LIBRARY_PATH : "${
               lib.makeLibraryPath (
-                lib.optional pulseSupport libpulseaudio
-                ++ lib.optional pipewireSupport pipewire
+                lib.optional pulseSupport libpulseaudio ++ lib.optional pipewireSupport pipewire
               )
             }"
         '';
@@ -159,9 +158,7 @@ let
           ++ lib.optional (!iceSupport) "-D ice=OFF"
           ++ lib.optionals iceSupport [
             "-D Ice_HOME=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
-            "-D CMAKE_PREFIX_PATH=${lib.getDev zeroc-ice};${
-              lib.getLib zeroc-ice
-            }"
+            "-D CMAKE_PREFIX_PATH=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
             "-D Ice_SLICE_DIR=${lib.getDev zeroc-ice}/share/ice/slice"
           ]
           ++ lib.optional grpcSupport "-D grpc=ON"

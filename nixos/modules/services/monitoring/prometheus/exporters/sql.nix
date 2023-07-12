@@ -82,9 +82,7 @@ let
       let
         nameInline = mapAttrsToList (k: v: v // { name = k; });
         renameStartupSql =
-          j:
-          removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ]
-        ;
+          j: removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ];
         configuration = {
           jobs = map renameStartupSql (
             nameInline (

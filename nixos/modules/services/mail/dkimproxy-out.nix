@@ -36,10 +36,7 @@ in
       relay = mkOption {
         type = types.str;
         example = "127.0.0.1:10028";
-        description =
-          lib.mdDoc
-            "Address:port DKIMproxy should forward mail to."
-        ;
+        description = lib.mdDoc "Address:port DKIMproxy should forward mail to.";
       };
 
       domains = mkOption {
@@ -109,9 +106,7 @@ in
           if [ ! -d "${keydir}" ]; then
             mkdir -p "${keydir}"
             chmod 0700 "${keydir}"
-            ${pkgs.openssl}/bin/openssl genrsa -out "${privkey}" ${
-              toString cfg.keySize
-            }
+            ${pkgs.openssl}/bin/openssl genrsa -out "${privkey}" ${toString cfg.keySize}
             ${pkgs.openssl}/bin/openssl rsa -in "${privkey}" -pubout -out "${pubkey}"
             chown -R dkimproxy-out:dkimproxy-out "${keydir}"
           fi

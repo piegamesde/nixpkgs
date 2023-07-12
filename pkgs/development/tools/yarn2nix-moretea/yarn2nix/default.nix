@@ -109,10 +109,9 @@ rec {
         lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ])
           (builtins.attrNames pkgConfig)
       ;
-      extraBuildInputs =
-        lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ])
-          (builtins.attrNames pkgConfig)
-      ;
+      extraBuildInputs = lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ]) (
+        builtins.attrNames pkgConfig
+      );
 
       postInstall =
         (builtins.map
@@ -203,9 +202,7 @@ rec {
 
         yarn install ${
           lib.escapeShellArgs (
-            defaultYarnFlags
-            ++ lib.optional ignoreScripts "--ignore-scripts"
-            ++ yarnFlags
+            defaultYarnFlags ++ lib.optional ignoreScripts "--ignore-scripts" ++ yarnFlags
           )
         }
 
@@ -267,9 +264,7 @@ rec {
           elemRegex = globElemToRegex (lib.head globElems);
           rest = lib.tail globElems;
           children = lib.attrNames (
-            lib.filterAttrs (name: type: type == "directory") (
-              builtins.readDir base
-            )
+            lib.filterAttrs (name: type: type == "directory") (builtins.readDir base)
           );
           matchingChildren =
             lib.filter (child: builtins.match elemRegex child != null)
@@ -315,17 +310,13 @@ rec {
                     (lib.filter (x: x != null))
                     (lib.mapAttrsToList (
                       pname: _version:
-                      lib.findFirst (package: package.pname == pname) null
-                        packageList
+                      lib.findFirst (package: package.pname == pname) null packageList
                     ))
                   ]
                   allDependencies
               ;
 
-              workspaceDependencies =
-                getWorkspaceDependencies packages
-                  allDependencies
-              ;
+              workspaceDependencies = getWorkspaceDependencies packages allDependencies;
 
               name = reformatPackageName package.name;
             in
@@ -505,9 +496,7 @@ rec {
             mv node_modules $out/libexec/${pname}/node_modules
             mv deps $out/libexec/${pname}/deps
 
-            node ${
-              ./internal/fixup_bin.js
-            } $out/bin $out/libexec/${pname}/node_modules ${
+            node ${./internal/fixup_bin.js} $out/bin $out/libexec/${pname}/node_modules ${
               lib.concatStringsSep " " publishBinsFor_
             }
 
@@ -539,11 +528,10 @@ rec {
           inherit (nodejs.meta) platforms;
         } // lib.optionalAttrs (package ? description) {
           inherit (package) description;
-        } // lib.optionalAttrs (package ? homepage) {
-          inherit (package) homepage;
-        } // lib.optionalAttrs (package ? license) {
-          license = getLicenseFromSpdxId package.license;
-        } // (attrs.meta or { });
+        } // lib.optionalAttrs (package ? homepage) { inherit (package) homepage; }
+          // lib.optionalAttrs (package ? license) {
+            license = getLicenseFromSpdxId package.license;
+          } // (attrs.meta or { });
       }
     )
   ;
@@ -574,8 +562,7 @@ rec {
             subpath = elemAt (splitString "${toString root}/" path) 1;
             spdir = elemAt (splitString "/" subpath) 0;
           in
-          elem spdir dirsToInclude
-          || (type == "regular" && elem subpath filesToInclude)
+          elem spdir dirsToInclude || (type == "regular" && elem subpath filesToInclude)
         ;
       in
       builtins.filterSource

@@ -18,11 +18,7 @@ let
     }:
     let
       masterName = head (
-        filter
-          (
-            machineName:
-            any (role: role == "master") machines.${machineName}.roles
-          )
+        filter (machineName: any (role: role == "master") machines.${machineName}.roles)
           (attrNames machines)
       );
       master = machines.${masterName};
@@ -30,10 +26,7 @@ let
         ${master.ip}  etcd.${domain}
         ${master.ip}  api.${domain}
         ${concatMapStringsSep "\n"
-          (
-            machineName:
-            "${machines.${machineName}.ip}  ${machineName}.${domain}"
-          )
+          (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}")
           (attrNames machines)}
       '';
       wrapKubectl =

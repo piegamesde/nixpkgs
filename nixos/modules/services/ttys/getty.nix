@@ -134,8 +134,7 @@ in
         "<<< Welcome to NixOS ${config.system.nixos.label} (\\m) - \\l >>>"
     ;
     services.getty.helpLine =
-      mkIf
-        (config.documentation.nixos.enable && config.documentation.doc.enable)
+      mkIf (config.documentation.nixos.enable && config.documentation.doc.enable)
         ''
 
           Run 'nixos-help' for the NixOS manual.''

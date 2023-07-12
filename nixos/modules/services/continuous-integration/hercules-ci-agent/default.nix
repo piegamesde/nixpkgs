@@ -98,10 +98,7 @@ in
             mkIfNotNull = x: mkIf (x != null) x;
           in
           {
-            nixos.configurationRevision =
-              mkIfNotNull
-                config.system.configurationRevision
-            ;
+            nixos.configurationRevision = mkIfNotNull config.system.configurationRevision;
             nixos.release = config.system.nixos.release;
             nixos.label = mkIfNotNull config.system.nixos.label;
             nixos.codeName = config.system.nixos.codeName;

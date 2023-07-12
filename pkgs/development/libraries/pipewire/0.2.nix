@@ -74,9 +74,7 @@ stdenv.mkDerivation rec {
     "-Dgstreamer=enabled"
   ];
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${
-      placeholder "out"
-    }/lib/systemd/user";
+  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
 
   FONTCONFIG_FILE = fontsConf; # Fontconfig error: Cannot load default config file
 

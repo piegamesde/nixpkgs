@@ -10,9 +10,7 @@ with lib;
 let
   cfg = config.services.nginx.sso;
   pkg = getBin cfg.package;
-  configYml = pkgs.writeText "nginx-sso.yml" (
-    builtins.toJSON cfg.configuration
-  );
+  configYml = pkgs.writeText "nginx-sso.yml" (builtins.toJSON cfg.configuration);
 in
 {
   options.services.nginx.sso = {

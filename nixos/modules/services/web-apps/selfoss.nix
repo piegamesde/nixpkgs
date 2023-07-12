@@ -27,10 +27,7 @@ let
         db_password=${cfg.database.password}
         db_port=${
           toString (
-            if (cfg.database.port != null) then
-              cfg.database.port
-            else
-              default_port
+            if (cfg.database.port != null) then cfg.database.port else default_port
           )
         }
       ''}

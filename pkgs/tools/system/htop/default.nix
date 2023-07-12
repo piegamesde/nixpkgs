@@ -57,9 +57,7 @@ stdenv.mkDerivation rec {
   postFixup =
     let
       optionalPatch =
-        pred: so:
-        lib.optionalString pred "patchelf --add-needed ${so} $out/bin/htop"
-      ;
+        pred: so: lib.optionalString pred "patchelf --add-needed ${so} $out/bin/htop";
     in
     lib.optionalString (!stdenv.hostPlatform.isStatic) ''
       ${optionalPatch sensorsSupport "${lm_sensors}/lib/libsensors.so"}

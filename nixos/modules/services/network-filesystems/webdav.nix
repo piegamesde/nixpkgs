@@ -101,9 +101,7 @@ in
         Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
-        EnvironmentFile = mkIf (cfg.environmentFile != null) [
-          cfg.environmentFile
-        ];
+        EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
       };
     };
   };

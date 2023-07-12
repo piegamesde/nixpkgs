@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0q8s43z14vxm41pfa8s5h9kyyzk1fkwjhkiwbf2x70alm6rv6qi1";
   };
 
-  configureFlags = lib.optionals stdenv.isDarwin [
-    "--enable-SIGCHLD-fallback"
-  ];
+  configureFlags = lib.optionals stdenv.isDarwin [ "--enable-SIGCHLD-fallback" ];
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =

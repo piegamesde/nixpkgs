@@ -2307,8 +2307,7 @@
     "notify_events" = ps: with ps; [ notify-events ];
     "notion" = ps: with ps; [ aionotion ];
     "nsw_fuel_station" = ps: with ps; [ ]; # missing inputs: nsw-fuel-api-client
-    "nsw_rural_fire_service_feed" =
-      ps: with ps; [ aio-geojson-nsw-rfs-incidents ];
+    "nsw_rural_fire_service_feed" = ps: with ps; [ aio-geojson-nsw-rfs-incidents ];
     "nuheat" = ps: with ps; [ nuheat ];
     "nuki" =
       ps:
@@ -3031,8 +3030,7 @@
     "siren" = ps: with ps; [ ];
     "sisyphus" = ps: with ps; [ ]; # missing inputs: sisyphus-control
     "sky_hub" = ps: with ps; [ pyskyqhub ];
-    "skybeacon" =
-      ps: with ps; [ pygatt ] ++ pygatt.optional-dependencies.GATTTOOL;
+    "skybeacon" = ps: with ps; [ pygatt ] ++ pygatt.optional-dependencies.GATTTOOL;
     "skybell" =
       ps:
       with ps; [
@@ -3512,8 +3510,7 @@
     ;
     "trace" = ps: with ps; [ ];
     "tractive" = ps: with ps; [ aiotractive ];
-    "tradfri" =
-      ps: with ps; [ pytradfri ] ++ pytradfri.optional-dependencies.async;
+    "tradfri" = ps: with ps; [ pytradfri ] ++ pytradfri.optional-dependencies.async;
     "trafikverket_ferry" = ps: with ps; [ pytrafikverket ];
     "trafikverket_train" = ps: with ps; [ pytrafikverket ];
     "trafikverket_weatherstation" = ps: with ps; [ pytrafikverket ];

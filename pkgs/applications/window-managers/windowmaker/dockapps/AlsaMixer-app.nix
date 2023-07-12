@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-    ln -s ${placeholder "out"}/bin/AlsaMixer.app ${
-      placeholder "out"
-    }/bin/AlsaMixer
+    ln -s ${placeholder "out"}/bin/AlsaMixer.app ${placeholder "out"}/bin/AlsaMixer
   '';
 
   meta = with lib; {

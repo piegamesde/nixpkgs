@@ -64,8 +64,7 @@ stdenv.mkDerivation (
   }) // rec {
     inherit version src;
 
-    pname =
-      prevName + lib.optionalString supportFlags.waylandSupport "-wayland";
+    pname = prevName + lib.optionalString supportFlags.waylandSupport "-wayland";
 
     # Fixes "Compiler cannot create executables" building wineWow with mingwSupport
     strictDeps = true;
@@ -110,9 +109,7 @@ stdenv.mkDerivation (
         ++ lib.optional fontconfigSupport pkgs.fontconfig
         ++ lib.optional alsaSupport pkgs.alsa-lib
         ++ lib.optional pulseaudioSupport pkgs.libpulseaudio
-        ++
-          lib.optional (xineramaSupport && !waylandSupport)
-            pkgs.xorg.libXinerama
+        ++ lib.optional (xineramaSupport && !waylandSupport) pkgs.xorg.libXinerama
         ++ lib.optional udevSupport pkgs.udev
         ++ lib.optional vulkanSupport (
           if stdenv.isDarwin then moltenvk else pkgs.vulkan-loader
@@ -249,8 +246,7 @@ stdenv.mkDerivation (
       lib.optionalString supportFlags.embedInstallers ''
         mkdir -p $out/share/wine/gecko $out/share/wine/mono/
         ${lib.strings.concatStringsSep "\n" (
-          (map (links "share/wine/gecko") geckos)
-          ++ (map (links "share/wine/mono") monos)
+          (map (links "share/wine/gecko") geckos) ++ (map (links "share/wine/mono") monos)
         )}
       ''
       + lib.optionalString supportFlags.gstreamerSupport ''

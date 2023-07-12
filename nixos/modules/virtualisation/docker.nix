@@ -14,10 +14,7 @@ let
   cfg = config.virtualisation.docker;
   proxy_env = config.networking.proxy.envVars;
   settingsFormat = pkgs.formats.json { };
-  daemonSettingsFile =
-    settingsFormat.generate "daemon.json"
-      cfg.daemon.settings
-  ;
+  daemonSettingsFile = settingsFormat.generate "daemon.json" cfg.daemon.settings;
 in
 
 {
@@ -243,9 +240,7 @@ in
         serviceConfig.Type = "oneshot";
 
         script = ''
-          ${cfg.package}/bin/docker system prune -f ${
-            toString cfg.autoPrune.flags
-          }
+          ${cfg.package}/bin/docker system prune -f ${toString cfg.autoPrune.flags}
         '';
 
         startAt = optional cfg.autoPrune.enable cfg.autoPrune.dates;
@@ -254,8 +249,7 @@ in
       };
 
       assertions = [ {
-        assertion =
-          cfg.enableNvidia -> config.hardware.opengl.driSupport32Bit or false;
+        assertion = cfg.enableNvidia -> config.hardware.opengl.driSupport32Bit or false;
         message = "Option enableNvidia requires 32bit support libraries";
       } ];
 
@@ -263,9 +257,7 @@ in
         group = "docker";
         hosts = [ "fd://" ];
         log-driver = mkDefault cfg.logDriver;
-        storage-driver = mkIf (cfg.storageDriver != null) (
-          mkDefault cfg.storageDriver
-        );
+        storage-driver = mkIf (cfg.storageDriver != null) (mkDefault cfg.storageDriver);
         live-restore = mkDefault cfg.liveRestore;
         runtimes = mkIf cfg.enableNvidia {
           nvidia = {

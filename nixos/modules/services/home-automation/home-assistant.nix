@@ -305,8 +305,7 @@ in
                   "yaml"
                   "storage"
                 ];
-                default =
-                  if cfg.lovelaceConfig != null then "yaml" else "storage";
+                default = if cfg.lovelaceConfig != null then "yaml" else "storage";
                 defaultText = literalExpression ''
                   if cfg.lovelaceConfig != null
                     then "yaml"
@@ -431,10 +430,7 @@ in
     openFirewall = mkOption {
       default = false;
       type = types.bool;
-      description =
-        lib.mdDoc
-          "Whether to open the firewall for the specified port."
-      ;
+      description = lib.mdDoc "Whether to open the firewall for the specified port.";
     };
   };
 
@@ -511,14 +507,12 @@ in
               # https://github.com/NixOS/nixpkgs/issues/120617#issuecomment-830685115
               ""
             ]
-            ++
-              lib.optionals (builtins.any useComponent componentsUsingBluetooth)
-                [
-                  # Required for interaction with hci devices and bluetooth sockets, identified by bluetooth-adapters dependency
-                  # https://www.home-assistant.io/integrations/bluetooth_le_tracker/#rootless-setup-on-core-installs
-                  "CAP_NET_ADMIN"
-                  "CAP_NET_RAW"
-                ]
+            ++ lib.optionals (builtins.any useComponent componentsUsingBluetooth) [
+              # Required for interaction with hci devices and bluetooth sockets, identified by bluetooth-adapters dependency
+              # https://www.home-assistant.io/integrations/bluetooth_le_tracker/#rootless-setup-on-core-installs
+              "CAP_NET_ADMIN"
+              "CAP_NET_RAW"
+            ]
             ++
               lib.optionals (useComponent "emulated_hue")
                 [
@@ -680,9 +674,7 @@ in
               "AF_NETLINK"
               "AF_UNIX"
             ]
-            ++ optionals (any useComponent componentsUsingBluetooth) [
-              "AF_BLUETOOTH"
-            ]
+            ++ optionals (any useComponent componentsUsingBluetooth) [ "AF_BLUETOOTH" ]
           ;
           RestrictNamespaces = true;
           RestrictRealtime = true;

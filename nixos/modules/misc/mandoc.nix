@@ -15,9 +15,7 @@ in
 
   options = {
     documentation.man.mandoc = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "mandoc as the default man page viewer"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc "mandoc as the default man page viewer");
 
       manPath = lib.mkOption {
         type = with lib.types; listOf str;

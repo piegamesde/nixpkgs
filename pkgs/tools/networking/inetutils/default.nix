@@ -76,9 +76,7 @@ stdenv.mkDerivation rec {
       include <abstractions/base>
       include <abstractions/consoles>
       include <abstractions/nameservice>
-      include "${
-        apparmorRulesFromClosure { name = "ping"; } [ stdenv.cc.libc ]
-      }"
+      include "${apparmorRulesFromClosure { name = "ping"; } [ stdenv.cc.libc ]}"
       include <local/bin.ping>
       capability net_raw,
       network inet raw,

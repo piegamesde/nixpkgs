@@ -122,10 +122,7 @@ in
           ALLOWED_HOSTS = lib.mkOption {
             type = types.listOf types.str;
             default = [ "*" ];
-            description =
-              lib.mdDoc
-                "The host/domain names that this site can serve."
-            ;
+            description = lib.mdDoc "The host/domain names that this site can serve.";
             apply = lib.concatStringsSep ",";
           };
 
@@ -178,14 +175,8 @@ in
           User = cfg.user;
           Group = cfg.group;
           EnvironmentFile = [ environmentFile ];
-          StateDirectory =
-            mkIf (cfg.dataDir == "/var/lib/healthchecks")
-              "healthchecks"
-          ;
-          StateDirectoryMode =
-            mkIf (cfg.dataDir == "/var/lib/healthchecks")
-              "0750"
-          ;
+          StateDirectory = mkIf (cfg.dataDir == "/var/lib/healthchecks") "healthchecks";
+          StateDirectoryMode = mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
         };
       in
       {

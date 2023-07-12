@@ -101,9 +101,7 @@ let
           )
         );
 
-        summary = concatStringsSep "\n      " (
-          [ "[${name}]" ] ++ config.directives
-        );
+        summary = concatStringsSep "\n      " ([ "[${name}]" ] ++ config.directives);
       };
     }
   ;
@@ -233,8 +231,7 @@ in
       "nut/ups.conf".source = pkgs.writeText "ups.conf" ''
         maxstartdelay = ${toString cfg.maxStartDelay}
 
-        ${flip concatStringsSep
-          (forEach (attrValues cfg.ups) (ups: ups.summary))
+        ${flip concatStringsSep (forEach (attrValues cfg.ups) (ups: ups.summary))
           "\n\n          "}
       '';
       "nut/upssched.conf".source = cfg.schedulerRules;

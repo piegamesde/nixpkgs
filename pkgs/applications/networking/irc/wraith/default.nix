@@ -23,12 +23,8 @@ stdenv.mkDerivation rec {
                                        --subst-var-by openssl-lib ${
                                          lib.getLib openssl
                                        }
-    substituteInPlace src/libssl.cc    --subst-var-by openssl ${
-      lib.getLib openssl
-    }
-    substituteInPlace src/libcrypto.cc --subst-var-by openssl ${
-      lib.getLib openssl
-    }
+    substituteInPlace src/libssl.cc    --subst-var-by openssl ${lib.getLib openssl}
+    substituteInPlace src/libcrypto.cc --subst-var-by openssl ${lib.getLib openssl}
   '';
   installPhase = ''
     mkdir -p $out/bin

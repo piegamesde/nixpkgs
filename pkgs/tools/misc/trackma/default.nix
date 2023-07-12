@@ -83,12 +83,10 @@ python3.pkgs.buildPythonApplication rec {
 
   desktopItems =
     lib.optional withQT (
-      mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)"
-        false
+      mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)" false
     )
     ++ lib.optional withGTK (
-      mkDesktopItem "trackma-gtk" "Trackma (GTK)"
-        "Trackma Updater (Gtk-frontend)"
+      mkDesktopItem "trackma-gtk" "Trackma (GTK)" "Trackma Updater (Gtk-frontend)"
         false
     )
     ++ lib.optional withCurses (

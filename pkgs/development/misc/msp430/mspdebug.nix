@@ -59,9 +59,7 @@ stdenv.mkDerivation rec {
     "INSTALL=install"
   ];
   makeFlags =
-    [ "UNAME_S=$(unameS)" ]
-    ++ lib.optional (!enableReadline) "WITHOUT_READLINE=1"
-  ;
+    [ "UNAME_S=$(unameS)" ] ++ lib.optional (!enableReadline) "WITHOUT_READLINE=1";
   unameS = lib.optionalString stdenv.isDarwin "Darwin";
 
   meta = with lib; {

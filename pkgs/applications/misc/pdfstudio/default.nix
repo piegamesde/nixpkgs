@@ -24,11 +24,7 @@ let
   '';
   pname = if (program == "pdfstudio") then "${program}${year}" else program;
   desktopName =
-    if (program == "pdfstudio") then
-      "PDF Studio ${year}"
-    else
-      "PDF Studio Viewer"
-  ;
+    if (program == "pdfstudio") then "PDF Studio ${year}" else "PDF Studio Viewer";
   dot2dash = str: builtins.replaceStrings [ "." ] [ "_" ] str;
 in
 {

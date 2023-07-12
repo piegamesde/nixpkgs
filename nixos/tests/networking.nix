@@ -99,9 +99,7 @@ let
           + flip concatMapStrings vlanIfs (
             n: ''
               subnet6 fd00:1234:5678:${toString n}::/64 {
-                range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${
-                  toString n
-                }::2;
+                range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${toString n}::2;
               }
             ''
           )
@@ -639,10 +637,7 @@ let
             };
           };
           systemd.services = {
-            fou3-fou-encap.after =
-              optional (!networkd)
-                "network-addresses-eth1.service"
-            ;
+            fou3-fou-encap.after = optional (!networkd) "network-addresses-eth1.service";
           };
         }
       ;
@@ -1046,20 +1041,12 @@ let
                 client.wait_for_unit("network.target")
 
             with subtest("Test ping on base interface in setup"):
-                client.succeed("ping -I ${baseInterface} -c 1 ${
-                  baseIP serverNodeNum
-                }")
-                server.succeed("ping -I ${baseInterface} -c 1 ${
-                  baseIP clientNodeNum
-                }")
+                client.succeed("ping -I ${baseInterface} -c 1 ${baseIP serverNodeNum}")
+                server.succeed("ping -I ${baseInterface} -c 1 ${baseIP clientNodeNum}")
 
             with subtest("Test ping on vlan subinterface in setup"):
-                client.succeed("ping -I ${vlanInterface} -c 1 ${
-                  vlanIP serverNodeNum
-                }")
-                server.succeed("ping -I ${vlanInterface} -c 1 ${
-                  vlanIP clientNodeNum
-                }")
+                client.succeed("ping -I ${vlanInterface} -c 1 ${vlanIP serverNodeNum}")
+                server.succeed("ping -I ${vlanInterface} -c 1 ${vlanIP clientNodeNum}")
           ''
         ;
       }

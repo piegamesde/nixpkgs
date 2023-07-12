@@ -95,8 +95,7 @@ let
       ff = f origArgs;
       overrideWith =
         newArgs:
-        origArgs
-        // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs)
+        origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs)
       ;
     in
     if builtins.isAttrs ff then
@@ -215,9 +214,7 @@ let
           ;
 
           # Java libraries For ABCL
-          CLASSPATH = makeSearchPath "share/java/*" (
-            concatMap (x: x.javaLibs) libsFlat
-          );
+          CLASSPATH = makeSearchPath "share/java/*" (concatMap (x: x.javaLibs) libsFlat);
 
           # Portable script to build the systems.
           #
@@ -251,12 +248,8 @@ let
             export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$src//
 
             # Similiarily for native deps
-            export LD_LIBRARY_PATH=${
-              makeLibraryPath nativeLibs
-            }:$LD_LIBRARY_PATH
-            export CLASSPATH=${
-              makeSearchPath "share/java/*" javaLibs
-            }:$CLASSPATH
+            export LD_LIBRARY_PATH=${makeLibraryPath nativeLibs}:$LD_LIBRARY_PATH
+            export CLASSPATH=${makeSearchPath "share/java/*" javaLibs}:$CLASSPATH
 
             # Make asdf compile from `src` to pwd and load `lispLibs`
             # from storeDir. Otherwise it could try to recompile lisp deps.
@@ -402,9 +395,7 @@ let
       # Make it possible to reuse generated attrs without recursing into oblivion
       packages = (lib.filterAttrs (n: v: n != qlPkg.pname) manualPackages);
       substituteLib =
-        pkg:
-        if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg
-      ;
+        pkg: if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg;
       pkg = substituteLib qlPkg;
     in
     pkg // {
@@ -470,9 +461,7 @@ let
               --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
               --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
               --prefix CLASSPATH : "${o.CLASSPATH}" \
-              --prefix CLASSPATH : "${
-                makeSearchPath "share/java/*" o.javaLibs
-              }" \
+              --prefix CLASSPATH : "${makeSearchPath "share/java/*" o.javaLibs}" \
               --prefix PATH : "${makeBinPath (o.buildInputs or [ ])}" \
               --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
           '';

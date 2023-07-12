@@ -40,21 +40,16 @@ stdenv.mkDerivation rec {
   # source-highlight uses it's own binary to generate documentation.
   # During cross-compilation, that binary was built for the target
   # platform architecture, so it can't run on the build host.
-  postPatch =
-    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-      ''
-        substituteInPlace Makefile.in --replace "src doc tests" "src tests"
-      ''
-  ;
+  postPatch = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+    substituteInPlace Makefile.in --replace "src doc tests" "src tests"
+  '';
 
   strictDeps = true;
   buildInputs = [ boost ];
 
   configureFlags = [
     "--with-boost=${boost.out}"
-    "--with-bash-completion=${
-      placeholder "out"
-    }/share/bash-completion/completions"
+    "--with-bash-completion=${placeholder "out"}/share/bash-completion/completions"
   ];
 
   doCheck = true;

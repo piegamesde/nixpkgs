@@ -103,10 +103,7 @@ in
 
       backupAll = mkOption {
         default = cfg.databases == [ ];
-        defaultText =
-          literalExpression
-            "services.postgresqlBackup.databases == []"
-        ;
+        defaultText = literalExpression "services.postgresqlBackup.databases == []";
         type = lib.types.bool;
         description = lib.mdDoc ''
           Backup all databases using pg_dumpall.
@@ -196,10 +193,7 @@ in
       systemd.tmpfiles.rules = [ "d '${cfg.location}' 0700 postgres - - -" ];
     })
     (mkIf (cfg.enable && cfg.backupAll) {
-      systemd.services.postgresqlBackup =
-        postgresqlBackupService "all"
-          "pg_dumpall"
-      ;
+      systemd.services.postgresqlBackup = postgresqlBackupService "all" "pg_dumpall";
     })
     (mkIf (cfg.enable && !cfg.backupAll) {
       systemd.services = listToAttrs (

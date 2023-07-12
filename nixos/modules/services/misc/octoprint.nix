@@ -20,9 +20,7 @@ let
 
   fullConfig = recursiveUpdate cfg.extraConfig baseConfig;
 
-  cfgUpdate = pkgs.writeText "octoprint-config.yaml" (
-    builtins.toJSON fullConfig
-  );
+  cfgUpdate = pkgs.writeText "octoprint-config.yaml" (builtins.toJSON fullConfig);
 
   pluginsEnv = package.python.withPackages (
     ps: [ ps.octoprint ] ++ (cfg.plugins ps)
@@ -37,9 +35,7 @@ in
 
     services.octoprint = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "OctoPrint, web interface for 3D printers"
-      );
+      enable = mkEnableOption (lib.mdDoc "OctoPrint, web interface for 3D printers");
 
       host = mkOption {
         type = types.str;
@@ -85,10 +81,7 @@ in
         type = types.functionTo (types.listOf types.package);
         default = plugins: [ ];
         defaultText = literalExpression "plugins: []";
-        example =
-          literalExpression
-            "plugins: with plugins; [ themeify stlviewer ]"
-        ;
+        example = literalExpression "plugins: with plugins; [ themeify stlviewer ]";
         description =
           lib.mdDoc
             "Additional plugins to be used. Available plugins are passed through the plugins input."

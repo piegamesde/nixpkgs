@@ -103,8 +103,7 @@ let
       ""
     else
       let
-        mainGem =
-          gems.${pkgname} or (throw "bundlerEnv: gem ${pkgname} not found");
+        mainGem = gems.${pkgname} or (throw "bundlerEnv: gem ${pkgname} not found");
       in
       copyIfBundledByPath mainGem
   ;
@@ -118,8 +117,7 @@ let
     cp ${gemFiles.gemfile} $out/Gemfile || ls -l $out/Gemfile
     cp ${gemFiles.lockfile} $out/Gemfile.lock || ls -l $out/Gemfile.lock
 
-    ${lib.concatMapStringsSep "\n" (path: "cp -r ${path} $out/")
-      extraConfigPaths}
+    ${lib.concatMapStringsSep "\n" (path: "cp -r ${path} $out/") extraConfigPaths}
   '';
 
   buildGem =

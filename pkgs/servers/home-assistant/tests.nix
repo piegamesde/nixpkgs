@@ -130,12 +130,9 @@ lib.listToAttrs (
             ;
 
             disabledTests =
-              old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ]
-            ;
+              old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ];
             disabledTestPaths =
-              old.disabledTestPaths or [ ]
-              ++ extraDisabledTestPaths.${component} or [ ]
-            ;
+              old.disabledTestPaths or [ ] ++ extraDisabledTestPaths.${component} or [ ];
 
             # components are more often racy than the core
             dontUsePytestXdist = true;

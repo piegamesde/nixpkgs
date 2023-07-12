@@ -18,10 +18,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/sonarr/.config/NzbDrone";
-        description =
-          lib.mdDoc
-            "The directory where Sonarr stores its data files."
-        ;
+        description = lib.mdDoc "The directory where Sonarr stores its data files.";
       };
 
       openFirewall = mkOption {

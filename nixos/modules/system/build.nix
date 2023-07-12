@@ -14,9 +14,7 @@ in
         Attribute set of derivations used to set up the system.
       '';
       type = types.submoduleWith {
-        modules = [ {
-          freeformType = with types; lazyAttrsOf (uniq unspecified);
-        } ];
+        modules = [ { freeformType = with types; lazyAttrsOf (uniq unspecified); } ];
       };
     };
   };

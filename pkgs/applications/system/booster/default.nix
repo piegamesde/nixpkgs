@@ -55,9 +55,7 @@ buildGoModule rec {
       ];
     in
     ''
-      wrapProgram $out/bin/generator --prefix PATH : ${
-        lib.makeBinPath runtimeInputs
-      }
+      wrapProgram $out/bin/generator --prefix PATH : ${lib.makeBinPath runtimeInputs}
       wrapProgram $out/bin/init --prefix PATH : ${lib.makeBinPath runtimeInputs}
     ''
   ;

@@ -10,8 +10,7 @@
   libGL,
   alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   alsa-lib,
-  x11Support ?
-    !stdenv.targetPlatform.isWindows && !stdenv.hostPlatform.isAndroid,
+  x11Support ? !stdenv.targetPlatform.isWindows && !stdenv.hostPlatform.isAndroid,
   libX11,
   xorgproto,
   libICE,
@@ -199,18 +198,15 @@ stdenv.mkDerivation rec {
   # list the symbols used in this way.
   postFixup =
     let
-      rpath = lib.makeLibraryPath (
-        dlopenPropagatedBuildInputs ++ dlopenBuildInputs
-      );
+      rpath = lib.makeLibraryPath (dlopenPropagatedBuildInputs ++ dlopenBuildInputs);
     in
-    lib.optionalString (stdenv.hostPlatform.extensions.sharedLibrary == ".so")
-      ''
-        for lib in $out/lib/*.so* ; do
-          if ! [[ -L "$lib" ]]; then
-            patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
-          fi
-        done
-      ''
+    lib.optionalString (stdenv.hostPlatform.extensions.sharedLibrary == ".so") ''
+      for lib in $out/lib/*.so* ; do
+        if ! [[ -L "$lib" ]]; then
+          patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
+        fi
+      done
+    ''
   ;
 
   setupHook = ./setup-hook.sh;

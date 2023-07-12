@@ -18,9 +18,7 @@ let
     listsAsDuplicateKeys = true;
   };
 
-  clamdConfigFile = pkgs.writeText "clamd.conf" (
-    toKeyValue cfg.daemon.settings
-  );
+  clamdConfigFile = pkgs.writeText "clamd.conf" (toKeyValue cfg.daemon.settings);
   freshclamConfigFile = pkgs.writeText "freshclam.conf" (
     toKeyValue cfg.updater.settings
   );

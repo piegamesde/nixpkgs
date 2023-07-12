@@ -127,8 +127,7 @@ let
         mkdir externals_cache
 
         ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList
-            (dst: src: "cp -r --no-preserve=mode ${src} ${dst}")
+          lib.mapAttrsToList (dst: src: "cp -r --no-preserve=mode ${src} ${dst}")
             externals
         )}
 

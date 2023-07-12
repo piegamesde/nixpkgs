@@ -47,11 +47,7 @@ in
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart =
-          map
-            (
-              x:
-              "${pkgs.iproute2}/bin/rdma link add rxe_${x} type rxe netdev ${x}"
-            )
+          map (x: "${pkgs.iproute2}/bin/rdma link add rxe_${x} type rxe netdev ${x}")
             cfg.interfaces
         ;
 

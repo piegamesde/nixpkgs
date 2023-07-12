@@ -14,9 +14,7 @@ let
       pkgs.mtl
     ]
   ;
-  env = haskellPackages.ghcWithPackages (
-    pkgs: defaultPkgs pkgs ++ packages pkgs
-  );
+  env = haskellPackages.ghcWithPackages (pkgs: defaultPkgs pkgs ++ packages pkgs);
   libDir = "${env}/lib/ghc-${env.version}";
 in
 stdenv.mkDerivation {

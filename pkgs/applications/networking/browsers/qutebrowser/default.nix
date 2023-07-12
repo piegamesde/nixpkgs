@@ -43,10 +43,7 @@ let
 
   backendPackage =
     if backend == "webengine" then
-      if isQt6 then
-        python3Packages.pyqt6-webengine
-      else
-        python3Packages.pyqtwebengine
+      if isQt6 then python3Packages.pyqt6-webengine else python3Packages.pyqtwebengine
     else if backend == "webkit" then
       python3Packages.pyqt5_with_qtwebkit
     else
@@ -218,11 +215,7 @@ buildPythonApplication {
     description = "Keyboard-focused browser with a minimal GUI";
     license = licenses.gpl3Plus;
     platforms =
-      if enableWideVine then
-        [ "x86_64-linux" ]
-      else
-        backendPackage.meta.platforms
-    ;
+      if enableWideVine then [ "x86_64-linux" ] else backendPackage.meta.platforms;
     maintainers = with maintainers; [
       jagajaga
       rnhmjoj

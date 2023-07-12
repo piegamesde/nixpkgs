@@ -99,8 +99,7 @@ lib.makeOverridable (
               )
               # Add any extra outputs specified by the caller of `buildEnv`.
               ++ lib.filter (p: p != null) (
-                builtins.map (outName: drv.${outName} or null)
-                  extraOutputsToInstall
+                builtins.map (outName: drv.${outName} or null) extraOutputsToInstall
               )
             ;
             priority = drv.meta.priority or 5;

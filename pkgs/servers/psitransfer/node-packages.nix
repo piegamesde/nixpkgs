@@ -1510,11 +1510,7 @@ in
             }
           )
           sources."compressible-2.0.18"
-          (
-            sources."compression-1.7.4" // {
-              dependencies = [ sources."debug-2.6.9" ];
-            }
-          )
+          (sources."compression-1.7.4" // { dependencies = [ sources."debug-2.6.9" ]; })
           sources."concat-map-0.0.1"
           sources."constantinople-4.0.1"
           (
@@ -1547,11 +1543,7 @@ in
               ];
             }
           )
-          (
-            sources."finalhandler-1.1.2" // {
-              dependencies = [ sources."debug-2.6.9" ];
-            }
-          )
+          (sources."finalhandler-1.1.2" // { dependencies = [ sources."debug-2.6.9" ]; })
           sources."follow-redirects-1.14.9"
           sources."forwarded-0.2.0"
           sources."fresh-0.5.2"
@@ -1594,9 +1586,7 @@ in
           sources."merge-descriptors-1.0.1"
           sources."meterstream-1.0.1"
           (
-            sources."method-override-3.0.0" // {
-              dependencies = [ sources."debug-3.1.0" ];
-            }
+            sources."method-override-3.0.0" // { dependencies = [ sources."debug-3.1.0" ]; }
           )
           sources."methods-1.1.2"
           sources."mime-1.6.0"
@@ -1640,11 +1630,7 @@ in
           sources."pug-walk-2.0.0"
           sources."qs-6.9.7"
           sources."range-parser-1.2.1"
-          (
-            sources."raw-body-2.4.3" // {
-              dependencies = [ sources."bytes-3.1.2" ];
-            }
-          )
+          (sources."raw-body-2.4.3" // { dependencies = [ sources."bytes-3.1.2" ]; })
           sources."readable-stream-3.6.0"
           sources."resolve-1.22.0"
           sources."safe-buffer-5.1.2"
@@ -1652,11 +1638,7 @@ in
           (
             sources."send-0.17.2" // {
               dependencies = [
-                (
-                  sources."debug-2.6.9" // {
-                    dependencies = [ sources."ms-2.0.0" ];
-                  }
-                )
+                (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
                 sources."ms-2.1.3"
               ];
             }

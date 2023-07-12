@@ -17625,11 +17625,7 @@ let
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
-      (
-        sources."@npmcli/fs-1.1.1" // {
-          dependencies = [ sources."semver-7.3.7" ];
-        }
-      )
+      (sources."@npmcli/fs-1.1.1" // { dependencies = [ sources."semver-7.3.7" ]; })
       (
         sources."@npmcli/move-file-1.1.2" // {
           dependencies = [ sources."mkdirp-1.0.4" ];
@@ -17688,9 +17684,7 @@ let
             sources."ajv-keywords-3.5.2"
             sources."ansi-regex-2.1.1"
             (
-              sources."braces-2.3.2" // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."camelcase-5.3.1"
             sources."chownr-1.1.4"
@@ -17731,11 +17725,7 @@ let
             (
               sources."html-minifier-terser-5.1.1" // {
                 dependencies = [
-                  (
-                    sources."terser-4.8.1" // {
-                      dependencies = [ sources."commander-2.20.3" ];
-                    }
-                  )
+                  (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; })
                 ];
               }
             )
@@ -17747,11 +17737,7 @@ let
             sources."htmlparser2-6.1.0"
             sources."is-buffer-1.1.6"
             sources."is-extendable-0.1.1"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-wsl-1.1.0"
             sources."isarray-1.0.0"
             sources."jest-worker-26.6.2"
@@ -17763,16 +17749,8 @@ let
             sources."make-dir-3.1.0"
             sources."micromatch-3.1.10"
             sources."mime-2.6.0"
-            (
-              sources."p-locate-4.1.0" // {
-                dependencies = [ sources."p-limit-2.3.0" ];
-              }
-            )
-            (
-              sources."pkg-dir-4.2.0" // {
-                dependencies = [ sources."find-up-4.1.0" ];
-              }
-            )
+            (sources."p-locate-4.1.0" // { dependencies = [ sources."p-limit-2.3.0" ]; })
+            (sources."pkg-dir-4.2.0" // { dependencies = [ sources."find-up-4.1.0" ]; })
             sources."pnp-webpack-plugin-1.6.4"
             sources."pretty-error-2.1.2"
             sources."readable-stream-2.3.7"
@@ -17854,9 +17832,7 @@ let
             sources."ajv-keywords-3.5.2"
             sources."ansi-styles-4.3.0"
             (
-              sources."braces-2.3.2" // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."cacache-12.0.4"
             sources."chalk-4.1.2"
@@ -17879,20 +17855,12 @@ let
             sources."has-flag-4.0.0"
             sources."is-buffer-1.1.6"
             sources."is-extendable-0.1.1"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-wsl-1.1.0"
             sources."isarray-1.0.0"
             sources."json-schema-traverse-0.4.1"
             sources."loader-runner-2.4.0"
-            (
-              sources."loader-utils-1.4.0" // {
-                dependencies = [ sources."json5-1.0.1" ];
-              }
-            )
+            (sources."loader-utils-1.4.0" // { dependencies = [ sources."json5-1.0.1" ]; })
             sources."lru-cache-5.1.1"
             sources."micromatch-3.1.10"
             sources."readable-stream-2.3.7"
@@ -17936,9 +17904,7 @@ let
             sources."ajv-keywords-3.5.2"
             sources."ansi-styles-4.3.0"
             (
-              sources."braces-2.3.2" // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."cacache-12.0.4"
             sources."chalk-4.1.2"
@@ -17960,11 +17926,7 @@ let
             sources."has-flag-4.0.0"
             sources."is-buffer-1.1.6"
             sources."is-extendable-0.1.1"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-wsl-1.1.0"
             sources."isarray-1.0.0"
             sources."json-schema-traverse-0.4.1"
@@ -17981,18 +17943,10 @@ let
             sources."ssri-6.0.2"
             sources."string_decoder-1.1.1"
             sources."supports-color-7.2.0"
-            (
-              sources."terser-4.8.1" // {
-                dependencies = [ sources."commander-2.20.3" ];
-              }
-            )
+            (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; })
             sources."terser-webpack-plugin-1.4.5"
             sources."to-regex-range-2.1.1"
-            (
-              sources."webpack-4.46.0" // {
-                dependencies = [ sources."watchpack-1.7.5" ];
-              }
-            )
+            (sources."webpack-4.46.0" // { dependencies = [ sources."watchpack-1.7.5" ]; })
             sources."webpack-sources-1.4.3"
             sources."y18n-4.0.3"
             sources."yallist-3.1.1"
@@ -18025,9 +17979,7 @@ let
             sources."ansi-regex-2.1.1"
             sources."ansi-styles-4.3.0"
             (
-              sources."braces-2.3.2" // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."camelcase-5.3.1"
             sources."chalk-4.1.2"
@@ -18066,11 +18018,7 @@ let
             (
               sources."html-minifier-terser-5.1.1" // {
                 dependencies = [
-                  (
-                    sources."terser-4.8.1" // {
-                      dependencies = [ sources."commander-2.20.3" ];
-                    }
-                  )
+                  (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; })
                 ];
               }
             )
@@ -18082,11 +18030,7 @@ let
             sources."htmlparser2-6.1.0"
             sources."is-buffer-1.1.6"
             sources."is-extendable-0.1.1"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-wsl-1.1.0"
             sources."isarray-1.0.0"
             sources."jest-worker-26.6.2"
@@ -18098,16 +18042,8 @@ let
             sources."make-dir-3.1.0"
             sources."micromatch-3.1.10"
             sources."mime-2.6.0"
-            (
-              sources."p-locate-4.1.0" // {
-                dependencies = [ sources."p-limit-2.3.0" ];
-              }
-            )
-            (
-              sources."pkg-dir-4.2.0" // {
-                dependencies = [ sources."find-up-4.1.0" ];
-              }
-            )
+            (sources."p-locate-4.1.0" // { dependencies = [ sources."p-limit-2.3.0" ]; })
+            (sources."pkg-dir-4.2.0" // { dependencies = [ sources."find-up-4.1.0" ]; })
             sources."pnp-webpack-plugin-1.6.4"
             sources."pretty-error-2.1.2"
             sources."readable-stream-2.3.7"
@@ -18495,11 +18431,7 @@ let
       sources."array.prototype.reduce-1.0.4"
       sources."arrify-2.0.1"
       sources."asap-2.0.6"
-      (
-        sources."asn1.js-5.4.1" // {
-          dependencies = [ sources."bn.js-4.12.0" ];
-        }
-      )
+      (sources."asn1.js-5.4.1" // { dependencies = [ sources."bn.js-4.12.0" ]; })
       (
         sources."assert-1.5.0" // {
           dependencies = [
@@ -18570,9 +18502,7 @@ let
       sources."babel-plugin-polyfill-corejs2-0.3.2"
       (
         sources."babel-plugin-polyfill-corejs3-0.1.7" // {
-          dependencies = [
-            sources."@babel/helper-define-polyfill-provider-0.1.5"
-          ];
+          dependencies = [ sources."@babel/helper-define-polyfill-provider-0.1.5" ];
         }
       )
       sources."babel-plugin-polyfill-regenerator-0.4.0"
@@ -18584,17 +18514,11 @@ let
       sources."bail-1.0.5"
       sources."balanced-match-1.0.2"
       (
-        sources."base-0.11.2" // {
-          dependencies = [ sources."define-property-1.0.0" ];
-        }
+        sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; }
       )
       sources."base64-js-1.5.1"
       sources."batch-0.6.1"
-      (
-        sources."better-opn-2.1.1" // {
-          dependencies = [ sources."open-7.4.2" ];
-        }
-      )
+      (sources."better-opn-2.1.1" // { dependencies = [ sources."open-7.4.2" ]; })
       sources."bfj-7.0.2"
       sources."big-integer-1.6.51"
       sources."big.js-5.2.2"
@@ -18652,11 +18576,7 @@ let
       sources."browserify-zlib-0.2.0"
       sources."browserslist-4.21.3"
       sources."bser-2.1.1"
-      (
-        sources."buffer-4.9.2" // {
-          dependencies = [ sources."isarray-1.0.0" ];
-        }
-      )
+      (sources."buffer-4.9.2" // { dependencies = [ sources."isarray-1.0.0" ]; })
       sources."buffer-crc32-0.2.13"
       sources."buffer-from-1.1.2"
       sources."buffer-xor-1.0.3"
@@ -18704,9 +18624,7 @@ let
       )
       sources."cheerio-select-2.1.0"
       (
-        sources."chokidar-3.5.3" // {
-          dependencies = [ sources."glob-parent-5.1.2" ];
-        }
+        sources."chokidar-3.5.3" // { dependencies = [ sources."glob-parent-5.1.2" ]; }
       )
       sources."chownr-2.0.0"
       sources."chrome-trace-event-1.0.3"
@@ -18734,9 +18652,7 @@ let
         }
       )
       (
-        sources."clean-css-5.3.1" // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
+        sources."clean-css-5.3.1" // { dependencies = [ sources."source-map-0.6.1" ]; }
       )
       sources."clean-stack-2.2.0"
       sources."cli-boxes-2.2.1"
@@ -18812,25 +18728,15 @@ let
       )
       sources."core-js-pure-3.25.0"
       sources."core-util-is-1.0.3"
-      (
-        sources."cosmiconfig-7.0.1" // {
-          dependencies = [ sources."yaml-1.10.2" ];
-        }
-      )
-      (
-        sources."cp-file-7.0.0" // {
-          dependencies = [ sources."make-dir-3.1.0" ];
-        }
-      )
+      (sources."cosmiconfig-7.0.1" // { dependencies = [ sources."yaml-1.10.2" ]; })
+      (sources."cp-file-7.0.0" // { dependencies = [ sources."make-dir-3.1.0" ]; })
       (
         sources."cpy-8.1.2" // {
           dependencies = [
             sources."@nodelib/fs.stat-1.1.3"
             sources."array-union-1.0.2"
             (
-              sources."braces-2.3.2" // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."dir-glob-2.2.2"
             sources."fast-glob-2.2.7"
@@ -18839,36 +18745,20 @@ let
                 dependencies = [ sources."extend-shallow-2.0.1" ];
               }
             )
-            (
-              sources."glob-parent-3.1.0" // {
-                dependencies = [ sources."is-glob-3.1.0" ];
-              }
-            )
+            (sources."glob-parent-3.1.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })
             sources."globby-9.2.0"
             sources."ignore-4.0.6"
             sources."is-buffer-1.1.6"
             sources."is-extendable-0.1.1"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."micromatch-3.1.10"
-            (
-              sources."path-type-3.0.0" // {
-                dependencies = [ sources."pify-3.0.0" ];
-              }
-            )
+            (sources."path-type-3.0.0" // { dependencies = [ sources."pify-3.0.0" ]; })
             sources."slash-2.0.0"
             sources."to-regex-range-2.1.1"
           ];
         }
       )
-      (
-        sources."create-ecdh-4.0.4" // {
-          dependencies = [ sources."bn.js-4.12.0" ];
-        }
-      )
+      (sources."create-ecdh-4.0.4" // { dependencies = [ sources."bn.js-4.12.0" ]; })
       sources."create-hash-1.2.0"
       sources."create-hmac-1.1.7"
       sources."cross-spawn-7.0.3"
@@ -18961,11 +18851,7 @@ let
         }
       )
       sources."cssom-0.4.4"
-      (
-        sources."cssstyle-2.3.0" // {
-          dependencies = [ sources."cssom-0.3.8" ];
-        }
-      )
+      (sources."cssstyle-2.3.0" // { dependencies = [ sources."cssom-0.3.8" ]; })
       sources."csstype-3.1.0"
       sources."currently-unhandled-0.4.1"
       sources."cyclist-1.0.1"
@@ -19022,9 +18908,7 @@ let
       sources."diff-sequences-29.0.0"
       sources."diffable-html-5.0.0"
       (
-        sources."diffie-hellman-5.0.3" // {
-          dependencies = [ sources."bn.js-4.12.0" ];
-        }
+        sources."diffie-hellman-5.0.3" // { dependencies = [ sources."bn.js-4.12.0" ]; }
       )
       sources."dir-glob-3.0.1"
       sources."discontinuous-range-1.0.0"
@@ -19067,11 +18951,7 @@ let
       sources."ee-first-1.1.1"
       sources."ejs-3.1.8"
       sources."electron-to-chromium-1.4.233"
-      (
-        sources."elliptic-6.5.4" // {
-          dependencies = [ sources."bn.js-4.12.0" ];
-        }
-      )
+      (sources."elliptic-6.5.4" // { dependencies = [ sources."bn.js-4.12.0" ]; })
       sources."emittery-0.8.1"
       sources."emoji-regex-9.2.2"
       sources."emojis-list-3.0.0"
@@ -19102,9 +18982,7 @@ let
       sources."escape-html-1.0.3"
       sources."escape-string-regexp-1.0.5"
       (
-        sources."escodegen-2.0.0" // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
+        sources."escodegen-2.0.0" // { dependencies = [ sources."source-map-0.6.1" ]; }
       )
       (
         sources."eslint-8.23.0" // {
@@ -19414,11 +19292,7 @@ let
       sources."glob-to-regexp-0.4.1"
       sources."global-4.4.0"
       sources."global-modules-2.0.0"
-      (
-        sources."global-prefix-3.0.0" // {
-          dependencies = [ sources."which-1.3.1" ];
-        }
-      )
+      (sources."global-prefix-3.0.0" // { dependencies = [ sources."which-1.3.1" ]; })
       sources."globals-11.12.0"
       sources."globalthis-1.0.3"
       sources."globby-11.1.0"
@@ -19427,19 +19301,13 @@ let
       sources."gzip-size-6.0.0"
       sources."handle-thing-2.0.1"
       (
-        sources."handlebars-4.7.7" // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
+        sources."handlebars-4.7.7" // { dependencies = [ sources."source-map-0.6.1" ]; }
       )
       sources."harmony-reflect-1.6.2"
       sources."has-1.0.3"
       sources."has-bigints-1.0.2"
       sources."has-flag-3.0.0"
-      (
-        sources."has-glob-1.0.0" // {
-          dependencies = [ sources."is-glob-3.1.0" ];
-        }
-      )
+      (sources."has-glob-1.0.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })
       sources."has-property-descriptors-1.0.0"
       sources."has-symbols-1.0.3"
       sources."has-tostringtag-1.0.0"
@@ -19449,28 +19317,20 @@ let
         sources."has-values-1.0.0" // {
           dependencies = [
             sources."is-buffer-1.1.6"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."kind-of-4.0.0"
           ];
         }
       )
       (
-        sources."hash-base-3.1.0" // {
-          dependencies = [ sources."safe-buffer-5.2.1" ];
-        }
+        sources."hash-base-3.1.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
       )
       sources."hash.js-1.1.7"
       sources."hast-to-hyperscript-9.0.1"
       sources."hast-util-from-parse5-6.0.1"
       sources."hast-util-parse-selector-2.2.5"
       (
-        sources."hast-util-raw-6.0.1" // {
-          dependencies = [ sources."parse5-6.0.1" ];
-        }
+        sources."hast-util-raw-6.0.1" // { dependencies = [ sources."parse5-6.0.1" ]; }
       )
       sources."hast-util-to-parse5-6.0.0"
       sources."hastscript-6.0.0"
@@ -20005,9 +19865,7 @@ let
         sources."jest-watch-typeahead-1.1.0" // {
           dependencies = [
             (
-              sources."@jest/console-28.1.3" // {
-                dependencies = [ sources."slash-3.0.0" ];
-              }
+              sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; }
             )
             sources."@jest/test-result-28.1.3"
             sources."ansi-regex-6.0.1"
@@ -20129,11 +19987,7 @@ let
       sources."lru-cache-6.0.0"
       sources."lz-string-1.4.4"
       sources."magic-string-0.25.9"
-      (
-        sources."make-dir-2.1.0" // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."make-dir-2.1.0" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."makeerror-1.0.12"
       sources."map-age-cleaner-0.1.3"
       sources."map-cache-0.2.2"
@@ -20182,11 +20036,7 @@ let
       sources."methods-1.1.2"
       sources."microevent.ts-0.1.1"
       sources."micromatch-4.0.5"
-      (
-        sources."miller-rabin-4.0.1" // {
-          dependencies = [ sources."bn.js-4.12.0" ];
-        }
-      )
+      (sources."miller-rabin-4.0.1" // { dependencies = [ sources."bn.js-4.12.0" ]; })
       sources."mime-1.6.0"
       sources."mime-db-1.52.0"
       sources."mime-types-2.1.35"
@@ -20235,11 +20085,7 @@ let
       sources."nanoid-3.3.4"
       sources."nanomatch-1.2.13"
       sources."natural-compare-1.4.0"
-      (
-        sources."nearley-2.20.1" // {
-          dependencies = [ sources."commander-2.20.3" ];
-        }
-      )
+      (sources."nearley-2.20.1" // { dependencies = [ sources."commander-2.20.3" ]; })
       sources."negotiator-0.6.3"
       sources."neo-async-2.6.2"
       sources."nested-error-stacks-2.1.1"
@@ -20290,9 +20136,7 @@ let
             sources."is-buffer-1.1.6"
             sources."is-data-descriptor-0.1.4"
             (
-              sources."is-descriptor-0.1.6" // {
-                dependencies = [ sources."kind-of-5.1.0" ];
-              }
+              sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; }
             )
             sources."kind-of-3.2.2"
           ];
@@ -20331,11 +20175,7 @@ let
       (sources."p-all-2.1.0" // { dependencies = [ sources."p-map-2.1.0" ]; })
       sources."p-defer-1.0.0"
       sources."p-event-4.2.0"
-      (
-        sources."p-filter-2.1.0" // {
-          dependencies = [ sources."p-map-2.1.0" ];
-        }
-      )
+      (sources."p-filter-2.1.0" // { dependencies = [ sources."p-map-2.1.0" ]; })
       sources."p-finally-1.0.0"
       sources."p-limit-3.1.0"
       sources."p-locate-5.0.0"
@@ -20365,11 +20205,7 @@ let
       sources."parse-asn1-5.1.6"
       sources."parse-entities-2.0.0"
       sources."parse-json-5.2.0"
-      (
-        sources."parse5-7.0.0" // {
-          dependencies = [ sources."entities-4.3.1" ];
-        }
-      )
+      (sources."parse5-7.0.0" // { dependencies = [ sources."entities-4.3.1" ]; })
       sources."parse5-htmlparser2-tree-adapter-7.0.0"
       sources."parseurl-1.3.3"
       sources."pascal-case-3.1.2"
@@ -20405,16 +20241,10 @@ let
       )
       sources."pnp-webpack-plugin-1.7.0"
       sources."posix-character-classes-0.1.1"
-      (
-        sources."postcss-7.0.39" // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
-      )
+      (sources."postcss-7.0.39" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."postcss-flexbugs-fixes-4.2.1"
       (
-        sources."postcss-loader-4.3.0" // {
-          dependencies = [ sources."semver-7.3.7" ];
-        }
+        sources."postcss-loader-4.3.0" // { dependencies = [ sources."semver-7.3.7" ]; }
       )
       sources."postcss-modules-extract-imports-2.0.0"
       sources."postcss-modules-local-by-default-3.0.3"
@@ -20452,9 +20282,7 @@ let
       sources."prr-1.0.1"
       sources."psl-1.9.0"
       (
-        sources."public-encrypt-4.0.3" // {
-          dependencies = [ sources."bn.js-4.12.0" ];
-        }
+        sources."public-encrypt-4.0.3" // { dependencies = [ sources."bn.js-4.12.0" ]; }
       )
       sources."pump-3.0.0"
       (sources."pumpify-1.5.1" // { dependencies = [ sources."pump-2.0.1" ]; })
@@ -20483,11 +20311,7 @@ let
       sources."randombytes-2.1.0"
       sources."randomfill-1.0.4"
       sources."range-parser-1.2.1"
-      (
-        sources."raw-body-2.5.1" // {
-          dependencies = [ sources."bytes-3.1.2" ];
-        }
-      )
+      (sources."raw-body-2.5.1" // { dependencies = [ sources."bytes-3.1.2" ]; })
       sources."raw-loader-4.0.2"
       sources."react-17.0.2"
       sources."react-app-polyfill-3.0.0"
@@ -20604,16 +20428,8 @@ let
       sources."react-shallow-renderer-16.15.0"
       sources."react-test-renderer-17.0.2"
       sources."react-transition-group-4.4.5"
-      (
-        sources."read-cache-1.0.0" // {
-          dependencies = [ sources."pify-2.3.0" ];
-        }
-      )
-      (
-        sources."read-pkg-5.2.0" // {
-          dependencies = [ sources."type-fest-0.6.0" ];
-        }
-      )
+      (sources."read-cache-1.0.0" // { dependencies = [ sources."pify-2.3.0" ]; })
+      (sources."read-pkg-5.2.0" // { dependencies = [ sources."type-fest-0.6.0" ]; })
       (
         sources."read-pkg-up-7.0.1" // {
           dependencies = [
@@ -20643,11 +20459,7 @@ let
       sources."regexpp-3.2.0"
       sources."regexpu-core-5.1.0"
       sources."regjsgen-0.6.0"
-      (
-        sources."regjsparser-0.8.4" // {
-          dependencies = [ sources."jsesc-0.5.0" ];
-        }
-      )
+      (sources."regjsparser-0.8.4" // { dependencies = [ sources."jsesc-0.5.0" ]; })
       sources."relateurl-0.2.7"
       sources."remark-footnotes-2.0.0"
       (
@@ -20710,11 +20522,7 @@ let
       )
       sources."rst-selector-parser-2.2.3"
       sources."run-parallel-1.2.0"
-      (
-        sources."run-queue-1.0.3" // {
-          dependencies = [ sources."aproba-1.2.0" ];
-        }
-      )
+      (sources."run-queue-1.0.3" // { dependencies = [ sources."aproba-1.2.0" ]; })
       sources."safe-buffer-5.1.2"
       sources."safe-regex-1.1.0"
       sources."safer-buffer-2.1.2"
@@ -20739,11 +20547,7 @@ let
       (
         sources."send-0.18.0" // {
           dependencies = [
-            (
-              sources."debug-2.6.9" // {
-                dependencies = [ sources."ms-2.0.0" ];
-              }
-            )
+            (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
             sources."ms-2.1.3"
           ];
         }
@@ -20981,17 +20785,9 @@ let
       )
       sources."tapable-1.1.3"
       (sources."tar-6.1.11" // { dependencies = [ sources."mkdirp-1.0.4" ]; })
-      (
-        sources."telejson-6.0.8" // {
-          dependencies = [ sources."isobject-4.0.0" ];
-        }
-      )
+      (sources."telejson-6.0.8" // { dependencies = [ sources."isobject-4.0.0" ]; })
       sources."temp-dir-2.0.0"
-      (
-        sources."tempy-0.6.0" // {
-          dependencies = [ sources."type-fest-0.16.0" ];
-        }
-      )
+      (sources."tempy-0.6.0" // { dependencies = [ sources."type-fest-0.16.0" ]; })
       sources."terminal-link-2.1.1"
       (
         sources."terser-5.15.0" // {
@@ -21056,11 +20852,7 @@ let
         }
       )
       sources."tslib-2.4.0"
-      (
-        sources."tsutils-3.21.0" // {
-          dependencies = [ sources."tslib-1.14.1" ];
-        }
-      )
+      (sources."tsutils-3.21.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
       sources."tty-browserify-0.0.0"
       sources."type-check-0.4.0"
       sources."type-detect-4.0.8"
@@ -21103,11 +20895,7 @@ let
       (
         sources."unset-value-1.0.0" // {
           dependencies = [
-            (
-              sources."has-value-0.3.1" // {
-                dependencies = [ sources."isobject-2.1.0" ];
-              }
-            )
+            (sources."has-value-0.3.1" // { dependencies = [ sources."isobject-2.1.0" ]; })
             sources."has-values-0.1.4"
             sources."isarray-1.0.0"
           ];
@@ -21133,11 +20921,7 @@ let
       sources."url-loader-4.1.1"
       sources."url-parse-1.5.10"
       sources."use-3.1.1"
-      (
-        sources."util-0.11.1" // {
-          dependencies = [ sources."inherits-2.0.3" ];
-        }
-      )
+      (sources."util-0.11.1" // { dependencies = [ sources."inherits-2.0.3" ]; })
       sources."util-deprecate-1.0.2"
       sources."util.promisify-1.0.1"
       sources."utila-0.4.0"
@@ -21164,9 +20948,7 @@ let
             )
             sources."binary-extensions-1.13.1"
             (
-              sources."braces-2.3.2" // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."chokidar-2.1.8"
             (
@@ -21175,19 +20957,11 @@ let
               }
             )
             sources."fsevents-1.2.13"
-            (
-              sources."glob-parent-3.1.0" // {
-                dependencies = [ sources."is-glob-3.1.0" ];
-              }
-            )
+            (sources."glob-parent-3.1.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })
             sources."is-binary-path-1.0.1"
             sources."is-buffer-1.1.6"
             sources."is-extendable-0.1.1"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."isarray-1.0.0"
             sources."micromatch-3.1.10"
             sources."readable-stream-2.3.7"
@@ -21223,11 +20997,7 @@ let
         }
       )
       sources."webpack-hot-middleware-2.25.2"
-      (
-        sources."webpack-log-2.0.0" // {
-          dependencies = [ sources."uuid-3.4.0" ];
-        }
-      )
+      (sources."webpack-log-2.0.0" // { dependencies = [ sources."uuid-3.4.0" ]; })
       (
         sources."webpack-manifest-plugin-4.1.1" // {
           dependencies = [

@@ -191,9 +191,7 @@ in
   serviceOpts = {
     serviceConfig = {
       DynamicUser = false;
-      EnvironmentFile = mkIf (cfg.environmentFile != null) [
-        cfg.environmentFile
-      ];
+      EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
       RuntimeDirectory = "prometheus-mail-exporter";
       ExecStartPre = [
         "${pkgs.writeShellScript "subst-secrets-mail-exporter" ''

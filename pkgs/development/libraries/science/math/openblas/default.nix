@@ -223,9 +223,7 @@ stdenv.mkDerivation rec {
   makeFlags = mkMakeFlagsFromConfig (
     config // {
       FC = "${stdenv.cc.targetPrefix}gfortran";
-      CC = "${stdenv.cc.targetPrefix}${
-          if stdenv.cc.isClang then "clang" else "cc"
-        }";
+      CC = "${stdenv.cc.targetPrefix}${if stdenv.cc.isClang then "clang" else "cc"}";
       PREFIX = placeholder "out";
       OPENBLAS_INCLUDE_DIR = "${placeholder "dev"}/include";
       NUM_THREADS = 64;

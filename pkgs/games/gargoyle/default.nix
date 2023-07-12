@@ -23,9 +23,7 @@ let
     + (
       if stdenv.isDarwin then
         ''
-          export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
-            lib.getDev SDL
-          }/include/SDL"
+          export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${lib.getDev SDL}/include/SDL"
           export GARGLKINI="$out/Applications/Gargoyle.app/Contents/Resources/garglk.ini"
         ''
       else

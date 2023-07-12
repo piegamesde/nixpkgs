@@ -11,8 +11,7 @@ let
   cfg = config.services.bosun;
 
   configFile = pkgs.writeText "bosun.conf" ''
-    ${optionalString (cfg.opentsdbHost != null)
-      "tsdbHost = ${cfg.opentsdbHost}"}
+    ${optionalString (cfg.opentsdbHost != null) "tsdbHost = ${cfg.opentsdbHost}"}
     ${optionalString (cfg.influxHost != null) "influxHost = ${cfg.influxHost}"}
     httpListen = ${cfg.listenAddress}
     stateFile = ${cfg.stateFile}

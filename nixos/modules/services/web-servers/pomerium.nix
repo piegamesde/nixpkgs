@@ -12,9 +12,7 @@ let
 in
 {
   options.services.pomerium = {
-    enable = mkEnableOption (
-      lib.mdDoc "the Pomerium authenticating reverse proxy"
-    );
+    enable = mkEnableOption (lib.mdDoc "the Pomerium authenticating reverse proxy");
 
     configFile = mkOption {
       type = with types; nullOr path;
@@ -154,9 +152,7 @@ in
         after = [ "acme-${cfg.useACMEHost}.service" ];
         # Block reloading if not all certs exist yet.
         unitConfig.ConditionPathExists = [
-          "${
-            config.security.acme.certs.${cfg.useACMEHost}.directory
-          }/fullchain.pem"
+          "${config.security.acme.certs.${cfg.useACMEHost}.directory}/fullchain.pem"
         ];
         serviceConfig = {
           Type = "oneshot";

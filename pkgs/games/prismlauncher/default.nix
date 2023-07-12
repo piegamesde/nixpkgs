@@ -72,9 +72,7 @@ stdenv.mkDerivation rec {
   ;
 
   cmakeFlags =
-    lib.optionals (msaClientID != "") [
-      "-DLauncher_MSA_CLIENT_ID=${msaClientID}"
-    ]
+    lib.optionals (msaClientID != "") [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ]
     ++ lib.optionals (lib.versionAtLeast qtbase.version "6") [
       "-DLauncher_QT_VERSION_MAJOR=6"
     ]
@@ -111,9 +109,7 @@ stdenv.mkDerivation rec {
     in
     [
       "--set LD_LIBRARY_PATH /run/opengl-driver/lib:${libpath}"
-      "--prefix PRISMLAUNCHER_JAVA_PATHS : ${
-        lib.makeSearchPath "bin/java" jdks
-      }"
+      "--prefix PRISMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}"
       # xorg.xrandr needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
       "--prefix PATH : ${lib.makeBinPath [ xorg.xrandr ]}"
     ]

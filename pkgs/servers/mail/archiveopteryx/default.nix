@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       "-Wno-error=nonnull"
     ]
     ++
-      lib.optionals
-        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
+      lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
         [ "-Wno-error=mismatched-new-delete" ]
   );
 

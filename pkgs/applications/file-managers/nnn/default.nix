@@ -32,9 +32,7 @@ stdenv.mkDerivation (
       hash = "sha256-QbKW2wjhUNej3zoX18LdeUHqjNLYhEKyvPH2MXzp/iQ=";
     };
 
-    configFile = lib.optionalString (conf != null) (
-      builtins.toFile "nnn.h" conf
-    );
+    configFile = lib.optionalString (conf != null) (builtins.toFile "nnn.h" conf);
     preBuild =
       lib.optionalString (conf != null)
         "cp ${finalAttrs.configFile} src/nnn.h"

@@ -43,10 +43,7 @@ let
         }:
         {
           inherit version lang;
-          name =
-            "wolfram-engine-${version}"
-            + optionalString (lang != "en") "-${lang}"
-          ;
+          name = "wolfram-engine-${version}" + optionalString (lang != "en") "-${lang}";
           src = requireFile {
             name = installer;
             message = ''

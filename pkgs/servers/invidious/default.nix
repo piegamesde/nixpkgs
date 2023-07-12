@@ -82,9 +82,7 @@ crystal.buildCrystalPackage rec {
 
       # Reference sql initialisation/migration scripts by absolute path
       substituteInPlace src/invidious/database/base.cr \
-            --replace 'config/sql' '${
-              placeholder "out"
-            }/share/invidious/config/sql'
+            --replace 'config/sql' '${placeholder "out"}/share/invidious/config/sql'
 
       substituteInPlace src/invidious/user/captcha.cr \
           --replace 'Process.run(%(rsvg-convert' 'Process.run(%(${

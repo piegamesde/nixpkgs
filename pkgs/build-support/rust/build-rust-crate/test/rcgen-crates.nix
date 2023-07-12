@@ -4192,9 +4192,7 @@ rec {
       family = "unix";
       env = "gnu";
       endian =
-        if
-          stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian"
-        then
+        if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then
           "little"
         else
           "big"
@@ -4232,9 +4230,7 @@ rec {
         || (type == "symlink" && lib.hasPrefix "result" baseName)
 
         # Filter out IDE config
-        || (
-          type == "directory" && (baseName == ".idea" || baseName == ".vscode")
-        )
+        || (type == "directory" && (baseName == ".idea" || baseName == ".vscode"))
         || lib.hasSuffix ".iml" baseName
 
         # Filter out nix build files
@@ -4455,11 +4451,7 @@ rec {
           let
             self = {
               crates =
-                lib.mapAttrs
-                  (
-                    packageId: value:
-                    buildByPackageIdForPkgsImpl self pkgs packageId
-                  )
+                lib.mapAttrs (packageId: value: buildByPackageIdForPkgsImpl self pkgs packageId)
                   crateConfigs
               ;
               build = mkBuiltByPackageIdByPkgs pkgs.buildPackages;
@@ -4476,10 +4468,9 @@ rec {
               "resolvedDefaultFeatures"
               "devDependencies"
             ];
-            devDependencies =
-              lib.optionals (runTests && packageId == rootPackageId)
-                (crateConfig'.devDependencies or [ ])
-            ;
+            devDependencies = lib.optionals (runTests && packageId == rootPackageId) (
+              crateConfig'.devDependencies or [ ]
+            );
             dependencies = dependencyDerivations {
               inherit features target;
               buildByPackageId =
@@ -4490,20 +4481,16 @@ rec {
                 else
                   self.crates.${depPackageId}
               ;
-              dependencies =
-                (crateConfig.dependencies or [ ]) ++ devDependencies;
+              dependencies = (crateConfig.dependencies or [ ]) ++ devDependencies;
             };
             buildDependencies = dependencyDerivations {
               inherit features target;
-              buildByPackageId =
-                depPackageId: self.build.crates.${depPackageId};
+              buildByPackageId = depPackageId: self.build.crates.${depPackageId};
               dependencies = crateConfig.buildDependencies or [ ];
             };
             filterEnabledDependenciesForThis =
               dependencies:
-              filterEnabledDependencies {
-                inherit dependencies features target;
-              }
+              filterEnabledDependencies { inherit dependencies features target; }
             ;
             dependenciesWithRenames = lib.filter (d: d ? "rename") (
               filterEnabledDependenciesForThis (
@@ -4522,10 +4509,7 @@ rec {
             # }
             crateRenames =
               let
-                grouped =
-                  lib.groupBy (dependency: dependency.name)
-                    dependenciesWithRenames
-                ;
+                grouped = lib.groupBy (dependency: dependency.name) dependenciesWithRenames;
                 versionAndRename =
                   dep:
                   let
@@ -4537,9 +4521,7 @@ rec {
                   }
                 ;
               in
-              lib.mapAttrs
-                (name: choices: builtins.map versionAndRename choices)
-                grouped
+              lib.mapAttrs (name: choices: builtins.map versionAndRename choices) grouped
             ;
           in
           buildRustCrateForPkgsFunc pkgs (
@@ -4551,17 +4533,13 @@ rec {
                   # Not rate-limited, CDN URL.
                   url = "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
                   sha256 =
-                    assert (lib.assertMsg (crateConfig ? sha256)
-                      "Missing sha256 for ${name}"
-                    );
+                    assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}");
                     crateConfig.sha256
                   ;
                 });
               extraRustcOpts =
                 lib.lists.optional (targetFeatures != [ ])
-                  "-C target-feature=${
-                    lib.concatMapStringsSep "," (x: "+${x}") targetFeatures
-                  }"
+                  "-C target-feature=${lib.concatMapStringsSep "," (x: "+${x}") targetFeatures}"
               ;
               inherit
                 features
@@ -4690,9 +4668,7 @@ rec {
               n: v:
               (v ? "crate2nix")
               && (v ? "cargo")
-              &&
-                (v.crate2nix.features or [ ])
-                != (v."cargo".resolved_default_features or [ ])
+              && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ])
             )
             combined
         ;
@@ -4730,10 +4706,7 @@ rec {
         crateConfig =
           crateConfigs."${packageId}"
             or (builtins.throw "Package not found: ${packageId}");
-        expandedFeatures =
-          expandFeatures (crateConfig.features or { })
-            features
-        ;
+        expandedFeatures = expandFeatures (crateConfig.features or { }) features;
         enabledFeatures =
           enableFeatures (crateConfig.dependencies or [ ])
             expandedFeatures
@@ -4757,10 +4730,7 @@ rec {
               inherit dependencies target;
               features = enabledFeatures;
             };
-            directDependencies =
-              map depWithResolvedFeatures
-                enabledDependencies
-            ;
+            directDependencies = map depWithResolvedFeatures enabledDependencies;
             foldOverCache = op: lib.foldl op cache directDependencies;
           in
           foldOverCache (
@@ -4773,9 +4743,7 @@ rec {
               cacheFeatures = cache.${packageId} or [ ];
               combinedFeatures = sortedUnique (cacheFeatures ++ features);
             in
-            if
-              cache ? ${packageId} && cache.${packageId} == combinedFeatures
-            then
+            if cache ? ${packageId} && cache.${packageId} == combinedFeatures then
               cache
             else
               mergePackageFeatures {
@@ -4865,8 +4833,7 @@ rec {
         expandFeature =
           feature:
           assert (builtins.isString feature);
-          [ feature ]
-          ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]))
+          [ feature ] ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]))
         ;
         outFeatures = lib.concatMap expandFeature inputFeatures;
       in
@@ -4889,10 +4856,7 @@ rec {
               dependency:
               assert (builtins.isAttrs dependency);
               let
-                enabled =
-                  builtins.any (doesFeatureEnableDependency dependency)
-                    features
-                ;
+                enabled = builtins.any (doesFeatureEnableDependency dependency) features;
               in
               if (dependency.optional or false) && enabled then
                 [ (dependency.rename or dependency.name) ]

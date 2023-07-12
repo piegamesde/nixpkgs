@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     [ "-DCXXOPTS_BUILD_EXAMPLES=OFF" ]
     ++ lib.optional enableUnicodeHelp "-DCXXOPTS_USE_UNICODE_HELP=TRUE"
   ;
-  nativeBuildInputs =
-    [ cmake ] ++ lib.optionals enableUnicodeHelp [ pkg-config ];
+  nativeBuildInputs = [ cmake ] ++ lib.optionals enableUnicodeHelp [ pkg-config ];
 
   doCheck = true;
 

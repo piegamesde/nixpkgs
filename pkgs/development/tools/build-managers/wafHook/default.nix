@@ -12,12 +12,8 @@ makeSetupHook
     substitutions = {
       inherit waf;
       crossFlags =
-        lib.optionalString
-          (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
-          ''
-            --cross-compile "--cross-execute=${
-              stdenv.targetPlatform.emulator pkgs
-            }"''
+        lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
+          ''--cross-compile "--cross-execute=${stdenv.targetPlatform.emulator pkgs}"''
       ;
     };
   }

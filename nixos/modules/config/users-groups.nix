@@ -73,9 +73,7 @@ let
             x:
             assert (
               builtins.stringLength x < 32
-              ||
-                abort
-                  "Username '${x}' is longer than 31 characters which is not allowed!"
+              || abort "Username '${x}' is longer than 31 characters which is not allowed!"
             );
             x
           ;
@@ -140,9 +138,7 @@ let
             x:
             assert (
               builtins.stringLength x < 32
-              ||
-                abort
-                  "Group name '${x}' is longer than 31 characters which is not allowed!"
+              || abort "Group name '${x}' is longer than 31 characters which is not allowed!"
             );
             x
           ;
@@ -384,9 +380,7 @@ let
         })
         (mkIf
           (
-            config.isNormalUser
-            && config.subUidRanges == [ ]
-            && config.subGidRanges == [ ]
+            config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ]
           )
           { autoSubUidGidRange = mkDefault true; }
         )
@@ -485,9 +479,7 @@ let
           acc,
         }:
         let
-          id = builtins.toString (
-            builtins.getAttr idAttr (builtins.getAttr name set)
-          );
+          id = builtins.toString (builtins.getAttr idAttr (builtins.getAttr name set));
           exists = builtins.hasAttr id acc;
           newAcc = acc // (builtins.listToAttrs [ {
             name = id;
@@ -717,10 +709,7 @@ in
               description = ''
                 Group the user belongs to in initrd.
               '';
-              defaultText =
-                literalExpression
-                  "config.users.users.\${name}.group"
-              ;
+              defaultText = literalExpression "config.users.users.\${name}.group";
               default = cfg.users.${name}.group;
             };
           }
@@ -747,10 +736,7 @@ in
               description = ''
                 ID of the group in initrd.
               '';
-              defaultText =
-                literalExpression
-                  "config.users.groups.\${name}.gid"
-              ;
+              defaultText = literalExpression "config.users.groups.\${name}.gid";
               default = cfg.groups.${name}.gid;
             };
           }
@@ -948,15 +934,12 @@ in
       assertions =
         [
           {
-            assertion =
-              !cfg.enforceIdUniqueness || (uidsAreUnique && gidsAreUnique);
+            assertion = !cfg.enforceIdUniqueness || (uidsAreUnique && gidsAreUnique);
             message = "UIDs and GIDs must be unique!";
           }
           {
             assertion =
-              !cfg.enforceIdUniqueness
-              || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique)
-            ;
+              !cfg.enforceIdUniqueness || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique);
             message = "systemd initrd UIDs and GIDs must be unique!";
           }
           {
@@ -974,11 +957,7 @@ in
                 mapAttrsToList
                   (
                     name: cfg:
-                    (
-                      name == "root"
-                      || cfg.group == "wheel"
-                      || elem "wheel" cfg.extraGroups
-                    )
+                    (name == "root" || cfg.group == "wheel" || elem "wheel" cfg.extraGroups)
                     && (
                       allowsLogin cfg.hashedPassword
                       || cfg.password != null
@@ -1020,8 +999,7 @@ in
                   let
                     xor = a: b: a && !b || b && !a;
                     isEffectivelySystemUser =
-                      user.isSystemUser || (user.uid != null && user.uid < 1000)
-                    ;
+                      user.isSystemUser || (user.uid != null && user.uid < 1000);
                   in
                   xor isEffectivelySystemUser user.isNormalUser
                 ;
@@ -1043,9 +1021,7 @@ in
             ++ (map
               (shell: {
                 assertion =
-                  (user.shell == pkgs.${shell})
-                  -> (config.programs.${shell}.enable == true)
-                ;
+                  (user.shell == pkgs.${shell}) -> (config.programs.${shell}.enable == true);
                 message = ''
                   users.users.${user.name}.shell is set to ${shell}, but
                   programs.${shell}.enable is not true. This will cause the ${shell}

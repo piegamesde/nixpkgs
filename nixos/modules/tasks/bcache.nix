@@ -24,12 +24,9 @@
         ''
     ;
 
-    boot.initrd.services.udev =
-      lib.mkIf config.boot.initrd.services.bcache.enable
-        {
-          packages = [ pkgs.bcache-tools ];
-          binPackages = [ pkgs.bcache-tools ];
-        }
-    ;
+    boot.initrd.services.udev = lib.mkIf config.boot.initrd.services.bcache.enable {
+      packages = [ pkgs.bcache-tools ];
+      binPackages = [ pkgs.bcache-tools ];
+    };
   };
 }

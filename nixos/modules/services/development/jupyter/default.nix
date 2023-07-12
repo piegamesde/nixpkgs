@@ -16,8 +16,7 @@ let
   kernels =
     (pkgs.jupyter-kernel.create {
       definitions =
-        if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default
-      ;
+        if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
     });
 
   notebookConfig = pkgs.writeText "jupyter_config.py" ''
@@ -199,9 +198,7 @@ in
         };
       };
     })
-    (mkIf (cfg.enable && (cfg.group == "jupyter")) {
-      users.groups.jupyter = { };
-    })
+    (mkIf (cfg.enable && (cfg.group == "jupyter")) { users.groups.jupyter = { }; })
     (mkIf (cfg.enable && (cfg.user == "jupyter")) {
       users.extraUsers.jupyter = {
         extraGroups = [ cfg.group ];

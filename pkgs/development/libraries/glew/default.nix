@@ -68,10 +68,7 @@ stdenv.mkDerivation (
       EOF
     '';
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "An OpenGL extension loading library for C/C++";

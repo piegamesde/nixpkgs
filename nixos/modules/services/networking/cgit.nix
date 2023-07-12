@@ -95,9 +95,7 @@ let
           { virtual-root = cfg.nginx.location; } // cfg.settings
         )
       )}
-      ${optionalString (cfg.scanPath != null) (
-        cgitrcLine "scan-path" cfg.scanPath
-      )}
+      ${optionalString (cfg.scanPath != null) (cgitrcLine "scan-path" cfg.scanPath)}
 
       # repository settings
       ${concatStrings (
@@ -185,10 +183,7 @@ in
               };
 
               scanPath = mkOption {
-                description =
-                  mdDoc
-                    "A path which will be scanned for repositories."
-                ;
+                description = mdDoc "A path which will be scanned for repositories.";
                 type = types.nullOr types.path;
                 default = null;
                 example = "/var/lib/git";
@@ -207,10 +202,7 @@ in
               };
 
               extraConfig = mkOption {
-                description =
-                  mdDoc
-                    "These lines go to the end of cgitrc verbatim."
-                ;
+                description = mdDoc "These lines go to the end of cgitrc verbatim.";
                 type = types.lines;
                 default = "";
               };
@@ -225,8 +217,7 @@ in
     assertions =
       mapAttrsToList
         (vhost: cfg: {
-          assertion =
-            !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
+          assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
           message = "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
         })
         cfgs

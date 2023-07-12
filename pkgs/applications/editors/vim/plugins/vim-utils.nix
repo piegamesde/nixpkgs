@@ -166,8 +166,7 @@ let
     ))
   ;
 
-  findDependenciesRecursively =
-    plugins: lib.concatMap transitiveClosure plugins;
+  findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
   vamDictToNames =
     x:
@@ -211,24 +210,18 @@ let
           # opposed to older implementations that have to maintain backwards
           # compatibility). Therefore we don't need to deal with "knownPlugins"
           # and can simply pass `null`.
-          depsOfOptionalPlugins = lib.subtractLists opt (
-            findDependenciesRecursively opt
-          );
+          depsOfOptionalPlugins = lib.subtractLists opt (findDependenciesRecursively opt);
           startWithDeps = findDependenciesRecursively start;
           allPlugins = lib.unique (startWithDeps ++ depsOfOptionalPlugins);
           allPython3Dependencies =
             ps:
             lib.flatten (
-              builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps)
-                allPlugins
+              builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins
             )
           ;
           python3Env = python3.withPackages allPython3Dependencies;
 
-          packdirStart =
-            vimFarm "pack/${packageName}/start" "packdir-start"
-              allPlugins
-          ;
+          packdirStart = vimFarm "pack/${packageName}/start" "packdir-start" allPlugins;
           packdirOpt = vimFarm "pack/${packageName}/opt" "packdir-opt" opt;
           # Assemble all python3 dependencies into a single `site-packages` to avoid doing recursive dependency collection
           # for each plugin.
@@ -324,9 +317,7 @@ let
             "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
             vamImpl
         )
-        ++ lib.optional (packages != null && packages != [ ]) (
-          nativeImpl packages
-        )
+        ++ lib.optional (packages != null && packages != [ ]) (nativeImpl packages)
         ++ lib.optional (pathogen != null) (
           throw
             "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`"
@@ -404,39 +395,32 @@ rec {
                 else if vimrcConfig != null then
                   mkVimrcFile vimrcConfig
                 else
-                  throw
-                    "at least one of vimrcConfig and vimrcFile must be specified"
+                  throw "at least one of vimrcConfig and vimrcFile must be specified"
               ;
-              bin =
-                runCommand "${name}-bin"
-                  { nativeBuildInputs = [ makeWrapper ]; }
-                  ''
-                    vimrc=${lib.escapeShellArg vimrc}
-                    gvimrc=${
-                      lib.optionalString (gvimrcFile != null) (
-                        lib.escapeShellArg gvimrcFile
-                      )
-                    }
+              bin = runCommand "${name}-bin" { nativeBuildInputs = [ makeWrapper ]; } ''
+                vimrc=${lib.escapeShellArg vimrc}
+                gvimrc=${
+                  lib.optionalString (gvimrcFile != null) (lib.escapeShellArg gvimrcFile)
+                }
 
-                    mkdir -p "$out/bin"
-                    for exe in ${
-                      if standalone then
-                        "{,g,r,rg,e}vim {,g}vimdiff vi"
-                      else
-                        "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"
-                    }; do
-                      if [[ -e ${vim}/bin/$exe ]]; then
-                        dest="$out/bin/${executableName}"
-                        if [[ -e $dest ]]; then
-                          echo "ambiguous executableName: ''${dest##*/} already exists"
-                          continue
-                        fi
-                        makeWrapper ${vim}/bin/"$exe" "$dest" \
-                          --add-flags "-u ''${vimrc@Q} ''${gvimrc:+-U ''${gvimrc@Q}}"
-                      fi
-                    done
-                  ''
-              ;
+                mkdir -p "$out/bin"
+                for exe in ${
+                  if standalone then
+                    "{,g,r,rg,e}vim {,g}vimdiff vi"
+                  else
+                    "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"
+                }; do
+                  if [[ -e ${vim}/bin/$exe ]]; then
+                    dest="$out/bin/${executableName}"
+                    if [[ -e $dest ]]; then
+                      echo "ambiguous executableName: ''${dest##*/} already exists"
+                      continue
+                    fi
+                    makeWrapper ${vim}/bin/"$exe" "$dest" \
+                      --add-flags "-u ''${vimrc@Q} ''${gvimrc:+-U ''${gvimrc@Q}}"
+                  fi
+                done
+              '';
             in
             if standalone then
               bin
@@ -541,10 +525,7 @@ rec {
     let
       nativePluginsConfigs = lib.attrsets.attrValues packages;
       nonNativePlugins = (lib.optionals (plug != null) plug.plugins);
-      nativePlugins =
-        lib.concatMap (requiredPluginsForPackage)
-          nativePluginsConfigs
-      ;
+      nativePlugins = lib.concatMap (requiredPluginsForPackage) nativePluginsConfigs;
     in
     nativePlugins ++ nonNativePlugins
   ;

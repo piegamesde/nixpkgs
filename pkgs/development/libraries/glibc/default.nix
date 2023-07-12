@@ -75,14 +75,9 @@ in
               (lib.optionals withGd gdCflags)
               # Fix -Werror build failure when building glibc with musl with GCC >= 8, see:
               # https://github.com/NixOS/nixpkgs/pull/68244#issuecomment-544307798
-              (lib.optional stdenv.hostPlatform.isMusl
-                "-Wno-error=attribute-alias"
-              )
+              (lib.optional stdenv.hostPlatform.isMusl "-Wno-error=attribute-alias")
               (lib.optionals
-                (
-                  (stdenv.hostPlatform != stdenv.buildPlatform)
-                  || stdenv.hostPlatform.isMusl
-                )
+                ((stdenv.hostPlatform != stdenv.buildPlatform) || stdenv.hostPlatform.isMusl)
                 [
                   # Ignore "error: '__EI___errno_location' specifies less restrictive attributes than its target '__errno_location'"
                   # New warning as of GCC 9
@@ -147,10 +142,7 @@ in
                 -f charmaps/UTF-8 \
                 --prefix $NIX_BUILD_TOP \
                 ${
-                  if
-                    stdenv.hostPlatform.parsed.cpu.significantByte.name
-                    == "littleEndian"
-                  then
+                  if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then
                     "--little-endian"
                   else
                     "--big-endian"
@@ -210,11 +202,8 @@ in
       separateDebugInfo = true;
 
       passthru = (previousAttrs.passthru or { })
-        // lib.optionalAttrs (stdenv.cc.cc ? libgcc) {
-          inherit (stdenv.cc.cc) libgcc;
-        };
+        // lib.optionalAttrs (stdenv.cc.cc ? libgcc) { inherit (stdenv.cc.cc) libgcc; };
 
-      meta =
-        (previousAttrs.meta or { }) // { description = "The GNU C Library"; };
+      meta = (previousAttrs.meta or { }) // { description = "The GNU C Library"; };
     }
   )

@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
     sassc
   ];
 
-  makeFlags = [
-    "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions"
-  ];
+  makeFlags = [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
 
   passthru = {
     extensionUuid = "dash-to-dock@micxgx.gmail.com";

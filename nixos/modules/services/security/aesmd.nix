@@ -32,8 +32,7 @@ in
 {
   options.services.aesmd = {
     enable = mkEnableOption (
-      lib.mdDoc
-        "Intel's Architectural Enclave Service Manager (AESM) for Intel SGX"
+      lib.mdDoc "Intel's Architectural Enclave Service Manager (AESM) for Intel SGX"
     );
     debug = mkOption {
       type = types.bool;
@@ -67,10 +66,7 @@ in
           type = with types; nullOr str;
           default = null;
           example = "http://whitelist.trustedservices.intel.com/SGX/LCWL/Linux/sgx_white_list_cert.bin";
-          description =
-            lib.mdDoc
-              "URL to retrieve authorized Intel SGX enclave signers."
-          ;
+          description = lib.mdDoc "URL to retrieve authorized Intel SGX enclave signers.";
         };
         options.proxy = mkOption {
           type = with types; nullOr str;
@@ -183,9 +179,7 @@ in
 
           DynamicUser = true;
           Group = "sgx";
-          SupplementaryGroups = [
-            config.hardware.cpu.intel.sgx.provision.group
-          ];
+          SupplementaryGroups = [ config.hardware.cpu.intel.sgx.provision.group ];
 
           Type = "simple";
 

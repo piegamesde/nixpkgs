@@ -77,9 +77,7 @@ let
     ];
 
     passthru = {
-      infinoted = "${self.bin}/bin/infinoted-${
-          lib.versions.majorMinor version
-        }";
+      infinoted = "${self.bin}/bin/infinoted-${lib.versions.majorMinor version}";
     };
 
     meta = {

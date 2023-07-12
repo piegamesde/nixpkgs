@@ -96,9 +96,7 @@
           v: system:
           if v != null then
             v
-          else if
-            localSystem.canExecute (lib.systems.elaborate { inherit system; })
-          then
+          else if localSystem.canExecute (lib.systems.elaborate { inherit system; }) then
             archLookupTable.${system}
           else
             null
@@ -164,10 +162,7 @@ let
   # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
   bootstrapTools = (import
     (
-      if localSystem.libc == "musl" then
-        ./bootstrap-tools-musl
-      else
-        ./bootstrap-tools
+      if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools
     )
     {
       inherit system bootstrapFiles;
@@ -211,9 +206,7 @@ let
         shell = "${bootstrapTools}/bin/bash";
         initialPath = [ bootstrapTools ];
 
-        fetchurlBoot = import ../../build-support/fetchurl/boot.nix {
-          inherit system;
-        };
+        fetchurlBoot = import ../../build-support/fetchurl/boot.nix { inherit system; };
 
         cc =
           if prevStage.gcc-unwrapped == null then
@@ -236,28 +229,20 @@ let
             }).overrideAttrs
               (
                 a:
-                lib.optionalAttrs
-                  (prevStage.gcc-unwrapped.passthru.isXgcc or false)
-                  {
-                    # This affects only `xgcc` (the compiler which compiles the final compiler).
-                    postFixup =
-                      (a.postFixup or "")
-                      + ''
-                        echo "--sysroot=${
-                          lib.getDev (getLibc prevStage)
-                        }" >> $out/nix-support/cc-cflags
-                      ''
-                    ;
-                  }
+                lib.optionalAttrs (prevStage.gcc-unwrapped.passthru.isXgcc or false) {
+                  # This affects only `xgcc` (the compiler which compiles the final compiler).
+                  postFixup =
+                    (a.postFixup or "")
+                    + ''
+                      echo "--sysroot=${lib.getDev (getLibc prevStage)}" >> $out/nix-support/cc-cflags
+                    ''
+                  ;
+                }
               )
         ;
 
         overrides =
-          self: super:
-          (overrides self super) // {
-            fetchurl = thisStdenv.fetchurlBoot;
-          }
-        ;
+          self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
       };
     in
     {
@@ -361,9 +346,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       # Rebuild binutils to use from stage2 onwards.
       overrides =
         self: super: {
-          binutils-unwrapped = super.binutils-unwrapped.override {
-            enableGold = false;
-          };
+          binutils-unwrapped = super.binutils-unwrapped.override { enableGold = false; };
           inherit (prevStage)
             ccWrapperStdenv
             gcc-unwrapped
@@ -480,8 +463,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
                   # This is a separate phase because gcc assembles its phase scripts
                   # in bash instead of nix (we should fix that).
-                  preFixupPhases =
-                    (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ];
+                  preFixupPhases = (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ];
 
                   # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
                   # in the references of output 'lib' from output 'out'"
@@ -556,9 +538,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               postFixup =
                 attrs.postFixup or ""
                 + ''
-                  ${self.nukeReferences}/bin/nuke-refs -e '${
-                    lib.getLib self.libunistring
-                  }' \
+                  ${self.nukeReferences}/bin/nuke-refs -e '${lib.getLib self.libunistring}' \
                     "$out"/lib/lib*.so.*.*
                 ''
               ;
@@ -801,8 +781,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
         preHook = commonPreHook;
 
-        initialPath =
-          ((import ../generic/common-path.nix) { pkgs = prevStage; });
+        initialPath = ((import ../generic/common-path.nix) { pkgs = prevStage; });
 
         extraNativeBuildInputs =
           [ prevStage.patchelf ]
@@ -924,8 +903,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
             # Hack: avoid libidn2.{bin,dev} referencing bootstrap tools.  There's a logical cycle.
             libidn2 =
-              import
-                ../../development/libraries/libidn2/no-bootstrap-reference.nix
+              import ../../development/libraries/libidn2/no-bootstrap-reference.nix
                 {
                   inherit lib;
                   inherit (prevStage) libidn2;

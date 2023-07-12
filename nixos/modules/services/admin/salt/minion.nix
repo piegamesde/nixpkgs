@@ -48,9 +48,7 @@ in
       # The alternatives are
       # - passing --config-dir to all salt commands, not just the minion unit,
       # - setting aglobal environment variable.
-      etc."salt/minion".source = pkgs.writeText "minion" (
-        builtins.toJSON fullConfig
-      );
+      etc."salt/minion".source = pkgs.writeText "minion" (builtins.toJSON fullConfig);
       systemPackages = with pkgs; [ salt ];
     };
     systemd.services.salt-minion = {

@@ -16,9 +16,7 @@ let
     if isAttrs x && x ? __hocon_envvar then
       ("\${" + x.__hocon_envvar + "}")
     else if isAttrs x then
-      "{${
-        concatStringsSep "," (mapAttrsToList (k: v: ''"${k}":${toHOCON v}'') x)
-      }}"
+      "{${concatStringsSep "," (mapAttrsToList (k: v: ''"${k}":${toHOCON v}'') x)}}"
     else if isList x then
       "[${concatMapStringsSep "," toHOCON x}]"
     else
@@ -30,10 +28,7 @@ let
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    +
-      stringAsChars
-        (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
-        s
+    + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s
   ;
 
   defaultJibriConfig = {
@@ -430,12 +425,8 @@ in
         (concatStrings (
           mapAttrsToList
             (name: env: ''
-              export ${
-                toVarName "${name}_control"
-              }=$(cat ${env.control.login.passwordFile})
-              export ${
-                toVarName "${name}_call"
-              }=$(cat ${env.call.login.passwordFile})
+              export ${toVarName "${name}_control"}=$(cat ${env.control.login.passwordFile})
+              export ${toVarName "${name}_call"}=$(cat ${env.call.login.passwordFile})
             '')
             cfg.xmppEnvironments
         ))

@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "prefix=${placeholder "out"}" ];
 
   postInstall = ''
-    wrapProgram "$out/bin/sc-im" --prefix PATH : "${
-      lib.makeBinPath [ gnuplot ]
-    }"
+    wrapProgram "$out/bin/sc-im" --prefix PATH : "${lib.makeBinPath [ gnuplot ]}"
   '';
 
   meta = with lib; {

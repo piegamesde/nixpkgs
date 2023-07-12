@@ -23,9 +23,7 @@ let
     text =
       (lib.generators.toINI { } {
         ${blas.implementation} = {
-          include_dirs = "${lib.getDev blas}/include:${
-              lib.getDev lapack
-            }/include";
+          include_dirs = "${lib.getDev blas}/include:${lib.getDev lapack}/include";
           library_dirs = "${blas}/lib:${lapack}/lib";
           runtime_library_dirs = "${blas}/lib:${lapack}/lib";
           libraries = "lapack,lapacke,blas,cblas";

@@ -116,8 +116,7 @@ let
         else
           map mathcomp_ (head (splitList (lib.pred.equal package) packages))
       ;
-      pkgpath =
-        if package == "single" then "mathcomp" else "mathcomp/${package}";
+      pkgpath = if package == "single" then "mathcomp" else "mathcomp/${package}";
       pname = if package == "single" then "mathcomp" else "mathcomp-${package}";
       pkgallMake = ''
         echo "all.v"  > Make

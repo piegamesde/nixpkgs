@@ -145,17 +145,11 @@ lib.checkListOfEnum "${pname}: alt variants"
         ${toString (map (x: "--color " + x) colorVariants)} \
         ${toString (map (x: "--opacity " + x) opacityVariants)} \
         ${toString (map (x: "--theme " + x) themeVariants)} \
+        ${lib.optionalString (nautilusSize != null) ("--size " + nautilusSize)} \
         ${
-          lib.optionalString (nautilusSize != null) ("--size " + nautilusSize)
+          lib.optionalString (panelOpacity != null) ("--panel-opacity " + panelOpacity)
         } \
-        ${
-          lib.optionalString (panelOpacity != null) (
-            "--panel-opacity " + panelOpacity
-          )
-        } \
-        ${
-          lib.optionalString (panelSize != null) ("--panel-size " + panelSize)
-        } \
+        ${lib.optionalString (panelSize != null) ("--panel-size " + panelSize)} \
         --dest $out/share/themes
 
       jdupes --quiet --link-soft --recurse $out/share

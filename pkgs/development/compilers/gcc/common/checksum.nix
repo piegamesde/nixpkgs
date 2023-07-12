@@ -9,10 +9,7 @@
 
 let
   enableChecksum =
-    (
-      with stdenv;
-      buildPlatform == hostPlatform && hostPlatform == targetPlatform
-    )
+    (with stdenv; buildPlatform == hostPlatform && hostPlatform == targetPlatform)
     && langC
     && langCC
     && !stdenv.hostPlatform.isDarwin
@@ -23,14 +20,11 @@ in
   pkg.overrideAttrs (
     previousAttrs:
     lib.optionalAttrs enableChecksum {
-      outputs =
-        previousAttrs.outputs ++ lib.optionals enableChecksum [ "checksum" ];
+      outputs = previousAttrs.outputs ++ lib.optionals enableChecksum [ "checksum" ];
       # This is a separate phase because gcc assembles its phase scripts
       # in bash instead of nix (we should fix that).
       preFixupPhases =
-        (previousAttrs.preFixupPhases or [ ])
-        ++ [ "postInstallSaveChecksumPhase" ]
-      ;
+        (previousAttrs.preFixupPhases or [ ]) ++ [ "postInstallSaveChecksumPhase" ];
       #
       # gcc uses an auxiliary utility `genchecksum` to md5-hash (most of) its
       # `.o` and `.a` files prior to linking (in case the linker is

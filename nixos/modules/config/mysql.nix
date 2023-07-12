@@ -29,10 +29,7 @@ in
       user = mkOption {
         type = types.str;
         example = "nss-user";
-        description =
-          lib.mdDoc
-            "The username to use when connecting to the database"
-        ;
+        description = lib.mdDoc "The username to use when connecting to the database";
       };
       passwordFile = mkOption {
         type = types.path;
@@ -203,10 +200,7 @@ in
               table = mkOption {
                 type = types.str;
                 example = "logs";
-                description =
-                  lib.mdDoc
-                    "The name of the table to which logs are written."
-                ;
+                description = lib.mdDoc "The name of the table to which logs are written.";
               };
               msgColumn = mkOption {
                 type = types.str;

@@ -34,10 +34,7 @@ let
 
   fsToPool = fs: datasetToPool fs.device;
 
-  zfsFilesystems =
-    filter (x: x.fsType == "zfs")
-      config.system.build.fileSystems
-  ;
+  zfsFilesystems = filter (x: x.fsType == "zfs") config.system.build.fileSystems;
 
   allPools = unique ((map fsToPool zfsFilesystems) ++ cfgZfs.extraPools);
 
@@ -133,10 +130,7 @@ let
       }
     else
       let
-        keys =
-          filter (x: datasetToPool x == pool)
-            cfgZfs.requestEncryptionCredentials
-        ;
+        keys = filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials;
       in
       {
         hasKeys = keys != [ ];
@@ -280,8 +274,7 @@ in
       package = mkOption {
         readOnly = true;
         type = types.package;
-        default =
-          if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs;
+        default = if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs;
         defaultText =
           literalExpression
             "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs"
@@ -477,10 +470,7 @@ in
 
     services.zfs.trim = {
       enable = mkOption {
-        description =
-          lib.mdDoc
-            "Whether to enable periodic TRIM on all ZFS pools."
-        ;
+        description = lib.mdDoc "Whether to enable periodic TRIM on all ZFS pools.";
         default = true;
         example = false;
         type = types.bool;
@@ -552,11 +542,10 @@ in
     };
 
     services.zfs.zed = {
-      enableMail = mkEnableOption (lib.mdDoc "ZED's ability to send emails")
-        // {
-          default = cfgZfs.package.enableMail;
-          defaultText = literalExpression "config.${optZfs.package}.enableMail";
-        };
+      enableMail = mkEnableOption (lib.mdDoc "ZED's ability to send emails") // {
+        default = cfgZfs.package.enableMail;
+        defaultText = literalExpression "config.${optZfs.package}.enableMail";
+      };
 
       settings = mkOption {
         type =
@@ -619,9 +608,7 @@ in
         }
         {
           assertion =
-            cfgZfs.allowHibernation
-            -> !cfgZfs.forceImportRoot && !cfgZfs.forceImportAll
-          ;
+            cfgZfs.allowHibernation -> !cfgZfs.forceImportRoot && !cfgZfs.forceImportAll;
           message = "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
         }
       ];
@@ -693,10 +680,7 @@ in
                   (fs: ''
                     zfs load-key -- ${escapeShellArg fs}
                   '')
-                  (
-                    filter (x: datasetToPool x == pool)
-                      cfgZfs.requestEncryptionCredentials
-                  )}
+                  (filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials)}
             '')
             rootPools
           )

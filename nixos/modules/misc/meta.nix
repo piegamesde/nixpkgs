@@ -31,11 +31,10 @@ let
               imap1
                 (
                   m: def':
-                  maintainer.merge (loc ++ [ "[${toString n}-${toString m}]" ])
-                    [ {
-                      inherit (def) file;
-                      value = def';
-                    } ]
+                  maintainer.merge (loc ++ [ "[${toString n}-${toString m}]" ]) [ {
+                    inherit (def) file;
+                    value = def';
+                  } ]
                 )
                 def.value
             )

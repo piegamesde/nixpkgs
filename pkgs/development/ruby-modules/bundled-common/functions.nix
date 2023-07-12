@@ -27,11 +27,7 @@ rec {
       inherit gemdir;
 
       gemfile =
-        if gemfile == null then
-          assert gemdir != null; gemdir + "/Gemfile"
-        else
-          gemfile
-      ;
+        if gemfile == null then assert gemdir != null; gemdir + "/Gemfile" else gemfile;
 
       lockfile =
         if lockfile == null then
@@ -41,10 +37,7 @@ rec {
       ;
 
       gemset =
-        if gemset == null then
-          assert gemdir != null; gemdir + "/gemset.nix"
-        else
-          gemset
+        if gemset == null then assert gemdir != null; gemdir + "/gemset.nix" else gemset
       ;
     }
   ;

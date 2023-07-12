@@ -55,8 +55,7 @@ let
       ;
       listToDirs =
         list:
-        lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}")
-          list
+        lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list
       ;
       name = "${open-watcom.passthru.prettyName}-${open-watcom.version}";
     in
@@ -97,8 +96,7 @@ let
           in
           {
             simple =
-              runCommand "${name}-test-simple"
-                { nativeBuildInputs = [ wrapped ]; }
+              runCommand "${name}-test-simple" { nativeBuildInputs = [ wrapped ]; }
                 ''
                   cat <<EOF >test.c
                   #include <stdio.h>
@@ -111,10 +109,7 @@ let
                   wcl386 -fe=test_c test.c
                   # Only test execution if hostPlatform is targetable
                   ${lib.optionalString
-                    (
-                      !stdenv.hostPlatform.isDarwin
-                      && !stdenv.hostPlatform.isAarch
-                    )
+                    (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
                     "./test_c"}
 
                   cat <<EOF >test.cpp
@@ -136,10 +131,7 @@ let
                   wcl386 -fe=test_cpp test.cpp
                   # Only test execution if hostPlatform is targetable
                   ${lib.optionalString
-                    (
-                      !stdenv.hostPlatform.isDarwin
-                      && !stdenv.hostPlatform.isAarch
-                    )
+                    (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
                     "./test_cpp"}
                   touch $out
                 ''

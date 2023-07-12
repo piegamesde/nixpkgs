@@ -53,8 +53,7 @@ let
               rev = version;
               sha256 = "sha256-bKrPLbD9zG7DwIYBst1cb+zkDsM8B02wh3D80iortpw=";
             };
-            propagatedBuildInputs =
-              oldAttrs.propagatedBuildInputs ++ [ self.daphne ];
+            propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.daphne ];
             pytestFlagsArray = [ "--asyncio-mode=auto" ];
           }
         );

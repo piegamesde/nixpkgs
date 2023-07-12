@@ -27,9 +27,7 @@ import ../make-test-python.nix (
             ensureCredentials = {
               # Do not use this in production. This will make passwords world-readable
               # in the Nix store
-              "postmaster@${domain}".passwordFile = "${pkgs.writeText
-                  "postmaster"
-                  "test"}";
+              "postmaster@${domain}".passwordFile = "${pkgs.writeText "postmaster" "test"}";
             };
             tls = {
               loader = "file";

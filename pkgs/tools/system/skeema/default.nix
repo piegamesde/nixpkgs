@@ -40,9 +40,7 @@ buildGoModule rec {
       ];
     in
     ''
-      buildFlagsArray+=("-run" "[^(${
-        builtins.concatStringsSep "|" skippedTests
-      })]")
+      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
 
       # Fix tests expecting /usr/bin/printf and /bin/echo
       substituteInPlace skeema_cmd_test.go \

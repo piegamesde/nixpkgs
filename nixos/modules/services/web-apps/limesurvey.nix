@@ -163,9 +163,7 @@ in
     };
 
     virtualHost = mkOption {
-      type = types.submodule (
-        import ../web-servers/apache-httpd/vhost-options.nix
-      );
+      type = types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
       example = literalExpression ''
         {
           hostName = "survey.example.org";
@@ -234,8 +232,7 @@ in
         message = "services.limesurvey.database.socket must be set if services.limesurvey.database.createLocally is set to true";
       }
       {
-        assertion =
-          cfg.database.createLocally -> cfg.database.passwordFile == null;
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
         message = "a password cannot be specified if services.limesurvey.database.createLocally is set to true";
       }
     ];
@@ -270,11 +267,7 @@ in
         encryptionsecretboxkey = cfg.encryptionKey;
         force_ssl =
           mkIf
-            (
-              cfg.virtualHost.addSSL
-              || cfg.virtualHost.forceSSL
-              || cfg.virtualHost.onlySSL
-            )
+            (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL)
             "on"
         ;
         config.defaultlang = "en";
@@ -356,9 +349,7 @@ in
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-limesurvey.service" ];
       after =
-        optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service"
-      ;
+        optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       environment.DBENGINE = "${cfg.database.dbEngine}";
       environment.LIMESURVEY_CONFIG = limesurveyConfig;
       script = ''
@@ -374,9 +365,7 @@ in
     };
 
     systemd.services.httpd.after =
-      optional mysqlLocal "mysql.service"
-      ++ optional pgsqlLocal "postgresql.service"
-    ;
+      optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
 
     users.users.${user} = {
       group = group;

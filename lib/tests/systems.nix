@@ -180,13 +180,6 @@ lib.runTests {
     "x86_64-windows"
   ];
   testunix = mseteq unix (
-    linux
-    ++ darwin
-    ++ freebsd
-    ++ openbsd
-    ++ netbsd
-    ++ illumos
-    ++ cygwin
-    ++ redox
+    linux ++ darwin ++ freebsd ++ openbsd ++ netbsd ++ illumos ++ cygwin ++ redox
   );
 }

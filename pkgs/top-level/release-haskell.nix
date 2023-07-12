@@ -46,9 +46,7 @@ let
         if lib.isDerivation attrs then
           [ attrs ]
         else
-          lib.optionals (lib.isAttrs attrs) (
-            accumulateDerivations (lib.attrValues attrs)
-          )
+          lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs))
       )
       jobList
   ;
@@ -175,11 +173,7 @@ let
             ghc: jobs:
             let
               configFilteredJobset =
-                lib.filterAttrs
-                  (
-                    jobName: platforms:
-                    lib.elem ghc (config."${jobName}" or [ ])
-                  )
+                lib.filterAttrs (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
                   jobs
               ;
 
@@ -187,8 +181,7 @@ let
               # This is important so that we don't build jobs for platforms
               # where GHC can't be compiled.
               jobsetWithGHCPlatforms =
-                lib.mapAttrs
-                  (_: platforms: lib.intersectLists jobs.ghc platforms)
+                lib.mapAttrs (_: platforms: lib.intersectLists jobs.ghc platforms)
                   configFilteredJobset
               ;
             in
@@ -207,8 +200,7 @@ let
   maintainedPkgNames =
     set:
     builtins.attrNames (
-      lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0)
-        set
+      lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set
     )
   ;
 
@@ -269,8 +261,7 @@ let
             # ghcjs attribute in their bootstrap package set (exposed via passthru) which
             # would otherwise be ignored by Hydra.
             bootGhcjs =
-              (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru)
-              .bootGhcjs;
+              (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
           }
         )
       );
@@ -278,11 +269,7 @@ let
       tests.haskell = packagePlatforms pkgs.tests.haskell;
 
       nixosTests = {
-        inherit (packagePlatforms pkgs.nixosTests)
-          agda
-          xmonad
-          xmonad-xdg-autostart
-        ;
+        inherit (packagePlatforms pkgs.nixosTests) agda xmonad xmonad-xdg-autostart;
       };
 
       agdaPackages = packagePlatforms pkgs.agdaPackages;
@@ -437,13 +424,7 @@ let
             "x86_64-darwin"
             "aarch64-darwin"
           ]
-          {
-            inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages)
-              hello
-              lens
-              random
-            ;
-          }
+          { inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages) hello lens random; }
       ;
 
       # Test some statically linked packages to catch regressions
@@ -472,10 +453,7 @@ let
             };
 
             haskell.packages.native-bignum.ghc927 = {
-              inherit
-                (packagePlatforms
-                  pkgs.pkgsStatic.haskell.packages.native-bignum.ghc927
-                )
+              inherit (packagePlatforms pkgs.pkgsStatic.haskell.packages.native-bignum.ghc927)
                 hello
                 lens
                 random
@@ -496,15 +474,11 @@ let
           ]
           {
             haskellPackages = {
-              inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskellPackages)
-                ghc
-                hello
-              ;
+              inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskellPackages) ghc hello;
             };
 
             haskell.packages.ghcHEAD = {
-              inherit
-                (packagePlatforms pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD)
+              inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD)
                 ghc
                 hello
               ;

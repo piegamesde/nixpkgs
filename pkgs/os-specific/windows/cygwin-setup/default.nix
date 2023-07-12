@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       mkStatic = flip overrideDerivation (
         o: {
           dontDisableStatic = true;
-          configureFlags =
-            toList (o.configureFlags or [ ]) ++ [ "--enable-static" ];
+          configureFlags = toList (o.configureFlags or [ ]) ++ [ "--enable-static" ];
           buildInputs = map mkStatic (o.buildInputs or [ ]);
           propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or [ ]);
         }

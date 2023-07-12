@@ -18,10 +18,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/readarr/";
-        description =
-          lib.mdDoc
-            "The directory where Readarr stores its data files."
-        ;
+        description = lib.mdDoc "The directory where Readarr stores its data files.";
       };
 
       package = mkOption {

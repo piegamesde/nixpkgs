@@ -14,13 +14,7 @@ let
     settingsFormat.generate "wgautomesh-config.toml" (
       filterAttrs (k: v: v != null) (
         mapAttrs
-          (
-            k: v:
-            if k == "peers" then
-              map (e: filterAttrs (k: v: v != null) e) v
-            else
-              v
-          )
+          (k: v: if k == "peers" then map (e: filterAttrs (k: v: v != null) e) v else v)
           cfg.settings
       )
     );
@@ -68,10 +62,7 @@ in
     openFirewall = mkOption {
       type = types.bool;
       default = true;
-      description =
-        mdDoc
-          "Automatically open gossip port in firewall (recommended)."
-      ;
+      description = mdDoc "Automatically open gossip port in firewall (recommended).";
     };
     settings = mkOption {
       type = types.submodule {

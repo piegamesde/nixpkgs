@@ -19,11 +19,7 @@ let
         (attrName: {
           name = ":${attrName}";
           value =
-            if isAttrs s.${attrName} then
-              prefixColon s."${attrName}"
-            else
-              s."${attrName}"
-          ;
+            if isAttrs s.${attrName} then prefixColon s."${attrName}" else s."${attrName}";
         })
         (attrNames s)
     )

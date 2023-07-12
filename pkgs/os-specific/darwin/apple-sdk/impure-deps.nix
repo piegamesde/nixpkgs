@@ -15,9 +15,7 @@ rec {
     "/System/Library/PrivateFrameworks/CorePDF.framework/Versions/A/CorePDF"
     "/usr/lib/libspindump.dylib"
   ];
-  ImageCaptureCore = [
-    "/System/Library/Frameworks/ImageCaptureCore.framework"
-  ];
+  ImageCaptureCore = [ "/System/Library/Frameworks/ImageCaptureCore.framework" ];
   VideoToolbox = [
     "/System/Library/Frameworks/VideoToolbox.framework"
     "/System/Library/PrivateFrameworks/AppleVA.framework/Versions/A/AppleVA"

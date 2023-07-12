@@ -43,8 +43,7 @@ then
     previousAttrs: {
 
       pname = "gobject-introspection-wrapped";
-      passthru =
-        previousAttrs.passthru // { unwrapped = overriddenUnwrappedGir; };
+      passthru = previousAttrs.passthru // { unwrapped = overriddenUnwrappedGir; };
       dontStrip = true;
       depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
       buildCommand =
@@ -53,9 +52,9 @@ then
           ${lib.concatMapStrings
             (output: ''
               mkdir -p ${"$" + "${output}"}
-              ${lib.getExe buildPackages.xorg.lndir} ${
-                overriddenUnwrappedGir.${output}
-              } ${"$" + "${output}"}
+              ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${
+                "$" + "${output}"
+              }
             '')
             overriddenUnwrappedGir.outputs}
 
@@ -74,12 +73,8 @@ then
 
             export targetgir="${lib.getDev overridenTargetUnwrappedGir}"
 
-            substituteAll "${
-              ./wrappers/g-ir-compiler.sh
-            }" "$dev/bin/g-ir-compiler"
-            substituteAll "${
-              ./wrappers/g-ir-scanner.sh
-            }" "$dev/bin/g-ir-scanner"
+            substituteAll "${./wrappers/g-ir-compiler.sh}" "$dev/bin/g-ir-compiler"
+            substituteAll "${./wrappers/g-ir-scanner.sh}" "$dev/bin/g-ir-scanner"
             substituteAll "${
               ./wrappers/g-ir-scanner-lddwrapper.sh
             }" "$dev/bin/g-ir-scanner-lddwrapper"
@@ -114,8 +109,7 @@ else
   overriddenUnwrappedGir.overrideAttrs (
     previousAttrs: {
       pname = "gobject-introspection-wrapped";
-      passthru =
-        previousAttrs.passthru // { unwrapped = overriddenUnwrappedGir; };
+      passthru = previousAttrs.passthru // { unwrapped = overriddenUnwrappedGir; };
       dontStrip = true;
       depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
       buildCommand = ''
@@ -123,9 +117,9 @@ else
         ${lib.concatMapStrings
           (output: ''
             mkdir -p ${"$" + "${output}"}
-            ${lib.getExe buildPackages.xorg.lndir} ${
-              overriddenUnwrappedGir.${output}
-            } ${"$" + "${output}"}
+            ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${
+              "$" + "${output}"
+            }
           '')
           overriddenUnwrappedGir.outputs}
       '';

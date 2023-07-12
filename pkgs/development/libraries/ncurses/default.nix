@@ -49,8 +49,7 @@ stdenv.mkDerivation (
         "--enable-term-driver"
       ]
       ++
-        lib.optionals
-          (stdenv.hostPlatform.isUnix && stdenv.hostPlatform.isStatic)
+        lib.optionals (stdenv.hostPlatform.isUnix && stdenv.hostPlatform.isStatic)
           [
             # For static binaries, the point is to have a standalone binary with
             # minimum dependencies. So here we make sure that binaries using this

@@ -58,9 +58,7 @@ stdenv.mkDerivation (
       runHook preConfigure
 
       make version VERSION=${escapeShellArg version}
-      make -C ${engineSourceName} version VERSION=${
-        escapeShellArg engine.version
-      }
+      make -C ${engineSourceName} version VERSION=${escapeShellArg engine.version}
 
       runHook postConfigure
     '';

@@ -38,19 +38,13 @@ in
               type = types.str;
               default = "localhost";
               example = "mumble.example.com";
-              description =
-                lib.mdDoc
-                  "Hostname of the mumble server to connect to."
-              ;
+              description = lib.mdDoc "Hostname of the mumble server to connect to.";
             };
 
             server.port = mkOption {
               type = types.port;
               default = 64738;
-              description =
-                lib.mdDoc
-                  "Port of the mumble server to connect to."
-              ;
+              description = lib.mdDoc "Port of the mumble server to connect to.";
             };
 
             bot.username = mkOption {

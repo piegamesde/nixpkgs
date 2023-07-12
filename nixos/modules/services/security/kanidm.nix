@@ -40,11 +40,7 @@ let
         let
           # If the new path is a prefix to some existing path, we need to filter it out
           filteredPaths =
-            lib.filter
-              (
-                p:
-                !lib.hasPrefix (builtins.toString newPath) (builtins.toString p)
-              )
+            lib.filter (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
               merged
           ;
           # If a prefix of the new path is already in the list, do not add it
@@ -105,9 +101,7 @@ in
   options.services.kanidm = {
     enableClient = lib.mkEnableOption (lib.mdDoc "the Kanidm client");
     enableServer = lib.mkEnableOption (lib.mdDoc "the Kanidm server");
-    enablePam = lib.mkEnableOption (
-      lib.mdDoc "the Kanidm PAM and NSS integration"
-    );
+    enablePam = lib.mkEnableOption (lib.mdDoc "the Kanidm PAM and NSS integration");
 
     serverSettings = lib.mkOption {
       type = lib.types.submodule {
@@ -115,10 +109,7 @@ in
 
         options = {
           bindaddress = lib.mkOption {
-            description =
-              lib.mdDoc
-                "Address/port combination the webserver binds to."
-            ;
+            description = lib.mdDoc "Address/port combination the webserver binds to.";
             example = "[::1]:8443";
             type = lib.types.str;
           };
@@ -222,10 +213,7 @@ in
         freeformType = settingsFormat.type;
 
         options.pam_allowed_login_groups = lib.mkOption {
-          description =
-            lib.mdDoc
-              "Kanidm groups that are allowed to login using PAM."
-          ;
+          description = lib.mdDoc "Kanidm groups that are allowed to login using PAM.";
           example = "my_pam_group";
           type = lib.types.listOf lib.types.str;
         };
@@ -274,8 +262,7 @@ in
         '';
       }
       {
-        assertion =
-          !cfg.enablePam || options.services.kanidm.clientSettings.isDefined;
+        assertion = !cfg.enablePam || options.services.kanidm.clientSettings.isDefined;
         message = ''
           <option>services.kanidm.clientSettings</option> needs to be configured
           for the PAM daemon to connect to the Kanidm server.

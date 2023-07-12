@@ -60,9 +60,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-Wno-dev"
-    "-DPYTHONOCC_INSTALL_DIRECTORY=${
-      placeholder "out"
-    }/${python.sitePackages}/OCC"
+    "-DPYTHONOCC_INSTALL_DIRECTORY=${placeholder "out"}/${python.sitePackages}/OCC"
 
     "-DSMESH_INCLUDE_PATH=${smesh}/include/smesh"
     "-DSMESH_LIB_PATH=${smesh}/lib"

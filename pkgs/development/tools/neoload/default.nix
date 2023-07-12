@@ -60,18 +60,14 @@ else
         {
           url = "http://neoload.installers.neotys.com/documents/download/${pname}/v${
               lib.versions.majorMinor version
-            }/${pname}_${
-              lib.replaceStrings [ "." ] [ "_" ] version
-            }_linux_x64.sh";
+            }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x64.sh";
           sha256 = "199jcf5a0nwfm8wfld2rcjgq64g91vvz2bkmki8dxfzf1yasifcd";
         }
       else
         {
           url = "http://neoload.installers.neotys.com/documents/download/${pname}/v${
               lib.versions.majorMinor version
-            }/${pname}_${
-              lib.replaceStrings [ "." ] [ "_" ] version
-            }_linux_x86.sh";
+            }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x86.sh";
           sha256 = "1z66jiwcxixsqqwa0f4q8m2p5kna4knq6lic8y8l74dgv25mw912";
         }
     );
@@ -103,9 +99,7 @@ else
       sed -i 's/Xmx450m/Xmx900m/;s/Xss192k/Xss384k/' $out/lib/neoload/conf/agent.properties
 
       for i in $out/bin/*; do
-        wrapProgram $i --run 'cp ${
-          dotInstall4j "${jre.home}/jre"
-        } ~/.install4j' \
+        wrapProgram $i --run 'cp ${dotInstall4j "${jre.home}/jre"} ~/.install4j' \
                        --run 'chmod u+w ~/.install4j'
       done
 

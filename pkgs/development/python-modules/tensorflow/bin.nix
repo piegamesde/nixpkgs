@@ -99,8 +99,7 @@ buildPythonPackage {
     ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ]
   ;
 
-  nativeBuildInputs =
-    [ wheel ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [ wheel ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   preConfigure = ''
     unset SOURCE_DATE_EPOCH

@@ -19,8 +19,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6";
 
   # version number in source is wrong in this release
-  postPatch = ''
-    substituteInPlace ${pname}/version.py --replace "0.5.3" "0.5.4"'';
+  postPatch = ''substituteInPlace ${pname}/version.py --replace "0.5.3" "0.5.4"'';
 
   src = fetchFromGitHub {
     owner = "stared";

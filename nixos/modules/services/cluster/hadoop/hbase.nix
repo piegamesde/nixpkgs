@@ -66,12 +66,11 @@ let
         ;
         preStart = mkIf (with cfg.hbase.master; enable && initHDFS) (
           concatStringsSep "\n" (
-            map (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}")
-              [
-                "dfsadmin -safemode wait"
-                "dfs -mkdir -p ${cfg.hbase.rootdir}"
-                "dfs -chown hbase ${cfg.hbase.rootdir}"
-              ]
+            map (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}") [
+              "dfsadmin -safemode wait"
+              "dfs -mkdir -p ${cfg.hbase.rootdir}"
+              "dfs -chown hbase ${cfg.hbase.rootdir}"
+            ]
           )
         );
 

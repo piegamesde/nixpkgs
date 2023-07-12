@@ -57,10 +57,7 @@ in
         "--max-table-size 1000"
         "--max-matching-size 1000"
       ];
-      description =
-        lib.mdDoc
-          "Extra command line arguments passed to osrm-routed"
-      ;
+      description = lib.mdDoc "Extra command line arguments passed to osrm-routed";
     };
 
     dataFile = mkOption {

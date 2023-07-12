@@ -114,8 +114,7 @@ buildDotnetModule rec {
     ++
       map
         (
-          x:
-          "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}"
+          x: "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}"
         )
         [
           "Cancel_CloneHashTask_WhenNotNeeded"
@@ -129,11 +128,7 @@ buildDotnetModule rec {
           "ValidateHash"
         ]
     ++
-      map
-        (
-          x:
-          "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}"
-        )
+      map (x: "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}")
         [
           "CompositeActionWithActionfile_CompositeContainerNested"
           "CompositeActionWithActionfile_CompositePrestepNested"

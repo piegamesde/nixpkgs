@@ -85,9 +85,7 @@ in
     # PolKit rules for NixOS.
     environment.etc."polkit-1/rules.d/10-nixos.rules".text = ''
       polkit.addAdminRule(function(action, subject) {
-        return [${
-          concatStringsSep ", " (map (i: ''"${i}"'') cfg.adminIdentities)
-        }];
+        return [${concatStringsSep ", " (map (i: ''"${i}"'') cfg.adminIdentities)}];
       });
 
       ${cfg.extraConfig}

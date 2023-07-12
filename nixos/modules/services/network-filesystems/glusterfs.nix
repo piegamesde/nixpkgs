@@ -182,8 +182,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       requires = lib.optional cfg.useRpcbind "rpcbind.service";
-      after =
-        [ "network.target" ] ++ lib.optional cfg.useRpcbind "rpcbind.service";
+      after = [ "network.target" ] ++ lib.optional cfg.useRpcbind "rpcbind.service";
 
       preStart =
         ''

@@ -116,9 +116,7 @@ beamPackages.mixRelease rec {
           nativeBuildInputs = [ cmake ];
           dontUseCmakeConfigure = true;
         };
-        syslog = prev.syslog.override {
-          buildPlugins = with beamPackages; [ pc ];
-        };
+        syslog = prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
 
         # This needs a different version (1.0.14 -> 1.0.18) to build properly with
         # our Erlang/OTP version.

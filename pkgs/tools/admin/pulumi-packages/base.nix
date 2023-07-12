@@ -94,9 +94,7 @@ let
             runHook postCheck
           '';
 
-          pythonImportsCheck = [
-            (builtins.replaceStrings [ "-" ] [ "_" ] pname)
-          ];
+          pythonImportsCheck = [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
         }
       )
       { }

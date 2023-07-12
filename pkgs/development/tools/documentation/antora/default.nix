@@ -21,12 +21,8 @@ let
             ${lib.concatStringsSep "\n" (
               map
                 (dep: ''
-                  ln -s ${nodePackages.${dep}}/lib/node_modules/${
-                    lib.getName dep
-                  } \
-                    $out/lib/node_modules/${targetModule}/node_modules/${
-                      lib.getName dep
-                    }
+                  ln -s ${nodePackages.${dep}}/lib/node_modules/${lib.getName dep} \
+                    $out/lib/node_modules/${targetModule}/node_modules/${lib.getName dep}
                 '')
                 deps
             )}

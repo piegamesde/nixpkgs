@@ -51,12 +51,10 @@ let
     in
     optionals (length cfg.extraRules > 0) [
       (optionalString (length rule.users > 0) (
-        map (usr: "permit ${opts} ${mkUsrString usr} ${as} ${cmd} ${args}")
-          rule.users
+        map (usr: "permit ${opts} ${mkUsrString usr} ${as} ${cmd} ${args}") rule.users
       ))
       (optionalString (length rule.groups > 0) (
-        map (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}")
-          rule.groups
+        map (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}") rule.groups
       ))
     ]
   ;
@@ -192,19 +190,13 @@ in
               users = mkOption {
                 type = with types; listOf (either str int);
                 default = [ ];
-                description =
-                  lib.mdDoc
-                    "The usernames / UIDs this rule should apply for."
-                ;
+                description = lib.mdDoc "The usernames / UIDs this rule should apply for.";
               };
 
               groups = mkOption {
                 type = with types; listOf (either str int);
                 default = [ ];
-                description =
-                  lib.mdDoc
-                    "The groups / GIDs this rule should apply for."
-                ;
+                description = lib.mdDoc "The groups / GIDs this rule should apply for.";
               };
 
               runAs = mkOption {
@@ -293,9 +285,7 @@ in
               # `environment.etc."doas.conf"`.
 
               # extraRules
-              ${concatStringsSep "\n" (
-                lists.flatten (map mkRule cfg.extraRules)
-              )}
+              ${concatStringsSep "\n" (lists.flatten (map mkRule cfg.extraRules))}
 
               # extraConfig
               ${cfg.extraConfig}

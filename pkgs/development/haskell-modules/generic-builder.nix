@@ -193,11 +193,7 @@ let
   # same version, or ghcjs, in which case its the ghc used to build ghcjs.
   nativeGhc = buildHaskellPackages.ghc;
   nativePackageDbFlag =
-    if versionOlder "7.6" nativeGhc.version then
-      "package-db"
-    else
-      "package-conf"
-  ;
+    if versionOlder "7.6" nativeGhc.version then "package-db" else "package-conf";
 
   # the target dir for haddock documentation
   docdir = docoutput: docoutput + "/share/doc/" + pname + "-" + version;
@@ -289,8 +285,7 @@ let
       "--prefix=$out"
       # Note: This must be kept in sync manually with mkGhcLibdir
       (
-        "--libdir=\\$prefix/lib/\\$compiler"
-        + lib.optionalString (ghc ? hadrian) "/lib"
+        "--libdir=\\$prefix/lib/\\$compiler" + lib.optionalString (ghc ? hadrian) "/lib"
       )
       "--libsubdir=\\$abi/\\$libname"
       (optionalString enableSeparateDataOutput
@@ -309,9 +304,7 @@ let
       (optionalString (enableSharedExecutables && stdenv.isDarwin)
         "--ghc-option=-optl=-Wl,-headerpad_max_install_names"
       )
-      (optionalString enableParallelBuilding
-        "--ghc-options=${parallelBuildingFlags}"
-      )
+      (optionalString enableParallelBuilding "--ghc-options=${parallelBuildingFlags}")
       (optionalString useCpphs
         "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp"
       )
@@ -333,10 +326,7 @@ let
         "--profiling-detail=${profilingDetail}"
       )
       (enableFeature enableExecutableProfiling (
-        if versionOlder ghc.version "8" then
-          "executable-profiling"
-        else
-          "profiling"
+        if versionOlder ghc.version "8" then "executable-profiling" else "profiling"
       ))
       (enableFeature enableSharedLibraries "shared")
       (optionalString (versionAtLeast ghc.version "7.10") (
@@ -356,8 +346,7 @@ let
       (enableFeature enableLibraryForGhci "library-for-ghci")
     ]
     ++
-      optionals
-        (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version))
+      optionals (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version))
         [ "--ghc-option=-split-sections" ]
     ++ optionals dontStrip [
       "--disable-library-stripping"
@@ -365,8 +354,7 @@ let
     ]
     ++ optionals isGhcjs [ "--ghcjs" ]
     ++ optionals isCross (
-      [ "--configure-option=--host=${stdenv.hostPlatform.config}" ]
-      ++ crossCabalFlags
+      [ "--configure-option=--host=${stdenv.hostPlatform.config}" ] ++ crossCabalFlags
     )
     ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ]
     ++ optionals (doHaddockInterfaces && isLibrary) [ "--ghc-options=-haddock" ]
@@ -428,9 +416,7 @@ let
     ++ executableFrameworkDepends
     ++ allPkgconfigDepends
     ++ optionals doCheck (testSystemDepends ++ testFrameworkDepends)
-    ++ optionals doBenchmark (
-      benchmarkSystemDepends ++ benchmarkFrameworkDepends
-    )
+    ++ optionals doBenchmark (benchmarkSystemDepends ++ benchmarkFrameworkDepends)
   ;
   # TODO next rebuild just define as `otherBuildInputsHaskell ++ otherBuildInputsSystem`
   otherBuildInputs =
@@ -440,10 +426,7 @@ let
     ++ executableFrameworkDepends
     ++ allPkgconfigDepends
     ++ optionals doCheck (
-      testDepends
-      ++ testHaskellDepends
-      ++ testSystemDepends
-      ++ testFrameworkDepends
+      testDepends ++ testHaskellDepends ++ testSystemDepends ++ testFrameworkDepends
     )
     ++ optionals doBenchmark (
       benchmarkDepends
@@ -482,9 +465,7 @@ let
       if [ -d "$p/${
         mkGhcLibdir thisGhc
       }/package.conf.d" ] && [ "$p" != "${ghc}" ] && [ "$p" != "${nativeGhc}" ]; then
-        cp -f "$p/${
-          mkGhcLibdir thisGhc
-        }/package.conf.d/"*.conf ${packageConfDir}/
+        cp -f "$p/${mkGhcLibdir thisGhc}/package.conf.d/"*.conf ${packageConfDir}/
         continue
       fi
     ''
@@ -560,9 +541,7 @@ lib.fix (
           mkdir -p $packageConfDir
 
           setupCompileFlags="${concatStringsSep " " setupCompileFlags}"
-          configureFlags="${
-            concatStringsSep " " defaultConfigureFlags
-          } $configureFlags"
+          configureFlags="${concatStringsSep " " defaultConfigureFlags} $configureFlags"
         ''
         # We build the Setup.hs on the *build* machine, and as such should only add
         # dependencies for the build machine.
@@ -588,10 +567,7 @@ lib.fix (
         # It is not clear why --extra-framework-dirs does work fine on Linux
         +
           optionalString
-            (
-              !stdenv.buildPlatform.isDarwin
-              || versionAtLeast nativeGhc.version "8.0"
-            )
+            (!stdenv.buildPlatform.isDarwin || versionAtLeast nativeGhc.version "8.0")
             ''
               if [[ -d "$p/Library/Frameworks" ]]; then
                 configureFlags+=" --extra-framework-dirs=$p/Library/Frameworks"
@@ -604,10 +580,7 @@ lib.fix (
         # "dynamic-library-dirs" point to nonexistent paths, and the ln command becomes
         # "ln -s $out/lib/links", which tries to recreate the links dir and fails
         + (optionalString
-          (
-            stdenv.isDarwin
-            && (enableSharedLibraries || enableSharedExecutables)
-          )
+          (stdenv.isDarwin && (enableSharedLibraries || enableSharedExecutables))
           ''
             # Work around a limit in the macOS Sierra linker on the number of paths
             # referenced by any one dynamic library:
@@ -706,11 +679,7 @@ lib.fix (
         runHook preCheck
         checkFlagsArray+=(
           "--show-details=streaming"
-          ${
-            lib.escapeShellArgs (
-              builtins.map (opt: "--test-option=${opt}") testFlags
-            )
-          }
+          ${lib.escapeShellArgs (builtins.map (opt: "--test-option=${opt}") testFlags)}
         )
         ${setupCommand} test ${testTarget} $checkFlags ''${checkFlagsArray:+"''${checkFlagsArray[@]}"}
         runHook postCheck
@@ -722,9 +691,7 @@ lib.fix (
           ${setupCommand} haddock --html \
             ${optionalString doHoogle "--hoogle"} \
             ${optionalString doHaddockQuickjump "--quickjump"} \
-            ${
-              optionalString (isLibrary && hyperlinkSource) "--hyperlink-source"
-            } \
+            ${optionalString (isLibrary && hyperlinkSource) "--hyperlink-source"} \
             ${lib.concatStringsSep " " haddockFlags}
         ''}
         runHook postHaddock
@@ -769,8 +736,7 @@ lib.fix (
             chmod +x "$exe"
           done
         ''}
-        ${optionalString doCoverage
-          "mkdir -p $out/share && cp -r dist/hpc $out/share"}
+        ${optionalString doCoverage "mkdir -p $out/share && cp -r dist/hpc $out/share"}
         ${optionalString
           (
             enableSharedExecutables
@@ -849,10 +815,7 @@ lib.fix (
           haskellBuildInputs = isHaskellPartition.right;
           systemBuildInputs = isHaskellPartition.wrong;
           isHaskellPartition = lib.partition isHaskellPkg (
-            propagatedBuildInputs
-            ++ otherBuildInputs
-            ++ depsBuildBuild
-            ++ nativeBuildInputs
+            propagatedBuildInputs ++ otherBuildInputs ++ depsBuildBuild ++ nativeBuildInputs
           );
         };
 
@@ -864,8 +827,7 @@ lib.fix (
         # the directory containing the haddock documentation.
         # `null' if no haddock documentation was built.
         # TODO: fetch the self from the fixpoint instead
-        haddockDir =
-          self: if doHaddock then "${docdir self.doc}/html" else null;
+        haddockDir = self: if doHaddock then "${docdir self.doc}/html" else null;
 
         # Creates a derivation containing all of the necessary dependencies for building the
         # parent derivation. The attribute set that it takes as input can be viewed as:
@@ -888,8 +850,7 @@ lib.fix (
           let
             name = "ghc-shell-for-${drv.name}";
 
-            withPackages =
-              if withHoogle then ghcWithHoogle else ghcWithPackages;
+            withPackages = if withHoogle then ghcWithHoogle else ghcWithPackages;
 
             # We use the `ghcWithPackages` function from `buildHaskellPackages` if we
             # want a shell for the sake of cross compiling a package. In the native case
@@ -897,9 +858,7 @@ lib.fix (
             # `ghcWithPackages`. This way we don't have two wrapper scripts called `ghc`
             # shadowing each other on the PATH.
             ghcEnvForBuild =
-              assert isCross;
-              buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends)
-            ;
+              assert isCross; buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
 
             ghcEnv = withPackages (
               _:

@@ -194,9 +194,7 @@ let
         [
           "--with-config=${configFile}"
           "--with-tirpc=1"
-          (lib.withFeatureAs (buildUser && enablePython) "python"
-            python3.interpreter
-          )
+          (lib.withFeatureAs (buildUser && enablePython) "python" python3.interpreter)
         ]
         ++ optionals buildUser [
           "--with-dracutdir=$(out)/lib/dracut"
@@ -330,11 +328,7 @@ in
   zfsStable = common {
     # check the release notes for compatible kernels
     kernelCompatible =
-      if stdenv'.isx86_64 then
-        kernel.kernelOlder "6.3"
-      else
-        kernel.kernelOlder "6.2"
-    ;
+      if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
     latestCompatibleLinuxPackages =
       if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 
@@ -350,11 +344,7 @@ in
     #   zfs-2.1.9<=x<=2.1.10 is broken with aarch64-linux-6.2
     #   for future releases, please delete this condition.
     kernelCompatible =
-      if stdenv'.isx86_64 then
-        kernel.kernelOlder "6.3"
-      else
-        kernel.kernelOlder "6.2"
-    ;
+      if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
     latestCompatibleLinuxPackages =
       if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 

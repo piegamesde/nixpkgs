@@ -104,9 +104,7 @@ let
       "-Dcom.sun.management.jmxremote.authenticate=true"
       "-Dcom.sun.management.jmxremote.password.file=${cfg.jmxRolesFile}"
     ]
-    ++ optionals cfg.remoteJmx [
-      "-Djava.rmi.server.hostname=${cfg.rpcAddress}"
-    ]
+    ++ optionals cfg.remoteJmx [ "-Djava.rmi.server.hostname=${cfg.rpcAddress}" ]
     ++
       optionals atLeast4
         [
@@ -486,8 +484,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          (cfg.listenAddress == null) != (cfg.listenInterface == null);
+        assertion = (cfg.listenAddress == null) != (cfg.listenInterface == null);
         message = "You have to set either listenAddress or listenInterface";
       }
       {
@@ -557,18 +554,15 @@ in
       };
     };
 
-    systemd.timers.cassandra-full-repair =
-      mkIf (cfg.fullRepairInterval != null)
-        {
-          description = "Schedule full repairs on Cassandra";
-          wantedBy = [ "timers.target" ];
-          timerConfig = {
-            OnBootSec = cfg.fullRepairInterval;
-            OnUnitActiveSec = cfg.fullRepairInterval;
-            Persistent = true;
-          };
-        }
-    ;
+    systemd.timers.cassandra-full-repair = mkIf (cfg.fullRepairInterval != null) {
+      description = "Schedule full repairs on Cassandra";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = cfg.fullRepairInterval;
+        OnUnitActiveSec = cfg.fullRepairInterval;
+        Persistent = true;
+      };
+    };
 
     systemd.services.cassandra-incremental-repair = {
       description = "Perform an incremental repair on this cassandra node.";

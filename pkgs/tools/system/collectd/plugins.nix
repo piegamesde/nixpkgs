@@ -80,8 +80,7 @@ let
     ];
     dbi.buildInputs = [ libdbi ];
     disk.buildInputs =
-      lib.optionals stdenv.isLinux [ udev ]
-      ++ lib.optionals stdenv.isDarwin [ IOKit ]
+      lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [ IOKit ]
     ;
     dns.buildInputs = [ libpcap ];
     ipmi.buildInputs = [ openipmi ];
@@ -105,11 +104,8 @@ let
     ];
     modbus.buildInputs = lib.optionals stdenv.isLinux [ libmodbus ];
     mqtt.buildInputs = [ mosquitto ];
-    mysql.buildInputs = lib.optionals (libmysqlclient != null) [
-      libmysqlclient
-    ];
-    netlink.buildInputs =
-      [ libpcap ] ++ lib.optionals stdenv.isLinux [ libmnl ];
+    mysql.buildInputs = lib.optionals (libmysqlclient != null) [ libmysqlclient ];
+    netlink.buildInputs = [ libpcap ] ++ lib.optionals stdenv.isLinux [ libmnl ];
     network.buildInputs = [ libgcrypt ];
     nginx.buildInputs = [ curl ];
     notify_desktop.buildInputs = [

@@ -10,9 +10,7 @@ let
 
   configIni = ''
     [security]
-    protected_customvars = "${
-      concatStringsSep "," cfg.generalConfig.protectedVars
-    }"
+    protected_customvars = "${concatStringsSep "," cfg.generalConfig.protectedVars}"
   '';
 
   backendsIni =
@@ -36,22 +34,16 @@ let
       (name: config: ''
         [${name}]
         type = "${config.type}"
-        ${optionalString (config.instance != null)
-          ''instance = "${config.instance}"''}
+        ${optionalString (config.instance != null) ''instance = "${config.instance}"''}
         ${optionalString (config.type == "local" || config.type == "remote")
           ''path = "${config.path}"''}
         ${optionalString (config.type != "local") ''
           host = "${config.host}"
-          ${optionalString (config.port != null)
-            ''port = "${toString config.port}"''}
-          user${
-            optionalString (config.type == "api") "name"
-          } = "${config.username}"
+          ${optionalString (config.port != null) ''port = "${toString config.port}"''}
+          user${optionalString (config.type == "api") "name"} = "${config.username}"
         ''}
-        ${optionalString (config.type == "api")
-          ''password = "${config.password}"''}
-        ${optionalString (config.type == "remote")
-          ''resource = "${config.resource}"''}
+        ${optionalString (config.type == "api") ''password = "${config.password}"''}
+        ${optionalString (config.type == "remote") ''resource = "${config.resource}"''}
       '')
       cfg.transports
   );
@@ -61,10 +53,7 @@ in
     enable = mkOption {
       type = bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Whether to enable the icingaweb2 monitoring module."
-      ;
+      description = lib.mdDoc "Whether to enable the icingaweb2 monitoring module.";
     };
 
     generalConfig = {
@@ -178,18 +167,12 @@ in
               instance = mkOption {
                 type = nullOr str;
                 default = null;
-                description =
-                  lib.mdDoc
-                    "Assign a icinga instance to this transport"
-                ;
+                description = lib.mdDoc "Assign a icinga instance to this transport";
               };
 
               path = mkOption {
                 type = str;
-                description =
-                  lib.mdDoc
-                    "Path to the socket for local or remote transports"
-                ;
+                description = lib.mdDoc "Path to the socket for local or remote transports";
               };
 
               host = mkOption {
@@ -200,18 +183,12 @@ in
               port = mkOption {
                 type = nullOr str;
                 default = null;
-                description =
-                  lib.mdDoc
-                    "Port to connect to for the api or remote transport"
-                ;
+                description = lib.mdDoc "Port to connect to for the api or remote transport";
               };
 
               username = mkOption {
                 type = str;
-                description =
-                  lib.mdDoc
-                    "Username for the api or remote transport"
-                ;
+                description = lib.mdDoc "Username for the api or remote transport";
               };
 
               password = mkOption {
@@ -221,10 +198,7 @@ in
 
               resource = mkOption {
                 type = str;
-                description =
-                  lib.mdDoc
-                    "SSH identity resource for the remote transport"
-                ;
+                description = lib.mdDoc "SSH identity resource for the remote transport";
               };
             };
           }
@@ -243,8 +217,7 @@ in
     } // optionalAttrs (!cfg.mutableBackends) {
       "icingaweb2/modules/monitoring/backends.ini".text = backendsIni;
     } // optionalAttrs (!cfg.mutableTransports) {
-      "icingaweb2/modules/monitoring/commandtransports.ini".text =
-        transportsIni;
+      "icingaweb2/modules/monitoring/commandtransports.ini".text = transportsIni;
     };
   };
 }

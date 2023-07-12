@@ -42,10 +42,7 @@ with lib; {
               bind = mkOption {
                 type = str;
                 default = "127.3.2.1";
-                description =
-                  lib.mdDoc
-                    "Address to bind to for handling DNS requests."
-                ;
+                description = lib.mdDoc "Address to bind to for handling DNS requests.";
               };
 
               upstream = mkOption {

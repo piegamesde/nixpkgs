@@ -133,8 +133,7 @@ in
         exec java \
           ${
             concatStringsSep " \\\n" (
-              mapAttrsToList (name: value: "-D${name}=${value}")
-                cfg.javaProperties
+              mapAttrsToList (name: value: "-D${name}=${value}") cfg.javaProperties
             )
           } \
           ${cfg.extraJavaOptions} ActiveMQBroker "${cfg.configurationURI}"

@@ -75,10 +75,7 @@ stdenv.mkDerivation (
       ]
       ++
         lib.optionals
-          (
-            lib.versionAtLeast version "91"
-            && stdenv.hostPlatform.system == "i686-linux"
-          )
+          (lib.versionAtLeast version "91" && stdenv.hostPlatform.system == "i686-linux")
           [
             # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
             ./fix-float-i686.patch
@@ -160,10 +157,7 @@ stdenv.mkDerivation (
     # while we have a double-float toolchain
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString
-        (
-          with stdenv.hostPlatform;
-          isRiscV && is64bit && lib.versionOlder version "91"
-        )
+        (with stdenv.hostPlatform; isRiscV && is64bit && lib.versionOlder version "91")
         "-mabi=lp64d"
     ;
 

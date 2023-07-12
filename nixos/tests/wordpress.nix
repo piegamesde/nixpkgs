@@ -108,9 +108,7 @@ import ./make-test-python.nix (
       ${lib.concatStrings (
         lib.mapAttrsToList
           (name: value: ''
-            ${name}.wait_for_unit("${
-              (value null).services.wordpress.webserver
-            }")
+            ${name}.wait_for_unit("${(value null).services.wordpress.webserver}")
           '')
           nodes
       )}

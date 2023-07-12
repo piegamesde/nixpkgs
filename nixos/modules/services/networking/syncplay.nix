@@ -106,9 +106,7 @@ in
         ${lib.optionalString (cfg.passwordFile != null) ''
           export SYNCPLAY_PASSWORD=$(cat "''${CREDENTIALS_DIRECTORY}/password")
         ''}
-        exec ${pkgs.syncplay-nogui}/bin/syncplay-server ${
-          escapeShellArgs cmdArgs
-        }
+        exec ${pkgs.syncplay-nogui}/bin/syncplay-server ${escapeShellArgs cmdArgs}
       '';
     };
   };

@@ -64,12 +64,7 @@ in
             extraLibraries =
               pkgs:
               let
-                prevLibs =
-                  if prev ? extraLibraries then
-                    prev.extraLibraries pkgs
-                  else
-                    [ ]
-                ;
+                prevLibs = if prev ? extraLibraries then prev.extraLibraries pkgs else [ ];
                 additionalLibs =
                   with config.hardware.opengl;
                   if pkgs.stdenv.hostPlatform.is64bit then
@@ -80,14 +75,12 @@ in
               in
               prevLibs ++ additionalLibs
             ;
-          } // optionalAttrs
-            (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice)
-            {
-              buildFHSEnv = pkgs.buildFHSEnv.override {
-                # use the setuid wrapped bubblewrap
-                bubblewrap = "${config.security.wrapperDir}/..";
-              };
-            }
+          } // optionalAttrs (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
+            buildFHSEnv = pkgs.buildFHSEnv.override {
+              # use the setuid wrapped bubblewrap
+              bubblewrap = "${config.security.wrapperDir}/..";
+            };
+          }
         )
       ;
       description = lib.mdDoc ''

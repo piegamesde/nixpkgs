@@ -54,10 +54,7 @@ with lib; {
               };
               extraParameters = mkOption {
                 type = listOf str;
-                description =
-                  lib.mdDoc
-                    "Extra parameters of this listen directive."
-                ;
+                description = lib.mdDoc "Extra parameters of this listen directive.";
                 default = [ ];
                 example = [
                   "backlog=1024"
@@ -225,10 +222,7 @@ with lib; {
     sslTrustedCertificate = mkOption {
       type = types.nullOr types.path;
       default = null;
-      example =
-        literalExpression
-          ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"''
-      ;
+      example = literalExpression ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
       description =
         lib.mdDoc
           "Path to root SSL certificate for stapling and client certificates."

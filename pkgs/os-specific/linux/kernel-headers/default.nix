@@ -70,10 +70,7 @@ let
         ]
         ++
           lib.optionals
-            (
-              stdenvNoCC.buildPlatform.isDarwin
-              && stdenvNoCC.hostPlatform.isMips
-            )
+            (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips)
             [
               darwin-endian-h
               darwin-byteswap-h
@@ -81,17 +78,13 @@ let
       ;
 
       extraIncludeDirs =
-        lib.optionals
-          (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
+        lib.optionals (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
           [ "ppc" ]
       ;
 
       inherit patches;
 
-      hardeningDisable =
-        lib.optional stdenvNoCC.buildPlatform.isDarwin
-          "format"
-      ;
+      hardeningDisable = lib.optional stdenvNoCC.buildPlatform.isDarwin "format";
 
       makeFlags = [
         "SHELL=bash"

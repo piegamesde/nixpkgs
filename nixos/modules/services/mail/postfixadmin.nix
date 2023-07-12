@@ -104,8 +104,7 @@ in
       $CONF['database_host'] = ${
         if localDB then "null" else "'${cfg.database.host}'"
       };
-      ${optionalString localDB
-        "$CONF['database_user'] = '${cfg.database.username}';"}
+      ${optionalString localDB "$CONF['database_user'] = '${cfg.database.username}';"}
       $CONF['database_password'] = ${
         if localDB then
           "'dummy'"

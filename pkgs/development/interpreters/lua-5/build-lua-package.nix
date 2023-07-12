@@ -87,8 +87,7 @@ let
         inherit rockspecVersion;
 
         __structuredAttrs = true;
-        env =
-          { LUAROCKS_CONFIG = "$PWD/${luarocks_config}"; } // attrs.env or { };
+        env = { LUAROCKS_CONFIG = "$PWD/${luarocks_config}"; } // attrs.env or { };
 
         generatedRockspecFilename = "${rockspecDir}/${pname}-${rockspecVersion}.rockspec";
 
@@ -109,16 +108,11 @@ let
         buildInputs =
           let
             # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
-            externalDeps' =
-              lib.filter (dep: !lib.isDerivation dep)
-                self.externalDeps
-            ;
+            externalDeps' = lib.filter (dep: !lib.isDerivation dep) self.externalDeps;
           in
           [ lua.pkgs.luarocks ]
           ++ buildInputs
-          ++ lib.optionals self.doCheck (
-            [ luarocksCheckHook ] ++ self.nativeCheckInputs
-          )
+          ++ lib.optionals self.doCheck ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
           ++ (map (d: d.dep) externalDeps')
         ;
 
@@ -132,14 +126,10 @@ let
         luarocks_content =
           let
             externalDepsGenerated = lib.filter (drv: !drv ? luaModule) (
-              self.nativeBuildInputs
-              ++ self.propagatedBuildInputs
-              ++ self.buildInputs
+              self.nativeBuildInputs ++ self.propagatedBuildInputs ++ self.buildInputs
             );
             generatedConfig = luaLib.generateLuarocksConfig {
-              externalDeps = lib.unique (
-                self.externalDeps ++ externalDepsGenerated
-              );
+              externalDeps = lib.unique (self.externalDeps ++ externalDepsGenerated);
               # Filter out the lua derivation itself from the Lua module dependency
               # closure, as it doesn't have a rock tree :)
               # luaLib.hasLuaModule

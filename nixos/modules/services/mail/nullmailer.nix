@@ -37,10 +37,7 @@ with lib;
       setSendmail = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to set the system sendmail to nullmailer's."
-        ;
+        description = lib.mdDoc "Whether to set the system sendmail to nullmailer's.";
       };
 
       remotesFile = mkOption {
@@ -206,13 +203,7 @@ with lib;
           let
             validAttrs = filterAttrs (name: value: value != null) cfg.config;
           in
-          (foldl'
-            (
-              as: name:
-              as // {
-                "nullmailer/${name}".text = validAttrs.${name};
-              }
-            )
+          (foldl' (as: name: as // { "nullmailer/${name}".text = validAttrs.${name}; })
             { }
             (attrNames validAttrs)
           ) // optionalAttrs (cfg.remotesFile != null) {

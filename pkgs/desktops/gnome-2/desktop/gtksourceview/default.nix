@@ -79,10 +79,7 @@ stdenv.mkDerivation (
 
     doCheck = false; # requires X11 daemon
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
       pkgConfigModules = [ "gtksourceview-2.0" ];

@@ -64,10 +64,7 @@ in
       nodeIdFile = mkOption {
         type = types.str;
         default = "/var/lib/graylog/server/node-id";
-        description =
-          lib.mdDoc
-            "Path of the file containing the graylog node-id"
-        ;
+        description = lib.mdDoc "Path of the file containing the graylog node-id";
       };
 
       passwordSecret = mkOption {
@@ -130,10 +127,7 @@ in
       extraConfig = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Any other configuration options you might want to add"
-        ;
+        description = lib.mdDoc "Any other configuration options you might want to add";
       };
 
       plugins = mkOption {
@@ -157,9 +151,7 @@ in
     };
     users.groups = mkIf (cfg.user == "graylog") { graylog = { }; };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.messageJournalDir}' - ${cfg.user} - - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.messageJournalDir}' - ${cfg.user} - - -" ];
 
     systemd.services.graylog = {
       description = "Graylog Server";

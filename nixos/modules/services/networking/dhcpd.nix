@@ -27,9 +27,7 @@ let
         (machine: ''
           host ${machine.hostName} {
             hardware ethernet ${machine.ethernetAddress};
-            fixed-address${
-              optionalString (postfix == "6") postfix
-            } ${machine.ipAddress};
+            fixed-address${optionalString (postfix == "6") postfix} ${machine.ipAddress};
           }
         '')
         cfg.machines}
@@ -40,11 +38,7 @@ let
     postfix: cfg:
     let
       configFile =
-        if cfg.configFile != null then
-          cfg.configFile
-        else
-          writeConfig postfix cfg
-      ;
+        if cfg.configFile != null then cfg.configFile else writeConfig postfix cfg;
       leaseFile = "/var/lib/dhcpd${postfix}/dhcpd.leases";
       args =
         [

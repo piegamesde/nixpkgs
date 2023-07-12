@@ -61,9 +61,7 @@ let
     wmName: enableGnomePanel:
     "RequiredComponents=${
       lib.concatStringsSep ";" (
-        [ wmName ]
-        ++ requiredComponentsCommon enableGnomePanel
-        ++ requiredComponentsGsd
+        [ wmName ] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd
       )
     };"
   ;
@@ -204,9 +202,7 @@ let
             ];
             buildInputs =
               [ gnome-flashback ]
-              ++ lib.optionals enableGnomePanel (
-                [ gnome-panel ] ++ panelModulePackages
-              )
+              ++ lib.optionals enableGnomePanel ([ gnome-panel ] ++ panelModulePackages)
             ;
 
             # We want to use the wrapGAppsHook mechanism to wrap gnome-session

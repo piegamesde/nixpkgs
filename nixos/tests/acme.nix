@@ -94,9 +94,7 @@ let
               };
             };
 
-            users.users."${config.services."${server}".user}".extraGroups = [
-              "acme"
-            ];
+            users.users."${config.services."${server}".user}".extraGroups = [ "acme" ];
 
             services."${server}" = {
               enable = true;
@@ -162,14 +160,10 @@ let
             # This configuration results in certificate errors as useACMEHost does not imply
             # append extraDomains, and thus we can validate the SAN is removed.
             services."${server}" = {
-              virtualHosts."${server}-http.example.test".serverAliases =
-                lib.mkForce
-                  [ ]
-              ;
-              virtualHosts."${server}-http-alias.example.test" = vhostBaseData
-                // {
-                  useACMEHost = "${server}-http.example.test";
-                };
+              virtualHosts."${server}-http.example.test".serverAliases = lib.mkForce [ ];
+              virtualHosts."${server}-http-alias.example.test" = vhostBaseData // {
+                useACMEHost = "${server}-http.example.test";
+              };
             };
           };
         }
@@ -280,9 +274,7 @@ in
           # Tests that account creds can be safely changed.
           accountchange.configuration = lib.mkMerge [
             simpleConfig
-            {
-              security.acme.certs."http.example.test".email = "admin@example.test";
-            }
+            { security.acme.certs."http.example.test".email = "admin@example.test"; }
           ];
 
           # First derivation used to test general ACME features
@@ -303,10 +295,8 @@ in
               {
                 # Used to test that account creation is collated into one service.
                 # These should not run until after acme-finished-a.example.test.target
-                systemd.services."b.example.test".preStart =
-                  accountCreateTester;
-                systemd.services."c.example.test".preStart =
-                  accountCreateTester;
+                systemd.services."b.example.test".preStart = accountCreateTester;
+                systemd.services."c.example.test".preStart = accountCreateTester;
 
                 services.nginx.virtualHosts."b.example.test" =
                   vhostBase // { enableACME = true; };
@@ -402,9 +392,7 @@ in
                   };
                 };
 
-                users.users."${config.services.caddy.user}".extraGroups = [
-                  "acme"
-                ];
+                users.users."${config.services.caddy.user}".extraGroups = [ "acme" ];
 
                 services.caddy = {
                   enable = true;

@@ -64,8 +64,7 @@ lib.makeOverridable (
       if !builtins.isList value then
         throw "makeDesktopItem: value for ${key} must be a list!"
       else if builtins.any (item: lib.hasInfix ";" item) value then
-        throw
-          "makeDesktopItem: values in ${key} list must not contain semicolons!"
+        throw "makeDesktopItem: values in ${key} list must not contain semicolons!"
       else if value == [ ] then
         null
       else
@@ -104,8 +103,7 @@ lib.makeOverridable (
     # Render a single attribute pair to a Key=Value line.
     # FIXME: this isn't entirely correct for arbitrary strings, as some characters
     # need to be escaped. There are currently none in nixpkgs though, so this is OK.
-    renderLine =
-      name: value: if value != null then "${name}=${value}" else null;
+    renderLine = name: value: if value != null then "${name}=${value}" else null;
 
     # Render a full section of the file from an attrset.
     # Null values are intentionally left out.
@@ -138,9 +136,7 @@ lib.makeOverridable (
       }
     ;
     renderAction =
-      name: attrs:
-      renderSection "Desktop Action ${name}" (preprocessAction attrs)
-    ;
+      name: attrs: renderSection "Desktop Action ${name}" (preprocessAction attrs);
     actionsRendered = lib.mapAttrsToList renderAction actions;
 
     content = [ mainSectionRendered ] ++ actionsRendered;

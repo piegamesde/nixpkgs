@@ -96,8 +96,7 @@ let
   # Allow both:
   # { /* the config */ } and
   # { pkgs, ... } : { /* the config */ }
-  config1 =
-    if lib.isFunction config0 then config0 { inherit pkgs; } else config0;
+  config1 = if lib.isFunction config0 then config0 { inherit pkgs; } else config0;
 
   configEval = lib.evalModules {
     modules = [

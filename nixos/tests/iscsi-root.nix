@@ -12,8 +12,7 @@ import ./make-test-python.nix (
     name = "iscsi";
     meta = {
       maintainers =
-        pkgs.lib.teams.deshaw.members ++ (with pkgs.lib.maintainers; [ ajs124 ])
-      ;
+        pkgs.lib.teams.deshaw.members ++ (with pkgs.lib.maintainers; [ ajs124 ]);
     };
 
     nodes = {

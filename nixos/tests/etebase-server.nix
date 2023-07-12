@@ -20,9 +20,7 @@ import ./make-test-python.nix (
         services.etebase-server = {
           inherit dataDir;
           enable = true;
-          settings.global.secret_file = toString (
-            pkgs.writeText "secret" "123456"
-          );
+          settings.global.secret_file = toString (pkgs.writeText "secret" "123456");
         };
       }
     ;

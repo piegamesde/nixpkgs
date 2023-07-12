@@ -177,9 +177,7 @@ in
               "${dup} remove-all-inc-of-but-n-full ${
                 toString cfg.cleanup.maxIncr
               } ${target} --force ${extra}"}
-            exec ${dup} ${
-              if cfg.fullIfOlderThan == "always" then "full" else "incr"
-            } ${
+            exec ${dup} ${if cfg.fullIfOlderThan == "always" then "full" else "incr"} ${
               lib.escapeShellArgs (
                 [
                   cfg.root
@@ -200,10 +198,7 @@ in
                     ])
                     cfg.exclude
                 ++ (lib.optionals
-                  (
-                    cfg.fullIfOlderThan != "never"
-                    && cfg.fullIfOlderThan != "always"
-                  )
+                  (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always")
                   [
                     "--full-if-older-than"
                     cfg.fullIfOlderThan
@@ -218,11 +213,8 @@ in
           ProtectSystem = "strict";
           ProtectHome = "read-only";
           StateDirectory = baseNameOf stateDirectory;
-        } // optionalAttrs (localTarget != null) {
-          ReadWritePaths = localTarget;
-        } // optionalAttrs (cfg.secretFile != null) {
-          EnvironmentFile = cfg.secretFile;
-        };
+        } // optionalAttrs (localTarget != null) { ReadWritePaths = localTarget; }
+          // optionalAttrs (cfg.secretFile != null) { EnvironmentFile = cfg.secretFile; };
       } // optionalAttrs (cfg.frequency != null) { startAt = cfg.frequency; };
 
       tmpfiles.rules =
@@ -234,8 +226,7 @@ in
     assertions = singleton {
       # Duplicity will fail if the last file selection option is an include. It
       # is not always possible to detect but this simple case can be caught.
-      assertion =
-        cfg.include != [ ] -> cfg.exclude != [ ] || cfg.extraFlags != [ ];
+      assertion = cfg.include != [ ] -> cfg.exclude != [ ] || cfg.extraFlags != [ ];
       message = ''
         Duplicity will fail if you only specify included paths ("Because the
         default is to include all files, the expression is redundant. Exiting

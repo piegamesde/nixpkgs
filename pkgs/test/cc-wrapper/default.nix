@@ -14,8 +14,7 @@ let
     && !stdenv.hostPlatform.isMusl
     && (
       (
-        stdenv.cc.isClang
-        && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0"
+        stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0"
       )
       || (stdenv.cc.isGNU && stdenv.isLinux)
     )
@@ -56,10 +55,7 @@ stdenv.mkDerivation {
       $CC ${staticLibc} -static -o cc-static ${./cc-main.c}
       ${emulator} ./cc-static
       ${lib.optionalString
-        (
-          stdenv.cc.isGNU
-          && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0"
-        )
+        (stdenv.cc.isGNU && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0")
         ''
           printf "checking whether compiler builds valid static pie C binaries... " >&2
           $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}
@@ -79,8 +75,7 @@ stdenv.mkDerivation {
     mkdir -p foo/lib
     $CC -shared \
       ${
-        lib.optionalString stdenv.isDarwin
-          "-Wl,-install_name,@rpath/libfoo.dylib"
+        lib.optionalString stdenv.isDarwin "-Wl,-install_name,@rpath/libfoo.dylib"
       } \
       -DVALUE=42 \
       -o foo/lib/libfoo${stdenv.hostPlatform.extensions.sharedLibrary} \
@@ -94,9 +89,7 @@ stdenv.mkDerivation {
     printf "Check whether -nostdinc and -nostdinc++ is handled correctly" >&2
     mkdir -p std-include
     cp ${./stdio.h} std-include/stdio.h
-    NIX_DEBUG=1 $CC -I std-include -nostdinc -o nostdinc-main ${
-      ./nostdinc-main.c
-    }
+    NIX_DEBUG=1 $CC -I std-include -nostdinc -o nostdinc-main ${./nostdinc-main.c}
     ${emulator} ./nostdinc-main
     $CXX -I std-include -nostdinc++ -o nostdinc-main++ ${./nostdinc-main.c}
     ${emulator} ./nostdinc-main++

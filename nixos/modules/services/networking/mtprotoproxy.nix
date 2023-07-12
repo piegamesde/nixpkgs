@@ -29,9 +29,7 @@ let
     else if isAttrs opt then
       "{"
       + concatStringsSep "," (
-        mapAttrsToList
-          (name: opt: "${builtins.toJSON name}: ${convertOption opt}")
-          opt
+        mapAttrsToList (name: opt: "${builtins.toJSON name}: ${convertOption opt}") opt
       )
       + "}"
     else

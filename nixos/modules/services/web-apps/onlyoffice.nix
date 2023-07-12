@@ -14,9 +14,7 @@ in
   options.services.onlyoffice = {
     enable = mkEnableOption (lib.mdDoc "OnlyOffice DocumentServer");
 
-    enableExampleServer = mkEnableOption (
-      lib.mdDoc "OnlyOffice example server"
-    );
+    enableExampleServer = mkEnableOption (lib.mdDoc "OnlyOffice example server");
 
     hostname = mkOption {
       type = types.str;
@@ -37,28 +35,19 @@ in
       type = types.package;
       default = pkgs.onlyoffice-documentserver;
       defaultText = lib.literalExpression "pkgs.onlyoffice-documentserver";
-      description =
-        lib.mdDoc
-          "Which package to use for the OnlyOffice instance."
-      ;
+      description = lib.mdDoc "Which package to use for the OnlyOffice instance.";
     };
 
     port = mkOption {
       type = types.port;
       default = 8000;
-      description =
-        lib.mdDoc
-          "Port the OnlyOffice DocumentServer should listens on."
-      ;
+      description = lib.mdDoc "Port the OnlyOffice DocumentServer should listens on.";
     };
 
     examplePort = mkOption {
       type = types.port;
       default = null;
-      description =
-        lib.mdDoc
-          "Port the OnlyOffice Example server should listens on."
-      ;
+      description = lib.mdDoc "Port the OnlyOffice Example server should listens on.";
     };
 
     postgresHost = mkOption {

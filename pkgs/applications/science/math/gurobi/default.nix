@@ -17,9 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+oKFnTPwj7iuudpmsPvZFxjtVzxTT1capSNyyd64kdo=";
   };
 
-  sourceRoot = "gurobi${
-      builtins.replaceStrings [ "." ] [ "" ] version
-    }/linux64";
+  sourceRoot = "gurobi${builtins.replaceStrings [ "." ] [ "" ] version}/linux64";
 
   nativeBuildInputs = [ autoPatchelfHook ];
   buildInputs = [ (python3.withPackages (ps: [ ps.gurobipy ])) ];

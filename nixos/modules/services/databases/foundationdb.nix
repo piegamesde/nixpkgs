@@ -18,16 +18,12 @@ let
   fdbServers =
     n:
     concatStringsSep "\n" (
-      map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (
-        range 0 (n - 1)
-      )
+      map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1))
     )
   ;
 
   backupAgents =
-    n:
-    concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n))
-  ;
+    n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
 
   configFile = pkgs.writeText "foundationdb.conf" ''
     [general]
@@ -169,10 +165,7 @@ in
     restartDelay = mkOption {
       type = types.int;
       default = 10;
-      description =
-        lib.mdDoc
-          "Number of seconds to wait before restarting servers."
-      ;
+      description = lib.mdDoc "Number of seconds to wait before restarting servers.";
     };
 
     logSize = mkOption {

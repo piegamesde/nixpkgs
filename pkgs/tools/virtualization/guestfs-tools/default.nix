@@ -96,9 +96,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "LIBGUESTFS_PATH=${libguestfs-with-appliance}/lib/guestfs" ];
 
   installFlags = [
-    "BASH_COMPLETIONS_DIR=${
-      placeholder "out"
-    }/share/bash-completion/completions"
+    "BASH_COMPLETIONS_DIR=${placeholder "out"}/share/bash-completion/completions"
   ];
 
   enableParallelBuilding = true;

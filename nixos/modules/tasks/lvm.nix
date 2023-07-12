@@ -28,9 +28,7 @@ in
     boot.thin.enable = mkEnableOption (
       lib.mdDoc "support for booting from ThinLVs"
     );
-    boot.vdo.enable = mkEnableOption (
-      lib.mdDoc "support for booting from VDOLVs"
-    );
+    boot.vdo.enable = mkEnableOption (lib.mdDoc "support for booting from VDOLVs");
   };
 
   options.boot.initrd.services.lvm.enable =
@@ -100,10 +98,7 @@ in
 
       environment.etc."lvm/lvm.conf".text =
         concatMapStringsSep "\n"
-          (
-            bin:
-            "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}"
-          )
+          (bin: "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}")
           [
             "thin_check"
             "thin_dump"
@@ -148,19 +143,16 @@ in
     })
     (mkIf (cfg.dmeventd.enable || cfg.boot.thin.enable) {
       boot.initrd.systemd.contents."/etc/lvm/lvm.conf".text =
-        optionalString
-          (config.boot.initrd.services.lvm.enable && cfg.boot.thin.enable)
+        optionalString (config.boot.initrd.services.lvm.enable && cfg.boot.thin.enable)
           (
-            concatMapStringsSep "\n"
-              (bin: "global/${bin}_executable = /bin/${bin}")
-              [
-                "thin_check"
-                "thin_dump"
-                "thin_repair"
-                "cache_check"
-                "cache_dump"
-                "cache_repair"
-              ]
+            concatMapStringsSep "\n" (bin: "global/${bin}_executable = /bin/${bin}") [
+              "thin_check"
+              "thin_dump"
+              "thin_repair"
+              "cache_check"
+              "cache_dump"
+              "cache_repair"
+            ]
           )
         + "\n"
         + optionalString cfg.dmeventd.enable ''

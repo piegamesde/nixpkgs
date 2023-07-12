@@ -203,13 +203,10 @@
         sha256 = "sha256-A9Miud9toXKJ6efGIzw0qFNdnGRcGe/HcroZ5WkU8zk=";
       }
   ;
-  "build/linux/avrdude-6.3.0-arduino17-aarch64-pc-linux-gnu.tar.bz2" =
-    fetchurl
-      {
-        url = "https://downloads.arduino.cc/tools/avrdude-6.3.0-arduino17-aarch64-pc-linux-gnu.tar.bz2";
-        sha256 = "1z59dx2j2j4675awjzag9fswhvkn3hlz4ds5d2b7pzmca7vliybc";
-      }
-  ;
+  "build/linux/avrdude-6.3.0-arduino17-aarch64-pc-linux-gnu.tar.bz2" = fetchurl {
+    url = "https://downloads.arduino.cc/tools/avrdude-6.3.0-arduino17-aarch64-pc-linux-gnu.tar.bz2";
+    sha256 = "1z59dx2j2j4675awjzag9fswhvkn3hlz4ds5d2b7pzmca7vliybc";
+  };
   "build/linux/arduinoOTA-1.3.0-linux_aarch64.tar.bz2" = fetchurl {
     url = "https://downloads.arduino.cc/tools/arduinoOTA-1.3.0-linux_aarch64.tar.bz2";
     sha256 = "04s1is2w8xhvc7lg0lmyk0yjsnar2l2gdc6ig7lkgb7zgkrxhpl3";

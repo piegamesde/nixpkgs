@@ -82,10 +82,7 @@ in
 
       ldapBindPassword = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "Password of account to use to query the LDAP server"
-        ;
+        description = lib.mdDoc "Password of account to use to query the LDAP server";
       };
 
       enableLdapRoles = mkOption {
@@ -134,10 +131,7 @@ in
       cacheTimeoutSeconds = mkOption {
         type = types.int;
         default = 3600;
-        description =
-          lib.mdDoc
-            "How often (in seconds) to refresh the LDAP cache"
-        ;
+        description = lib.mdDoc "How often (in seconds) to refresh the LDAP cache";
       };
     };
   };

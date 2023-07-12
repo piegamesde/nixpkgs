@@ -65,10 +65,7 @@ with lib; {
         };
         extraEnvironment = mkOption {
           type = types.attrsOf types.str;
-          description =
-            lib.mdDoc
-              "Extra environment variables to pass to spark worker."
-          ;
+          description = lib.mdDoc "Extra environment variables to pass to spark worker.";
           default = { };
           example = {
             SPARK_WORKER_CORES = 5;

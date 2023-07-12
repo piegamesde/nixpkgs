@@ -227,10 +227,7 @@ in
           Restart = "always";
           StateDirectory = "alertmanager";
           DynamicUser = true; # implies PrivateTmp
-          EnvironmentFile =
-            lib.mkIf (cfg.environmentFile != null)
-              cfg.environmentFile
-          ;
+          EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
           WorkingDirectory = "/tmp";
           ExecStart =
             "${cfg.package}/bin/alertmanager"

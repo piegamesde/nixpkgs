@@ -18,12 +18,7 @@ let
           generators.mkKeyValueDefault
             {
               mkValueString =
-                val:
-                if isList val then
-                  ''"'' + (toString val) + ''"''
-                else
-                  toString val
-              ;
+                val: if isList val then ''"'' + (toString val) + ''"'' else toString val;
             }
             "="
         ;
@@ -38,10 +33,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the TLP power management daemon."
-        ;
+        description = lib.mdDoc "Whether to enable the TLP power management daemon.";
       };
 
       settings = mkOption {

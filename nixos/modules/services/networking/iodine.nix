@@ -135,10 +135,7 @@ in
               passwordFile = mkOption {
                 type = types.str;
                 default = "";
-                description =
-                  lib.mdDoc
-                    "Path to a file containing the password."
-                ;
+                description = lib.mdDoc "Path to a file containing the password.";
               };
             };
           })
@@ -162,10 +159,7 @@ in
         domain = mkOption {
           type = types.str;
           default = "";
-          description =
-            lib.mdDoc
-              "Domain or subdomain of which nameservers point to us"
-          ;
+          description = lib.mdDoc "Domain or subdomain of which nameservers point to us";
           example = "tunnel.mydomain.com";
         };
 
@@ -209,8 +203,7 @@ in
               # hardening :
               # Filesystem access
               ProtectSystem = "strict";
-              ProtectHome =
-                if isProtected cfg.passwordFile then "read-only" else "true";
+              ProtectHome = if isProtected cfg.passwordFile then "read-only" else "true";
               PrivateTmp = true;
               ReadWritePaths = "/dev/net/tun";
               PrivateDevices = false;
@@ -232,9 +225,7 @@ in
         mapAttrsToList
           (
             name: value:
-            nameValuePair "iodine-${name}" (
-              createIodineClientService name value
-            )
+            nameValuePair "iodine-${name}" (createIodineClientService name value)
           )
           cfg.clients
       ) // {
@@ -250,11 +241,7 @@ in
             # Filesystem access
             ProtectSystem = "strict";
             ProtectHome =
-              if isProtected cfg.server.passwordFile then
-                "read-only"
-              else
-                "true"
-            ;
+              if isProtected cfg.server.passwordFile then "read-only" else "true";
             PrivateTmp = true;
             ReadWritePaths = "/dev/net/tun";
             PrivateDevices = false;

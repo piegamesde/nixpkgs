@@ -92,11 +92,7 @@ let
       let
         sha256 = releaseInfo.original.sha256;
         rev =
-          if gitRelease != null then
-            gitRelease.rev
-          else
-            "llvmorg-${releaseInfo.version}"
-        ;
+          if gitRelease != null then gitRelease.rev else "llvmorg-${releaseInfo.version}";
       in
       fetchFromGitHub {
         owner = "llvm";
@@ -161,11 +157,7 @@ let
       ;
 
       bintoolsNoLibc' =
-        if bootBintoolsNoLibc == null then
-          tools.bintoolsNoLibc
-        else
-          bootBintoolsNoLibc
-      ;
+        if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
       bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
@@ -273,15 +265,10 @@ let
             "-Wno-unused-command-line-argument"
             "-B${targetLlvmLibraries.compiler-rt}/lib"
           ]
-          ++
-            lib.optional (!stdenv.targetPlatform.isWasm)
-              "--unwindlib=libunwind"
+          ++ lib.optional (!stdenv.targetPlatform.isWasm) "--unwindlib=libunwind"
           ++
             lib.optional
-              (
-                !stdenv.targetPlatform.isWasm
-                && stdenv.targetPlatform.useLLVM or false
-              )
+              (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
               "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
         ;

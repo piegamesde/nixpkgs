@@ -159,16 +159,11 @@ rec {
             if listsAsDuplicateKeys then
               coercedTo singleIniAtom lib.singleton (listOf singleIniAtom) // {
                 description =
-                  singleIniAtom.description
-                  + " or a list of them for duplicate keys"
-                ;
+                  singleIniAtom.description + " or a list of them for duplicate keys";
               }
             else if listToValue != null then
-              coercedTo singleIniAtom lib.singleton (
-                nonEmptyListOf singleIniAtom
-              ) // {
-                description =
-                  singleIniAtom.description + " or a non-empty list of them";
+              coercedTo singleIniAtom lib.singleton (nonEmptyListOf singleIniAtom) // {
+                description = singleIniAtom.description + " or a non-empty list of them";
               }
             else
               singleIniAtom
@@ -185,9 +180,7 @@ rec {
               lib.mapAttrs
                 (
                   section:
-                  lib.mapAttrs (
-                    key: val: if lib.isList val then listToValue val else val
-                  )
+                  lib.mapAttrs (key: val: if lib.isList val then listToValue val else val)
                 )
                 value
             else
@@ -195,8 +188,7 @@ rec {
           ;
         in
         pkgs.writeText name (
-          lib.generators.toINI (removeAttrs args [ "listToValue" ])
-            transformedValue
+          lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue
         )
       ;
     }
@@ -231,16 +223,11 @@ rec {
           atom =
             if listsAsDuplicateKeys then
               coercedTo singleAtom lib.singleton (listOf singleAtom) // {
-                description =
-                  singleAtom.description
-                  + " or a list of them for duplicate keys"
-                ;
+                description = singleAtom.description + " or a list of them for duplicate keys";
               }
             else if listToValue != null then
-              coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom)
-              // {
-                description =
-                  singleAtom.description + " or a non-empty list of them";
+              coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom) // {
+                description = singleAtom.description + " or a non-empty list of them";
               }
             else
               singleAtom
@@ -254,16 +241,13 @@ rec {
         let
           transformedValue =
             if listToValue != null then
-              lib.mapAttrs
-                (key: val: if lib.isList val then listToValue val else val)
-                value
+              lib.mapAttrs (key: val: if lib.isList val then listToValue val else val) value
             else
               value
           ;
         in
         pkgs.writeText name (
-          lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
-            transformedValue
+          lib.generators.toKeyValue (removeAttrs args [ "listToValue" ]) transformedValue
         )
       ;
     }
@@ -288,8 +272,7 @@ rec {
         attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)))
       ;
 
-      generate =
-        name: value: pkgs.writeText name (lib.generators.toGitINI value);
+      generate = name: value: pkgs.writeText name (lib.generators.toGitINI value);
     }
   ;
 
@@ -433,8 +416,7 @@ rec {
         else if _elixirType == "tuple" then
           tuple value
         else
-          abort
-            "formats.elixirConf: should never happen (_elixirType = ${_elixirType})"
+          abort "formats.elixirConf: should never happen (_elixirType = ${_elixirType})"
       ;
 
       elixirMap =
@@ -455,8 +437,7 @@ rec {
             rootKey: key: value:
             "config ${rootKey}, ${key}, ${toElixir value}"
           ;
-          keyConfigs =
-            rootKey: values: mapAttrsToList (keyConfig rootKey) values;
+          keyConfigs = rootKey: values: mapAttrsToList (keyConfig rootKey) values;
           rootConfigs = flatten (mapAttrsToList keyConfigs values);
         in
         ''
@@ -504,8 +485,7 @@ rec {
               envVariable,
               fallback ? null,
             }:
-            mkRaw
-              "System.get_env(${toElixir envVariable}, ${toElixir fallback})"
+            mkRaw "System.get_env(${toElixir envVariable}, ${toElixir fallback})"
           ;
 
           /* Make an Elixir atom.

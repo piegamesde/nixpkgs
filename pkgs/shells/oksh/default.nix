@@ -18,12 +18,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  postPatch =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-      ''
-        substituteInPlace configure --replace "./conftest" "echo"
-      ''
-  ;
+  postPatch = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    substituteInPlace configure --replace "./conftest" "echo"
+  '';
 
   configureFlags = [ "--no-strip" ];
 

@@ -14,8 +14,7 @@ let
   cfg = config.networking;
   interfaces = attrValues cfg.interfaces;
 
-  interfaceIps =
-    i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
+  interfaceIps = i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
 
   interfaceRoutes = i: i.ipv4.routes ++ optionals cfg.enableIPv6 i.ipv6.routes;
 
@@ -31,12 +30,7 @@ let
     # TODO: warn the user that any address configured on those interfaces will be useless
     ++
       concatMap
-        (
-          i:
-          attrNames (
-            filterAttrs (_: config: config.type != "internal") i.interfaces
-          )
-        )
+        (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
         (attrValues cfg.vswitches)
   ;
 
@@ -46,17 +40,11 @@ let
     let
       gateway =
         optional
-          (
-            cfg.defaultGateway != null
-            && (cfg.defaultGateway.address or "") != ""
-          )
+          (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
           cfg.defaultGateway.address
         ++
           optional
-            (
-              cfg.defaultGateway6 != null
-              && (cfg.defaultGateway6.address or "") != ""
-            )
+            (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
             cfg.defaultGateway6.address
       ;
       makeGateway =
@@ -68,9 +56,8 @@ let
         }
       ;
     in
-    optionalAttrs (gateway != [ ]) {
-      routes = override (map makeGateway gateway);
-    } // optionalAttrs (domains != [ ]) { domains = override domains; }
+    optionalAttrs (gateway != [ ]) { routes = override (map makeGateway gateway); }
+    // optionalAttrs (domains != [ ]) { domains = override domains; }
   ;
 
   genericDhcpNetworks =
@@ -142,9 +129,7 @@ let
           (genericNetwork id)
           {
             name = mkDefault i.name;
-            DHCP = mkForce (
-              dhcpStr (if i.useDHCP != null then i.useDHCP else false)
-            );
+            DHCP = mkForce (dhcpStr (if i.useDHCP != null then i.useDHCP else false));
             address = forEach (interfaceIps i) (
               ip: "${ip.address}/${toString ip.prefixLength}"
             );
@@ -154,40 +139,29 @@ let
                 # Please fix or report any mistakes you may find.
                 routeConfig = optionalAttrs
                     (route.address != null && route.prefixLength != null)
-                    {
-                      Destination = "${route.address}/${
-                          toString route.prefixLength
-                        }";
-                    } // optionalAttrs (route.options ? fastopen_no_cookie) {
-                      FastOpenNoCookie = route.options.fastopen_no_cookie;
-                    }
-                  // optionalAttrs (route.via != null) { Gateway = route.via; }
+                    { Destination = "${route.address}/${toString route.prefixLength}"; }
+                  // optionalAttrs (route.options ? fastopen_no_cookie) {
+                    FastOpenNoCookie = route.options.fastopen_no_cookie;
+                  } // optionalAttrs (route.via != null) { Gateway = route.via; }
                   // optionalAttrs (route.type != null) { Type = route.type; }
-                  // optionalAttrs (route.options ? onlink) {
-                    GatewayOnLink = true;
-                  } // optionalAttrs (route.options ? initrwnd) {
+                  // optionalAttrs (route.options ? onlink) { GatewayOnLink = true; }
+                  // optionalAttrs (route.options ? initrwnd) {
                     InitialAdvertisedReceiveWindow = route.options.initrwnd;
                   } // optionalAttrs (route.options ? initcwnd) {
                     InitialCongestionWindow = route.options.initcwnd;
                   } // optionalAttrs (route.options ? pref) {
                     IPv6Preference = route.options.pref;
-                  } // optionalAttrs (route.options ? mtu) {
-                    MTUBytes = route.options.mtu;
-                  } // optionalAttrs (route.options ? metric) {
-                    Metric = route.options.metric;
-                  } // optionalAttrs (route.options ? src) {
-                    PreferredSource = route.options.src;
-                  } // optionalAttrs (route.options ? protocol) {
+                  } // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
+                  // optionalAttrs (route.options ? metric) { Metric = route.options.metric; }
+                  // optionalAttrs (route.options ? src) { PreferredSource = route.options.src; }
+                  // optionalAttrs (route.options ? protocol) {
                     Protocol = route.options.protocol;
                   } // optionalAttrs (route.options ? quickack) {
                     QuickAck = route.options.quickack;
-                  } // optionalAttrs (route.options ? scope) {
-                    Scope = route.options.scope;
-                  } // optionalAttrs (route.options ? from) {
-                    Source = route.options.from;
-                  } // optionalAttrs (route.options ? table) {
-                    Table = route.options.table;
-                  } // optionalAttrs (route.options ? advmss) {
+                  } // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
+                  // optionalAttrs (route.options ? from) { Source = route.options.from; }
+                  // optionalAttrs (route.options ? table) { Table = route.options.table; }
+                  // optionalAttrs (route.options ? advmss) {
                     TCPAdvertisedMaximumSegmentSize = route.options.advmss;
                   } // optionalAttrs (route.options ? ttl-propagate) {
                     TTLPropagate = route.options.ttl-propagate == "enabled";
@@ -195,9 +169,8 @@ let
               }
             );
             networkConfig.IPv6PrivacyExtensions = "kernel";
-            linkConfig = optionalAttrs (i.macAddress != null) {
-              MACAddress = i.macAddress;
-            } // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; };
+            linkConfig = optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
+              // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; };
           }
         ];
       }
@@ -227,16 +200,12 @@ in
             message = "networking.defaultGatewayWindowSize is not supported by networkd.";
           }
           {
-            assertion =
-              cfg.defaultGateway == null || cfg.defaultGateway.interface == null
-            ;
+            assertion = cfg.defaultGateway == null || cfg.defaultGateway.interface == null;
             message = "networking.defaultGateway.interface is not supported by networkd.";
           }
           {
             assertion =
-              cfg.defaultGateway6 == null
-              || cfg.defaultGateway6.interface == null
-            ;
+              cfg.defaultGateway6 == null || cfg.defaultGateway6.interface == null;
             message = "networking.defaultGateway6.interface is not supported by networkd.";
           }
         ]
@@ -355,21 +324,16 @@ in
                     assertNoUnknownOption =
                       let
                         knownOptions = flatten (
-                          mapAttrsToList (_: kOpts: kOpts.optNames)
-                            driverOptionMapping
+                          mapAttrsToList (_: kOpts: kOpts.optNames) driverOptionMapping
                         );
                         # options that apparently don’t exist in the networkd config
                         unknownOptions = [ "primary" ];
-                        assertTrace =
-                          bool: msg:
-                          if bool then true else builtins.trace msg false
-                        ;
+                        assertTrace = bool: msg: if bool then true else builtins.trace msg false;
                       in
                       assert all
                           (
                             driverOpt:
-                            assertTrace
-                              (elem driverOpt (knownOptions ++ unknownOptions))
+                            assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
                               "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd."
                           )
                           (mapAttrsToList (k: _: k) do);
@@ -425,9 +389,7 @@ in
                   Name = name;
                   Kind = "macvlan";
                 };
-                macvlanConfig = optionalAttrs (macvlan.mode != null) {
-                  Mode = macvlan.mode;
-                };
+                macvlanConfig = optionalAttrs (macvlan.mode != null) { Mode = macvlan.mode; };
               };
               networks."40-${macvlan.interface}" =
                 (mkMerge [
@@ -451,14 +413,8 @@ in
                 fooOverUDPConfig = {
                   Port = fou.port;
                   Encapsulation =
-                    if fou.protocol != null then
-                      "FooOverUDP"
-                    else
-                      "GenericUDPEncapsulation"
-                  ;
-                } // (optionalAttrs (fou.protocol != null) {
-                  Protocol = fou.protocol;
-                });
+                    if fou.protocol != null then "FooOverUDP" else "GenericUDPEncapsulation";
+                } // (optionalAttrs (fou.protocol != null) { Protocol = fou.protocol; });
               };
             }
           )
@@ -471,8 +427,7 @@ in
                   Name = name;
                   Kind = "sit";
                 };
-                tunnelConfig =
-                  (optionalAttrs (sit.remote != null) { Remote = sit.remote; })
+                tunnelConfig = (optionalAttrs (sit.remote != null) { Remote = sit.remote; })
                   // (optionalAttrs (sit.local != null) { Local = sit.local; })
                   // (optionalAttrs (sit.ttl != null) { TTL = sit.ttl; })
                   // (optionalAttrs (sit.encapsulation != null) (
@@ -508,8 +463,7 @@ in
                   Name = name;
                   Kind = gre.type;
                 };
-                tunnelConfig =
-                  (optionalAttrs (gre.remote != null) { Remote = gre.remote; })
+                tunnelConfig = (optionalAttrs (gre.remote != null) { Remote = gre.remote; })
                   // (optionalAttrs (gre.local != null) { Local = gre.local; })
                   // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; });
               };
@@ -551,24 +505,16 @@ in
         let
           # We must escape interfaces due to the systemd interpretation
           subsystemDevice =
-            interface:
-            "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
-          ;
+            interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
           # support for creating openvswitch switches
           createVswitchDevice =
             n: v:
             nameValuePair "${n}-netdev" (
               let
                 deps = map subsystemDevice (
-                  attrNames (
-                    filterAttrs (_: config: config.type != "internal")
-                      v.interfaces
-                  )
+                  attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces)
                 );
-                ofRules =
-                  pkgs.writeText "vswitch-${n}-openFlowRules"
-                    v.openFlowRules
-                ;
+                ofRules = pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
               in
               {
                 description = "Open vSwitch Interface ${n}";
@@ -612,9 +558,7 @@ in
                         (
                           name: config:
                           " -- add-port ${n} ${name}"
-                          +
-                            optionalString (config.vlan != null)
-                              " tag=${toString config.vlan}"
+                          + optionalString (config.vlan != null) " tag=${toString config.vlan}"
                         )
                         v.interfaces
                     )
@@ -630,15 +574,8 @@ in
                           v.interfaces
                       )
                     } \
-                    ${
-                      concatMapStrings (x: " -- set-controller ${n} " + x)
-                        v.controllers
-                    } \
-                    ${
-                      concatMapStrings (x: " -- " + x) (
-                        splitString "\n" v.extraOvsctlCmds
-                      )
-                    }
+                    ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
+                    ${concatMapStrings (x: " -- " + x) (splitString "\n" v.extraOvsctlCmds)}
 
 
                   echo "Adding OpenFlow rules for Open vSwitch ${n}..."

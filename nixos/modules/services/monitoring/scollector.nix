@@ -20,8 +20,7 @@ let
             mkdir -p $out/${frequency}
           ''
           + (lib.concatStringsSep "\n" (
-            map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})")
-              binaries
+            map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})") binaries
           ))
         )
         cfg.collectors

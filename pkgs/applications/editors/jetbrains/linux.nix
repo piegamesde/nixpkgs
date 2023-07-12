@@ -53,9 +53,7 @@ lib.makeOverridable mkDerivation (
       startupWMClass = wmClass;
     };
 
-    vmoptsFile = lib.optionalString (vmopts != null) (
-      writeText vmoptsName vmopts
-    );
+    vmoptsFile = lib.optionalString (vmopts != null) (writeText vmoptsName vmopts);
 
     nativeBuildInputs = [
       makeWrapper

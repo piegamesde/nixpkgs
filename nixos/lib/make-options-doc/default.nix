@@ -54,8 +54,7 @@ let
   filteredOpts = lib.filter (opt: opt.visible && !opt.internal) transformedOpts;
   optionsList = lib.flip map filteredOpts (
     opt:
-    opt
-    // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != [ ]) {
+    opt // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != [ ]) {
       relatedPackages = genRelatedPackages opt.relatedPackages opt.name;
     }
   );
@@ -93,9 +92,7 @@ let
           name = args.name or (lib.concatStringsSep "." args.path);
         in
         ''
-          - [${
-            lib.optionalString (title != null) "${title} aka "
-          }`pkgs.${name}`](
+          - [${lib.optionalString (title != null) "${title} aka "}`pkgs.${name}`](
               https://search.nixos.org/packages?show=${name}&sort=relevance&query=${name}
             )${lib.optionalString (args ? comment) "\n\n  ${args.comment}"}
         ''
@@ -133,8 +130,7 @@ rec {
   ;
 
   optionsCommonMark =
-    pkgs.runCommand "options.md"
-      { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+    pkgs.runCommand "options.md" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
       ''
         nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
           --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
@@ -172,9 +168,7 @@ rec {
         TOUCH_IF_DB=$dst/.used-docbook \
         python ${./mergeJSON.py} \
           ${lib.optionalString warningsAreErrors "--warnings-are-errors"} \
-          ${
-            if allowDocBook then "--warn-on-docbook" else "--error-on-docbook"
-          } \
+          ${if allowDocBook then "--warn-on-docbook" else "--error-on-docbook"} \
           $baseJSON $options \
           > $dst/options.json
 

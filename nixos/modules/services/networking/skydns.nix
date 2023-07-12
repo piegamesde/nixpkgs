@@ -24,28 +24,19 @@ in
       tlsKey = mkOption {
         default = null;
         type = types.nullOr types.path;
-        description =
-          lib.mdDoc
-            "Skydns path of TLS client certificate - private key."
-        ;
+        description = lib.mdDoc "Skydns path of TLS client certificate - private key.";
       };
 
       tlsPem = mkOption {
         default = null;
         type = types.nullOr types.path;
-        description =
-          lib.mdDoc
-            "Skydns path of TLS client certificate - public key."
-        ;
+        description = lib.mdDoc "Skydns path of TLS client certificate - public key.";
       };
 
       caCert = mkOption {
         default = null;
         type = types.nullOr types.path;
-        description =
-          lib.mdDoc
-            "Skydns path of TLS certificate authority public key."
-        ;
+        description = lib.mdDoc "Skydns path of TLS certificate authority public key.";
       };
     };
 

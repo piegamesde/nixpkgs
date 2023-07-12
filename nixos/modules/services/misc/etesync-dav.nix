@@ -35,10 +35,7 @@ in
     openFirewall = mkOption {
       default = false;
       type = types.bool;
-      description =
-        lib.mdDoc
-          "Whether to open the firewall for the specified port."
-      ;
+      description = lib.mdDoc "Whether to open the firewall for the specified port.";
     };
 
     sslCertificate = mkOption {
@@ -90,9 +87,7 @@ in
                   cp ${toString cfg.sslCertificate} $STATE_DIRECTORY/etesync.crt
                 ''}
                 ${optionalString (cfg.sslCertificateKey != null) ''
-                  cp ${
-                    toString cfg.sslCertificateKey
-                  } $STATE_DIRECTORY/etesync.key
+                  cp ${toString cfg.sslCertificateKey} $STATE_DIRECTORY/etesync.key
                 ''}
               ''
             )

@@ -45,8 +45,7 @@
     # path will be merged with this one and this conditional will be removed.
     else if
       (
-        with stdenvNoCC;
-        buildPlatform != hostPlatform || hostPlatform != targetPlatform
+        with stdenvNoCC; buildPlatform != hostPlatform || hostPlatform != targetPlatform
       )
     then
       false
@@ -104,9 +103,7 @@ let
   libc_lib = if libc == null then "" else getLib libc;
   cc_solib =
     getLib cc
-    +
-      optionalString (targetPlatform != hostPlatform)
-        "/${targetPlatform.config}"
+    + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}"
   ;
 
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
@@ -133,8 +130,7 @@ let
   expand-response-params =
     lib.optionalString
       (
-        (buildPackages.stdenv.hasCC or false)
-        && buildPackages.stdenv.cc != "/dev/null"
+        (buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null"
       )
       (import ../expand-response-params { inherit (buildPackages) stdenv; })
   ;
@@ -349,9 +345,7 @@ stdenv.mkDerivation {
     # No need to wrap gnat, gnatkr, gnatname or gnatprep; we can just symlink them in
     + optionalString cc.langAda or false ''
       for cmd in gnatbind gnatchop gnatclean gnatlink gnatls gnatmake; do
-        wrap ${targetPrefix}$cmd ${
-          ./gnat-wrapper.sh
-        } $ccPath/${targetPrefix}$cmd
+        wrap ${targetPrefix}$cmd ${./gnat-wrapper.sh} $ccPath/${targetPrefix}$cmd
       done
 
       for cmd in gnat gnatkr gnatname gnatprep; do
@@ -388,8 +382,7 @@ stdenv.mkDerivation {
   strictDeps = true;
   propagatedBuildInputs =
     [ bintools ] ++ extraTools ++ optionals cc.langD or false [ zlib ];
-  depsTargetTargetPropagated =
-    optional (libcxx != null) libcxx ++ extraPackages;
+  depsTargetTargetPropagated = optional (libcxx != null) libcxx ++ extraPackages;
 
   setupHooks =
     [ ../setup-hooks/role.bash ]
@@ -455,8 +448,7 @@ stdenv.mkDerivation {
             # 'cc.lib'. But it's a gcc package bug.
             # TODO(trofi): remove once gcc is fixed to move libraries to .lib output.
             echo "-L${gccForLibs}/${
-              optionalString (targetPlatform != hostPlatform)
-                "/${targetPlatform.config}"
+              optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}"
             }/lib" >> $out/nix-support/cc-ldflags
           ''
           # this ensures that when clang passes -lgcc_s to lld (as it does
@@ -529,21 +521,15 @@ stdenv.mkDerivation {
     # https://github.com/NixOS/nixpkgs/pull/209870#issuecomment-1500550903)
     +
       optionalString
-        (
-          libcxx == null
-          && isClang
-          && (useGccForLibs && gccForLibs.langCC or false)
-        )
+        (libcxx == null && isClang && (useGccForLibs && gccForLibs.langCC or false))
         ''
           for dir in ${gccForLibs}${
-            lib.optionalString (hostPlatform != targetPlatform)
-              "/${targetPlatform.config}"
+            lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
           }/include/c++/*; do
             echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
           done
           for dir in ${gccForLibs}${
-            lib.optionalString (hostPlatform != targetPlatform)
-              "/${targetPlatform.config}"
+            lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
           }/include/c++/*/${targetPlatform.config}; do
             echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
           done
@@ -666,10 +652,7 @@ stdenv.mkDerivation {
     ''
     +
       optionalString
-        (
-          targetPlatform ? gcc.tune
-          && isGccArchSupported targetPlatform.gcc.tune
-        )
+        (targetPlatform ? gcc.tune && isGccArchSupported targetPlatform.gcc.tune)
         ''
           echo "-mtune=${targetPlatform.gcc.tune}" >> $out/nix-support/cc-cflags-before
         ''
@@ -686,18 +669,13 @@ stdenv.mkDerivation {
     ''
     +
       optionalString
-        (
-          targetPlatform.libc == "newlib"
-          || targetPlatform.libc == "newlib-nano"
-        )
+        (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
         ''
           hardening_unsupported_flags+=" stackprotector fortify pie pic"
         ''
-    +
-      optionalString (targetPlatform.libc == "musl" && targetPlatform.isx86_32)
-        ''
-          hardening_unsupported_flags+=" stackprotector"
-        ''
+    + optionalString (targetPlatform.libc == "musl" && targetPlatform.isx86_32) ''
+      hardening_unsupported_flags+=" stackprotector"
+    ''
     + optionalString targetPlatform.isNetBSD ''
       hardening_unsupported_flags+=" stackprotector fortify"
     ''
@@ -719,9 +697,7 @@ stdenv.mkDerivation {
 
     + optionalString (libc != null && targetPlatform.isAvr) ''
       for isa in avr5 avr3 avr4 avr6 avr25 avr31 avr35 avr51 avrxmega2 avrxmega4 avrxmega5 avrxmega6 avrxmega7 tiny-stack; do
-        echo "-B${
-          getLib libc
-        }/avr/lib/$isa" >> $out/nix-support/libc-crt1-cflags
+        echo "-B${getLib libc}/avr/lib/$isa" >> $out/nix-support/libc-crt1-cflags
       done
     ''
 

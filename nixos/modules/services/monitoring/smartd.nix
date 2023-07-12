@@ -184,10 +184,7 @@ in
           enable = mkOption {
             default = true;
             type = types.bool;
-            description =
-              lib.mdDoc
-                "Whenever to send wall notifications to all users."
-            ;
+            description = lib.mdDoc "Whenever to send wall notifications to all users.";
           };
         };
 
@@ -196,10 +193,7 @@ in
             default = config.services.xserver.enable;
             defaultText = literalExpression "config.services.xserver.enable";
             type = types.bool;
-            description =
-              lib.mdDoc
-                "Whenever to send X11 xmessage notifications."
-            ;
+            description = lib.mdDoc "Whenever to send X11 xmessage notifications.";
           };
 
           display = mkOption {
@@ -216,10 +210,7 @@ in
         test = mkOption {
           default = false;
           type = types.bool;
-          description =
-            lib.mdDoc
-              "Whenever to send a test notification on startup."
-          ;
+          description = lib.mdDoc "Whenever to send a test notification on startup.";
         };
       };
 

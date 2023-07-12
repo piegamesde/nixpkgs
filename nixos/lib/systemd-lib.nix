@@ -127,9 +127,7 @@ rec {
   assertValueOneOf =
     name: values: group: attr:
     optional (attr ? ${name} && !elem attr.${name} values)
-      "Systemd ${group} field `${name}' cannot have value `${
-        toString attr.${name}
-      }'."
+      "Systemd ${group} field `${name}' cannot have value `${toString attr.${name}}'."
   ;
 
   assertHasField =
@@ -312,8 +310,7 @@ rec {
               lib.filterAttrs
                 (
                   n: v:
-                  (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v)
-                  == "asDropinIfExists"
+                  (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists"
                 )
                 units
             )
@@ -347,8 +344,7 @@ rec {
         for i in ${
           toString (
             mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs
-                (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
+              lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
                 units
             )
           )
@@ -458,27 +454,20 @@ rec {
       config = {
         unitConfig = optionalAttrs (config.requires != [ ]) {
           Requires = toString config.requires;
-        } // optionalAttrs (config.wants != [ ]) {
-          Wants = toString config.wants;
-        } // optionalAttrs (config.after != [ ]) {
-          After = toString config.after;
-        } // optionalAttrs (config.before != [ ]) {
-          Before = toString config.before;
-        } // optionalAttrs (config.bindsTo != [ ]) {
-          BindsTo = toString config.bindsTo;
-        } // optionalAttrs (config.partOf != [ ]) {
-          PartOf = toString config.partOf;
-        } // optionalAttrs (config.conflicts != [ ]) {
-          Conflicts = toString config.conflicts;
-        } // optionalAttrs (config.requisite != [ ]) {
-          Requisite = toString config.requisite;
-        } // optionalAttrs
-            (config ? restartTriggers && config.restartTriggers != [ ])
-            { X-Restart-Triggers = toString config.restartTriggers; }
-          // optionalAttrs
-            (config ? reloadTriggers && config.reloadTriggers != [ ])
-            { X-Reload-Triggers = toString config.reloadTriggers; }
-          // optionalAttrs (config.description != "") {
+        } // optionalAttrs (config.wants != [ ]) { Wants = toString config.wants; }
+          // optionalAttrs (config.after != [ ]) { After = toString config.after; }
+          // optionalAttrs (config.before != [ ]) { Before = toString config.before; }
+          // optionalAttrs (config.bindsTo != [ ]) { BindsTo = toString config.bindsTo; }
+          // optionalAttrs (config.partOf != [ ]) { PartOf = toString config.partOf; }
+          // optionalAttrs (config.conflicts != [ ]) {
+            Conflicts = toString config.conflicts;
+          } // optionalAttrs (config.requisite != [ ]) {
+            Requisite = toString config.requisite;
+          } // optionalAttrs (config ? restartTriggers && config.restartTriggers != [ ]) {
+            X-Restart-Triggers = toString config.restartTriggers;
+          } // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [ ]) {
+            X-Reload-Triggers = toString config.reloadTriggers;
+          } // optionalAttrs (config.description != "") {
             Description = config.description;
           } // optionalAttrs (config.documentation != [ ]) {
             Documentation = toString config.documentation;
@@ -503,9 +492,7 @@ rec {
     {
       config.environment.PATH =
         mkIf (config.path != [ ])
-          "${makeBinPath config.path}:${
-            makeSearchPathOutput "bin" "sbin" config.path
-          }"
+          "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}"
       ;
     }
   ;
@@ -643,12 +630,8 @@ rec {
         + ''
           [Socket]
           ${attrsToSection def.socketConfig}
-          ${concatStringsSep "\n" (
-            map (s: "ListenStream=${s}") def.listenStreams
-          )}
-          ${concatStringsSep "\n" (
-            map (s: "ListenDatagram=${s}") def.listenDatagrams
-          )}
+          ${concatStringsSep "\n" (map (s: "ListenStream=${s}") def.listenStreams)}
+          ${concatStringsSep "\n" (map (s: "ListenDatagram=${s}") def.listenDatagrams)}
         ''
       ;
     }

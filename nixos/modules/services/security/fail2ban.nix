@@ -331,11 +331,7 @@ in
     } ];
 
     warnings =
-      mkIf
-        (
-          !config.networking.firewall.enable
-          && !config.networking.nftables.enable
-        )
+      mkIf (!config.networking.firewall.enable && !config.networking.nftables.enable)
         [ "fail2ban can not be used without a firewall" ]
     ;
 
@@ -417,9 +413,7 @@ in
       ${optionalString (cfg.bantime-increment.multipliers != null)
         "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
       ${optionalString (cfg.bantime-increment.overalljails != null)
-        "bantime.overalljails = ${
-          boolToString cfg.bantime-increment.overalljails
-        }"}
+        "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
       # Miscellaneous options
       ignoreip    = 127.0.0.1/8 ${
         optionalString config.networking.enableIPv6 "::1"

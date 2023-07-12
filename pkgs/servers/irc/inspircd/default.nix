@@ -123,8 +123,7 @@ let
 
   # buildInputs necessary for the enabled extraModules
   extraInputs =
-    lib.concatMap
-      (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
+    lib.concatMap (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
       extraModules
   ;
 

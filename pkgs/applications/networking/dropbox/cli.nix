@@ -73,9 +73,7 @@ stdenv.mkDerivation {
   ];
 
   makeFlags = [
-    "EMBLEM_DIR=${
-      placeholder "nautilusExtension"
-    }/share/nautilus-dropbox/emblems"
+    "EMBLEM_DIR=${placeholder "nautilusExtension"}/share/nautilus-dropbox/emblems"
   ];
 
   meta = {

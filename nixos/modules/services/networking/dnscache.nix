@@ -10,41 +10,36 @@ with lib;
 let
   cfg = config.services.dnscache;
 
-  dnscache-root =
-    pkgs.runCommand "dnscache-root" { preferLocalBuild = true; }
-      ''
-        mkdir -p $out/{servers,ip}
+  dnscache-root = pkgs.runCommand "dnscache-root" { preferLocalBuild = true; } ''
+    mkdir -p $out/{servers,ip}
 
-        ${concatMapStrings
-          (ip: ''
-            touch "$out/ip/"${lib.escapeShellArg ip}
-          '')
-          cfg.clientIps}
+    ${concatMapStrings
+      (ip: ''
+        touch "$out/ip/"${lib.escapeShellArg ip}
+      '')
+      cfg.clientIps}
 
-        ${concatStrings (
-          mapAttrsToList
-            (host: ips: ''
-              ${concatMapStrings
-                (ip: ''
-                  echo ${lib.escapeShellArg ip} >> "$out/servers/"${
-                    lib.escapeShellArg host
-                  }
-                '')
-                ips}
+    ${concatStrings (
+      mapAttrsToList
+        (host: ips: ''
+          ${concatMapStrings
+            (ip: ''
+              echo ${lib.escapeShellArg ip} >> "$out/servers/"${lib.escapeShellArg host}
             '')
-            cfg.domainServers
-        )}
+            ips}
+        '')
+        cfg.domainServers
+    )}
 
-        # if a list of root servers was not provided in config, copy it
-        # over. (this is also done by dnscache-conf, but we 'rm -rf
-        # /var/lib/dnscache/root' below & replace it wholesale with this,
-        # so we have to ensure servers/@ exists ourselves.)
-        if [ ! -e $out/servers/@ ]; then
-          # symlink does not work here, due chroot
-          cp ${pkgs.djbdns}/etc/dnsroots.global $out/servers/@;
-        fi
-      ''
-  ;
+    # if a list of root servers was not provided in config, copy it
+    # over. (this is also done by dnscache-conf, but we 'rm -rf
+    # /var/lib/dnscache/root' below & replace it wholesale with this,
+    # so we have to ensure servers/@ exists ourselves.)
+    if [ ! -e $out/servers/@ ]; then
+      # symlink does not work here, due chroot
+      cp ${pkgs.djbdns}/etc/dnsroots.global $out/servers/@;
+    fi
+  '';
 in
 {
 
@@ -56,19 +51,13 @@ in
       enable = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Whether to run the dnscache caching dns server."
-        ;
+        description = lib.mdDoc "Whether to run the dnscache caching dns server.";
       };
 
       ip = mkOption {
         default = "0.0.0.0";
         type = types.str;
-        description =
-          lib.mdDoc
-            "IP address on which to listen for connections."
-        ;
+        description = lib.mdDoc "IP address on which to listen for connections.";
       };
 
       clientIps = mkOption {

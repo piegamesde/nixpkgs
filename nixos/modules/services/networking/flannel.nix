@@ -209,11 +209,7 @@ in
     # see: https://github.com/coreos/flannel/blob/master/Documentation/configuration.md#configuration
     environment.etc."kube-flannel/net-conf.json" =
       mkIf (cfg.storageBackend == "kubernetes")
-        {
-          source = pkgs.writeText "net-conf.json" (
-            builtins.toJSON networkConfig
-          );
-        }
+        { source = pkgs.writeText "net-conf.json" (builtins.toJSON networkConfig); }
     ;
   };
 }

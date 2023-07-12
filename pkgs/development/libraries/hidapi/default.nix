@@ -40,10 +40,7 @@ stdenv.mkDerivation (
       IOKit
     ];
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "Library for communicating with USB and Bluetooth HID devices";

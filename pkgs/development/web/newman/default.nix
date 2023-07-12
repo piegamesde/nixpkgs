@@ -12,10 +12,7 @@ let
     with lib;
     concatStrings (
       map
-        (
-          entry:
-          (concatStrings (mapAttrsToList (key: value: "${key}-${value}") entry))
-        )
+        (entry: (concatStrings (mapAttrsToList (key: value: "${key}-${value}") entry)))
         (importJSON ./package.json)
     )
   ;

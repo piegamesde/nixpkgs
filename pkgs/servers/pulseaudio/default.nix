@@ -179,9 +179,7 @@ stdenv.mkDerivation rec {
       "-Dalsa=${if !libOnly && alsaSupport then "enabled" else "disabled"}"
       "-Dasyncns=${if !libOnly then "enabled" else "disabled"}"
       "-Davahi=${if zeroconfSupport then "enabled" else "disabled"}"
-      "-Dbluez5=${
-        if !libOnly && bluetoothSupport then "enabled" else "disabled"
-      }"
+      "-Dbluez5=${if !libOnly && bluetoothSupport then "enabled" else "disabled"}"
       # advanced bluetooth audio codecs are provided by gstreamer
       "-Dbluez5-gstreamer=${
         if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then

@@ -135,8 +135,7 @@ in
             ExecStart = "${pkgs.physlock}/bin/physlock -d${
                 optionalString cfg.muteKernelMessages "m"
               }${optionalString cfg.disableSysRq "s"}${
-                optionalString (cfg.lockMessage != "")
-                  " -p \"${cfg.lockMessage}\""
+                optionalString (cfg.lockMessage != "") " -p \"${cfg.lockMessage}\""
               }";
           };
         };

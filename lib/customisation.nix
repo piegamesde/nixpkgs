@@ -86,23 +86,18 @@ rec {
       # Changes the original arguments with (potentially a function that returns) a set of new attributes
       overrideWith =
         newArgs:
-        origArgs
-        // (if lib.isFunction newArgs then newArgs origArgs else newArgs)
+        origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs)
       ;
 
       # Re-call the function but with different arguments
-      overrideArgs = copyArgs (
-        newArgs: makeOverridable f (overrideWith newArgs)
-      );
+      overrideArgs = copyArgs (newArgs: makeOverridable f (overrideWith newArgs));
       # Change the result of the function call by applying g to it
-      overrideResult =
-        g: makeOverridable (copyArgs (args: g (f args))) origArgs;
+      overrideResult = g: makeOverridable (copyArgs (args: g (f args))) origArgs;
     in
     if builtins.isAttrs result then
       result // {
         override = overrideArgs;
-        overrideDerivation =
-          fdrv: overrideResult (x: overrideDerivation x fdrv);
+        overrideDerivation = fdrv: overrideResult (x: overrideDerivation x fdrv);
         ${if result ? overrideAttrs then "overrideAttrs" else null} =
           fdrv: overrideResult (x: x.overrideAttrs fdrv);
       }
@@ -169,9 +164,7 @@ rec {
           # levenshteinAtMost is only fast for 2 or less.
           (lib.filter (lib.strings.levenshteinAtMost 2 arg))
           # Put strings with shorter distance first
-          (lib.sort (
-            x: y: lib.strings.levenshtein x arg < lib.strings.levenshtein y arg
-          ))
+          (lib.sort (x: y: lib.strings.levenshtein x arg < lib.strings.levenshtein y arg))
           # Only take the first couple results
           (lib.take 3)
           # Quote all entries
@@ -186,9 +179,9 @@ rec {
         else if lib.length suggestions == 1 then
           ", did you mean ${lib.elemAt suggestions 0}?"
         else
-          ", did you mean ${
-            lib.concatStringsSep ", " (lib.init suggestions)
-          } or ${lib.last suggestions}?"
+          ", did you mean ${lib.concatStringsSep ", " (lib.init suggestions)} or ${
+            lib.last suggestions
+          }?"
       ;
 
       errorForArg =
@@ -201,10 +194,7 @@ rec {
             if loc != null then
               loc.file + ":" + toString loc.line
             else if !lib.isFunction fn then
-              toString fn
-              +
-                lib.optionalString (lib.sources.pathIsDirectory fn)
-                  "/default.nix"
+              toString fn + lib.optionalString (lib.sources.pathIsDirectory fn) "/default.nix"
             else
               "<unknown location>"
           ;
@@ -373,8 +363,9 @@ rec {
         # overridden.
         overrideScope =
           g:
-          makeScopeWithSplicing splicePackages newScope otherSplices keep extra
-            (lib.fixedPoints.extends g f)
+          makeScopeWithSplicing splicePackages newScope otherSplices keep extra (
+            lib.fixedPoints.extends g f
+          )
         ;
         packages = f;
       };

@@ -110,10 +110,7 @@ lib.checkListOfEnum "${pname}: theme variants"
           lib.optionalString (sizeVariants != [ ]) "--size "
           + builtins.toString sizeVariants
         } \
-        ${
-          lib.optionalString (tweaks != [ ]) "--tweaks "
-          + builtins.toString tweaks
-        } \
+        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       ${lib.optionalString wallpapers ''

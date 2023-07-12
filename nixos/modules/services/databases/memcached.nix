@@ -57,10 +57,7 @@ in
       maxConnections = mkOption {
         type = types.ints.unsigned;
         default = 1024;
-        description =
-          lib.mdDoc
-            "The maximum number of simultaneous connections."
-        ;
+        description = lib.mdDoc "The maximum number of simultaneous connections.";
       };
 
       extraOptions = mkOption {
@@ -103,11 +100,9 @@ in
                 "-l ${cfg.listen} -p ${toString cfg.port}"
             ;
           in
-          "${memcached}/bin/memcached ${networking} -m ${
-            toString cfg.maxMemory
-          } -c ${toString cfg.maxConnections} ${
-            concatStringsSep " " cfg.extraOptions
-          }"
+          "${memcached}/bin/memcached ${networking} -m ${toString cfg.maxMemory} -c ${
+            toString cfg.maxConnections
+          } ${concatStringsSep " " cfg.extraOptions}"
         ;
 
         User = cfg.user;

@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp ${./update.sh} $out/bin/update.sh
     patchShebangs $out/bin/update.sh
-    wrapProgram $out/bin/update.sh --prefix PATH : ${
-      lib.makeBinPath buildInputs
-    }
+    wrapProgram $out/bin/update.sh --prefix PATH : ${lib.makeBinPath buildInputs}
   '';
   dontUnpack = true;
 

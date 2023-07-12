@@ -89,9 +89,7 @@ in
           trade-offs when using any upstream provider. Please consider that
           before using any of them.
 
-          Supported providers: ${
-            concatStringsSep ", " (builtins.attrNames providers)
-          }
+          Supported providers: ${concatStringsSep ", " (builtins.attrNames providers)}
 
           If you pick the custom provider, you will need to provide the
           bootstrap IP addresses as well as the resolver https URL.

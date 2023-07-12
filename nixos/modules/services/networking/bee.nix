@@ -28,10 +28,7 @@ in
         default = pkgs.bee;
         defaultText = literalExpression "pkgs.bee";
         example = literalExpression "pkgs.bee-unstable";
-        description =
-          lib.mdDoc
-            "The package providing the bee binary for the service."
-        ;
+        description = lib.mdDoc "The package providing the bee binary for the service.";
       };
 
       settings = mkOption {

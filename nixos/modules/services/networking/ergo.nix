@@ -62,10 +62,7 @@ in
         ip = mkOption {
           type = types.str;
           default = "0.0.0.0";
-          description =
-            lib.mdDoc
-              "IP address on which the Ergo node should listen."
-          ;
+          description = lib.mdDoc "IP address on which the Ergo node should listen.";
         };
 
         port = mkOption {

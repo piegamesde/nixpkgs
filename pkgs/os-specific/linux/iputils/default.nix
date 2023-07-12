@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
     libxslt.bin
     docbook_xsl_ns
   ];
-  buildInputs =
-    [ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
+  buildInputs = [ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
   nativeCheckInputs = [ iproute2 ];
 
   postInstall = ''

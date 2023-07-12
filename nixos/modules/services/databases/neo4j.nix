@@ -35,9 +35,7 @@ let
         else
           "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"}
         dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
-        dbms.ssl.policy.${name}.tls_versions=${
-          concatStringsSep "," conf.tlsVersions
-        }
+        dbms.ssl.policy.${name}.tls_versions=${concatStringsSep "," conf.tlsVersions}
         dbms.ssl.policy.${name}.trust_all=${boolToString conf.trustAll}
         dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
       '')
@@ -400,10 +398,7 @@ in
       data = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/data";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.directories.home}}/data"''
-        ;
+        defaultText = literalExpression ''"''${config.${opt.directories.home}}/data"'';
         description = lib.mdDoc ''
           Path of the data directory. You must not configure more than one
           Neo4j installation to use the same data directory.
@@ -567,8 +562,7 @@ in
                   default = "${cfg.directories.certificates}/${name}";
                   defaultText =
                     literalExpression
-                      ''
-                        "''${config.${opt.directories.certificates}}/''${name}"''
+                      ''"''${config.${opt.directories.certificates}}/''${name}"''
                   ;
                   description = lib.mdDoc ''
                     The mandatory base directory for cryptographic objects of this
@@ -707,15 +701,8 @@ in
 
               config.directoriesToCreate =
                 optionals
-                  (
-                    certDirOpt.highestPrio >= 1500
-                    && options.baseDirectory.highestPrio >= 1500
-                  )
-                  (
-                    map (opt: opt.value) (
-                      filter isDefaultPathOption (attrValues options)
-                    )
-                  )
+                  (certDirOpt.highestPrio >= 1500 && options.baseDirectory.highestPrio >= 1500)
+                  (map (opt: opt.value) (filter isDefaultPathOption (attrValues options)))
               ;
             }
           )
@@ -744,9 +731,7 @@ in
 
       # Capture various directories left at their default so they can be created.
       defaultDirectoriesToCreate = map (opt: opt.value) (
-        filter isDefaultPathOption (
-          attrValues options.services.neo4j.directories
-        )
+        filter isDefaultPathOption (attrValues options.services.neo4j.directories)
       );
       policyDirectoriesToCreate = concatMap (pol: pol.directoriesToCreate) (
         attrValues cfg.ssl.policies

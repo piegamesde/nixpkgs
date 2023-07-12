@@ -46,9 +46,7 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - slimserver slimserver - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - slimserver slimserver - -" ];
 
     systemd.services.slimserver = {
       after = [ "network.target" ];

@@ -187,10 +187,7 @@ in
         "server"
         "PROTOCOL"
       ]
-      (
-        config:
-        if config.services.gitea.enableUnixSocket then "http+unix" else "http"
-      )
+      (config: if config.services.gitea.enableUnixSocket then "http+unix" else "http")
     )
 
     (mkRemovedOptionModule
@@ -236,10 +233,7 @@ in
 
       customDir = mkOption {
         default = "${cfg.stateDir}/custom";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.stateDir}}/custom"''
-        ;
+        defaultText = literalExpression ''"''${config.${opt.stateDir}}/custom"'';
         type = types.str;
         description =
           lib.mdDoc
@@ -341,20 +335,14 @@ in
         path = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/data/gitea.db";
-          defaultText =
-            literalExpression
-              ''"''${config.${opt.stateDir}}/data/gitea.db"''
-          ;
+          defaultText = literalExpression ''"''${config.${opt.stateDir}}/data/gitea.db"'';
           description = lib.mdDoc "Path to the sqlite3 database file.";
         };
 
         createDatabase = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Whether to create a local database automatically."
-          ;
+          description = lib.mdDoc "Whether to create a local database automatically.";
         };
       };
 
@@ -383,10 +371,7 @@ in
         backupDir = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/dump";
-          defaultText =
-            literalExpression
-              ''"''${config.${opt.stateDir}}/dump"''
-          ;
+          defaultText = literalExpression ''"''${config.${opt.stateDir}}/dump"'';
           description = lib.mdDoc "Path to the dump files.";
         };
 
@@ -428,10 +413,7 @@ in
         contentDir = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/data/lfs";
-          defaultText =
-            literalExpression
-              ''"''${config.${opt.stateDir}}/data/lfs"''
-          ;
+          defaultText = literalExpression ''"''${config.${opt.stateDir}}/data/lfs"'';
           description = lib.mdDoc "Where to store LFS files.";
         };
       };
@@ -445,10 +427,7 @@ in
       repositoryRoot = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/repositories";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.stateDir}}/repositories"''
-        ;
+        defaultText = literalExpression ''"''${config.${opt.stateDir}}/repositories"'';
         description = lib.mdDoc "Path to the git repositories.";
       };
 
@@ -489,10 +468,7 @@ in
             log = {
               ROOT_PATH = mkOption {
                 default = "${cfg.stateDir}/log";
-                defaultText =
-                  literalExpression
-                    ''"''${config.${opt.stateDir}}/log"''
-                ;
+                defaultText = literalExpression ''"''${config.${opt.stateDir}}/log"'';
                 type = types.str;
                 description = lib.mdDoc "Root path for log files.";
               };
@@ -522,8 +498,7 @@ in
                 default = "http";
                 description =
                   lib.mdDoc
-                    ''
-                      Listen protocol. `+unix` means "over unix", not "in addition to."''
+                    ''Listen protocol. `+unix` means "over unix", not "in addition to."''
                 ;
               };
 
@@ -549,10 +524,7 @@ in
               HTTP_PORT = mkOption {
                 type = types.port;
                 default = 3000;
-                description =
-                  lib.mdDoc
-                    "Listen port. Ignored when using a unix socket."
-                ;
+                description = lib.mdDoc "Listen port. Ignored when using a unix socket.";
               };
 
               DOMAIN = mkOption {
@@ -579,10 +551,7 @@ in
                 default = cfg.package.data;
                 defaultText = literalExpression "config.${opt.package}.data";
                 example = "/var/lib/gitea/data";
-                description =
-                  lib.mdDoc
-                    "Upper level of template and static files path."
-                ;
+                description = lib.mdDoc "Upper level of template and static files path.";
               };
 
               DISABLE_SSH = mkOption {
@@ -604,18 +573,17 @@ in
             };
 
             service = {
-              DISABLE_REGISTRATION =
-                mkEnableOption (lib.mdDoc "the registration lock") // {
-                  description = lib.mdDoc ''
-                    By default any user can create an account on this `gitea` instance.
-                    This can be disabled by using this option.
+              DISABLE_REGISTRATION = mkEnableOption (lib.mdDoc "the registration lock") // {
+                description = lib.mdDoc ''
+                  By default any user can create an account on this `gitea` instance.
+                  This can be disabled by using this option.
 
-                    *Note:* please keep in mind that this should be added after the initial
-                    deploy unless [](#opt-services.gitea.useWizard)
-                    is `true` as the first registered user will be the administrator if
-                    no install wizard is used.
-                  '';
-                };
+                  *Note:* please keep in mind that this should be added after the initial
+                  deploy unless [](#opt-services.gitea.useWizard)
+                  is `true` as the first registered user will be the administrator if
+                  no install wizard is used.
+                '';
+              };
             };
 
             session = {
@@ -646,9 +614,7 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion =
-        cfg.database.createDatabase
-        -> useSqlite || cfg.database.user == cfg.user
-      ;
+        cfg.database.createDatabase -> useSqlite || cfg.database.user == cfg.user;
       message = "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
     } ];
 
@@ -691,9 +657,7 @@ in
         INSTALL_LOCK = true;
       };
 
-      mailer = mkIf (cfg.mailerPasswordFile != null) {
-        PASSWD = "#mailerpass#";
-      };
+      mailer = mkIf (cfg.mailerPasswordFile != null) { PASSWD = "#mailerpass#"; };
 
       oauth2 = {
         JWT_SECRET = "#oauth2jwtsecret#";

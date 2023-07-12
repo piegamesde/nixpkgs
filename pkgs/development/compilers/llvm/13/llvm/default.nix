@@ -100,9 +100,7 @@ stdenv.mkDerivation (
     ; # exegesis
 
     propagatedBuildInputs =
-      optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ]
-      ++ [ zlib ]
-    ;
+      optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ] ++ [ zlib ];
 
     nativeCheckInputs = [ which ];
 

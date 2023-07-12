@@ -136,10 +136,7 @@ in
       pluginDirs = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description =
-          lib.mdDoc
-            "The list of directories containing external plugins"
-        ;
+        description = lib.mdDoc "The list of directories containing external plugins";
       };
 
       managementPlugin = {

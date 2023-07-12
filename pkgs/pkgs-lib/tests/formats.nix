@@ -20,9 +20,7 @@ let
             #    final format during development.
             value =
               lib.throwIfNot (formatSet.type.check def)
-                (builtins.trace def
-                  "definition does not pass the type's check function"
-                )
+                (builtins.trace def "definition does not pass the type's check function")
                 def
             ;
             file = "def${toString n}";
@@ -181,9 +179,7 @@ runBuildTests {
     drv =
       evalFormat formats.ini
         {
-          listToValue = concatMapStringsSep ", " (
-            generators.mkValueStringDefault { }
-          );
+          listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { });
         }
         {
           foo = {
@@ -249,9 +245,7 @@ runBuildTests {
     drv =
       evalFormat formats.keyValue
         {
-          listToValue = concatMapStringsSep ", " (
-            generators.mkValueStringDefault { }
-          );
+          listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { });
         }
         {
           bar = [

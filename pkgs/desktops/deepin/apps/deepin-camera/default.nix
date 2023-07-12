@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace src/CMakeLists.txt \
       --replace "/usr/share/libimagevisualresult" "${image-editor}/share/libimagevisualresult" \
-      --replace "/usr/include/libusb-1.0" "${
-        lib.getDev libusb1
-      }/include/libusb-1.0"
+      --replace "/usr/include/libusb-1.0" "${lib.getDev libusb1}/include/libusb-1.0"
     substituteInPlace src/com.deepin.Camera.service \
       --replace "/usr/bin/qdbus" "${lib.getBin qttools}/bin/qdbus" \
       --replace "/usr/share" "$out/share"

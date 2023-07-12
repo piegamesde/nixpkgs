@@ -46,9 +46,7 @@ in
 
   config =
     let
-      package = cfg.package.override {
-        polkitPolicyOwners = cfg.polkitPolicyOwners;
-      };
+      package = cfg.package.override { polkitPolicyOwners = cfg.polkitPolicyOwners; };
     in
     mkIf cfg.enable {
       environment.systemPackages = [ package ];

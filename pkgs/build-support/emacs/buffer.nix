@@ -51,9 +51,7 @@ rec {
       (inherit-local 'process-environment)
       ; setenv modifies in place, so copy the environment first
       (setq process-environment (copy-tree process-environment))
-      (setenv "PATH" (concat "${
-        lib.makeSearchPath "bin" pkgs
-      }:" (getenv "PATH")))
+      (setenv "PATH" (concat "${lib.makeSearchPath "bin" pkgs}:" (getenv "PATH")))
       (inherit-local-permanent exec-path (append '(${
         builtins.concatStringsSep " " (map (p: ''"${p}/bin"'') pkgs)
       }) exec-path))
@@ -86,12 +84,7 @@ rec {
         let
           filtered =
             builtins.filter
-              (
-                name:
-                lib.hasPrefix (toString (project-root + "/${name}")) (
-                  toString root
-                )
-              )
+              (name: lib.hasPrefix (toString (project-root + "/${name}")) (toString root))
               (builtins.attrNames haskell-paths)
           ;
         in

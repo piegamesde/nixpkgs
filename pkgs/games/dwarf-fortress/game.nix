@@ -75,9 +75,7 @@ stdenv.mkDerivation {
       cp -r * $out
       rm $out/libs/lib*
 
-      exe=$out/${
-        if stdenv.isLinux then "libs/Dwarf_Fortress" else "dwarfort.exe"
-      }
+      exe=$out/${if stdenv.isLinux then "libs/Dwarf_Fortress" else "dwarfort.exe"}
 
       # Store the original hash
       md5sum $exe | awk '{ print $1 }' > $out/hash.md5.orig

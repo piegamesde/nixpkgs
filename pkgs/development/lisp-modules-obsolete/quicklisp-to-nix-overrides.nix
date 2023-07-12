@@ -153,8 +153,7 @@ in
       (
         x: {
           deps =
-            pkgs.lib.filter
-              (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
+            pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
               (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]))
           ;
           overrides =
@@ -178,8 +177,7 @@ in
       (
         x: {
           deps =
-            pkgs.lib.filter
-              (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
+            pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
               (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]))
           ;
           overrides =
@@ -315,15 +313,11 @@ in
     }
   ;
   cl-containers =
-    x: {
-      overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; };
-    }
-  ;
+    x: { overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; }; };
   mssql = addNativeLibs [ pkgs.freetds ];
   cl-unification =
     x: {
-      asdFilesToKeep =
-        (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ];
+      asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ];
     }
   ;
   simple-date =
@@ -343,8 +337,7 @@ in
   cl-postgres =
     x: {
       deps =
-        pkgs.lib.filter
-          (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath)
+        pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath)
           x.deps
       ;
       parasites =
@@ -360,8 +353,7 @@ in
   buildnode =
     x: {
       deps =
-        pkgs.lib.filter
-          (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name)
+        pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name)
           x.deps
       ;
       parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
@@ -381,8 +373,7 @@ in
         ++ [ "simple-date/postgres-glue" ]
       ;
       deps =
-        pkgs.lib.filter
-          (x: x.name != quicklisp-to-nix-packages.simple-date.name)
+        pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.simple-date.name)
           x.deps
       ;
     }

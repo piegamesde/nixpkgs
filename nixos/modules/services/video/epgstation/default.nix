@@ -221,10 +221,7 @@ in
         options.clientSocketioPort = lib.mkOption {
           type = lib.types.port;
           default = cfg.settings.socketioPort;
-          defaultText =
-            lib.literalExpression
-              "config.${opt.settings}.socketioPort"
-          ;
+          defaultText = lib.literalExpression "config.${opt.settings}.socketioPort";
           description = lib.mdDoc ''
             Socket.io port that the web client is going to connect to. This may
             be different from {option}`${opt.settings}.socketioPort` if
@@ -236,9 +233,7 @@ in
           with mirakurun;
           lib.mkOption {
             type = lib.types.str;
-            default = "http+unix://${
-                lib.replaceStrings [ "/" ] [ "%2F" ] sock
-              }";
+            default = "http+unix://${lib.replaceStrings [ "/" ] [ "%2F" ] sock}";
             defaultText = lib.literalExpression ''
               "http+unix://''${lib.replaceStrings ["/"] ["%2F"] config.${option}}"
             '';

@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
       if releasePath == null then
         fetchurl {
           urls = [
-            "https://files.renoise.com/demo/Renoise_${
-              urlVersion version
-            }_Demo_Linux.tar.gz"
+            "https://files.renoise.com/demo/Renoise_${urlVersion version}_Demo_Linux.tar.gz"
             "https://web.archive.org/web/https://files.renoise.com/demo/Renoise_${
               urlVersion version
             }_Demo_Linux.tar.gz"

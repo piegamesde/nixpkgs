@@ -10002,11 +10002,7 @@ let
             sources."minimatch-5.1.0"
             sources."node-fetch-3.3.0"
             sources."p-event-5.0.1"
-            (
-              sources."p-filter-3.0.0" // {
-                dependencies = [ sources."p-map-5.5.0" ];
-              }
-            )
+            (sources."p-filter-3.0.0" // { dependencies = [ sources."p-map-5.5.0" ]; })
             sources."p-limit-4.0.0"
             sources."p-locate-6.0.0"
             sources."p-timeout-5.1.0"
@@ -10014,16 +10010,8 @@ let
             sources."path-exists-5.0.0"
             sources."path-key-4.0.0"
             sources."path-type-5.0.0"
-            (
-              sources."pkg-dir-6.0.1" // {
-                dependencies = [ sources."find-up-6.3.0" ];
-              }
-            )
-            (
-              sources."read-pkg-7.1.0" // {
-                dependencies = [ sources."type-fest-2.19.0" ];
-              }
-            )
+            (sources."pkg-dir-6.0.1" // { dependencies = [ sources."find-up-6.3.0" ]; })
+            (sources."read-pkg-7.1.0" // { dependencies = [ sources."type-fest-2.19.0" ]; })
             (
               sources."read-pkg-up-9.1.0" // {
                 dependencies = [
@@ -10389,9 +10377,7 @@ let
       sources."ansi-regex-5.0.1"
       sources."ansi-styles-5.2.0"
       (
-        sources."ansi-to-html-0.7.2" // {
-          dependencies = [ sources."entities-2.2.0" ];
-        }
+        sources."ansi-to-html-0.7.2" // { dependencies = [ sources."entities-2.2.0" ]; }
       )
       sources."any-observable-0.3.0"
       sources."anymatch-3.1.2"
@@ -10427,9 +10413,7 @@ let
       sources."backoff-2.5.0"
       sources."balanced-match-1.0.2"
       (
-        sources."base-0.11.2" // {
-          dependencies = [ sources."define-property-1.0.0" ];
-        }
+        sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; }
       )
       sources."base64-js-1.5.1"
       sources."before-after-hook-2.2.2"
@@ -10438,11 +10422,7 @@ let
       sources."bindings-1.5.0"
       sources."bl-4.1.0"
       sources."blueimp-md5-2.19.0"
-      (
-        sources."boxen-5.1.2" // {
-          dependencies = [ sources."type-fest-0.20.2" ];
-        }
-      )
+      (sources."boxen-5.1.2" // { dependencies = [ sources."type-fest-0.20.2" ]; })
       sources."brace-expansion-1.1.11"
       sources."braces-3.0.2"
       sources."buffer-5.7.1"
@@ -10538,11 +10518,7 @@ let
       sources."compress-commons-4.1.1"
       sources."concat-map-0.0.1"
       sources."concordance-5.0.4"
-      (
-        sources."config-chain-1.1.13" // {
-          dependencies = [ sources."ini-1.3.8" ];
-        }
-      )
+      (sources."config-chain-1.1.13" // { dependencies = [ sources."ini-1.3.8" ]; })
       (
         sources."configstore-5.0.1" // {
           dependencies = [
@@ -10565,9 +10541,7 @@ let
         sources."copy-template-dir-1.4.0" // {
           dependencies = [
             (
-              sources."braces-2.3.2" // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             (
               sources."fill-range-4.0.0" // {
@@ -10575,11 +10549,7 @@ let
               }
             )
             sources."is-extendable-0.1.1"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."micromatch-3.1.10"
             sources."pump-1.0.3"
             sources."readable-stream-2.3.7"
@@ -10604,9 +10574,7 @@ let
             sources."array-union-1.0.2"
             sources."arrify-2.0.1"
             (
-              sources."braces-2.3.2" // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."cp-file-7.0.0"
             sources."dir-glob-2.2.2"
@@ -10616,26 +10584,14 @@ let
                 dependencies = [ sources."extend-shallow-2.0.1" ];
               }
             )
-            (
-              sources."glob-parent-3.1.0" // {
-                dependencies = [ sources."is-glob-3.1.0" ];
-              }
-            )
+            (sources."glob-parent-3.1.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })
             sources."globby-9.2.0"
             sources."ignore-4.0.6"
             sources."is-extendable-0.1.1"
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."micromatch-3.1.10"
             sources."p-map-3.0.0"
-            (
-              sources."path-type-3.0.0" // {
-                dependencies = [ sources."pify-3.0.0" ];
-              }
-            )
+            (sources."path-type-3.0.0" // { dependencies = [ sources."pify-3.0.0" ]; })
             sources."slash-2.0.0"
             sources."to-regex-range-2.1.1"
           ];
@@ -10657,11 +10613,7 @@ let
       (
         sources."decompress-4.2.1" // {
           dependencies = [
-            (
-              sources."make-dir-1.3.0" // {
-                dependencies = [ sources."pify-3.0.0" ];
-              }
-            )
+            (sources."make-dir-1.3.0" // { dependencies = [ sources."pify-3.0.0" ]; })
             sources."pify-2.3.0"
           ];
         }
@@ -10892,11 +10844,7 @@ let
       (
         sources."fetch-node-website-5.0.3" // {
           dependencies = [
-            (
-              sources."@jest/types-25.5.0" // {
-                dependencies = [ sources."chalk-3.0.0" ];
-              }
-            )
+            (sources."@jest/types-25.5.0" // { dependencies = [ sources."chalk-3.0.0" ]; })
             sources."@sindresorhus/is-2.1.1"
             sources."@types/istanbul-reports-1.1.2"
             sources."ansi-styles-4.3.0"
@@ -10909,9 +10857,7 @@ let
             sources."got-10.7.0"
             sources."jest-get-type-25.2.6"
             (
-              sources."jest-validate-25.5.0" // {
-                dependencies = [ sources."chalk-3.0.0" ];
-              }
+              sources."jest-validate-25.5.0" // { dependencies = [ sources."chalk-3.0.0" ]; }
             )
             sources."mimic-response-2.1.0"
             sources."pretty-format-25.5.0"
@@ -10953,9 +10899,7 @@ let
       sources."fragment-cache-0.2.1"
       sources."fresh-0.5.2"
       (
-        sources."from2-2.3.0" // {
-          dependencies = [ sources."readable-stream-2.3.7" ];
-        }
+        sources."from2-2.3.0" // { dependencies = [ sources."readable-stream-2.3.7" ]; }
       )
       sources."from2-array-0.0.4"
       sources."fs-constants-1.0.0"
@@ -10978,11 +10922,7 @@ let
       sources."get-value-2.0.6"
       sources."gh-release-fetch-3.0.2"
       sources."git-repo-info-2.1.1"
-      (
-        sources."gitconfiglocal-2.1.0" // {
-          dependencies = [ sources."ini-1.3.8" ];
-        }
-      )
+      (sources."gitconfiglocal-2.1.0" // { dependencies = [ sources."ini-1.3.8" ]; })
       sources."glob-7.2.3"
       sources."glob-parent-5.1.2"
       sources."glob-to-regexp-0.3.0"
@@ -10992,17 +10932,9 @@ let
       sources."graceful-fs-4.2.10"
       sources."graphql-16.5.0"
       sources."has-1.0.3"
-      (
-        sources."has-ansi-2.0.0" // {
-          dependencies = [ sources."ansi-regex-2.1.1" ];
-        }
-      )
+      (sources."has-ansi-2.0.0" // { dependencies = [ sources."ansi-regex-2.1.1" ]; })
       sources."has-flag-4.0.0"
-      (
-        sources."has-glob-1.0.0" // {
-          dependencies = [ sources."is-glob-3.1.0" ];
-        }
-      )
+      (sources."has-glob-1.0.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })
       sources."has-symbol-support-x-1.4.2"
       sources."has-symbols-1.0.3"
       sources."has-to-string-tag-x-1.4.1"
@@ -11011,28 +10943,18 @@ let
       (
         sources."has-values-1.0.0" // {
           dependencies = [
-            (
-              sources."is-number-3.0.0" // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."kind-of-4.0.0"
           ];
         }
       )
       sources."has-yarn-2.1.0"
       (sources."hasbin-1.2.3" // { dependencies = [ sources."async-1.5.2" ]; })
-      (
-        sources."hasha-5.2.2" // {
-          dependencies = [ sources."type-fest-0.8.1" ];
-        }
-      )
+      (sources."hasha-5.2.2" // { dependencies = [ sources."type-fest-0.8.1" ]; })
       sources."hosted-git-info-4.1.0"
       sources."http-cache-semantics-4.1.0"
       (
-        sources."http-errors-1.8.1" // {
-          dependencies = [ sources."statuses-1.5.0" ];
-        }
+        sources."http-errors-1.8.1" // { dependencies = [ sources."statuses-1.5.0" ]; }
       )
       sources."http-proxy-1.18.1"
       sources."http-proxy-middleware-2.0.6"
@@ -11137,11 +11059,7 @@ let
       sources."json-buffer-3.0.1"
       sources."json-parse-even-better-errors-2.3.1"
       sources."jsonfile-6.1.0"
-      (
-        sources."jsonwebtoken-8.5.1" // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."jsonwebtoken-8.5.1" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."junk-3.1.0"
       sources."jwa-1.4.1"
       sources."jws-3.2.2"
@@ -11260,11 +11178,7 @@ let
       sources."lru-cache-6.0.0"
       sources."luxon-3.0.1"
       sources."macos-release-3.0.1"
-      (
-        sources."make-dir-3.1.0" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."make-dir-3.1.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."make-error-1.3.6"
       sources."map-cache-0.2.2"
       sources."map-visit-1.0.0"
@@ -11312,9 +11226,7 @@ let
       )
       sources."moize-6.1.3"
       (
-        sources."move-file-3.0.0" // {
-          dependencies = [ sources."path-exists-5.0.0" ];
-        }
+        sources."move-file-3.0.0" // { dependencies = [ sources."path-exists-5.0.0" ]; }
       )
       sources."ms-2.1.3"
       (
@@ -11419,9 +11331,7 @@ let
             sources."is-accessor-descriptor-0.1.6"
             sources."is-data-descriptor-0.1.4"
             (
-              sources."is-descriptor-0.1.6" // {
-                dependencies = [ sources."kind-of-5.1.0" ];
-              }
+              sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; }
             )
             sources."kind-of-3.2.2"
           ];
@@ -11435,11 +11345,7 @@ let
       sources."on-headers-1.0.2"
       sources."once-1.4.0"
       sources."one-time-1.0.0"
-      (
-        sources."onetime-5.1.2" // {
-          dependencies = [ sources."mimic-fn-2.1.0" ];
-        }
-      )
+      (sources."onetime-5.1.2" // { dependencies = [ sources."mimic-fn-2.1.0" ]; })
       sources."open-8.4.0"
       (sources."opn-5.5.0" // { dependencies = [ sources."is-wsl-1.1.0" ]; })
       (
@@ -11454,17 +11360,9 @@ let
       sources."os-tmpdir-1.0.2"
       (sources."p-all-2.1.0" // { dependencies = [ sources."p-map-2.1.0" ]; })
       sources."p-cancelable-2.1.1"
-      (
-        sources."p-event-4.2.0" // {
-          dependencies = [ sources."p-timeout-3.2.0" ];
-        }
-      )
+      (sources."p-event-4.2.0" // { dependencies = [ sources."p-timeout-3.2.0" ]; })
       (sources."p-every-2.0.0" // { dependencies = [ sources."p-map-2.1.0" ]; })
-      (
-        sources."p-filter-2.1.0" // {
-          dependencies = [ sources."p-map-2.1.0" ];
-        }
-      )
+      (sources."p-filter-2.1.0" // { dependencies = [ sources."p-map-2.1.0" ]; })
       sources."p-finally-1.0.0"
       sources."p-is-promise-1.1.0"
       sources."p-limit-3.1.0"
@@ -11473,9 +11371,7 @@ let
       sources."p-reduce-3.0.0"
       sources."p-retry-5.1.1"
       (
-        sources."p-wait-for-3.2.0" // {
-          dependencies = [ sources."p-timeout-3.2.0" ];
-        }
+        sources."p-wait-for-3.2.0" // { dependencies = [ sources."p-timeout-3.2.0" ]; }
       )
       (
         sources."package-json-6.5.0" // {
@@ -11490,11 +11386,7 @@ let
             sources."decompress-response-3.3.0"
             sources."defer-to-connect-1.1.3"
             sources."get-stream-4.1.0"
-            (
-              sources."got-9.6.0" // {
-                dependencies = [ sources."lowercase-keys-1.0.1" ];
-              }
-            )
+            (sources."got-9.6.0" // { dependencies = [ sources."lowercase-keys-1.0.1" ]; })
             sources."json-buffer-3.0.0"
             sources."keyv-3.1.0"
             sources."normalize-url-4.5.1"
@@ -11595,11 +11487,7 @@ let
             sources."p-limit-2.3.0"
             sources."p-locate-4.1.0"
             sources."p-try-2.2.0"
-            (
-              sources."read-pkg-5.2.0" // {
-                dependencies = [ sources."type-fest-0.6.0" ];
-              }
-            )
+            (sources."read-pkg-5.2.0" // { dependencies = [ sources."type-fest-0.6.0" ]; })
             sources."resolve-1.22.1"
             sources."semver-5.7.1"
             sources."type-fest-0.8.1"
@@ -11610,9 +11498,7 @@ let
       sources."readdir-glob-1.1.1"
       sources."readdirp-3.6.0"
       (
-        sources."regex-not-1.0.2" // {
-          dependencies = [ sources."safe-regex-1.1.0" ];
-        }
+        sources."regex-not-1.0.2" // { dependencies = [ sources."safe-regex-1.1.0" ]; }
       )
       sources."registry-auth-token-4.2.1"
       sources."registry-url-5.1.0"
@@ -11655,24 +11541,14 @@ let
       sources."safe-stable-stringify-2.3.1"
       sources."safer-buffer-2.1.2"
       (
-        sources."seek-bzip-1.0.6" // {
-          dependencies = [ sources."commander-2.20.3" ];
-        }
+        sources."seek-bzip-1.0.6" // { dependencies = [ sources."commander-2.20.3" ]; }
       )
       sources."semver-7.3.8"
-      (
-        sources."semver-diff-3.1.1" // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."semver-diff-3.1.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
         sources."send-0.18.0" // {
           dependencies = [
-            (
-              sources."debug-2.6.9" // {
-                dependencies = [ sources."ms-2.0.0" ];
-              }
-            )
+            (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
             sources."depd-2.0.0"
             sources."http-errors-2.0.0"
           ];
@@ -11825,11 +11701,7 @@ let
       (sources."tar-6.1.11" // { dependencies = [ sources."mkdirp-1.0.4" ]; })
       sources."tar-stream-2.2.0"
       sources."temp-dir-2.0.0"
-      (
-        sources."tempy-1.0.1" // {
-          dependencies = [ sources."type-fest-0.16.0" ];
-        }
-      )
+      (sources."tempy-1.0.1" // { dependencies = [ sources."type-fest-0.16.0" ]; })
       (
         sources."terminal-link-2.1.1" // {
           dependencies = [
@@ -11859,11 +11731,7 @@ let
       sources."time-zone-1.0.0"
       sources."timed-out-4.0.1"
       sources."tmp-0.0.33"
-      (
-        sources."tmp-promise-3.0.3" // {
-          dependencies = [ sources."tmp-0.2.1" ];
-        }
-      )
+      (sources."tmp-promise-3.0.3" // { dependencies = [ sources."tmp-0.2.1" ]; })
       sources."to-buffer-1.1.1"
       (
         sources."to-object-path-0.3.0" // {
@@ -11871,11 +11739,7 @@ let
         }
       )
       sources."to-readable-stream-2.1.0"
-      (
-        sources."to-regex-3.0.2" // {
-          dependencies = [ sources."safe-regex-1.1.0" ];
-        }
-      )
+      (sources."to-regex-3.0.2" // { dependencies = [ sources."safe-regex-1.1.0" ]; })
       sources."to-regex-range-5.0.1"
       sources."toidentifier-1.0.1"
       sources."toml-3.0.0"
@@ -11913,11 +11777,7 @@ let
       (
         sources."unset-value-1.0.0" // {
           dependencies = [
-            (
-              sources."has-value-0.3.1" // {
-                dependencies = [ sources."isobject-2.1.0" ];
-              }
-            )
+            (sources."has-value-0.3.1" // { dependencies = [ sources."isobject-2.1.0" ]; })
             sources."has-values-0.1.4"
           ];
         }

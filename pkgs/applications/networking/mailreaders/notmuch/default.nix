@@ -81,9 +81,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     [
       "--zshcompletiondir=${placeholder "out"}/share/zsh/site-functions"
-      "--bashcompletiondir=${
-        placeholder "out"
-      }/share/bash-completion/completions"
+      "--bashcompletiondir=${placeholder "out"}/share/bash-completion/completions"
       "--infodir=${placeholder "info"}/share/info"
     ]
     ++ lib.optional (!withEmacs) "--without-emacs"
@@ -129,8 +127,7 @@ stdenv.mkDerivation rec {
   ;
 
   doCheck =
-    !stdenv.hostPlatform.isDarwin && (lib.versionAtLeast gmime3.version "3.0.3")
-  ;
+    !stdenv.hostPlatform.isDarwin && (lib.versionAtLeast gmime3.version "3.0.3");
   checkTarget = "test";
   nativeCheckInputs = [
     which

@@ -63,8 +63,7 @@ runTests {
   };
 
   testAllOptionalRemainOptional = {
-    expr =
-      (getConfig allOptionalRemainOptional)."NIXOS_FAKE_USB_DEBUG".optional;
+    expr = (getConfig allOptionalRemainOptional)."NIXOS_FAKE_USB_DEBUG".optional;
     expected = true;
   };
 

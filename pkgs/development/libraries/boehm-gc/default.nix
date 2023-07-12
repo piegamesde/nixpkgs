@@ -45,8 +45,7 @@ stdenv.mkDerivation (
     # not fix the problem the test failure will be a reminder to
     # extend the set of versions requiring the workaround).
     makeFlags =
-      lib.optionals
-        (stdenv.hostPlatform.isPower64 && finalAttrs.version == "8.2.2")
+      lib.optionals (stdenv.hostPlatform.isPower64 && finalAttrs.version == "8.2.2")
         [
           # do not use /proc primitives to track dirty bits; see:
           # https://github.com/ivmai/bdwgc/issues/479#issuecomment-1279687537

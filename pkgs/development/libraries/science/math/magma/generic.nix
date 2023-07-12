@@ -51,10 +51,7 @@ let
   supportedRocmArches = lists.intersectLists rocmArches supportedGpuTargets;
   unsupportedRocmArches = lists.subtractLists supportedRocmArches rocmArches;
 
-  supportedCustomGpuTargets =
-    lists.intersectLists gpuTargets
-      supportedGpuTargets
-  ;
+  supportedCustomGpuTargets = lists.intersectLists gpuTargets supportedGpuTargets;
   unsupportedCustomGpuTargets =
     lists.subtractLists supportedCustomGpuTargets
       gpuTargets
@@ -89,9 +86,7 @@ let
   cudaArchitecturesString = strings.concatStringsSep ";" cudaArchitectures;
   minArch =
     let
-      minArch' = builtins.head (
-        builtins.sort strings.versionOlder cudaArchitectures
-      );
+      minArch' = builtins.head (builtins.sort strings.versionOlder cudaArchitectures);
     in
     # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
     "${minArch'}0"

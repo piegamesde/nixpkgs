@@ -44,9 +44,7 @@ let
 
           fetch =
             if (url != "") then
-              ((if authenticated then requireFile else fetchurl) {
-                inherit url sha1;
-              })
+              ((if authenticated then requireFile else fetchurl) { inherit url sha1; })
             else
               ""
           ;
@@ -70,8 +68,7 @@ let
           } ]
           ++ lib.optional (fetch != "") {
             layout = "${layout}/${
-                builtins.replaceStrings [ version ] [ dep.unresolved-version ]
-                  fetch.name
+                builtins.replaceStrings [ version ] [ dep.unresolved-version ] fetch.name
               }";
             drv = fetch;
           }

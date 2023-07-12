@@ -68,8 +68,7 @@ let
   '';
 
   buildDocs =
-    stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isStatic
-  ;
+    stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isStatic;
 in
 
 stdenv.mkDerivation (
@@ -316,17 +315,14 @@ stdenv.mkDerivation (
     passthru = rec {
       gioModuleDir = "lib/gio/modules";
 
-      makeSchemaDataDirPath =
-        dir: name: "${dir}/share/gsettings-schemas/${name}";
+      makeSchemaDataDirPath = dir: name: "${dir}/share/gsettings-schemas/${name}";
       makeSchemaPath =
         dir: name: "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
       getSchemaPath = pkg: makeSchemaPath pkg pkg.name;
       getSchemaDataDirPath = pkg: makeSchemaDataDirPath pkg pkg.name;
 
       tests = {
-        withChecks = finalAttrs.finalPackage.overrideAttrs (
-          _: { doCheck = true; }
-        );
+        withChecks = finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
         pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
       };
 

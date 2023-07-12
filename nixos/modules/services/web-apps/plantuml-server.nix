@@ -54,10 +54,7 @@ in
       home = mkOption {
         type = types.str;
         default = "/var/lib/plantuml";
-        description =
-          lib.mdDoc
-            "Home directory of the PlantUML server instance."
-        ;
+        description = lib.mdDoc "Home directory of the PlantUML server instance.";
       };
 
       listenHost = mkOption {
@@ -133,8 +130,7 @@ in
         GRAPHVIZ_DOT = "${cfg.graphvizPackage}/bin/dot";
         PLANTUML_STATS = if cfg.plantumlStats then "on" else "off";
         HTTP_AUTHORIZATION = cfg.httpAuthorization;
-        ALLOW_PLANTUML_INCLUDE =
-          if cfg.allowPlantumlInclude then "true" else "false";
+        ALLOW_PLANTUML_INCLUDE = if cfg.allowPlantumlInclude then "true" else "false";
       };
       script = ''
         ${cfg.packages.jdk}/bin/java \

@@ -565,8 +565,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."brace-expansion"."^1.0.0" =
-    self.by-version."brace-expansion"."1.1.0";
+  by-spec."brace-expansion"."^1.0.0" = self.by-version."brace-expansion"."1.1.0";
   by-version."brace-expansion"."1.1.0" = self.buildNodePackage {
     name = "brace-expansion-1.1.0";
     version = "1.1.0";
@@ -703,8 +702,7 @@
     };
     deps = {
       "ansi-styles-2.0.1" = self.by-version."ansi-styles"."2.0.1";
-      "escape-string-regexp-1.0.3" =
-        self.by-version."escape-string-regexp"."1.0.3";
+      "escape-string-regexp-1.0.3" = self.by-version."escape-string-regexp"."1.0.3";
       "has-ansi-1.0.3" = self.by-version."has-ansi"."1.0.3";
       "strip-ansi-2.0.1" = self.by-version."strip-ansi"."2.0.1";
       "supports-color-1.3.1" = self.by-version."supports-color"."1.3.1";
@@ -726,8 +724,7 @@
     };
     deps = {
       "ansi-styles-1.1.0" = self.by-version."ansi-styles"."1.1.0";
-      "escape-string-regexp-1.0.3" =
-        self.by-version."escape-string-regexp"."1.0.3";
+      "escape-string-regexp-1.0.3" = self.by-version."escape-string-regexp"."1.0.3";
       "has-ansi-0.1.0" = self.by-version."has-ansi"."0.1.0";
       "strip-ansi-0.3.0" = self.by-version."strip-ansi"."0.3.0";
       "supports-color-0.2.0" = self.by-version."supports-color"."0.2.0";
@@ -771,8 +768,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."combined-stream"."~0.0.4" =
-    self.by-version."combined-stream"."0.0.7";
+  by-spec."combined-stream"."~0.0.4" = self.by-version."combined-stream"."0.0.7";
   by-version."combined-stream"."0.0.7" = self.buildNodePackage {
     name = "combined-stream-0.0.7";
     version = "0.0.7";
@@ -790,8 +786,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."combined-stream"."~0.0.5" =
-    self.by-version."combined-stream"."0.0.7";
+  by-spec."combined-stream"."~0.0.5" = self.by-version."combined-stream"."0.0.7";
   by-spec."commander"."0.6.1" = self.by-version."commander"."0.6.1";
   by-version."commander"."0.6.1" = self.buildNodePackage {
     name = "commander-0.6.1";
@@ -983,8 +978,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."cookie-signature"."1.0.6" =
-    self.by-version."cookie-signature"."1.0.6";
+  by-spec."cookie-signature"."1.0.6" = self.by-version."cookie-signature"."1.0.6";
   by-version."cookie-signature"."1.0.6" = self.buildNodePackage {
     name = "cookie-signature-1.0.6";
     version = "1.0.6";
@@ -1591,8 +1585,7 @@
     };
     deps = {
       "accepts-1.2.7" = self.by-version."accepts"."1.2.7";
-      "content-disposition-0.5.0" =
-        self.by-version."content-disposition"."0.5.0";
+      "content-disposition-0.5.0" = self.by-version."content-disposition"."0.5.0";
       "content-type-1.0.1" = self.by-version."content-type"."1.0.1";
       "cookie-0.1.2" = self.by-version."cookie"."0.1.2";
       "cookie-signature-1.0.6" = self.by-version."cookie-signature"."1.0.6";
@@ -1728,8 +1721,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."flagged-respawn"."~0.3.0" =
-    self.by-version."flagged-respawn"."0.3.1";
+  by-spec."flagged-respawn"."~0.3.0" = self.by-version."flagged-respawn"."0.3.1";
   by-version."flagged-respawn"."0.3.1" = self.buildNodePackage {
     name = "flagged-respawn-0.3.1";
     version = "0.3.1";
@@ -2403,8 +2395,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."http-signature"."~0.10.0" =
-    self.by-version."http-signature"."0.10.1";
+  by-spec."http-signature"."~0.10.0" = self.by-version."http-signature"."0.10.1";
   by-version."http-signature"."0.10.1" = self.buildNodePackage {
     name = "http-signature-0.10.1";
     version = "0.10.1";
@@ -2684,8 +2675,7 @@
     os = [ ];
     cpu = [ ];
   };
-  "jayschema-error-messages" =
-    self.by-version."jayschema-error-messages"."1.0.3";
+  "jayschema-error-messages" = self.by-version."jayschema-error-messages"."1.0.3";
   by-spec."js-yaml"."3.0.1" = self.by-version."js-yaml"."3.0.1";
   by-version."js-yaml"."3.0.1" = self.buildNodePackage {
     name = "js-yaml-3.0.1";
@@ -2929,10 +2919,8 @@
       sha1 = "9f18b1f3749a95e197b5ff2ae752ea9851ada965";
     };
     deps = {
-      "lodash._basetostring-3.0.0" =
-        self.by-version."lodash._basetostring"."3.0.0";
-      "lodash._createpadding-3.6.0" =
-        self.by-version."lodash._createpadding"."3.6.0";
+      "lodash._basetostring-3.0.0" = self.by-version."lodash._basetostring"."3.0.0";
+      "lodash._createpadding-3.6.0" = self.by-version."lodash._createpadding"."3.6.0";
     };
     optionalDependencies = { };
     peerDependencies = [ ];
@@ -2950,18 +2938,15 @@
       sha1 = "150151f1e0245edba15d50af2d71f1d5cff46530";
     };
     deps = {
-      "lodash._basetostring-3.0.0" =
-        self.by-version."lodash._basetostring"."3.0.0";
-      "lodash._createpadding-3.6.0" =
-        self.by-version."lodash._createpadding"."3.6.0";
+      "lodash._basetostring-3.0.0" = self.by-version."lodash._basetostring"."3.0.0";
+      "lodash._createpadding-3.6.0" = self.by-version."lodash._createpadding"."3.6.0";
     };
     optionalDependencies = { };
     peerDependencies = [ ];
     os = [ ];
     cpu = [ ];
   };
-  by-spec."lodash.padright"."^3.0.0" =
-    self.by-version."lodash.padright"."3.1.1";
+  by-spec."lodash.padright"."^3.0.0" = self.by-version."lodash.padright"."3.1.1";
   by-version."lodash.padright"."3.1.1" = self.buildNodePackage {
     name = "lodash.padright-3.1.1";
     version = "3.1.1";
@@ -2972,10 +2957,8 @@
       sha1 = "79f7770baaa39738c040aeb5465e8d88f2aacec0";
     };
     deps = {
-      "lodash._basetostring-3.0.0" =
-        self.by-version."lodash._basetostring"."3.0.0";
-      "lodash._createpadding-3.6.0" =
-        self.by-version."lodash._createpadding"."3.6.0";
+      "lodash._basetostring-3.0.0" = self.by-version."lodash._basetostring"."3.0.0";
+      "lodash._createpadding-3.6.0" = self.by-version."lodash._createpadding"."3.6.0";
     };
     optionalDependencies = { };
     peerDependencies = [ ];
@@ -2993,8 +2976,7 @@
       sha1 = "c340f4136c99dc5b2e397b3fd50cffbd172a94b0";
     };
     deps = {
-      "lodash._basetostring-3.0.0" =
-        self.by-version."lodash._basetostring"."3.0.0";
+      "lodash._basetostring-3.0.0" = self.by-version."lodash._basetostring"."3.0.0";
     };
     optionalDependencies = { };
     peerDependencies = [ ];
@@ -3442,8 +3424,7 @@
       "commander-2.3.0" = self.by-version."commander"."2.3.0";
       "debug-2.0.0" = self.by-version."debug"."2.0.0";
       "diff-1.0.8" = self.by-version."diff"."1.0.8";
-      "escape-string-regexp-1.0.2" =
-        self.by-version."escape-string-regexp"."1.0.2";
+      "escape-string-regexp-1.0.2" = self.by-version."escape-string-regexp"."1.0.2";
       "glob-3.2.3" = self.by-version."glob"."3.2.3";
       "growl-1.8.1" = self.by-version."growl"."1.8.1";
       "jade-0.26.3" = self.by-version."jade"."0.26.3";
@@ -4029,8 +4010,7 @@
     deps = {
       "minimist-0.0.10" = self.by-version."minimist"."0.0.10";
       "deep-extend-0.2.11" = self.by-version."deep-extend"."0.2.11";
-      "strip-json-comments-0.1.3" =
-        self.by-version."strip-json-comments"."0.1.3";
+      "strip-json-comments-0.1.3" = self.by-version."strip-json-comments"."0.1.3";
       "ini-1.3.3" = self.by-version."ini"."1.3.3";
     };
     optionalDependencies = { };
@@ -4084,8 +4064,7 @@
   };
   by-spec."readable-stream"."^1.1.13" =
     self.by-version."readable-stream"."1.1.13";
-  by-spec."readable-stream"."~1.0.2" =
-    self.by-version."readable-stream"."1.0.33";
+  by-spec."readable-stream"."~1.0.2" = self.by-version."readable-stream"."1.0.33";
   by-version."readable-stream"."1.0.33" = self.buildNodePackage {
     name = "readable-stream-1.0.33";
     version = "1.0.33";
@@ -4108,8 +4087,7 @@
   };
   by-spec."readable-stream"."~1.0.26" =
     self.by-version."readable-stream"."1.0.33";
-  by-spec."reduce-component"."1.0.1" =
-    self.by-version."reduce-component"."1.0.1";
+  by-spec."reduce-component"."1.0.1" = self.by-version."reduce-component"."1.0.1";
   by-version."reduce-component"."1.0.1" = self.buildNodePackage {
     name = "reduce-component-1.0.1";
     version = "1.0.1";
@@ -4137,8 +4115,7 @@
     };
     deps = {
       "qs-1.0.2" = self.by-version."qs"."1.0.2";
-      "json-stringify-safe-5.0.0" =
-        self.by-version."json-stringify-safe"."5.0.0";
+      "json-stringify-safe-5.0.0" = self.by-version."json-stringify-safe"."5.0.0";
       "mime-types-1.0.2" = self.by-version."mime-types"."1.0.2";
       "forever-agent-0.5.2" = self.by-version."forever-agent"."0.5.2";
       "node-uuid-1.4.3" = self.by-version."node-uuid"."1.4.3";
@@ -4172,8 +4149,7 @@
       "caseless-0.9.0" = self.by-version."caseless"."0.9.0";
       "forever-agent-0.6.1" = self.by-version."forever-agent"."0.6.1";
       "form-data-0.2.0" = self.by-version."form-data"."0.2.0";
-      "json-stringify-safe-5.0.0" =
-        self.by-version."json-stringify-safe"."5.0.0";
+      "json-stringify-safe-5.0.0" = self.by-version."json-stringify-safe"."5.0.0";
       "mime-types-2.0.11" = self.by-version."mime-types"."2.0.11";
       "node-uuid-1.4.3" = self.by-version."node-uuid"."1.4.3";
       "qs-2.4.2" = self.by-version."qs"."2.4.2";
@@ -4606,8 +4582,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."string_decoder"."~0.10.x" =
-    self.by-version."string_decoder"."0.10.31";
+  by-spec."string_decoder"."~0.10.x" = self.by-version."string_decoder"."0.10.31";
   by-version."string_decoder"."0.10.31" = self.buildNodePackage {
     name = "string_decoder-0.10.31";
     version = "0.10.31";

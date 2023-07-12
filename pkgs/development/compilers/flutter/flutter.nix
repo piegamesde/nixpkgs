@@ -57,9 +57,7 @@
 let
   engineArtifactDirectory =
     let
-      engineArtifacts = callPackage ./engine-artifacts {
-        inherit engineVersion;
-      };
+      engineArtifacts = callPackage ./engine-artifacts { inherit engineVersion; };
     in
     runCommandLocal "flutter-engine-artifacts-${version}" { } (
       let
@@ -94,16 +92,10 @@ let
         ${builtins.concatStringsSep "\n" (
           (map
             (
-              name:
-              mkCommonArtifactLinkCommand {
-                artifact = engineArtifacts.common.${name};
-              }
+              name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; }
             )
             (
-              if includedEngineArtifacts ? common then
-                includedEngineArtifacts.common
-              else
-                [ ]
+              if includedEngineArtifacts ? common then includedEngineArtifacts.common else [ ]
             )
           )
           ++ (builtins.foldl'
@@ -134,12 +126,7 @@ let
                       )
                     )
                     (map
-                      (
-                        artifact:
-                        mkPlatformArtifactLinkCommand {
-                          inherit artifact os architecture;
-                        }
-                      )
+                      (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
                       engineArtifacts.platform.${os}.${architecture}.base
                     )
                     includedEngineArtifacts.platform.${os}.${architecture}

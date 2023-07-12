@@ -32,10 +32,7 @@ stdenv.mkDerivation (
       "dev"
     ];
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
       description = "OpenGL utility library";

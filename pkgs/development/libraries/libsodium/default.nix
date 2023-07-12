@@ -21,39 +21,28 @@ stdenv.mkDerivation (
       "dev"
     ];
 
-    patches =
-      lib.optional stdenv.targetPlatform.isMinGW
-        ./mingw-no-fortify.patch
-    ;
+    patches = lib.optional stdenv.targetPlatform.isMinGW ./mingw-no-fortify.patch;
 
-    nativeBuildInputs =
-      lib.optional stdenv.targetPlatform.isMinGW
-        autoreconfHook
-    ;
+    nativeBuildInputs = lib.optional stdenv.targetPlatform.isMinGW autoreconfHook;
 
     separateDebugInfo = stdenv.isLinux && stdenv.hostPlatform.libc != "musl";
 
     enableParallelBuilding = true;
     hardeningDisable =
-      lib.optional
-        (stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32)
+      lib.optional (stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32)
         "stackprotector"
     ;
 
     # FIXME: the hardeingDisable attr above does not seems effective, so
     # the need to disable stackprotector via configureFlags
     configureFlags =
-      lib.optional
-        (stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32)
+      lib.optional (stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32)
         "--disable-ssp"
     ;
 
     doCheck = true;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "A modern and easy-to-use crypto library";

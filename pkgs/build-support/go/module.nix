@@ -80,10 +80,7 @@ let
   ;
   vendorHashType =
     if hasAnyVendorHash then
-      if vendorSha256 != null && vendorSha256 != "_unset" then
-        "sha256"
-      else
-        "sri"
+      if vendorSha256 != null && vendorSha256 != "_unset" then "sha256" else "sri"
     else
       null
   ;
@@ -220,9 +217,9 @@ let
               }
             else
               { outputHash = vendorHash; }
-          ) // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "")
-            { outputHashAlgo = "sha256"; }
-          )
+          ) // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
+            outputHashAlgo = "sha256";
+          })
         ) // overrideModAttrs modArgs
       )
     else

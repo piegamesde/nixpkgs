@@ -56,10 +56,7 @@ stdenv.mkDerivation rec {
   '';
 
   # do not use x87's 80-bit arithmetic, rouding errors result in very different font binaries
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isi686
-      "-msse2 -mfpmath=sse"
-  ;
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
 
   nativeBuildInputs = [
     pkg-config

@@ -111,8 +111,7 @@ let
           {
             inherit (edk2) src;
 
-            depsBuildBuild =
-              [ buildPackages.stdenv.cc ] ++ attrs.depsBuildBuild or [ ];
+            depsBuildBuild = [ buildPackages.stdenv.cc ] ++ attrs.depsBuildBuild or [ ];
             nativeBuildInputs =
               [
                 bc

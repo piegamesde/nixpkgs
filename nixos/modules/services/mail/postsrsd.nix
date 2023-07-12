@@ -46,10 +46,7 @@ in
           "+"
         ];
         default = "=";
-        description =
-          lib.mdDoc
-            "First separator character in generated addresses"
-        ;
+        description = lib.mdDoc "First separator character in generated addresses";
       };
 
       # bindAddress = mkOption { # uncomment once 1.5 is released
@@ -73,10 +70,7 @@ in
       timeout = mkOption {
         type = types.int;
         default = 1800;
-        description =
-          lib.mdDoc
-            "Timeout for idle client connections in seconds"
-        ;
+        description = lib.mdDoc "Timeout for idle client connections in seconds";
       };
 
       excludeDomains = mkOption {

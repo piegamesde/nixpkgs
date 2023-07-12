@@ -36,9 +36,7 @@ import ./make-test-python.nix (
         machine.wait_for_open_port(${toString port})
 
         machine.succeed("curl --fail http://localhost:${toString port}/?uri")
-        machine.succeed("curl --fail http://localhost:${
-          toString port
-        }/js/embed.min.js")
+        machine.succeed("curl --fail http://localhost:${toString port}/js/embed.min.js")
       ''
     ;
   }

@@ -89,12 +89,7 @@ let
           [
             "-DBoost_USE_STATIC_LIBS=OFF"
           ]
-          ++ (
-            if z3Support then
-              [ "-DSTRICT_Z3_VERSION=OFF" ]
-            else
-              [ "-DUSE_Z3=OFF" ]
-          )
+          ++ (if z3Support then [ "-DSTRICT_Z3_VERSION=OFF" ] else [ "-DUSE_Z3=OFF" ])
           ++ lib.optionals (!cvc4Support) [ "-DUSE_CVC4=OFF" ]
         ;
 
@@ -138,9 +133,7 @@ let
             patchShebangs "$i"
           done
           ## TODO: reenable tests below after adding evmone and hera and their dependencies to nixpkgs
-          #TERM=xterm ./scripts/tests.sh ${
-            lib.optionalString z3Support "--no-smt"
-          }
+          #TERM=xterm ./scripts/tests.sh ${lib.optionalString z3Support "--no-smt"}
           popd
         '';
 

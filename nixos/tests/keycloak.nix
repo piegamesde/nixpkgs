@@ -14,10 +14,7 @@ let
     }:
     let
       initialAdminPassword = ''h4Iho"JFn't2>iQIR9'';
-      adminPasswordFile =
-        pkgs.writeText "admin-password"
-          "${initialAdminPassword}"
-      ;
+      adminPasswordFile = pkgs.writeText "admin-password" "${initialAdminPassword}";
     in
     {
       name = "keycloak";
@@ -100,9 +97,7 @@ let
             ];
           };
 
-          realmDataJson = pkgs.writeText "realm-data.json" (
-            builtins.toJSON realm
-          );
+          realmDataJson = pkgs.writeText "realm-data.json" (builtins.toJSON realm);
 
           jqCheckUserinfo = pkgs.writeText "check-userinfo.jq" ''
             if {

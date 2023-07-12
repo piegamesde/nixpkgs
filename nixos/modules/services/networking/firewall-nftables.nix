@@ -122,12 +122,10 @@ in
             ''
           }
           ${
-            optionalString
-              (cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly)
-              ''
-                pkttype broadcast log level info prefix "refused broadcast: "
-                pkttype multicast log level info prefix "refused multicast: "
-              ''
+            optionalString (cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly) ''
+              pkttype broadcast log level info prefix "refused broadcast: "
+              pkttype multicast log level info prefix "refused multicast: "
+            ''
           }
           ${
             optionalString cfg.logRefusedPackets ''
@@ -152,24 +150,13 @@ in
                 (
                   iface: cfg:
                   let
-                    ifaceExpr =
-                      optionalString (iface != "default")
-                        "iifname ${iface}"
-                    ;
-                    tcpSet =
-                      portsToNftSet cfg.allowedTCPPorts
-                        cfg.allowedTCPPortRanges
-                    ;
-                    udpSet =
-                      portsToNftSet cfg.allowedUDPPorts
-                        cfg.allowedUDPPortRanges
-                    ;
+                    ifaceExpr = optionalString (iface != "default") "iifname ${iface}";
+                    tcpSet = portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
+                    udpSet = portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
                   in
                   ''
-                    ${optionalString (tcpSet != "")
-                      "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
-                    ${optionalString (udpSet != "")
-                      "${ifaceExpr} udp dport { ${udpSet} } accept"}
+                    ${optionalString (tcpSet != "") "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
+                    ${optionalString (udpSet != "") "${ifaceExpr} udp dport { ${udpSet} } accept"}
                   ''
                 )
                 cfg.allInterfaces
@@ -179,8 +166,7 @@ in
           ${
             optionalString cfg.allowPing ''
               icmp type echo-request ${
-                optionalString (cfg.pingLimit != null)
-                  "limit rate ${cfg.pingLimit}"
+                optionalString (cfg.pingLimit != null) "limit rate ${cfg.pingLimit}"
               } accept comment "allow ping"
             ''
           }

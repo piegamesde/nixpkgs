@@ -61,10 +61,7 @@ in
     user = mkOption {
       type = types.str;
       default = "portunus";
-      description =
-        lib.mdDoc
-          "User account under which Portunus runs its webserver."
-      ;
+      description = lib.mdDoc "User account under which Portunus runs its webserver.";
     };
 
     group = mkOption {
@@ -93,10 +90,7 @@ in
             options = {
               callbackURL = mkOption {
                 type = types.str;
-                description =
-                  lib.mdDoc
-                    "URL where the OIDC client should redirect"
-                ;
+                description = lib.mdDoc "URL where the OIDC client should redirect";
               };
               id = mkOption {
                 type = types.str;
@@ -278,8 +272,7 @@ in
           PORTUNUS_SEED_PATH = cfg.seedPath;
         })) // (optionalAttrs cfg.ldap.tls (
           let
-            acmeDirectory =
-              config.security.acme.certs."${cfg.domain}".directory;
+            acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
           in
           {
             PORTUNUS_SLAPD_TLS_CA_CERTIFICATE = "/etc/ssl/certs/ca-certificates.crt";

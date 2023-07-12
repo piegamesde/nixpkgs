@@ -123,8 +123,7 @@ let
       auto = builtins.intersectAttrs (lib.functionArgs drv) scope;
 
       # Converts a returned function to a functor attribute set if necessary
-      ensureAttrs =
-        v: if builtins.isFunction v then { __functor = _: v; } else v;
+      ensureAttrs = v: if builtins.isFunction v then { __functor = _: v; } else v;
 
       # this wraps the `drv` function to add `scope` and `overrideScope` to the result.
       drvScope =
@@ -181,8 +180,7 @@ let
       extraCabal2nixOptions ? "",
     }:
     let
-      sha256Arg =
-        if sha256 == null then "--sha256=" else ''--sha256="${sha256}"'';
+      sha256Arg = if sha256 == null then "--sha256=" else ''--sha256="${sha256}"'';
     in
     buildPackages.runCommand "cabal2nix-${name}"
       {
@@ -208,18 +206,17 @@ let
   # files to $out; if it's a tarball, it will extract and move them to $out.
   all-cabal-hashes-component =
     name: version:
-    buildPackages.runCommand "all-cabal-hashes-component-${name}-${version}" { }
-      ''
-        mkdir -p $out
-        if [ -d ${all-cabal-hashes} ]
-        then
-          cp ${all-cabal-hashes}/${name}/${version}/${name}.json $out
-          cp ${all-cabal-hashes}/${name}/${version}/${name}.cabal $out
-        else
-          tar --wildcards -xzvf ${all-cabal-hashes} \*/${name}/${version}/${name}.{json,cabal}
-          mv */${name}/${version}/${name}.{json,cabal} $out
-        fi
-      ''
+    buildPackages.runCommand "all-cabal-hashes-component-${name}-${version}" { } ''
+      mkdir -p $out
+      if [ -d ${all-cabal-hashes} ]
+      then
+        cp ${all-cabal-hashes}/${name}/${version}/${name}.json $out
+        cp ${all-cabal-hashes}/${name}/${version}/${name}.cabal $out
+      else
+        tar --wildcards -xzvf ${all-cabal-hashes} \*/${name}/${version}/${name}.{json,cabal}
+        mv */${name}/${version}/${name}.{json,cabal} $out
+      fi
+    ''
   ;
 
   hackage2nix =
@@ -370,8 +367,7 @@ package-set { inherit pkgs lib callPackage; } self // {
     let
       drv =
         (extensible-self.extend (
-          pkgs.lib.composeExtensions
-            (self.packageSourceOverrides source-overrides)
+          pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides)
             overrides
         )).callCabal2nixWithOptions
           name
@@ -413,9 +409,7 @@ package-set { inherit pkgs lib callPackage; } self // {
   # To reload the Hoogle server automatically on .cabal file changes try
   # this:
   # echo *.cabal | entr -r -- nix-shell --run 'hoogle server --local'
-  hoogleWithPackages = self.callPackage ./hoogle.nix {
-    haskellPackages = self;
-  };
+  hoogleWithPackages = self.callPackage ./hoogle.nix { haskellPackages = self; };
   hoogleLocal =
     {
       packages ? [ ],
@@ -593,9 +587,7 @@ package-set { inherit pkgs lib callPackage; } self // {
       # `common`, because cabal will end up ignoring that built version,
       # assuming new-style commands.
       zipperCombinedPkgs =
-        vals:
-        pkgs.lib.concatMap (drvList: pkgs.lib.filter isNotSelected drvList) vals
-      ;
+        vals: pkgs.lib.concatMap (drvList: pkgs.lib.filter isNotSelected drvList) vals;
 
       # Zip `cabalDepsForSelected` into a single attribute list, combining
       # the derivations in all the individual attributes.
@@ -655,9 +647,7 @@ package-set { inherit pkgs lib callPackage; } self // {
       # `haskellPackages.mkDerivation`).
       #
       # pkgWithCombinedDepsDevDrv :: Derivation
-      pkgWithCombinedDepsDevDrv = pkgWithCombinedDeps.envFunc {
-        inherit withHoogle;
-      };
+      pkgWithCombinedDepsDevDrv = pkgWithCombinedDeps.envFunc { inherit withHoogle; };
 
       mkDerivationArgs = builtins.removeAttrs args [
         "genericBuilderArgsModifier"
@@ -758,8 +748,7 @@ package-set { inherit pkgs lib callPackage; } self // {
         commands: pkg:
 
         if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          lib.foldr haskellLib.__generateOptparseApplicativeCompletion pkg
-            commands
+          lib.foldr haskellLib.__generateOptparseApplicativeCompletion pkg commands
         else
           pkg
       )

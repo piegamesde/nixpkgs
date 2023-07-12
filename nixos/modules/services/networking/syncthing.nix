@@ -37,10 +37,7 @@ let
           label
           type
         ;
-        devices =
-          map (device: { deviceId = cfg.devices.${device}.id; })
-            folder.devices
-        ;
+        devices = map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
         rescanIntervalS = folder.rescanInterval;
         fsWatcherEnabled = folder.watch;
         fsWatcherDelayS = folder.watchDelay;
@@ -80,12 +77,10 @@ let
     # generate the new config by merging with the NixOS config options
     new_cfg=$(printf '%s\n' "$old_cfg" | ${pkgs.jq}/bin/jq -c '. * {
         "devices": (${builtins.toJSON devices}${
-          optionalString (cfg.devices == { } || !cfg.overrideDevices)
-            " + .devices"
+          optionalString (cfg.devices == { } || !cfg.overrideDevices) " + .devices"
         }),
         "folders": (${builtins.toJSON folders}${
-          optionalString (cfg.folders == { } || !cfg.overrideFolders)
-            " + .folders"
+          optionalString (cfg.folders == { } || !cfg.overrideFolders) " + .folders"
         })
     } * ${builtins.toJSON cfg.extraOptions}')
 
@@ -262,12 +257,8 @@ in
                   # working directory to cfg.dataDir
                   type = types.str // {
                     check =
-                      x:
-                      types.str.check x
-                      && (substring 0 1 x == "/" || substring 0 2 x == "~/")
-                    ;
-                    description =
-                      types.str.description + " starting with / or ~/";
+                      x: types.str.check x && (substring 0 1 x == "/" || substring 0 2 x == "~/");
+                    description = types.str.description + " starting with / or ~/";
                   };
                   default = name;
                   description = lib.mdDoc ''
@@ -733,8 +724,7 @@ in
         };
       };
       syncthing-init =
-        mkIf
-          (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { })
+        mkIf (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { })
           {
             description = "Syncthing configuration updater";
             requisite = [ "syncthing.service" ];

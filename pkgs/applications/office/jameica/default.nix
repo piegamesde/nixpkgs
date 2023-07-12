@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "willuhn";
     repo = "jameica";
-    rev = "V_${
-        builtins.replaceStrings [ "." ] [ "_" ] _version
-      }_BUILD_${_build}";
+    rev = "V_${builtins.replaceStrings [ "." ] [ "_" ] _version}_BUILD_${_build}";
     sha256 = "1x9sybknzsfxp9z0pvw9dx80732ynyap57y03p7xwwjbcrnjla57";
   };
 

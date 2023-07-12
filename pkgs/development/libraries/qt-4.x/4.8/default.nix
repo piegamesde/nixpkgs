@@ -62,9 +62,7 @@
 
 stdenv.mkDerivation rec {
   pname =
-    "qt"
-    + lib.optionalString (docs && demos && examples && developerBuild) "-full"
-  ;
+    "qt" + lib.optionalString (docs && demos && examples && developerBuild) "-full";
   version = "4.8.7";
 
   src = fetchurl {

@@ -114,10 +114,7 @@ in
       signal = mkOption {
         type = types.ints.u8;
         default = 1;
-        description =
-          lib.mdDoc
-            "Signal to send to the command on session close."
-        ;
+        description = lib.mdDoc "Signal to send to the command on session close.";
       };
 
       clientOptions = mkOption {
@@ -194,10 +191,7 @@ in
       caFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description =
-          lib.mdDoc
-            "SSL CA file path for client certificate verification."
-        ;
+        description = lib.mdDoc "SSL CA file path for client certificate verification.";
       };
 
       logLevel = mkOption {

@@ -211,9 +211,7 @@ qtModule {
       "-DQT_FEATURE_webengine_sanitizer=ON"
       "-DQT_FEATURE_webengine_kerberos=ON"
     ]
-    ++ lib.optionals stdenv.isLinux [
-      "-DQT_FEATURE_webengine_webrtc_pipewire=ON"
-    ]
+    ++ lib.optionals stdenv.isLinux [ "-DQT_FEATURE_webengine_webrtc_pipewire=ON" ]
     ++ lib.optionals enableProprietaryCodecs [
       "-DQT_FEATURE_webengine_proprietary_codecs=ON"
     ]

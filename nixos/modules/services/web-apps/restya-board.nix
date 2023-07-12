@@ -267,8 +267,7 @@ in
       serviceConfig.RemainAfterExit = true;
 
       wantedBy = [ "multi-user.target" ];
-      requires =
-        if cfg.database.host == null then [ ] else [ "postgresql.service" ];
+      requires = if cfg.database.host == null then [ ] else [ "postgresql.service" ];
       after =
         [ "network.target" ]
         ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ])

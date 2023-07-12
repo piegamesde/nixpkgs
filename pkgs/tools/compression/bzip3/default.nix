@@ -43,10 +43,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [ "--disable-link-time-optimization" ]
     ;
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
       description = "A better and stronger spiritual successor to BZip2";

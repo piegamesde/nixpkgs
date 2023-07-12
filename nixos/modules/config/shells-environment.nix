@@ -66,9 +66,7 @@ in
           ]
         )
       ;
-      apply = mapAttrs (
-        n: v: if isList v then concatStringsSep ":" v else "${v}"
-      );
+      apply = mapAttrs (n: v: if isList v then concatStringsSep ":" v else "${v}");
     };
 
     environment.profiles = mkOption {
@@ -170,10 +168,7 @@ in
 
     environment.binsh = mkOption {
       default = "${config.system.build.binsh}/bin/sh";
-      defaultText =
-        literalExpression
-          ''"''${config.system.build.binsh}/bin/sh"''
-      ;
+      defaultText = literalExpression ''"''${config.system.build.binsh}/bin/sh"'';
       example = literalExpression ''"''${pkgs.dash}/bin/dash"'';
       type = types.path;
       visible = false;

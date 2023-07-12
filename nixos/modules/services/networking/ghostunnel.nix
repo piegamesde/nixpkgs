@@ -134,10 +134,7 @@ let
         };
 
         extraArguments = mkOption {
-          description =
-            lib.mdDoc
-              "Extra arguments to pass to `ghostunnel server`"
-          ;
+          description = lib.mdDoc "Extra arguments to pass to `ghostunnel server`";
           type = types.separatedString " ";
           default = "";
         };
@@ -204,13 +201,9 @@ let
             ++
               optional (config.keystore != null)
                 "--keystore=$CREDENTIALS_DIRECTORY/keystore"
-            ++
-              optional (config.cert != null)
-                "--cert=$CREDENTIALS_DIRECTORY/cert"
+            ++ optional (config.cert != null) "--cert=$CREDENTIALS_DIRECTORY/cert"
             ++ optional (config.key != null) "--key=$CREDENTIALS_DIRECTORY/key"
-            ++
-              optional (config.cacert != null)
-                "--cacert=$CREDENTIALS_DIRECTORY/cacert"
+            ++ optional (config.cacert != null) "--cacert=$CREDENTIALS_DIRECTORY/cacert"
             ++ [
               "server"
               "--listen ${config.listen}"
@@ -255,9 +248,7 @@ in
     assertions = lib.mkMerge (
       map (v: v.atRoot.assertions) (attrValues mainCfg.servers)
     );
-    systemd = lib.mkMerge (
-      map (v: v.atRoot.systemd) (attrValues mainCfg.servers)
-    );
+    systemd = lib.mkMerge (map (v: v.atRoot.systemd) (attrValues mainCfg.servers));
   };
 
   meta.maintainers = with lib.maintainers; [ roberth ];

@@ -96,9 +96,7 @@ let
   mkTest =
     crateArgs:
     let
-      crate = mkHostCrate (
-        builtins.removeAttrs crateArgs [ "expectedTestOutput" ]
-      );
+      crate = mkHostCrate (builtins.removeAttrs crateArgs [ "expectedTestOutput" ]);
       hasTests = crateArgs.buildTests or false;
       expectedTestOutputs = crateArgs.expectedTestOutputs or null;
       binaries = map (v: lib.escapeShellArg v.name) (crateArgs.crateBin or [ ]);
@@ -129,19 +127,13 @@ let
               (
                 binary:
                 # Can't actually run the binary when cross-compiling
-                (lib.optionalString
-                  (stdenv.hostPlatform != stdenv.buildPlatform)
-                  "type "
-                )
+                (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "type ")
                 + binary
               )
               binaries}
             ${lib.optionalString isLib ''
               test -e ${crate}/lib/*.rlib || exit 1
-              ${
-                lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-                  "test -x "
-              } \
+              ${lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "test -x "} \
                 ${libTestBinary}/bin/run-test-${crateName}
             ''}
             touch $out
@@ -196,9 +188,7 @@ let
     assert (builtins.isList expectedFiles);
 
     let
-      crate = mkHostCrate (
-        builtins.removeAttrs crateArgs [ "expectedTestOutput" ]
-      );
+      crate = mkHostCrate (builtins.removeAttrs crateArgs [ "expectedTestOutput" ]);
       crateOutput = if output == null then crate else crate."${output}";
       expectedFilesFile = writeTextFile {
         name = "expected-files-${name}";
@@ -485,9 +475,7 @@ rec {
                 '')
               ];
             };
-            buildDependencies = [
-              (depCrate buildPackages.buildRustCrate "true")
-            ];
+            buildDependencies = [ (depCrate buildPackages.buildRustCrate "true") ];
             dependencies = [ (depCrate buildRustCrate "false") ];
             buildTests = true;
             expectedTestOutputs = [ "test baz_false ... ok" ];
@@ -620,10 +608,7 @@ rec {
                   # Note: On darwin (which defaults to clang) we have to add
                   # `-undefined dynamic_lookup` as otherwise the compilation fails.
                   $CC -shared \
-                    ${
-                      lib.optionalString stdenv.isDarwin
-                        "-undefined dynamic_lookup"
-                    } \
+                    ${lib.optionalString stdenv.isDarwin "-undefined dynamic_lookup"} \
                     -o $out/lib/${name}${stdenv.hostPlatform.extensions.sharedLibrary} ${src}
                 ''
               ;
@@ -681,10 +666,9 @@ rec {
 
         rustCargoTomlInTopDir =
           let
-            withoutCargoTomlSearch =
-              builtins.removeAttrs rustCargoTomlInSubDir
-                [ "workspace_member" ]
-            ;
+            withoutCargoTomlSearch = builtins.removeAttrs rustCargoTomlInSubDir [
+              "workspace_member"
+            ];
           in
           withoutCargoTomlSearch // {
             expectedTestOutputs = [ "test ignore_main ... ok" ];
@@ -712,10 +696,7 @@ rec {
         lib.mapAttrs
           (
             key: value:
-            mkTest (
-              value
-              // lib.optionalAttrs (!value ? crateName) { crateName = key; }
-            )
+            mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; })
           )
           cases
       ;
@@ -815,18 +796,15 @@ rec {
         let
           pkg = brotliCrates.alloc_no_stdlib_1_3_0 { };
         in
-        runCommand "run-alloc-no-stdlib-test-cmd"
-          { nativeBuildInputs = [ pkg ]; }
-          ''
-            test -e ${pkg}/bin/example && touch $out
-          ''
+        runCommand "run-alloc-no-stdlib-test-cmd" { nativeBuildInputs = [ pkg ]; } ''
+          test -e ${pkg}/bin/example && touch $out
+        ''
       ;
       brotliDecompressorTest =
         let
           pkg = brotliCrates.brotli_decompressor_1_3_1 { };
         in
-        runCommand "run-brotli-decompressor-test-cmd"
-          { nativeBuildInputs = [ pkg ]; }
+        runCommand "run-brotli-decompressor-test-cmd" { nativeBuildInputs = [ pkg ]; }
           ''
             test -e ${pkg}/bin/brotli-decompressor && touch $out
           ''

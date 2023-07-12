@@ -331,8 +331,7 @@ let
       ];
       platforms = with platforms; unix;
       broken =
-        stdenv.isDarwin
-        && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
+        stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
       ;
     };
   };

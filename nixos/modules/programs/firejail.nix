@@ -39,17 +39,13 @@ let
                 ;
                 args = lib.escapeShellArgs (
                   opts.extraArgs
-                  ++ (optional (opts.profile != null)
-                    "--profile=${toString opts.profile}"
-                  )
+                  ++ (optional (opts.profile != null) "--profile=${toString opts.profile}")
                 );
               in
               ''
                 cat <<_EOF >$out/bin/${command}
                 #! ${pkgs.runtimeShell} -e
-                exec /run/wrappers/bin/firejail ${args} -- ${
-                  toString opts.executable
-                } "\$@"
+                exec /run/wrappers/bin/firejail ${args} -- ${toString opts.executable} "\$@"
                 _EOF
                 chmod 0755 $out/bin/${command}
 
@@ -76,10 +72,7 @@ in
               executable = mkOption {
                 type = types.path;
                 description = lib.mdDoc "Executable to run sandboxed";
-                example =
-                  literalExpression
-                    ''"''${lib.getBin pkgs.firefox}/bin/firefox"''
-                ;
+                example = literalExpression ''"''${lib.getBin pkgs.firefox}/bin/firefox"'';
               };
               desktop = mkOption {
                 type = types.nullOr types.path;

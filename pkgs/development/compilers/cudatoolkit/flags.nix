@@ -44,9 +44,7 @@ let
       inherit (gpu) minCudaVersion maxCudaVersion;
       lowerBoundSatisfied = strings.versionAtLeast cudaVersion minCudaVersion;
       upperBoundSatisfied =
-        (maxCudaVersion == null)
-        || !(strings.versionOlder maxCudaVersion cudaVersion)
-      ;
+        (maxCudaVersion == null) || !(strings.versionOlder maxCudaVersion cudaVersion);
     in
     lowerBoundSatisfied && upperBoundSatisfied
   ;
@@ -151,9 +149,7 @@ let
       # architecture for the newest supported architecture.
       # E.g. [ "sm_75" "sm_86" "compute_86" ]
       arches =
-        realArches
-        ++ lists.optional enableForwardCompat (lists.last virtualArches)
-      ;
+        realArches ++ lists.optional enableForwardCompat (lists.last virtualArches);
 
       # gencode :: List String
       # A list of CUDA gencode arguments to pass to NVCC.

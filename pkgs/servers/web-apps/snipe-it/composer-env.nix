@@ -156,11 +156,9 @@ let
                   vendorDir="$(dirname ${dependencyName})"
                   mkdir -p "$vendorDir"
                   ${if symlinkDependencies then
-                    ''
-                      ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
+                    ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
                   else
-                    ''
-                      cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''}
+                    ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''}
                 ''
               else
                 ''

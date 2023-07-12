@@ -66,29 +66,20 @@ in
       minSpeed = mkOption {
         type = types.nullOr types.str;
         default = "0.6";
-        description =
-          lib.mdDoc
-            "Cursor speed factor for precision finger motion."
-        ;
+        description = lib.mdDoc "Cursor speed factor for precision finger motion.";
       };
 
       maxSpeed = mkOption {
         type = types.nullOr types.str;
         default = "1.0";
-        description =
-          lib.mdDoc
-            "Cursor speed factor for highest-speed finger motion."
-        ;
+        description = lib.mdDoc "Cursor speed factor for highest-speed finger motion.";
       };
 
       scrollDelta = mkOption {
         type = types.nullOr types.int;
         default = null;
         example = 75;
-        description =
-          lib.mdDoc
-            "Move distance of the finger for a scroll event."
-        ;
+        description = lib.mdDoc "Move distance of the finger for a scroll event.";
       };
 
       twoFingerScroll = mkOption {
@@ -114,30 +105,21 @@ in
         type = types.bool;
         default = cfg.twoFingerScroll;
         defaultText = literalExpression "config.${opt.twoFingerScroll}";
-        description =
-          lib.mdDoc
-            "Whether to enable vertical two-finger drag-scrolling."
-        ;
+        description = lib.mdDoc "Whether to enable vertical two-finger drag-scrolling.";
       };
 
       horizEdgeScroll = mkOption {
         type = types.bool;
         default = !cfg.horizTwoFingerScroll;
         defaultText = literalExpression "! config.${opt.horizTwoFingerScroll}";
-        description =
-          lib.mdDoc
-            "Whether to enable horizontal edge drag-scrolling."
-        ;
+        description = lib.mdDoc "Whether to enable horizontal edge drag-scrolling.";
       };
 
       vertEdgeScroll = mkOption {
         type = types.bool;
         default = !cfg.vertTwoFingerScroll;
         defaultText = literalExpression "! config.${opt.vertTwoFingerScroll}";
-        description =
-          lib.mdDoc
-            "Whether to enable vertical edge drag-scrolling."
-        ;
+        description = lib.mdDoc "Whether to enable vertical edge drag-scrolling.";
       };
 
       tapButtons = mkOption {
@@ -210,10 +192,7 @@ in
       horizontalScroll = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to enable horizontal scrolling (on touchpad)"
-        ;
+        description = lib.mdDoc "Whether to enable horizontal scrolling (on touchpad)";
       };
 
       additionalOptions = mkOption {
@@ -246,12 +225,10 @@ in
         ${optionalString (cfg.dev != null) ''MatchDevicePath "${cfg.dev}"''}
         Driver "synaptics"
         ${
-          optionalString (cfg.minSpeed != null)
-            ''Option "MinSpeed" "${cfg.minSpeed}"''
+          optionalString (cfg.minSpeed != null) ''Option "MinSpeed" "${cfg.minSpeed}"''
         }
         ${
-          optionalString (cfg.maxSpeed != null)
-            ''Option "MaxSpeed" "${cfg.maxSpeed}"''
+          optionalString (cfg.maxSpeed != null) ''Option "MaxSpeed" "${cfg.maxSpeed}"''
         }
         ${
           optionalString (cfg.accelFactor != null)
@@ -261,9 +238,7 @@ in
         Option "ClickFinger1" "${builtins.elemAt cfg.buttonsMap 0}"
         Option "ClickFinger2" "${builtins.elemAt cfg.buttonsMap 1}"
         Option "ClickFinger3" "${builtins.elemAt cfg.buttonsMap 2}"
-        Option "VertTwoFingerScroll" "${
-          if cfg.vertTwoFingerScroll then "1" else "0"
-        }"
+        Option "VertTwoFingerScroll" "${if cfg.vertTwoFingerScroll then "1" else "0"}"
         Option "HorizTwoFingerScroll" "${
           if cfg.horizTwoFingerScroll then "1" else "0"
         }"

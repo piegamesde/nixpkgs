@@ -222,8 +222,7 @@ in
             cfg.extraContainerPaths
         }/etc/dysnomia/containers";
       DYSNOMIA_MODULES_PATH = "${
-          lib.concatMapStrings (modulePath: "${modulePath}:")
-            cfg.extraModulePaths
+          lib.concatMapStrings (modulePath: "${modulePath}:") cfg.extraModulePaths
         }/etc/dysnomia/modules";
     };
 
@@ -269,24 +268,16 @@ in
           "sysvinit-script"
           "nixos-configuration"
         ]
-        ++
-          optional (dysnomiaFlags.enableApacheWebApplication)
-            "apache-webapplication"
+        ++ optional (dysnomiaFlags.enableApacheWebApplication) "apache-webapplication"
         ++ optional (dysnomiaFlags.enableAxis2WebService) "axis2-webservice"
         ++ optional (dysnomiaFlags.enableDockerContainer) "docker-container"
         ++ optional (dysnomiaFlags.enableEjabberdDump) "ejabberd-dump"
         ++ optional (dysnomiaFlags.enableInfluxDatabase) "influx-database"
         ++ optional (dysnomiaFlags.enableMySQLDatabase) "mysql-database"
-        ++
-          optional (dysnomiaFlags.enablePostgreSQLDatabase)
-            "postgresql-database"
-        ++
-          optional (dysnomiaFlags.enableTomcatWebApplication)
-            "tomcat-webapplication"
+        ++ optional (dysnomiaFlags.enablePostgreSQLDatabase) "postgresql-database"
+        ++ optional (dysnomiaFlags.enableTomcatWebApplication) "tomcat-webapplication"
         ++ optional (dysnomiaFlags.enableMongoDatabase) "mongo-database"
-        ++
-          optional (dysnomiaFlags.enableSubversionRepository)
-            "subversion-repository"
+        ++ optional (dysnomiaFlags.enableSubversionRepository) "subversion-repository"
       ;
     };
 
@@ -298,8 +289,7 @@ in
             wrapper = { };
           } // lib.optionalAttrs (config.services.httpd.enable) {
             apache-webapplication = {
-              documentRoot =
-                config.services.httpd.virtualHosts.localhost.documentRoot;
+              documentRoot = config.services.httpd.virtualHosts.localhost.documentRoot;
             };
           } // lib.optionalAttrs (config.services.tomcat.axis2.enable) {
             axis2-webservice = { };
@@ -311,14 +301,11 @@ in
             mysql-database = {
               mysqlPort = config.services.mysql.port;
               mysqlSocket = "/run/mysqld/mysqld.sock";
-            } // lib.optionalAttrs cfg.enableAuthentication {
-              mysqlUsername = "root";
-            };
+            } // lib.optionalAttrs cfg.enableAuthentication { mysqlUsername = "root"; };
           } // lib.optionalAttrs (config.services.postgresql.enable) {
-            postgresql-database = { }
-              // lib.optionalAttrs (cfg.enableAuthentication) {
-                postgresqlUsername = "postgres";
-              };
+            postgresql-database = { } // lib.optionalAttrs (cfg.enableAuthentication) {
+              postgresqlUsername = "postgres";
+            };
           } // lib.optionalAttrs (config.services.tomcat.enable) {
             tomcat-webapplication = {
               tomcatPort = 8080;

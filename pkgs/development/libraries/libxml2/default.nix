@@ -87,12 +87,8 @@ let
 
     buildInputs =
       lib.optionals pythonSupport [ python ]
-      ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [
-        gettext
-      ]
-      ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [
-        ncurses
-      ]
+      ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [ gettext ]
+      ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [ ncurses ]
       ++
         lib.optionals
           (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2)
@@ -122,9 +118,7 @@ let
       (lib.enableFeature enableShared "shared")
       (lib.withFeature icuSupport "icu")
       (lib.withFeature pythonSupport "python")
-      (lib.optionalString pythonSupport
-        "PYTHON=${python.pythonForBuild.interpreter}"
-      )
+      (lib.optionalString pythonSupport "PYTHON=${python.pythonForBuild.interpreter}")
     ];
 
     installFlags = lib.optionals pythonSupport [

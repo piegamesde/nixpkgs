@@ -95,9 +95,7 @@ let
           bison
           libxslt
         ]
-        ++
-          lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38"))
-            expat
+        ++ lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38")) expat
         ++ lib.optional disableGraphviz autoreconfHook # if we changed our ./configure script, need to reconfigure
         ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ vala ]
         ++ extraNativeBuildInputs
@@ -109,9 +107,7 @@ let
           libiconv
           libintl
         ]
-        ++
-          lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
-            graphviz
+        ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz) graphviz
         ++ extraBuildInputs
       ;
 
@@ -126,9 +122,7 @@ let
               roundUpToEven = num: num + lib.mod num 2;
             in
             "${pname}_${lib.versions.major version}_${
-              builtins.toString (
-                roundUpToEven (lib.toInt (lib.versions.minor version))
-              )
+              builtins.toString (roundUpToEven (lib.toInt (lib.versions.minor version)))
             }"
           ;
           packageName = pname;

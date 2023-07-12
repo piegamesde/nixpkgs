@@ -32,10 +32,7 @@ let
     }
   ;
 
-  netbsdSetupHook =
-    makeSetupHook { name = "netbsd-setup-hook"; }
-      ./setup-hook.sh
-  ;
+  netbsdSetupHook = makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
 
   defaultMakeFlags = [
     "MKSOFTFLOAT=${
@@ -71,10 +68,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
     # For non-bootstrap-critical packages, we might as well use `callPackage` for
     # consistency with everything else, and maybe put in separate files too.
 
-    compatIfNeeded =
-      lib.optional (!stdenvNoCC.hostPlatform.isNetBSD)
-        self.compat
-    ;
+    compatIfNeeded = lib.optional (!stdenvNoCC.hostPlatform.isNetBSD) self.compat;
 
     mkDerivation = lib.makeOverridable (
       attrs:
@@ -332,9 +326,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           ''
           + ''
             mkdir -p $out/lib/pkgconfig
-            substitute ${
-              ./libbsd-overlay.pc
-            } $out/lib/pkgconfig/libbsd-overlay.pc \
+            substitute ${./libbsd-overlay.pc} $out/lib/pkgconfig/libbsd-overlay.pc \
               --subst-var-by out $out \
               --subst-var-by version ${version}
           ''
@@ -746,9 +738,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       noCC = true;
       meta.platforms = lib.platforms.netbsd;
       makeFlags =
-        defaultMakeFlags
-        ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ]
-      ;
+        defaultMakeFlags ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
     };
 
     common =
@@ -890,8 +880,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ];
       propagatedBuildInputs = with self; compatIfNeeded;
       SHLIBINSTALLDIR = "$(out)/lib";
-      makeFlags =
-        defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
+      makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
       postPatch = ''
         sed -i '1i #undef bool_t' $COMPONENT_PATH/el.h
         substituteInPlace $COMPONENT_PATH/config.h \
@@ -957,8 +946,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ;
       propagatedBuildInputs = with self; compatIfNeeded;
       MKDOC = "no"; # missing vfontedpr
-      makeFlags =
-        defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
+      makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
       postPatch = lib.optionalString (!stdenv.isDarwin) ''
         substituteInPlace $COMPONENT_PATH/printw.c \
           --replace "funopen(win, NULL, __winwrite, NULL, NULL)" NULL \

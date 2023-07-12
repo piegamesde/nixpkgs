@@ -146,10 +146,7 @@ in
       '';
 
       serviceConfig = {
-        EnvironmentFile =
-          mkIf (cfg.environmentFile != null)
-            cfg.environmentFile
-        ;
+        EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
         StateDirectory = cfg.stateDirectoryName;
         WorkingDirectory = "/var/lib/${cfg.stateDirectoryName}";
         DynamicUser = true;

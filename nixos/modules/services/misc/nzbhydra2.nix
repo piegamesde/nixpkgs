@@ -18,10 +18,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/nzbhydra2";
-        description =
-          lib.mdDoc
-            "The directory where NZBHydra2 stores its data files."
-        ;
+        description = lib.mdDoc "The directory where NZBHydra2 stores its data files.";
       };
 
       openFirewall = mkOption {
@@ -43,9 +40,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -" ];
 
     systemd.services.nzbhydra2 = {
       description = "NZBHydra2";

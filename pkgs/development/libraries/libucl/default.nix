@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     with lib;
     concatLists (
-      mapAttrsToList
-        (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ]))
+      mapAttrsToList (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ]))
         features
     )
   ;

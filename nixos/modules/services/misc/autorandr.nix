@@ -16,16 +16,13 @@ let
     n: m: elemType:
     mkOptionType rec {
       name = "matrixOf";
-      description = "${toString n}×${
-          toString m
-        } matrix of ${elemType.description}s";
+      description = "${toString n}×${toString m} matrix of ${elemType.description}s";
       check =
         xss:
         let
           listOfSize = l: xs: isList xs && length xs == l;
         in
-        listOfSize n xss
-        && all (xs: listOfSize m xs && all elemType.check xs) xss
+        listOfSize n xss && all (xs: listOfSize m xs && all elemType.check xs) xss
       ;
       merge = mergeOneOption;
       getSubOptions =
@@ -269,8 +266,7 @@ let
         ++ optional (config.rate != "") "rate ${config.rate}"
         ++ optional (config.rotate != null) "rotate ${config.rotate}"
         ++ optional (config.transform != null) (
-          "transform "
-          + concatMapStringsSep "," toString (flatten config.transform)
+          "transform " + concatMapStringsSep "," toString (flatten config.transform)
         )
         ++ optional (config.scale != null) (
           (if config.scale.method == "factor" then "scale" else "scale-from")

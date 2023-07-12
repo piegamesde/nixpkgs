@@ -217,9 +217,7 @@ in
 
           serviceConfig = {
             ExecStart =
-              "@${
-                lib.getExe cfg.package
-              } consul agent -config-dir /etc/consul.d"
+              "@${lib.getExe cfg.package} consul agent -config-dir /etc/consul.d"
               + concatMapStrings (n: " -config-file ${n}") configFiles
             ;
             ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

@@ -42,10 +42,9 @@ let
       ;
     in
     kernel.override {
-      structuredExtraConfig =
-        import ../os-specific/linux/kernel/hardened/config.nix
-          { inherit stdenv lib version; }
-      ;
+      structuredExtraConfig = import ../os-specific/linux/kernel/hardened/config.nix {
+        inherit stdenv lib version;
+      };
       argsOverride = {
         inherit version;
         modDirVersion =
@@ -67,8 +66,7 @@ let
         };
       };
       kernelPatches =
-        kernel.kernelPatches ++ [ kernelPatches.hardened.${kernel.meta.branch} ]
-      ;
+        kernel.kernelPatches ++ [ kernelPatches.hardened.${kernel.meta.branch} ];
       isHardened = true;
     }
   ;
@@ -148,15 +146,12 @@ in
           ];
         };
 
-        linux_rt_5_4 =
-          callPackage ../os-specific/linux/kernel/linux-rt-5.4.nix
-            {
-              kernelPatches = [
-                kernelPatches.bridge_stp_helper
-                kernelPatches.request_key_helper
-              ];
-            }
-        ;
+        linux_rt_5_4 = callPackage ../os-specific/linux/kernel/linux-rt-5.4.nix {
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+          ];
+        };
 
         linux_5_10 = callPackage ../os-specific/linux/kernel/linux-5.10.nix {
           kernelPatches = [
@@ -165,16 +160,13 @@ in
           ];
         };
 
-        linux_rt_5_10 =
-          callPackage ../os-specific/linux/kernel/linux-rt-5.10.nix
-            {
-              kernelPatches = [
-                kernelPatches.bridge_stp_helper
-                kernelPatches.request_key_helper
-                kernelPatches.export-rt-sched-migrate
-              ];
-            }
-        ;
+        linux_rt_5_10 = callPackage ../os-specific/linux/kernel/linux-rt-5.10.nix {
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+            kernelPatches.export-rt-sched-migrate
+          ];
+        };
 
         linux_5_15 = callPackage ../os-specific/linux/kernel/linux-5.15.nix {
           kernelPatches = [
@@ -184,16 +176,13 @@ in
           ];
         };
 
-        linux_rt_5_15 =
-          callPackage ../os-specific/linux/kernel/linux-rt-5.15.nix
-            {
-              kernelPatches = [
-                kernelPatches.bridge_stp_helper
-                kernelPatches.request_key_helper
-                kernelPatches.export-rt-sched-migrate
-              ];
-            }
-        ;
+        linux_rt_5_15 = callPackage ../os-specific/linux/kernel/linux-rt-5.15.nix {
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+            kernelPatches.export-rt-sched-migrate
+          ];
+        };
 
         linux_6_1 = callPackage ../os-specific/linux/kernel/linux-6.1.nix {
           kernelPatches = [
@@ -203,17 +192,14 @@ in
           ];
         };
 
-        linux_rt_6_1 =
-          callPackage ../os-specific/linux/kernel/linux-rt-6.1.nix
-            {
-              kernelPatches = [
-                kernelPatches.bridge_stp_helper
-                kernelPatches.request_key_helper
-                kernelPatches.fix-em-ice-bonding
-                kernelPatches.export-rt-sched-migrate
-              ];
-            }
-        ;
+        linux_rt_6_1 = callPackage ../os-specific/linux/kernel/linux-rt-6.1.nix {
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+            kernelPatches.fix-em-ice-bonding
+            kernelPatches.export-rt-sched-migrate
+          ];
+        };
 
         linux_6_2 = callPackage ../os-specific/linux/kernel/linux-6.2.nix {
           kernelPatches = [
@@ -233,15 +219,12 @@ in
 
         linux_testing =
           let
-            testing =
-              callPackage ../os-specific/linux/kernel/linux-testing.nix
-                {
-                  kernelPatches = [
-                    kernelPatches.bridge_stp_helper
-                    kernelPatches.request_key_helper
-                  ];
-                }
-            ;
+            testing = callPackage ../os-specific/linux/kernel/linux-testing.nix {
+              kernelPatches = [
+                kernelPatches.bridge_stp_helper
+                kernelPatches.request_key_helper
+              ];
+            };
             latest = packageAliases.linux_latest.kernel;
           in
           if latest.kernelAtLeast testing.baseVersion then latest else testing
@@ -296,15 +279,12 @@ in
           }).lqx;
 
         # This contains the variants of the XanMod kernel
-        xanmodKernels =
-          callPackage ../os-specific/linux/kernel/xanmod-kernels.nix
-            {
-              kernelPatches = [
-                kernelPatches.bridge_stp_helper
-                kernelPatches.request_key_helper
-              ];
-            }
-        ;
+        xanmodKernels = callPackage ../os-specific/linux/kernel/xanmod-kernels.nix {
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+          ];
+        };
 
         linux_xanmod = xanmodKernels.lts;
         linux_xanmod_stable = xanmodKernels.main;
@@ -314,10 +294,7 @@ in
 
         linux_latest_libre = deblobKernel packageAliases.linux_latest.kernel;
 
-        linux_hardened =
-          hardenedKernelFor packageAliases.linux_default.kernel
-            { }
-        ;
+        linux_hardened = hardenedKernelFor packageAliases.linux_default.kernel { };
 
         linux_4_14_hardened = hardenedKernelFor kernels.linux_4_14 { };
         linux_4_19_hardened = hardenedKernelFor kernels.linux_4_19 { };
@@ -447,10 +424,7 @@ in
 
         fwts-efi-runtime = callPackage ../os-specific/linux/fwts/module.nix { };
 
-        gcadapter-oc-kmod =
-          callPackage ../os-specific/linux/gcadapter-oc-kmod
-            { }
-        ;
+        gcadapter-oc-kmod = callPackage ../os-specific/linux/gcadapter-oc-kmod { };
         hid-nintendo = callPackage ../os-specific/linux/hid-nintendo { };
 
         hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
@@ -479,10 +453,7 @@ in
 
         asus-ec-sensors = callPackage ../os-specific/linux/asus-ec-sensors { };
 
-        asus-wmi-sensors =
-          callPackage ../os-specific/linux/asus-wmi-sensors
-            { }
-        ;
+        asus-wmi-sensors = callPackage ../os-specific/linux/asus-wmi-sensors { };
 
         ena = callPackage ../os-specific/linux/ena { };
 
@@ -510,9 +481,7 @@ in
         nvidiabl = callPackage ../os-specific/linux/nvidiabl { };
 
         nvidiaPackages = dontRecurseIntoAttrs (
-          lib.makeExtensible (
-            _: callPackage ../os-specific/linux/nvidia-x11 { }
-          )
+          lib.makeExtensible (_: callPackage ../os-specific/linux/nvidia-x11 { })
         );
 
         nvidia_x11 = nvidiaPackages.stable;
@@ -538,10 +507,7 @@ in
 
         r8168 = callPackage ../os-specific/linux/r8168 { };
 
-        rtl8188eus-aircrack =
-          callPackage ../os-specific/linux/rtl8188eus-aircrack
-            { }
-        ;
+        rtl8188eus-aircrack = callPackage ../os-specific/linux/rtl8188eus-aircrack { };
 
         rtl8192eu = callPackage ../os-specific/linux/rtl8192eu { };
 
@@ -557,10 +523,7 @@ in
 
         rtl8814au = callPackage ../os-specific/linux/rtl8814au { };
 
-        rtl88xxau-aircrack =
-          callPackage ../os-specific/linux/rtl88xxau-aircrack
-            { }
-        ;
+        rtl88xxau-aircrack = callPackage ../os-specific/linux/rtl88xxau-aircrack { };
 
         rtl8821au = callPackage ../os-specific/linux/rtl8821au { };
 
@@ -641,10 +604,7 @@ in
 
         system76-io = callPackage ../os-specific/linux/system76-io { };
 
-        system76-scheduler =
-          callPackage ../os-specific/linux/system76-scheduler
-            { }
-        ;
+        system76-scheduler = callPackage ../os-specific/linux/system76-scheduler { };
 
         tmon = callPackage ../os-specific/linux/tmon { };
 
@@ -656,10 +616,7 @@ in
 
         v86d = callPackage ../os-specific/linux/v86d { };
 
-        veikk-linux-driver =
-          callPackage ../os-specific/linux/veikk-linux-driver
-            { }
-        ;
+        veikk-linux-driver = callPackage ../os-specific/linux/veikk-linux-driver { };
         vendor-reset = callPackage ../os-specific/linux/vendor-reset { };
 
         vhba = callPackage ../applications/emulators/cdemu/vhba.nix { };
@@ -797,22 +754,19 @@ in
       linux_4_14_hardened = recurseIntoAttrs (
         hardenedPackagesFor kernels.linux_4_14 {
           stdenv = gcc10Stdenv;
-          buildPackages =
-            buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+          buildPackages = buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
         }
       );
       linux_4_19_hardened = recurseIntoAttrs (
         hardenedPackagesFor kernels.linux_4_19 {
           stdenv = gcc10Stdenv;
-          buildPackages =
-            buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+          buildPackages = buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
         }
       );
       linux_5_4_hardened = recurseIntoAttrs (
         hardenedPackagesFor kernels.linux_5_4 {
           stdenv = gcc10Stdenv;
-          buildPackages =
-            buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+          buildPackages = buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
         }
       );
       linux_5_10_hardened = recurseIntoAttrs (
@@ -835,15 +789,11 @@ in
         packagesFor kernels.linux_xanmod_latest
       );
 
-      hardkernel_4_14 = recurseIntoAttrs (
-        packagesFor kernels.linux_hardkernel_4_14
-      );
+      hardkernel_4_14 = recurseIntoAttrs (packagesFor kernels.linux_hardkernel_4_14);
 
       linux_libre = recurseIntoAttrs (packagesFor kernels.linux_libre);
 
-      linux_latest_libre = recurseIntoAttrs (
-        packagesFor kernels.linux_latest_libre
-      );
+      linux_latest_libre = recurseIntoAttrs (packagesFor kernels.linux_latest_libre);
     } // lib.optionalAttrs config.allowAliases {
       linux_5_18_hardened =
         throw

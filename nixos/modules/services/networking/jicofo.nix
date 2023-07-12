@@ -18,9 +18,7 @@ let
     else if isAttrs x && x ? __hocon_unquoted_string then
       x.__hocon_unquoted_string
     else if isAttrs x then
-      "{${
-        concatStringsSep "," (mapAttrsToList (k: v: ''"${k}":${toHOCON v}'') x)
-      }}"
+      "{${concatStringsSep "," (mapAttrsToList (k: v: ''"${k}":${toHOCON v}'') x)}}"
     else if isList x then
       "[${concatMapStringsSep "," toHOCON x}]"
     else
@@ -119,8 +117,7 @@ in
             password = {
               __hocon_envvar = "JICOFO_AUTH_PASS";
             };
-            xmpp-domain =
-              if cfg.xmppDomain == null then cfg.xmppHost else cfg.xmppDomain;
+            xmpp-domain = if cfg.xmppDomain == null then cfg.xmppHost else cfg.xmppDomain;
           };
           service = client;
         };

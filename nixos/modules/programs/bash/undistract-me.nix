@@ -18,8 +18,7 @@ in
       );
 
       playSound = mkEnableOption (
-        lib.mdDoc
-          "notification sounds when long-running terminal commands complete"
+        lib.mdDoc "notification sounds when long-running terminal commands complete"
       );
 
       timeout = mkOption {

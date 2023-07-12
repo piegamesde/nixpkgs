@@ -37,15 +37,12 @@ let
             grep erf output
             touch $out
           '';
-          with-lib =
-            runCommandCC "zlib-bindgen-tests" { buildInputs = [ zlib ]; }
-              ''
-                echo '#include <zlib.h>' > a.c
-                ${self}/bin/bindgen a.c --allowlist-function compress | tee output
-                grep compress output
-                touch $out
-              ''
-          ;
+          with-lib = runCommandCC "zlib-bindgen-tests" { buildInputs = [ zlib ]; } ''
+            echo '#include <zlib.h>' > a.c
+            ${self}/bin/bindgen a.c --allowlist-function compress | tee output
+            grep compress output
+            touch $out
+          '';
         };
       }
       # if you modify the logic to find the right clang flags, also modify rustPlatform.bindgenHook

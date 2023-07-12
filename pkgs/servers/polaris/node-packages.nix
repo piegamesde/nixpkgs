@@ -3577,9 +3577,7 @@ let
       sources."@babel/code-frame-7.16.7"
       (
         sources."@babel/highlight-7.16.10" // {
-          dependencies = [
-            sources."@babel/helper-validator-identifier-7.16.7"
-          ];
+          dependencies = [ sources."@babel/helper-validator-identifier-7.16.7" ];
         }
       )
       sources."@babel/parser-7.17.8"
@@ -3602,11 +3600,7 @@ let
           ];
         }
       )
-      (
-        sources."@cypress/xvfb-1.2.4" // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
-      )
+      (sources."@cypress/xvfb-1.2.4" // { dependencies = [ sources."debug-3.2.7" ]; })
       (
         sources."@parcel/bundler-default-2.3.2" // {
           dependencies = [
@@ -4034,9 +4028,7 @@ let
       sources."caniuse-lite-1.0.30001319"
       sources."caseless-0.12.0"
       (
-        sources."chalk-2.4.2" // {
-          dependencies = [ sources."supports-color-5.5.0" ];
-        }
+        sources."chalk-2.4.2" // { dependencies = [ sources."supports-color-5.5.0" ]; }
       )
       sources."check-more-types-2.24.0"
       sources."chrome-trace-event-1.0.2"
@@ -4137,9 +4129,7 @@ let
       sources."has-flag-3.0.0"
       sources."htmlnano-2.0.0"
       (
-        sources."htmlparser2-7.2.0" // {
-          dependencies = [ sources."entities-3.0.1" ];
-        }
+        sources."htmlparser2-7.2.0" // { dependencies = [ sources."entities-3.0.1" ]; }
       )
       sources."import-fresh-3.3.0"
       sources."indent-string-3.2.0"

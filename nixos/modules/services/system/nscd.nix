@@ -101,9 +101,7 @@ in
 
     systemd.services.nscd = {
       description =
-        "Name Service Cache Daemon"
-        + lib.optionalString cfg.enableNsncd " (nsncd)"
-      ;
+        "Name Service Cache Daemon" + lib.optionalString cfg.enableNsncd " (nsncd)";
 
       before = [
         "nss-lookup.target"

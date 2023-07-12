@@ -217,22 +217,17 @@ in
         }
       ];
 
-      boot.initrd.extraUtilsCommands =
-        mkIf (!config.boot.initrd.systemd.enable)
-          ''
-            copy_bin_and_libs ${package}/bin/sshd
-            cp -pv ${pkgs.glibc.out}/lib/libnss_files.so.* $out/lib
-          ''
-      ;
+      boot.initrd.extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
+        copy_bin_and_libs ${package}/bin/sshd
+        cp -pv ${pkgs.glibc.out}/lib/libnss_files.so.* $out/lib
+      '';
 
       boot.initrd.extraUtilsCommandsTest =
         mkIf (!config.boot.initrd.systemd.enable)
           ''
             # sshd requires a host key to check config, so we pass in the test's
             tmpkey="$(mktemp initrd-ssh-testkey.XXXXXXXXXX)"
-            cp "${
-              ../../../tests/initrd-network-ssh/ssh_host_ed25519_key
-            }" "$tmpkey"
+            cp "${../../../tests/initrd-network-ssh/ssh_host_ed25519_key}" "$tmpkey"
             # keys from Nix store are world-readable, which sshd doesn't like
             chmod 600 "$tmpkey"
             echo -n ${escapeShellArg sshdConfig} |
@@ -242,56 +237,50 @@ in
           ''
       ;
 
-      boot.initrd.network.postCommands =
-        mkIf (!config.boot.initrd.systemd.enable)
+      boot.initrd.network.postCommands = mkIf (!config.boot.initrd.systemd.enable) ''
+        echo '${shell}' > /etc/shells
+        echo 'root:x:0:0:root:/root:${shell}' > /etc/passwd
+        echo 'sshd:x:1:1:sshd:/var/empty:/bin/nologin' >> /etc/passwd
+        echo 'passwd: files' > /etc/nsswitch.conf
+
+        mkdir -p /var/log /var/empty
+        touch /var/log/lastlog
+
+        mkdir -p /etc/ssh
+        echo -n ${escapeShellArg sshdConfig} > /etc/ssh/sshd_config
+
+        echo "export PATH=$PATH" >> /etc/profile
+        echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> /etc/profile
+
+        mkdir -p /root/.ssh
+        ${concatStrings (
+          map
+            (key: ''
+              echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
+            '')
+            cfg.authorizedKeys
+        )}
+
+        ${flip concatMapStrings cfg.hostKeys (
+          path: ''
+            # keys from Nix store are world-readable, which sshd doesn't like
+            chmod 0600 "${initrdKeyPath path}"
           ''
-            echo '${shell}' > /etc/shells
-            echo 'root:x:0:0:root:/root:${shell}' > /etc/passwd
-            echo 'sshd:x:1:1:sshd:/var/empty:/bin/nologin' >> /etc/passwd
-            echo 'passwd: files' > /etc/nsswitch.conf
+        )}
 
-            mkdir -p /var/log /var/empty
-            touch /var/log/lastlog
+        /bin/sshd -e
+      '';
 
-            mkdir -p /etc/ssh
-            echo -n ${escapeShellArg sshdConfig} > /etc/ssh/sshd_config
-
-            echo "export PATH=$PATH" >> /etc/profile
-            echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> /etc/profile
-
-            mkdir -p /root/.ssh
-            ${concatStrings (
-              map
-                (key: ''
-                  echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
-                '')
-                cfg.authorizedKeys
-            )}
-
-            ${flip concatMapStrings cfg.hostKeys (
-              path: ''
-                # keys from Nix store are world-readable, which sshd doesn't like
-                chmod 0600 "${initrdKeyPath path}"
-              ''
-            )}
-
-            /bin/sshd -e
-          ''
-      ;
-
-      boot.initrd.postMountCommands =
-        mkIf (!config.boot.initrd.systemd.enable)
-          ''
-            # Stop sshd cleanly before stage 2.
-            #
-            # If you want to keep it around to debug post-mount SSH issues,
-            # run `touch /.keep_sshd` (either from an SSH session or in
-            # another initrd hook like preDeviceCommands).
-            if ! [ -e /.keep_sshd ]; then
-              pkill -x sshd
-            fi
-          ''
-      ;
+      boot.initrd.postMountCommands = mkIf (!config.boot.initrd.systemd.enable) ''
+        # Stop sshd cleanly before stage 2.
+        #
+        # If you want to keep it around to debug post-mount SSH issues,
+        # run `touch /.keep_sshd` (either from an SSH session or in
+        # another initrd hook like preDeviceCommands).
+        if ! [ -e /.keep_sshd ]; then
+          pkill -x sshd
+        fi
+      '';
 
       boot.initrd.secrets = listToAttrs (
         map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys

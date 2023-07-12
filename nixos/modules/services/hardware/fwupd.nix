@@ -14,11 +14,7 @@ let
 
   format = pkgs.formats.ini {
     listToValue =
-      l:
-      lib.concatStringsSep ";" (
-        map (s: generators.mkValueStringDefault { } s) l
-      )
-    ;
+      l: lib.concatStringsSep ";" (map (s: generators.mkValueStringDefault { } s) l);
     mkKeyValue = generators.mkKeyValueDefault { } "=";
   };
 
@@ -148,10 +144,7 @@ in
             EspLocation = mkOption {
               type = types.path;
               default = config.boot.loader.efi.efiSysMountPoint;
-              defaultText =
-                lib.literalExpression
-                  "config.boot.loader.efi.efiSysMountPoint"
-              ;
+              defaultText = lib.literalExpression "config.boot.loader.efi.efiSysMountPoint";
               description = lib.mdDoc ''
                 The EFI system partition (ESP) path used if UDisks is not available
                 or if this partition is not mounted at /boot/efi, /boot, or /efi
@@ -166,9 +159,7 @@ in
       };
 
       uefiCapsuleSettings = mkOption {
-        type = types.submodule {
-          freeformType = format.type.nestedTypes.elemType;
-        };
+        type = types.submodule { freeformType = format.type.nestedTypes.elemType; };
         default = { };
         description = lib.mdDoc ''
           UEFI capsule configurations for the fwupd daemon.

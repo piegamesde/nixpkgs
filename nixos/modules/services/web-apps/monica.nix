@@ -129,10 +129,7 @@ in
       createLocally = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Create the database and database user locally."
-        ;
+        description = lib.mdDoc "Create the database and database user locally.";
       };
     };
 
@@ -222,9 +219,7 @@ in
     nginx = mkOption {
       type = types.submodule (
         recursiveUpdate
-          (import ../web-servers/nginx/vhost-options.nix {
-            inherit config lib;
-          })
+          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
           { }
       );
       default = { };
@@ -432,10 +427,7 @@ in
                 else if isSecret v then
                   hashString "sha256" v._secret
                 else
-                  throw
-                    "unsupported type ${typeOf v}: ${
-                      (lib.generators.toPretty { }) v
-                    }"
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
               ;
             };
           };
@@ -453,10 +445,7 @@ in
               }
             ''
           ;
-          secretReplacements =
-            lib.concatMapStrings mkSecretReplacement
-              secretPaths
-          ;
+          secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
           filteredConfig =
             lib.converge
               (lib.filterAttrsRecursive (
@@ -468,9 +457,7 @@ in
               ))
               cfg.config
           ;
-          monicaEnv = pkgs.writeText "monica.env" (
-            monicaEnvVars filteredConfig
-          );
+          monicaEnv = pkgs.writeText "monica.env" (monicaEnvVars filteredConfig);
         in
         ''
           # error handling

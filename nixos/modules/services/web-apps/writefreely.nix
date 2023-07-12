@@ -76,8 +76,7 @@ let
       templates_parent_dir =
         cfg.settings.server.templates_parent_dir or cfg.package.src;
       static_parent_dir = cfg.settings.server.static_parent_dir or assets;
-      pages_parent_dir =
-        cfg.settings.server.pages_parent_dir or cfg.package.src;
+      pages_parent_dir = cfg.settings.server.pages_parent_dir or cfg.package.src;
       keys_parent_dir = cfg.settings.server.keys_parent_dir or cfg.stateDir;
     };
   };
@@ -176,10 +175,7 @@ in
     stateDir = mkOption {
       type = types.path;
       default = "/var/lib/writefreely";
-      description =
-        lib.mdDoc
-          "The state directory where keys and data are stored."
-      ;
+      description = lib.mdDoc "The state directory where keys and data are stored.";
     };
 
     user = mkOption {
@@ -271,10 +267,7 @@ in
       port = mkOption {
         type = types.port;
         default = 3306;
-        description =
-          lib.mdDoc
-            "The port used when connecting to the database host."
-        ;
+        description = lib.mdDoc "The port used when connecting to the database host.";
       };
 
       tls = mkOption {
@@ -377,9 +370,7 @@ in
         };
       };
 
-      groups = optionalAttrs (cfg.group == "writefreely") {
-        writefreely = { };
-      };
+      groups = optionalAttrs (cfg.group == "writefreely") { writefreely = { }; };
     };
 
     systemd.tmpfiles.rules = [

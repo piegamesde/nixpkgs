@@ -103,14 +103,11 @@ pkgs.recurseIntoAttrs (rec {
   ##################
   nvim_with_plugins = wrapNeovim2 "-with-plugins" nvimConfNix;
 
-  singlelinesconfig =
-    runTest (wrapNeovim2 "-single-lines" nvimConfSingleLines)
-      ''
-        assertFileContent \
-          "$vimrcGeneric" \
-          "${./init-single-lines.vim}"
-      ''
-  ;
+  singlelinesconfig = runTest (wrapNeovim2 "-single-lines" nvimConfSingleLines) ''
+    assertFileContent \
+      "$vimrcGeneric" \
+      "${./init-single-lines.vim}"
+  '';
 
   nvim_via_override = neovim.override {
     extraName = "-via-override";

@@ -32,8 +32,7 @@ let
     # delete hdcp.bin if either: the platform is thought to
     # not need it or unfreeIncludeHDCPBlob is false
     let
-      deleteHDCPBlobBeforeBuild =
-        !platformCanUseHDCPBlob || !unfreeIncludeHDCPBlob;
+      deleteHDCPBlobBeforeBuild = !platformCanUseHDCPBlob || !unfreeIncludeHDCPBlob;
     in
 
     stdenv.mkDerivation (
@@ -104,9 +103,7 @@ let
             description = "A reference implementation of secure world software for ARMv8-A";
             license =
               [ licenses.bsd3 ]
-              ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [
-                licenses.unfreeRedistributable
-              ]
+              ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [ licenses.unfreeRedistributable ]
             ;
             maintainers = with maintainers; [ lopsided98 ];
           } // extraMeta

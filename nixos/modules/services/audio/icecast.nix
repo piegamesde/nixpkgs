@@ -65,19 +65,13 @@ in
       admin = {
         user = mkOption {
           type = types.str;
-          description =
-            lib.mdDoc
-              "Username used for all administration functions."
-          ;
+          description = lib.mdDoc "Username used for all administration functions.";
           default = "admin";
         };
 
         password = mkOption {
           type = types.str;
-          description =
-            lib.mdDoc
-              "Password used for all administration functions."
-          ;
+          description = lib.mdDoc "Password used for all administration functions.";
         };
       };
 

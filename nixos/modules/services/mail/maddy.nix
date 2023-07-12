@@ -143,9 +143,7 @@ in
   options = {
     services.maddy = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "Maddy, a free an open source mail server"
-      );
+      enable = mkEnableOption (lib.mdDoc "Maddy, a free an open source mail server");
 
       user = mkOption {
         default = "maddy";
@@ -367,9 +365,7 @@ in
             Group = cfg.group;
             StateDirectory = [ "maddy" ];
           };
-          restartTriggers = [
-            config.environment.etc."maddy/maddy.conf".source
-          ];
+          restartTriggers = [ config.environment.etc."maddy/maddy.conf".source ];
           wantedBy = [ "multi-user.target" ];
         };
         maddy-ensure-accounts = {

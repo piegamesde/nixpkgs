@@ -49,10 +49,7 @@ let
       (name: value: {
         inherit name;
         path =
-          if (builtins.hasAttr "url" value) then
-            fetchgit value
-          else
-            fetchFromGitHub value
+          if (builtins.hasAttr "url" value) then fetchgit value else fetchFromGitHub value
         ;
       })
       (import shardsFile)
@@ -81,9 +78,7 @@ let
       ++ [
         "-o"
         bin
-        (attrs.src
-          or (throw "No source file for crystal binary ${bin} provided")
-        )
+        (attrs.src or (throw "No source file for crystal binary ${bin} provided"))
         (lib.concatStringsSep " " (attrs.options or defaultOptions))
       ]
     )
@@ -131,9 +126,7 @@ stdenv.mkDerivation (
     buildPhase =
       args.buildPhase or (lib.concatStringsSep "\n" (
         [ "runHook preBuild" ]
-        ++
-          lib.optional (format == "make")
-            "make \${buildTargets:-build} $makeFlags"
+        ++ lib.optional (format == "make") "make \${buildTargets:-build} $makeFlags"
         ++ lib.optionals (format == "crystal") (
           lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries
         )
@@ -185,12 +178,8 @@ stdenv.mkDerivation (
     checkPhase =
       args.checkPhase or (lib.concatStringsSep "\n" (
         [ "runHook preCheck" ]
-        ++
-          lib.optional (format == "make")
-            "make \${checkTarget:-test} $checkFlags"
-        ++
-          lib.optional (format != "make")
-            "crystal \${checkTarget:-spec} $checkFlags"
+        ++ lib.optional (format == "make") "make \${checkTarget:-test} $checkFlags"
+        ++ lib.optional (format != "make") "crystal \${checkTarget:-spec} $checkFlags"
         ++ [ "runHook postCheck" ]
       ));
 

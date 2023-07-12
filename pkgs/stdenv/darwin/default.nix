@@ -157,9 +157,7 @@ rec {
     let
       name = "bootstrap-stage${toString step}";
 
-      buildPackages = lib.optionalAttrs (last ? stdenv) {
-        inherit (last) stdenv;
-      };
+      buildPackages = lib.optionalAttrs (last ? stdenv) { inherit (last) stdenv; };
 
       doSign = localSystem.isAarch64 && last != null;
       doUpdateAutoTools = localSystem.isAarch64 && last != null;
@@ -169,9 +167,7 @@ rec {
           rsrc="$out/resource-root"
           mkdir "$rsrc"
           ln -s "${cc.lib or cc}/lib/clang/${cc.version}/include" "$rsrc"
-          ln -s "${
-            last.pkgs."${finalLlvmPackages}".compiler-rt.out
-          }/lib" "$rsrc/lib"
+          ln -s "${last.pkgs."${finalLlvmPackages}".compiler-rt.out}/lib" "$rsrc/lib"
           echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
         ''
       ;
@@ -372,45 +368,35 @@ rec {
               ln -s ${bootstrapTools}/bin/codesign $out/bin
             '';
 
-            print-reexports =
-              self.runCommandLocal "bootstrap-stage0-print-reexports" { }
-                ''
-                  mkdir -p $out/bin
-                  ln -s ${bootstrapTools}/bin/print-reexports $out/bin
-                ''
-            ;
+            print-reexports = self.runCommandLocal "bootstrap-stage0-print-reexports" { } ''
+              mkdir -p $out/bin
+              ln -s ${bootstrapTools}/bin/print-reexports $out/bin
+            '';
 
-            rewrite-tbd =
-              self.runCommandLocal "bootstrap-stage0-rewrite-tbd" { }
-                ''
-                  mkdir -p $out/bin
-                  ln -s ${bootstrapTools}/bin/rewrite-tbd $out/bin
-                ''
-            ;
+            rewrite-tbd = self.runCommandLocal "bootstrap-stage0-rewrite-tbd" { } ''
+              mkdir -p $out/bin
+              ln -s ${bootstrapTools}/bin/rewrite-tbd $out/bin
+            '';
 
-            binutils-unwrapped =
-              bootstrapTools // { name = "bootstrap-stage0-binutils"; };
+            binutils-unwrapped = bootstrapTools // { name = "bootstrap-stage0-binutils"; };
 
             cctools = bootstrapTools // {
               name = "bootstrap-stage0-cctools";
               targetPrefix = "";
             };
 
-            binutils =
-              lib.makeOverridable (import ../../build-support/bintools-wrapper)
-                {
-                  shell = "${bootstrapTools}/bin/bash";
-                  inherit lib;
-                  inherit (self) stdenvNoCC;
+            binutils = lib.makeOverridable (import ../../build-support/bintools-wrapper) {
+              shell = "${bootstrapTools}/bin/bash";
+              inherit lib;
+              inherit (self) stdenvNoCC;
 
-                  nativeTools = false;
-                  nativeLibc = false;
-                  inherit (self) buildPackages coreutils gnugrep;
-                  libc = selfDarwin.Libsystem;
-                  bintools = selfDarwin.binutils-unwrapped;
-                  inherit (selfDarwin) postLinkSignHook signingUtils;
-                }
-            ;
+              nativeTools = false;
+              nativeLibc = false;
+              inherit (self) buildPackages coreutils gnugrep;
+              libc = selfDarwin.Libsystem;
+              bintools = selfDarwin.binutils-unwrapped;
+              inherit (selfDarwin) postLinkSignHook signingUtils;
+            };
           } // lib.optionalAttrs (!useAppleSDKLibs) {
             CF = stdenv.mkDerivation {
               name = "bootstrap-stage0-CF";
@@ -522,13 +508,7 @@ rec {
                 _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
               );
               libraries = super."${finalLlvmPackages}".libraries.extend (
-                _: _: {
-                  inherit (pkgs."${finalLlvmPackages}")
-                    compiler-rt
-                    libcxx
-                    libcxxabi
-                  ;
-                }
+                _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
               );
             in
             {
@@ -540,9 +520,7 @@ rec {
             selfDarwin: _: {
               inherit (darwin) rewrite-tbd binutils-unwrapped;
 
-              signingUtils = darwin.signingUtils.override {
-                inherit (selfDarwin) sigtool;
-              };
+              signingUtils = darwin.signingUtils.override { inherit (selfDarwin) sigtool; };
 
               binutils = darwin.binutils.override {
                 coreutils = self.coreutils;
@@ -819,9 +797,7 @@ rec {
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
             let
               libraries = super."${finalLlvmPackages}".libraries.extend (
-                _: _: {
-                  inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi;
-                }
+                _: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi; }
               );
             in
             {
@@ -954,9 +930,7 @@ rec {
           # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
           # quite a sledgehammer just to get the C runtime.
           gettext = super.gettext.overrideAttrs (
-            drv: {
-              configureFlags = drv.configureFlags ++ [ "--disable-curses" ];
-            }
+            drv: { configureFlags = drv.configureFlags ++ [ "--disable-curses" ]; }
           );
 
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
@@ -967,18 +941,12 @@ rec {
                     pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override
                       { llvm = llvmSelf.llvm; }
                   ;
-                  libllvm = pkgs."${finalLlvmPackages}".libllvm.override {
-                    inherit libxml2;
-                  };
+                  libllvm = pkgs."${finalLlvmPackages}".libllvm.override { inherit libxml2; };
                 }
               );
               libraries = super."${finalLlvmPackages}".libraries.extend (
                 llvmSelf: _: {
-                  inherit (pkgs."${finalLlvmPackages}")
-                    libcxx
-                    libcxxabi
-                    compiler-rt
-                  ;
+                  inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt;
                 }
               );
             in
@@ -1072,8 +1040,9 @@ rec {
                 libiconv
                 rewrite-tbd
               ;
-            } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem)
-              { inherit (darwin) binutils binutils-unwrapped cctools; }
+            } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
+              inherit (darwin) binutils binutils-unwrapped cctools;
+            }
           );
         } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
           inherit llvm;
@@ -1082,18 +1051,10 @@ rec {
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
             let
               tools = super."${finalLlvmPackages}".tools.extend (
-                _: super: {
-                  inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped;
-                }
+                _: super: { inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped; }
               );
               libraries = super."${finalLlvmPackages}".libraries.extend (
-                _: _: {
-                  inherit (pkgs."${finalLlvmPackages}")
-                    compiler-rt
-                    libcxx
-                    libcxxabi
-                  ;
-                }
+                _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
               );
             in
             {

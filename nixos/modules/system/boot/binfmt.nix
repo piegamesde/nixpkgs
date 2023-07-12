@@ -70,8 +70,7 @@ let
       ''
   ;
 
-  getEmulator =
-    system: (lib.systems.elaborate { inherit system; }).emulator pkgs;
+  getEmulator = system: (lib.systems.elaborate { inherit system; }).emulator pkgs;
   getQemuArch = system: (lib.systems.elaborate { inherit system; }).qemuArch;
 
   # Mapping of systems to “magicOrExtension” and “mask”. Mostly taken from:
@@ -241,10 +240,7 @@ in
                 };
 
                 magicOrExtension = mkOption {
-                  description =
-                    lib.mdDoc
-                      "The magic number or extension to match on."
-                  ;
+                  description = lib.mdDoc "The magic number or extension to match on.";
                   type = types.str;
                 };
 
@@ -377,10 +373,7 @@ in
                   wrapperName = "qemu-${qemuArch}-binfmt-P";
                   wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
                 in
-                if preserveArgvZero then
-                  "${wrapper}/bin/${wrapperName}"
-                else
-                  interpreter
+                if preserveArgvZero then "${wrapper}/bin/${wrapperName}" else interpreter
               ;
             in
             (
@@ -389,9 +382,7 @@ in
 
                 interpreter = mkDefault interpreterReg;
                 wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
-                interpreterSandboxPath = mkDefault (
-                  dirOf (dirOf config.interpreter)
-                );
+                interpreterSandboxPath = mkDefault (dirOf (dirOf config.interpreter));
               } // (magics.${system} or (throw
                 "Cannot create binfmt registration for system ${system}"
               )
@@ -416,9 +407,7 @@ in
         in
         [ "/run/binfmt" ]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
-        ++ (map (system: (ruleFor system).interpreterSandboxPath)
-          cfg.emulatedSystems
-        )
+        ++ (map (system: (ruleFor system).interpreterSandboxPath) cfg.emulatedSystems)
       ;
     };
 

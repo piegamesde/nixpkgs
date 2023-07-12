@@ -73,10 +73,7 @@ in
     extraConfig = mkOption {
       type = with types; attrsOf str;
       default = { };
-      description =
-        lib.mdDoc
-          "Attribute set with additional configuration values"
-      ;
+      description = lib.mdDoc "Attribute set with additional configuration values";
       example = literalExpression ''
         {
           "ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE" = "20";
@@ -95,8 +92,7 @@ in
       ${optionalString (!cfg.async) "unset ZSH_AUTOSUGGEST_USE_ASYNC"}
 
       ${concatStringsSep "\n" (
-        mapAttrsToList (key: value: ''export ${key}="${value}"'')
-          cfg.extraConfig
+        mapAttrsToList (key: value: ''export ${key}="${value}"'') cfg.extraConfig
       )}
     '';
   };

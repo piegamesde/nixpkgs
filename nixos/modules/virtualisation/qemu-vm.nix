@@ -71,10 +71,7 @@ let
       useEFIBoot,
       useDefaultFilesystems,
     }:
-    if useDefaultFilesystems then
-      if useEFIBoot then "efi" else "legacy"
-    else
-      "none"
+    if useDefaultFilesystems then if useEFIBoot then "efi" else "legacy" else "none"
   ;
 
   driveCmdline =
@@ -108,8 +105,7 @@ let
     "-drive ${driveOpts} ${device}"
   ;
 
-  drivesCmdLine =
-    drives: concatStringsSep "\\\n    " (imap1 driveCmdline drives);
+  drivesCmdLine = drives: concatStringsSep "\\\n    " (imap1 driveCmdline drives);
 
   # Creates a device name from a 1-based a numerical index, e.g.
   # * `driveDeviceName 1` -> `/dev/vda`
@@ -134,9 +130,7 @@ let
     ).device
   ;
 
-  addDeviceNames = imap1 (
-    idx: drive: drive // { device = driveDeviceName idx; }
-  );
+  addDeviceNames = imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 
   # Shell script to start the VM.
   startVM = ''
@@ -246,9 +240,7 @@ let
     ${flip concatMapStrings cfg.emptyDiskImages (
       size: ''
         if ! test -e "empty$idx.qcow2"; then
-            ${qemu}/bin/qemu-img create -f qcow2 "empty$idx.qcow2" "${
-              toString size
-            }M"
+            ${qemu}/bin/qemu-img create -f qcow2 "empty$idx.qcow2" "${toString size}M"
         fi
         idx=$((idx + 1))
       ''
@@ -713,10 +705,7 @@ in
       package = mkOption {
         type = types.package;
         default = cfg.host.pkgs.qemu_kvm;
-        defaultText =
-          literalExpression
-            "config.virtualisation.host.pkgs.qemu_kvm"
-        ;
+        defaultText = literalExpression "config.virtualisation.host.pkgs.qemu_kvm";
         example = literalExpression "pkgs.qemu_test";
         description = lib.mdDoc "QEMU package to use.";
       };
@@ -782,10 +771,7 @@ in
         ];
         default = "virtio";
         example = "scsi";
-        description =
-          lib.mdDoc
-            "The interface used for the virtual hard disks."
-        ;
+        description = lib.mdDoc "The interface used for the virtual hard disks.";
       };
 
       guestAgent.enable = mkOption {
@@ -826,10 +812,7 @@ in
     virtualisation.mountHostNixStore = mkOption {
       type = types.bool;
       default = !cfg.useNixStoreImage && !cfg.useBootLoader;
-      defaultText =
-        literalExpression
-          "!cfg.useNixStoreImage && !cfg.useBootLoader"
-      ;
+      defaultText = literalExpression "!cfg.useNixStoreImage && !cfg.useBootLoader";
       description = lib.mdDoc ''
         Mount the host Nix store as a 9p mount.
       '';
@@ -937,13 +920,9 @@ in
             '';
           }
           {
-            assertion =
-              rule.from == "guest" -> lib.hasPrefix "10.0.2." rule.guest.address
-            ;
+            assertion = rule.from == "guest" -> lib.hasPrefix "10.0.2." rule.guest.address;
             message = ''
-              Invalid virtualisation.forwardPorts.<entry ${
-                toString i
-              }>.guest.address:
+              Invalid virtualisation.forwardPorts.<entry ${toString i}>.guest.address:
                 The address must be in the default VLAN (10.0.2.0/24).
             '';
           }
@@ -1015,26 +994,23 @@ in
         ''
     ;
 
-    boot.initrd.postMountCommands =
-      lib.mkIf (!config.boot.initrd.systemd.enable)
-        ''
-          # Mark this as a NixOS machine.
-          mkdir -p $targetRoot/etc
-          echo -n > $targetRoot/etc/NIXOS
+    boot.initrd.postMountCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
+      # Mark this as a NixOS machine.
+      mkdir -p $targetRoot/etc
+      echo -n > $targetRoot/etc/NIXOS
 
-          # Fix the permissions on /tmp.
-          chmod 1777 $targetRoot/tmp
+      # Fix the permissions on /tmp.
+      chmod 1777 $targetRoot/tmp
 
-          mkdir -p $targetRoot/boot
+      mkdir -p $targetRoot/boot
 
-          ${optionalString cfg.writableStore ''
-            echo "mounting overlay filesystem on /nix/store..."
-            mkdir -p -m 0755 $targetRoot/nix/.rw-store/store $targetRoot/nix/.rw-store/work $targetRoot/nix/store
-            mount -t overlay overlay $targetRoot/nix/store \
-              -o lowerdir=$targetRoot/nix/.ro-store,upperdir=$targetRoot/nix/.rw-store/store,workdir=$targetRoot/nix/.rw-store/work || fail
-          ''}
-        ''
-    ;
+      ${optionalString cfg.writableStore ''
+        echo "mounting overlay filesystem on /nix/store..."
+        mkdir -p -m 0755 $targetRoot/nix/.rw-store/store $targetRoot/nix/.rw-store/work $targetRoot/nix/store
+        mount -t overlay overlay $targetRoot/nix/store \
+          -o lowerdir=$targetRoot/nix/.ro-store,upperdir=$targetRoot/nix/.rw-store/store,workdir=$targetRoot/nix/.rw-store/work || fail
+      ''}
+    '';
 
     systemd.tmpfiles.rules = lib.mkIf config.boot.initrd.systemd.enable [
       "f /etc/NIXOS 0644 root root -"
@@ -1090,14 +1066,9 @@ in
             + "${guest.address}:${toString guest.port},"
           else
             "'guestfwd=${proto}:${guest.address}:${toString guest.port}-"
-            + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${
-                toString host.port
-              }',"
+            + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${toString host.port}',"
         );
-        restrictNetworkOption =
-          lib.optionalString cfg.restrictNetwork
-            "restrict=on,"
-        ;
+        restrictNetworkOption = lib.optionalString cfg.restrictNetwork "restrict=on,";
       in
       [
         "-net nic,netdev=user.0,model=virtio"
@@ -1121,14 +1092,13 @@ in
       ])
       (
         let
-          alphaNumericChars =
-            lowerChars ++ upperChars ++ (map toString (range 0 9));
+          alphaNumericChars = lowerChars ++ upperChars ++ (map toString (range 0 9));
           # Replace all non-alphanumeric characters with underscores
           sanitizeShellIdent =
             s:
-            concatMapStrings
-              (c: if builtins.elem c alphaNumericChars then c else "_")
-              (stringToCharacters s)
+            concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (
+              stringToCharacters s
+            )
           ;
         in
         mkIf (!cfg.useBootLoader) [
@@ -1240,14 +1210,11 @@ in
                 options = [ "ro" ];
               }
           ;
-          "/nix/.rw-store" =
-            lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs)
-              {
-                fsType = "tmpfs";
-                options = [ "mode=0755" ];
-                neededForBoot = true;
-              }
-          ;
+          "/nix/.rw-store" = lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
+            fsType = "tmpfs";
+            options = [ "mode=0755" ];
+            neededForBoot = true;
+          };
           "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
             device = cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
             fsType = "vfat";

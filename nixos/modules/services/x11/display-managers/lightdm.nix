@@ -191,10 +191,7 @@ in
         example = ''
           greeter-show-manual-login=true
         '';
-        description =
-          lib.mdDoc
-            "Extra lines to append to SeatDefaults section."
-        ;
+        description = lib.mdDoc "Extra lines to append to SeatDefaults section.";
       };
 
       # Configuration for automatic login specific to LightDM
@@ -218,17 +215,14 @@ in
         '';
       }
       {
-        assertion =
-          dmcfg.autoLogin.enable -> sessionData.autologinSession != null;
+        assertion = dmcfg.autoLogin.enable -> sessionData.autologinSession != null;
         message = ''
           LightDM auto-login requires that services.xserver.displayManager.defaultSession is set.
         '';
       }
       {
         assertion =
-          !cfg.greeter.enable
-          -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0)
-        ;
+          !cfg.greeter.enable -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0);
         message = ''
           LightDM can only run without greeter if automatic login is enabled and the timeout for it
           is set to zero.

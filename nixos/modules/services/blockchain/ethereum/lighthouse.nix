@@ -109,9 +109,7 @@ in
             };
 
             metrics = {
-              enable = lib.mkEnableOption (
-                lib.mdDoc "Beacon node prometheus metrics"
-              );
+              enable = lib.mkEnableOption (lib.mdDoc "Beacon node prometheus metrics");
               address = mkOption {
                 type = types.str;
                 default = "127.0.0.1";
@@ -169,9 +167,7 @@ in
             };
 
             metrics = {
-              enable = lib.mkEnableOption (
-                lib.mdDoc "Validator node prometheus metrics"
-              );
+              enable = lib.mkEnableOption (lib.mdDoc "Validator node prometheus metrics");
               address = mkOption {
                 type = types.str;
                 default = "127.0.0.1";

@@ -92,12 +92,6 @@ in
   # These exist so as to quickly test whether all required libraries are provided
   # by the mapped packages.
   manylinux1Package = createManyLinuxPackage "manylinux1" manylinux1Libs;
-  manylinux2010Package =
-    createManyLinuxPackage "manylinux2010"
-      manylinux2010Libs
-  ;
-  manylinux2014Package =
-    createManyLinuxPackage "manylinux2014"
-      manylinux2014Libs
-  ;
+  manylinux2010Package = createManyLinuxPackage "manylinux2010" manylinux2010Libs;
+  manylinux2014Package = createManyLinuxPackage "manylinux2014" manylinux2014Libs;
 }

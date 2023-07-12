@@ -77,8 +77,7 @@ buildPythonPackage rec {
     mako
   ];
 
-  nativeBuildInputs =
-    [ cmake ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [ cmake ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   buildInputs = [
     cython

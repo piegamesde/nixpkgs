@@ -259,9 +259,7 @@ stdenv.mkDerivation {
         Cflags: -I$dev/include
         EOF
 
-          libcblas="${
-            lib.getLib blasProvider'
-          }/lib/libcblas${canonicalExtension}"
+          libcblas="${lib.getLib blasProvider'}/lib/libcblas${canonicalExtension}"
 
           if ! [ -e "$libcblas" ]; then
             echo "$libcblas does not exist, ${blasProvider'.name} does not provide libcblas."
@@ -293,9 +291,7 @@ stdenv.mkDerivation {
             ln -s $out/lib/libcblas${canonicalExtension} "$out/lib/libcblas${stdenv.hostPlatform.extensions.sharedLibrary}"
           fi
 
-          cp ${
-            lib.getDev lapack-reference
-          }/include/cblas{,_mangling}.h $dev/include
+          cp ${lib.getDev lapack-reference}/include/cblas{,_mangling}.h $dev/include
 
           cat <<EOF > $dev/lib/pkgconfig/cblas.pc
         Name: cblas

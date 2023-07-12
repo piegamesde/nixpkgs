@@ -96,9 +96,7 @@ self: super:
       overrideCabal
         (drv: {
           libraryFrameworkDepends =
-            [ darwin.apple_sdk.frameworks.OpenAL ]
-            ++ (drv.libraryFrameworkDepends or [ ])
-          ;
+            [ darwin.apple_sdk.frameworks.OpenAL ] ++ (drv.libraryFrameworkDepends or [ ]);
         })
         super.al
     ;
@@ -160,15 +158,9 @@ self: super:
         super.llvm-hs
     ;
 
-    yesod-bin =
-      addBuildDepend darwin.apple_sdk.frameworks.Cocoa
-        super.yesod-bin
-    ;
+    yesod-bin = addBuildDepend darwin.apple_sdk.frameworks.Cocoa super.yesod-bin;
 
-    hmatrix =
-      addBuildDepend darwin.apple_sdk.frameworks.Accelerate
-        super.hmatrix
-    ;
+    hmatrix = addBuildDepend darwin.apple_sdk.frameworks.Accelerate super.hmatrix;
 
     blas-hs =
       overrideCabal
@@ -294,8 +286,7 @@ self: super:
     cas-store =
       overrideCabal
         (drv: {
-          libraryHaskellDepends =
-            [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]);
+          libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]);
         })
         super.cas-store
     ;
@@ -378,10 +369,7 @@ self: super:
     # These failures can easily be fixed by upstream by renaming files, so we
     # should create issues for them.
     # https://github.com/typeclasses/aws-cloudfront-signed-cookies/issues/2
-    aws-cloudfront-signed-cookies =
-      dontCheck
-        super.aws-cloudfront-signed-cookies
-    ;
+    aws-cloudfront-signed-cookies = dontCheck super.aws-cloudfront-signed-cookies;
 
     # https://github.com/acid-state/acid-state/issues/133
     acid-state = dontCheck super.acid-state;
@@ -457,16 +445,14 @@ self: super:
     ormolu =
       overrideCabal
         (drv: {
-          libraryHaskellDepends =
-            drv.libraryHaskellDepends ++ [ self.file-embed ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
         })
         (disableCabalFlag "fixity-th" super.ormolu)
     ;
     fourmolu =
       overrideCabal
         (drv: {
-          libraryHaskellDepends =
-            drv.libraryHaskellDepends ++ [ self.file-embed ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
         })
         (disableCabalFlag "fixity-th" super.fourmolu)
     ;

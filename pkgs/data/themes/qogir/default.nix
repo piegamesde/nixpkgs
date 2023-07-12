@@ -91,10 +91,7 @@ lib.checkListOfEnum "${pname}: theme variants"
           lib.optionalString (colorVariants != [ ]) "--color "
           + builtins.toString colorVariants
         } \
-        ${
-          lib.optionalString (tweaks != [ ]) "--tweaks "
-          + builtins.toString tweaks
-        } \
+        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       mkdir -p $out/share/doc/${pname}

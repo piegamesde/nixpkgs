@@ -62,9 +62,7 @@ buildGoModule rec {
   installPhase =
     ''
       runHook preInstall
-      PREFIX=${
-        placeholder "out"
-      } make install-binary install-completions install-docs
+      PREFIX=${placeholder "out"} make install-binary install-completions install-docs
       install ${passthru.policy}/default-policy.json -Dt $out/etc/containers
     ''
     + lib.optionalString stdenv.isLinux ''

@@ -40,8 +40,7 @@ let
   );
 
   hookFiles =
-    mapAttrsToList
-      (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ])
+    mapAttrsToList (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ])
       cfg.hooks
     ++
       mapAttrsToList

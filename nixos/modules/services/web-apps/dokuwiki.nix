@@ -88,9 +88,7 @@ let
     k: v:
     let
       values =
-        if
-          (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v
-        then
+        if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v then
           [ " = ${mkPhpValue v};" ]
         else
           mkPhpAttrVals v
@@ -219,9 +217,9 @@ let
           apply =
             x:
             builtins.trace
-              "Obsolete option `${
-                showOption fromPath
-              }' is used. It was renamed to ${showOption toPath}"
+              "Obsolete option `${showOption fromPath}' is used. It was renamed to ${
+                showOption toPath
+              }"
               toOp
           ;
         }
@@ -308,9 +306,7 @@ let
               }
               {
                 assertion =
-                  config.mergedConfig.useacl
-                  -> (config.acl != null || config.aclFile != null)
-                ;
+                  config.mergedConfig.useacl -> (config.acl != null || config.aclFile != null);
                 message = "Either ${showPath [ "acl" ]} or ${
                     showPath [ "aclFile" ]
                   } is mandatory if ${
@@ -321,10 +317,7 @@ let
                   } is true";
               }
               {
-                assertion =
-                  config.usersFile != null
-                  -> config.mergedConfig.useacl != false
-                ;
+                assertion = config.usersFile != null -> config.mergedConfig.useacl != false;
                 message = "${
                     showPath [
                       "settings"
@@ -612,10 +605,7 @@ in
       sites = mkOption {
         type = types.attrsOf (types.submodule siteOpts);
         default = { };
-        description =
-          lib.mdDoc
-            "Specification of one or more DokuWiki sites to serve"
-        ;
+        description = lib.mdDoc "Specification of one or more DokuWiki sites to serve";
       };
 
       webserver = mkOption {
@@ -759,9 +749,7 @@ in
                       include ${config.services.nginx.package}/conf/fastcgi_params;
                       fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                       fastcgi_param REDIRECT_STATUS 200;
-                      fastcgi_pass unix:${
-                        config.services.phpfpm.pools."dokuwiki-${hostName}".socket
-                      };
+                      fastcgi_pass unix:${config.services.phpfpm.pools."dokuwiki-${hostName}".socket};
                     '';
                   };
                 };
@@ -784,9 +772,7 @@ in
                     file_server
 
                     encode zstd gzip
-                    php_fastcgi unix/${
-                      config.services.phpfpm.pools."dokuwiki-${hostName}".socket
-                    }
+                    php_fastcgi unix/${config.services.phpfpm.pools."dokuwiki-${hostName}".socket}
 
                     @restrict_files {
                       path /data/* /conf/* /bin/* /inc/* /vendor/* /install.php

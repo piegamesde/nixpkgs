@@ -14,9 +14,7 @@ in
 
   options = {
     services.ddccontrol = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "ddccontrol for controlling displays"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc "ddccontrol for controlling displays");
     };
   };
 

@@ -292,10 +292,7 @@ in
       dataDir = mkOption {
         type = types.path;
         default = "/var/lib/${name}";
-        defaultText =
-          literalExpression
-            ''"/var/lib/''${config.${opt.package}.pname}"''
-        ;
+        defaultText = literalExpression ''"/var/lib/''${config.${opt.package}.pname}"'';
         description = lib.mdDoc ''
           The directory where Gerbera/Mediatomb stores its state, data, etc.
         '';

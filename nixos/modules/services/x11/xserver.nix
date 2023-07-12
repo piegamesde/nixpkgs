@@ -141,10 +141,7 @@ let
   configFile =
     pkgs.runCommand "xserver.conf"
       {
-        fontpath =
-          optionalString (cfg.fontPath != null)
-            ''FontPath "${cfg.fontPath}"''
-        ;
+        fontpath = optionalString (cfg.fontPath != null) ''FontPath "${cfg.fontPath}"'';
         inherit (cfg) config;
         preferLocalBuild = true;
       }
@@ -475,10 +472,7 @@ in
       xkbDir = mkOption {
         type = types.path;
         default = "${pkgs.xkeyboard_config}/etc/X11/xkb";
-        defaultText =
-          literalExpression
-            ''"''${pkgs.xkeyboard_config}/etc/X11/xkb"''
-        ;
+        defaultText = literalExpression ''"''${pkgs.xkeyboard_config}/etc/X11/xkb"'';
         description = lib.mdDoc ''
           Path used for -xkbdir xserver parameter.
         '';
@@ -920,9 +914,7 @@ in
       restartIfChanged = false;
 
       environment = optionalAttrs config.hardware.opengl.setLdLibraryPath {
-        LD_LIBRARY_PATH = lib.makeLibraryPath [
-          pkgs.addOpenGLRunpath.driverLink
-        ];
+        LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ];
       } // cfg.displayManager.job.environment;
 
       preStart = ''
@@ -990,8 +982,7 @@ in
           preferLocalBuild = true;
         }
         ''
-          ${optionalString
-            (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
+          ${optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
             "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
           xkbvalidate "$xkbModel" "$layout" "$xkbVariant" "$xkbOptions"
           touch "$out"
@@ -1089,20 +1080,14 @@ in
                             ${
                               optionalString (cfg.resolutions != [ ])
                                 "Modes ${
-                                  concatMapStrings
-                                    (
-                                      res:
-                                      ''"${toString res.x}x${toString res.y}"''
-                                    )
+                                  concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'')
                                     cfg.resolutions
                                 }"
                             }
                           ${indent cfg.extraDisplaySettings}
                             ${
                               optionalString (cfg.virtualScreen != null)
-                                "Virtual ${toString cfg.virtualScreen.x} ${
-                                  toString cfg.virtualScreen.y
-                                }"
+                                "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
                             }
                           EndSubSection
                         ''

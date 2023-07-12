@@ -53,9 +53,7 @@ let
           int = [ "${name} = ${toString value}" ];
 
           # extraConfig should be inserted verbatim
-          string = [
-            (if name == "extraConfig" then value else "${name} = ${value}")
-          ];
+          string = [ (if name == "extraConfig" then value else "${name} = ${value}") ];
 
           # Values like `Foo = [ "bar" "baz" ];` should be transformed into
           #   Foo=bar
@@ -84,8 +82,7 @@ let
       ;
 
       # One level "above" encode, acts upon a set and uses encode on each name,value pair
-      toLines =
-        set: concatMap (name: encode name set.${name}) (sortedAttrs set);
+      toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
     in
     concatStringsSep "\n" (toLines cfg.config)
   ;
@@ -230,10 +227,7 @@ in
       modulePackages = mkOption {
         type = types.listOf types.package;
         default = [ ];
-        example =
-          literalExpression
-            "[ pkgs.zncModules.fish pkgs.zncModules.push ]"
-        ;
+        example = literalExpression "[ pkgs.zncModules.fish pkgs.zncModules.push ]";
         description = lib.mdDoc ''
           A list of global znc module packages to add to znc.
         '';
@@ -272,9 +266,7 @@ in
   config = mkIf cfg.enable {
 
     services.znc = {
-      configFile = mkDefault (
-        pkgs.writeText "znc-generated.conf" semanticString
-      );
+      configFile = mkDefault (pkgs.writeText "znc-generated.conf" semanticString);
       config = {
         Version = lib.getVersion pkgs.znc;
         Listener.l.Port = mkDefault 5000;

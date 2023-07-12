@@ -36,10 +36,7 @@ let
   rustcOpts =
     lib.foldl' (opts: opt: opts + " " + opt)
       (if release then "-C opt-level=3" else "-C debuginfo=2")
-      (
-        [ "-C codegen-units=${toString codegenUnits}" ]
-        ++ extraRustcOptsForBuildRs
-      )
+      ([ "-C codegen-units=${toString codegenUnits}" ] ++ extraRustcOptsForBuildRs)
   ;
   buildDeps = mkRustcDepArgs buildDependencies crateRenames;
   authors = lib.concatStringsSep ":" crateAuthors;
@@ -146,9 +143,7 @@ in
   export CARGO_CFG_UNIX=1
   export CARGO_CFG_TARGET_ENV="gnu"
   export CARGO_CFG_TARGET_ENDIAN=${
-    if
-      stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian"
-    then
+    if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then
       "little"
     else
       "big"

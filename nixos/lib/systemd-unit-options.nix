@@ -46,9 +46,7 @@ rec {
               throw
                 "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${
                   showOption loc
-                }, the definitions are a mix of list and non-list ${
-                  lib.options.showDefs defs'
-                }"
+                }, the definitions are a mix of list and non-list ${lib.options.showDefs defs'}"
           )
           defs'
 
@@ -443,10 +441,7 @@ rec {
         jobScripts = mkOption {
           type = with types; coercedTo path singleton (listOf path);
           internal = true;
-          description =
-            lib.mdDoc
-              "A list of all job script derivations of this unit."
-          ;
+          description = lib.mdDoc "A list of all job script derivations of this unit.";
           default = [ ];
         };
       };

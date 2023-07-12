@@ -43,10 +43,7 @@ let
           --chdir "$out/lib" \
           ${
             lib.optionalString (!isSimulation)
-              ''
-                --prefix LD_LIBRARY_PATH : "${
-                  lib.makeLibraryPath [ sgx-psw ]
-                }"''
+              ''--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ sgx-psw ]}"''
           }
 
         runHook postInstall
@@ -85,10 +82,7 @@ in
             --chdir "$out/lib" \
             ${
               lib.optionalString (!isSimulation)
-                ''
-                  --prefix LD_LIBRARY_PATH : "${
-                    lib.makeLibraryPath [ sgx-psw ]
-                  }"''
+                ''--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ sgx-psw ]}"''
             }
         done
 

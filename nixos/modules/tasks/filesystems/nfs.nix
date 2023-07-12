@@ -63,8 +63,7 @@ in
   ###### implementation
 
   config =
-    mkIf
-      (any (fs: fs == "nfs" || fs == "nfs4") config.boot.supportedFilesystems)
+    mkIf (any (fs: fs == "nfs" || fs == "nfs4") config.boot.supportedFilesystems)
       {
 
         services.rpcbind.enable = true;
@@ -72,9 +71,7 @@ in
         services.nfs.idmapd.settings = {
           General = mkMerge [
             { Pipefs-Directory = rpcMountpoint; }
-            (mkIf (config.networking.domain != null) {
-              Domain = config.networking.domain;
-            })
+            (mkIf (config.networking.domain != null) { Domain = config.networking.domain; })
           ];
           Mapping = {
             Nobody-User = "nobody";

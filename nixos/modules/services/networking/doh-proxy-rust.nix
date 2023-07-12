@@ -37,9 +37,7 @@ in
       ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.doh-proxy-rust}/bin/doh-proxy ${
-            escapeShellArgs cfg.flags
-          }";
+        ExecStart = "${pkgs.doh-proxy-rust}/bin/doh-proxy ${escapeShellArgs cfg.flags}";
         Restart = "always";
         RestartSec = 10;
         DynamicUser = true;

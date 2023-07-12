@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
       # ERROR: 'rust' compiler binary not defined in cross or native file
       crossFile = writeText "cross-file.conf" ''
         [binaries]
-        rust = [ 'rustc', '--target', '${
-          rust.toRustTargetSpec stdenv.hostPlatform
-        }' ]
+        rust = [ 'rustc', '--target', '${rust.toRustTargetSpec stdenv.hostPlatform}' ]
       '';
     in
     lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

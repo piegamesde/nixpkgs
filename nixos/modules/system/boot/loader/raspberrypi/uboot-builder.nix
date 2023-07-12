@@ -15,10 +15,7 @@ let
     else if version == 2 then
       pkgs.ubootRaspberryPi2
     else if version == 3 then
-      if isAarch64 then
-        pkgs.ubootRaspberryPi3_64bit
-      else
-        pkgs.ubootRaspberryPi3_32bit
+      if isAarch64 then pkgs.ubootRaspberryPi3_64bit else pkgs.ubootRaspberryPi3_32bit
     else
       throw "U-Boot is not yet supported on the raspberry pi 4."
   ;

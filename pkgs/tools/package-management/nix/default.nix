@@ -20,9 +20,7 @@ let
     drv: {
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
       patches =
-        (drv.patches or [ ])
-        ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ]
-      ;
+        (drv.patches or [ ]) ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ];
     }
   );
 
@@ -110,22 +108,21 @@ let
 
   common =
     args:
-    callPackage (import ./common.nix ({ inherit lib fetchFromGitHub; } // args))
-      {
-        inherit
-          Security
-          storeDir
-          stateDir
-          confDir
-        ;
-        boehmgc = boehmgc-nix;
-        aws-sdk-cpp =
-          if lib.versionAtLeast args.version "2.12pre" then
-            aws-sdk-cpp-nix
-          else
-            aws-sdk-cpp-old-nix
-        ;
-      }
+    callPackage (import ./common.nix ({ inherit lib fetchFromGitHub; } // args)) {
+      inherit
+        Security
+        storeDir
+        stateDir
+        confDir
+      ;
+      boehmgc = boehmgc-nix;
+      aws-sdk-cpp =
+        if lib.versionAtLeast args.version "2.12pre" then
+          aws-sdk-cpp-nix
+        else
+          aws-sdk-cpp-old-nix
+      ;
+    }
   ;
 
   # https://github.com/NixOS/nix/pull/7585

@@ -11,8 +11,7 @@
 }:
 
 let
-  aliases =
-    if config.allowAliases then (import ./aliases.nix lib) else prev: { };
+  aliases = if config.allowAliases then (import ./aliases.nix lib) else prev: { };
 
   writers = with lib; rec {
     # Base implementation for non-compiled executables.
@@ -52,9 +51,7 @@ let
           # On darwin a script cannot be used as an interpreter in a shebang but
           # there doesn't seem to be a limit to the size of shebang and multiple
           # arguments to the interpreter are allowed.
-          if [[ -n "${
-            toString pkgs.stdenvNoCC.isDarwin
-          }" ]] && isScript $interpreter
+          if [[ -n "${toString pkgs.stdenvNoCC.isDarwin}" ]] && isScript $interpreter
           then
             wrapperInterpreterLine=$(head -1 "$interpreter" | tail -c+3)
             # Get first word from the line (note: xargs echo remove leading spaces)
@@ -134,8 +131,7 @@ let
           # Sometimes binaries produced for darwin (e. g. by GHC) won't be valid
           # mach-o executables from the get-go, but need to be corrected somehow
           # which is done by fixupPhase.
-          ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isDarwin
-            "fixupPhase"}
+          ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isDarwin "fixupPhase"}
           ${optionalString (types.path.check nameOrPath) ''
             mv $out tmp
             mkdir -p $out/$(dirname "${nameOrPath}")
@@ -199,14 +195,9 @@ let
         strip ? true,
       }:
       let
-        appendIfNotSet =
-          el: list: if elem el list then list else list ++ [ el ];
+        appendIfNotSet = el: list: if elem el list then list else list ++ [ el ];
         ghcArgs' =
-          if threadedRuntime then
-            appendIfNotSet "-threaded" ghcArgs
-          else
-            ghcArgs
-        ;
+          if threadedRuntime then appendIfNotSet "-threaded" ghcArgs else ghcArgs;
       in
       makeBinWriter
         {
@@ -233,9 +224,7 @@ let
         strip ? true,
       }:
       let
-        darwinArgs = lib.optionals stdenv.isDarwin [
-          "-L${lib.getLib libiconv}/lib"
-        ];
+        darwinArgs = lib.optionals stdenv.isDarwin [ "-L${lib.getLib libiconv}/lib" ];
       in
       makeBinWriter
         {
@@ -430,11 +419,7 @@ let
       let
         fname = last (builtins.split "/" nameOrPath);
         path =
-          if strings.hasSuffix ".fsx" nameOrPath then
-            nameOrPath
-          else
-            "${nameOrPath}.fsx"
-        ;
+          if strings.hasSuffix ".fsx" nameOrPath then nameOrPath else "${nameOrPath}.fsx";
         _nugetDeps = mkNugetDeps {
           name = "${fname}-nuget-deps";
           nugetDeps = libraries;

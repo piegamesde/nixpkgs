@@ -57,9 +57,7 @@
             bash ${./test-sourcing-bash} ./blank.bash ./blank_patched.bash
 
             echo "Testing in Ksh if blank.bash and blank_patched.bash modifies PATH the same way"
-            ksh ${
-              ./test-sourcing-bash
-            } "$PWD/blank.bash" "$PWD/blank_patched.bash"
+            ksh ${./test-sourcing-bash} "$PWD/blank.bash" "$PWD/blank_patched.bash"
 
             echo "Testing in Zsh if blank.bash and blank_patched.bash modifies PATH the same way"
             zsh ${./test-sourcing-bash} ./blank.bash ./blank_patched.bash
@@ -115,9 +113,7 @@
             } "$PWD/sample_source_patched.bash"
 
             echo "Testing in Zsh if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
-            zsh ${./test-sourcing-bash} ${
-              ./sample_source.bash
-            } ./sample_source_patched.bash
+            zsh ${./test-sourcing-bash} ${./sample_source.bash} ./sample_source_patched.bash
 
 
             # Test double-patching the sample source
@@ -140,9 +136,7 @@
             } "$PWD/sample_source_patched.bash"
 
             echo "Testing in Zsh if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
-            zsh ${./test-sourcing-bash} ${
-              ./sample_source.bash
-            } ./sample_source_patched.bash
+            zsh ${./test-sourcing-bash} ${./sample_source.bash} ./sample_source_patched.bash
 
 
             # Create a dummy output
@@ -218,9 +212,7 @@
             patchRcPathCsh sample_source_patched.csh "$PWD/delta:$PWD/foxtrot"
 
             echo "Testing in Csh if sample_source.csh and sample_source_patched.csh modifies PATH the same way"
-            tcsh -e ${
-              ./test-sourcing-csh
-            } sample_source.csh sample_source_patched.csh
+            tcsh -e ${./test-sourcing-csh} sample_source.csh sample_source_patched.csh
 
 
             # Test double-patching the sample source
@@ -229,9 +221,7 @@
             patchRcPathCsh sample_source_patched.csh "$PWD/foxtrot:$PWD/golf"
 
             echo "Testing in Csh if sample_source.csh and sample_source_patched.csh modifies PATH the same way"
-            tcsh -e ${
-              ./test-sourcing-csh
-            } sample_source.csh sample_source_patched.csh
+            tcsh -e ${./test-sourcing-csh} sample_source.csh sample_source_patched.csh
 
 
             # Create a dummy output
@@ -276,9 +266,7 @@
 
             echo "Testing in Fish if blank.fish and blank_patched.fish modifies PATH the same way"
             HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
-            HOME="$HOME_TEMP" fish ${
-              ./test-sourcing-fish
-            } blank.fish blank_patched.fish
+            HOME="$HOME_TEMP" fish ${./test-sourcing-fish} blank.fish blank_patched.fish
             rm -r "$HOME_TEMP"
 
 
@@ -301,9 +289,7 @@
             cp ${./sample_source.fish} sample_source_patched.fish
             chmod u+w sample_source_patched.fish
 
-            echo "Generating sample_source_patched.fish from ${
-              ./sample_source.fish
-            }"
+            echo "Generating sample_source_patched.fish from ${./sample_source.fish}"
             patchRcPathFish sample_source_patched.fish "$PWD/delta:$PWD/foxtrot"
             echo "Testing in Fish if sample_source.fish and sample_source_patched.fish modifies PATH the same way"
             HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
@@ -315,9 +301,7 @@
 
             # Test double-patching the sample source
 
-            echo "Patching again sample_source_patched.fish from ${
-              ./sample_source.fish
-            }"
+            echo "Patching again sample_source_patched.fish from ${./sample_source.fish}"
             patchRcPathFish sample_source_patched.fish "$PWD/foxtrot:$PWD/golf"
 
             echo "Testing in Fish if sample_source.fish and sample_source_patched.fish modifies PATH the same way"
@@ -450,9 +434,7 @@
             } "./sample_source.sh" "./sample_source_patched.sh"
 
             echo "Testing in Dash if sample_source.sh and sample_source_patched.sh modifies PATH the same way"
-            dash ${
-              ./test-sourcing-posix
-            } "./sample_source.sh" "./sample_source_patched.sh"
+            dash ${./test-sourcing-posix} "./sample_source.sh" "./sample_source_patched.sh"
 
             echo "Testing in Ksh if sample_source.sh and sample_source_patched.sh modifies PATH the same way"
             ksh ${
@@ -475,9 +457,7 @@
             } "./sample_source.sh" "./sample_source_patched.sh"
 
             echo "Testing in Dash if sample_source.sh and sample_source_patched.sh modifies PATH the same way"
-            dash ${
-              ./test-sourcing-posix
-            } "./sample_source.sh" "./sample_source_patched.sh"
+            dash ${./test-sourcing-posix} "./sample_source.sh" "./sample_source_patched.sh"
 
             echo "Testing in Ksh if sample_source.sh and sample_source_patched.sh modifies PATH the same way"
             ksh ${

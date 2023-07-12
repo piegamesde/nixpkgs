@@ -267,9 +267,7 @@ in
                   label-id: ${config.sdImage.firmwarePartitionID}
 
                   start=''${gap}M, size=$firmwareSizeBlocks, type=b
-                  start=$((gap + ${
-                    toString config.sdImage.firmwareSize
-                  }))M, type=83, bootable
+                  start=$((gap + ${toString config.sdImage.firmwareSize}))M, type=83, bootable
               EOF
 
               # Copy the rootfs into the SD image

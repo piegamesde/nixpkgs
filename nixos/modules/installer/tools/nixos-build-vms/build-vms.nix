@@ -34,8 +34,6 @@ pkgs.runCommand "nixos-build-vms" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
     wrapProgram $out/bin/nixos-test-driver \
       --add-flags "--interactive"
     wrapProgram $out/bin/nixos-run-vms \
-       --set testScript "${
-         pkgs.writeText "start-all" "start_all(); join_all();"
-       }" \
+       --set testScript "${pkgs.writeText "start-all" "start_all(); join_all();"}" \
        --add-flags "--no-interactive"
   ''

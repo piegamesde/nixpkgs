@@ -105,9 +105,7 @@ stdenv.mkDerivation rec {
 
     # Build the LD_PRELOAD library that makes Logic work from a read-only directory
     mkdir -p "$out/lib"
-    gcc -shared -fPIC -DOUT=\"$out\" "${
-      ./preload.c
-    }" -o "$out/lib/preload.so" -ldl
+    gcc -shared -fPIC -DOUT=\"$out\" "${./preload.c}" -o "$out/lib/preload.so" -ldl
 
     # Make wrapper script that uses the LD_PRELOAD library
     mkdir -p "$out/bin"

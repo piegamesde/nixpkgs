@@ -63,10 +63,7 @@ in
             urls: ["http://localhost:9200"]
             schedule: '@every 10s'
         '';
-        description =
-          lib.mdDoc
-            "Any other configuration options you want to add"
-        ;
+        description = lib.mdDoc "Any other configuration options you want to add";
       };
     };
   };

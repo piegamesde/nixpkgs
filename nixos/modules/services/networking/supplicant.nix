@@ -28,12 +28,7 @@ let
           if (iface == "LAN") then
             "lan@"
           else
-            (
-              if (iface == "DBUS") then
-                "dbus"
-              else
-                (replaceStrings [ " " ] [ "-" ] iface)
-            )
+            (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface))
         )
     }"
   ;
@@ -57,9 +52,7 @@ let
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge)
       ;
 
-      ifaceArg = concatStringsSep " -N " (
-        map (i: "-i${i}") (splitString " " iface)
-      );
+      ifaceArg = concatStringsSep " -N " (map (i: "-i${i}") (splitString " " iface));
       driverArg = optionalString (suppl.driver != null) "-D${suppl.driver}";
       bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
       confFileArg =
@@ -67,8 +60,7 @@ let
           "-c${suppl.configFile.path}"
       ;
       extraConfFile =
-        pkgs.writeText
-          "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}"
+        pkgs.writeText "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}"
           ''
             ${optionalString suppl.userControlled.enable
               "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
@@ -90,11 +82,9 @@ let
       path = [ pkgs.coreutils ];
 
       preStart = ''
-        ${optionalString
-          (suppl.configFile.path != null && suppl.configFile.writable)
-          ''
-            (umask 077 && touch -a "${suppl.configFile.path}")
-          ''}
+        ${optionalString (suppl.configFile.path != null && suppl.configFile.writable) ''
+          (umask 077 && touch -a "${suppl.configFile.path}")
+        ''}
         ${optionalString suppl.userControlled.enable ''
           install -dm770 -g "${suppl.userControlled.group}" "${suppl.userControlled.socketDir}"
         ''}
@@ -185,10 +175,7 @@ in
               driver = mkOption {
                 type = types.nullOr types.str;
                 default = "nl80211,wext";
-                description =
-                  lib.mdDoc
-                    "Force a specific wpa_supplicant driver."
-                ;
+                description = lib.mdDoc "Force a specific wpa_supplicant driver.";
               };
 
               bridge = mkOption {
@@ -216,20 +203,14 @@ in
                 socketDir = mkOption {
                   type = types.str;
                   default = "/run/wpa_supplicant";
-                  description =
-                    lib.mdDoc
-                      "Directory of sockets for controlling wpa_supplicant."
-                  ;
+                  description = lib.mdDoc "Directory of sockets for controlling wpa_supplicant.";
                 };
 
                 group = mkOption {
                   type = types.str;
                   default = "wheel";
                   example = "network";
-                  description =
-                    lib.mdDoc
-                      "Members of this group can control wpa_supplicant."
-                  ;
+                  description = lib.mdDoc "Members of this group can control wpa_supplicant.";
                 };
               };
             };
@@ -291,9 +272,7 @@ in
         destination = "/etc/udev/rules.d/99-zzz-60-supplicant.rules";
         text = ''
           ${flip (concatMapStringsSep "\n")
-            (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (
-              attrNames cfg
-            ))
+            (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
             (
               iface:
               flip (concatMapStringsSep "\n") (splitString " " iface) (

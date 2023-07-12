@@ -14,8 +14,7 @@ import ./make-test-python.nix (
       {
         script = ''
           ${pkgs.coreutils}/bin/dd if=/dev/zero of=${path} bs=1K count=100
-          ${pkgs.lib.optionalString loop
-            "${pkgs.util-linux}/bin/losetup --find ${path}"}
+          ${pkgs.lib.optionalString loop "${pkgs.util-linux}/bin/losetup --find ${path}"}
         '';
         serviceConfig = {
           Type = "oneshot";

@@ -260,8 +260,6 @@ in
       uwsgi.gid = config.ids.gids.uwsgi;
     };
 
-    services.uwsgi.package = pkgs.uwsgi.override {
-      plugins = unique cfg.plugins;
-    };
+    services.uwsgi.package = pkgs.uwsgi.override { plugins = unique cfg.plugins; };
   };
 }

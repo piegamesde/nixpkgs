@@ -172,11 +172,7 @@ let
 
       config = {
         socket =
-          if poolOpts.listen == "" then
-            "${runtimeDir}/${name}.sock"
-          else
-            poolOpts.listen
-        ;
+          if poolOpts.listen == "" then "${runtimeDir}/${name}.sock" else poolOpts.listen;
         group = mkDefault poolOpts.user;
         phpOptions = mkBefore cfg.phpOptions;
 

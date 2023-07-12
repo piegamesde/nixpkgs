@@ -60,9 +60,7 @@ stdenv.mkDerivation (
           pipe
         ;
         inherit (builtins) map;
-        urls-and-hashes = import (
-          ./. + "/urls-and-hashes-${finalAttrs.version}.nix"
-        );
+        urls-and-hashes = import (./. + "/urls-and-hashes-${finalAttrs.version}.nix");
         make-links =
           pipe
             [

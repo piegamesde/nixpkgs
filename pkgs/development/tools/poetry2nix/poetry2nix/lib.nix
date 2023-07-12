@@ -44,10 +44,7 @@ let
       joinVersion = v: lib.concatStringsSep "." v;
     in
     joinVersion (
-      if major pyVer == major ver && minor pyVer == minor ver then
-        ver
-      else
-        pyVer
+      if major pyVer == major ver && minor pyVer == minor ver then ver else pyVer
     )
   ;
 
@@ -84,9 +81,7 @@ let
         else
           {
             inherit operator;
-            state = operators."${operator}" acc.state (
-              satisfiesSemver version v
-            );
+            state = operators."${operator}" acc.state (satisfiesSemver version v);
           }
       ;
       initial = {
@@ -252,8 +247,7 @@ let
           )
           builtins.nixPath
         );
-      netrc_file =
-        if (pathParts != [ ]) then (builtins.head pathParts).path else "";
+      netrc_file = if (pathParts != [ ]) then (builtins.head pathParts).path else "";
     in
     pkgs.runCommand file
       {
@@ -340,10 +334,7 @@ let
     lib.cleanSourceWith {
       filter = lib.cleanSourceFilter;
       src = lib.cleanSourceWith {
-        filter =
-          pkgs.nix-gitignore.gitignoreFilterPure pycacheFilter gitIgnores
-            src
-        ;
+        filter = pkgs.nix-gitignore.gitignoreFilterPure pycacheFilter gitIgnores src;
         inherit src;
       };
     }

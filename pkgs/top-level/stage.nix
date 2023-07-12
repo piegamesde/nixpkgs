@@ -270,8 +270,7 @@ let
       pkgsi686Linux =
         if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86 then
           nixpkgsFun {
-            overlays =
-              [ (self': super': { pkgsi686Linux = super'; }) ] ++ overlays;
+            overlays = [ (self': super': { pkgsi686Linux = super'; }) ] ++ overlays;
             ${
               if stdenv.hostPlatform == stdenv.buildPlatform then
                 "localSystem"
@@ -291,8 +290,7 @@ let
       pkgsx86_64Darwin =
         if stdenv.hostPlatform.isDarwin then
           nixpkgsFun {
-            overlays =
-              [ (self': super': { pkgsx86_64Darwin = super'; }) ] ++ overlays;
+            overlays = [ (self': super': { pkgsx86_64Darwin = super'; }) ] ++ overlays;
             localSystem = {
               parsed = stdenv.hostPlatform.parsed // {
                 cpu = lib.systems.parse.cpuTypes.x86_64;
@@ -332,9 +330,9 @@ let
           crossSystem = {
             isStatic = true;
             parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-          } // lib.optionalAttrs
-              (stdenv.hostPlatform.system == "powerpc64-linux")
-              { gcc.abi = "elfv2"; };
+          } // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") {
+            gcc.abi = "elfv2";
+          };
         }
       );
     }

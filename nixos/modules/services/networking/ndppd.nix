@@ -26,10 +26,7 @@ let
               render proxy.rules (
                 ruleNetworkName: rule: ''
                   rule ${prefer rule.network ruleNetworkName} {
-                    ${rule.method}${
-                      optionalString (rule.method == "iface")
-                        " ${rule.interface}"
-                    }
+                    ${rule.method}${optionalString (rule.method == "iface") " ${rule.interface}"}
                   }''
               )
             }
@@ -179,10 +176,9 @@ in
       please use services.ndppd.proxies.<interface>.rules.<network> instead.
     '' ];
 
-    services.ndppd.proxies =
-      mkIf (cfg.interface != null && cfg.network != null)
-        { ${cfg.interface}.rules.${cfg.network} = { }; }
-    ;
+    services.ndppd.proxies = mkIf (cfg.interface != null && cfg.network != null) {
+      ${cfg.interface}.rules.${cfg.network} = { };
+    };
 
     systemd.services.ndppd = {
       description = "NDP Proxy Daemon";

@@ -477,17 +477,11 @@ in
           let
             type = service.serviceConfig.Type or "";
             restart = service.serviceConfig.Restart or "no";
-            hasDeprecated =
-              builtins.hasAttr "StartLimitInterval"
-                service.serviceConfig
-            ;
+            hasDeprecated = builtins.hasAttr "StartLimitInterval" service.serviceConfig;
           in
           concatLists [
             (optional
-              (
-                type == "oneshot"
-                && (restart == "always" || restart == "on-success")
-              )
+              (type == "oneshot" && (restart == "always" || restart == "on-success"))
               "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
             )
             (optional hasDeprecated
@@ -553,10 +547,7 @@ in
           filter (n: !elem n cfg.suppressedSystemUnits)
             upstreamSystemUnits
         ;
-        enabledUnits =
-          filterAttrs (n: v: !elem n cfg.suppressedSystemUnits)
-            cfg.units
-        ;
+        enabledUnits = filterAttrs (n: v: !elem n cfg.suppressedSystemUnits) cfg.units;
       in
       ({
         "systemd/system".source = generateUnits {
@@ -570,8 +561,7 @@ in
           [Manager]
           ManagerEnvironment=${
             lib.concatStringsSep " " (
-              lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}")
-                cfg.managerEnvironment
+              lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment
             )
           }
           ${optionalString config.systemd.enableCgroupAccounting ''
@@ -635,15 +625,12 @@ in
     systemd.units =
       mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
       // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
-        cfg.services
-      // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
-        cfg.slices
-      // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
+        cfg.services // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
+        cfg.slices // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
         cfg.sockets
-      // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v))
-        cfg.targets
-      // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
-        cfg.timers // listToAttrs (
+      // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets
+      // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v)) cfg.timers
+      // listToAttrs (
         map
           (
             v:
@@ -669,9 +656,7 @@ in
     systemd.managerEnvironment = {
       # Doesn't contain systemd itself - everything works so it seems to use the compiled-in value for its tools
       # util-linux is needed for the main fsck utility wrapping the fs-specific ones
-      PATH = lib.makeBinPath (
-        config.system.fsPackages ++ [ cfg.package.util-linux ]
-      );
+      PATH = lib.makeBinPath (config.system.fsPackages ++ [ cfg.package.util-linux ]);
       LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
       TZDIR = "/etc/zoneinfo";
       # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable

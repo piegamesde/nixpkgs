@@ -23,8 +23,7 @@ let
       name: attrs:
       pkgs.writeText name (
         lib.strings.concatStringsSep "\n" (
-          lib.attrsets.mapAttrsToList
-            (key: value: "${key}=${builtins.toJSON value}")
+          lib.attrsets.mapAttrsToList (key: value: "${key}=${builtins.toJSON value}")
             attrs
         )
       )
@@ -41,8 +40,7 @@ in
         types.submodule {
           options = {
 
-            enable =
-              mkEnableOption (lib.mdDoc "hub instance") // { default = true; };
+            enable = mkEnableOption (lib.mdDoc "hub instance") // { default = true; };
 
             enableTLS = mkOption {
               type = types.bool;
@@ -75,17 +73,11 @@ in
                     options = {
                       plugin = mkOption {
                         type = path;
-                        example =
-                          literalExpression
-                            "$\${pkgs.uhub}/plugins/mod_auth_sqlite.so"
-                        ;
+                        example = literalExpression "$\${pkgs.uhub}/plugins/mod_auth_sqlite.so";
                         description = lib.mdDoc "Path to plugin file.";
                       };
                       settings = mkOption {
-                        description =
-                          lib.mdDoc
-                            "Settings specific to this plugin."
-                        ;
+                        description = lib.mdDoc "Settings specific to this plugin.";
                         type = with types; attrsOf str;
                         example = {
                           file = "/etc/uhub/users.db";
@@ -126,11 +118,7 @@ in
                         }:
                         ''
                           plugin ${plugin} "${
-                            toString (
-                              lib.attrsets.mapAttrsToList
-                                (key: value: "${key}=${value}")
-                                settings
-                            )
+                            toString (lib.attrsets.mapAttrsToList (key: value: "${key}=${value}") settings)
                           }"''
                       )
                       cfg.plugins
@@ -140,10 +128,7 @@ in
             in
             {
               name = "uhub/${name}.conf";
-              value.source =
-                settingsFormat.generate "uhub-${name}.conf"
-                  settings'
-              ;
+              value.source = settingsFormat.generate "uhub-${name}.conf" settings';
             }
           )
           hubs

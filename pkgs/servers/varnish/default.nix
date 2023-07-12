@@ -84,9 +84,7 @@ let
         python = python3;
         tests =
           nixosTests."varnish${
-            builtins.replaceStrings [ "." ] [ "" ] (
-              lib.versions.majorMinor version
-            )
+            builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)
           }";
       };
 

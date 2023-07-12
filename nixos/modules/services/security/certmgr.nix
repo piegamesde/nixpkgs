@@ -37,9 +37,7 @@ let
       (
         spec:
         if isAttrs spec then
-          collect isString (
-            filterAttrsRecursive (n: v: isAttrs v || n == "path") spec
-          )
+          collect isString (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec)
         else
           [ spec ]
       )

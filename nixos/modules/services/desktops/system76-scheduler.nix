@@ -165,10 +165,7 @@ in
       package = mkOption {
         type = types.package;
         default = config.boot.kernelPackages.system76-scheduler;
-        defaultText =
-          literalExpression
-            "config.boot.kernelPackages.system76-scheduler"
-        ;
+        defaultText = literalExpression "config.boot.kernelPackages.system76-scheduler";
         description = mdDoc "Which System76-Scheduler package to use.";
       };
 
@@ -188,10 +185,7 @@ in
           enable = mkOption {
             type = bool;
             default = true;
-            description =
-              mdDoc
-                "Tweak CFS latency parameters when going on/off battery"
-            ;
+            description = mdDoc "Tweak CFS latency parameters when going on/off battery";
           };
 
           default = latencyProfile {
@@ -214,10 +208,7 @@ in
           enable = mkOption {
             type = bool;
             default = true;
-            description =
-              mdDoc
-                "Tweak scheduling of individual processes in real time."
-            ;
+            description = mdDoc "Tweak scheduling of individual processes in real time.";
           };
 
           useExecsnoop = mkOption {
@@ -274,9 +265,7 @@ in
       };
 
       assignments = mkOption {
-        type = types.attrsOf (
-          types.submodule { options = schedulerProfile { }; }
-        );
+        type = types.attrsOf (types.submodule { options = schedulerProfile { }; });
         default = { };
         example = literalExpression ''
           {
@@ -356,28 +345,19 @@ in
               assignments {
                 ${
                   if ps.foregroundBoost.enable then
-                    (schedulerProfileToString "foreground"
-                      ps.foregroundBoost.foreground
-                      "    "
-                    )
+                    (schedulerProfileToString "foreground" ps.foregroundBoost.foreground "    ")
                   else
                     ""
                 }
                 ${
                   if ps.foregroundBoost.enable then
-                    (schedulerProfileToString "background"
-                      ps.foregroundBoost.background
-                      "    "
-                    )
+                    (schedulerProfileToString "background" ps.foregroundBoost.background "    ")
                   else
                     ""
                 }
                 ${
                   if ps.pipewireBoost.enable then
-                    (schedulerProfileToString "pipewire"
-                      ps.pipewireBoost.profile
-                      "    "
-                    )
+                    (schedulerProfileToString "pipewire" ps.pipewireBoost.profile "    ")
                   else
                     ""
                 }
@@ -398,9 +378,9 @@ in
             assignments {
           ''
           + (concatStringsSep "\n" (
-            map
-              (name: schedulerProfileToString name cfg.assignments.${name} "  ")
-              (attrNames cfg.assignments)
+            map (name: schedulerProfileToString name cfg.assignments.${name} "  ") (
+              attrNames cfg.assignments
+            )
           ))
           + ''
 

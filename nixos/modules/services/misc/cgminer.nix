@@ -12,8 +12,7 @@ let
 
   convType = with builtins; v: if isBool v then boolToString v else toString v;
   mergedHwConfig =
-    mapAttrsToList
-      (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
+    mapAttrsToList (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
       (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware)
   ;
   mergedConfig =
@@ -52,11 +51,7 @@ let
           ,
         ''
         (
-          map
-            (
-              v:
-              ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}''
-            )
+          map (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'')
             cfg.pools
         )
     }]

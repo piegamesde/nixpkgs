@@ -35,9 +35,7 @@ buildGoModule rec {
   ];
 
   preFixup = ''
-    wrapProgram $out/bin/radioboat --prefix PATH ":" "${
-      lib.makeBinPath [ mpv ]
-    }";
+    wrapProgram $out/bin/radioboat --prefix PATH ":" "${lib.makeBinPath [ mpv ]}";
   '';
 
   postInstall = ''

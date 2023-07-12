@@ -28,11 +28,7 @@ stdenv.mkDerivation rec {
     then
       let
         postfix =
-          if stdenv.hostPlatform.system == "i686-linux" then
-            "i386"
-          else
-            "x86_64"
-        ;
+          if stdenv.hostPlatform.system == "i686-linux" then "i386" else "x86_64";
         commercialName = "${pname}-${version}_${postfix}.tar.gz";
         demoUrl = "http://www.andyetitmoves.net/demo/${pname}Demo-${version}_${postfix}.tar.gz";
       in
@@ -75,9 +71,7 @@ stdenv.mkDerivation rec {
       fullPath=$fullPath''${fullPath:+:}$i/lib
     done
 
-    binName=${
-      if commercialVersion then "AndYetItMoves" else "AndYetItMovesDemo"
-    }
+    binName=${if commercialVersion then "AndYetItMoves" else "AndYetItMovesDemo"}
 
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) --set-rpath $fullPath $out/opt/andyetitmoves/lib/$binName
     cat > $out/bin/$binName << EOF

@@ -30,10 +30,7 @@ let
     cfg.database.createLocally && cfg.database.host == null;
 
   tlsEnabled =
-    cfg.enableACME
-    || cfg.sslCertificate != null
-    || cfg.sslCertificateKey != null
-  ;
+    cfg.enableACME || cfg.sslCertificate != null || cfg.sslCertificateKey != null;
 in
 {
   options = {
@@ -46,9 +43,7 @@ in
         type = lib.types.package;
         default = pkgs.discourse;
         apply =
-          p:
-          p.override { plugins = lib.unique (p.enabledPlugins ++ cfg.plugins); }
-        ;
+          p: p.override { plugins = lib.unique (p.enabledPlugins ++ cfg.plugins); };
         defaultText = lib.literalExpression "pkgs.discourse";
         description = lib.mdDoc ''
           The discourse package to use.
@@ -351,10 +346,7 @@ in
         useSSL = lib.mkOption {
           type = lib.types.bool;
           default = cfg.redis.host != "localhost";
-          defaultText =
-            lib.literalExpression
-              ''config.${opt.redis.host} != "localhost"''
-          ;
+          defaultText = lib.literalExpression ''config.${opt.redis.host} != "localhost"'';
           description = lib.mdDoc ''
             Connect to Redis with SSL.
           '';
@@ -563,8 +555,7 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          (cfg.database.host != null) -> (cfg.database.passwordFile != null);
+        assertion = (cfg.database.host != null) -> (cfg.database.passwordFile != null);
         message = "When services.gitlab.database.host is customized, services.discourse.database.passwordFile must be set!";
       }
       {
@@ -575,8 +566,7 @@ in
         assertion =
           cfg.database.ignorePostgresqlVersion
           || (
-            databaseActuallyCreateLocally
-            -> upstreamPostgresqlVersion == postgresqlVersion
+            databaseActuallyCreateLocally -> upstreamPostgresqlVersion == postgresqlVersion
           )
         ;
         message =
@@ -600,11 +590,7 @@ in
       db_backup_port = 5432;
       db_name = cfg.database.name;
       db_username =
-        if databaseActuallyCreateLocally then
-          "discourse"
-        else
-          cfg.database.username
-      ;
+        if databaseActuallyCreateLocally then "discourse" else cfg.database.username;
       db_password = cfg.database.passwordFile;
       db_prepared_statements = false;
       db_replica_host = null;
@@ -809,10 +795,7 @@ in
                 else if isFloat v then
                   lib.strings.floatToString v
                 else
-                  throw
-                    "unsupported type ${typeOf v}: ${
-                      (lib.generators.toPretty { }) v
-                    }"
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
               ;
             };
           };
@@ -918,8 +901,7 @@ in
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
 
-      upstreams.discourse.servers."unix:/run/discourse/sockets/unicorn.sock" =
-        { };
+      upstreams.discourse.servers."unix:/run/discourse/sockets/unicorn.sock" = { };
 
       appendHttpConfig = ''
         # inactive means we keep stuff around for 1440m minutes regardless of last access (1 week)
@@ -1090,17 +1072,14 @@ in
               cfg.package.rake
               pkgs.jq
             ];
-            preStart =
-              lib.optionalString (cfg.mail.incoming.apiKeyFile == null)
-                ''
-                  set -o errexit -o pipefail -o nounset -o errtrace
-                  shopt -s inherit_errexit
+            preStart = lib.optionalString (cfg.mail.incoming.apiKeyFile == null) ''
+              set -o errexit -o pipefail -o nounset -o errtrace
+              shopt -s inherit_errexit
 
-                  if [[ ! -e /var/lib/discourse-mail-receiver/api_key ]]; then
-                      discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
-                  fi
-                ''
-            ;
+              if [[ ! -e /var/lib/discourse-mail-receiver/api_key ]]; then
+                  discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
+              fi
+            '';
             script =
               let
                 apiKeyPath =
@@ -1151,10 +1130,7 @@ in
 
     services.postfix = lib.mkIf cfg.mail.incoming.enable {
       enable = true;
-      sslCert =
-        lib.optionalString (cfg.sslCertificate != null)
-          cfg.sslCertificate
-      ;
+      sslCert = lib.optionalString (cfg.sslCertificate != null) cfg.sslCertificate;
       sslKey =
         lib.optionalString (cfg.sslCertificateKey != null)
           cfg.sslCertificateKey

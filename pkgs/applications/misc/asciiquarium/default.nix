@@ -25,9 +25,7 @@ stdenv.mkDerivation {
     cp asciiquarium $out/bin
     chmod +x $out/bin/asciiquarium
     wrapProgram $out/bin/asciiquarium \
-      --set PERL5LIB ${
-        perlPackages.makeFullPerlPath [ perlPackages.TermAnimation ]
-      }
+      --set PERL5LIB ${perlPackages.makeFullPerlPath [ perlPackages.TermAnimation ]}
   '';
 
   meta = with lib; {

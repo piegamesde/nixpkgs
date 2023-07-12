@@ -124,7 +124,6 @@ in
 
     system.build.installBootLoader = builder;
     system.boot.loader.id = "raspberrypi";
-    system.boot.loader.kernelFile =
-      pkgs.stdenv.hostPlatform.linux-kernel.target;
+    system.boot.loader.kernelFile = pkgs.stdenv.hostPlatform.linux-kernel.target;
   };
 }

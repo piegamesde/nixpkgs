@@ -3901,11 +3901,7 @@ let
       sources."abab-2.0.6"
       sources."accepts-1.3.8"
       sources."acorn-8.7.1"
-      (
-        sources."acorn-globals-6.0.0" // {
-          dependencies = [ sources."acorn-7.4.1" ];
-        }
-      )
+      (sources."acorn-globals-6.0.0" // { dependencies = [ sources."acorn-7.4.1" ]; })
       sources."acorn-jsx-5.3.2"
       sources."acorn-walk-7.2.0"
       (
@@ -3969,11 +3965,7 @@ let
       sources."cross-spawn-7.0.3"
       sources."crypto-js-4.1.1"
       sources."cssom-0.4.4"
-      (
-        sources."cssstyle-2.3.0" // {
-          dependencies = [ sources."cssom-0.3.8" ];
-        }
-      )
+      (sources."cssstyle-2.3.0" // { dependencies = [ sources."cssom-0.3.8" ]; })
       sources."dashdash-1.14.1"
       sources."data-urls-2.0.0"
       sources."debug-2.6.9"
@@ -4189,16 +4181,8 @@ let
         sources."mocha-9.2.2" // {
           dependencies = [
             sources."ansi-colors-4.1.1"
-            (
-              sources."debug-4.3.3" // {
-                dependencies = [ sources."ms-2.1.2" ];
-              }
-            )
-            (
-              sources."glob-7.2.0" // {
-                dependencies = [ sources."minimatch-3.1.2" ];
-              }
-            )
+            (sources."debug-4.3.3" // { dependencies = [ sources."ms-2.1.2" ]; })
+            (sources."glob-7.2.0" // { dependencies = [ sources."minimatch-3.1.2" ]; })
             sources."minimatch-4.2.1"
             sources."ms-2.1.3"
             sources."nanoid-3.3.1"
@@ -4207,11 +4191,7 @@ let
         }
       )
       sources."moo-0.5.1"
-      (
-        sources."morgan-1.10.0" // {
-          dependencies = [ sources."on-finished-2.3.0" ];
-        }
-      )
+      (sources."morgan-1.10.0" // { dependencies = [ sources."on-finished-2.3.0" ]; })
       sources."ms-2.0.0"
       sources."nanoid-3.3.4"
       sources."natural-compare-1.4.0"
@@ -4344,9 +4324,7 @@ let
         }
       )
       (
-        sources."tsconfig-paths-3.14.1" // {
-          dependencies = [ sources."json5-1.0.1" ];
-        }
+        sources."tsconfig-paths-3.14.1" // { dependencies = [ sources."json5-1.0.1" ]; }
       )
       sources."tslib-1.14.1"
       (

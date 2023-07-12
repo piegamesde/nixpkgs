@@ -224,8 +224,7 @@ let
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rake $out/bin/gitlab-rake \
           ${
             concatStrings (
-              mapAttrsToList (name: value: "--set ${name} '${value}' ")
-                gitlabEnv
+              mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv
             )
           } \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
@@ -244,8 +243,7 @@ let
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rails $out/bin/gitlab-rails \
           ${
             concatStrings (
-              mapAttrsToList (name: value: "--set ${name} '${value}' ")
-                gitlabEnv
+              mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv
             )
           } \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
@@ -268,8 +266,7 @@ let
             ''user_name: "${cfg.smtp.username}",''
         }
         ${
-          optionalString (cfg.smtp.passwordFile != null)
-            ''password: "@smtpPassword@",''
+          optionalString (cfg.smtp.passwordFile != null) ''password: "@smtpPassword@",''
         }
         domain: "${cfg.smtp.domain}",
         ${
@@ -595,10 +592,7 @@ in
         type = types.str;
         default = config.networking.hostName;
         defaultText = literalExpression "config.networking.hostName";
-        description =
-          lib.mdDoc
-            "GitLab host name. Used e.g. for copy-paste URLs."
-        ;
+        description = lib.mdDoc "GitLab host name. Used e.g. for copy-paste URLs.";
       };
 
       port = mkOption {
@@ -613,10 +607,7 @@ in
       https = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether gitlab prints URLs with https as scheme."
-        ;
+        description = lib.mdDoc "Whether gitlab prints URLs with https as scheme.";
       };
 
       user = mkOption {
@@ -670,17 +661,11 @@ in
         };
         certFile = mkOption {
           type = types.path;
-          description =
-            lib.mdDoc
-              "Path to GitLab container registry certificate."
-          ;
+          description = lib.mdDoc "Path to GitLab container registry certificate.";
         };
         keyFile = mkOption {
           type = types.path;
-          description =
-            lib.mdDoc
-              "Path to GitLab container registry certificate-key."
-          ;
+          description = lib.mdDoc "Path to GitLab container registry certificate-key.";
         };
         defaultForProjects = mkOption {
           type = types.bool;
@@ -864,9 +849,7 @@ in
 
             artifacts-server = mkOption {
               type = with types; nullOr str;
-              default = "http${
-                  optionalString cfg.https "s"
-                }://${cfg.host}/api/v4";
+              default = "http${optionalString cfg.https "s"}://${cfg.host}/api/v4";
               defaultText = "http(s)://<services.gitlab.host>/api/v4";
               example = "https://gitlab.example.com/api/v4";
               description = lib.mdDoc ''
@@ -921,8 +904,7 @@ in
               default = "${gitlabConfig.production.shared.path}/pages";
               defaultText =
                 literalExpression
-                  ''
-                    config.${opt.extraConfig}.production.shared.path + "/pages"''
+                  ''config.${opt.extraConfig}.production.shared.path + "/pages"''
               ;
               description = lib.mdDoc ''
                 The directory where pages are stored.
@@ -1001,10 +983,7 @@ in
       extraShellConfig = mkOption {
         type = types.attrs;
         default = { };
-        description =
-          lib.mdDoc
-            "Extra configuration to merge into shell-config.yml"
-        ;
+        description = lib.mdDoc "Extra configuration to merge into shell-config.yml";
       };
 
       puma.workers = mkOption {
@@ -1216,14 +1195,12 @@ in
 
     assertions = [
       {
-        assertion =
-          databaseActuallyCreateLocally -> (cfg.user == cfg.databaseUsername);
+        assertion = databaseActuallyCreateLocally -> (cfg.user == cfg.databaseUsername);
         message = ''
           For local automatic database provisioning (services.gitlab.databaseCreateLocally == true) with peer authentication (services.gitlab.databaseHost == "") to work services.gitlab.user and services.gitlab.databaseUsername must be identical.'';
       }
       {
-        assertion =
-          (cfg.databaseHost != "") -> (cfg.databasePasswordFile != null);
+        assertion = (cfg.databaseHost != "") -> (cfg.databasePasswordFile != null);
         message = "When services.gitlab.databaseHost is customized, services.gitlab.databasePasswordFile must be set!";
       }
       {
@@ -1371,9 +1348,7 @@ in
       enableDelete = true; # This must be true, otherwise GitLab won't manage it correctly
       extraConfig = {
         auth.token = {
-          realm = "http${
-              optionalString (cfg.https == true) "s"
-            }://${cfg.host}/jwt/auth";
+          realm = "http${optionalString (cfg.https == true) "s"}://${cfg.host}/jwt/auth";
           service = cfg.registry.serviceName;
           issuer = cfg.registry.issuer;
           rootcertbundle = cfg.registry.certFile;
@@ -1463,8 +1438,7 @@ in
             '';
           in
           "+${
-            pkgs.writeShellScript "gitlab-pre-start-full-privileges"
-              preStartFullPrivileges
+            pkgs.writeShellScript "gitlab-pre-start-full-privileges" preStartFullPrivileges
           }"
         ;
 
@@ -1515,16 +1489,9 @@ in
                     exit 1
                   fi
 
-                  jq <${
-                    pkgs.writeText "database.yml" (
-                      builtins.toJSON databaseConfig
-                    )
-                  } \
+                  jq <${pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)} \
                      '.${
-                       if
-                         lib.versionAtLeast (lib.getVersion cfg.packages.gitlab)
-                           "15.0"
-                       then
+                       if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then
                          "production.main"
                        else
                          "production"
@@ -1533,11 +1500,7 @@ in
                 ''
               else
                 ''
-                  jq <${
-                    pkgs.writeText "database.yml" (
-                      builtins.toJSON databaseConfig
-                    )
-                  } \
+                  jq <${pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)} \
                      >'${cfg.statePath}/config/database.yml'
                 ''
             }
@@ -1621,14 +1584,11 @@ in
       ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
-      environment = gitlabEnv // (optionalAttrs cfg.sidekiq.memoryKiller.enable
-        {
-          SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
-          SIDEKIQ_MEMORY_KILLER_GRACE_TIME = cfg.sidekiq.memoryKiller.graceTime;
-          SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT =
-            cfg.sidekiq.memoryKiller.shutdownWait;
-        }
-      );
+      environment = gitlabEnv // (optionalAttrs cfg.sidekiq.memoryKiller.enable {
+        SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
+        SIDEKIQ_MEMORY_KILLER_GRACE_TIME = cfg.sidekiq.memoryKiller.graceTime;
+        SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT = cfg.sidekiq.memoryKiller.shutdownWait;
+      });
       path = with pkgs; [
         postgresqlPackage
         git
@@ -1708,15 +1668,11 @@ in
                 builtins.hashString "sha256" v._secret
               else
                 throw
-                  "unsupported type ${builtins.typeOf v}: ${
-                    (lib.generators.toPretty { }) v
-                  }"
+                  "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}"
             ;
           };
         };
-        secretPaths = lib.catAttrs "_secret" (
-          lib.collect isSecret filteredConfig
-        );
+        secretPaths = lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
         mkSecretReplacement =
           file: ''
             replace-secret ${
@@ -1728,10 +1684,7 @@ in
             }
           ''
         ;
-        secretReplacements =
-          lib.concatMapStrings mkSecretReplacement
-            secretPaths
-        ;
+        secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
         configFile = pkgs.writeText "gitlab-pages.conf" (
           mkPagesKeyValue filteredConfig
         );

@@ -68,9 +68,7 @@ let
 
     nativeBuildInputs =
       let
-        protobufVersion = "${lib.versions.major version}_${
-            lib.versions.minor version
-          }";
+        protobufVersion = "${lib.versions.major version}_${lib.versions.minor version}";
       in
       [ cmake ]
       ++
@@ -98,8 +96,7 @@ let
       # Tests fail to build on 32-bit platforms; fixed in 3.22
       # https://github.com/protocolbuffers/protobuf/issues/10418
       ++
-        lib.optional
-          (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
+        lib.optional (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
           "-Dprotobuf_BUILD_TESTS=OFF"
     ;
 
@@ -108,9 +105,7 @@ let
 
     passthru = {
       tests = {
-        pythonProtobuf = python3.pkgs.protobuf.override (
-          _: { protobuf = self; }
-        );
+        pythonProtobuf = python3.pkgs.protobuf.override (_: { protobuf = self; });
       };
     };
 

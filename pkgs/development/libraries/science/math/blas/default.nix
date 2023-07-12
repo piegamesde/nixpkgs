@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
     let
       canonicalExtension =
         if stdenv.hostPlatform.isLinux then
-          "${stdenv.hostPlatform.extensions.sharedLibrary}.${
-            lib.versions.major version
-          }"
+          "${stdenv.hostPlatform.extensions.sharedLibrary}.${lib.versions.major version}"
         else
           stdenv.hostPlatform.extensions.sharedLibrary
       ;

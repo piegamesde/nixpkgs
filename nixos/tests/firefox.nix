@@ -12,8 +12,7 @@ import ./make-test-python.nix (
           ++ [
             # make sure that autoplay is enabled by default for the audio test
             (builtins.toString (
-              builtins.toFile "autoplay-pref.js"
-                ''defaultPref("media.autoplay.default",0);''
+              builtins.toFile "autoplay-pref.js" ''defaultPref("media.autoplay.default",0);''
             ))
           ]
         ;

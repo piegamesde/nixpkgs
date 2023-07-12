@@ -182,10 +182,7 @@ let
       oxygen-sounds = callPackage ./oxygen-sounds.nix { };
       plank-player = callPackage ./plank-player.nix { };
       plasma-bigscreen = callPackage ./plasma-bigscreen.nix { };
-      plasma-browser-integration =
-        callPackage ./plasma-browser-integration.nix
-          { }
-      ;
+      plasma-browser-integration = callPackage ./plasma-browser-integration.nix { };
       plasma-desktop = callPackage ./plasma-desktop { };
       plasma-disks = callPackage ./plasma-disks.nix { };
       plasma-integration = callPackage ./plasma-integration { };
@@ -200,10 +197,7 @@ let
       plasma-vault = callPackage ./plasma-vault { };
       plasma-welcome = callPackage ./plasma-welcome.nix { };
       plasma-workspace = callPackage ./plasma-workspace { };
-      plasma-workspace-wallpapers =
-        callPackage ./plasma-workspace-wallpapers.nix
-          { }
-      ;
+      plasma-workspace-wallpapers = callPackage ./plasma-workspace-wallpapers.nix { };
       polkit-kde-agent = callPackage ./polkit-kde-agent.nix { };
       powerdevil = callPackage ./powerdevil.nix { };
       qqc2-breeze-style = callPackage ./qqc2-breeze-style.nix { };
@@ -232,10 +226,7 @@ let
           kwin-tiling = callPackage ./3rdparty/kwin/scripts/tiling.nix { };
           krohnkite = callPackage ./3rdparty/kwin/scripts/krohnkite.nix { };
           krunner-ssh = callPackage ./3rdparty/addons/krunner-ssh.nix { };
-          krunner-symbols =
-            callPackage ./3rdparty/addons/krunner-symbols.nix
-              { }
-          ;
+          krunner-symbols = callPackage ./3rdparty/addons/krunner-symbols.nix { };
           kzones = callPackage ./3rdparty/kwin/scripts/kzones.nix { };
           lightly = callPackage ./3rdparty/lightly { };
           parachute = callPackage ./3rdparty/kwin/scripts/parachute.nix { };

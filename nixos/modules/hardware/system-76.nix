@@ -87,10 +87,7 @@ in
         default = cfg.enableAll;
         defaultText = literalExpression "config.${opt.enableAll}";
         example = true;
-        description =
-          lib.mdDoc
-            "Whether to enable the system76 firmware daemon"
-        ;
+        description = lib.mdDoc "Whether to enable the system76 firmware daemon";
         type = types.bool;
       };
 

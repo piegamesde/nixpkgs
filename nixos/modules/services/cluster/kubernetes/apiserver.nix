@@ -17,8 +17,7 @@ let
 
   apiserverServiceIP =
     (
-      concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange))
-      + ".1"
+      concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange)) + ".1"
     );
 in
 {
@@ -155,10 +154,7 @@ in
     };
 
     allowPrivileged = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to allow privileged containers on Kubernetes."
-      ;
+      description = lib.mdDoc "Whether to allow privileged containers on Kubernetes.";
       default = false;
       type = bool;
     };
@@ -286,10 +282,7 @@ in
     };
 
     extraOpts = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes apiserver extra command line options."
-      ;
+      description = lib.mdDoc "Kubernetes apiserver extra command line options.";
       default = "";
       type = separatedString " ";
     };
@@ -318,10 +311,7 @@ in
     };
 
     kubeletClientCertFile = mkOption {
-      description =
-        lib.mdDoc
-          "Client certificate to use for connections to kubelet."
-      ;
+      description = lib.mdDoc "Client certificate to use for connections to kubelet.";
       default = null;
       type = nullOr path;
     };
@@ -342,10 +332,7 @@ in
     };
 
     proxyClientCertFile = mkOption {
-      description =
-        lib.mdDoc
-          "Client certificate to use for connections to proxy."
-      ;
+      description = lib.mdDoc "Client certificate to use for connections to proxy.";
       default = null;
       type = nullOr path;
     };
@@ -480,9 +467,7 @@ in
           Slice = "kubernetes.slice";
           ExecStart = ''
             ${top.package}/bin/kube-apiserver \
-                          --allow-privileged=${
-                            boolToString cfg.allowPrivileged
-                          } \
+                          --allow-privileged=${boolToString cfg.allowPrivileged} \
                           --authorization-mode=${
                             concatStringsSep "," cfg.authorizationMode
                           } \
@@ -490,15 +475,12 @@ in
                               optionalString (elem "ABAC" cfg.authorizationMode)
                                 "--authorization-policy-file=${
                                   pkgs.writeText "kube-auth-policy.jsonl" (
-                                    concatMapStringsSep "\n"
-                                      (l: builtins.toJSON l)
-                                      cfg.authorizationPolicy
+                                    concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy
                                   )
                                 }"
                             } \
                             ${
-                              optionalString
-                                (elem "Webhook" cfg.authorizationMode)
+                              optionalString (elem "Webhook" cfg.authorizationMode)
                                 "--authorization-webhook-config-file=${cfg.webhookConfig}"
                             } \
                           --bind-address=${cfg.bindAddress} \
@@ -507,8 +489,7 @@ in
                               "--advertise-address=${cfg.advertiseAddress}"
                           } \
                           ${
-                            optionalString (cfg.clientCaFile != null)
-                              "--client-ca-file=${cfg.clientCaFile}"
+                            optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"
                           } \
                           --disable-admission-plugins=${
                             concatStringsSep "," cfg.disableAdmissionPlugins
@@ -516,27 +497,21 @@ in
                           --enable-admission-plugins=${
                             concatStringsSep "," cfg.enableAdmissionPlugins
                           } \
-                          --etcd-servers=${
-                            concatStringsSep "," cfg.etcd.servers
-                          } \
+                          --etcd-servers=${concatStringsSep "," cfg.etcd.servers} \
                           ${
-                            optionalString (cfg.etcd.caFile != null)
-                              "--etcd-cafile=${cfg.etcd.caFile}"
+                            optionalString (cfg.etcd.caFile != null) "--etcd-cafile=${cfg.etcd.caFile}"
                           } \
                           ${
                             optionalString (cfg.etcd.certFile != null)
                               "--etcd-certfile=${cfg.etcd.certFile}"
                           } \
                           ${
-                            optionalString (cfg.etcd.keyFile != null)
-                              "--etcd-keyfile=${cfg.etcd.keyFile}"
+                            optionalString (cfg.etcd.keyFile != null) "--etcd-keyfile=${cfg.etcd.keyFile}"
                           } \
                           ${
                             optionalString (cfg.featureGates != [ ])
                               "--feature-gates=${
-                                concatMapStringsSep ","
-                                  (feature: "${feature}=true")
-                                  cfg.featureGates
+                                concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
                               }"
                           } \
                           ${
@@ -568,21 +543,17 @@ in
                               "--proxy-client-key-file=${cfg.proxyClientKeyFile}"
                           } \
                           ${
-                            optionalString (cfg.runtimeConfig != "")
-                              "--runtime-config=${cfg.runtimeConfig}"
+                            optionalString (cfg.runtimeConfig != "") "--runtime-config=${cfg.runtimeConfig}"
                           } \
                           --secure-port=${toString cfg.securePort} \
                           --api-audiences=${toString cfg.apiAudiences} \
-                          --service-account-issuer=${
-                            toString cfg.serviceAccountIssuer
-                          } \
+                          --service-account-issuer=${toString cfg.serviceAccountIssuer} \
                           --service-account-signing-key-file=${cfg.serviceAccountSigningKeyFile} \
                           --service-account-key-file=${cfg.serviceAccountKeyFile} \
                           --service-cluster-ip-range=${cfg.serviceClusterIpRange} \
                           --storage-backend=${cfg.storageBackend} \
                           ${
-                            optionalString (cfg.tlsCertFile != null)
-                              "--tls-cert-file=${cfg.tlsCertFile}"
+                            optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
                           } \
                           ${
                             optionalString (cfg.tlsKeyFile != null)
@@ -593,8 +564,7 @@ in
                               "--token-auth-file=${cfg.tokenAuthFile}"
                           } \
                           ${
-                            optionalString (cfg.verbosity != null)
-                              "--v=${toString cfg.verbosity}"
+                            optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
                           } \
                           ${cfg.extraOpts}
           '';
@@ -621,9 +591,7 @@ in
           "${top.masterAddress}=https://${top.masterAddress}:2380"
         ];
         name = mkDefault top.masterAddress;
-        initialAdvertisePeerUrls = mkDefault [
-          "https://${top.masterAddress}:2380"
-        ];
+        initialAdvertisePeerUrls = mkDefault [ "https://${top.masterAddress}:2380" ];
       };
 
       services.kubernetes.addonManager.bootstrapAddons = mkIf isRBACEnabled {

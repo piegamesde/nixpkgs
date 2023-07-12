@@ -258,9 +258,7 @@ in
                 '';
               };
 
-              recursive = mkEnableOption (
-                lib.mdDoc "the transfer of child datasets"
-              );
+              recursive = mkEnableOption (lib.mdDoc "the transfer of child datasets");
 
               sshKey = mkOption {
                 type = types.nullOr types.path;
@@ -336,10 +334,7 @@ in
                 type = types.listOf types.str;
                 default = [ ];
                 example = [ "--sshport 2222" ];
-                description =
-                  lib.mdDoc
-                    "Extra syncoid arguments for this command."
-                ;
+                description = lib.mdDoc "Extra syncoid arguments for this command.";
               };
             };
             config = {
@@ -392,20 +387,12 @@ in
                 path = [ "/run/booted-system/sw/bin/" ];
                 serviceConfig = {
                   ExecStartPre =
-                    (map (buildAllowCommand c.localSourceAllow) (
-                      localDatasetName c.source
-                    ))
-                    ++ (map (buildAllowCommand c.localTargetAllow) (
-                      localDatasetName c.target
-                    ))
+                    (map (buildAllowCommand c.localSourceAllow) (localDatasetName c.source))
+                    ++ (map (buildAllowCommand c.localTargetAllow) (localDatasetName c.target))
                   ;
                   ExecStopPost =
-                    (map (buildUnallowCommand c.localSourceAllow) (
-                      localDatasetName c.source
-                    ))
-                    ++ (map (buildUnallowCommand c.localTargetAllow) (
-                      localDatasetName c.target
-                    ))
+                    (map (buildUnallowCommand c.localSourceAllow) (localDatasetName c.source))
+                    ++ (map (buildUnallowCommand c.localTargetAllow) (localDatasetName c.target))
                   ;
                   ExecStart = lib.escapeShellArgs (
                     [ "${cfg.package}/bin/syncoid" ]
@@ -476,9 +463,7 @@ in
                     "/bin/sh"
                   ];
                   # Avoid useless mounting of RootDirectory= in the own RootDirectory= of ExecStart='s mount namespace.
-                  InaccessiblePaths = [
-                    "-+/run/syncoid/${escapeUnitName name}"
-                  ];
+                  InaccessiblePaths = [ "-+/run/syncoid/${escapeUnitName name}" ];
                   MountAPIVFS = true;
                   # Create RootDirectory= in the host's mount namespace.
                   RuntimeDirectory = [ "syncoid/${escapeUnitName name}" ];

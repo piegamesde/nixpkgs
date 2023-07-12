@@ -40,10 +40,7 @@ args@{
               fsType = "davfs";
               options =
                 let
-                  davfs2Conf =
-                    (pkgs.writeText "davfs2.conf"
-                      "secrets /tmp/davfs2-secrets"
-                    );
+                  davfs2Conf = (pkgs.writeText "davfs2.conf" "secrets /tmp/davfs2-secrets");
                 in
                 [
                   "conf=${davfs2Conf}"

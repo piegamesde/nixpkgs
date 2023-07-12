@@ -12,10 +12,7 @@ let
 
   format = pkgs.formats.json { };
 
-  configFile =
-    format.generate "grafana-image-renderer-config.json"
-      cfg.settings
-  ;
+  configFile = format.generate "grafana-image-renderer-config.json" cfg.settings;
 in
 {
   options.services.grafana-image-renderer = {
@@ -126,9 +123,7 @@ in
     } ];
 
     services.grafana.settings.rendering = mkIf cfg.provisionGrafana {
-      server_url = "http://localhost:${
-          toString cfg.settings.service.port
-        }/render";
+      server_url = "http://localhost:${toString cfg.settings.service.port}/render";
       callback_url = "http://localhost:${
           toString config.services.grafana.settings.server.http_port
         }";

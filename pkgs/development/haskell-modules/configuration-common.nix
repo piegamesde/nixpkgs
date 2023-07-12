@@ -386,11 +386,7 @@ self: super:
 
   # This test keeps being aborted because it runs too quietly for too long
   Lazy-Pbkdf2 =
-    if pkgs.stdenv.isi686 then
-      dontCheck super.Lazy-Pbkdf2
-    else
-      super.Lazy-Pbkdf2
-  ;
+    if pkgs.stdenv.isi686 then dontCheck super.Lazy-Pbkdf2 else super.Lazy-Pbkdf2;
 
   # check requires mysql server
   mysql-simple = dontCheck super.mysql-simple;
@@ -434,10 +430,7 @@ self: super:
       super.shell-conduit
   ;
 
-  cachix =
-    self.generateOptparseApplicativeCompletions [ "cachix" ]
-      super.cachix
-  ;
+  cachix = self.generateOptparseApplicativeCompletions [ "cachix" ] super.cachix;
 
   # https://github.com/froozen/kademlia/issues/2
   kademlia = dontCheck super.kademlia;
@@ -594,9 +587,7 @@ self: super:
 
   # Too strict lower bound on hspec
   graphql =
-    assert lib.versionOlder self.hspec.version "2.10";
-    doJailbreak super.graphql
-  ;
+    assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.graphql;
 
   # https://github.com/ekmett/structures/issues/3
   structures = dontCheck super.structures;
@@ -881,9 +872,7 @@ self: super:
   # https://github.com/haskell-works/tasty-discover/issues/9
   # https://github.com/commercialhaskell/stackage/issues/6584#issuecomment-1326522815
   tasty-discover =
-    assert super.tasty-discover.version == "4.2.2";
-    dontCheck super.tasty-discover
-  ;
+    assert super.tasty-discover.version == "4.2.2"; dontCheck super.tasty-discover;
 
   # Known issue with nondeterministic test suite failure
   # https://github.com/nomeata/tasty-expected-failure/issues/21
@@ -1184,10 +1173,7 @@ self: super:
   diff-parse = doJailbreak super.diff-parse;
 
   # No upstream issue tracker
-  hspec-expectations-pretty-diff =
-    dontCheck
-      super.hspec-expectations-pretty-diff
-  ;
+  hspec-expectations-pretty-diff = dontCheck super.hspec-expectations-pretty-diff;
 
   # Don't depend on chell-quickcheck, which doesn't compile due to restricting
   # QuickCheck to versions ">=2.3 && <2.9".
@@ -1229,8 +1215,7 @@ self: super:
   cryptol =
     overrideCabal
       (drv: {
-        buildTools =
-          drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
+        buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
         postInstall =
           drv.postInstall or ""
           + ''
@@ -1475,8 +1460,7 @@ self: super:
           (drv: {
             # Allow hnix 0.16, needs unreleased bounds change
             # https://github.com/dhall-lang/dhall-haskell/pull/2474
-            jailbreak =
-              assert drv.version == "1.0.9" && drv.revision == "1"; true;
+            jailbreak = assert drv.version == "1.0.9" && drv.revision == "1"; true;
           })
           super.dhall-nixpkgs
       )
@@ -1553,8 +1537,7 @@ self: super:
     overrideCabal
       (drv: {
         isExecutable = false;
-        libraryHaskellDepends =
-          drv.libraryHaskellDepends ++ [ self.QuickCheck ];
+        libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.QuickCheck ];
       })
       super.sexpr
   );
@@ -1893,11 +1876,7 @@ self: super:
               relative = "reflex-dom-core";
             })
           ]
-          (
-            doDistribute (
-              unmarkBroken (dontCheck (doJailbreak super.reflex-dom-core))
-            )
-          )
+          (doDistribute (unmarkBroken (dontCheck (doJailbreak super.reflex-dom-core))))
         )
       )
   ;
@@ -2098,8 +2077,7 @@ self: super:
     self.generateOptparseApplicativeCompletions [ "update-nix-fetchgit" ] (
       overrideCabal
         (drv: {
-          buildTools =
-            drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
+          buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
           postInstall =
             drv.postInstall or ""
             + ''
@@ -2170,9 +2148,7 @@ self: super:
     }
   );
   hspec-discover_2_11_0 = doDistribute (
-    super.hspec-discover_2_11_0.override {
-      hspec-meta = self.hspec-meta_2_10_5;
-    }
+    super.hspec-discover_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; }
   );
   # Need to disable tests to prevent an infinite recursion if hspec-core_2_11_0
   # is overlayed to hspec-core.
@@ -2273,10 +2249,7 @@ self: super:
 
   # Readline uses Distribution.Simple from Cabal 2, in a way that is not
   # compatible with Cabal 3. No upstream repository found so far
-  readline =
-    appendPatch ./patches/readline-fix-for-cabal-3.patch
-      super.readline
-  ;
+  readline = appendPatch ./patches/readline-fix-for-cabal-3.patch super.readline;
 
   # 2020-12-05: this package requires a newer version of http-client,
   # but it still compiles with older version:
@@ -2378,11 +2351,7 @@ self: super:
         url = "https://github.com/creswick/chatter/commit/e8c15a848130d7d27b8eb5e73e8a0db1366b2e62.patch";
         sha256 = "1dzak8d12h54vss5fxnrclygz0fz9ygbqvxd5aifz5n3vrwwpj3g";
       })
-      (
-        dontCheck (
-          doJailbreak (super.chatter.override { regex-tdfa-text = null; })
-        )
-      )
+      (dontCheck (doJailbreak (super.chatter.override { regex-tdfa-text = null; })))
   ;
 
   # test suite doesn't compile anymore due to changed hunit/tasty APIs
@@ -2395,9 +2364,7 @@ self: super:
   #   https://github.com/noinia/hgeometry/issues/132
   # * Too strict version bound on vector-builder
   #   https://github.com/noinia/hgeometry/commit/a6abecb1ce4a7fd96b25cc1a5c65cd4257ecde7a#commitcomment-49282301
-  hgeometry-combinatorial = dontCheck (
-    doJailbreak super.hgeometry-combinatorial
-  );
+  hgeometry-combinatorial = dontCheck (doJailbreak super.hgeometry-combinatorial);
 
   # Too strict version bounds on ansi-terminal
   # https://github.com/kowainik/co-log/pull/218
@@ -2541,8 +2508,7 @@ self: super:
           # This is used by regenerate-hackage-packages.nix to supply the configuration
           # values we can easily generate automatically without checking them in.
           compilerConfig =
-            pkgs.runCommand
-              "hackage2nix-${self.ghc.haskellCompilerName}-config.yaml"
+            pkgs.runCommand "hackage2nix-${self.ghc.haskellCompilerName}-config.yaml"
               { nativeBuildInputs = [ self.ghc ]; }
               ''
                 cat > "$out" << EOF
@@ -2612,8 +2578,7 @@ self: super:
   # Tests need to lookup target triple x86_64-unknown-linux
   # https://github.com/llvm-hs/llvm-hs/issues/334
   llvm-hs =
-    overrideCabal
-      { doCheck = pkgs.stdenv.targetPlatform.system == "x86_64-linux"; }
+    overrideCabal { doCheck = pkgs.stdenv.targetPlatform.system == "x86_64-linux"; }
       super.llvm-hs
   ;
 
@@ -2656,10 +2621,7 @@ self: super:
 
   # Too strict bounds on dimensional
   # https://github.com/enomsg/science-constants-dimensional/pull/1
-  science-constants-dimensional =
-    doJailbreak
-      super.science-constants-dimensional
-  ;
+  science-constants-dimensional = doJailbreak super.science-constants-dimensional;
 
   # Tests are flaky on busy machines, upstream doesn't intend to fix
   # https://github.com/merijn/paramtree/issues/4
@@ -2668,10 +2630,7 @@ self: super:
   # Too strict version bounds on haskell-gi
   # https://github.com/owickstrom/gi-gtk-declarative/issues/100
   gi-gtk-declarative = doJailbreak super.gi-gtk-declarative;
-  gi-gtk-declarative-app-simple =
-    doJailbreak
-      super.gi-gtk-declarative-app-simple
-  ;
+  gi-gtk-declarative-app-simple = doJailbreak super.gi-gtk-declarative-app-simple;
 
   # 2023-04-09: haskell-ci needs Cabal-syntax 3.10
   haskell-ci = super.haskell-ci.overrideScope (
@@ -3018,10 +2977,7 @@ self: super:
   uniform-fileio = dontCheck super.uniform-fileio;
 
   # The shipped Setup.hs file is broken.
-  csv =
-    overrideCabal (drv: { preCompileBuildDriver = "rm Setup.hs"; })
-      super.csv
-  ;
+  csv = overrideCabal (drv: { preCompileBuildDriver = "rm Setup.hs"; }) super.csv;
 
   cabal-fmt = doJailbreak (
     super.cabal-fmt.override {
@@ -3149,9 +3105,7 @@ self: super:
 
   # Too strict upper bound on th-desugar, fixed in 3.1.1
   singletons-th =
-    assert super.singletons-th.version == "3.1";
-    doJailbreak super.singletons-th
-  ;
+    assert super.singletons-th.version == "3.1"; doJailbreak super.singletons-th;
   singletons-base = doJailbreak super.singletons-base;
 
   # Ships a broken Setup.hs
@@ -3202,21 +3156,18 @@ self: super:
         ;
       in
       {
-        purescript =
-          lib.pipe (super.purescript.overrideScope purescriptOverlay)
-            ([
-              # PureScript uses nodejs to run tests, so the tests have been disabled
-              # for now.  If someone is interested in figuring out how to get this
-              # working, it seems like it might be possible.
-              dontCheck
-              # The current version of purescript (0.14.5) has version bounds for LTS-17,
-              # but it compiles cleanly using deps in LTS-18 as well.  This jailbreak can
-              # likely be removed when purescript-0.14.6 is released.
-              doJailbreak
-              # Generate shell completions
-              (self.generateOptparseApplicativeCompletions [ "purs" ])
-            ])
-        ;
+        purescript = lib.pipe (super.purescript.overrideScope purescriptOverlay) ([
+          # PureScript uses nodejs to run tests, so the tests have been disabled
+          # for now.  If someone is interested in figuring out how to get this
+          # working, it seems like it might be possible.
+          dontCheck
+          # The current version of purescript (0.14.5) has version bounds for LTS-17,
+          # but it compiles cleanly using deps in LTS-18 as well.  This jailbreak can
+          # likely be removed when purescript-0.14.6 is released.
+          doJailbreak
+          # Generate shell completions
+          (self.generateOptparseApplicativeCompletions [ "purs" ])
+        ]);
 
         purenix = super.purenix.overrideScope purescriptOverlay;
       }
@@ -3293,9 +3244,7 @@ self: super:
   snaplet-sqlite-simple = doJailbreak super.snaplet-sqlite-simple;
 
   emanote = super.emanote.overrideScope (
-    lself: lsuper: {
-      commonmark-extensions = lself.commonmark-extensions_0_2_3_2;
-    }
+    lself: lsuper: { commonmark-extensions = lself.commonmark-extensions_0_2_3_2; }
   );
 
   # Test files missing from sdist

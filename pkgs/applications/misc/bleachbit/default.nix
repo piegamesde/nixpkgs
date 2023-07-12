@@ -41,9 +41,7 @@ python3Packages.buildPythonApplication rec {
 
   # Patch the many hardcoded uses of /usr/share/ and /usr/bin
   postPatch = ''
-    find -type f -exec sed -i -e 's@/usr/share@${
-      placeholder "out"
-    }/share@g' {} \;
+    find -type f -exec sed -i -e 's@/usr/share@${placeholder "out"}/share@g' {} \;
     find -type f -exec sed -i -e 's@/usr/bin@${placeholder "out"}/bin@g' {} \;
     find -type f -exec sed -i -e 's@${
       placeholder "out"

@@ -30,10 +30,7 @@ in
       extraGSettingsOverridePackages = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description =
-          lib.mdDoc
-            "List of packages for which gsettings are overridden."
-        ;
+        description = lib.mdDoc "List of packages for which gsettings are overridden.";
       };
     };
 
@@ -53,9 +50,7 @@ in
 
     # Update the DBus activation environment after launching the desktop manager.
     services.xserver.displayManager.sessionCommands = ''
-      ${
-        lib.getBin pkgs.dbus
-      }/bin/dbus-update-activation-environment --systemd --all
+      ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
     '';
 
     hardware.bluetooth.enable = mkDefault true;

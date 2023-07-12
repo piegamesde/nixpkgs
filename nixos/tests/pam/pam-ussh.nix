@@ -7,8 +7,7 @@ import ../make-test-python.nix (
 
   let
     testOnlySSHCredentials =
-      pkgs.runCommand "pam-ussh-test-ca"
-        { nativeBuildInputs = [ pkgs.openssh ]; }
+      pkgs.runCommand "pam-ussh-test-ca" { nativeBuildInputs = [ pkgs.openssh ]; }
         ''
           mkdir $out
           ssh-keygen -t ed25519 -N "" -f $out/ca

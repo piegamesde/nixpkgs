@@ -265,9 +265,7 @@ in
           ''
         else
           ''
-            ${nixos-rebuild} ${cfg.operation} ${
-              toString (cfg.flags ++ upgradeFlag)
-            }
+            ${nixos-rebuild} ${cfg.operation} ${toString (cfg.flags ++ upgradeFlag)}
           ''
       ;
 

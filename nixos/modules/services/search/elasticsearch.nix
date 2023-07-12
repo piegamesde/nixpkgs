@@ -154,10 +154,7 @@ in
       description = lib.mdDoc "Extra elasticsearch plugins";
       default = [ ];
       type = types.listOf types.package;
-      example =
-        lib.literalExpression
-          "[ pkgs.elasticsearchPlugins.discovery-ec2 ]"
-      ;
+      example = lib.literalExpression "[ pkgs.elasticsearchPlugins.discovery-ec2 ]";
     };
 
     restartIfChanged = mkOption {

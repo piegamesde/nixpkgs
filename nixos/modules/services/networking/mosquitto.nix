@@ -162,10 +162,7 @@ let
           (filterAttrs (_: u: u.${store} != null) users)
         ++
           mapAttrsToList
-            (
-              n: u:
-              "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}"
-            )
+            (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
             (filterAttrs (_: u: u.${file} != null) users)
       ;
       plainLines = makeLines "password" "passwordFile";
@@ -209,9 +206,7 @@ let
       concatStringsSep "\n" (
         flatten [
           supplement
-          (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl)
-            users
-          )
+          (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl) users)
         ]
       )
     )
@@ -502,8 +497,7 @@ let
     [
       "connection ${name}"
       "addresses ${
-        concatMapStringsSep " " (a: "${a.address}:${toString a.port}")
-          bridge.addresses
+        concatMapStringsSep " " (a: "${a.address}:${toString a.port}") bridge.addresses
       }"
     ]
     ++ map (t: "topic ${t}") bridge.topics
@@ -650,9 +644,7 @@ let
       (imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l)
         cfg.listeners
       )
-      (mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b)
-        cfg.bridges
-      )
+      (mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b) cfg.bridges)
     ]
   ;
 
@@ -781,8 +773,7 @@ in
         imap0
           (
             idx: listener:
-            makePasswordFile listener.users
-              "${cfg.dataDir}/passwd-${toString idx}"
+            makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}"
           )
           cfg.listeners
       );

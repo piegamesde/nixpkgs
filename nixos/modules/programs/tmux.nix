@@ -37,18 +37,17 @@ let
     set -g status-keys ${cfg.keyMode}
     set -g mode-keys   ${cfg.keyMode}
 
-    ${optionalString (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize)
-      ''
-        bind h select-pane -L
-        bind j select-pane -D
-        bind k select-pane -U
-        bind l select-pane -R
+    ${optionalString (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize) ''
+      bind h select-pane -L
+      bind j select-pane -D
+      bind k select-pane -U
+      bind l select-pane -R
 
-        bind -r H resize-pane -L ${toString cfg.resizeAmount}
-        bind -r J resize-pane -D ${toString cfg.resizeAmount}
-        bind -r K resize-pane -U ${toString cfg.resizeAmount}
-        bind -r L resize-pane -R ${toString cfg.resizeAmount}
-      ''}
+      bind -r H resize-pane -L ${toString cfg.resizeAmount}
+      bind -r J resize-pane -D ${toString cfg.resizeAmount}
+      bind -r K resize-pane -U ${toString cfg.resizeAmount}
+      bind -r L resize-pane -R ${toString cfg.resizeAmount}
+    ''}
 
     ${optionalString (cfg.shortcut != defaultShortcut) ''
       # rebind main key: C-${cfg.shortcut}
@@ -81,10 +80,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whenever to configure {command}`tmux` system-wide."
-        ;
+        description = lib.mdDoc "Whenever to configure {command}`tmux` system-wide.";
         relatedPackages = [ "tmux" ];
       };
 
@@ -140,10 +136,7 @@ in
         default = 2000;
         example = 5000;
         type = types.int;
-        description =
-          lib.mdDoc
-            "Maximum number of lines held in window history."
-        ;
+        description = lib.mdDoc "Maximum number of lines held in window history.";
       };
 
       keyMode = mkOption {

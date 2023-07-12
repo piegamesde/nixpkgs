@@ -9,9 +9,7 @@
   config = lib.mkMerge [
 
     (lib.mkIf
-      (lib.any (fs: fs == "unionfs-fuse")
-        config.boot.initrd.supportedFilesystems
-      )
+      (lib.any (fs: fs == "unionfs-fuse") config.boot.initrd.supportedFilesystems)
       {
         boot.initrd.kernelModules = [ "fuse" ];
 
@@ -51,8 +49,7 @@
       }
     )
 
-    (lib.mkIf
-      (lib.any (fs: fs == "unionfs-fuse") config.boot.supportedFilesystems)
+    (lib.mkIf (lib.any (fs: fs == "unionfs-fuse") config.boot.supportedFilesystems)
       { system.fsPackages = [ pkgs.unionfs-fuse ]; }
     )
   ];

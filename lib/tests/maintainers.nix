@@ -29,19 +29,17 @@ let
         }).config;
 
       checks =
-        lib.optional
-          (checkedAttrs.github != null && checkedAttrs.githubId == null)
-          ''
-            echo ${
-              lib.escapeShellArg (lib.showOption prefix)
-            }': If `github` is specified, `githubId` must be too.'
-            # Calling this too often would hit non-authenticated API limits, but this
-            # shouldn't happen since such errors will get fixed rather quickly
-            info=$(curl -sS https://api.github.com/users/${checkedAttrs.github})
-            id=$(jq -r '.id' <<< "$info")
-            echo "The GitHub ID for GitHub user ${checkedAttrs.github} is $id:"
-            echo -e "    githubId = $id;\n"
-          ''
+        lib.optional (checkedAttrs.github != null && checkedAttrs.githubId == null) ''
+          echo ${
+            lib.escapeShellArg (lib.showOption prefix)
+          }': If `github` is specified, `githubId` must be too.'
+          # Calling this too often would hit non-authenticated API limits, but this
+          # shouldn't happen since such errors will get fixed rather quickly
+          info=$(curl -sS https://api.github.com/users/${checkedAttrs.github})
+          id=$(jq -r '.id' <<< "$info")
+          echo "The GitHub ID for GitHub user ${checkedAttrs.github} is $id:"
+          echo -e "    githubId = $id;\n"
+        ''
         ++
           lib.optional
             (

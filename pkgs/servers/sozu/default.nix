@@ -19,10 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Ej2/X1aQ8uRdZKpVRT4+AzhDWMv/sT8GrCitUmkrHmI=";
 
-  buildInputs =
-    lib.optional stdenv.isDarwin
-      darwin.apple_sdk.frameworks.Security
-  ;
+  buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   meta = with lib; {
     description = "Open Source HTTP Reverse Proxy built in Rust for Immutable Infrastructures";

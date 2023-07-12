@@ -33,10 +33,7 @@ in
       locker = mkOption {
         default = "${pkgs.xlockmore}/bin/xlock"; # default according to `man xautolock`
         defaultText = literalExpression ''"''${pkgs.xlockmore}/bin/xlock"'';
-        example =
-          literalExpression
-            ''"''${pkgs.i3lock}/bin/i3lock -i /path/to/img"''
-        ;
+        example = literalExpression ''"''${pkgs.i3lock}/bin/i3lock -i /path/to/img"'';
         type = types.str;
 
         description = lib.mdDoc ''
@@ -46,10 +43,7 @@ in
 
       nowlocker = mkOption {
         default = null;
-        example =
-          literalExpression
-            ''"''${pkgs.i3lock}/bin/i3lock -i /path/to/img"''
-        ;
+        example = literalExpression ''"''${pkgs.i3lock}/bin/i3lock -i /path/to/img"'';
         type = types.nullOr types.str;
 
         description = lib.mdDoc ''
@@ -129,9 +123,7 @@ in
             "-notify ${toString cfg.notify}"
             "-notifier '${cfg.notifier}'"
           ]
-          ++ optionals (cfg.nowlocker != null) [
-            "-nowlocker '${cfg.nowlocker}'"
-          ]
+          ++ optionals (cfg.nowlocker != null) [ "-nowlocker '${cfg.nowlocker}'" ]
           ++ optionals (cfg.killer != null) [
             "-killer '${cfg.killer}'"
             "-killtime ${toString cfg.killtime}"
@@ -162,9 +154,7 @@ in
         (
           option: {
             assertion =
-              cfg.${option} != null
-              -> builtins.substring 0 1 cfg.${option} == "/"
-            ;
+              cfg.${option} != null -> builtins.substring 0 1 cfg.${option} == "/";
             message = "Please specify a canonical path for `services.xserver.xautolock.${option}`";
           }
         )

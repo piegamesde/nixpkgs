@@ -56,9 +56,7 @@ let
                 boot.loader.grub.fsIdentifier = "${grubIdentifier}";
               ''}
 
-            boot.loader.grub.configurationLimit = 100 + ${
-              toString forceGrubReinstallCount
-            };
+            boot.loader.grub.configurationLimit = 100 + ${toString forceGrubReinstallCount};
           ''
         }
 
@@ -102,8 +100,7 @@ let
     }:
     let
       iface = if grubVersion == 1 then "ide" else "virtio";
-      isEfi =
-        bootLoader == "systemd-boot" || (bootLoader == "grub" && grubUseEfi);
+      isEfi = bootLoader == "systemd-boot" || (bootLoader == "grub" && grubUseEfi);
       bios = if pkgs.stdenv.isAarch64 then "QEMU_EFI.fd" else "OVMF.fd";
     in
     if !isEfi && !pkgs.stdenv.hostPlatform.isx86 then
@@ -118,8 +115,7 @@ let
               if (system == "x86_64-linux" || system == "i686-linux") then
                 ''flags += " -m 1024"''
               else
-                ''
-                  flags += " -m 768 -enable-kvm -machine virt,gic-version=host"''
+                ''flags += " -m 768 -enable-kvm -machine virt,gic-version=host"''
             }
             return flags
 
@@ -407,10 +403,7 @@ let
             # (which will never happen).
             virtualisation.vlans = [ ];
 
-            boot.loader.systemd-boot.enable =
-              mkIf (bootLoader == "systemd-boot")
-                true
-            ;
+            boot.loader.systemd-boot.enable = mkIf (bootLoader == "systemd-boot") true;
 
             hardware.enableAllFirmware = mkForce false;
 

@@ -312,9 +312,7 @@ in
 
           (mkIf cfg.dhcp4.enable {
             assertions = [ {
-              assertion = xor (cfg.dhcp4.settings == null) (
-                cfg.dhcp4.configFile == null
-              );
+              assertion = xor (cfg.dhcp4.settings == null) (cfg.dhcp4.configFile == null);
               message = "Either services.kea.dhcp4.settings or services.kea.dhcp4.configFile must be set to a non-null value.";
             } ];
 
@@ -359,9 +357,7 @@ in
 
           (mkIf cfg.dhcp6.enable {
             assertions = [ {
-              assertion = xor (cfg.dhcp6.settings == null) (
-                cfg.dhcp6.configFile == null
-              );
+              assertion = xor (cfg.dhcp6.settings == null) (cfg.dhcp6.configFile == null);
               message = "Either services.kea.dhcp6.settings or services.kea.dhcp6.configFile must be set to a non-null value.";
             } ];
 

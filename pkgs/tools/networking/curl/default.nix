@@ -183,12 +183,7 @@ stdenv.mkDerivation (
       ]
       ++
         lib.optionals
-          (
-            !gnutlsSupport
-            && !opensslSupport
-            && !wolfsslSupport
-            && !rustlsSupport
-          )
+          (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport)
           [ "--without-ssl" ]
     ;
 
@@ -240,14 +235,11 @@ stdenv.mkDerivation (
       {
         inherit opensslSupport openssl;
         tests = {
-          withCheck = finalAttrs.finalPackage.overrideAttrs (
-            _: { doCheck = true; }
-          );
+          withCheck = finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
           fetchpatch = tests.fetchpatch.simple.override {
-            fetchpatch =
-              (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // {
-                version = 1;
-              };
+            fetchpatch = (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // {
+              version = 1;
+            };
           };
           curlpp = useThisCurl curlpp;
           coeurl = useThisCurl coeurl;

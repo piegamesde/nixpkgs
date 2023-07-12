@@ -28,8 +28,7 @@ let
         if isDerivation value then
           value.meta.isBuildPythonPackage or [ ]
         else if
-          value.recurseForDerivations or false
-          || value.recurseForRelease or false
+          value.recurseForDerivations or false || value.recurseForRelease or false
         then
           packagePython value
         else

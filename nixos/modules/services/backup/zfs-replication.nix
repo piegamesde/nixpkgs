@@ -51,10 +51,7 @@ in
       };
 
       remoteFilesystem = mkOption {
-        description =
-          lib.mdDoc
-            "Remote ZFS filesystem where snapshots should be sent."
-        ;
+        description = lib.mdDoc "Remote ZFS filesystem where snapshots should be sent.";
         example = "pool/file/path";
         type = types.str;
       };
@@ -91,9 +88,7 @@ in
           escapeShellArg cfg.username
         } -i ${escapeShellArg cfg.identityFilePath}${followDelete} ${
           escapeShellArg cfg.host
-        } ${escapeShellArg cfg.remoteFilesystem} ${
-          escapeShellArg cfg.localFilesystem
-        }";
+        } ${escapeShellArg cfg.remoteFilesystem} ${escapeShellArg cfg.localFilesystem}";
       wantedBy = [
         "zfs-snapshot-daily.service"
         "zfs-snapshot-frequent.service"

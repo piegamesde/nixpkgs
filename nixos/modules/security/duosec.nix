@@ -73,10 +73,7 @@ in
       ssh.enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "If enabled, protect SSH logins with Duo Security."
-        ;
+        description = lib.mdDoc "If enabled, protect SSH logins with Duo Security.";
       };
 
       pam.enable = mkOption {

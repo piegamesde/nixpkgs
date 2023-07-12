@@ -68,8 +68,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pypdf" ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
 
   pytestFlagsArray = [
     # don't access the network

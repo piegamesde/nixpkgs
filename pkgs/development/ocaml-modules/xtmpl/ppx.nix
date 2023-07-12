@@ -16,6 +16,5 @@ buildDunePackage {
     xtmpl
   ];
 
-  meta =
-    xtmpl.meta // { description = "Xml templating library, ppx extension"; };
+  meta = xtmpl.meta // { description = "Xml templating library, ppx extension"; };
 }

@@ -179,8 +179,7 @@ let
       text,
       runtimeInputs ? [ ],
     }:
-    pkgs.writeShellApplication { inherit name text runtimeInputs; }
-    + "/bin/${name}"
+    pkgs.writeShellApplication { inherit name text runtimeInputs; } + "/bin/${name}"
   ;
 
   genScript = writeShell {
@@ -302,9 +301,7 @@ let
     in
     if (cfg.initDb.password != null) then
       pkgs.writeText "pgpass.conf" ''
-        *:*:*${esc cfg.initDb.username}:${
-          esc (sha256 cfg.initDb.password._secret)
-        }
+        *:*:*${esc cfg.initDb.username}:${esc (sha256 cfg.initDb.password._secret)}
       ''
     else
       null
@@ -318,10 +315,7 @@ let
 
     ALTER ROLE ${escapeSqlId db.username}
       LOGIN PASSWORD ${
-        if db ? password then
-          "${escapeSqlStr (sha256 db.password._secret)}"
-        else
-          "NULL"
+        if db ? password then "${escapeSqlStr (sha256 db.password._secret)}" else "NULL"
       };
 
     ALTER DATABASE ${escapeSqlId db.database}
@@ -482,9 +476,9 @@ let
       mapAttrsToList
         (key: val: ''
           mkdir -p $out/frontends/${escapeShellArg val.name}/
-          ln -s ${escapeShellArg val.package} $out/frontends/${
-            escapeShellArg val.name
-          }/${escapeShellArg val.ref}
+          ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${
+            escapeShellArg val.ref
+          }
         '')
         cfg.frontends
     )}
@@ -561,10 +555,7 @@ in
         username = mkOption {
           type = types.nonEmptyStr;
           default = config.services.postgresql.superUser;
-          defaultText =
-            literalExpression
-              "config.services.postgresql.superUser"
-          ;
+          defaultText = literalExpression "config.services.postgresql.superUser";
           description = mdDoc ''
             Name of the database user to initialise the database with.
 
@@ -623,10 +614,7 @@ in
           literalExpression
             "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]"
         ;
-        example =
-          literalExpression
-            "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]"
-        ;
+        example = literalExpression "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]";
         description = mdDoc ''
           List of extra packages to include in the executable search path of the service unit.
           These are needed by various configurable components such as:
@@ -723,19 +711,13 @@ in
         portMin = mkOption {
           type = types.port;
           default = 49152;
-          description =
-            mdDoc
-              "Lower bound for Erlang distribution protocol TCP port."
-          ;
+          description = mdDoc "Lower bound for Erlang distribution protocol TCP port.";
         };
 
         portMax = mkOption {
           type = types.port;
           default = 65535;
-          description =
-            mdDoc
-              "Upper bound for Erlang distribution protocol TCP port."
-          ;
+          description = mdDoc "Upper bound for Erlang distribution protocol TCP port.";
         };
 
         cookie = mkOption {
@@ -991,10 +973,7 @@ in
                       defaultText = literalExpression ''
                         "mailto:''${config.services.akkoma.config.":pleroma".":instance".email}"
                       '';
-                      description =
-                        mdDoc
-                          "mailto URI for administrative contact."
-                      ;
+                      description = mdDoc "mailto URI for administrative contact.";
                     };
 
                     public_key = mkOption {
@@ -1094,9 +1073,7 @@ in
           with types;
           nullOr (
             submodule (
-              import ../web-servers/nginx/vhost-options.nix {
-                inherit config lib;
-              }
+              import ../web-servers/nginx/vhost-options.nix { inherit config lib; }
             )
           )
         ;
@@ -1219,9 +1196,7 @@ in
 
           BindPaths = [ "${uploadDir}:${uploadDir}:norbind" ];
           BindReadOnlyPaths = mkMerge [
-            (mkIf (!isStorePath staticDir) [
-              "${staticDir}:${staticDir}:norbind"
-            ])
+            (mkIf (!isStorePath staticDir) [ "${staticDir}:${staticDir}:norbind" ])
             (mkIf isConfined (
               mkMerge [
                 [
@@ -1231,16 +1206,11 @@ in
                 (mkIf (isStorePath staticDir) (
                   map (dir: "${dir}:${dir}:norbind") (
                     splitString "\n" (
-                      readFile (
-                        (pkgs.closureInfo { rootPaths = staticDir; })
-                        + "/store-paths"
-                      )
+                      readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths")
                     )
                   )
                 ))
-                (mkIf (db ? socket_dir) [
-                  "${db.socket_dir}:${db.socket_dir}:norbind"
-                ])
+                (mkIf (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
                 (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
               ]
             ))

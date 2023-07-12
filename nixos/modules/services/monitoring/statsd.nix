@@ -24,10 +24,7 @@ let
     let
       mkMap =
         list: name:
-        if isBuiltinBackend name then
-          list
-        else
-          list ++ [ pkgs.nodePackages.${name} ]
+        if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ]
       ;
     in
     foldl mkMap [ ]
@@ -43,10 +40,7 @@ let
         concatMapStringsSep ","
           (
             name:
-            if (isBuiltinBackend name) then
-              ''"./backends/${name}"''
-            else
-              ''"${name}"''
+            if (isBuiltinBackend name) then ''"./backends/${name}"'' else ''"${name}"''
           )
           cfg.backends
       }],
@@ -64,9 +58,7 @@ let
       log: {
         backend: "stdout"
       },
-      automaticConfigReload: false${
-        optionalString (cfg.extraConfig != null) ","
-      }
+      automaticConfigReload: false${optionalString (cfg.extraConfig != null) ","}
       ${cfg.extraConfig}
     }
   '';
@@ -95,10 +87,7 @@ in
     };
 
     port = mkOption {
-      description =
-        lib.mdDoc
-          "Port that stats listens for messages on over UDP"
-      ;
+      description = lib.mdDoc "Port that stats listens for messages on over UDP";
       default = 8125;
       type = types.int;
     };
@@ -116,10 +105,7 @@ in
     };
 
     backends = mkOption {
-      description =
-        lib.mdDoc
-          "List of backends statsd will use for data persistence"
-      ;
+      description = lib.mdDoc "List of backends statsd will use for data persistence";
       default = [ ];
       example = [
         "graphite"
@@ -159,9 +145,7 @@ in
       map
         (backend: {
           assertion =
-            !isBuiltinBackend backend
-            -> hasAttrByPath [ backend ] pkgs.nodePackages
-          ;
+            !isBuiltinBackend backend -> hasAttrByPath [ backend ] pkgs.nodePackages;
           message = "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
         })
         cfg.backends

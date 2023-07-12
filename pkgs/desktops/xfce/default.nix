@@ -66,9 +66,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     xfce4-appfinder = callPackage ./core/xfce4-appfinder { };
 
     xfce4-dev-tools = callPackage ./core/xfce4-dev-tools {
-      mkXfceDerivation = self.mkXfceDerivation.override {
-        xfce4-dev-tools = null;
-      };
+      mkXfceDerivation = self.mkXfceDerivation.override { xfce4-dev-tools = null; };
     };
 
     #### APPLICATIONS
@@ -119,20 +117,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-cpufreq-plugin = callPackage ./panel-plugins/xfce4-cpufreq-plugin { };
 
-    xfce4-cpugraph-plugin =
-      callPackage ./panel-plugins/xfce4-cpugraph-plugin
-        { }
-    ;
+    xfce4-cpugraph-plugin = callPackage ./panel-plugins/xfce4-cpugraph-plugin { };
 
-    xfce4-datetime-plugin =
-      callPackage ./panel-plugins/xfce4-datetime-plugin
-        { }
-    ;
+    xfce4-datetime-plugin = callPackage ./panel-plugins/xfce4-datetime-plugin { };
 
-    xfce4-dockbarx-plugin =
-      callPackage ./panel-plugins/xfce4-dockbarx-plugin
-        { }
-    ;
+    xfce4-dockbarx-plugin = callPackage ./panel-plugins/xfce4-dockbarx-plugin { };
 
     xfce4-embed-plugin = callPackage ./panel-plugins/xfce4-embed-plugin { };
 
@@ -153,10 +142,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-notes-plugin = callPackage ./panel-plugins/xfce4-notes-plugin { };
 
-    xfce4-mailwatch-plugin =
-      callPackage ./panel-plugins/xfce4-mailwatch-plugin
-        { }
-    ;
+    xfce4-mailwatch-plugin = callPackage ./panel-plugins/xfce4-mailwatch-plugin { };
 
     xfce4-mpc-plugin = callPackage ./panel-plugins/xfce4-mpc-plugin { };
 
@@ -167,10 +153,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
         { }
     ;
 
-    xfce4-time-out-plugin =
-      callPackage ./panel-plugins/xfce4-time-out-plugin
-        { }
-    ;
+    xfce4-time-out-plugin = callPackage ./panel-plugins/xfce4-time-out-plugin { };
 
     xfce4-timer-plugin = callPackage ./panel-plugins/xfce4-timer-plugin { };
 
@@ -185,10 +168,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
         { }
     ;
 
-    xfce4-windowck-plugin =
-      callPackage ./panel-plugins/xfce4-windowck-plugin
-        { }
-    ;
+    xfce4-windowck-plugin = callPackage ./panel-plugins/xfce4-windowck-plugin { };
 
     xfce4-pulseaudio-plugin =
       callPackage ./panel-plugins/xfce4-pulseaudio-plugin

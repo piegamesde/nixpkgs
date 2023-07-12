@@ -17,10 +17,7 @@ let
     cfg: name:
     let
 
-      path =
-        makeBinPath
-          (getAttr "openvpn-${name}" config.systemd.services).path
-      ;
+      path = makeBinPath (getAttr "openvpn-${name}" config.systemd.services).path;
 
       upScript = ''
         export PATH=${path}
@@ -50,8 +47,7 @@ let
 
       configFile = pkgs.writeText "openvpn-config-${name}" ''
         errors-to-stderr
-        ${optionalString
-          (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf)
+        ${optionalString (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf)
           "script-security 2"}
         ${cfg.config}
         ${optionalString (cfg.up != "" || cfg.updateResolvConf)
@@ -222,18 +218,12 @@ in
 
                     options = {
                       username = mkOption {
-                        description =
-                          lib.mdDoc
-                            "The username to store inside the credentials file."
-                        ;
+                        description = lib.mdDoc "The username to store inside the credentials file.";
                         type = types.str;
                       };
 
                       password = mkOption {
-                        description =
-                          lib.mdDoc
-                            "The password to store inside the credentials file."
-                        ;
+                        description = lib.mdDoc "The password to store inside the credentials file.";
                         type = types.str;
                       };
                     };
@@ -262,10 +252,7 @@ in
 
     systemd.services = (listToAttrs (
       mapAttrsFlatten
-        (
-          name: value:
-          nameValuePair "openvpn-${name}" (makeOpenVPNJob value name)
-        )
+        (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
         cfg.servers
     )) // restartService;
 

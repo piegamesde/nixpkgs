@@ -114,9 +114,7 @@ in
 
                 cachedir = mkOption {
                   type = types.nullOr types.path;
-                  default = "/var/cache/tarsnap/${
-                      utils.escapeSystemdPath config.keyfile
-                    }";
+                  default = "/var/cache/tarsnap/${utils.escapeSystemdPath config.keyfile}";
                   defaultText = literalExpression ''
                     "/var/cache/tarsnap/''${utils.escapeSystemdPath config.${options.keyfile}}"
                   '';
@@ -191,10 +189,7 @@ in
                 directories = mkOption {
                   type = types.listOf types.path;
                   default = [ ];
-                  description =
-                    lib.mdDoc
-                      "List of filesystem paths to archive."
-                  ;
+                  description = lib.mdDoc "List of filesystem paths to archive.";
                 };
 
                 excludes = mkOption {
@@ -368,16 +363,9 @@ in
               run = ''
                 ${tarsnap} -c -f "${name}-$(date +"%Y%m%d%H%M%S")" \
                                         ${optionalString cfg.verbose "-v"} \
-                                        ${
-                                          optionalString cfg.explicitSymlinks
-                                            "-H"
-                                        } \
-                                        ${
-                                          optionalString cfg.followSymlinks "-L"
-                                        } \
-                                        ${
-                                          concatStringsSep " " cfg.directories
-                                        }'';
+                                        ${optionalString cfg.explicitSymlinks "-H"} \
+                                        ${optionalString cfg.followSymlinks "-L"} \
+                                        ${concatStringsSep " " cfg.directories}'';
               cachedir = escapeShellArg cfg.cachedir;
             in
             if (cfg.cachedir != null) then
@@ -430,10 +418,7 @@ in
               let
                 tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
                 lastArchive = "$(${tarsnap} --list-archives | sort | tail -1)";
-                run = ''
-                  ${tarsnap} -x -f "${lastArchive}" ${
-                    optionalString cfg.verbose "-v"
-                  }'';
+                run = ''${tarsnap} -x -f "${lastArchive}" ${optionalString cfg.verbose "-v"}'';
                 cachedir = escapeShellArg cfg.cachedir;
               in
               if (cfg.cachedir != null) then
@@ -487,8 +472,7 @@ in
     environment.etc =
       mapAttrs'
         (
-          name: cfg:
-          nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; }
+          name: cfg: nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; }
         )
         gcfg.archives
     ;

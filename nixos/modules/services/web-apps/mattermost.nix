@@ -82,8 +82,7 @@ let
           mkdir -p $out/data/plugins
           plugins=(${
             escapeShellArgs (
-              map (plugin: "${plugin}/share/plugin.tar.gz")
-                mattermostPluginDerivations
+              map (plugin: "${plugin}/share/plugin.tar.gz") mattermostPluginDerivations
             )
           })
           for plugin in "''${plugins[@]}"; do
@@ -394,10 +393,7 @@ in
           LimitNOFILE = "49152";
           EnvironmentFile = cfg.environmentFile;
         };
-        unitConfig.JoinsNamespaceOf =
-          mkIf cfg.localDatabaseCreate
-            "postgresql.service"
-        ;
+        unitConfig.JoinsNamespaceOf = mkIf cfg.localDatabaseCreate "postgresql.service";
       };
     })
     (mkIf cfg.matterircd.enable {

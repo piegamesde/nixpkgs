@@ -99,8 +99,7 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts =
-        [ cfg.listen.port ] ++ optional cfg.ssl.enable cfg.ssl.port;
+      allowedTCPPorts = [ cfg.listen.port ] ++ optional cfg.ssl.enable cfg.ssl.port;
     };
   };
 }

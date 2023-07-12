@@ -60,17 +60,14 @@ let
       cl-cffi-gtk-pango = super.cl-cffi-gtk-pango.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.pango ]; }
       );
-      cl-gobject-introspection =
-        super.cl-gobject-introspection.overrideLispAttrs
-          (
-            o: {
-              nativeLibs = [
-                pkgs.glib
-                pkgs.gobject-introspection
-              ];
-            }
-          )
-      ;
+      cl-gobject-introspection = super.cl-gobject-introspection.overrideLispAttrs (
+        o: {
+          nativeLibs = [
+            pkgs.glib
+            pkgs.gobject-introspection
+          ];
+        }
+      );
       cl-mysql = super.cl-mysql.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.mariadb.client ]; }
       );
@@ -86,9 +83,7 @@ let
       dbd-mysql = super.dbd-mysql.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.mariadb.client ]; }
       );
-      lla = super.lla.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.openblas ]; }
-      );
+      lla = super.lla.overrideLispAttrs (o: { nativeLibs = [ pkgs.openblas ]; });
       cffi-libffi = super.cffi-libffi.overrideLispAttrs (
         o: {
           nativeBuildInputs = [ pkgs.libffi ];
@@ -104,9 +99,7 @@ let
       trivial-ssh-libssh2 = super.trivial-ssh-libssh2.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.libssh2 ]; }
       );
-      sqlite = super.sqlite.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.sqlite ]; }
-      );
+      sqlite = super.sqlite.overrideLispAttrs (o: { nativeLibs = [ pkgs.sqlite ]; });
       cl-libuv = super.cl-libuv.overrideLispAttrs (
         o: {
           nativeBuildInputs = [ pkgs.libuv ];
@@ -143,15 +136,11 @@ let
       cl-opengl = super.cl-opengl.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.libGL ]; }
       );
-      cl-glu = super.cl-glu.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.libGLU ]; }
-      );
+      cl-glu = super.cl-glu.overrideLispAttrs (o: { nativeLibs = [ pkgs.libGLU ]; });
       cl-glut = super.cl-glut.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.freeglut ]; }
       );
-      cl-glfw = super.cl-glfw.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.glfw ]; }
-      );
+      cl-glfw = super.cl-glfw.overrideLispAttrs (o: { nativeLibs = [ pkgs.glfw ]; });
       cl-glfw-opengl-core = super.cl-glfw-opengl-core.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.libGL ]; }
       );
@@ -201,9 +190,7 @@ let
       cl-readline = super.cl-readline.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.readline ]; }
       );
-      md5 = super.md5.overrideLispAttrs (
-        o: { lispLibs = [ super.flexi-streams ]; }
-      );
+      md5 = super.md5.overrideLispAttrs (o: { lispLibs = [ super.flexi-streams ]; });
       pzmq = super.pzmq.overrideLispAttrs (
         o: {
           nativeBuildInputs = [ pkgs.zeromq ];
@@ -228,13 +215,10 @@ let
           nativeLibs = [ pkgs.zeromq ];
         }
       );
-      cl-git = super.cl-git.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.libgit2 ]; }
+      cl-git = super.cl-git.overrideLispAttrs (o: { nativeLibs = [ pkgs.libgit2 ]; });
+      trivial-package-manager = super.trivial-package-manager.overrideLispAttrs (
+        o: { propagatedBuildInputs = [ pkgs.which ]; }
       );
-      trivial-package-manager =
-        super.trivial-package-manager.overrideLispAttrs
-          (o: { propagatedBuildInputs = [ pkgs.which ]; })
-      ;
       cl-sat_dot_glucose = super.cl-sat_dot_glucose.overrideLispAttrs (
         o: {
           propagatedBuildInputs = [ pkgs.glucose ];
@@ -244,10 +228,9 @@ let
       cl-sat_dot_minisat = super.cl-sat_dot_minisat.overrideLispAttrs (
         o: { propagatedBuildInputs = [ pkgs.minisat ]; }
       );
-      hu_dot_dwim_dot_graphviz =
-        super.hu_dot_dwim_dot_graphviz.overrideLispAttrs
-          (o: { nativeLibs = [ pkgs.graphviz ]; })
-      ;
+      hu_dot_dwim_dot_graphviz = super.hu_dot_dwim_dot_graphviz.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.graphviz ]; }
+      );
       math = super.math.overrideLispAttrs (
         o: {
           patches = [ ./patches/math-no-compile-time-directory.patch ];

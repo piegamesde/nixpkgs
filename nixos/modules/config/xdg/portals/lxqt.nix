@@ -47,9 +47,7 @@ in
     xdg.portal = {
       enable = true;
       extraPortals = [
-        (pkgs.lxqt.xdg-desktop-portal-lxqt.override {
-          extraQtStyles = cfg.styles;
-        })
+        (pkgs.lxqt.xdg-desktop-portal-lxqt.override { extraQtStyles = cfg.styles; })
       ];
     };
 

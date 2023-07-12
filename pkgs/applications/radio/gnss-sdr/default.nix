@@ -73,12 +73,9 @@ gnuradio.pkgs.mkDerivation rec {
       gnuradio.unwrapped.python.pkgs.thrift
     ]
     ++
-      lib.optionals
-        (gnuradio.hasFeature "gr-pdu" || gnuradio.hasFeature "gr-iio")
+      lib.optionals (gnuradio.hasFeature "gr-pdu" || gnuradio.hasFeature "gr-iio")
         [ gnuradio.unwrapped.libiio ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-pdu") [
-      gnuradio.unwrapped.libad9361
-    ]
+    ++ lib.optionals (gnuradio.hasFeature "gr-pdu") [ gnuradio.unwrapped.libad9361 ]
   ;
 
   cmakeFlags = [
@@ -100,9 +97,7 @@ gnuradio.pkgs.mkDerivation rec {
       else
         "OFF"
     }"
-    "-DENABLE_PLUTOSDR=${
-      if (gnuradio.hasFeature "gr-iio") then "ON" else "OFF"
-    }"
+    "-DENABLE_PLUTOSDR=${if (gnuradio.hasFeature "gr-iio") then "ON" else "OFF"}"
     "-DENABLE_AD9361=${if (gnuradio.hasFeature "gr-pdu") then "ON" else "OFF"}"
     "-DENABLE_UNIT_TESTING=OFF"
 

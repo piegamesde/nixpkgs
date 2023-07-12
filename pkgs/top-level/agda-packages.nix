@@ -29,19 +29,15 @@ let
 
       agda = withPackages [ ];
 
-      standard-library =
-        callPackage ../development/libraries/agda/standard-library
-          { inherit (pkgs.haskellPackages) ghcWithPackages; }
-      ;
+      standard-library = callPackage ../development/libraries/agda/standard-library {
+        inherit (pkgs.haskellPackages) ghcWithPackages;
+      };
 
       iowa-stdlib = callPackage ../development/libraries/agda/iowa-stdlib { };
 
       agda-prelude = callPackage ../development/libraries/agda/agda-prelude { };
 
-      agda-categories =
-        callPackage ../development/libraries/agda/agda-categories
-          { }
-      ;
+      agda-categories = callPackage ../development/libraries/agda/agda-categories { };
 
       cubical = callPackage ../development/libraries/agda/cubical { };
 

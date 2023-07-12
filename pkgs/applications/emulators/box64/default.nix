@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
       "-DARM_DYNAREC=${if withDynarec then "ON" else "OFF"}"
       "-DRV64=${if stdenv.hostPlatform.isRiscV64 then "ON" else "OFF"}"
       "-DPPC64LE=${
-        if
-          stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian
-        then
+        if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           "ON"
         else
           "OFF"

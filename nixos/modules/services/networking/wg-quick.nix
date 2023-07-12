@@ -52,10 +52,7 @@ let
           example = [ "192.168.2.2" ];
           default = [ ];
           type = with types; listOf str;
-          description =
-            lib.mdDoc
-              "The IP addresses of DNS servers to configure."
-          ;
+          description = lib.mdDoc "The IP addresses of DNS servers to configure.";
         };
 
         privateKey = mkOption {
@@ -90,52 +87,36 @@ let
         };
 
         preUp = mkOption {
-          example =
-            literalExpression
-              ''"''${pkgs.iproute2}/bin/ip netns add foo"''
-          ;
+          example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
           default = "";
-          type =
-            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Commands called at the start of the interface setup.
           '';
         };
 
         preDown = mkOption {
-          example =
-            literalExpression
-              ''"''${pkgs.iproute2}/bin/ip netns del foo"''
-          ;
+          example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
           default = "";
-          type =
-            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Command called before the interface is taken down.
           '';
         };
 
         postUp = mkOption {
-          example =
-            literalExpression
-              ''"''${pkgs.iproute2}/bin/ip netns add foo"''
-          ;
+          example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
           default = "";
-          type =
-            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Commands called after the interface setup.
           '';
         };
 
         postDown = mkOption {
-          example =
-            literalExpression
-              ''"''${pkgs.iproute2}/bin/ip netns del foo"''
-          ;
+          example = literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
           default = "";
-          type =
-            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type = with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Command called after the interface is taken down.
           '';
@@ -265,11 +246,7 @@ let
         "Only one of privateKey, configFile or privateKeyFile may be set";
     let
       preUpFile =
-        if values.preUp != "" then
-          writeScriptFile "preUp.sh" values.preUp
-        else
-          null
-      ;
+        if values.preUp != "" then writeScriptFile "preUp.sh" values.preUp else null;
       postUp =
         optional (values.privateKeyFile != null)
           "wg set ${name} private-key <(cat ${values.privateKeyFile})"
@@ -285,9 +262,7 @@ let
       ;
       postUpFile =
         if postUp != [ ] then
-          writeScriptFile "postUp.sh" (
-            concatMapStringsSep "\n" (line: line) postUp
-          )
+          writeScriptFile "postUp.sh" (concatMapStringsSep "\n" (line: line) postUp)
         else
           null
       ;
@@ -310,8 +285,7 @@ let
         text =
           ''
             [interface]
-            ${concatMapStringsSep "\n" (address: "Address = ${address}")
-              values.address}
+            ${concatMapStringsSep "\n" (address: "Address = ${address}") values.address}
             ${concatMapStringsSep "\n" (dns: "DNS = ${dns}") values.dns}
           ''
           + optionalString (values.table != null) ''
@@ -343,12 +317,7 @@ let
               (
                 peer:
                 assert assertMsg
-                    (
-                      !(
-                        (peer.presharedKeyFile != null)
-                        && (peer.presharedKey != null)
-                      )
-                    )
+                    (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
                     "Only one of presharedKey or presharedKeyFile may be set";
                 ''
                   [Peer]

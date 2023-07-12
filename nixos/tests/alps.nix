@@ -117,9 +117,7 @@ import ./make-test-python.nix (
 
         client.start()
         client.wait_for_unit("alps.service")
-        client.wait_for_open_port(${
-          toString nodes.client.config.services.alps.port
-        })
+        client.wait_for_open_port(${toString nodes.client.config.services.alps.port})
         client.succeed("test-alps-login")
       ''
     ;

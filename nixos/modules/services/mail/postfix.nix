@@ -187,9 +187,7 @@ let
           mkArg = arg: "${optionalString (hasPrefix "-" arg) "\n  "}${arg}";
 
           maybeOption =
-            fun: option:
-            if options.${option}.isDefined then fun config.${option} else "-"
-          ;
+            fun: option: if options.${option}.isDefined then fun config.${option} else "-";
 
           # This is special, because we have two options for this value.
           wakeup =
@@ -198,10 +196,7 @@ let
               wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
               finalValue =
                 toString config.wakeup
-                +
-                  optionalString
-                    (wakeupUCDefined && !config.wakeupUnusedComponent)
-                    "?"
+                + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent) "?"
               ;
             in
             if wakeupDefined then finalValue else "-"
@@ -285,8 +280,7 @@ let
       # It's + 2 here, because that's the amount of spacing between columns.
       fullWidth = foldr (width: acc: acc + width + 2) 0 maxWidths;
 
-      formatLine =
-        line: concatStringsSep "  " (zipListsWith pad maxWidths line);
+      formatLine = line: concatStringsSep "  " (zipListsWith pad maxWidths line);
 
       formattedLabels =
         let
@@ -324,10 +318,7 @@ let
           type = types.str;
           default = "DUNNO";
           example = "BCC mail@example.com";
-          description =
-            lib.mdDoc
-              "The action to be executed when the pattern is matched"
-          ;
+          description = lib.mdDoc "The action to be executed when the pattern is matched";
         };
       };
     }
@@ -419,10 +410,7 @@ in
           smtpd_client_restrictions = "permit_sasl_authenticated,reject";
           milter_macro_daemon_name = "ORIGINATING";
         };
-        description =
-          lib.mdDoc
-            "Options for the submission config in master.cf"
-        ;
+        description = lib.mdDoc "Options for the submission config in master.cf";
       };
 
       submissionsOptions = mkOption {
@@ -451,10 +439,7 @@ in
       setSendmail = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to set the system sendmail to postfix's."
-        ;
+        description = lib.mdDoc "Whether to set the system sendmail to postfix's.";
       };
 
       user = mkOption {
@@ -794,10 +779,7 @@ in
         type = types.lines;
         default = "";
         example = "/^X-Spam-Flag:/ REDIRECT spam@example.com";
-        description =
-          lib.mdDoc
-            "Extra lines to /etc/postfix/header_checks file."
-        ;
+        description = lib.mdDoc "Extra lines to /etc/postfix/header_checks file.";
       };
 
       aliasFiles = mkOption {
@@ -841,17 +823,14 @@ in
 
         services.pfix-srsd.enable = config.services.postfix.useSrs;
 
-        services.mail.sendmailSetuidWrapper =
-          mkIf config.services.postfix.setSendmail
-            {
-              program = "sendmail";
-              source = "${pkgs.postfix}/bin/sendmail";
-              owner = "root";
-              group = setgidGroup;
-              setuid = false;
-              setgid = true;
-            }
-        ;
+        services.mail.sendmailSetuidWrapper = mkIf config.services.postfix.setSendmail {
+          program = "sendmail";
+          source = "${pkgs.postfix}/bin/sendmail";
+          owner = "root";
+          group = setgidGroup;
+          setuid = false;
+          setgid = true;
+        };
 
         security.wrappers.mailq = {
           program = "mailq";
@@ -1003,9 +982,8 @@ in
           } // optionalAttrs (cfg.hostname != "") { myhostname = cfg.hostname; }
           // optionalAttrs (cfg.domain != "") { mydomain = cfg.domain; }
           // optionalAttrs (cfg.origin != "") { myorigin = cfg.origin; }
-          // optionalAttrs (cfg.destination != null) {
-            mydestination = cfg.destination;
-          } // optionalAttrs (cfg.relayDomains != null) {
+          // optionalAttrs (cfg.destination != null) { mydestination = cfg.destination; }
+          // optionalAttrs (cfg.relayDomains != null) {
             relay_domains = cfg.relayDomains;
           } // optionalAttrs (cfg.recipientDelimiter != "") {
             recipient_delimiter = cfg.recipientDelimiter;
@@ -1014,14 +992,10 @@ in
           } // optionalAttrs haveTransport {
             transport_maps = [ "hash:/etc/postfix/transport" ];
           } // optionalAttrs haveVirtual {
-            virtual_alias_maps = [
-              "${cfg.virtualMapType}:/etc/postfix/virtual"
-            ];
+            virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
           } // optionalAttrs haveLocalRecipients {
             local_recipient_maps =
-              [ "hash:/etc/postfix/local_recipients" ]
-              ++ optional haveAliases "$alias_maps"
-            ;
+              [ "hash:/etc/postfix/local_recipients" ] ++ optional haveAliases "$alias_maps";
           } // optionalAttrs (cfg.dnsBlacklists != [ ]) {
             smtpd_client_restrictions = clientRestrictions;
           } // optionalAttrs cfg.useSrs {
@@ -1180,12 +1154,8 @@ in
       }
 
       (mkIf haveAliases { services.postfix.aliasFiles.aliases = aliasesFile; })
-      (mkIf haveCanonical {
-        services.postfix.mapFiles.canonical = canonicalFile;
-      })
-      (mkIf haveTransport {
-        services.postfix.mapFiles.transport = transportFile;
-      })
+      (mkIf haveCanonical { services.postfix.mapFiles.canonical = canonicalFile; })
+      (mkIf haveTransport { services.postfix.mapFiles.transport = transportFile; })
       (mkIf haveVirtual { services.postfix.mapFiles.virtual = virtualFile; })
       (mkIf haveLocalRecipients {
         services.postfix.mapFiles.local_recipients = localRecipientMapFile;

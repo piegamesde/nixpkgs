@@ -5062,11 +5062,7 @@ in
       sources."default-require-extensions-3.0.1"
       sources."delayed-stream-1.0.0"
       sources."diff-5.0.0"
-      (
-        sources."dmd-6.2.0" // {
-          dependencies = [ sources."reduce-flatten-3.0.1" ];
-        }
-      )
+      (sources."dmd-6.2.0" // { dependencies = [ sources."reduce-flatten-3.0.1" ]; })
       (
         sources."docker-modem-1.0.9" // {
           dependencies = [
@@ -5143,15 +5139,9 @@ in
         }
       )
       sources."esprima-4.0.1"
+      (sources."esquery-1.4.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
       (
-        sources."esquery-1.4.0" // {
-          dependencies = [ sources."estraverse-5.3.0" ];
-        }
-      )
-      (
-        sources."esrecurse-4.3.0" // {
-          dependencies = [ sources."estraverse-5.3.0" ];
-        }
+        sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; }
       )
       sources."estraverse-4.3.0"
       sources."esutils-2.0.3"
@@ -5164,11 +5154,7 @@ in
       sources."fast-json-stable-stringify-2.1.0"
       sources."fast-levenshtein-2.0.6"
       sources."file-entry-cache-6.0.1"
-      (
-        sources."file-set-4.0.2" // {
-          dependencies = [ sources."array-back-5.0.0" ];
-        }
-      )
+      (sources."file-set-4.0.2" // { dependencies = [ sources."array-back-5.0.0" ]; })
       sources."file-type-3.9.0"
       sources."filesize-8.0.7"
       sources."fill-range-7.0.1"
@@ -5214,11 +5200,7 @@ in
       sources."har-validator-5.1.5"
       sources."has-1.0.3"
       sources."has-flag-3.0.0"
-      (
-        sources."hasha-5.2.2" // {
-          dependencies = [ sources."type-fest-0.8.1" ];
-        }
-      )
+      (sources."hasha-5.2.2" // { dependencies = [ sources."type-fest-0.8.1" ]; })
       sources."he-1.2.0"
       sources."html-escaper-2.0.2"
       sources."http-reasons-0.1.0"
@@ -5277,11 +5259,7 @@ in
       sources."istanbul-reports-3.1.5"
       sources."js-sha512-0.8.0"
       sources."js-tokens-4.0.0"
-      (
-        sources."js-yaml-4.1.0" // {
-          dependencies = [ sources."argparse-2.0.1" ];
-        }
-      )
+      (sources."js-yaml-4.1.0" // { dependencies = [ sources."argparse-2.0.1" ]; })
       sources."js2xmlparser-4.0.2"
       sources."jsbn-0.1.1"
       (
@@ -5339,9 +5317,7 @@ in
       sources."lru-cache-6.0.0"
       sources."make-dir-1.3.0"
       (
-        sources."markdown-it-12.3.2" // {
-          dependencies = [ sources."argparse-2.0.1" ];
-        }
+        sources."markdown-it-12.3.2" // { dependencies = [ sources."argparse-2.0.1" ]; }
       )
       sources."markdown-it-anchor-8.6.5"
       sources."marked-4.2.4"
@@ -5357,16 +5333,8 @@ in
         sources."mocha-9.2.2" // {
           dependencies = [
             sources."ansi-colors-4.1.1"
-            (
-              sources."debug-4.3.3" // {
-                dependencies = [ sources."ms-2.1.2" ];
-              }
-            )
-            (
-              sources."glob-7.2.0" // {
-                dependencies = [ sources."minimatch-3.1.2" ];
-              }
-            )
+            (sources."debug-4.3.3" // { dependencies = [ sources."ms-2.1.2" ]; })
+            (sources."glob-7.2.0" // { dependencies = [ sources."minimatch-3.1.2" ]; })
             sources."has-flag-4.0.0"
             sources."minimatch-4.2.1"
             sources."supports-color-8.1.1"
@@ -5547,9 +5515,7 @@ in
       sources."sax-1.2.4"
       sources."semver-7.3.5"
       (
-        sources."serialised-error-1.1.3" // {
-          dependencies = [ sources."uuid-3.4.0" ];
-        }
+        sources."serialised-error-1.1.3" // { dependencies = [ sources."uuid-3.4.0" ]; }
       )
       sources."serialize-javascript-6.0.0"
       sources."server-destroy-1.0.1"
@@ -5632,19 +5598,13 @@ in
         }
       )
       sources."taffydb-2.6.2"
-      (
-        sources."tar-fs-1.16.3" // {
-          dependencies = [ sources."mkdirp-0.5.6" ];
-        }
-      )
+      (sources."tar-fs-1.16.3" // { dependencies = [ sources."mkdirp-0.5.6" ]; })
       sources."tar-stream-1.6.2"
       sources."teleport-javascript-1.0.0"
       sources."temp-path-1.0.0"
       sources."test-exclude-6.0.0"
       (
-        sources."test-value-3.0.0" // {
-          dependencies = [ sources."array-back-2.0.0" ];
-        }
+        sources."test-value-3.0.0" // { dependencies = [ sources."array-back-2.0.0" ]; }
       )
       sources."text-table-0.2.0"
       sources."through-2.3.8"
@@ -5695,11 +5655,7 @@ in
       )
       sources."wrappy-1.0.2"
       sources."write-file-atomic-3.0.3"
-      (
-        sources."xml2js-0.4.23" // {
-          dependencies = [ sources."xmlbuilder-11.0.1" ];
-        }
-      )
+      (sources."xml2js-0.4.23" // { dependencies = [ sources."xmlbuilder-11.0.1" ]; })
       sources."xmlbuilder-15.1.1"
       sources."xmlcreate-2.0.4"
       sources."xtend-4.0.2"

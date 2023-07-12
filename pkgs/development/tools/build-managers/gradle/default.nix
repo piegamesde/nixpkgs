@@ -79,9 +79,7 @@ rec {
                }'";
           };
           varDefs = concatStringsSep "\n" (
-            map (x: "  --set ${x} \\") (
-              [ "JAVA_HOME ${java}" ] ++ toolchain.varDefs
-            )
+            map (x: "  --set ${x} \\") ([ "JAVA_HOME ${java}" ] ++ toolchain.varDefs)
           );
         in
         ''

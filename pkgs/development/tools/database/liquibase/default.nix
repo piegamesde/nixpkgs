@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
       # taken from the executable script in the source
       CP="$out/liquibase.jar"
       ${addJars "$out/lib"}
-      ${lib.concatStringsSep "\n" (
-        map (p: addJars "${p}/share/java") extraJars
-      )}
+      ${lib.concatStringsSep "\n" (map (p: addJars "${p}/share/java") extraJars)}
 
       ${lib.getBin jre}/bin/java -cp "\$CP" \$JAVA_OPTS \
         liquibase.integration.commandline.LiquibaseCommandLine \''${1+"\$@"}

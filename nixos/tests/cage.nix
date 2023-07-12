@@ -42,9 +42,7 @@ import ./make-test-python.nix (
       ''
         with subtest("Wait for cage to boot up"):
             start_all()
-            machine.wait_for_file("/run/user/${
-              toString user.uid
-            }/wayland-0.lock")
+            machine.wait_for_file("/run/user/${toString user.uid}/wayland-0.lock")
             machine.wait_until_succeeds("pgrep xterm")
             machine.wait_for_text("alice@machine")
             machine.screenshot("screen")

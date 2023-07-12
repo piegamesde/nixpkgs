@@ -29,10 +29,7 @@ in
       enable = mkEnableOption (lib.mdDoc "the ngircd IRC server");
 
       config = mkOption {
-        description =
-          lib.mdDoc
-            "The ngircd configuration (see ngircd.conf(5))."
-        ;
+        description = lib.mdDoc "The ngircd configuration (see ngircd.conf(5)).";
 
         type = types.lines;
       };

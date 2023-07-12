@@ -25,9 +25,7 @@ in
       # in bash instead of nix (we should fix that).
       preFixupPhases =
         (previousAttrs.preFixupPhases or [ ])
-        ++ lib.optionals ((!langC) || enableLibGccOutput) [
-          "preFixupLibGccPhase"
-        ]
+        ++ lib.optionals ((!langC) || enableLibGccOutput) [ "preFixupLibGccPhase" ]
       ;
       preFixupLibGccPhase =
         # delete extra/unused builds of libgcc_s in non-langC builds

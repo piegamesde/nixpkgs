@@ -19,8 +19,7 @@ let
     lib.trivial.pipe extensionsIndex [
       # Does a given extension match our current shell version?
       (builtins.filter (
-        extension:
-        (builtins.hasAttr shell-version extension."shell_version_map")
+        extension: (builtins.hasAttr shell-version extension."shell_version_map")
       ))
       # Take in an `extension` object from the JSON and transform it into the correct args to call `buildShellExtension`
       (map (
@@ -32,11 +31,7 @@ let
             link
             pname
           ;
-          inherit (extension.shell_version_map.${shell-version})
-            version
-            sha256
-            metadata
-          ;
+          inherit (extension.shell_version_map.${shell-version}) version sha256 metadata;
         }
       ))
       # Build them
@@ -63,18 +58,14 @@ let
         extension:
         !(
           (builtins.hasAttr extension.extensionUuid extensionRenames)
-          && (
-            (builtins.getAttr extension.extensionUuid extensionRenames) == null
-          )
+          && ((builtins.getAttr extension.extensionUuid extensionRenames) == null)
         )
       ))
       # Map all extensions to their pname, with potential overwrites
       (map (
         extension:
         lib.nameValuePair
-          (extensionRenames.${extension.extensionUuid}
-            or extension.extensionPortalSlug
-          )
+          (extensionRenames.${extension.extensionUuid} or extension.extensionPortalSlug)
           extension
       ))
       builtins.listToAttrs
@@ -92,8 +83,7 @@ rec {
 
   # Keep the last three versions in here
   gnomeExtensions =
-    lib.trivial.pipe
-      (gnome42Extensions // gnome43Extensions // gnome44Extensions)
+    lib.trivial.pipe (gnome42Extensions // gnome43Extensions // gnome44Extensions)
       [
         # Apply some custom patches for automatically packaged extensions
         (callPackage ./extensionOverrides.nix { })
@@ -108,8 +98,7 @@ rec {
           extensions // lib.optionalAttrs config.allowAliases {
             unite-shell = gnomeExtensions.unite; # added 2021-01-19
             arc-menu = gnomeExtensions.arcmenu; # added 2021-02-14
-            disable-unredirect =
-              gnomeExtensions.disable-unredirect-fullscreen-windows; # added 2021-11-20
+            disable-unredirect = gnomeExtensions.disable-unredirect-fullscreen-windows; # added 2021-11-20
 
             nohotcorner =
               throw

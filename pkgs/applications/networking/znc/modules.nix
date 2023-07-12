@@ -12,8 +12,7 @@ let
       src,
       module_name,
       buildPhase ? "${znc}/bin/znc-buildmod ${module_name}.cpp",
-      installPhase ?
-        "install -D ${module_name}.so $out/lib/znc/${module_name}.so",
+      installPhase ? "install -D ${module_name}.so $out/lib/znc/${module_name}.so",
       ...
     }:
     stdenv.mkDerivation (

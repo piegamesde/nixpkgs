@@ -45,8 +45,7 @@ in
 
     listen = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default =
-        [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]";
+      default = [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]";
       defaultText =
         lib.literalExpression
           ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"''

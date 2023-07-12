@@ -25,9 +25,7 @@ let
   };
 
   libtensorflow = pkgs.callPackage ./libtensorflow.nix { };
-  backend = pkgs.callPackage ./backend.nix {
-    inherit libtensorflow src version;
-  };
+  backend = pkgs.callPackage ./backend.nix { inherit libtensorflow src version; };
   frontend = pkgs.callPackage ./frontend.nix { inherit src version; };
 
   fetchModel =

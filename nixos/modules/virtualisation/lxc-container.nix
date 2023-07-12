@@ -25,10 +25,7 @@ let
           type = types.path;
         };
         when = mkOption {
-          description =
-            lib.mdDoc
-              "Events which trigger a rewrite (create, copy)"
-          ;
+          description = lib.mdDoc "Events which trigger a rewrite (create, copy)";
           type = types.listOf (types.str);
         };
         properties = mkOption {
@@ -151,8 +148,7 @@ in
         [ {
           source = toYAML "metadata.yaml" {
             architecture =
-              builtins.elemAt
-                (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
+              builtins.elemAt (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
                 0
             ;
             creation_date = 1;

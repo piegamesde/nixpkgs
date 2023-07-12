@@ -247,10 +247,7 @@ in
         hlsPlayback = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Enable HLS video streaming (requires JavaScript)."
-          ;
+          description = lib.mdDoc "Enable HLS video streaming (requires JavaScript).";
         };
 
         proxyVideos = mkOption {
@@ -307,10 +304,7 @@ in
         hideTweetStats = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Hide tweet stats (replies, retweets, likes)."
-          ;
+          description = lib.mdDoc "Hide tweet stats (replies, retweets, likes).";
         };
 
         hideBanner = mkOption {
@@ -352,10 +346,7 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Open ports in the firewall for Nitter web interface."
-        ;
+        description = lib.mdDoc "Open ports in the firewall for Nitter web interface.";
       };
     };
   };
@@ -389,11 +380,7 @@ in
         RestartSec = "5s";
         # Hardening
         CapabilityBoundingSet =
-          if (cfg.server.port < 1024) then
-            [ "CAP_NET_BIND_SERVICE" ]
-          else
-            [ "" ]
-        ;
+          if (cfg.server.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

@@ -23,10 +23,9 @@ let
       inherit (drv) src version meta;
 
       buildInputs = drv.buildInputs ++ drv.propagatedBuildInputs ++ buildInputs;
-      nativeBuildInputs =
-        builtins.filter (x: x.name != "python-output-dist-hook")
-          (drv.nativeBuildInputs ++ nativeBuildInputs)
-      ;
+      nativeBuildInputs = builtins.filter (x: x.name != "python-output-dist-hook") (
+        drv.nativeBuildInputs ++ nativeBuildInputs
+      );
 
       dontConfigure = true;
       dontBuild = true;

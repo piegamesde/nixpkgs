@@ -12,9 +12,7 @@ let
   cfg = config.services.connman;
   configFile = pkgs.writeText "connman.conf" ''
     [General]
-    NetworkInterfaceBlacklist=${
-      concatStringsSep "," cfg.networkInterfaceBlacklist
-    }
+    NetworkInterfaceBlacklist=${concatStringsSep "," cfg.networkInterfaceBlacklist}
 
     ${cfg.extraConfig}
   '';

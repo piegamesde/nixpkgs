@@ -21,9 +21,7 @@ let
         {
           # Do not include PHP by default, because it bloats the closure, doesn't
           # build on Darwin, and there are no official PHP scripts.
-          plugins = builtins.attrValues (
-            builtins.removeAttrs availablePlugins [ "php" ]
-          );
+          plugins = builtins.attrValues (builtins.removeAttrs availablePlugins [ "php" ]);
         },
     }:
 
@@ -32,10 +30,7 @@ let
       availablePlugins =
         let
           simplePlugin =
-            name: {
-              pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so";
-            }
-          ;
+            name: { pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so"; };
         in
         rec {
           python = (simplePlugin "python") // {
@@ -48,9 +43,7 @@ let
                 python // {
                   extraEnv = ''
                     ${python.extraEnv}
-                    export PYTHONHOME="${
-                      python3Packages.python.withPackages pkgsFun
-                    }"
+                    export PYTHONHOME="${python3Packages.python.withPackages pkgsFun}"
                   '';
                 }
               )
@@ -66,9 +59,7 @@ let
                 perl // {
                   extraEnv = ''
                     ${perl.extraEnv}
-                    export PERL5LIB=${
-                      perlPackages.makeFullPerlPath (pkgsFun perlPackages)
-                    }
+                    export PERL5LIB=${perlPackages.makeFullPerlPath (pkgsFun perlPackages)}
                   '';
                 }
               )
@@ -88,9 +79,7 @@ let
 
       pluginsDir = runCommand "weechat-plugins" { } ''
         mkdir -p $out/plugins
-        for plugin in ${
-          lib.concatMapStringsSep " " (p: p.pluginFile) plugins
-        } ; do
+        for plugin in ${lib.concatMapStringsSep " " (p: p.pluginFile) plugins} ; do
           ln -s $plugin $out/plugins
         done
       '';
@@ -100,16 +89,10 @@ let
           init = builtins.replaceStrings [ "\n" ] [ ";" ] (config.init or "");
 
           mkScript =
-            drv:
-            lib.forEach drv.scripts (
-              script: "/script load ${drv}/share/${script}"
-            )
-          ;
+            drv: lib.forEach drv.scripts (script: "/script load ${drv}/share/${script}");
 
           scripts = builtins.concatStringsSep ";" (
-            lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (
-              config.scripts or [ ]
-            )
+            lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (config.scripts or [ ])
           );
         in
         "${scripts};${init}"
@@ -120,12 +103,9 @@ let
         (writeScriptBin bin ''
           #!${runtimeShell}
           export WEECHAT_EXTRA_LIBDIR=${pluginsDir}
-          ${lib.concatMapStringsSep "\n"
-            (p: lib.optionalString (p ? extraEnv) p.extraEnv)
+          ${lib.concatMapStringsSep "\n" (p: lib.optionalString (p ? extraEnv) p.extraEnv)
             plugins}
-          exec ${weechat}/bin/${bin} "$@" --run-command ${
-            lib.escapeShellArg init
-          }
+          exec ${weechat}/bin/${bin} "$@" --run-command ${lib.escapeShellArg init}
         '') // {
           inherit (weechat) name man;
           unwrapped = weechat;

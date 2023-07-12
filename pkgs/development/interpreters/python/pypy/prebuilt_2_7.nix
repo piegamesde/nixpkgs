@@ -45,15 +45,9 @@ let
     # Not possible to cross-compile with.
     pythonOnBuildForBuild = throw "${pname} does not support cross compilation";
     pythonOnBuildForHost = self;
-    pythonOnBuildForTarget =
-      throw
-        "${pname} does not support cross compilation"
-    ;
+    pythonOnBuildForTarget = throw "${pname} does not support cross compilation";
     pythonOnHostForHost = throw "${pname} does not support cross compilation";
-    pythonOnTargetForTarget =
-      throw
-        "${pname} does not support cross compilation"
-    ;
+    pythonOnTargetForTarget = throw "${pname} does not support cross compilation";
   };
   pname = "${passthru.executable}_prebuilt";
   version = with sourceVersion; "${major}.${minor}.${patch}";
@@ -73,8 +67,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      downloadUrls.${stdenv.system}
-        or (throw "Unsupported system: ${stdenv.system}");
+      downloadUrls.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
     inherit hash;
   };
 

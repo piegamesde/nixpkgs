@@ -23,8 +23,7 @@ let
 
         ${pkgs.perl}/bin/perl -p ${
           concatStringsSep " " (
-            mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '')
-              cfg.configReplaces
+            mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces
           )
         } /etc/sogo/sogo.conf.raw > /etc/sogo/sogo.conf
       ''
@@ -57,10 +56,7 @@ in
     };
 
     ealarmsCredFile = mkOption {
-      description =
-        lib.mdDoc
-          "Optional path to a credentials file for email alarms"
-      ;
+      description = lib.mdDoc "Optional path to a credentials file for email alarms";
       type = nullOr str;
       default = null;
     };
@@ -211,8 +207,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${pkgs.sogo}/bin/sogo-ealarms-notify${
-            optionalString (cfg.ealarmsCredFile != null)
-              " -p ${cfg.ealarmsCredFile}"
+            optionalString (cfg.ealarmsCredFile != null) " -p ${cfg.ealarmsCredFile}"
           }";
 
         ProtectSystem = "strict";

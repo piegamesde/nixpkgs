@@ -42,48 +42,45 @@ let
   };
 
   # As of 2021/07, many of these paksets have not been updated for years, so are on old versions.
-  pakSpec =
-    lib.mapAttrs (pakName: attrs: mkPak (attrs // { inherit pakName; }))
-      {
-        pak64 = {
-          srcPath = "${ver_dash}/simupak64-${ver_dash}";
-          sha256 = "1k335kh8dhm1hdn5iwn3sdgnrlpk0rqxmmgqgqcwsi09cmw45m5c";
-        };
-        "pak64.japan" = {
-          # No release for 121.0 yet!
-          srcPath = "120-0/simupak64.japan-120-0-1";
-          sha256 = "14swy3h4ij74bgaw7scyvmivfb5fmp21nixmhlpk3mav3wr3167i";
-        };
+  pakSpec = lib.mapAttrs (pakName: attrs: mkPak (attrs // { inherit pakName; })) {
+    pak64 = {
+      srcPath = "${ver_dash}/simupak64-${ver_dash}";
+      sha256 = "1k335kh8dhm1hdn5iwn3sdgnrlpk0rqxmmgqgqcwsi09cmw45m5c";
+    };
+    "pak64.japan" = {
+      # No release for 121.0 yet!
+      srcPath = "120-0/simupak64.japan-120-0-1";
+      sha256 = "14swy3h4ij74bgaw7scyvmivfb5fmp21nixmhlpk3mav3wr3167i";
+    };
 
-        pak128 = {
-          srcPath = "pak128%20for%20ST%20120.4.1%20%282.8.1%2C%20priority%20signals%20%2B%20bugfix%29/pak128";
-          sha256 = "0z01y7r0rz7q79vr17bbnkgcbjjrimphy1dwb1pgbiv4klz7j5xw";
-        };
-        "pak128.britain" = {
-          srcPath = "pak128.Britain%20for%20120-1/pak128.Britain.1.18-120-3";
-          sha256 = "1kyb0s54kysvdr0zdln9106yx75d71j4lbw3v87k3i440cj3r1d3";
-        };
-        "pak128.cs" = {
-          # note: it needs pak128 to work
-          url = "mirror://sourceforge/simutrans/Pak128.CS/pak128.cz_v.0.2.1.zip";
-          sha256 = "008d8x1s0vxsq78rkczlnf57pv1n5hi1v5nbd1l5w3yls7lk11sc";
-        };
-        "pak128.german" = {
-          url =
-            "mirror://sourceforge/simutrans/PAK128.german/"
-            + "pak128.german_1.2_for_ST_121.0/PAK128.german_1.2_for_ST_121-0.zip"
-          ;
-          sha256 = "1cv1rzl1a3i5dvk476zq094wawk9hhdh2f0y4xrdny5gn17mb2xi";
-        };
+    pak128 = {
+      srcPath = "pak128%20for%20ST%20120.4.1%20%282.8.1%2C%20priority%20signals%20%2B%20bugfix%29/pak128";
+      sha256 = "0z01y7r0rz7q79vr17bbnkgcbjjrimphy1dwb1pgbiv4klz7j5xw";
+    };
+    "pak128.britain" = {
+      srcPath = "pak128.Britain%20for%20120-1/pak128.Britain.1.18-120-3";
+      sha256 = "1kyb0s54kysvdr0zdln9106yx75d71j4lbw3v87k3i440cj3r1d3";
+    };
+    "pak128.cs" = {
+      # note: it needs pak128 to work
+      url = "mirror://sourceforge/simutrans/Pak128.CS/pak128.cz_v.0.2.1.zip";
+      sha256 = "008d8x1s0vxsq78rkczlnf57pv1n5hi1v5nbd1l5w3yls7lk11sc";
+    };
+    "pak128.german" = {
+      url =
+        "mirror://sourceforge/simutrans/PAK128.german/"
+        + "pak128.german_1.2_for_ST_121.0/PAK128.german_1.2_for_ST_121-0.zip"
+      ;
+      sha256 = "1cv1rzl1a3i5dvk476zq094wawk9hhdh2f0y4xrdny5gn17mb2xi";
+    };
 
-        /* This release contains accented filenames that prevent unzipping.
-           "pak192.comic" = {
-             srcPath = "pak192comic%20for%20${ver2_dash}/pak192comic-0.4-${ver2_dash}up";
-             sha256 = throw "";
-           };
-        */
-      }
-  ;
+    /* This release contains accented filenames that prevent unzipping.
+       "pak192.comic" = {
+         srcPath = "pak192comic%20for%20${ver2_dash}/pak192comic-0.4-${ver2_dash}up";
+         sha256 = throw "";
+       };
+    */
+  };
 
   mkPak =
     {

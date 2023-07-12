@@ -32,12 +32,7 @@ stdenv.mkDerivation {
     automake
   ];
   buildInputs =
-    (
-      if stdenv.hostPlatform.system == "i686-linux" then
-        [ mps ]
-      else
-        [ boehmgc ]
-    )
+    (if stdenv.hostPlatform.system == "i686-linux" then [ mps ] else [ boehmgc ])
     ++ [
       opendylan-bootstrap
       boehmgc

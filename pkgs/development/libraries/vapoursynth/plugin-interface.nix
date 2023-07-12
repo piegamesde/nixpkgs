@@ -48,8 +48,7 @@ let
     let
       source = writeText "vapoursynth-nix-plugins.c" ''
         void VSLoadPluginsNix(void (*load)(void *data, const char *path), void *data) {
-        ${lib.concatMapStringsSep ""
-          (path: ''load(data, "${path}/lib/vapoursynth");'')
+        ${lib.concatMapStringsSep "" (path: ''load(data, "${path}/lib/vapoursynth");'')
           deepPlugins}
         }
       '';

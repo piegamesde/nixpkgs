@@ -217,8 +217,7 @@ stdenv.mkDerivation rec {
       "install"
   ;
 
-  prefixKey =
-    if (versionAtLeast version "4.4") then "DESTDIR=" else "--prefix=";
+  prefixKey = if (versionAtLeast version "4.4") then "DESTDIR=" else "--prefix=";
 
   enableParallelBuilding = true;
 

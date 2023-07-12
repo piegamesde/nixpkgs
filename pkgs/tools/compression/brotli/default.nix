@@ -64,10 +64,7 @@ stdenv.mkDerivation (
       cp ../docs/*.3 $out/share/man/man3/
     '';
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       homepage = "https://github.com/google/brotli";

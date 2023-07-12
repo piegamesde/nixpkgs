@@ -73,8 +73,7 @@ let
       "unix"
   ;
   sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (
-    optionals enable16Bit [ "Makefile" ]
-    ++ optionals enable32Bit [ "Makefile21" ]
+    optionals enable16Bit [ "Makefile" ] ++ optionals enable32Bit [ "Makefile21" ]
   );
   sdlBuildFlags = concatStringsSep " " (
     optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]
@@ -85,10 +84,7 @@ let
   x11ConfigureFlags = concatStringsSep " " (
     (
       if
-        (
-          (enableHAXM && (enable16Bit || enable32Bit))
-          || (enable16Bit && enable32Bit)
-        )
+        ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit && enable32Bit))
       then
         [ "--enable-build-all" ]
       else if enableHAXM then

@@ -31,8 +31,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals stdenv.isDarwin [ moveBuildTree ]
     ;
-    propagatedBuildInputs =
-      args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
+    propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 
     moveToDev = false;
 

@@ -241,9 +241,7 @@ stdenv.mkDerivation (
         "-DUSE_APPLE_ICU=OFF"
         "-DUSE_OPENGL_OR_ES=OFF"
       ]
-      ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
-        "-DUSE_GTK4=ON"
-      ]
+      ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [ "-DUSE_GTK4=ON" ]
       ++ lib.optionals (!systemdSupport) [ "-DENABLE_JOURNALD_LOG=OFF" ]
       ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ]
     ;
@@ -259,10 +257,7 @@ stdenv.mkDerivation (
 
     requiredSystemFeatures = [ "big-parallel" ];
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "Web content rendering engine, GTK port";

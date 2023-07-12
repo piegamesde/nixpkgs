@@ -131,13 +131,10 @@ let
               else if stdenv.hostPlatform.isx86_32 then
                 "./Configure BSD-x86"
                 +
-                  lib.optionalString
-                    (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+                  lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
                     "-elf"
               else
-                "./Configure BSD-generic${
-                  toString stdenv.hostPlatform.parsed.cpu.bits
-                }"
+                "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
             else if stdenv.hostPlatform.isMinGW then
               "./Configure mingw${
                 lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (
@@ -154,16 +151,11 @@ let
               else if stdenv.hostPlatform.isMips64n64 then
                 "./Configure linux64-mips64"
               else
-                "./Configure linux-generic${
-                  toString stdenv.hostPlatform.parsed.cpu.bits
-                }"
+                "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
             else if stdenv.hostPlatform.isiOS then
-              "./Configure ios${
-                toString stdenv.hostPlatform.parsed.cpu.bits
-              }-cross"
+              "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
             else
-              throw
-                "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
+              throw "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
           );
 
         # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
@@ -190,25 +182,16 @@ let
           ++ lib.optional enableSSL3 "enable-ssl3"
           # We select KTLS here instead of the configure-time detection (which we patch out).
           # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
-          ++
-            lib.optional (lib.versionAtLeast version "3.0.0" && enableKTLS)
-              "enable-ktls"
+          ++ lib.optional (lib.versionAtLeast version "3.0.0" && enableKTLS) "enable-ktls"
           ++
             lib.optional
-              (
-                lib.versionAtLeast version "1.1.1"
-                && stdenv.hostPlatform.isAarch64
-              )
+              (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isAarch64)
               "no-afalgeng"
           # OpenSSL needs a specific `no-shared` configure flag.
           # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
           # for a comprehensive list of configuration options.
-          ++
-            lib.optional (lib.versionAtLeast version "1.1.1" && static)
-              "no-shared"
-          ++
-            lib.optional (lib.versionAtLeast version "3.0.0" && static)
-              "no-module"
+          ++ lib.optional (lib.versionAtLeast version "1.1.1" && static) "no-shared"
+          ++ lib.optional (lib.versionAtLeast version "3.0.0" && static) "no-module"
           # This introduces a reference to the CTLOG_FILE which is undesired when
           # trying to build binaries statically.
           ++ lib.optional static "no-ct"
@@ -271,8 +254,7 @@ let
 
             rmdir $etc/etc/ssl/{certs,private}
 
-            ${lib.optionalString (conf != null)
-              "cat ${conf} > $etc/etc/ssl/openssl.cnf"}
+            ${lib.optionalString (conf != null) "cat ${conf} > $etc/etc/ssl/openssl.cnf"}
           ''
         ;
 
@@ -285,10 +267,7 @@ let
           fi
         '';
 
-        passthru.tests.pkg-config =
-          testers.testMetaPkgConfig
-            finalAttrs.finalPackage
-        ;
+        passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
         meta =
           with lib;

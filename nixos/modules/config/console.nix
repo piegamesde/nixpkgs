@@ -51,8 +51,7 @@ in
   ###### interface
 
   options.console = {
-    enable =
-      mkEnableOption (lib.mdDoc "virtual console") // { default = true; };
+    enable = mkEnableOption (lib.mdDoc "virtual console") // { default = true; };
 
     font = mkOption {
       type = with types; nullOr (either str path);
@@ -146,8 +145,7 @@ in
           pkgs.runCommand "xkb-console-keymap" { preferLocalBuild = true; } ''
             '${pkgs.buildPackages.ckbcomp}/bin/ckbcomp' \
               ${
-                optionalString
-                  (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
+                optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
                   "-I${config.environment.sessionVariables.XKB_CONFIG_ROOT}"
               } \
               -model '${xkbModel}' -layout '${layout}' \
@@ -178,36 +176,27 @@ in
           # Provide kbd with additional packages.
           environment.etc.kbd.source = "${consoleEnv pkgs.kbd}/share";
 
-          boot.initrd.preLVMCommands =
-            mkIf (!config.boot.initrd.systemd.enable)
-              (
-                mkBefore ''
-                  kbd_mode ${if isUnicode then "-u" else "-a"} -C /dev/console
-                  printf "\033%%${
-                    if isUnicode then "G" else "@"
-                  }" >> /dev/console
-                  loadkmap < ${optimizedKeymap}
+          boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
+            mkBefore ''
+              kbd_mode ${if isUnicode then "-u" else "-a"} -C /dev/console
+              printf "\033%%${if isUnicode then "G" else "@"}" >> /dev/console
+              loadkmap < ${optimizedKeymap}
 
-                  ${optionalString (cfg.earlySetup && cfg.font != null) ''
-                    setfont -C /dev/console $extraUtils/share/consolefonts/font.psf
-                  ''}
-                ''
-              )
-          ;
+              ${optionalString (cfg.earlySetup && cfg.font != null) ''
+                setfont -C /dev/console $extraUtils/share/consolefonts/font.psf
+              ''}
+            ''
+          );
 
           boot.initrd.systemd.contents = {
             "/etc/vconsole.conf".source = vconsoleConf;
             # Add everything if we want full console setup...
             "/etc/kbd" = lib.mkIf cfg.earlySetup {
-              source = "${
-                  consoleEnv config.boot.initrd.systemd.package.kbd
-                }/share";
+              source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share";
             };
             # ...but only the keymaps if we don't
             "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) {
-              source = "${
-                  consoleEnv config.boot.initrd.systemd.package.kbd
-                }/share/keymaps";
+              source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share/keymaps";
             };
           };
           boot.initrd.systemd.storePaths =
@@ -217,13 +206,10 @@ in
               "${config.boot.initrd.systemd.package.kbd}/bin/loadkeys"
               "${config.boot.initrd.systemd.package.kbd.gzip}/bin/gzip" # Fonts and keyboard layouts are compressed
             ]
-            ++
-              optionals
-                (cfg.font != null && hasPrefix builtins.storeDir cfg.font)
-                [ "${cfg.font}" ]
-            ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [
-              "${cfg.keyMap}"
+            ++ optionals (cfg.font != null && hasPrefix builtins.storeDir cfg.font) [
+              "${cfg.font}"
             ]
+            ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [ "${cfg.keyMap}" ]
           ;
 
           systemd.services.reload-systemd-vconsole-setup = {
@@ -250,12 +236,7 @@ in
           ];
         })
 
-        (mkIf
-          (
-            cfg.earlySetup
-            && cfg.font != null
-            && !config.boot.initrd.systemd.enable
-          )
+        (mkIf (cfg.earlySetup && cfg.font != null && !config.boot.initrd.systemd.enable)
           {
             boot.initrd.extraUtilsCommands = ''
               mkdir -p $out/share/consolefonts
@@ -265,9 +246,7 @@ in
                 ''
               else
                 ''
-                  font="$(echo ${
-                    consoleEnv pkgs.kbd
-                  }/share/consolefonts/${cfg.font}.*)"
+                  font="$(echo ${consoleEnv pkgs.kbd}/share/consolefonts/${cfg.font}.*)"
                 ''}
               if [[ $font == *.gz ]]; then
                 gzip -cd $font > $out/share/consolefonts/font.psf

@@ -50,8 +50,7 @@ symlinkJoin {
   paths = (optional withBaseWrapper baseWrapper) ++ [ sway ];
 
   strictDeps = false;
-  nativeBuildInputs =
-    [ makeWrapper ] ++ (optional withGtkWrapper wrapGAppsHook);
+  nativeBuildInputs = [ makeWrapper ] ++ (optional withGtkWrapper wrapGAppsHook);
 
   buildInputs = optionals withGtkWrapper [
     gdk-pixbuf

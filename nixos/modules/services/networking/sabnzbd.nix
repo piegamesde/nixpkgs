@@ -25,10 +25,7 @@ in
         type = types.package;
         default = pkgs.sabnzbd;
         defaultText = lib.literalExpression "pkgs.sabnzbd";
-        description =
-          lib.mdDoc
-            "The sabnzbd executable package run by the service."
-        ;
+        description = lib.mdDoc "The sabnzbd executable package run by the service.";
       };
 
       configFile = mkOption {
@@ -76,9 +73,7 @@ in
         GuessMainPID = "no";
         User = "${cfg.user}";
         Group = "${cfg.group}";
-        ExecStart = "${
-            lib.getBin cfg.package
-          }/bin/sabnzbd -d -f ${cfg.configFile}";
+        ExecStart = "${lib.getBin cfg.package}/bin/sabnzbd -d -f ${cfg.configFile}";
       };
     };
   };

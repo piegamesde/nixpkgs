@@ -39,9 +39,7 @@ let
                 mkdir __fasls
                 export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
                 export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
-                ${o.pkg}/bin/${o.program} ${
-                  toString (o.flags or [ ])
-                } < ${o.buildScript}
+                ${o.pkg}/bin/${o.program} ${toString (o.flags or [ ])} < ${o.buildScript}
               '';
               installPhase = ''
                 mkdir -pv $out
@@ -151,8 +149,7 @@ let
         inherit (super.cl-liballegro-nuklear) pname version src;
         nativeBuildInputs = [ pkgs.allegro5 ];
         nativeLibs = [ pkgs.allegro5 ];
-        lispLibs =
-          super.cl-liballegro-nuklear.lispLibs ++ [ super.cl-liballegro ];
+        lispLibs = super.cl-liballegro-nuklear.lispLibs ++ [ super.cl-liballegro ];
         patches = [ ./patches/cl-liballegro-nuklear-missing-dll.patch ];
       };
 
@@ -610,8 +607,7 @@ let
           rev = "e18f621b996fd986d9829d590203c690440dee64";
           hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
         };
-        lispLibs =
-          with super; [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
+        lispLibs = with super; [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
         nativeBuildInputs = [ pkgs.libadwaita ];
         nativeLibs = [ pkgs.libadwaita ];
       };
@@ -625,8 +621,7 @@ let
           rev = "e18f621b996fd986d9829d590203c690440dee64";
           hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
         };
-        lispLibs =
-          with super; [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
+        lispLibs = with super; [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
         nativeBuildInputs = [ pkgs.webkitgtk_6_0 ];
         nativeLibs = [ pkgs.webkitgtk_6_0 ];
       };

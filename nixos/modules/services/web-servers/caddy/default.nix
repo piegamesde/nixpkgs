@@ -44,8 +44,7 @@ let
       '';
 
       Caddyfile-formatted =
-        pkgs.runCommand "Caddyfile-formatted"
-          { nativeBuildInputs = [ cfg.package ]; }
+        pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ cfg.package ]; }
           ''
             mkdir -p $out
             cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
@@ -279,9 +278,7 @@ in
 
     virtualHosts = mkOption {
       type =
-        with types;
-        attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }))
-      ;
+        with types; attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
       default = { };
       example = literalExpression ''
         {
@@ -347,10 +344,7 @@ in
           acmeHosts
     ;
 
-    services.caddy.extraConfig =
-      concatMapStringsSep "\n" mkVHostConf
-        virtualHosts
-    ;
+    services.caddy.extraConfig = concatMapStringsSep "\n" mkVHostConf virtualHosts;
     services.caddy.globalConfig = ''
       ${optionalString (cfg.email != null) "email ${cfg.email}"}
       ${optionalString (cfg.acmeCA != null) "acme_ca ${cfg.acmeCA}"}
@@ -372,10 +366,7 @@ in
         map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service")
           acmeVHosts
       ;
-      before =
-        map (hostOpts: "acme-${hostOpts.useACMEHost}.service")
-          acmeVHosts
-      ;
+      before = map (hostOpts: "acme-${hostOpts.useACMEHost}.service") acmeVHosts;
 
       wantedBy = [ "multi-user.target" ];
       startLimitIntervalSec = 14400;

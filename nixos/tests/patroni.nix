@@ -39,9 +39,7 @@ import ./make-test-python.nix (
 
           enable = true;
 
-          postgresqlPackage = pkgs.postgresql_14.withPackages (
-            p: [ p.pg_safeupdate ]
-          );
+          postgresqlPackage = pkgs.postgresql_14.withPackages (p: [ p.pg_safeupdate ]);
 
           scope = "cluster1";
           name = "node${toString (index + 1)}";
@@ -96,18 +94,9 @@ import ./make-test-python.nix (
           };
 
           environmentFiles = {
-            PATRONI_REPLICATION_PASSWORD =
-              pkgs.writeText "replication-password"
-                "postgres"
-            ;
-            PATRONI_SUPERUSER_PASSWORD =
-              pkgs.writeText "superuser-password"
-                "postgres"
-            ;
-            PATRONI_REWIND_PASSWORD =
-              pkgs.writeText "rewind-password"
-                "postgres"
-            ;
+            PATRONI_REPLICATION_PASSWORD = pkgs.writeText "replication-password" "postgres";
+            PATRONI_SUPERUSER_PASSWORD = pkgs.writeText "superuser-password" "postgres";
+            PATRONI_REWIND_PASSWORD = pkgs.writeText "rewind-password" "postgres";
           };
         };
 
@@ -180,11 +169,7 @@ import ./make-test-python.nix (
                   default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
                   ${
                     builtins.concatStringsSep "\n" (
-                      map
-                        (
-                          ip:
-                          "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008"
-                        )
+                      map (ip: "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008")
                         nodesIps
                     )
                   }

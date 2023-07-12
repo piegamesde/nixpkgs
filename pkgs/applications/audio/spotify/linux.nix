@@ -186,9 +186,7 @@ stdenv.mkDerivation {
       ''${gappsWrapperArgs[@]} \
       ${
         lib.optionalString (deviceScaleFactor != null) ''
-          --add-flags "--force-device-scale-factor=${
-            toString deviceScaleFactor
-          }" \
+          --add-flags "--force-device-scale-factor=${toString deviceScaleFactor}" \
         ''
       } \
       --prefix LD_LIBRARY_PATH : "$librarypath" \

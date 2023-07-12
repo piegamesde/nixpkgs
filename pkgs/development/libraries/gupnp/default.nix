@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dgtk_doc=${
-      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
-    }"
+    "-Dgtk_doc=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
   ];
 
   # Bail out! ERROR:../tests/test-bugs.c:168:test_on_timeout: code should not be reached

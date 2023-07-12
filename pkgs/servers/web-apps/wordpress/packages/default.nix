@@ -171,10 +171,7 @@ let
                 if type == "plugin" || type == "theme" then
                   "https://" + type + "s.svn.wordpress.org/" + data.path
                 else if type == "language" then
-                  "https://i18n.svn.wordpress.org/core/"
-                  + data.version
-                  + "/"
-                  + data.path
+                  "https://i18n.svn.wordpress.org/core/" + data.version + "/" + data.path
                 else if type == "pluginLanguage" then
                   "https://i18n.svn.wordpress.org/plugins/" + data.path
                 else if type == "themeLanguage" then

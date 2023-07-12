@@ -16,10 +16,7 @@ import ./make-test-python.nix (
           enable = true;
         };
 
-        systemd.services.zigbee2mqtt.serviceConfig.DevicePolicy =
-          lib.mkForce
-            "auto"
-        ;
+        systemd.services.zigbee2mqtt.serviceConfig.DevicePolicy = lib.mkForce "auto";
       }
     ;
 

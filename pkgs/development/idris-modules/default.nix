@@ -12,10 +12,7 @@ let
     scope: drv: args:
     (callPackageWith scope drv args) // {
       overrideScope =
-        f:
-        callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv
-          args
-      ;
+        f: callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv args;
     }
   ;
 

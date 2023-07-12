@@ -55,10 +55,7 @@ in
       extraGSettingsOverridePackages = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description =
-          lib.mdDoc
-            "List of packages for which gsettings are overridden."
-        ;
+        description = lib.mdDoc "List of packages for which gsettings are overridden.";
       };
     };
 

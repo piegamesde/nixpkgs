@@ -40,10 +40,7 @@ stdenv.mkDerivation (
       intltool
     ];
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
       description = "Framework for managing passwords and other secrets";

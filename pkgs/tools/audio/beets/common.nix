@@ -167,8 +167,7 @@ python3Packages.buildPythonApplication rec {
 
   disabledTestPaths = lib.flatten (
     attrValues (
-      lib.mapAttrs (n: v: v.testPaths ++ [ "test/test_${n}.py" ])
-        disabledPlugins
+      lib.mapAttrs (n: v: v.testPaths ++ [ "test/test_${n}.py" ]) disabledPlugins
     )
   );
 

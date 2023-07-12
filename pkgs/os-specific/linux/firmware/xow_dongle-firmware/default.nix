@@ -26,9 +26,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   installPhase = ''
-    install -Dm644 FW_ACC_00U.bin ${
-      placeholder "out"
-    }/lib/firmware/xow_dongle.bin
+    install -Dm644 FW_ACC_00U.bin ${placeholder "out"}/lib/firmware/xow_dongle.bin
   '';
 
   meta = with lib; {

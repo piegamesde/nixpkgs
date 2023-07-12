@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/bin
     cp udp2raw_dynamic $out/bin/udp2raw
-    wrapProgram $out/bin/udp2raw --prefix PATH : "${
-      lib.makeBinPath [ iptables ]
-    }"
+    wrapProgram $out/bin/udp2raw --prefix PATH : "${lib.makeBinPath [ iptables ]}"
 
     runHook postInstall
   '';

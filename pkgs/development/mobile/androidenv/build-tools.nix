@@ -34,12 +34,10 @@ deployAndroidPackage {
         autoPatchelf --no-recurse $packageBaseDir
       ''}
 
-      ${lib.optionalString
-        (lib.toInt (lib.versions.major package.revision) < 33)
-        ''
-          wrapProgram $PWD/mainDexClasses \
-            --prefix PATH : ${pkgs.jdk8}/bin
-        ''}
+      ${lib.optionalString (lib.toInt (lib.versions.major package.revision) < 33) ''
+        wrapProgram $PWD/mainDexClasses \
+          --prefix PATH : ${pkgs.jdk8}/bin
+      ''}
 
       cd $out/libexec/android-sdk
     ''

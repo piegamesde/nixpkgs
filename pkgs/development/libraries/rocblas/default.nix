@@ -87,12 +87,8 @@ stdenv.mkDerivation (
         "-DTensile_ROOT=/build/source/tensile/lib/python${python3.pythonVersion}/site-packages/Tensile"
         "-DTensile_LOGIC=${tensileLogic}"
         "-DTensile_CODE_OBJECT_VERSION=${tensileCOVersion}"
-        "-DTensile_SEPARATE_ARCHITECTURES=${
-          if tensileSepArch then "ON" else "OFF"
-        }"
-        "-DTensile_LAZY_LIBRARY_LOADING=${
-          if tensileLazyLib then "ON" else "OFF"
-        }"
+        "-DTensile_SEPARATE_ARCHITECTURES=${if tensileSepArch then "ON" else "OFF"}"
+        "-DTensile_LAZY_LIBRARY_LOADING=${if tensileLazyLib then "ON" else "OFF"}"
         "-DTensile_LIBRARY_FORMAT=${tensileLibFormat}"
       ]
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]

@@ -35,9 +35,7 @@ let
           ;
           jqFiles =
             [ settingsFile ]
-            ++
-              lib.optional (cfg.extraSettingsFile != null)
-                cfg.extraSettingsFile
+            ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile
           ;
         in
         ''
@@ -92,8 +90,7 @@ let
     } // (lib.optionalAttrs (cfg.domain != null) { inherit (cfg) domain; });
 
     assertions = [ {
-      assertion =
-        cfg.database.host != null -> cfg.database.passwordFile != null;
+      assertion = cfg.database.host != null -> cfg.database.passwordFile != null;
       message = "If database host isn't null, database password needs to be set";
     } ];
   };
@@ -255,10 +252,7 @@ in
       port = lib.mkOption {
         type = types.port;
         default = options.services.postgresql.port.default;
-        defaultText =
-          lib.literalExpression
-            "options.services.postgresql.port.default"
-        ;
+        defaultText = lib.literalExpression "options.services.postgresql.port.default";
         description = lib.mdDoc ''
           The port of the database Invidious should use.
 

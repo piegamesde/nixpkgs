@@ -80,9 +80,7 @@ let
       ++ (
         if builtins.hasAttr "propagatedBuildInputs" dep then
           lib.unique (
-            builtins.concatLists (
-              map transitiveClosure dep.propagatedBuildInputs
-            )
+            builtins.concatLists (map transitiveClosure dep.propagatedBuildInputs)
           )
         else
           [ ]

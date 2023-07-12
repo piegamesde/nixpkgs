@@ -26,10 +26,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/radarr/.config/Radarr";
-        description =
-          lib.mdDoc
-            "The directory where Radarr stores its data files."
-        ;
+        description = lib.mdDoc "The directory where Radarr stores its data files.";
       };
 
       openFirewall = mkOption {

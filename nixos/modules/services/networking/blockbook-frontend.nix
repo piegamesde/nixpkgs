@@ -34,19 +34,13 @@ let
         user = mkOption {
           type = types.str;
           default = "blockbook-frontend-${name}";
-          description =
-            lib.mdDoc
-              "The user as which to run blockbook-frontend-${name}."
-          ;
+          description = lib.mdDoc "The user as which to run blockbook-frontend-${name}.";
         };
 
         group = mkOption {
           type = types.str;
           default = "${config.user}";
-          description =
-            lib.mdDoc
-              "The group as which to run blockbook-frontend-${name}."
-          ;
+          description = lib.mdDoc "The group as which to run blockbook-frontend-${name}.";
         };
 
         certFile = mkOption {
@@ -63,10 +57,7 @@ let
           type = with types; nullOr path;
           default = null;
           example = "${config.dataDir}/config.json";
-          description =
-            lib.mdDoc
-              "Location of the blockbook configuration file."
-          ;
+          description = lib.mdDoc "Location of the blockbook configuration file.";
         };
 
         coinName = mkOption {
@@ -110,10 +101,7 @@ let
         internal = mkOption {
           type = types.nullOr types.str;
           default = ":9030";
-          description =
-            lib.mdDoc
-              "Internal http server binding `[address]:port`."
-          ;
+          description = lib.mdDoc "Internal http server binding `[address]:port`.";
         };
 
         messageQueueBinding = mkOption {
@@ -125,10 +113,7 @@ let
         public = mkOption {
           type = types.nullOr types.str;
           default = ":9130";
-          description =
-            lib.mdDoc
-              "Public http server binding `[address]:port`."
-          ;
+          description = lib.mdDoc "Public http server binding `[address]:port`.";
         };
 
         rpc = {
@@ -284,13 +269,11 @@ in
               preStart = ''
                 ln -sf ${cfg.templateDir} ${cfg.dataDir}/static/
                 ln -sf ${cfg.cssDir} ${cfg.dataDir}/static/
-                ${optionalString
-                  (cfg.rpc.passwordFile != null && cfg.configFile == null)
-                  ''
-                    CONFIGTMP=$(mktemp)
-                    ${pkgs.jq}/bin/jq ".rpc_pass = \"$(cat ${cfg.rpc.passwordFile})\"" ${configFile} > $CONFIGTMP
-                    mv $CONFIGTMP ${cfg.dataDir}/${blockbookName}-config.json
-                  ''}
+                ${optionalString (cfg.rpc.passwordFile != null && cfg.configFile == null) ''
+                  CONFIGTMP=$(mktemp)
+                  ${pkgs.jq}/bin/jq ".rpc_pass = \"$(cat ${cfg.rpc.passwordFile})\"" ${configFile} > $CONFIGTMP
+                  mv $CONFIGTMP ${cfg.dataDir}/${blockbookName}-config.json
+                ''}
               '';
               serviceConfig = {
                 User = cfg.user;
@@ -298,28 +281,17 @@ in
                 ExecStart = ''
                   ${cfg.package}/bin/blockbook \
                   ${
-                    if
-                      (cfg.rpc.passwordFile != null && cfg.configFile == null)
-                    then
+                    if (cfg.rpc.passwordFile != null && cfg.configFile == null) then
                       "-blockchaincfg=${cfg.dataDir}/${blockbookName}-config.json"
                     else
                       "-blockchaincfg=${configFile}"
                   } \
                   -datadir=${cfg.dataDir} \
                   ${optionalString (cfg.sync != false) "-sync"} \
-                  ${
-                    optionalString (cfg.certFile != null)
-                      "-certfile=${toString cfg.certFile}"
-                  } \
+                  ${optionalString (cfg.certFile != null) "-certfile=${toString cfg.certFile}"} \
                   ${optionalString (cfg.debug != false) "-debug"} \
-                  ${
-                    optionalString (cfg.internal != null)
-                      "-internal=${toString cfg.internal}"
-                  } \
-                  ${
-                    optionalString (cfg.public != null)
-                      "-public=${toString cfg.public}"
-                  } \
+                  ${optionalString (cfg.internal != null) "-internal=${toString cfg.internal}"} \
+                  ${optionalString (cfg.public != null) "-public=${toString cfg.public}"} \
                   ${toString cfg.extraCmdLineOptions}
                 '';
                 Restart = "on-failure";

@@ -117,9 +117,7 @@ in
   ;
   integer-logarithms =
     overrideCabal
-      (drv: {
-        postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal";
-      })
+      (drv: { postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal"; })
       (doJailbreak super.integer-logarithms)
   ;
   lifted-async = doJailbreak super.lifted-async;
@@ -265,8 +263,7 @@ in
   fourmolu =
     overrideCabal
       (drv: {
-        libraryHaskellDepends =
-          drv.libraryHaskellDepends ++ [ self.file-embed ];
+        libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
       })
       (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0)
   ;

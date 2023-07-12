@@ -28,15 +28,13 @@ let
       ;
 
       corearchiver =
-        libsForQt5.callPackage
-          ../applications/misc/cubocore-packages/corearchiver
+        libsForQt5.callPackage ../applications/misc/cubocore-packages/corearchiver
           { inherit libcprime libcsys; }
       ;
 
-      corefm =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corefm
-          { inherit libcprime libcsys; }
-      ;
+      corefm = libsForQt5.callPackage ../applications/misc/cubocore-packages/corefm {
+        inherit libcprime libcsys;
+      };
 
       coregarage =
         libsForQt5.callPackage ../applications/misc/cubocore-packages/coregarage
@@ -59,8 +57,7 @@ let
       ;
 
       corekeyboard =
-        libsForQt5.callPackage
-          ../applications/misc/cubocore-packages/corekeyboard
+        libsForQt5.callPackage ../applications/misc/cubocore-packages/corekeyboard
           { inherit libcprime libcsys; }
       ;
 
@@ -85,8 +82,7 @@ let
       ;
 
       corerenamer =
-        libsForQt5.callPackage
-          ../applications/misc/cubocore-packages/corerenamer
+        libsForQt5.callPackage ../applications/misc/cubocore-packages/corerenamer
           { inherit libcprime libcsys; }
       ;
 
@@ -106,8 +102,7 @@ let
       ;
 
       coreterminal =
-        libsForQt5.callPackage
-          ../applications/misc/cubocore-packages/coreterminal
+        libsForQt5.callPackage ../applications/misc/cubocore-packages/coreterminal
           {
             inherit (lxqt) qtermwidget;
             inherit libcprime libcsys;
@@ -120,14 +115,12 @@ let
       ;
 
       coretoppings =
-        libsForQt5.callPackage
-          ../applications/misc/cubocore-packages/coretoppings
+        libsForQt5.callPackage ../applications/misc/cubocore-packages/coretoppings
           { inherit libcprime libcsys; }
       ;
 
       coreuniverse =
-        libsForQt5.callPackage
-          ../applications/misc/cubocore-packages/coreuniverse
+        libsForQt5.callPackage ../applications/misc/cubocore-packages/coreuniverse
           { inherit libcprime libcsys; }
       ;
     }

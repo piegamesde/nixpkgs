@@ -24,9 +24,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ python-dateutil ]
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-  ;
+    [ python-dateutil ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

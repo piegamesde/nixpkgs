@@ -71,11 +71,7 @@ let
       generateSection 0 settings
     else
       ''
-        ${
-          concatMapStringsSep "\n" (files: ''"${files}"'') (
-            toList settings.files
-          )
-        } {
+        ${concatMapStringsSep "\n" (files: ''"${files}"'') (toList settings.files)} {
           ${generateSection 2 settings}}
       ''
   ;
@@ -145,9 +141,7 @@ let
 
   mailOption =
     optionalString
-      (foldr (n: a: a || (n.mail or false) != false) false (
-        attrValues cfg.settings
-      ))
+      (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings))
       "--mail=${pkgs.mailutils}/bin/mail"
   ;
 in
@@ -234,11 +228,9 @@ in
               ;
 
               options = {
-                enable =
-                  mkEnableOption (lib.mdDoc "setting individual kill switch")
-                  // {
-                    default = true;
-                  };
+                enable = mkEnableOption (lib.mdDoc "setting individual kill switch") // {
+                  default = true;
+                };
 
                 global = mkOption {
                   type = types.bool;

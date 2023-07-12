@@ -48,9 +48,7 @@ let
         extraOptions // {
           exportname = path;
         } // (optionalAttrs (allowAddresses != null) {
-          authfile = pkgs.writeText "authfile" (
-            concatStringsSep "\n" allowAddresses
-          );
+          authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
         })
       )
       cfg.server.exports
@@ -78,9 +76,7 @@ in
   options = {
     services.nbd = {
       server = {
-        enable = mkEnableOption (
-          lib.mdDoc "the Network Block Device (nbd) server"
-        );
+        enable = mkEnableOption (lib.mdDoc "the Network Block Device (nbd) server");
 
         listenPort = mkOption {
           type = types.port;

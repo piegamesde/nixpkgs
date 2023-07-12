@@ -97,11 +97,7 @@ let
       ;
 
       bintoolsNoLibc' =
-        if bootBintoolsNoLibc == null then
-          tools.bintoolsNoLibc
-        else
-          bootBintoolsNoLibc
-      ;
+        if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
       bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
@@ -212,10 +208,7 @@ let
           ''
           +
             lib.optionalString
-              (
-                !stdenv.targetPlatform.isWasm
-                && stdenv.targetPlatform.useLLVM or false
-              )
+              (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
               ''
                 echo "-lunwind" >> $out/nix-support/cc-ldflags
               ''

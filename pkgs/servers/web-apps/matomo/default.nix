@@ -29,8 +29,7 @@ let
       beta ? null,
     }:
     let
-      fullVersion =
-        version + lib.optionalString (beta != null) "-${toString beta}";
+      fullVersion = version + lib.optionalString (beta != null) "-${toString beta}";
       name = "${pname}-${fullVersion}";
     in
 

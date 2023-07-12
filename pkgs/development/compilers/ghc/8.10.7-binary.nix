@@ -271,8 +271,7 @@ stdenv.mkDerivation rec {
       # As a result, don't shell-quote this glob when splicing the string.
       (
         let
-          buildExeGlob = ''
-            ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
+          buildExeGlob = ''ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
         in
         lib.concatStringsSep "\n" [
           (''
@@ -294,9 +293,7 @@ stdenv.mkDerivation rec {
                 fi
 
                 echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
-                if ! test -e "${
-                  lib.getLib nixPackage
-                }/lib/${fileToCheckFor}"; then
+                if ! test -e "${lib.getLib nixPackage}/lib/${fileToCheckFor}"; then
                   echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
                 fi
               ''
@@ -369,10 +366,7 @@ stdenv.mkDerivation rec {
   ;
 
   # fix for `configure: error: Your linker is affected by binutils #16177`
-  preConfigure =
-    lib.optionalString stdenv.targetPlatform.isAarch32
-      "LD=ld.gold"
-  ;
+  preConfigure = lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
 
   configurePlatforms = [ ];
   configureFlags =

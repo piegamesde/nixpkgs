@@ -27,8 +27,7 @@ let
     logdir    /var/log/munin
     rundir    /run/munin
 
-    ${lib.optionalString (cronCfg.extraCSS != "")
-      "staticdir ${customStaticDir}"}
+    ${lib.optionalString (cronCfg.extraCSS != "") "staticdir ${customStaticDir}"}
 
     ${cronCfg.extraGlobalConfig}
 

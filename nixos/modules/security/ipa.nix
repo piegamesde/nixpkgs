@@ -68,10 +68,7 @@ in
       basedn = mkOption {
         type = types.str;
         example = "dc=example,dc=com";
-        description =
-          lib.mdDoc
-            "Base DN to use when performing LDAP operations."
-        ;
+        description = lib.mdDoc "Base DN to use when performing LDAP operations.";
       };
 
       offlinePasswords = mkOption {
@@ -102,10 +99,7 @@ in
         enable = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Whether to enable FreeIPA automatic hostname updates."
-          ;
+          description = lib.mdDoc "Whether to enable FreeIPA automatic hostname updates.";
         };
 
         interface = mkOption {
@@ -122,10 +116,7 @@ in
       chromiumSupport = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to whitelist the FreeIPA domain in Chromium."
-        ;
+        description = lib.mdDoc "Whether to whitelist the FreeIPA domain in Chromium.";
       };
     };
   };

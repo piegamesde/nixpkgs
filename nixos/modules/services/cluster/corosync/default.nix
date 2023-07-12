@@ -30,10 +30,7 @@ in
     extraOptions = mkOption {
       type = with types; listOf str;
       default = [ ];
-      description =
-        lib.mdDoc
-          "Additional options with which to start corosync."
-      ;
+      description = lib.mdDoc "Additional options with which to start corosync.";
     };
 
     nodelist = mkOption {

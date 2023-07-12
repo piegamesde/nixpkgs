@@ -163,13 +163,11 @@ let
       );
 
       script = ''
-        ${optionalString
-          (configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks)
-          ''
-            if [ -f /etc/wpa_supplicant.conf ]; then
-              echo >&2 "<3>/etc/wpa_supplicant.conf present but ignored. Generated ${configFile} is used instead."
-            fi
-          ''}
+        ${optionalString (configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks) ''
+          if [ -f /etc/wpa_supplicant.conf ]; then
+            echo >&2 "<3>/etc/wpa_supplicant.conf present but ignored. Generated ${configFile} is used instead."
+          fi
+        ''}
 
         # substitute environment variables
         if [ -f "${configFile}" ]; then
@@ -523,10 +521,7 @@ in
           type = types.str;
           default = "wheel";
           example = "network";
-          description =
-            lib.mdDoc
-              "Members of this group can control wpa_supplicant."
-          ;
+          description = lib.mdDoc "Members of this group can control wpa_supplicant.";
         };
       };
 

@@ -20,10 +20,7 @@ in
 
       group = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "Group assigned to the user and the webroot directory."
-        ;
+        description = lib.mdDoc "Group assigned to the user and the webroot directory.";
         default = "nginx";
         example = "www-data";
       };

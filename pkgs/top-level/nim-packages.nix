@@ -16,10 +16,9 @@ lib.makeScope newScope (
   {
     inherit nim;
     nim_builder = callPackage ../development/nim-packages/nim_builder { };
-    buildNimPackage =
-      callPackage ../development/nim-packages/build-nim-package
-        { inherit (buildPackages.buildPackages.nimPackages) nim_builder; }
-    ;
+    buildNimPackage = callPackage ../development/nim-packages/build-nim-package {
+      inherit (buildPackages.buildPackages.nimPackages) nim_builder;
+    };
     fetchNimble = callPackage ../development/nim-packages/fetch-nimble { };
 
     asciigraph = callPackage ../development/nim-packages/asciigraph { };
@@ -51,10 +50,7 @@ lib.makeScope newScope (
 
     flatty = callPackage ../development/nim-packages/flatty { };
 
-    freedesktop_org =
-      callPackage ../development/nim-packages/freedesktop_org
-        { }
-    ;
+    freedesktop_org = callPackage ../development/nim-packages/freedesktop_org { };
 
     frosty = callPackage ../development/nim-packages/frosty { };
 
@@ -138,9 +134,7 @@ lib.makeScope newScope (
 
     tempfile = callPackage ../development/nim-packages/tempfile { };
 
-    tkrzw = callPackage ../development/nim-packages/tkrzw {
-      inherit (pkgs) tkrzw;
-    };
+    tkrzw = callPackage ../development/nim-packages/tkrzw { inherit (pkgs) tkrzw; };
 
     ui = callPackage ../development/nim-packages/ui { inherit (pkgs) libui; };
 

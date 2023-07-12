@@ -194,9 +194,7 @@ let
       "-Dbluez5=${mesonEnableFeature bluezSupport}"
       "-Dbluez5-backend-hsp-native=${mesonEnableFeature nativeHspSupport}"
       "-Dbluez5-backend-hfp-native=${mesonEnableFeature nativeHfpSupport}"
-      "-Dbluez5-backend-native-mm=${
-        mesonEnableFeature nativeModemManagerSupport
-      }"
+      "-Dbluez5-backend-native-mm=${mesonEnableFeature nativeModemManagerSupport}"
       "-Dbluez5-backend-ofono=${mesonEnableFeature ofonoSupport}"
       "-Dbluez5-backend-hsphfpd=${mesonEnableFeature hsphfpdSupport}"
       # source code is not easily obtainable

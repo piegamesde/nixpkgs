@@ -33,7 +33,6 @@ buildGoModule rec {
       vdemeester
       techknowlogick
     ];
-    license =
-      with licenses; if enableUnfree then unfreeRedistributable else asl20;
+    license = with licenses; if enableUnfree then unfreeRedistributable else asl20;
   };
 }

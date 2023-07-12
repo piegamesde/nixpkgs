@@ -248,8 +248,7 @@ in
         script = ''
           ${concatStringsSep "\n" (
             attrValues (
-              mapAttrs
-                (name: path: ''export ${name}="$(< ${escapeShellArg path})"'')
+              mapAttrs (name: path: ''export ${name}="$(< ${escapeShellArg path})"'')
                 cfg.environmentFiles
             )
           )}

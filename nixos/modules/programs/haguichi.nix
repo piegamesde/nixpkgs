@@ -10,8 +10,7 @@ with lib;
 {
   options.programs.haguichi = {
     enable = mkEnableOption (
-      lib.mdDoc
-        "Haguichi, a Linux GUI frontend to the proprietary LogMeIn Hamachi"
+      lib.mdDoc "Haguichi, a Linux GUI frontend to the proprietary LogMeIn Hamachi"
     );
   };
 

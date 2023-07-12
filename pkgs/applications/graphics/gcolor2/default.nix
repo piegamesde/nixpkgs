@@ -14,8 +14,7 @@ in
 stdenv.mkDerivation {
   pname = "gcolor2";
   inherit version;
-  arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then "amd64" else "386";
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then "amd64" else "386";
 
   src = fetchurl {
     url = "mirror://sourceforge/project/gcolor2/gcolor2/${version}/gcolor2-${version}.tar.bz2";

@@ -39,19 +39,13 @@ in
     };
 
     listenClientUrls = mkOption {
-      description =
-        lib.mdDoc
-          "Etcd list of URLs to listen on for client traffic."
-      ;
+      description = lib.mdDoc "Etcd list of URLs to listen on for client traffic.";
       default = [ "http://127.0.0.1:2379" ];
       type = types.listOf types.str;
     };
 
     listenPeerUrls = mkOption {
-      description =
-        lib.mdDoc
-          "Etcd list of URLs to listen on for peer traffic."
-      ;
+      description = lib.mdDoc "Etcd list of URLs to listen on for peer traffic.";
       default = [ "http://127.0.0.1:2380" ];
       type = types.listOf types.str;
     };
@@ -67,10 +61,7 @@ in
     };
 
     initialCluster = mkOption {
-      description =
-        lib.mdDoc
-          "Etcd initial cluster configuration for bootstrapping."
-      ;
+      description = lib.mdDoc "Etcd initial cluster configuration for bootstrapping.";
       default = [ "${cfg.name}=http://127.0.0.1:2380" ];
       defaultText =
         literalExpression
@@ -80,10 +71,7 @@ in
     };
 
     initialClusterState = mkOption {
-      description =
-        lib.mdDoc
-          "Etcd initial cluster configuration for bootstrapping."
-      ;
+      description = lib.mdDoc "Etcd initial cluster configuration for bootstrapping.";
       default = "new";
       type = types.enum [
         "new"
@@ -200,10 +188,7 @@ in
         ETCD_NAME = cfg.name;
         ETCD_DISCOVERY = cfg.discovery;
         ETCD_DATA_DIR = cfg.dataDir;
-        ETCD_ADVERTISE_CLIENT_URLS =
-          concatStringsSep ","
-            cfg.advertiseClientUrls
-        ;
+        ETCD_ADVERTISE_CLIENT_URLS = concatStringsSep "," cfg.advertiseClientUrls;
         ETCD_LISTEN_CLIENT_URLS = concatStringsSep "," cfg.listenClientUrls;
         ETCD_LISTEN_PEER_URLS = concatStringsSep "," cfg.listenPeerUrls;
         ETCD_INITIAL_ADVERTISE_PEER_URLS =

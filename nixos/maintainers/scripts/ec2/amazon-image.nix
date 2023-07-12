@@ -21,10 +21,7 @@ in
   config.boot.kernelParams =
     let
       timeout =
-        if
-          pkgs.lib.versionAtLeast config.boot.kernelPackages.kernel.version
-            "4.15"
-        then
+        if pkgs.lib.versionAtLeast config.boot.kernelPackages.kernel.version "4.15" then
           "4294967295"
         else
           "255"

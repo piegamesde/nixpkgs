@@ -231,16 +231,12 @@ stdenv.mkDerivation rec {
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
       ${
         optionalString (enableFeatures != [ ]) ''
-          --add-flags "--enable-features=${
-            strings.concatStringsSep "," enableFeatures
-          }"
+          --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}"
         ''
       }
       ${
         optionalString (disableFeatures != [ ]) ''
-          --add-flags "--disable-features=${
-            strings.concatStringsSep "," disableFeatures
-          }"
+          --add-flags "--disable-features=${strings.concatStringsSep "," disableFeatures}"
         ''
       }
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"

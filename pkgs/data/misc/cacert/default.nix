@@ -153,19 +153,14 @@ stdenv.mkDerivation rec {
               "NetLock Arany (Class Gold) Főtanúsítvány" = "6C:61:DA:C3:A2:DE:F0:31:50:6B:E0:36:D2:A6:FE:40:19:94:FB:D1:3D:F9:C8:D4:66:59:92:74:C4:46:EC:98";
             };
             mapBlacklist =
-              f:
-              lib.concatStringsSep "\n" (
-                lib.mapAttrsToList f blacklistCAToFingerprint
-              )
-            ;
+              f: lib.concatStringsSep "\n" (lib.mapAttrsToList f blacklistCAToFingerprint);
           in
           runCommand "verify-the-cacert-filter-output"
             {
               cacert = cacert.unbundled;
               cacertWithExcludes =
-                (cacert.override {
-                  blacklist = builtins.attrNames blacklistCAToFingerprint;
-                }).unbundled;
+                (cacert.override { blacklist = builtins.attrNames blacklistCAToFingerprint; })
+                .unbundled;
 
               nativeBuildInputs = [ openssl ];
             }
@@ -224,9 +219,7 @@ stdenv.mkDerivation rec {
             };
             mapExtra =
               f:
-              lib.concatStringsSep "\n" (
-                lib.mapAttrsToList f extraCertificatesToFingerprint
-              )
+              lib.concatStringsSep "\n" (lib.mapAttrsToList f extraCertificatesToFingerprint)
             ;
           in
           runCommand "verify-the-cacert-extra-output"

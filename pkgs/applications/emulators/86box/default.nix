@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
         ]
         ++ lib.optional unfreeEnableDiscord discord-gamesdk
       );
-      libPathVar =
-        if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+      libPathVar = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     in
     ''
       wrapProgram $out/bin/86Box \
@@ -95,8 +94,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Emulator of x86-based machines based on PCem.";
     homepage = "https://86box.net/";
-    license =
-      with licenses; [ gpl2Only ] ++ optional unfreeEnableDiscord unfree;
+    license = with licenses; [ gpl2Only ] ++ optional unfreeEnableDiscord unfree;
     maintainers = [ maintainers.jchw ];
     platforms = platforms.linux;
   };

@@ -33,10 +33,7 @@ let
       extraFlags = mkOption {
         type = with types; listOf str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Extra command line flags to pass to ${serviceName}"
-        ;
+        description = lib.mdDoc "Extra command line flags to pass to ${serviceName}";
         example = [
           "-Dcom.sun.management.jmxremote"
           "-Dcom.sun.management.jmxremote.port=8010"
@@ -45,10 +42,7 @@ let
       extraEnv = mkOption {
         type = with types; attrsOf str;
         default = { };
-        description =
-          lib.mdDoc
-            "Extra environment variables for ${serviceName}"
-        ;
+        description = lib.mdDoc "Extra environment variables for ${serviceName}";
       };
     } // (optionalAttrs firewallOption {
       openFirewall = mkOption {
@@ -84,9 +78,9 @@ let
               serviceConfig = {
                 inherit User;
                 SyslogIdentifier = "hdfs-${toLower name}";
-                ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${
-                    toLower name
-                  } ${escapeShellArgs serviceOptions.extraFlags}";
+                ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${toLower name} ${
+                    escapeShellArgs serviceOptions.extraFlags
+                  }";
                 Restart = "always";
               };
             };
@@ -96,8 +90,7 @@ let
             networking.firewall.allowedTCPPorts =
               mkIf
                 (
-                  (builtins.hasAttr "openFirewall" serviceOptions)
-                  && serviceOptions.openFirewall
+                  (builtins.hasAttr "openFirewall" serviceOptions) && serviceOptions.openFirewall
                 )
                 allowedTCPPorts
             ;
@@ -128,10 +121,7 @@ in
     datanode = hadoopServiceOption { serviceName = "HDFS DataNode"; } // {
       dataDirs = mkOption {
         default = null;
-        description =
-          lib.mdDoc
-            "Tier and path definitions for datanode storage."
-        ;
+        description = lib.mdDoc "Tier and path definitions for datanode storage.";
         type =
           with types;
           nullOr (

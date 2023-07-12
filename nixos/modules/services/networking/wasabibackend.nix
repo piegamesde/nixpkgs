@@ -24,27 +24,19 @@ let
     BitcoinRpcConnectionString = "${cfg.rpc.user}:${cfg.rpc.password}";
   } // optionalAttrs (cfg.network == "mainnet") {
     Network = "Main";
-    MainNetBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${
-        toString cfg.endpoint.port
-      }";
+    MainNetBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${toString cfg.endpoint.port}";
     MainNetBitcoinCoreRpcEndPoint = "${cfg.rpc.ip}:${toString cfg.rpc.port}";
   } // optionalAttrs (cfg.network == "testnet") {
     Network = "TestNet";
-    TestNetBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${
-        toString cfg.endpoint.port
-      }";
+    TestNetBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${toString cfg.endpoint.port}";
     TestNetBitcoinCoreRpcEndPoint = "${cfg.rpc.ip}:${toString cfg.rpc.port}";
   } // optionalAttrs (cfg.network == "regtest") {
     Network = "RegTest";
-    RegTestBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${
-        toString cfg.endpoint.port
-      }";
+    RegTestBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${toString cfg.endpoint.port}";
     RegTestBitcoinCoreRpcEndPoint = "${cfg.rpc.ip}:${toString cfg.rpc.port}";
   };
 
-  configFile = pkgs.writeText "wasabibackend.conf" (
-    builtins.toJSON confOptions
-  );
+  configFile = pkgs.writeText "wasabibackend.conf" (builtins.toJSON confOptions);
 in
 {
 
@@ -56,10 +48,7 @@ in
       dataDir = mkOption {
         type = types.path;
         default = "/var/lib/wasabibackend";
-        description =
-          lib.mdDoc
-            "The data directory for the Wasabi backend node."
-        ;
+        description = lib.mdDoc "The data directory for the Wasabi backend node.";
       };
 
       customConfigFile = mkOption {
@@ -78,10 +67,7 @@ in
           "regtest"
         ];
         default = "mainnet";
-        description =
-          lib.mdDoc
-            "The network to use for the Wasabi backend service."
-        ;
+        description = lib.mdDoc "The network to use for the Wasabi backend service.";
       };
 
       endpoint = {
@@ -129,30 +115,21 @@ in
         passwordFile = mkOption {
           type = types.nullOr types.path;
           default = null;
-          description =
-            lib.mdDoc
-              "File that contains the password of the RPC user."
-          ;
+          description = lib.mdDoc "File that contains the password of the RPC user.";
         };
       };
 
       user = mkOption {
         type = types.str;
         default = "wasabibackend";
-        description =
-          lib.mdDoc
-            "The user as which to run the wasabibackend node."
-        ;
+        description = lib.mdDoc "The user as which to run the wasabibackend node.";
       };
 
       group = mkOption {
         type = types.str;
         default = cfg.user;
         defaultText = literalExpression "config.${opt.user}";
-        description =
-          lib.mdDoc
-            "The group as which to run the wasabibackend node."
-        ;
+        description = lib.mdDoc "The group as which to run the wasabibackend node.";
       };
     };
   };

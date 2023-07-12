@@ -192,10 +192,7 @@ in
                   id = mkOption {
                     type = types.int;
                     default = 1;
-                    description =
-                      lib.mdDoc
-                        "File system ID (must be unique within configuration)."
-                    ;
+                    description = lib.mdDoc "File system ID (must be unique within configuration).";
                   };
 
                   rootHandle = mkOption {
@@ -207,10 +204,7 @@ in
                   extraConfig = mkOption {
                     type = types.lines;
                     default = "";
-                    description =
-                      lib.mdDoc
-                        "Extra config for `<FileSystem>` section."
-                    ;
+                    description = lib.mdDoc "Extra config for `<FileSystem>` section.";
                   };
 
                   troveSyncMeta = mkOption {
@@ -228,10 +222,7 @@ in
                   extraStorageHints = mkOption {
                     type = types.lines;
                     default = "";
-                    description =
-                      lib.mdDoc
-                        "Extra config for `<StorageHints>` section."
-                    ;
+                    description = lib.mdDoc "Extra config for `<StorageHints>` section.";
                   };
                 };
               }

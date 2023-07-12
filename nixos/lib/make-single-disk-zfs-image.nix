@@ -117,8 +117,7 @@ let
 
   closureInfo = pkgs.closureInfo {
     rootPaths =
-      [ config.system.build.toplevel ]
-      ++ (lib.optional includeChannel channelSources)
+      [ config.system.build.toplevel ] ++ (lib.optional includeChannel channelSources)
     ;
   };
 
@@ -163,10 +162,7 @@ let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
       sorted =
         lib.sort
-          (
-            left: right:
-            (lib.stringLength left.name) < (lib.stringLength right.name)
-          )
+          (left: right: (lib.stringLength left.name) < (lib.stringLength right.name))
           datasetlist
       ;
       cmd =
@@ -201,8 +197,7 @@ let
         lib.sort
           (
             left: right:
-            (lib.stringLength left.value.mount)
-            < (lib.stringLength right.value.mount)
+            (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount)
           )
           mounts
       ;
@@ -238,8 +233,7 @@ let
         lib.sort
           (
             left: right:
-            (lib.stringLength left.value.mount)
-            > (lib.stringLength right.value.mount)
+            (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount)
           )
           mounts
       ;
@@ -334,9 +328,7 @@ let
               mkdir $out
 
               rootDiskImage=root.raw
-              qemu-img create -f raw $rootDiskImage ${
-                toString (bootSize + rootSize)
-              }M
+              qemu-img create -f raw $rootDiskImage ${toString (bootSize + rootSize)}M
             '';
 
             postVM = ''

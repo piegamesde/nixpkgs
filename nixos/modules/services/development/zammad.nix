@@ -34,8 +34,7 @@ in
   options = {
     services.zammad = {
       enable = mkEnableOption (
-        lib.mdDoc
-          "Zammad, a web-based, open source user support/ticketing solution"
+        lib.mdDoc "Zammad, a web-based, open source user support/ticketing solution"
       );
 
       package = mkOption {
@@ -140,10 +139,7 @@ in
         createLocally = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Whether to create a local database automatically."
-          ;
+          description = lib.mdDoc "Whether to create a local database automatically.";
         };
 
         settings = mkOption {
@@ -229,8 +225,7 @@ in
           services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
       }
       {
-        assertion =
-          cfg.database.createLocally -> cfg.database.passwordFile == null;
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
         message = "a password cannot be specified if services.zammad.database.createLocally is set to true";
       }
     ];
@@ -251,8 +246,7 @@ in
     ;
 
     services.postgresql =
-      optionalAttrs
-        (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
+      optionalAttrs (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
         {
           enable = true;
           ensureDatabases = [ cfg.database.name ];

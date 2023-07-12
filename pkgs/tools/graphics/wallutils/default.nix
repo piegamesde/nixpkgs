@@ -59,9 +59,7 @@ buildGoModule rec {
     ''
       export XDG_RUNTIME_DIR=`mktemp -d`
 
-      buildFlagsArray+=("-run" "[^(${
-        builtins.concatStringsSep "|" skippedTests
-      })]")
+      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
     ''
   ;
 

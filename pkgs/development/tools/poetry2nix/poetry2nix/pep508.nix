@@ -17,9 +17,7 @@ let
 
   # Strip leading/trailing whitespace from string
   stripStr =
-    s:
-    lib.elemAt (builtins.split "^ *" (lib.elemAt (builtins.split " *$" s) 0)) 2
-  ;
+    s: lib.elemAt (builtins.split "^ *" (lib.elemAt (builtins.split " *$" s) 0)) 2;
   findSubExpressionsFun =
     acc: c:
     (
@@ -32,8 +30,7 @@ let
           in
           acc // {
             inherit startPos;
-            exprs =
-              acc.exprs ++ [ (substr acc.exprPos (acc.pos - 1) acc.expr) ];
+            exprs = acc.exprs ++ [ (substr acc.exprPos (acc.pos - 1) acc.expr) ];
             pos = posNew;
             openP = acc.openP + 1;
           }
@@ -85,12 +82,7 @@ let
         (
           s:
           builtins.map
-            (
-              x:
-              stripStr (
-                if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x
-              )
-            )
+            (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x))
             (builtins.split " (and|or) " (s + " "))
         );
       mapfn =
@@ -116,20 +108,13 @@ let
         )
       ;
       parse =
-        expr:
-        builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr))
-      ;
+        expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
     builtins.foldl'
       (
         acc: v:
         acc
-        ++ (
-          if builtins.typeOf v == "string" then
-            parse v
-          else
-            [ (parseExpressions v) ]
-        )
+        ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])
       )
       [ ]
       exprs
@@ -207,10 +192,7 @@ let
               e = stripStr exprs.value;
               m' = builtins.match "^(${mVal}) +(${mOp}) *(${mVal})$" e;
               m = builtins.map stripStr (
-                if m' != null then
-                  m'
-                else
-                  builtins.match "^(${mVal}) +(${mOp}) *(${mVal})$" e
+                if m' != null then m' else builtins.match "^(${mVal}) +(${mOp}) *(${mVal})$" e
               );
               m0 = processVar (builtins.elemAt m 0);
               m2 = processVar (builtins.elemAt m 2);
@@ -253,9 +235,7 @@ let
       hasElem =
         needle: haystack:
         builtins.elem needle (
-          builtins.filter (x: builtins.typeOf x == "string") (
-            builtins.split " " haystack
-          )
+          builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " haystack)
         )
       ;
       op = {
@@ -272,8 +252,7 @@ let
             parts = builtins.splitVersion c;
             pruned = lib.take ((builtins.length parts) - 1) parts;
             upper = builtins.toString (
-              (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1)))
-              + 1
+              (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1
             );
             upperConstraint = builtins.concatStringsSep "." (
               ireplace (builtins.length pruned - 1) upper pruned
@@ -299,10 +278,9 @@ let
           (
             let
               expr = exprs;
-              result =
-                (op."${expr.value.op}") (builtins.elemAt expr.value.values 0)
-                  (builtins.elemAt expr.value.values 1)
-              ;
+              result = (op."${expr.value.op}") (builtins.elemAt expr.value.values 0) (
+                builtins.elemAt expr.value.values 1
+              );
             in
             {
               type = "value";

@@ -54,64 +54,43 @@ in
 
     # Standard Erlang versions, using the generic builder.
 
-    erlang_25 =
-      self.beamLib.callErlang ../development/interpreters/erlang/25.nix
-        {
-          wxGTK = wxGTK32;
-          parallelBuild = true;
-          autoconf = buildPackages.autoconf269;
-          inherit wxSupport systemdSupport;
-        }
-    ;
-    erlang_25_odbc = self.interpreters.erlang_25.override {
-      odbcSupport = true;
+    erlang_25 = self.beamLib.callErlang ../development/interpreters/erlang/25.nix {
+      wxGTK = wxGTK32;
+      parallelBuild = true;
+      autoconf = buildPackages.autoconf269;
+      inherit wxSupport systemdSupport;
     };
-    erlang_25_javac = self.interpreters.erlang_25.override {
-      javacSupport = true;
-    };
+    erlang_25_odbc = self.interpreters.erlang_25.override { odbcSupport = true; };
+    erlang_25_javac = self.interpreters.erlang_25.override { javacSupport = true; };
     erlang_25_odbc_javac = self.interpreters.erlang_25.override {
       javacSupport = true;
       odbcSupport = true;
     };
 
-    erlang_24 =
-      self.beamLib.callErlang ../development/interpreters/erlang/24.nix
-        {
-          wxGTK = wxGTK32;
-          # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
-          parallelBuild = true;
-          autoconf = buildPackages.autoconf269;
-          inherit wxSupport systemdSupport;
-        }
-    ;
-    erlang_24_odbc = self.interpreters.erlang_24.override {
-      odbcSupport = true;
+    erlang_24 = self.beamLib.callErlang ../development/interpreters/erlang/24.nix {
+      wxGTK = wxGTK32;
+      # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
+      parallelBuild = true;
+      autoconf = buildPackages.autoconf269;
+      inherit wxSupport systemdSupport;
     };
-    erlang_24_javac = self.interpreters.erlang_24.override {
-      javacSupport = true;
-    };
+    erlang_24_odbc = self.interpreters.erlang_24.override { odbcSupport = true; };
+    erlang_24_javac = self.interpreters.erlang_24.override { javacSupport = true; };
     erlang_24_odbc_javac = self.interpreters.erlang_24.override {
       javacSupport = true;
       odbcSupport = true;
     };
 
-    erlang_23 =
-      self.beamLib.callErlang ../development/interpreters/erlang/23.nix
-        {
-          openssl = openssl_1_1;
-          wxGTK = wxGTK32;
-          # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
-          parallelBuild = true;
-          autoconf = buildPackages.autoconf269;
-          inherit wxSupport systemdSupport;
-        }
-    ;
-    erlang_23_odbc = self.interpreters.erlang_23.override {
-      odbcSupport = true;
+    erlang_23 = self.beamLib.callErlang ../development/interpreters/erlang/23.nix {
+      openssl = openssl_1_1;
+      wxGTK = wxGTK32;
+      # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
+      parallelBuild = true;
+      autoconf = buildPackages.autoconf269;
+      inherit wxSupport systemdSupport;
     };
-    erlang_23_javac = self.interpreters.erlang_23.override {
-      javacSupport = true;
-    };
+    erlang_23_odbc = self.interpreters.erlang_23.override { odbcSupport = true; };
+    erlang_23_javac = self.interpreters.erlang_23.override { javacSupport = true; };
     erlang_23_odbc_javac = self.interpreters.erlang_23.override {
       javacSupport = true;
       odbcSupport = true;

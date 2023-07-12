@@ -59,9 +59,7 @@ stdenv.mkDerivation (
       [
         "-DOPEN62541_VERSION=v${finalAttrs.version}"
 
-        "-DBUILD_SHARED_LIBS=${
-          if stdenv.hostPlatform.isStatic then "OFF" else "ON"
-        }"
+        "-DBUILD_SHARED_LIBS=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
         "-DUA_NAMESPACE_ZERO=FULL"
 
         "-DUA_BUILD_UNIT_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
@@ -105,9 +103,7 @@ stdenv.mkDerivation (
     preCheck =
       let
         disabledTests =
-          lib.optionals (withEncryption == "mbedtls") [
-            "encryption_basic128rsa15"
-          ]
+          lib.optionals (withEncryption == "mbedtls") [ "encryption_basic128rsa15" ]
           ++ lib.optionals withPubSub [
             # "Cannot set socket option IP_ADD_MEMBERSHIP"
             "pubsub_publish"

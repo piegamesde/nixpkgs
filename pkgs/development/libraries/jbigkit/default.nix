@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
-    "AR=${
-      lib.getBin stdenv.cc.bintools.bintools
-    }/bin/${stdenv.cc.targetPrefix}ar"
+    "AR=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar"
     "RANLIB=${
       lib.getBin stdenv.cc.bintools.bintools
     }/bin/${stdenv.cc.targetPrefix}ranlib"

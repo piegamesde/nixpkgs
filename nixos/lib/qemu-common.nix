@@ -25,10 +25,7 @@ rec {
       "-device virtio-net-pci,netdev=vlan${toString nic},mac=${
         qemuNicMac net machine
       }"
-      ''
-        -netdev vde,id=vlan${toString nic},sock="$QEMU_VDE_SOCKET_${
-          toString net
-        }"''
+      ''-netdev vde,id=vlan${toString nic},sock="$QEMU_VDE_SOCKET_${toString net}"''
     ]
   ;
 
@@ -68,8 +65,7 @@ rec {
 
       throwUnsupportedHostSystem =
         let
-          supportedSystems =
-            [ "linux" ] ++ (lib.attrNames otherHostGuestMatrix);
+          supportedSystems = [ "linux" ] ++ (lib.attrNames otherHostGuestMatrix);
         in
         throw
           "Unsupported host system ${hostSystem}, supported: ${
@@ -88,8 +84,7 @@ rec {
       linuxHostGuestMatrix.${guestSystem} or "${qemuPkg}/bin/qemu-kvm"
     else
       let
-        guestMap =
-          (otherHostGuestMatrix.${hostSystem} or throwUnsupportedHostSystem);
+        guestMap = (otherHostGuestMatrix.${hostSystem} or throwUnsupportedHostSystem);
       in
       (guestMap.${guestSystem} or (throwUnsupportedGuestSystem guestMap))
   ;

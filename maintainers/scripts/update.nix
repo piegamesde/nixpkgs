@@ -72,8 +72,7 @@ let
             }
           ;
 
-          dedupResults =
-            lst: nubOn somewhatUniqueRepresentant (lib.concatLists lst);
+          dedupResults = lst: nubOn somewhatUniqueRepresentant (lib.concatLists lst);
         in
         if result.success then
           let
@@ -92,8 +91,7 @@ let
               || evaluatedPathContent.recurseForRelease or false
             then
               dedupResults (
-                lib.mapAttrsToList
-                  (name: elem: packagesWithPathInner (path ++ [ name ]) elem)
+                lib.mapAttrsToList (name: elem: packagesWithPathInner (path ++ [ name ]) elem)
                   evaluatedPathContent
               )
             else
@@ -113,9 +111,7 @@ let
   # Recursively find all packages in `pkgs` with updateScript matching given predicate.
   packagesWithUpdateScriptMatchingPredicate =
     cond:
-    packagesWith (
-      path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg
-    )
+    packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg)
   ;
 
   # Recursively find all packages in `pkgs` with updateScript by given maintainer.

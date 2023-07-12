@@ -49,10 +49,7 @@ in
 
     configFile = mkOption {
       type = types.path;
-      example =
-        literalExpression
-          ''"''${pkgs.corerad}/etc/corerad/corerad.toml"''
-      ;
+      example = literalExpression ''"''${pkgs.corerad}/etc/corerad/corerad.toml"'';
       description = lib.mdDoc "Path to CoreRAD TOML configuration file.";
     };
 

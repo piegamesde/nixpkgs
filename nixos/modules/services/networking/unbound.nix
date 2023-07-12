@@ -37,9 +37,7 @@ let
   ;
 
   confNoServer = concatStringsSep "\n" (
-    (mapAttrsToList (toConf "") (
-      builtins.removeAttrs cfg.settings [ "server" ]
-    ))
+    (mapAttrsToList (toConf "") (builtins.removeAttrs cfg.settings [ "server" ]))
     ++ [ "" ]
   );
   confServer = concatStringsSep "\n" (
@@ -90,10 +88,7 @@ in
       stateDir = mkOption {
         type = types.path;
         default = "/var/lib/unbound";
-        description =
-          lib.mdDoc
-            "Directory holding all state for unbound to run."
-        ;
+        description = lib.mdDoc "Directory holding all state for unbound to run.";
       };
 
       resolveLocalQueries = mkOption {
@@ -232,10 +227,7 @@ in
           [ "127.0.0.0/8 allow" ]
           ++ (optional config.networking.enableIPv6 "::1/128 allow")
         );
-        auto-trust-anchor-file =
-          mkIf cfg.enableRootTrustAnchor
-            rootTrustAnchorFile
-        ;
+        auto-trust-anchor-file = mkIf cfg.enableRootTrustAnchor rootTrustAnchorFile;
         tls-cert-bundle = mkDefault "/etc/ssl/certs/ca-certificates.crt";
         # prevent race conditions on system startup when interfaces are not yet
         # configured

@@ -120,10 +120,7 @@ let
   ;
 
   finalPkgs =
-    if opt.pkgs.isDefined then
-      cfg.pkgs.appendOverlays cfg.overlays
-    else
-      defaultPkgs
+    if opt.pkgs.isDefined then cfg.pkgs.appendOverlays cfg.overlays else defaultPkgs
   ;
 in
 
@@ -236,8 +233,7 @@ in
       apply = lib.systems.elaborate;
       defaultText =
         literalExpression
-          ''
-            (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
+          ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
       ;
       description = lib.mdDoc ''
         Specifies the platform where the NixOS configuration will run.
@@ -287,8 +283,7 @@ in
       apply = lib.systems.elaborate;
       defaultText =
         literalExpression
-          ''
-            (import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
+          ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
       ;
       description = lib.mdDoc ''
         Systems with a recently generated `hardware-configuration.nix`
@@ -395,17 +390,13 @@ in
         let
           nixosExpectedSystem =
             if config.nixpkgs.crossSystem != null then
-              config.nixpkgs.crossSystem.system
-                or (lib.systems.parse.doubleFromSystem (
-                  lib.systems.parse.mkSystemFromString
-                    config.nixpkgs.crossSystem.config
-                ))
+              config.nixpkgs.crossSystem.system or (lib.systems.parse.doubleFromSystem (
+                lib.systems.parse.mkSystemFromString config.nixpkgs.crossSystem.config
+              ))
             else
-              config.nixpkgs.localSystem.system
-                or (lib.systems.parse.doubleFromSystem (
-                  lib.systems.parse.mkSystemFromString
-                    config.nixpkgs.localSystem.config
-                ))
+              config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem (
+                lib.systems.parse.mkSystemFromString config.nixpkgs.localSystem.config
+              ))
           ;
           nixosOption =
             if config.nixpkgs.crossSystem != null then
@@ -417,14 +408,12 @@ in
         in
         {
           assertion =
-            constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem
-          ;
+            constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem;
           message = "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
         }
       )
       {
-        assertion =
-          constructedByMe -> hasPlatform -> legacyOptionsDefined == [ ];
+        assertion = constructedByMe -> hasPlatform -> legacyOptionsDefined == [ ];
         message = ''
           Your system configures nixpkgs with the platform parameter${
             optionalString hasBuildPlatform "s"

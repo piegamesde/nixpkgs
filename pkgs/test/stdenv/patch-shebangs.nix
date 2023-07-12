@@ -39,8 +39,7 @@ let
         dontPatchShebangs=
       '';
       passthru = {
-        assertion = ''
-          grep "^#!$NIX_STORE/path/to/bash" $out/bin/test > /dev/null'';
+        assertion = ''grep "^#!$NIX_STORE/path/to/bash" $out/bin/test > /dev/null'';
       };
     };
 
@@ -92,9 +91,7 @@ stdenv.mkDerivation {
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList
         (_: test: ''
-          validate "${test.name}" "${test}" ${
-            lib.escapeShellArg test.assertion
-          } || fail=1
+          validate "${test.name}" "${test}" ${lib.escapeShellArg test.assertion} || fail=1
         '')
         tests
     )}

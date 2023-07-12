@@ -21,8 +21,7 @@ let
 
       super_only = ${builtins.toJSON cfg.superOnly}
 
-      ${optionalString (cfg.loginGroup != null)
-        "login_group = ${cfg.loginGroup}"}
+      ${optionalString (cfg.loginGroup != null) "login_group = ${cfg.loginGroup}"}
 
       login_timeout = ${toString cfg.loginTimeout}
 

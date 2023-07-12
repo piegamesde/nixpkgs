@@ -25,8 +25,7 @@ let
         owner = ${cfg.owner}
         pagedir = ${smokepingHome}/cache
         piddir  = ${smokepingPidDir}
-        ${lib.optionalString (cfg.sendmail != null)
-          "sendmail = ${cfg.sendmail}"}
+        ${lib.optionalString (cfg.sendmail != null) "sendmail = ${cfg.sendmail}"}
         smokemail = ${cfg.smokeMailTemplate}
         *** Presentation ***
         template = ${cfg.presentationTemplate}
@@ -129,10 +128,7 @@ in
       extraConfig = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Any additional customization not already included."
-        ;
+        description = lib.mdDoc "Any additional customization not already included.";
       };
       hostName = mkOption {
         type = types.str;
@@ -272,10 +268,7 @@ in
         type = types.nullOr types.path;
         default = null;
         example = "/run/wrappers/bin/sendmail";
-        description =
-          lib.mdDoc
-            "Use this sendmail compatible script to deliver alerts"
-        ;
+        description = lib.mdDoc "Use this sendmail compatible script to deliver alerts";
       };
       smokeMailTemplate = mkOption {
         type = types.str;

@@ -58,16 +58,12 @@ stdenv.mkDerivation {
       "-DCOMPILER_RT_BUILD_XRAY=OFF"
       "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
     ]
-    ++ lib.optionals (useLLVM || bareMetal) [
-      "-DCOMPILER_RT_BUILD_PROFILE=OFF"
-    ]
+    ++ lib.optionals (useLLVM || bareMetal) [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
     ++ lib.optionals (!haveLibc || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
       "-DCOMPILER_RT_BAREMETAL_BUILD=ON"
-      "-DCMAKE_SIZEOF_VOID_P=${
-        toString (stdenv.hostPlatform.parsed.cpu.bits / 8)
-      }"
+      "-DCMAKE_SIZEOF_VOID_P=${toString (stdenv.hostPlatform.parsed.cpu.bits / 8)}"
     ]
     ++ lib.optionals (!haveLibc) [ "-DCMAKE_C_FLAGS=-nodefaultlibs" ]
     ++ lib.optionals (useLLVM || isNewDarwinBootstrap) [
@@ -136,8 +132,7 @@ stdenv.mkDerivation {
 
   # Hack around weird upsream RPATH bug
   postInstall =
-    lib.optionalString
-      (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
+    lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
       ''
         ln -s "$out/lib"/*/* "$out/lib"
       ''
@@ -183,9 +178,7 @@ stdenv.mkDerivation {
     # compiler-rt requires a Clang stdenv on 32-bit RISC-V:
     # https://reviews.llvm.org/D43106#1019077
     broken =
-      stdenv.hostPlatform.isRiscV
-      && stdenv.hostPlatform.is32bit
-      && !stdenv.cc.isClang
+      stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit && !stdenv.cc.isClang
     ;
   };
 }

@@ -41,19 +41,13 @@ let
         user = mkOption {
           default = "authelia-${name}";
           type = types.str;
-          description =
-            mdDoc
-              "The name of the user for this authelia instance."
-          ;
+          description = mdDoc "The name of the user for this authelia instance.";
         };
 
         group = mkOption {
           default = "authelia-${name}";
           type = types.str;
-          description =
-            mdDoc
-              "The name of the group for this authelia instance."
-          ;
+          description = mdDoc "The name of the group for this authelia instance.";
         };
 
         secrets = mkOption {
@@ -207,10 +201,7 @@ let
                   ];
                   default = "debug";
                   example = "info";
-                  description =
-                    mdDoc
-                      "Level of verbosity for logs: info, debug, trace."
-                  ;
+                  description = mdDoc "Level of verbosity for logs: info, debug, trace.";
                 };
 
                 format = mkOption {
@@ -472,8 +463,7 @@ in
           instances
       );
       users = lib.mkMerge (
-        map
-          (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
+        map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
           instances
       );
     }

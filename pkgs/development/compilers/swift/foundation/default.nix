@@ -61,9 +61,7 @@ stdenv.mkDerivation {
     mkdir -p $dev/lib/cmake/Foundation
     export dylibExt="${stdenv.hostPlatform.extensions.sharedLibrary}"
     export swiftOs="${swift.swiftOs}"
-    substituteAll ${
-      ./glue.cmake
-    } $dev/lib/cmake/Foundation/FoundationConfig.cmake
+    substituteAll ${./glue.cmake} $dev/lib/cmake/Foundation/FoundationConfig.cmake
   '';
 
   meta = {

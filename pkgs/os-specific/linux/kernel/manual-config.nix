@@ -60,8 +60,7 @@ lib.makeOverridable (
     configfile,
     # Manually specified nixexpr representing the config
     # If unspecified, this will be autodetected from the .config
-    config ?
-      lib.optionalAttrs allowImportFromDerivation (readConfig configfile),
+    config ? lib.optionalAttrs allowImportFromDerivation (readConfig configfile),
     # Custom seed used for CONFIG_GCC_PLUGIN_RANDSTRUCT if enabled. This is
     # automatically extended with extra per-version and per-config values.
     randstructSeed ? "",
@@ -117,9 +116,7 @@ lib.makeOverridable (
         isSet = attr: hasAttr (attrName attr) config;
 
         getValue =
-          attr:
-          if config.isSet attr then getAttr (attrName attr) config else null
-        ;
+          attr: if config.isSet attr then getAttr (attrName attr) config else null;
 
         isYes = attr: (config.getValue attr) == "y";
 
@@ -179,9 +176,7 @@ lib.makeOverridable (
       patches =
         map (p: p.patch) kernelPatches
         # Required for deterministic builds along with some postPatch magic.
-        ++
-          optional (lib.versionOlder version "5.19")
-            ./randstruct-provide-seed.patch
+        ++ optional (lib.versionOlder version "5.19") ./randstruct-provide-seed.patch
         ++
           optional (lib.versionAtLeast version "5.19")
             ./randstruct-provide-seed-5.19.patch
@@ -400,9 +395,7 @@ lib.makeOverridable (
         (kernelConf.installTarget or (
           if kernelConf.target == "uImage" then
             "uinstall"
-          else if
-            kernelConf.target == "zImage" || kernelConf.target == "Image.gz"
-          then
+          else if kernelConf.target == "zImage" || kernelConf.target == "Image.gz" then
             "zinstall"
           else
             "install"
@@ -526,17 +519,15 @@ lib.makeOverridable (
         ;
         license = lib.licenses.gpl2Only;
         homepage = "https://www.kernel.org/";
-        maintainers =
-          lib.teams.linux-kernel.members ++ [ maintainers.thoughtpolice ];
+        maintainers = lib.teams.linux-kernel.members ++ [ maintainers.thoughtpolice ];
         platforms = platforms.linux;
         timeout = 14400; # 4 hours
       } // extraMeta;
-    } // optionalAttrs (pos != null) { inherit pos; } // optionalAttrs isModular
-      {
-        outputs = [
-          "out"
-          "dev"
-        ];
-      }
+    } // optionalAttrs (pos != null) { inherit pos; } // optionalAttrs isModular {
+      outputs = [
+        "out"
+        "dev"
+      ];
+    }
   )
 )

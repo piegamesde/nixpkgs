@@ -61,21 +61,15 @@ let
             optional = false;
           };
         in
-        map (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; }))
-          plugins
+        map (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; })) plugins
       ;
 
       pluginRC =
-        lib.foldl
-          (acc: p: if p.config != null then acc ++ [ p.config ] else acc)
-          [ ]
+        lib.foldl (acc: p: if p.config != null then acc ++ [ p.config ] else acc) [ ]
           pluginsNormalized
       ;
 
-      pluginsPartitioned =
-        lib.partition (x: x.optional == true)
-          pluginsNormalized
-      ;
+      pluginsPartitioned = lib.partition (x: x.optional == true) pluginsNormalized;
       requiredPlugins = vimUtils.requiredPluginsForPackage myVimPackage;
       getDeps = attrname: map (plugin: plugin.${attrname} or (_: [ ]));
       myVimPackage = {
@@ -102,8 +96,7 @@ let
       makeWrapperArgs =
         let
           binPath = lib.makeBinPath (
-            lib.optionals withRuby [ rubyEnv ]
-            ++ lib.optionals withNodeJs [ nodejs ]
+            lib.optionals withRuby [ rubyEnv ] ++ lib.optionals withNodeJs [ nodejs ]
           );
         in
         [ "--inherit-argv0" ]
@@ -212,8 +205,7 @@ let
     in
     wrapNeovimUnstable neovim (
       res // {
-        wrapperArgs =
-          lib.escapeShellArgs res.wrapperArgs + " " + extraMakeWrapperArgs;
+        wrapperArgs = lib.escapeShellArgs res.wrapperArgs + " " + extraMakeWrapperArgs;
         wrapRc = (configure != { });
       }
     )
@@ -253,10 +245,7 @@ let
           "vim.g.loaded_${prog}_provider=0"
       ;
 
-      hostProviderLua =
-        lib.mapAttrsToList genProviderCommand
-          hostprog_check_table
-      ;
+      hostProviderLua = lib.mapAttrsToList genProviderCommand hostprog_check_table;
     in
     lib.concatStringsSep ";" hostProviderLua
   ;

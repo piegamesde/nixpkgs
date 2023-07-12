@@ -21,9 +21,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          networking.firewall.allowedTCPPorts = [
-            config.services.gitDaemon.port
-          ];
+          networking.firewall.allowedTCPPorts = [ config.services.gitDaemon.port ];
 
           environment.systemPackages = [ pkgs.git ];
 

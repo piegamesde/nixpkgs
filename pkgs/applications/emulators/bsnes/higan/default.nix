@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-HZItJ97x20OjFKv2OVbMja7g+c1ZXcgcaC/XDe3vMZM=";
   };
 
-  nativeBuildInputs =
-    [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ libicns ];
+  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ libicns ];
 
   buildInputs =
     [
@@ -150,9 +149,7 @@ stdenv.mkDerivation rec {
         cat <<EOF > ${placeholder "out"}/bin/higan-init.sh
         #!${runtimeShell}
 
-        cp --recursive --update ${
-          placeholder "out"
-        }/share/higan/System/ "${dest}"/
+        cp --recursive --update ${placeholder "out"}/share/higan/System/ "${dest}"/
 
         EOF
 

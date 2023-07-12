@@ -66,9 +66,9 @@ let
 
       nativeBuildInputs =
         [ makeWrapper ]
-        ++
-          optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != ""))
-            [ autoPatchelfHook ]
+        ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [
+          autoPatchelfHook
+        ]
       ;
       buildInputs = [ openssl ] ++ nativeLibs;
 
@@ -180,9 +180,7 @@ in
         ln -s ${
           getLib cyrus_sasl
         }/lib/libsasl2.so $out/lib/${untarDir}/lib/native/libsasl2.so.2
-        ln -s ${
-          getLib openssl
-        }/lib/libcrypto.so $out/lib/${untarDir}/lib/native/
+        ln -s ${getLib openssl}/lib/libcrypto.so $out/lib/${untarDir}/lib/native/
         ln -s ${getLib zlib}/lib/libz.so.1 $out/lib/${untarDir}/lib/native/
         ln -s ${getLib zstd}/lib/libzstd.so.1 $out/lib/${untarDir}/lib/native/
         ln -s ${getLib bzip2}/lib/libbz2.so.1 $out/lib/${untarDir}/lib/native/

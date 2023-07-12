@@ -38,10 +38,7 @@ let
     lib.lists.foldl
       (
         features: featureName:
-        if feat.${featureName} or false then
-          [ featureName ] ++ features
-        else
-          features
+        if feat.${featureName} or false then [ featureName ] ++ features else features
       )
       [ ]
       (builtins.attrNames feat)
@@ -110,10 +107,7 @@ rec {
   alloc_no_stdlib_1_3_0_features =
     f:
     updateFeatures f
-      ({
-        alloc_no_stdlib_1_3_0.default =
-          (f.alloc_no_stdlib_1_3_0.default or true);
-      })
+      ({ alloc_no_stdlib_1_3_0.default = (f.alloc_no_stdlib_1_3_0.default or true); })
       [ ]
   ;
   brotli_2_5_0 =

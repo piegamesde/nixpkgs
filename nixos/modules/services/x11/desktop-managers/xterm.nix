@@ -18,8 +18,7 @@ in
 
     services.xserver.desktopManager.xterm.enable = mkOption {
       type = types.bool;
-      default =
-        versionOlder config.system.stateVersion "19.09" && xSessionEnabled;
+      default = versionOlder config.system.stateVersion "19.09" && xSessionEnabled;
       defaultText =
         literalExpression
           ''

@@ -33,10 +33,7 @@ let
         # by symlinking binaries into `node_modules`
         postInstall =
           let
-            binFile =
-              module:
-              lib.strings.removeSuffix ("-" + module.version) module.name
-            ;
+            binFile = module: lib.strings.removeSuffix ("-" + module.version) module.name;
           in
           (old.postInstall or "")
           + ''

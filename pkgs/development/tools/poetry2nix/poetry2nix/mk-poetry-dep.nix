@@ -73,8 +73,7 @@ pythonPackages.callPackage
               )
               fname != null
           ;
-          hasSupportedExtension =
-            fname: builtins.match supportedRegex fname != null;
+          hasSupportedExtension = fname: builtins.match supportedRegex fname != null;
           isCompatibleEgg =
             fname:
             !lib.strings.hasSuffix ".egg" fname
@@ -84,9 +83,7 @@ pythonPackages.callPackage
         builtins.filter
           (
             f:
-            matchesVersion f.file
-            && hasSupportedExtension f.file
-            && isCompatibleEgg f.file
+            matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file
           )
           files
       ;
@@ -96,10 +93,7 @@ pythonPackages.callPackage
       isGit = isSource && source.type == "git";
       isUrl = isSource && source.type == "url";
       isWheelUrl =
-        isSource
-        && source.type == "url"
-        && lib.strings.hasSuffix ".whl" source.url
-      ;
+        isSource && source.type == "url" && lib.strings.hasSuffix ".whl" source.url;
       isDirectory = isSource && source.type == "directory";
       isFile = isSource && source.type == "file";
       isLegacy = isSource && source.type == "legacy";
@@ -129,12 +123,7 @@ pythonPackages.callPackage
           # the `wheel` package cannot be built from a wheel, since that requires the wheel package
           # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
           entries =
-            (
-              if preferWheel' then
-                binaryDist ++ sourceDist
-              else
-                sourceDist ++ binaryDist
-            )
+            (if preferWheel' then binaryDist ++ sourceDist else sourceDist ++ binaryDist)
             ++ eggs
           ;
           lockFileEntry =
@@ -192,12 +181,9 @@ pythonPackages.callPackage
 
       nativeBuildInputs =
         [ hooks.poetry2nixFixupHook ]
+        ++ lib.optional (!pythonPackages.isPy27) hooks.poetry2nixPythonRequiresPatchHook
         ++
-          lib.optional (!pythonPackages.isPy27)
-            hooks.poetry2nixPythonRequiresPatchHook
-        ++
-          lib.optional
-            (isLocked && (getManyLinuxDeps fileInfo.name).str != null)
+          lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null)
             autoPatchelfHook
         ++ lib.optionals (format == "wheel") [
           hooks.wheelUnpackHook
@@ -243,8 +229,7 @@ pythonPackages.callPackage
       inherit pos;
 
       meta = {
-        broken =
-          !isCompatible (poetryLib.getPythonVersion python) python-versions;
+        broken = !isCompatible (poetryLib.getPythonVersion python) python-versions;
         license = [ ];
         inherit (python.meta) platforms;
       };
@@ -266,16 +251,10 @@ pythonPackages.callPackage
               rev = source.resolved_reference or source.reference;
               ref =
                 sourceSpec.branch or (
-                  if sourceSpec ? tag then
-                    "refs/tags/${sourceSpec.tag}"
-                  else
-                    "HEAD"
+                  if sourceSpec ? tag then "refs/tags/${sourceSpec.tag}" else "HEAD"
                 );
             } // (lib.optionalAttrs
-              (
-                (sourceSpec ? rev)
-                && (lib.versionAtLeast builtins.nixVersion "2.4")
-              )
+              ((sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4"))
               { allRefs = true; }
             )
           ))

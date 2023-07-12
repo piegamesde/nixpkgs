@@ -122,23 +122,20 @@ import ../make-test-python.nix (
 
           environment.systemPackages =
             let
-              sendTestMailStarttls =
-                pkgs.writeScriptBin "send-testmail-starttls"
-                  ''
-                    #!${pkgs.python3.interpreter}
-                    import smtplib
-                    import ssl
+              sendTestMailStarttls = pkgs.writeScriptBin "send-testmail-starttls" ''
+                #!${pkgs.python3.interpreter}
+                import smtplib
+                import ssl
 
-                    ctx = ssl.create_default_context()
+                ctx = ssl.create_default_context()
 
-                    with smtplib.SMTP('${mailerDomain}') as smtp:
-                      smtp.ehlo()
-                      smtp.starttls(context=ctx)
-                      smtp.ehlo()
-                      smtp.sendmail('matrix@${mailerDomain}', '${testEmail}', 'Subject: Test STARTTLS\n\nTest data.')
-                      smtp.quit()
-                  ''
-              ;
+                with smtplib.SMTP('${mailerDomain}') as smtp:
+                  smtp.ehlo()
+                  smtp.starttls(context=ctx)
+                  smtp.ehlo()
+                  smtp.sendmail('matrix@${mailerDomain}', '${testEmail}', 'Subject: Test STARTTLS\n\nTest data.')
+                  smtp.quit()
+              '';
 
               obtainTokenAndRegisterEmail =
                 let

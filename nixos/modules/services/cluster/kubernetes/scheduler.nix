@@ -26,10 +26,7 @@ in
     enable = mkEnableOption (lib.mdDoc "Kubernetes scheduler");
 
     extraOpts = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes scheduler extra command line options."
-      ;
+      description = lib.mdDoc "Kubernetes scheduler extra command line options.";
       default = "";
       type = separatedString " ";
     };
@@ -82,18 +79,14 @@ in
                     ${
                       optionalString (cfg.featureGates != [ ])
                         "--feature-gates=${
-                          concatMapStringsSep "," (feature: "${feature}=true")
-                            cfg.featureGates
+                          concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
                         }"
                     } \
-                    --kubeconfig=${
-                      top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig
-                    } \
+                    --kubeconfig=${top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig} \
                     --leader-elect=${boolToString cfg.leaderElect} \
                     --secure-port=${toString cfg.port} \
                     ${
-                      optionalString (cfg.verbosity != null)
-                        "--v=${toString cfg.verbosity}"
+                      optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
                     } \
                     ${cfg.extraOpts}
         '';

@@ -85,9 +85,7 @@ stdenv.mkDerivation rec {
       "-DROCKSDB_INSTALL_ON_WINDOWS=YES" # harmless elsewhere
       (lib.optional sse42Support "-DFORCE_SSE42=1")
       (lib.optional enableLite "-DROCKSDB_LITE=1")
-      "-DFAIL_ON_WARNINGS=${
-        if stdenv.hostPlatform.isMinGW then "NO" else "YES"
-      }"
+      "-DFAIL_ON_WARNINGS=${if stdenv.hostPlatform.isMinGW then "NO" else "YES"}"
     ]
     ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0"
   ;

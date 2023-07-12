@@ -1576,23 +1576,20 @@ let
         (assertInt "RateToQuantum")
       ];
 
-      sectionHierarchyTokenBucketClass =
-        checkUnitConfig "HierarchyTokenBucketClass"
-          [
-            (assertOnlyFields [
-              "Parent"
-              "ClassId"
-              "Priority"
-              "QuantumBytes"
-              "MTUBytes"
-              "OverheadBytes"
-              "Rate"
-              "CeilRate"
-              "BufferBytes"
-              "CeilBufferBytes"
-            ])
-          ]
-      ;
+      sectionHierarchyTokenBucketClass = checkUnitConfig "HierarchyTokenBucketClass" [
+        (assertOnlyFields [
+          "Parent"
+          "ClassId"
+          "Priority"
+          "QuantumBytes"
+          "MTUBytes"
+          "OverheadBytes"
+          "Rate"
+          "CeilRate"
+          "BufferBytes"
+          "CeilBufferBytes"
+        ])
+      ];
 
       sectionHeavyHitterFilter = checkUnitConfig "HeavyHitterFilter" [
         (assertOnlyFields [
@@ -1676,10 +1673,7 @@ let
         SpeedMeter = true;
         ManageForeignRoutingPolicyRules = false;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.global.sectionNetwork
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.global.sectionNetwork;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Network]` section of the networkd config.
@@ -1692,10 +1686,7 @@ let
       example = {
         DUIDType = "vendor";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.global.sectionDHCPv4
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.global.sectionDHCPv4;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPv4]` section of the networkd config.
@@ -1708,10 +1699,7 @@ let
       example = {
         DUIDType = "vendor";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.global.sectionDHCPv6
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.global.sectionDHCPv6;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPv6]` section of the networkd config.
@@ -1785,10 +1773,7 @@ let
         Name = "mybridge";
         Kind = "bridge";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.netdev.sectionNetdev
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionNetdev;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Netdev]` section of the unit.  See
@@ -1814,10 +1799,7 @@ let
       example = {
         Mode = "private";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.netdev.sectionMACVLAN
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionMACVLAN;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[MACVLAN]` section of the unit.  See
@@ -1827,10 +1809,7 @@ let
 
     vxlanConfig = mkOption {
       default = { };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.netdev.sectionVXLAN
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionVXLAN;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[VXLAN]` section of the unit.  See
@@ -1843,10 +1822,7 @@ let
       example = {
         Remote = "192.168.1.1";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.netdev.sectionTunnel
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionTunnel;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Tunnel]` section of the unit.  See
@@ -1859,10 +1835,7 @@ let
       example = {
         Port = 9001;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.netdev.sectionFooOverUDP
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionFooOverUDP;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FooOverUDP]` section of the unit.  See
@@ -1950,10 +1923,7 @@ let
         ListenPort = 51820;
         FirewallMark = 42;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.netdev.sectionWireGuard
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionWireGuard;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[WireGuard]` section of the unit. See
@@ -2051,10 +2021,7 @@ let
         example = {
           Address = "192.168.0.100/24";
         };
-        type =
-          types.addCheck (types.attrsOf unitOption)
-            check.network.sectionAddress
-        ;
+        type = types.addCheck (types.attrsOf unitOption) check.network.sectionAddress;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[Address]` section of the unit.  See
@@ -2093,10 +2060,7 @@ let
         example = {
           Gateway = "192.168.0.1";
         };
-        type =
-          types.addCheck (types.attrsOf unitOption)
-            check.network.sectionRoute
-        ;
+        type = types.addCheck (types.attrsOf unitOption) check.network.sectionRoute;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[Route]` section of the unit.  See
@@ -2179,10 +2143,7 @@ let
           Destination = "192.168.1.42";
           VNI = 20;
         };
-        type =
-          types.addCheck (types.attrsOf unitOption)
-            check.network.sectionBridgeFDB
-        ;
+        type = types.addCheck (types.attrsOf unitOption) check.network.sectionBridgeFDB;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[BridgeFDB]` section of the unit.  See
@@ -2200,10 +2161,7 @@ let
           MulticastGroupAddress = "ff02::1:2:3:4";
           VLANId = 10;
         };
-        type =
-          types.addCheck (types.attrsOf unitOption)
-            check.network.sectionBridgeMDB
-        ;
+        type = types.addCheck (types.attrsOf unitOption) check.network.sectionBridgeMDB;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[BridgeMDB]` section of the unit.  See
@@ -2240,10 +2198,7 @@ let
       example = {
         Unmanaged = true;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionLink
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionLink;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Link]` section of the unit.  See
@@ -2256,10 +2211,7 @@ let
       example = {
         Description = "My Network";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionNetwork
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionNetwork;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Network]` section of the unit.  See
@@ -2284,10 +2236,7 @@ let
         UseDNS = true;
         UseRoutes = true;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionDHCPv4
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionDHCPv4;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPv4]` section of the unit.  See
@@ -2300,10 +2249,7 @@ let
       example = {
         UseDNS = true;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionDHCPv6
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionDHCPv6;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DHCPv6]` section of the unit.  See
@@ -2451,10 +2397,7 @@ let
         MulticastFlood = false;
         Cost = 20;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionBridge
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionBridge;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[Bridge]` section of the unit.  See
@@ -2498,10 +2441,7 @@ let
       example = {
         MUDURL = "https://things.example.org/product_abc123/v5";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionLLDP
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionLLDP;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[LLDP]` section of the unit.  See
@@ -2523,10 +2463,7 @@ let
     ipoIBConfig = mkOption {
       default = { };
       example = { };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionIPoIB
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionIPoIB;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[IPoIB]` section of the unit.  See
@@ -2539,10 +2476,7 @@ let
       example = {
         Parent = "ingress";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionQDisc
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionQDisc;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[QDisc]` section of the unit.  See
@@ -2655,10 +2589,7 @@ let
         Parent = "ingress";
         LimitBytes = "20K";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionBFIFO
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionBFIFO;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[BFIFO]` section of the unit.  See
@@ -2672,10 +2603,7 @@ let
         Parent = "ingress";
         PacketLimit = "300";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionPFIFO
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionPFIFO;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[PFIFO]` section of the unit.  See
@@ -2705,10 +2633,7 @@ let
       example = {
         Parent = "ingress";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionPFIFOFast
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionPFIFOFast;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[PFIFOFast]` section of the unit.  See
@@ -2723,10 +2648,7 @@ let
         OverheadBytes = 8;
         CompensationMode = "ptm";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionCAKE
-      ;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionCAKE;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[CAKE]` section of the unit.  See
@@ -3152,11 +3074,8 @@ let
     }:
     {
       config = {
-        matchConfig = optionalAttrs (config.name != null) {
-          Name = config.name;
-        };
-        networkConfig =
-          optionalAttrs (config.DHCP != null) { DHCP = config.DHCP; }
+        matchConfig = optionalAttrs (config.name != null) { Name = config.name; };
+        networkConfig = optionalAttrs (config.DHCP != null) { DHCP = config.DHCP; }
           // optionalAttrs (config.domains != null) {
             Domains = concatStringsSep " " config.domains;
           };
@@ -3656,10 +3575,7 @@ let
                 ...
               }:
               {
-                options =
-                  mapAttrs (_: x: x // { internal = true; })
-                    concreteUnitOptions
-                ;
+                options = mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
                 config = {
                   unit = mkDefault (makeUnit name config);
                 };
@@ -3749,8 +3665,7 @@ let
       (mkIf config.systemd.network.enable {
 
         systemd.network.units =
-          mapAttrs' (n: v: nameValuePair "${n}.netdev" (netdevToUnit n v))
-            cfg.netdevs
+          mapAttrs' (n: v: nameValuePair "${n}.netdev" (netdevToUnit n v)) cfg.netdevs
           // mapAttrs' (n: v: nameValuePair "${n}.network" (networkToUnit n v))
             cfg.networks;
 
@@ -3819,11 +3734,7 @@ let
         };
 
         networking.iproute2 =
-          mkIf
-            (
-              cfg.config.addRouteTablesToIPRoute2
-              && cfg.config.routeTables != { }
-            )
+          mkIf (cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { })
             {
               enable = mkDefault true;
               rttablesExtraConfig = ''
@@ -3891,9 +3802,7 @@ let
         systemd.contents."/etc/systemd/networkd.conf" = renderConfig cfg.config;
 
         systemd.services.systemd-networkd.wantedBy = [ "initrd.target" ];
-        systemd.services.systemd-network-generator.wantedBy = [
-          "sysinit.target"
-        ];
+        systemd.services.systemd-network-generator.wantedBy = [ "sysinit.target" ];
 
         systemd.storePaths = [
           "${config.boot.initrd.systemd.package}/lib/systemd/systemd-networkd"

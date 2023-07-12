@@ -19,8 +19,7 @@
 }:
 
 let
-  useGccGoBootstrap =
-    stdenv.buildPlatform.isMusl || stdenv.buildPlatform.isRiscV;
+  useGccGoBootstrap = stdenv.buildPlatform.isMusl || stdenv.buildPlatform.isRiscV;
   goBootstrap =
     if useGccGoBootstrap then
       buildPackages.gccgo12
@@ -70,9 +69,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ ]
     ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [
-      stdenv.cc.libc.static
-    ]
+    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ]
   ;
 
   depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
@@ -185,14 +182,12 @@ stdenv.mkDerivation rec {
           ''}
         ''
       else
-        lib.optionalString
-          (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
+        lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
           ''
             rm -rf bin/*_*
-            ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS))
-              ''
-                rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
-              ''}
+            ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+              rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
+            ''}
           ''
     )
   ;

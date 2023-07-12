@@ -9,16 +9,11 @@ let
   cfg = config.services.iperf3;
 
   api = {
-    enable = mkEnableOption (
-      lib.mdDoc "iperf3 network throughput testing server"
-    );
+    enable = mkEnableOption (lib.mdDoc "iperf3 network throughput testing server");
     port = mkOption {
       type = types.ints.u16;
       default = 5201;
-      description =
-        lib.mdDoc
-          "Server port to listen on for iperf3 client requests."
-      ;
+      description = lib.mdDoc "Server port to listen on for iperf3 client requests.";
     };
     affinity = mkOption {
       type = types.nullOr types.ints.unsigned;
@@ -78,9 +73,7 @@ let
 
   imp = {
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     systemd.services.iperf3 = {
       description = "iperf3 daemon";
@@ -100,8 +93,7 @@ let
             --server \
             --port ${toString cfg.port} \
             ${
-              optionalString (cfg.affinity != null)
-                "--affinity ${toString cfg.affinity}"
+              optionalString (cfg.affinity != null) "--affinity ${toString cfg.affinity}"
             } \
             ${optionalString (cfg.bind != null) "--bind ${cfg.bind}"} \
             ${

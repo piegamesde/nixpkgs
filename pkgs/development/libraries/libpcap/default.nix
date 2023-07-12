@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ libnl ]
-    ++ lib.optionals withRemote [ libxcrypt ]
+    lib.optionals stdenv.isLinux [ libnl ] ++ lib.optionals withRemote [ libxcrypt ]
   ;
 
   nativeBuildInputs =

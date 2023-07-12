@@ -24,9 +24,7 @@ stdenv.mkDerivation rec {
     # widely available, it can lead to nasty bugs when they are not available:
     # https://groups.google.com/forum/#!topic/sage-packaging/Pe4SRDNYlhA
     "--enable-generic" # don't use -march=native
-    "--${
-      if stdenv.hostPlatform.sse4_2Support then "enable" else "disable"
-    }-popcnt"
+    "--${if stdenv.hostPlatform.sse4_2Support then "enable" else "disable"}-popcnt"
     "--${if stdenv.hostPlatform.sse4_aSupport then "enable" else "disable"}-clz"
   ];
 

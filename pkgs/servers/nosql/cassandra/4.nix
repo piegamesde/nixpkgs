@@ -4,7 +4,5 @@
   ...
 }@args:
 callPackage ./generic.nix (
-  args // builtins.fromJSON (builtins.readFile ./4.json) // {
-    generation = "4";
-  }
+  args // builtins.fromJSON (builtins.readFile ./4.json) // { generation = "4"; }
 )

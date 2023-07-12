@@ -21,10 +21,7 @@ in
     # target configuration
     packageNames = mkOption {
       type = types.listOf types.str;
-      description =
-        lib.mdDoc
-          "Nix top-level packages to be compiled using CCache"
-      ;
+      description = lib.mdDoc "Nix top-level packages to be compiled using CCache";
       default = [ ];
       example = [
         "wxGTK32"

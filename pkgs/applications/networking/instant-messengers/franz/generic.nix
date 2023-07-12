@@ -127,9 +127,7 @@ stdenv.mkDerivation (
     postFixup = ''
       # make xdg-open overrideable at runtime
       wrapProgram $out/opt/${name}/${pname} \
-        --prefix LD_LIBRARY_PATH : "${
-          lib.makeLibraryPath runtimeDependencies
-        }" \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeDependencies}" \
         --suffix PATH : ${xdg-utils}/bin \
         "''${gappsWrapperArgs[@]}"
     '';

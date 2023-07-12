@@ -46,9 +46,7 @@ let
 
   # The main PostgreSQL configuration file.
   configFile = pkgs.writeTextDir "postgresql.conf" (
-    concatStringsSep "\n" (
-      mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings
-    )
+    concatStringsSep "\n" (mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings)
   );
 
   configFileCheck = pkgs.runCommand "postgresql-configfile-check" { } ''
@@ -110,8 +108,7 @@ in
         type = types.path;
         defaultText =
           literalExpression
-            ''
-              "/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"''
+            ''"/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"''
         ;
         example = "/var/lib/postgresql/11";
         description = lib.mdDoc ''
@@ -506,8 +503,7 @@ in
       let
         mkThrow =
           ver:
-          throw
-            "postgresql_${ver} was removed, please upgrade your postgresql version."
+          throw "postgresql_${ver} was removed, please upgrade your postgresql version."
         ;
         base =
           if versionAtLeast config.system.stateVersion "22.05" then
@@ -557,10 +553,7 @@ in
 
     system.extraDependencies =
       lib.optional
-        (
-          cfg.checkConfig
-          && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
-        )
+        (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
         configFileCheck
     ;
 
@@ -628,16 +621,12 @@ in
                   mapAttrsToList
                     (
                       database: permission:
-                      ''
-                        $PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' ''
+                      ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' ''
                     )
                     user.ensurePermissions
                 );
 
-                filteredClauses =
-                  filterAttrs (name: value: value != null)
-                    user.ensureClauses
-                ;
+                filteredClauses = filterAttrs (name: value: value != null) user.ensureClauses;
 
                 clauseSqlStatements = attrValues (
                   mapAttrs (n: v: if v then n else "no${n}") filteredClauses
@@ -664,12 +653,7 @@ in
           User = "postgres";
           Group = "postgres";
           RuntimeDirectory = "postgresql";
-          Type =
-            if versionAtLeast cfg.package.version "9.6" then
-              "notify"
-            else
-              "simple"
-          ;
+          Type = if versionAtLeast cfg.package.version "9.6" then "notify" else "simple";
 
           # Shut down Postgres using SIGINT ("Fast Shutdown mode").  See
           # http://www.postgresql.org/docs/current/static/server-shutdown.html

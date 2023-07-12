@@ -95,10 +95,7 @@ in
       permissioned = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Allow only a defined list of nodes to connect."
-        ;
+        description = lib.mdDoc "Allow only a defined list of nodes to connect.";
       };
 
       rpc = {
@@ -161,10 +158,7 @@ in
         origins = mkOption {
           type = types.str;
           default = "*";
-          description =
-            lib.mdDoc
-              "Origins from which to accept websockets requests"
-          ;
+          description = lib.mdDoc "Origins from which to accept websockets requests";
         };
       };
 

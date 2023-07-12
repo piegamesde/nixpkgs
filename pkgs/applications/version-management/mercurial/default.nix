@@ -118,9 +118,7 @@ let
     ;
 
     passthru.tests = {
-      mercurial-tests = makeTests {
-        flags = "--with-hg=$MERCURIAL_BASE/bin/hg";
-      };
+      mercurial-tests = makeTests { flags = "--with-hg=$MERCURIAL_BASE/bin/hg"; };
     };
 
     meta = with lib; {
@@ -185,9 +183,7 @@ let
 
         # Don't run tests if not-Linux or if cross-compiling.
         meta.broken =
-          !stdenv.hostPlatform.isLinux
-          || stdenv.buildPlatform != stdenv.hostPlatform
-        ;
+          !stdenv.hostPlatform.isLinux || stdenv.buildPlatform != stdenv.hostPlatform;
       }
       ''
         addToSearchPathWithCustomDelimiter : PYTHONPATH "${mercurial}/${python.sitePackages}"

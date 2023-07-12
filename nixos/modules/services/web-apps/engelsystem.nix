@@ -113,13 +113,10 @@ in
       ensureDatabases = [ "engelsystem" ];
     };
 
-    environment.etc."engelsystem/config.php".source =
-      pkgs.writeText "config.php"
-        ''
-          <?php
-          return json_decode(file_get_contents("/var/lib/engelsystem/config.json"), true);
-        ''
-    ;
+    environment.etc."engelsystem/config.php".source = pkgs.writeText "config.php" ''
+      <?php
+      return json_decode(file_get_contents("/var/lib/engelsystem/config.json"), true);
+    '';
 
     services.phpfpm.pools.engelsystem = {
       user = "engelsystem";
@@ -198,9 +195,7 @@ in
         "mysql.service"
       ];
     };
-    systemd.services."phpfpm-engelsystem".after = [
-      "engelsystem-migrate.service"
-    ];
+    systemd.services."phpfpm-engelsystem".after = [ "engelsystem-migrate.service" ];
 
     users.users.engelsystem = {
       isSystemUser = true;

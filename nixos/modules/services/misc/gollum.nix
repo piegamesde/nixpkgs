@@ -156,13 +156,9 @@ in
             ${optionalString cfg.no-edit "--no-edit"} \
             ${optionalString cfg.local-time "--local-time"} \
             ${
-              optionalString (cfg.allowUploads != null)
-                "--allow-uploads ${cfg.allowUploads}"
+              optionalString (cfg.allowUploads != null) "--allow-uploads ${cfg.allowUploads}"
             } \
-            ${
-              optionalString (cfg.user-icons != null)
-                "--user-icons ${cfg.user-icons}"
-            } \
+            ${optionalString (cfg.user-icons != null) "--user-icons ${cfg.user-icons}"} \
             ${cfg.stateDir}
         '';
       };

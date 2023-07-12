@@ -71,11 +71,7 @@ in
                 config = builtins.toJSON (
                   kernel // {
                     display_name =
-                      if (kernel.displayName != "") then
-                        kernel.displayName
-                      else
-                        kernelName
-                    ;
+                      if (kernel.displayName != "") then kernel.displayName else kernelName;
                   } // (optionalAttrs (kernel ? interruptMode) {
                     interrupt_mode = kernel.interruptMode;
                   })
@@ -88,10 +84,7 @@ in
                   };
                 linkExtraPaths =
                   lib.mapAttrsToList
-                    (
-                      name: value:
-                      "ln -s ${value} 'kernels/${kernelName}/${name}';"
-                    )
+                    (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")
                     extraPaths
                 ;
               in

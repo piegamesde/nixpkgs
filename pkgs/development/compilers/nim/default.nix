@@ -372,8 +372,7 @@ in
         };
 
         meta = nim'.meta // {
-          description =
-            nim'.meta.description + " (${targetPlatform.config} wrapper)";
+          description = nim'.meta.description + " (${targetPlatform.config} wrapper)";
           platforms = with lib.platforms; unix ++ genode;
         };
       };

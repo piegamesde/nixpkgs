@@ -13,9 +13,7 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.hypr.enable = mkEnableOption (
-      lib.mdDoc "hypr"
-    );
+    services.xserver.windowManager.hypr.enable = mkEnableOption (lib.mdDoc "hypr");
   };
 
   ###### implementation

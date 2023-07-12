@@ -16,14 +16,12 @@ let
       ;
 
       buildDhallGitHubPackage =
-        callPackage
-          ../development/interpreters/dhall/build-dhall-github-package.nix
+        callPackage ../development/interpreters/dhall/build-dhall-github-package.nix
           { }
       ;
 
       buildDhallDirectoryPackage =
-        callPackage
-          ../development/interpreters/dhall/build-dhall-directory-package.nix
+        callPackage ../development/interpreters/dhall/build-dhall-directory-package.nix
           { }
       ;
 
@@ -55,10 +53,7 @@ let
           { }
       ;
 
-      dhall-grafana =
-        callPackage ../development/dhall-modules/dhall-grafana.nix
-          { }
-      ;
+      dhall-grafana = callPackage ../development/dhall-modules/dhall-grafana.nix { };
 
       dhall-kubernetes =
         callPackage ../development/dhall-modules/dhall-kubernetes.nix

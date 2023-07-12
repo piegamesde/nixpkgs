@@ -59,9 +59,7 @@ let
       findTests =
         tree:
         if tree ? recurseForDerivations && tree.recurseForDerivations then
-          mapAttrs (k: findTests) (
-            builtins.removeAttrs tree [ "recurseForDerivations" ]
-          )
+          mapAttrs (k: findTests) (builtins.removeAttrs tree [ "recurseForDerivations" ])
         else
           callTest tree
       ;
@@ -73,8 +71,7 @@ let
         in
         findTests r
       ;
-      runTestOn =
-        systems: arg: if elem system systems then runTest arg else { };
+      runTestOn = systems: arg: if elem system systems then runTest arg else { };
     })
     runTest
     runTestOn
@@ -392,15 +389,11 @@ in
   fenics = handleTest ./fenics.nix { };
   ferm = handleTest ./ferm.nix { };
   firefox = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox; };
-  firefox-beta = handleTest ./firefox.nix {
-    firefoxPackage = pkgs.firefox-beta;
-  };
+  firefox-beta = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-beta; };
   firefox-devedition = handleTest ./firefox.nix {
     firefoxPackage = pkgs.firefox-devedition;
   };
-  firefox-esr = handleTest ./firefox.nix {
-    firefoxPackage = pkgs.firefox-esr;
-  }; # used in `tested` job
+  firefox-esr = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }; # used in `tested` job
   firefox-esr-102 = handleTest ./firefox.nix {
     firefoxPackage = pkgs.firefox-esr-102;
   };
@@ -548,10 +541,7 @@ in
   keepassxc = handleTest ./keepassxc.nix { };
   kerberos = handleTest ./kerberos/default.nix { };
   kernel-generic = handleTest ./kernel-generic.nix { };
-  kernel-latest-ath-user-regd =
-    handleTest ./kernel-latest-ath-user-regd.nix
-      { }
-  ;
+  kernel-latest-ath-user-regd = handleTest ./kernel-latest-ath-user-regd.nix { };
   keter = handleTest ./keter.nix { };
   kexec = handleTest ./kexec.nix { };
   keycloak = discoverTests (import ./keycloak.nix);
@@ -605,9 +595,7 @@ in
   mailhog = handleTest ./mailhog.nix { };
   man = handleTest ./man.nix { };
   mariadb-galera = handleTest ./mysql/mariadb-galera.nix { };
-  mastodon = discoverTests (
-    import ./web-apps/mastodon { inherit handleTestOn; }
-  );
+  mastodon = discoverTests (import ./web-apps/mastodon { inherit handleTestOn; });
   mate = handleTest ./mate.nix { };
   matomo = handleTest ./matomo.nix { };
   matrix-appservice-irc = handleTest ./matrix/appservice-irc.nix { };
@@ -827,10 +815,7 @@ in
   powerdns-admin = handleTest ./powerdns-admin.nix { };
   power-profiles-daemon = handleTest ./power-profiles-daemon.nix { };
   pppd = handleTest ./pppd.nix { };
-  predictable-interface-names =
-    handleTest ./predictable-interface-names.nix
-      { }
-  ;
+  predictable-interface-names = handleTest ./predictable-interface-names.nix { };
   printing-socket = handleTest ./printing.nix { socket = true; };
   printing-service = handleTest ./printing.nix { socket = false; };
   privacyidea = handleTest ./privacyidea.nix { };
@@ -944,10 +929,7 @@ in
   systemd-escaping = handleTest ./systemd-escaping.nix { };
   systemd-initrd-btrfs-raid = handleTest ./systemd-initrd-btrfs-raid.nix { };
   systemd-initrd-luks-fido2 = handleTest ./systemd-initrd-luks-fido2.nix { };
-  systemd-initrd-luks-keyfile =
-    handleTest ./systemd-initrd-luks-keyfile.nix
-      { }
-  ;
+  systemd-initrd-luks-keyfile = handleTest ./systemd-initrd-luks-keyfile.nix { };
   systemd-initrd-luks-empty-passphrase =
     handleTest ./initrd-luks-empty-passphrase.nix
       { systemdStage1 = true; }
@@ -965,20 +947,14 @@ in
   systemd-initrd-swraid = handleTest ./systemd-initrd-swraid.nix { };
   systemd-initrd-vconsole = handleTest ./systemd-initrd-vconsole.nix { };
   systemd-initrd-networkd = handleTest ./systemd-initrd-networkd.nix { };
-  systemd-initrd-networkd-ssh =
-    handleTest ./systemd-initrd-networkd-ssh.nix
-      { }
-  ;
+  systemd-initrd-networkd-ssh = handleTest ./systemd-initrd-networkd-ssh.nix { };
   systemd-initrd-networkd-openvpn = handleTest ./initrd-network-openvpn {
     systemdStage1 = true;
   };
   systemd-journal = handleTest ./systemd-journal.nix { };
   systemd-machinectl = handleTest ./systemd-machinectl.nix { };
   systemd-networkd = handleTest ./systemd-networkd.nix { };
-  systemd-networkd-dhcpserver =
-    handleTest ./systemd-networkd-dhcpserver.nix
-      { }
-  ;
+  systemd-networkd-dhcpserver = handleTest ./systemd-networkd-dhcpserver.nix { };
   systemd-networkd-dhcpserver-static-leases =
     handleTest ./systemd-networkd-dhcpserver-static-leases.nix
       { }
@@ -995,10 +971,7 @@ in
   systemd-repart = handleTest ./systemd-repart.nix { };
   systemd-shutdown = handleTest ./systemd-shutdown.nix { };
   systemd-timesyncd = handleTest ./systemd-timesyncd.nix { };
-  systemd-user-tmpfiles-rules =
-    handleTest ./systemd-user-tmpfiles-rules.nix
-      { }
-  ;
+  systemd-user-tmpfiles-rules = handleTest ./systemd-user-tmpfiles-rules.nix { };
   systemd-misc = handleTest ./systemd-misc.nix { };
   systemd-userdbd = handleTest ./systemd-userdbd.nix { };
   systemd-homed = handleTest ./systemd-homed.nix { };

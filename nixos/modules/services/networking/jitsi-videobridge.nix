@@ -23,9 +23,7 @@ let
     if isAttrs x && x ? __hocon_envvar then
       ("\${" + x.__hocon_envvar + "}")
     else if isAttrs x then
-      "{${
-        concatStringsSep "," (mapAttrsToList (k: v: ''"${k}":${toHOCON v}'') x)
-      }}"
+      "{${concatStringsSep "," (mapAttrsToList (k: v: ''"${k}":${toHOCON v}'') x)}}"
     else if isList x then
       "[${concatMapStringsSep "," toHOCON x}]"
     else
@@ -37,10 +35,7 @@ let
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    +
-      stringAsChars
-        (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
-        s
+    + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s
   ;
 
   defaultJvbConfig = {
@@ -66,8 +61,7 @@ let
           };
           muc_jids = xmppConfig.mucJids;
           muc_nickname = xmppConfig.mucNickname;
-          disable_certificate_verification =
-            xmppConfig.disableCertificateVerification;
+          disable_certificate_verification = xmppConfig.disableCertificateVerification;
         }
       );
     };
@@ -185,9 +179,7 @@ in
             config = {
               hostName = mkDefault name;
               mucNickname = mkDefault (
-                builtins.replaceStrings [ "." ] [ "-" ] (
-                  config.networking.fqdnOrHostName
-                )
+                builtins.replaceStrings [ "." ] [ "-" ] (config.networking.fqdnOrHostName)
               );
             };
           }
@@ -248,10 +240,8 @@ in
     services.jitsi-videobridge.extraProperties =
       optionalAttrs (cfg.nat.localAddress != null)
         {
-          "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" =
-            cfg.nat.localAddress;
-          "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" =
-            cfg.nat.publicAddress;
+          "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
+          "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = cfg.nat.publicAddress;
         }
     ;
 
@@ -284,10 +274,7 @@ in
           ))
           + ''
             ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
-              if (cfg.apis == [ ]) then
-                "none"
-              else
-                concatStringsSep "," cfg.apis
+              if (cfg.apis == [ ]) then "none" else concatStringsSep "," cfg.apis
             }
           ''
         ;
@@ -345,8 +332,7 @@ in
 
     assertions = [ {
       message = "publicAddress must be set if and only if localAddress is set";
-      assertion =
-        (cfg.nat.publicAddress == null) == (cfg.nat.localAddress == null);
+      assertion = (cfg.nat.publicAddress == null) == (cfg.nat.localAddress == null);
     } ];
   };
 

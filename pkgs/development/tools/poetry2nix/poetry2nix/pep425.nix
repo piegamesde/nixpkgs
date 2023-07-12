@@ -124,8 +124,7 @@ let
   selectWheel =
     files:
     let
-      filesWithoutSources =
-        (builtins.filter (x: hasSuffix ".whl" x.file) files);
+      filesWithoutSources = (builtins.filter (x: hasSuffix ".whl" x.file) files);
       isPyAbiCompatible =
         pyabi: x:
         x == "none"
@@ -174,8 +173,7 @@ let
         else
           (p: p == "any")
       ;
-      withPlatforms =
-        x: lib.lists.any withPlatform (splitString "." x.platform);
+      withPlatforms = x: lib.lists.any withPlatform (splitString "." x.platform);
       filterWheel =
         x:
         let

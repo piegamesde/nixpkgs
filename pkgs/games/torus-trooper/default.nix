@@ -32,19 +32,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    (debianPatch "imports"
-      "0mifw0mj66zljpq6iqnh0rhkgs2sky8rz0p32k98vxfnsb39ibsf"
-    )
+    (debianPatch "imports" "0mifw0mj66zljpq6iqnh0rhkgs2sky8rz0p32k98vxfnsb39ibsf")
     (debianPatch "fixes" "05f93zq2v14lymq748c9g646ckbh9mqpr5rrahb63s90x8hlcqil")
     (debianPatch "directories"
       "0y5xvf26v9fk0rx6ncrxx4czckhjbi891hp3pixlmv568pg9cihd"
     )
-    (debianPatch "windowed"
-      "1d8ghj4shvpb0s8l16kscz4l7rz1fxmfdpddy1ikz3678pw1sc8p"
-    )
-    (debianPatch "dotfile"
-      "17yirmnjhbd1clzhmdd2mfdhbxkyinaahd6v3yz5kzbcylvjz2r2"
-    )
+    (debianPatch "windowed" "1d8ghj4shvpb0s8l16kscz4l7rz1fxmfdpddy1ikz3678pw1sc8p")
+    (debianPatch "dotfile" "17yirmnjhbd1clzhmdd2mfdhbxkyinaahd6v3yz5kzbcylvjz2r2")
     (debianPatch "window-resizing"
       "1n64gbhabl6vis7s294wxlj2k8s3ypxljpdg71icwz1m9jjx59df"
     )
@@ -57,9 +51,7 @@ stdenv.mkDerivation rec {
     (debianPatch "avoid-segfault-when-sdl-fails"
       "1yp758gi4i15gqk6wiqp815rqcmlyqx62ir1sw20hn6zb3j97bmc"
     )
-    (debianPatch "dlang_v2"
-      "1lxsbckhvl8a8j43pw2dyl5nlavvdbgxb5zlb2450a0vml55nswd"
-    )
+    (debianPatch "dlang_v2" "1lxsbckhvl8a8j43pw2dyl5nlavvdbgxb5zlb2450a0vml55nswd")
     (debianPatch "lowest-level-position-602808"
       "19r48wirc9zssjmv57drn2fd0f56dcgyqqaz3j49cvv6yd74qf20"
     )

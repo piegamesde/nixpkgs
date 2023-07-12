@@ -233,9 +233,7 @@ in
         message = ''
           deviceTree overlay needs one of dtsFile, dtsText or dtboFile set.
           Offending overlay(s):
-          ${toString (
-            map (o: o.name) (builtins.filter invalidOverlay cfg.overlays)
-          )}
+          ${toString (map (o: o.name) (builtins.filter invalidOverlay cfg.overlays))}
         '';
       }
     ;

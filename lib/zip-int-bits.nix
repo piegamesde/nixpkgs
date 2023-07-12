@@ -34,11 +34,9 @@ let
     if fst == [ ] && snd == [ ] then
       [ ]
     else if fst == [ ] then
-      [ (f xsignum (builtins.head snd)) ]
-      ++ (zipListsWith' [ ] (builtins.tail snd))
+      [ (f xsignum (builtins.head snd)) ] ++ (zipListsWith' [ ] (builtins.tail snd))
     else if snd == [ ] then
-      [ (f (builtins.head fst) ysignum) ]
-      ++ (zipListsWith' (builtins.tail fst) [ ])
+      [ (f (builtins.head fst) ysignum) ] ++ (zipListsWith' (builtins.tail fst) [ ])
     else
       [ (f (builtins.head fst) (builtins.head snd)) ]
       ++ (zipListsWith' (builtins.tail fst) (builtins.tail snd))

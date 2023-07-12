@@ -63,9 +63,7 @@ let
 
     $CFG->wwwroot   = '${
       if
-        cfg.virtualHost.addSSL
-        || cfg.virtualHost.forceSSL
-        || cfg.virtualHost.onlySSL
+        cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL
       then
         "https"
       else
@@ -225,17 +223,12 @@ in
       createLocally = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Create the database and database user locally."
-        ;
+        description = lib.mdDoc "Create the database and database user locally.";
       };
     };
 
     virtualHost = mkOption {
-      type = types.submodule (
-        import ../web-servers/apache-httpd/vhost-options.nix
-      );
+      type = types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
       example = literalExpression ''
         {
           hostName = "moodle.example.org";
@@ -298,8 +291,7 @@ in
         message = "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true";
       }
       {
-        assertion =
-          cfg.database.createLocally -> cfg.database.passwordFile == null;
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
         message = "a password cannot be specified if services.moodle.database.createLocally is set to true";
       }
     ];
@@ -371,9 +363,7 @@ in
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-moodle.service" ];
       after =
-        optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service"
-      ;
+        optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       environment.MOODLE_CONFIG = moodleConfig;
       script = ''
         ${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/check_database_schema.php && rc=$? || rc=$?
@@ -415,9 +405,7 @@ in
     };
 
     systemd.services.httpd.after =
-      optional mysqlLocal "mysql.service"
-      ++ optional pgsqlLocal "postgresql.service"
-    ;
+      optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
 
     users.users.${user} = {
       group = group;

@@ -44,9 +44,7 @@ let
         ;
         mkParams = k: v: map (mkParam k) (if isList v then v else [ v ]);
       in
-      escapeShellArgs (
-        concatLists (concatLists (mapAttrsToList mkParams value))
-      )
+      escapeShellArgs (concatLists (concatLists (mapAttrsToList mkParams value)))
     ;
   };
 in
@@ -68,10 +66,7 @@ in
               "none"
             ];
             default = "none";
-            description =
-              lib.mdDoc
-                "Announce game in LAN using given protocol."
-            ;
+            description = lib.mdDoc "Announce game in LAN using given protocol.";
           };
           options.auth = mkEnableOption (lib.mdDoc "server authentication");
           options.Database = mkOption {
@@ -82,10 +77,7 @@ in
                 backend="sqlite"
                 database="/var/lib/freeciv/auth.sqlite"
             '';
-            description =
-              lib.mdDoc
-                "Enable database connection with given configuration."
-            ;
+            description = lib.mdDoc "Enable database connection with given configuration.";
           };
           options.debug = mkOption {
             type = types.ints.between 0 3;
@@ -109,10 +101,7 @@ in
           options.quitidle = mkOption {
             type = types.nullOr types.int;
             default = null;
-            description =
-              lib.mdDoc
-                "Quit if no players for given time in seconds."
-            ;
+            description = lib.mdDoc "Quit if no players for given time in seconds.";
           };
           options.read = mkOption {
             type = types.lines;
@@ -178,9 +167,7 @@ in
             ]
           )
           + " "
-          + argsFormat.generate "freeciv-server" (
-            cfg.settings // { saves = null; }
-          )
+          + argsFormat.generate "freeciv-server" (cfg.settings // { saves = null; })
         );
         DynamicUser = true;
         # Create rootDir in the host's mount namespace.

@@ -183,20 +183,12 @@ in
             (self: super: {
               lapack = super.lapack.override {
                 lapackProvider =
-                  if provider == "mkl64" then
-                    super.mkl
-                  else
-                    builtins.getAttr provider super
-                ;
+                  if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
                 inherit isILP64;
               };
               blas = super.blas.override {
                 blasProvider =
-                  if provider == "mkl64" then
-                    super.mkl
-                  else
-                    builtins.getAttr provider super
-                ;
+                  if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
                 inherit isILP64;
               };
             })
@@ -204,12 +196,7 @@ in
         };
       in
       mapListToAttrs
-        (
-          if builtins.elem provider blas64Providers then
-            blas64Users
-          else
-            blasUsers
-        )
+        (if builtins.elem provider blas64Providers then blas64Users else blasUsers)
         (
           attr:
           if builtins.isList attr then

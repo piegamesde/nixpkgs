@@ -118,10 +118,7 @@ stdenv.mkDerivation (
           ''
       );
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "JACK audio connection kit, version 2 with jackdbus";

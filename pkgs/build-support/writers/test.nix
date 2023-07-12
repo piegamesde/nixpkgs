@@ -65,8 +65,7 @@ let
     ;
 
     perl =
-      writePerlBin "test-writers-perl-bin"
-        { libraries = [ perlPackages.boolean ]; }
+      writePerlBin "test-writers-perl-bin" { libraries = [ perlPackages.boolean ]; }
         ''
           use boolean;
           print "success\n" if true;
@@ -74,8 +73,7 @@ let
     ;
 
     pypy2 =
-      writePyPy2Bin "test-writers-pypy2-bin"
-        { libraries = [ pypy2Packages.enum ]; }
+      writePyPy2Bin "test-writers-pypy2-bin" { libraries = [ pypy2Packages.enum ]; }
         ''
           from enum import Enum
 
@@ -102,8 +100,7 @@ let
     ;
 
     pypy3 =
-      writePyPy3Bin "test-writers-pypy3-bin"
-        { libraries = [ pypy3Packages.pyyaml ]; }
+      writePyPy3Bin "test-writers-pypy3-bin" { libraries = [ pypy3Packages.pyyaml ]; }
         ''
           import yaml
 
@@ -179,8 +176,7 @@ let
     ;
 
     python3 =
-      writePython3 "test-writers-python3"
-        { libraries = [ python3Packages.pyyaml ]; }
+      writePython3 "test-writers-python3" { libraries = [ python3Packages.pyyaml ]; }
         ''
           import yaml
 

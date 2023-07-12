@@ -110,9 +110,7 @@ in
     } // lib.mapAttrs'
         (
           ifname: _:
-          lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (
-            lib.mkDefault 0
-          )
+          lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0)
         )
         config.services.babeld.interfaces;
 

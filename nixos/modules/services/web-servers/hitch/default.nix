@@ -6,10 +6,7 @@
 }:
 let
   cfg = config.services.hitch;
-  ocspDir =
-    lib.optionalString cfg.ocsp-stapling.enabled
-      "/var/cache/hitch/ocsp"
-  ;
+  ocspDir = lib.optionalString cfg.ocsp-stapling.enabled "/var/cache/hitch/ocsp";
   hitchConfig =
     with lib;
     pkgs.writeText "hitch.conf" (

@@ -75,8 +75,8 @@
     ;
   in
   (
-    kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty
-    // kdeGear // mauiPackages // qt5 // {
+    kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGear
+    // mauiPackages // qt5 // {
 
       inherit
         kdeFrameworks
@@ -134,10 +134,7 @@
           { }
       ;
 
-      kimageannotator =
-        callPackage ../development/libraries/kimageannotator
-          { }
-      ;
+      kimageannotator = callPackage ../development/libraries/kimageannotator { };
 
       kproperty = callPackage ../development/libraries/kproperty { };
 
@@ -145,17 +142,11 @@
 
       kreport = callPackage ../development/libraries/kreport { };
 
-      kquickimageedit =
-        callPackage ../development/libraries/kquickimageedit
-          { }
-      ;
+      kquickimageedit = callPackage ../development/libraries/kquickimageedit { };
 
       kuserfeedback = callPackage ../development/libraries/kuserfeedback { };
 
-      kweathercore =
-        libsForQt5.callPackage ../development/libraries/kweathercore
-          { }
-      ;
+      kweathercore = libsForQt5.callPackage ../development/libraries/kweathercore { };
 
       ldutils = callPackage ../development/libraries/ldutils { };
 
@@ -168,15 +159,9 @@
 
       liblastfm = callPackage ../development/libraries/liblastfm { };
 
-      libopenshot =
-        callPackage ../applications/video/openshot-qt/libopenshot.nix
-          { }
-      ;
+      libopenshot = callPackage ../applications/video/openshot-qt/libopenshot.nix { };
 
-      packagekit-qt =
-        callPackage ../tools/package-management/packagekit/qt.nix
-          { }
-      ;
+      packagekit-qt = callPackage ../tools/package-management/packagekit/qt.nix { };
 
       libopenshot-audio =
         callPackage ../applications/video/openshot-qt/libopenshot-audio.nix
@@ -258,10 +243,7 @@
 
       qcoro = callPackage ../development/libraries/qcoro { };
 
-      qcsxcad =
-        callPackage ../development/libraries/science/electronics/qcsxcad
-          { }
-      ;
+      qcsxcad = callPackage ../development/libraries/science/electronics/qcsxcad { };
 
       qjson = callPackage ../development/libraries/qjson { };
 
@@ -291,10 +273,7 @@
 
       qtmpris = callPackage ../development/libraries/qtmpris { };
 
-      qtpbfimageplugin =
-        callPackage ../development/libraries/qtpbfimageplugin
-          { }
-      ;
+      qtpbfimageplugin = callPackage ../development/libraries/qtpbfimageplugin { };
 
       qtstyleplugins = callPackage ../development/libraries/qtstyleplugins { };
 
@@ -315,10 +294,7 @@
 
       telepathy = callPackage ../development/libraries/telepathy/qt { };
 
-      qtwebkit-plugins =
-        callPackage ../development/libraries/qtwebkit-plugins
-          { }
-      ;
+      qtwebkit-plugins = callPackage ../development/libraries/qtwebkit-plugins { };
 
       # Not a library, but we do want it to be built for every qt version there
       # is, to allow users to choose the right build if needed.
@@ -333,10 +309,7 @@
           { }
       ;
 
-      xp-pen-g430-driver =
-        callPackage ../os-specific/linux/xp-pen-drivers/g430
-          { }
-      ;
+      xp-pen-g430-driver = callPackage ../os-specific/linux/xp-pen-drivers/g430 { };
 
       yuview = callPackage ../applications/video/yuview { };
     }

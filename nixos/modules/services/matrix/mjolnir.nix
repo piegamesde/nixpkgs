@@ -196,8 +196,7 @@ in
   config = mkIf config.services.mjolnir.enable {
     assertions = [
       {
-        assertion =
-          !(cfg.pantalaimon.enable && cfg.pantalaimon.passwordFile == null);
+        assertion = !(cfg.pantalaimon.enable && cfg.pantalaimon.passwordFile == null);
         message = "Specify pantalaimon.passwordFile";
       }
       {

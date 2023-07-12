@@ -79,12 +79,10 @@ in
         RestartSec = 5;
         EnvironmentFile = cfg.credentialsFile;
         ExecStart = ''
-          ${cfg.package}/bin/cachix ${
-            lib.optionalString cfg.verbose "--verbose"
-          } ${lib.optionalString (cfg.host != null) "--host ${cfg.host}"} \
-            deploy agent ${cfg.name} ${
-              optionalString (cfg.profile != null) cfg.profile
-            }
+          ${cfg.package}/bin/cachix ${lib.optionalString cfg.verbose "--verbose"} ${
+            lib.optionalString (cfg.host != null) "--host ${cfg.host}"
+          } \
+            deploy agent ${cfg.name} ${optionalString (cfg.profile != null) cfg.profile}
         '';
       };
     };

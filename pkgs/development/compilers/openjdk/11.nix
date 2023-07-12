@@ -124,9 +124,7 @@ let
           hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
         })
       ]
-      ++ lib.optionals (!headless && enableGnome2) [
-        ./swing-use-gtk-jdk10.patch
-      ]
+      ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk10.patch ]
     ;
 
     preConfigure = ''
@@ -152,9 +150,7 @@ let
       ]
       ++ lib.optional stdenv.isx86_64 "--with-jvm-features=zgc"
       ++ lib.optional headless "--enable-headless-only"
-      ++
-        lib.optional (!headless && enableJavaFX)
-          "--with-import-modules=${openjfx}"
+      ++ lib.optional (!headless && enableJavaFX) "--with-import-modules=${openjfx}"
     ;
 
     separateDebugInfo = true;

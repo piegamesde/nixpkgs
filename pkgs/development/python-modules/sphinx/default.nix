@@ -52,9 +52,7 @@ buildPythonPackage rec {
       cd $out
       mv tests/roots/test-images/testimäge.png \
         tests/roots/test-images/testimæge.png
-      patch -p1 < ${
-        ./0001-test-images-Use-normalization-equivalent-character.patch
-      }
+      patch -p1 < ${./0001-test-images-Use-normalization-equivalent-character.patch}
     '';
   };
 

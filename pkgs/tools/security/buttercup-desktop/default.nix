@@ -17,9 +17,7 @@ appimageTools.wrapType2 {
   inherit pname src version;
 
   extraPkgs =
-    pkgs:
-    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ]
-  ;
+    pkgs: (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ];
 
   extraInstallCommands = ''
     mv $out/bin/${pname}-${version} $out/bin/${pname}

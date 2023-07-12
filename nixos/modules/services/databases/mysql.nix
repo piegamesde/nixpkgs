@@ -337,10 +337,7 @@ in
         masterPort = mkOption {
           type = types.port;
           default = 3306;
-          description =
-            lib.mdDoc
-              "Port number on which the MySQL master server runs."
-          ;
+          description = lib.mdDoc "Port number on which the MySQL master server runs.";
         };
       };
     };
@@ -362,22 +359,17 @@ in
         datadir = cfg.dataDir;
         port = mkDefault 3306;
       }
-      (mkIf
-        (cfg.replication.role == "master" || cfg.replication.role == "slave")
-        {
-          log-bin = "mysql-bin-${toString cfg.replication.serverId}";
-          log-bin-index = "mysql-bin-${
-              toString cfg.replication.serverId
-            }.index";
-          relay-log = "mysql-relay-bin";
-          server-id = cfg.replication.serverId;
-          binlog-ignore-db = [
-            "information_schema"
-            "performance_schema"
-            "mysql"
-          ];
-        }
-      )
+      (mkIf (cfg.replication.role == "master" || cfg.replication.role == "slave") {
+        log-bin = "mysql-bin-${toString cfg.replication.serverId}";
+        log-bin-index = "mysql-bin-${toString cfg.replication.serverId}.index";
+        relay-log = "mysql-relay-bin";
+        server-id = cfg.replication.serverId;
+        binlog-ignore-db = [
+          "information_schema"
+          "performance_schema"
+          "mysql"
+        ];
+      })
       (mkIf (!isMariaDB) { plugin-load-add = "auth_socket.so"; })
     ];
 
@@ -532,9 +524,7 @@ in
                   # Execute initial script
                   # using toString to avoid copying the file to nix store if given as path instead of string,
                   # as it might contain credentials
-                  cat ${
-                    toString cfg.initialScript
-                  } | ${cfg.package}/bin/mysql -u ${superUser} -N
+                  cat ${toString cfg.initialScript} | ${cfg.package}/bin/mysql -u ${superUser} -N
                 ''
               }
 

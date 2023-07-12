@@ -327,9 +327,7 @@ in
           ''
             exec ${cfg.locate}/bin/updatedb \
               --output ${toString cfg.output} ${concatStringsSep " " args} \
-              --prune-bind-mounts ${
-                if cfg.pruneBindMounts then "yes" else "no"
-              } \
+              --prune-bind-mounts ${if cfg.pruneBindMounts then "yes" else "no"} \
               ${concatStringsSep " " cfg.extraFlags}
           ''
         else
@@ -339,9 +337,7 @@ in
                 optionalString (cfg.localuser != null && !isMorPLocate)
                   "--localuser=${cfg.localuser}"
               } \
-              --output=${toString cfg.output} ${
-                concatStringsSep " " cfg.extraFlags
-              }
+              --output=${toString cfg.output} ${concatStringsSep " " cfg.extraFlags}
           ''
       ;
       environment = optionalAttrs (!isMorPLocate) {

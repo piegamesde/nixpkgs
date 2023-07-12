@@ -116,8 +116,7 @@ let
       (lib.concatLists (
         lib.mapAttrsToList
           (
-            name: value:
-            if value != null then [ ''${name}="${toString value}"'' ] else [ ]
+            name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]
           )
           env
       ))
@@ -155,15 +154,10 @@ let
         name: processCfg:
         lib.nameValuePair "mastodon-sidekiq-${name}" (
           let
-            jobClassArgs = toString (
-              builtins.map (c: "-q ${c}") processCfg.jobClasses
-            );
+            jobClassArgs = toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
             jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
             threads = toString (
-              if processCfg.threads == null then
-                cfg.sidekiqThreads
-              else
-                processCfg.threads
+              if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads
             );
           in
           {
@@ -190,8 +184,7 @@ let
               ExecStart = "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
               Restart = "always";
               RestartSec = 20;
-              EnvironmentFile =
-                [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+              EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
               WorkingDirectory = cfg.package;
               # System Call Filtering
               SystemCallFilter = [
@@ -265,10 +258,7 @@ in
       };
 
       streamingPort = lib.mkOption {
-        description =
-          lib.mdDoc
-            "TCP port used by the mastodon-streaming service."
-        ;
+        description = lib.mdDoc "TCP port used by the mastodon-streaming service.";
         type = lib.types.port;
         default = 55000;
       };
@@ -292,19 +282,13 @@ in
         default = 2;
       };
       webThreads = lib.mkOption {
-        description =
-          lib.mdDoc
-            "Threads per process used by the mastodon-web service."
-        ;
+        description = lib.mdDoc "Threads per process used by the mastodon-web service.";
         type = lib.types.int;
         default = 5;
       };
 
       sidekiqPort = lib.mkOption {
-        description =
-          lib.mdDoc
-            "TCP port used by the mastodon-sidekiq service."
-        ;
+        description = lib.mdDoc "TCP port used by the mastodon-sidekiq service.";
         type = lib.types.port;
         default = 55002;
       };
@@ -539,10 +523,7 @@ in
 
       smtp = {
         createLocally = lib.mkOption {
-          description =
-            lib.mdDoc
-              "Configure local Postfix SMTP server for Mastodon."
-          ;
+          description = lib.mdDoc "Configure local Postfix SMTP server for Mastodon.";
           type = lib.types.bool;
           default = true;
         };
@@ -557,28 +538,19 @@ in
         };
 
         host = lib.mkOption {
-          description =
-            lib.mdDoc
-              "SMTP host used when sending emails to users."
-          ;
+          description = lib.mdDoc "SMTP host used when sending emails to users.";
           type = lib.types.str;
           default = "127.0.0.1";
         };
 
         port = lib.mkOption {
-          description =
-            lib.mdDoc
-              "SMTP port used when sending emails to users."
-          ;
+          description = lib.mdDoc "SMTP port used when sending emails to users.";
           type = lib.types.port;
           default = 25;
         };
 
         fromAddress = lib.mkOption {
-          description =
-            lib.mdDoc
-              ''"From" address used when sending Emails to users.''
-          ;
+          description = lib.mdDoc ''"From" address used when sending Emails to users.'';
           type = lib.types.str;
         };
 
@@ -688,8 +660,7 @@ in
       {
         assertions = [
           {
-            assertion =
-              databaseActuallyCreateLocally -> (cfg.user == cfg.database.user);
+            assertion = databaseActuallyCreateLocally -> (cfg.user == cfg.database.user);
             message = ''
               For local automatic database provisioning (services.mastodon.database.createLocally == true) with peer
                 authentication (services.mastodon.database.host == "/run/postgresql") to work services.mastodon.user
@@ -698,9 +669,7 @@ in
           }
           {
             assertion =
-              !databaseActuallyCreateLocally
-              -> (cfg.database.host != "/run/postgresql")
-            ;
+              !databaseActuallyCreateLocally -> (cfg.database.host != "/run/postgresql");
             message = ''
               <option>services.mastodon.database.host</option> needs to be set if
                 <option>services.mastodon.database.createLocally</option> is not enabled.
@@ -714,8 +683,7 @@ in
             '';
           }
           {
-            assertion =
-              cfg.smtp.authenticate -> (cfg.smtp.passwordFile != null);
+            assertion = cfg.smtp.authenticate -> (cfg.smtp.passwordFile != null);
             message = ''
               <option>services.mastodon.smtp.passwordFile</option> needs to be set if
                 <option>services.mastodon.smtp.authenticate</option> is enabled.
@@ -725,11 +693,7 @@ in
             assertion =
               1 == builtins.length (
                 lib.mapAttrsToList
-                  (
-                    _: v:
-                    builtins.elem "scheduler" v.jobClasses
-                    || v.jobClasses == [ ]
-                  )
+                  (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
                   cfg.sidekiqProcesses
               )
             ;
@@ -788,10 +752,7 @@ in
             SyslogIdentifier = "mastodon-init-dirs";
             # System Call Filtering
             SystemCallFilter = [
-              (
-                "~"
-                + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
-              )
+              ("~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]))
               "@chown"
               "pipe"
               "pipe2"
@@ -836,22 +797,17 @@ in
             cfg.package
             pkgs.postgresql
           ];
-          environment = env
-            // lib.optionalAttrs (!databaseActuallyCreateLocally) {
-              PGHOST = cfg.database.host;
-              PGUSER = cfg.database.user;
-            };
+          environment = env // lib.optionalAttrs (!databaseActuallyCreateLocally) {
+            PGHOST = cfg.database.host;
+            PGUSER = cfg.database.user;
+          };
           serviceConfig = {
             Type = "oneshot";
-            EnvironmentFile =
-              [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+            EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
             WorkingDirectory = cfg.package;
             # System Call Filtering
             SystemCallFilter = [
-              (
-                "~"
-                + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
-              )
+              ("~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]))
               "@chown"
               "pipe"
               "pipe2"
@@ -896,8 +852,7 @@ in
             ExecStart = "${cfg.package}/run-streaming.sh";
             Restart = "always";
             RestartSec = 20;
-            EnvironmentFile =
-              [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+            EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
             WorkingDirectory = cfg.package;
             # Runtime directory and mode
             RuntimeDirectory = "mastodon-streaming";
@@ -946,8 +901,7 @@ in
             ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
             Restart = "always";
             RestartSec = 20;
-            EnvironmentFile =
-              [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+            EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
             WorkingDirectory = cfg.package;
             # Runtime directory and mode
             RuntimeDirectory = "mastodon-web";
@@ -974,8 +928,7 @@ in
               environment = env;
               serviceConfig = {
                 Type = "oneshot";
-                EnvironmentFile =
-                  [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+                EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
               } // cfgService;
               script =
                 let

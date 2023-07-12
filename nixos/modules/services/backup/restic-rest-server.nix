@@ -26,10 +26,7 @@ in
     dataDir = mkOption {
       default = "/var/lib/restic";
       type = types.path;
-      description =
-        lib.mdDoc
-          "The directory for storing the restic repository."
-      ;
+      description = lib.mdDoc "The directory for storing the restic repository.";
     };
 
     appendOnly = mkOption {

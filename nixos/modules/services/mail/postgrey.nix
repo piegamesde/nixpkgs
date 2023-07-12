@@ -190,10 +190,7 @@ in
       privacy = mkOption {
         type = bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Store data using one-way hash functions (SHA1)"
-        ;
+        description = lib.mdDoc "Store data using one-way hash functions (SHA1)";
       };
       autoWhitelist = mkOption {
         type = nullOr natural';
@@ -206,18 +203,12 @@ in
       whitelistClients = mkOption {
         type = listOf path;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Client address whitelist files (see postgrey(8))"
-        ;
+        description = lib.mdDoc "Client address whitelist files (see postgrey(8))";
       };
       whitelistRecipients = mkOption {
         type = listOf path;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Recipient address whitelist files (see postgrey(8))"
-        ;
+        description = lib.mdDoc "Recipient address whitelist files (see postgrey(8))";
       };
     };
   };
@@ -247,9 +238,9 @@ in
           if cfg.socket ? path then
             "--unix=${cfg.socket.path} --socketmode=${cfg.socket.mode}"
           else
-            "--inet=${
-              optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")
-            }${toString cfg.socket.port}"
+            "--inet=${optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")}${
+              toString cfg.socket.port
+            }"
         ;
       in
       {
@@ -272,33 +263,23 @@ in
                       --max-age=${toString cfg.maxAge} \
                       --retry-window=${toString cfg.retryWindow} \
                       ${
-                        if cfg.lookupBySubnet then
-                          "--lookup-by-subnet"
-                        else
-                          "--lookup-by-host"
+                        if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"
                       } \
                       --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${
                         toString cfg.IPv6CIDR
                       } \
                       ${optionalString cfg.privacy "--privacy"} \
                       --auto-whitelist-clients=${
-                        toString (
-                          if cfg.autoWhitelist == null then
-                            0
-                          else
-                            cfg.autoWhitelist
-                        )
+                        toString (if cfg.autoWhitelist == null then 0 else cfg.autoWhitelist)
                       } \
                       --greylist-action=${cfg.greylistAction} \
                       --greylist-text="${cfg.greylistText}" \
                       --x-greylist-header="${cfg.greylistHeader}" \
                       ${
-                        concatMapStringsSep " " (x: "--whitelist-clients=" + x)
-                          cfg.whitelistClients
+                        concatMapStringsSep " " (x: "--whitelist-clients=" + x) cfg.whitelistClients
                       } \
                       ${
-                        concatMapStringsSep " "
-                          (x: "--whitelist-recipients=" + x)
+                        concatMapStringsSep " " (x: "--whitelist-recipients=" + x)
                           cfg.whitelistRecipients
                       }
           '';

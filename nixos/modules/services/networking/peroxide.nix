@@ -42,29 +42,20 @@ in
           UserPortImap = mkOption {
             type = types.port;
             default = 1143;
-            description =
-              lib.mdDoc
-                "The port on which to listen for IMAP connections."
-            ;
+            description = lib.mdDoc "The port on which to listen for IMAP connections.";
           };
 
           UserPortSmtp = mkOption {
             type = types.port;
             default = 1025;
-            description =
-              lib.mdDoc
-                "The port on which to listen for SMTP connections."
-            ;
+            description = lib.mdDoc "The port on which to listen for SMTP connections.";
           };
 
           ServerAddress = mkOption {
             type = types.str;
             default = "[::0]";
             example = "localhost";
-            description =
-              lib.mdDoc
-                "The address on which to listen for connections."
-            ;
+            description = lib.mdDoc "The address on which to listen for connections.";
           };
         };
       };

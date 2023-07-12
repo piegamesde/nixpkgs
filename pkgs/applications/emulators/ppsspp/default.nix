@@ -128,9 +128,7 @@ stdenv.mkDerivation (
             install -Dm555 PPSSPPHeadless $out/bin/ppsspp-headless
             install -Dm555 PPSSPPSDL $out/share/ppsspp/
             makeWrapper $out/share/ppsspp/PPSSPPSDL $out/bin/ppsspp \
-              --set SDL_VIDEODRIVER ${
-                if forceWayland then "wayland" else "x11"
-              } \
+              --set SDL_VIDEODRIVER ${if forceWayland then "wayland" else "x11"} \
           ''
       )
       + lib.optionalString enableVulkan ''

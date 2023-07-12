@@ -69,10 +69,7 @@ stdenv.mkDerivation (
       ln -s $out/lib/libbz2.so.1.0.* $out/lib/libbz2.so.1.0
     '';
 
-    passthru.tests.pkg-config =
-      testers.testMetaPkgConfig
-        finalAttrs.finalPackage
-    ;
+    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = with lib; {
       description = "High-quality data compression program";

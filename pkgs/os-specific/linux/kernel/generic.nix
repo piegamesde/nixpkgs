@@ -295,8 +295,7 @@ let
             CONFIG_MODULES = "y";
             CONFIG_FW_LOADER = "m";
           };
-        }
-        // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
+        } // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
       )
   ;
 
@@ -341,16 +340,13 @@ let
             lib.warn
               (
                 "override is stubbed for NixOS kernel tests, not applying changes these arguments: "
-                + toString (
-                  lib.attrNames (if lib.isAttrs args then args else args { })
-                )
+                + toString (lib.attrNames (if lib.isAttrs args then args else args { }))
               )
               overridableKernel
           ;
         };
       in
-      [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ]
-      ++ kernelTests
+      [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ] ++ kernelTests
     ;
   };
 

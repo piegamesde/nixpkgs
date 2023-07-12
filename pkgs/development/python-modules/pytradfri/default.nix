@@ -32,8 +32,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs =
-    [ pytestCheckHook ] ++ passthru.optional-dependencies.async;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.async;
 
   pythonImportsCheck = [ "pytradfri" ];
 

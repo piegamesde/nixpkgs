@@ -79,19 +79,13 @@ in
           options.download-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${downloadsDir}";
-            defaultText =
-              literalExpression
-                ''"''${config.${opt.home}}/${downloadsDir}"''
-            ;
+            defaultText = literalExpression ''"''${config.${opt.home}}/${downloadsDir}"'';
             description = lib.mdDoc "Directory where to download torrents.";
           };
           options.incomplete-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${incompleteDir}";
-            defaultText =
-              literalExpression
-                ''"''${config.${opt.home}}/${incompleteDir}"''
-            ;
+            defaultText = literalExpression ''"''${config.${opt.home}}/${incompleteDir}"'';
             description = lib.mdDoc ''
               When enabled with
               services.transmission.home
@@ -114,10 +108,7 @@ in
           options.peer-port = mkOption {
             type = types.port;
             default = 51413;
-            description =
-              lib.mdDoc
-                "The peer port to listen for incoming connections."
-            ;
+            description = lib.mdDoc "The peer port to listen for incoming connections.";
           };
           options.peer-port-random-high = mkOption {
             type = types.port;
@@ -166,10 +157,7 @@ in
           options.script-torrent-done-filename = mkOption {
             type = types.nullOr types.path;
             default = null;
-            description =
-              lib.mdDoc
-                "Executable to be run at torrent completion."
-            ;
+            description = lib.mdDoc "Executable to be run at torrent completion.";
           };
           options.umask = mkOption {
             type = types.int;
@@ -193,10 +181,7 @@ in
           options.watch-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${watchDir}";
-            defaultText =
-              literalExpression
-                ''"''${config.${opt.home}}/${watchDir}"''
-            ;
+            defaultText = literalExpression ''"''${config.${opt.home}}/${watchDir}"'';
             description =
               lib.mdDoc
                 "Watch a directory for torrent files and add them to transmission."
@@ -290,19 +275,18 @@ in
         lib.mdDoc "opening of the RPC port in the firewall"
       );
 
-      performanceNetParameters = mkEnableOption (lib.mdDoc "performance tweaks")
-        // {
-          description = lib.mdDoc ''
-            Whether to enable tweaking of kernel parameters
-            to open many more connections at the same time.
+      performanceNetParameters = mkEnableOption (lib.mdDoc "performance tweaks") // {
+        description = lib.mdDoc ''
+          Whether to enable tweaking of kernel parameters
+          to open many more connections at the same time.
 
-            Note that you may also want to increase
-            `peer-limit-global`.
-            And be aware that these settings are quite aggressive
-            and might not suite your regular desktop use.
-            For instance, SSH sessions may time out more easily.
-          '';
-        };
+          Note that you may also want to increase
+          `peer-limit-global`.
+          And be aware that these settings are quite aggressive
+          and might not suite your regular desktop use.
+          For instance, SSH sessions may time out more easily.
+        '';
+      };
     };
   };
 
@@ -332,8 +316,7 @@ in
 
     systemd.services.transmission = {
       description = "Transmission BitTorrent Service";
-      after =
-        [ "network.target" ] ++ optional apparmor.enable "apparmor.service";
+      after = [ "network.target" ] ++ optional apparmor.enable "apparmor.service";
       requires = optional apparmor.enable "apparmor.service";
       wantedBy = [ "multi-user.target" ];
       environment.CURL_CA_BUNDLE = etc."ssl/certs/ca-certificates.crt".source;
@@ -380,15 +363,10 @@ in
             "${cfg.home}/${settingsDir}"
             cfg.settings.download-dir
           ]
-          ++
-            optional cfg.settings.incomplete-dir-enabled
-              cfg.settings.incomplete-dir
+          ++ optional cfg.settings.incomplete-dir-enabled cfg.settings.incomplete-dir
           ++
             optional
-              (
-                cfg.settings.watch-dir-enabled
-                && cfg.settings.trash-original-torrent-files
-              )
+              (cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files)
               cfg.settings.watch-dir
         ;
         BindReadOnlyPaths =
@@ -408,10 +386,7 @@ in
               cfg.settings.script-torrent-done-filename
           ++
             optional
-              (
-                cfg.settings.watch-dir-enabled
-                && !cfg.settings.trash-original-torrent-files
-              )
+              (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)
               cfg.settings.watch-dir
         ;
         StateDirectory = [

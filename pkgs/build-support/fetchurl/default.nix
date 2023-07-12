@@ -228,8 +228,7 @@ stdenvNoCC.mkDerivation (
         "/no-cert-file.crt"
     ;
 
-    outputHashMode =
-      if (recursiveHash || executable) then "recursive" else "flat";
+    outputHashMode = if (recursiveHash || executable) then "recursive" else "flat";
 
     curlOpts =
       lib.warnIf (lib.isList curlOpts)

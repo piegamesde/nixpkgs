@@ -72,9 +72,7 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dpy-overrides-dir=${
-      placeholder "out"
-    }/${python3.sitePackages}/gi/overrides"
+    "-Dpy-overrides-dir=${placeholder "out"}/${python3.sitePackages}/gi/overrides"
   ];
 
   postPatch = ''

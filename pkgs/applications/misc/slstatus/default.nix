@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-nEIHIO8CAYdtX8GniO6GDEaHj7kEu81b05nCMVdr2SE=";
   };
 
-  configFile = lib.optionalString (conf != null) (
-    writeText "config.def.h" conf
-  );
+  configFile = lib.optionalString (conf != null) (writeText "config.def.h" conf);
   preBuild = ''
     ${lib.optionalString (conf != null) "cp ${configFile} config.def.h"}
     makeFlagsArray+=(LDLIBS="-lX11 -lxcb -lXau -lXdmcp" CC=$CC)

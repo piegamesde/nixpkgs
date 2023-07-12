@@ -38,8 +38,7 @@ import ./make-test-python.nix (
                 createLocally = false;
                 host = "127.0.0.1";
                 passwordFile = toString (
-                  pkgs.writeText "database-password"
-                    "correct horse battery staple"
+                  pkgs.writeText "database-password" "correct horse battery staple"
                 );
               };
             };

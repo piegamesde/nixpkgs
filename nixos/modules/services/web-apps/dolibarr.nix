@@ -161,10 +161,7 @@ in
       createLocally = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Create the database and database user locally."
-        ;
+        description = lib.mdDoc "Create the database and database user locally.";
       };
     };
 
@@ -190,9 +187,7 @@ in
       type = types.nullOr (
         types.submodule (
           lib.recursiveUpdate
-            (import ../web-servers/nginx/vhost-options.nix {
-              inherit config lib;
-            })
+            (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
             {
               # enable encryption by default,
               # as sensitive login and Dolibarr (ERP) data should not be transmitted in clear text.
@@ -253,8 +248,7 @@ in
       {
 
         assertions = [ {
-          assertion =
-            cfg.database.createLocally -> cfg.database.user == cfg.user;
+          assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
           message = "services.dolibarr.database.user must match services.dolibarr.user if the database is to be automatically provisioned";
         } ];
 
@@ -328,10 +322,9 @@ in
           ]
         );
 
-        systemd.services."phpfpm-dolibarr".after =
-          mkIf cfg.database.createLocally
-            [ "mysql.service" ]
-        ;
+        systemd.services."phpfpm-dolibarr".after = mkIf cfg.database.createLocally [
+          "mysql.service"
+        ];
         services.phpfpm.pools.dolibarr = {
           inherit (cfg) user group;
           phpPackage = pkgs.php.buildEnv {
@@ -394,9 +387,7 @@ in
           group = cfg.group;
         };
 
-        users.groups = optionalAttrs (cfg.group == "dolibarr") {
-          dolibarr = { };
-        };
+        users.groups = optionalAttrs (cfg.group == "dolibarr") { dolibarr = { }; };
       }
       (mkIf (cfg.nginx != null) {
         users.users."${config.services.nginx.group}".extraGroups =

@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   # Disable jit on Apple Silicon, https://github.com/zherczeg/sljit/issues/51
   configureFlags =
-    lib.optional
-      (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
+    lib.optional (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64))
       "--enable-jit=auto"
     ++ [
       "--enable-unicode-properties"

@@ -26,9 +26,7 @@ let
     }@args:
     let
       package = fetchzip {
-        url = "https://registry.npmjs.org/${name}/-/${
-            baseNameOf name
-          }-${version}.tgz";
+        url = "https://registry.npmjs.org/${name}/-/${baseNameOf name}-${version}.tgz";
         inherit hash;
       };
 

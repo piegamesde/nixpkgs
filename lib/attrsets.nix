@@ -118,9 +118,7 @@ rec {
     let
       len = length attrPath;
       atDepth =
-        n:
-        if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); }
-      ;
+        n: if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
     in
     atDepth 0
   ;
@@ -144,8 +142,7 @@ rec {
     # The nested attribute set to find the value in.
     set:
     let
-      errorMsg =
-        "cannot find attribute `" + concatStringsSep "." attrPath + "'";
+      errorMsg = "cannot find attribute `" + concatStringsSep "." attrPath + "'";
     in
     attrByPath attrPath (abort errorMsg) set
   ;
@@ -249,9 +246,7 @@ rec {
                   updatePath = (head split.right).path;
                 in
                 throw (
-                  "updateManyAttrsByPath: Path '${
-                    showAttrPath updatePath
-                  }' does "
+                  "updateManyAttrsByPath: Path '${showAttrPath updatePath}' does "
                   + "not exist in the given value, but the first update to this "
                   + "path tries to access the existing value."
                 )
@@ -266,8 +261,7 @@ rec {
             else if isAttrs value then
               # If we do have a value and it's an attribute set, override it
               # with the nested modifications
-              value // mapAttrs
-                (name: go (prefixLength + 1) (value ? ${name}) value.${name})
+              value // mapAttrs (name: go (prefixLength + 1) (value ? ${name}) value.${name})
                 nested
             else
               # However if it's not an attribute set, we can't apply the nested
@@ -276,12 +270,8 @@ rec {
                 updatePath = (head split.wrong).path;
               in
               throw (
-                "updateManyAttrsByPath: Path '${
-                  showAttrPath updatePath
-                }' needs to "
-                + "be updated, but path '${
-                    showAttrPath (take prefixLength updatePath)
-                  }' "
+                "updateManyAttrsByPath: Path '${showAttrPath updatePath}' needs to "
+                + "be updated, but path '${showAttrPath (take prefixLength updatePath)}' "
                 + "of the given value is not an attribute set, so we can't "
                 + "update an attribute inside of it."
               )
@@ -357,8 +347,7 @@ rec {
   */
   catAttrs =
     builtins.catAttrs or (
-      attr: l:
-      concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l)
+      attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l)
     );
 
   /* Filter an attribute set by removing all attributes for which the
@@ -412,11 +401,7 @@ rec {
             v = set.${name};
           in
           if pred name v then
-            [
-              (nameValuePair name (
-                if isAttrs v then filterAttrsRecursive pred v else v
-              ))
-            ]
+            [ (nameValuePair name (if isAttrs v then filterAttrsRecursive pred v else v)) ]
           else
             [ ]
         )
@@ -559,8 +544,7 @@ rec {
         concatMap
           (
             attrs:
-            map (listValue: attrs // { ${attrName} = listValue; })
-              attrsOfLists.${attrName}
+            map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}
           )
           listOfAttrs
       )
@@ -764,9 +748,7 @@ rec {
       path' = builtins.storePath path;
       res = {
         type = "derivation";
-        name = sanitizeDerivationName (
-          builtins.substring 33 (-1) (baseNameOf path')
-        );
+        name = sanitizeDerivationName (builtins.substring 33 (-1) (baseNameOf path'));
         outPath = path';
         outputs = [ "out" ];
         out = res;
@@ -904,9 +886,7 @@ rec {
           let
             here = attrPath ++ [ n ];
           in
-          if
-            length values == 1 || pred here (elemAt values 1) (head values)
-          then
+          if length values == 1 || pred here (elemAt values 1) (head values) then
             head values
           else
             f here values

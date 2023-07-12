@@ -155,8 +155,7 @@ let
 
   sdkSource =
     let
-      version =
-        dotnet-sdk.version or (lib.concatStringsSep "-" dotnet-sdk.versions);
+      version = dotnet-sdk.version or (lib.concatStringsSep "-" dotnet-sdk.versions);
     in
     mkNugetSource {
       name = "dotnet-sdk-${version}-source";
@@ -212,8 +211,7 @@ stdenvNoCC.mkDerivation (
             if runtimeId != null then
               [ runtimeId ]
             else
-              map (system: dotnetCorePackages.systemToDotnetRid system)
-                platforms
+              map (system: dotnetCorePackages.systemToDotnetRid system) platforms
           ;
           defaultDepsFile =
             # Wire in the nugetDeps file such that running the script with no args
@@ -295,17 +293,12 @@ stdenvNoCC.mkDerivation (
                   --runtime "$rid" \
                   --no-cache \
                   --force \
-                  ${
-                    lib.optionalString (!enableParallelBuilding)
-                      "--disable-parallel"
-                  } \
+                  ${lib.optionalString (!enableParallelBuilding) "--disable-parallel"} \
                   ${lib.optionalString (flags != [ ]) (toString flags)}
           }
 
           declare -a projectFiles=( ${toString (lib.toList projectFile)} )
-          declare -a testProjectFiles=( ${
-            toString (lib.toList testProjectFile)
-          } )
+          declare -a testProjectFiles=( ${toString (lib.toList testProjectFile)} )
 
           export DOTNET_NOLOGO=1
           export DOTNET_CLI_TELEMETRY_OPTOUT=1

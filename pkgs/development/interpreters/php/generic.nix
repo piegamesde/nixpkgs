@@ -130,8 +130,7 @@ let
               extensions:
               let
                 deps =
-                  lib.concatMap
-                    (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
+                  lib.concatMap (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
                     extensions
                 ;
               in
@@ -150,11 +149,8 @@ let
                   ext:
                   let
                     extName = getExtName ext;
-                    phpDeps =
-                      (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
-                    type = "${
-                        lib.optionalString (ext.zendExtension or false) "zend_"
-                      }extension";
+                    phpDeps = (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
+                    type = "${lib.optionalString (ext.zendExtension or false) "zend_"}extension";
                   in
                   lib.nameValuePair extName {
                     text = "${type}=${ext}/lib/php/extensions/${extName}.so";
@@ -166,9 +162,7 @@ let
 
             extNames = map getExtName enabledExtensions;
             extraInit = writeText "php-extra-init-${version}.ini" ''
-              ${lib.concatStringsSep "\n" (
-                lib.textClosureList extensionTexts extNames
-              )}
+              ${lib.concatStringsSep "\n" (lib.textClosureList extensionTexts extNames)}
               ${extraConfig}
             '';
 
@@ -183,15 +177,10 @@ let
                   f:
                   let
                     newPhpAttrsOverrides =
-                      composeOverrides
-                        (filteredArgs.phpAttrsOverrides or (attrs: { }))
+                      composeOverrides (filteredArgs.phpAttrsOverrides or (attrs: { }))
                         f
                     ;
-                    php = generic (
-                      filteredArgs // {
-                        phpAttrsOverrides = newPhpAttrsOverrides;
-                      }
-                    );
+                    php = generic (filteredArgs // { phpAttrsOverrides = newPhpAttrsOverrides; });
                   in
                   php.buildEnv { inherit extensions extraConfig; }
                 ;
@@ -202,9 +191,7 @@ let
                   nixos =
                     lib.recurseIntoAttrs
                       nixosTests."php${
-                        lib.strings.replaceStrings [ "." ] [ "" ] (
-                          lib.versions.majorMinor php.version
-                        )
+                        lib.strings.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor php.version)
                       }"
                   ;
                   package = tests.php;
@@ -303,9 +290,7 @@ let
             ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
 
             # Misc flags
-            ++
-              lib.optional apxs2Support
-                "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
+            ++ lib.optional apxs2Support "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
             ++ lib.optional argon2Support "--with-password-argon2=${libargon2}"
             ++ lib.optional cgotoSupport "--enable-re2c-cgoto"
             ++ lib.optional embedSupport "--enable-embed"
@@ -381,9 +366,7 @@ let
               let
                 script =
                   writeShellScript
-                    "php${lib.versions.major version}${
-                      lib.versions.minor version
-                    }-update-script"
+                    "php${lib.versions.major version}${lib.versions.minor version}-update-script"
                     ''
                       set -o errexit
                       PATH=${
@@ -412,9 +395,7 @@ let
               f:
               let
                 newPhpAttrsOverrides = composeOverrides phpAttrsOverrides f;
-                php = generic (
-                  args // { phpAttrsOverrides = newPhpAttrsOverrides; }
-                );
+                php = generic (args // { phpAttrsOverrides = newPhpAttrsOverrides; });
               in
               php
             ;

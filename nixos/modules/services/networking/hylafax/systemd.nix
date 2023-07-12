@@ -139,9 +139,7 @@ let
       };
       filter = key: value: (value != null) || !(lib.hasAttr key hardening);
       apply =
-        service:
-        lib.filterAttrs filter (hardening // (service.serviceConfig or { }))
-      ;
+        service: lib.filterAttrs filter (hardening // (service.serviceConfig or { }));
     in
     service:
     service // {
@@ -295,8 +293,6 @@ in
 {
   config.systemd = mkIf cfg.enable {
     inherit sockets timers paths;
-    services = lib.mapAttrs (lib.const hardenService) (
-      services // modemServices
-    );
+    services = lib.mapAttrs (lib.const hardenService) (services // modemServices);
   };
 }

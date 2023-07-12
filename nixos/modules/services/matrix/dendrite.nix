@@ -213,9 +213,7 @@ in
           };
         };
         options.sync_api.search = {
-          enable = lib.mkEnableOption (
-            lib.mdDoc "Dendrite's full-text search engine"
-          );
+          enable = lib.mkEnableOption (lib.mdDoc "Dendrite's full-text search engine");
           index_path = lib.mkOption {
             type = lib.types.str;
             default = "${workingDir}/searchindex";
@@ -304,10 +302,7 @@ in
         RuntimeDirectory = "dendrite";
         RuntimeDirectoryMode = "0700";
         LimitNOFILE = 65535;
-        EnvironmentFile =
-          lib.mkIf (cfg.environmentFile != null)
-            cfg.environmentFile
-        ;
+        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         LoadCredential = cfg.loadCredential;
         ExecStartPre = [ ''
           ${pkgs.envsubst}/bin/envsubst \
@@ -327,9 +322,7 @@ in
             "--tls-cert ${cfg.tlsCert}"
             "--tls-key ${cfg.tlsKey}"
           ]
-          ++ lib.optionals cfg.openRegistration [
-            "--really-enable-open-registration"
-          ]
+          ++ lib.optionals cfg.openRegistration [ "--really-enable-open-registration" ]
         );
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "on-failure";

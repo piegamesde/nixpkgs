@@ -18,10 +18,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/lidarr/.config/Lidarr";
-        description =
-          lib.mdDoc
-            "The directory where Lidarr stores its data files."
-        ;
+        description = lib.mdDoc "The directory where Lidarr stores its data files.";
       };
 
       package = mkOption {

@@ -73,9 +73,7 @@ let
   paths = lib.concatLists (
     builtins.map
       (
-        pkg:
-        [ pkg ]
-        ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ]
+        pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ]
       )
       (lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages))
   );
@@ -154,11 +152,7 @@ else
 
       ''
       + (lib.optionalString
-        (
-          stdenv.targetPlatform.isDarwin
-          && !isGhcjs
-          && !stdenv.targetPlatform.isiOS
-        )
+        (stdenv.targetPlatform.isDarwin && !isGhcjs && !stdenv.targetPlatform.isiOS)
         ''
           # Work around a linker limit in macOS Sierra (see generic-builder.nix):
           local packageConfDir="${packageCfgDir}";

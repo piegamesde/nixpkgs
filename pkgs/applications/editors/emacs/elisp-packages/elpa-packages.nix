@@ -37,9 +37,7 @@ let
     pkg.override {
       elpaBuild =
         args:
-        self.elpaBuild (
-          args // { meta = (args.meta or { }) // { broken = true; }; }
-        )
+        self.elpaBuild (args // { meta = (args.meta or { }) // { broken = true; }; })
       ;
     }
   ;
@@ -65,8 +63,7 @@ let
     let
 
       imported = import generated {
-        callPackage =
-          pkgs: args: self.callPackage pkgs (args // { inherit fetchurl; });
+        callPackage = pkgs: args: self.callPackage pkgs (args // { inherit fetchurl; });
       };
 
       super = removeAttrs imported [ "dash" ];
@@ -84,9 +81,7 @@ let
         cl-print = null; # builtin
         tle = null; # builtin
         advice = null; # builtin
-        seq =
-          if lib.versionAtLeast self.emacs.version "27" then null else super.seq
-        ;
+        seq = if lib.versionAtLeast self.emacs.version "27" then null else super.seq;
         # Compilation instructions for the Ada executables:
         # https://www.nongnu.org/ada-mode/
         ada-mode = super.ada-mode.overrideAttrs (
@@ -125,8 +120,7 @@ let
               ''
             ;
 
-            meta =
-              old.meta // { maintainers = [ lib.maintainers.sternenseemann ]; };
+            meta = old.meta // { maintainers = [ lib.maintainers.sternenseemann ]; };
           }
         );
 
@@ -138,8 +132,7 @@ let
           {
             dontUnpack = false;
 
-            nativeBuildInputs =
-              (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+            nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
 
             buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.enchant2 ];
 
@@ -158,8 +151,7 @@ let
               ''
             ;
 
-            meta =
-              old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
+            meta = old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
           }
         );
 

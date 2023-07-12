@@ -50,14 +50,12 @@ let
                 # TODO(@Artturin): remove before release 23.05 and only have __spliced.
                 // (lib.optionalAttrs (pkgsBuildHost ? ${name}) {
                   nativeDrv =
-                    lib.warn
-                      "use ${name}.__spliced.buildHost instead of ${name}.nativeDrv"
+                    lib.warn "use ${name}.__spliced.buildHost instead of ${name}.nativeDrv"
                       valueBuildHost
                   ;
                 }) // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
                   crossDrv =
-                    lib.warn
-                      "use ${name}.__spliced.hostTarget instead of ${name}.crossDrv"
+                    lib.warn "use ${name}.__spliced.hostTarget instead of ${name}.crossDrv"
                       valueHostTarget
                   ;
                 }) // {
@@ -67,13 +65,12 @@ let
                     buildHost = valueBuildHost;
                   }) // (lib.optionalAttrs (pkgsBuildTarget ? ${name}) {
                     buildTarget = valueBuildTarget;
-                  }) // (lib.optionalAttrs (pkgsHostHost ? ${name}) {
-                    hostHost = valueHostHost;
-                  }) // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
-                    hostTarget = valueHostTarget;
-                  }) // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) {
-                    targetTarget = valueTargetTarget;
-                  });
+                  }) // (lib.optionalAttrs (pkgsHostHost ? ${name}) { hostHost = valueHostHost; })
+                    // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
+                      hostTarget = valueHostTarget;
+                    }) // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) {
+                      targetTarget = valueTargetTarget;
+                    });
                 };
               # Get the set of outputs of a derivation. If one derivation fails to
               # evaluate we don't want to diverge the entire splice, so we fall back
@@ -87,9 +84,9 @@ let
               ;
               getOutputs =
                 value:
-                lib.genAttrs
-                  (value.outputs or (lib.optional (value ? out) "out"))
-                  (output: value.${output})
+                lib.genAttrs (value.outputs or (lib.optional (value ? out) "out")) (
+                  output: value.${output}
+                )
               ;
             in
             # The derivation along with its outputs, which we recur
@@ -183,10 +180,7 @@ in
   newScope = extra: lib.callPackageWith (splicedPackagesWithXorg // extra);
 
   # prefill 2 fields of the function for convenience
-  makeScopeWithSplicing =
-    lib.makeScopeWithSplicing splicePackages
-      pkgs.newScope
-  ;
+  makeScopeWithSplicing = lib.makeScopeWithSplicing splicePackages pkgs.newScope;
 
   # generate 'otherSplices' for 'makeScopeWithSplicing'
   generateSplicesForMkScope =

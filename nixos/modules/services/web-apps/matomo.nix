@@ -154,9 +154,7 @@ in
         type = types.nullOr (
           types.submodule (
             recursiveUpdate
-              (import ../web-servers/nginx/vhost-options.nix {
-                inherit config lib;
-              })
+              (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
               {
                 # enable encryption by default,
                 # as sensitive login and Matomo data should not be transmitted in clear text.
@@ -286,19 +284,16 @@ in
       };
     };
 
-    systemd.timers.matomo-archive-processing =
-      mkIf cfg.periodicArchiveProcessing
-        {
-          description = "Automatically archive Matomo reports every hour";
+    systemd.timers.matomo-archive-processing = mkIf cfg.periodicArchiveProcessing {
+      description = "Automatically archive Matomo reports every hour";
 
-          wantedBy = [ "timers.target" ];
-          timerConfig = {
-            OnCalendar = "hourly";
-            Persistent = "yes";
-            AccuracySec = "10m";
-          };
-        }
-    ;
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "hourly";
+        Persistent = "yes";
+        AccuracySec = "10m";
+      };
+    };
 
     systemd.services.${phpExecutionUnit} = {
       # stop phpfpm on package upgrade, do database upgrade via matomo-setup-update, and then restart

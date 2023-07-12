@@ -34,9 +34,7 @@ else
     '';
     # Overwrite UserSettings.hs with a provided custom one
     postPatch = lib.optionalString (userSettings != null) ''
-      install -m644 "${
-        writeText "UserSettings.hs" userSettings
-      }" src/UserSettings.hs
+      install -m644 "${writeText "UserSettings.hs" userSettings}" src/UserSettings.hs
     '';
     configureFlags = [
       # avoid QuickCheck dep which needs shared libs / TH

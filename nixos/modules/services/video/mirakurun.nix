@@ -202,8 +202,7 @@ in
 
       restartTriggers =
         let
-          getconf =
-            target: config.environment.etc."mirakurun/${target}.yml".source;
+          getconf = target: config.environment.etc."mirakurun/${target}.yml".source;
           targets =
             [ "server" ]
             ++ optional (cfg.tunerSettings != null) "tuners"

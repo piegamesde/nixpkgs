@@ -32,9 +32,9 @@ in
           type = types.nullOr types.ints.unsigned // {
             merge =
               loc: defs:
-              foldl (a: b: if b.value == null then null else lib.max a b.value)
-                0
-                (filterOverrides defs)
+              foldl (a: b: if b.value == null then null else lib.max a b.value) 0 (
+                filterOverrides defs
+              )
             ;
           };
           default = null;
@@ -75,9 +75,7 @@ in
 
     systemd.services.systemd-sysctl = {
       wantedBy = [ "multi-user.target" ];
-      restartTriggers = [
-        config.environment.etc."sysctl.d/60-nixos.conf".source
-      ];
+      restartTriggers = [ config.environment.etc."sysctl.d/60-nixos.conf".source ];
     };
 
     # Hide kernel pointers (e.g. in /proc/modules) for unprivileged

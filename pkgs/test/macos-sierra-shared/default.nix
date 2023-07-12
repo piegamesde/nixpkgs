@@ -48,9 +48,7 @@ let
           #include <iostream>
 
           ${toString (
-            lib.genList
-              (i: ''extern "C" unsigned int asdf_${toString i}(void); '')
-              count
+            lib.genList (i: ''extern "C" unsigned int asdf_${toString i}(void); '') count
           )}
 
           unsigned int (*funs[])(void) = {

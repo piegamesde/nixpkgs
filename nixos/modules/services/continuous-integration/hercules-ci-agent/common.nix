@@ -158,10 +158,7 @@ let
           '';
           type = types.path;
           default = config.staticSecretsDirectory + "/secrets.json";
-          defaultText =
-            literalExpression
-              ''staticSecretsDirectory + "/secrets.json"''
-          ;
+          defaultText = literalExpression ''staticSecretsDirectory + "/secrets.json"'';
         };
       };
     }

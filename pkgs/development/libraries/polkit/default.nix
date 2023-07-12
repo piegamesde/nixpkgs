@@ -90,10 +90,7 @@ stdenv.mkDerivation rec {
     ]
     ++
       lib.optionals
-        (
-          withIntrospection
-          && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-        )
+        (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
         [ mesonEmulatorHook ]
   ;
 
@@ -145,9 +142,7 @@ stdenv.mkDerivation rec {
       "-Dman=true"
     ]
     ++ lib.optionals stdenv.isLinux [
-      "-Dsession_tracking=${
-        if useSystemd then "libsystemd-login" else "libelogind"
-      }"
+      "-Dsession_tracking=${if useSystemd then "libsystemd-login" else "libelogind"}"
     ]
   ;
 

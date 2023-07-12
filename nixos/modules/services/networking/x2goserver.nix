@@ -20,9 +20,7 @@ let
 
   x2goAgentOptions = pkgs.writeText "x2goagent.options" ''
     X2GO_NXOPTIONS=""
-    X2GO_NXAGENT_DEFAULT_OPTIONS="${
-      concatStringsSep " " cfg.nxagentDefaultOptions
-    }"
+    X2GO_NXAGENT_DEFAULT_OPTIONS="${concatStringsSep " " cfg.nxagentDefaultOptions}"
   '';
 in
 {

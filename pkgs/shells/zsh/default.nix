@@ -70,10 +70,7 @@ stdenv.mkDerivation {
     ]
     ++
       lib.optionals
-        (
-          stdenv.hostPlatform != stdenv.buildPlatform
-          && !stdenv.hostPlatform.isStatic
-        )
+        (stdenv.hostPlatform != stdenv.buildPlatform && !stdenv.hostPlatform.isStatic)
         [
           # Also see: https://github.com/buildroot/buildroot/commit/2f32e668aa880c2d4a2cce6c789b7ca7ed6221ba
           "zsh_cv_shared_environ=yes"
@@ -126,9 +123,7 @@ stdenv.mkDerivation {
             ''
           else
             ''
-              ${
-                lib.getBin buildPackages.zsh
-              }/bin/zsh -c "zcompile $out/etc/zshenv"
+              ${lib.getBin buildPackages.zsh}/bin/zsh -c "zcompile $out/etc/zshenv"
             ''
         }
         mv $out/etc/zshenv $out/etc/zshenv_zwc_is_used

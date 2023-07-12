@@ -306,17 +306,13 @@ import ./make-test-python.nix (
                   };
                 };
 
-                simple-restart-service =
-                  simple-service // { stopIfChanged = false; };
+                simple-restart-service = simple-service // { stopIfChanged = false; };
 
-                simple-reload-service =
-                  simple-service // { reloadIfChanged = true; };
+                simple-reload-service = simple-service // { reloadIfChanged = true; };
 
-                no-restart-service =
-                  simple-service // { restartIfChanged = false; };
+                no-restart-service = simple-service // { restartIfChanged = false; };
 
-                reload-triggers =
-                  simple-service // { wantedBy = [ "multi-user.target" ]; };
+                reload-triggers = simple-service // { wantedBy = [ "multi-user.target" ]; };
 
                 reload-triggers-and-restart-by-as = simple-service;
 
@@ -355,9 +351,7 @@ import ./make-test-python.nix (
             };
 
             restart-and-reload-by-activation-script-modified.configuration = {
-              imports = [
-                restart-and-reload-by-activation-script.configuration
-              ];
+              imports = [ restart-and-reload-by-activation-script.configuration ];
               systemd.services.reload-triggers-and-restart.serviceConfig.X-Modified = "test";
             };
 
@@ -460,8 +454,7 @@ import ./make-test-python.nix (
 
             targetModifiedStopOnReconfig.configuration = {
               imports = [ target.configuration ];
-              systemd.targets.test-target.unitConfig.X-StopOnReconfiguration =
-                true;
+              systemd.targets.test-target.unitConfig.X-StopOnReconfiguration = true;
             };
 
             path.configuration = {
@@ -480,10 +473,7 @@ import ./make-test-python.nix (
 
             pathModified.configuration = {
               imports = [ path.configuration ];
-              systemd.paths.test-watch.pathConfig.PathExists =
-                lib.mkForce
-                  "/testpath2"
-              ;
+              systemd.paths.test-watch.pathConfig.PathExists = lib.mkForce "/testpath2";
             };
 
             slice.configuration = {

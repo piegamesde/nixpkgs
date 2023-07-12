@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
     let
       gstreamerHook =
         package:
-        "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${
-          lib.getLib package
-        }/lib/gstreamer-1.0"
+        "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0"
       ;
     in
     with gst_all_1;

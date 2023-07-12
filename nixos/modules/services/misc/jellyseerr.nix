@@ -13,9 +13,7 @@ in
   meta.maintainers = [ maintainers.camillemndn ];
 
   options.services.jellyseerr = {
-    enable = mkEnableOption (
-      mdDoc "Jellyseerr, a requests manager for Jellyfin"
-    );
+    enable = mkEnableOption (mdDoc "Jellyseerr, a requests manager for Jellyfin");
 
     openFirewall = mkOption {
       type = types.bool;
@@ -29,10 +27,7 @@ in
     port = mkOption {
       type = types.port;
       default = 5055;
-      description =
-        mdDoc
-          "The port which the Jellyseerr web UI should listen to."
-      ;
+      description = mdDoc "The port which the Jellyseerr web UI should listen to.";
     };
   };
 
@@ -70,8 +65,6 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
   };
 }

@@ -147,8 +147,7 @@ in
       ${cfg.extraNfsdConfig}
 
       [mountd]
-      ${optionalString (cfg.mountdPort != null)
-        "port=${toString cfg.mountdPort}"}
+      ${optionalString (cfg.mountdPort != null) "port=${toString cfg.mountdPort}"}
 
       [statd]
       ${optionalString (cfg.statdPort != null) "port=${toString cfg.statdPort}"}

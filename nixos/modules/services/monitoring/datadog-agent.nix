@@ -19,9 +19,8 @@ let
     // optionalAttrs (cfg.hostname != null) { inherit (cfg) hostname; }
     // optionalAttrs (cfg.ddUrl != null) { dd_url = cfg.ddUrl; }
     // optionalAttrs (cfg.site != null) { site = cfg.site; }
-    // optionalAttrs (cfg.tags != null) {
-      tags = concatStringsSep ", " cfg.tags;
-    } // optionalAttrs (cfg.enableLiveProcessCollection) {
+    // optionalAttrs (cfg.tags != null) { tags = concatStringsSep ", " cfg.tags; }
+    // optionalAttrs (cfg.enableLiveProcessCollection) {
       process_config = {
         enabled = "true";
       };
@@ -39,9 +38,7 @@ let
     mapAttrs'
       (name: conf: {
         name = "datadog-agent/conf.d/${name}.d/conf.yaml";
-        value.source = pkgs.writeText "${name}-check-conf.yaml" (
-          builtins.toJSON conf
-        );
+        value.source = pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
       })
       entries
   ;
@@ -296,8 +293,7 @@ in
                 Restart = "always";
                 RestartSec = 2;
               };
-              restartTriggers =
-                [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
+              restartTriggers = [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
             }
             attrs
         ;

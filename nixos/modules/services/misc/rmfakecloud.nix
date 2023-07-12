@@ -14,9 +14,7 @@ in
 {
   options = {
     services.rmfakecloud = {
-      enable = mkEnableOption (
-        lib.mdDoc "rmfakecloud remarkable self-hosted cloud"
-      );
+      enable = mkEnableOption (lib.mdDoc "rmfakecloud remarkable self-hosted cloud");
 
       package = mkOption {
         type = types.package;
@@ -123,10 +121,7 @@ in
         Type = "simple";
         Restart = "always";
 
-        EnvironmentFile =
-          mkIf (cfg.environmentFile != null)
-            cfg.environmentFile
-        ;
+        EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
 
         AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
 

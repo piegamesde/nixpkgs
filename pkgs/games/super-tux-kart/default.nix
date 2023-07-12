@@ -114,8 +114,7 @@ stdenv.mkDerivation rec {
       sqlite
     ]
     ++
-      lib.optional
-        (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux)
+      lib.optional (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux)
         libopenglrecorder
     ++ lib.optional stdenv.hostPlatform.isLinux openal
     ++ lib.optionals stdenv.hostPlatform.isDarwin [

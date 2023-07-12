@@ -27,9 +27,7 @@ let
   # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
     rootModules =
-      config.boot.initrd.availableKernelModules
-      ++ config.boot.initrd.kernelModules
-    ;
+      config.boot.initrd.availableKernelModules ++ config.boot.initrd.kernelModules;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -163,9 +161,7 @@ let
 
         # Copy resize2fs if any ext* filesystems are to be resized
         ${optionalString
-          (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType))
-            fileSystems
-          )
+          (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType)) fileSystems)
           ''
             # We need mke2fs in the initrd.
             copy_bin_and_libs ${pkgs.e2fsprogs}/sbin/resize2fs
@@ -285,10 +281,7 @@ let
         ''
         + (
           let
-            links =
-              filterAttrs (n: v: hasSuffix ".link" n)
-                config.systemd.network.units
-            ;
+            links = filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
             files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
           in
           concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
@@ -383,11 +376,7 @@ let
     ;
 
     resumeDevices =
-      map
-        (
-          sd:
-          if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}"
-        )
+      map (sd: if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}")
         (
           filter
             (
@@ -406,20 +395,13 @@ let
         f =
           fs: [
             fs.mountPoint
-            (
-              if fs.device != null then
-                fs.device
-              else
-                "/dev/disk/by-label/${fs.label}"
-            )
+            (if fs.device != null then fs.device else "/dev/disk/by-label/${fs.label}")
             fs.fsType
             (builtins.concatStringsSep "," fs.options)
           ]
         ;
       in
-      pkgs.writeText "initrd-fsinfo" (
-        concatStringsSep "\n" (concatMap f fileSystems)
-      )
+      pkgs.writeText "initrd-fsinfo" (concatStringsSep "\n" (concatMap f fileSystems))
     ;
 
     setHostId = optionalString (config.networking.hostId != null) ''
@@ -555,9 +537,7 @@ let
 
       # mindepth 1 so that we don't change the mode of /
       (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
-        ${compressorExe} ${
-          lib.escapeShellArgs initialRamdisk.compressorArgs
-        } >> "$1"
+        ${compressorExe} ${lib.escapeShellArgs initialRamdisk.compressorArgs} >> "$1"
     ''
   ;
 in
@@ -596,10 +576,7 @@ in
           options = {
             source = mkOption {
               type = types.package;
-              description =
-                lib.mdDoc
-                  "The object to make available inside the initrd."
-              ;
+              description = lib.mdDoc "The object to make available inside the initrd.";
             };
           };
         }
@@ -706,9 +683,7 @@ in
     boot.initrd.compressor = mkOption {
       default =
         (
-          if
-            lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9"
-          then
+          if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9" then
             "zstd"
           else
             "gzip"
@@ -802,11 +777,7 @@ in
                 If set, this file system will be mounted in the initial ramdisk.
                 Note that the file system will always be mounted in the initial
                 ramdisk if its mount point is one of the following:
-                ${
-                  concatStringsSep ", " (
-                    forEach utils.pathsNeededForBoot (i: "{file}`${i}`")
-                  )
-                }.
+                ${concatStringsSep ", " (forEach utils.pathsNeededForBoot (i: "{file}`${i}`"))}.
               '';
             };
           }
@@ -842,9 +813,7 @@ in
               (
                 source:
                 builtins.isPath source
-                || (
-                  builtins.isString source && hasPrefix builtins.storeDir source
-                )
+                || (builtins.isString source && hasPrefix builtins.storeDir source)
               )
               (attrValues config.boot.initrd.secrets)
         ;

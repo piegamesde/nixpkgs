@@ -40,12 +40,8 @@ let
             o: {
               buildPhase = with builtins; ''
                 mkdir __fasls
-                export LD_LIBRARY_PATH=${
-                  makeLibraryPath o.nativeLibs
-                }:$LD_LIBRARY_PATH
-                export CLASSPATH=${
-                  makeSearchPath "share/java/*" o.javaLibs
-                }:$CLASSPATH
+                export LD_LIBRARY_PATH=${makeLibraryPath o.nativeLibs}:$LD_LIBRARY_PATH
+                export CLASSPATH=${makeSearchPath "share/java/*" o.javaLibs}:$CLASSPATH
                 export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
                 export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
                 ${o.lisp} ${o.buildScript}
@@ -525,8 +521,7 @@ let
         src
         nativeLibs
       ;
-      lispLibs =
-        [ qt ] ++ remove ql.qt_plus_libs ql.qtools.lispLibs ++ [ qt-libs ];
+      lispLibs = [ qt ] ++ remove ql.qt_plus_libs ql.qtools.lispLibs ++ [ qt-libs ];
       patches = [ ./patches/qtools-use-nix-libs.patch ];
     };
 

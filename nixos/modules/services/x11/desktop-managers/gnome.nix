@@ -366,10 +366,7 @@ in
       extraGSettingsOverridePackages = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description =
-          lib.mdDoc
-            "List of packages for which gsettings are overridden."
-        ;
+        description = lib.mdDoc "List of packages for which gsettings are overridden.";
       };
 
       debug = mkEnableOption (lib.mdDoc "gnome-session debug messages");
@@ -385,10 +382,7 @@ in
               options = {
                 wmName = mkOption {
                   type = types.strMatching "[a-zA-Z0-9_-]+";
-                  description =
-                    lib.mdDoc
-                      "A unique identifier for the window manager."
-                  ;
+                  description = lib.mdDoc "A unique identifier for the window manager.";
                   example = "xmonad";
                 };
 
@@ -403,24 +397,15 @@ in
 
                 wmCommand = mkOption {
                   type = types.str;
-                  description =
-                    lib.mdDoc
-                      "The executable of the window manager to use."
-                  ;
-                  example =
-                    literalExpression
-                      ''"''${pkgs.haskellPackages.xmonad}/bin/xmonad"''
-                  ;
+                  description = lib.mdDoc "The executable of the window manager to use.";
+                  example = literalExpression ''"''${pkgs.haskellPackages.xmonad}/bin/xmonad"'';
                 };
 
                 enableGnomePanel = mkOption {
                   type = types.bool;
                   default = true;
                   example = false;
-                  description =
-                    lib.mdDoc
-                      "Whether to enable the GNOME panel in this session."
-                  ;
+                  description = lib.mdDoc "Whether to enable the GNOME panel in this session.";
                 };
               };
             }
@@ -525,8 +510,7 @@ in
 
       systemd.packages =
         with pkgs.gnome;
-        [ gnome-flashback ]
-        ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms
+        [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms
       ;
 
       # gnome-panel needs these for menu applet

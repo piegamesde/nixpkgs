@@ -77,10 +77,7 @@ in
       };
 
       extraGSettingsOverridePackages = mkOption {
-        description =
-          mdDoc
-            "List of packages for which GSettings are overridden."
-        ;
+        description = mdDoc "List of packages for which GSettings are overridden.";
         type = with types; listOf path;
         default = [ ];
       };
@@ -147,9 +144,7 @@ in
         # Budgie Desktop.
         budgie.budgie-backgrounds
         budgie.budgie-control-center
-        (budgie.budgie-desktop-with-plugins.override {
-          plugins = cfg.extraPlugins;
-        })
+        (budgie.budgie-desktop-with-plugins.override { plugins = cfg.extraPlugins; })
         budgie.budgie-desktop-view
         budgie.budgie-screensaver
 

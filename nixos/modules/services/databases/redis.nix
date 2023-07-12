@@ -26,10 +26,7 @@ let
       generators.toKeyValue
         {
           listsAsDuplicateKeys = true;
-          mkKeyValue =
-            generators.mkKeyValueDefault { inherit mkValueString; }
-              " "
-          ;
+          mkKeyValue = generators.mkKeyValueDefault { inherit mkValueString; } " ";
         }
         settings
     )
@@ -435,19 +432,13 @@ in
                     defaultText = literalExpression ''
                       if name == "" then "redis" else "redis-''${name}"
                     '';
-                    description =
-                      lib.mdDoc
-                        "The username and groupname for redis-server."
-                    ;
+                    description = lib.mdDoc "The username and groupname for redis-server.";
                   };
 
                   port = mkOption {
                     type = types.port;
                     default = if name == "" then 6379 else 0;
-                    defaultText =
-                      literalExpression
-                        ''if name == "" then 6379 else 0''
-                    ;
+                    defaultText = literalExpression ''if name == "" then 6379 else 0'';
                     description = lib.mdDoc ''
                       The TCP port to accept connections.
                       If port 0 is specified Redis will not listen on a TCP socket.
@@ -465,10 +456,7 @@ in
                   extraParams = mkOption {
                     type = with types; listOf str;
                     default = [ ];
-                    description =
-                      lib.mdDoc
-                        "Extra parameters to append to redis-server invocation"
-                    ;
+                    description = lib.mdDoc "Extra parameters to append to redis-server invocation";
                     example = [ "--sentinel" ];
                   };
 
@@ -488,10 +476,7 @@ in
                     defaultText = literalExpression ''
                       if name == "" then "/run/redis/redis.sock" else "/run/redis-''${name}/redis.sock"
                     '';
-                    description =
-                      lib.mdDoc
-                        "The path to the socket to bind to."
-                    ;
+                    description = lib.mdDoc "The path to the socket to bind to.";
                   };
 
                   unixSocketPerm = mkOption {
@@ -524,10 +509,7 @@ in
                   syslog = mkOption {
                     type = types.bool;
                     default = true;
-                    description =
-                      lib.mdDoc
-                        "Enable logging to the system logger."
-                    ;
+                    description = lib.mdDoc "Enable logging to the system logger.";
                   };
 
                   databases = mkOption {
@@ -580,19 +562,13 @@ in
                             options = {
                               ip = mkOption {
                                 type = str;
-                                description =
-                                  lib.mdDoc
-                                    "IP of the Redis master"
-                                ;
+                                description = lib.mdDoc "IP of the Redis master";
                                 example = "192.168.1.100";
                               };
 
                               port = mkOption {
                                 type = port;
-                                description =
-                                  lib.mdDoc
-                                    "port of the Redis master"
-                                ;
+                                description = lib.mdDoc "port of the Redis master";
                                 default = 6379;
                               };
                             };
@@ -635,10 +611,7 @@ in
                   requirePassFile = mkOption {
                     type = with types; nullOr path;
                     default = null;
-                    description =
-                      lib.mdDoc
-                        "File with password for the database."
-                    ;
+                    description = lib.mdDoc "File with password for the database.";
                     example = "/run/keys/redis-password";
                   };
 
@@ -673,10 +646,7 @@ in
                   slowLogMaxLen = mkOption {
                     type = types.int;
                     default = 128;
-                    description =
-                      lib.mdDoc
-                        "Maximum number of items to keep in slow log."
-                    ;
+                    description = lib.mdDoc "Maximum number of items to keep in slow log.";
                   };
 
                   settings = mkOption {
@@ -722,13 +692,7 @@ in
                       if config.save == [ ] then
                         ''""'' # Disable saving with `save = ""`
                       else
-                        map
-                          (
-                            d:
-                            "${toString (builtins.elemAt d 0)} ${
-                              toString (builtins.elemAt d 1)
-                            }"
-                          )
+                        map (d: "${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}")
                           config.save
                     ;
                     dbfilename = "dump.rdb";
@@ -743,25 +707,16 @@ in
                     unixsocketperm = toString config.unixSocketPerm;
                   })
                   (mkIf (config.slaveOf != null) {
-                    slaveof = "${config.slaveOf.ip} ${
-                        toString config.slaveOf.port
-                      }";
+                    slaveof = "${config.slaveOf.ip} ${toString config.slaveOf.port}";
                   })
-                  (mkIf (config.masterAuth != null) {
-                    masterauth = config.masterAuth;
-                  })
-                  (mkIf (config.requirePass != null) {
-                    requirepass = config.requirePass;
-                  })
+                  (mkIf (config.masterAuth != null) { masterauth = config.masterAuth; })
+                  (mkIf (config.requirePass != null) { requirepass = config.requirePass; })
                 ];
               }
             )
           )
         ;
-        description =
-          lib.mdDoc
-            "Configuration of multiple `redis-server` instances."
-        ;
+        description = lib.mdDoc "Configuration of multiple `redis-server` instances.";
         default = { };
       };
     };

@@ -16,8 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-0sJE0BBIukdufAgL0sbfXhQdIR3oAiNGDVs7iipYQz0=";
   };
 
-  propagatedBuildInputs =
-    [ six ] ++ lib.optionals (pythonOlder "3.4") [ enum34 ];
+  propagatedBuildInputs = [ six ] ++ lib.optionals (pythonOlder "3.4") [ enum34 ];
 
   # checks use bazel; should be revisited
   doCheck = false;

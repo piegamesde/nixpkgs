@@ -109,9 +109,7 @@ in
           submodule {
             options = {
               sourcePort = mkOption {
-                type = types.either types.int (
-                  types.strMatching "[[:digit:]]+:[[:digit:]]+"
-                );
+                type = types.either types.int (types.strMatching "[[:digit:]]+:[[:digit:]]+");
                 example = 8080;
                 description =
                   lib.mdDoc
@@ -192,8 +190,7 @@ in
         message = "networking.nat.dmzHost requires networking.nat.externalInterface";
       }
       {
-        assertion =
-          (cfg.forwardPorts != [ ]) -> (cfg.externalInterface != null);
+        assertion = (cfg.forwardPorts != [ ]) -> (cfg.externalInterface != null);
         message = "networking.nat.forwardPorts requires networking.nat.externalInterface";
       }
     ];

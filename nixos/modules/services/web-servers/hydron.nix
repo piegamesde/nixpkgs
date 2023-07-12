@@ -134,9 +134,7 @@ with lib; {
         Group = "hydron";
         ExecStart =
           "${pkgs.hydron}/bin/hydron serve"
-          +
-            optionalString (cfg.listenAddress != null)
-              " -a ${cfg.listenAddress}"
+          + optionalString (cfg.listenAddress != null) " -a ${cfg.listenAddress}"
         ;
       };
     };

@@ -20,8 +20,7 @@ let
     ipv6 = cfg.ipv6;
     ratelimit = cfg.ratelimit.enable;
     rootServer = cfg.rootServer;
-    zoneStats =
-      length (collect (x: (x.zoneStats or null) != null) cfg.zones) > 0;
+    zoneStats = length (collect (x: (x.zoneStats or null) != null) cfg.zones) > 0;
   };
 
   mkZoneFileName = name: if name == "." then "root" else name;
@@ -157,8 +156,7 @@ let
 
   yesOrNo = b: if b then "yes" else "no";
   maybeString = prefix: x: if x == null then "" else ''${prefix} "${x}"'';
-  maybeToString =
-    prefix: x: if x == null then "" else "${prefix} ${toString x}";
+  maybeToString = prefix: x: if x == null then "" else "${prefix} ${toString x}";
   forEach = pre: l: concatMapStrings (x: pre + x + "\n") l;
 
   keyConfigFile = concatStrings (
@@ -223,10 +221,7 @@ let
     else
       zipAttrsWith (name: head) (
         mapAttrsToList
-          (
-            name: child:
-            zoneConfigs' (parent // zone // { children = { }; }) name child
-          )
+          (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child)
           zone.children
       )
   ;
@@ -493,10 +488,7 @@ let
       };
       postPublish = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "How long after deactivation to keep a key in the zone"
-        ;
+        description = lib.mdDoc "How long after deactivation to keep a key in the zone";
       };
       rollPeriod = mkOption {
         type = types.str;

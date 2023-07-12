@@ -61,8 +61,7 @@ let
     else if stdenv.hostPlatform.system == "i686-linux" then
       "${stdenv.cc}/nix-support/dynamic-linker"
     else
-      throw
-        "Unsupported platform for PlayOnLinux: ${stdenv.hostPlatform.system}"
+      throw "Unsupported platform for PlayOnLinux: ${stdenv.hostPlatform.system}"
   ;
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs =

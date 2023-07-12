@@ -114,10 +114,7 @@ import ./make-test-python.nix (
                       inherit hashedPassword;
                     };
                     hashed_file = {
-                      hashedPasswordFile =
-                        pkgs.writeText "mqtt-hashed-password"
-                          hashedPassword
-                      ;
+                      hashedPasswordFile = pkgs.writeText "mqtt-hashed-password" hashedPassword;
                     };
 
                     reader = {

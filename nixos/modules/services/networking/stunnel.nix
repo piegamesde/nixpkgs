@@ -63,10 +63,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the stunnel TLS tunneling service."
-        ;
+        description = lib.mdDoc "Whether to enable the stunnel TLS tunneling service.";
       };
 
       user = mkOption {
@@ -99,19 +96,13 @@ in
       fipsMode = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable FIPS 140-2 mode required for compliance."
-        ;
+        description = lib.mdDoc "Enable FIPS 140-2 mode required for compliance.";
       };
 
       enableInsecureSSLv3 = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable support for the insecure SSLv3 protocol."
-        ;
+        description = lib.mdDoc "Enable support for the insecure SSLv3 protocol.";
       };
 
       servers = mkOption {
@@ -188,9 +179,7 @@ in
             ;
             forceClient = c: c // { client = true; };
           in
-          mapAttrs (
-            _: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c))
-          )
+          mapAttrs (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)))
         ;
 
         example = {

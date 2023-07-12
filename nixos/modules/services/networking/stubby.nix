@@ -92,9 +92,7 @@ in
         in
         mkOption {
           default = null;
-          type = types.nullOr (
-            types.enum (attrNames logLevels ++ attrValues logLevels)
-          );
+          type = types.nullOr (types.enum (attrNames logLevels ++ attrValues logLevels));
           apply = v: if isString v then logLevels.${v} else v;
           description = lib.mdDoc "Log verbosity (syslog keyword or level).";
         }
@@ -104,8 +102,7 @@ in
 
   config = mkIf cfg.enable {
     assertions = [ {
-      assertion =
-        (cfg.settings.resolution_type or "") == "GETDNS_RESOLUTION_STUB";
+      assertion = (cfg.settings.resolution_type or "") == "GETDNS_RESOLUTION_STUB";
       message = ''
         services.stubby.settings.resolution_type must be set to "GETDNS_RESOLUTION_STUB".
         Is services.stubby.settings unset?

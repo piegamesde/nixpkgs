@@ -83,17 +83,14 @@ let
       )
       keepAttrs
   ;
-  fetch =
-    import ../coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; }
-      (
-        {
-          inherit release releaseRev;
-          location = {
-            inherit domain owner repo;
-          };
-        } // optionalAttrs (args ? fetcher) { inherit fetcher; }
-      )
-  ;
+  fetch = import ../coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; } (
+    {
+      inherit release releaseRev;
+      location = {
+        inherit domain owner repo;
+      };
+    } // optionalAttrs (args ? fetcher) { inherit fetcher; }
+  );
   fetched = fetch (if version != null then version else defaultVersion);
   display-pkg =
     n: sep: v:

@@ -63,8 +63,7 @@ in
       '';
 
       meta = drv.meta // {
-        maintainers =
-          drv.meta.maintainers or [ ] ++ [ lib.maintainers.Profpatsch ];
+        maintainers = drv.meta.maintainers or [ ] ++ [ lib.maintainers.Profpatsch ];
       };
     }
   )

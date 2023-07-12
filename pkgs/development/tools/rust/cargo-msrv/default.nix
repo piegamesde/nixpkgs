@@ -49,9 +49,7 @@ rustPlatform.buildRustPackage rec {
 
   # Depends at run-time on having rustup in PATH
   postInstall = ''
-    wrapProgram $out/bin/cargo-msrv --prefix PATH : ${
-      lib.makeBinPath [ rustup ]
-    };
+    wrapProgram $out/bin/cargo-msrv --prefix PATH : ${lib.makeBinPath [ rustup ]};
   '';
 
   meta = with lib; {

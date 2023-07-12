@@ -41,10 +41,7 @@ in
       ${pkgs.prometheus-fastly-exporter}/bin/fastly-exporter \
         -listen http://${cfg.listenAddress}:${toString cfg.port}
         ${optionalString cfg.debug "-debug true"} \
-        ${
-          optionalString (cfg.configFile != null)
-            "-config-file ${cfg.configFile}"
-        }
+        ${optionalString (cfg.configFile != null) "-config-file ${cfg.configFile}"}
     '';
   };
 }

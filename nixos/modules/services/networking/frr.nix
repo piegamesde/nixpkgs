@@ -218,11 +218,7 @@ in
             ;
 
             unitConfig.Documentation =
-              if service == "zebra" then
-                "man:zebra(8)"
-              else
-                "man:${daemon}(8) man:zebra(8)"
-            ;
+              if service == "zebra" then "man:zebra(8)" else "man:${daemon}(8) man:zebra(8)";
 
             restartTriggers = [ (configFile service) ];
             reloadIfChanged = true;
@@ -231,9 +227,7 @@ in
               PIDFile = "frr/${daemon}.pid";
               ExecStart =
                 "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
-                +
-                  optionalString (scfg.vtyListenAddress != "")
-                    " -A ${scfg.vtyListenAddress}"
+                + optionalString (scfg.vtyListenAddress != "") " -A ${scfg.vtyListenAddress}"
                 +
                   optionalString (scfg.vtyListenPort != null)
                     " -P ${toString scfg.vtyListenPort}"

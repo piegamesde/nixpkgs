@@ -137,10 +137,7 @@ in
   options.services.kubernetes.kubelet = with lib.types; {
 
     address = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes kubelet info server listening address."
-      ;
+      description = lib.mdDoc "Kubernetes kubelet info server listening address.";
       default = "0.0.0.0";
       type = str;
     };
@@ -205,10 +202,7 @@ in
       };
 
       configDir = mkOption {
-        description =
-          lib.mdDoc
-            "Path to Kubernetes CNI configuration directory."
-        ;
+        description = lib.mdDoc "Path to Kubernetes CNI configuration directory.";
         type = nullOr path;
         default = null;
       };
@@ -279,10 +273,7 @@ in
     };
 
     registerNode = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to auto register kubelet with API server."
-      ;
+      description = lib.mdDoc "Whether to auto register kubelet with API server.";
       default = true;
       type = bool;
     };
@@ -413,23 +404,18 @@ in
                         --authentication-token-webhook-cache-ttl="10s" \
                         --authorization-mode=Webhook \
                         ${
-                          optionalString (cfg.clientCaFile != null)
-                            "--client-ca-file=${cfg.clientCaFile}"
+                          optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"
                         } \
                         ${
-                          optionalString (cfg.clusterDns != "")
-                            "--cluster-dns=${cfg.clusterDns}"
+                          optionalString (cfg.clusterDns != "") "--cluster-dns=${cfg.clusterDns}"
                         } \
                         ${
-                          optionalString (cfg.clusterDomain != "")
-                            "--cluster-domain=${cfg.clusterDomain}"
+                          optionalString (cfg.clusterDomain != "") "--cluster-domain=${cfg.clusterDomain}"
                         } \
                         ${
                           optionalString (cfg.featureGates != [ ])
                             "--feature-gates=${
-                              concatMapStringsSep ","
-                                (feature: "${feature}=true")
-                                cfg.featureGates
+                              concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
                             }"
                         } \
                         --hairpin-mode=hairpin-veth \
@@ -437,33 +423,26 @@ in
                         --healthz-port=${toString cfg.healthz.port} \
                         --hostname-override=${cfg.hostname} \
                         --kubeconfig=${kubeconfig} \
-                        ${
-                          optionalString (cfg.nodeIp != null)
-                            "--node-ip=${cfg.nodeIp}"
-                        } \
+                        ${optionalString (cfg.nodeIp != null) "--node-ip=${cfg.nodeIp}"} \
                         --pod-infra-container-image=pause \
                         ${
-                          optionalString (cfg.manifests != { })
-                            "--pod-manifest-path=/etc/${manifestPath}"
+                          optionalString (cfg.manifests != { }) "--pod-manifest-path=/etc/${manifestPath}"
                         } \
                         --port=${toString cfg.port} \
                         --register-node=${boolToString cfg.registerNode} \
                         ${
-                          optionalString (taints != "")
-                            "--register-with-taints=${taints}"
+                          optionalString (taints != "") "--register-with-taints=${taints}"
                         } \
                         --root-dir=${top.dataDir} \
                         ${
-                          optionalString (cfg.tlsCertFile != null)
-                            "--tls-cert-file=${cfg.tlsCertFile}"
+                          optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
                         } \
                         ${
                           optionalString (cfg.tlsKeyFile != null)
                             "--tls-private-key-file=${cfg.tlsKeyFile}"
                         } \
                         ${
-                          optionalString (cfg.verbosity != null)
-                            "--v=${toString cfg.verbosity}"
+                          optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
                         } \
                         --container-runtime-endpoint=${cfg.containerRuntimeEndpoint} \
                         --cgroup-driver=systemd \
@@ -508,10 +487,7 @@ in
         };
       };
 
-      services.kubernetes.kubelet.kubeconfig.server =
-        mkDefault
-          top.apiserverAddress
-      ;
+      services.kubernetes.kubelet.kubeconfig.server = mkDefault top.apiserverAddress;
     })
 
     (mkIf (cfg.enable && cfg.manifests != { }) {

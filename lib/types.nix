@@ -84,14 +84,10 @@ let
       then
         f.type
       # composed types
-      else if
-        (f.wrapped != null && f'.wrapped != null) && (wrapped != null)
-      then
+      else if (f.wrapped != null && f'.wrapped != null) && (wrapped != null) then
         f.type wrapped
       # value types
-      else if
-        (f.payload != null && f'.payload != null) && (payload != null)
-      then
+      else if (f.payload != null && f'.payload != null) && (payload != null) then
         f.type payload
       else
         null
@@ -268,9 +264,7 @@ let
                     type
                   else
                     throw
-                      "The option `${
-                        showOption loc
-                      }' has conflicting option types in ${
+                      "The option `${showOption loc}' has conflicting option types in ${
                         showFiles (getFiles defs)
                       }"
                 )
@@ -287,9 +281,7 @@ let
                 list =
                   if length defs > 1 then
                     throw
-                      "The option `${
-                        showOption loc
-                      }' has conflicting definitions, in ${
+                      "The option `${showOption loc}' has conflicting definitions, in ${
                         showFiles (getFiles defs)
                       }."
                   else
@@ -342,9 +334,7 @@ let
       ints =
         let
           betweenDesc =
-            lowest: highest:
-            "${toString lowest} and ${toString highest} (both inclusive)"
-          ;
+            lowest: highest: "${toString lowest} and ${toString highest} (both inclusive)";
           between =
             lowest: highest:
             assert lib.assertMsg (lowest <= highest)
@@ -358,8 +348,7 @@ let
             lowest: highest: name: docStart:
             between lowest highest // {
               inherit name;
-              description =
-                docStart + "; between ${betweenDesc lowest highest}";
+              description = docStart + "; between ${betweenDesc lowest highest}";
             }
           ;
           unsign =
@@ -423,9 +412,7 @@ let
         let
           betweenDesc =
             lowest: highest:
-            "${builtins.toJSON lowest} and ${
-              builtins.toJSON highest
-            } (both inclusive)"
+            "${builtins.toJSON lowest} and ${builtins.toJSON highest} (both inclusive)"
           ;
         in
         {
@@ -579,8 +566,7 @@ let
             res = mergeOneOption loc defs;
           in
           if
-            builtins.isPath res
-            || (builtins.isString res && !builtins.hasContext res)
+            builtins.isPath res || (builtins.isString res && !builtins.hasContext res)
           then
             toDerivation res
           else
@@ -603,8 +589,7 @@ let
         mkOptionType rec {
           name = "listOf";
           description = "list of ${
-              optionDescriptionPhrase
-                (class: class == "noun" || class == "composite")
+              optionDescriptionPhrase (class: class == "noun" || class == "composite")
                 elemType
             }";
           descriptionClass = "composite";
@@ -620,13 +605,7 @@ let
                       imap1
                         (
                           m: def':
-                          (mergeDefinitions
-                            (
-                              loc
-                              ++ [
-                                "[definition ${toString n}-entry ${toString m}]"
-                              ]
-                            )
+                          (mergeDefinitions (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ])
                             elemType
                             [ {
                               inherit (def) file;
@@ -670,8 +649,7 @@ let
         mkOptionType rec {
           name = "attrsOf";
           description = "attribute set of ${
-              optionDescriptionPhrase
-                (class: class == "noun" || class == "composite")
+              optionDescriptionPhrase (class: class == "noun" || class == "composite")
                 elemType
             }";
           descriptionClass = "composite";
@@ -681,11 +659,7 @@ let
             mapAttrs (n: v: v.value) (
               filterAttrs (n: v: v ? value) (
                 zipAttrsWith
-                  (
-                    name: defs:
-                    (mergeDefinitions (loc ++ [ name ]) elemType defs)
-                    .optionalValue
-                  )
+                  (name: defs: (mergeDefinitions (loc ++ [ name ]) elemType defs).optionalValue)
                   # Push down position info.
                   (
                     map
@@ -706,8 +680,7 @@ let
           emptyValue = {
             value = { };
           };
-          getSubOptions =
-            prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
+          getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: attrsOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
@@ -725,8 +698,7 @@ let
         mkOptionType rec {
           name = "lazyAttrsOf";
           description = "lazy attribute set of ${
-              optionDescriptionPhrase
-                (class: class == "noun" || class == "composite")
+              optionDescriptionPhrase (class: class == "noun" || class == "composite")
                 elemType
             }";
           descriptionClass = "composite";
@@ -740,8 +712,7 @@ let
                   merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
                 in
                 # mergedValue will trigger an appropriate error when accessed
-                merged.optionalValue.value or elemType.emptyValue.value
-                  or merged.mergedValue
+                merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
               )
               # Push down position info.
               (
@@ -761,8 +732,7 @@ let
           emptyValue = {
             value = { };
           };
-          getSubOptions =
-            prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
+          getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: lazyAttrsOf (elemType.substSubModules m);
           functor = (defaultFunctor name) // { wrapped = elemType; };
@@ -824,8 +794,7 @@ let
         mkOptionType rec {
           name = "nullOr";
           description = "null or ${
-              optionDescriptionPhrase
-                (class: class == "noun" || class == "conjunction")
+              optionDescriptionPhrase (class: class == "noun" || class == "conjunction")
                 elemType
             }";
           descriptionClass = "conjunction";
@@ -839,9 +808,7 @@ let
               null
             else if nrNulls != 0 then
               throw
-                "The option `${
-                  showOption loc
-                }` is defined both null and not null, in ${
+                "The option `${showOption loc}` is defined both null and not null, in ${
                   showFiles (getFiles defs)
                 }."
             else
@@ -863,8 +830,7 @@ let
         mkOptionType {
           name = "functionTo";
           description = "function that evaluates to a(n) ${
-              optionDescriptionPhrase
-                (class: class == "noun" || class == "composite")
+              optionDescriptionPhrase (class: class == "noun" || class == "composite")
                 elemType
             }";
           descriptionClass = "composite";
@@ -921,8 +887,7 @@ let
                   map
                     (
                       def:
-                      lib.setDefaultModuleLocation
-                        "${def.file}, via option ${showOption loc}"
+                      lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}"
                         def.value
                     )
                     defs
@@ -933,18 +898,13 @@ let
             getSubOptions
             getSubModules
           ;
-          substSubModules =
-            m: deferredModuleWith (attrs // { staticModules = m; });
+          substSubModules = m: deferredModuleWith (attrs // { staticModules = m; });
           functor = defaultFunctor "deferredModuleWith" // {
             type = types.deferredModuleWith;
             payload = {
               inherit staticModules;
             };
-            binOp =
-              lhs: rhs: {
-                staticModules = lhs.staticModules ++ rhs.staticModules;
-              }
-            ;
+            binOp = lhs: rhs: { staticModules = lhs.staticModules ++ rhs.staticModules; };
           };
         }
       ;
@@ -981,9 +941,7 @@ let
               ;
               # Merges all the types into a single one, including submodule merging.
               # This also propagates file information to all submodules
-              mergedOption = fixupOptionType loc (
-                mergeOptionDecls loc optionModules
-              );
+              mergedOption = fixupOptionType loc (mergeOptionDecls loc optionModules);
             in
             mergedOption.type
         ;
@@ -1053,17 +1011,12 @@ let
         mkOptionType {
           inherit name;
           description =
-            if description != null then
-              description
-            else
-              freeformType.description or name
-          ;
+            if description != null then description else freeformType.description or name;
           check = x: isAttrs x || isFunction x || path.check x;
           merge =
             loc: defs:
             (base.extendModules {
-              modules =
-                [ { _module.args.name = last loc; } ] ++ allModules defs;
+              modules = [ { _module.args.name = last loc; } ] ++ allModules defs;
               prefix = loc;
             }).config
           ;
@@ -1100,10 +1053,7 @@ let
                 modules = lhs.modules ++ rhs.modules;
                 specialArgs =
                   let
-                    intersecting =
-                      builtins.intersectAttrs lhs.specialArgs
-                        rhs.specialArgs
-                    ;
+                    intersecting = builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
                   in
                   if intersecting == { } then
                     lhs.specialArgs // rhs.specialArgs
@@ -1119,10 +1069,7 @@ let
                     rhs.shorthandOnlyDefinesConfig
                   else if rhs.shorthandOnlyDefinesConfig == null then
                     lhs.shorthandOnlyDefinesConfig
-                  else if
-                    lhs.shorthandOnlyDefinesConfig
-                    == rhs.shorthandOnlyDefinesConfig
-                  then
+                  else if lhs.shorthandOnlyDefinesConfig == rhs.shorthandOnlyDefinesConfig then
                     lhs.shorthandOnlyDefinesConfig
                   else
                     throw
@@ -1176,8 +1123,7 @@ let
             else
               "one of ${concatMapStringsSep ", " show values}"
           ;
-          descriptionClass =
-            if builtins.length values < 2 then "noun" else "conjunction";
+          descriptionClass = if builtins.length values < 2 then "noun" else "conjunction";
           check = flip elem values;
           merge = mergeEqualOption;
           functor = (defaultFunctor name) // {
@@ -1193,17 +1139,10 @@ let
         mkOptionType rec {
           name = "either";
           description = "${
-              optionDescriptionPhrase
-                (class: class == "noun" || class == "conjunction")
-                t1
+              optionDescriptionPhrase (class: class == "noun" || class == "conjunction") t1
             } or ${
               optionDescriptionPhrase
-                (
-                  class:
-                  class == "noun"
-                  || class == "conjunction"
-                  || class == "composite"
-                )
+                (class: class == "noun" || class == "conjunction" || class == "composite")
                 t2
             }";
           descriptionClass = "conjunction";
@@ -1271,19 +1210,13 @@ let
               optionDescriptionPhrase (class: class == "noun") coercedType
             } convertible to it";
           check =
-            x:
-            (coercedType.check x && finalType.check (coerceFunc x))
-            || finalType.check x
-          ;
+            x: (coercedType.check x && finalType.check (coerceFunc x)) || finalType.check x;
           merge =
             loc: defs:
             let
-              coerceVal =
-                val: if coercedType.check val then coerceFunc val else val;
+              coerceVal = val: if coercedType.check val then coerceFunc val else val;
             in
-            finalType.merge loc (
-              map (def: def // { value = coerceVal def.value; }) defs
-            )
+            finalType.merge loc (map (def: def // { value = coerceVal def.value; }) defs)
           ;
           emptyValue = finalType.emptyValue;
           getSubOptions = finalType.getSubOptions;
@@ -1299,11 +1232,7 @@ let
 
       # Augment the given type with an additional type check function.
       addCheck =
-        elemType: check:
-        elemType // {
-          check = x: elemType.check x && check x;
-        }
-      ;
+        elemType: check: elemType // { check = x: elemType.check x && check x; };
     };
   };
 in

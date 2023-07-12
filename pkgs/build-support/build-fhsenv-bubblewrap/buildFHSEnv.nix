@@ -209,8 +209,7 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs =
-    if isTargetBuild then setupLibDirsTarget else setupLibDirsMulti;
+  setupLibDirs = if isTargetBuild then setupLibDirsTarget else setupLibDirsMulti;
 
   # the target profile is the actual profile that will be used for the chroot
   setupTargetProfile = ''

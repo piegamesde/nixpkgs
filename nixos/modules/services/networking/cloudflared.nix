@@ -321,9 +321,7 @@ in
             );
 
             filterIngressSet = filterAttrs (_: v: builtins.typeOf v == "set");
-            filterIngressStr = filterAttrs (
-              _: v: builtins.typeOf v == "string"
-            );
+            filterIngressStr = filterAttrs (_: v: builtins.typeOf v == "string");
 
             ingressesSet = filterIngressSet tunnel.ingress;
             ingressesStr = filterIngressStr tunnel.ingress;
@@ -351,9 +349,7 @@ in
                 ++ [ { service = tunnel.default; } ]
               ;
             };
-            mkConfigFile = pkgs.writeText "cloudflared.yml" (
-              builtins.toJSON fullConfig
-            );
+            mkConfigFile = pkgs.writeText "cloudflared.yml" (builtins.toJSON fullConfig);
           in
           nameValuePair "cloudflared-tunnel-${name}" ({
             after = [

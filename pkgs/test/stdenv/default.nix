@@ -100,9 +100,7 @@ let
         };
 
         passAsFile =
-          [ "buildCommand" ]
-          ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ]
-        ;
+          [ "buildCommand" ] ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
         buildCommand = ''
           declare -p string
           appendToVar string hello

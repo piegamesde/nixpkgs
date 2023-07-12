@@ -72,11 +72,7 @@ let
         )
       ;
       collect =
-        pkg:
-        lib.unique (
-          [ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg)
-        )
-      ;
+        pkg: lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
     in
     builtins.concatMap collect appRuntimeDeps
   ;

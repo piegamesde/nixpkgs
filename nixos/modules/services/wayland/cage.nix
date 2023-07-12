@@ -11,9 +11,7 @@ let
   cfg = config.services.cage;
 in
 {
-  options.services.cage.enable = mkEnableOption (
-    lib.mdDoc "cage kiosk service"
-  );
+  options.services.cage.enable = mkEnableOption (lib.mdDoc "cage kiosk service");
 
   options.services.cage.user = mkOption {
     type = types.str;
@@ -27,10 +25,7 @@ in
     type = types.listOf types.str;
     default = [ ];
     defaultText = literalExpression "[]";
-    description =
-      lib.mdDoc
-        "Additional command line arguments to pass to Cage."
-    ;
+    description = lib.mdDoc "Additional command line arguments to pass to Cage.";
     example = [ "-d" ];
   };
 

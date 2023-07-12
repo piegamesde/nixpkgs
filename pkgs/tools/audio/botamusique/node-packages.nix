@@ -4728,9 +4728,7 @@ let
       sources."chokidar-3.4.3"
       sources."chrome-trace-event-1.0.2"
       (
-        sources."clean-css-4.2.3" // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
+        sources."clean-css-4.2.3" // { dependencies = [ sources."source-map-0.6.1" ]; }
       )
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"
@@ -4744,9 +4742,7 @@ let
       sources."convert-source-map-1.7.0"
       sources."core-js-3.7.0"
       (
-        sources."core-js-compat-3.7.0" // {
-          dependencies = [ sources."semver-7.0.0" ];
-        }
+        sources."core-js-compat-3.7.0" // { dependencies = [ sources."semver-7.0.0" ]; }
       )
       sources."cosmiconfig-7.0.0"
       sources."cross-spawn-7.0.3"
@@ -4847,15 +4843,9 @@ let
       sources."eslint-visitor-keys-1.3.0"
       sources."espree-7.3.0"
       sources."esprima-4.0.1"
+      (sources."esquery-1.3.1" // { dependencies = [ sources."estraverse-5.2.0" ]; })
       (
-        sources."esquery-1.3.1" // {
-          dependencies = [ sources."estraverse-5.2.0" ];
-        }
-      )
-      (
-        sources."esrecurse-4.3.0" // {
-          dependencies = [ sources."estraverse-5.2.0" ];
-        }
+        sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.2.0" ]; }
       )
       sources."estraverse-4.3.0"
       sources."esutils-2.0.3"
@@ -4901,9 +4891,7 @@ let
       sources."html-minifier-terser-5.1.1"
       sources."html-webpack-plugin-4.5.0"
       (
-        sources."htmlparser2-3.10.1" // {
-          dependencies = [ sources."entities-1.1.2" ];
-        }
+        sources."htmlparser2-3.10.1" // { dependencies = [ sources."entities-1.1.2" ]; }
       )
       sources."human-signals-1.1.1"
       sources."icss-utils-5.1.0"
@@ -4975,11 +4963,7 @@ let
         }
       )
       sources."loader-runner-4.1.0"
-      (
-        sources."loader-utils-1.4.0" // {
-          dependencies = [ sources."json5-1.0.1" ];
-        }
-      )
+      (sources."loader-utils-1.4.0" // { dependencies = [ sources."json5-1.0.1" ]; })
       sources."locate-path-2.0.0"
       sources."lodash-4.17.21"
       sources."lower-case-2.0.1"
@@ -5043,11 +5027,7 @@ let
       sources."pify-4.0.1"
       sources."pkg-dir-2.0.0"
       sources."popper.js-1.16.1"
-      (
-        sources."postcss-8.2.15" // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
-      )
+      (sources."postcss-8.2.15" // { dependencies = [ sources."source-map-0.6.1" ]; })
       (
         sources."postcss-loader-4.1.0" // {
           dependencies = [
@@ -5090,11 +5070,7 @@ let
       sources."regexpu-core-4.7.1"
       sources."regextras-0.7.1"
       sources."regjsgen-0.5.2"
-      (
-        sources."regjsparser-0.6.4" // {
-          dependencies = [ sources."jsesc-0.5.0" ];
-        }
-      )
+      (sources."regjsparser-0.6.4" // { dependencies = [ sources."jsesc-0.5.0" ]; })
       sources."relateurl-0.2.7"
       (
         sources."renderkid-2.0.4" // {
@@ -5181,11 +5157,7 @@ let
             sources."p-try-2.2.0"
             sources."schema-utils-3.0.0"
             sources."source-map-0.6.1"
-            (
-              sources."terser-5.5.0" // {
-                dependencies = [ sources."source-map-0.7.3" ];
-              }
-            )
+            (sources."terser-5.5.0" // { dependencies = [ sources."source-map-0.7.3" ]; })
           ];
         }
       )
@@ -5193,9 +5165,7 @@ let
       sources."to-fast-properties-2.0.0"
       sources."to-regex-range-5.0.1"
       (
-        sources."tsconfig-paths-3.9.0" // {
-          dependencies = [ sources."json5-1.0.1" ];
-        }
+        sources."tsconfig-paths-3.9.0" // { dependencies = [ sources."json5-1.0.1" ]; }
       )
       sources."tslib-1.14.1"
       sources."type-check-0.4.0"
@@ -5233,9 +5203,7 @@ let
         }
       )
       (
-        sources."webpack-cli-4.2.0" // {
-          dependencies = [ sources."commander-6.2.0" ];
-        }
+        sources."webpack-cli-4.2.0" // { dependencies = [ sources."commander-6.2.0" ]; }
       )
       sources."webpack-merge-4.2.2"
       (

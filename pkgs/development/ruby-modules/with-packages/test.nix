@@ -39,9 +39,7 @@ let
             if builtins.isList gemTests.${name} then
               pkgs.writeText "${name}.rb" ''
                 puts "${name} GEM_HOME: #{ENV['GEM_HOME']}"
-                ${lib.concatStringsSep "\n" (
-                  map (n: "require '${n}'") gemTests.${name}
-                )}
+                ${lib.concatStringsSep "\n" (map (n: "require '${n}'") gemTests.${name})}
               ''
             else
               pkgs.writeText "${name}.rb" gemTests.${name}
@@ -65,10 +63,7 @@ stdenv.mkDerivation {
   name = "test-all-ruby-gems";
   buildInputs =
     builtins.foldl'
-      (
-        sum: ruby:
-        sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby))
-      )
+      (sum: ruby: sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby)))
       [ ]
       rubyVersions
   ;

@@ -142,9 +142,7 @@ let
         # TSM option keys are case insensitive;
         # we have to ensure there are no keys that
         # differ only by upper and lower case.
-        type = addCheck (attrsOf (nullOr str)) (
-          attrs: checkIUnique (attrNames attrs)
-        );
+        type = addCheck (attrsOf (nullOr str)) (attrs: checkIUnique (attrNames attrs));
         default = { };
         example.compression = "yes";
         example.passwordaccess = null;
@@ -173,10 +171,7 @@ let
         type = str;
         internal = true;
         visible = false;
-        description =
-          lib.mdDoc
-            "Server stanza text generated from the options."
-        ;
+        description = lib.mdDoc "Server stanza text generated from the options.";
       };
       config.name = mkDefault name;
       # Client system-options file directives are explained here:
@@ -190,8 +185,7 @@ let
           passwordaccess = if config.genPasswd then "generate" else "prompt";
           passworddir = ''"${config.passwdDir}"'';
         } // optionalAttrs (config.includeExclude != "") {
-          inclexcl = ''
-            "${pkgs.writeText "inclexcl.dsm.sys" config.includeExclude}"'';
+          inclexcl = ''"${pkgs.writeText "inclexcl.dsm.sys" config.includeExclude}"'';
         }
       );
       config.text =
@@ -291,9 +285,7 @@ let
     }
     {
       assertion =
-        (cfg.defaultServername != null)
-        -> (hasAttr cfg.defaultServername cfg.servers)
-      ;
+        (cfg.defaultServername != null) -> (hasAttr cfg.defaultServername cfg.servers);
       message = "TSM defaultServername not found in list of servers";
     }
   ];

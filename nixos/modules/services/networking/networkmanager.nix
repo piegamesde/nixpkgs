@@ -46,20 +46,12 @@ let
         dns = cfg.dns;
         # If resolvconf is disabled that means that resolv.conf is managed by some other module.
         rc-manager =
-          if config.networking.resolvconf.enable then
-            "resolvconf"
-          else
-            "unmanaged"
-        ;
+          if config.networking.resolvconf.enable then "resolvconf" else "unmanaged";
         firewall-backend = cfg.firewallBackend;
       })
       (mkSection "keyfile" {
         unmanaged-devices =
-          if cfg.unmanaged == [ ] then
-            null
-          else
-            lib.concatStringsSep ";" cfg.unmanaged
-        ;
+          if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged;
       })
       (mkSection "logging" {
         audit = config.security.audit.enable;
@@ -508,8 +500,7 @@ in
   config = mkIf cfg.enable {
 
     assertions = [ {
-      assertion =
-        config.networking.wireless.enable == true -> cfg.unmanaged != [ ];
+      assertion = config.networking.wireless.enable == true -> cfg.unmanaged != [ ];
       message = ''
         You can not use networking.networkmanager with networking.wireless.
         Except if you mark some interfaces as <literal>unmanaged</literal> by NetworkManager.
@@ -534,8 +525,7 @@ in
     } // optionalAttrs
         (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ])
         {
-          "NetworkManager/dispatcher.d/02overridedns".source =
-            overrideNameserversScript;
+          "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript;
         } // listToAttrs (
           lib.imap1
             (i: s: {

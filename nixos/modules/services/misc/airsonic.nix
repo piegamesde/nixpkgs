@@ -87,10 +87,7 @@ in
       transcoders = mkOption {
         type = types.listOf types.path;
         default = [ "${pkgs.ffmpeg.bin}/bin/ffmpeg" ];
-        defaultText =
-          literalExpression
-            ''[ "''${pkgs.ffmpeg.bin}/bin/ffmpeg" ]''
-        ;
+        defaultText = literalExpression ''[ "''${pkgs.ffmpeg.bin}/bin/ffmpeg" ]'';
         description = lib.mdDoc ''
           List of paths to transcoder executables that should be accessible
           from Airsonic. Symlinks will be created to each executable inside
@@ -113,10 +110,7 @@ in
       war = mkOption {
         type = types.path;
         default = "${pkgs.airsonic}/webapps/airsonic.war";
-        defaultText =
-          literalExpression
-            ''"''${pkgs.airsonic}/webapps/airsonic.war"''
-        ;
+        defaultText = literalExpression ''"''${pkgs.airsonic}/webapps/airsonic.war"'';
         description = lib.mdDoc "Airsonic war file to use.";
       };
 
@@ -161,8 +155,7 @@ in
           -Dairsonic.contextPath=${cfg.contextPath} \
           -Djava.awt.headless=true \
           ${
-            optionalString (cfg.virtualHost != null)
-              "-Dserver.use-forward-headers=true"
+            optionalString (cfg.virtualHost != null) "-Dserver.use-forward-headers=true"
           } \
           ${toString cfg.jvmOptions} \
           -verbose:gc \

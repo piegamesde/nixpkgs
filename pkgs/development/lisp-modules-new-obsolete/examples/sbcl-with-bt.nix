@@ -26,10 +26,7 @@ let
     inherit bordeaux-threads;
   };
 
-  sbclWithPackages =
-    pkgs.lispPackages_new.lispWithPackagesInternal
-      sbclPackages
-  ;
+  sbclWithPackages = pkgs.lispPackages_new.lispWithPackagesInternal sbclPackages;
 
   sbcl-bt = sbclWithPackages (p: [ p.bordeaux-threads ]);
 in

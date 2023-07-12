@@ -55,19 +55,13 @@ in
       language = mkOption {
         default = null;
         type = types.nullOr types.str;
-        description =
-          lib.mdDoc
-            "RFC 4646 Language code for text/gemini documents."
-        ;
+        description = lib.mdDoc "RFC 4646 Language code for text/gemini documents.";
       };
 
       onlyTls_1_3 = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Only use TLSv1.3 (default also allows TLSv1.2)."
-        ;
+        description = lib.mdDoc "Only use TLSv1.3 (default also allows TLSv1.2).";
       };
 
       extraArgs = mkOption {

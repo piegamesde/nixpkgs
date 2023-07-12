@@ -43,9 +43,7 @@ stdenvNoCC.mkDerivation rec {
       Scheherazade${lib.optionalString new " New"}, named after the heroine of
       the classic Arabian Nights tale, is designed in a similar style to
       traditional typefaces such as Monotype Naskh, extended to cover the
-      Unicode Arabic repertoire through Unicode ${
-        if new then "14.0" else "8.0"
-      }.
+      Unicode Arabic repertoire through Unicode ${if new then "14.0" else "8.0"}.
 
       Scheherazade provides a “simplified” rendering of Arabic script, using
       basic connecting glyphs but not including a wide variety of additional

@@ -159,8 +159,7 @@ in
 
       cellServDB = mkOption {
         default = [ ];
-        type =
-          with types; listOf (submodule [ { options = cellServDBConfig; } ]);
+        type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
         description =
           lib.mdDoc
             "Definition of all cell-local database server machines."
@@ -244,20 +243,14 @@ in
           vlserverArgs = mkOption {
             default = "";
             type = types.str;
-            description =
-              lib.mdDoc
-                "Arguments to the vlserver process. See its man page."
-            ;
+            description = lib.mdDoc "Arguments to the vlserver process. See its man page.";
             example = "-rxbind";
           };
 
           ptserverArgs = mkOption {
             default = "";
             type = types.str;
-            description =
-              lib.mdDoc
-                "Arguments to the ptserver process. See its man page."
-            ;
+            description = lib.mdDoc "Arguments to the ptserver process. See its man page.";
             example = "-restricted -default_access S---- S-M---";
           };
         };
@@ -285,19 +278,13 @@ in
           buserverArgs = mkOption {
             default = "";
             type = types.str;
-            description =
-              lib.mdDoc
-                "Arguments to the buserver process. See its man page."
-            ;
+            description = lib.mdDoc "Arguments to the buserver process. See its man page.";
             example = "-p 8";
           };
 
           cellServDB = mkOption {
             default = [ ];
-            type =
-              with types;
-              listOf (submodule [ { options = cellServDBConfig; } ])
-            ;
+            type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
             description = lib.mdDoc ''
               Definition of all cell-local backup database server machines.
               Use this when your cell uses less backup database servers than
@@ -401,8 +388,7 @@ in
         unitConfig.ConditionPathExists = [ "|/etc/openafs/server/KeyFileExt" ];
         preStart = ''
           mkdir -m 0755 -p /var/openafs
-          ${optionalString (netInfo != null)
-            "cp ${netInfo} /var/openafs/netInfo"}
+          ${optionalString (netInfo != null) "cp ${netInfo} /var/openafs/netInfo"}
           ${optionalString useBuCellServDB "cp ${buCellServDB}"}
         '';
         serviceConfig = {
