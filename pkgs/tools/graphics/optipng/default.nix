@@ -31,9 +31,11 @@ stdenv.mkDerivation rec {
       "--with-system-zlib"
       "--with-system-libpng"
     ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      #"-prefix=$out"
-    ]
+    ++
+      lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+        [
+          #"-prefix=$out"
+        ]
   ;
 
   postInstall =

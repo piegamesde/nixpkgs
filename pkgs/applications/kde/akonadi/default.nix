@@ -80,9 +80,8 @@ mkDerivation {
       }\"''
     ''
       -DNIXPKGS_MYSQL_MYSQL_INSTALL_DB=\"${
-        lib.optionalString mysqlSupport "${
-            lib.getBin mariadb
-          }/bin/mysql_install_db"
+        lib.optionalString mysqlSupport
+          "${lib.getBin mariadb}/bin/mysql_install_db"
       }\"''
     ''
       -DNIXPKGS_MYSQL_MYSQLCHECK=\"${
@@ -94,9 +93,8 @@ mkDerivation {
       }\"''
     ''
       -DNIXPKGS_POSTGRES_PG_UPGRADE=\"${
-        lib.optionalString postgresSupport "${
-            lib.getBin postgresql
-          }/bin/pg_upgrade"
+        lib.optionalString postgresSupport
+          "${lib.getBin postgresql}/bin/pg_upgrade"
       }\"''
     ''
       -DNIXPKGS_POSTGRES_INITDB=\"${

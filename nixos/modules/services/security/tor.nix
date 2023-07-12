@@ -143,9 +143,9 @@ let
           config = {
             flags =
               filter (name: config.${name} == true) isolateFlags
-              ++ optional (config.SessionGroup != null) "SessionGroup=${
-                    toString config.SessionGroup
-                  }"
+              ++
+                optional (config.SessionGroup != null)
+                  "SessionGroup=${toString config.SessionGroup}"
             ;
           };
         }
@@ -222,9 +222,9 @@ let
             # Only add flags in SOCKSPort to avoid duplicates
             flags =
               filter (name: config.${name} == true) flags
-              ++ optional (config.SessionGroup != null) "SessionGroup=${
-                    toString config.SessionGroup
-                  }"
+              ++
+                optional (config.SessionGroup != null)
+                  "SessionGroup=${toString config.SessionGroup}"
             ;
           };
         }
@@ -318,9 +318,8 @@ let
       + toString v.port
       + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
     else if k == "ServerTransportPlugin" then
-      optionalString (v.transports != [ ]) "${
-          concatStringsSep "," v.transports
-        } exec ${v.exec}"
+      optionalString (v.transports != [ ])
+        "${concatStringsSep "," v.transports} exec ${v.exec}"
     else if k == "HidServAuth" then
       v.onion + " " + v.auth
     else

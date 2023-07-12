@@ -290,13 +290,15 @@ stdenv.mkDerivation (
           extraPrefix = "libraries/Cabal/Cabal/";
         })
       ]
-      ++ lib.optionals stdenv.isDarwin [
-        # Make Block.h compile with c++ compilers. Remove with the next release
-        (fetchpatch {
-          url = "https://gitlab.haskell.org/ghc/ghc/-/commit/97d0b0a367e4c6a52a17c3299439ac7de129da24.patch";
-          sha256 = "0r4zjj0bv1x1m2dgxp3adsf2xkr94fjnyj1igsivd9ilbs5ja0b5";
-        })
-      ]
+      ++
+        lib.optionals stdenv.isDarwin
+          [
+            # Make Block.h compile with c++ compilers. Remove with the next release
+            (fetchpatch {
+              url = "https://gitlab.haskell.org/ghc/ghc/-/commit/97d0b0a367e4c6a52a17c3299439ac7de129da24.patch";
+              sha256 = "0r4zjj0bv1x1m2dgxp3adsf2xkr94fjnyj1igsivd9ilbs5ja0b5";
+            })
+          ]
       ++
         lib.optionals
           (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64)

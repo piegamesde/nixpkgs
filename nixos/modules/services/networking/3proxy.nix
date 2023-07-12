@@ -375,9 +375,8 @@ in
           (service: ''
             auth ${concatStringsSep " " service.auth}
 
-            ${optionalString (cfg.denyPrivate) "deny * * ${
-                optionalList cfg.privateRanges
-              }"}
+            ${optionalString (cfg.denyPrivate)
+              "deny * * ${optionalList cfg.privateRanges}"}
 
             ${concatMapStringsSep "\n"
               (
@@ -398,9 +397,8 @@ in
             ${optionalString (service.extraConfig != null) service.extraConfig}
 
             ${service.type} -i${toString service.bindAddress} ${
-              optionalString (service.bindPort != null) "-p${
-                  toString service.bindPort
-                }"
+              optionalString (service.bindPort != null)
+                "-p${toString service.bindPort}"
             } ${
               optionalString (service.extraArguments != null)
                 service.extraArguments

@@ -575,8 +575,10 @@ in
         };
 
         fromAddress = lib.mkOption {
-          description = lib.mdDoc ''
-            "From" address used when sending Emails to users.'';
+          description =
+            lib.mdDoc
+              ''"From" address used when sending Emails to users.''
+          ;
           type = lib.types.str;
         };
 

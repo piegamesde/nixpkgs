@@ -25,9 +25,8 @@ let
         else if isSecret v then
           hashString "sha256" v._secret
         else
-          throw "unsupported type ${typeOf v}: ${
-              (lib.generators.toPretty { }) v
-            }"
+          throw
+            "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
       ;
     };
   };

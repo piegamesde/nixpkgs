@@ -362,9 +362,10 @@ runTests {
       in
       {
         storePath = isStorePath goodPath;
-        storePathDerivation = isStorePath (import ../.. {
-          system = "x86_64-linux";
-        }).hello;
+        storePathDerivation =
+          isStorePath
+            (import ../.. { system = "x86_64-linux"; }).hello
+        ;
         storePathAppendix = isStorePath "${goodPath}/bin/python";
         nonAbsolute = isStorePath (
           concatStrings (tail (stringToCharacters goodPath))
@@ -1491,8 +1492,10 @@ runTests {
         "typescript-language-server"
         "--stdio"
       ];
-      settings.workspace.library = generators.mkLuaInline ''
-        vim.api.nvim_get_runtime_file("", true)'';
+      settings.workspace.library =
+        generators.mkLuaInline
+          ''vim.api.nvim_get_runtime_file("", true)''
+      ;
     };
     expected = ''
       {

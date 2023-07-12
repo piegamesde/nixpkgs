@@ -206,13 +206,15 @@ let
                   else
                     ./do-not-update-gems-baseruby.patch
                 )
-                ++ ops (ver.majMin == "3.0") [
-                  # Ruby 3.0 adds `-fdeclspec` to $CC instead of $CFLAGS. Fixed in later versions.
-                  (fetchpatch {
-                    url = "https://github.com/ruby/ruby/commit/0acc05caf7518cd0d63ab02bfa036455add02346.patch";
-                    sha256 = "sha256-43hI9L6bXfeujgmgKFVmiWhg7OXvshPCCtQ4TxqK1zk=";
-                  })
-                ]
+                ++
+                  ops (ver.majMin == "3.0")
+                    [
+                      # Ruby 3.0 adds `-fdeclspec` to $CC instead of $CFLAGS. Fixed in later versions.
+                      (fetchpatch {
+                        url = "https://github.com/ruby/ruby/commit/0acc05caf7518cd0d63ab02bfa036455add02346.patch";
+                        sha256 = "sha256-43hI9L6bXfeujgmgKFVmiWhg7OXvshPCCtQ4TxqK1zk=";
+                      })
+                    ]
                 ++ ops (!atLeast30 && rubygemsSupport) [
                   # We upgrade rubygems to a version that isn't compatible with the
                   # ruby 2.7 installer. Backport the upstream fix.
@@ -228,13 +230,15 @@ let
                     sha256 = "0wrii25cxcz2v8bgkrf7ibcanjlxwclzhayin578bf0qydxdm9qy";
                   })
                 ]
-                ++ ops atLeast31 [
-                  # When using a baseruby, ruby always sets "libdir" to the build
-                  # directory, which nix rejects due to a reference in to /build/ in
-                  # the final product. Removing this reference doesn't seem to break
-                  # anything and fixes cross compliation.
-                  ./dont-refer-to-build-dir.patch
-                ]
+                ++
+                  ops atLeast31
+                    [
+                      # When using a baseruby, ruby always sets "libdir" to the build
+                      # directory, which nix rejects due to a reference in to /build/ in
+                      # the final product. Removing this reference doesn't seem to break
+                      # anything and fixes cross compliation.
+                      ./dont-refer-to-build-dir.patch
+                    ]
               ;
 
               cargoRoot = opString yjitSupport "yjit";
@@ -282,9 +286,9 @@ let
                   (lib.enableFeature yjitSupport "yjit")
                   (lib.enableFeature docSupport "install-doc")
                   (lib.withFeature jemallocSupport "jemalloc")
-                  (lib.withFeatureAs docSupport "ridir" "${
-                      placeholder "devdoc"
-                    }/share/ri")
+                  (lib.withFeatureAs docSupport "ridir"
+                    "${placeholder "devdoc"}/share/ri"
+                  )
                   # ruby enables -O3 for gcc, however our compiler hardening wrapper
                   # overrides that by enabling `-O2` which is the minimum optimization
                   # needed for `_FORTIFY_SOURCE`.

@@ -100,9 +100,8 @@ let
             --server \
             --port ${toString cfg.port} \
             ${
-              optionalString (cfg.affinity != null) "--affinity ${
-                  toString cfg.affinity
-                }"
+              optionalString (cfg.affinity != null)
+                "--affinity ${toString cfg.affinity}"
             } \
             ${optionalString (cfg.bind != null) "--bind ${cfg.bind}"} \
             ${

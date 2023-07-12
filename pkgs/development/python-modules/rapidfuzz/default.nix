@@ -73,10 +73,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    # segfaults
-    "test_cdist"
-  ];
+  disabledTests =
+    lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
+      [
+        # segfaults
+        "test_cdist"
+      ]
+  ;
 
   pythonImportsCheck = [
     "rapidfuzz.distance"

@@ -36,22 +36,22 @@ let
       (name: config: ''
         [${name}]
         type = "${config.type}"
-        ${optionalString (config.instance != null) ''
-          instance = "${config.instance}"''}
-        ${optionalString (config.type == "local" || config.type == "remote") ''
-          path = "${config.path}"''}
+        ${optionalString (config.instance != null)
+          ''instance = "${config.instance}"''}
+        ${optionalString (config.type == "local" || config.type == "remote")
+          ''path = "${config.path}"''}
         ${optionalString (config.type != "local") ''
           host = "${config.host}"
-          ${optionalString (config.port != null) ''
-            port = "${toString config.port}"''}
+          ${optionalString (config.port != null)
+            ''port = "${toString config.port}"''}
           user${
             optionalString (config.type == "api") "name"
           } = "${config.username}"
         ''}
-        ${optionalString (config.type == "api") ''
-          password = "${config.password}"''}
-        ${optionalString (config.type == "remote") ''
-          resource = "${config.resource}"''}
+        ${optionalString (config.type == "api")
+          ''password = "${config.password}"''}
+        ${optionalString (config.type == "remote")
+          ''resource = "${config.resource}"''}
       '')
       cfg.transports
   );

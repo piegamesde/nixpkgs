@@ -42,10 +42,12 @@ stdenv.mkDerivation rec {
       gcc
       # replaces ecl's own gc which other packages can depend on, thus propagated
     ]
-    ++ lib.optionals useBoehmgc [
-      # replaces ecl's own gc which other packages can depend on, thus propagated
-      boehmgc
-    ]
+    ++
+      lib.optionals useBoehmgc
+        [
+          # replaces ecl's own gc which other packages can depend on, thus propagated
+          boehmgc
+        ]
   ;
 
   patches =

@@ -225,8 +225,10 @@ with lib; {
     sslTrustedCertificate = mkOption {
       type = types.nullOr types.path;
       default = null;
-      example = literalExpression ''
-        "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
+      example =
+        literalExpression
+          ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"''
+      ;
       description =
         lib.mdDoc
           "Path to root SSL certificate for stapling and client certificates."

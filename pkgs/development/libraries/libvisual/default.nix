@@ -49,10 +49,13 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    # Remove once "sdl-cross-prereq.patch" patch above is removed.
-    "--disable-lv-tool"
-  ];
+  configureFlags =
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+      [
+        # Remove once "sdl-cross-prereq.patch" patch above is removed.
+        "--disable-lv-tool"
+      ]
+  ;
 
   meta = {
     description = "An abstraction library for audio visualisations";

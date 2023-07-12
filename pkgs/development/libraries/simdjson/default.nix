@@ -21,11 +21,13 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DSIMDJSON_DEVELOPER_MODE=OFF" ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DBUILD_SHARED_LIBS=OFF" ]
-    ++ lib.optionals (with stdenv.hostPlatform; isPower && isBigEndian) [
-      # Assume required CPU features are available, since otherwise we
-      # just get a failed build.
-      "-DCMAKE_CXX_FLAGS=-mpower8-vector"
-    ]
+    ++
+      lib.optionals (with stdenv.hostPlatform; isPower && isBigEndian)
+        [
+          # Assume required CPU features are available, since otherwise we
+          # just get a failed build.
+          "-DCMAKE_CXX_FLAGS=-mpower8-vector"
+        ]
   ;
 
   meta = with lib; {

@@ -214,9 +214,8 @@ let
                   } proto static
                 ''}
                 ip route replace default ${
-                  optionalString (cfg.defaultGateway.metric != null) "metric ${
-                      toString cfg.defaultGateway.metric
-                    }"
+                  optionalString (cfg.defaultGateway.metric != null)
+                    "metric ${toString cfg.defaultGateway.metric}"
                 } via "${cfg.defaultGateway.address}" ${
                   optionalString (cfg.defaultGatewayWindowSize != null)
                     "window ${toString cfg.defaultGatewayWindowSize}"
@@ -235,9 +234,8 @@ let
                   } proto static
                 ''}
                 ip -6 route replace default ${
-                  optionalString (cfg.defaultGateway6.metric != null) "metric ${
-                      toString cfg.defaultGateway6.metric
-                    }"
+                  optionalString (cfg.defaultGateway6.metric != null)
+                    "metric ${toString cfg.defaultGateway6.metric}"
                 } via "${cfg.defaultGateway6.address}" ${
                   optionalString (cfg.defaultGatewayWindowSize != null)
                     "window ${toString cfg.defaultGatewayWindowSize}"
@@ -309,8 +307,10 @@ let
                 route:
                 let
                   cidr = "${route.address}/${toString route.prefixLength}";
-                  via = optionalString (route.via != null) ''
-                    via "${route.via}"'';
+                  via =
+                    optionalString (route.via != null)
+                      ''via "${route.via}"''
+                  ;
                   options = concatStrings (
                     mapAttrsToList (name: val: "${name} ${val} ") route.options
                   );
@@ -561,9 +561,9 @@ let
                       (
                         name: config:
                         " -- add-port ${n} ${name}"
-                        + optionalString (config.vlan != null) " tag=${
-                               toString config.vlan
-                             }"
+                        +
+                          optionalString (config.vlan != null)
+                            " tag=${toString config.vlan}"
                       )
                       v.interfaces
                   )
@@ -714,12 +714,10 @@ let
                   else
                     "gue"
                 } ${
-                  optionalString (v.local != null) "local ${
-                      escapeShellArg v.local.address
-                    } ${
-                      optionalString (v.local.dev != null) "dev ${
-                          escapeShellArg v.local.dev
-                        }"
+                  optionalString (v.local != null)
+                    "local ${escapeShellArg v.local.address} ${
+                      optionalString (v.local.dev != null)
+                        "dev ${escapeShellArg v.local.dev}"
                     }"
                 }";
             in

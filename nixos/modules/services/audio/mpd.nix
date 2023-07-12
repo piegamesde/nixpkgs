@@ -47,10 +47,10 @@ let
     state_file          "${cfg.dataDir}/state"
     sticker_file        "${cfg.dataDir}/sticker.sql"
 
-    ${optionalString (cfg.network.listenAddress != "any") ''
-      bind_to_address "${cfg.network.listenAddress}"''}
-    ${optionalString (cfg.network.port != 6600) ''
-      port "${toString cfg.network.port}"''}
+    ${optionalString (cfg.network.listenAddress != "any")
+      ''bind_to_address "${cfg.network.listenAddress}"''}
+    ${optionalString (cfg.network.port != 6600)
+      ''port "${toString cfg.network.port}"''}
     ${optionalString (cfg.fluidsynth) ''
       decoder {
               plugin "fluidsynth"

@@ -39,10 +39,12 @@ python3Packages.buildPythonApplication rec {
       # Assertion error
       "test_help_output"
     ]
-    ++ lib.optionals stdenv.isDarwin [
-      # FsOperationFailed
-      "test_get_file_mode"
-    ]
+    ++
+      lib.optionals stdenv.isDarwin
+        [
+          # FsOperationFailed
+          "test_get_file_mode"
+        ]
   ;
 
   meta = with lib; {

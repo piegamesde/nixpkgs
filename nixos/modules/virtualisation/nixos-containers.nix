@@ -192,9 +192,8 @@ let
               }"''
         } \
         ${
-          optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ]) "--tmpfs=${
-              concatStringsSep " --tmpfs=" cfg.tmpfs
-            }"
+          optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
+            "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
         } \
         ${
           containerInit cfg

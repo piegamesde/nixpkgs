@@ -42,10 +42,13 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [
-    # TypeError: UserId is not a dataclass and cannot be turned into one.
-    "test_newtype"
-  ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.10")
+      [
+        # TypeError: UserId is not a dataclass and cannot be turned into one.
+        "test_newtype"
+      ]
+  ;
 
   pythonImportsCheck = [ "marshmallow_dataclass" ];
 

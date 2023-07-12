@@ -158,9 +158,8 @@ rec {
     let
       badFields = filter (name: !elem name fields) (attrNames attr);
     in
-    optional (badFields != [ ]) "Systemd ${group} has extra fields [${
-        concatStringsSep " " badFields
-      }]."
+    optional (badFields != [ ])
+      "Systemd ${group} has extra fields [${concatStringsSep " " badFields}]."
   ;
 
   assertInt =
@@ -502,9 +501,12 @@ rec {
       ...
     }:
     {
-      config.environment.PATH = mkIf (config.path != [ ]) "${
-            makeBinPath config.path
-          }:${makeSearchPathOutput "bin" "sbin" config.path}";
+      config.environment.PATH =
+        mkIf (config.path != [ ])
+          "${makeBinPath config.path}:${
+            makeSearchPathOutput "bin" "sbin" config.path
+          }"
+      ;
     }
   ;
 

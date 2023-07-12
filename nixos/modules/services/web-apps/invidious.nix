@@ -24,10 +24,12 @@ let
         let
           jqFilter =
             "."
-            + lib.optionalString (cfg.database.host != null) ''
-              [0].db.password = "'"'"$(cat ${
-                lib.escapeShellArg cfg.database.passwordFile
-              })"'"'"''
+            +
+              lib.optionalString (cfg.database.host != null)
+                ''
+                  [0].db.password = "'"'"$(cat ${
+                    lib.escapeShellArg cfg.database.passwordFile
+                  })"'"'"''
             + " | .[0]"
             + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]"
           ;

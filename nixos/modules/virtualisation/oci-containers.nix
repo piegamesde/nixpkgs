@@ -309,9 +309,9 @@ let
           "--name=${escapedName}"
           "--log-driver=${container.log-driver}"
         ]
-        ++ optional (container.entrypoint != null) "--entrypoint=${
-              escapeShellArg container.entrypoint
-            }"
+        ++
+          optional (container.entrypoint != null)
+            "--entrypoint=${escapeShellArg container.entrypoint}"
         ++ lib.optionals (cfg.backend == "podman") [
           "--cidfile=/run/podman-${escapedName}.ctr-id"
           "--cgroups=no-conmon"
@@ -324,13 +324,13 @@ let
         )
         ++ map (f: "--env-file ${escapeShellArg f}") container.environmentFiles
         ++ map (p: "-p ${escapeShellArg p}") container.ports
-        ++ optional (container.user != null) "-u ${
-              escapeShellArg container.user
-            }"
+        ++
+          optional (container.user != null)
+            "-u ${escapeShellArg container.user}"
         ++ map (v: "-v ${escapeShellArg v}") container.volumes
-        ++ optional (container.workdir != null) "-w ${
-              escapeShellArg container.workdir
-            }"
+        ++
+          optional (container.workdir != null)
+            "-w ${escapeShellArg container.workdir}"
         ++ map escapeShellArg container.extraOptions
         ++ [ container.image ]
         ++ map escapeShellArg container.cmd

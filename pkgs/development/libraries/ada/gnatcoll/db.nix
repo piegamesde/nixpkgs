@@ -95,10 +95,12 @@ stdenv.mkDerivation rec {
       "TARGET=${stdenv.hostPlatform.config}"
       "prefix=${placeholder "out"}"
     ]
-    ++ lib.optionals (component == "sqlite") [
-      # link against packaged, not vendored libsqlite3
-      "GNATCOLL_SQLITE=external"
-    ]
+    ++
+      lib.optionals (component == "sqlite")
+        [
+          # link against packaged, not vendored libsqlite3
+          "GNATCOLL_SQLITE=external"
+        ]
   ;
 
   meta = with lib; {

@@ -95,8 +95,10 @@ in
 
       platformCred = mkOption {
         default = "${cfg.stateDir}/platform.cert";
-        defaultText = literalExpression ''
-          "''${config.${opt.stateDir}}/platform.cert"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.stateDir}}/platform.cert"''
+        ;
         type = types.path;
         description = lib.mdDoc ''
           Path to the platform credential for your TPM. Your TPM
@@ -110,8 +112,10 @@ in
 
       conformanceCred = mkOption {
         default = "${cfg.stateDir}/conformance.cert";
-        defaultText = literalExpression ''
-          "''${config.${opt.stateDir}}/conformance.cert"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.stateDir}}/conformance.cert"''
+        ;
         type = types.path;
         description = lib.mdDoc ''
           Path to the conformance credential for your TPM.
@@ -120,8 +124,10 @@ in
 
       endorsementCred = mkOption {
         default = "${cfg.stateDir}/endorsement.cert";
-        defaultText = literalExpression ''
-          "''${config.${opt.stateDir}}/endorsement.cert"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.stateDir}}/endorsement.cert"''
+        ;
         type = types.path;
         description = lib.mdDoc ''
           Path to the endorsement credential for your TPM.

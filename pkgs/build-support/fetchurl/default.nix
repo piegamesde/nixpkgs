@@ -178,7 +178,8 @@ let
         outputHash = "";
       }
     else
-      throw "fetchurl requires a hash for fixed-output derivation: ${
+      throw
+        "fetchurl requires a hash for fixed-output derivation: ${
           lib.concatStringsSep ", " urls_
         }"
   ;

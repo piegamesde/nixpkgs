@@ -308,20 +308,17 @@ in
                   -datadir=${cfg.dataDir} \
                   ${optionalString (cfg.sync != false) "-sync"} \
                   ${
-                    optionalString (cfg.certFile != null) "-certfile=${
-                        toString cfg.certFile
-                      }"
+                    optionalString (cfg.certFile != null)
+                      "-certfile=${toString cfg.certFile}"
                   } \
                   ${optionalString (cfg.debug != false) "-debug"} \
                   ${
-                    optionalString (cfg.internal != null) "-internal=${
-                        toString cfg.internal
-                      }"
+                    optionalString (cfg.internal != null)
+                      "-internal=${toString cfg.internal}"
                   } \
                   ${
-                    optionalString (cfg.public != null) "-public=${
-                        toString cfg.public
-                      }"
+                    optionalString (cfg.public != null)
+                      "-public=${toString cfg.public}"
                   } \
                   ${toString cfg.extraCmdLineOptions}
                 '';

@@ -39,9 +39,9 @@ let
                 ;
                 args = lib.escapeShellArgs (
                   opts.extraArgs
-                  ++ (optional (opts.profile != null) "--profile=${
-                      toString opts.profile
-                    }")
+                  ++ (optional (opts.profile != null)
+                    "--profile=${toString opts.profile}"
+                  )
                 );
               in
               ''
@@ -76,8 +76,10 @@ in
               executable = mkOption {
                 type = types.path;
                 description = lib.mdDoc "Executable to run sandboxed";
-                example = literalExpression ''
-                  "''${lib.getBin pkgs.firefox}/bin/firefox"'';
+                example =
+                  literalExpression
+                    ''"''${lib.getBin pkgs.firefox}/bin/firefox"''
+                ;
               };
               desktop = mkOption {
                 type = types.nullOr types.path;
@@ -86,15 +88,19 @@ in
                   lib.mkDoc
                     ".desktop file to modify. Only necessary if it uses the absolute path to the executable."
                 ;
-                example = literalExpression ''
-                  "''${pkgs.firefox}/share/applications/firefox.desktop"'';
+                example =
+                  literalExpression
+                    ''"''${pkgs.firefox}/share/applications/firefox.desktop"''
+                ;
               };
               profile = mkOption {
                 type = types.nullOr types.path;
                 default = null;
                 description = lib.mdDoc "Profile to use";
-                example = literalExpression ''
-                  "''${pkgs.firejail}/etc/firejail/firefox.profile"'';
+                example =
+                  literalExpression
+                    ''"''${pkgs.firejail}/etc/firejail/firefox.profile"''
+                ;
               };
               extraArgs = mkOption {
                 type = types.listOf types.str;

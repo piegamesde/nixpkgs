@@ -170,8 +170,10 @@ in
 
     environment.binsh = mkOption {
       default = "${config.system.build.binsh}/bin/sh";
-      defaultText = literalExpression ''
-        "''${config.system.build.binsh}/bin/sh"'';
+      defaultText =
+        literalExpression
+          ''"''${config.system.build.binsh}/bin/sh"''
+      ;
       example = literalExpression ''"''${pkgs.dash}/bin/dash"'';
       type = types.path;
       visible = false;

@@ -382,8 +382,10 @@ let
 
         virtualType = mkOption {
           default = if hasPrefix "tun" name then "tun" else "tap";
-          defaultText = literalExpression ''
-            if hasPrefix "tun" name then "tun" else "tap"'';
+          defaultText =
+            literalExpression
+              ''if hasPrefix "tun" name then "tun" else "tap"''
+          ;
           type =
             with types;
             enum [
@@ -622,8 +624,10 @@ in
             both networking.hostName and networking.domain are set properly.
           ''
       ;
-      defaultText = literalExpression ''
-        "''${networking.hostName}.''${networking.domain}"'';
+      defaultText =
+        literalExpression
+          ''"''${networking.hostName}.''${networking.domain}"''
+      ;
       description = lib.mdDoc ''
         The fully qualified domain name (FQDN) of this host. It is the result
         of combining `networking.hostName` and `networking.domain.` Using this

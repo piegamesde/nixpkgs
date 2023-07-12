@@ -251,8 +251,10 @@ in
             + optionalString mysqlLocal ";socket=${cfg.database.socket}"
           ;
           username = cfg.database.user;
-          password = mkIf (cfg.database.passwordFile != null) ''
-            file_get_contents("${toString cfg.database.passwordFile}");'';
+          password =
+            mkIf (cfg.database.passwordFile != null)
+              ''file_get_contents("${toString cfg.database.passwordFile}");''
+          ;
           tablePrefix = "limesurvey_";
         };
         assetManager.basePath = "${stateDir}/tmp/assets";

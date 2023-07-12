@@ -69,9 +69,8 @@ let
         (
           set -o pipefail
           ${
-            optionalString (cfg.dumpCommand != null) "${
-                escapeShellArg cfg.dumpCommand
-              } | \\"
+            optionalString (cfg.dumpCommand != null)
+              "${escapeShellArg cfg.dumpCommand} | \\"
           }
           borg create $extraArgs \
             --compression ${cfg.compression} \
@@ -93,9 +92,8 @@ let
         borg prune $extraArgs \
           ${mkKeepArgs cfg} \
           ${
-            optionalString (cfg.prune.prefix != null) "--glob-archives ${
-                escapeShellArg "${cfg.prune.prefix}*"
-              }"
+            optionalString (cfg.prune.prefix != null)
+              "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"
           } \
           $extraPruneArgs
         borg compact $extraArgs $extraCompactArgs
@@ -438,8 +436,10 @@ in
             archiveBaseName = mkOption {
               type = types.nullOr (types.strMatching "[^/{}]+");
               default = "${globalConfig.networking.hostName}-${name}";
-              defaultText = literalExpression ''
-                "''${config.networking.hostName}-<name>"'';
+              defaultText =
+                literalExpression
+                  ''"''${config.networking.hostName}-<name>"''
+              ;
               description = lib.mdDoc ''
                 How to name the created archives. A timestamp, whose format is
                 determined by {option}`dateFormat`, will be appended. The full

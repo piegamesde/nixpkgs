@@ -129,15 +129,17 @@ let
                   inherit tzdata;
                 })
               ]
-              ++ lib.optionals (lib.versionOlder version "1.2.0") [
-                # add support for DWARF5 debuginfo, fixes builds on recent compilers
-                # the PR is 8 commits from 2019, so just fetch the whole thing
-                # and hope it doesn't change
-                (fetchpatch {
-                  url = "https://github.com/crystal-lang/crystal/pull/11399.patch";
-                  sha256 = "sha256-CjNpkQQ2UREADmlyLUt7zbhjXf0rTjFhNbFYLwJKkc8=";
-                })
-              ]
+              ++
+                lib.optionals (lib.versionOlder version "1.2.0")
+                  [
+                    # add support for DWARF5 debuginfo, fixes builds on recent compilers
+                    # the PR is 8 commits from 2019, so just fetch the whole thing
+                    # and hope it doesn't change
+                    (fetchpatch {
+                      url = "https://github.com/crystal-lang/crystal/pull/11399.patch";
+                      sha256 = "sha256-CjNpkQQ2UREADmlyLUt7zbhjXf0rTjFhNbFYLwJKkc8=";
+                    })
+                  ]
             ;
 
             outputs = [

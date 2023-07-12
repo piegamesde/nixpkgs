@@ -275,9 +275,9 @@ let
       ++
         lib.optional enablePatentEncumberedCodecs
           "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
-      ++ lib.optional (vulkanLayers != [ ]) "-D vulkan-layers=${
-            builtins.concatStringsSep "," vulkanLayers
-          }"
+      ++
+        lib.optional (vulkanLayers != [ ])
+          "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}"
     ;
 
     buildInputs =

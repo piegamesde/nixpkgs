@@ -139,9 +139,9 @@ let
                         ++
                           optional (service.postBuildScript != null)
                             "--post-build-script ${service.postBuildScript}"
-                        ++ optional (service.tagList != [ ]) "--tag-list ${
-                              concatStringsSep "," service.tagList
-                            }"
+                        ++
+                          optional (service.tagList != [ ])
+                            "--tag-list ${concatStringsSep "," service.tagList}"
                         ++ optional service.runUntagged "--run-untagged"
                         ++
                           optional service.protected

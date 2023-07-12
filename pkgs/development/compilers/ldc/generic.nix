@@ -89,10 +89,12 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.apple_sdk.frameworks.Foundation
     ]
-    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-      # https://github.com/NixOS/nixpkgs/pull/36378#issuecomment-385034818
-      gdb
-    ]
+    ++
+      lib.optionals (!stdenv.hostPlatform.isDarwin)
+        [
+          # https://github.com/NixOS/nixpkgs/pull/36378#issuecomment-385034818
+          gdb
+        ]
   ;
 
   buildInputs = [

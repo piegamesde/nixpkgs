@@ -188,9 +188,12 @@ in
             };
 
             config.settings = mkIf (cfg.web.enable && config.webHost != null) {
-              wwsympa_url = mkDefault "https://${config.webHost}${
+              wwsympa_url =
+                mkDefault
+                  "https://${config.webHost}${
                     strings.removeSuffix "/" config.webLocation
-                  }";
+                  }"
+              ;
             };
           }
         )
@@ -256,8 +259,11 @@ in
           else
             "sympa"
         ;
-        defaultText = literalExpression ''
-          if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"'';
+        defaultText =
+          literalExpression
+            ''
+              if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"''
+        ;
         description = lib.mdDoc ''
           Database name. When using SQLite this must be an absolute
           path to the database file.

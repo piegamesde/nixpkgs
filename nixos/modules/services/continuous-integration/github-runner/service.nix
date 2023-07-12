@@ -173,9 +173,8 @@ in
                 --name ${escapeShellArg cfg.name}
                 ${optionalString cfg.replace "--replace"}
                 ${
-                  optionalString (cfg.runnerGroup != null) "--runnergroup ${
-                      escapeShellArg cfg.runnerGroup
-                    }"
+                  optionalString (cfg.runnerGroup != null)
+                    "--runnergroup ${escapeShellArg cfg.runnerGroup}"
                 }
                 ${optionalString cfg.ephemeral "--ephemeral"}
               )

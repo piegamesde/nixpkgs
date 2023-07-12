@@ -127,7 +127,8 @@ let
         )
         ''
           ${compileScript}
-          ${lib.optionalString strip "${
+          ${lib.optionalString strip
+            "${
               lib.getBin buildPackages.bintools-unwrapped
             }/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
           # Sometimes binaries produced for darwin (e. g. by GHC) won't be valid
@@ -337,9 +338,10 @@ let
         flakeIgnore ? [ ],
       }:
       let
-        ignoreAttribute = optionalString (flakeIgnore != [ ]) "--ignore ${
-              concatMapStringsSep "," escapeShellArg flakeIgnore
-            }";
+        ignoreAttribute =
+          optionalString (flakeIgnore != [ ])
+            "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}"
+        ;
       in
       makeScriptWriter
         {

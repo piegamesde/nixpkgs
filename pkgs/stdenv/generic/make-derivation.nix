@@ -316,7 +316,8 @@ let
           else if lib.isList dep then
             checkDependencyList' ([ index ] ++ positions) name dep
           else
-            throw "Dependency is not of a valid type: ${
+            throw
+              "Dependency is not of a valid type: ${
                 lib.concatMapStrings (ix: "element ${toString ix} of ") (
                   [ index ] ++ positions
                 )

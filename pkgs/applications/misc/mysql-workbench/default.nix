@@ -146,10 +146,12 @@ stdenv.mkDerivation rec {
       # error: 'OGRErr OGRSpatialReference::importFromWkt(char**)' is deprecated
       "-Wno-error=deprecated-declarations"
     ]
-    ++ lib.optionals stdenv.isAarch64 [
-      # error: narrowing conversion of '-1' from 'int' to 'char'
-      "-Wno-error=narrowing"
-    ]
+    ++
+      lib.optionals stdenv.isAarch64
+        [
+          # error: narrowing conversion of '-1' from 'int' to 'char'
+          "-Wno-error=narrowing"
+        ]
     ++
       lib.optionals
         (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")

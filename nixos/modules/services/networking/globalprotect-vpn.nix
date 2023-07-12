@@ -42,8 +42,10 @@ in
         as described at <https://www.infradead.org/openconnect/hip.html>
       '';
       default = null;
-      example = literalExpression ''
-        "''${pkgs.openconnect}/libexec/openconnect/hipreport.sh"'';
+      example =
+        literalExpression
+          ''"''${pkgs.openconnect}/libexec/openconnect/hipreport.sh"''
+      ;
       type = types.nullOr types.path;
     };
   };

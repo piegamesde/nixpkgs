@@ -267,7 +267,8 @@ let
                   if getType def.value == type then
                     type
                   else
-                    throw "The option `${
+                    throw
+                      "The option `${
                         showOption loc
                       }' has conflicting option types in ${
                         showFiles (getFiles defs)
@@ -285,7 +286,8 @@ let
                 # listOf only used to apply mkIf and co.
                 list =
                   if length defs > 1 then
-                    throw "The option `${
+                    throw
+                      "The option `${
                         showOption loc
                       }' has conflicting definitions, in ${
                         showFiles (getFiles defs)
@@ -362,15 +364,13 @@ let
           ;
           unsign =
             bit: range:
-            ign 0 (range - 1) "unsignedInt${toString bit}" "${
-                toString bit
-              } bit unsigned integer"
+            ign 0 (range - 1) "unsignedInt${toString bit}"
+              "${toString bit} bit unsigned integer"
           ;
           sign =
             bit: range:
-            ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}" "${
-                toString bit
-              } bit signed integer"
+            ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}"
+              "${toString bit} bit signed integer"
           ;
         in
         {
@@ -830,7 +830,8 @@ let
             if nrNulls == length defs then
               null
             else if nrNulls != 0 then
-              throw "The option `${
+              throw
+                "The option `${
                   showOption loc
                 }` is defined both null and not null, in ${
                   showFiles (getFiles defs)
@@ -1093,10 +1094,11 @@ let
                   if intersecting == { } then
                     lhs.specialArgs // rhs.specialArgs
                   else
-                    throw ''
-                      A submoduleWith option is declared multiple times with the same specialArgs "${
-                        toString (attrNames intersecting)
-                      }"''
+                    throw
+                      ''
+                        A submoduleWith option is declared multiple times with the same specialArgs "${
+                          toString (attrNames intersecting)
+                        }"''
                 ;
                 shorthandOnlyDefinesConfig =
                   if lhs.shorthandOnlyDefinesConfig == null then

@@ -59,8 +59,8 @@ let
         ''
       ;
     in
-    pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; } ''
-      mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}''
+    pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; }
+      ''mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}''
   ;
 
   setupSpoolScript = pkgs.substituteAll {

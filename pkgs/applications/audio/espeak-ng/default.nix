@@ -31,13 +31,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-aAJ+k+kkOS6k835mEW7BvgAIYGhUHxf7Q4P5cKO8XTk=";
   };
 
-  patches = lib.optionals mbrolaSupport [
-    # Hardcode correct mbrola paths.
-    (substituteAll {
-      src = ./mbrola.patch;
-      inherit mbrola;
-    })
-  ];
+  patches =
+    lib.optionals mbrolaSupport
+      [
+        # Hardcode correct mbrola paths.
+        (substituteAll {
+          src = ./mbrola.patch;
+          inherit mbrola;
+        })
+      ]
+  ;
 
   nativeBuildInputs = [
     autoconf

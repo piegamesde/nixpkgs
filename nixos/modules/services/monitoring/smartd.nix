@@ -204,8 +204,10 @@ in
 
           display = mkOption {
             default = ":${toString config.services.xserver.display}";
-            defaultText = literalExpression ''
-              ":''${toString config.services.xserver.display}"'';
+            defaultText =
+              literalExpression
+                ''":''${toString config.services.xserver.display}"''
+            ;
             type = types.str;
             description = lib.mdDoc "DISPLAY to send X11 notifications to.";
           };

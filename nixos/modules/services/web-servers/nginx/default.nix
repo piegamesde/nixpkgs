@@ -346,9 +346,8 @@ let
             server {
               listen ${toString cfg.defaultHTTPListenPort};
               ${
-                optionalString enableIPv6 "listen [::]:${
-                    toString cfg.defaultHTTPListenPort
-                  };"
+                optionalString enableIPv6
+                  "listen [::]:${toString cfg.defaultHTTPListenPort};"
               }
 
               server_name localhost;
@@ -756,8 +755,11 @@ in
       defaultListenAddresses = mkOption {
         type = types.listOf types.str;
         default = [ "0.0.0.0" ] ++ optional enableIPv6 "[::0]";
-        defaultText = literalExpression ''
-          [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
+        defaultText =
+          literalExpression
+            ''
+              [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"''
+        ;
         example = literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
         description = lib.mdDoc ''
           If vhosts do not specify listenAddresses, use these addresses by default.

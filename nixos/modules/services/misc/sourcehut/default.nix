@@ -259,8 +259,10 @@ in
             example = "example.com";
           };
           environment = mkOption {
-            description = lib.mdDoc ''
-              Values other than "production" adds a banner to each page.'';
+            description =
+              lib.mdDoc
+                ''Values other than "production" adds a banner to each page.''
+            ;
             type = types.enum [
               "development"
               "production"
@@ -643,8 +645,11 @@ in
             default = "http://${cfg.listenAddress}:${
                 toString (cfg.meta.port + 100)
               }";
-            defaultText = lib.literalMD ''
-              `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`'';
+            defaultText =
+              lib.literalMD
+                ''
+                  `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`''
+            ;
           };
           webhooks = mkOption {
             description =

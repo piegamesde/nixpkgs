@@ -613,9 +613,9 @@ in
                         (
                           name: config:
                           " -- add-port ${n} ${name}"
-                          + optionalString (config.vlan != null) " tag=${
-                                 toString config.vlan
-                               }"
+                          +
+                            optionalString (config.vlan != null)
+                              " tag=${toString config.vlan}"
                         )
                         v.interfaces
                     )

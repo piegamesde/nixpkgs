@@ -106,10 +106,12 @@ stdenv.mkDerivation rec {
       "--with-systemdsystemunitdir=no"
     ]
     ++ lib.optionals withLibdnssdCompat [ "--enable-compat-libdns_sd" ]
-    ++ lib.optionals stdenv.isDarwin [
-      # autoipd won't build on darwin
-      "--disable-autoipd"
-    ]
+    ++
+      lib.optionals stdenv.isDarwin
+        [
+          # autoipd won't build on darwin
+          "--disable-autoipd"
+        ]
   ;
 
   installFlags = [

@@ -258,14 +258,17 @@ buildPythonPackage rec {
     hash = "sha256-cSw7+AYBUcZLz3UyK/+JWWjQxKwVBXcFvBq0XAcL3tE=";
   };
 
-  patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    # pthreadpool added support for Grand Central Dispatch in April
-    # 2020. However, this relies on functionality (DISPATCH_APPLY_AUTO)
-    # that is available starting with macOS 10.13. However, our current
-    # base is 10.12. Until we upgrade, we can fall back on the older
-    # pthread support.
-    ./pthreadpool-disable-gcd.diff
-  ];
+  patches =
+    lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
+      [
+        # pthreadpool added support for Grand Central Dispatch in April
+        # 2020. However, this relies on functionality (DISPATCH_APPLY_AUTO)
+        # that is available starting with macOS 10.13. However, our current
+        # base is 10.12. Until we upgrade, we can fall back on the older
+        # pthread support.
+        ./pthreadpool-disable-gcd.diff
+      ]
+  ;
 
   postPatch =
     lib.optionalString rocmSupport ''

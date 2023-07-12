@@ -407,8 +407,10 @@ in
                     lib.mdDoc
                       "The executable of the window manager to use."
                   ;
-                  example = literalExpression ''
-                    "''${pkgs.haskellPackages.xmonad}/bin/xmonad"'';
+                  example =
+                    literalExpression
+                      ''"''${pkgs.haskellPackages.xmonad}/bin/xmonad"''
+                  ;
                 };
 
                 enableGnomePanel = mkOption {
@@ -721,11 +723,13 @@ in
               totem
               yelp
             ]
-            ++ lib.optionals config.services.flatpak.enable [
-              # Since PackageKit Nix support is not there yet,
-              # only install gnome-software if flatpak is enabled.
-              gnome-software
-            ]
+            ++
+              lib.optionals config.services.flatpak.enable
+                [
+                  # Since PackageKit Nix support is not there yet,
+                  # only install gnome-software if flatpak is enabled.
+                  gnome-software
+                ]
           )
           config.environment.gnome.excludePackages
       ;

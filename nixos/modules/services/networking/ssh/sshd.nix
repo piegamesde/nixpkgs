@@ -35,7 +35,8 @@ let
     else if isList v then
       concatStringsSep "," v
     else
-      throw "unsupported type ${builtins.typeOf v}: ${
+      throw
+        "unsupported type ${builtins.typeOf v}: ${
           (lib.generators.toPretty { }) v
         }"
   ;

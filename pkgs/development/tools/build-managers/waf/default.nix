@@ -10,9 +10,8 @@
 let
   wafToolsArg =
     with lib.strings;
-    optionalString (withTools != null) " --tools=\"${
-         concatStringsSep "," withTools
-       }\""
+    optionalString (withTools != null)
+      " --tools=\"${concatStringsSep "," withTools}\""
   ;
 in
 stdenv.mkDerivation rec {

@@ -1108,8 +1108,11 @@ in
                 else
                   declarativePlugins
               ;
-              defaultText = literalExpression ''
-                if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
+              defaultText =
+                literalExpression
+                  ''
+                    if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins''
+              ;
               type = types.path;
             };
 
@@ -1172,8 +1175,10 @@ in
             static_root_path = mkOption {
               description = lib.mdDoc "Root path for static assets.";
               default = "${cfg.package}/share/grafana/public";
-              defaultText = literalExpression ''
-                "''${package}/share/grafana/public"'';
+              defaultText =
+                literalExpression
+                  ''"''${package}/share/grafana/public"''
+              ;
               type = types.str;
             };
 
@@ -1255,8 +1260,10 @@ in
                   "Only applicable to sqlite3 database. The file path where the database will be stored."
               ;
               default = "${cfg.dataDir}/data/grafana.db";
-              defaultText = literalExpression ''
-                "''${config.${opt.dataDir}}/data/grafana.db"'';
+              defaultText =
+                literalExpression
+                  ''"''${config.${opt.dataDir}}/data/grafana.db"''
+              ;
               type = types.path;
             };
           };

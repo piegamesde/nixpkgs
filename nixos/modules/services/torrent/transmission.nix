@@ -79,15 +79,19 @@ in
           options.download-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${downloadsDir}";
-            defaultText = literalExpression ''
-              "''${config.${opt.home}}/${downloadsDir}"'';
+            defaultText =
+              literalExpression
+                ''"''${config.${opt.home}}/${downloadsDir}"''
+            ;
             description = lib.mdDoc "Directory where to download torrents.";
           };
           options.incomplete-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${incompleteDir}";
-            defaultText = literalExpression ''
-              "''${config.${opt.home}}/${incompleteDir}"'';
+            defaultText =
+              literalExpression
+                ''"''${config.${opt.home}}/${incompleteDir}"''
+            ;
             description = lib.mdDoc ''
               When enabled with
               services.transmission.home
@@ -189,8 +193,10 @@ in
           options.watch-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${watchDir}";
-            defaultText = literalExpression ''
-              "''${config.${opt.home}}/${watchDir}"'';
+            defaultText =
+              literalExpression
+                ''"''${config.${opt.home}}/${watchDir}"''
+            ;
             description =
               lib.mdDoc
                 "Watch a directory for torrent files and add them to transmission."

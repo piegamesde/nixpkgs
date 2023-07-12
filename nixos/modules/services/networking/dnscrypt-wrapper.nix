@@ -170,8 +170,10 @@ in
     providerName = mkOption {
       type = types.str;
       default = "2.dnscrypt-cert.${config.networking.hostName}";
-      defaultText = literalExpression ''
-        "2.dnscrypt-cert.''${config.networking.hostName}"'';
+      defaultText =
+        literalExpression
+          ''"2.dnscrypt-cert.''${config.networking.hostName}"''
+      ;
       example = "2.dnscrypt-cert.myresolver";
       description = lib.mdDoc ''
         The name that will be given to this DNSCrypt resolver.

@@ -87,9 +87,9 @@ in
               ++
                 optional (cfg.healthPath != null)
                   "--web.health-path ${cfg.healthPath}"
-              ++ optional (cfg.instance != null) "-n ${
-                    escapeShellArg cfg.instance
-                  }"
+              ++
+                optional (cfg.instance != null)
+                  "-n ${escapeShellArg cfg.instance}"
               ++ optional cfg.noExit "--no-exit"
               ++ optional cfg.withGoMetrics "--with-go-metrics"
               ++ optional cfg.verbose "--verbose"

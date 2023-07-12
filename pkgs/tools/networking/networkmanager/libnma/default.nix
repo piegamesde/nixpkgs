@@ -77,10 +77,12 @@ stdenv.mkDerivation rec {
       mobile-broadband-provider-info
     ]
     ++ lib.optionals withGtk4 [ gtk4 ]
-    ++ lib.optionals withGnome [
-      # advanced certificate chooser
-      gcr_4
-    ]
+    ++
+      lib.optionals withGnome
+        [
+          # advanced certificate chooser
+          gcr_4
+        ]
   ;
 
   mesonFlags = [

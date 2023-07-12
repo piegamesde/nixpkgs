@@ -113,8 +113,11 @@ in
           else
             "iptables-multiport"
         ;
-        defaultText = literalExpression ''
-          if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
+        defaultText =
+          literalExpression
+            ''
+              if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"''
+        ;
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -131,8 +134,11 @@ in
           else
             "iptables-allport"
         ;
-        defaultText = literalExpression ''
-          if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
+        defaultText =
+          literalExpression
+            ''
+              if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"''
+        ;
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,

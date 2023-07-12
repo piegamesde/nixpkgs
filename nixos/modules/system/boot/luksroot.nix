@@ -627,15 +627,15 @@ let
                 "no-write-workqueue"
               ]
               ++ optional (v.header != null) "header=${v.header}"
-              ++ optional (v.keyFileOffset != null) "keyfile-offset=${
-                    toString v.keyFileOffset
-                  }"
-              ++ optional (v.keyFileSize != null) "keyfile-size=${
-                    toString v.keyFileSize
-                  }"
-              ++ optional (v.keyFileTimeout != null) "keyfile-timeout=${
-                    builtins.toString v.keyFileTimeout
-                  }s"
+              ++
+                optional (v.keyFileOffset != null)
+                  "keyfile-offset=${toString v.keyFileOffset}"
+              ++
+                optional (v.keyFileSize != null)
+                  "keyfile-size=${toString v.keyFileSize}"
+              ++
+                optional (v.keyFileTimeout != null)
+                  "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
               ++ optional (v.tryEmptyPassphrase) "try-empty-password=true"
             ;
           in

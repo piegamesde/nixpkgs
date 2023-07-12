@@ -83,10 +83,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "httpie" ];
 
-  disabledTestPaths = lib.optionals stdenv.isDarwin [
-    # flaky
-    "tests/test_plugins_cli.py"
-  ];
+  disabledTestPaths =
+    lib.optionals stdenv.isDarwin
+      [
+        # flaky
+        "tests/test_plugins_cli.py"
+      ]
+  ;
 
   disabledTests =
     [
@@ -106,10 +109,12 @@ buildPythonPackage rec {
       "test_xml_format_options"
       "test_xml_xhtm"
     ]
-    ++ lib.optionals stdenv.isDarwin [
-      # flaky
-      "test_daemon_runner"
-    ]
+    ++
+      lib.optionals stdenv.isDarwin
+        [
+          # flaky
+          "test_daemon_runner"
+        ]
   ;
 
   meta = with lib; {

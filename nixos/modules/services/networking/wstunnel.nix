@@ -64,9 +64,8 @@ let
       local,
       remote,
     }:
-    utils.escapeSystemdExecArg "${hostPortToString local}:${
-        hostPortToString remote
-      }"
+    utils.escapeSystemdExecArg
+      "${hostPortToString local}:${hostPortToString remote}"
   ;
   commonOptions = {
     enable = mkOption {
@@ -87,8 +86,11 @@ let
     };
 
     extraArgs = mkOption {
-      description = mdDoc ''
-        Extra command line arguments to pass to `wstunnel`. Attributes of the form `argName = true;` will be translated to `--argName`, and `argName = "value"` to `--argName=value`.'';
+      description =
+        mdDoc
+          ''
+            Extra command line arguments to pass to `wstunnel`. Attributes of the form `argName = true;` will be translated to `--argName`, and `argName = "value"` to `--argName=value`.''
+      ;
       type = with types; attrsOf (either str bool);
       default = { };
       example = {
@@ -389,7 +391,8 @@ let
                 ${package}/bin/wstunnel \
                   --server \
                   ${
-                    optionalString (restrictTo != null) "--restrictTo=${
+                    optionalString (restrictTo != null)
+                      "--restrictTo=${
                         utils.escapeSystemdExecArg (hostPortToString restrictTo)
                       }"
                   } \
@@ -400,16 +403,16 @@ let
                       }"
                   } \
                   ${
-                    optionalString (resolvedTlsKey != null) "--tlsKey=${
-                        utils.escapeSystemdExecArg resolvedTlsKey
-                      }"
+                    optionalString (resolvedTlsKey != null)
+                      "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
                   } \
                   ${optionalString verboseLogging "--verbose"} \
                   ${attrsToArgs extraArgs} \
                   ${
-                    utils.escapeSystemdExecArg "${
-                        if enableHTTPS then "wss" else "ws"
-                      }://${hostPortToString listen}"
+                    utils.escapeSystemdExecArg
+                      "${if enableHTTPS then "wss" else "ws"}://${
+                        hostPortToString listen
+                      }"
                   }
               ''
             ;
@@ -472,7 +475,8 @@ let
                 )
               } \
               ${
-                optionalString (dynamicToRemote != null) "--dynamicToRemote=${
+                optionalString (dynamicToRemote != null)
+                  "--dynamicToRemote=${
                     utils.escapeSystemdExecArg (
                       hostPortToString dynamicToRemote
                     )
@@ -502,9 +506,10 @@ let
               ${optionalString verboseLogging "--verbose"} \
               ${attrsToArgs extraArgs} \
               ${
-                utils.escapeSystemdExecArg "${
-                    if enableHTTPS then "wss" else "ws"
-                  }://${hostPortToString connectTo}"
+                utils.escapeSystemdExecArg
+                  "${if enableHTTPS then "wss" else "ws"}://${
+                    hostPortToString connectTo
+                  }"
               }
           '';
           EnvironmentFile =

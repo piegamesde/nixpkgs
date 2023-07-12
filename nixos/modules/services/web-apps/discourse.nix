@@ -351,8 +351,10 @@ in
         useSSL = lib.mkOption {
           type = lib.types.bool;
           default = cfg.redis.host != "localhost";
-          defaultText = lib.literalExpression ''
-            config.${opt.redis.host} != "localhost"'';
+          defaultText =
+            lib.literalExpression
+              ''config.${opt.redis.host} != "localhost"''
+          ;
           description = lib.mdDoc ''
             Connect to Redis with SSL.
           '';
@@ -487,8 +489,10 @@ in
           replyEmailAddress = lib.mkOption {
             type = lib.types.str;
             default = "%{reply_key}@${cfg.hostname}";
-            defaultText = lib.literalExpression ''
-              "%{reply_key}@''${config.services.discourse.hostname}"'';
+            defaultText =
+              lib.literalExpression
+                ''"%{reply_key}@''${config.services.discourse.hostname}"''
+            ;
             description = lib.mdDoc ''
               Template for reply by email incoming email address, for
               example: %{reply_key}@reply.example.com or
@@ -805,7 +809,8 @@ in
                 else if isFloat v then
                   lib.strings.floatToString v
                 else
-                  throw "unsupported type ${typeOf v}: ${
+                  throw
+                    "unsupported type ${typeOf v}: ${
                       (lib.generators.toPretty { }) v
                     }"
               ;

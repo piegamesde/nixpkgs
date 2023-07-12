@@ -258,9 +258,10 @@ in
     {
       environment.etc = { "pulse/client.conf".source = clientConf; };
 
-      hardware.pulseaudio.configFile = mkDefault "${
-            getBin overriddenPackage
-          }/etc/pulse/default.pa";
+      hardware.pulseaudio.configFile =
+        mkDefault
+          "${getBin overriddenPackage}/etc/pulse/default.pa"
+      ;
     }
 
     (mkIf cfg.enable {

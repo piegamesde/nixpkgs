@@ -57,8 +57,10 @@ in
         literalMD
           "Hosts from {option}`networking.hosts` and {option}`networking.extraHosts`"
       ;
-      example = literalExpression ''
-        [ "''${pkgs.my-blocklist-package}/share/my-blocklist/hosts" ]'';
+      example =
+        literalExpression
+          ''[ "''${pkgs.my-blocklist-package}/share/my-blocklist/hosts" ]''
+      ;
       description = lib.mdDoc ''
         Files that should be concatenated together to form {file}`/etc/hosts`.
       '';

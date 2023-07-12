@@ -152,8 +152,10 @@ in
       encFile = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/enckey";
-        defaultText = literalExpression ''
-          "''${config.${opt.stateDir}}/enckey"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.stateDir}}/enckey"''
+        ;
         description = lib.mdDoc ''
           This is used to encrypt the token data and token passwords
         '';
@@ -162,8 +164,10 @@ in
       auditKeyPrivate = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/private.pem";
-        defaultText = literalExpression ''
-          "''${config.${opt.stateDir}}/private.pem"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.stateDir}}/private.pem"''
+        ;
         description = lib.mdDoc ''
           Private Key for signing the audit log.
         '';
@@ -172,8 +176,10 @@ in
       auditKeyPublic = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/public.pem";
-        defaultText = literalExpression ''
-          "''${config.${opt.stateDir}}/public.pem"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.stateDir}}/public.pem"''
+        ;
         description = lib.mdDoc ''
           Public key for checking signatures of the audit log.
         '';

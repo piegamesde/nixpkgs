@@ -53,9 +53,11 @@ let
     map
       (
         mod:
-        mod.name or (throw "The nginx module with source ${
+        mod.name or (throw
+          "The nginx module with source ${
             toString mod.src
-          } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported.")
+          } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported."
+        )
       )
       modules
   ;
@@ -70,7 +72,8 @@ let
       if supports nginxVersion then
         mod.${attrPath} or [ ]
       else
-        throw "Module at ${
+        throw
+          "Module at ${
             toString mod.src
           } does not support nginx version ${nginxVersion}!"
     )

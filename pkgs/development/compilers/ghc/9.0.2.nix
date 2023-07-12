@@ -431,11 +431,13 @@ stdenv.mkDerivation (
         autoSignDarwinBinariesHook
       ]
       ++ lib.optionals enableDocs [ sphinx ]
-      ++ lib.optionals stdenv.isDarwin [
-        # TODO(@sternenseemann): backport addition of XATTR env var like
-        # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6447
-        xattr
-      ]
+      ++
+        lib.optionals stdenv.isDarwin
+          [
+            # TODO(@sternenseemann): backport addition of XATTR env var like
+            # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6447
+            xattr
+          ]
     ;
 
     # For building runtime libs

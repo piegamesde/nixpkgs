@@ -341,7 +341,8 @@ rec {
         depth:
         if depthLimit != null && depth > depthLimit then
           if throwOnDepthLimit then
-            throw "Exceeded maximum eval-depth limit of ${
+            throw
+              "Exceeded maximum eval-depth limit of ${
                 toString depthLimit
               } while trying to evaluate with `generators.withRecursion'!"
           else
@@ -707,9 +708,8 @@ rec {
       ;
 
       generatedBindings =
-        assert lib.assertMsg (badVarNames == [ ]) "Bad Lua var names: ${
-              toPretty { } badVarNames
-            }";
+        assert lib.assertMsg (badVarNames == [ ])
+            "Bad Lua var names: ${toPretty { } badVarNames}";
         libStr.concatStrings (
           lib.attrsets.mapAttrsToList
             (key: value: ''

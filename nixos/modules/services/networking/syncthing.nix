@@ -684,7 +684,9 @@ in
           RestartForceExitStatus = "3 4";
           User = cfg.user;
           Group = cfg.group;
-          ExecStartPre = mkIf (cfg.cert != null || cfg.key != null) "+${
+          ExecStartPre =
+            mkIf (cfg.cert != null || cfg.key != null)
+              "+${
                 pkgs.writers.writeBash "syncthing-copy-keys" ''
                   install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
                   ${optionalString (cfg.cert != null) ''
@@ -698,7 +700,8 @@ in
                     } ${cfg.configDir}/key.pem
                   ''}
                 ''
-              }";
+              }"
+          ;
           ExecStart = ''
             ${cfg.package}/bin/syncthing \
               -no-browser \

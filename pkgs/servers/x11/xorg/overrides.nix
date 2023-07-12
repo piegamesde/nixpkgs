@@ -1260,10 +1260,13 @@ self: super:
               ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-tls" ]
             ;
 
-            env.NIX_CFLAGS_COMPILE = toString [
-              # Needed with GCC 12
-              "-Wno-error=array-bounds"
-            ];
+            env.NIX_CFLAGS_COMPILE =
+              toString
+                [
+                  # Needed with GCC 12
+                  "-Wno-error=array-bounds"
+                ]
+            ;
 
             postInstall = ''
               rm -fr $out/share/X11/xkb/compiled # otherwise X will try to write in it

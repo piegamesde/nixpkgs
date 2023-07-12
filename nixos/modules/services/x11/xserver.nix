@@ -141,8 +141,10 @@ let
   configFile =
     pkgs.runCommand "xserver.conf"
       {
-        fontpath = optionalString (cfg.fontPath != null) ''
-          FontPath "${cfg.fontPath}"'';
+        fontpath =
+          optionalString (cfg.fontPath != null)
+            ''FontPath "${cfg.fontPath}"''
+        ;
         inherit (cfg) config;
         preferLocalBuild = true;
       }
@@ -473,8 +475,10 @@ in
       xkbDir = mkOption {
         type = types.path;
         default = "${pkgs.xkeyboard_config}/etc/X11/xkb";
-        defaultText = literalExpression ''
-          "''${pkgs.xkeyboard_config}/etc/X11/xkb"'';
+        defaultText =
+          literalExpression
+            ''"''${pkgs.xkeyboard_config}/etc/X11/xkb"''
+        ;
         description = lib.mdDoc ''
           Path used for -xkbdir xserver parameter.
         '';
@@ -956,12 +960,12 @@ in
       ++ optional (cfg.logFile != null) "-logfile ${toString cfg.logFile}"
       ++ optional (cfg.verbose != null) "-verbose ${toString cfg.verbose}"
       ++ optional (!cfg.enableTCP) "-nolisten tcp"
-      ++ optional (cfg.autoRepeatDelay != null) "-ardelay ${
-            toString cfg.autoRepeatDelay
-          }"
-      ++ optional (cfg.autoRepeatInterval != null) "-arinterval ${
-            toString cfg.autoRepeatInterval
-          }"
+      ++
+        optional (cfg.autoRepeatDelay != null)
+          "-ardelay ${toString cfg.autoRepeatDelay}"
+      ++
+        optional (cfg.autoRepeatInterval != null)
+          "-arinterval ${toString cfg.autoRepeatInterval}"
       ++ optional cfg.terminateOnReset "-terminate"
     ;
 
@@ -1083,7 +1087,8 @@ in
                           SubSection "Display"
                             Depth ${toString depth}
                             ${
-                              optionalString (cfg.resolutions != [ ]) "Modes ${
+                              optionalString (cfg.resolutions != [ ])
+                                "Modes ${
                                   concatMapStrings
                                     (
                                       res:

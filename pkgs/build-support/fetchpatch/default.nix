@@ -65,9 +65,8 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
 
           "${patchutils}/bin/lsdiff" \
             ${
-              lib.optionalString (relative != null) "-p1 -i ${
-                  lib.escapeShellArg relative
-                }/'*'"
+              lib.optionalString (relative != null)
+                "-p1 -i ${lib.escapeShellArg relative}/'*'"
             } \
             "$out" \
           | sort -u | sed -e 's/[*?]/\\&/g' \

@@ -151,25 +151,22 @@ in
             --enable-tcp-insecure \
             --port ${toString cfg.port} \
             ${
-              optionalString (cfg.jobTimeout != null) "--job-lifetime ${
-                  toString cfg.jobTimeout
-                }"
+              optionalString (cfg.jobTimeout != null)
+                "--job-lifetime ${toString cfg.jobTimeout}"
             } \
             ${
               optionalString (cfg.logLevel != null)
                 "--log-level ${cfg.logLevel}"
             } \
             ${
-              optionalString (cfg.maxJobs != null) "--jobs ${
-                  toString cfg.maxJobs
-                }"
+              optionalString (cfg.maxJobs != null)
+                "--jobs ${toString cfg.maxJobs}"
             } \
             ${optionalString (cfg.nice != null) "--nice ${toString cfg.nice}"} \
             ${optionalString cfg.stats.enable "--stats"} \
             ${
-              optionalString cfg.stats.enable "--stats-port ${
-                  toString cfg.stats.port
-                }"
+              optionalString cfg.stats.enable
+                "--stats-port ${toString cfg.stats.port}"
             } \
             ${optionalString cfg.zeroconf "--zeroconf"} \
             ${concatMapStrings (c: "--allow ${c} ") cfg.allowedClients}

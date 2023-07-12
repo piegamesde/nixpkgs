@@ -215,12 +215,12 @@ in
                 type = ${block.type};
 
                 ${
-                  optionalString (block.login != null) ''
-                    login = "${block.login}";''
+                  optionalString (block.login != null)
+                    ''login = "${block.login}";''
                 }
                 ${
-                  optionalString (block.password != null) ''
-                    password = "${block.password}";''
+                  optionalString (block.password != null)
+                    ''password = "${block.password}";''
                 }
 
                 disclose_src = ${block.disclose_src};

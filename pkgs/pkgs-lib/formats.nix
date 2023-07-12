@@ -502,9 +502,8 @@ rec {
               envVariable,
               fallback ? null,
             }:
-            mkRaw "System.get_env(${toElixir envVariable}, ${
-                toElixir fallback
-              })"
+            mkRaw
+              "System.get_env(${toElixir envVariable}, ${toElixir fallback})"
           ;
 
           /* Make an Elixir atom.

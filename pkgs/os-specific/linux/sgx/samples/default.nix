@@ -42,8 +42,11 @@ let
         wrapProgram "$out/bin/app" \
           --chdir "$out/lib" \
           ${
-            lib.optionalString (!isSimulation) ''
-              --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ sgx-psw ]}"''
+            lib.optionalString (!isSimulation)
+              ''
+                --prefix LD_LIBRARY_PATH : "${
+                  lib.makeLibraryPath [ sgx-psw ]
+                }"''
           }
 
         runHook postInstall
@@ -81,10 +84,11 @@ in
           wrapProgram $bin \
             --chdir "$out/lib" \
             ${
-              lib.optionalString (!isSimulation) ''
-                --prefix LD_LIBRARY_PATH : "${
-                  lib.makeLibraryPath [ sgx-psw ]
-                }"''
+              lib.optionalString (!isSimulation)
+                ''
+                  --prefix LD_LIBRARY_PATH : "${
+                    lib.makeLibraryPath [ sgx-psw ]
+                  }"''
             }
         done
 

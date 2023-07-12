@@ -2591,9 +2591,10 @@ lib.composeManyExtensions [
             (old.propagatedBuildInputs or [ ])
             ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ])
           ;
-          NIX_CFLAGS_COMPILE = lib.optionalString (!withApplePCSC) "-I ${
-                lib.getDev pcsclite
-              }/include/PCSC";
+          NIX_CFLAGS_COMPILE =
+            lib.optionalString (!withApplePCSC)
+              "-I ${lib.getDev pcsclite}/include/PCSC"
+          ;
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.swig ];
         }
       );
@@ -3056,9 +3057,12 @@ lib.composeManyExtensions [
 
           GEOS_LIBRARY_PATH = "${pkgs.geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-          GEOS_LIBC = lib.optionalString (!stdenv.isDarwin) "${
+          GEOS_LIBC =
+            lib.optionalString (!stdenv.isDarwin)
+              "${
                 lib.getLib stdenv.cc.libc
-              }/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
+              }/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6"
+          ;
 
           # Fix library paths
           postPatch = lib.optionalString (!(old.src.isWheel or false)) (
@@ -3664,8 +3668,8 @@ lib.composeManyExtensions [
             substituteInPlace "setup.cfg"                                     \
                     --replace "/usr/local/include" "${pkgs.sqlite.dev}/include"   \
                     --replace "/usr/local/lib" "${pkgs.sqlite.out}/lib"
-            ${lib.optionalString (!stdenv.isDarwin) ''
-              export LDSHARED="$CC -pthread -shared"''}
+            ${lib.optionalString (!stdenv.isDarwin)
+              ''export LDSHARED="$CC -pthread -shared"''}
           '';
         }
       );
