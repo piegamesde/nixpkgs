@@ -42,13 +42,11 @@ let
     "endselftest"
   ];
 
-  shellCmdsForEventScript =
-    eventname: commands: ''
-      echo "#!${pkgs.runtimeShell}" > "$out/${eventname}"
-      echo '${commands}' >> "$out/${eventname}"
-      chmod a+x "$out/${eventname}"
-    ''
-  ;
+  shellCmdsForEventScript = eventname: commands: ''
+    echo "#!${pkgs.runtimeShell}" > "$out/${eventname}"
+    echo '${commands}' >> "$out/${eventname}"
+    chmod a+x "$out/${eventname}"
+  '';
 
   eventToShellCmds =
     event:

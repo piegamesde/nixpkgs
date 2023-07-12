@@ -5,26 +5,24 @@
 }:
 let
   python = python3.override {
-    packageOverrides =
-      self: super: {
-        sqlalchemy = super.sqlalchemy.overridePythonAttrs (
-          oldAttrs: rec {
-            version = "1.4.40";
-            src = super.fetchPypi {
-              pname = "SQLAlchemy";
-              inherit version;
-              hash = "sha256-RKZgUGCAzJdeHfpXdv5fYxXdxiane1C/Du4YsDieomU=";
-            };
-          }
-        );
-        moto = super.moto.overridePythonAttrs (
-          oldAttrs: rec {
-            # a lot of tests -> very slow, we already build them when building python packages
-            doCheck = false;
-          }
-        );
-      }
-    ;
+    packageOverrides = self: super: {
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "1.4.40";
+          src = super.fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-RKZgUGCAzJdeHfpXdv5fYxXdxiane1C/Du4YsDieomU=";
+          };
+        }
+      );
+      moto = super.moto.overridePythonAttrs (
+        oldAttrs: rec {
+          # a lot of tests -> very slow, we already build them when building python packages
+          doCheck = false;
+        }
+      );
+    };
   };
 
   buildbot-pkg = python.pkgs.callPackage ./pkg.nix { inherit buildbot; };

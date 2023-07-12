@@ -41,18 +41,16 @@ rustPlatform.buildRustPackage rec {
 
   postInstall =
     let
-      wrap =
-        exe: ''
-          wrapProgram $out/bin/${exe} \
-            --prefix PATH : ${
-              lib.makeBinPath [
-                cargo
-                gcc
-              ]
-            } \
-            --set-default RUST_SRC_PATH "$RUST_SRC_PATH"
-        ''
-      ;
+      wrap = exe: ''
+        wrapProgram $out/bin/${exe} \
+          --prefix PATH : ${
+            lib.makeBinPath [
+              cargo
+              gcc
+            ]
+          } \
+          --set-default RUST_SRC_PATH "$RUST_SRC_PATH"
+      '';
     in
     ''
       ${wrap "evcxr"}

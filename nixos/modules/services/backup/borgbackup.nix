@@ -236,18 +236,16 @@ let
     )
   ;
 
-  mkPassAssertion =
-    name: cfg: {
-      assertion =
-        with cfg.encryption;
-        mode != "none" -> passCommand != null || passphrase != null
-      ;
-      message =
-        "passCommand or passphrase has to be specified because"
-        + ''borgbackup.jobs.${name}.encryption != "none"''
-      ;
-    }
-  ;
+  mkPassAssertion = name: cfg: {
+    assertion =
+      with cfg.encryption;
+      mode != "none" -> passCommand != null || passphrase != null
+    ;
+    message =
+      "passCommand or passphrase has to be specified because"
+      + ''borgbackup.jobs.${name}.encryption != "none"''
+    ;
+  };
 
   mkRepoService =
     name: cfg:
@@ -280,55 +278,47 @@ let
     ''command="${cdCommand} && ${serveCommand}",restrict ${key}''
   ;
 
-  mkUsersConfig =
-    name: cfg: {
-      users.${cfg.user} = {
-        openssh.authorizedKeys.keys =
-          (
-            map (mkAuthorizedKey cfg false) cfg.authorizedKeys
-            ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly
-          );
-        useDefaultShell = true;
-        group = cfg.group;
-        isSystemUser = true;
-      };
-      groups.${cfg.group} = { };
-    }
-  ;
+  mkUsersConfig = name: cfg: {
+    users.${cfg.user} = {
+      openssh.authorizedKeys.keys =
+        (
+          map (mkAuthorizedKey cfg false) cfg.authorizedKeys
+          ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly
+        );
+      useDefaultShell = true;
+      group = cfg.group;
+      isSystemUser = true;
+    };
+    groups.${cfg.group} = { };
+  };
 
-  mkKeysAssertion =
-    name: cfg: {
-      assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
-      message =
-        "borgbackup.repos.${name} does not make sense"
-        + " without at least one public key"
-      ;
-    }
-  ;
+  mkKeysAssertion = name: cfg: {
+    assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
+    message =
+      "borgbackup.repos.${name} does not make sense"
+      + " without at least one public key"
+    ;
+  };
 
-  mkSourceAssertions =
-    name: cfg: {
-      assertion =
-        count isNull [
-          cfg.dumpCommand
-          cfg.paths
-        ] == 1
-      ;
-      message = ''
-        Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand
-        must be set.
-      '';
-    }
-  ;
+  mkSourceAssertions = name: cfg: {
+    assertion =
+      count isNull [
+        cfg.dumpCommand
+        cfg.paths
+      ] == 1
+    ;
+    message = ''
+      Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand
+      must be set.
+    '';
+  };
 
-  mkRemovableDeviceAssertions =
-    name: cfg: {
-      assertion = !(isLocalPath cfg.repo) -> !cfg.removableDevice;
-      message = ''
-        borgbackup.repos.${name}: repo isn't a local path, thus it can't be a removable device!
-      '';
-    }
-  ;
+  mkRemovableDeviceAssertions = name: cfg: {
+    assertion = !(isLocalPath cfg.repo) -> !cfg.removableDevice;
+    message = ''
+      borgbackup.repos.${name}: repo isn't a local path, thus it can't be a removable device!
+    '';
+  };
 in
 {
   meta.maintainers = with maintainers; [ dotlambda ];

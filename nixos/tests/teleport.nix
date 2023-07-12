@@ -13,74 +13,68 @@ let
     "11" = teleport_11;
   };
 
-  minimal =
-    package: {
-      services.teleport = {
-        enable = true;
-        inherit package;
-      };
-    }
-  ;
+  minimal = package: {
+    services.teleport = {
+      enable = true;
+      inherit package;
+    };
+  };
 
-  client =
-    package: {
-      services.teleport = {
-        enable = true;
-        inherit package;
-        settings = {
-          teleport = {
-            nodename = "client";
-            advertise_ip = "192.168.1.20";
-            auth_token = "8d1957b2-2ded-40e6-8297-d48156a898a9";
-            auth_servers = [ "192.168.1.10:3025" ];
-            log.severity = "DEBUG";
+  client = package: {
+    services.teleport = {
+      enable = true;
+      inherit package;
+      settings = {
+        teleport = {
+          nodename = "client";
+          advertise_ip = "192.168.1.20";
+          auth_token = "8d1957b2-2ded-40e6-8297-d48156a898a9";
+          auth_servers = [ "192.168.1.10:3025" ];
+          log.severity = "DEBUG";
+        };
+        ssh_service = {
+          enabled = true;
+          labels = {
+            role = "client";
           };
-          ssh_service = {
-            enabled = true;
-            labels = {
-              role = "client";
-            };
-          };
-          proxy_service.enabled = false;
-          auth_service.enabled = false;
+        };
+        proxy_service.enabled = false;
+        auth_service.enabled = false;
+      };
+    };
+    networking.interfaces.eth1.ipv4.addresses = [ {
+      address = "192.168.1.20";
+      prefixLength = 24;
+    } ];
+  };
+
+  server = package: {
+    services.teleport = {
+      enable = true;
+      inherit package;
+      settings = {
+        teleport = {
+          nodename = "server";
+          advertise_ip = "192.168.1.10";
+        };
+        ssh_service.enabled = true;
+        proxy_service.enabled = true;
+        auth_service = {
+          enabled = true;
+          tokens = [ "node:8d1957b2-2ded-40e6-8297-d48156a898a9" ];
         };
       };
-      networking.interfaces.eth1.ipv4.addresses = [ {
-        address = "192.168.1.20";
+      diag.enable = true;
+      insecure.enable = true;
+    };
+    networking = {
+      firewall.allowedTCPPorts = [ 3025 ];
+      interfaces.eth1.ipv4.addresses = [ {
+        address = "192.168.1.10";
         prefixLength = 24;
       } ];
-    }
-  ;
-
-  server =
-    package: {
-      services.teleport = {
-        enable = true;
-        inherit package;
-        settings = {
-          teleport = {
-            nodename = "server";
-            advertise_ip = "192.168.1.10";
-          };
-          ssh_service.enabled = true;
-          proxy_service.enabled = true;
-          auth_service = {
-            enabled = true;
-            tokens = [ "node:8d1957b2-2ded-40e6-8297-d48156a898a9" ];
-          };
-        };
-        diag.enable = true;
-        insecure.enable = true;
-      };
-      networking = {
-        firewall.allowedTCPPorts = [ 3025 ];
-        interfaces.eth1.ipv4.addresses = [ {
-          address = "192.168.1.10";
-          prefixLength = 24;
-        } ];
-      };
-    }
-  ;
+    };
+  };
 in
 lib.concatMapAttrs
   (name: package: {

@@ -33,15 +33,13 @@ let
     # Generate a configuration file for each event. (You can't have
     # multiple events in one config file...)
     let
-      f =
-        name: handler: ''
-          fn=$out/${name}
-          echo "event=${handler.event}" > $fn
-          echo "action=${
-            pkgs.writeShellScriptBin "${name}.sh" handler.action
-          }/bin/${name}.sh '%e'" >> $fn
-        ''
-      ;
+      f = name: handler: ''
+        fn=$out/${name}
+        echo "event=${handler.event}" > $fn
+        echo "action=${
+          pkgs.writeShellScriptBin "${name}.sh" handler.action
+        }/bin/${name}.sh '%e'" >> $fn
+      '';
     in
     concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))
     }

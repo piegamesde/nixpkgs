@@ -57,76 +57,74 @@ let
       ''
   ;
 
-  serviceOptions =
-    service: {
-      enable = mkEnableOption (
-        lib.mdDoc "the FRR ${toUpper service} routing protocol"
-      );
+  serviceOptions = service: {
+    enable = mkEnableOption (
+      lib.mdDoc "the FRR ${toUpper service} routing protocol"
+    );
 
-      configFile = mkOption {
-        type = types.nullOr types.path;
-        default = null;
-        example = "/etc/frr/${daemonName service}.conf";
-        description = lib.mdDoc ''
-          Configuration file to use for FRR ${daemonName service}.
-          By default the NixOS generated files are used.
-        '';
-      };
+    configFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      example = "/etc/frr/${daemonName service}.conf";
+      description = lib.mdDoc ''
+        Configuration file to use for FRR ${daemonName service}.
+        By default the NixOS generated files are used.
+      '';
+    };
 
-      config = mkOption {
-        type = types.lines;
-        default = "";
-        example =
-          let
-            examples = {
-              rip = ''
-                router rip
-                  network 10.0.0.0/8
-              '';
+    config = mkOption {
+      type = types.lines;
+      default = "";
+      example =
+        let
+          examples = {
+            rip = ''
+              router rip
+                network 10.0.0.0/8
+            '';
 
-              ospf = ''
-                router ospf
-                  network 10.0.0.0/8 area 0
-              '';
+            ospf = ''
+              router ospf
+                network 10.0.0.0/8 area 0
+            '';
 
-              bgp = ''
-                router bgp 65001
-                  neighbor 10.0.0.1 remote-as 65001
-              '';
-            };
-          in
-          examples.${service} or ""
-        ;
-        description = lib.mdDoc ''
-          ${daemonName service} configuration statements.
-        '';
-      };
+            bgp = ''
+              router bgp 65001
+                neighbor 10.0.0.1 remote-as 65001
+            '';
+          };
+        in
+        examples.${service} or ""
+      ;
+      description = lib.mdDoc ''
+        ${daemonName service} configuration statements.
+      '';
+    };
 
-      vtyListenAddress = mkOption {
-        type = types.str;
-        default = "localhost";
-        description = lib.mdDoc ''
-          Address to bind to for the VTY interface.
-        '';
-      };
+    vtyListenAddress = mkOption {
+      type = types.str;
+      default = "localhost";
+      description = lib.mdDoc ''
+        Address to bind to for the VTY interface.
+      '';
+    };
 
-      vtyListenPort = mkOption {
-        type = types.nullOr types.int;
-        default = null;
-        description = lib.mdDoc ''
-          TCP Port to bind to for the VTY interface.
-        '';
-      };
+    vtyListenPort = mkOption {
+      type = types.nullOr types.int;
+      default = null;
+      description = lib.mdDoc ''
+        TCP Port to bind to for the VTY interface.
+      '';
+    };
 
-      extraOptions = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = lib.mdDoc ''
-          Extra options for the daemon.
-        '';
-      };
-    }
-  ;
+    extraOptions = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = lib.mdDoc ''
+        Extra options for the daemon.
+      '';
+    };
+  };
 in
 
 {
@@ -176,12 +174,10 @@ in
 
     environment.etc =
       let
-        mkEtcLink =
-          service: {
-            name = "frr/${service}.conf";
-            value.source = configFile service;
-          }
-        ;
+        mkEtcLink = service: {
+          name = "frr/${service}.conf";
+          value.source = configFile service;
+        };
       in
       (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices))) // {
         "frr/vtysh.conf".text = "";

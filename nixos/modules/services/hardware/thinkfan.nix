@@ -125,22 +125,20 @@ let
     }
   ;
 
-  syntaxNote =
-    name: ''
-      ::: {.note}
-      This section slightly departs from the thinkfan.conf syntax.
-      The type and path must be specified like this:
-      ```
-        type = "tpacpi";
-        query = "/proc/acpi/ibm/${name}";
-      ```
-      instead of a single declaration like:
-      ```
-        - tpacpi: /proc/acpi/ibm/${name}
-      ```
-      :::
-    ''
-  ;
+  syntaxNote = name: ''
+    ::: {.note}
+    This section slightly departs from the thinkfan.conf syntax.
+    The type and path must be specified like this:
+    ```
+      type = "tpacpi";
+      query = "/proc/acpi/ibm/${name}";
+    ```
+    instead of a single declaration like:
+    ```
+      - tpacpi: /proc/acpi/ibm/${name}
+    ```
+    :::
+  '';
 in
 {
 

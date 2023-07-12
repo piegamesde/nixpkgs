@@ -13,13 +13,11 @@
 
 let
   # Although those headers are also included in the source of `sgx-psw`, the `azure-dcap-client` build needs specific versions
-  filterSparse =
-    list: ''
-      cp -r "$out"/. .
-      find "$out" -mindepth 1 -delete
-      cp ${lib.concatStringsSep " " list} "$out/"
-    ''
-  ;
+  filterSparse = list: ''
+    cp -r "$out"/. .
+    find "$out" -mindepth 1 -delete
+    cp ${lib.concatStringsSep " " list} "$out/"
+  '';
   headers = linkFarmFromDrvs "azure-dcpa-client-intel-headers" [
     (fetchFromGitHub rec {
       name = "${repo}-headers";

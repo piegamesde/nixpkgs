@@ -47,19 +47,17 @@ import ./make-test-python.nix (
     };
 
     # Adds an address and route from a to b via Eve
-    addRoute =
-      a: b: {
-        interfaces.eth1.ipv6.addresses = [ {
-          address = a;
-          prefixLength = 64;
-        } ];
-        interfaces.eth1.ipv6.routes = [ {
-          address = b;
-          prefixLength = 128;
-          via = "fd::e";
-        } ];
-      }
-    ;
+    addRoute = a: b: {
+      interfaces.eth1.ipv6.addresses = [ {
+        address = a;
+        prefixLength = 64;
+      } ];
+      interfaces.eth1.ipv6.routes = [ {
+        address = b;
+        prefixLength = 128;
+        via = "fd::e";
+      } ];
+    };
   in
 
   {

@@ -35,23 +35,21 @@ let
         rev = "version-${version}";
         sha256 = "sha256-1HLVPhl8aBaeG8dRLxBh0j0X/0wqFeNYK1CEfiELToA=";
       };
-      overrides =
-        x: rec {
-          inherit clwrapper;
-          quicklispdist = pkgs.fetchurl {
-            # Will usually be replaced with a fresh version anyway, but needs to be
-            # a valid distinfo.txt
-            url = "http://beta.quicklisp.org/dist/quicklisp/2021-12-09/distinfo.txt";
-            sha256 = "sha256:0gc4cv73nl7xkfwvmkmfhfx6yqf876nfm2v24v6fky9n24sh4y6w";
-          };
-          buildPhase = "true; ";
-          postInstall = ''
-            substituteAll ${./quicklisp.sh} "$out"/bin/quicklisp
-            chmod a+x "$out"/bin/quicklisp
-            cp "${quicklispdist}" "$out/lib/common-lisp/quicklisp/quicklisp-distinfo.txt"
-          '';
-        }
-      ;
+      overrides = x: rec {
+        inherit clwrapper;
+        quicklispdist = pkgs.fetchurl {
+          # Will usually be replaced with a fresh version anyway, but needs to be
+          # a valid distinfo.txt
+          url = "http://beta.quicklisp.org/dist/quicklisp/2021-12-09/distinfo.txt";
+          sha256 = "sha256:0gc4cv73nl7xkfwvmkmfhfx6yqf876nfm2v24v6fky9n24sh4y6w";
+        };
+        buildPhase = "true; ";
+        postInstall = ''
+          substituteAll ${./quicklisp.sh} "$out"/bin/quicklisp
+          chmod a+x "$out"/bin/quicklisp
+          cp "${quicklispdist}" "$out/lib/common-lisp/quicklisp/quicklisp-distinfo.txt"
+        '';
+      };
     };
 
     quicklisp-to-nix-system-info = stdenv.mkDerivation {
@@ -179,44 +177,42 @@ let
 
       description = "Browser";
 
-      overrides =
-        x: {
-          postInstall = ''
-            echo "Building nyxt binary"
-            (
-              source "$out/lib/common-lisp-settings"/*-shell-config.sh
-              cd "$out/lib/common-lisp"/*/
-              makeFlags="''${makeFlags:-}"
-              make LISP=common-lisp.sh NYXT_INTERNAL_QUICKLISP=false PREFIX="$out" $makeFlags all
-              make LISP=common-lisp.sh NYXT_INTERNAL_QUICKLISP=false PREFIX="$out" $makeFlags install
-              cp nyxt "$out/bin/nyxt"
-            )
-            NIX_LISP_PRELAUNCH_HOOK='
-              nix_lisp_build_system nyxt/gtk-application \
-               "(asdf/system:component-entry-point (asdf:find-system :nyxt/gtk-application))" \
-               "" "(format *error-output* \"Alien objects:~%~s~%\" sb-alien::*shared-objects*)"
-            ' "$out/bin/nyxt-lisp-launcher.sh"
-            cp "$out/lib/common-lisp/nyxt/nyxt" "$out/bin/"
-          '';
+      overrides = x: {
+        postInstall = ''
+          echo "Building nyxt binary"
+          (
+            source "$out/lib/common-lisp-settings"/*-shell-config.sh
+            cd "$out/lib/common-lisp"/*/
+            makeFlags="''${makeFlags:-}"
+            make LISP=common-lisp.sh NYXT_INTERNAL_QUICKLISP=false PREFIX="$out" $makeFlags all
+            make LISP=common-lisp.sh NYXT_INTERNAL_QUICKLISP=false PREFIX="$out" $makeFlags install
+            cp nyxt "$out/bin/nyxt"
+          )
+          NIX_LISP_PRELAUNCH_HOOK='
+            nix_lisp_build_system nyxt/gtk-application \
+             "(asdf/system:component-entry-point (asdf:find-system :nyxt/gtk-application))" \
+             "" "(format *error-output* \"Alien objects:~%~s~%\" sb-alien::*shared-objects*)"
+          ' "$out/bin/nyxt-lisp-launcher.sh"
+          cp "$out/lib/common-lisp/nyxt/nyxt" "$out/bin/"
+        '';
 
-          # Prevent nyxt from trying to obtain dependencies as submodules
-          makeFlags = [ "NYXT_SUBMODULES=false" ] ++ x.buildFlags or [ ];
+        # Prevent nyxt from trying to obtain dependencies as submodules
+        makeFlags = [ "NYXT_SUBMODULES=false" ] ++ x.buildFlags or [ ];
 
-          patches =
-            x.patches or [ ]
-            ++ [
-              # Work around crash when opening _any_ URL
-              # https://github.com/atlas-engineer/nyxt/issues/1781
-              # https://github.com/NixOS/nixpkgs/issues/158005
-              (pkgs.fetchpatch {
-                name = "nyxt-webkit-disable-sandbox.patch";
-                url = "https://github.com/atlas-engineer/nyxt/commit/48ac0d8727f1ca1428188a1ab2c05b7be5f6cc51.patch";
-                sha256 = "0570mcfn5wmjha6jmfdgglp0w5b7rpfnv3flzn77clgbknwbxi0m";
-              })
-            ]
-          ;
-        }
-      ;
+        patches =
+          x.patches or [ ]
+          ++ [
+            # Work around crash when opening _any_ URL
+            # https://github.com/atlas-engineer/nyxt/issues/1781
+            # https://github.com/NixOS/nixpkgs/issues/158005
+            (pkgs.fetchpatch {
+              name = "nyxt-webkit-disable-sandbox.patch";
+              url = "https://github.com/atlas-engineer/nyxt/commit/48ac0d8727f1ca1428188a1ab2c05b7be5f6cc51.patch";
+              sha256 = "0570mcfn5wmjha6jmfdgglp0w5b7rpfnv3flzn77clgbknwbxi0m";
+            })
+          ]
+        ;
+      };
 
       deps = with pkgs.lispPackages; [
         alexandria

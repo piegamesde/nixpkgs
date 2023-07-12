@@ -380,16 +380,14 @@ let
         ''}
 
       ${let
-        makeDirConf =
-          elem: ''
-            Alias ${elem.urlPath} ${elem.dir}/
-            <Directory ${elem.dir}>
-                Options +Indexes
-                Require all granted
-                AllowOverride All
-            </Directory>
-          ''
-        ;
+        makeDirConf = elem: ''
+          Alias ${elem.urlPath} ${elem.dir}/
+          <Directory ${elem.dir}>
+              Options +Indexes
+              Require all granted
+              AllowOverride All
+          </Directory>
+        '';
       in
       concatMapStrings makeDirConf hostOpts.servedDirs
       }

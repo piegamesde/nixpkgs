@@ -162,15 +162,13 @@ rec {
       doSign = localSystem.isAarch64 && last != null;
       doUpdateAutoTools = localSystem.isAarch64 && last != null;
 
-      mkExtraBuildCommands =
-        cc: ''
-          rsrc="$out/resource-root"
-          mkdir "$rsrc"
-          ln -s "${cc.lib or cc}/lib/clang/${cc.version}/include" "$rsrc"
-          ln -s "${last.pkgs."${finalLlvmPackages}".compiler-rt.out}/lib" "$rsrc/lib"
-          echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
-        ''
-      ;
+      mkExtraBuildCommands = cc: ''
+        rsrc="$out/resource-root"
+        mkdir "$rsrc"
+        ln -s "${cc.lib or cc}/lib/clang/${cc.version}/include" "$rsrc"
+        ln -s "${last.pkgs."${finalLlvmPackages}".compiler-rt.out}/lib" "$rsrc/lib"
+        echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
+      '';
 
       mkCC =
         overrides:

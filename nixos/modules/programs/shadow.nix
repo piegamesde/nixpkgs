@@ -47,14 +47,12 @@ let
 
   '';
 
-  mkSetuidRoot =
-    source: {
-      setuid = true;
-      owner = "root";
-      group = "root";
-      inherit source;
-    }
-  ;
+  mkSetuidRoot = source: {
+    setuid = true;
+    owner = "root";
+    group = "root";
+    inherit source;
+  };
 in
 
 {

@@ -32,14 +32,12 @@ let
 
   # This forces the default GTK theme (Adwaita) because Horizon is prone to
   # UI usability issues when using non-default themes, such as Adwaita-dark.
-  wrapBinCommands =
-    name: ''
-      makeWrapper "$out/bin/${name}" "$out/bin/${name}_wrapper" \
-      --set GTK_THEME Adwaita \
-      --suffix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
-      --suffix LD_LIBRARY_PATH : "$out/lib/vmware/view/crtbora:$out/lib/vmware"
-    ''
-  ;
+  wrapBinCommands = name: ''
+    makeWrapper "$out/bin/${name}" "$out/bin/${name}_wrapper" \
+    --set GTK_THEME Adwaita \
+    --suffix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
+    --suffix LD_LIBRARY_PATH : "$out/lib/vmware/view/crtbora:$out/lib/vmware"
+  '';
 
   vmwareHorizonClientFiles = stdenv.mkDerivation {
     pname = "vmware-horizon-files";

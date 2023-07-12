@@ -129,20 +129,18 @@ let
   # This is wrapped in begin/end in case the user wants to apply redirections.
   # This does mean the basic usage of sourcing a single file will produce
   # `begin; begin; …; end; end` but that's ok.
-  sourceWithFenv =
-    path: ''
-      begin # fenv
-        # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
-        # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
-        set fish_function_path ${fishPlugins.foreign-env}/share/fish/vendor_functions.d $__fish_datadir/functions
-        fenv source ${lib.escapeShellArg path}
-        set -l fenv_status $status
-        # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
-        set -e fish_function_path
-        test $fenv_status -eq 0
-      end # fenv
-    ''
-  ;
+  sourceWithFenv = path: ''
+    begin # fenv
+      # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
+      # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
+      set fish_function_path ${fishPlugins.foreign-env}/share/fish/vendor_functions.d $__fish_datadir/functions
+      fenv source ${lib.escapeShellArg path}
+      set -l fenv_status $status
+      # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
+      set -e fish_function_path
+      test $fenv_status -eq 0
+    end # fenv
+  '';
 
   fish = stdenv.mkDerivation rec {
     pname = "fish";

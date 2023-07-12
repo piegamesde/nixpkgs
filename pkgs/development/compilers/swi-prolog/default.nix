@@ -68,11 +68,9 @@
 
 let
   version = "8.3.29";
-  packInstall =
-    swiplPath: pack: ''
-      ${swiplPath}/bin/swipl -g "pack_install(${pack}, [package_directory(\"${swiplPath}/lib/swipl/pack\"), silent(true), interactive(false)])." -t "halt."
-    ''
-  ;
+  packInstall = swiplPath: pack: ''
+    ${swiplPath}/bin/swipl -g "pack_install(${pack}, [package_directory(\"${swiplPath}/lib/swipl/pack\"), silent(true), interactive(false)])." -t "halt."
+  '';
 in
 stdenv.mkDerivation {
   pname = "swi-prolog";

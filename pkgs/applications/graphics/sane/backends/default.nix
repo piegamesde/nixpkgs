@@ -135,12 +135,10 @@ stdenv.mkDerivation {
         }
       ;
 
-      installFirmware =
-        f: ''
-          mkdir -p $out/share/sane/${f.backend}
-          ln -sv ${f.src} $out/share/sane/${f.backend}/${f.name}
-        ''
-      ;
+      installFirmware = f: ''
+        mkdir -p $out/share/sane/${f.backend}
+        ln -sv ${f.src} $out/share/sane/${f.backend}/${f.name}
+      '';
     in
     ''
       mkdir -p $out/etc/udev/rules.d/ $out/etc/udev/hwdb.d

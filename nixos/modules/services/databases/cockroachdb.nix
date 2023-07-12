@@ -38,21 +38,19 @@ let
     ++ cfg.extraArgs
   );
 
-  addressOption =
-    descr: defaultPort: {
-      address = mkOption {
-        type = types.str;
-        default = "localhost";
-        description = lib.mdDoc "Address to bind to for ${descr}";
-      };
+  addressOption = descr: defaultPort: {
+    address = mkOption {
+      type = types.str;
+      default = "localhost";
+      description = lib.mdDoc "Address to bind to for ${descr}";
+    };
 
-      port = mkOption {
-        type = types.port;
-        default = defaultPort;
-        description = lib.mdDoc "Port to bind to for ${descr}";
-      };
-    }
-  ;
+    port = mkOption {
+      type = types.port;
+      default = defaultPort;
+      description = lib.mdDoc "Port to bind to for ${descr}";
+    };
+  };
 in
 
 {

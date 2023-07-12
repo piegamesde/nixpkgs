@@ -56,14 +56,12 @@ let
     system.nixos.revision = nixpkgs.rev or nixpkgs.shortRev;
   };
 
-  makeModules =
-    module: rest: [
-      configuration
-      versionModule
-      module
-      rest
-    ]
-  ;
+  makeModules = module: rest: [
+    configuration
+    versionModule
+    module
+    rest
+  ];
 
   makeIso =
     {

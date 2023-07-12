@@ -13,14 +13,12 @@ import ./make-test-python.nix (
         services.timesyncd.enable = lib.mkForce true;
       }
     ;
-    mkVM =
-      conf: {
-        imports = [
-          conf
-          common
-        ];
-      }
-    ;
+    mkVM = conf: {
+      imports = [
+        conf
+        common
+      ];
+    };
   in
   {
     name = "systemd-timesyncd";

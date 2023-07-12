@@ -36,56 +36,46 @@ let
     )
   ;
 
-  mkParam =
-    type: description: {
-      toArgs = optionToArgs;
-      option = nullOpt type description;
-    }
-  ;
+  mkParam = type: description: {
+    toArgs = optionToArgs;
+    option = nullOpt type description;
+  };
 
-  mkFlagParam =
-    description: {
-      toArgs = flagToArgs;
-      option = mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc description;
-      };
-    }
-  ;
+  mkFlagParam = description: {
+    toArgs = flagToArgs;
+    option = mkOption {
+      type = types.bool;
+      default = false;
+      description = lib.mdDoc description;
+    };
+  };
 
-  mkListParam =
-    opt: description: {
-      toArgs = _opt: listToArgs opt;
-      option = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = lib.mdDoc description;
-      };
-    }
-  ;
+  mkListParam = opt: description: {
+    toArgs = _opt: listToArgs opt;
+    option = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = lib.mdDoc description;
+    };
+  };
 
-  mkAttrsParam =
-    opt: description: {
-      toArgs = _opt: attrsToArgs opt;
-      option = mkOption {
-        type = types.attrsOf types.str;
-        default = { };
-        description = lib.mdDoc description;
-      };
-    }
-  ;
+  mkAttrsParam = opt: description: {
+    toArgs = _opt: attrsToArgs opt;
+    option = mkOption {
+      type = types.attrsOf types.str;
+      default = { };
+      description = lib.mdDoc description;
+    };
+  };
 
-  mkStateDirParam =
-    opt: default: description: {
-      toArgs = _opt: stateDir: optionToArgs opt "/var/lib/${stateDir}";
-      option = mkOption {
-        type = types.str;
-        inherit default;
-        description = lib.mdDoc description;
-      };
-    }
-  ;
+  mkStateDirParam = opt: default: description: {
+    toArgs = _opt: stateDir: optionToArgs opt "/var/lib/${stateDir}";
+    option = mkOption {
+      type = types.str;
+      inherit default;
+      description = lib.mdDoc description;
+    };
+  };
 
   toYAML =
     name: attrs:
@@ -178,46 +168,44 @@ let
       '';
     };
 
-    tracing =
-      cfg: {
-        tracing.config-file = {
-          toArgs = _opt: path: optionToArgs "tracing.config-file" path;
-          option = mkOption {
-            type = with types; nullOr str;
-            default =
-              if cfg.tracing.config == null then
-                null
-              else
-                toString (toYAML "tracing.yaml" cfg.tracing.config)
-            ;
-            defaultText = literalExpression ''
-              if config.services.thanos.<cmd>.tracing.config == null then null
-              else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
-            '';
-            description = lib.mdDoc ''
-              Path to YAML file that contains tracing configuration.
-
-              See format details: <https://thanos.io/tracing.md/#configuration>
-            '';
-          };
-        };
-
-        tracing.config = {
-          toArgs = _opt: _attrs: [ ];
-          option = nullOpt types.attrs ''
-            Tracing configuration.
-
-            When not `null` the attribute set gets converted to
-            a YAML file and stored in the Nix store. The option
-            {option}`tracing.config-file` will default to its path.
-
-            If {option}`tracing.config-file` is set this option has no effect.
+    tracing = cfg: {
+      tracing.config-file = {
+        toArgs = _opt: path: optionToArgs "tracing.config-file" path;
+        option = mkOption {
+          type = with types; nullOr str;
+          default =
+            if cfg.tracing.config == null then
+              null
+            else
+              toString (toYAML "tracing.yaml" cfg.tracing.config)
+          ;
+          defaultText = literalExpression ''
+            if config.services.thanos.<cmd>.tracing.config == null then null
+            else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
+          '';
+          description = lib.mdDoc ''
+            Path to YAML file that contains tracing configuration.
 
             See format details: <https://thanos.io/tracing.md/#configuration>
           '';
         };
-      }
-    ;
+      };
+
+      tracing.config = {
+        toArgs = _opt: _attrs: [ ];
+        option = nullOpt types.attrs ''
+          Tracing configuration.
+
+          When not `null` the attribute set gets converted to
+          a YAML file and stored in the Nix store. The option
+          {option}`tracing.config-file` will default to its path.
+
+          If {option}`tracing.config-file` is set this option has no effect.
+
+          See format details: <https://thanos.io/tracing.md/#configuration>
+        '';
+      };
+    };
 
     common =
       cfg:
@@ -250,47 +238,45 @@ let
       }
     ;
 
-    objstore =
-      cfg: {
+    objstore = cfg: {
 
-        objstore.config-file = {
-          toArgs = _opt: path: optionToArgs "objstore.config-file" path;
-          option = mkOption {
-            type = with types; nullOr str;
-            default =
-              if cfg.objstore.config == null then
-                null
-              else
-                toString (toYAML "objstore.yaml" cfg.objstore.config)
-            ;
-            defaultText = literalExpression ''
-              if config.services.thanos.<cmd>.objstore.config == null then null
-              else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
-            '';
-            description = lib.mdDoc ''
-              Path to YAML file that contains object store configuration.
-
-              See format details: <https://thanos.io/storage.md/#configuration>
-            '';
-          };
-        };
-
-        objstore.config = {
-          toArgs = _opt: _attrs: [ ];
-          option = nullOpt types.attrs ''
-            Object store configuration.
-
-            When not `null` the attribute set gets converted to
-            a YAML file and stored in the Nix store. The option
-            {option}`objstore.config-file` will default to its path.
-
-            If {option}`objstore.config-file` is set this option has no effect.
+      objstore.config-file = {
+        toArgs = _opt: path: optionToArgs "objstore.config-file" path;
+        option = mkOption {
+          type = with types; nullOr str;
+          default =
+            if cfg.objstore.config == null then
+              null
+            else
+              toString (toYAML "objstore.yaml" cfg.objstore.config)
+          ;
+          defaultText = literalExpression ''
+            if config.services.thanos.<cmd>.objstore.config == null then null
+            else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
+          '';
+          description = lib.mdDoc ''
+            Path to YAML file that contains object store configuration.
 
             See format details: <https://thanos.io/storage.md/#configuration>
           '';
         };
-      }
-    ;
+      };
+
+      objstore.config = {
+        toArgs = _opt: _attrs: [ ];
+        option = nullOpt types.attrs ''
+          Object store configuration.
+
+          When not `null` the attribute set gets converted to
+          a YAML file and stored in the Nix store. The option
+          {option}`objstore.config-file` will default to its path.
+
+          If {option}`objstore.config-file` is set this option has no effect.
+
+          See format details: <https://thanos.io/storage.md/#configuration>
+        '';
+      };
+    };
 
     sidecar = params.common cfg.sidecar // params.objstore cfg.sidecar // {
 
@@ -718,17 +704,15 @@ let
     };
   };
 
-  assertRelativeStateDir =
-    cmd: {
-      assertions = [ {
-        assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
-        message =
-          "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
-          + " It should be a directory relative to /var/lib."
-        ;
-      } ];
-    }
-  ;
+  assertRelativeStateDir = cmd: {
+    assertions = [ {
+      assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
+      message =
+        "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
+        + " It should be a directory relative to /var/lib."
+      ;
+    } ];
+  };
 in
 {
 

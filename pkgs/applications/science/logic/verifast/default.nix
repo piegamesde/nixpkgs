@@ -34,18 +34,14 @@ let
     + ":${stdenv.cc.cc.lib}/lib64:$out/libexec"
   ;
 
-  patchExe =
-    x: ''
-      patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath ${libPath} ${x}
-    ''
-  ;
+  patchExe = x: ''
+    patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath ${libPath} ${x}
+  '';
 
-  patchLib =
-    x: ''
-      patchelf --set-rpath ${libPath} ${x}
-    ''
-  ;
+  patchLib = x: ''
+    patchelf --set-rpath ${libPath} ${x}
+  '';
 in
 stdenv.mkDerivation rec {
   pname = "verifast";

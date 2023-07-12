@@ -463,12 +463,10 @@ rec {
       */
       collectStructuredModules =
         let
-          collectResults =
-            modules: {
-              disabled = concatLists (catAttrs "disabled" modules);
-              inherit modules;
-            }
-          ;
+          collectResults = modules: {
+            disabled = concatLists (catAttrs "disabled" modules);
+            inherit modules;
+          };
         in
         parentFile: parentKey: initialModules: args:
         collectResults (
@@ -570,12 +568,10 @@ rec {
   ;
 
   # Wrap a module with a default location for reporting errors.
-  setDefaultModuleLocation =
-    file: m: {
-      _file = file;
-      imports = [ m ];
-    }
-  ;
+  setDefaultModuleLocation = file: m: {
+    _file = file;
+    imports = [ m ];
+  };
 
   /* Massage a module into canonical form, that is, a set consisting
      of ‘options’, ‘config’ and ‘imports’ attributes.
@@ -1066,74 +1062,72 @@ rec {
   ;
 
   # Merge definitions of a value of a given type.
-  mergeDefinitions =
-    loc: type: defs: rec {
-      defsFinal' =
-        let
-          # Process mkMerge and mkIf properties.
-          defs' =
-            concatMap
-              (
-                m:
-                map
-                  (value: {
-                    inherit (m) file;
-                    inherit value;
-                  })
-                  (
-                    builtins.addErrorContext "while evaluating definitions from `${m.file}':" (
-                      dischargeProperties m.value
-                    )
+  mergeDefinitions = loc: type: defs: rec {
+    defsFinal' =
+      let
+        # Process mkMerge and mkIf properties.
+        defs' =
+          concatMap
+            (
+              m:
+              map
+                (value: {
+                  inherit (m) file;
+                  inherit value;
+                })
+                (
+                  builtins.addErrorContext "while evaluating definitions from `${m.file}':" (
+                    dischargeProperties m.value
                   )
-              )
-              defs
-          ;
+                )
+            )
+            defs
+        ;
 
-          # Process mkOverride properties.
-          defs'' = filterOverrides' defs';
+        # Process mkOverride properties.
+        defs'' = filterOverrides' defs';
 
-          # Sort mkOrder properties.
-          defs''' =
-            # Avoid sorting if we don't have to.
-            if any (def: def.value._type or "" == "order") defs''.values then
-              sortProperties defs''.values
-            else
-              defs''.values
-          ;
-        in
-        {
-          values = defs''';
-          inherit (defs'') highestPrio;
-        }
-      ;
-      defsFinal = defsFinal'.values;
-
-      # Type-check the remaining definitions, and merge them. Or throw if no definitions.
-      mergedValue =
-        if isDefined then
-          if all (def: type.check def.value) defsFinal then
-            type.merge loc defsFinal
+        # Sort mkOrder properties.
+        defs''' =
+          # Avoid sorting if we don't have to.
+          if any (def: def.value._type or "" == "order") defs''.values then
+            sortProperties defs''.values
           else
-            let
-              allInvalid = filter (def: !type.check def.value) defsFinal;
-            in
-            throw
-              "A definition for option `${
-                showOption loc
-              }' is not of type `${type.description}'. Definition values:${
-                showDefs allInvalid
-              }"
+            defs''.values
+        ;
+      in
+      {
+        values = defs''';
+        inherit (defs'') highestPrio;
+      }
+    ;
+    defsFinal = defsFinal'.values;
+
+    # Type-check the remaining definitions, and merge them. Or throw if no definitions.
+    mergedValue =
+      if isDefined then
+        if all (def: type.check def.value) defsFinal then
+          type.merge loc defsFinal
         else
-          # (nixos-option detects this specific error message and gives it special
-          # handling.  If changed here, please change it there too.)
-          throw "The option `${showOption loc}' is used but not defined."
-      ;
+          let
+            allInvalid = filter (def: !type.check def.value) defsFinal;
+          in
+          throw
+            "A definition for option `${
+              showOption loc
+            }' is not of type `${type.description}'. Definition values:${
+              showDefs allInvalid
+            }"
+      else
+        # (nixos-option detects this specific error message and gives it special
+        # handling.  If changed here, please change it there too.)
+        throw "The option `${showOption loc}' is used but not defined."
+    ;
 
-      isDefined = defsFinal != [ ];
+    isDefined = defsFinal != [ ];
 
-      optionalValue = if isDefined then { value = mergedValue; } else { };
-    }
-  ;
+    optionalValue = if isDefined then { value = mergedValue; } else { };
+  };
 
   /* Given a config set, expand mkMerge properties, and push down the
      other properties into the children.  The result is a list of
@@ -1278,12 +1272,10 @@ rec {
 
   # Properties.
 
-  mkIf =
-    condition: content: {
-      _type = "if";
-      inherit condition content;
-    }
-  ;
+  mkIf = condition: content: {
+    _type = "if";
+    inherit condition content;
+  };
 
   mkAssert =
     assertion: message: content:
@@ -1299,19 +1291,15 @@ rec {
       content
   ;
 
-  mkMerge =
-    contents: {
-      _type = "merge";
-      inherit contents;
-    }
-  ;
+  mkMerge = contents: {
+    _type = "merge";
+    inherit contents;
+  };
 
-  mkOverride =
-    priority: content: {
-      _type = "override";
-      inherit priority content;
-    }
-  ;
+  mkOverride = priority: content: {
+    _type = "override";
+    inherit priority content;
+  };
 
   mkOptionDefault = mkOverride 1500; # priority of option defaults
   mkDefault = mkOverride 1000; # used in config sections of non-user modules to set a default
@@ -1332,12 +1320,10 @@ rec {
       id
   ;
 
-  mkOrder =
-    priority: content: {
-      _type = "order";
-      inherit priority content;
-    }
-  ;
+  mkOrder = priority: content: {
+    _type = "order";
+    inherit priority content;
+  };
 
   mkBefore = mkOrder 500;
   defaultOrderPriority = 1000;
@@ -1705,21 +1691,17 @@ rec {
 
      modules.importJSON :: path -> attrs
   */
-  importJSON =
-    file: {
-      _file = file;
-      config = lib.importJSON file;
-    }
-  ;
+  importJSON = file: {
+    _file = file;
+    config = lib.importJSON file;
+  };
 
   /* Use this function to import a TOML file as NixOS configuration.
 
      modules.importTOML :: path -> attrs
   */
-  importTOML =
-    file: {
-      _file = file;
-      config = lib.importTOML file;
-    }
-  ;
+  importTOML = file: {
+    _file = file;
+    config = lib.importTOML file;
+  };
 }

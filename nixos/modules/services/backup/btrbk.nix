@@ -280,13 +280,11 @@ in
     security.doas = mkIf (sudo_doas == "doas") {
       extraRules =
         let
-          doasCmdNoPass =
-            cmd: {
-              users = [ "btrbk" ];
-              cmd = cmd;
-              noPass = true;
-            }
-          ;
+          doasCmdNoPass = cmd: {
+            users = [ "btrbk" ];
+            cmd = cmd;
+            noPass = true;
+          };
         in
         [
           (doasCmdNoPass "${pkgs.btrfs-progs}/bin/btrfs")

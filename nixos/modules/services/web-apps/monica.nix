@@ -434,17 +434,15 @@ in
           secretPaths = lib.mapAttrsToList (_: v: v._secret) (
             lib.filterAttrs (_: isSecret) cfg.config
           );
-          mkSecretReplacement =
-            file: ''
-              replace-secret ${
-                escapeShellArgs [
-                  (builtins.hashString "sha256" file)
-                  file
-                  "${cfg.dataDir}/.env"
-                ]
-              }
-            ''
-          ;
+          mkSecretReplacement = file: ''
+            replace-secret ${
+              escapeShellArgs [
+                (builtins.hashString "sha256" file)
+                file
+                "${cfg.dataDir}/.env"
+              ]
+            }
+          '';
           secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
           filteredConfig =
             lib.converge

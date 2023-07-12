@@ -128,15 +128,13 @@ let
   # options.
   introspectionModules =
     let
-      setIntrospection =
-        opt: rec {
-          name = showOption opt.loc;
-          path = opt.loc;
-          config = setAttrByPath path (
-            throw "Usage introspection of '${name}' by forced failure."
-          );
-        }
-      ;
+      setIntrospection = opt: rec {
+        name = showOption opt.loc;
+        path = opt.loc;
+        config = setAttrByPath path (
+          throw "Usage introspection of '${name}' by forced failure."
+        );
+      };
     in
     map setIntrospection (collect isOption eval.options)
   ;
@@ -183,23 +181,21 @@ let
     )
   ;
 
-  graphToDot =
-    graph: ''
-      digraph "Option Usages" {
-        ${
-          concatMapStrings
-            (
-              {
-                option,
-                usedBy,
-              }:
-              concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy
-            )
-            displayOptionsGraph
-        }
+  graphToDot = graph: ''
+    digraph "Option Usages" {
+      ${
+        concatMapStrings
+          (
+            {
+              option,
+              usedBy,
+            }:
+            concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy
+          )
+          displayOptionsGraph
       }
-    ''
-  ;
+    }
+  '';
 
   graphToText =
     graph:

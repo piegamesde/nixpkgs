@@ -61,17 +61,15 @@ let
       fhs = buildFHSEnv {
         name = "onlyoffice-wrapper";
 
-        targetPkgs =
-          pkgs: [
-            gcc-unwrapped.lib
-            onlyoffice-documentserver
+        targetPkgs = pkgs: [
+          gcc-unwrapped.lib
+          onlyoffice-documentserver
 
-            # fonts
-            corefonts
-            dejavu_fonts
-            liberation_ttf_v1
-          ]
-        ;
+          # fonts
+          corefonts
+          dejavu_fonts
+          liberation_ttf_v1
+        ];
 
         extraBwrapArgs = [
           "--bind var/lib/onlyoffice/ var/lib/onlyoffice/"

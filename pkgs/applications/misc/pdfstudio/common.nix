@@ -73,12 +73,10 @@ in
 # Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
 buildFHSEnv {
   name = pname;
-  targetPkgs =
-    pkgs: [
-      cups
-      thisPackage
-    ]
-  ;
+  targetPkgs = pkgs: [
+    cups
+    thisPackage
+  ];
   runScript = "${program}${year}";
 
   # link desktop item and icon into FHS user environment

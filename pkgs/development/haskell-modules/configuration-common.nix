@@ -3145,15 +3145,13 @@ self: super:
         # We need to build purescript with these dependencies and thus also its reverse
         # dependencies to avoid version mismatches in their dependency closure.
         # TODO(@cdepillabout): maybe unify with the spago overlay in configuration-nix.nix?
-        purescriptOverlay =
-          self: super: {
-            # As of 2021-11-08, the latest release of `language-javascript` is 0.7.1.0,
-            # but it has a problem with parsing the `async` keyword.  It doesn't allow
-            # `async` to be used as an object key:
-            # https://github.com/erikd/language-javascript/issues/131
-            language-javascript = self.language-javascript_0_7_0_0;
-          }
-        ;
+        purescriptOverlay = self: super: {
+          # As of 2021-11-08, the latest release of `language-javascript` is 0.7.1.0,
+          # but it has a problem with parsing the `async` keyword.  It doesn't allow
+          # `async` to be used as an object key:
+          # https://github.com/erikd/language-javascript/issues/131
+          language-javascript = self.language-javascript_0_7_0_0;
+        };
       in
       {
         purescript = lib.pipe (super.purescript.overrideScope purescriptOverlay) ([

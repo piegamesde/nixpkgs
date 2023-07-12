@@ -1816,29 +1816,27 @@ lib.composeManyExtensions [
 
       # Overrides for building packages based on OpenCV
       # These flags are inspired by the opencv 4.x package in nixpkgs
-      _opencv-python-override =
-        old: {
-          # Disable OpenCL on macOS
-          # Can't use cmakeFlags because cmake is called by setup.py
-          CMAKE_ARGS = lib.optionalString stdenv.isDarwin "-DWITH_OPENCL=OFF";
+      _opencv-python-override = old: {
+        # Disable OpenCL on macOS
+        # Can't use cmakeFlags because cmake is called by setup.py
+        CMAKE_ARGS = lib.optionalString stdenv.isDarwin "-DWITH_OPENCL=OFF";
 
-          nativeBuildInputs = [ pkgs.cmake ] ++ old.nativeBuildInputs;
-          buildInputs =
-            [ self.scikit-build ]
-            ++ lib.optionals stdenv.isDarwin (
-              with pkgs.darwin.apple_sdk.frameworks; [
-                AVFoundation
-                Cocoa
-                CoreMedia
-                MediaToolbox
-                VideoDecodeAcceleration
-              ]
-            )
-            ++ (old.buildInputs or [ ])
-          ;
-          dontUseCmakeConfigure = true;
-        }
-      ;
+        nativeBuildInputs = [ pkgs.cmake ] ++ old.nativeBuildInputs;
+        buildInputs =
+          [ self.scikit-build ]
+          ++ lib.optionals stdenv.isDarwin (
+            with pkgs.darwin.apple_sdk.frameworks; [
+              AVFoundation
+              Cocoa
+              CoreMedia
+              MediaToolbox
+              VideoDecodeAcceleration
+            ]
+          )
+          ++ (old.buildInputs or [ ])
+        ;
+        dontUseCmakeConfigure = true;
+      };
 
       opencv-python =
         super.opencv-python.overridePythonAttrs

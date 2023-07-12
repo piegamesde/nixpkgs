@@ -222,121 +222,119 @@ let
   # - pkgsCross.<system> where system is a member of lib.systems.examples
   # - pkgsMusl
   # - pkgsi686Linux
-  otherPackageSets =
-    self: super: {
-      # This maps each entry in lib.systems.examples to its own package
-      # set. Each of these will contain all packages cross compiled for
-      # that target system. For instance, pkgsCross.raspberryPi.hello,
-      # will refer to the "hello" package built for the ARM6-based
-      # Raspberry Pi.
-      pkgsCross =
-        lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; })
-          lib.systems.examples
-      ;
+  otherPackageSets = self: super: {
+    # This maps each entry in lib.systems.examples to its own package
+    # set. Each of these will contain all packages cross compiled for
+    # that target system. For instance, pkgsCross.raspberryPi.hello,
+    # will refer to the "hello" package built for the ARM6-based
+    # Raspberry Pi.
+    pkgsCross =
+      lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; })
+        lib.systems.examples
+    ;
 
-      pkgsLLVM = nixpkgsFun {
-        overlays = [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays;
-        # Bootstrap a cross stdenv using the LLVM toolchain.
-        # This is currently not possible when compiling natively,
-        # so we don't need to check hostPlatform != buildPlatform.
-        crossSystem = stdenv.hostPlatform // {
-          useLLVM = true;
-          linker = "lld";
-        };
+    pkgsLLVM = nixpkgsFun {
+      overlays = [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays;
+      # Bootstrap a cross stdenv using the LLVM toolchain.
+      # This is currently not possible when compiling natively,
+      # so we don't need to check hostPlatform != buildPlatform.
+      crossSystem = stdenv.hostPlatform // {
+        useLLVM = true;
+        linker = "lld";
       };
+    };
 
-      # All packages built with the Musl libc. This will override the
-      # default GNU libc on Linux systems. Non-Linux systems are not
-      # supported. 32-bit is also not supported.
-      pkgsMusl =
-        if stdenv.hostPlatform.isLinux && stdenv.buildPlatform.is64bit then
-          nixpkgsFun {
-            overlays = [ (self': super': { pkgsMusl = super'; }) ] ++ overlays;
-            ${
-              if stdenv.hostPlatform == stdenv.buildPlatform then
-                "localSystem"
-              else
-                "crossSystem"
-            } = {
-              parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-            };
-          }
-        else
-          throw "Musl libc only supports 64-bit Linux systems."
-      ;
-
-      # All packages built for i686 Linux.
-      # Used by wine, firefox with debugging version of Flash, ...
-      pkgsi686Linux =
-        if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86 then
-          nixpkgsFun {
-            overlays = [ (self': super': { pkgsi686Linux = super'; }) ] ++ overlays;
-            ${
-              if stdenv.hostPlatform == stdenv.buildPlatform then
-                "localSystem"
-              else
-                "crossSystem"
-            } = {
-              parsed = stdenv.hostPlatform.parsed // {
-                cpu = lib.systems.parse.cpuTypes.i686;
-              };
-            };
-          }
-        else
-          throw "i686 Linux package set can only be used with the x86 family."
-      ;
-
-      # x86_64-darwin packages for aarch64-darwin users to use with Rosetta for incompatible packages
-      pkgsx86_64Darwin =
-        if stdenv.hostPlatform.isDarwin then
-          nixpkgsFun {
-            overlays = [ (self': super': { pkgsx86_64Darwin = super'; }) ] ++ overlays;
-            localSystem = {
-              parsed = stdenv.hostPlatform.parsed // {
-                cpu = lib.systems.parse.cpuTypes.x86_64;
-              };
-            };
-          }
-        else
-          throw "x86_64 Darwin package set can only be used on Darwin systems."
-      ;
-
-      # Extend the package set with zero or more overlays. This preserves
-      # preexisting overlays. Prefer to initialize with the right overlays
-      # in one go when calling Nixpkgs, for performance and simplicity.
-      appendOverlays =
-        extraOverlays:
-        if extraOverlays == [ ] then
-          self
-        else
-          nixpkgsFun { overlays = args.overlays ++ extraOverlays; }
-      ;
-
-      # NOTE: each call to extend causes a full nixpkgs rebuild, adding ~130MB
-      #       of allocations. DO NOT USE THIS IN NIXPKGS.
-      #
-      # Extend the package set with a single overlay. This preserves
-      # preexisting overlays. Prefer to initialize with the right overlays
-      # in one go when calling Nixpkgs, for performance and simplicity.
-      # Prefer appendOverlays if used repeatedly.
-      extend = f: self.appendOverlays [ f ];
-
-      # Fully static packages.
-      # Currently uses Musl on Linux (couldn’t get static glibc to work).
-      pkgsStatic = nixpkgsFun (
-        {
-          overlays = [ (self': super': { pkgsStatic = super'; }) ] ++ overlays;
-        } // lib.optionalAttrs stdenv.hostPlatform.isLinux {
-          crossSystem = {
-            isStatic = true;
+    # All packages built with the Musl libc. This will override the
+    # default GNU libc on Linux systems. Non-Linux systems are not
+    # supported. 32-bit is also not supported.
+    pkgsMusl =
+      if stdenv.hostPlatform.isLinux && stdenv.buildPlatform.is64bit then
+        nixpkgsFun {
+          overlays = [ (self': super': { pkgsMusl = super'; }) ] ++ overlays;
+          ${
+            if stdenv.hostPlatform == stdenv.buildPlatform then
+              "localSystem"
+            else
+              "crossSystem"
+          } = {
             parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-          } // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") {
-            gcc.abi = "elfv2";
           };
         }
-      );
-    }
-  ;
+      else
+        throw "Musl libc only supports 64-bit Linux systems."
+    ;
+
+    # All packages built for i686 Linux.
+    # Used by wine, firefox with debugging version of Flash, ...
+    pkgsi686Linux =
+      if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86 then
+        nixpkgsFun {
+          overlays = [ (self': super': { pkgsi686Linux = super'; }) ] ++ overlays;
+          ${
+            if stdenv.hostPlatform == stdenv.buildPlatform then
+              "localSystem"
+            else
+              "crossSystem"
+          } = {
+            parsed = stdenv.hostPlatform.parsed // {
+              cpu = lib.systems.parse.cpuTypes.i686;
+            };
+          };
+        }
+      else
+        throw "i686 Linux package set can only be used with the x86 family."
+    ;
+
+    # x86_64-darwin packages for aarch64-darwin users to use with Rosetta for incompatible packages
+    pkgsx86_64Darwin =
+      if stdenv.hostPlatform.isDarwin then
+        nixpkgsFun {
+          overlays = [ (self': super': { pkgsx86_64Darwin = super'; }) ] ++ overlays;
+          localSystem = {
+            parsed = stdenv.hostPlatform.parsed // {
+              cpu = lib.systems.parse.cpuTypes.x86_64;
+            };
+          };
+        }
+      else
+        throw "x86_64 Darwin package set can only be used on Darwin systems."
+    ;
+
+    # Extend the package set with zero or more overlays. This preserves
+    # preexisting overlays. Prefer to initialize with the right overlays
+    # in one go when calling Nixpkgs, for performance and simplicity.
+    appendOverlays =
+      extraOverlays:
+      if extraOverlays == [ ] then
+        self
+      else
+        nixpkgsFun { overlays = args.overlays ++ extraOverlays; }
+    ;
+
+    # NOTE: each call to extend causes a full nixpkgs rebuild, adding ~130MB
+    #       of allocations. DO NOT USE THIS IN NIXPKGS.
+    #
+    # Extend the package set with a single overlay. This preserves
+    # preexisting overlays. Prefer to initialize with the right overlays
+    # in one go when calling Nixpkgs, for performance and simplicity.
+    # Prefer appendOverlays if used repeatedly.
+    extend = f: self.appendOverlays [ f ];
+
+    # Fully static packages.
+    # Currently uses Musl on Linux (couldn’t get static glibc to work).
+    pkgsStatic = nixpkgsFun (
+      {
+        overlays = [ (self': super': { pkgsStatic = super'; }) ] ++ overlays;
+      } // lib.optionalAttrs stdenv.hostPlatform.isLinux {
+        crossSystem = {
+          isStatic = true;
+          parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+        } // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") {
+          gcc.abi = "elfv2";
+        };
+      }
+    );
+  };
 
   # The complete chain of package set builders, applied from top to bottom.
   # stdenvOverlays must be last as it brings package forward from the

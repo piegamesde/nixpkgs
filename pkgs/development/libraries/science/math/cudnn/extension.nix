@@ -62,12 +62,10 @@ let
 
   # Function to transform our releases into build attributes
   # toBuildAttrs :: Release -> { name: String, value: Derivation }
-  toBuildAttrs =
-    release: {
-      name = computeName release.version;
-      value = buildCuDnnPackage release;
-    }
-  ;
+  toBuildAttrs = release: {
+    name = computeName release.version;
+    value = buildCuDnnPackage release;
+  };
 
   # Add all supported builds as attributes
   # allBuilds :: AttrSet String Derivation

@@ -20,15 +20,13 @@ let
     "listenbrainz" = "http://proxy.listenbrainz.org";
   };
 
-  mkSection =
-    secname: secCfg: ''
-      [${secname}]
-      url      = ${secCfg.url}
-      username = ${secCfg.username}
-      password = {{${secname}_PASSWORD}}
-      journal  = /var/lib/mpdscribble/${secname}.journal
-    ''
-  ;
+  mkSection = secname: secCfg: ''
+    [${secname}]
+    url      = ${secCfg.url}
+    username = ${secCfg.username}
+    password = {{${secname}_PASSWORD}}
+    journal  = /var/lib/mpdscribble/${secname}.journal
+  '';
 
   endpoints = concatStringsSep "\n" (mapAttrsToList mkSection cfg.endpoints);
   cfgTemplate = pkgs.writeText "mpdscribble.conf" ''

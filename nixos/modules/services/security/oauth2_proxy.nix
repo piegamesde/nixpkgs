@@ -16,33 +16,27 @@ let
   # takes the configuration and returns a string that can be inserted into the
   # command-line to launch oauth2_proxy.
   providerSpecificOptions = {
-    azure =
-      cfg: {
-        azure-tenant = cfg.azure.tenant;
-        resource = cfg.azure.resource;
-      }
-    ;
+    azure = cfg: {
+      azure-tenant = cfg.azure.tenant;
+      resource = cfg.azure.resource;
+    };
 
-    github =
-      cfg: {
-        github = {
-          inherit (cfg.github) org team;
-        };
-      }
-    ;
+    github = cfg: {
+      github = {
+        inherit (cfg.github) org team;
+      };
+    };
 
-    google =
-      cfg: {
-        google =
-          with cfg.google;
-          optionalAttrs (groups != [ ]) {
-            admin-email = adminEmail;
-            service-account = serviceAccountJSON;
-            group = groups;
-          }
-        ;
-      }
-    ;
+    google = cfg: {
+      google =
+        with cfg.google;
+        optionalAttrs (groups != [ ]) {
+          admin-email = adminEmail;
+          service-account = serviceAccountJSON;
+          group = groups;
+        }
+      ;
+    };
   };
 
   authenticatedEmailsFile =

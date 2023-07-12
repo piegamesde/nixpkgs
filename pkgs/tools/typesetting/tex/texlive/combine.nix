@@ -188,11 +188,9 @@ in
           ;
           formatPNames = map (p: p.pname) formats;
           # sed expression that prints the lines in /start/,/end/ except for /end/
-          section =
-            start: end: ''
-              /${start}/,/${end}/{ /${start}/p; /${end}/!p; };
-            ''
-          ;
+          section = start: end: ''
+            /${start}/,/${end}/{ /${start}/p; /${end}/!p; };
+          '';
           script = writeText "hyphens.sed" (
             # document how the file was generated (for language.dat)
             ''
@@ -232,11 +230,9 @@ in
           );
           # formats not being installed must be disabled by prepending #! (see man fmtutil)
           # sed expression that enables the formats in /start/,/end/
-          enableFormats =
-            pname: ''
-              /^# from ${pname}:$/,/^# from/{ s/^#! //; };
-            ''
-          ;
+          enableFormats = pname: ''
+            /^# from ${pname}:$/,/^# from/{ s/^#! //; };
+          '';
           fmtutilSed = writeText "fmtutil.sed" (
             # document how file was generated
             ''

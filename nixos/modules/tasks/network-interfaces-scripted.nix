@@ -31,21 +31,19 @@ let
 
   interfaceIps = i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
 
-  destroyBond =
-    i: ''
-      while true; do
-        UPDATED=1
-        SLAVES=$(ip link | grep 'master ${i}' | awk -F: '{print $2}')
-        for I in $SLAVES; do
-          UPDATED=0
-          ip link set "$I" nomaster
-        done
-        [ "$UPDATED" -eq "1" ] && break
+  destroyBond = i: ''
+    while true; do
+      UPDATED=1
+      SLAVES=$(ip link | grep 'master ${i}' | awk -F: '{print $2}')
+      for I in $SLAVES; do
+        UPDATED=0
+        ip link set "$I" nomaster
       done
-      ip link set "${i}" down 2>/dev/null || true
-      ip link del "${i}" 2>/dev/null || true
-    ''
-  ;
+      [ "$UPDATED" -eq "1" ] && break
+    done
+    ip link set "${i}" down 2>/dev/null || true
+    ip link del "${i}" 2>/dev/null || true
+  '';
 
   # warn that these attributes are deprecated (2017-2-2)
   # Should be removed in the release after next

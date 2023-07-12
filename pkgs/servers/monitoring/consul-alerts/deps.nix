@@ -1,15 +1,13 @@
 let
-  mkAwsPackage =
-    name: {
-      goPackagePath = "github.com/aws/aws-sdk-go/${name}";
-      fetch = {
-        type = "git";
-        url = "https://github.com/aws/aws-sdk-go";
-        rev = "v1.14.13";
-        sha256 = "0014b6kl3rbjhjbk7jz116wdgdls54b1bwz454pkn1snlvkj3qil";
-      };
-    }
-  ;
+  mkAwsPackage = name: {
+    goPackagePath = "github.com/aws/aws-sdk-go/${name}";
+    fetch = {
+      type = "git";
+      url = "https://github.com/aws/aws-sdk-go";
+      rev = "v1.14.13";
+      sha256 = "0014b6kl3rbjhjbk7jz116wdgdls54b1bwz454pkn1snlvkj3qil";
+    };
+  };
 in
 [
   (mkAwsPackage "")

@@ -131,21 +131,19 @@ let
     }
   ;
 
-  mkNamedNylon =
-    cfg: {
-      "nylon-${cfg.name}" = {
-        description = "Nylon, a lightweight SOCKS proxy server";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          User = "nylon";
-          Group = "nylon";
-          WorkingDirectory = homeDir;
-          ExecStart = "${pkgs.nylon}/bin/nylon -f -c ${configFile cfg}";
-        };
+  mkNamedNylon = cfg: {
+    "nylon-${cfg.name}" = {
+      description = "Nylon, a lightweight SOCKS proxy server";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = "nylon";
+        Group = "nylon";
+        WorkingDirectory = homeDir;
+        ExecStart = "${pkgs.nylon}/bin/nylon -f -c ${configFile cfg}";
       };
-    }
-  ;
+    };
+  };
 
   anyNylons = collect (p: p ? enable) cfg;
   enabledNylons = filter (p: p.enable == true) anyNylons;

@@ -12,24 +12,20 @@ let
   cfg = config.services.stunnel;
   yesNo = val: if val then "yes" else "no";
 
-  verifyRequiredField =
-    type: field: n: c: {
-      assertion = hasAttr field c;
-      message = ''
-        stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
-    }
-  ;
+  verifyRequiredField = type: field: n: c: {
+    assertion = hasAttr field c;
+    message = ''
+      stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
+  };
 
-  verifyChainPathAssert =
-    n: c: {
-      assertion =
-        (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
-      message =
-        ''stunnel: "${n}" client configuration - hostname verification ''
-        + "is not possible without either verifyChain or verifyPeer enabled"
-      ;
-    }
-  ;
+  verifyChainPathAssert = n: c: {
+    assertion =
+      (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
+    message =
+      ''stunnel: "${n}" client configuration - hostname verification ''
+      + "is not possible without either verifyChain or verifyPeer enabled"
+    ;
+  };
 
   removeNulls = mapAttrs (_: filterAttrs (_: v: v != null));
   mkValueString =

@@ -151,30 +151,28 @@ let
   # This is a hack for resolving cross-compiled compilers' run-time
   # deps. (That is, compilers that are themselves cross-compiled, as
   # opposed to used to cross-compile packages.)
-  postStage =
-    buildPackages: {
-      __raw = true;
-      stdenv.cc =
-        if buildPackages.stdenv.hasCC then
-          if
-            buildPackages.stdenv.cc.isClang or false
-          # buildPackages.clang checks targetPackages.stdenv.cc (i. e. this
-          # attribute) to get a sense of the its set's default compiler and
-          # chooses between libc++ and libstdc++ based on that. If we hit this
-          # code here, we'll cause an infinite recursion. Since a set with
-          # clang as its default compiler always means libc++, we can infer this
-          # decision statically.
-          then
-            buildPackages.llvmPackages.libcxxClang
-          else
-            buildPackages.gcc
+  postStage = buildPackages: {
+    __raw = true;
+    stdenv.cc =
+      if buildPackages.stdenv.hasCC then
+        if
+          buildPackages.stdenv.cc.isClang or false
+        # buildPackages.clang checks targetPackages.stdenv.cc (i. e. this
+        # attribute) to get a sense of the its set's default compiler and
+        # chooses between libc++ and libstdc++ based on that. If we hit this
+        # code here, we'll cause an infinite recursion. Since a set with
+        # clang as its default compiler always means libc++, we can infer this
+        # decision statically.
+        then
+          buildPackages.llvmPackages.libcxxClang
         else
-          # This will blow up if anything uses it, but that's OK. The `if
-          # buildPackages.stdenv.cc.isClang then ... else ...` would blow up
-          # everything, so we make sure to avoid that.
-          buildPackages.stdenv.cc
-      ;
-    }
-  ;
+          buildPackages.gcc
+      else
+        # This will blow up if anything uses it, but that's OK. The `if
+        # buildPackages.stdenv.cc.isClang then ... else ...` would blow up
+        # everything, so we make sure to avoid that.
+        buildPackages.stdenv.cc
+    ;
+  };
 in
 dfold folder postStage (_: { }) withAllowCustomOverrides

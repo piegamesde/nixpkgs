@@ -30,12 +30,10 @@
 # In that case its about 6MB which could be separated
 
 let
-  pythonModules =
-    pp: [
-      pp.mako
-      pp.markdown
-    ]
-  ;
+  pythonModules = pp: [
+    pp.mako
+    pp.markdown
+  ];
 in
 stdenv.mkDerivation (
   finalAttrs: {

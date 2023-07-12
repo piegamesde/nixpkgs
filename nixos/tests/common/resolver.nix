@@ -47,12 +47,10 @@
             mkNsdZoneNames cfg.services.nsd.zones ++ mkBindZoneNames cfg.services.bind.zones
           ;
 
-          getZonesForNode =
-            attrs: {
-              ip = attrs.config.networking.primaryIPAddress;
-              zones = lib.filter (zone: zone != ".") (getZones attrs.config);
-            }
-          ;
+          getZonesForNode = attrs: {
+            ip = attrs.config.networking.primaryIPAddress;
+            zones = lib.filter (zone: zone != ".") (getZones attrs.config);
+          };
 
           zoneInfo = lib.mapAttrsToList (lib.const getZonesForNode) nodes;
 

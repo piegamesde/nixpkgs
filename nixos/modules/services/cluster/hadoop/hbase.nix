@@ -184,20 +184,18 @@ in
       };
     } // (
       let
-        ports =
-          port: infoPort: {
-            port = mkOption {
-              type = types.int;
-              default = port;
-              description = mdDoc "RPC port";
-            };
-            infoPort = mkOption {
-              type = types.int;
-              default = infoPort;
-              description = mdDoc "web UI port";
-            };
-          }
-        ;
+        ports = port: infoPort: {
+          port = mkOption {
+            type = types.int;
+            default = port;
+            description = mdDoc "RPC port";
+          };
+          infoPort = mkOption {
+            type = types.int;
+            default = infoPort;
+            description = mdDoc "web UI port";
+          };
+        };
       in
       mapAttrs hbaseRoleOption {
         master.initHDFS = mkEnableOption (

@@ -183,29 +183,27 @@ let
   );
 
   # options are ordered alphanumerically by the nixos option name
-  zoneConfigFile =
-    name: zone: ''
-      zone:
-        name:         "${name}"
-        zonefile:     "${stateDir}/zones/${mkZoneFileName name}"
-        ${maybeString "outgoing-interface: " zone.outgoingInterface}
-      ${forEach "  rrl-whitelist: " zone.rrlWhitelist}
-        ${maybeString "zonestats: " zone.zoneStats}
+  zoneConfigFile = name: zone: ''
+    zone:
+      name:         "${name}"
+      zonefile:     "${stateDir}/zones/${mkZoneFileName name}"
+      ${maybeString "outgoing-interface: " zone.outgoingInterface}
+    ${forEach "  rrl-whitelist: " zone.rrlWhitelist}
+      ${maybeString "zonestats: " zone.zoneStats}
 
-        ${maybeToString "max-refresh-time: " zone.maxRefreshSecs}
-        ${maybeToString "min-refresh-time: " zone.minRefreshSecs}
-        ${maybeToString "max-retry-time:   " zone.maxRetrySecs}
-        ${maybeToString "min-retry-time:   " zone.minRetrySecs}
+      ${maybeToString "max-refresh-time: " zone.maxRefreshSecs}
+      ${maybeToString "min-refresh-time: " zone.minRefreshSecs}
+      ${maybeToString "max-retry-time:   " zone.maxRetrySecs}
+      ${maybeToString "min-retry-time:   " zone.minRetrySecs}
 
-        allow-axfr-fallback: ${yesOrNo zone.allowAXFRFallback}
-      ${forEach "  allow-notify: " zone.allowNotify}
-      ${forEach "  request-xfr: " zone.requestXFR}
+      allow-axfr-fallback: ${yesOrNo zone.allowAXFRFallback}
+    ${forEach "  allow-notify: " zone.allowNotify}
+    ${forEach "  request-xfr: " zone.requestXFR}
 
-      ${forEach "  notify: " zone.notify}
-        notify-retry:                        ${toString zone.notifyRetry}
-      ${forEach "  provide-xfr: " zone.provideXFR}
-    ''
-  ;
+    ${forEach "  notify: " zone.notify}
+      notify-retry:                        ${toString zone.notifyRetry}
+    ${forEach "  provide-xfr: " zone.provideXFR}
+  '';
 
   zoneConfigs = zoneConfigs' { } "" { children = cfg.zones; };
 
@@ -511,15 +509,13 @@ let
 
     ${concatStrings (mapAttrsToList signZone dnssecZones)}
   '';
-  signZone =
-    name: zone: ''
-      ${dnssecTools}/bin/dnssec-keymgr -g ${dnssecTools}/bin/dnssec-keygen -s ${dnssecTools}/bin/dnssec-settime -K ${stateDir}/dnssec -c ${
-        policyFile name zone.dnssecPolicy
-      } ${name}
-      ${dnssecTools}/bin/dnssec-signzone -S -K ${stateDir}/dnssec -o ${name} -O full -N date ${stateDir}/zones/${name}
-      ${nsdPkg}/sbin/nsd-checkzone ${name} ${stateDir}/zones/${name}.signed && mv -v ${stateDir}/zones/${name}.signed ${stateDir}/zones/${name}
-    ''
-  ;
+  signZone = name: zone: ''
+    ${dnssecTools}/bin/dnssec-keymgr -g ${dnssecTools}/bin/dnssec-keygen -s ${dnssecTools}/bin/dnssec-settime -K ${stateDir}/dnssec -c ${
+      policyFile name zone.dnssecPolicy
+    } ${name}
+    ${dnssecTools}/bin/dnssec-signzone -S -K ${stateDir}/dnssec -o ${name} -O full -N date ${stateDir}/zones/${name}
+    ${nsdPkg}/sbin/nsd-checkzone ${name} ${stateDir}/zones/${name}.signed && mv -v ${stateDir}/zones/${name}.signed ${stateDir}/zones/${name}
+  '';
   policyFile =
     name: policy:
     pkgs.writeText "${name}.policy" ''

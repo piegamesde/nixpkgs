@@ -26,12 +26,10 @@ let
   mkDepsRewrites =
     deps:
     let
-      mergeRewrites =
-        x: y: {
-          prefix = lib.mergeAttrs (x.prefix or { }) (y.prefix or { });
-          const = lib.mergeAttrs (x.const or { }) (y.const or { });
-        }
-      ;
+      mergeRewrites = x: y: {
+        prefix = lib.mergeAttrs (x.prefix or { }) (y.prefix or { });
+        const = lib.mergeAttrs (x.const or { }) (y.const or { });
+      };
 
       rewriteArgs =
         {
@@ -373,52 +371,50 @@ rec {
       ;
 
       # Overrides for framework derivations.
-      overrides =
-        super: {
-          CoreFoundation = lib.overrideDerivation super.CoreFoundation (
-            drv: { setupHook = ./cf-setup-hook.sh; }
-          );
+      overrides = super: {
+        CoreFoundation = lib.overrideDerivation super.CoreFoundation (
+          drv: { setupHook = ./cf-setup-hook.sh; }
+        );
 
-          # This framework doesn't exist in newer SDKs (somewhere around 10.13), but
-          # there are references to it in nixpkgs.
-          QuickTime = throw "QuickTime framework not available";
+        # This framework doesn't exist in newer SDKs (somewhere around 10.13), but
+        # there are references to it in nixpkgs.
+        QuickTime = throw "QuickTime framework not available";
 
-          # Seems to be appropriate given https://developer.apple.com/forums/thread/666686
-          JavaVM = super.JavaNativeFoundation;
+        # Seems to be appropriate given https://developer.apple.com/forums/thread/666686
+        JavaVM = super.JavaNativeFoundation;
 
-          CoreVideo = lib.overrideDerivation super.CoreVideo (
-            drv: {
-              installPhase =
-                drv.installPhase
-                + ''
-                  # When used as a module, complains about a missing import for
-                  # Darwin.C.stdint. Apparently fixed in later SDKs.
-                  awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
-                    $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
-                ''
-              ;
-            }
-          );
+        CoreVideo = lib.overrideDerivation super.CoreVideo (
+          drv: {
+            installPhase =
+              drv.installPhase
+              + ''
+                # When used as a module, complains about a missing import for
+                # Darwin.C.stdint. Apparently fixed in later SDKs.
+                awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
+                  $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
+              ''
+            ;
+          }
+        );
 
-          System = lib.overrideDerivation super.System (
-            drv: {
-              installPhase =
-                drv.installPhase
-                + ''
-                  # Contrarily to the other frameworks, System framework's TBD file
-                  # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
-                  # This produces an error when installing the framework as:
-                  #   1. The original file is not copied into the output directory
-                  #   2. Even if it was copied, the relative path wouldn't match
-                  # Thus, it is easier to replace the file than to fix the symlink.
-                  cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
-                    $out/Library/Frameworks/System.framework/Versions/B/System.tbd
-                ''
-              ;
-            }
-          );
-        }
-      ;
+        System = lib.overrideDerivation super.System (
+          drv: {
+            installPhase =
+              drv.installPhase
+              + ''
+                # Contrarily to the other frameworks, System framework's TBD file
+                # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
+                # This produces an error when installing the framework as:
+                #   1. The original file is not copied into the output directory
+                #   2. Even if it was copied, the relative path wouldn't match
+                # Thus, it is easier to replace the file than to fix the symlink.
+                cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
+                  $out/Library/Frameworks/System.framework/Versions/B/System.tbd
+              ''
+            ;
+          }
+        );
+      };
 
       # Merge extraDeps into generatedDeps.
       deps = generatedDeps

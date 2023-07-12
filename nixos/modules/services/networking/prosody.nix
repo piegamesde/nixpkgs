@@ -321,20 +321,18 @@ let
       throw "Invalid Lua value"
   ;
 
-  createSSLOptsStr =
-    o: ''
-      ssl = {
-        cafile = "/etc/ssl/certs/ca-bundle.crt";
-        key = "${o.key}";
-        certificate = "${o.cert}";
-        ${
-          concatStringsSep "\n" (
-            mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions
-          )
-        }
-      };
-    ''
-  ;
+  createSSLOptsStr = o: ''
+    ssl = {
+      cafile = "/etc/ssl/certs/ca-bundle.crt";
+      key = "${o.key}";
+      certificate = "${o.cert}";
+      ${
+        concatStringsSep "\n" (
+          mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions
+        )
+      }
+    };
+  '';
 
   mucOpts =
     {

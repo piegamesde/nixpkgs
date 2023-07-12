@@ -11,40 +11,38 @@ let
   # A testScript fragment that prepares a disk with some empty, unpartitioned
   # space. and uses it to boot the test with. Takes a single argument `machine`
   # from which the diskImage is extraced.
-  useDiskImage =
-    machine: ''
-      import os
-      import shutil
-      import subprocess
-      import tempfile
+  useDiskImage = machine: ''
+    import os
+    import shutil
+    import subprocess
+    import tempfile
 
-      tmp_disk_image = tempfile.NamedTemporaryFile()
+    tmp_disk_image = tempfile.NamedTemporaryFile()
 
-      shutil.copyfile("${machine.system.build.diskImage}/nixos.img", tmp_disk_image.name)
+    shutil.copyfile("${machine.system.build.diskImage}/nixos.img", tmp_disk_image.name)
 
-      subprocess.run([
-        "${pkgs.qemu}/bin/qemu-img",
-        "resize",
-        "-f",
-        "raw",
-        tmp_disk_image.name,
-        "+32M",
-      ])
+    subprocess.run([
+      "${pkgs.qemu}/bin/qemu-img",
+      "resize",
+      "-f",
+      "raw",
+      tmp_disk_image.name,
+      "+32M",
+    ])
 
-      # Fix the GPT table by moving the backup table to the end of the enlarged
-      # disk image. This is necessary because we increased the size of the disk
-      # before. The disk needs to be a raw disk because sgdisk can only run on
-      # raw images.
-      subprocess.run([
-        "${pkgs.gptfdisk}/bin/sgdisk",
-        "--move-second-header",
-        tmp_disk_image.name,
-      ])
+    # Fix the GPT table by moving the backup table to the end of the enlarged
+    # disk image. This is necessary because we increased the size of the disk
+    # before. The disk needs to be a raw disk because sgdisk can only run on
+    # raw images.
+    subprocess.run([
+      "${pkgs.gptfdisk}/bin/sgdisk",
+      "--move-second-header",
+      tmp_disk_image.name,
+    ])
 
-      # Set NIX_DISK_IMAGE so that the qemu script finds the right disk image.
-      os.environ['NIX_DISK_IMAGE'] = tmp_disk_image.name
-    ''
-  ;
+    # Set NIX_DISK_IMAGE so that the qemu script finds the right disk image.
+    os.environ['NIX_DISK_IMAGE'] = tmp_disk_image.name
+  '';
 
   common =
     {

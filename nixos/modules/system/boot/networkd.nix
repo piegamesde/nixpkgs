@@ -3132,369 +3132,361 @@ let
     ''
   ;
 
-  linkToUnit =
-    name: def: {
-      inherit (def) enable;
-      text =
-        commonMatchText def
-        + ''
-          [Link]
-          ${attrsToSection def.linkConfig}
-        ''
-        + def.extraConfig
-      ;
-    }
-  ;
+  linkToUnit = name: def: {
+    inherit (def) enable;
+    text =
+      commonMatchText def
+      + ''
+        [Link]
+        ${attrsToSection def.linkConfig}
+      ''
+      + def.extraConfig
+    ;
+  };
 
-  netdevToUnit =
-    name: def: {
-      inherit (def) enable;
-      text =
-        commonMatchText def
-        + ''
-          [NetDev]
-          ${attrsToSection def.netdevConfig}
+  netdevToUnit = name: def: {
+    inherit (def) enable;
+    text =
+      commonMatchText def
+      + ''
+        [NetDev]
+        ${attrsToSection def.netdevConfig}
+      ''
+      + optionalString (def.vlanConfig != { }) ''
+        [VLAN]
+        ${attrsToSection def.vlanConfig}
+      ''
+      + optionalString (def.macvlanConfig != { }) ''
+        [MACVLAN]
+        ${attrsToSection def.macvlanConfig}
+      ''
+      + optionalString (def.vxlanConfig != { }) ''
+        [VXLAN]
+        ${attrsToSection def.vxlanConfig}
+      ''
+      + optionalString (def.tunnelConfig != { }) ''
+        [Tunnel]
+        ${attrsToSection def.tunnelConfig}
+      ''
+      + optionalString (def.fooOverUDPConfig != { }) ''
+        [FooOverUDP]
+        ${attrsToSection def.fooOverUDPConfig}
+      ''
+      + optionalString (def.peerConfig != { }) ''
+        [Peer]
+        ${attrsToSection def.peerConfig}
+      ''
+      + optionalString (def.tunConfig != { }) ''
+        [Tun]
+        ${attrsToSection def.tunConfig}
+      ''
+      + optionalString (def.tapConfig != { }) ''
+        [Tap]
+        ${attrsToSection def.tapConfig}
+      ''
+      + optionalString (def.l2tpConfig != { }) ''
+        [L2TP]
+        ${attrsToSection def.l2tpConfig}
+      ''
+      + flip concatMapStrings def.l2tpSessions (
+        x: ''
+          [L2TPSession]
+          ${attrsToSection x.l2tpSessionConfig}
         ''
-        + optionalString (def.vlanConfig != { }) ''
-          [VLAN]
-          ${attrsToSection def.vlanConfig}
+      )
+      + optionalString (def.wireguardConfig != { }) ''
+        [WireGuard]
+        ${attrsToSection def.wireguardConfig}
+      ''
+      + flip concatMapStrings def.wireguardPeers (
+        x: ''
+          [WireGuardPeer]
+          ${attrsToSection x.wireguardPeerConfig}
         ''
-        + optionalString (def.macvlanConfig != { }) ''
-          [MACVLAN]
-          ${attrsToSection def.macvlanConfig}
-        ''
-        + optionalString (def.vxlanConfig != { }) ''
-          [VXLAN]
-          ${attrsToSection def.vxlanConfig}
-        ''
-        + optionalString (def.tunnelConfig != { }) ''
-          [Tunnel]
-          ${attrsToSection def.tunnelConfig}
-        ''
-        + optionalString (def.fooOverUDPConfig != { }) ''
-          [FooOverUDP]
-          ${attrsToSection def.fooOverUDPConfig}
-        ''
-        + optionalString (def.peerConfig != { }) ''
-          [Peer]
-          ${attrsToSection def.peerConfig}
-        ''
-        + optionalString (def.tunConfig != { }) ''
-          [Tun]
-          ${attrsToSection def.tunConfig}
-        ''
-        + optionalString (def.tapConfig != { }) ''
-          [Tap]
-          ${attrsToSection def.tapConfig}
-        ''
-        + optionalString (def.l2tpConfig != { }) ''
-          [L2TP]
-          ${attrsToSection def.l2tpConfig}
-        ''
-        + flip concatMapStrings def.l2tpSessions (
-          x: ''
-            [L2TPSession]
-            ${attrsToSection x.l2tpSessionConfig}
-          ''
-        )
-        + optionalString (def.wireguardConfig != { }) ''
-          [WireGuard]
-          ${attrsToSection def.wireguardConfig}
-        ''
-        + flip concatMapStrings def.wireguardPeers (
-          x: ''
-            [WireGuardPeer]
-            ${attrsToSection x.wireguardPeerConfig}
-          ''
-        )
-        + optionalString (def.bondConfig != { }) ''
-          [Bond]
-          ${attrsToSection def.bondConfig}
-        ''
-        + optionalString (def.xfrmConfig != { }) ''
-          [Xfrm]
-          ${attrsToSection def.xfrmConfig}
-        ''
-        + optionalString (def.vrfConfig != { }) ''
-          [VRF]
-          ${attrsToSection def.vrfConfig}
-        ''
-        + optionalString (def.batmanAdvancedConfig != { }) ''
-          [BatmanAdvanced]
-          ${attrsToSection def.batmanAdvancedConfig}
-        ''
-        + def.extraConfig
-      ;
-    }
-  ;
+      )
+      + optionalString (def.bondConfig != { }) ''
+        [Bond]
+        ${attrsToSection def.bondConfig}
+      ''
+      + optionalString (def.xfrmConfig != { }) ''
+        [Xfrm]
+        ${attrsToSection def.xfrmConfig}
+      ''
+      + optionalString (def.vrfConfig != { }) ''
+        [VRF]
+        ${attrsToSection def.vrfConfig}
+      ''
+      + optionalString (def.batmanAdvancedConfig != { }) ''
+        [BatmanAdvanced]
+        ${attrsToSection def.batmanAdvancedConfig}
+      ''
+      + def.extraConfig
+    ;
+  };
 
-  renderConfig =
-    def: {
-      text =
-        ''
-          [Network]
-          ${attrsToSection def.networkConfig}
-        ''
-        + optionalString (def.dhcpV4Config != { }) ''
-          [DHCPv4]
-          ${attrsToSection def.dhcpV4Config}
-        ''
-        + optionalString (def.dhcpV6Config != { }) ''
-          [DHCPv6]
-          ${attrsToSection def.dhcpV6Config}
-        ''
-      ;
-    }
-  ;
+  renderConfig = def: {
+    text =
+      ''
+        [Network]
+        ${attrsToSection def.networkConfig}
+      ''
+      + optionalString (def.dhcpV4Config != { }) ''
+        [DHCPv4]
+        ${attrsToSection def.dhcpV4Config}
+      ''
+      + optionalString (def.dhcpV6Config != { }) ''
+        [DHCPv6]
+        ${attrsToSection def.dhcpV6Config}
+      ''
+    ;
+  };
 
-  networkToUnit =
-    name: def: {
-      inherit (def) enable;
-      text =
-        commonMatchText def
-        + optionalString (def.linkConfig != { }) ''
-          [Link]
-          ${attrsToSection def.linkConfig}
+  networkToUnit = name: def: {
+    inherit (def) enable;
+    text =
+      commonMatchText def
+      + optionalString (def.linkConfig != { }) ''
+        [Link]
+        ${attrsToSection def.linkConfig}
+      ''
+      + ''
+        [Network]
+      ''
+      + attrsToSection def.networkConfig
+      + optionalString (def.address != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "Address=${s}") def.address)}
+      ''
+      + optionalString (def.gateway != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "Gateway=${s}") def.gateway)}
+      ''
+      + optionalString (def.dns != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "DNS=${s}") def.dns)}
+      ''
+      + optionalString (def.ntp != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "NTP=${s}") def.ntp)}
+      ''
+      + optionalString (def.bridge != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "Bridge=${s}") def.bridge)}
+      ''
+      + optionalString (def.bond != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "Bond=${s}") def.bond)}
+      ''
+      + optionalString (def.vrf != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "VRF=${s}") def.vrf)}
+      ''
+      + optionalString (def.vlan != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "VLAN=${s}") def.vlan)}
+      ''
+      + optionalString (def.macvlan != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "MACVLAN=${s}") def.macvlan)}
+      ''
+      + optionalString (def.vxlan != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "VXLAN=${s}") def.vxlan)}
+      ''
+      + optionalString (def.tunnel != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "Tunnel=${s}") def.tunnel)}
+      ''
+      + optionalString (def.xfrm != [ ]) ''
+        ${concatStringsSep "\n" (map (s: "Xfrm=${s}") def.xfrm)}
+      ''
+      + "\n"
+      + flip concatMapStrings def.addresses (
+        x: ''
+          [Address]
+          ${attrsToSection x.addressConfig}
         ''
-        + ''
-          [Network]
+      )
+      + flip concatMapStrings def.routingPolicyRules (
+        x: ''
+          [RoutingPolicyRule]
+          ${attrsToSection x.routingPolicyRuleConfig}
         ''
-        + attrsToSection def.networkConfig
-        + optionalString (def.address != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "Address=${s}") def.address)}
+      )
+      + flip concatMapStrings def.routes (
+        x: ''
+          [Route]
+          ${attrsToSection x.routeConfig}
         ''
-        + optionalString (def.gateway != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "Gateway=${s}") def.gateway)}
+      )
+      + optionalString (def.dhcpV4Config != { }) ''
+        [DHCPv4]
+        ${attrsToSection def.dhcpV4Config}
+      ''
+      + optionalString (def.dhcpV6Config != { }) ''
+        [DHCPv6]
+        ${attrsToSection def.dhcpV6Config}
+      ''
+      + optionalString (def.dhcpPrefixDelegationConfig != { }) ''
+        [DHCPPrefixDelegation]
+        ${attrsToSection def.dhcpPrefixDelegationConfig}
+      ''
+      + optionalString (def.ipv6AcceptRAConfig != { }) ''
+        [IPv6AcceptRA]
+        ${attrsToSection def.ipv6AcceptRAConfig}
+      ''
+      + optionalString (def.dhcpServerConfig != { }) ''
+        [DHCPServer]
+        ${attrsToSection def.dhcpServerConfig}
+      ''
+      + optionalString (def.ipv6SendRAConfig != { }) ''
+        [IPv6SendRA]
+        ${attrsToSection def.ipv6SendRAConfig}
+      ''
+      + flip concatMapStrings def.ipv6Prefixes (
+        x: ''
+          [IPv6Prefix]
+          ${attrsToSection x.ipv6PrefixConfig}
         ''
-        + optionalString (def.dns != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "DNS=${s}") def.dns)}
+      )
+      + flip concatMapStrings def.ipv6RoutePrefixes (
+        x: ''
+          [IPv6RoutePrefix]
+          ${attrsToSection x.ipv6RoutePrefixConfig}
         ''
-        + optionalString (def.ntp != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "NTP=${s}") def.ntp)}
+      )
+      + flip concatMapStrings def.dhcpServerStaticLeases (
+        x: ''
+          [DHCPServerStaticLease]
+          ${attrsToSection x.dhcpServerStaticLeaseConfig}
         ''
-        + optionalString (def.bridge != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "Bridge=${s}") def.bridge)}
+      )
+      + optionalString (def.bridgeConfig != { }) ''
+        [Bridge]
+        ${attrsToSection def.bridgeConfig}
+      ''
+      + flip concatMapStrings def.bridgeFDBs (
+        x: ''
+          [BridgeFDB]
+          ${attrsToSection x.bridgeFDBConfig}
         ''
-        + optionalString (def.bond != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "Bond=${s}") def.bond)}
+      )
+      + flip concatMapStrings def.bridgeMDBs (
+        x: ''
+          [BridgeMDB]
+          ${attrsToSection x.bridgeMDBConfig}
         ''
-        + optionalString (def.vrf != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "VRF=${s}") def.vrf)}
+      )
+      + optionalString (def.lldpConfig != { }) ''
+        [LLDP]
+        ${attrsToSection def.lldpConfig}
+      ''
+      + optionalString (def.canConfig != { }) ''
+        [CAN]
+        ${attrsToSection def.canConfig}
+      ''
+      + optionalString (def.ipoIBConfig != { }) ''
+        [IPoIB]
+        ${attrsToSection def.ipoIBConfig}
+      ''
+      + optionalString (def.qdiscConfig != { }) ''
+        [QDisc]
+        ${attrsToSection def.qdiscConfig}
+      ''
+      + optionalString (def.networkEmulatorConfig != { }) ''
+        [NetworkEmulator]
+        ${attrsToSection def.networkEmulatorConfig}
+      ''
+      + optionalString (def.tokenBucketFilterConfig != { }) ''
+        [TokenBucketFilter]
+        ${attrsToSection def.tockenBucketFilterConfig}
+      ''
+      + optionalString (def.pieConfig != { }) ''
+        [PIE]
+        ${attrsToSection def.pieConfig}
+      ''
+      + optionalString (def.flowQueuePIEConfig != { }) ''
+        [FlowQueuePIE]
+        ${attrsToSection def.flowQueuePIEConfig}
+      ''
+      + optionalString (def.stochasticFairBlueConfig != { }) ''
+        [StochasticFairBlue]
+        ${attrsToSection def.stochasticFairBlueConfig}
+      ''
+      + optionalString (def.stochasticFairnessQueueingConfig != { }) ''
+        [StochasticFairnessQueueing]
+        ${attrsToSection def.stochasticFairnessQueueingConfig}
+      ''
+      + optionalString (def.bfifoConfig != { }) ''
+        [BFIFO]
+        ${attrsToSection def.bfifoConfig}
+      ''
+      + optionalString (def.pfifoConfig != { }) ''
+        [PFIFO]
+        ${attrsToSection def.pfifoConfig}
+      ''
+      + optionalString (def.pfifoHeadDropConfig != { }) ''
+        [PFIFOHeadDrop]
+        ${attrsToSection def.pfifoHeadDropConfig}
+      ''
+      + optionalString (def.pfifoFastConfig != { }) ''
+        [PFIFOFast]
+        ${attrsToSection def.pfifoFastConfig}
+      ''
+      + optionalString (def.cakeConfig != { }) ''
+        [CAKE]
+        ${attrsToSection def.cakeConfig}
+      ''
+      + optionalString (def.controlledDelayConfig != { }) ''
+        [ControlledDelay]
+        ${attrsToSection def.controlledDelayConfig}
+      ''
+      + optionalString (def.deficitRoundRobinSchedulerConfig != { }) ''
+        [DeficitRoundRobinScheduler]
+        ${attrsToSection def.deficitRoundRobinSchedulerConfig}
+      ''
+      + optionalString (def.deficitRoundRobinSchedulerClassConfig != { }) ''
+        [DeficitRoundRobinSchedulerClass]
+        ${attrsToSection def.deficitRoundRobinSchedulerClassConfig}
+      ''
+      + optionalString (def.enhancedTransmissionSelectionConfig != { }) ''
+        [EnhancedTransmissionSelection]
+        ${attrsToSection def.enhancedTransmissionSelectionConfig}
+      ''
+      + optionalString (def.genericRandomEarlyDetectionConfig != { }) ''
+        [GenericRandomEarlyDetection]
+        ${attrsToSection def.genericRandomEarlyDetectionConfig}
+      ''
+      + optionalString (def.fairQueueingControlledDelayConfig != { }) ''
+        [FairQueueingControlledDelay]
+        ${attrsToSection def.fairQueueingControlledDelayConfig}
+      ''
+      + optionalString (def.fairQueueingConfig != { }) ''
+        [FairQueueing]
+        ${attrsToSection def.fairQueueingConfig}
+      ''
+      + optionalString (def.trivialLinkEqualizerConfig != { }) ''
+        [TrivialLinkEqualizer]
+        ${attrsToSection def.trivialLinkEqualizerConfig}
+      ''
+      + optionalString (def.hierarchyTokenBucketConfig != { }) ''
+        [HierarchyTokenBucket]
+        ${attrsToSection def.hierarchyTokenBucketConfig}
+      ''
+      + optionalString (def.hierarchyTokenBucketClassConfig != { }) ''
+        [HierarchyTokenBucketClass]
+        ${attrsToSection def.hierarchyTokenBucketClassConfig}
+      ''
+      + optionalString (def.heavyHitterFilterConfig != { }) ''
+        [HeavyHitterFilter]
+        ${attrsToSection def.heavyHitterFilterConfig}
+      ''
+      + optionalString (def.quickFairQueueingConfig != { }) ''
+        [QuickFairQueueing]
+        ${attrsToSection def.quickFairQueueingConfig}
+      ''
+      + optionalString (def.quickFairQueueingConfigClass != { }) ''
+        [QuickFairQueueingClass]
+        ${attrsToSection def.quickFairQueueingConfigClass}
+      ''
+      + flip concatMapStrings def.bridgeVLANs (
+        x: ''
+          [BridgeVLAN]
+          ${attrsToSection x.bridgeVLANConfig}
         ''
-        + optionalString (def.vlan != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "VLAN=${s}") def.vlan)}
-        ''
-        + optionalString (def.macvlan != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "MACVLAN=${s}") def.macvlan)}
-        ''
-        + optionalString (def.vxlan != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "VXLAN=${s}") def.vxlan)}
-        ''
-        + optionalString (def.tunnel != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "Tunnel=${s}") def.tunnel)}
-        ''
-        + optionalString (def.xfrm != [ ]) ''
-          ${concatStringsSep "\n" (map (s: "Xfrm=${s}") def.xfrm)}
-        ''
-        + "\n"
-        + flip concatMapStrings def.addresses (
-          x: ''
-            [Address]
-            ${attrsToSection x.addressConfig}
-          ''
-        )
-        + flip concatMapStrings def.routingPolicyRules (
-          x: ''
-            [RoutingPolicyRule]
-            ${attrsToSection x.routingPolicyRuleConfig}
-          ''
-        )
-        + flip concatMapStrings def.routes (
-          x: ''
-            [Route]
-            ${attrsToSection x.routeConfig}
-          ''
-        )
-        + optionalString (def.dhcpV4Config != { }) ''
-          [DHCPv4]
-          ${attrsToSection def.dhcpV4Config}
-        ''
-        + optionalString (def.dhcpV6Config != { }) ''
-          [DHCPv6]
-          ${attrsToSection def.dhcpV6Config}
-        ''
-        + optionalString (def.dhcpPrefixDelegationConfig != { }) ''
-          [DHCPPrefixDelegation]
-          ${attrsToSection def.dhcpPrefixDelegationConfig}
-        ''
-        + optionalString (def.ipv6AcceptRAConfig != { }) ''
-          [IPv6AcceptRA]
-          ${attrsToSection def.ipv6AcceptRAConfig}
-        ''
-        + optionalString (def.dhcpServerConfig != { }) ''
-          [DHCPServer]
-          ${attrsToSection def.dhcpServerConfig}
-        ''
-        + optionalString (def.ipv6SendRAConfig != { }) ''
-          [IPv6SendRA]
-          ${attrsToSection def.ipv6SendRAConfig}
-        ''
-        + flip concatMapStrings def.ipv6Prefixes (
-          x: ''
-            [IPv6Prefix]
-            ${attrsToSection x.ipv6PrefixConfig}
-          ''
-        )
-        + flip concatMapStrings def.ipv6RoutePrefixes (
-          x: ''
-            [IPv6RoutePrefix]
-            ${attrsToSection x.ipv6RoutePrefixConfig}
-          ''
-        )
-        + flip concatMapStrings def.dhcpServerStaticLeases (
-          x: ''
-            [DHCPServerStaticLease]
-            ${attrsToSection x.dhcpServerStaticLeaseConfig}
-          ''
-        )
-        + optionalString (def.bridgeConfig != { }) ''
-          [Bridge]
-          ${attrsToSection def.bridgeConfig}
-        ''
-        + flip concatMapStrings def.bridgeFDBs (
-          x: ''
-            [BridgeFDB]
-            ${attrsToSection x.bridgeFDBConfig}
-          ''
-        )
-        + flip concatMapStrings def.bridgeMDBs (
-          x: ''
-            [BridgeMDB]
-            ${attrsToSection x.bridgeMDBConfig}
-          ''
-        )
-        + optionalString (def.lldpConfig != { }) ''
-          [LLDP]
-          ${attrsToSection def.lldpConfig}
-        ''
-        + optionalString (def.canConfig != { }) ''
-          [CAN]
-          ${attrsToSection def.canConfig}
-        ''
-        + optionalString (def.ipoIBConfig != { }) ''
-          [IPoIB]
-          ${attrsToSection def.ipoIBConfig}
-        ''
-        + optionalString (def.qdiscConfig != { }) ''
-          [QDisc]
-          ${attrsToSection def.qdiscConfig}
-        ''
-        + optionalString (def.networkEmulatorConfig != { }) ''
-          [NetworkEmulator]
-          ${attrsToSection def.networkEmulatorConfig}
-        ''
-        + optionalString (def.tokenBucketFilterConfig != { }) ''
-          [TokenBucketFilter]
-          ${attrsToSection def.tockenBucketFilterConfig}
-        ''
-        + optionalString (def.pieConfig != { }) ''
-          [PIE]
-          ${attrsToSection def.pieConfig}
-        ''
-        + optionalString (def.flowQueuePIEConfig != { }) ''
-          [FlowQueuePIE]
-          ${attrsToSection def.flowQueuePIEConfig}
-        ''
-        + optionalString (def.stochasticFairBlueConfig != { }) ''
-          [StochasticFairBlue]
-          ${attrsToSection def.stochasticFairBlueConfig}
-        ''
-        + optionalString (def.stochasticFairnessQueueingConfig != { }) ''
-          [StochasticFairnessQueueing]
-          ${attrsToSection def.stochasticFairnessQueueingConfig}
-        ''
-        + optionalString (def.bfifoConfig != { }) ''
-          [BFIFO]
-          ${attrsToSection def.bfifoConfig}
-        ''
-        + optionalString (def.pfifoConfig != { }) ''
-          [PFIFO]
-          ${attrsToSection def.pfifoConfig}
-        ''
-        + optionalString (def.pfifoHeadDropConfig != { }) ''
-          [PFIFOHeadDrop]
-          ${attrsToSection def.pfifoHeadDropConfig}
-        ''
-        + optionalString (def.pfifoFastConfig != { }) ''
-          [PFIFOFast]
-          ${attrsToSection def.pfifoFastConfig}
-        ''
-        + optionalString (def.cakeConfig != { }) ''
-          [CAKE]
-          ${attrsToSection def.cakeConfig}
-        ''
-        + optionalString (def.controlledDelayConfig != { }) ''
-          [ControlledDelay]
-          ${attrsToSection def.controlledDelayConfig}
-        ''
-        + optionalString (def.deficitRoundRobinSchedulerConfig != { }) ''
-          [DeficitRoundRobinScheduler]
-          ${attrsToSection def.deficitRoundRobinSchedulerConfig}
-        ''
-        + optionalString (def.deficitRoundRobinSchedulerClassConfig != { }) ''
-          [DeficitRoundRobinSchedulerClass]
-          ${attrsToSection def.deficitRoundRobinSchedulerClassConfig}
-        ''
-        + optionalString (def.enhancedTransmissionSelectionConfig != { }) ''
-          [EnhancedTransmissionSelection]
-          ${attrsToSection def.enhancedTransmissionSelectionConfig}
-        ''
-        + optionalString (def.genericRandomEarlyDetectionConfig != { }) ''
-          [GenericRandomEarlyDetection]
-          ${attrsToSection def.genericRandomEarlyDetectionConfig}
-        ''
-        + optionalString (def.fairQueueingControlledDelayConfig != { }) ''
-          [FairQueueingControlledDelay]
-          ${attrsToSection def.fairQueueingControlledDelayConfig}
-        ''
-        + optionalString (def.fairQueueingConfig != { }) ''
-          [FairQueueing]
-          ${attrsToSection def.fairQueueingConfig}
-        ''
-        + optionalString (def.trivialLinkEqualizerConfig != { }) ''
-          [TrivialLinkEqualizer]
-          ${attrsToSection def.trivialLinkEqualizerConfig}
-        ''
-        + optionalString (def.hierarchyTokenBucketConfig != { }) ''
-          [HierarchyTokenBucket]
-          ${attrsToSection def.hierarchyTokenBucketConfig}
-        ''
-        + optionalString (def.hierarchyTokenBucketClassConfig != { }) ''
-          [HierarchyTokenBucketClass]
-          ${attrsToSection def.hierarchyTokenBucketClassConfig}
-        ''
-        + optionalString (def.heavyHitterFilterConfig != { }) ''
-          [HeavyHitterFilter]
-          ${attrsToSection def.heavyHitterFilterConfig}
-        ''
-        + optionalString (def.quickFairQueueingConfig != { }) ''
-          [QuickFairQueueing]
-          ${attrsToSection def.quickFairQueueingConfig}
-        ''
-        + optionalString (def.quickFairQueueingConfigClass != { }) ''
-          [QuickFairQueueingClass]
-          ${attrsToSection def.quickFairQueueingConfigClass}
-        ''
-        + flip concatMapStrings def.bridgeVLANs (
-          x: ''
-            [BridgeVLAN]
-            ${attrsToSection x.bridgeVLANConfig}
-          ''
-        )
-        + def.extraConfig
-      ;
-    }
-  ;
+      )
+      + def.extraConfig
+    ;
+  };
 
   mkUnitFiles =
     prefix: cfg:
@@ -3508,138 +3500,136 @@ let
     )
   ;
 
-  commonOptions =
-    visible: {
+  commonOptions = visible: {
 
+    enable = mkOption {
+      default = false;
+      type = types.bool;
+      description = lib.mdDoc ''
+        Whether to enable networkd or not.
+      '';
+    };
+
+    links = mkOption {
+      default = { };
+      inherit visible;
+      type = with types; attrsOf (submodule [ { options = linkOptions; } ]);
+      description = lib.mdDoc "Definition of systemd network links.";
+    };
+
+    netdevs = mkOption {
+      default = { };
+      inherit visible;
+      type = with types; attrsOf (submodule [ { options = netdevOptions; } ]);
+      description = lib.mdDoc "Definition of systemd network devices.";
+    };
+
+    networks = mkOption {
+      default = { };
+      inherit visible;
+      type =
+        with types;
+        attrsOf (
+          submodule [
+            { options = networkOptions; }
+            networkConfig
+          ]
+        )
+      ;
+      description = lib.mdDoc "Definition of systemd networks.";
+    };
+
+    config = mkOption {
+      default = { };
+      inherit visible;
+      type =
+        with types;
+        submodule [
+          { options = networkdOptions; }
+          networkdConfig
+        ]
+      ;
+      description = lib.mdDoc "Definition of global systemd network config.";
+    };
+
+    units = mkOption {
+      description = lib.mdDoc "Definition of networkd units.";
+      default = { };
+      internal = true;
+      type =
+        with types;
+        attrsOf (
+          submodule (
+            {
+              name,
+              config,
+              ...
+            }:
+            {
+              options = mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
+              config = {
+                unit = mkDefault (makeUnit name config);
+              };
+            }
+          )
+        )
+      ;
+    };
+
+    wait-online = {
       enable = mkOption {
-        default = false;
         type = types.bool;
+        default = true;
+        example = false;
         description = lib.mdDoc ''
-          Whether to enable networkd or not.
+          Whether to enable the systemd-networkd-wait-online service.
+
+          systemd-networkd-wait-online can timeout and fail if there are no network interfaces
+          available for it to manage. When systemd-networkd is enabled but a different service is
+          responsible for managing the system's internet connection (for example, NetworkManager or
+          connman are used to manage WiFi connections), this service is unnecessary and can be
+          disabled.
         '';
       };
-
-      links = mkOption {
-        default = { };
-        inherit visible;
-        type = with types; attrsOf (submodule [ { options = linkOptions; } ]);
-        description = lib.mdDoc "Definition of systemd network links.";
+      anyInterface = mkOption {
+        description = lib.mdDoc ''
+          Whether to consider the network online when any interface is online, as opposed to all of them.
+          This is useful on portable machines with a wired and a wireless interface, for example.
+        '';
+        type = types.bool;
+        default = false;
       };
 
-      netdevs = mkOption {
-        default = { };
-        inherit visible;
-        type = with types; attrsOf (submodule [ { options = netdevOptions; } ]);
-        description = lib.mdDoc "Definition of systemd network devices.";
+      ignoredInterfaces = mkOption {
+        description = lib.mdDoc ''
+          Network interfaces to be ignored when deciding if the system is online.
+        '';
+        type = with types; listOf str;
+        default = [ ];
+        example = [ "wg0" ];
       };
 
-      networks = mkOption {
-        default = { };
-        inherit visible;
-        type =
-          with types;
-          attrsOf (
-            submodule [
-              { options = networkOptions; }
-              networkConfig
-            ]
-          )
-        ;
-        description = lib.mdDoc "Definition of systemd networks.";
+      timeout = mkOption {
+        description = lib.mdDoc ''
+          Time to wait for the network to come online, in seconds. Set to 0 to disable.
+        '';
+        type = types.ints.unsigned;
+        default = 120;
+        example = 0;
       };
 
-      config = mkOption {
-        default = { };
-        inherit visible;
-        type =
-          with types;
-          submodule [
-            { options = networkdOptions; }
-            networkdConfig
-          ]
-        ;
-        description = lib.mdDoc "Definition of global systemd network config.";
+      extraArgs = mkOption {
+        description = lib.mdDoc ''
+          Extra command-line arguments to pass to systemd-networkd-wait-online.
+          These also affect per-interface `systemd-network-wait-online@` services.
+
+          See {manpage}`systemd-networkd-wait-online.service(8)` for all available options.
+        '';
+        type = with types; listOf str;
+        default = [ ];
       };
-
-      units = mkOption {
-        description = lib.mdDoc "Definition of networkd units.";
-        default = { };
-        internal = true;
-        type =
-          with types;
-          attrsOf (
-            submodule (
-              {
-                name,
-                config,
-                ...
-              }:
-              {
-                options = mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
-                config = {
-                  unit = mkDefault (makeUnit name config);
-                };
-              }
-            )
-          )
-        ;
-      };
-
-      wait-online = {
-        enable = mkOption {
-          type = types.bool;
-          default = true;
-          example = false;
-          description = lib.mdDoc ''
-            Whether to enable the systemd-networkd-wait-online service.
-
-            systemd-networkd-wait-online can timeout and fail if there are no network interfaces
-            available for it to manage. When systemd-networkd is enabled but a different service is
-            responsible for managing the system's internet connection (for example, NetworkManager or
-            connman are used to manage WiFi connections), this service is unnecessary and can be
-            disabled.
-          '';
-        };
-        anyInterface = mkOption {
-          description = lib.mdDoc ''
-            Whether to consider the network online when any interface is online, as opposed to all of them.
-            This is useful on portable machines with a wired and a wireless interface, for example.
-          '';
-          type = types.bool;
-          default = false;
-        };
-
-        ignoredInterfaces = mkOption {
-          description = lib.mdDoc ''
-            Network interfaces to be ignored when deciding if the system is online.
-          '';
-          type = with types; listOf str;
-          default = [ ];
-          example = [ "wg0" ];
-        };
-
-        timeout = mkOption {
-          description = lib.mdDoc ''
-            Time to wait for the network to come online, in seconds. Set to 0 to disable.
-          '';
-          type = types.ints.unsigned;
-          default = 120;
-          example = 0;
-        };
-
-        extraArgs = mkOption {
-          description = lib.mdDoc ''
-            Extra command-line arguments to pass to systemd-networkd-wait-online.
-            These also affect per-interface `systemd-network-wait-online@` services.
-
-            See {manpage}`systemd-networkd-wait-online.service(8)` for all available options.
-          '';
-          type = with types; listOf str;
-          default = [ ];
-        };
-      };
-    }
-  ;
+    };
+  };
 
   commonConfig =
     config:

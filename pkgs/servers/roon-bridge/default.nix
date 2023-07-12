@@ -65,29 +65,27 @@ stdenv.mkDerivation {
 
   installPhase =
     let
-      fixBin =
-        binPath: ''
-          (
-            sed -i '/ulimit/d' ${binPath}
-            sed -i 's@^SCRIPT=.*@SCRIPT="$(basename "${binPath}")"@' ${binPath}
-            wrapProgram ${binPath} \
-              --argv0 "$(basename ${binPath})" \
-              --prefix LD_LIBRARY_PATH : "${
-                lib.makeLibraryPath [
-                  alsa-lib
-                  ffmpeg
-                  openssl
-                ]
-              }" \
-              --prefix PATH : "${
-                lib.makeBinPath [
-                  alsa-utils
-                  ffmpeg
-                ]
-              }"
-          )
-        ''
-      ;
+      fixBin = binPath: ''
+        (
+          sed -i '/ulimit/d' ${binPath}
+          sed -i 's@^SCRIPT=.*@SCRIPT="$(basename "${binPath}")"@' ${binPath}
+          wrapProgram ${binPath} \
+            --argv0 "$(basename ${binPath})" \
+            --prefix LD_LIBRARY_PATH : "${
+              lib.makeLibraryPath [
+                alsa-lib
+                ffmpeg
+                openssl
+              ]
+            }" \
+            --prefix PATH : "${
+              lib.makeBinPath [
+                alsa-utils
+                ffmpeg
+              ]
+            }"
+        )
+      '';
     in
     ''
       runHook preInstall

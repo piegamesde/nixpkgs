@@ -41,15 +41,13 @@ let
     optionalString
   ;
 
-  phase =
-    name: args: ''
-      runHook pre${name}
+  phase = name: args: ''
+    runHook pre${name}
 
-      rake ${args}
+    rake ${args}
 
-      runHook post${name}
-    ''
-  ;
+    runHook post${name}
+  '';
 in
 stdenv.mkDerivation rec {
   pname = "mkvtoolnix";

@@ -241,16 +241,14 @@ stdenv.mkDerivation {
       isClang
     ;
 
-    emacsBufferSetup =
-      pkgs: ''
-        ; We should handle propagation here too
-        (mapc
-          (lambda (arg)
-            (when (file-directory-p (concat arg "/include"))
-              (setenv "NIX_CFLAGS_COMPILE_${suffixSalt}" (concat (getenv "NIX_CFLAGS_COMPILE_${suffixSalt}") " -isystem " arg "/include"))))
-          '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
-      ''
-    ;
+    emacsBufferSetup = pkgs: ''
+      ; We should handle propagation here too
+      (mapc
+        (lambda (arg)
+          (when (file-directory-p (concat arg "/include"))
+            (setenv "NIX_CFLAGS_COMPILE_${suffixSalt}" (concat (getenv "NIX_CFLAGS_COMPILE_${suffixSalt}") " -isystem " arg "/include"))))
+        '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
+    '';
 
     inherit expand-response-params;
 

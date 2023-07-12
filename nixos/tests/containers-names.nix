@@ -21,15 +21,13 @@ import ./make-test-python.nix (
 
         containers =
           let
-            container =
-              subnet: {
-                autoStart = true;
-                privateNetwork = true;
-                hostAddress = "192.168.${subnet}.1";
-                localAddress = "192.168.${subnet}.2";
-                config = { };
-              }
-            ;
+            container = subnet: {
+              autoStart = true;
+              privateNetwork = true;
+              hostAddress = "192.168.${subnet}.1";
+              localAddress = "192.168.${subnet}.2";
+              config = { };
+            };
           in
           {
             first = container "1";

@@ -64,30 +64,28 @@
 with builtins;
 
 let
-  dep2src =
-    goDep: {
-      inherit (goDep) goPackagePath;
-      src =
-        if goDep.fetch.type == "git" then
-          fetchgit { inherit (goDep.fetch) url rev sha256; }
-        else if goDep.fetch.type == "hg" then
-          fetchhg { inherit (goDep.fetch) url rev sha256; }
-        else if goDep.fetch.type == "bzr" then
-          fetchbzr { inherit (goDep.fetch) url rev sha256; }
-        else if goDep.fetch.type == "FromGitHub" then
-          fetchFromGitHub {
-            inherit (goDep.fetch)
-              owner
-              repo
-              rev
-              sha256
-            ;
-          }
-        else
-          abort "Unrecognized package fetch type: ${goDep.fetch.type}"
-      ;
-    }
-  ;
+  dep2src = goDep: {
+    inherit (goDep) goPackagePath;
+    src =
+      if goDep.fetch.type == "git" then
+        fetchgit { inherit (goDep.fetch) url rev sha256; }
+      else if goDep.fetch.type == "hg" then
+        fetchhg { inherit (goDep.fetch) url rev sha256; }
+      else if goDep.fetch.type == "bzr" then
+        fetchbzr { inherit (goDep.fetch) url rev sha256; }
+      else if goDep.fetch.type == "FromGitHub" then
+        fetchFromGitHub {
+          inherit (goDep.fetch)
+            owner
+            repo
+            rev
+            sha256
+          ;
+        }
+      else
+        abort "Unrecognized package fetch type: ${goDep.fetch.type}"
+    ;
+  };
 
   importGodeps =
     {

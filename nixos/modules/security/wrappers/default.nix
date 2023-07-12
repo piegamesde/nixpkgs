@@ -254,14 +254,12 @@ in
 
     security.wrappers =
       let
-        mkSetuidRoot =
-          source: {
-            setuid = true;
-            owner = "root";
-            group = "root";
-            inherit source;
-          }
-        ;
+        mkSetuidRoot = source: {
+          setuid = true;
+          owner = "root";
+          group = "root";
+          inherit source;
+        };
       in
       {
         # These are mount related wrappers that require the +s permission.

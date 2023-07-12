@@ -937,12 +937,10 @@ let
       config.users.motdFile
   ;
 
-  makePAMService =
-    name: service: {
-      name = "pam.d/${name}";
-      value.source = pkgs.writeText "${name}.pam" service.text;
-    }
-  ;
+  makePAMService = name: service: {
+    name = "pam.d/${name}";
+    value.source = pkgs.writeText "${name}.pam" service.text;
+  };
 in
 
 {

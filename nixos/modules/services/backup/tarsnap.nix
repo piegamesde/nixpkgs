@@ -13,28 +13,26 @@ let
   gcfg = config.services.tarsnap;
   opt = options.services.tarsnap;
 
-  configFile =
-    name: cfg: ''
-      keyfile ${cfg.keyfile}
-      ${optionalString (cfg.cachedir != null) "cachedir ${cfg.cachedir}"}
-      ${optionalString cfg.nodump "nodump"}
-      ${optionalString cfg.printStats "print-stats"}
-      ${optionalString cfg.printStats "humanize-numbers"}
-      ${optionalString (cfg.checkpointBytes != null) (
-        "checkpoint-bytes " + cfg.checkpointBytes
-      )}
-      ${optionalString cfg.aggressiveNetworking "aggressive-networking"}
-      ${concatStringsSep "\n" (map (v: "exclude ${v}") cfg.excludes)}
-      ${concatStringsSep "\n" (map (v: "include ${v}") cfg.includes)}
-      ${optionalString cfg.lowmem "lowmem"}
-      ${optionalString cfg.verylowmem "verylowmem"}
-      ${optionalString (cfg.maxbw != null) "maxbw ${toString cfg.maxbw}"}
-      ${optionalString (cfg.maxbwRateUp != null)
-        "maxbw-rate-up ${toString cfg.maxbwRateUp}"}
-      ${optionalString (cfg.maxbwRateDown != null)
-        "maxbw-rate-down ${toString cfg.maxbwRateDown}"}
-    ''
-  ;
+  configFile = name: cfg: ''
+    keyfile ${cfg.keyfile}
+    ${optionalString (cfg.cachedir != null) "cachedir ${cfg.cachedir}"}
+    ${optionalString cfg.nodump "nodump"}
+    ${optionalString cfg.printStats "print-stats"}
+    ${optionalString cfg.printStats "humanize-numbers"}
+    ${optionalString (cfg.checkpointBytes != null) (
+      "checkpoint-bytes " + cfg.checkpointBytes
+    )}
+    ${optionalString cfg.aggressiveNetworking "aggressive-networking"}
+    ${concatStringsSep "\n" (map (v: "exclude ${v}") cfg.excludes)}
+    ${concatStringsSep "\n" (map (v: "include ${v}") cfg.includes)}
+    ${optionalString cfg.lowmem "lowmem"}
+    ${optionalString cfg.verylowmem "verylowmem"}
+    ${optionalString (cfg.maxbw != null) "maxbw ${toString cfg.maxbw}"}
+    ${optionalString (cfg.maxbwRateUp != null)
+      "maxbw-rate-up ${toString cfg.maxbwRateUp}"}
+    ${optionalString (cfg.maxbwRateDown != null)
+      "maxbw-rate-down ${toString cfg.maxbwRateDown}"}
+  '';
 in
 {
   imports = [

@@ -133,12 +133,10 @@ rec {
         else
           v
       ;
-      noQuotes =
-        str: v: {
-          __pretty = const str;
-          val = v;
-        }
-      ;
+      noQuotes = str: v: {
+        __pretty = const str;
+        val = v;
+      };
       modify =
         n: fn: v:
         if (n == 0) then
@@ -304,10 +302,8 @@ rec {
      Example:
        { testX = allTrue [ true ]; }
   */
-  testAllTrue =
-    expr: {
-      inherit expr;
-      expected = map (x: true) expr;
-    }
-  ;
+  testAllTrue = expr: {
+    inherit expr;
+    expected = map (x: true) expr;
+  };
 }

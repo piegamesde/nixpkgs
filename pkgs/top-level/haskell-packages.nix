@@ -65,23 +65,21 @@ let
     overrides = pkgs.haskell.packageOverrides;
   };
 
-  bootstrapPackageSet =
-    self: super: {
-      mkDerivation =
-        drv:
-        super.mkDerivation (
-          drv // {
-            doCheck = false;
-            doHaddock = false;
-            enableExecutableProfiling = false;
-            enableLibraryProfiling = false;
-            enableSharedExecutables = false;
-            enableSharedLibraries = false;
-          }
-        )
-      ;
-    }
-  ;
+  bootstrapPackageSet = self: super: {
+    mkDerivation =
+      drv:
+      super.mkDerivation (
+        drv // {
+          doCheck = false;
+          doHaddock = false;
+          enableExecutableProfiling = false;
+          enableLibraryProfiling = false;
+          enableSharedExecutables = false;
+          enableSharedLibraries = false;
+        }
+      )
+    ;
+  };
 
   # Use this rather than `rec { ... }` below for sake of overlays.
   inherit (pkgs.haskell) compiler packages;

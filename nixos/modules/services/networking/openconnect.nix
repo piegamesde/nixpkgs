@@ -120,30 +120,28 @@ let
       ${generateExtraConfig icfg.extraOptions}
     ''
   ;
-  generateUnit =
-    name: icfg: {
-      description = "OpenConnect Interface - ${name}";
-      requires = [ "network-online.target" ];
-      after = [
-        "network.target"
-        "network-online.target"
-      ];
-      wantedBy = optional icfg.autoStart "multi-user.target";
+  generateUnit = name: icfg: {
+    description = "OpenConnect Interface - ${name}";
+    requires = [ "network-online.target" ];
+    after = [
+      "network.target"
+      "network-online.target"
+    ];
+    wantedBy = optional icfg.autoStart "multi-user.target";
 
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${openconnect}/bin/openconnect --config=${
-            generateConfig name icfg
-          } ${icfg.gateway}";
-        StandardInput =
-          lib.mkIf (icfg.passwordFile != null)
-            "file:${icfg.passwordFile}"
-        ;
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${openconnect}/bin/openconnect --config=${
+          generateConfig name icfg
+        } ${icfg.gateway}";
+      StandardInput =
+        lib.mkIf (icfg.passwordFile != null)
+          "file:${icfg.passwordFile}"
+      ;
 
-        ProtectHome = true;
-      };
-    }
-  ;
+      ProtectHome = true;
+    };
+  };
 in
 {
   options.networking.openconnect = {

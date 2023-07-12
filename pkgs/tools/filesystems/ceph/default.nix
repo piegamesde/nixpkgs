@@ -192,29 +192,27 @@ let
 
   # Watch out for python <> boost compatibility
   python = python310.override {
-    packageOverrides =
-      self: super: {
-        sqlalchemy = super.sqlalchemy.overridePythonAttrs (
-          oldAttrs: rec {
-            version = "1.4.46";
-            src = super.fetchPypi {
-              pname = "SQLAlchemy";
-              inherit version;
-              hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-            };
-            nativeCheckInputs =
-              oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
-            disabledTestPaths =
-              (oldAttrs.disabledTestPaths or [ ])
-              ++ [
-                "test/aaa_profiling"
-                "test/ext/mypy"
-              ]
-            ;
-          }
-        );
-      }
-    ;
+    packageOverrides = self: super: {
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "1.4.46";
+          src = super.fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+          };
+          nativeCheckInputs =
+            oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
+          disabledTestPaths =
+            (oldAttrs.disabledTestPaths or [ ])
+            ++ [
+              "test/aaa_profiling"
+              "test/ext/mypy"
+            ]
+          ;
+        }
+      );
+    };
   };
 
   boost = boost179.override {

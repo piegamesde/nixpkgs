@@ -69,15 +69,13 @@ let
           ;
         }
       );
-      mkExtraBuildCommands =
-        cc: ''
-          rsrc="$out/resource-root"
-          mkdir "$rsrc"
-          ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
-          echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
-          ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
-        ''
-      ;
+      mkExtraBuildCommands = cc: ''
+        rsrc="$out/resource-root"
+        mkdir "$rsrc"
+        ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
+        echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
+        ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
+      '';
     in
     {
 

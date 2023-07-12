@@ -181,12 +181,10 @@ let
   vimFarm =
     prefix: name: drvs:
     let
-      mkEntryFromDrv =
-        drv: {
-          name = "${prefix}/${lib.getName drv}";
-          path = drv;
-        }
-      ;
+      mkEntryFromDrv = drv: {
+        name = "${prefix}/${lib.getName drv}";
+        path = drv;
+      };
     in
     linkFarm name (map mkEntryFromDrv drvs)
   ;
@@ -245,12 +243,10 @@ let
     }
   ;
 
-  nativeImpl =
-    packages: ''
-      set packpath^=${packDir packages}
-      set runtimepath^=${packDir packages}
-    ''
-  ;
+  nativeImpl = packages: ''
+    set packpath^=${packDir packages}
+    set runtimepath^=${packDir packages}
+  '';
 
   /* Generates a vimrc string
 

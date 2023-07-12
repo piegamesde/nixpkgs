@@ -192,17 +192,15 @@ in
               };
             };
             secretPaths = lib.catAttrs "_secret" (lib.collect isSecret cfg.settings);
-            mkSecretReplacement =
-              file: ''
-                replace-secret ${
-                  lib.escapeShellArgs [
-                    (hashString "sha256" file)
-                    file
-                    "/run/geoipupdate/GeoIP.conf"
-                  ]
-                }
-              ''
-            ;
+            mkSecretReplacement = file: ''
+              replace-secret ${
+                lib.escapeShellArgs [
+                  (hashString "sha256" file)
+                  file
+                  "/run/geoipupdate/GeoIP.conf"
+                ]
+              }
+            '';
             secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
 
             geoipupdateConf = pkgs.writeText "geoipupdate.conf" (

@@ -5,33 +5,31 @@
 }:
 let
   py = python3.override {
-    packageOverrides =
-      final: prev: {
-        # required for networkx 2.5.1
-        decorator = prev.decorator.overridePythonAttrs (
-          o:
-          o // rec {
-            version = "4.4.2";
-            src = o.src.override {
-              inherit version;
-              hash = "sha256-46YvBSAXJEDKDcyCN0kxk4Ljd/N/FAoLme9F/suEv+c=";
-            };
-          }
-        );
+    packageOverrides = final: prev: {
+      # required for networkx 2.5.1
+      decorator = prev.decorator.overridePythonAttrs (
+        o:
+        o // rec {
+          version = "4.4.2";
+          src = o.src.override {
+            inherit version;
+            hash = "sha256-46YvBSAXJEDKDcyCN0kxk4Ljd/N/FAoLme9F/suEv+c=";
+          };
+        }
+      );
 
-        # flare-floss requires this exact version (newer versions are incompatible)
-        networkx = prev.networkx.overridePythonAttrs (
-          o:
-          o // rec {
-            version = "2.5.1";
-            src = o.src.override {
-              inherit version;
-              hash = "sha256-EJzVhcrEEpf3EQPDxCrG73N58peI61TLdRvlpmO7I1o=";
-            };
-          }
-        );
-      }
-    ;
+      # flare-floss requires this exact version (newer versions are incompatible)
+      networkx = prev.networkx.overridePythonAttrs (
+        o:
+        o // rec {
+          version = "2.5.1";
+          src = o.src.override {
+            inherit version;
+            hash = "sha256-EJzVhcrEEpf3EQPDxCrG73N58peI61TLdRvlpmO7I1o=";
+          };
+        }
+      );
+    };
   };
 in
 py.pkgs.buildPythonPackage rec {

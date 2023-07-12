@@ -83,12 +83,10 @@ let
   # Just enumerate all heads without discarding XRandR output information.
   xrandrHeads =
     let
-      mkHead =
-        num: config: {
-          name = "multihead${toString num}";
-          inherit config;
-        }
-      ;
+      mkHead = num: config: {
+        name = "multihead${toString num}";
+        inherit config;
+      };
     in
     imap1 mkHead cfg.xrandrHeads
   ;
@@ -1073,25 +1071,23 @@ in
                   )
                   (
                     let
-                      f =
-                        depth: ''
-                          SubSection "Display"
-                            Depth ${toString depth}
-                            ${
-                              optionalString (cfg.resolutions != [ ])
-                                "Modes ${
-                                  concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'')
-                                    cfg.resolutions
-                                }"
-                            }
-                          ${indent cfg.extraDisplaySettings}
-                            ${
-                              optionalString (cfg.virtualScreen != null)
-                                "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
-                            }
-                          EndSubSection
-                        ''
-                      ;
+                      f = depth: ''
+                        SubSection "Display"
+                          Depth ${toString depth}
+                          ${
+                            optionalString (cfg.resolutions != [ ])
+                              "Modes ${
+                                concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'')
+                                  cfg.resolutions
+                              }"
+                          }
+                        ${indent cfg.extraDisplaySettings}
+                          ${
+                            optionalString (cfg.virtualScreen != null)
+                              "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
+                          }
+                        EndSubSection
+                      '';
                     in
                     concatMapStrings f [
                       8

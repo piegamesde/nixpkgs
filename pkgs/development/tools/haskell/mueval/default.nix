@@ -6,14 +6,12 @@
 }:
 
 let
-  defaultPkgs =
-    pkgs: [
-      pkgs.show
-      pkgs.simple-reflect
-      pkgs.QuickCheck
-      pkgs.mtl
-    ]
-  ;
+  defaultPkgs = pkgs: [
+    pkgs.show
+    pkgs.simple-reflect
+    pkgs.QuickCheck
+    pkgs.mtl
+  ];
   env = haskellPackages.ghcWithPackages (pkgs: defaultPkgs pkgs ++ packages pkgs);
   libDir = "${env}/lib/ghc-${env.version}";
 in

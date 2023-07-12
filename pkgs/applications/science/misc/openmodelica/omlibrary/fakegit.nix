@@ -5,18 +5,16 @@
   bash,
 }:
 let
-  mkscript =
-    path: text: ''
-      mkdir -pv `dirname ${path}`
-      cat > ${path} <<"EOF"
-      #!${bash}/bin/bash
-      ME=$(basename ${path})
-      ${text}
-      EOF
-      sed -i "s@%out@$out@g" ${path}
-      chmod +x ${path}
-    ''
-  ;
+  mkscript = path: text: ''
+    mkdir -pv `dirname ${path}`
+    cat > ${path} <<"EOF"
+    #!${bash}/bin/bash
+    ME=$(basename ${path})
+    ${text}
+    EOF
+    sed -i "s@%out@$out@g" ${path}
+    chmod +x ${path}
+  '';
 
   hashname =
     r:

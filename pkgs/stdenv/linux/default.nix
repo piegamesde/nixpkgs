@@ -273,52 +273,50 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     stageFun prevStage {
       name = "bootstrap-stage0";
 
-      overrides =
-        self: super: {
-          # We thread stage0's stdenv through under this name so downstream stages
-          # can use it for wrapping gcc too. This way, downstream stages don't need
-          # to refer to this stage directly, which violates the principle that each
-          # stage should only access the stage that came before it.
-          ccWrapperStdenv = self.stdenv;
-          # The Glibc include directory cannot have the same prefix as the
-          # GCC include directory, since GCC gets confused otherwise (it
-          # will search the Glibc headers before the GCC headers).  So
-          # create a dummy Glibc here, which will be used in the stdenv of
-          # stage1.
-          ${localSystem.libc} = self.stdenv.mkDerivation {
-            pname = "bootstrap-stage0-${localSystem.libc}";
-            strictDeps = true;
-            version = "bootstrapFiles";
-            enableParallelBuilding = true;
-            buildCommand =
-              ''
-                mkdir -p $out
-                ln -s ${bootstrapTools}/lib $out/lib
-              ''
-              + lib.optionalString (localSystem.libc == "glibc") ''
-                ln -s ${bootstrapTools}/include-glibc $out/include
-              ''
-              + lib.optionalString (localSystem.libc == "musl") ''
-                ln -s ${bootstrapTools}/include-libc $out/include
-              ''
-            ;
-            passthru.isFromBootstrapFiles = true;
-          };
-          gcc-unwrapped = bootstrapTools;
-          binutils = import ../../build-support/bintools-wrapper {
-            name = "bootstrap-stage0-binutils-wrapper";
-            nativeTools = false;
-            nativeLibc = false;
-            buildPackages = { };
-            libc = getLibc self;
-            inherit lib;
-            inherit (self) stdenvNoCC coreutils gnugrep;
-            bintools = bootstrapTools;
-          };
-          coreutils = bootstrapTools;
-          gnugrep = bootstrapTools;
-        }
-      ;
+      overrides = self: super: {
+        # We thread stage0's stdenv through under this name so downstream stages
+        # can use it for wrapping gcc too. This way, downstream stages don't need
+        # to refer to this stage directly, which violates the principle that each
+        # stage should only access the stage that came before it.
+        ccWrapperStdenv = self.stdenv;
+        # The Glibc include directory cannot have the same prefix as the
+        # GCC include directory, since GCC gets confused otherwise (it
+        # will search the Glibc headers before the GCC headers).  So
+        # create a dummy Glibc here, which will be used in the stdenv of
+        # stage1.
+        ${localSystem.libc} = self.stdenv.mkDerivation {
+          pname = "bootstrap-stage0-${localSystem.libc}";
+          strictDeps = true;
+          version = "bootstrapFiles";
+          enableParallelBuilding = true;
+          buildCommand =
+            ''
+              mkdir -p $out
+              ln -s ${bootstrapTools}/lib $out/lib
+            ''
+            + lib.optionalString (localSystem.libc == "glibc") ''
+              ln -s ${bootstrapTools}/include-glibc $out/include
+            ''
+            + lib.optionalString (localSystem.libc == "musl") ''
+              ln -s ${bootstrapTools}/include-libc $out/include
+            ''
+          ;
+          passthru.isFromBootstrapFiles = true;
+        };
+        gcc-unwrapped = bootstrapTools;
+        binutils = import ../../build-support/bintools-wrapper {
+          name = "bootstrap-stage0-binutils-wrapper";
+          nativeTools = false;
+          nativeLibc = false;
+          buildPackages = { };
+          libc = getLibc self;
+          inherit lib;
+          inherit (self) stdenvNoCC coreutils gnugrep;
+          bintools = bootstrapTools;
+        };
+        coreutils = bootstrapTools;
+        gnugrep = bootstrapTools;
+      };
     }
   )
 
@@ -344,30 +342,28 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       name = "bootstrap-stage1";
 
       # Rebuild binutils to use from stage2 onwards.
-      overrides =
-        self: super: {
-          binutils-unwrapped = super.binutils-unwrapped.override { enableGold = false; };
-          inherit (prevStage)
-            ccWrapperStdenv
-            gcc-unwrapped
-            coreutils
-            gnugrep
-            binutils
-          ;
+      overrides = self: super: {
+        binutils-unwrapped = super.binutils-unwrapped.override { enableGold = false; };
+        inherit (prevStage)
+          ccWrapperStdenv
+          gcc-unwrapped
+          coreutils
+          gnugrep
+          binutils
+        ;
 
-          ${localSystem.libc} = getLibc prevStage;
+        ${localSystem.libc} = getLibc prevStage;
 
-          # A threaded perl build needs glibc/libpthread_nonshared.a,
-          # which is not included in bootstrapTools, so disable threading.
-          # This is not an issue for the final stdenv, because this perl
-          # won't be included in the final stdenv and won't be exported to
-          # top-level pkgs as an override either.
-          perl = super.perl.override {
-            enableThreading = false;
-            enableCrypt = false;
-          };
-        }
-      ;
+        # A threaded perl build needs glibc/libpthread_nonshared.a,
+        # which is not included in bootstrapTools, so disable threading.
+        # This is not an issue for the final stdenv, because this perl
+        # won't be included in the final stdenv and won't be exported to
+        # top-level pkgs as an override either.
+        perl = super.perl.override {
+          enableThreading = false;
+          enableCrypt = false;
+        };
+      };
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       extraNativeBuildInputs =
@@ -391,90 +387,88 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     assert isBuiltByBootstrapFilesCompiler prevStage.patchelf;
     stageFun prevStage {
       name = "bootstrap-stage-xgcc";
-      overrides =
-        final: prev: {
-          inherit (prevStage)
-            ccWrapperStdenv
-            coreutils
-            gnugrep
-            gettext
-            bison
-            texinfo
-            zlib
-            gnum4
-            perl
-            patchelf
-          ;
-          ${localSystem.libc} = getLibc prevStage;
-          gmp = prev.gmp.override { cxx = false; };
-          gcc-unwrapped =
-            (prev.gcc-unwrapped.override (
-              commonGccOverrides // {
-                # The most logical name for this package would be something like
-                # "gcc-stage1".  Unfortunately "stage" is already reserved for the
-                # layers of stdenv, so using "stage" in the name of this package
-                # would cause massive confusion.
-                #
-                # Gcc calls its "stage1" compiler `xgcc` (--disable-bootstrap results
-                # in `xgcc` being copied to $prefix/bin/gcc).  So we imitate that.
-                #
-                name = "xgcc";
+      overrides = final: prev: {
+        inherit (prevStage)
+          ccWrapperStdenv
+          coreutils
+          gnugrep
+          gettext
+          bison
+          texinfo
+          zlib
+          gnum4
+          perl
+          patchelf
+        ;
+        ${localSystem.libc} = getLibc prevStage;
+        gmp = prev.gmp.override { cxx = false; };
+        gcc-unwrapped =
+          (prev.gcc-unwrapped.override (
+            commonGccOverrides // {
+              # The most logical name for this package would be something like
+              # "gcc-stage1".  Unfortunately "stage" is already reserved for the
+              # layers of stdenv, so using "stage" in the name of this package
+              # would cause massive confusion.
+              #
+              # Gcc calls its "stage1" compiler `xgcc` (--disable-bootstrap results
+              # in `xgcc` being copied to $prefix/bin/gcc).  So we imitate that.
+              #
+              name = "xgcc";
 
-                # xgcc uses ld linked against nixpkgs' glibc and gcc built
-                # against bootstrapTools glibc. We can't allow loading
-                #   $out/libexec/gcc/x86_64-unknown-linux-gnu/13.0.1/liblto_plugin.so
-                # to mix libc.so:
-                #   ...-binutils-patchelfed-ld-2.40/bin/ld: ...-xgcc-13.0.0/libexec/gcc/x86_64-unknown-linux-gnu/13.0.1/liblto_plugin.so:
-                #     error loading plugin: ...-bootstrap-tools/lib/libpthread.so.0: undefined symbol: __libc_vfork, version GLIBC_PRIVATE
-                enableLTO = false;
+              # xgcc uses ld linked against nixpkgs' glibc and gcc built
+              # against bootstrapTools glibc. We can't allow loading
+              #   $out/libexec/gcc/x86_64-unknown-linux-gnu/13.0.1/liblto_plugin.so
+              # to mix libc.so:
+              #   ...-binutils-patchelfed-ld-2.40/bin/ld: ...-xgcc-13.0.0/libexec/gcc/x86_64-unknown-linux-gnu/13.0.1/liblto_plugin.so:
+              #     error loading plugin: ...-bootstrap-tools/lib/libpthread.so.0: undefined symbol: __libc_vfork, version GLIBC_PRIVATE
+              enableLTO = false;
+            }
+          )).overrideAttrs
+            (
+              a: {
+
+                # This signals to cc-wrapper (as overridden above in this file) to add `--sysroot`
+                # to `$out/nix-support/cc-cflags`.
+                passthru = a.passthru // { isXgcc = true; };
+
+                # Gcc will look for the C library headers in
+                #
+                #    ${with_build_sysroot}${native_system_header_dir}
+                #
+                # The ordinary gcc expression sets `--with-build-sysroot=/` and sets
+                # `native-system-header-dir` to `"${lib.getDev stdenv.cc.libc}/include`.
+                #
+                # Unfortunately the value of "--with-native-system-header-dir=" gets "burned in" to the
+                # compiler, and it is quite difficult to get the compiler to change or ignore it
+                # afterwards.  On the other hand, the `sysroot` is very easy to change; you can just pass
+                # a `--sysroot` flag to `gcc`.
+                #
+                # So we override the expression to remove the default settings for these flags, and
+                # replace them such that the concatenated value will be the same as before, but we split
+                # the value between the two variables differently: `--native-system-header-dir=/include`,
+                # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
+                #
+                configureFlags =
+                  (a.configureFlags or [ ])
+                  ++ [
+                    "--with-native-system-header-dir=/include"
+                    "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
+                  ]
+                ;
+
+                # This is a separate phase because gcc assembles its phase scripts
+                # in bash instead of nix (we should fix that).
+                preFixupPhases = (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ];
+
+                # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
+                # in the references of output 'lib' from output 'out'"
+                preFixupXgccPhase = ''
+                  find $lib/lib/ -name \*.so\* -exec patchelf --shrink-rpath {} \; || true
+                '';
               }
-            )).overrideAttrs
-              (
-                a: {
-
-                  # This signals to cc-wrapper (as overridden above in this file) to add `--sysroot`
-                  # to `$out/nix-support/cc-cflags`.
-                  passthru = a.passthru // { isXgcc = true; };
-
-                  # Gcc will look for the C library headers in
-                  #
-                  #    ${with_build_sysroot}${native_system_header_dir}
-                  #
-                  # The ordinary gcc expression sets `--with-build-sysroot=/` and sets
-                  # `native-system-header-dir` to `"${lib.getDev stdenv.cc.libc}/include`.
-                  #
-                  # Unfortunately the value of "--with-native-system-header-dir=" gets "burned in" to the
-                  # compiler, and it is quite difficult to get the compiler to change or ignore it
-                  # afterwards.  On the other hand, the `sysroot` is very easy to change; you can just pass
-                  # a `--sysroot` flag to `gcc`.
-                  #
-                  # So we override the expression to remove the default settings for these flags, and
-                  # replace them such that the concatenated value will be the same as before, but we split
-                  # the value between the two variables differently: `--native-system-header-dir=/include`,
-                  # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
-                  #
-                  configureFlags =
-                    (a.configureFlags or [ ])
-                    ++ [
-                      "--with-native-system-header-dir=/include"
-                      "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
-                    ]
-                  ;
-
-                  # This is a separate phase because gcc assembles its phase scripts
-                  # in bash instead of nix (we should fix that).
-                  preFixupPhases = (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ];
-
-                  # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
-                  # in the references of output 'lib' from output 'out'"
-                  preFixupXgccPhase = ''
-                    find $lib/lib/ -name \*.so\* -exec patchelf --shrink-rpath {} \; || true
-                  '';
-                }
-              )
-          ;
-        }
-      ;
+            )
+        ;
+      };
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       extraNativeBuildInputs =
@@ -499,97 +493,95 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     stageFun prevStage {
       name = "bootstrap-stage2";
 
-      overrides =
-        self: super: {
-          inherit (prevStage)
-            ccWrapperStdenv
-            gettext
-            gcc-unwrapped
-            coreutils
-            gnugrep
-            perl
-            gnum4
-            bison
-            texinfo
-            which
-          ;
-          dejagnu = super.dejagnu.overrideAttrs (a: { doCheck = false; });
+      overrides = self: super: {
+        inherit (prevStage)
+          ccWrapperStdenv
+          gettext
+          gcc-unwrapped
+          coreutils
+          gnugrep
+          perl
+          gnum4
+          bison
+          texinfo
+          which
+        ;
+        dejagnu = super.dejagnu.overrideAttrs (a: { doCheck = false; });
 
-          # We need libidn2 and its dependency libunistring as glibc dependency.
-          # To avoid the cycle, we build against bootstrap libc, nuke references,
-          # and use the result as input for our final glibc.  We also pass this pair
-          # through, so the final package-set uses exactly the same builds.
-          libunistring = super.libunistring.overrideAttrs (
-            attrs: {
-              postFixup =
-                attrs.postFixup or ""
-                + ''
-                  ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
-                ''
-              ;
-              # Apparently iconv won't work with bootstrap glibc, but it will be used
-              # with glibc built later where we keep *this* build of libunistring,
-              # so we need to trick it into supporting libiconv.
-              env = attrs.env or { } // { am_cv_func_iconv_works = "yes"; };
-            }
-          );
-          libidn2 = super.libidn2.overrideAttrs (
-            attrs: {
-              postFixup =
-                attrs.postFixup or ""
-                + ''
-                  ${self.nukeReferences}/bin/nuke-refs -e '${lib.getLib self.libunistring}' \
-                    "$out"/lib/lib*.so.*.*
-                ''
-              ;
-            }
-          );
+        # We need libidn2 and its dependency libunistring as glibc dependency.
+        # To avoid the cycle, we build against bootstrap libc, nuke references,
+        # and use the result as input for our final glibc.  We also pass this pair
+        # through, so the final package-set uses exactly the same builds.
+        libunistring = super.libunistring.overrideAttrs (
+          attrs: {
+            postFixup =
+              attrs.postFixup or ""
+              + ''
+                ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
+              ''
+            ;
+            # Apparently iconv won't work with bootstrap glibc, but it will be used
+            # with glibc built later where we keep *this* build of libunistring,
+            # so we need to trick it into supporting libiconv.
+            env = attrs.env or { } // { am_cv_func_iconv_works = "yes"; };
+          }
+        );
+        libidn2 = super.libidn2.overrideAttrs (
+          attrs: {
+            postFixup =
+              attrs.postFixup or ""
+              + ''
+                ${self.nukeReferences}/bin/nuke-refs -e '${lib.getLib self.libunistring}' \
+                  "$out"/lib/lib*.so.*.*
+              ''
+            ;
+          }
+        );
 
-          # This also contains the full, dynamically linked, final Glibc.
-          binutils = prevStage.binutils.override {
-            # Rewrap the binutils with the new glibc, so both the next
-            # stage's wrappers use it.
-            libc = getLibc self;
+        # This also contains the full, dynamically linked, final Glibc.
+        binutils = prevStage.binutils.override {
+          # Rewrap the binutils with the new glibc, so both the next
+          # stage's wrappers use it.
+          libc = getLibc self;
 
-            # Unfortunately, when building gcc in the next stage, its LTO plugin
-            # would use the final libc but `ld` would use the bootstrap one,
-            # and that can fail to load.  Therefore we upgrade `ld` to use newer libc;
-            # apparently the interpreter needs to match libc, too.
-            bintools = self.stdenvNoCC.mkDerivation {
-              pname = prevStage.bintools.bintools.pname + "-patchelfed-ld";
-              inherit (prevStage.bintools.bintools) version;
-              passthru = {
-                inherit (prevStage.bintools.passthru) isFromBootstrapFiles;
-              };
-              enableParallelBuilding = true;
-              dontUnpack = true;
-              dontBuild = true;
-              strictDeps = true;
-              # We wouldn't need to *copy* all, but it's easier and the result is temporary anyway.
-              installPhase = ''
-                mkdir -p "$out"/bin
-                cp -a '${prevStage.bintools.bintools}'/bin/* "$out"/bin/
-                chmod +w "$out"/bin/ld.bfd
-                patchelf --set-interpreter '${getLibc self}'/lib/ld*.so.? \
-                  --set-rpath "${
-                    getLibc self
-                  }/lib:$(patchelf --print-rpath "$out"/bin/ld.bfd)" \
-                  "$out"/bin/ld.bfd
-              '';
+          # Unfortunately, when building gcc in the next stage, its LTO plugin
+          # would use the final libc but `ld` would use the bootstrap one,
+          # and that can fail to load.  Therefore we upgrade `ld` to use newer libc;
+          # apparently the interpreter needs to match libc, too.
+          bintools = self.stdenvNoCC.mkDerivation {
+            pname = prevStage.bintools.bintools.pname + "-patchelfed-ld";
+            inherit (prevStage.bintools.bintools) version;
+            passthru = {
+              inherit (prevStage.bintools.passthru) isFromBootstrapFiles;
             };
+            enableParallelBuilding = true;
+            dontUnpack = true;
+            dontBuild = true;
+            strictDeps = true;
+            # We wouldn't need to *copy* all, but it's easier and the result is temporary anyway.
+            installPhase = ''
+              mkdir -p "$out"/bin
+              cp -a '${prevStage.bintools.bintools}'/bin/* "$out"/bin/
+              chmod +w "$out"/bin/ld.bfd
+              patchelf --set-interpreter '${getLibc self}'/lib/ld*.so.? \
+                --set-rpath "${
+                  getLibc self
+                }/lib:$(patchelf --print-rpath "$out"/bin/ld.bfd)" \
+                "$out"/bin/ld.bfd
+            '';
           };
+        };
 
-          # TODO(amjoseph): It is not yet entirely clear why this is necessary.
-          # Something strange is going on with xgcc and libstdc++ on pkgsMusl.
-          patchelf = super.patchelf.overrideAttrs (
-            previousAttrs:
-            lib.optionalAttrs super.stdenv.hostPlatform.isMusl {
-              NIX_CFLAGS_COMPILE =
-                (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++";
-            }
-          );
-        }
-      ;
+        # TODO(amjoseph): It is not yet entirely clear why this is necessary.
+        # Something strange is going on with xgcc and libstdc++ on pkgsMusl.
+        patchelf = super.patchelf.overrideAttrs (
+          previousAttrs:
+          lib.optionalAttrs super.stdenv.hostPlatform.isMusl {
+            NIX_CFLAGS_COMPILE =
+              (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++";
+          }
+        );
+      };
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       # `libtool` comes with obsolete config.sub/config.guess that don't recognize Risc-V.
@@ -692,53 +684,51 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     stageFun prevStage {
       name = "bootstrap-stage4";
 
-      overrides =
-        self: super: {
-          # Zlib has to be inherited and not rebuilt in this stage,
-          # because gcc (since JAR support) already depends on zlib, and
-          # then if we already have a zlib we want to use that for the
-          # other purposes (binutils and top-level pkgs) too.
-          inherit (prevStage)
-            gettext
-            gnum4
-            bison
-            perl
-            texinfo
-            zlib
-            linuxHeaders
-            libidn2
-            libunistring
-          ;
-          ${localSystem.libc} = getLibc prevStage;
-          binutils = super.binutils.override {
-            # Don't use stdenv's shell but our own
-            shell = self.bash + "/bin/bash";
-            # Build expand-response-params with last stage like below
-            buildPackages = {
-              inherit (prevStage) stdenv;
-            };
+      overrides = self: super: {
+        # Zlib has to be inherited and not rebuilt in this stage,
+        # because gcc (since JAR support) already depends on zlib, and
+        # then if we already have a zlib we want to use that for the
+        # other purposes (binutils and top-level pkgs) too.
+        inherit (prevStage)
+          gettext
+          gnum4
+          bison
+          perl
+          texinfo
+          zlib
+          linuxHeaders
+          libidn2
+          libunistring
+        ;
+        ${localSystem.libc} = getLibc prevStage;
+        binutils = super.binutils.override {
+          # Don't use stdenv's shell but our own
+          shell = self.bash + "/bin/bash";
+          # Build expand-response-params with last stage like below
+          buildPackages = {
+            inherit (prevStage) stdenv;
           };
+        };
 
-          # To allow users' overrides inhibit dependencies too heavy for
-          # bootstrap, like guile: https://github.com/NixOS/nixpkgs/issues/181188
-          gnumake = super.gnumake.override { inBootstrap = true; };
+        # To allow users' overrides inhibit dependencies too heavy for
+        # bootstrap, like guile: https://github.com/NixOS/nixpkgs/issues/181188
+        gnumake = super.gnumake.override { inBootstrap = true; };
 
-          gcc = lib.makeOverridable (import ../../build-support/cc-wrapper) {
-            nativeTools = false;
-            nativeLibc = false;
-            isGNU = true;
-            buildPackages = {
-              inherit (prevStage) stdenv;
-            };
-            cc = prevStage.gcc-unwrapped;
-            bintools = self.binutils;
-            libc = getLibc self;
-            inherit lib;
-            inherit (self) stdenvNoCC coreutils gnugrep;
-            shell = self.bash + "/bin/bash";
+        gcc = lib.makeOverridable (import ../../build-support/cc-wrapper) {
+          nativeTools = false;
+          nativeLibc = false;
+          isGNU = true;
+          buildPackages = {
+            inherit (prevStage) stdenv;
           };
-        }
-      ;
+          cc = prevStage.gcc-unwrapped;
+          bintools = self.binutils;
+          libc = getLibc self;
+          inherit lib;
+          inherit (self) stdenvNoCC coreutils gnugrep;
+          shell = self.bash + "/bin/bash";
+        };
+      };
       extraNativeBuildInputs =
         [
           prevStage.patchelf

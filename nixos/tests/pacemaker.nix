@@ -10,46 +10,44 @@ import ./make-test-python.nix (
 
     nodes =
       let
-        node =
-          i: {
-            networking.interfaces.eth1.ipv4.addresses = [ {
-              address = "192.168.0.${toString i}";
-              prefixLength = 24;
-            } ];
+        node = i: {
+          networking.interfaces.eth1.ipv4.addresses = [ {
+            address = "192.168.0.${toString i}";
+            prefixLength = 24;
+          } ];
 
-            services.corosync = {
-              enable = true;
-              clusterName = "zentralwerk-network";
-              nodelist =
-                lib.imap
-                  (i: name: {
-                    nodeid = i;
-                    inherit name;
-                    ring_addrs = [
-                      (builtins.head nodes.${name}.networking.interfaces.eth1.ipv4.addresses).address
-                    ];
-                  })
-                  (builtins.attrNames nodes)
-              ;
-            };
-            environment.etc."corosync/authkey" = {
-              source =
-                builtins.toFile "authkey"
-                  # minimum length: 128 bytes
-                  "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
-              ;
-              mode = "0400";
-            };
+          services.corosync = {
+            enable = true;
+            clusterName = "zentralwerk-network";
+            nodelist =
+              lib.imap
+                (i: name: {
+                  nodeid = i;
+                  inherit name;
+                  ring_addrs = [
+                    (builtins.head nodes.${name}.networking.interfaces.eth1.ipv4.addresses).address
+                  ];
+                })
+                (builtins.attrNames nodes)
+            ;
+          };
+          environment.etc."corosync/authkey" = {
+            source =
+              builtins.toFile "authkey"
+                # minimum length: 128 bytes
+                "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
+            ;
+            mode = "0400";
+          };
 
-            services.pacemaker.enable = true;
+          services.pacemaker.enable = true;
 
-            # used for pacemaker resource
-            systemd.services.ha-cat = {
-              description = "Highly available netcat";
-              serviceConfig.ExecStart = "${pkgs.netcat}/bin/nc -l discard";
-            };
-          }
-        ;
+          # used for pacemaker resource
+          systemd.services.ha-cat = {
+            description = "Highly available netcat";
+            serviceConfig.ExecStart = "${pkgs.netcat}/bin/nc -l discard";
+          };
+        };
       in
       {
         node1 = node 1;

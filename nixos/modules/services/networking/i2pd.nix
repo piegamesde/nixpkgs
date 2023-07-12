@@ -25,41 +25,37 @@ let
   mkEnableTrueOption =
     name: mkEnableOption (lib.mdDoc name) // { default = true; };
 
-  mkEndpointOpt =
-    name: addr: port: {
-      enable = mkEnableOption (lib.mdDoc name);
-      name = mkOption {
-        type = types.str;
-        default = name;
-        description = lib.mdDoc "The endpoint name.";
-      };
-      address = mkOption {
-        type = types.str;
-        default = addr;
-        description = lib.mdDoc "Bind address for ${name} endpoint.";
-      };
-      port = mkOption {
-        type = types.port;
-        default = port;
-        description = lib.mdDoc "Bind port for ${name} endpoint.";
-      };
-    }
-  ;
+  mkEndpointOpt = name: addr: port: {
+    enable = mkEnableOption (lib.mdDoc name);
+    name = mkOption {
+      type = types.str;
+      default = name;
+      description = lib.mdDoc "The endpoint name.";
+    };
+    address = mkOption {
+      type = types.str;
+      default = addr;
+      description = lib.mdDoc "Bind address for ${name} endpoint.";
+    };
+    port = mkOption {
+      type = types.port;
+      default = port;
+      description = lib.mdDoc "Bind port for ${name} endpoint.";
+    };
+  };
 
-  i2cpOpts =
-    name: {
-      length = mkOption {
-        type = types.int;
-        description = lib.mdDoc "Guaranteed minimum hops for ${name} tunnels.";
-        default = 3;
-      };
-      quantity = mkOption {
-        type = types.int;
-        description = lib.mdDoc "Number of simultaneous ${name} tunnels.";
-        default = 5;
-      };
-    }
-  ;
+  i2cpOpts = name: {
+    length = mkOption {
+      type = types.int;
+      description = lib.mdDoc "Guaranteed minimum hops for ${name} tunnels.";
+      default = 3;
+    };
+    quantity = mkOption {
+      type = types.int;
+      description = lib.mdDoc "Number of simultaneous ${name} tunnels.";
+      default = 5;
+    };
+  };
 
   mkKeyedEndpointOpt =
     name: addr: port: keyloc:

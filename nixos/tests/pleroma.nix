@@ -176,12 +176,10 @@ import ./make-test-python.nix (
         ''
     ;
 
-    hosts =
-      nodes: ''
-        ${nodes.pleroma.networking.primaryIPAddress} pleroma.nixos.test
-        ${nodes.client.networking.primaryIPAddress} client.nixos.test
-      ''
-    ;
+    hosts = nodes: ''
+      ${nodes.pleroma.networking.primaryIPAddress} pleroma.nixos.test
+      ${nodes.client.networking.primaryIPAddress} client.nixos.test
+    '';
   in
   {
     name = "pleroma";

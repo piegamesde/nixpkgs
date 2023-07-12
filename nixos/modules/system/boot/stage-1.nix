@@ -392,14 +392,12 @@ let
 
     fsInfo =
       let
-        f =
-          fs: [
-            fs.mountPoint
-            (if fs.device != null then fs.device else "/dev/disk/by-label/${fs.label}")
-            fs.fsType
-            (builtins.concatStringsSep "," fs.options)
-          ]
-        ;
+        f = fs: [
+          fs.mountPoint
+          (if fs.device != null then fs.device else "/dev/disk/by-label/${fs.label}")
+          fs.fsType
+          (builtins.concatStringsSep "," fs.options)
+        ];
       in
       pkgs.writeText "initrd-fsinfo" (concatStringsSep "\n" (concatMap f fileSystems))
     ;

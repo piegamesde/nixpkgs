@@ -184,31 +184,25 @@ stdenv.mkDerivation rec {
         else
           "-icaroot"
       ;
-      wrap =
-        program: ''
-          wrapProgram $out/opt/citrix-icaclient/${program} \
-            ${
-              lib.optionalString (icaFlag program != null)
-                ''--add-flags "${icaFlag program} $ICAInstDir"''
-            } \
-            --set ICAROOT "$ICAInstDir" \
-            --prefix LD_LIBRARY_PATH : "$ICAInstDir:$ICAInstDir/lib" \
-            --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
-            --set NIX_REDIRECTS "/usr/share/zoneinfo=${tzdata}/share/zoneinfo:/etc/zoneinfo=${tzdata}/share/zoneinfo:/etc/timezone=$ICAInstDir/timezone"
-        ''
-      ;
-      wrapLink =
-        program: ''
-          ${wrap program}
-          ln -sf $out/opt/citrix-icaclient/${program} $out/bin/${baseNameOf program}
-        ''
-      ;
+      wrap = program: ''
+        wrapProgram $out/opt/citrix-icaclient/${program} \
+          ${
+            lib.optionalString (icaFlag program != null)
+              ''--add-flags "${icaFlag program} $ICAInstDir"''
+          } \
+          --set ICAROOT "$ICAInstDir" \
+          --prefix LD_LIBRARY_PATH : "$ICAInstDir:$ICAInstDir/lib" \
+          --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
+          --set NIX_REDIRECTS "/usr/share/zoneinfo=${tzdata}/share/zoneinfo:/etc/zoneinfo=${tzdata}/share/zoneinfo:/etc/timezone=$ICAInstDir/timezone"
+      '';
+      wrapLink = program: ''
+        ${wrap program}
+        ln -sf $out/opt/citrix-icaclient/${program} $out/bin/${baseNameOf program}
+      '';
 
-      copyCert =
-        path: ''
-          cp -v ${path} $out/opt/citrix-icaclient/keystore/cacerts/${baseNameOf path}
-        ''
-      ;
+      copyCert = path: ''
+        cp -v ${path} $out/opt/citrix-icaclient/keystore/cacerts/${baseNameOf path}
+      '';
 
       mkWrappers = lib.concatMapStringsSep "\n";
 

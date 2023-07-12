@@ -43,21 +43,19 @@ let
     ''
   ;
 
-  mkTest =
-    cmd: toExpect: ''
-      output="$(${cmd})"
-      if [[ "$output" != '${toExpect}' ]]; then
-        echo "test failed: the output of ${cmd} was '$output', expected '${toExpect}'"
-        echo "the wrapper contents:"
-        for i in ${cmd}; do
-          if [[ $i =~ ^test- ]]; then
-            cat $(which $i)
-          fi
-        done
-        exit 1
-      fi
-    ''
-  ;
+  mkTest = cmd: toExpect: ''
+    output="$(${cmd})"
+    if [[ "$output" != '${toExpect}' ]]; then
+      echo "test failed: the output of ${cmd} was '$output', expected '${toExpect}'"
+      echo "the wrapper contents:"
+      for i in ${cmd}; do
+        if [[ $i =~ ^test- ]]; then
+          cat $(which $i)
+        fi
+      done
+      exit 1
+    fi
+  '';
 in
 runCommand "make-wrapper-test"
   {

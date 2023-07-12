@@ -11,19 +11,17 @@ let
   cfg = config.services.tor.torsocks;
   optionalNullStr = b: v: optionalString (b != null) v;
 
-  configFile =
-    server: ''
-      TorAddress ${toString (head (splitString ":" server))}
-      TorPort    ${toString (tail (splitString ":" server))}
+  configFile = server: ''
+    TorAddress ${toString (head (splitString ":" server))}
+    TorPort    ${toString (tail (splitString ":" server))}
 
-      OnionAddrRange ${cfg.onionAddrRange}
+    OnionAddrRange ${cfg.onionAddrRange}
 
-      ${optionalNullStr cfg.socks5Username "SOCKS5Username ${cfg.socks5Username}"}
-      ${optionalNullStr cfg.socks5Password "SOCKS5Password ${cfg.socks5Password}"}
+    ${optionalNullStr cfg.socks5Username "SOCKS5Username ${cfg.socks5Username}"}
+    ${optionalNullStr cfg.socks5Password "SOCKS5Password ${cfg.socks5Password}"}
 
-      AllowInbound ${if cfg.allowInbound then "1" else "0"}
-    ''
-  ;
+    AllowInbound ${if cfg.allowInbound then "1" else "0"}
+  '';
 
   wrapTorsocks =
     name: server:

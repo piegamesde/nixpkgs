@@ -169,18 +169,16 @@ stdenv.mkDerivation {
       isLLVM
     ;
 
-    emacsBufferSetup =
-      pkgs: ''
-        ; We should handle propagation here too
-        (mapc
-          (lambda (arg)
-            (when (file-directory-p (concat arg "/lib"))
-              (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib")))
-            (when (file-directory-p (concat arg "/lib64"))
-              (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib64"))))
-          '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
-      ''
-    ;
+    emacsBufferSetup = pkgs: ''
+      ; We should handle propagation here too
+      (mapc
+        (lambda (arg)
+          (when (file-directory-p (concat arg "/lib"))
+            (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib")))
+          (when (file-directory-p (concat arg "/lib64"))
+            (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib64"))))
+        '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
+    '';
   };
 
   dontBuild = true;

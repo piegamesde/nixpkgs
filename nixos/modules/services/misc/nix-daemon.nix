@@ -15,23 +15,21 @@ let
 
   isNixAtLeast = versionAtLeast (getVersion nixPackage);
 
-  makeNixBuildUser =
-    nr: {
-      name = "nixbld${toString nr}";
-      value = {
-        description = "Nix build user ${toString nr}";
+  makeNixBuildUser = nr: {
+    name = "nixbld${toString nr}";
+    value = {
+      description = "Nix build user ${toString nr}";
 
-        /* For consistency with the setgid(2), setuid(2), and setgroups(2)
-           calls in `libstore/build.cc', don't add any supplementary group
-           here except "nixbld".
-        */
-        uid = builtins.add config.ids.uids.nixbld nr;
-        isSystemUser = true;
-        group = "nixbld";
-        extraGroups = [ "nixbld" ];
-      };
-    }
-  ;
+      /* For consistency with the setgid(2), setuid(2), and setgroups(2)
+         calls in `libstore/build.cc', don't add any supplementary group
+         here except "nixbld".
+      */
+      uid = builtins.add config.ids.uids.nixbld nr;
+      isSystemUser = true;
+      group = "nixbld";
+      extraGroups = [ "nixbld" ];
+    };
+  };
 
   nixbldUsers = listToAttrs (map makeNixBuildUser (range 1 cfg.nrBuildUsers));
 

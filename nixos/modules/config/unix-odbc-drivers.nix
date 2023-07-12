@@ -10,13 +10,11 @@ with lib;
 # ask the admin to add a driver.. but it's simple and works
 
 let
-  iniDescription =
-    pkg: ''
-      [${pkg.fancyName}]
-      Description = ${pkg.meta.description}
-      Driver = ${pkg}/${pkg.driver}
-    ''
-  ;
+  iniDescription = pkg: ''
+    [${pkg.fancyName}]
+    Description = ${pkg.meta.description}
+    Driver = ${pkg}/${pkg.driver}
+  '';
 in
 {
   ###### interface

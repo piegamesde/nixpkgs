@@ -10,29 +10,27 @@ import ../make-test-python.nix (
     name = "matrix-conduit";
 
     nodes = {
-      conduit =
-        args: {
-          services.matrix-conduit = {
-            enable = true;
-            settings.global.server_name = name;
-            settings.global.allow_registration = true;
-            extraEnvironment.RUST_BACKTRACE = "yes";
-          };
-          services.nginx = {
-            enable = true;
-            virtualHosts.${name} = {
-              enableACME = false;
-              forceSSL = false;
-              enableSSL = false;
+      conduit = args: {
+        services.matrix-conduit = {
+          enable = true;
+          settings.global.server_name = name;
+          settings.global.allow_registration = true;
+          extraEnvironment.RUST_BACKTRACE = "yes";
+        };
+        services.nginx = {
+          enable = true;
+          virtualHosts.${name} = {
+            enableACME = false;
+            forceSSL = false;
+            enableSSL = false;
 
-              locations."/_matrix" = {
-                proxyPass = "http://[::1]:6167";
-              };
+            locations."/_matrix" = {
+              proxyPass = "http://[::1]:6167";
             };
           };
-          networking.firewall.allowedTCPPorts = [ 80 ];
-        }
-      ;
+        };
+        networking.firewall.allowedTCPPorts = [ 80 ];
+      };
       client =
         {
           pkgs,

@@ -84,47 +84,45 @@ let
         )
       )
   ;
-  commonServiceSettings =
-    srv: {
-      origin = mkOption {
-        description =
-          lib.mdDoc
-            "URL ${srv}.sr.ht is being served at (protocol://domain)"
-        ;
-        type = types.str;
-        default = "https://${srv}.${domain}";
-        defaultText = "https://${srv}.example.com";
+  commonServiceSettings = srv: {
+    origin = mkOption {
+      description =
+        lib.mdDoc
+          "URL ${srv}.sr.ht is being served at (protocol://domain)"
+      ;
+      type = types.str;
+      default = "https://${srv}.${domain}";
+      defaultText = "https://${srv}.example.com";
+    };
+    debug-host = mkOption {
+      description = lib.mdDoc "Address to bind the debug server to.";
+      type = with types; nullOr str;
+      default = null;
+    };
+    debug-port = mkOption {
+      description = lib.mdDoc "Port to bind the debug server to.";
+      type = with types; nullOr str;
+      default = null;
+    };
+    connection-string = mkOption {
+      description = lib.mdDoc "SQLAlchemy connection string for the database.";
+      type = types.str;
+      default = "postgresql:///localhost?user=${srv}srht&host=/run/postgresql";
+    };
+    migrate-on-upgrade =
+      mkEnableOption (lib.mdDoc "automatic migrations on package upgrade") // {
+        default = true;
       };
-      debug-host = mkOption {
-        description = lib.mdDoc "Address to bind the debug server to.";
-        type = with types; nullOr str;
-        default = null;
-      };
-      debug-port = mkOption {
-        description = lib.mdDoc "Port to bind the debug server to.";
-        type = with types; nullOr str;
-        default = null;
-      };
-      connection-string = mkOption {
-        description = lib.mdDoc "SQLAlchemy connection string for the database.";
-        type = types.str;
-        default = "postgresql:///localhost?user=${srv}srht&host=/run/postgresql";
-      };
-      migrate-on-upgrade =
-        mkEnableOption (lib.mdDoc "automatic migrations on package upgrade") // {
-          default = true;
-        };
-      oauth-client-id = mkOption {
-        description = lib.mdDoc "${srv}.sr.ht's OAuth client id for meta.sr.ht.";
-        type = types.str;
-      };
-      oauth-client-secret = mkOption {
-        description = lib.mdDoc "${srv}.sr.ht's OAuth client secret for meta.sr.ht.";
-        type = types.path;
-        apply = s: "<" + toString s;
-      };
-    }
-  ;
+    oauth-client-id = mkOption {
+      description = lib.mdDoc "${srv}.sr.ht's OAuth client id for meta.sr.ht.";
+      type = types.str;
+    };
+    oauth-client-secret = mkOption {
+      description = lib.mdDoc "${srv}.sr.ht's OAuth client secret for meta.sr.ht.";
+      type = types.path;
+      apply = s: "<" + toString s;
+    };
+  };
 
   # Specialized python containing all the modules
   python = pkgs.sourcehut.python.withPackages (

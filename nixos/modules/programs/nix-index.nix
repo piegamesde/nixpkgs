@@ -31,15 +31,13 @@ in
   config = lib.mkIf cfg.enable {
     assertions =
       let
-        checkOpt =
-          name: {
-            assertion = cfg.${name} -> !config.programs.command-not-found.enable;
-            message = ''
-              The 'programs.command-not-found.enable' option is mutually exclusive
-              with the 'programs.nix-index.${name}' option.
-            '';
-          }
-        ;
+        checkOpt = name: {
+          assertion = cfg.${name} -> !config.programs.command-not-found.enable;
+          message = ''
+            The 'programs.command-not-found.enable' option is mutually exclusive
+            with the 'programs.nix-index.${name}' option.
+          '';
+        };
       in
       [
         (checkOpt "enableBashIntegration")

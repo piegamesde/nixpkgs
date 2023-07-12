@@ -34,15 +34,13 @@ let
       meta
     ;
 
-    extraPkgs =
-      p: [
-        p.ayatana-ido
-        p.libayatana-appindicator
-        p.libayatana-indicator
-        p.libdbusmenu
-        p.libepoxy
-      ]
-    ;
+    extraPkgs = p: [
+      p.ayatana-ido
+      p.libayatana-appindicator
+      p.libayatana-indicator
+      p.libdbusmenu
+      p.libepoxy
+    ];
 
     extraInstallCommands = ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}

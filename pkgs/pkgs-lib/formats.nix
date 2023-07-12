@@ -469,12 +469,10 @@ rec {
 
       lib =
         let
-          mkRaw =
-            value: {
-              inherit value;
-              _elixirType = "raw";
-            }
-          ;
+          mkRaw = value: {
+            inherit value;
+            _elixirType = "raw";
+          };
         in
         {
           inherit mkRaw;
@@ -492,28 +490,22 @@ rec {
 
              Note: lowercase atoms still need to be prefixed by ':'
           */
-          mkAtom =
-            value: {
-              inherit value;
-              _elixirType = "atom";
-            }
-          ;
+          mkAtom = value: {
+            inherit value;
+            _elixirType = "atom";
+          };
 
           # Make an Elixir tuple out of a list.
-          mkTuple =
-            value: {
-              inherit value;
-              _elixirType = "tuple";
-            }
-          ;
+          mkTuple = value: {
+            inherit value;
+            _elixirType = "tuple";
+          };
 
           # Make an Elixir map out of an attribute set.
-          mkMap =
-            value: {
-              inherit value;
-              _elixirType = "map";
-            }
-          ;
+          mkMap = value: {
+            inherit value;
+            _elixirType = "map";
+          };
 
           /* Contains Elixir types. Every type it exports can also be replaced
              by raw Elixir code (i.e. every type is `either type rawElixir`).

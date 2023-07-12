@@ -455,17 +455,15 @@ let
 
     buildPhase =
       let
-        buildCommand =
-          target: ''
-            TERM=dumb ninja -C "${buildPath}" -j$NIX_BUILD_CORES "${target}"
-            (
-              source chrome/installer/linux/common/installer.include
-              PACKAGE=$packageName
-              MENUNAME="Chromium"
-              process_template chrome/app/resources/manpage.1.in "${buildPath}/chrome.1"
-            )
-          ''
-        ;
+        buildCommand = target: ''
+          TERM=dumb ninja -C "${buildPath}" -j$NIX_BUILD_CORES "${target}"
+          (
+            source chrome/installer/linux/common/installer.include
+            PACKAGE=$packageName
+            MENUNAME="Chromium"
+            process_template chrome/app/resources/manpage.1.in "${buildPath}/chrome.1"
+          )
+        '';
         targets = extraAttrs.buildTargets or [ ];
         commands = map buildCommand targets;
       in

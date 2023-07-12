@@ -3,8 +3,7 @@
 }:
 
 let
-  echo_colored_body =
-    start_escape:
+  echo_colored_body = start_escape:
     # Body of a function that behaves like "echo" but
     # has the output colored by the given start_escape
     # sequence. E.g.
@@ -35,37 +34,32 @@ let
       local start_escape="$(printf '${start_escape}')"
       local reset="$(printf '\033[0m')"
       echo $echo_args $start_escape"$@"$reset
-    ''
-  ;
+    '';
   echo_conditional_colored_body =
     colors: start_escape:
     if colors == "always" then (echo_colored_body start_escape) else ''echo "$@"''
   ;
 in
 {
-  echo_colored =
-    colors: ''
-      echo_colored() {
-        ${echo_conditional_colored_body colors "\\033[0;1;32m"}
-      }
+  echo_colored = colors: ''
+    echo_colored() {
+      ${echo_conditional_colored_body colors "\\033[0;1;32m"}
+    }
 
-      echo_error() {
-        ${echo_conditional_colored_body colors "\\033[0;1;31m"}
-      }
-    ''
-  ;
+    echo_error() {
+      ${echo_conditional_colored_body colors "\\033[0;1;31m"}
+    }
+  '';
 
-  noisily =
-    colors: verbose: ''
-        noisily() {
-      	  ${
-           lib.optionalString verbose ''
-                   echo_colored -n "Running "
-                   echo $@
-             	  ''
-         }
-      	  $@
-        }
-    ''
-  ;
+  noisily = colors: verbose: ''
+      noisily() {
+    	  ${
+         lib.optionalString verbose ''
+                 echo_colored -n "Running "
+                 echo $@
+           	  ''
+       }
+    	  $@
+      }
+  '';
 }

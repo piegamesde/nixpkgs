@@ -111,29 +111,27 @@ in
 # FHS simulates a classic linux shell
 buildFHSEnv {
   name = "RuneScape";
-  targetPkgs =
-    pkgs: [
-      runescape
-      cairo
-      dpkg
-      gcc-unwrapped
-      glib
-      glibc
-      gtk2-x11
-      libGL
-      libpulseaudio
-      libSM
-      libXxf86vm
-      libX11
-      openssl_1_1
-      pango
-      SDL2
-      xdg-utils
-      xorg.libX11
-      xorg_sys_opengl
-      zlib
-    ]
-  ;
+  targetPkgs = pkgs: [
+    runescape
+    cairo
+    dpkg
+    gcc-unwrapped
+    glib
+    glibc
+    gtk2-x11
+    libGL
+    libpulseaudio
+    libSM
+    libXxf86vm
+    libX11
+    openssl_1_1
+    pango
+    SDL2
+    xdg-utils
+    xorg.libX11
+    xorg_sys_opengl
+    zlib
+  ];
   multiPkgs = pkgs: [ libGL ];
   runScript = "runescape-launcher";
   extraInstallCommands = ''

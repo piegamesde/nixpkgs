@@ -526,17 +526,15 @@ in
 
       systemd.services =
         let
-          baseNvidiaService =
-            state: {
-              description = "NVIDIA system ${state} actions";
+          baseNvidiaService = state: {
+            description = "NVIDIA system ${state} actions";
 
-              path = with pkgs; [ kbd ];
-              serviceConfig = {
-                Type = "oneshot";
-                ExecStart = "${nvidia_x11.out}/bin/nvidia-sleep.sh '${state}'";
-              };
-            }
-          ;
+            path = with pkgs; [ kbd ];
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "${nvidia_x11.out}/bin/nvidia-sleep.sh '${state}'";
+            };
+          };
 
           nvidiaService =
             sleepState:

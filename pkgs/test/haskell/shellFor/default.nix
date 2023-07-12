@@ -6,12 +6,10 @@
 }:
 
 (haskellPackages.shellFor {
-  packages =
-    p: [
-      p.constraints
-      p.linear
-    ]
-  ;
+  packages = p: [
+    p.constraints
+    p.linear
+  ];
   extraDependencies = p: { libraryHaskellDepends = [ p.releaser ]; };
   nativeBuildInputs = [ cabal-install ];
   phases = [

@@ -11,24 +11,22 @@ import ./make-test-python.nix (
       print(db.greetings.findOne().greeting);
     '';
 
-    runMongoDBTest =
-      pkg: ''
-        node.execute("(rm -rf data || true) && mkdir data")
-        node.execute(
-            "${pkg}/bin/mongod --fork --logpath logs --dbpath data"
-        )
-        node.wait_for_open_port(27017)
+    runMongoDBTest = pkg: ''
+      node.execute("(rm -rf data || true) && mkdir data")
+      node.execute(
+          "${pkg}/bin/mongod --fork --logpath logs --dbpath data"
+      )
+      node.wait_for_open_port(27017)
 
-        assert "hello" in node.succeed(
-            "${pkg}/bin/mongo ${testQuery}"
-        )
+      assert "hello" in node.succeed(
+          "${pkg}/bin/mongo ${testQuery}"
+      )
 
-        node.execute(
-            "${pkg}/bin/mongod --shutdown --dbpath data"
-        )
-        node.wait_for_closed_port(27017)
-      ''
-    ;
+      node.execute(
+          "${pkg}/bin/mongod --shutdown --dbpath data"
+      )
+      node.wait_for_closed_port(27017)
+    '';
   in
   {
     name = "mongodb";

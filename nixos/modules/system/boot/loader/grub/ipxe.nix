@@ -12,15 +12,13 @@ with lib;
 let
   scripts = builtins.attrNames config.boot.loader.grub.ipxe;
 
-  grubEntry =
-    name: ''
-      menuentry "iPXE - ${name}" {
-        linux16 @bootRoot@/ipxe.lkrn
-        initrd16 @bootRoot@/${name}.ipxe
-      }
+  grubEntry = name: ''
+    menuentry "iPXE - ${name}" {
+      linux16 @bootRoot@/ipxe.lkrn
+      initrd16 @bootRoot@/${name}.ipxe
+    }
 
-    ''
-  ;
+  '';
 
   scriptFile =
     name:

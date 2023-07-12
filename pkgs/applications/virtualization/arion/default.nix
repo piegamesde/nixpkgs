@@ -33,33 +33,31 @@ let
 
   inherit (haskellPackages) arion-compose;
 
-  cabalOverrides =
-    o: {
-      buildTools = (o.buildTools or [ ]) ++ [ buildPackages.makeWrapper ];
-      passthru = (o.passthru or { }) // { inherit eval build; };
-      src = arion-compose.src;
+  cabalOverrides = o: {
+    buildTools = (o.buildTools or [ ]) ++ [ buildPackages.makeWrapper ];
+    passthru = (o.passthru or { }) // { inherit eval build; };
+    src = arion-compose.src;
 
-      # PYTHONPATH
-      #
-      # We close off the python module search path!
-      #
-      # Accepting directories from the environment into the search path
-      # tends to break things. Docker Compose does not have a plugin
-      # system as far as I can tell, so I don't expect this to break a
-      # feature, but rather to make the program more robustly self-
-      # contained.
+    # PYTHONPATH
+    #
+    # We close off the python module search path!
+    #
+    # Accepting directories from the environment into the search path
+    # tends to break things. Docker Compose does not have a plugin
+    # system as far as I can tell, so I don't expect this to break a
+    # feature, but rather to make the program more robustly self-
+    # contained.
 
-      postInstall = ''
-        ${o.postInstall or ""}
-              mkdir -p $out/libexec
-              mv $out/bin/arion $out/libexec
-              makeWrapper $out/libexec/arion $out/bin/arion \
-                --unset PYTHONPATH \
-                --prefix PATH : ${lib.makeBinPath [ pkgs.docker-compose_1 ]} \
-                ;
-      '';
-    }
-  ;
+    postInstall = ''
+      ${o.postInstall or ""}
+            mkdir -p $out/libexec
+            mv $out/bin/arion $out/libexec
+            makeWrapper $out/libexec/arion $out/bin/arion \
+              --unset PYTHONPATH \
+              --prefix PATH : ${lib.makeBinPath [ pkgs.docker-compose_1 ]} \
+              ;
+    '';
+  };
 
   # Unpacked sources for evaluation by `eval`
   srcUnpacked =
