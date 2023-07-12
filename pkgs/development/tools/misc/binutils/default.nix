@@ -105,8 +105,7 @@ stdenv.mkDerivation (
       # https://github.com/archlinux/svntogit-community/blob/c8d53dd1734df7ab15931f7fad0c9acb8386904c/trunk/avr-size.patch
       ++ lib.optional targetPlatform.isAvr ./avr-size.patch
       ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
-      ++ lib.optional
-        stdenv.targetPlatform.isMips64n64
+      ++ lib.optional stdenv.targetPlatform.isMips64n64
         # this patch is from debian:
         # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
         (

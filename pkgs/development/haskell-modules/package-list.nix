@@ -26,8 +26,7 @@ let
     )
   );
 in
-runCommand "hackage-package-list"
-{ }
+runCommand "hackage-package-list" { }
 # This command will make a join between all packages on hackage and haskellPackages.*.
 # It creates a valid csv file which can be uploaded to hackage.haskell.org.
 # The call is wrapped in echo $(...) to trim trailing newline, which hackage requires.

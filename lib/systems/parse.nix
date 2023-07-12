@@ -816,8 +816,9 @@ rec {
         abi = elemAt l 3;
       };
     }
-    .${toString (length l)} or (throw
-      "system string has invalid number of hyphen-separated components")
+    .${toString (length l)}
+      or (throw
+        "system string has invalid number of hyphen-separated components")
     ;
 
   # This should revert the job done by config.guess from the gcc compiler.

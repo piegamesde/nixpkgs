@@ -24,7 +24,8 @@
   dejagnu,
   sourceHighlight,
 
-  pythonSupport ? stdenv.hostPlatform == stdenv.buildPlatform
+  pythonSupport ?
+    stdenv.hostPlatform == stdenv.buildPlatform
     && !stdenv.hostPlatform.isCygwin,
   python3 ? null,
   enableDebuginfod ? lib.meta.availableOn stdenv.hostPlatform elfutils,

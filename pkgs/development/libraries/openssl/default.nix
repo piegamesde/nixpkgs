@@ -248,8 +248,7 @@ let
             mv $out/bin $bin/bin
 
           ''
-          + lib.optionalString
-            (!stdenv.hostPlatform.isWindows)
+          + lib.optionalString (!stdenv.hostPlatform.isWindows)
             # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
             ''
               # c_rehash is a legacy perl script with the same functionality

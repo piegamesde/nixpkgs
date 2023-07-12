@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     # configure script needs `clear`
-    [ groff ncurses ];
+    [
+      groff
+      ncurses
+    ];
 
   buildInputs = [
     bzip2

@@ -332,8 +332,7 @@ rec { # un-indented
         "icu"
         "graphite2"
       ]
-      ++ map
-        (prog: "--disable-${prog}") # don't build things we already have
+      ++ map (prog: "--disable-${prog}") # don't build things we already have
         (
           [
             "tex"
@@ -361,8 +360,7 @@ rec { # un-indented
       let
         luajit = lib.optionalString withLuaJIT ",luajit";
       in
-      lib.optionalString
-      (stdenv.hostPlatform != stdenv.buildPlatform)
+      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
       # without this, the native builds attempt to use the binary
       # ${target-triple}-gcc, but we need to use the wrapper script.
       ''

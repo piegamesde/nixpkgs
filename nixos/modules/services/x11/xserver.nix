@@ -41,7 +41,10 @@ let
     # Sans) than that horror.  But we do need the Adobe fonts for some
     # old non-fontconfig applications.  (Possibly this could be done
     # better using a fontconfig rule.)
-    [ pkgs.xorg.fontadobe100dpi pkgs.xorg.fontadobe75dpi ]
+    [
+      pkgs.xorg.fontadobe100dpi
+      pkgs.xorg.fontadobe75dpi
+    ]
     ;
 
   xrandrOptions = {

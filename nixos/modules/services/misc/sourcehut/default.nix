@@ -36,8 +36,7 @@ let
   };
   configIniOfService =
     srv:
-    settingsFormat.generate
-    "sourcehut-${srv}-config.ini"
+    settingsFormat.generate "sourcehut-${srv}-config.ini"
     # Each service needs access to only a subset of sections (and secrets).
     (
       filterAttrs (k: v: v != null) (

@@ -1018,8 +1018,7 @@ rec {
         '';
       };
 
-      closureRoots = lib.optionals
-        includeStorePaths # normally true
+      closureRoots = lib.optionals includeStorePaths # normally true
         ([
           baseJson
           customisationLayer
@@ -1160,7 +1159,8 @@ rec {
   streamNixShellImage =
     { # The derivation whose environment this docker image should be based on
       drv, # Image Name
-      name ? drv.name
+      name ?
+        drv.name
         + "-env", # Image tag, the Nix's output hash will be used if null
       tag ?
         null, # User id to run the container as. Defaults to 1000, because many

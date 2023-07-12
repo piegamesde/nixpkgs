@@ -83,7 +83,8 @@
   testVersion =
     {
       package,
-      command ? "${
+      command ?
+        "${
           package.meta.mainProgram or package.pname or package.name
         } --version",
       version ? package.version,

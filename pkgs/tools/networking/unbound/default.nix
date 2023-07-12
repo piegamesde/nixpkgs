@@ -164,8 +164,7 @@ stdenv.mkDerivation rec {
     ;
 
   preFixup =
-    lib.optionalString
-    withSlimLib
+    lib.optionalString withSlimLib
     # Build libunbound again, but only against nettle instead of openssl.
     # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
     ''
