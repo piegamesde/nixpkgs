@@ -220,8 +220,8 @@ rec { # un-indented
       ''
         PATH="$out/bin:$PATH" sh ../texk/texlive/linked_scripts/texlive-extra/texlinks.sh --cnffile "$out/share/texmf-dist/web2c/fmtutil.cnf" --unlink "$out/bin"
       ''
-      + # a few texmf-dist files are useful; take the rest from pkgs
-      ''
+      # a few texmf-dist files are useful; take the rest from pkgs
+      + ''
         mv "$out/share/texmf-dist/web2c/texmf.cnf" .
         rm -r "$out/share/texmf-dist"
         mkdir -p "$out"/share/texmf-dist/{web2c,scripts/texlive/TeXLive}
@@ -251,17 +251,17 @@ rec { # un-indented
             >> "$out/share/texmf-dist/scripts/texlive/scripts.lst"
         ''
       )
-      + # doc location identical with individual TeX pkgs
-      ''
+      # doc location identical with individual TeX pkgs
+      + ''
         mkdir -p "$doc/doc"
         mv "$out"/share/{man,info} "$doc"/doc
       ''
-      + # remove manpages for utils that live in texlive.texlive-scripts to avoid a conflict in buildEnv
-      ''
+      # remove manpages for utils that live in texlive.texlive-scripts to avoid a conflict in buildEnv
+      + ''
         (cd "$doc"/doc/man/man1; rm {fmtutil-sys.1,fmtutil.1,mktexfmt.1,mktexmf.1,mktexpk.1,mktextfm.1,texhash.1,updmap-sys.1,updmap.1})
       ''
-      + # install himktables in separate output for use in cross compilation
-      ''
+      # install himktables in separate output for use in cross compilation
+      + ''
         mkdir -p $dev/bin
         cp texk/web2c/.libs/himktables $dev/bin/himktables
       ''

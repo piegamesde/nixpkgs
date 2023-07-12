@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
             "https://github.com/nmap/nmap/commit/5bbe66f1bd8cbd3718f5805139e2e8139e6849bb.diff";
           includes = [ "nping/EchoServer.cc" ];
           sha256 = "0xcph9mycy57yryjg253frxyz87c4135rrbndlqw1400c8jxq70c";
-        })
+        }
+      )
     ]
     ;
 

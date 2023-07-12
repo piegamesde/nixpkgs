@@ -69,28 +69,28 @@ let
         fi
       ''
       +
-      /* Override lore for some packages. Unsure, but for now:
-         1. start with the ~name (pname-version)
-         2. remove characters from the end until we find a match
-            in overrides/
-         3. execute the override script with the list of expected
-            lore types
-      */
-      ''
-        i=''${#identifier}
-        filter=
-        while [[ $i > 0 ]] && [[ -z "$filter" ]]; do
-          if [[ -f "${overrides}/''${identifier:0:$i}" ]]; then
-            filter="${overrides}/''${identifier:0:$i}"
-            echo using "${overrides}/''${identifier:0:$i}" to generate overriden binlore for $drv
-            break
+        /* Override lore for some packages. Unsure, but for now:
+           1. start with the ~name (pname-version)
+           2. remove characters from the end until we find a match
+              in overrides/
+           3. execute the override script with the list of expected
+              lore types
+        */
+        ''
+          i=''${#identifier}
+          filter=
+          while [[ $i > 0 ]] && [[ -z "$filter" ]]; do
+            if [[ -f "${overrides}/''${identifier:0:$i}" ]]; then
+              filter="${overrides}/''${identifier:0:$i}"
+              echo using "${overrides}/''${identifier:0:$i}" to generate overriden binlore for $drv
+              break
+            fi
+            ((i--)) || true # don't break build
+          done # || true # don't break build
+          if [[ -d "${drv}/bin" ]] || [[ -d "${drv}/lib" ]] || [[ -d "${drv}/libexec" ]]; then
+            ${yara}/bin/yara --scan-list --recursive ${lore.rules} <(printf '%s\n' ${drv}/{bin,lib,libexec}) | ${yallback}/bin/yallback ${lore.yallback} "$filter"
           fi
-          ((i--)) || true # don't break build
-        done # || true # don't break build
-        if [[ -d "${drv}/bin" ]] || [[ -d "${drv}/lib" ]] || [[ -d "${drv}/libexec" ]]; then
-          ${yara}/bin/yara --scan-list --recursive ${lore.rules} <(printf '%s\n' ${drv}/{bin,lib,libexec}) | ${yallback}/bin/yallback ${lore.yallback} "$filter"
-        fi
-      ''
+        ''
       ;
   };
   overrides = (src + "/overrides");

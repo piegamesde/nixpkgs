@@ -74,14 +74,14 @@ stdenv.mkDerivation rec {
       sed -i -e "s/\(libgettextsrc_la_LDFLAGS = \)/\\1..\/gnulib-lib\/libxml_rpl.la /" gettext-tools/src/Makefile.in
     ''
     +
-    # This change to gettext's vendored copy of gnulib is already
-    # merged upstream; we can drop this patch on the next version
-    # bump.  It must be applied twice because gettext vendors gnulib
-    # not once, but twice!
-    ''
-      patch -p2 -d gettext-tools/gnulib-lib/ < ${gnulib.passthru.longdouble-redirect-patch}
-      patch -p2 -d gettext-tools/libgrep/    < ${gnulib.passthru.longdouble-redirect-patch}
-    ''
+      # This change to gettext's vendored copy of gnulib is already
+      # merged upstream; we can drop this patch on the next version
+      # bump.  It must be applied twice because gettext vendors gnulib
+      # not once, but twice!
+      ''
+        patch -p2 -d gettext-tools/gnulib-lib/ < ${gnulib.passthru.longdouble-redirect-patch}
+        patch -p2 -d gettext-tools/libgrep/    < ${gnulib.passthru.longdouble-redirect-patch}
+      ''
     ;
 
   strictDeps = true;

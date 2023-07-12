@@ -60,8 +60,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional modTlsSupport rustls-ffi
     ++ lib.optional (modTlsSupport && stdenv.isDarwin) Foundation
     ++ lib.optional ldapSupport openldap
-    ++ # there is no --with-ldap flag
-      lib.optional libxml2Support libxml2
+    # there is no --with-ldap flag
+    ++ lib.optional libxml2Support libxml2
     ++ lib.optional http2Support nghttp2
     ++ lib.optional stdenv.isDarwin libiconv
     ;

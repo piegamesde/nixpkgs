@@ -275,45 +275,45 @@ backendStdenv.mkDerivation rec {
       sed -i "1 i#define _BITS_FLOATN_H" "$out/include/host_defines.h"
     ''
     +
-    # Point NVCC at a compatible compiler
-    # FIXME: redist cuda_nvcc copy-pastes this code
-    # Refer to comments in the overrides for cuda_nvcc for explanation
-    # CUDA_TOOLKIT_ROOT_DIR is legacy,
-    # Cf. https://cmake.org/cmake/help/latest/module/FindCUDA.html#input-variables
-    # NOTE: We unconditionally set -Xfatbin=-compress-all, which reduces the size of the compiled
-    #   binaries. If binaries grow over 2GB, they will fail to link. This is a problem for us, as
-    #   the default set of CUDA capabilities we build can regularly cause this to occur (for
-    #   example, with Magma).
-    ''
-      mkdir -p $out/nix-support
-      cat <<EOF >> $out/nix-support/setup-hook
-      cmakeFlags+=' -DCUDA_TOOLKIT_ROOT_DIR=$out'
-      cmakeFlags+=' -DCUDA_HOST_COMPILER=${backendStdenv.cc}/bin'
-      cmakeFlags+=' -DCMAKE_CUDA_HOST_COMPILER=${backendStdenv.cc}/bin'
-      if [ -z "\''${CUDAHOSTCXX-}" ]; then
-        export CUDAHOSTCXX=${backendStdenv.cc}/bin;
-      fi
-      export NVCC_PREPEND_FLAGS+=' --compiler-bindir=${backendStdenv.cc}/bin -Xfatbin=-compress-all'
-      EOF
+      # Point NVCC at a compatible compiler
+      # FIXME: redist cuda_nvcc copy-pastes this code
+      # Refer to comments in the overrides for cuda_nvcc for explanation
+      # CUDA_TOOLKIT_ROOT_DIR is legacy,
+      # Cf. https://cmake.org/cmake/help/latest/module/FindCUDA.html#input-variables
+      # NOTE: We unconditionally set -Xfatbin=-compress-all, which reduces the size of the compiled
+      #   binaries. If binaries grow over 2GB, they will fail to link. This is a problem for us, as
+      #   the default set of CUDA capabilities we build can regularly cause this to occur (for
+      #   example, with Magma).
+      ''
+        mkdir -p $out/nix-support
+        cat <<EOF >> $out/nix-support/setup-hook
+        cmakeFlags+=' -DCUDA_TOOLKIT_ROOT_DIR=$out'
+        cmakeFlags+=' -DCUDA_HOST_COMPILER=${backendStdenv.cc}/bin'
+        cmakeFlags+=' -DCMAKE_CUDA_HOST_COMPILER=${backendStdenv.cc}/bin'
+        if [ -z "\''${CUDAHOSTCXX-}" ]; then
+          export CUDAHOSTCXX=${backendStdenv.cc}/bin;
+        fi
+        export NVCC_PREPEND_FLAGS+=' --compiler-bindir=${backendStdenv.cc}/bin -Xfatbin=-compress-all'
+        EOF
 
-      # Move some libraries to the lib output so that programs that
-      # depend on them don't pull in this entire monstrosity.
-      mkdir -p $lib/lib
-      mv -v $out/lib64/libcudart* $lib/lib/
+        # Move some libraries to the lib output so that programs that
+        # depend on them don't pull in this entire monstrosity.
+        mkdir -p $lib/lib
+        mv -v $out/lib64/libcudart* $lib/lib/
 
-      # Remove OpenCL libraries as they are provided by ocl-icd and driver.
-      rm -f $out/lib64/libOpenCL*
-      ${lib.optionalString
-        (lib.versionAtLeast version "10.1" && (lib.versionOlder version "11"))
-        ''
-          mv $out/lib64 $out/lib
-          mv $out/extras/CUPTI/lib64/libcupti* $out/lib
-        ''}
+        # Remove OpenCL libraries as they are provided by ocl-icd and driver.
+        rm -f $out/lib64/libOpenCL*
+        ${lib.optionalString
+          (lib.versionAtLeast version "10.1" && (lib.versionOlder version "11"))
+          ''
+            mv $out/lib64 $out/lib
+            mv $out/extras/CUPTI/lib64/libcupti* $out/lib
+          ''}
 
-      # nvprof do not find any program to profile if LD_LIBRARY_PATH is not set
-      wrapProgram $out/bin/nvprof \
-        --prefix LD_LIBRARY_PATH : $out/lib
-    ''
+        # nvprof do not find any program to profile if LD_LIBRARY_PATH is not set
+        wrapProgram $out/bin/nvprof \
+          --prefix LD_LIBRARY_PATH : $out/lib
+      ''
     + lib.optionalString (lib.versionOlder version "8.0") ''
       # Hack to fix building against recent Glibc/GCC.
       echo "NIX_CFLAGS_COMPILE+=' -D_FORCE_INLINES'" >> $out/nix-support/setup-hook

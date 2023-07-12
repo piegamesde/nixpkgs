@@ -53,8 +53,8 @@
         };
       in
       thunderbird-unwrapped.extraPostPatch or ""
-      + # bash
-      ''
+      # bash
+      + ''
         PATH=$PATH:${lib.makeBinPath [ git ]}
         patches=$(mktemp -d)
         for dir in branding bugs external features misc; do

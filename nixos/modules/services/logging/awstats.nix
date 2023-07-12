@@ -235,15 +235,15 @@ in
                     -e 's|^\(ShowSMTPErrorsStats\)=.*$|\1=1|' \
                   ''
                   +
-                  # common options
-                  ''
-                    -e 's|^\(DirData\)=.*$|\1="${cfg.dataDir}/${name}"|' \
-                    -e 's|^\(DirIcons\)=.*$|\1="icons"|' \
-                    -e 's|^\(CreateDirDataIfNotExists\)=.*$|\1=1|' \
-                    -e 's|^\(SiteDomain\)=.*$|\1="${name}"|' \
-                    -e 's|^\(LogFile\)=.*$|\1="${opts.logFile}"|' \
-                    -e 's|^\(LogFormat\)=.*$|\1="${opts.logFormat}"|' \
-                  ''
+                    # common options
+                    ''
+                      -e 's|^\(DirData\)=.*$|\1="${cfg.dataDir}/${name}"|' \
+                      -e 's|^\(DirIcons\)=.*$|\1="icons"|' \
+                      -e 's|^\(CreateDirDataIfNotExists\)=.*$|\1=1|' \
+                      -e 's|^\(SiteDomain\)=.*$|\1="${name}"|' \
+                      -e 's|^\(LogFile\)=.*$|\1="${opts.logFile}"|' \
+                      -e 's|^\(LogFormat\)=.*$|\1="${opts.logFormat}"|' \
+                    ''
                   +
                     # extra config
                     concatStringsSep "\n" (
