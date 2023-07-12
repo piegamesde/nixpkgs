@@ -213,8 +213,9 @@ in
           };
         };
         options.sync_api.search = {
-          enable =
-            lib.mkEnableOption (lib.mdDoc "Dendrite's full-text search engine");
+          enable = lib.mkEnableOption (
+            lib.mdDoc "Dendrite's full-text search engine"
+          );
           index_path = lib.mkOption {
             type = lib.types.str;
             default = "${workingDir}/searchindex";
@@ -304,7 +305,9 @@ in
         RuntimeDirectoryMode = "0700";
         LimitNOFILE = 65535;
         EnvironmentFile =
-          lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+          lib.mkIf (cfg.environmentFile != null)
+            cfg.environmentFile
+          ;
         LoadCredential = cfg.loadCredential;
         ExecStartPre = [ ''
           ${pkgs.envsubst}/bin/envsubst \

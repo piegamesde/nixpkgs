@@ -59,12 +59,11 @@ mkDerivation rec {
   ];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals
-    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
-    [
-      # Needed with GCC 12 but problematic with some old GCCs
-      "-Wno-error=use-after-free"
-    ]
+    lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
+      [
+        # Needed with GCC 12 but problematic with some old GCCs
+        "-Wno-error=use-after-free"
+      ]
   );
 
   meta = with lib; {

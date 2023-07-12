@@ -28,8 +28,9 @@ stdenv.mkDerivation rec {
     aws-c-common
     s2n-tls
   ];
-  propagatedBuildInputs =
-    lib.optionals stdenv.hostPlatform.isDarwin [ Security ];
+  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
+    Security
+  ];
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 

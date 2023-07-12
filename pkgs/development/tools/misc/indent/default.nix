@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
   pkgsBuildBuild = [ buildPackages.stdenv.cc ]; # needed when cross-compiling
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang "-Wno-implicit-function-declaration";
+    lib.optionalString stdenv.cc.isClang
+      "-Wno-implicit-function-declaration"
+    ;
 
   hardeningDisable = [ "format" ];
 

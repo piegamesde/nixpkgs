@@ -54,8 +54,8 @@ in
       default = lib.concatStringsSep " " (
         lib.concatLists (
           lib.mapAttrsToList
-          (k: v: if k == "_module" then [ ] else [ (lib.showOption v.loc) ])
-          ((options.fun.type.getSubOptions [ "fun" ]))
+            (k: v: if k == "_module" then [ ] else [ (lib.showOption v.loc) ])
+            ((options.fun.type.getSubOptions [ "fun" ]))
         )
       );
     };

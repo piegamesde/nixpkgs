@@ -93,9 +93,9 @@ with lib;
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore =
-      pkgs.callPackage ../../../lib/make-squashfs.nix {
-        storeContents = config.netboot.storeContents;
-      };
+      pkgs.callPackage ../../../lib/make-squashfs.nix
+        { storeContents = config.netboot.storeContents; }
+      ;
 
     # Create the initrd
     system.build.netbootRamdisk = pkgs.makeInitrdNG {

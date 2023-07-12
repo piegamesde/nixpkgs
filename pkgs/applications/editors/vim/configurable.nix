@@ -153,9 +153,9 @@ stdenv.mkDerivation rec {
       "vim_cv_stat_ignores_slash=yes"
       "vim_cv_memmove_handles_overlap=yes"
     ]
-    ++ lib.optional
-      (guiSupport == "gtk2" || guiSupport == "gtk3")
-      "--enable-gui=${guiSupport}"
+    ++
+      lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
+        "--enable-gui=${guiSupport}"
     ++ lib.optional stdenv.isDarwin (
       if darwinSupport then "--enable-darwin" else "--disable-darwin"
     )

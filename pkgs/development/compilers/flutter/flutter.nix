@@ -11,34 +11,36 @@
     ];
     platform = {
       android = lib.optionalAttrs stdenv.hostPlatform.isx86_64 (
-        (lib.genAttrs
-          [
-            "arm"
-            "arm64"
-            "x64"
-          ]
-          (
-            architecture: [
-              "profile"
-              "release"
+        (
+          lib.genAttrs
+            [
+              "arm"
+              "arm64"
+              "x64"
             ]
-          )) // {
+            (
+              architecture: [
+                "profile"
+                "release"
+              ]
+            )
+        ) // {
             x86 = [ "jit-release" ];
           }
       );
       linux = lib.optionals stdenv.hostPlatform.isLinux (
         lib.genAttrs
-        (
-          (lib.optional stdenv.hostPlatform.isx86_64 "x64")
-          ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
-        )
-        (
-          architecture: [
-            "debug"
-            "profile"
-            "release"
-          ]
-        )
+          (
+            (lib.optional stdenv.hostPlatform.isx86_64 "x64")
+            ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
+          )
+          (
+            architecture: [
+              "debug"
+              "profile"
+              "release"
+            ]
+          )
       );
     };
   },
@@ -56,8 +58,9 @@
 let
   engineArtifactDirectory =
     let
-      engineArtifacts =
-        callPackage ./engine-artifacts { inherit engineVersion; };
+      engineArtifacts = callPackage ./engine-artifacts {
+        inherit engineVersion;
+      };
     in
     runCommandLocal "flutter-engine-artifacts-${version}" { } (
       let
@@ -90,62 +93,74 @@ let
       in
       ''
         ${builtins.concatStringsSep "\n" (
-          (map
-            (
-              name:
-              mkCommonArtifactLinkCommand {
-                artifact = engineArtifacts.common.${name};
-              }
-            )
-            (
-              if includedEngineArtifacts ? common then
-                includedEngineArtifacts.common
-              else
-                [ ]
-            ))
-          ++ (builtins.foldl'
-            (
-              commands: os:
-              commands
-              ++ (builtins.foldl'
-                (
-                  commands: architecture:
-                  commands
-                  ++ (builtins.foldl'
-                    (
-                      commands: variant:
-                      commands
-                      ++ (map
-                        (
-                          artifact:
-                          mkPlatformArtifactLinkCommand {
-                            inherit artifact os architecture variant;
-                          }
-                        )
-                        engineArtifacts.platform.${os}.${architecture}.variants.${variant})
-                    )
-                    (map
-                      (
-                        artifact:
-                        mkPlatformArtifactLinkCommand {
-                          inherit artifact os architecture;
-                        }
-                      )
-                      engineArtifacts.platform.${os}.${architecture}.base)
-                    includedEngineArtifacts.platform.${os}.${architecture})
-                )
-                [ ]
-                (builtins.attrNames includedEngineArtifacts.platform.${os}))
-            )
-            [ ]
-            (
-              builtins.attrNames (
-                if includedEngineArtifacts ? platform then
-                  includedEngineArtifacts.platform
-                else
-                  { }
+          (
+            map
+              (
+                name:
+                mkCommonArtifactLinkCommand {
+                  artifact = engineArtifacts.common.${name};
+                }
               )
-            ))
+              (
+                if includedEngineArtifacts ? common then
+                  includedEngineArtifacts.common
+                else
+                  [ ]
+              )
+          )
+          ++ (
+            builtins.foldl'
+              (
+                commands: os:
+                commands
+                ++ (
+                  builtins.foldl'
+                    (
+                      commands: architecture:
+                      commands
+                      ++ (
+                        builtins.foldl'
+                          (
+                            commands: variant:
+                            commands
+                            ++ (
+                              map
+                                (
+                                  artifact:
+                                  mkPlatformArtifactLinkCommand {
+                                    inherit artifact os architecture variant;
+                                  }
+                                )
+                                engineArtifacts.platform.${os}.${architecture}.variants.${variant}
+                            )
+                          )
+                          (
+                            map
+                              (
+                                artifact:
+                                mkPlatformArtifactLinkCommand {
+                                  inherit artifact os architecture;
+                                }
+                              )
+                              engineArtifacts.platform.${os}.${architecture}.base
+                          )
+                          includedEngineArtifacts.platform.${os}.${architecture}
+                      )
+                    )
+                    [ ]
+                    (builtins.attrNames includedEngineArtifacts.platform.${os})
+                )
+              )
+              [ ]
+              (
+                builtins.attrNames (
+                  if includedEngineArtifacts ? platform then
+                    includedEngineArtifacts.platform
+                  else
+                    { }
+                )
+              )
+          )
         )}
       ''
     )

@@ -134,9 +134,9 @@ in
             "--configdir=${cfg.dataDir}"
           ]
           ++ optional cfg.requireSSL "--require-ssl"
-          ++ optional
-            (cfg.certificateFile != null)
-            "--ssl-cert=${cfg.certificateFile}"
+          ++
+            optional (cfg.certificateFile != null)
+              "--ssl-cert=${cfg.certificateFile}"
         );
         User = user;
       };

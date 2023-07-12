@@ -33,12 +33,13 @@ let
   makeCheckConfigs =
     entries:
     mapAttrs'
-    (name: conf: {
-      name = "datadog-agent/conf.d/${name}.d/conf.yaml";
-      value.source =
-        pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
-    })
-    entries
+      (name: conf: {
+        name = "datadog-agent/conf.d/${name}.d/conf.yaml";
+        value.source = pkgs.writeText "${name}-check-conf.yaml" (
+          builtins.toJSON conf
+        );
+      })
+      entries
     ;
 
   defaultChecks = {
@@ -121,7 +122,9 @@ in
 
     hostname = mkOption {
       description =
-        lib.mdDoc "The hostname to show in the Datadog dashboard (optional)";
+        lib.mdDoc
+          "The hostname to show in the Datadog dashboard (optional)"
+        ;
       default = null;
       example = "mymachine.mydomain";
       type = types.nullOr types.str;
@@ -273,24 +276,24 @@ in
         makeService =
           attrs:
           recursiveUpdate
-          {
-            path = [
-              datadogPkg
-              pkgs.sysstat
-              pkgs.procps
-              pkgs.iproute2
-            ];
-            wantedBy = [ "multi-user.target" ];
-            serviceConfig = {
-              User = "datadog";
-              Group = "datadog";
-              Restart = "always";
-              RestartSec = 2;
-            };
-            restartTriggers =
-              [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
-          }
-          attrs
+            {
+              path = [
+                datadogPkg
+                pkgs.sysstat
+                pkgs.procps
+                pkgs.iproute2
+              ];
+              wantedBy = [ "multi-user.target" ];
+              serviceConfig = {
+                User = "datadog";
+                Group = "datadog";
+                Restart = "always";
+                RestartSec = 2;
+              };
+              restartTriggers =
+                [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
+            }
+            attrs
           ;
       in
       {

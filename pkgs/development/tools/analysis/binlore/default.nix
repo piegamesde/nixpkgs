@@ -122,17 +122,17 @@ rec {
   make =
     lore: drv:
     runCommand "${drv.name}-binlore"
-    {
-      identifier = drv.name;
-      drv = drv;
-    }
-    (''
-      mkdir $out
-      touch $out/{${builtins.concatStringsSep "," lore.types}}
+      {
+        identifier = drv.name;
+        drv = drv;
+      }
+      (''
+        mkdir $out
+        touch $out/{${builtins.concatStringsSep "," lore.types}}
 
-      ${lore.callback lore drv overrides}
+        ${lore.callback lore drv overrides}
 
-      echo binlore for $drv written to $out
-    '')
+        echo binlore for $drv written to $out
+      '')
     ;
 }

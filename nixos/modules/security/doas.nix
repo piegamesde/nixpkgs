@@ -51,14 +51,12 @@ let
     in
     optionals (length cfg.extraRules > 0) [
       (optionalString (length rule.users > 0) (
-        map
-        (usr: "permit ${opts} ${mkUsrString usr} ${as} ${cmd} ${args}")
-        rule.users
+        map (usr: "permit ${opts} ${mkUsrString usr} ${as} ${cmd} ${args}")
+          rule.users
       ))
       (optionalString (length rule.groups > 0) (
-        map
-        (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}")
-        rule.groups
+        map (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}")
+          rule.groups
       ))
     ]
     ;
@@ -194,14 +192,18 @@ in
                 type = with types; listOf (either str int);
                 default = [ ];
                 description =
-                  lib.mdDoc "The usernames / UIDs this rule should apply for.";
+                  lib.mdDoc
+                    "The usernames / UIDs this rule should apply for."
+                  ;
               };
 
               groups = mkOption {
                 type = with types; listOf (either str int);
                 default = [ ];
                 description =
-                  lib.mdDoc "The groups / GIDs this rule should apply for.";
+                  lib.mdDoc
+                    "The groups / GIDs this rule should apply for."
+                  ;
               };
 
               runAs = mkOption {
@@ -279,27 +281,31 @@ in
     };
 
     environment.etc."doas.conf" = {
-      source = pkgs.runCommand "doas-conf"
-        {
-          src = pkgs.writeText "doas-conf-in" ''
-            # To modify this file, set the NixOS options
-            # `security.doas.extraRules` or `security.doas.extraConfig`. To
-            # completely replace the contents of this file, use
-            # `environment.etc."doas.conf"`.
+      source =
+        pkgs.runCommand "doas-conf"
+          {
+            src = pkgs.writeText "doas-conf-in" ''
+              # To modify this file, set the NixOS options
+              # `security.doas.extraRules` or `security.doas.extraConfig`. To
+              # completely replace the contents of this file, use
+              # `environment.etc."doas.conf"`.
 
-            # extraRules
-            ${concatStringsSep "\n" (lists.flatten (map mkRule cfg.extraRules))}
+              # extraRules
+              ${concatStringsSep "\n" (
+                lists.flatten (map mkRule cfg.extraRules)
+              )}
 
-            # extraConfig
-            ${cfg.extraConfig}
+              # extraConfig
+              ${cfg.extraConfig}
 
-            # "root" is allowed to do anything.
-            permit nopass keepenv root
-          '';
-          preferLocalBuild = true;
-        }
-        # Make sure that the doas.conf file is syntactically valid.
-        "${pkgs.buildPackages.doas}/bin/doas -C $src && cp $src $out";
+              # "root" is allowed to do anything.
+              permit nopass keepenv root
+            '';
+            preferLocalBuild = true;
+          }
+          # Make sure that the doas.conf file is syntactically valid.
+          "${pkgs.buildPackages.doas}/bin/doas -C $src && cp $src $out"
+        ;
       mode = "0440";
     };
   };

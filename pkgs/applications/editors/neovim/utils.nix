@@ -61,18 +61,21 @@ let
             optional = false;
           };
         in
-        map
-        (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; }))
-        plugins
+        map (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; }))
+          plugins
         ;
 
-      pluginRC = lib.foldl
-        (acc: p: if p.config != null then acc ++ [ p.config ] else acc)
-        [ ]
-        pluginsNormalized;
+      pluginRC =
+        lib.foldl
+          (acc: p: if p.config != null then acc ++ [ p.config ] else acc)
+          [ ]
+          pluginsNormalized
+        ;
 
       pluginsPartitioned =
-        lib.partition (x: x.optional == true) pluginsNormalized;
+        lib.partition (x: x.optional == true)
+          pluginsNormalized
+        ;
       requiredPlugins = vimUtils.requiredPluginsForPackage myVimPackage;
       getDeps = attrname: map (plugin: plugin.${attrname} or (_: [ ]));
       myVimPackage = {
@@ -172,7 +175,7 @@ let
       plugins =
         if builtins.hasAttr "plug" configure then
           throw
-          "The neovim legacy wrapper doesn't support configure.plug anymore, please setup your plugins via 'configure.packages' instead"
+            "The neovim legacy wrapper doesn't support configure.plug anymore, please setup your plugins via 'configure.packages' instead"
         else
           lib.flatten (lib.mapAttrsToList genPlugin (configure.packages or { }))
         ;
@@ -183,12 +186,14 @@ let
           opt ? [ ],
         }:
         start
-        ++ (map
-          (p: {
-            plugin = p;
-            optional = true;
-          })
-          opt)
+        ++ (
+          map
+            (p: {
+              plugin = p;
+              optional = true;
+            })
+            opt
+        )
         ;
 
       res = makeNeovimConfig {
@@ -245,7 +250,9 @@ let
         ;
 
       hostProviderLua =
-        lib.mapAttrsToList genProviderCommand hostprog_check_table;
+        lib.mapAttrsToList genProviderCommand
+          hostprog_check_table
+        ;
     in
     lib.concatStringsSep ";" hostProviderLua
     ;

@@ -20,11 +20,13 @@ let
 
   isNonEmpty =
     s:
-    (builtins.match
-      ''
-        [ 	
-        ]*''
-      s) == null
+    (
+      builtins.match
+        ''
+          [ 	
+          ]*''
+        s
+    ) == null
     ;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;
 
@@ -52,9 +54,9 @@ let
   ];
 
   nonEmptyWithoutTrailingSlash =
-    addCheckDesc "non-empty without trailing slash" types.str (
-      s: isNonEmpty s && (builtins.match ".+/" s) == null
-    );
+    addCheckDesc "non-empty without trailing slash" types.str
+      (s: isNonEmpty s && (builtins.match ".+/" s) == null)
+    ;
 
   coreFileSystemOpts =
     {
@@ -108,8 +110,9 @@ let
 
       config = {
         mountPoint = mkDefault name;
-        device =
-          mkIf (elem config.fsType specialFSTypes) (mkDefault config.fsType);
+        device = mkIf (elem config.fsType specialFSTypes) (
+          mkDefault config.fsType
+        );
       };
     }
     ;
@@ -188,9 +191,9 @@ let
             (mkIf config.autoResize [ "x-nixos.autoresize" ])
             (mkIf (utils.fsNeededForBoot config) [ "x-initrd.mount" ])
           ];
-          formatOptions =
-            mkIf (defaultFormatOptions != null) (mkDefault defaultFormatOptions)
-            ;
+          formatOptions = mkIf (defaultFormatOptions != null) (
+            mkDefault defaultFormatOptions
+          );
         }
         ;
     }
@@ -202,12 +205,12 @@ let
     mounts:
     pkgs.writeText "mounts.sh" (
       concatMapStringsSep "\n"
-      (mount: ''
-        specialMount "${mount.device}" "${mount.mountPoint}" "${
-          concatStringsSep "," mount.options
-        }" "${mount.fsType}"
-      '')
-      mounts
+        (mount: ''
+          specialMount "${mount.device}" "${mount.mountPoint}" "${
+            concatStringsSep "," mount.options
+          }" "${mount.fsType}"
+        '')
+        mounts
     )
     ;
 
@@ -258,15 +261,15 @@ let
       escape =
         string:
         builtins.replaceStrings
-        [
-          " "
-          "	"
-        ]
-        [
-          "\\040"
-          "\\011"
-        ]
-        string
+          [
+            " "
+            "	"
+          ]
+          [
+            "\\040"
+            "\\011"
+          ]
+          string
         ;
     in
     fstabFileSystems:
@@ -275,35 +278,35 @@ let
       extraOpts ? (fs: [ ]),
     }:
     concatMapStrings
-    (
-      fs:
-      (optionalString (isBindMount fs) (escape rootPrefix))
-      + (
-        if fs.device != null then
-          escape fs.device
-        else if fs.label != null then
-          "/dev/disk/by-label/${escape fs.label}"
-        else
-          throw "No device specified for mount point ‘${fs.mountPoint}’."
+      (
+        fs:
+        (optionalString (isBindMount fs) (escape rootPrefix))
+        + (
+          if fs.device != null then
+            escape fs.device
+          else if fs.label != null then
+            "/dev/disk/by-label/${escape fs.label}"
+          else
+            throw "No device specified for mount point ‘${fs.mountPoint}’."
+        )
+        + " "
+        + escape fs.mountPoint
+        + " "
+        + fs.fsType
+        + " "
+        + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
+        + " 0 "
+        + (
+          if skipCheck fs then
+            "0"
+          else if fs.mountPoint == "/" then
+            "1"
+          else
+            "2"
+        )
+        + "\n"
       )
-      + " "
-      + escape fs.mountPoint
-      + " "
-      + fs.fsType
-      + " "
-      + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
-      + " 0 "
-      + (
-        if skipCheck fs then
-          "0"
-        else if fs.mountPoint == "/" then
-          "1"
-        else
-          "2"
-      )
-      + "\n"
-    )
-    fstabFileSystems
+      fstabFileSystems
     ;
 
   initrdFstab = pkgs.writeText "initrd-fstab" (
@@ -364,7 +367,9 @@ in
       internal = true;
       default = [ ];
       description =
-        lib.mdDoc "Packages supplying file system mounters and checkers.";
+        lib.mdDoc
+          "Packages supplying file system mounters and checkers."
+        ;
     };
 
     boot.supportedFilesystems = mkOption {
@@ -442,9 +447,8 @@ in
             in
             ''
               Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
-                optionalString
-                (fs.fsType == "auto")
-                " fsType has to be explicitly set and"
+                optionalString (fs.fsType == "auto")
+                  " fsType has to be explicitly set and"
               } only the ext filesystems and f2fs support it.''
             ;
         }
@@ -477,10 +481,10 @@ in
             sw.options
             ++ optional (sw.priority != null) "pri=${toString sw.priority}"
             ++ optional (sw.discardPolicy != null) "discard${
-                optionalString (sw.discardPolicy != "both") "=${
-                  toString sw.discardPolicy
+                  optionalString (sw.discardPolicy != "both") "=${
+                      toString sw.discardPolicy
+                    }"
                 }"
-              }"
           )
           ;
       in

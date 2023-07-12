@@ -113,9 +113,10 @@ stdenv.mkDerivation rec {
       angelscript
       sqlite
     ]
-    ++ lib.optional
-      (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux)
-      libopenglrecorder
+    ++
+      lib.optional
+        (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux)
+        libopenglrecorder
     ++ lib.optional stdenv.hostPlatform.isLinux openal
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       OpenAL

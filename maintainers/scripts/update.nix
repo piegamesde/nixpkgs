@@ -92,8 +92,8 @@ let
             then
               dedupResults (
                 lib.mapAttrsToList
-                (name: elem: packagesWithPathInner (path ++ [ name ]) elem)
-                evaluatedPathContent
+                  (name: elem: packagesWithPathInner (path ++ [ name ]) elem)
+                  evaluatedPathContent
               )
             else
               [ ]
@@ -124,7 +124,7 @@ let
       maintainer =
         if !builtins.hasAttr maintainer' lib.maintainers then
           builtins.throw
-          "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
+            "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
         else
           builtins.getAttr maintainer' lib.maintainers
         ;
@@ -155,9 +155,8 @@ let
     if pathContent == null then
       builtins.throw "Attribute path `${path}` does not exist."
     else
-      packagesWithPath prefix
-      (path: pkg: builtins.hasAttr "updateScript" pkg)
-      pathContent
+      packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg)
+        pathContent
     ;
 
   # Find a package under `path` in `pkgs` and require that it has an updateScript.
@@ -170,7 +169,7 @@ let
       builtins.throw "Package with an attribute name `${path}` does not exist."
     else if !builtins.hasAttr "updateScript" package then
       builtins.throw
-      "Package with an attribute name `${path}` does not have a `passthru.updateScript` attribute defined."
+        "Package with an attribute name `${path}` does not have a `passthru.updateScript` attribute defined."
     else
       {
         attrPath = path;
@@ -249,8 +248,9 @@ let
     ;
 
   # JSON file with data for update.py.
-  packagesJson =
-    pkgs.writeText "packages.json" (builtins.toJSON (map packageData packages));
+  packagesJson = pkgs.writeText "packages.json" (
+    builtins.toJSON (map packageData packages)
+  );
 
   optionalArgs =
     lib.optional (max-workers != null) "--max-workers=${max-workers}"

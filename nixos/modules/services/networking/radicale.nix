@@ -12,7 +12,9 @@ let
 
   format = pkgs.formats.ini {
     listToValue =
-      concatMapStringsSep ", " (generators.mkValueStringDefault { });
+      concatMapStringsSep ", "
+        (generators.mkValueStringDefault { })
+      ;
   };
 
   pkg = if cfg.package == null then pkgs.radicale else cfg.package;
@@ -29,11 +31,11 @@ let
   bindLocalhost =
     cfg.settings != { }
     && !hasAttrByPath
-      [
-        "server"
-        "hosts"
-      ]
-      cfg.settings
+        [
+          "server"
+          "hosts"
+        ]
+        cfg.settings
     ;
 in
 {
@@ -130,22 +132,26 @@ in
 
     warnings =
       optional
-      (cfg.package == null && versionOlder config.system.stateVersion "17.09")
-      ''
-        The configuration and storage formats of your existing Radicale
-        installation might be incompatible with the newest version.
-        For upgrade instructions see
-        https://radicale.org/2.1.html#documentation/migration-from-1xx-to-2xx.
-        Set services.radicale.package to suppress this warning.
-      ''
-      ++ optional
-        (cfg.package == null && versionOlder config.system.stateVersion "20.09")
+        (cfg.package == null && versionOlder config.system.stateVersion "17.09")
         ''
-          The configuration format of your existing Radicale installation might be
-          incompatible with the newest version.  For upgrade instructions see
-          https://github.com/Kozea/Radicale/blob/3.0.6/NEWS.md#upgrade-checklist.
+          The configuration and storage formats of your existing Radicale
+          installation might be incompatible with the newest version.
+          For upgrade instructions see
+          https://radicale.org/2.1.html#documentation/migration-from-1xx-to-2xx.
           Set services.radicale.package to suppress this warning.
         ''
+      ++
+        optional
+          (
+            cfg.package == null
+            && versionOlder config.system.stateVersion "20.09"
+          )
+          ''
+            The configuration format of your existing Radicale installation might be
+            incompatible with the newest version.  For upgrade instructions see
+            https://github.com/Kozea/Radicale/blob/3.0.6/NEWS.md#upgrade-checklist.
+            Set services.radicale.package to suppress this warning.
+          ''
       ++ optional (cfg.config != "") ''
         The option services.radicale.config is deprecated.
         Use services.radicale.settings instead.
@@ -209,14 +215,18 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        ReadWritePaths = lib.optional
-          (hasAttrByPath
-            [
-              "storage"
-              "filesystem_folder"
-            ]
-            cfg.settings)
-          cfg.settings.storage.filesystem_folder;
+        ReadWritePaths =
+          lib.optional
+            (
+              hasAttrByPath
+                [
+                  "storage"
+                  "filesystem_folder"
+                ]
+                cfg.settings
+            )
+            cfg.settings.storage.filesystem_folder
+          ;
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"

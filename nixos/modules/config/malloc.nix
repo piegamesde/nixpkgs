@@ -35,8 +35,10 @@ let
         };
 
         systemPlatform =
-          platformMap.${pkgs.stdenv.hostPlatform.system} or (throw
-            "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
+          platformMap.${pkgs.stdenv.hostPlatform.system} or (
+            throw
+              "scudo not supported on ${pkgs.stdenv.hostPlatform.system}"
+          );
       in
       {
         libPath =
@@ -63,17 +65,19 @@ let
 
   # An output that contains only the shared library, to avoid
   # needlessly bloating the system closure
-  mallocLib = pkgs.runCommand "malloc-provider-${cfg.provider}"
-    rec {
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-      origLibPath = providerConf.libPath;
-      libName = baseNameOf origLibPath;
-    }
-    ''
-      mkdir -p $out/lib
-      cp -L $origLibPath $out/lib/$libName
-    '';
+  mallocLib =
+    pkgs.runCommand "malloc-provider-${cfg.provider}"
+      rec {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+        origLibPath = providerConf.libPath;
+        libName = baseNameOf origLibPath;
+      }
+      ''
+        mkdir -p $out/lib
+        cp -L $origLibPath $out/lib/$libName
+      ''
+    ;
 
   # The full path to the selected provider shlib.
   providerLibPath = "${mallocLib}/lib/${mallocLib.libName}";
@@ -94,11 +98,13 @@ in
         - `libc`: the standard allocator provided by libc
         ${concatStringsSep "\n" (
           mapAttrsToList
-          (
-            name: value:
-            "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}"
-          )
-          providers
+            (
+              name: value:
+              "- `${name}`: ${
+                replaceStrings [ "\n" ] [ " " ] value.description
+              }"
+            )
+            providers
         )}
 
         ::: {.warning}
@@ -112,7 +118,9 @@ in
 
   config = mkIf (cfg.provider != "libc") {
     boot.kernel.sysctl."vm.max_map_count" =
-      mkIf (cfg.provider == "graphene-hardened") (mkDefault 1048576);
+      mkIf (cfg.provider == "graphene-hardened")
+        (mkDefault 1048576)
+      ;
     environment.etc."ld-nix.so.preload".text = ''
       ${providerLibPath}
     '';
@@ -122,13 +130,11 @@ in
         r ${config.environment.etc."ld-nix.so.preload".source},
         include "${
           pkgs.apparmorRulesFromClosure
-          {
-            name = "mallocLib";
-            baseRules = [ "mr $path/lib/**.so*" ];
-          }
-          [
-            mallocLib
-          ]
+            {
+              name = "mallocLib";
+              baseRules = [ "mr $path/lib/**.so*" ];
+            }
+            [ mallocLib ]
         }"
       '';
     };

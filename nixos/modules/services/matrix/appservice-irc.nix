@@ -15,30 +15,32 @@ let
 
   jsonType = (pkgs.formats.json { }).type;
 
-  configFile = pkgs.runCommand "matrix-appservice-irc.yml"
-    {
-      # Because this program will be run at build time, we need `nativeBuildInputs`
-      nativeBuildInputs = [
-        (pkgs.python3.withPackages (
-          ps: [
-            ps.pyyaml
-            ps.jsonschema
-          ]
-        ))
-      ];
-      preferLocalBuild = true;
+  configFile =
+    pkgs.runCommand "matrix-appservice-irc.yml"
+      {
+        # Because this program will be run at build time, we need `nativeBuildInputs`
+        nativeBuildInputs = [
+          (pkgs.python3.withPackages (
+            ps: [
+              ps.pyyaml
+              ps.jsonschema
+            ]
+          ))
+        ];
+        preferLocalBuild = true;
 
-      config = builtins.toJSON cfg.settings;
-      passAsFile = [ "config" ];
-    }
-    ''
-      # The schema is given as yaml, we need to convert it to json
-      python -c 'import json; import yaml; import sys; json.dump(yaml.safe_load(sys.stdin), sys.stdout)' \
-        < ${pkg}/lib/node_modules/matrix-appservice-irc/config.schema.yml \
-        > config.schema.json
-      python -m jsonschema config.schema.json -i $configPath
-      cp "$configPath" "$out"
-    '';
+        config = builtins.toJSON cfg.settings;
+        passAsFile = [ "config" ];
+      }
+      ''
+        # The schema is given as yaml, we need to convert it to json
+        python -c 'import json; import yaml; import sys; json.dump(yaml.safe_load(sys.stdin), sys.stdout)' \
+          < ${pkg}/lib/node_modules/matrix-appservice-irc/config.schema.yml \
+          > config.schema.json
+        python -m jsonschema config.schema.json -i $configPath
+        cp "$configPath" "$out"
+      ''
+    ;
   registrationFile = "/var/lib/matrix-appservice-irc/registration.yml";
 in
 {
@@ -53,8 +55,9 @@ in
 
     needBindingCap = mkOption {
       type = bool;
-      description = lib.mdDoc
-        "Whether the daemon needs to bind to ports below 1024 (e.g. for the ident service)"
+      description =
+        lib.mdDoc
+          "Whether the daemon needs to bind to ports below 1024 (e.g. for the ident service)"
         ;
       default = false;
     };
@@ -78,7 +81,9 @@ in
     localpart = mkOption {
       type = str;
       description =
-        lib.mdDoc "The user_id localpart to assign to the appservice";
+        lib.mdDoc
+          "The user_id localpart to assign to the appservice"
+        ;
       default = "appservice-irc";
     };
 
@@ -102,8 +107,10 @@ in
               options = {
                 url = mkOption {
                   type = str;
-                  description = lib.mdDoc
-                    "The URL to the home server for client-server API calls";
+                  description =
+                    lib.mdDoc
+                      "The URL to the home server for client-server API calls"
+                    ;
                 };
 
                 domain = mkOption {

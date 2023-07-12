@@ -30,9 +30,8 @@ let
   static = runCommand "systemd-static" { } ''
     mkdir -p $out
     ${lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-      (nm: file: "ln -sv ${file.path or file} $out/${nm}")
-      units
+      lib.mapAttrsToList (nm: file: "ln -sv ${file.path or file} $out/${nm}")
+        units
     )}
   '';
   add-unit-snippet =
@@ -46,14 +45,14 @@ let
       mv -T "$unitDir/.${name}.tmp" "$unitDir/${name}"
       ${lib.concatStringsSep "\n" (
         map
-        (unit: ''
-          mkdir -p "$unitDir/${unit}.wants"
-          ln -sf "../${name}" \
-            "$unitDir/${unit}.wants/.${name}.tmp"
-          mv -T "$unitDir/${unit}.wants/.${name}.tmp" \
-            "$unitDir/${unit}.wants/${name}"
-        '')
-        file.wanted-by or [ ]
+          (unit: ''
+            mkdir -p "$unitDir/${unit}.wants"
+            ln -sf "../${name}" \
+              "$unitDir/${unit}.wants/.${name}.tmp"
+            mv -T "$unitDir/${unit}.wants/.${name}.tmp" \
+              "$unitDir/${unit}.wants/${name}"
+          '')
+          file.wanted-by or [ ]
       )}
       unitsToStart+=("${name}")
     ''

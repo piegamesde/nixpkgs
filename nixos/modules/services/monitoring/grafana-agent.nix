@@ -167,7 +167,9 @@ in
           ];
         StateDirectory = "grafana-agent";
         LoadCredential =
-          lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
+          lib.mapAttrsToList (key: value: "${key}:${value}")
+            cfg.credentials
+          ;
         Type = "simple";
       };
     };

@@ -43,14 +43,18 @@ in
             type = types.port;
             default = 1143;
             description =
-              lib.mdDoc "The port on which to listen for IMAP connections.";
+              lib.mdDoc
+                "The port on which to listen for IMAP connections."
+              ;
           };
 
           UserPortSmtp = mkOption {
             type = types.port;
             default = 1025;
             description =
-              lib.mdDoc "The port on which to listen for SMTP connections.";
+              lib.mdDoc
+                "The port on which to listen for SMTP connections."
+              ;
           };
 
           ServerAddress = mkOption {
@@ -58,7 +62,9 @@ in
             default = "[::0]";
             example = "localhost";
             description =
-              lib.mdDoc "The address on which to listen for connections.";
+              lib.mdDoc
+                "The address on which to listen for connections."
+              ;
           };
         };
       };
@@ -142,7 +148,9 @@ in
     };
 
     environment.etc."peroxide.conf".source =
-      settingsFormat.generate "peroxide.conf" cfg.settings;
+      settingsFormat.generate "peroxide.conf"
+        cfg.settings
+      ;
     environment.systemPackages = [ cfg.package ];
   };
 

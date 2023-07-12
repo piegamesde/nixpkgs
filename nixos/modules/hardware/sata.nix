@@ -58,7 +58,9 @@ in
 
     drives = mkOption {
       description =
-        lib.mdDoc "List of drives for which to configure the timeout.";
+        lib.mdDoc
+          "List of drives for which to configure the timeout."
+        ;
       type = types.listOf (
         types.submodule {
           options = {
@@ -83,26 +85,28 @@ in
 
   config = mkIf cfg.enable {
     services.udev.extraRules =
-      lib.concatMapStringsSep "\n" buildRule cfg.drives;
+      lib.concatMapStringsSep "\n" buildRule
+        cfg.drives
+      ;
 
     systemd.services = lib.listToAttrs (
       map
-      (
-        e:
-        lib.nameValuePair (unitName e) {
-          description = "SATA timeout for ${e.name}";
-          wantedBy = [ "sata-timeout.target" ];
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${startScript} '${devicePath e}'";
-            PrivateTmp = true;
-            PrivateNetwork = true;
-            ProtectHome = "tmpfs";
-            ProtectSystem = "strict";
-          };
-        }
-      )
-      cfg.drives
+        (
+          e:
+          lib.nameValuePair (unitName e) {
+            description = "SATA timeout for ${e.name}";
+            wantedBy = [ "sata-timeout.target" ];
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "${startScript} '${devicePath e}'";
+              PrivateTmp = true;
+              PrivateNetwork = true;
+              ProtectHome = "tmpfs";
+              ProtectSystem = "strict";
+            };
+          }
+        )
+        cfg.drives
     );
 
     systemd.targets.sata-timeout = {

@@ -39,8 +39,9 @@ let
     npmDepsHash = "sha256-Hsa7ZauUTtYQcCxw1cpuxQ/RfdRvBIh3PO1DXDUbELk=";
   };
 
-  wrapper =
-    import ./wrapper.nix { inherit stdenv ffmpeg-full tone pname nodejs; };
+  wrapper = import ./wrapper.nix {
+    inherit stdenv ffmpeg-full tone pname nodejs;
+  };
 in
 buildNpmPackage {
   inherit pname version src;

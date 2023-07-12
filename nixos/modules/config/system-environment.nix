@@ -83,15 +83,17 @@ in
         # We're trying to use the same syntax for PAM variables and env variables.
         # That means we need to map the env variables that people might use to their
         # equivalent PAM variable.
-        replaceEnvVars = replaceStrings
-          [
-            "$HOME"
-            "$USER"
-          ]
-          [
-            "@{HOME}"
-            "@{PAM_USER}"
-          ];
+        replaceEnvVars =
+          replaceStrings
+            [
+              "$HOME"
+              "$USER"
+            ]
+            [
+              "@{HOME}"
+              "@{PAM_USER}"
+            ]
+          ;
 
         pamVariable =
           n: v:

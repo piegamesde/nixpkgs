@@ -25,9 +25,10 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString
-    stdenv.cc.isClang
-    "-Wno-error=reserved-user-defined-literal";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isClang
+      "-Wno-error=reserved-user-defined-literal"
+    ;
 
   meta = with lib; {
     homepage = "http://compression.ca/pbzip2/";

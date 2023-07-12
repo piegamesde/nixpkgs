@@ -48,9 +48,10 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ ("--enable-alsa=" + (if stdenv.isLinux then "yes" else "no")) ]
-    ++ (lib.optional
-      (defaultAudio != null)
-      "--with-default-audio=${defaultAudio}")
+    ++ (
+      lib.optional (defaultAudio != null)
+        "--with-default-audio=${defaultAudio}"
+    )
     ;
 
   buildInputs =

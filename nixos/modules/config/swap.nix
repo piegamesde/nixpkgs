@@ -180,9 +180,12 @@ let
 
       config = rec {
         device =
-          mkIf options.label.isDefined "/dev/disk/by-label/${config.label}";
-        deviceName =
-          lib.replaceStrings [ "\\" ] [ "" ] (escapeSystemdPath config.device);
+          mkIf options.label.isDefined
+            "/dev/disk/by-label/${config.label}"
+          ;
+        deviceName = lib.replaceStrings [ "\\" ] [ "" ] (
+          escapeSystemdPath config.device
+        );
         realDevice =
           if config.randomEncryption.enable then
             "/dev/mapper/${deviceName}"
@@ -222,29 +225,35 @@ in
   };
 
   config = mkIf ((length config.swapDevices) != 0) {
-    assertions = map
-      (sw: {
-        assertion =
-          sw.randomEncryption.enable
-          -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null
-          ;
-        message = ''
-          You cannot use swap device "${sw.device}" with randomEncryption enabled.
-          The UUIDs and labels will get erased on every boot when the partition is encrypted.
-          Use /dev/disk/by-partuuid/… instead.
-        '';
-      })
-      config.swapDevices;
+    assertions =
+      map
+        (sw: {
+          assertion =
+            sw.randomEncryption.enable
+            -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null
+            ;
+          message = ''
+            You cannot use swap device "${sw.device}" with randomEncryption enabled.
+            The UUIDs and labels will get erased on every boot when the partition is encrypted.
+            Use /dev/disk/by-partuuid/… instead.
+          '';
+        })
+        config.swapDevices
+      ;
 
-    warnings = concatMap
-      (
-        sw:
-        if sw.size != null && hasPrefix "/dev/" sw.device then
-          [ "Setting the swap size of block device ${sw.device} has no effect" ]
-        else
-          [ ]
-      )
-      config.swapDevices;
+    warnings =
+      concatMap
+        (
+          sw:
+          if sw.size != null && hasPrefix "/dev/" sw.device then
+            [
+              "Setting the swap size of block device ${sw.device} has no effect"
+            ]
+          else
+            [ ]
+        )
+        config.swapDevices
+      ;
 
     system.requiredKernelConfig =
       with config.lib.kernelConfig; [ (isYes "SWAP") ];
@@ -284,18 +293,16 @@ in
                   dd if=/dev/zero of="$DEVICE" bs=1M count=${toString sw.size}
                   chmod 0600 ${sw.device}
                   ${
-                    optionalString
-                    (!sw.randomEncryption.enable)
-                    "mkswap ${sw.realDevice}"
+                    optionalString (!sw.randomEncryption.enable)
+                      "mkswap ${sw.realDevice}"
                   }
                 fi
               ''}
               ${optionalString sw.randomEncryption.enable ''
                 cryptsetup plainOpen -c ${sw.randomEncryption.cipher} -d ${sw.randomEncryption.source} \
                   ${
-                    optionalString
-                    sw.randomEncryption.allowDiscards
-                    "--allow-discards"
+                    optionalString sw.randomEncryption.allowDiscards
+                      "--allow-discards"
                   } ${sw.device} ${sw.deviceName}
                 mkswap ${sw.realDevice}
               ''}
@@ -305,18 +312,18 @@ in
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig.Type = "oneshot";
             serviceConfig.RemainAfterExit = sw.randomEncryption.enable;
-            serviceConfig.ExecStop = optionalString
-              sw.randomEncryption.enable
-              "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}";
+            serviceConfig.ExecStop =
+              optionalString sw.randomEncryption.enable
+                "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}"
+              ;
             restartIfChanged = false;
           }
           ;
       in
       listToAttrs (
         map createSwapDevice (
-          filter
-          (sw: sw.size != null || sw.randomEncryption.enable)
-          config.swapDevices
+          filter (sw: sw.size != null || sw.randomEncryption.enable)
+            config.swapDevices
         )
       )
       ;

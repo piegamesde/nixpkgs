@@ -27,6 +27,8 @@ with lib;
   config = mkIf config.hardware.cpu.intel.updateMicrocode {
     # Microcode updates must be the first item prepended in the initrd
     boot.initrd.prepend =
-      mkOrder 1 [ "${pkgs.microcodeIntel}/intel-ucode.img" ];
+      mkOrder 1
+        [ "${pkgs.microcodeIntel}/intel-ucode.img" ]
+      ;
   };
 }

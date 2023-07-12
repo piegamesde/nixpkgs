@@ -30,16 +30,18 @@ let
   versions = callPackage ./versions.nix { };
 
   matching-versions =
-    lib.sort (v1: v2: lib.versionAtLeast v1.version v2.version) (
-      lib.filter
+    lib.sort (v1: v2: lib.versionAtLeast v1.version v2.version)
       (
-        v:
-        v.lang == lang
-        && (version == null || isMatching v.version version)
-        && matchesDoc v
+        lib.filter
+          (
+            v:
+            v.lang == lang
+            && (version == null || isMatching v.version version)
+            && matchesDoc v
+          )
+          versions
       )
-      versions
-    );
+    ;
 
   found-version =
     if matching-versions == [ ] then
@@ -76,8 +78,8 @@ let
   matchesDoc =
     v:
     builtins.match
-    (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh")
-    v.src.name != null
+      (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh")
+      v.src.name != null
     ;
 in
 

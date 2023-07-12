@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
   preConfigure =
     lib.concatStringsSep "\n" (
       lib.mapAttrsToList
-      (name: params: "ln -s ${fetchurl params} $PWD/src/${name}")
-      (import ./deps.nix)
+        (name: params: "ln -s ${fetchurl params} $PWD/src/${name}")
+        (import ./deps.nix)
     )
     + ''
 

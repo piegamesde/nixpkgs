@@ -70,7 +70,9 @@ stdenv.mkDerivation (
 
     src = fetch pname "1wydhbp9kyjp5y0rc627imxgkgqiv3dfirbqil9dgpnbaw5y7n65";
     polly_src =
-      fetch "polly" "0nm2d8niz47yjsa3r17v3p13b70igkd338ib8191znr1dfw0pyyj";
+      fetch "polly"
+        "0nm2d8niz47yjsa3r17v3p13b70igkd338ib8191znr1dfw0pyyj"
+      ;
 
     unpackPhase =
       ''

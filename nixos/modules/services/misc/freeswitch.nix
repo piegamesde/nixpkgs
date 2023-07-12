@@ -14,11 +14,11 @@ let
     chmod -R +w $out
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (fileName: filePath: ''
-        mkdir -p $out/$(dirname ${fileName})
-        cp ${filePath} $out/${fileName}
-      '')
-      cfg.configDir
+        (fileName: filePath: ''
+          mkdir -p $out/$(dirname ${fileName})
+          cp ${filePath} $out/${fileName}
+        '')
+        cfg.configDir
     )}
   '';
   configPath = if cfg.enableReload then "/etc/freeswitch" else configDirectory;
@@ -82,8 +82,9 @@ in
     };
   };
   config = mkIf cfg.enable {
-    environment.etc.freeswitch =
-      mkIf cfg.enableReload { source = configDirectory; };
+    environment.etc.freeswitch = mkIf cfg.enableReload {
+      source = configDirectory;
+    };
     systemd.services.freeswitch-config-reload = mkIf cfg.enableReload {
       before = [ "freeswitch.service" ];
       wantedBy = [ "multi-user.target" ];

@@ -49,8 +49,9 @@ in
       stateDir = mkOption {
         type = types.str;
         default = "/var/lib/heartbeat";
-        description = lib.mdDoc
-          "The state directory. heartbeat's own logs and other data are stored here."
+        description =
+          lib.mdDoc
+            "The state directory. heartbeat's own logs and other data are stored here."
           ;
       };
 
@@ -63,7 +64,9 @@ in
             schedule: '@every 10s'
         '';
         description =
-          lib.mdDoc "Any other configuration options you want to add";
+          lib.mdDoc
+            "Any other configuration options you want to add"
+          ;
       };
     };
   };

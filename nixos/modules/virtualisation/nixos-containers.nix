@@ -10,7 +10,9 @@ with lib;
 let
 
   configurationPrefix =
-    optionalString (versionAtLeast config.system.stateVersion "22.05") "nixos-";
+    optionalString (versionAtLeast config.system.stateVersion "22.05")
+      "nixos-"
+    ;
   configurationDirectoryName = "${configurationPrefix}containers";
   configurationDirectory = "/etc/${configurationDirectoryName}";
   stateDirectory = "/var/lib/${configurationPrefix}containers";
@@ -180,16 +182,19 @@ let
         ${optionalString cfg.ephemeral "--ephemeral"} \
         ${
           optionalString
-          (
-            cfg.additionalCapabilities != null
-            && cfg.additionalCapabilities != [ ]
-          )
-          ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
+            (
+              cfg.additionalCapabilities != null
+              && cfg.additionalCapabilities != [ ]
+            )
+            ''
+              --capability="${
+                concatStringsSep "," cfg.additionalCapabilities
+              }"''
         } \
         ${
           optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ]) "--tmpfs=${
-            concatStringsSep " --tmpfs=" cfg.tmpfs
-          }"
+              concatStringsSep " --tmpfs=" cfg.tmpfs
+            }"
         } \
         ${
           containerInit cfg
@@ -210,8 +215,8 @@ let
 
       ${concatStringsSep "\n" (
         mapAttrsToList
-        (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
-        cfg.extraVeths
+          (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
+          cfg.extraVeths
       )}
     ''
     ;
@@ -290,7 +295,9 @@ let
       Type = "notify";
 
       RuntimeDirectory =
-        lib.optional cfg.ephemeral "${configurationDirectoryName}/%i";
+        lib.optional cfg.ephemeral
+          "${configurationDirectoryName}/%i"
+        ;
 
       # Note that on reboot, systemd-nspawn returns 133, so this
       # unit will be restarted. On poweroff, it returns 0, so the
@@ -340,8 +347,9 @@ let
         isReadOnly = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc
-            "Determine whether the mounted path will be accessed in read-only mode."
+          description =
+            lib.mdDoc
+              "Determine whether the mounted path will be accessed in read-only mode."
             ;
         };
       };
@@ -408,14 +416,17 @@ let
             protocol = mkOption {
               type = types.str;
               default = "tcp";
-              description = lib.mdDoc
-                "The protocol specifier for port forwarding between host and container"
+              description =
+                lib.mdDoc
+                  "The protocol specifier for port forwarding between host and container"
                 ;
             };
             hostPort = mkOption {
               type = types.int;
               description =
-                lib.mdDoc "Source port of the external interface on host";
+                lib.mdDoc
+                  "Source port of the external interface on host"
+                ;
             };
             containerPort = mkOption {
               type = types.nullOr types.int;
@@ -538,71 +549,72 @@ in
                   name = "Toplevel NixOS config";
                   merge =
                     loc: defs:
-                    (import
-                      "${toString config.nixpkgs}/nixos/lib/eval-config.nix"
-                      {
-                        modules =
-                          let
-                            extraConfig =
-                              {
-                                options,
-                                ...
-                              }: {
-                                _file =
-                                  "module at ${__curPos.file}:${
-                                    toString __curPos.line
-                                  }";
-                                config = {
-                                  nixpkgs =
-                                    if
-                                      options.nixpkgs ? hostPlatform
-                                      && host.options.nixpkgs.hostPlatform.isDefined
-                                    then
-                                      {
-                                        inherit (host.config.nixpkgs)
-                                          hostPlatform
-                                          ;
-                                      }
-                                    else
-                                      {
-                                        inherit (host.config.nixpkgs)
-                                          localSystem
-                                          ;
-                                      }
-                                    ;
-                                  boot.isContainer = true;
-                                  networking.hostName = mkDefault name;
-                                  networking.useDHCP = false;
-                                  assertions = [ {
-                                    assertion =
-                                      (
-                                        builtins.compareVersions
-                                        kernelVersion
-                                        "5.8" <= 0
-                                      )
-                                      -> config.privateNetwork
-                                      -> stringLength name <= 11
+                    (
+                      import
+                        "${toString config.nixpkgs}/nixos/lib/eval-config.nix"
+                        {
+                          modules =
+                            let
+                              extraConfig =
+                                {
+                                  options,
+                                  ...
+                                }: {
+                                  _file =
+                                    "module at ${__curPos.file}:${
+                                      toString __curPos.line
+                                    }";
+                                  config = {
+                                    nixpkgs =
+                                      if
+                                        options.nixpkgs ? hostPlatform
+                                        && host.options.nixpkgs.hostPlatform.isDefined
+                                      then
+                                        {
+                                          inherit (host.config.nixpkgs)
+                                            hostPlatform
+                                            ;
+                                        }
+                                      else
+                                        {
+                                          inherit (host.config.nixpkgs)
+                                            localSystem
+                                            ;
+                                        }
                                       ;
-                                    message = ''
-                                      Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
-                                      not be longer than 11 characters, because the container's interface name is derived from it.
-                                      You should either make the container name shorter or upgrade to a more recent kernel that
-                                      supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
-                                      for details).
-                                    '';
-                                  } ];
-                                };
-                              }
-                              ;
-                          in
-                          [ extraConfig ] ++ (map (x: x.value) defs)
-                          ;
-                        prefix = [
-                          "containers"
-                          name
-                        ];
-                        inherit (config) specialArgs;
-                      }).config
+                                    boot.isContainer = true;
+                                    networking.hostName = mkDefault name;
+                                    networking.useDHCP = false;
+                                    assertions = [ {
+                                      assertion =
+                                        (
+                                          builtins.compareVersions kernelVersion
+                                            "5.8" <= 0
+                                        )
+                                        -> config.privateNetwork
+                                        -> stringLength name <= 11
+                                        ;
+                                      message = ''
+                                        Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
+                                        not be longer than 11 characters, because the container's interface name is derived from it.
+                                        You should either make the container name shorter or upgrade to a more recent kernel that
+                                        supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
+                                        for details).
+                                      '';
+                                    } ];
+                                  };
+                                }
+                                ;
+                            in
+                            [ extraConfig ] ++ (map (x: x.value) defs)
+                            ;
+                          prefix = [
+                            "containers"
+                            name
+                          ];
+                          inherit (config) specialArgs;
+                        }
+                    ).config
                     ;
                 };
               };
@@ -830,9 +842,10 @@ in
                   ;
               in
               {
-                path = builtins.seq checkAssertion mkIf
-                  options.config.isDefined
-                  config.config.system.build.toplevel;
+                path =
+                  builtins.seq checkAssertion mkIf options.config.isDefined
+                    config.config.system.build.toplevel
+                  ;
               }
               ;
           }
@@ -893,14 +906,16 @@ in
     in
     {
       warnings =
-        (optional
-          (
-            config.virtualisation.containers.enable
-            && versionOlder config.system.stateVersion "22.05"
-          )
-          ''
-            Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
-          '');
+        (
+          optional
+            (
+              config.virtualisation.containers.enable
+              && versionOlder config.system.stateVersion "22.05"
+            )
+            ''
+              Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
+            ''
+        );
 
       systemd.targets.multi-user.wants = [ "machines.target" ];
 
@@ -912,60 +927,63 @@ in
             value = unit;
           } ]
           # declarative containers
-          ++ (mapAttrsToList
-            (
-              name: cfg:
-              nameValuePair "container@${name}" (
-                let
-                  containerConfig = cfg // (
-                    if cfg.enableTun then
+          ++ (
+            mapAttrsToList
+              (
+                name: cfg:
+                nameValuePair "container@${name}" (
+                  let
+                    containerConfig = cfg // (
+                      if cfg.enableTun then
+                        {
+                          allowedDevices =
+                            cfg.allowedDevices
+                            ++ [ {
+                              node = "/dev/net/tun";
+                              modifier = "rw";
+                            } ]
+                            ;
+                          additionalCapabilities =
+                            cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
+                        }
+                      else
+                        { }
+                    );
+                  in
+                  recursiveUpdate unit {
+                    preStart = preStartScript containerConfig;
+                    script = startScript containerConfig;
+                    postStart = postStartScript containerConfig;
+                    serviceConfig = serviceDirectives containerConfig;
+                    unitConfig.RequiresMountsFor =
+                      lib.optional (!containerConfig.ephemeral)
+                        "${stateDirectory}/%i"
+                      ;
+                    environment.root =
+                      if containerConfig.ephemeral then
+                        "/run/nixos-containers/%i"
+                      else
+                        "${stateDirectory}/%i"
+                      ;
+                  } // (
+                    if containerConfig.autoStart then
                       {
-                        allowedDevices =
-                          cfg.allowedDevices
-                          ++ [ {
-                            node = "/dev/net/tun";
-                            modifier = "rw";
-                          } ]
-                          ;
-                        additionalCapabilities =
-                          cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
+                        wantedBy = [ "machines.target" ];
+                        wants = [ "network.target" ];
+                        after = [ "network.target" ];
+                        restartTriggers = [
+                          containerConfig.path
+                          config.environment.etc."${configurationDirectoryName}/${name}.conf".source
+                        ];
+                        restartIfChanged = true;
                       }
                     else
                       { }
-                  );
-                in
-                recursiveUpdate unit {
-                  preStart = preStartScript containerConfig;
-                  script = startScript containerConfig;
-                  postStart = postStartScript containerConfig;
-                  serviceConfig = serviceDirectives containerConfig;
-                  unitConfig.RequiresMountsFor = lib.optional
-                    (!containerConfig.ephemeral)
-                    "${stateDirectory}/%i";
-                  environment.root =
-                    if containerConfig.ephemeral then
-                      "/run/nixos-containers/%i"
-                    else
-                      "${stateDirectory}/%i"
-                    ;
-                } // (
-                  if containerConfig.autoStart then
-                    {
-                      wantedBy = [ "machines.target" ];
-                      wants = [ "network.target" ];
-                      after = [ "network.target" ];
-                      restartTriggers = [
-                        containerConfig.path
-                        config.environment.etc."${configurationDirectoryName}/${name}.conf".source
-                      ];
-                      restartIfChanged = true;
-                    }
-                  else
-                    { }
+                  )
                 )
               )
-            )
-            config.containers)
+              config.containers
+          )
         )
       );
 
@@ -989,61 +1007,61 @@ in
             ;
         in
         mapAttrs'
-        (
-          name: cfg:
-          nameValuePair "${configurationDirectoryName}/${name}.conf" {
-            text = ''
-              SYSTEM_PATH=${cfg.path}
-              ${optionalString cfg.privateNetwork ''
-                PRIVATE_NETWORK=1
-                ${optionalString (cfg.hostBridge != null) ''
-                  HOST_BRIDGE=${cfg.hostBridge}
+          (
+            name: cfg:
+            nameValuePair "${configurationDirectoryName}/${name}.conf" {
+              text = ''
+                SYSTEM_PATH=${cfg.path}
+                ${optionalString cfg.privateNetwork ''
+                  PRIVATE_NETWORK=1
+                  ${optionalString (cfg.hostBridge != null) ''
+                    HOST_BRIDGE=${cfg.hostBridge}
+                  ''}
+                  ${optionalString (length cfg.forwardPorts > 0) ''
+                    HOST_PORT=${
+                      concatStringsSep "," (map mkPortStr cfg.forwardPorts)
+                    }
+                  ''}
+                  ${optionalString (cfg.hostAddress != null) ''
+                    HOST_ADDRESS=${cfg.hostAddress}
+                  ''}
+                  ${optionalString (cfg.hostAddress6 != null) ''
+                    HOST_ADDRESS6=${cfg.hostAddress6}
+                  ''}
+                  ${optionalString (cfg.localAddress != null) ''
+                    LOCAL_ADDRESS=${cfg.localAddress}
+                  ''}
+                  ${optionalString (cfg.localAddress6 != null) ''
+                    LOCAL_ADDRESS6=${cfg.localAddress6}
+                  ''}
                 ''}
-                ${optionalString (length cfg.forwardPorts > 0) ''
-                  HOST_PORT=${
-                    concatStringsSep "," (map mkPortStr cfg.forwardPorts)
-                  }
+                INTERFACES="${toString cfg.interfaces}"
+                MACVLANS="${toString cfg.macvlans}"
+                ${optionalString cfg.autoStart ''
+                  AUTO_START=1
                 ''}
-                ${optionalString (cfg.hostAddress != null) ''
-                  HOST_ADDRESS=${cfg.hostAddress}
-                ''}
-                ${optionalString (cfg.hostAddress6 != null) ''
-                  HOST_ADDRESS6=${cfg.hostAddress6}
-                ''}
-                ${optionalString (cfg.localAddress != null) ''
-                  LOCAL_ADDRESS=${cfg.localAddress}
-                ''}
-                ${optionalString (cfg.localAddress6 != null) ''
-                  LOCAL_ADDRESS6=${cfg.localAddress6}
-                ''}
-              ''}
-              INTERFACES="${toString cfg.interfaces}"
-              MACVLANS="${toString cfg.macvlans}"
-              ${optionalString cfg.autoStart ''
-                AUTO_START=1
-              ''}
-              EXTRA_NSPAWN_FLAGS="${
-                mkBindFlags cfg.bindMounts
-                + optionalString (cfg.extraFlags != [ ]) (
-                  " " + concatStringsSep " " cfg.extraFlags
-                )
-              }"
-            '';
-          }
-        )
-        config.containers
+                EXTRA_NSPAWN_FLAGS="${
+                  mkBindFlags cfg.bindMounts
+                  + optionalString (cfg.extraFlags != [ ]) (
+                    " " + concatStringsSep " " cfg.extraFlags
+                  )
+                }"
+              '';
+            }
+          )
+          config.containers
         ;
 
       # Generate /etc/hosts entries for the containers.
       networking.extraHosts = concatStrings (
         mapAttrsToList
-        (
-          name: cfg:
-          optionalString (cfg.localAddress != null) ''
-            ${head (splitString "/" cfg.localAddress)} ${name}.containers
-          ''
-        )
-        config.containers
+          (
+            name: cfg:
+            optionalString (cfg.localAddress != null) ''
+              ${head (splitString "/" cfg.localAddress)} ${name}.containers
+            ''
+          )
+          config.containers
       );
 
       networking.dhcpcd.denyInterfaces = [
@@ -1052,10 +1070,12 @@ in
       ];
 
       services.udev.extraRules =
-        optionalString config.networking.networkmanager.enable ''
-          # Don't manage interfaces created by nixos-container.
-          ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
-        '';
+        optionalString config.networking.networkmanager.enable
+          ''
+            # Don't manage interfaces created by nixos-container.
+            ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
+          ''
+        ;
 
       environment.systemPackages = [ nixos-container ];
 

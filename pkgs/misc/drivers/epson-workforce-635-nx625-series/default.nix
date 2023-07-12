@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
           "lib"
         else
           throw
-          "other platforms than i686_linux and x86_64-linux are not yet supported"
+            "other platforms than i686_linux and x86_64-linux are not yet supported"
         ;
     in
     ''

@@ -34,9 +34,8 @@ let
         Environment = {
           DFLAGS =
             "-I@out@/include/dmd -L-L@out@/lib -fPIC ${
-              lib.optionalString
-              (!targetPackages.stdenv.cc.isClang)
-              "-L--export-dynamic"
+              lib.optionalString (!targetPackages.stdenv.cc.isClang)
+                "-L--export-dynamic"
             }";
         };
       });
@@ -143,14 +142,15 @@ stdenv.mkDerivation rec {
       # of it, so just remove it until the most recent change.
       rm dmd/test/compilable/ddocYear.d
     ''
-    + lib.optionalString
-      (
-        lib.versionAtLeast version "2.089.0"
-        && lib.versionOlder version "2.092.2"
-      )
-      ''
-        rm dmd/test/dshell/test6952.d
-      ''
+    +
+      lib.optionalString
+        (
+          lib.versionAtLeast version "2.089.0"
+          && lib.versionOlder version "2.092.2"
+        )
+        ''
+          rm dmd/test/dshell/test6952.d
+        ''
     + lib.optionalString (lib.versionAtLeast version "2.092.2") ''
       substituteInPlace dmd/test/dshell/test6952.d --replace "/usr/bin/env bash" "${bash}/bin/bash"
     ''

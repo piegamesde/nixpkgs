@@ -51,7 +51,9 @@ in
           ldap_host = mkOption {
             type = types.str;
             description =
-              mdDoc "The host address that the LDAP server will be bound to.";
+              mdDoc
+                "The host address that the LDAP server will be bound to."
+              ;
             default = "::";
           };
 
@@ -64,14 +66,17 @@ in
           http_host = mkOption {
             type = types.str;
             description =
-              mdDoc "The host address that the HTTP server will be bound to.";
+              mdDoc
+                "The host address that the HTTP server will be bound to."
+              ;
             default = "::";
           };
 
           http_port = mkOption {
             type = types.port;
-            description = mdDoc
-              "The port on which to have the HTTP server, for user login and administration."
+            description =
+              mdDoc
+                "The port on which to have the HTTP server, for user login and administration."
               ;
             default = 17170;
           };
@@ -79,7 +84,9 @@ in
           http_url = mkOption {
             type = types.str;
             description =
-              mdDoc "The public URL of the server, for password reset links.";
+              mdDoc
+                "The public URL of the server, for password reset links."
+              ;
             default = "http://localhost";
           };
 
@@ -129,7 +136,9 @@ in
         Group = "lldap";
         DynamicUser = true;
         EnvironmentFile =
-          lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+          lib.mkIf (cfg.environmentFile != null)
+            cfg.environmentFile
+          ;
       };
       inherit (cfg) environment;
     };

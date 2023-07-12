@@ -61,8 +61,9 @@ in
       enable = mkEnableOption (mdDoc "the Budgie desktop");
 
       sessionPath = mkOption {
-        description = mdDoc
-          "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart."
+        description =
+          mdDoc
+            "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart."
           ;
         type = with types; listOf package;
         example = literalExpression "[ pkgs.budgie.budgie-desktop-view ]";
@@ -77,7 +78,9 @@ in
 
       extraGSettingsOverridePackages = mkOption {
         description =
-          mdDoc "List of packages for which GSettings are overridden.";
+          mdDoc
+            "List of packages for which GSettings are overridden."
+          ;
         type = with types; listOf path;
         default = [ ];
       };
@@ -90,8 +93,10 @@ in
     };
 
     environment.budgie.excludePackages = mkOption {
-      description = mdDoc
-        "Which packages Budgie should exclude from the default environment.";
+      description =
+        mdDoc
+          "Which packages Budgie should exclude from the default environment."
+        ;
       type = with types; listOf package;
       default = [ ];
       example = literalExpression "[ pkgs.mate-terminal ]";
@@ -124,16 +129,16 @@ in
 
     environment.extraInit = ''
       ${concatMapStrings
-      (p: ''
-        if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
-          export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
-        fi
-        if [ -d "${p}/lib/girepository-1.0" ]; then
-          export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
-        fi
-      '')
-      cfg.sessionPath}
+        (p: ''
+          if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
+            export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
+          fi
+          if [ -d "${p}/lib/girepository-1.0" ]; then
+            export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
+          fi
+        '')
+        cfg.sessionPath}
     '';
 
     environment.systemPackages = with pkgs;
@@ -162,27 +167,29 @@ in
         # Update user directories.
         xdg-user-dirs
       ]
-      ++ (utils.removePackagesByName
-        [
-          cinnamon.nemo
-          mate.eom
-          mate.pluma
-          mate.atril
-          mate.engrampa
-          mate.mate-calc
-          mate.mate-terminal
-          mate.mate-system-monitor
-          vlc
+      ++ (
+        utils.removePackagesByName
+          [
+            cinnamon.nemo
+            mate.eom
+            mate.pluma
+            mate.atril
+            mate.engrampa
+            mate.mate-calc
+            mate.mate-terminal
+            mate.mate-system-monitor
+            vlc
 
-          # Desktop themes.
-          qogir-theme
-          qogir-icon-theme
-          nixos-background-info
+            # Desktop themes.
+            qogir-theme
+            qogir-icon-theme
+            nixos-background-info
 
-          # Default settings.
-          nixos-gsettings-overrides
-        ]
-        config.environment.budgie.excludePackages)
+            # Default settings.
+            nixos-gsettings-overrides
+          ]
+          config.environment.budgie.excludePackages
+      )
       ++ cfg.sessionPath;
 
     # Fonts.
@@ -222,16 +229,22 @@ in
 
     # Required by Budgie Panel plugins and/or Budgie Control Center panels.
     networking.networkmanager.enable =
-      mkDefault true; # for BCC's Network panel.
+      mkDefault
+        true
+      ; # for BCC's Network panel.
     programs.nm-applet.enable =
       config.networking.networkmanager.enable; # Budgie has no Network applet.
     programs.nm-applet.indicator =
       false; # Budgie doesn't support AppIndicators.
 
     hardware.bluetooth.enable =
-      mkDefault true; # for Budgie's Status Indicator and BCC's Bluetooth panel.
+      mkDefault
+        true
+      ; # for Budgie's Status Indicator and BCC's Bluetooth panel.
     hardware.pulseaudio.enable =
-      mkDefault true; # for Budgie's Status Indicator and BCC's Sound panel.
+      mkDefault
+        true
+      ; # for Budgie's Status Indicator and BCC's Sound panel.
 
     xdg.portal.enable = mkDefault true; # for BCC's Applications panel.
     xdg.portal.extraPortals = with pkgs; [
@@ -239,7 +252,9 @@ in
     ];
 
     services.geoclue2.enable =
-      mkDefault true; # for BCC's Privacy > Location Services panel.
+      mkDefault
+        true
+      ; # for BCC's Privacy > Location Services panel.
     services.upower.enable =
       config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
     services.xserver.libinput.enable = mkDefault true; # for BCC's Mouse panel.

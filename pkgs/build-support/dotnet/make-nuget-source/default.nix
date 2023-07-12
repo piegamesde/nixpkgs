@@ -26,10 +26,10 @@ let
       mkdir -p $out/{lib,share}
 
       ${lib.concatMapStringsSep "\n"
-      (dep: ''
-        nuget init "${dep}" "$out/lib"
-      '')
-      deps}
+        (dep: ''
+          nuget init "${dep}" "$out/lib"
+        '')
+        deps}
 
       # Generates a list of all licenses' spdx ids, if available.
       # Note that this currently ignores any license provided in plain text (e.g. "LICENSE.txt")

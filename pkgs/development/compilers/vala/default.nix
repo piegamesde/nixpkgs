@@ -78,9 +78,11 @@ let
       configureFlags = lib.optional disableGraphviz "--disable-graphviz";
       # when cross-compiling ./compiler/valac is valac for host
       # so add the build vala in nativeBuildInputs
-      preBuild = lib.optionalString
-        (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
-        ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")'';
+      preBuild =
+        lib.optionalString
+          (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
+          ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")''
+        ;
 
       outputs = [
         "out"
@@ -94,12 +96,12 @@ let
           bison
           libxslt
         ]
-        ++ lib.optional
-          (stdenv.isDarwin && (lib.versionAtLeast version "0.38"))
-          expat
-        ++ lib.optional
-          disableGraphviz
-          autoreconfHook # if we changed our ./configure script, need to reconfigure
+        ++
+          lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38"))
+            expat
+        ++
+          lib.optional disableGraphviz
+            autoreconfHook # if we changed our ./configure script, need to reconfigure
         ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ vala ]
         ++ extraNativeBuildInputs
         ;
@@ -110,9 +112,9 @@ let
           libiconv
           libintl
         ]
-        ++ lib.optional
-          (lib.versionAtLeast version "0.38" && withGraphviz)
-          graphviz
+        ++
+          lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
+            graphviz
         ++ extraBuildInputs
         ;
 

@@ -17,8 +17,9 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to enable fcgiwrap, a server for running CGI applications over FastCGI."
+        description =
+          lib.mdDoc
+            "Whether to enable fcgiwrap, a server for running CGI applications over FastCGI."
           ;
       };
 
@@ -42,8 +43,9 @@ in
         type = types.str;
         default = "/run/fcgiwrap.sock";
         example = "1.2.3.4:5678";
-        description = lib.mdDoc
-          "Socket address. In case of a UNIX socket, this should be its filesystem path."
+        description =
+          lib.mdDoc
+            "Socket address. In case of a UNIX socket, this should be its filesystem path."
           ;
       };
 
@@ -71,9 +73,8 @@ in
           "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
             builtins.toString cfg.preforkProcesses
           } ${
-            optionalString
-            (cfg.socketType != "unix")
-            "-s ${cfg.socketType}:${cfg.socketAddress}"
+            optionalString (cfg.socketType != "unix")
+              "-s ${cfg.socketType}:${cfg.socketAddress}"
           }";
       } // (
         if cfg.user != null && cfg.group != null then

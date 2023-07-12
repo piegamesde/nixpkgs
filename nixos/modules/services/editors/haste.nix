@@ -16,8 +16,9 @@ in
 {
   options.services.haste-server = {
     enable = mkEnableOption (lib.mdDoc "haste-server");
-    openFirewall =
-      mkEnableOption (lib.mdDoc "firewall passthrough for haste-server");
+    openFirewall = mkEnableOption (
+      lib.mdDoc "firewall passthrough for haste-server"
+    );
 
     settings = mkOption {
       description = lib.mdDoc ''
@@ -29,8 +30,9 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    networking.firewall.allowedTCPPorts =
-      mkIf (cfg.openFirewall) [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [
+      cfg.settings.port
+    ];
 
     services.haste-server = {
       settings = {

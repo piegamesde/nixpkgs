@@ -18,15 +18,17 @@ let
 in
 {
   imports = [
-    (lib.mkRenamedOptionModule
-      [
-        "services"
-        "unifi-poller"
-      ]
-      [
-        "services"
-        "unpoller"
-      ])
+    (
+      lib.mkRenamedOptionModule
+        [
+          "services"
+          "unifi-poller"
+        ]
+        [
+          "services"
+          "unpoller"
+        ]
+    )
   ];
 
   options.services.unpoller = {
@@ -106,7 +108,9 @@ in
       pass = mkOption {
         type = types.path;
         default =
-          pkgs.writeText "unpoller-influxdb-default.password" "unifipoller";
+          pkgs.writeText "unpoller-influxdb-default.password"
+            "unifipoller"
+          ;
         defaultText = literalExpression "unpoller-influxdb-default.password";
         description = lib.mdDoc ''
           Path of a file containing the password for influxdb.
@@ -223,11 +227,11 @@ in
           sites = mkOption {
             type = with types;
               either
-              (enum [
-                "default"
-                "all"
-              ])
-              (listOf str);
+                (enum [
+                  "default"
+                  "all"
+                ])
+                (listOf str);
             default = "all";
             description = lib.mdDoc ''
               List of site names for which statistics should be exported.

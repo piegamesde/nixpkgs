@@ -14,12 +14,14 @@ let
       cfg.configFile
     ;
 
-  containerdConfigChecked = pkgs.runCommand "containerd-config-checked.toml"
-    { nativeBuildInputs = [ pkgs.containerd ]; }
-    ''
-      containerd -c ${configFile} config dump >/dev/null
-      ln -s ${configFile} $out
-    '';
+  containerdConfigChecked =
+    pkgs.runCommand "containerd-config-checked.toml"
+      { nativeBuildInputs = [ pkgs.containerd ]; }
+      ''
+        containerd -c ${configFile} config dump >/dev/null
+        ln -s ${configFile} $out
+      ''
+    ;
 
   settingsFormat = pkgs.formats.toml { };
 in
@@ -62,8 +64,9 @@ in
       settings = {
         version = 2;
         plugins."io.containerd.grpc.v1.cri" = {
-          containerd.snapshotter =
-            lib.mkIf config.boot.zfs.enabled (lib.mkOptionDefault "zfs");
+          containerd.snapshotter = lib.mkIf config.boot.zfs.enabled (
+            lib.mkOptionDefault "zfs"
+          );
           cni.bin_dir = lib.mkOptionDefault "${pkgs.cni-plugins}/bin";
         };
       };

@@ -58,18 +58,20 @@ let
   # This uses Dhall's remote importing capabilities for downloading a Dhall file.
   # The output Dhall file has all imports resolved, and then is
   # alpha-normalized and binary-encoded.
-  downloadedEncodedFile = runCommand (baseNameOf url)
-    {
-      outputHashAlgo = null;
-      outputHash = hash;
-      name = baseNameOf url;
-      nativeBuildInputs = [ cacert ];
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars;
-    }
-    ''
-      echo "${url} ${dhallHash}" > in-dhall-file
-      ${dhall}/bin/dhall --alpha --plain --file in-dhall-file | ${dhallNoHTTP}/bin/dhall encode > $out
-    '';
+  downloadedEncodedFile =
+    runCommand (baseNameOf url)
+      {
+        outputHashAlgo = null;
+        outputHash = hash;
+        name = baseNameOf url;
+        nativeBuildInputs = [ cacert ];
+        impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+      }
+      ''
+        echo "${url} ${dhallHash}" > in-dhall-file
+        ${dhall}/bin/dhall --alpha --plain --file in-dhall-file | ${dhallNoHTTP}/bin/dhall encode > $out
+      ''
+    ;
 
   cache = ".cache";
 

@@ -27,28 +27,32 @@ let
       repo
     ]
   );
-  escapedSlug = lib.replaceStrings
-    [
-      "."
-      "/"
-    ]
-    [
-      "%2E"
-      "%2F"
-    ]
-    slug;
-  escapedRev = lib.replaceStrings
-    [
-      "+"
-      "%"
-      "/"
-    ]
-    [
-      "%2B"
-      "%25"
-      "%2F"
-    ]
-    rev;
+  escapedSlug =
+    lib.replaceStrings
+      [
+        "."
+        "/"
+      ]
+      [
+        "%2E"
+        "%2F"
+      ]
+      slug
+    ;
+  escapedRev =
+    lib.replaceStrings
+      [
+        "+"
+        "%"
+        "/"
+      ]
+      [
+        "%2B"
+        "%25"
+        "%2F"
+      ]
+      rev
+    ;
   passthruAttrs = removeAttrs args [
     "protocol"
     "domain"

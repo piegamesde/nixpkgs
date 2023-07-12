@@ -29,15 +29,14 @@ let
   callPackageCase =
     case:
     callPackage
-    (
-      {
-        writeShellScript,
-      }:
-      writeShellScript
-      "test-trivial-callpackage-overriding-${case}"
-      extglobScript
-    )
-    { }
+      (
+        {
+          writeShellScript,
+        }:
+        writeShellScript "test-trivial-callpackage-overriding-${case}"
+          extglobScript
+      )
+      { }
     ;
 
   binCase =
@@ -133,12 +132,12 @@ let
 in
 
 runCommand "test-writeShellScript-overriding"
-{ passthru = { inherit writeTextOverrides; }; }
-''
-  ${lib.concatMapStrings
-  (test: ''
-    ${runTest test}
-  '')
-  (lib.attrValues writeTextOverrides)}
-  touch "$out"
-''
+  { passthru = { inherit writeTextOverrides; }; }
+  ''
+    ${lib.concatMapStrings
+      (test: ''
+        ${runTest test}
+      '')
+      (lib.attrValues writeTextOverrides)}
+    touch "$out"
+  ''

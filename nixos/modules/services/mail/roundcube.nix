@@ -76,8 +76,9 @@ in
       };
       password = mkOption {
         type = types.str;
-        description = lib.mdDoc
-          "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead."
+        description =
+          lib.mdDoc
+            "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead."
           ;
         default = "";
       };
@@ -133,21 +134,25 @@ in
       type = types.lines;
       default = "";
       description =
-        lib.mdDoc "Extra configuration for roundcube webmail instance";
+        lib.mdDoc
+          "Extra configuration for roundcube webmail instance"
+        ;
     };
   };
 
   config = mkIf cfg.enable {
     # backward compatibility: if password is set but not passwordFile, make one.
     services.roundcube.database.passwordFile =
-      mkIf (!localDB && cfg.database.password != "") (
-        mkDefault (
-          "${pkgs.writeText "roundcube-password" cfg.database.password}"
+      mkIf (!localDB && cfg.database.password != "")
+        (
+          mkDefault (
+            "${pkgs.writeText "roundcube-password" cfg.database.password}"
+          )
         )
-      );
-    warnings = lib.optional
-      (!localDB && cfg.database.password != "")
-      "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead"
+      ;
+    warnings =
+      lib.optional (!localDB && cfg.database.password != "")
+        "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead"
       ;
 
     environment.etc."roundcube/config.inc.php".text = ''
@@ -183,14 +188,14 @@ in
       $config['spellcheck_engine'] = 'pspell';
       $config['spellcheck_languages'] = array(${
         lib.concatMapStringsSep ", "
-        (
-          dict:
-          let
-            p = builtins.parseDrvName dict.shortName;
-          in
-          "'${p.name}' => '${dict.fullName}'"
-        )
-        cfg.dicts
+          (
+            dict:
+            let
+              p = builtins.parseDrvName dict.shortName;
+            in
+            "'${p.name}' => '${dict.fullName}'"
+          )
+          cfg.dicts
       });
 
       ${cfg.extraConfig}
@@ -284,13 +289,11 @@ in
           let
             psql =
               "${
-                lib.optionalString
-                (!localDB)
-                "PGPASSFILE=${cfg.database.passwordFile}"
+                lib.optionalString (!localDB)
+                  "PGPASSFILE=${cfg.database.passwordFile}"
               } ${pkgs.postgresql}/bin/psql ${
-                lib.optionalString
-                (!localDB)
-                "-h ${cfg.database.host} -U ${cfg.database.username} "
+                lib.optionalString (!localDB)
+                  "-h ${cfg.database.host} -U ${cfg.database.username} "
               } ${cfg.database.dbname}";
           in
           ''

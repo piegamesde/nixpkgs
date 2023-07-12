@@ -39,7 +39,9 @@ in
         }
       '';
       description =
-        lib.mdDoc "Extra configuration for the nginx virtual host of fluidd.";
+        lib.mdDoc
+          "Extra configuration for the nginx virtual host of fluidd."
+        ;
     };
   };
 

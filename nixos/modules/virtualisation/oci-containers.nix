@@ -68,7 +68,8 @@ let
           type = with types; listOf str;
           default = [ ];
           description =
-            lib.mdDoc "Commandline arguments to pass to the image's entrypoint."
+            lib.mdDoc
+              "Commandline arguments to pass to the image's entrypoint."
             ;
           example = literalExpression ''
             ["--port=9000"]
@@ -78,7 +79,9 @@ let
         entrypoint = mkOption {
           type = with types; nullOr str;
           description =
-            lib.mdDoc "Override the default entrypoint of the image.";
+            lib.mdDoc
+              "Override the default entrypoint of the image."
+            ;
           default = null;
           example = "/bin/my-app";
         };
@@ -87,7 +90,9 @@ let
           type = with types; attrsOf str;
           default = { };
           description =
-            lib.mdDoc "Environment variables to set for this container.";
+            lib.mdDoc
+              "Environment variables to set for this container."
+            ;
           example = literalExpression ''
             {
               DATABASE_HOST = "db.example.com";
@@ -192,8 +197,10 @@ let
         workdir = mkOption {
           type = with types; nullOr str;
           default = null;
-          description = lib.mdDoc
-            "Override the default working directory for the container.";
+          description =
+            lib.mdDoc
+              "Override the default working directory for the container."
+            ;
           example = "/var/lib/hello_world";
         };
 
@@ -219,7 +226,9 @@ let
           type = with types; listOf str;
           default = [ ];
           description =
-            lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
+            lib.mdDoc
+              "Extra options for {command}`${defaultBackend} run`."
+            ;
           example = literalExpression ''
             ["--network=host"]
           '';
@@ -300,8 +309,8 @@ let
           "--log-driver=${container.log-driver}"
         ]
         ++ optional (container.entrypoint != null) "--entrypoint=${
-            escapeShellArg container.entrypoint
-          }"
+              escapeShellArg container.entrypoint
+            }"
         ++ lib.optionals (cfg.backend == "podman") [
           "--cidfile=/run/podman-${escapedName}.ctr-id"
           "--cgroups=no-conmon"
@@ -309,18 +318,19 @@ let
           "-d"
           "--replace"
         ]
-        ++ (mapAttrsToList
-          (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
-          container.environment)
+        ++ (
+          mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
+            container.environment
+        )
         ++ map (f: "--env-file ${escapeShellArg f}") container.environmentFiles
         ++ map (p: "-p ${escapeShellArg p}") container.ports
         ++ optional (container.user != null) "-u ${
-            escapeShellArg container.user
-          }"
+              escapeShellArg container.user
+            }"
         ++ map (v: "-v ${escapeShellArg v}") container.volumes
         ++ optional (container.workdir != null) "-w ${
-            escapeShellArg container.workdir
-          }"
+              escapeShellArg container.workdir
+            }"
         ++ map escapeShellArg container.extraOptions
         ++ [ container.image ]
         ++ map escapeShellArg container.cmd
@@ -369,26 +379,28 @@ let
 in
 {
   imports = [
-    (lib.mkChangedOptionModule [ "docker-containers" ]
-      [
-        "virtualisation"
-        "oci-containers"
-      ]
-      (
-        oldcfg: {
-          backend = "docker";
-          containers = lib.mapAttrs
-            (
-              n: v:
-              builtins.removeAttrs
-              (v // { extraOptions = v.extraDockerOptions or [ ]; })
-              [
-                "extraDockerOptions"
-              ]
-            )
-            oldcfg.docker-containers;
-        }
-      ))
+    (
+      lib.mkChangedOptionModule [ "docker-containers" ]
+        [
+          "virtualisation"
+          "oci-containers"
+        ]
+        (
+          oldcfg: {
+            backend = "docker";
+            containers =
+              lib.mapAttrs
+                (
+                  n: v:
+                  builtins.removeAttrs
+                    (v // { extraOptions = v.extraDockerOptions or [ ]; })
+                    [ "extraDockerOptions" ]
+                )
+                oldcfg.docker-containers
+              ;
+          }
+        )
+    )
   ];
 
   options.virtualisation.oci-containers = {
@@ -411,16 +423,19 @@ in
       default = { };
       type = types.attrsOf (types.submodule containerOptions);
       description =
-        lib.mdDoc "OCI (Docker) containers to run as systemd services.";
+        lib.mdDoc
+          "OCI (Docker) containers to run as systemd services."
+        ;
     };
   };
 
   config = lib.mkIf (cfg.containers != { }) (
     lib.mkMerge [
       {
-        systemd.services = mapAttrs'
-          (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
-          cfg.containers;
+        systemd.services =
+          mapAttrs' (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
+            cfg.containers
+          ;
       }
       (lib.mkIf (cfg.backend == "podman") {
         virtualisation.podman.enable = true;

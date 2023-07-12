@@ -55,9 +55,13 @@ let
       # e.g. "dnat th dport map { 80 : 10.0.0.1 . 80, 443 : 10.0.0.2 . 900-1000 }"
       # So we split them.
       fwdPorts =
-        filter (x: length (splitString "-" x.destination) == 1) forwardPorts;
+        filter (x: length (splitString "-" x.destination) == 1)
+          forwardPorts
+        ;
       fwdPortsRange =
-        filter (x: length (splitString "-" x.destination) > 1) forwardPorts;
+        filter (x: length (splitString "-" x.destination) > 1)
+          forwardPorts
+        ;
 
       # nftables maps for port forward
       # l4proto . dport : addr . port
@@ -65,12 +69,12 @@ let
         forwardPorts:
         toNftSet (
           map
-          (
-            fwd:
-            with (splitIPPorts fwd.destination);
-            "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
-          )
-          forwardPorts
+            (
+              fwd:
+              with (splitIPPorts fwd.destination);
+              "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
+            )
+            forwardPorts
         )
         ;
       fwdMap = toFwdMap fwdPorts;
@@ -82,19 +86,19 @@ let
         forwardPorts:
         toNftSet (
           concatMap
-          (
-            fwd:
-            map
             (
-              loopbackip:
-              with (splitIPPorts fwd.destination);
-              "${loopbackip} . ${fwd.proto} . ${
-                toNftRange fwd.sourcePort
-              } : ${IP} . ${ports}"
+              fwd:
+              map
+                (
+                  loopbackip:
+                  with (splitIPPorts fwd.destination);
+                  "${loopbackip} . ${fwd.proto} . ${
+                    toNftRange fwd.sourcePort
+                  } : ${IP} . ${ports}"
+                )
+                fwd.loopbackIPs
             )
-            fwd.loopbackIPs
-          )
-          forwardPorts
+            forwardPorts
         )
         ;
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;
@@ -104,12 +108,12 @@ let
       # daddr . l4proto . dport
       fwdLoopSnatSet = toNftSet (
         map
-        (
-          fwd:
-          with (splitIPPorts fwd.destination);
-          "${IP} . ${fwd.proto} . ${ports}"
-        )
-        forwardPorts
+          (
+            fwd:
+            with (splitIPPorts fwd.destination);
+            "${IP} . ${fwd.proto} . ${ports}"
+          )
+          forwardPorts
       );
     in
     ''
@@ -234,16 +238,18 @@ in
     '';
 
     networking.firewall.extraForwardRules =
-      optionalString config.networking.firewall.filterForward ''
-        ${optionalString (ifaceSet != "") ''
-          iifname { ${ifaceSet} } ${oifExpr} accept comment "from internal interfaces"
-        ''}
-        ${optionalString (ipSet != "") ''
-          ip saddr { ${ipSet} } ${oifExpr} accept comment "from internal IPs"
-        ''}
-        ${optionalString (ipv6Set != "") ''
-          ip6 saddr { ${ipv6Set} } ${oifExpr} accept comment "from internal IPv6s"
-        ''}
-      '';
+      optionalString config.networking.firewall.filterForward
+        ''
+          ${optionalString (ifaceSet != "") ''
+            iifname { ${ifaceSet} } ${oifExpr} accept comment "from internal interfaces"
+          ''}
+          ${optionalString (ipSet != "") ''
+            ip saddr { ${ipSet} } ${oifExpr} accept comment "from internal IPs"
+          ''}
+          ${optionalString (ipv6Set != "") ''
+            ip6 saddr { ${ipv6Set} } ${oifExpr} accept comment "from internal IPv6s"
+          ''}
+        ''
+      ;
   };
 }

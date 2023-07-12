@@ -9,11 +9,14 @@
 self: super:
 
 let
-  generatedGrammars =
-    callPackage ./generated.nix { inherit (tree-sitter) buildGrammar; };
+  generatedGrammars = callPackage ./generated.nix {
+    inherit (tree-sitter) buildGrammar;
+  };
 
   generatedDerivations =
-    lib.filterAttrs (_: lib.isDerivation) generatedGrammars;
+    lib.filterAttrs (_: lib.isDerivation)
+      generatedGrammars
+    ;
 
   # add aliases so grammars from `tree-sitter` are overwritten in `withPlugins`
   # for example, for ocaml_interface, the following aliases will be added
@@ -21,19 +24,19 @@ let
   #   tree-sitter-ocaml-interface
   #   tree-sitter-ocaml_interface
   builtGrammars = generatedGrammars // lib.concatMapAttrs
-    (
-      k: v:
-      let
-        replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
-      in
-      {
-        "tree-sitter-${k}" = v;
-      } // lib.optionalAttrs (k != replaced) {
-        ${replaced} = v;
-        "tree-sitter-${replaced}" = v;
-      }
-    )
-    generatedDerivations;
+      (
+        k: v:
+        let
+          replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
+        in
+        {
+          "tree-sitter-${k}" = v;
+        } // lib.optionalAttrs (k != replaced) {
+          ${replaced} = v;
+          "tree-sitter-${replaced}" = v;
+        }
+      )
+      generatedDerivations;
 
   grammarToPlugin =
     grammar:
@@ -66,8 +69,9 @@ let
     f:
     self.nvim-treesitter.overrideAttrs (
       _: {
-        passthru.dependencies =
-          map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars));
+        passthru.dependencies = map grammarToPlugin (
+          f (tree-sitter.builtGrammars // builtGrammars)
+        );
       }
     )
     ;
@@ -98,22 +102,22 @@ in
         };
       in
       runCommand "nvim-treesitter-check-queries"
-      {
-        nativeBuildInputs = [ nvimWithAllGrammars ];
-        CI = true;
-      }
-      ''
-        touch $out
-        export HOME=$(mktemp -d)
-        ln -s ${withAllGrammars}/CONTRIBUTING.md .
+        {
+          nativeBuildInputs = [ nvimWithAllGrammars ];
+          CI = true;
+        }
+        ''
+          touch $out
+          export HOME=$(mktemp -d)
+          ln -s ${withAllGrammars}/CONTRIBUTING.md .
 
-        nvim --headless "+luafile ${withAllGrammars}/scripts/check-queries.lua" | tee log
+          nvim --headless "+luafile ${withAllGrammars}/scripts/check-queries.lua" | tee log
 
-        if grep -q Warning log; then
-          echo "Error: warnings were emitted by the check"
-          exit 1
-        fi
-      ''
+          if grep -q Warning log; then
+            echo "Error: warnings were emitted by the check"
+            exit 1
+          fi
+        ''
       ;
   };
 

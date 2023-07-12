@@ -100,8 +100,8 @@ stdenv.mkDerivation rec {
         --set-rpath ${rpath} \
         ${
           lib.optionalString abrmdSupport "--add-needed ${
-            lib.makeLibraryPath [ tpm2-abrmd ]
-          }/libtss2-tcti-tabrmd.so"
+              lib.makeLibraryPath [ tpm2-abrmd ]
+            }/libtss2-tcti-tabrmd.so"
         } \
         --add-needed ${
           lib.makeLibraryPath [ tpm2-tss ]

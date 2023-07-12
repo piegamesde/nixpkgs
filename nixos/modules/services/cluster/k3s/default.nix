@@ -11,14 +11,14 @@ let
   removeOption =
     config: instruction:
     lib.mkRemovedOptionModule
-    (
-      [
-        "services"
-        "k3s"
-      ]
-      ++ config
-    )
-    instruction
+      (
+        [
+          "services"
+          "k3s"
+        ]
+        ++ config
+      )
+      instruction
     ;
 in
 {
@@ -107,8 +107,10 @@ in
 
     tokenFile = mkOption {
       type = types.nullOr types.path;
-      description = lib.mdDoc
-        "File path containing k3s token to use when connecting to the server.";
+      description =
+        lib.mdDoc
+          "File path containing k3s token to use when connecting to the server."
+        ;
       default = null;
     };
 
@@ -122,8 +124,10 @@ in
     disableAgent = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc
-        "Only run the server. This option only makes sense for a server.";
+      description =
+        lib.mdDoc
+          "Only run the server. This option only makes sense for a server."
+        ;
     };
 
     environmentFile = mkOption {
@@ -137,8 +141,9 @@ in
     configPath = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description = lib.mdDoc
-        "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot)."
+      description =
+        lib.mdDoc
+          "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot)."
         ;
     };
   };

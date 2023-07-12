@@ -15,32 +15,34 @@ let
   isDefaultPathOption =
     opt: isOption opt && opt.type == types.path && opt.highestPrio >= 1500;
 
-  sslPolicies = mapAttrsToList
-    (name: conf: ''
-      dbms.ssl.policy.${name}.allow_key_generation=${
-        boolToString conf.allowKeyGeneration
-      }
-      dbms.ssl.policy.${name}.base_directory=${conf.baseDirectory}
-      ${optionalString (conf.ciphers != null) ''
-        dbms.ssl.policy.${name}.ciphers=${concatStringsSep "," conf.ciphers}
-      ''}
-      dbms.ssl.policy.${name}.client_auth=${conf.clientAuth}
-      ${if length (splitString "/" conf.privateKey) > 1 then
-        "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
-      else
-        "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"}
-      ${if length (splitString "/" conf.privateKey) > 1 then
-        "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
-      else
-        "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"}
-      dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
-      dbms.ssl.policy.${name}.tls_versions=${
-        concatStringsSep "," conf.tlsVersions
-      }
-      dbms.ssl.policy.${name}.trust_all=${boolToString conf.trustAll}
-      dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
-    '')
-    cfg.ssl.policies;
+  sslPolicies =
+    mapAttrsToList
+      (name: conf: ''
+        dbms.ssl.policy.${name}.allow_key_generation=${
+          boolToString conf.allowKeyGeneration
+        }
+        dbms.ssl.policy.${name}.base_directory=${conf.baseDirectory}
+        ${optionalString (conf.ciphers != null) ''
+          dbms.ssl.policy.${name}.ciphers=${concatStringsSep "," conf.ciphers}
+        ''}
+        dbms.ssl.policy.${name}.client_auth=${conf.clientAuth}
+        ${if length (splitString "/" conf.privateKey) > 1 then
+          "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
+        else
+          "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"}
+        ${if length (splitString "/" conf.privateKey) > 1 then
+          "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
+        else
+          "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"}
+        dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
+        dbms.ssl.policy.${name}.tls_versions=${
+          concatStringsSep "," conf.tlsVersions
+        }
+        dbms.ssl.policy.${name}.trust_all=${boolToString conf.trustAll}
+        dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
+      '')
+      cfg.ssl.policies
+    ;
 
   serverConfig = pkgs.writeText "neo4j.conf" ''
     # General
@@ -111,113 +113,135 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "neo4j"
-        "host"
-      ]
-      [
-        "services"
-        "neo4j"
-        "defaultListenAddress"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "neo4j"
-        "listenAddress"
-      ]
-      [
-        "services"
-        "neo4j"
-        "defaultListenAddress"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "neo4j"
-        "enableBolt"
-      ]
-      [
-        "services"
-        "neo4j"
-        "bolt"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "neo4j"
-        "enableHttps"
-      ]
-      [
-        "services"
-        "neo4j"
-        "https"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "neo4j"
-        "certDir"
-      ]
-      [
-        "services"
-        "neo4j"
-        "directories"
-        "certificates"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "neo4j"
-        "dataDir"
-      ]
-      [
-        "services"
-        "neo4j"
-        "directories"
-        "home"
-      ])
-    (mkRemovedOptionModule
-      [
-        "services"
-        "neo4j"
-        "port"
-      ]
-      "Use services.neo4j.http.listenAddress instead.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "neo4j"
-        "boltPort"
-      ]
-      "Use services.neo4j.bolt.listenAddress instead.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "neo4j"
-        "httpsPort"
-      ]
-      "Use services.neo4j.https.listenAddress instead.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "neo4j"
-        "shell"
-        "enabled"
-      ]
-      "shell.enabled was removed upstream")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "neo4j"
-        "udc"
-        "enabled"
-      ]
-      "udc.enabled was removed upstream")
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "neo4j"
+          "host"
+        ]
+        [
+          "services"
+          "neo4j"
+          "defaultListenAddress"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "neo4j"
+          "listenAddress"
+        ]
+        [
+          "services"
+          "neo4j"
+          "defaultListenAddress"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "neo4j"
+          "enableBolt"
+        ]
+        [
+          "services"
+          "neo4j"
+          "bolt"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "neo4j"
+          "enableHttps"
+        ]
+        [
+          "services"
+          "neo4j"
+          "https"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "neo4j"
+          "certDir"
+        ]
+        [
+          "services"
+          "neo4j"
+          "directories"
+          "certificates"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "neo4j"
+          "dataDir"
+        ]
+        [
+          "services"
+          "neo4j"
+          "directories"
+          "home"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "neo4j"
+          "port"
+        ]
+        "Use services.neo4j.http.listenAddress instead."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "neo4j"
+          "boltPort"
+        ]
+        "Use services.neo4j.bolt.listenAddress instead."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "neo4j"
+          "httpsPort"
+        ]
+        "Use services.neo4j.https.listenAddress instead."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "neo4j"
+          "shell"
+          "enabled"
+        ]
+        "shell.enabled was removed upstream"
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "neo4j"
+          "udc"
+          "enabled"
+        ]
+        "udc.enabled was removed upstream"
+    )
   ];
 
   ###### interface
@@ -385,8 +409,8 @@ in
       data = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/data";
-        defaultText =
-          literalExpression ''"''${config.${opt.directories.home}}/data"'';
+        defaultText = literalExpression ''
+          "''${config.${opt.directories.home}}/data"'';
         description = lib.mdDoc ''
           Path of the data directory. You must not configure more than one
           Neo4j installation to use the same data directory.
@@ -411,8 +435,8 @@ in
       imports = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/import";
-        defaultText =
-          literalExpression ''"''${config.${opt.directories.home}}/import"'';
+        defaultText = literalExpression ''
+          "''${config.${opt.directories.home}}/import"'';
         description = lib.mdDoc ''
           The root directory for file URLs used with the Cypher
           `LOAD CSV` clause. Only meaningful when
@@ -428,8 +452,8 @@ in
       plugins = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/plugins";
-        defaultText =
-          literalExpression ''"''${config.${opt.directories.home}}/plugins"'';
+        defaultText = literalExpression ''
+          "''${config.${opt.directories.home}}/plugins"'';
         description = lib.mdDoc ''
           Path of the database plugin directory. Compiled Java JAR files that
           contain database procedures will be loaded if they are placed in
@@ -675,16 +699,18 @@ in
                 };
               };
 
-              config.directoriesToCreate = optionals
-                (
-                  certDirOpt.highestPrio >= 1500
-                  && options.baseDirectory.highestPrio >= 1500
-                )
-                (
-                  map (opt: opt.value) (
-                    filter isDefaultPathOption (attrValues options)
+              config.directoriesToCreate =
+                optionals
+                  (
+                    certDirOpt.highestPrio >= 1500
+                    && options.baseDirectory.highestPrio >= 1500
                   )
-                );
+                  (
+                    map (opt: opt.value) (
+                      filter isDefaultPathOption (attrValues options)
+                    )
+                  )
+                ;
             }
           )
         );
@@ -715,8 +741,9 @@ in
           attrValues options.services.neo4j.directories
         )
       );
-      policyDirectoriesToCreate =
-        concatMap (pol: pol.directoriesToCreate) (attrValues cfg.ssl.policies);
+      policyDirectoriesToCreate = concatMap (pol: pol.directoriesToCreate) (
+        attrValues cfg.ssl.policies
+      );
     in
 
     mkIf cfg.enable {
@@ -762,10 +789,10 @@ in
 
           #   Create other sub-directories and policy directories that have been left at their default.
           ${concatMapStringsSep "\n"
-          (dir: ''
-            mkdir -m 0700 -p ${dir}
-          '')
-          (defaultDirectoriesToCreate ++ policyDirectoriesToCreate)}
+            (dir: ''
+              mkdir -m 0700 -p ${dir}
+            '')
+            (defaultDirectoriesToCreate ++ policyDirectoriesToCreate)}
 
           # Place the configuration where Neo4j can find it.
           ln -fs ${serverConfig} ${cfg.directories.home}/conf/neo4j.conf

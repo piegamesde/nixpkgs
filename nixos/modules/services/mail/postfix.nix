@@ -21,9 +21,10 @@ let
   haveVirtual = cfg.virtual != "";
   haveLocalRecipients = cfg.localRecipients != null;
 
-  clientAccess = optional
-    (cfg.dnsBlacklistOverrides != "")
-    "check_client_access hash:/etc/postfix/client_access";
+  clientAccess =
+    optional (cfg.dnsBlacklistOverrides != "")
+      "check_client_access hash:/etc/postfix/client_access"
+    ;
 
   dnsBl = optionals (cfg.dnsBlacklists != [ ]) (
     map (s: "reject_rbl_client " + s) cfg.dnsBlacklists
@@ -196,9 +197,10 @@ let
               wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
               finalValue =
                 toString config.wakeup
-                + optionalString
-                  (wakeupUCDefined && !config.wakeupUnusedComponent)
-                  "?"
+                +
+                  optionalString
+                    (wakeupUCDefined && !config.wakeupUnusedComponent)
+                    "?"
                 ;
             in
             if wakeupDefined then finalValue else "-"
@@ -321,7 +323,9 @@ let
           default = "DUNNO";
           example = "BCC mail@example.com";
           description =
-            lib.mdDoc "The action to be executed when the pattern is matched";
+            lib.mdDoc
+              "The action to be executed when the pattern is matched"
+            ;
         };
       };
     }
@@ -352,7 +356,9 @@ let
     concatMapStrings (x: x + " ACCEPT\n") cfg.localRecipients
   );
   checkClientAccessFile =
-    pkgs.writeText "postfix-check-client-access" cfg.dnsBlacklistOverrides;
+    pkgs.writeText "postfix-check-client-access"
+      cfg.dnsBlacklistOverrides
+    ;
   mainCfFile = pkgs.writeText "postfix-main.cf" mainCf;
   masterCfFile = pkgs.writeText "postfix-master.cf" masterCfContent;
   transportFile = pkgs.writeText "postfix-transport" cfg.transport;
@@ -412,7 +418,9 @@ in
           milter_macro_daemon_name = "ORIGINATING";
         };
         description =
-          lib.mdDoc "Options for the submission config in master.cf";
+          lib.mdDoc
+            "Options for the submission config in master.cf"
+          ;
       };
 
       submissionsOptions = mkOption {
@@ -442,21 +450,27 @@ in
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Whether to set the system sendmail to postfix's.";
+          lib.mdDoc
+            "Whether to set the system sendmail to postfix's."
+          ;
       };
 
       user = mkOption {
         type = types.str;
         default = "postfix";
-        description = lib.mdDoc
-          "What to call the Postfix user (must be used only for postfix).";
+        description =
+          lib.mdDoc
+            "What to call the Postfix user (must be used only for postfix)."
+          ;
       };
 
       group = mkOption {
         type = types.str;
         default = "postfix";
-        description = lib.mdDoc
-          "What to call the Postfix group (must be used only for postfix).";
+        description =
+          lib.mdDoc
+            "What to call the Postfix group (must be used only for postfix)."
+          ;
       };
 
       setgidGroup = mkOption {
@@ -592,8 +606,9 @@ in
           ];
         default = "hash";
         example = "regexp";
-        description = lib.mdDoc
-          "The format the alias map should have. Use regexp if you want to use regular expressions."
+        description =
+          lib.mdDoc
+            "The format the alias map should have. Use regexp if you want to use regular expressions."
           ;
       };
 
@@ -626,8 +641,8 @@ in
       tlsTrustedAuthorities = mkOption {
         type = types.str;
         default = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-        defaultText =
-          literalExpression ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
+        defaultText = literalExpression ''
+          "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
         description = lib.mdDoc ''
           File containing trusted certification authorities (CA) to verify certificates of mailservers contacted for mail delivery. This basically sets smtp_tls_CAfile and enables opportunistic tls. Defaults to NixOS trusted certification authorities.
         '';
@@ -706,15 +721,19 @@ in
       dnsBlacklists = mkOption {
         default = [ ];
         type = with types; listOf str;
-        description = lib.mdDoc
-          "dns blacklist servers to use with smtpd_client_restrictions";
+        description =
+          lib.mdDoc
+            "dns blacklist servers to use with smtpd_client_restrictions"
+          ;
       };
 
       dnsBlacklistOverrides = mkOption {
         default = "";
         type = types.lines;
-        description = lib.mdDoc
-          "contents of check_client_access for overriding dnsBlacklists";
+        description =
+          lib.mdDoc
+            "contents of check_client_access for overriding dnsBlacklists"
+          ;
       };
 
       masterConfig = mkOption {
@@ -741,7 +760,9 @@ in
         default = "";
         example = "submission inet n - n - - smtpd";
         description =
-          lib.mdDoc "Extra lines to append to the generated master.cf file.";
+          lib.mdDoc
+            "Extra lines to append to the generated master.cf file."
+          ;
       };
 
       enableHeaderChecks = mkOption {
@@ -766,14 +787,17 @@ in
         default = "";
         example = "/^X-Spam-Flag:/ REDIRECT spam@example.com";
         description =
-          lib.mdDoc "Extra lines to /etc/postfix/header_checks file.";
+          lib.mdDoc
+            "Extra lines to /etc/postfix/header_checks file."
+          ;
       };
 
       aliasFiles = mkOption {
         type = types.attrsOf types.path;
         default = { };
-        description = lib.mdDoc
-          "Aliases' tables to be compiled and placed into /var/lib/postfix/conf."
+        description =
+          lib.mdDoc
+            "Aliases' tables to be compiled and placed into /var/lib/postfix/conf."
           ;
       };
 
@@ -781,7 +805,8 @@ in
         type = types.attrsOf types.path;
         default = { };
         description =
-          lib.mdDoc "Maps to be compiled and placed into /var/lib/postfix/conf."
+          lib.mdDoc
+            "Maps to be compiled and placed into /var/lib/postfix/conf."
           ;
       };
 
@@ -809,14 +834,16 @@ in
         services.pfix-srsd.enable = config.services.postfix.useSrs;
 
         services.mail.sendmailSetuidWrapper =
-          mkIf config.services.postfix.setSendmail {
-            program = "sendmail";
-            source = "${pkgs.postfix}/bin/sendmail";
-            owner = "root";
-            group = setgidGroup;
-            setuid = false;
-            setgid = true;
-          };
+          mkIf config.services.postfix.setSendmail
+            {
+              program = "sendmail";
+              source = "${pkgs.postfix}/bin/sendmail";
+              owner = "root";
+              group = setgidGroup;
+              setuid = false;
+              setgid = true;
+            }
+          ;
 
         security.wrappers.mailq = {
           program = "mailq";
@@ -884,19 +911,19 @@ in
 
             ${concatStringsSep "\n" (
               mapAttrsToList
-              (to: from: ''
-                ln -sf ${from} /var/lib/postfix/conf/${to}
-                ${pkgs.postfix}/bin/postalias /var/lib/postfix/conf/${to}
-              '')
-              cfg.aliasFiles
+                (to: from: ''
+                  ln -sf ${from} /var/lib/postfix/conf/${to}
+                  ${pkgs.postfix}/bin/postalias /var/lib/postfix/conf/${to}
+                '')
+                cfg.aliasFiles
             )}
             ${concatStringsSep "\n" (
               mapAttrsToList
-              (to: from: ''
-                ln -sf ${from} /var/lib/postfix/conf/${to}
-                ${pkgs.postfix}/bin/postmap /var/lib/postfix/conf/${to}
-              '')
-              cfg.mapFiles
+                (to: from: ''
+                  ln -sf ${from} /var/lib/postfix/conf/${to}
+                  ${pkgs.postfix}/bin/postmap /var/lib/postfix/conf/${to}
+                '')
+                cfg.mapFiles
             )}
 
             mkdir -p /var/spool/mail
@@ -1145,26 +1172,30 @@ in
   );
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "postfix"
-        "sslCACert"
-      ]
-      "services.postfix.sslCACert was replaced by services.postfix.tlsTrustedAuthorities. In case you intend that your server should validate requested client certificates use services.postfix.extraConfig.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "postfix"
+          "sslCACert"
+        ]
+        "services.postfix.sslCACert was replaced by services.postfix.tlsTrustedAuthorities. In case you intend that your server should validate requested client certificates use services.postfix.extraConfig."
+    )
 
-    (mkChangedOptionModule
-      [
-        "services"
-        "postfix"
-        "useDane"
-      ]
-      [
-        "services"
-        "postfix"
-        "config"
-        "smtp_tls_security_level"
-      ]
-      (config: mkIf config.services.postfix.useDane "dane"))
+    (
+      mkChangedOptionModule
+        [
+          "services"
+          "postfix"
+          "useDane"
+        ]
+        [
+          "services"
+          "postfix"
+          "config"
+          "smtp_tls_security_level"
+        ]
+        (config: mkIf config.services.postfix.useDane "dane")
+    )
   ];
 }

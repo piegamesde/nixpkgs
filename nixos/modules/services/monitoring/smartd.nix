@@ -68,9 +68,8 @@ let
 
     ${concatMapStringsSep "\n" (d: "${d.device} ${d.options}") cfg.devices}
 
-    ${optionalString
-    cfg.autodetect
-    "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
+    ${optionalString cfg.autodetect
+      "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
   '';
 
   smartdDeviceOpts =
@@ -91,7 +90,9 @@ let
           example = "-d sat";
           type = types.separatedString " ";
           description =
-            lib.mdDoc "Options that determine how smartd monitors the device.";
+            lib.mdDoc
+              "Options that determine how smartd monitors the device."
+            ;
         };
       };
     }
@@ -105,8 +106,9 @@ in
 
     services.smartd = {
 
-      enable =
-        mkEnableOption (lib.mdDoc "smartd daemon from `smartmontools` package");
+      enable = mkEnableOption (
+        lib.mdDoc "smartd daemon from `smartmontools` package"
+      );
 
       autodetect = mkOption {
         default = true;
@@ -140,8 +142,10 @@ in
         mail = {
           enable = mkOption {
             default = config.services.mail.sendmailSetuidWrapper != null;
-            defaultText = literalExpression
-              "config.services.mail.sendmailSetuidWrapper != null";
+            defaultText =
+              literalExpression
+                "config.services.mail.sendmailSetuidWrapper != null"
+              ;
             type = types.bool;
             description = lib.mdDoc "Whenever to send e-mail notifications.";
           };
@@ -180,7 +184,9 @@ in
             default = true;
             type = types.bool;
             description =
-              lib.mdDoc "Whenever to send wall notifications to all users.";
+              lib.mdDoc
+                "Whenever to send wall notifications to all users."
+              ;
           };
         };
 
@@ -190,7 +196,9 @@ in
             defaultText = literalExpression "config.services.xserver.enable";
             type = types.bool;
             description =
-              lib.mdDoc "Whenever to send X11 xmessage notifications.";
+              lib.mdDoc
+                "Whenever to send X11 xmessage notifications."
+              ;
           };
 
           display = mkOption {
@@ -206,7 +214,9 @@ in
           default = false;
           type = types.bool;
           description =
-            lib.mdDoc "Whenever to send a test notification on startup.";
+            lib.mdDoc
+              "Whenever to send a test notification on startup."
+            ;
         };
       };
 

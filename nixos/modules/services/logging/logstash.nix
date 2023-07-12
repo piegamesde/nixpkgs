@@ -30,39 +30,45 @@ let
 
   logstashJvmOptionsFile = pkgs.writeText "jvm.options" cfg.extraJvmOptions;
 
-  logstashSettingsDir = pkgs.runCommand "logstash-settings"
-    {
-      inherit logstashJvmOptionsFile;
-      inherit logstashSettingsYml;
-      preferLocalBuild = true;
-    }
-    ''
-      mkdir -p $out
-      ln -s $logstashSettingsYml $out/logstash.yml
-      ln -s $logstashJvmOptionsFile $out/jvm.options
-    '';
+  logstashSettingsDir =
+    pkgs.runCommand "logstash-settings"
+      {
+        inherit logstashJvmOptionsFile;
+        inherit logstashSettingsYml;
+        preferLocalBuild = true;
+      }
+      ''
+        mkdir -p $out
+        ln -s $logstashSettingsYml $out/logstash.yml
+        ln -s $logstashJvmOptionsFile $out/jvm.options
+      ''
+    ;
 in
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "logstash"
-        "address"
-      ]
-      [
-        "services"
-        "logstash"
-        "listenAddress"
-      ])
-    (mkRemovedOptionModule
-      [
-        "services"
-        "logstash"
-        "enableWeb"
-      ]
-      "The web interface was removed from logstash")
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "logstash"
+          "address"
+        ]
+        [
+          "services"
+          "logstash"
+          "listenAddress"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "logstash"
+          "enableWeb"
+        ]
+        "The web interface was removed from logstash"
+    )
   ];
 
   ###### interface
@@ -189,7 +195,9 @@ in
         type = types.lines;
         default = "";
         description =
-          lib.mdDoc "Extra JVM options, one per line (jvm.options format).";
+          lib.mdDoc
+            "Extra JVM options, one per line (jvm.options format)."
+          ;
         example = ''
           -Xms2g
           -Xmx2g

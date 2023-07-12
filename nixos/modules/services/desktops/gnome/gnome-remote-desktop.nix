@@ -13,26 +13,29 @@ with lib;
 
   # Added 2021-05-07
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gnome3"
-        "gnome-remote-desktop"
-        "enable"
-      ]
-      [
-        "services"
-        "gnome"
-        "gnome-remote-desktop"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "gnome-remote-desktop"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "gnome-remote-desktop"
+          "enable"
+        ]
+    )
   ];
 
   ###### interface
   options = {
     services.gnome.gnome-remote-desktop = {
-      enable =
-        mkEnableOption (lib.mdDoc "Remote Desktop support using Pipewire");
+      enable = mkEnableOption (
+        lib.mdDoc "Remote Desktop support using Pipewire"
+      );
     };
   };
 

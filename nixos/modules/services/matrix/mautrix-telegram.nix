@@ -13,14 +13,16 @@ let
   cfg = config.services.mautrix-telegram;
   settingsFormat = pkgs.formats.json { };
   settingsFile =
-    settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
+    settingsFormat.generate "mautrix-telegram-config.json"
+      cfg.settings
+    ;
 in
 {
   options = {
     services.mautrix-telegram = {
       enable = mkEnableOption (
         lib.mdDoc
-        "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge"
+          "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge"
       );
 
       settings = mkOption rec {
@@ -125,9 +127,10 @@ in
 
       serviceDependencies = mkOption {
         type = with types; listOf str;
-        default = optional
-          config.services.matrix-synapse.enable
-          "matrix-synapse.service";
+        default =
+          optional config.services.matrix-synapse.enable
+            "matrix-synapse.service"
+          ;
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"
         '';

@@ -90,7 +90,9 @@ in
         type = types.nullOr types.str;
         default = null;
         description =
-          lib.mdDoc "The addresses for connecting the node to a cluster.";
+          lib.mdDoc
+            "The addresses for connecting the node to a cluster."
+          ;
       };
 
       insecure = mkOption {
@@ -121,7 +123,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Open firewall ports for cluster communication by default";
+          lib.mdDoc
+            "Open firewall ports for cluster communication by default"
+          ;
       };
 
       cache = mkOption {

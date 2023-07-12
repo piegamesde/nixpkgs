@@ -61,9 +61,8 @@ let
     loc: decls:
     concatStringsSep "\n" (
       sort (a: b: a < b) (
-        concatMap
-        (decl: map (showDeclPrefix loc decl) (attrNames decl.options))
-        decls
+        concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options))
+          decls
       )
     )
     ;
@@ -124,11 +123,11 @@ rec {
       withWarnings =
         x:
         lib.warnIf (evalModulesArgs ? args)
-        "The args argument to evalModules is deprecated. Please set config._module.args instead."
-        lib.warnIf
-        (evalModulesArgs ? check)
-        "The check argument to evalModules is deprecated. Please set config._module.check instead."
-        x
+          "The args argument to evalModules is deprecated. Please set config._module.args instead."
+          lib.warnIf
+          (evalModulesArgs ? check)
+          "The check argument to evalModules is deprecated. Please set config._module.check instead."
+          x
         ;
 
       legacyModules =
@@ -228,8 +227,9 @@ rec {
             type = types.bool;
             internal = true;
             default = true;
-            description = lib.mdDoc
-              "Whether to check whether all option definitions have matching declarations."
+            description =
+              lib.mdDoc
+                "Whether to check whether all option definitions have matching declarations."
               ;
           };
 
@@ -270,9 +270,11 @@ rec {
 
       merged =
         let
-          collected = collectModules (specialArgs.modulesPath or "")
-            (regularModules ++ [ internalModule ])
-            ({ inherit lib options config specialArgs; } // specialArgs);
+          collected =
+            collectModules (specialArgs.modulesPath or "")
+              (regularModules ++ [ internalModule ])
+              ({ inherit lib options config specialArgs; } // specialArgs)
+            ;
         in
         mergeModules prefix (reverseList collected)
         ;
@@ -284,17 +286,21 @@ rec {
 
           # For definitions that have an associated option
           declaredConfig =
-            mapAttrsRecursiveCond (v: !isOption v) (_: v: v.value) options;
+            mapAttrsRecursiveCond (v: !isOption v) (_: v: v.value)
+              options
+            ;
 
           # If freeformType is set, this is for definitions that don't have an associated option
           freeformConfig =
             let
-              defs = map
-                (def: {
-                  file = def.file;
-                  value = setAttrByPath def.prefix def.value;
-                })
-                merged.unmatchedDefns;
+              defs =
+                map
+                  (def: {
+                    file = def.file;
+                    value = setAttrByPath def.prefix def.value;
+                  })
+                  merged.unmatchedDefns
+                ;
             in
             if defs == [ ] then
               { }
@@ -322,13 +328,15 @@ rec {
             baseMsg =
               let
                 optText = showOption (prefix ++ firstDef.prefix);
-                defText = builtins.addErrorContext
-                  "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
-                  (
-                    builtins.addErrorContext
-                    "while evaluating a definition from `${firstDef.file}'"
-                    (showDefs [ firstDef ])
-                  );
+                defText =
+                  builtins.addErrorContext
+                    "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
+                    (
+                      builtins.addErrorContext
+                        "while evaluating a definition from `${firstDef.file}'"
+                        (showDefs [ firstDef ])
+                    )
+                  ;
               in
               "The option `${optText}' does not exist. Definition values:${defText}"
               ;
@@ -410,9 +418,9 @@ rec {
             } ];
           in
           throw
-          "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${
-            showDefs defs
-          }"
+            "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${
+              showDefs defs
+            }"
         else
           unifyModuleSyntax (toString m) (toString m) (
             applyModuleArgsIfFunction (toString m) (import m) args
@@ -455,35 +463,38 @@ rec {
         parentFile: parentKey: initialModules: args:
         collectResults (
           imap1
-          (
-            n: x:
-            let
-              module =
-                loadModule args parentFile "${parentKey}:anon-${toString n}" x;
-              collectedImports =
-                collectStructuredModules module._file module.key
-                module.imports
-                args;
-            in
-            {
-              key = module.key;
-              module = module;
-              modules = collectedImports.modules;
-              disabled =
-                (
-                  if module.disabledModules != [ ] then
-                    [ {
-                      file = module._file;
-                      disabled = module.disabledModules;
-                    } ]
-                  else
-                    [ ]
-                )
-                ++ collectedImports.disabled
-                ;
-            }
-          )
-          initialModules
+            (
+              n: x:
+              let
+                module =
+                  loadModule args parentFile "${parentKey}:anon-${toString n}"
+                    x
+                  ;
+                collectedImports =
+                  collectStructuredModules module._file module.key
+                    module.imports
+                    args
+                  ;
+              in
+              {
+                key = module.key;
+                module = module;
+                modules = collectedImports.modules;
+                disabled =
+                  (
+                    if module.disabledModules != [ ] then
+                      [ {
+                        file = module._file;
+                        disabled = module.disabledModules;
+                      } ]
+                    else
+                      [ ]
+                  )
+                  ++ collectedImports.disabled
+                  ;
+              }
+            )
+            initialModules
         )
         ;
 
@@ -509,9 +520,9 @@ rec {
             else if isConvertibleWithToString m then
               if m ? key && m.key != toString m then
                 throw
-                "Module `${file}` contains a disabledModules item that is an attribute set that can be converted to a string (${
-                  toString m
-                }) but also has a `.key` attribute (${m.key}) with a different value. This makes it ambiguous which module should be disabled."
+                  "Module `${file}` contains a disabledModules item that is an attribute set that can be converted to a string (${
+                    toString m
+                  }) but also has a `.key` attribute (${m.key}) with a different value. This makes it ambiguous which module should be disabled."
               else
                 toString m
 
@@ -520,23 +531,25 @@ rec {
 
             else if isAttrs m then
               throw
-              "Module `${file}` contains a disabledModules item that is an attribute set, presumably a module, that does not have a `key` attribute. This means that the module system doesn't have any means to identify the module that should be disabled. Make sure that you've put the correct value in disabledModules: a string path relative to modulesPath, a path value, or an attribute set with a `key` attribute."
+                "Module `${file}` contains a disabledModules item that is an attribute set, presumably a module, that does not have a `key` attribute. This means that the module system doesn't have any means to identify the module that should be disabled. Make sure that you've put the correct value in disabledModules: a string path relative to modulesPath, a path value, or an attribute set with a `key` attribute."
             else
               throw
-              "Each disabledModules item must be a path, string, or a attribute set with a key attribute, or a value supported by toString. However, one of the disabledModules items in `${
-                toString file
-              }` is none of that, but is of type ${builtins.typeOf m}."
+                "Each disabledModules item must be a path, string, or a attribute set with a key attribute, or a value supported by toString. However, one of the disabledModules items in `${
+                  toString file
+                }` is none of that, but is of type ${builtins.typeOf m}."
             ;
 
-          disabledKeys = concatMap
-            (
-              {
-                file,
-                disabled,
-              }:
-              map (moduleKey file) disabled
-            )
-            disabled;
+          disabledKeys =
+            concatMap
+              (
+                {
+                  file,
+                  disabled,
+                }:
+                map (moduleKey file) disabled
+              )
+              disabled
+            ;
           keyFilter = filter (attrs: !elem attrs.key disabledKeys);
         in
         map (attrs: attrs.module) (
@@ -603,10 +616,10 @@ rec {
       in
       if badAttrs != { } then
         throw "Module `${key}' has an unsupported attribute `${
-          head (attrNames badAttrs)
-        }'. This is caused by introducing a top-level `config' or `options' attribute. Add configuration attributes immediately on the top level instead, or move all of them (namely: ${
-          toString (attrNames badAttrs)
-        }) into the explicit `config' attribute."
+            head (attrNames badAttrs)
+          }'. This is caused by introducing a top-level `config' or `options' attribute. Add configuration attributes immediately on the top level instead, or move all of them (namely: ${
+            toString (attrNames badAttrs)
+          }) into the explicit `config' attribute."
       else
         {
           _file = toString m._file or file;
@@ -619,24 +632,24 @@ rec {
     else
       # shorthand syntax
       lib.throwIfNot (isAttrs m)
-      "module ${file} (${key}) does not look like a module."
-      {
-        _file = toString m._file or file;
-        key = toString m.key or key;
-        disabledModules = m.disabledModules or [ ];
-        imports = m.require or [ ] ++ m.imports or [ ];
-        options = { };
-        config = addFreeformType (
-          removeAttrs m [
-            "_file"
-            "key"
-            "disabledModules"
-            "require"
-            "imports"
-            "freeformType"
-          ]
-        );
-      }
+        "module ${file} (${key}) does not look like a module."
+        {
+          _file = toString m._file or file;
+          key = toString m.key or key;
+          disabledModules = m.disabledModules or [ ];
+          imports = m.require or [ ] ++ m.imports or [ ];
+          options = { };
+          config = addFreeformType (
+            removeAttrs m [
+              "_file"
+              "key"
+              "disabledModules"
+              "require"
+              "imports"
+              "freeformType"
+            ]
+          );
+        }
     ;
 
   applyModuleArgsIfFunction =
@@ -663,14 +676,16 @@ rec {
         # evaluation of the option.
         context =
           name: ''while evaluating the module argument `${name}' in "${key}":'';
-        extraArgs = builtins.mapAttrs
-          (
-            name: _:
-            builtins.addErrorContext (context name) (
-              args.${name} or config._module.args.${name}
+        extraArgs =
+          builtins.mapAttrs
+            (
+              name: _:
+              builtins.addErrorContext (context name) (
+                args.${name} or config._module.args.${name}
+              )
             )
-          )
-          (lib.functionArgs f);
+            (lib.functionArgs f)
+          ;
       in
       # Note: we append in the opposite order such that we can add an error
       # context on the explicit arguments of "args" too. This update
@@ -706,16 +721,16 @@ rec {
     prefix: modules:
     mergeModules' prefix modules (
       concatMap
-      (
-        m:
-        map
-        (config: {
-          file = m._file;
-          inherit config;
-        })
-        (pushDownProperties m.config)
-      )
-      modules
+        (
+          m:
+          map
+            (config: {
+              file = m._file;
+              inherit config;
+            })
+            (pushDownProperties m.config)
+        )
+        modules
     )
     ;
 
@@ -747,68 +762,74 @@ rec {
         attr: f: modules:
         zipAttrsWith (n: concatLists) (
           map
-          (
-            module:
-            let
-              subtree = module.${attr};
-            in
-            if !(builtins.isAttrs subtree) then
-              throw (
-                if attr == "config" then
-                  ''
-                    You're trying to define a value of type `${
-                      builtins.typeOf subtree
-                    }'
-                    rather than an attribute set for the option
-                    `${builtins.concatStringsSep "." prefix}'!
+            (
+              module:
+              let
+                subtree = module.${attr};
+              in
+              if !(builtins.isAttrs subtree) then
+                throw (
+                  if attr == "config" then
+                    ''
+                      You're trying to define a value of type `${
+                        builtins.typeOf subtree
+                      }'
+                      rather than an attribute set for the option
+                      `${builtins.concatStringsSep "." prefix}'!
 
-                    This usually happens if `${
-                      builtins.concatStringsSep "." prefix
-                    }' has option
-                    definitions inside that are not matched. Please check how to properly define
-                    this option by e.g. referring to `man 5 configuration.nix'!
-                  ''
-                else
-                  ''
-                    An option declaration for `${
-                      builtins.concatStringsSep "." prefix
-                    }' has type
-                    `${builtins.typeOf subtree}' rather than an attribute set.
-                    Did you mean to define this outside of `options'?
-                  ''
-              )
-            else
-              mapAttrs (n: f module) subtree
-          )
-          modules
+                      This usually happens if `${
+                        builtins.concatStringsSep "." prefix
+                      }' has option
+                      definitions inside that are not matched. Please check how to properly define
+                      this option by e.g. referring to `man 5 configuration.nix'!
+                    ''
+                  else
+                    ''
+                      An option declaration for `${
+                        builtins.concatStringsSep "." prefix
+                      }' has type
+                      `${builtins.typeOf subtree}' rather than an attribute set.
+                      Did you mean to define this outside of `options'?
+                    ''
+                )
+              else
+                mapAttrs (n: f module) subtree
+            )
+            modules
         )
         ;
       # an attrset 'name' => list of submodules that declare ‘name’.
-      declsByName = byName "options"
-        (module: option: [ {
-          inherit (module) _file;
-          options = option;
-        } ])
-        options;
+      declsByName =
+        byName "options"
+          (module: option: [ {
+            inherit (module) _file;
+            options = option;
+          } ])
+          options
+        ;
       # an attrset 'name' => list of submodules that define ‘name’.
-      defnsByName = byName "config"
-        (
-          module: value:
-          map
-          (config: {
-            inherit (module) file;
-            inherit config;
-          })
-          (pushDownProperties value)
-        )
-        configs;
+      defnsByName =
+        byName "config"
+          (
+            module: value:
+            map
+              (config: {
+                inherit (module) file;
+                inherit config;
+              })
+              (pushDownProperties value)
+          )
+          configs
+        ;
       # extract the definitions for each loc
-      defnsByName' = byName "config"
-        (module: value: [ {
-          inherit (module) file;
-          inherit value;
-        } ])
-        configs;
+      defnsByName' =
+        byName "config"
+          (module: value: [ {
+            inherit (module) file;
+            inherit value;
+          } ])
+          configs
+        ;
 
       # Convert an option tree decl to a submodule option decl
       optionTreeToOption =
@@ -829,62 +850,64 @@ rec {
           }
         ;
 
-      resultsByName = mapAttrs
-        (
-          name: decls:
-          # We're descending into attribute ‘name’.
-          let
-            loc = prefix ++ [ name ];
-            defns = defnsByName.${name} or [ ];
-            defns' = defnsByName'.${name} or [ ];
-            optionDecls = filter (m: isOption m.options) decls;
-          in
-          if length optionDecls == length decls then
+      resultsByName =
+        mapAttrs
+          (
+            name: decls:
+            # We're descending into attribute ‘name’.
             let
-              opt = fixupOptionType loc (mergeOptionDecls loc decls);
+              loc = prefix ++ [ name ];
+              defns = defnsByName.${name} or [ ];
+              defns' = defnsByName'.${name} or [ ];
+              optionDecls = filter (m: isOption m.options) decls;
             in
-            {
-              matchedOptions = evalOptionValue loc opt defns';
-              unmatchedDefns = [ ];
-            }
-          else if optionDecls != [ ] then
-            if
-              all (x: x.options.type.name == "submodule") optionDecls
-            # Raw options can only be merged into submodules. Merging into
-            # attrsets might be nice, but ambiguous. Suppose we have
-            # attrset as a `attrsOf submodule`. User declares option
-            # attrset.foo.bar, this could mean:
-            #  a. option `bar` is only available in `attrset.foo`
-            #  b. option `foo.bar` is available in all `attrset.*`
-            #  c. reject and require "<name>" as a reminder that it behaves like (b).
-            #  d. magically combine (a) and (c).
-            # All of the above are merely syntax sugar though.
-            then
+            if length optionDecls == length decls then
               let
-                opt = fixupOptionType loc (
-                  mergeOptionDecls loc (map optionTreeToOption decls)
-                );
+                opt = fixupOptionType loc (mergeOptionDecls loc decls);
               in
               {
                 matchedOptions = evalOptionValue loc opt defns';
                 unmatchedDefns = [ ];
               }
+            else if optionDecls != [ ] then
+              if
+                all (x: x.options.type.name == "submodule") optionDecls
+              # Raw options can only be merged into submodules. Merging into
+              # attrsets might be nice, but ambiguous. Suppose we have
+              # attrset as a `attrsOf submodule`. User declares option
+              # attrset.foo.bar, this could mean:
+              #  a. option `bar` is only available in `attrset.foo`
+              #  b. option `foo.bar` is available in all `attrset.*`
+              #  c. reject and require "<name>" as a reminder that it behaves like (b).
+              #  d. magically combine (a) and (c).
+              # All of the above are merely syntax sugar though.
+              then
+                let
+                  opt = fixupOptionType loc (
+                    mergeOptionDecls loc (map optionTreeToOption decls)
+                  );
+                in
+                {
+                  matchedOptions = evalOptionValue loc opt defns';
+                  unmatchedDefns = [ ];
+                }
+              else
+                let
+                  nonOptions = filter (m: !isOption m.options) decls;
+                in
+                throw ''
+                  The option `${showOption loc}' in module `${
+                    (lib.head optionDecls)._file
+                  }' would be a parent of the following options, but its type `${
+                    (lib.head optionDecls).options.type.description
+                      or "<no description>"
+                  }' does not support nested options.
+                  ${showRawDecls loc nonOptions}''
             else
-              let
-                nonOptions = filter (m: !isOption m.options) decls;
-              in
-              throw ''
-                The option `${showOption loc}' in module `${
-                  (lib.head optionDecls)._file
-                }' would be a parent of the following options, but its type `${
-                  (lib.head optionDecls).options.type.description
-                    or "<no description>"
-                }' does not support nested options.
-                ${showRawDecls loc nonOptions}''
-          else
-            mergeModules' loc decls defns
-        )
-        declsByName;
+              mergeModules' loc decls defns
+          )
+          declsByName
+        ;
 
       matchedOptions = mapAttrs (n: v: v.matchedOptions) resultsByName;
 
@@ -907,19 +930,19 @@ rec {
         else
           concatLists (
             mapAttrsToList
-            (
-              name: defs:
-              map
               (
-                def:
-                def // {
-                  # Set this so we know when the definition first left unmatched territory
-                  prefix = [ name ] ++ (def.prefix or [ ]);
-                }
+                name: defs:
+                map
+                  (
+                    def:
+                    def // {
+                      # Set this so we know when the definition first left unmatched territory
+                      prefix = [ name ] ++ (def.prefix or [ ]);
+                    }
+                  )
+                  defs
               )
-              defs
-            )
-            unmatchedDefnsByName
+              unmatchedDefnsByName
           )
         ;
     }
@@ -940,55 +963,55 @@ rec {
   mergeOptionDecls =
     loc: opts:
     foldl'
-    (
-      res: opt:
-      let
-        t = res.type;
-        t' = opt.options.type;
-        mergedType = t.typeMerge t'.functor;
-        typesMergeable = mergedType != null;
-        typeSet =
-          if (bothHave "type") && typesMergeable then
-            { type = mergedType; }
-          else
-            { }
-          ;
-        bothHave = k: opt.options ? ${k} && res ? ${k};
-      in
-      if
-        bothHave "default"
-        || bothHave "example"
-        || bothHave "description"
-        || bothHave "apply"
-        || (bothHave "type" && (!typesMergeable))
-      then
-        throw "The option `${
-          showOption loc
-        }' in `${opt._file}' is already declared in ${
-          showFiles res.declarations
-        }."
-      else
+      (
+        res: opt:
         let
-          getSubModules = opt.options.type.getSubModules or null;
-          submodules =
-            if getSubModules != null then
-              map (setDefaultModuleLocation opt._file) getSubModules
-              ++ res.options
+          t = res.type;
+          t' = opt.options.type;
+          mergedType = t.typeMerge t'.functor;
+          typesMergeable = mergedType != null;
+          typeSet =
+            if (bothHave "type") && typesMergeable then
+              { type = mergedType; }
             else
-              res.options
+              { }
             ;
+          bothHave = k: opt.options ? ${k} && res ? ${k};
         in
-        opt.options // res // {
-          declarations = res.declarations ++ [ opt._file ];
-          options = submodules;
-        } // typeSet
-    )
-    {
-      inherit loc;
-      declarations = [ ];
-      options = [ ];
-    }
-    opts
+        if
+          bothHave "default"
+          || bothHave "example"
+          || bothHave "description"
+          || bothHave "apply"
+          || (bothHave "type" && (!typesMergeable))
+        then
+          throw "The option `${
+              showOption loc
+            }' in `${opt._file}' is already declared in ${
+              showFiles res.declarations
+            }."
+        else
+          let
+            getSubModules = opt.options.type.getSubModules or null;
+            submodules =
+              if getSubModules != null then
+                map (setDefaultModuleLocation opt._file) getSubModules
+                ++ res.options
+              else
+                res.options
+              ;
+          in
+          opt.options // res // {
+            declarations = res.declarations ++ [ opt._file ];
+            options = submodules;
+          } // typeSet
+      )
+      {
+        inherit loc;
+        declarations = [ ];
+        options = [ ];
+      }
+      opts
     ;
 
   /* Merge all the definitions of an option to produce the final
@@ -1012,20 +1035,22 @@ rec {
           let
             # For a better error message, evaluate all readOnly definitions as
             # if they were the only definition.
-            separateDefs = map
-              (
-                def:
-                def // {
-                  value = (mergeDefinitions loc opt.type [ def ]).mergedValue;
-                }
-              )
-              defs';
+            separateDefs =
+              map
+                (
+                  def:
+                  def // {
+                    value = (mergeDefinitions loc opt.type [ def ]).mergedValue;
+                  }
+                )
+                defs'
+              ;
           in
           throw "The option `${
-            showOption loc
-          }' is read-only, but it's set multiple times. Definition values:${
-            showDefs separateDefs
-          }"
+              showOption loc
+            }' is read-only, but it's set multiple times. Definition values:${
+              showDefs separateDefs
+            }"
         else
           mergeDefinitions loc opt.type defs'
         ;
@@ -1035,18 +1060,21 @@ rec {
       value =
         if opt ? apply then opt.apply res.mergedValue else res.mergedValue;
 
-      warnDeprecation = warnIf
-        (opt.type.deprecationMessage != null)
-        "The type `types.${opt.type.name}' of option `${
-          showOption loc
-        }' defined in ${
-          showFiles opt.declarations
-        } is deprecated. ${opt.type.deprecationMessage}";
+      warnDeprecation =
+        warnIf (opt.type.deprecationMessage != null)
+          "The type `types.${opt.type.name}' of option `${
+            showOption loc
+          }' defined in ${
+            showFiles opt.declarations
+          } is deprecated. ${opt.type.deprecationMessage}"
+        ;
     in
     warnDeprecation opt // {
-      value = builtins.addErrorContext
-        "while evaluating the option `${showOption loc}':"
-        value;
+      value =
+        builtins.addErrorContext
+          "while evaluating the option `${showOption loc}':"
+          value
+        ;
       inherit (res.defsFinal') highestPrio;
       definitions = map (def: def.value) res.defsFinal;
       files = map (def: def.file) res.defsFinal;
@@ -1063,21 +1091,23 @@ rec {
       defsFinal' =
         let
           # Process mkMerge and mkIf properties.
-          defs' = concatMap
-            (
-              m:
-              map
-              (value: {
-                inherit (m) file;
-                inherit value;
-              })
+          defs' =
+            concatMap
               (
-                builtins.addErrorContext
-                "while evaluating definitions from `${m.file}':"
-                (dischargeProperties m.value)
+                m:
+                map
+                  (value: {
+                    inherit (m) file;
+                    inherit value;
+                  })
+                  (
+                    builtins.addErrorContext
+                      "while evaluating definitions from `${m.file}':"
+                      (dischargeProperties m.value)
+                  )
               )
-            )
-            defs;
+              defs
+            ;
 
           # Process mkOverride properties.
           defs'' = filterOverrides' defs';
@@ -1108,10 +1138,10 @@ rec {
               allInvalid = filter (def: !type.check def.value) defsFinal;
             in
             throw "A definition for option `${
-              showOption loc
-            }' is not of type `${type.description}'. Definition values:${
-              showDefs allInvalid
-            }"
+                showOption loc
+              }' is not of type `${type.description}'. Definition values:${
+                showDefs allInvalid
+              }"
         else
           # (nixos-option detects this specific error message and gives it special
           # handling.  If changed here, please change it there too.)
@@ -1219,9 +1249,11 @@ rec {
         ;
     in
     {
-      values = concatMap
-        (def: if getPrio def == highestPrio then [ (strip def) ] else [ ])
-        defs;
+      values =
+        concatMap
+          (def: if getPrio def == highestPrio then [ (strip def) ] else [ ])
+          defs
+        ;
       inherit highestPrio;
     }
     ;
@@ -1279,15 +1311,15 @@ rec {
   mkAssert =
     assertion: message: content:
     mkIf
-    (
-      if assertion then
-        true
-      else
-        throw ''
+      (
+        if assertion then
+          true
+        else
+          throw ''
 
-          Failed assertion: ${message}''
-    )
-    content
+            Failed assertion: ${message}''
+      )
+      content
     ;
 
   mkMerge =
@@ -1305,21 +1337,29 @@ rec {
     ;
 
   mkOptionDefault = mkOverride 1500; # priority of option defaults
-  mkDefault = mkOverride 1000
+  mkDefault =
+    mkOverride
+      1000
     ; # used in config sections of non-user modules to set a default
   defaultOverridePriority = 100;
-  mkImageMediaOverride = mkOverride 60
+  mkImageMediaOverride =
+    mkOverride
+      60
     ; # image media profiles can be derived by inclusion into host config, hence needing to override host config, but do allow user to mkForce
   mkForce = mkOverride 50;
   mkVMOverride = mkOverride 10; # used by ‘nixos-rebuild build-vm’
 
-  defaultPriority = lib.warnIf (lib.isInOldestRelease 2305)
-    "lib.modules.defaultPriority is deprecated, please use lib.modules.defaultOverridePriority instead."
-    defaultOverridePriority;
+  defaultPriority =
+    lib.warnIf (lib.isInOldestRelease 2305)
+      "lib.modules.defaultPriority is deprecated, please use lib.modules.defaultOverridePriority instead."
+      defaultOverridePriority
+    ;
 
-  mkFixStrictness = lib.warn
-    "lib.mkFixStrictness has no effect and will be removed. It returns its argument unmodified, so you can just remove any calls."
-    id;
+  mkFixStrictness =
+    lib.warn
+      "lib.mkFixStrictness has no effect and will be removed. It returns its argument unmodified, so you can just remove any calls."
+      id
+    ;
 
   mkOrder =
     priority: content: {
@@ -1403,8 +1443,8 @@ rec {
           apply =
             x:
             throw "The option `${
-              showOption optionName
-            }' can no longer be used since it's been removed. ${replacementInstructions}"
+                showOption optionName
+              }' can no longer be used since it's been removed. ${replacementInstructions}"
             ;
         }
       );
@@ -1445,8 +1485,8 @@ rec {
       visible = false;
       warn = true;
       use = builtins.trace "Obsolete option `${
-          showOption from
-        }' is used. It was renamed to `${showOption to}'.";
+            showOption from
+          }' is used. It was renamed to `${showOption to}'.";
     }
     ;
 
@@ -1468,8 +1508,8 @@ rec {
       visible = false;
       warn = lib.isInOldestRelease sinceRelease;
       use = lib.warnIf (lib.isInOldestRelease sinceRelease) "Obsolete option `${
-          showOption from
-        }' is used. It was renamed to `${showOption to}'.";
+            showOption from
+          }' is used. It was renamed to `${showOption to}'.";
     }
     ;
 
@@ -1510,43 +1550,46 @@ rec {
     }: {
       options = foldl' recursiveUpdate { } (
         map
-        (
-          path:
-          setAttrByPath path (
-            mkOption {
-              visible = false;
-              # To use the value in mergeFn without triggering errors
-              default = "_mkMergedOptionModule";
-            }
+          (
+            path:
+            setAttrByPath path (
+              mkOption {
+                visible = false;
+                # To use the value in mergeFn without triggering errors
+                default = "_mkMergedOptionModule";
+              }
+            )
           )
-        )
-        from
+          from
       );
 
       config = {
         warnings = filter (x: x != "") (
           map
-          (
-            f:
-            let
-              val = getAttrFromPath f config;
-              opt = getAttrFromPath f options;
-            in
-            optionalString (val != "_mkMergedOptionModule") "The option `${
-              showOption f
-            }' defined in ${showFiles opt.files} has been changed to `${
-              showOption to
-            }' that has a different type. Please read `${
-              showOption to
-            }' documentation and update your configuration accordingly."
-          )
-          from
+            (
+              f:
+              let
+                val = getAttrFromPath f config;
+                opt = getAttrFromPath f options;
+              in
+              optionalString (val != "_mkMergedOptionModule") "The option `${
+                  showOption f
+                }' defined in ${showFiles opt.files} has been changed to `${
+                  showOption to
+                }' that has a different type. Please read `${
+                  showOption to
+                }' documentation and update your configuration accordingly."
+            )
+            from
         );
       } // setAttrByPath to (
         mkMerge (
           optional
-          (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from)
-          (mergeFn config)
+            (
+              any (f: (getAttrFromPath f config) != "_mkMergedOptionModule")
+                from
+            )
+            (mergeFn config)
         )
       );
     }
@@ -1664,10 +1707,10 @@ rec {
       config = mkMerge [
         (optionalAttrs (options ? warnings) {
           warnings = optional (warn && fromOpt.isDefined) "The option `${
-              showOption from
-            }' defined in ${showFiles fromOpt.files} has been renamed to `${
-              showOption to
-            }'.";
+                showOption from
+              }' defined in ${showFiles fromOpt.files} has been renamed to `${
+                showOption to
+              }'.";
         })
         (
           if withPriority then

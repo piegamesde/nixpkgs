@@ -140,31 +140,33 @@ in
     }
   );
 
-  outputs-no-out = runCommand "outputs-no-out-assert"
-    {
-      result = earlierPkgs.testers.testBuildFailure (
-        bootStdenv.mkDerivation {
-          NIX_DEBUG = 1;
-          name = "outputs-no-out";
-          outputs = [ "foo" ];
-          buildPhase = ":";
-          installPhase = ''
-            touch $foo
-          '';
-        }
-      );
+  outputs-no-out =
+    runCommand "outputs-no-out-assert"
+      {
+        result = earlierPkgs.testers.testBuildFailure (
+          bootStdenv.mkDerivation {
+            NIX_DEBUG = 1;
+            name = "outputs-no-out";
+            outputs = [ "foo" ];
+            buildPhase = ":";
+            installPhase = ''
+              touch $foo
+            '';
+          }
+        );
 
-      # Assumption: the first output* variable to be configured is
-      #   _overrideFirst outputDev "dev" "out"
-      expectedMsg = ''
-        error: _assignFirst: could not find a non-empty variable whose name to assign to outputDev.
-               The following variables were all unset or empty:
-                   dev out'';
-    }
-    ''
-      grep -F "$expectedMsg" $result/testBuildFailure.log >/dev/null
-      touch $out
-    '';
+        # Assumption: the first output* variable to be configured is
+        #   _overrideFirst outputDev "dev" "out"
+        expectedMsg = ''
+          error: _assignFirst: could not find a non-empty variable whose name to assign to outputDev.
+                 The following variables were all unset or empty:
+                     dev out'';
+      }
+      ''
+        grep -F "$expectedMsg" $result/testBuildFailure.log >/dev/null
+        touch $out
+      ''
+    ;
 
   test-env-attrset = testEnvAttrset {
     name = "test-env-attrset";

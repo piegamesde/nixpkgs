@@ -153,7 +153,9 @@ in
           secretKeyFile = lib.mkOption {
             type = lib.types.path;
             description =
-              lib.mdDoc "File path that contains the S3 secret key.";
+              lib.mdDoc
+                "File path that contains the S3 secret key."
+              ;
           };
           region = lib.mkOption {
             type = lib.types.str;
@@ -170,7 +172,9 @@ in
           uploadBucketName = lib.mkOption {
             type = lib.types.str;
             description =
-              lib.mdDoc "Name of the bucket where uploads should be stored.";
+              lib.mdDoc
+                "Name of the bucket where uploads should be stored."
+              ;
           };
           uploadMaxSize = lib.mkOption {
             type = lib.types.int;
@@ -214,7 +218,9 @@ in
             secretFile = lib.mkOption {
               type = lib.types.str;
               description =
-                lib.mdDoc "File path containing the authentication secret.";
+                lib.mdDoc
+                  "File path containing the authentication secret."
+                ;
             };
           };
         }
@@ -240,7 +246,9 @@ in
             clientSecretFile = lib.mkOption {
               type = lib.types.str;
               description =
-                lib.mdDoc "File path containing the authentication secret.";
+                lib.mdDoc
+                  "File path containing the authentication secret."
+                ;
             };
           };
         }
@@ -265,7 +273,9 @@ in
             clientSecretFile = lib.mkOption {
               type = lib.types.str;
               description =
-                lib.mdDoc "File path containing the authentication secret.";
+                lib.mdDoc
+                  "File path containing the authentication secret."
+                ;
             };
             resourceAppId = lib.mkOption {
               type = lib.types.str;
@@ -294,7 +304,9 @@ in
             clientSecretFile = lib.mkOption {
               type = lib.types.str;
               description =
-                lib.mdDoc "File path containing the authentication secret.";
+                lib.mdDoc
+                  "File path containing the authentication secret."
+                ;
             };
             authUrl = lib.mkOption {
               type = lib.types.str;
@@ -427,7 +439,9 @@ in
             verificationTokenFile = lib.mkOption {
               type = lib.types.str;
               description =
-                lib.mdDoc "File path containing the verification token.";
+                lib.mdDoc
+                  "File path containing the verification token."
+                ;
             };
             appId = lib.mkOption {
               type = lib.types.str;
@@ -493,7 +507,9 @@ in
             host = lib.mkOption {
               type = lib.types.str;
               description =
-                lib.mdDoc "Host name or IP address of the SMTP server.";
+                lib.mdDoc
+                  "Host name or IP address of the SMTP server."
+                ;
             };
             port = lib.mkOption {
               type = lib.types.port;
@@ -570,7 +586,9 @@ in
       type = lib.types.int;
       default = 5000;
       description =
-        lib.mdDoc "Maximum number of requests in a throttling window.";
+        lib.mdDoc
+          "Maximum number of requests in a throttling window."
+        ;
     };
     rateLimiter.durationWindow = lib.mkOption {
       type = lib.types.int;
@@ -587,8 +605,9 @@ in
       };
     };
 
-    users.groups =
-      lib.optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
+    users.groups = lib.optionalAttrs (cfg.group == defaultUser) {
+      ${defaultUser} = { };
+    };
 
     systemd.tmpfiles.rules = [
       "f ${cfg.secretKeyFile} 0600 ${cfg.user} ${cfg.group} -"
@@ -658,9 +677,13 @@ in
             AWS_S3_UPLOAD_BUCKET_URL = cfg.storage.uploadBucketUrl;
             AWS_S3_UPLOAD_BUCKET_NAME = cfg.storage.uploadBucketName;
             AWS_S3_UPLOAD_MAX_SIZE =
-              builtins.toString cfg.storage.uploadMaxSize;
+              builtins.toString
+                cfg.storage.uploadMaxSize
+              ;
             AWS_S3_FORCE_PATH_STYLE =
-              builtins.toString cfg.storage.forcePathStyle;
+              builtins.toString
+                cfg.storage.forcePathStyle
+              ;
             AWS_S3_ACL = cfg.storage.acl;
 
             CDN_URL = cfg.cdnUrl;
@@ -669,20 +692,27 @@ in
             WEB_CONCURRENCY = builtins.toString cfg.concurrency;
             MAXIMUM_IMPORT_SIZE = builtins.toString cfg.maximumImportSize;
             DEBUG = cfg.debugOutput;
-            GOOGLE_ANALYTICS_ID = lib.optionalString
-              (cfg.googleAnalyticsId != null)
-              cfg.googleAnalyticsId;
+            GOOGLE_ANALYTICS_ID =
+              lib.optionalString (cfg.googleAnalyticsId != null)
+                cfg.googleAnalyticsId
+              ;
             SENTRY_DSN =
-              lib.optionalString (cfg.sentryDsn != null) cfg.sentryDsn;
+              lib.optionalString (cfg.sentryDsn != null)
+                cfg.sentryDsn
+              ;
             SENTRY_TUNNEL =
-              lib.optionalString (cfg.sentryTunnel != null) cfg.sentryTunnel;
+              lib.optionalString (cfg.sentryTunnel != null)
+                cfg.sentryTunnel
+              ;
             TEAM_LOGO = lib.optionalString (cfg.logo != null) cfg.logo;
             DEFAULT_LANGUAGE = cfg.defaultLanguage;
 
             RATE_LIMITER_ENABLED = builtins.toString cfg.rateLimiter.enable;
             RATE_LIMITER_REQUESTS = builtins.toString cfg.rateLimiter.requests;
             RATE_LIMITER_DURATION_WINDOW =
-              builtins.toString cfg.rateLimiter.durationWindow;
+              builtins.toString
+                cfg.rateLimiter.durationWindow
+              ;
           }
 
           (lib.mkIf (cfg.slackAuthentication != null) {
@@ -706,13 +736,17 @@ in
             OIDC_USERNAME_CLAIM = cfg.oidcAuthentication.usernameClaim;
             OIDC_DISPLAY_NAME = cfg.oidcAuthentication.displayName;
             OIDC_SCOPES =
-              lib.concatStringsSep " " cfg.oidcAuthentication.scopes;
+              lib.concatStringsSep " "
+                cfg.oidcAuthentication.scopes
+              ;
           })
 
           (lib.mkIf (cfg.slackIntegration != null) {
             SLACK_APP_ID = cfg.slackIntegration.appId;
             SLACK_MESSAGE_ACTIONS =
-              builtins.toString cfg.slackIntegration.messageActions;
+              builtins.toString
+                cfg.slackIntegration.messageActions
+              ;
           })
 
           (lib.mkIf (cfg.smtp != null) {

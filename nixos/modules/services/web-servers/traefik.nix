@@ -30,42 +30,42 @@ let
   dynamicConfigFile =
     if cfg.dynamicConfigFile == null then
       pkgs.runCommand "config.toml"
-      {
-        buildInputs = [ pkgs.remarshal ];
-        preferLocalBuild = true;
-      }
-      ''
-        remarshal -if json -of toml \
-          < ${
-            pkgs.writeText "dynamic_config.json" (
-              builtins.toJSON cfg.dynamicConfigOptions
-            )
-          } \
-          > $out
-      ''
+        {
+          buildInputs = [ pkgs.remarshal ];
+          preferLocalBuild = true;
+        }
+        ''
+          remarshal -if json -of toml \
+            < ${
+              pkgs.writeText "dynamic_config.json" (
+                builtins.toJSON cfg.dynamicConfigOptions
+              )
+            } \
+            > $out
+        ''
     else
       cfg.dynamicConfigFile
     ;
   staticConfigFile =
     if cfg.staticConfigFile == null then
       pkgs.runCommand "config.toml"
-      {
-        buildInputs = [ pkgs.yj ];
-        preferLocalBuild = true;
-      }
-      ''
-        yj -jt -i \
-          < ${
-            pkgs.writeText "static_config.json" (
-              builtins.toJSON (
-                recursiveUpdate cfg.staticConfigOptions {
-                  providers.file.filename = "${dynamicConfigFile}";
-                }
+        {
+          buildInputs = [ pkgs.yj ];
+          preferLocalBuild = true;
+        }
+        ''
+          yj -jt -i \
+            < ${
+              pkgs.writeText "static_config.json" (
+                builtins.toJSON (
+                  recursiveUpdate cfg.staticConfigOptions {
+                    providers.file.filename = "${dynamicConfigFile}";
+                  }
+                )
               )
-            )
-          } \
-          > $out
-      ''
+            } \
+            > $out
+        ''
     else
       cfg.staticConfigFile
     ;

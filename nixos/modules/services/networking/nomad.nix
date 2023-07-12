@@ -15,7 +15,7 @@ in
     services.nomad = {
       enable = mkEnableOption (
         lib.mdDoc
-        "Nomad, a distributed, highly available, datacenter-aware scheduler"
+          "Nomad, a distributed, highly available, datacenter-aware scheduler"
       );
 
       package = mkOption {
@@ -172,9 +172,10 @@ in
             in
             "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
             + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
-            + concatMapStrings
-              (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
-              (lib.attrNames cfg.credentials)
+            +
+              concatMapStrings
+                (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
+                (lib.attrNames cfg.credentials)
             ;
           KillMode = "process";
           KillSignal = "SIGINT";
@@ -185,7 +186,9 @@ in
           RestartSec = 2;
           TasksMax = "infinity";
           LoadCredential =
-            lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
+            lib.mapAttrsToList (key: value: "${key}:${value}")
+              cfg.credentials
+            ;
         }
         (mkIf cfg.enableDocker {
           SupplementaryGroups = "docker"; # space-separated string

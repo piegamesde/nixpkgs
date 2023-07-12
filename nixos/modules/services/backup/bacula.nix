@@ -25,14 +25,14 @@ let
 
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (name: value: ''
-        Director {
-          Name = "${name}";
-          Password = "${value.password}";
-          Monitor = "${value.monitor}";
-        }
-      '')
-      fd_cfg.director
+        (name: value: ''
+          Director {
+            Name = "${name}";
+            Password = "${value.password}";
+            Monitor = "${value.monitor}";
+          }
+        '')
+        fd_cfg.director
     )}
 
     Messages {
@@ -54,41 +54,43 @@ let
 
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (name: value: ''
-        Autochanger {
-          Name = "${name}";
-          Device = ${concatStringsSep ", " (map (a: ''"${a}"'') value.devices)};
-          Changer Device =  "${value.changerDevice}";
-          Changer Command = "${value.changerCommand}";
-          ${value.extraAutochangerConfig}
-        }
-      '')
-      sd_cfg.autochanger
+        (name: value: ''
+          Autochanger {
+            Name = "${name}";
+            Device = ${
+              concatStringsSep ", " (map (a: ''"${a}"'') value.devices)
+            };
+            Changer Device =  "${value.changerDevice}";
+            Changer Command = "${value.changerCommand}";
+            ${value.extraAutochangerConfig}
+          }
+        '')
+        sd_cfg.autochanger
     )}
 
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (name: value: ''
-        Device {
-          Name = "${name}";
-          Archive Device = "${value.archiveDevice}";
-          Media Type = "${value.mediaType}";
-          ${value.extraDeviceConfig}
-        }
-      '')
-      sd_cfg.device
+        (name: value: ''
+          Device {
+            Name = "${name}";
+            Archive Device = "${value.archiveDevice}";
+            Media Type = "${value.mediaType}";
+            ${value.extraDeviceConfig}
+          }
+        '')
+        sd_cfg.device
     )}
 
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (name: value: ''
-        Director {
-          Name = "${name}";
-          Password = "${value.password}";
-          Monitor = "${value.monitor}";
-        }
-      '')
-      sd_cfg.director
+        (name: value: ''
+          Director {
+            Name = "${name}";
+            Password = "${value.password}";
+            Monitor = "${value.monitor}";
+          }
+        '')
+        sd_cfg.director
     )}
 
     Messages {
@@ -329,7 +331,9 @@ in
       name = mkOption {
         default = "${config.networking.hostName}-fd";
         defaultText =
-          literalExpression ''"''${config.networking.hostName}-fd"'';
+          literalExpression
+            ''"''${config.networking.hostName}-fd"''
+          ;
         type = types.str;
         description = lib.mdDoc ''
           The client name that must be used by the Director when connecting.
@@ -393,7 +397,9 @@ in
       name = mkOption {
         default = "${config.networking.hostName}-sd";
         defaultText =
-          literalExpression ''"''${config.networking.hostName}-sd"'';
+          literalExpression
+            ''"''${config.networking.hostName}-sd"''
+          ;
         type = types.str;
         description = lib.mdDoc ''
           Specifies the Name of the Storage daemon.
@@ -468,8 +474,8 @@ in
 
       name = mkOption {
         default = "${config.networking.hostName}-dir";
-        defaultText =
-          literalExpression ''"''${config.networking.hostName}-dir"'';
+        defaultText = literalExpression ''
+          "''${config.networking.hostName}-dir"'';
         type = types.str;
         description = lib.mdDoc ''
           The director name used by the system administrator. This directive is

@@ -16,8 +16,9 @@ let
       if cfg.enableExtensionPack then pkgs.virtualboxExtpack else null;
   };
 
-  kernelModules =
-    config.boot.kernelPackages.virtualbox.override { inherit virtualbox; };
+  kernelModules = config.boot.kernelPackages.virtualbox.override {
+    inherit virtualbox;
+  };
 in
 
 {
@@ -99,9 +100,11 @@ in
     mkMerge [
       {
         warnings =
-          mkIf (config.nixpkgs.config.virtualbox.enableExtensionPack or false) [
-            "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
-          ];
+          mkIf (config.nixpkgs.config.virtualbox.enableExtensionPack or false)
+            [
+              "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
+            ]
+          ;
         boot.kernelModules = [
           "vboxdrv"
           "vboxnetadp"
@@ -137,11 +140,11 @@ in
           mkIf cfg.enableHardening (
             builtins.listToAttrs (
               map
-              (x: {
-                name = x;
-                value = mkSuid x;
-              })
-              executables
+                (x: {
+                  name = x;
+                  value = mkSuid x;
+                })
+                executables
             )
           )
           ;

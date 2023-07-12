@@ -9,27 +9,28 @@ let
   libDefPos =
     prefix: set:
     builtins.concatMap
-    (
-      name:
-      [ {
-        name = builtins.concatStringsSep "." (prefix ++ [ name ]);
-        location = builtins.unsafeGetAttrPos name set;
-      } ]
-      ++ nixpkgsLib.optionals
-        (builtins.length prefix == 0 && builtins.isAttrs set.${name})
-        (libDefPos (prefix ++ [ name ]) set.${name})
-    )
-    (builtins.attrNames set)
+      (
+        name:
+        [ {
+          name = builtins.concatStringsSep "." (prefix ++ [ name ]);
+          location = builtins.unsafeGetAttrPos name set;
+        } ]
+        ++
+          nixpkgsLib.optionals
+            (builtins.length prefix == 0 && builtins.isAttrs set.${name})
+            (libDefPos (prefix ++ [ name ]) set.${name})
+      )
+      (builtins.attrNames set)
     ;
 
   libset =
     toplib:
     builtins.map
-    (subsetname: {
-      subsetname = subsetname;
-      functions = libDefPos [ ] toplib.${subsetname};
-    })
-    (builtins.map (x: x.name) libsets)
+      (subsetname: {
+        subsetname = subsetname;
+        functions = libDefPos [ ] toplib.${subsetname};
+      })
+      (builtins.map (x: x.name) libsets)
     ;
 
   nixpkgsLib = pkgs.lib;
@@ -40,11 +41,11 @@ let
       functions,
     }:
     builtins.map
-    (fn: {
-      name = "lib.${subsetname}.${fn.name}";
-      value = fn.location;
-    })
-    functions
+      (fn: {
+        name = "lib.${subsetname}.${fn.name}";
+        value = fn.location;
+      })
+      functions
     ;
 
   locatedlibsets = libs: builtins.map flattenedLibSubset (libset libs);
@@ -80,25 +81,27 @@ let
 
   urlPrefix = "https://github.com/NixOS/nixpkgs/blob/${revision}";
   xmlstrings =
-    (nixpkgsLib.strings.concatMapStrings
-      (
-        {
-          name,
-          value,
-        }: ''
-          <section><title>${name}</title>
-            <para xml:id="${sanitizeId name}">
-            Located at
-            <link
-              xlink:href="${urlPrefix}/${value.file}#L${
-                builtins.toString value.line
-              }">${value.file}:${builtins.toString value.line}</link>
-            in  <literal>&lt;nixpkgs&gt;</literal>.
-            </para>
-            </section>
-        ''
-      )
-      relativeLocs);
+    (
+      nixpkgsLib.strings.concatMapStrings
+        (
+          {
+            name,
+            value,
+          }: ''
+            <section><title>${name}</title>
+              <para xml:id="${sanitizeId name}">
+              Located at
+              <link
+                xlink:href="${urlPrefix}/${value.file}#L${
+                  builtins.toString value.line
+                }">${value.file}:${builtins.toString value.line}</link>
+              in  <literal>&lt;nixpkgs&gt;</literal>.
+              </para>
+              </section>
+          ''
+        )
+        relativeLocs
+    );
 in
 pkgs.writeText "locations.xml" ''
   <section xmlns="http://docbook.org/ns/docbook"

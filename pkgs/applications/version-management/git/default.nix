@@ -77,16 +77,17 @@ stdenv.mkDerivation (
     pname =
       "git"
       + lib.optionalString svnSupport "-with-svn"
-      + lib.optionalString
-        (
-          !svnSupport
-          && !guiSupport
-          && !sendEmailSupport
-          && !withManual
-          && !pythonSupport
-          && !withpcre2
-        )
-        "-minimal"
+      +
+        lib.optionalString
+          (
+            !svnSupport
+            && !guiSupport
+            && !sendEmailSupport
+            && !withManual
+            && !pythonSupport
+            && !withpcre2
+          )
+          "-minimal"
       ;
     inherit version;
 
@@ -175,8 +176,8 @@ stdenv.mkDerivation (
     # required to support pthread_cancel()
     NIX_LDFLAGS =
       lib.optionalString
-      (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
-      "-lgcc_s"
+        (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
+        "-lgcc_s"
       + lib.optionalString (stdenv.isFreeBSD) "-lthr"
       ;
 
@@ -197,9 +198,9 @@ stdenv.mkDerivation (
       [ "prefix=\${out}" ]
       # Git does not allow setting a shell separately for building and run-time.
       # Therefore lets leave it at the default /bin/sh when cross-compiling
-      ++ lib.optional
-        (stdenv.buildPlatform == stdenv.hostPlatform)
-        "SHELL_PATH=${stdenv.shell}"
+      ++
+        lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
+          "SHELL_PATH=${stdenv.shell}"
       ++ (
         if perlSupport then
           [ "PERL_PATH=${perlPackages.perl}/bin/perl" ]
@@ -240,9 +241,9 @@ stdenv.mkDerivation (
       ;
 
     disallowedReferences =
-      lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        stdenv.shellPackage
-      ];
+      lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+        [ stdenv.shellPackage ]
+      ;
 
     postBuild =
       ''
@@ -320,9 +321,8 @@ stdenv.mkDerivation (
               '${coreutils}/bin/wc', '${coreutils}/bin/tr',
               '${coreutils}/bin/ls'
               ${
-                lib.optionalString
-                perlSupport
-                ", '${perlPackages.perl}/bin/perl'"
+                lib.optionalString perlSupport
+                  ", '${perlPackages.perl}/bin/perl'"
               }
             );
           }
@@ -548,8 +548,9 @@ stdenv.mkDerivation (
     passthru = {
       shellPath = "/bin/git-shell";
       tests = {
-        withInstallCheck =
-          finalAttrs.finalPackage.overrideAttrs (_: { doInstallCheck = true; });
+        withInstallCheck = finalAttrs.finalPackage.overrideAttrs (
+          _: { doInstallCheck = true; }
+        );
         buildbot-integration = nixosTests.buildbot;
       } // tests.fetchgit;
     };

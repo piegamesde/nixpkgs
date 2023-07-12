@@ -13,20 +13,23 @@ with lib;
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "growPartition"
-      ]
-      [
-        "boot"
-        "growPartition"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "virtualisation"
+          "growPartition"
+        ]
+        [
+          "boot"
+          "growPartition"
+        ]
+    )
   ];
 
   options = {
-    boot.growPartition =
-      mkEnableOption (lib.mdDoc "grow the root partition on boot");
+    boot.growPartition = mkEnableOption (
+      lib.mdDoc "grow the root partition on boot"
+    );
   };
 
   config = mkIf config.boot.growPartition {

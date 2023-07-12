@@ -19,9 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   postPatch =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-      substituteInPlace configure --replace "./conftest" "echo"
-    '';
+    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+      ''
+        substituteInPlace configure --replace "./conftest" "echo"
+      ''
+    ;
 
   enableParallelBuilding = true;
 

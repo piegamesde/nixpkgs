@@ -155,10 +155,8 @@ lib.makeOverridable (
       # Introduced in https://github.com/ruby/ruby/commit/0958e19ffb047781fe1506760c7cbd8d7fe74e57
       env.NIX_CFLAGS_COMPILE = toString (
         lib.optionals
-        (stdenv.cc.isClang && lib.versionAtLeast ruby.version.major "3")
-        [
-          "-fdeclspec"
-        ]
+          (stdenv.cc.isClang && lib.versionAtLeast ruby.version.major "3")
+          [ "-fdeclspec" ]
       );
 
       buildPhase =

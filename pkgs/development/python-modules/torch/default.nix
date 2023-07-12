@@ -141,21 +141,24 @@ let
   #   lists.subtractLists a b = b - a
 
   # For CUDA
-  supportedCudaCapabilities = lists.intersectLists
-    cudaFlags.cudaCapabilities
-    supportedTorchCudaCapabilities;
+  supportedCudaCapabilities =
+    lists.intersectLists cudaFlags.cudaCapabilities
+      supportedTorchCudaCapabilities
+    ;
   unsupportedCudaCapabilities =
-    lists.subtractLists supportedCudaCapabilities cudaFlags.cudaCapabilities;
+    lists.subtractLists supportedCudaCapabilities
+      cudaFlags.cudaCapabilities
+    ;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
     trivial.throwIf (supported == [ ])
-    (
-      "No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported
-    )
-    supported
+      (
+        "No supported GPU targets specified. Requested GPU targets: "
+        + strings.concatStringsSep ", " unsupported
+      )
+      supported
     ;
 
   # Create the gpuTargetString.
@@ -190,9 +193,10 @@ let
     name = "libcuda.so.1";
     path = "${cudatoolkit}/lib/stubs/libcuda.so";
   } ];
-  cudaStubEnv = lib.optionalString
-    cudaSupport
-    "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
+  cudaStubEnv =
+    lib.optionalString cudaSupport
+      "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH "
+    ;
 
   rocmtoolkit_joined = symlinkJoin {
     name = "rocm-merged";
@@ -288,16 +292,17 @@ buildPythonPackage rec {
     ''
     # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
-    + lib.optionalString
-      (
-        stdenv.isDarwin
-        && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0"
-      )
-      ''
-        substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
-        inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
-        inline void *aligned_alloc(size_t align, size_t size)'
-      ''
+    +
+      lib.optionalString
+        (
+          stdenv.isDarwin
+          && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0"
+        )
+        ''
+          substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
+          inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
+          inline void *aligned_alloc(size_t align, size_t size)'
+        ''
     ;
 
   preConfigure =
@@ -364,7 +369,9 @@ buildPythonPackage rec {
   PYTORCH_BUILD_NUMBER = 0;
 
   USE_SYSTEM_NCCL =
-    setBool useSystemNccl; # don't build pytorch's third_party NCCL
+    setBool
+      useSystemNccl
+    ; # don't build pytorch's third_party NCCL
 
   # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
   # (upstream seems to have fixed this in the wrong place?)
@@ -379,20 +386,20 @@ buildPythonPackage rec {
       # Suppress gcc regression: avx512 math function raises uninitialized variable warning
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
-      ++ lib.optionals
-        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0")
-        [
-          "-Wno-error=maybe-uninitialized"
-          "-Wno-error=uninitialized"
-        ]
+      ++
+        lib.optionals
+          (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0")
+          [
+            "-Wno-error=maybe-uninitialized"
+            "-Wno-error=uninitialized"
+          ]
       # Since pytorch 2.0:
       # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
       # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-      ++ lib.optionals
-        (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
-        [
-          "-Wno-error=free-nonheap-object"
-        ]
+      ++
+        lib.optionals
+          (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
+          [ "-Wno-error=free-nonheap-object" ]
     )
   );
 

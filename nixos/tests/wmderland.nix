@@ -17,7 +17,9 @@ import ./make-test-python.nix (
         ];
         test-support.displayManager.auto.user = "alice";
         services.xserver.displayManager.defaultSession =
-          lib.mkForce "none+wmderland";
+          lib.mkForce
+            "none+wmderland"
+          ;
         services.xserver.windowManager.wmderland.enable = true;
 
         systemd.services.setupWmderlandConfig = {

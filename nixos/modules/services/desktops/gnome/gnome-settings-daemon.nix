@@ -19,29 +19,33 @@ in
   meta = { maintainers = teams.gnome.members; };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gnome3"
-        "gnome-settings-daemon"
-        "package"
-      ]
-      "")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "gnome3"
+          "gnome-settings-daemon"
+          "package"
+        ]
+        ""
+    )
 
     # Added 2021-05-07
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gnome3"
-        "gnome-settings-daemon"
-        "enable"
-      ]
-      [
-        "services"
-        "gnome"
-        "gnome-settings-daemon"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "gnome-settings-daemon"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "gnome-settings-daemon"
+          "enable"
+        ]
+    )
   ];
 
   ###### interface

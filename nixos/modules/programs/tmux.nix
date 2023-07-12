@@ -32,19 +32,18 @@ let
     set -g status-keys ${cfg.keyMode}
     set -g mode-keys   ${cfg.keyMode}
 
-    ${optionalString
-    (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize)
-    ''
-      bind h select-pane -L
-      bind j select-pane -D
-      bind k select-pane -U
-      bind l select-pane -R
+    ${optionalString (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize)
+      ''
+        bind h select-pane -L
+        bind j select-pane -D
+        bind k select-pane -U
+        bind l select-pane -R
 
-      bind -r H resize-pane -L ${toString cfg.resizeAmount}
-      bind -r J resize-pane -D ${toString cfg.resizeAmount}
-      bind -r K resize-pane -U ${toString cfg.resizeAmount}
-      bind -r L resize-pane -R ${toString cfg.resizeAmount}
-    ''}
+        bind -r H resize-pane -L ${toString cfg.resizeAmount}
+        bind -r J resize-pane -D ${toString cfg.resizeAmount}
+        bind -r K resize-pane -U ${toString cfg.resizeAmount}
+        bind -r L resize-pane -R ${toString cfg.resizeAmount}
+      ''}
 
     ${optionalString (cfg.shortcut != defaultShortcut) ''
       # rebind main key: C-${cfg.shortcut}
@@ -78,7 +77,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whenever to configure {command}`tmux` system-wide.";
+          lib.mdDoc
+            "Whenever to configure {command}`tmux` system-wide."
+          ;
         relatedPackages = [ "tmux" ];
       };
 
@@ -106,8 +107,9 @@ in
       customPaneNavigationAndResize = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc
-          "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode."
+        description =
+          lib.mdDoc
+            "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode."
           ;
       };
 
@@ -115,8 +117,10 @@ in
         default = 500;
         example = 0;
         type = types.int;
-        description = lib.mdDoc
-          "Time in milliseconds for which tmux waits after an escape is input.";
+        description =
+          lib.mdDoc
+            "Time in milliseconds for which tmux waits after an escape is input."
+          ;
       };
 
       extraConfig = mkOption {
@@ -132,7 +136,9 @@ in
         example = 5000;
         type = types.int;
         description =
-          lib.mdDoc "Maximum number of lines held in window history.";
+          lib.mdDoc
+            "Maximum number of lines held in window history."
+          ;
       };
 
       keyMode = mkOption {
@@ -148,8 +154,9 @@ in
       newSession = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc
-          "Automatically spawn a session if trying to attach and none are running."
+        description =
+          lib.mdDoc
+            "Automatically spawn a session if trying to attach and none are running."
           ;
       };
 
@@ -171,7 +178,9 @@ in
         example = "a";
         type = types.str;
         description =
-          lib.mdDoc "Ctrl following by this key is used as the main shortcut.";
+          lib.mdDoc
+            "Ctrl following by this key is used as the main shortcut."
+          ;
       };
 
       terminal = mkOption {
@@ -237,16 +246,18 @@ in
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [
-        "programs"
-        "tmux"
-        "extraTmuxConf"
-      ]
-      [
-        "programs"
-        "tmux"
-        "extraConfig"
-      ])
+    (
+      lib.mkRenamedOptionModule
+        [
+          "programs"
+          "tmux"
+          "extraTmuxConf"
+        ]
+        [
+          "programs"
+          "tmux"
+          "extraConfig"
+        ]
+    )
   ];
 }

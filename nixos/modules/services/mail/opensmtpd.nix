@@ -14,27 +14,31 @@ let
   args = concatStringsSep " " cfg.extraServerArgs;
 
   sendmail =
-    pkgs.runCommand "opensmtpd-sendmail" { preferLocalBuild = true; } ''
-      mkdir -p $out/bin
-      ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
-    '';
+    pkgs.runCommand "opensmtpd-sendmail" { preferLocalBuild = true; }
+      ''
+        mkdir -p $out/bin
+        ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
+      ''
+    ;
 in
 {
 
   ###### interface
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "opensmtpd"
-        "addSendmailToSystemPath"
-      ]
-      [
-        "services"
-        "opensmtpd"
-        "setSendmail"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "opensmtpd"
+          "addSendmailToSystemPath"
+        ]
+        [
+          "services"
+          "opensmtpd"
+          "setSendmail"
+        ]
+    )
   ];
 
   options = {
@@ -58,7 +62,9 @@ in
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Whether to set the system sendmail to OpenSMTPD's.";
+          lib.mdDoc
+            "Whether to set the system sendmail to OpenSMTPD's."
+          ;
       };
 
       extraServerArgs = mkOption {

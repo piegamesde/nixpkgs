@@ -87,17 +87,19 @@ in
               ${lines}
             ''
             ;
-          runnerRegistrationConfig = getAttrs
-            [
-              "name"
-              "tokenFile"
-              "url"
-              "runnerGroup"
-              "extraLabels"
-              "ephemeral"
-              "workDir"
-            ]
-            cfg;
+          runnerRegistrationConfig =
+            getAttrs
+              [
+                "name"
+                "tokenFile"
+                "url"
+                "runnerGroup"
+                "extraLabels"
+                "ephemeral"
+                "workDir"
+              ]
+              cfg
+            ;
           newConfigPath = builtins.toFile "${svcName}-config.json" (
             builtins.toJSON runnerRegistrationConfig
           );
@@ -174,8 +176,8 @@ in
                 ${optionalString cfg.replace "--replace"}
                 ${
                   optionalString (cfg.runnerGroup != null) "--runnergroup ${
-                    escapeShellArg cfg.runnerGroup
-                  }"
+                      escapeShellArg cfg.runnerGroup
+                    }"
                 }
                 ${optionalString cfg.ephemeral "--ephemeral"}
               )
@@ -209,21 +211,21 @@ in
           '';
         in
         map
-        (
-          x:
-          "${x} ${
-            escapeShellArgs [
-              stateDir
-              workDir
-              logsDir
-            ]
-          }"
-        )
-        [
-          "+${unconfigureRunner}" # runs as root
-          configureRunner
-          setupWorkDir
-        ]
+          (
+            x:
+            "${x} ${
+              escapeShellArgs [
+                stateDir
+                workDir
+                logsDir
+              ]
+            }"
+          )
+          [
+            "+${unconfigureRunner}" # runs as root
+            configureRunner
+            setupWorkDir
+          ]
         ;
 
       # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)

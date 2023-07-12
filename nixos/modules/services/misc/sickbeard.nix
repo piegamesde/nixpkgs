@@ -45,8 +45,8 @@ in
       configFile = mkOption {
         type = types.path;
         default = "${cfg.dataDir}/config.ini";
-        defaultText =
-          literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
+        defaultText = literalExpression ''
+          "''${config.${opt.dataDir}}/config.ini"'';
         description = lib.mdDoc "Path to config file.";
       };
       port = mkOption {

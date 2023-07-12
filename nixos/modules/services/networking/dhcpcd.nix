@@ -30,8 +30,8 @@ let
   ignoredInterfaces =
     map (i: i.name) (
       filter
-      (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ])
-      interfaces
+        (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ])
+        interfaces
     )
     ++ mapAttrsToList (i: _: i) config.networking.sits
     ++ concatLists (
@@ -39,13 +39,13 @@ let
     )
     ++ flatten (
       concatMap
-      (
-        i:
-        attrNames (
-          filterAttrs (_: config: config.type != "internal") i.interfaces
+        (
+          i:
+          attrNames (
+            filterAttrs (_: config: config.type != "internal") i.interfaces
+          )
         )
-      )
-      (attrValues config.networking.vswitches)
+        (attrValues config.networking.vswitches)
     )
     ++ concatLists (
       attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds)
@@ -74,16 +74,17 @@ let
       null
   );
 
-  staticIPv6Addresses =
-    map (i: i.name) (filter (i: i.ipv6.addresses != [ ]) interfaces);
+  staticIPv6Addresses = map (i: i.name) (
+    filter (i: i.ipv6.addresses != [ ]) interfaces
+  );
 
   noIPv6rs = concatStringsSep "\n" (
     map
-    (name: ''
-      interface ${name}
-      noipv6rs
-    '')
-    staticIPv6Addresses
+      (name: ''
+        interface ${name}
+        noipv6rs
+      '')
+      staticIPv6Addresses
   );
 
   # Config file adapted from the one that ships with dhcpcd.
@@ -112,8 +113,8 @@ let
 
     # Use the list of allowed interfaces if specified
     ${optionalString (allowInterfaces != null) "allowinterfaces ${
-      toString allowInterfaces
-    }"}
+        toString allowInterfaces
+      }"}
 
     # Immediately fork to background if specified, otherwise wait for IP address to be assigned
     ${{
@@ -134,12 +135,12 @@ let
     ''}
 
     ${optionalString
-    (
-      config.networking.enableIPv6
-      && cfg.IPv6rs == null
-      && staticIPv6Addresses != [ ]
-    )
-    noIPv6rs}
+      (
+        config.networking.enableIPv6
+        && cfg.IPv6rs == null
+        && staticIPv6Addresses != [ ]
+      )
+      noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs
     ''}
@@ -348,9 +349,11 @@ in
     environment.etc."dhcpcd.exit-hook".source = exitHook;
 
     powerManagement.resumeCommands =
-      mkIf config.systemd.services.dhcpcd.enable ''
-        # Tell dhcpcd to rebind its interfaces if it's running.
-        /run/current-system/systemd/bin/systemctl reload dhcpcd.service
-      '';
+      mkIf config.systemd.services.dhcpcd.enable
+        ''
+          # Tell dhcpcd to rebind its interfaces if it's running.
+          /run/current-system/systemd/bin/systemctl reload dhcpcd.service
+        ''
+      ;
   };
 }

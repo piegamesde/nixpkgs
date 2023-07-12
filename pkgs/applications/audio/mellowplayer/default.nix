@@ -57,16 +57,16 @@ mkDerivation rec {
     + (builtins.concatStringsSep "\n" (
       lib.lists.flatten (
         builtins.map
-        (pkg: [
-          (lib.optionalString (pkg ? qtPluginPrefix) ''
-            export QT_PLUGIN_PATH="${pkg}/${pkg.qtPluginPrefix}"''${QT_PLUGIN_PATH:+':'}$QT_PLUGIN_PATH
-          '')
+          (pkg: [
+            (lib.optionalString (pkg ? qtPluginPrefix) ''
+              export QT_PLUGIN_PATH="${pkg}/${pkg.qtPluginPrefix}"''${QT_PLUGIN_PATH:+':'}$QT_PLUGIN_PATH
+            '')
 
-          (lib.optionalString (pkg ? qtQmlPrefix) ''
-            export QML2_IMPORT_PATH="${pkg}/${pkg.qtQmlPrefix}"''${QML2_IMPORT_PATH:+':'}$QML2_IMPORT_PATH
-          '')
-        ])
-        buildInputs
+            (lib.optionalString (pkg ? qtQmlPrefix) ''
+              export QML2_IMPORT_PATH="${pkg}/${pkg.qtQmlPrefix}"''${QML2_IMPORT_PATH:+':'}$QML2_IMPORT_PATH
+            '')
+          ])
+          buildInputs
       )
     ))
     ;

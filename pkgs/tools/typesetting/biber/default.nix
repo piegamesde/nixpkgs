@@ -8,8 +8,9 @@
 }:
 
 let
-  biberSource =
-    lib.head (builtins.filter (p: p.tlType == "source") texlive.biber.pkgs);
+  biberSource = lib.head (
+    builtins.filter (p: p.tlType == "source") texlive.biber.pkgs
+  );
 
   # perl 5.32.0 ships with U:C 1.27
   UnicodeCollate_1_29 = perlPackages.buildPerlPackage rec {

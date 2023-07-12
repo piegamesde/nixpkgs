@@ -69,10 +69,12 @@ stdenv.mkDerivation rec {
 
   # TODO: send patch upstream to make running tests optional
   postPatch =
-    lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      substituteInPlace meson.build \
-        --replace "subdir('tests')" ""
-    '';
+    lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        substituteInPlace meson.build \
+          --replace "subdir('tests')" ""
+      ''
+    ;
 
   LC_ALL = "en_US.UTF-8";
 

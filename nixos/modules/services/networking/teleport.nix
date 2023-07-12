@@ -102,13 +102,13 @@ in
             ${optionalString cfg.insecure.enable "--insecure"} \
             ${
               optionalString cfg.diag.enable "--diag-addr=${cfg.diag.addr}:${
-                toString cfg.diag.port
-              }"
+                  toString cfg.diag.port
+                }"
             } \
             ${
               optionalString (cfg.settings != { }) "--config=${
-                settingsYaml.generate "teleport.yaml" cfg.settings
-              }"
+                  settingsYaml.generate "teleport.yaml" cfg.settings
+                }"
             }
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

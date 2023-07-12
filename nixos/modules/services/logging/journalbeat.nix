@@ -59,7 +59,9 @@ in
         type = types.lines;
         default = "";
         description =
-          lib.mdDoc "Any other configuration options you want to add";
+          lib.mdDoc
+            "Any other configuration options you want to add"
+          ;
       };
     };
   };

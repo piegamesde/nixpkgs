@@ -16,13 +16,13 @@ let
     configAttr:
     (builtins.concatStringsSep "\n" (
       lib.mapAttrsToList
-      (name: value: ''
-        <property>
-          <name>${name}</name>
-          <value>${builtins.toString value}</value>
-        </property>
-      '')
-      configAttr
+        (name: value: ''
+          <property>
+            <name>${name}</name>
+            <value>${builtins.toString value}</value>
+          </property>
+        '')
+        configAttr
     ))
     ;
 
@@ -42,15 +42,17 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "hbase"
-      ]
-      [
-        "services"
-        "hbase-standalone"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "hbase"
+        ]
+        [
+          "services"
+          "hbase-standalone"
+        ]
+    )
   ];
 
   ###### interface

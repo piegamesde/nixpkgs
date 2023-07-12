@@ -59,22 +59,22 @@
       generate =
         name: value:
         pkgs.callPackage
-        (
-          {
-            runCommand,
-            jq,
-          }:
-          runCommand name
-          {
-            nativeBuildInputs = [ jq ];
-            value = builtins.toJSON value;
-            passAsFile = [ "value" ];
-          }
-          ''
-            jq . "$valuePath"> $out
-          ''
-        )
-        { }
+          (
+            {
+              runCommand,
+              jq,
+            }:
+            runCommand name
+              {
+                nativeBuildInputs = [ jq ];
+                value = builtins.toJSON value;
+                passAsFile = [ "value" ];
+              }
+              ''
+                jq . "$valuePath"> $out
+              ''
+          )
+          { }
         ;
     }
     ;
@@ -85,22 +85,22 @@
       generate =
         name: value:
         pkgs.callPackage
-        (
-          {
-            runCommand,
-            remarshal,
-          }:
-          runCommand name
-          {
-            nativeBuildInputs = [ remarshal ];
-            value = builtins.toJSON value;
-            passAsFile = [ "value" ];
-          }
-          ''
-            json2yaml "$valuePath" "$out"
-          ''
-        )
-        { }
+          (
+            {
+              runCommand,
+              remarshal,
+            }:
+            runCommand name
+              {
+                nativeBuildInputs = [ remarshal ];
+                value = builtins.toJSON value;
+                passAsFile = [ "value" ];
+              }
+              ''
+                json2yaml "$valuePath" "$out"
+              ''
+          )
+          { }
         ;
 
       type = with lib.types;
@@ -177,21 +177,20 @@
           transformedValue =
             if listToValue != null then
               lib.mapAttrs
-              (
-                section:
-                lib.mapAttrs (
-                  key: val: if lib.isList val then listToValue val else val
+                (
+                  section:
+                  lib.mapAttrs (
+                    key: val: if lib.isList val then listToValue val else val
+                  )
                 )
-              )
-              value
+                value
             else
               value
             ;
         in
         pkgs.writeText name (
-          lib.generators.toINI
-          (removeAttrs args [ "listToValue" ])
-          transformedValue
+          lib.generators.toINI (removeAttrs args [ "listToValue" ])
+            transformedValue
         )
         ;
     }
@@ -249,16 +248,15 @@
           transformedValue =
             if listToValue != null then
               lib.mapAttrs
-              (key: val: if lib.isList val then listToValue val else val)
-              value
+                (key: val: if lib.isList val then listToValue val else val)
+                value
             else
               value
             ;
         in
         pkgs.writeText name (
-          lib.generators.toKeyValue
-          (removeAttrs args [ "listToValue" ])
-          transformedValue
+          lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
+            transformedValue
         )
         ;
     }
@@ -309,22 +307,22 @@
       generate =
         name: value:
         pkgs.callPackage
-        (
-          {
-            runCommand,
-            remarshal,
-          }:
-          runCommand name
-          {
-            nativeBuildInputs = [ remarshal ];
-            value = builtins.toJSON value;
-            passAsFile = [ "value" ];
-          }
-          ''
-            json2toml "$valuePath" "$out"
-          ''
-        )
-        { }
+          (
+            {
+              runCommand,
+              remarshal,
+            }:
+            runCommand name
+              {
+                nativeBuildInputs = [ remarshal ];
+                value = builtins.toJSON value;
+                passAsFile = [ "value" ];
+              }
+              ''
+                json2toml "$valuePath" "$out"
+              ''
+          )
+          { }
         ;
     }
     ;
@@ -426,7 +424,7 @@
           tuple value
         else
           abort
-          "formats.elixirConf: should never happen (_elixirType = ${_elixirType})"
+            "formats.elixirConf: should never happen (_elixirType = ${_elixirType})"
         ;
 
       elixirMap =
@@ -494,8 +492,8 @@
               fallback ? null,
             }:
             mkRaw "System.get_env(${toElixir envVariable}, ${
-              toElixir fallback
-            })"
+                toElixir fallback
+              })"
             ;
 
           /* Make an Elixir atom.
@@ -579,15 +577,15 @@
       generate =
         name: value:
         pkgs.runCommand name
-        {
-          value = toConf value;
-          passAsFile = [ "value" ];
-          nativeBuildInputs = [ elixir ];
-        }
-        ''
-          cp "$valuePath" "$out"
-          mix format "$out"
-        ''
+          {
+            value = toConf value;
+            passAsFile = [ "value" ];
+            nativeBuildInputs = [ elixir ];
+          }
+          ''
+            cp "$valuePath" "$out"
+            mix format "$out"
+          ''
         ;
     }
     ;
@@ -617,39 +615,39 @@
       generate =
         name: value:
         pkgs.callPackage
-        (
-          {
-            runCommand,
-            python3,
-            black,
-          }:
-          runCommand name
-          {
-            nativeBuildInputs = [
-              python3
-              black
-            ];
-            value = builtins.toJSON value;
-            pythonGen = ''
-              import json
-              import os
+          (
+            {
+              runCommand,
+              python3,
+              black,
+            }:
+            runCommand name
+              {
+                nativeBuildInputs = [
+                  python3
+                  black
+                ];
+                value = builtins.toJSON value;
+                pythonGen = ''
+                  import json
+                  import os
 
-              with open(os.environ["valuePath"], "r") as f:
-                  for key, value in json.load(f).items():
-                      print(f"{key} = {repr(value)}")
-            '';
-            passAsFile = [
-              "value"
-              "pythonGen"
-            ];
-          }
-          ''
-            cat "$valuePath"
-            python3 "$pythonGenPath" > $out
-            black $out
-          ''
-        )
-        { }
+                  with open(os.environ["valuePath"], "r") as f:
+                      for key, value in json.load(f).items():
+                          print(f"{key} = {repr(value)}")
+                '';
+                passAsFile = [
+                  "value"
+                  "pythonGen"
+                ];
+              }
+              ''
+                cat "$valuePath"
+                python3 "$pythonGenPath" > $out
+                black $out
+              ''
+          )
+          { }
         ;
     }
     ;

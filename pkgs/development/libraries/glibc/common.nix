@@ -102,9 +102,9 @@ stdenv.mkDerivation (
         */
         ./reenable_DT_HASH.patch
       ]
-      ++ lib.optional
-        stdenv.hostPlatform.isMusl
-        ./fix-rpc-types-musl-conflicts.patch
+      ++
+        lib.optional stdenv.hostPlatform.isMusl
+          ./fix-rpc-types-musl-conflicts.patch
       ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch
       ;
 
@@ -147,15 +147,16 @@ stdenv.mkDerivation (
         (lib.withFeatureAs withLinuxHeaders "headers" "${linuxHeaders}/include")
         (lib.enableFeature profilingLibraries "profile")
       ]
-      ++ lib.optionals
-        (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
-        [
-          # This feature is currently supported on
-          # i386, x86_64 and x32 with binutils 2.29 or later,
-          # and on aarch64 with binutils 2.30 or later.
-          # https://sourceware.org/glibc/wiki/PortStatus
-          "--enable-static-pie"
-        ]
+      ++
+        lib.optionals
+          (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
+          [
+            # This feature is currently supported on
+            # i386, x86_64 and x32 with binutils 2.29 or later,
+            # and on aarch64 with binutils 2.30 or later.
+            # https://sourceware.org/glibc/wiki/PortStatus
+            "--enable-static-pie"
+          ]
       ++ lib.optionals stdenv.hostPlatform.isx86 [
         # Enable Intel Control-flow Enforcement Technology (CET) support
         "--enable-cet"
@@ -170,19 +171,20 @@ stdenv.mkDerivation (
         ))
         "--with-__thread"
       ]
-      ++ lib.optionals
-        (
-          stdenv.hostPlatform == stdenv.buildPlatform
-          && stdenv.hostPlatform.isAarch32
-        )
-        [
-          "--host=arm-linux-gnueabi"
-          "--build=arm-linux-gnueabi"
+      ++
+        lib.optionals
+          (
+            stdenv.hostPlatform == stdenv.buildPlatform
+            && stdenv.hostPlatform.isAarch32
+          )
+          [
+            "--host=arm-linux-gnueabi"
+            "--build=arm-linux-gnueabi"
 
-          # To avoid linking with -lgcc_s (dynamic link)
-          # so the glibc does not depend on its compiler store path
-          "libc_cv_as_needed=no"
-        ]
+            # To avoid linking with -lgcc_s (dynamic link)
+            # so the glibc does not depend on its compiler store path
+            "libc_cv_as_needed=no"
+          ]
       ++ lib.optional withGd "--with-gd"
       ++ lib.optional (!withLibcrypt) "--disable-crypt"
       ;

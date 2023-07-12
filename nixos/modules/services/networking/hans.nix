@@ -132,11 +132,11 @@ in
       in
       listToAttrs (
         mapAttrsToList
-        (
-          name: value:
-          nameValuePair "hans-${name}" (createHansClientService name value)
-        )
-        cfg.clients
+          (
+            name: value:
+            nameValuePair "hans-${name}" (createHansClientService name value)
+          )
+          cfg.clients
       ) // {
         hans = mkIf (cfg.server.enable) {
           description = "hans, ip over icmp server daemon";

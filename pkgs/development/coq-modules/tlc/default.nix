@@ -12,25 +12,25 @@
   displayVersion = { tlc = false; };
   defaultVersion = with lib.versions;
     lib.switch coq.coq-version
-    [
-      {
-        case = range "8.13" "8.16";
-        out = "20211215";
-      }
-      {
-        case = range "8.12" "8.13";
-        out = "20210316";
-      }
-      {
-        case = range "8.10" "8.12";
-        out = "20200328";
-      }
-      {
-        case = range "8.6" "8.12";
-        out = "20181116";
-      }
-    ]
-    null;
+      [
+        {
+          case = range "8.13" "8.16";
+          out = "20211215";
+        }
+        {
+          case = range "8.12" "8.13";
+          out = "20210316";
+        }
+        {
+          case = range "8.10" "8.12";
+          out = "20200328";
+        }
+        {
+          case = range "8.6" "8.12";
+          out = "20181116";
+        }
+      ]
+      null;
   release."20211215".sha256 =
     "sha256:0m4d4jhdcyq8p2gpz9j3nd6jqzmz2bjmbpc0q06b38b8i550mamp";
   release."20210316".sha256 =
@@ -47,14 +47,14 @@
     maintainers = [ maintainers.vbgl ];
   };
 }).overrideAttrs
-(
-  x:
-  if lib.versionAtLeast x.version "20210316" then
-    { }
-  else
-    {
-      installFlags = [
-        "CONTRIB=$(out)/lib/coq/${coq.coq-version}/user-contrib"
-      ];
-    }
-)
+  (
+    x:
+    if lib.versionAtLeast x.version "20210316" then
+      { }
+    else
+      {
+        installFlags = [
+          "CONTRIB=$(out)/lib/coq/${coq.coq-version}/user-contrib"
+        ];
+      }
+  )

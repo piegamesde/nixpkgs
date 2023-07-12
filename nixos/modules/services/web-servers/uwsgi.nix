@@ -29,7 +29,7 @@ let
       plugins' =
         if any (n: !any (m: m == n) cfg.plugins) (c.plugins or [ ]) then
           throw
-          "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
+            "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
         else
           c.plugins or cfg.plugins
         ;
@@ -42,7 +42,7 @@ let
       python =
         if hasPython2 && hasPython3 then
           throw
-          "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
+            "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
         else if hasPython2 then
           cfg.package.python2
         else if hasPython3 then
@@ -67,9 +67,10 @@ let
                 # Argh, uwsgi expects list of key-values there instead of a dictionary.
                 let
                   envs = partition (hasPrefix "PATH=") (c.env or [ ]);
-                  oldPaths = map
-                    (x: substring (stringLength "PATH=") (stringLength x) x)
-                    envs.right;
+                  oldPaths =
+                    map (x: substring (stringLength "PATH=") (stringLength x) x)
+                      envs.right
+                    ;
                   paths = oldPaths ++ [ "${pythonEnv}/bin" ];
                 in
                 [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong
@@ -92,7 +93,7 @@ let
             ]
           else
             throw
-            "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'"
+              "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'"
           ;
       };
     in
@@ -257,7 +258,8 @@ in
       uwsgi.gid = config.ids.gids.uwsgi;
     };
 
-    services.uwsgi.package =
-      pkgs.uwsgi.override { plugins = unique cfg.plugins; };
+    services.uwsgi.package = pkgs.uwsgi.override {
+      plugins = unique cfg.plugins;
+    };
   };
 }

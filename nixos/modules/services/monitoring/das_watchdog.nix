@@ -17,8 +17,9 @@ in
   ###### interface
 
   options = {
-    services.das_watchdog.enable =
-      mkEnableOption (lib.mdDoc "realtime watchdog");
+    services.das_watchdog.enable = mkEnableOption (
+      lib.mdDoc "realtime watchdog"
+    );
   };
 
   ###### implementation

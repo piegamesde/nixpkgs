@@ -465,8 +465,9 @@ in
         else
           null
         ;
-      defaultText = literalMD
-        "generated configuration file if version is at least 3.11, otherwise `null`"
+      defaultText =
+        literalMD
+          "generated configuration file if version is at least 3.11, otherwise `null`"
         ;
       example = "/var/lib/cassandra/jmx.password";
       description = lib.mdDoc ''
@@ -554,15 +555,17 @@ in
     };
 
     systemd.timers.cassandra-full-repair =
-      mkIf (cfg.fullRepairInterval != null) {
-        description = "Schedule full repairs on Cassandra";
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnBootSec = cfg.fullRepairInterval;
-          OnUnitActiveSec = cfg.fullRepairInterval;
-          Persistent = true;
-        };
-      };
+      mkIf (cfg.fullRepairInterval != null)
+        {
+          description = "Schedule full repairs on Cassandra";
+          wantedBy = [ "timers.target" ];
+          timerConfig = {
+            OnBootSec = cfg.fullRepairInterval;
+            OnUnitActiveSec = cfg.fullRepairInterval;
+            Persistent = true;
+          };
+        }
+      ;
 
     systemd.services.cassandra-incremental-repair = {
       description = "Perform an incremental repair on this cassandra node.";
@@ -583,15 +586,17 @@ in
     };
 
     systemd.timers.cassandra-incremental-repair =
-      mkIf (cfg.incrementalRepairInterval != null) {
-        description = "Schedule incremental repairs on Cassandra";
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnBootSec = cfg.incrementalRepairInterval;
-          OnUnitActiveSec = cfg.incrementalRepairInterval;
-          Persistent = true;
-        };
-      };
+      mkIf (cfg.incrementalRepairInterval != null)
+        {
+          description = "Schedule incremental repairs on Cassandra";
+          wantedBy = [ "timers.target" ];
+          timerConfig = {
+            OnBootSec = cfg.incrementalRepairInterval;
+            OnUnitActiveSec = cfg.incrementalRepairInterval;
+            Persistent = true;
+          };
+        }
+      ;
   };
 
   meta.maintainers = with lib.maintainers; [ roberth ];

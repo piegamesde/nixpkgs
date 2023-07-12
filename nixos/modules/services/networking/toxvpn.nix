@@ -21,8 +21,9 @@ with lib;
       port = mkOption {
         type = types.port;
         default = 33445;
-        description = lib.mdDoc
-          "udp port for toxcore, port-forward to help with connectivity if you run many nodes behind one NAT"
+        description =
+          lib.mdDoc
+            "udp port for toxcore, port-forward to help with connectivity if you run many nodes behind one NAT"
           ;
       };
 
@@ -56,9 +57,8 @@ with lib;
         exec toxvpn -i ${config.services.toxvpn.localip} -l /run/toxvpn/control -u toxvpn -p ${
           toString config.services.toxvpn.port
         } ${
-          lib.concatMapStringsSep " "
-          (x: "-a ${x}")
-          config.services.toxvpn.auto_add_peers
+          lib.concatMapStringsSep " " (x: "-a ${x}")
+            config.services.toxvpn.auto_add_peers
         }
       '';
 

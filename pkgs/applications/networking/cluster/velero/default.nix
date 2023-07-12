@@ -44,11 +44,13 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
   postInstall =
-    lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
-      $out/bin/velero completion bash > velero.bash
-      $out/bin/velero completion zsh > velero.zsh
-      installShellCompletion velero.{bash,zsh}
-    '';
+    lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform)
+      ''
+        $out/bin/velero completion bash > velero.bash
+        $out/bin/velero completion zsh > velero.zsh
+        installShellCompletion velero.{bash,zsh}
+      ''
+    ;
 
   meta = with lib; {
     description =

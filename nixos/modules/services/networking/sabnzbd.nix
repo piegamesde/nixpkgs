@@ -26,7 +26,9 @@ in
         default = pkgs.sabnzbd;
         defaultText = lib.literalExpression "pkgs.sabnzbd";
         description =
-          lib.mdDoc "The sabnzbd executable package run by the service.";
+          lib.mdDoc
+            "The sabnzbd executable package run by the service."
+          ;
       };
 
       configFile = mkOption {

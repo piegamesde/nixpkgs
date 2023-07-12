@@ -83,7 +83,9 @@ stdenv.mkDerivation rec {
   depsBuildTarget = lib.optional isCross targetCC;
 
   depsTargetTarget =
-    lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
+    lib.optional stdenv.targetPlatform.isWindows
+      threadsCross.package
+    ;
 
   postPatch = ''
     patchShebangs .
@@ -176,13 +178,14 @@ stdenv.mkDerivation rec {
         ''
       else
         lib.optionalString
-        (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
-        ''
-          rm -rf bin/*_*
-          ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-            rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
-          ''}
-        ''
+          (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
+          ''
+            rm -rf bin/*_*
+            ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS))
+              ''
+                rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
+              ''}
+          ''
     )
     ;
 

@@ -19,7 +19,9 @@ symlinkJoin {
     let
       # Some plugins needs extra environment, see obs-gstreamer for an example.
       pluginArguments =
-        lists.concatMap (plugin: plugin.obsWrapperArguments or [ ]) plugins;
+        lists.concatMap (plugin: plugin.obsWrapperArguments or [ ])
+          plugins
+        ;
 
       pluginsJoined = symlinkJoin {
         name = "obs-studio-plugins";

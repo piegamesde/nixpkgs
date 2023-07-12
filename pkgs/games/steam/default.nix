@@ -37,14 +37,14 @@ let
           ;
         inherit buildFHSEnv;
       };
-      steam-fhsenv-small =
-        steam-fhsenv.override { withGameSpecificLibraries = false; };
+      steam-fhsenv-small = steam-fhsenv.override {
+        withGameSpecificLibraries = false;
+      };
       steamcmd = callPackage ./steamcmd.nix { };
     }
     ;
   keep = self: { };
   extra = spliced0: { };
 in
-makeScopeWithSplicing (generateSplicesForMkScope "steamPackages") keep
-extra
-steamPackagesFun
+makeScopeWithSplicing (generateSplicesForMkScope "steamPackages") keep extra
+  steamPackagesFun

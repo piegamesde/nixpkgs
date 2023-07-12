@@ -18,7 +18,8 @@ with lib;
         default = false;
         type = types.bool;
         description =
-          lib.mdDoc "Whether to run the postfix sender rewriting scheme daemon."
+          lib.mdDoc
+            "Whether to run the postfix sender rewriting scheme daemon."
           ;
       };
 

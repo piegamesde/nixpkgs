@@ -63,8 +63,9 @@ stdenv.mkDerivation (
       ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON"
       ;
 
-    passthru.tests.version =
-      testers.testVersion { package = finalAttrs.finalPackage; };
+    passthru.tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+    };
 
     meta = with lib; {
       description = "OpenStreetMap data to PostgreSQL converter";

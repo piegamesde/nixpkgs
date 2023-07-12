@@ -35,10 +35,10 @@ let
     # Put the rules in a temporary file owned and only readable by root
     rulesfile="$(mktemp)"
     ${concatMapStrings
-    (x: ''
-      echo '${x}' >> $rulesfile
-    '')
-    cfg.rules}
+      (x: ''
+        echo '${x}' >> $rulesfile
+      '')
+      cfg.rules}
 
     # Apply the requested rules
     auditctl -R "$rulesfile"
@@ -86,7 +86,9 @@ in
         ];
         default = "printk";
         description =
-          lib.mdDoc "How to handle critical errors in the auditing system";
+          lib.mdDoc
+            "How to handle critical errors in the auditing system"
+          ;
       };
 
       backlogLimit = mkOption {
@@ -108,7 +110,9 @@ in
       };
 
       rules = mkOption {
-        type = types.listOf types.str
+        type =
+          types.listOf
+            types.str
           ; # (types.either types.str (types.submodule rule));
         default = [ ];
         example = [ "-a exit,always -F arch=b64 -S execve" ];

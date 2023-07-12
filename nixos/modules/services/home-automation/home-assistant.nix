@@ -17,13 +17,16 @@ let
   # We post-process the result to add support for YAML functions, like secrets or includes, see e.g.
   # https://www.home-assistant.io/docs/configuration/secrets/
   filteredConfig =
-    lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ])) cfg.config
-      or { };
+    lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
+      cfg.config or { }
+    ;
   configFile =
-    pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; } ''
-      cp ${format.generate "configuration.yaml" filteredConfig} $out
-      sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
-    '';
+    pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; }
+      ''
+        cp ${format.generate "configuration.yaml" filteredConfig} $out
+        sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
+      ''
+    ;
   lovelaceConfig = cfg.lovelaceConfig or { };
   lovelaceConfigFile = format.generate "ui-lovelace.yaml" lovelaceConfig;
 
@@ -85,33 +88,39 @@ in
 {
   imports = [
     # Migrations in NixOS 22.05
-    (mkRemovedOptionModule
-      [
-        "services"
-        "home-assistant"
-        "applyDefaultConfig"
-      ]
-      "The default config was migrated into services.home-assistant.config")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "home-assistant"
-        "autoExtraComponents"
-      ]
-      "Components are now parsed from services.home-assistant.config unconditionally")
-    (mkRenamedOptionModule
-      [
-        "services"
-        "home-assistant"
-        "port"
-      ]
-      [
-        "services"
-        "home-assistant"
-        "config"
-        "http"
-        "server_port"
-      ])
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "home-assistant"
+          "applyDefaultConfig"
+        ]
+        "The default config was migrated into services.home-assistant.config"
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "home-assistant"
+          "autoExtraComponents"
+        ]
+        "Components are now parsed from services.home-assistant.config unconditionally"
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "home-assistant"
+          "port"
+        ]
+        [
+          "services"
+          "home-assistant"
+          "config"
+          "http"
+          "server_port"
+        ]
+    )
   ];
 
   meta = {
@@ -124,14 +133,15 @@ in
     # https://github.com/home-assistant/architecture/blob/master/adr/0012-define-supported-installation-method.md#decision
     enable = mkEnableOption (
       lib.mdDoc
-      "Home Assistant. Please note that this installation method is unsupported upstream"
+        "Home Assistant. Please note that this installation method is unsupported upstream"
     );
 
     configDir = mkOption {
       default = "/var/lib/hass";
       type = types.path;
-      description = lib.mdDoc
-        "The config directory, where your {file}`configuration.yaml` is located."
+      description =
+        lib.mdDoc
+          "The config directory, where your {file}`configuration.yaml` is located."
         ;
     };
 
@@ -423,7 +433,9 @@ in
       default = false;
       type = types.bool;
       description =
-        lib.mdDoc "Whether to open the firewall for the specified port.";
+        lib.mdDoc
+          "Whether to open the firewall for the specified port."
+        ;
     };
   };
 
@@ -433,8 +445,9 @@ in
       message = "openFirewall can only be used with a declarative config";
     } ];
 
-    networking.firewall.allowedTCPPorts =
-      mkIf cfg.openFirewall [ cfg.config.http.server_port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+      cfg.config.http.server_port
+    ];
 
     # symlink the configuration to /etc/home-assistant
     environment.etc = lib.mkMerge [
@@ -499,14 +512,14 @@ in
               # https://github.com/NixOS/nixpkgs/issues/120617#issuecomment-830685115
               ""
             ]
-            ++ lib.optionals
-              (builtins.any useComponent componentsUsingBluetooth)
-              [
-                # Required for interaction with hci devices and bluetooth sockets, identified by bluetooth-adapters dependency
-                # https://www.home-assistant.io/integrations/bluetooth_le_tracker/#rootless-setup-on-core-installs
-                "CAP_NET_ADMIN"
-                "CAP_NET_RAW"
-              ]
+            ++
+              lib.optionals (builtins.any useComponent componentsUsingBluetooth)
+                [
+                  # Required for interaction with hci devices and bluetooth sockets, identified by bluetooth-adapters dependency
+                  # https://www.home-assistant.io/integrations/bluetooth_le_tracker/#rootless-setup-on-core-installs
+                  "CAP_NET_ADMIN"
+                  "CAP_NET_RAW"
+                ]
             ++ lib.optionals (useComponent "emulated_hue") [
               # Alexa looks for the service on port 80
               # https://www.home-assistant.io/integrations/emulated_hue
@@ -675,9 +688,9 @@ in
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           SupplementaryGroups =
-            optionals (any useComponent componentsUsingSerialDevices) [
-              "dialout"
-            ];
+            optionals (any useComponent componentsUsingSerialDevices)
+              [ "dialout" ]
+            ;
           SystemCallArchitectures = "native";
           SystemCallFilter =
             [

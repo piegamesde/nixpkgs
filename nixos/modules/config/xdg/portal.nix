@@ -11,17 +11,19 @@ in
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "flatpak"
-        "extraPortals"
-      ]
-      [
-        "xdg"
-        "portal"
-        "extraPortals"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "flatpak"
+          "extraPortals"
+        ]
+        [
+          "xdg"
+          "portal"
+          "extraPortals"
+        ]
+    )
 
     (
       {
@@ -53,7 +55,7 @@ in
   options.xdg.portal = {
     enable = mkEnableOption (
       lib.mdDoc
-      "[xdg desktop integration](https://github.com/flatpak/xdg-desktop-portal)"
+        "[xdg desktop integration](https://github.com/flatpak/xdg-desktop-portal)"
     ) // {
       default = false;
     };

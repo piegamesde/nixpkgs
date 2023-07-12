@@ -25,7 +25,9 @@ in
         type = types.str;
         default = "/var/lib/ombi";
         description =
-          lib.mdDoc "The directory where Ombi stores its data files.";
+          lib.mdDoc
+            "The directory where Ombi stores its data files."
+          ;
       };
 
       port = mkOption {
@@ -38,7 +40,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Open ports in the firewall for the Ombi web interface.";
+          lib.mdDoc
+            "Open ports in the firewall for the Ombi web interface."
+          ;
       };
 
       user = mkOption {
@@ -77,8 +81,9 @@ in
       };
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.port ];
+    };
 
     users.users = mkIf (cfg.user == "ombi") {
       ombi = {

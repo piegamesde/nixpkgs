@@ -61,8 +61,8 @@ stdenv.mkDerivation rec {
       --prefix CLASSPATH : $out/lib/abcl/abcl-contrib.jar \
       ${
         lib.optionalString (lib.versionAtLeast jre.version "17")
-        # Fix for https://github.com/armedbear/abcl/issues/484
-        "--add-flags --add-opens=java.base/java.util.jar=ALL-UNNAMED \\"
+          # Fix for https://github.com/armedbear/abcl/issues/484
+          "--add-flags --add-opens=java.base/java.util.jar=ALL-UNNAMED \\"
       }
       --add-flags org.armedbear.lisp.Main
 

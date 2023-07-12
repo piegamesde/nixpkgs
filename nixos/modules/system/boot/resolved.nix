@@ -142,14 +142,14 @@ in
       "systemd/resolved.conf".text = ''
         [Resolve]
         ${optionalString (config.networking.nameservers != [ ]) "DNS=${
-          concatStringsSep " " config.networking.nameservers
-        }"}
+            concatStringsSep " " config.networking.nameservers
+          }"}
         ${optionalString (cfg.fallbackDns != [ ]) "FallbackDNS=${
-          concatStringsSep " " cfg.fallbackDns
-        }"}
+            concatStringsSep " " cfg.fallbackDns
+          }"}
         ${optionalString (cfg.domains != [ ]) "Domains=${
-          concatStringsSep " " cfg.domains
-        }"}
+            concatStringsSep " " cfg.domains
+          }"}
         LLMNR=${cfg.llmnr}
         DNSSEC=${cfg.dnssec}
         ${config.services.resolved.extraConfig}

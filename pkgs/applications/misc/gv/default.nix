@@ -20,7 +20,9 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags =
-    lib.optionals stdenv.isDarwin [ "--enable-SIGCHLD-fallback" ];
+    lib.optionals stdenv.isDarwin
+      [ "--enable-SIGCHLD-fallback" ]
+    ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =

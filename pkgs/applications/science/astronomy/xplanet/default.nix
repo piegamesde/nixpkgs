@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
   ];
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
+    lib.optionalString stdenv.cc.isClang
+      "-Wno-error=c++11-narrowing"
+    ;
 
   meta = with lib; {
     description =

@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
     broken =
-      versionAtLeast kernel.version "4.12"; # Now in kernel staging drivers
+      versionAtLeast kernel.version
+        "4.12"
+      ; # Now in kernel staging drivers
     maintainers = with maintainers; [ elitak ];
   };
 }

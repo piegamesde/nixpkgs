@@ -29,7 +29,8 @@ let
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether the indexation must take place recursively or not."
+          lib.mdDoc
+            "Whether the indexation must take place recursively or not."
           ;
       };
       hidden-files = mkOption {
@@ -291,8 +292,8 @@ in
       dataDir = mkOption {
         type = types.path;
         default = "/var/lib/${name}";
-        defaultText =
-          literalExpression ''"/var/lib/''${config.${opt.package}.pname}"'';
+        defaultText = literalExpression ''
+          "/var/lib/''${config.${opt.package}.pname}"'';
         description = lib.mdDoc ''
           The directory where Gerbera/Mediatomb stores its state, data, etc.
         '';
@@ -397,10 +398,12 @@ in
     let
       binaryCommand = "${pkg}/bin/${name}";
       interfaceFlag =
-        optionalString (cfg.interface != "") "--interface ${cfg.interface}";
+        optionalString (cfg.interface != "")
+          "--interface ${cfg.interface}"
+        ;
       configFlag = optionalString (!cfg.customCfg) "--config ${
-          pkgs.writeText "config.xml" configText
-        }";
+            pkgs.writeText "config.xml" configText
+          }";
     in
     mkIf cfg.enable {
       systemd.services.mediatomb = {
@@ -420,8 +423,9 @@ in
         serviceConfig.Group = cfg.group;
       };
 
-      users.groups =
-        optionalAttrs (cfg.group == "mediatomb") { mediatomb.gid = gid; };
+      users.groups = optionalAttrs (cfg.group == "mediatomb") {
+        mediatomb.gid = gid;
+      };
 
       users.users = optionalAttrs (cfg.user == "mediatomb") {
         mediatomb = {

@@ -16,17 +16,19 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "yggdrasil"
-        "config"
-      ]
-      [
-        "services"
-        "yggdrasil"
-        "settings"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "yggdrasil"
+          "config"
+        ]
+        [
+          "services"
+          "yggdrasil"
+          "settings"
+        ]
+    )
   ];
 
   options = with types; {
@@ -87,8 +89,9 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "wheel";
-        description = lib.mdDoc
-          "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket."
+        description =
+          lib.mdDoc
+            "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket."
           ;
       };
 
@@ -187,8 +190,8 @@ in
               "echo "
 
               + (lib.optionalString settingsProvided "'${
-                  builtins.toJSON cfg.settings
-                }'")
+                    builtins.toJSON cfg.settings
+                  }'")
               + (lib.optionalString configFileProvided ''
                 $(${binHjson} -c "$CREDENTIALS_DIRECTORY/yggdrasil.conf")'')
               + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
@@ -212,7 +215,9 @@ in
           RuntimeDirectoryMode = "0750";
           BindReadOnlyPaths = lib.optional cfg.persistentKeys keysPath;
           LoadCredential =
-            mkIf configFileProvided "yggdrasil.conf:${cfg.configFile}";
+            mkIf configFileProvided
+              "yggdrasil.conf:${cfg.configFile}"
+            ;
 
           AmbientCapabilities = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";
           CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";

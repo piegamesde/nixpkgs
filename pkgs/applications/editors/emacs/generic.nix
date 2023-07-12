@@ -144,9 +144,10 @@ in
     } // {
       pname =
         pname
-        + lib.optionalString
-          (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3)
-          "-nox"
+        +
+          lib.optionalString
+            (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3)
+            "-nox"
         ;
       inherit version;
 
@@ -208,13 +209,13 @@ in
         # and was hard to maintain for emacs-overlay.
         (lib.concatStrings (
           map
-          (fn: ''
-            sed -i 's#(${fn} "gvfs-fuse-daemon")#(${fn} "gvfs-fuse-daemon") (${fn} ".gvfsd-fuse-wrapped")#' lisp/net/tramp-gvfs.el
-          '')
-          [
-            "tramp-compat-process-running-p"
-            "tramp-process-running-p"
-          ]
+            (fn: ''
+              sed -i 's#(${fn} "gvfs-fuse-daemon")#(${fn} "gvfs-fuse-daemon") (${fn} ".gvfsd-fuse-wrapped")#' lisp/net/tramp-gvfs.el
+            '')
+            [
+              "tramp-compat-process-running-p"
+              "tramp-process-running-p"
+            ]
         ))
 
         # Reduce closure size by cleaning the environment of the emacs dumper
@@ -242,9 +243,9 @@ in
         ]
         ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
         ++ lib.optionals srcRepo [ autoreconfHook ]
-        ++ lib.optional
-          (withPgtk || withX && (withGTK3 || withXwidgets))
-          wrapGAppsHook
+        ++
+          lib.optional (withPgtk || withX && (withGTK3 || withXwidgets))
+            wrapGAppsHook
         ;
 
       buildInputs =
@@ -411,12 +412,14 @@ in
         ;
 
       postFixup =
-        lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
-          patchelf --add-rpath ${
-            lib.makeLibraryPath [ libXcursor ]
-          } $out/bin/emacs
-          patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
-        '';
+        lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid")
+          ''
+            patchelf --add-rpath ${
+              lib.makeLibraryPath [ libXcursor ]
+            } $out/bin/emacs
+            patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
+          ''
+        ;
 
       passthru = {
         inherit nativeComp;
@@ -428,9 +431,9 @@ in
       meta = with lib; {
         description =
           "The extensible, customizable GNU text editor"
-          + optionalString
-            withMacport
-            " with Mitsuharu Yamamoto's macport patches"
+          +
+            optionalString withMacport
+              " with Mitsuharu Yamamoto's macport patches"
           ;
         homepage =
           if withMacport then

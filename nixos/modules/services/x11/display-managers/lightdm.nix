@@ -23,10 +23,10 @@ let
   xserverWrapper = writeScript "xserver-wrapper" ''
     #! ${pkgs.bash}/bin/bash
     ${concatMapStrings
-    (n: ''
-      export ${n}="${getAttr n xEnv}"
-    '')
-    (attrNames xEnv)}
+      (n: ''
+        export ${n}="${getAttr n xEnv}"
+      '')
+      (attrNames xEnv)}
 
     display=$(echo "$@" | xargs -n 1 | grep -P ^:\\d\$ | head -n 1 | sed s/^://)
     if [ -z "$display" ]
@@ -91,38 +91,42 @@ in
     ./lightdm-greeters/tiny.nix
     ./lightdm-greeters/slick.nix
     ./lightdm-greeters/mobile.nix
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "lightdm"
-        "autoLogin"
-        "enable"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "lightdm"
-        "autoLogin"
-        "user"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "user"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "lightdm"
+          "autoLogin"
+          "enable"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "autoLogin"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "lightdm"
+          "autoLogin"
+          "user"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "autoLogin"
+          "user"
+        ]
+    )
   ];
 
   options = {
@@ -174,8 +178,10 @@ in
       background = mkOption {
         type = types.either types.path (types.strMatching "^#[0-9]{6}$");
         # Manual cannot depend on packages, we are actually setting the default in config below.
-        defaultText = literalExpression
-          "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath";
+        defaultText =
+          literalExpression
+            "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath"
+          ;
         description = lib.mdDoc ''
           The background image or color to use.
         '';
@@ -188,7 +194,9 @@ in
           greeter-show-manual-login=true
         '';
         description =
-          lib.mdDoc "Extra lines to append to SeatDefaults section.";
+          lib.mdDoc
+            "Extra lines to append to SeatDefaults section."
+          ;
       };
 
       # Configuration for automatic login specific to LightDM
@@ -231,16 +239,19 @@ in
     ];
 
     # Keep in sync with the defaultText value from the option definition.
-    services.xserver.displayManager.lightdm.background = mkDefault
-      pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
+    services.xserver.displayManager.lightdm.background =
+      mkDefault
+        pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath
+      ;
 
     # Set default session in session chooser to a specified values – basically ignore session history.
     # Auto-login is already covered by a config value.
-    services.xserver.displayManager.job.preStart = optionalString
-      (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null)
-      ''
-        ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
-      '';
+    services.xserver.displayManager.job.preStart =
+      optionalString (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null)
+        ''
+          ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
+        ''
+      ;
 
     # setSessionScript needs session-files in XDG_DATA_DIRS
     services.xserver.displayManager.job.environment.XDG_DATA_DIRS =

@@ -11,8 +11,9 @@
 
 let
   # N.B. Keep in sync with default arg for stdenv/generic.
-  defaultMkDerivationFromStdenv =
-    import ./generic/make-derivation.nix { inherit lib config; };
+  defaultMkDerivationFromStdenv = import ./generic/make-derivation.nix {
+    inherit lib config;
+  };
 
   # Low level function to help with overriding `mkDerivationFromStdenv`. One
   # gives it the old stdenv arguments and a "continuation" function, and
@@ -98,15 +99,15 @@ rec {
                 NIX_CFLAGS_LINK =
                   toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
               } // lib.optionalAttrs
-              (!(finalAttrs.dontAddStaticConfigureFlags or false))
-              {
-                configureFlags =
-                  (finalAttrs.configureFlags or [ ])
-                  ++ [
-                    "--disable-shared" # brrr...
-                  ]
-                  ;
-              }
+                (!(finalAttrs.dontAddStaticConfigureFlags or false))
+                {
+                  configureFlags =
+                    (finalAttrs.configureFlags or [ ])
+                    ++ [
+                      "--disable-shared" # brrr...
+                    ]
+                    ;
+                }
             )
         );
       } // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
@@ -126,20 +127,20 @@ rec {
           args:
           {
             dontDisableStatic = true;
-          }
-          // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
-            configureFlags =
-              (args.configureFlags or [ ])
-              ++ [
-                "--enable-static"
-                "--disable-shared"
-              ]
-              ;
-            cmakeFlags =
-              (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
-            mesonFlags =
-              (args.mesonFlags or [ ]) ++ [ "-Ddefault_library=static" ];
-          }
+          } // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false))
+            {
+              configureFlags =
+                (args.configureFlags or [ ])
+                ++ [
+                  "--enable-static"
+                  "--disable-shared"
+                ]
+                ;
+              cmakeFlags =
+                (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
+              mesonFlags =
+                (args.mesonFlags or [ ]) ++ [ "-Ddefault_library=static" ];
+            }
         );
       }
     )
@@ -162,14 +163,16 @@ rec {
             nativeBuildInputs =
               (args.nativeBuildInputs or [ ])
               ++ [
-                (pkgs.buildPackages.makeSetupHook
-                  {
-                    name = "darwin-portable-libSystem-hook";
-                    substitutions = {
-                      libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
-                    };
-                  }
-                  ./darwin/portable-libsystem.sh)
+                (
+                  pkgs.buildPackages.makeSetupHook
+                    {
+                      name = "darwin-portable-libSystem-hook";
+                      substitutions = {
+                        libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
+                      };
+                    }
+                    ./darwin/portable-libsystem.sh
+                )
               ]
               ;
           }
@@ -251,8 +254,8 @@ rec {
                 license = pkg.meta.license or null;
               in
               builtins.trace
-              "@:drv:${toString drvPath}:${builtins.toString license}:@"
-              val
+                "@:drv:${toString drvPath}:${builtins.toString license}:@"
+                val
               ;
           in
           pkg // {
@@ -318,34 +321,36 @@ rec {
       old:
       {
         cc = stdenv.cc.override { inherit bintools; };
-        allowedRequisites = lib.mapNullable
-          (
-            rs:
-            rs
-            ++ [
-              bintools
-              pkgs.mold
-              (lib.getLib pkgs.mimalloc)
-              (lib.getLib pkgs.openssl)
-            ]
-          )
-          (stdenv.allowedRequisites or null);
+        allowedRequisites =
+          lib.mapNullable
+            (
+              rs:
+              rs
+              ++ [
+                bintools
+                pkgs.mold
+                (lib.getLib pkgs.mimalloc)
+                (lib.getLib pkgs.openssl)
+              ]
+            )
+            (stdenv.allowedRequisites or null)
+          ;
         # gcc >12.1.0 supports '-fuse-ld=mold'
         # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
         # https://github.com/rui314/mold#how-to-use
       } // lib.optionalAttrs
-      (
-        stdenv.cc.isClang
-        || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
-      )
-      {
-        mkDerivationFromStdenv = extendMkDerivationArgs old (
-          args: {
-            NIX_CFLAGS_LINK =
-              toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
-          }
-        );
-      }
+        (
+          stdenv.cc.isClang
+          || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
+        )
+        {
+          mkDerivationFromStdenv = extendMkDerivationArgs old (
+            args: {
+              NIX_CFLAGS_LINK =
+                toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
+            }
+          );
+        }
     )
     ;
 

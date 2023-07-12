@@ -54,9 +54,10 @@
 let
   inherit (stdenv) isDarwin;
 
-  malloc0ReturnsNullCrossFlag = lib.optional
-    (stdenv.hostPlatform != stdenv.buildPlatform)
-    "--enable-malloc0returnsnull";
+  malloc0ReturnsNullCrossFlag =
+    lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      "--enable-malloc0returnsnull"
+    ;
 
   brokenOnDarwin =
     pkg:
@@ -65,43 +66,46 @@ let
 in
 self: super:
 {
-  wrapWithXFileSearchPathHook = callPackage
-    (
-      {
-        makeBinaryWrapper,
-        makeSetupHook,
-        writeScript,
-      }:
-      makeSetupHook
-      {
-        name = "wrapWithXFileSearchPathHook";
-        propagatedBuildInputs = [ makeBinaryWrapper ];
-      }
+  wrapWithXFileSearchPathHook =
+    callPackage
       (
-        writeScript "wrapWithXFileSearchPathHook.sh" ''
-          wrapWithXFileSearchPath() {
-            paths=(
-              "$out/share/X11/%T/%N"
-              "$out/include/X11/%T/%N"
-              "${xorg.xbitmaps}/include/X11/%T/%N"
-            )
-            for exe in $out/bin/*; do
-              wrapProgram "$exe" \
-                --suffix XFILESEARCHPATH : $(IFS=:; echo "''${paths[*]}")
-            done
+        {
+          makeBinaryWrapper,
+          makeSetupHook,
+          writeScript,
+        }:
+        makeSetupHook
+          {
+            name = "wrapWithXFileSearchPathHook";
+            propagatedBuildInputs = [ makeBinaryWrapper ];
           }
-          postInstallHooks+=(wrapWithXFileSearchPath)
-        ''
+          (
+            writeScript "wrapWithXFileSearchPathHook.sh" ''
+              wrapWithXFileSearchPath() {
+                paths=(
+                  "$out/share/X11/%T/%N"
+                  "$out/include/X11/%T/%N"
+                  "${xorg.xbitmaps}/include/X11/%T/%N"
+                )
+                for exe in $out/bin/*; do
+                  wrapProgram "$exe" \
+                    --suffix XFILESEARCHPATH : $(IFS=:; echo "''${paths[*]}")
+                done
+              }
+              postInstallHooks+=(wrapWithXFileSearchPath)
+            ''
+          )
       )
-    )
-    { };
+      { }
+    ;
 
   bdftopcf = super.bdftopcf.overrideAttrs (
     attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; }
   );
 
-  editres =
-    super.editres.overrideAttrs (attrs: { hardeningDisable = [ "format" ]; });
+  editres = super.editres.overrideAttrs (
+    attrs: { hardeningDisable = [ "format" ]; }
+  );
 
   fontmiscmisc = super.fontmiscmisc.overrideAttrs (
     attrs: {
@@ -293,12 +297,13 @@ self: super:
       configureFlags =
         attrs.configureFlags or [ ]
         ++ [ "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp" ]
-        ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-          # checking for /dev/urandom... configure: error: cannot check for file existence when cross compiling
-          [
-            "ac_cv_file__dev_urandom=true"
-            "ac_cv_file__dev_random=true"
-          ]
+        ++
+          lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+            # checking for /dev/urandom... configure: error: cannot check for file existence when cross compiling
+            [
+              "ac_cv_file__dev_urandom=true"
+              "ac_cv_file__dev_random=true"
+            ]
         ;
     }
   );
@@ -782,7 +787,9 @@ self: super:
     }
   );
 
-  xf86inputkeyboard = brokenOnDarwin super.xf86inputkeyboard
+  xf86inputkeyboard =
+    brokenOnDarwin
+      super.xf86inputkeyboard
     ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputkeyboard.x86_64-darwin
 
   xf86inputlibinput = super.xf86inputlibinput.overrideAttrs (
@@ -825,9 +832,13 @@ self: super:
     }
   );
 
-  xf86inputvoid = brokenOnDarwin super.xf86inputvoid
+  xf86inputvoid =
+    brokenOnDarwin
+      super.xf86inputvoid
     ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86inputvoid.x86_64-darwin
-  xf86videodummy = brokenOnDarwin super.xf86videodummy
+  xf86videodummy =
+    brokenOnDarwin
+      super.xf86videodummy
     ; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videodummy.x86_64-darwin
 
   # Obsolete drivers that don't compile anymore.
@@ -1018,21 +1029,16 @@ self: super:
         with layout;
         with lib; ''
           # install layout files
-          ${optionalString
-          (compatFile != null)
-          "cp '${compatFile}'   'compat/${name}'"}
-          ${optionalString
-          (geometryFile != null)
-          "cp '${geometryFile}' 'geometry/${name}'"}
-          ${optionalString
-          (keycodesFile != null)
-          "cp '${keycodesFile}' 'keycodes/${name}'"}
-          ${optionalString
-          (symbolsFile != null)
-          "cp '${symbolsFile}'  'symbols/${name}'"}
-          ${optionalString
-          (typesFile != null)
-          "cp '${typesFile}'    'types/${name}'"}
+          ${optionalString (compatFile != null)
+            "cp '${compatFile}'   'compat/${name}'"}
+          ${optionalString (geometryFile != null)
+            "cp '${geometryFile}' 'geometry/${name}'"}
+          ${optionalString (keycodesFile != null)
+            "cp '${keycodesFile}' 'keycodes/${name}'"}
+          ${optionalString (symbolsFile != null)
+            "cp '${symbolsFile}'  'symbols/${name}'"}
+          ${optionalString (typesFile != null)
+            "cp '${typesFile}'    'types/${name}'"}
 
           # patch makefiles
           for type in compat geometry keycodes symbols types; do
@@ -1085,10 +1091,10 @@ self: super:
               <languageList>
                 ${
                   concatMapStrings
-                  (lang: ''
-                    <iso639Id>${lang}</iso639Id>
-                  '')
-                  layout.languages
+                    (lang: ''
+                      <iso639Id>${lang}</iso639Id>
+                    '')
+                    layout.languages
                 }
               </languageList>
             </configItem>
@@ -1150,7 +1156,7 @@ self: super:
             }
           else
             throw
-            "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}"
+              "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}"
           ;
       in
       attrs // (
@@ -1419,51 +1425,54 @@ self: super:
     }
   );
 
-  xinit = (super.xinit.override {
-    stdenv = if isDarwin then clangStdenv else stdenv;
-  }).overrideAttrs
+  xinit =
     (
-      attrs: {
-        nativeBuildInputs =
-          attrs.nativeBuildInputs ++ lib.optional isDarwin bootstrap_cmds;
-        depsBuildBuild = [ buildPackages.stdenv.cc ];
-        configureFlags =
-          [ "--with-xserver=${xorg.xorgserver.out}/bin/X" ]
-          ++ lib.optionals isDarwin [
-            "--with-bundle-id-prefix=org.nixos.xquartz"
-            "--with-launchdaemons-dir=\${out}/LaunchDaemons"
-            "--with-launchagents-dir=\${out}/LaunchAgents"
-          ]
-          ;
-        patches =
-          [
-            # don't unset DBUS_SESSION_BUS_ADDRESS in startx
-            (fetchpatch {
-              name = "dont-unset-DBUS_SESSION_BUS_ADDRESS.patch";
-              url =
-                "https://raw.githubusercontent.com/archlinux/svntogit-packages/40f3ac0a31336d871c76065270d3f10e922d06f3/trunk/fs46369.patch";
-              sha256 = "18kb88i3s9nbq2jxl7l2hyj6p56c993hivk8mzxg811iqbbawkp7";
-            })
-          ];
-        postPatch = ''
-          # Avoid replacement of word-looking cpp's builtin macros in Nix's cross-compiled paths
-          substituteInPlace Makefile.in --replace "PROGCPPDEFS =" "PROGCPPDEFS = -Dlinux=linux -Dunix=unix"
-        '';
-        propagatedBuildInputs =
-          attrs.propagatedBuildInputs or [ ]
-          ++ [ xorg.xauth ]
-          ++ lib.optionals isDarwin [
-            xorg.libX11
-            xorg.xorgproto
-          ]
-          ;
-        postFixup = ''
-          substituteInPlace $out/bin/startx \
-            --replace $out/etc/X11/xinit/xserverrc /etc/X11/xinit/xserverrc \
-            --replace $out/etc/X11/xinit/xinitrc /etc/X11/xinit/xinitrc
-        '';
-      }
-    );
+      super.xinit.override
+        { stdenv = if isDarwin then clangStdenv else stdenv; }
+    ).overrideAttrs
+      (
+        attrs: {
+          nativeBuildInputs =
+            attrs.nativeBuildInputs ++ lib.optional isDarwin bootstrap_cmds;
+          depsBuildBuild = [ buildPackages.stdenv.cc ];
+          configureFlags =
+            [ "--with-xserver=${xorg.xorgserver.out}/bin/X" ]
+            ++ lib.optionals isDarwin [
+              "--with-bundle-id-prefix=org.nixos.xquartz"
+              "--with-launchdaemons-dir=\${out}/LaunchDaemons"
+              "--with-launchagents-dir=\${out}/LaunchAgents"
+            ]
+            ;
+          patches =
+            [
+              # don't unset DBUS_SESSION_BUS_ADDRESS in startx
+              (fetchpatch {
+                name = "dont-unset-DBUS_SESSION_BUS_ADDRESS.patch";
+                url =
+                  "https://raw.githubusercontent.com/archlinux/svntogit-packages/40f3ac0a31336d871c76065270d3f10e922d06f3/trunk/fs46369.patch";
+                sha256 = "18kb88i3s9nbq2jxl7l2hyj6p56c993hivk8mzxg811iqbbawkp7";
+              })
+            ];
+          postPatch = ''
+            # Avoid replacement of word-looking cpp's builtin macros in Nix's cross-compiled paths
+            substituteInPlace Makefile.in --replace "PROGCPPDEFS =" "PROGCPPDEFS = -Dlinux=linux -Dunix=unix"
+          '';
+          propagatedBuildInputs =
+            attrs.propagatedBuildInputs or [ ]
+            ++ [ xorg.xauth ]
+            ++ lib.optionals isDarwin [
+              xorg.libX11
+              xorg.xorgproto
+            ]
+            ;
+          postFixup = ''
+            substituteInPlace $out/bin/startx \
+              --replace $out/etc/X11/xinit/xserverrc /etc/X11/xinit/xserverrc \
+              --replace $out/etc/X11/xinit/xinitrc /etc/X11/xinit/xinitrc
+          '';
+        }
+      )
+    ;
 
   xf86videointel = super.xf86videointel.overrideAttrs (
     attrs: {

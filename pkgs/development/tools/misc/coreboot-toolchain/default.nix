@@ -65,8 +65,8 @@ let
           mkdir -p util/crossgcc/tarballs
 
           ${lib.concatMapStringsSep "\n"
-          (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}")
-          (callPackage ./stable.nix { })}
+            (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}")
+            (callPackage ./stable.nix { })}
 
           patchShebangs util/genbuild_h/genbuild_h.sh
         '';

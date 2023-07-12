@@ -58,10 +58,8 @@
 
   , # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
-  ghcFlavour ?
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
-      if useLLVM then "perf-cross" else "perf-cross-ncg"
-    )
+  ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+      (if useLLVM then "perf-cross" else "perf-cross-ncg")
 
   , # Whether to build sphinx documentation.
   enableDocs ? (
@@ -94,9 +92,10 @@ let
   inherit (bootPkgs) ghc;
 
   # TODO(@Ericson2314) Make unconditional
-  targetPrefix = lib.optionalString
-    (targetPlatform != hostPlatform)
-    "${targetPlatform.config}-";
+  targetPrefix =
+    lib.optionalString (targetPlatform != hostPlatform)
+      "${targetPlatform.config}-"
+    ;
 
   buildMK =
     dontStrip:
@@ -173,9 +172,9 @@ let
     lib.optional enableTerminfo ncurses
     ++ [ libffi ]
     ++ lib.optional (!enableIntegerSimple) gmp
-    ++ lib.optional
-      (platform.libc != "glibc" && !targetPlatform.isWindows)
-      libiconv
+    ++
+      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
+        libiconv
     ;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
@@ -354,22 +353,23 @@ stdenv.mkDerivation (
         "--with-ffi-includes=${targetPackages.libffi.dev}/include"
         "--with-ffi-libraries=${targetPackages.libffi.out}/lib"
       ]
-      ++ lib.optionals
-        (targetPlatform == hostPlatform && !enableIntegerSimple)
-        [
-          "--with-gmp-includes=${targetPackages.gmp.dev}/include"
-          "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
-        ]
-      ++ lib.optionals
-        (
-          targetPlatform == hostPlatform
-          && hostPlatform.libc != "glibc"
-          && !targetPlatform.isWindows
-        )
-        [
-          "--with-iconv-includes=${libiconv}/include"
-          "--with-iconv-libraries=${libiconv}/lib"
-        ]
+      ++
+        lib.optionals (targetPlatform == hostPlatform && !enableIntegerSimple)
+          [
+            "--with-gmp-includes=${targetPackages.gmp.dev}/include"
+            "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
+          ]
+      ++
+        lib.optionals
+          (
+            targetPlatform == hostPlatform
+            && hostPlatform.libc != "glibc"
+            && !targetPlatform.isWindows
+          )
+          [
+            "--with-iconv-includes=${libiconv}/include"
+            "--with-iconv-libraries=${libiconv}/lib"
+          ]
       ++ lib.optionals (targetPlatform != hostPlatform) [
         "--enable-bootstrap-with-devel-snapshot"
       ]
@@ -416,8 +416,9 @@ stdenv.mkDerivation (
       ;
 
     depsTargetTarget = map lib.getDev (libDeps targetPlatform);
-    depsTargetTargetPropagated =
-      map (lib.getOutput "out") (libDeps targetPlatform);
+    depsTargetTargetPropagated = map (lib.getOutput "out") (
+      libDeps targetPlatform
+    );
 
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort

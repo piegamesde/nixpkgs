@@ -122,7 +122,9 @@ in
       };
 
       draw-user-backgrounds =
-        mkEnableOption (lib.mdDoc "draw user backgrounds");
+        mkEnableOption
+          (lib.mdDoc "draw user backgrounds")
+        ;
 
       extraConfig = mkOption {
         type = types.lines;

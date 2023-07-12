@@ -44,14 +44,16 @@ stdenv.mkDerivation rec {
       libsamplerate
       qtbase
     ]
-    ++ lib.optional
-      stdenv.isDarwin
-      darwin.apple_sdk.frameworks.SystemConfiguration
+    ++
+      lib.optional stdenv.isDarwin
+        darwin.apple_sdk.frameworks.SystemConfiguration
     ;
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString
-    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
-    "-std=c++11";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString
+      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
+      "-std=c++11"
+    ;
 
   dontWrapQtApps = true;
 

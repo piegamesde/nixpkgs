@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DgRPC_BUILD_TESTS=ON" ];
   makeFlags = [ "grpc_cli" ];
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isAarch64 "-Wno-error=format-security";
+    lib.optionalString stdenv.isAarch64
+      "-Wno-error=format-security"
+    ;
   installPhase = ''
     runHook preInstall
 

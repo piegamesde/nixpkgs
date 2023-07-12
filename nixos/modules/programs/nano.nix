@@ -33,7 +33,9 @@ in
         type = lib.types.bool;
         default = true;
         description =
-          lib.mdDoc "Whether to enable syntax highlight for various languages.";
+          lib.mdDoc
+            "Whether to enable syntax highlight for various languages."
+          ;
       };
     };
   };

@@ -120,11 +120,13 @@ pkgs.recurseIntoAttrs rec {
       in
       if name == null then builder else builder name
     )
-    engine
+      engine
     ;
 
   # See `buildOpenRASet`.
   engines =
-    buildOpenRASet (import ./engines.nix) { inherit buildOpenRAEngine; };
+    buildOpenRASet (import ./engines.nix)
+      { inherit buildOpenRAEngine; }
+    ;
   mods = buildOpenRASet (import ./mods.nix) { inherit buildOpenRAMod; };
 }

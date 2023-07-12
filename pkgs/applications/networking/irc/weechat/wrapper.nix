@@ -120,8 +120,8 @@ let
           #!${runtimeShell}
           export WEECHAT_EXTRA_LIBDIR=${pluginsDir}
           ${lib.concatMapStringsSep "\n"
-          (p: lib.optionalString (p ? extraEnv) p.extraEnv)
-          plugins}
+            (p: lib.optionalString (p ? extraEnv) p.extraEnv)
+            plugins}
           exec ${weechat}/bin/${bin} "$@" --run-command ${
             lib.escapeShellArg init
           }

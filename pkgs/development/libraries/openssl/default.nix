@@ -63,13 +63,14 @@ let
           + lib.optionalString (lib.versionAtLeast version "1.1.1") ''
             substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
           ''
-          + lib.optionalString
-            (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl)
-            ''
-              substituteInPlace crypto/async/arch/async_posix.h \
-                --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
-                          '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
-            ''
+          +
+            lib.optionalString
+              (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl)
+              ''
+                substituteInPlace crypto/async/arch/async_posix.h \
+                  --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
+                            '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
+              ''
           # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
           # it to the separate etc output.
           + lib.optionalString static ''
@@ -130,9 +131,10 @@ let
                 "./Configure BSD-x86_64"
               else if stdenv.hostPlatform.isx86_32 then
                 "./Configure BSD-x86"
-                + lib.optionalString
-                  (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
-                  "-elf"
+                +
+                  lib.optionalString
+                    (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
+                    "-elf"
               else
                 "./Configure BSD-generic${
                   toString stdenv.hostPlatform.parsed.cpu.bits
@@ -162,7 +164,7 @@ let
               }-cross"
             else
               throw
-              "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
+                "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
           );
 
         # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
@@ -189,24 +191,25 @@ let
           ++ lib.optional enableSSL3 "enable-ssl3"
           # We select KTLS here instead of the configure-time detection (which we patch out).
           # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
-          ++ lib.optional
-            (lib.versionAtLeast version "3.0.0" && enableKTLS)
-            "enable-ktls"
-          ++ lib.optional
-            (
-              lib.versionAtLeast version "1.1.1"
-              && stdenv.hostPlatform.isAarch64
-            )
-            "no-afalgeng"
+          ++
+            lib.optional (lib.versionAtLeast version "3.0.0" && enableKTLS)
+              "enable-ktls"
+          ++
+            lib.optional
+              (
+                lib.versionAtLeast version "1.1.1"
+                && stdenv.hostPlatform.isAarch64
+              )
+              "no-afalgeng"
           # OpenSSL needs a specific `no-shared` configure flag.
           # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
           # for a comprehensive list of configuration options.
-          ++ lib.optional
-            (lib.versionAtLeast version "1.1.1" && static)
-            "no-shared"
-          ++ lib.optional
-            (lib.versionAtLeast version "3.0.0" && static)
-            "no-module"
+          ++
+            lib.optional (lib.versionAtLeast version "1.1.1" && static)
+              "no-shared"
+          ++
+            lib.optional (lib.versionAtLeast version "3.0.0" && static)
+              "no-module"
           # This introduces a reference to the CTLOG_FILE which is undesired when
           # trying to build binaries statically.
           ++ lib.optional static "no-ct"
@@ -248,16 +251,17 @@ let
             mv $out/bin $bin/bin
 
           ''
-          + lib.optionalString (!stdenv.hostPlatform.isWindows)
-            # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
-            ''
-              # c_rehash is a legacy perl script with the same functionality
-              # as `openssl rehash`
-              # this wrapper script is created to maintain backwards compatibility without
-              # depending on perl
-              makeWrapper $bin/bin/openssl $bin/bin/c_rehash \
-                --add-flags "rehash"
-            ''
+          +
+            lib.optionalString (!stdenv.hostPlatform.isWindows)
+              # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
+              ''
+                # c_rehash is a legacy perl script with the same functionality
+                # as `openssl rehash`
+                # this wrapper script is created to maintain backwards compatibility without
+                # depending on perl
+                makeWrapper $bin/bin/openssl $bin/bin/c_rehash \
+                  --add-flags "rehash"
+              ''
           + ''
 
             mkdir $dev
@@ -268,9 +272,8 @@ let
 
             rmdir $etc/etc/ssl/{certs,private}
 
-            ${lib.optionalString
-            (conf != null)
-            "cat ${conf} > $etc/etc/ssl/openssl.cnf"}
+            ${lib.optionalString (conf != null)
+              "cat ${conf} > $etc/etc/ssl/openssl.cnf"}
           ''
           ;
 
@@ -284,7 +287,9 @@ let
         '';
 
         passthru.tests.pkg-config =
-          testers.testMetaPkgConfig finalAttrs.finalPackage;
+          testers.testMetaPkgConfig
+            finalAttrs.finalPackage
+          ;
 
         meta = with lib;
           {

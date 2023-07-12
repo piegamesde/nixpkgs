@@ -29,29 +29,29 @@ let
       version = Agda.version;
     in
     runCommand "${pname}-${version}"
-    {
-      inherit pname version;
-      nativeBuildInputs = [ makeWrapper ];
-      passthru = {
-        unwrapped = Agda;
-        inherit withPackages;
-        tests = {
-          inherit (nixosTests) agda;
-          allPackages = withPackages (
-            lib.filter self.lib.isUnbrokenAgdaPackage (lib.attrValues self)
-          );
+      {
+        inherit pname version;
+        nativeBuildInputs = [ makeWrapper ];
+        passthru = {
+          unwrapped = Agda;
+          inherit withPackages;
+          tests = {
+            inherit (nixosTests) agda;
+            allPackages = withPackages (
+              lib.filter self.lib.isUnbrokenAgdaPackage (lib.attrValues self)
+            );
+          };
         };
-      };
-      inherit (Agda) meta;
-    }
-    ''
-      mkdir -p $out/bin
-      makeWrapper ${Agda}/bin/agda $out/bin/agda \
-        --add-flags "--with-compiler=${ghc}/bin/ghc" \
-        --add-flags "--library-file=${library-file}" \
-        --add-flags "--local-interfaces"
-      ln -s ${Agda}/bin/agda-mode $out/bin/agda-mode
-    ''
+        inherit (Agda) meta;
+      }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${Agda}/bin/agda $out/bin/agda \
+          --add-flags "--with-compiler=${ghc}/bin/ghc" \
+          --add-flags "--library-file=${library-file}" \
+          --add-flags "--local-interfaces"
+        ln -s ${Agda}/bin/agda-mode $out/bin/agda-mode
+      ''
     ; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
 
   withPackages =
@@ -88,8 +88,9 @@ let
       ...
     }:
     let
-      agdaWithArgs =
-        withPackages (builtins.filter (p: p ? isAgdaDerivation) buildInputs);
+      agdaWithArgs = withPackages (
+        builtins.filter (p: p ? isAgdaDerivation) buildInputs
+      );
       includePathArgs = concatMapStrings (path: "-i" + path + " ") (
         includePaths ++ [ (dirOf everythingFile) ]
       );
@@ -147,12 +148,12 @@ let
       # Retrieve all packages from the finished package set that have the current package as a dependency and build them
       passthru.tests = with builtins;
         lib.filterAttrs
-        (
-          name: pkg:
-          self.lib.isUnbrokenAgdaPackage pkg
-          && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
-        )
-        self;
+          (
+            name: pkg:
+            self.lib.isUnbrokenAgdaPackage pkg
+            && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
+          )
+          self;
     }
     ;
 in

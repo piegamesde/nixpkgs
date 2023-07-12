@@ -14,15 +14,17 @@ let
 
   isUnicode = hasSuffix "UTF-8" (toUpper config.i18n.defaultLocale);
 
-  optimizedKeymap = pkgs.runCommand "keymap"
-    {
-      nativeBuildInputs = [ pkgs.buildPackages.kbd ];
-      LOADKEYS_KEYMAP_PATH = "${consoleEnv pkgs.kbd}/share/keymaps/**";
-      preferLocalBuild = true;
-    }
-    ''
-      loadkeys -b ${optionalString isUnicode "-u"} "${cfg.keyMap}" > $out
-    '';
+  optimizedKeymap =
+    pkgs.runCommand "keymap"
+      {
+        nativeBuildInputs = [ pkgs.buildPackages.kbd ];
+        LOADKEYS_KEYMAP_PATH = "${consoleEnv pkgs.kbd}/share/keymaps/**";
+        preferLocalBuild = true;
+      }
+      ''
+        loadkeys -b ${optionalString isUnicode "-u"} "${cfg.keyMap}" > $out
+      ''
+    ;
 
   # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
   vconsoleConf = pkgs.writeText "vconsole.conf" ''
@@ -144,8 +146,8 @@ in
             '${pkgs.buildPackages.ckbcomp}/bin/ckbcomp' \
               ${
                 optionalString
-                (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
-                "-I${config.environment.sessionVariables.XKB_CONFIG_ROOT}"
+                  (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
+                  "-I${config.environment.sessionVariables.XKB_CONFIG_ROOT}"
               } \
               -model '${xkbModel}' -layout '${layout}' \
               -option '${xkbOptions}' -variant '${xkbVariant}' > "$out"
@@ -175,17 +177,21 @@ in
           environment.etc.kbd.source = "${consoleEnv pkgs.kbd}/share";
 
           boot.initrd.preLVMCommands =
-            mkIf (!config.boot.initrd.systemd.enable) (
-              mkBefore ''
-                kbd_mode ${if isUnicode then "-u" else "-a"} -C /dev/console
-                printf "\033%%${if isUnicode then "G" else "@"}" >> /dev/console
-                loadkmap < ${optimizedKeymap}
+            mkIf (!config.boot.initrd.systemd.enable)
+              (
+                mkBefore ''
+                  kbd_mode ${if isUnicode then "-u" else "-a"} -C /dev/console
+                  printf "\033%%${
+                    if isUnicode then "G" else "@"
+                  }" >> /dev/console
+                  loadkmap < ${optimizedKeymap}
 
-                ${optionalString (cfg.earlySetup && cfg.font != null) ''
-                  setfont -C /dev/console $extraUtils/share/consolefonts/font.psf
-                ''}
-              ''
-            );
+                  ${optionalString (cfg.earlySetup && cfg.font != null) ''
+                    setfont -C /dev/console $extraUtils/share/consolefonts/font.psf
+                  ''}
+                ''
+              )
+            ;
 
           boot.initrd.systemd.contents = {
             "/etc/vconsole.conf".source = vconsoleConf;
@@ -209,11 +215,10 @@ in
               "${config.boot.initrd.systemd.package.kbd}/bin/loadkeys"
               "${config.boot.initrd.systemd.package.kbd.gzip}/bin/gzip" # Fonts and keyboard layouts are compressed
             ]
-            ++ optionals
-              (cfg.font != null && hasPrefix builtins.storeDir cfg.font)
-              [
-                "${cfg.font}"
-              ]
+            ++
+              optionals
+                (cfg.font != null && hasPrefix builtins.storeDir cfg.font)
+                [ "${cfg.font}" ]
             ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [
               "${cfg.keyMap}"
             ]
@@ -244,108 +249,126 @@ in
           ];
         })
 
-        (mkIf
-          (
-            cfg.earlySetup
-            && cfg.font != null
-            && !config.boot.initrd.systemd.enable
-          )
-          {
-            boot.initrd.extraUtilsCommands = ''
-              mkdir -p $out/share/consolefonts
-              ${if substring 0 1 cfg.font == "/" then
-                ''
-                  font="${cfg.font}"
-                ''
-              else
-                ''
-                  font="$(echo ${
-                    consoleEnv pkgs.kbd
-                  }/share/consolefonts/${cfg.font}.*)"
-                ''}
-              if [[ $font == *.gz ]]; then
-                gzip -cd $font > $out/share/consolefonts/font.psf
-              else
-                cp -L $font $out/share/consolefonts/font.psf
-              fi
-            '';
-          })
+        (
+          mkIf
+            (
+              cfg.earlySetup
+              && cfg.font != null
+              && !config.boot.initrd.systemd.enable
+            )
+            {
+              boot.initrd.extraUtilsCommands = ''
+                mkdir -p $out/share/consolefonts
+                ${if substring 0 1 cfg.font == "/" then
+                  ''
+                    font="${cfg.font}"
+                  ''
+                else
+                  ''
+                    font="$(echo ${
+                      consoleEnv pkgs.kbd
+                    }/share/consolefonts/${cfg.font}.*)"
+                  ''}
+                if [[ $font == *.gz ]]; then
+                  gzip -cd $font > $out/share/consolefonts/font.psf
+                else
+                  cp -L $font $out/share/consolefonts/font.psf
+                fi
+              '';
+            }
+        )
       ]
     ))
   ];
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "i18n"
-        "consoleFont"
-      ]
-      [
-        "console"
-        "font"
-      ])
-    (mkRenamedOptionModule
-      [
-        "i18n"
-        "consoleKeyMap"
-      ]
-      [
-        "console"
-        "keyMap"
-      ])
-    (mkRenamedOptionModule
-      [
-        "i18n"
-        "consoleColors"
-      ]
-      [
-        "console"
-        "colors"
-      ])
-    (mkRenamedOptionModule
-      [
-        "i18n"
-        "consolePackages"
-      ]
-      [
-        "console"
-        "packages"
-      ])
-    (mkRenamedOptionModule
-      [
-        "i18n"
-        "consoleUseXkbConfig"
-      ]
-      [
-        "console"
-        "useXkbConfig"
-      ])
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "earlyVconsoleSetup"
-      ]
-      [
-        "console"
-        "earlySetup"
-      ])
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "extraTTYs"
-      ]
-      [
-        "console"
-        "extraTTYs"
-      ])
-    (mkRemovedOptionModule
-      [
-        "console"
-        "extraTTYs"
-      ]
-      ''
-        Since NixOS switched to systemd (circa 2012), TTYs have been spawned on
-        demand, so there is no need to configure them manually.
-      '')
+    (
+      mkRenamedOptionModule
+        [
+          "i18n"
+          "consoleFont"
+        ]
+        [
+          "console"
+          "font"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "i18n"
+          "consoleKeyMap"
+        ]
+        [
+          "console"
+          "keyMap"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "i18n"
+          "consoleColors"
+        ]
+        [
+          "console"
+          "colors"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "i18n"
+          "consolePackages"
+        ]
+        [
+          "console"
+          "packages"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "i18n"
+          "consoleUseXkbConfig"
+        ]
+        [
+          "console"
+          "useXkbConfig"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "boot"
+          "earlyVconsoleSetup"
+        ]
+        [
+          "console"
+          "earlySetup"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "boot"
+          "extraTTYs"
+        ]
+        [
+          "console"
+          "extraTTYs"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "console"
+          "extraTTYs"
+        ]
+        ''
+          Since NixOS switched to systemd (circa 2012), TTYs have been spawned on
+          demand, so there is no need to configure them manually.
+        ''
+    )
   ];
 }

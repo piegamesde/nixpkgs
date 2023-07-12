@@ -56,9 +56,8 @@ in
             --bind ${cfg.listenAddress}:${toString cfg.port} \
             --path ${cfg.telemetryPath} \
             ${
-              optionalString
-              (cfg.controlInterface != null)
-              "--control-interface ${cfg.controlInterface}"
+              optionalString (cfg.controlInterface != null)
+                "--control-interface ${cfg.controlInterface}"
             } \
             ${toString cfg.extraFlags}
         '';

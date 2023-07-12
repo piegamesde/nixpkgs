@@ -35,20 +35,24 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "syslog-ng"
-        "serviceName"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "syslog-ng"
-        "listenToJournal"
-      ]
-      "")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "syslog-ng"
+          "serviceName"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "syslog-ng"
+          "listenToJournal"
+        ]
+        ""
+    )
   ];
 
   options = {

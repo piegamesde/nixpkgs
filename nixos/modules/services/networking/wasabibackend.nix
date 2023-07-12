@@ -40,7 +40,9 @@ let
   };
 
   configFile =
-    pkgs.writeText "wasabibackend.conf" (builtins.toJSON confOptions);
+    pkgs.writeText "wasabibackend.conf"
+      (builtins.toJSON confOptions)
+    ;
 in
 {
 
@@ -53,14 +55,17 @@ in
         type = types.path;
         default = "/var/lib/wasabibackend";
         description =
-          lib.mdDoc "The data directory for the Wasabi backend node.";
+          lib.mdDoc
+            "The data directory for the Wasabi backend node."
+          ;
       };
 
       customConfigFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description = lib.mdDoc
-          "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options."
+        description =
+          lib.mdDoc
+            "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options."
           ;
       };
 
@@ -72,7 +77,9 @@ in
         ];
         default = "mainnet";
         description =
-          lib.mdDoc "The network to use for the Wasabi backend service.";
+          lib.mdDoc
+            "The network to use for the Wasabi backend service."
+          ;
       };
 
       endpoint = {
@@ -111,8 +118,9 @@ in
         password = mkOption {
           type = types.str;
           default = "password";
-          description = lib.mdDoc
-            "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed."
+          description =
+            lib.mdDoc
+              "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed."
             ;
         };
 
@@ -120,7 +128,9 @@ in
           type = types.nullOr types.path;
           default = null;
           description =
-            lib.mdDoc "File that contains the password of the RPC user.";
+            lib.mdDoc
+              "File that contains the password of the RPC user."
+            ;
         };
       };
 
@@ -128,7 +138,9 @@ in
         type = types.str;
         default = "wasabibackend";
         description =
-          lib.mdDoc "The user as which to run the wasabibackend node.";
+          lib.mdDoc
+            "The user as which to run the wasabibackend node."
+          ;
       };
 
       group = mkOption {
@@ -136,7 +148,9 @@ in
         default = cfg.user;
         defaultText = literalExpression "config.${opt.user}";
         description =
-          lib.mdDoc "The group as which to run the wasabibackend node.";
+          lib.mdDoc
+            "The group as which to run the wasabibackend node."
+          ;
       };
     };
   };

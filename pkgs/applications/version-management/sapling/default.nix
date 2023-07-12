@@ -123,10 +123,10 @@ python3Packages.buildPythonApplication {
     mkdir $sourceRoot/hack_pydeps
     ${lib.concatStrings (
       map
-      (li: ''
-        ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}
-      '')
-      links
+        (li: ''
+          ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}
+        '')
+        links
     )}
     sed -i "s|https://files.pythonhosted.org/packages/[[:alnum:]]*/[[:alnum:]]*/[[:alnum:]]*/|file://$NIX_BUILD_TOP/$sourceRoot/hack_pydeps/|g" $sourceRoot/setup.py
   '';

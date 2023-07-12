@@ -186,7 +186,9 @@ stdenv.mkDerivation rec {
     ;
 
   propagatedBuildInputs =
-    lib.optional stdenv.isLinux xorg.xorgserver.propagatedBuildInputs;
+    lib.optional stdenv.isLinux
+      xorg.xorgserver.propagatedBuildInputs
+    ;
 
   passthru.tests.tigervnc = nixosTests.vnc.testTigerVNC;
 

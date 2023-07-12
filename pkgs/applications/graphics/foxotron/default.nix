@@ -80,9 +80,8 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/{bin,lib/foxotron}
     cp -R ${
-      lib.optionalString
-      stdenv.hostPlatform.isDarwin
-      "Foxotron.app/Contents/MacOS/"
+      lib.optionalString stdenv.hostPlatform.isDarwin
+        "Foxotron.app/Contents/MacOS/"
     }Foxotron \
       ../{config.json,Shaders,Skyboxes} $out/lib/foxotron/
     wrapProgram $out/lib/foxotron/Foxotron \

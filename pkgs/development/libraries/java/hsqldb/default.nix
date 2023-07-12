@@ -10,8 +10,9 @@
 stdenv.mkDerivation rec {
   pname = "hsqldb";
   version = "2.7.1";
-  underscoreMajMin =
-    lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
+  underscoreMajMin = lib.replaceStrings [ "." ] [ "_" ] (
+    lib.versions.majorMinor version
+  );
 
   src = fetchurl {
     url =

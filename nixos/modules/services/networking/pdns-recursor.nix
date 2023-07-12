@@ -48,8 +48,9 @@ let
 in
 {
   options.services.pdns-recursor = {
-    enable =
-      mkEnableOption (lib.mdDoc "PowerDNS Recursor, a recursive DNS server");
+    enable = mkEnableOption (
+      lib.mdDoc "PowerDNS Recursor, a recursive DNS server"
+    );
 
     dns.address = mkOption {
       type = oneOrMore types.str;
@@ -215,9 +216,13 @@ in
       webserver-allow-from = cfg.api.allowFrom;
 
       forward-zones =
-        mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZones;
+        mapAttrsToList (zone: uri: "${zone}.=${uri}")
+          cfg.forwardZones
+        ;
       forward-zones-recurse =
-        mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZonesRecurse;
+        mapAttrsToList (zone: uri: "${zone}.=${uri}")
+          cfg.forwardZonesRecurse
+        ;
       export-etc-hosts = cfg.exportHosts;
       dnssec = cfg.dnssecValidation;
       serve-rfc1918 = cfg.serveRFC1918;
@@ -252,13 +257,15 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "pdns-recursor"
-        "extraConfig"
-      ]
-      "To change extra Recursor settings use services.pdns-recursor.settings instead.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "pdns-recursor"
+          "extraConfig"
+        ]
+        "To change extra Recursor settings use services.pdns-recursor.settings instead."
+    )
   ];
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];

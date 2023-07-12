@@ -160,9 +160,9 @@ let
     ;
 
   bootDeviceCounters =
-    foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; })
-    { }
-    (concatMap (args: args.devices) cfg.mirroredBoots);
+    foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { }
+      (concatMap (args: args.devices) cfg.mirroredBoots)
+    ;
 
   convertedFont =
     (pkgs.runCommand "grub-font-converted.pf2" { } (
@@ -610,8 +610,8 @@ in
       font = mkOption {
         type = types.nullOr types.path;
         default = "${realGrub}/share/grub/unicode.pf2";
-        defaultText =
-          literalExpression ''"''${pkgs.grub2}/share/grub/unicode.pf2"'';
+        defaultText = literalExpression ''
+          "''${pkgs.grub2}/share/grub/unicode.pf2"'';
         description = lib.mdDoc ''
           Path to a TrueType, OpenType, or pf2 font to be used by Grub.
         '';
@@ -894,9 +894,8 @@ in
           ''
             #!${pkgs.runtimeShell}
             set -e
-            ${optionalString
-            cfg.enableCryptodisk
-            "export GRUB_ENABLE_CRYPTODISK=y"}
+            ${optionalString cfg.enableCryptodisk
+              "export GRUB_ENABLE_CRYPTODISK=y"}
           ''
           + flip concatMapStrings cfg.mirroredBoots (
             args: ''
@@ -917,10 +916,10 @@ in
 
       boot.loader.grub.extraPrepareConfig = concatStrings (
         mapAttrsToList
-        (n: v: ''
-          ${pkgs.coreutils}/bin/cp -pf "${v}" "@bootPath@/${n}"
-        '')
-        config.boot.loader.grub.extraFiles
+          (n: v: ''
+            ${pkgs.coreutils}/bin/cp -pf "${v}" "@bootPath@/${n}"
+          '')
+          config.boot.loader.grub.extraFiles
       );
 
       assertions =
@@ -940,9 +939,8 @@ in
             assertion =
               cfg.efiSupport
               || all (c: c < 2) (
-                mapAttrsToList
-                (n: c: if n == "nodev" then 0 else c)
-                bootDeviceCounters
+                mapAttrsToList (n: c: if n == "nodev" then 0 else c)
+                  bootDeviceCounters
               )
               ;
             message = "You cannot have duplicated devices in mirroredBoots";
@@ -1017,104 +1015,120 @@ in
   ];
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "boot"
-        "loader"
-        "grub"
-        "bootDevice"
-      ]
-      "")
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "copyKernels"
-      ]
-      [
-        "boot"
-        "loader"
-        "grub"
-        "copyKernels"
-      ])
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "extraGrubEntries"
-      ]
-      [
-        "boot"
-        "loader"
-        "grub"
-        "extraEntries"
-      ])
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "extraGrubEntriesBeforeNixos"
-      ]
-      [
-        "boot"
-        "loader"
-        "grub"
-        "extraEntriesBeforeNixOS"
-      ])
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "grubDevice"
-      ]
-      [
-        "boot"
-        "loader"
-        "grub"
-        "device"
-      ])
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "bootMount"
-      ]
-      [
-        "boot"
-        "loader"
-        "grub"
-        "bootDevice"
-      ])
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "grubSplashImage"
-      ]
-      [
-        "boot"
-        "loader"
-        "grub"
-        "splashImage"
-      ])
-    (mkRemovedOptionModule
-      [
-        "boot"
-        "loader"
-        "grub"
-        "extraInitrd"
-      ]
-      ''
-        This option has been replaced with the bootloader agnostic
-        boot.initrd.secrets option. To migrate to the initrd secrets system,
-        extract the extraInitrd archive into your main filesystem:
+    (
+      mkRemovedOptionModule
+        [
+          "boot"
+          "loader"
+          "grub"
+          "bootDevice"
+        ]
+        ""
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "boot"
+          "copyKernels"
+        ]
+        [
+          "boot"
+          "loader"
+          "grub"
+          "copyKernels"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "boot"
+          "extraGrubEntries"
+        ]
+        [
+          "boot"
+          "loader"
+          "grub"
+          "extraEntries"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "boot"
+          "extraGrubEntriesBeforeNixos"
+        ]
+        [
+          "boot"
+          "loader"
+          "grub"
+          "extraEntriesBeforeNixOS"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "boot"
+          "grubDevice"
+        ]
+        [
+          "boot"
+          "loader"
+          "grub"
+          "device"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "boot"
+          "bootMount"
+        ]
+        [
+          "boot"
+          "loader"
+          "grub"
+          "bootDevice"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "boot"
+          "grubSplashImage"
+        ]
+        [
+          "boot"
+          "loader"
+          "grub"
+          "splashImage"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "boot"
+          "loader"
+          "grub"
+          "extraInitrd"
+        ]
+        ''
+          This option has been replaced with the bootloader agnostic
+          boot.initrd.secrets option. To migrate to the initrd secrets system,
+          extract the extraInitrd archive into your main filesystem:
 
-          # zcat /boot/extra_initramfs.gz | cpio -idvmD /etc/secrets/initrd
-          /path/to/secret1
-          /path/to/secret2
+            # zcat /boot/extra_initramfs.gz | cpio -idvmD /etc/secrets/initrd
+            /path/to/secret1
+            /path/to/secret2
 
-        then replace boot.loader.grub.extraInitrd with boot.initrd.secrets:
+          then replace boot.loader.grub.extraInitrd with boot.initrd.secrets:
 
-          boot.initrd.secrets = {
-            "/path/to/secret1" = "/etc/secrets/initrd/path/to/secret1";
-            "/path/to/secret2" = "/etc/secrets/initrd/path/to/secret2";
-          };
+            boot.initrd.secrets = {
+              "/path/to/secret1" = "/etc/secrets/initrd/path/to/secret1";
+              "/path/to/secret2" = "/etc/secrets/initrd/path/to/secret2";
+            };
 
-        See the boot.initrd.secrets option documentation for more information.
-      '')
+          See the boot.initrd.secrets option documentation for more information.
+        ''
+    )
   ];
 }

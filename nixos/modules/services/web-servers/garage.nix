@@ -24,7 +24,9 @@ in
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
       description =
-        lib.mdDoc "Extra environment variables to pass to the Garage server.";
+        lib.mdDoc
+          "Extra environment variables to pass to the Garage server."
+        ;
       default = { };
       example = { RUST_BACKTRACE = "yes"; };
     };
@@ -37,8 +39,9 @@ in
       ]);
       default = "info";
       example = "debug";
-      description = lib.mdDoc
-        "Garage log level, see <https://garagehq.deuxfleurs.fr/documentation/quick-start/#launching-the-garage-server> for examples."
+      description =
+        lib.mdDoc
+          "Garage log level, see <https://garagehq.deuxfleurs.fr/documentation/quick-start/#launching-the-garage-server> for examples."
         ;
     };
 
@@ -50,16 +53,18 @@ in
           metadata_dir = mkOption {
             default = "/var/lib/garage/meta";
             type = types.path;
-            description = lib.mdDoc
-              "The metadata directory, put this on a fast disk (e.g. SSD) if possible."
+            description =
+              lib.mdDoc
+                "The metadata directory, put this on a fast disk (e.g. SSD) if possible."
               ;
           };
 
           data_dir = mkOption {
             default = "/var/lib/garage/data";
             type = types.path;
-            description = lib.mdDoc
-              "The main data storage, put this on your large storage (e.g. high capacity HDD)"
+            description =
+              lib.mdDoc
+                "The main data storage, put this on your large storage (e.g. high capacity HDD)"
               ;
           };
 
@@ -75,14 +80,16 @@ in
               3
             ]);
             apply = v: toString v;
-            description = lib.mdDoc
-              "Garage replication mode, defaults to none, see: <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/#replication-mode> for reference."
+            description =
+              lib.mdDoc
+                "Garage replication mode, defaults to none, see: <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/#replication-mode> for reference."
               ;
           };
         };
       };
-      description = lib.mdDoc
-        "Garage configuration, see <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/> for reference."
+      description =
+        lib.mdDoc
+          "Garage configuration, see <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/> for reference."
         ;
     };
 
@@ -96,8 +103,9 @@ in
         ;
       defaultText = literalExpression "pkgs.garage_0_7";
       type = types.package;
-      description = lib.mdDoc
-        "Garage package to use, if you are upgrading from a major version, please read NixOS and Garage release notes for upgrade instructions."
+      description =
+        lib.mdDoc
+          "Garage package to use, if you are upgrading from a major version, please read NixOS and Garage release notes for upgrade instructions."
         ;
     };
   };
@@ -121,12 +129,14 @@ in
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/garage server";
 
-        StateDirectory = mkIf
-          (
-            hasPrefix "/var/lib/garage" cfg.settings.data_dir
-            && hasPrefix "/var/lib/garage" cfg.settings.metadata_dir
-          )
-          "garage";
+        StateDirectory =
+          mkIf
+            (
+              hasPrefix "/var/lib/garage" cfg.settings.data_dir
+              && hasPrefix "/var/lib/garage" cfg.settings.metadata_dir
+            )
+            "garage"
+          ;
         DynamicUser = lib.mkDefault true;
         ProtectHome = true;
         NoNewPrivileges = true;

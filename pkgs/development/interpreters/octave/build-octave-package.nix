@@ -57,7 +57,9 @@
 
 let
   requiredOctavePackages' =
-    computeRequiredOctavePackages requiredOctavePackages;
+    computeRequiredOctavePackages
+      requiredOctavePackages
+    ;
 
   # Must use attrs.nativeBuildInputs before they are removed by the removeAttrs
   # below, or everything fails.

@@ -45,76 +45,76 @@ let
 
   defaultVersion = with versions;
     lib.switch
-    [
-      coq.version
-      mathcomp.version
-    ]
-    [
-      {
-        cases = [
-          (isGe "8.14")
-          (isGe "1.13.0")
-        ];
-        out = "0.6.1";
-      }
-      {
-        cases = [
-          (isGe "8.14")
-          (range "1.13" "1.15")
-        ];
-        out = "0.5.2";
-      }
-      {
-        cases = [
-          (range "8.13" "8.15")
-          (range "1.13" "1.14")
-        ];
-        out = "0.5.1";
-      }
-      {
-        cases = [
-          (range "8.13" "8.15")
-          (range "1.12" "1.14")
-        ];
-        out = "0.3.13";
-      }
-      {
-        cases = [
-          (range "8.11" "8.14")
-          (range "1.12" "1.13")
-        ];
-        out = "0.3.10";
-      }
-      {
-        cases = [
-          (range "8.11" "8.12")
-          "1.11.0"
-        ];
-        out = "0.3.4";
-      }
-      {
-        cases = [
-          (range "8.10" "8.12")
-          "1.11.0"
-        ];
-        out = "0.3.3";
-      }
-      {
-        cases = [
-          (range "8.10" "8.11")
-          "1.11.0"
-        ];
-        out = "0.3.1";
-      }
-      {
-        cases = [
-          (range "8.8" "8.11")
-          (range "1.8" "1.10")
-        ];
-        out = "0.2.3";
-      }
-    ]
-    null;
+      [
+        coq.version
+        mathcomp.version
+      ]
+      [
+        {
+          cases = [
+            (isGe "8.14")
+            (isGe "1.13.0")
+          ];
+          out = "0.6.1";
+        }
+        {
+          cases = [
+            (isGe "8.14")
+            (range "1.13" "1.15")
+          ];
+          out = "0.5.2";
+        }
+        {
+          cases = [
+            (range "8.13" "8.15")
+            (range "1.13" "1.14")
+          ];
+          out = "0.5.1";
+        }
+        {
+          cases = [
+            (range "8.13" "8.15")
+            (range "1.12" "1.14")
+          ];
+          out = "0.3.13";
+        }
+        {
+          cases = [
+            (range "8.11" "8.14")
+            (range "1.12" "1.13")
+          ];
+          out = "0.3.10";
+        }
+        {
+          cases = [
+            (range "8.11" "8.12")
+            "1.11.0"
+          ];
+          out = "0.3.4";
+        }
+        {
+          cases = [
+            (range "8.10" "8.12")
+            "1.11.0"
+          ];
+          out = "0.3.3";
+        }
+        {
+          cases = [
+            (range "8.10" "8.11")
+            "1.11.0"
+          ];
+          out = "0.3.1";
+        }
+        {
+          cases = [
+            (range "8.8" "8.11")
+            (range "1.8" "1.10")
+          ];
+          out = "0.2.3";
+        }
+      ]
+      null;
 
   # list of analysis packages sorted by dependency order
   packages = [
@@ -164,18 +164,20 @@ let
 
         propagatedBuildInputs =
           intra-deps
-          ++ optionals
-            (elem package [
-              "classical"
-              "single"
-            ])
-            classical-deps
-          ++ optionals
-            (elem package [
-              "analysis"
-              "single"
-            ])
-            analysis-deps
+          ++
+            optionals
+              (elem package [
+                "classical"
+                "single"
+              ])
+              classical-deps
+          ++
+            optionals
+              (elem package [
+                "analysis"
+                "single"
+              ])
+              analysis-deps
           ;
 
         preBuild = ''
@@ -195,44 +197,42 @@ let
       patched-derivation1 = derivation.overrideAttrs (
         o:
         optionalAttrs
-        (
-          o.pname != null
-          && o.pname != "mathcomp-analysis"
-          && o.version != null
-          && o.version != "dev"
-          && versions.isLt "0.6" o.version
-        )
-        {
-          preBuild = "";
-          buildPhase = "echo doing nothing";
-          installPhase = "echo doing nothing";
-        }
+          (
+            o.pname != null
+            && o.pname != "mathcomp-analysis"
+            && o.version != null
+            && o.version != "dev"
+            && versions.isLt "0.6" o.version
+          )
+          {
+            preBuild = "";
+            buildPhase = "echo doing nothing";
+            installPhase = "echo doing nothing";
+          }
       );
       patched-derivation2 = patched-derivation1.overrideAttrs (
         o:
         optionalAttrs
-        (
-          o.pname != null
-          && o.pname == "mathcomp-analysis"
-          && o.version != null
-          && o.version != "dev"
-          && versions.isLt "0.6" o.version
-        )
-        {
-          preBuild = "";
-        }
+          (
+            o.pname != null
+            && o.pname == "mathcomp-analysis"
+            && o.version != null
+            && o.version != "dev"
+            && versions.isLt "0.6" o.version
+          )
+          { preBuild = ""; }
       );
       patched-derivation = patched-derivation2.overrideAttrs (
         o:
         optionalAttrs
-        (
-          o.version != null
-          && (o.version == "dev" || versions.isGe "0.3.4" o.version)
-        )
-        {
-          propagatedBuildInputs =
-            o.propagatedBuildInputs ++ [ hierarchy-builder ];
-        }
+          (
+            o.version != null
+            && (o.version == "dev" || versions.isGe "0.3.4" o.version)
+          )
+          {
+            propagatedBuildInputs =
+              o.propagatedBuildInputs ++ [ hierarchy-builder ];
+          }
       );
     in
     patched-derivation

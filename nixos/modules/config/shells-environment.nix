@@ -21,9 +21,8 @@ let
 
       suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars (
         envVar: listSuffixes:
-        concatMap
-        (profile: map (suffix: "${profile}${suffix}") listSuffixes)
-        cfg.profiles
+        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
+          cfg.profiles
       );
 
       allVariables = zipAttrsWith (n: concatLists) [
@@ -31,9 +30,10 @@ let
         suffixedVariables
       ];
 
-      exportVariables = mapAttrsToList
-        (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
-        allVariables;
+      exportVariables =
+        mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
+          allVariables
+        ;
     in
     concatStringsSep "\n" exportVariables
     ;
@@ -64,8 +64,9 @@ in
             path
           ]
         );
-      apply =
-        mapAttrs (n: v: if isList v then concatStringsSep ":" v else "${v}");
+      apply = mapAttrs (
+        n: v: if isList v then concatStringsSep ":" v else "${v}"
+      );
     };
 
     environment.profiles = mkOption {
@@ -167,8 +168,8 @@ in
 
     environment.binsh = mkOption {
       default = "${config.system.build.binsh}/bin/sh";
-      defaultText =
-        literalExpression ''"''${config.system.build.binsh}/bin/sh"'';
+      defaultText = literalExpression ''
+        "''${config.system.build.binsh}/bin/sh"'';
       example = literalExpression ''"''${pkgs.dash}/bin/dash"'';
       type = types.path;
       visible = false;

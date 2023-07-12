@@ -70,9 +70,8 @@ let
 
   replaceSecret =
     secretFile: placeholder: targetFile:
-    optionalString
-    (secretFile != null)
-    "${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' "
+    optionalString (secretFile != null)
+      "${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' "
     ;
 
   preStart = pkgs.writeShellScript "mpdscribble-pre-start" ''
@@ -80,11 +79,11 @@ let
     ${replaceSecret cfg.passwordFile "{{MPD_PASSWORD}}" cfgFile}
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (
-        secname: cfg:
-        replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile
-      )
-      cfg.endpoints
+        (
+          secname: cfg:
+          replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile
+        )
+        cfg.endpoints
     )}
   '';
 
@@ -144,9 +143,11 @@ in
     passwordFile = mkOption {
       default =
         if localMpd then
-          (findFirst (c: any (x: x == "read") c.permissions)
-            { passwordFile = null; }
-            mpdCfg.credentials).passwordFile
+          (
+            findFirst (c: any (x: x == "read") c.permissions)
+              { passwordFile = null; }
+              mpdCfg.credentials
+          ).passwordFile
         else
           null
         ;
@@ -184,8 +185,10 @@ in
                   url = mkOption {
                     type = types.str;
                     default = endpointUrls.${name} or "";
-                    description = lib.mdDoc
-                      "The url endpoint where the scrobble API is listening.";
+                    description =
+                      lib.mdDoc
+                        "The url endpoint where the scrobble API is listening."
+                      ;
                   };
                   username = mkOption {
                     type = types.str;
@@ -195,8 +198,9 @@ in
                   };
                   passwordFile = mkOption {
                     type = types.nullOr types.str;
-                    description = lib.mdDoc
-                      "File containing the password, either as MD5SUM or cleartext."
+                    description =
+                      lib.mdDoc
+                        "File containing the password, either as MD5SUM or cleartext."
                       ;
                   };
                 };

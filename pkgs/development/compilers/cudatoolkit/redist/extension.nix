@@ -20,7 +20,9 @@ let
 
   # Function to build a single cudatoolkit redist package
   buildCudaToolkitRedistPackage =
-    callPackage ./build-cuda-redist-package.nix { };
+    callPackage ./build-cuda-redist-package.nix
+      { }
+    ;
 
   # Function that builds all cudatoolkit redist packages given a cuda version and manifest file
   buildCudaToolkitRedistPackages =

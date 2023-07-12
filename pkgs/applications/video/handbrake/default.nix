@@ -294,15 +294,15 @@ let
           };
         in
         runCommand "${pname}-${version}-basic-conversion"
-        { nativeBuildInputs = [ self ]; }
-        ''
-          mkdir -p $out
-          cd $out
-          HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
-          test -e test.mp4
-          HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
-          test -e test.mkv
-        ''
+          { nativeBuildInputs = [ self ]; }
+          ''
+            mkdir -p $out
+            cd $out
+            HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
+            test -e test.mp4
+            HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
+            test -e test.mkv
+          ''
         ;
       version = testers.testVersion {
         package = self;

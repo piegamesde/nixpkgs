@@ -178,14 +178,14 @@ in
       filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries;
     otherDicts = with lib;
       filter
-      (
-        d:
-        !(
-          hasAttr "dictFileName" d
-          && elem d.dictFileName (map (d: d.dictFileName) largeDicts)
+        (
+          d:
+          !(
+            hasAttr "dictFileName" d
+            && elem d.dictFileName (map (d: d.dictFileName) largeDicts)
+          )
         )
-      )
-      hunspellDictionaries;
+        hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;
 
     preConfigure = ''

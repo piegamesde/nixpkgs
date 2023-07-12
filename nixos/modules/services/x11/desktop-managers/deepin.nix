@@ -31,7 +31,9 @@ in
         default = [ ];
         type = types.listOf types.path;
         description =
-          lib.mdDoc "List of packages for which gsettings are overridden.";
+          lib.mdDoc
+            "List of packages for which gsettings are overridden."
+          ;
       };
     };
 
@@ -39,7 +41,9 @@ in
       default = [ ];
       type = types.listOf types.package;
       description =
-        lib.mdDoc "List of default packages to exclude from the configuration";
+        lib.mdDoc
+          "List of default packages to exclude from the configuration"
+        ;
     };
   };
 
@@ -190,9 +194,9 @@ in
         ];
       in
       requiredPackages
-      ++ utils.removePackagesByName
-        optionalPackages
-        config.environment.deepin.excludePackages
+      ++
+        utils.removePackagesByName optionalPackages
+          config.environment.deepin.excludePackages
       ;
 
     services.dbus.packages = with pkgs.deepin; [

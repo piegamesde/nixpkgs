@@ -50,7 +50,9 @@ stdenv.mkDerivation (
     enableParallelBuilding = true;
 
     env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.cc.isGNU "-Wno-error=format-truncation";
+      lib.optionalString stdenv.cc.isGNU
+        "-Wno-error=format-truncation"
+      ;
 
     meta = {
       description = "Fork of Chez Scheme for Racket";

@@ -108,9 +108,9 @@ stdenv.mkDerivation rec {
       "--enable-always-build-tests"
     ]
     ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"
-    ++ lib.optional
-      (stdenv.buildPlatform != stdenv.hostPlatform)
-      "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}"
+    ++
+      lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+        "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}"
     ;
 
   doCheck =
@@ -152,27 +152,30 @@ stdenv.mkDerivation rec {
       # 'error: linker `cc` not found' when cross-compiling
       export RUSTFLAGS="-Clinker=$CC"
     ''
-    + lib.optionalString
-      (
-        (stdenv.buildPlatform != stdenv.hostPlatform)
-        && (stdenv.hostPlatform.emulatorAvailable buildPackages)
-      )
-      ''
-        # the replacement is the native conditional
-        substituteInPlace gdk-pixbuf-loader/Makefile \
-          --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
-      ''
+    +
+      lib.optionalString
+        (
+          (stdenv.buildPlatform != stdenv.hostPlatform)
+          && (stdenv.hostPlatform.emulatorAvailable buildPackages)
+        )
+        ''
+          # the replacement is the native conditional
+          substituteInPlace gdk-pixbuf-loader/Makefile \
+            --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
+        ''
     ;
 
   # Not generated when cross compiling.
   postInstall =
-    lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
-      # Merge gdkpixbuf and librsvg loaders
-      cat ${
-        lib.getLib gdk-pixbuf
-      }/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache $GDK_PIXBUF/loaders.cache > $GDK_PIXBUF/loaders.cache.tmp
-      mv $GDK_PIXBUF/loaders.cache.tmp $GDK_PIXBUF/loaders.cache
-    '';
+    lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages)
+      ''
+        # Merge gdkpixbuf and librsvg loaders
+        cat ${
+          lib.getLib gdk-pixbuf
+        }/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache $GDK_PIXBUF/loaders.cache > $GDK_PIXBUF/loaders.cache.tmp
+        mv $GDK_PIXBUF/loaders.cache.tmp $GDK_PIXBUF/loaders.cache
+      ''
+    ;
 
   postFixup = lib.optionalString withIntrospection ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.

@@ -82,8 +82,10 @@ in
 
       openpgp.db = {
         driver = "postgres-jsonb";
-        dsn = lib.mkDefault
-          "database=hockeypuck host=/var/run/postgresql sslmode=disable";
+        dsn =
+          lib.mkDefault
+            "database=hockeypuck host=/var/run/postgresql sslmode=disable"
+          ;
       };
     };
 

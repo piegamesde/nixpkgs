@@ -23,29 +23,33 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "transmission"
-        "port"
-      ]
-      [
-        "services"
-        "transmission"
-        "settings"
-        "rpc-port"
-      ])
-    (mkAliasOptionModuleMD
-      [
-        "services"
-        "transmission"
-        "openFirewall"
-      ]
-      [
-        "services"
-        "transmission"
-        "openPeerPorts"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "transmission"
+          "port"
+        ]
+        [
+          "services"
+          "transmission"
+          "settings"
+          "rpc-port"
+        ]
+    )
+    (
+      mkAliasOptionModuleMD
+        [
+          "services"
+          "transmission"
+          "openFirewall"
+        ]
+        [
+          "services"
+          "transmission"
+          "openPeerPorts"
+        ]
+    )
   ];
   options = {
     services.transmission = {
@@ -77,15 +81,15 @@ in
           options.download-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${downloadsDir}";
-            defaultText =
-              literalExpression ''"''${config.${opt.home}}/${downloadsDir}"'';
+            defaultText = literalExpression ''
+              "''${config.${opt.home}}/${downloadsDir}"'';
             description = lib.mdDoc "Directory where to download torrents.";
           };
           options.incomplete-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${incompleteDir}";
-            defaultText =
-              literalExpression ''"''${config.${opt.home}}/${incompleteDir}"'';
+            defaultText = literalExpression ''
+              "''${config.${opt.home}}/${incompleteDir}"'';
             description = lib.mdDoc ''
               When enabled with
               services.transmission.home
@@ -109,7 +113,9 @@ in
             type = types.port;
             default = 51413;
             description =
-              lib.mdDoc "The peer port to listen for incoming connections.";
+              lib.mdDoc
+                "The peer port to listen for incoming connections."
+              ;
           };
           options.peer-port-random-high = mkOption {
             type = types.port;
@@ -159,7 +165,9 @@ in
             type = types.nullOr types.path;
             default = null;
             description =
-              lib.mdDoc "Executable to be run at torrent completion.";
+              lib.mdDoc
+                "Executable to be run at torrent completion."
+              ;
           };
           options.umask = mkOption {
             type = types.int;
@@ -183,10 +191,11 @@ in
           options.watch-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${watchDir}";
-            defaultText =
-              literalExpression ''"''${config.${opt.home}}/${watchDir}"'';
-            description = lib.mdDoc
-              "Watch a directory for torrent files and add them to transmission."
+            defaultText = literalExpression ''
+              "''${config.${opt.home}}/${watchDir}"'';
+            description =
+              lib.mdDoc
+                "Watch a directory for torrent files and add them to transmission."
               ;
           };
           options.watch-dir-enabled = mkOption {
@@ -269,12 +278,13 @@ in
         '';
       };
 
-      openPeerPorts =
-        mkEnableOption (lib.mdDoc "opening of the peer port(s) in the firewall")
-        ;
+      openPeerPorts = mkEnableOption (
+        lib.mdDoc "opening of the peer port(s) in the firewall"
+      );
 
-      openRPCPort =
-        mkEnableOption (lib.mdDoc "opening of the RPC port in the firewall");
+      openRPCPort = mkEnableOption (
+        lib.mdDoc "opening of the RPC port in the firewall"
+      );
 
       performanceNetParameters = mkEnableOption (lib.mdDoc "performance tweaks")
         // {
@@ -367,15 +377,16 @@ in
             "${cfg.home}/${settingsDir}"
             cfg.settings.download-dir
           ]
-          ++ optional
-            cfg.settings.incomplete-dir-enabled
-            cfg.settings.incomplete-dir
-          ++ optional
-            (
-              cfg.settings.watch-dir-enabled
-              && cfg.settings.trash-original-torrent-files
-            )
-            cfg.settings.watch-dir
+          ++
+            optional cfg.settings.incomplete-dir-enabled
+              cfg.settings.incomplete-dir
+          ++
+            optional
+              (
+                cfg.settings.watch-dir-enabled
+                && cfg.settings.trash-original-torrent-files
+              )
+              cfg.settings.watch-dir
           ;
         BindReadOnlyPaths =
           [
@@ -385,18 +396,20 @@ in
             "/etc"
             "/run"
           ]
-          ++ optional
-            (
-              cfg.settings.script-torrent-done-enabled
-              && cfg.settings.script-torrent-done-filename != null
-            )
-            cfg.settings.script-torrent-done-filename
-          ++ optional
-            (
-              cfg.settings.watch-dir-enabled
-              && !cfg.settings.trash-original-torrent-files
-            )
-            cfg.settings.watch-dir
+          ++
+            optional
+              (
+                cfg.settings.script-torrent-done-enabled
+                && cfg.settings.script-torrent-done-filename != null
+              )
+              cfg.settings.script-torrent-done-filename
+          ++
+            optional
+              (
+                cfg.settings.watch-dir-enabled
+                && !cfg.settings.trash-original-torrent-files
+              )
+              cfg.settings.watch-dir
           ;
         StateDirectory = [
           "transmission"
@@ -565,17 +578,17 @@ in
       }
 
       ${optionalString
-      (
-        cfg.settings.script-torrent-done-enabled
-        && cfg.settings.script-torrent-done-filename != null
-      )
-      ''
-        # Stack transmission_directories profile on top of
-        # any existing profile for script-torrent-done-filename
-        # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=
-        # https://gitlab.com/apparmor/apparmor/-/wikis/AppArmorStacking#seccomp-and-no_new_privs
-        px ${cfg.settings.script-torrent-done-filename} -> &@{dirs},
-      ''}
+        (
+          cfg.settings.script-torrent-done-enabled
+          && cfg.settings.script-torrent-done-filename != null
+        )
+        ''
+          # Stack transmission_directories profile on top of
+          # any existing profile for script-torrent-done-filename
+          # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=
+          # https://gitlab.com/apparmor/apparmor/-/wikis/AppArmorStacking#seccomp-and-no_new_privs
+          px ${cfg.settings.script-torrent-done-filename} -> &@{dirs},
+        ''}
     '';
   };
 

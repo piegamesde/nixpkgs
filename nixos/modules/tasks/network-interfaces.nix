@@ -27,23 +27,25 @@ let
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
-    ++ concatMap
-      (
-        i:
-        attrNames (
-          filterAttrs
-          (
-            name: config:
-            !(config.type == "internal" || hasAttr name cfg.interfaces)
+    ++
+      concatMap
+        (
+          i:
+          attrNames (
+            filterAttrs
+              (
+                name: config:
+                !(config.type == "internal" || hasAttr name cfg.interfaces)
+              )
+              i.interfaces
           )
-          i.interfaces
         )
-      )
-      (attrValues cfg.vswitches)
+        (attrValues cfg.vswitches)
     ;
 
-  slaveIfs =
-    map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
+  slaveIfs = map (i: cfg.interfaces.${i}) (
+    filter (i: cfg.interfaces ? ${i}) slaves
+  );
 
   rstpBridges = flip filterAttrs cfg.bridges (
     _:
@@ -378,8 +380,8 @@ let
 
         virtualType = mkOption {
           default = if hasPrefix "tun" name then "tun" else "tap";
-          defaultText =
-            literalExpression ''if hasPrefix "tun" name then "tun" else "tap"'';
+          defaultText = literalExpression ''
+            if hasPrefix "tun" name then "tun" else "tap"'';
           type = with types;
             enum [
               "tun"
@@ -445,40 +447,44 @@ let
           (mkRemovedOptionModule [ "subnetMask" ] ''
             Supply a prefix length instead; use option
             networking.interfaces.<name>.ipv{4,6}.addresses'')
-          (mkMergedOptionModule
-            [
-              [ "ipAddress" ]
-              [ "prefixLength" ]
-            ]
-            [
-              "ipv4"
-              "addresses"
-            ]
-            (
-              cfg:
-              with cfg;
-              optional (defined ipAddress && defined prefixLength) {
-                address = ipAddress;
-                prefixLength = prefixLength;
-              }
-            ))
-          (mkMergedOptionModule
-            [
-              [ "ipv6Address" ]
-              [ "ipv6PrefixLength" ]
-            ]
-            [
-              "ipv6"
-              "addresses"
-            ]
-            (
-              cfg:
-              with cfg;
-              optional (defined ipv6Address && defined ipv6PrefixLength) {
-                address = ipv6Address;
-                prefixLength = ipv6PrefixLength;
-              }
-            ))
+          (
+            mkMergedOptionModule
+              [
+                [ "ipAddress" ]
+                [ "prefixLength" ]
+              ]
+              [
+                "ipv4"
+                "addresses"
+              ]
+              (
+                cfg:
+                with cfg;
+                optional (defined ipAddress && defined prefixLength) {
+                  address = ipAddress;
+                  prefixLength = prefixLength;
+                }
+              )
+          )
+          (
+            mkMergedOptionModule
+              [
+                [ "ipv6Address" ]
+                [ "ipv6PrefixLength" ]
+              ]
+              [
+                "ipv6"
+                "addresses"
+              ]
+              (
+                cfg:
+                with cfg;
+                optional (defined ipv6Address && defined ipv6PrefixLength) {
+                  address = ipv6Address;
+                  prefixLength = ipv6PrefixLength;
+                }
+              )
+          )
 
           ({
             options.warnings = options.warnings;
@@ -542,15 +548,15 @@ let
   };
   tempaddrDoc = concatStringsSep "\n" (
     mapAttrsToList
-    (
-      name:
-      {
-        description,
-        ...
-      }:
-      ''- `"${name}"` to ${description};''
-    )
-    tempaddrValues
+      (
+        name:
+        {
+          description,
+          ...
+        }:
+        ''- `"${name}"` to ${description};''
+      )
+      tempaddrValues
   );
 
   hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
@@ -580,7 +586,9 @@ in
       # syntax). Note: We also allow underscores for compatibility/legacy
       # reasons (as undocumented feature):
       type =
-        types.strMatching "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
+        types.strMatching
+          "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$"
+        ;
       description = lib.mdDoc ''
         The name of the machine. Leave it empty if you want to obtain it from a
         DHCP server (if using DHCP). The hostname must be a valid DNS label (see
@@ -613,8 +621,8 @@ in
             both networking.hostName and networking.domain are set properly.
           ''
         ;
-      defaultText =
-        literalExpression ''"''${networking.hostName}.''${networking.domain}"'';
+      defaultText = literalExpression ''
+        "''${networking.hostName}.''${networking.domain}"'';
       description = lib.mdDoc ''
         The fully qualified domain name (FQDN) of this host. It is the result
         of combining `networking.hostName` and `networking.domain.` Using this
@@ -816,8 +824,10 @@ in
             options = {
 
               interfaces = mkOption {
-                description = lib.mdDoc
-                  "The physical network interfaces connected by the vSwitch.";
+                description =
+                  lib.mdDoc
+                    "The physical network interfaces connected by the vSwitch."
+                  ;
                 type = with types; attrsOf (submodule vswitchInterfaceOpts);
               };
 
@@ -915,15 +925,19 @@ in
                   "eth1"
                 ];
                 type = types.listOf types.str;
-                description = lib.mdDoc
-                  "The physical network interfaces connected by the bridge.";
+                description =
+                  lib.mdDoc
+                    "The physical network interfaces connected by the bridge."
+                  ;
               };
 
               rstp = mkOption {
                 default = false;
                 type = types.bool;
                 description =
-                  lib.mdDoc "Whether the bridge interface should enable rstp.";
+                  lib.mdDoc
+                    "Whether the bridge interface should enable rstp."
+                  ;
               };
             };
           }
@@ -1059,8 +1073,10 @@ in
               interface = mkOption {
                 example = "enp4s0";
                 type = types.str;
-                description = lib.mdDoc
-                  "The interface the macvlan will transmit packets through.";
+                description =
+                  lib.mdDoc
+                    "The interface the macvlan will transmit packets through."
+                  ;
               };
 
               mode = mkOption {
@@ -1389,8 +1405,10 @@ in
               interface = mkOption {
                 example = "enp4s0";
                 type = types.str;
-                description = lib.mdDoc
-                  "The interface the vlan will transmit packets through.";
+                description =
+                  lib.mdDoc
+                    "The interface the vlan will transmit packets through."
+                  ;
               };
             };
           }
@@ -1442,8 +1460,9 @@ in
               device = mkOption {
                 type = types.str;
                 example = "wlp6s0";
-                description = lib.mdDoc
-                  "The name of the underlying hardware WLAN device as assigned by `udev`."
+                description =
+                  lib.mdDoc
+                    "The name of the underlying hardware WLAN device as assigned by `udev`."
                   ;
               };
 
@@ -1491,8 +1510,10 @@ in
               fourAddr = mkOption {
                 type = types.nullOr types.bool;
                 default = null;
-                description = lib.mdDoc
-                  "Whether to enable `4-address mode` with type `managed`.";
+                description =
+                  lib.mdDoc
+                    "Whether to enable `4-address mode` with type `managed`."
+                  ;
               };
 
               mac = mkOption {
@@ -1621,8 +1642,9 @@ in
       optionalString hasBonds "options bonding max_bonds=0";
 
     boot.kernel.sysctl = {
-      "net.ipv4.conf.all.forwarding" =
-        mkDefault (any (i: i.proxyARP) interfaces);
+      "net.ipv4.conf.all.forwarding" = mkDefault (
+        any (i: i.proxyARP) interfaces
+      );
       "net.ipv6.conf.all.disable_ipv6" = mkDefault (!cfg.enableIPv6);
       "net.ipv6.conf.default.disable_ipv6" = mkDefault (!cfg.enableIPv6);
       # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
@@ -1632,8 +1654,8 @@ in
       forEach interfaces (
         i:
         nameValuePair
-        "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
-        i.proxyARP
+          "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
+          i.proxyARP
       )
     ) // listToAttrs (
       forEach interfaces (
@@ -1643,8 +1665,8 @@ in
           val = tempaddrValues.${opt}.sysctl;
         in
         nameValuePair
-        "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
-        val
+          "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
+          val
       )
     );
 
@@ -1657,23 +1679,25 @@ in
       };
     };
     security.apparmor.policies."bin.ping".profile =
-      lib.mkIf config.security.apparmor.policies."bin.ping".enable (
-        lib.mkAfter ''
-          /run/wrappers/bin/ping {
-            include <abstractions/base>
-            include <nixos/security.wrappers>
-            rpx /run/wrappers/wrappers.*/ping,
-          }
-          /run/wrappers/wrappers.*/ping {
-            include <abstractions/base>
-            include <nixos/security.wrappers>
-            r /run/wrappers/wrappers.*/ping.real,
-            mrpx ${config.security.wrappers.ping.source},
-            capability net_raw,
-            capability setpcap,
-          }
-        ''
-      );
+      lib.mkIf config.security.apparmor.policies."bin.ping".enable
+        (
+          lib.mkAfter ''
+            /run/wrappers/bin/ping {
+              include <abstractions/base>
+              include <nixos/security.wrappers>
+              rpx /run/wrappers/wrappers.*/ping,
+            }
+            /run/wrappers/wrappers.*/ping {
+              include <abstractions/base>
+              include <nixos/security.wrappers>
+              r /run/wrappers/wrappers.*/ping.real,
+              mrpx ${config.security.wrappers.ping.source},
+              capability net_raw,
+              capability setpcap,
+            }
+          ''
+        )
+      ;
 
     # Set the host and domain names in the activation script.  Don't
     # clear it if it's not configured in the NixOS configuration,
@@ -1692,13 +1716,15 @@ in
     '';
 
     environment.etc.hostid = mkIf (cfg.hostId != null) { source = hostidFile; };
-    boot.initrd.systemd.contents."/etc/hostid" =
-      mkIf (cfg.hostId != null) { source = hostidFile; };
+    boot.initrd.systemd.contents."/etc/hostid" = mkIf (cfg.hostId != null) {
+      source = hostidFile;
+    };
 
     # static hostname configuration needed for hostnamectl and the
     # org.freedesktop.hostname1 dbus service (both provided by systemd)
-    environment.etc.hostname =
-      mkIf (cfg.hostName != "") { text = cfg.hostName + "\n"; };
+    environment.etc.hostname = mkIf (cfg.hostName != "") {
+      text = cfg.hostName + "\n";
+    };
 
     environment.systemPackages =
       [
@@ -1762,22 +1788,24 @@ in
         (pkgs.writeTextFile rec {
           name = "ipv6-privacy-extensions.rules";
           destination = "/etc/udev/rules.d/99-${name}";
-          text = concatMapStrings
-            (
-              i:
-              let
-                opt = i.tempAddress;
-                val = tempaddrValues.${opt}.sysctl;
-                msg = tempaddrValues.${opt}.description;
-              in
-              ''
-                # override to ${msg} for ${i.name}
-                ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.procps}/bin/sysctl net.ipv6.conf.${
-                  replaceStrings [ "." ] [ "/" ] i.name
-                }.use_tempaddr=${val}"
-              ''
-            )
-            (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
+          text =
+            concatMapStrings
+              (
+                i:
+                let
+                  opt = i.tempAddress;
+                  val = tempaddrValues.${opt}.sysctl;
+                  msg = tempaddrValues.${opt}.description;
+                in
+                ''
+                  # override to ${msg} for ${i.name}
+                  ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.procps}/bin/sysctl net.ipv6.conf.${
+                    replaceStrings [ "." ] [ "/" ] i.name
+                  }.use_tempaddr=${val}"
+                ''
+              )
+              (filter (i: i.tempAddress != cfg.tempAddresses) interfaces)
+            ;
         })
       ]
       ++ lib.optional (cfg.wlanInterfaces != { }) (
@@ -1790,8 +1818,9 @@ in
               # as device:interface key:value pairs.
               wlanDeviceInterfaces =
                 let
-                  allDevices =
-                    unique (mapAttrsToList (_: v: v.device) cfg.wlanInterfaces);
+                  allDevices = unique (
+                    mapAttrsToList (_: v: v.device) cfg.wlanInterfaces
+                  );
                   interfacesOfDevice =
                     d: filterAttrs (_: v: v.device == d) cfg.wlanInterfaces;
                 in
@@ -1818,63 +1847,59 @@ in
               # existing, default interface.
               curInterfaceScript =
                 device: current: new:
-                pkgs.writeScript
-                "udev-run-script-wlan-interfaces-${device}.sh"
-                ''
-                  #!${pkgs.runtimeShell}
-                  # Change the wireless phy device to a predictable name.
-                  ${pkgs.iw}/bin/iw phy `${pkgs.coreutils}/bin/cat /sys/class/net/$INTERFACE/phy80211/name` set name ${device}
+                pkgs.writeScript "udev-run-script-wlan-interfaces-${device}.sh"
+                  ''
+                    #!${pkgs.runtimeShell}
+                    # Change the wireless phy device to a predictable name.
+                    ${pkgs.iw}/bin/iw phy `${pkgs.coreutils}/bin/cat /sys/class/net/$INTERFACE/phy80211/name` set name ${device}
 
-                  # Add new WLAN interfaces
-                  ${flip concatMapStrings new (
-                    i: ''
-                      ${pkgs.iw}/bin/iw phy ${device} interface add ${i._iName} type managed
-                    ''
-                  )}
+                    # Add new WLAN interfaces
+                    ${flip concatMapStrings new (
+                      i: ''
+                        ${pkgs.iw}/bin/iw phy ${device} interface add ${i._iName} type managed
+                      ''
+                    )}
 
-                  # Configure the current interface
-                  ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}
-                  ${optionalString
-                  (current.type == "mesh" && current.meshID != null)
-                  "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
-                  ${optionalString
-                  (current.type == "monitor" && current.flags != null)
-                  "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
-                  ${optionalString
-                  (current.type == "managed" && current.fourAddr != null)
-                  "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
-                    if current.fourAddr then "on" else "off"
-                  }"}
-                  ${optionalString
-                  (current.mac != null)
-                  "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
-                ''
+                    # Configure the current interface
+                    ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}
+                    ${optionalString
+                      (current.type == "mesh" && current.meshID != null)
+                      "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
+                    ${optionalString
+                      (current.type == "monitor" && current.flags != null)
+                      "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
+                    ${optionalString
+                      (current.type == "managed" && current.fourAddr != null)
+                      "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
+                        if current.fourAddr then "on" else "off"
+                      }"}
+                    ${optionalString (current.mac != null)
+                      "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
+                  ''
                 ;
 
               # Udev script to execute for a new WLAN interface. The script configures the new WLAN interface.
               newInterfaceScript =
                 new:
                 pkgs.writeScript
-                "udev-run-script-wlan-interfaces-${new._iName}.sh"
-                ''
-                  #!${pkgs.runtimeShell}
-                  # Configure the new interface
-                  ${pkgs.iw}/bin/iw dev ${new._iName} set type ${new.type}
-                  ${optionalString
-                  (new.type == "mesh" && new.meshID != null)
-                  "${pkgs.iw}/bin/iw dev ${new._iName} set meshid ${new.meshID}"}
-                  ${optionalString
-                  (new.type == "monitor" && new.flags != null)
-                  "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
-                  ${optionalString
-                  (new.type == "managed" && new.fourAddr != null)
-                  "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
-                    if new.fourAddr then "on" else "off"
-                  }"}
-                  ${optionalString
-                  (new.mac != null)
-                  "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
-                ''
+                  "udev-run-script-wlan-interfaces-${new._iName}.sh"
+                  ''
+                    #!${pkgs.runtimeShell}
+                    # Configure the new interface
+                    ${pkgs.iw}/bin/iw dev ${new._iName} set type ${new.type}
+                    ${optionalString (new.type == "mesh" && new.meshID != null)
+                      "${pkgs.iw}/bin/iw dev ${new._iName} set meshid ${new.meshID}"}
+                    ${optionalString
+                      (new.type == "monitor" && new.flags != null)
+                      "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
+                    ${optionalString
+                      (new.type == "managed" && new.fourAddr != null)
+                      "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
+                        if new.fourAddr then "on" else "off"
+                      }"}
+                    ${optionalString (new.mac != null)
+                      "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
+                  ''
                 ;
 
               # Udev attributes for systemd to name the device and to create a .device target.
@@ -1888,7 +1913,9 @@ in
               device:
               let
                 interfaces =
-                  wlanListDeviceFirst device wlanDeviceInterfaces.${device};
+                  wlanListDeviceFirst device
+                    wlanDeviceInterfaces.${device}
+                  ;
                 curInterface = elemAt interfaces 0;
                 newInterfaces = drop 1 interfaces;
               in
@@ -1896,14 +1923,14 @@ in
                 # It is important to have that rule first as overwriting the NAME attribute also prevents the
                 # next rules from matching.
                 ${flip (concatMapStringsSep "\n")
-                (wlanListDeviceFirst device wlanDeviceInterfaces.${device})
-                (
-                  interface:
-                  ''
-                    ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
-                      systemdAttrs interface._iName
-                    }, RUN+="${newInterfaceScript interface}"''
-                )}
+                  (wlanListDeviceFirst device wlanDeviceInterfaces.${device})
+                  (
+                    interface:
+                    ''
+                      ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
+                        systemdAttrs interface._iName
+                      }, RUN+="${newInterfaceScript interface}"''
+                  )}
 
                 # Add the required, new WLAN interfaces to the default WLAN interface with the
                 # persistent, default name as assigned by udev.

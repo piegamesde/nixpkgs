@@ -21,7 +21,7 @@ in
 
       enableRenice = mkEnableOption (
         lib.mdDoc
-        "CAP_SYS_NICE on gamemoded to support lowering process niceness"
+          "CAP_SYS_NICE on gamemoded to support lowering process niceness"
       ) // {
         default = true;
       };

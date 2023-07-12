@@ -47,8 +47,9 @@ in
         '';
       };
 
-      activate =
-        mkEnableOption (lib.mdDoc "activating the freshly created admin-user");
+      activate = mkEnableOption (
+        lib.mdDoc "activating the freshly created admin-user"
+      );
     };
 
     database = {
@@ -160,8 +161,9 @@ in
             The path to the file with the password in case SMTP auth is enabled.
           '';
         };
-        enableSSL =
-          mkEnableOption (lib.mdDoc "SSL when connecting to the SMTP server");
+        enableSSL = mkEnableOption (
+          lib.mdDoc "SSL when connecting to the SMTP server"
+        );
         retries = mkOption {
           type = types.ints.unsigned;
           default = 2;
@@ -247,9 +249,9 @@ in
 
           path =
             [ cfg.package ]
-            ++ optional
-              cfg.database.postgres.setup
-              config.services.postgresql.package
+            ++
+              optional cfg.database.postgres.setup
+                config.services.postgresql.package
             ;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY

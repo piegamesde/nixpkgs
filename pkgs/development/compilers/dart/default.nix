@@ -18,8 +18,10 @@ stdenv.mkDerivation (
     nativeBuildInputs = [ unzip ];
 
     src =
-      sources."${version}-${stdenv.hostPlatform.system}" or (throw
-        "unsupported version/system: ${version}/${stdenv.hostPlatform.system}");
+      sources."${version}-${stdenv.hostPlatform.system}" or (
+        throw
+          "unsupported version/system: ${version}/${stdenv.hostPlatform.system}"
+      );
 
     installPhase =
       ''
@@ -37,36 +39,40 @@ stdenv.mkDerivation (
     passthru = {
       updateScript = ./update.sh;
       tests = {
-        testCreate = runCommand "dart-test-create"
-          { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-          ''
-            PROJECTNAME="dart_test_project"
-            dart create --no-pub $PROJECTNAME
+        testCreate =
+          runCommand "dart-test-create"
+            { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+            ''
+              PROJECTNAME="dart_test_project"
+              dart create --no-pub $PROJECTNAME
 
-            [[ -d $PROJECTNAME ]]
-            [[ -f $PROJECTNAME/bin/$PROJECTNAME.dart ]]
-            touch $out
-          '';
+              [[ -d $PROJECTNAME ]]
+              [[ -f $PROJECTNAME/bin/$PROJECTNAME.dart ]]
+              touch $out
+            ''
+          ;
 
-        testCompile = runCommand "dart-test-compile"
-          {
-            nativeBuildInputs =
-              [ finalAttrs.finalPackage ]
-              ++ lib.optionals stdenv.isDarwin [
-                darwin.cctools
-                darwin.sigtool
-              ]
-              ;
-          }
-          ''
-            HELLO_MESSAGE="Hello, world!"
-            echo "void main() => print('$HELLO_MESSAGE');" > hello.dart
-            dart compile exe hello.dart
-            PROGRAM_OUT=$(./hello.exe)
+        testCompile =
+          runCommand "dart-test-compile"
+            {
+              nativeBuildInputs =
+                [ finalAttrs.finalPackage ]
+                ++ lib.optionals stdenv.isDarwin [
+                  darwin.cctools
+                  darwin.sigtool
+                ]
+                ;
+            }
+            ''
+              HELLO_MESSAGE="Hello, world!"
+              echo "void main() => print('$HELLO_MESSAGE');" > hello.dart
+              dart compile exe hello.dart
+              PROGRAM_OUT=$(./hello.exe)
 
-            [[ "$PROGRAM_OUT" == "$HELLO_MESSAGE" ]]
-            touch $out
-          '';
+              [[ "$PROGRAM_OUT" == "$HELLO_MESSAGE" ]]
+              touch $out
+            ''
+          ;
       };
     };
 

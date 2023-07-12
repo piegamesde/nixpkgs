@@ -16,19 +16,21 @@ with lib;
   imports =
     [
       # Added 2021-05-07
-      (mkRenamedOptionModule
-        [
-          "services"
-          "gnome3"
-          "gnome-user-share"
-          "enable"
-        ]
-        [
-          "services"
-          "gnome"
-          "gnome-user-share"
-          "enable"
-        ])
+      (
+        mkRenamedOptionModule
+          [
+            "services"
+            "gnome3"
+            "gnome-user-share"
+            "enable"
+          ]
+          [
+            "services"
+            "gnome"
+            "gnome-user-share"
+            "enable"
+          ]
+      )
     ];
 
   ###### interface
@@ -39,7 +41,7 @@ with lib;
 
       enable = mkEnableOption (
         lib.mdDoc
-        "GNOME User Share, a user-level file sharing service for GNOME"
+          "GNOME User Share, a user-level file sharing service for GNOME"
       );
     };
   };

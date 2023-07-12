@@ -20,9 +20,8 @@ let
     organization = ${cfg.certOrg}
     gen-certs = ${lib.boolToString cfg.genCerts}
     regen-certs = ${lib.boolToString cfg.regenCerts}
-    ${lib.optionalString
-    (cfg.certLifetime != "")
-    "cert-lifetime = ${cfg.certLifetime}"}
+    ${lib.optionalString (cfg.certLifetime != "")
+      "cert-lifetime = ${cfg.certLifetime}"}
 
   '';
   genINI = lib.generators.toINI { };
@@ -72,7 +71,9 @@ in
       type = lib.types.bool;
       default = false;
       description =
-        lib.mdDoc "Log partial client IP addresses in the connection log.";
+        lib.mdDoc
+          "Log partial client IP addresses in the connection log."
+        ;
     };
 
     requestTimeout = lib.mkOption {
@@ -221,10 +222,12 @@ in
 
     # Create default cert store
     system.activationScripts.makeStargazerCertDir =
-      lib.optionalAttrs (cfg.store == /var/lib/gemini/certs) ''
-        mkdir -p /var/lib/gemini/certs
-        chown -R ${cfg.user}:${cfg.group} /var/lib/gemini/certs
-      '';
+      lib.optionalAttrs (cfg.store == /var/lib/gemini/certs)
+        ''
+          mkdir -p /var/lib/gemini/certs
+          chown -R ${cfg.user}:${cfg.group} /var/lib/gemini/certs
+        ''
+      ;
 
     users.users = lib.optionalAttrs (cfg.user == "stargazer") {
       stargazer = {
@@ -233,8 +236,9 @@ in
       };
     };
 
-    users.groups =
-      lib.optionalAttrs (cfg.group == "stargazer") { stargazer = { }; };
+    users.groups = lib.optionalAttrs (cfg.group == "stargazer") {
+      stargazer = { };
+    };
   };
 
   meta.maintainers = with lib.maintainers; [ gaykitty ];

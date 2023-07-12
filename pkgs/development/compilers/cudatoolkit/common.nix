@@ -203,11 +203,11 @@ backendStdenv.mkDerivation rec {
         done
       ''}
       ${lib.optionalString
-      (lib.versionAtLeast version "10.1" && lib.versionOlder version "11")
-      ''
-        cd pkg/builds/cuda-toolkit
-        mv * $out/
-      ''}
+        (lib.versionAtLeast version "10.1" && lib.versionOlder version "11")
+        ''
+          cd pkg/builds/cuda-toolkit
+          mv * $out/
+        ''}
       ${lib.optionalString (lib.versionAtLeast version "11") ''
         mkdir -p $out/bin $out/lib64 $out/include $doc
         for dir in pkg/builds/* pkg/builds/cuda_nvcc/nvvm pkg/builds/cuda_cupti/extras/CUPTI; do
@@ -238,14 +238,14 @@ backendStdenv.mkDerivation rec {
       ''}
         ${
           lib.optionalString (lib.versionAtLeast version "11.8")
-          # error: auto-patchelf could not satisfy dependency libtiff.so.5 wanted by /nix/store/.......-cudatoolkit-12.0.1/host-linux-x64/Plugins/imageformats/libqtiff.so
-          # we only ship libtiff.so.6, so let's use qt plugins built by Nix.
-          # TODO: don't copy, come up with a symlink-based "merge"
-          ''
-            rsync ${
-              lib.getLib qt6Packages.qtimageformats
-            }/lib/qt-6/plugins/ $out/host-linux-x64/Plugins/ -aP
-          ''
+            # error: auto-patchelf could not satisfy dependency libtiff.so.5 wanted by /nix/store/.......-cudatoolkit-12.0.1/host-linux-x64/Plugins/imageformats/libqtiff.so
+            # we only ship libtiff.so.6, so let's use qt plugins built by Nix.
+            # TODO: don't copy, come up with a symlink-based "merge"
+            ''
+              rsync ${
+                lib.getLib qt6Packages.qtimageformats
+              }/lib/qt-6/plugins/ $out/host-linux-x64/Plugins/ -aP
+            ''
         }
 
       rm -f $out/tools/CUDA_Occupancy_Calculator.xls # FIXME: why?
@@ -257,8 +257,11 @@ backendStdenv.mkDerivation rec {
 
       # Remove some cruft.
       ${lib.optionalString
-      ((lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1"))
-      "rm $out/bin/uninstall*"}
+        (
+          (lib.versionAtLeast version "7.0")
+          && (lib.versionOlder version "10.1")
+        )
+        "rm $out/bin/uninstall*"}
 
       # Fixup path to samples (needed for cuda 6.5 or else nsight will not find them)
       if [ -d "$out"/cuda-samples ]; then
@@ -301,11 +304,11 @@ backendStdenv.mkDerivation rec {
       # Remove OpenCL libraries as they are provided by ocl-icd and driver.
       rm -f $out/lib64/libOpenCL*
       ${lib.optionalString
-      (lib.versionAtLeast version "10.1" && (lib.versionOlder version "11"))
-      ''
-        mv $out/lib64 $out/lib
-        mv $out/extras/CUPTI/lib64/libcupti* $out/lib
-      ''}
+        (lib.versionAtLeast version "10.1" && (lib.versionOlder version "11"))
+        ''
+          mv $out/lib64 $out/lib
+          mv $out/extras/CUPTI/lib64/libcupti* $out/lib
+        ''}
 
       # nvprof do not find any program to profile if LD_LIBRARY_PATH is not set
       wrapProgram $out/bin/nvprof \

@@ -17,7 +17,9 @@ in
   };
   config = {
     environment.systemPackages =
-      optional (cfg.keybindings || cfg.fuzzyCompletion) pkgs.fzf;
+      optional (cfg.keybindings || cfg.fuzzyCompletion)
+        pkgs.fzf
+      ;
     programs.bash.interactiveShellInit =
       optionalString cfg.fuzzyCompletion ''
         source ${pkgs.fzf}/share/fzf/completion.bash

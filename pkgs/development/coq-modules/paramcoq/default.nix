@@ -10,17 +10,17 @@ mkCoqDerivation {
   inherit version;
   defaultVersion = with lib.versions;
     lib.switch coq.version
-    [
-      {
-        case = range "8.10" "8.17";
-        out = "1.1.3+coq${coq.coq-version}";
-      }
-      {
-        case = range "8.7" "8.13";
-        out = "1.1.2+coq${coq.coq-version}";
-      }
-    ]
-    null;
+      [
+        {
+          case = range "8.10" "8.17";
+          out = "1.1.3+coq${coq.coq-version}";
+        }
+        {
+          case = range "8.7" "8.13";
+          out = "1.1.2+coq${coq.coq-version}";
+        }
+      ]
+      null;
   displayVersion = { paramcoq = "..."; };
   release."1.1.3+coq8.17".sha256 =
     "sha256-m8QGGuwj1lHzDprf4LHgAuzwfoblxtDIHunHBdpmiuM=";

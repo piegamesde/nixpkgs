@@ -46,10 +46,10 @@ buildGoModule rec {
       runHook preBuild
 
       ${lib.concatMapStrings
-      (t: ''
-        go build -o "$out/bin/${t}" -tags ssl -ldflags "-s -w" ./${t}/main
-      '')
-      tools}
+        (t: ''
+          go build -o "$out/bin/${t}" -tags ssl -ldflags "-s -w" ./${t}/main
+        '')
+        tools}
 
       runHook postBuild
     ''

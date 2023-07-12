@@ -128,7 +128,9 @@ stdenv.mkDerivation rec {
 
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
   CXXFLAGS =
-    lib.optionalString stdenv.hostPlatform.isAarch32 "-mfp16-format=ieee";
+    lib.optionalString stdenv.hostPlatform.isAarch32
+      "-mfp16-format=ieee"
+    ;
 
   # FIXME x86_64-darwin:
   # https://github.com/NixOS/nixpkgs/pull/204030#issuecomment-1352768690

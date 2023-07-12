@@ -37,9 +37,10 @@ let
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    + stringAsChars
-      (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
-      s
+    +
+      stringAsChars
+        (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
+        s
     ;
 
   defaultJvbConfig = {
@@ -242,12 +243,14 @@ in
     users.groups.jitsi-meet = { };
 
     services.jitsi-videobridge.extraProperties =
-      optionalAttrs (cfg.nat.localAddress != null) {
-        "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" =
-          cfg.nat.localAddress;
-        "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" =
-          cfg.nat.publicAddress;
-      };
+      optionalAttrs (cfg.nat.localAddress != null)
+        {
+          "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" =
+            cfg.nat.localAddress;
+          "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" =
+            cfg.nat.publicAddress;
+        }
+      ;
 
     systemd.services.jitsi-videobridge2 =
       let
@@ -272,10 +275,10 @@ in
         script =
           (concatStrings (
             mapAttrsToList
-            (name: xmppConfig: ''
-              export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
-            '')
-            cfg.xmppConfigs
+              (name: xmppConfig: ''
+                export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
+              '')
+              cfg.xmppConfigs
           ))
           + ''
             ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
@@ -321,8 +324,9 @@ in
       }
       ;
 
-    environment.etc."jitsi/videobridge/logging.properties".source = mkDefault
-      "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal"
+    environment.etc."jitsi/videobridge/logging.properties".source =
+      mkDefault
+        "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal"
       ;
 
     # (from videobridge2 .deb)
@@ -330,10 +334,12 @@ in
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 10485760;
     boot.kernel.sysctl."net.core.netdev_max_backlog" = mkDefault 100000;
 
-    networking.firewall.allowedTCPPorts =
-      mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.tcp.port ];
-    networking.firewall.allowedUDPPorts =
-      mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.udp.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+      jvbConfig.videobridge.ice.tcp.port
+    ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [
+      jvbConfig.videobridge.ice.udp.port
+    ];
 
     assertions = [ {
       message = "publicAddress must be set if and only if localAddress is set";

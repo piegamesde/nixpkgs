@@ -88,21 +88,22 @@ let
        })
     */
     ++ optional langFortran ../gfortran-driving.patch
-    ++ optional
-      (targetPlatform.libc == "musl" && targetPlatform.isPower)
-      ../ppc-musl.patch
-    ++ optional
-      (targetPlatform.libc == "musl")
-      ../libgomp-dont-force-initial-exec.patch
+    ++
+      optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
+        ../ppc-musl.patch
+    ++
+      optional (targetPlatform.libc == "musl")
+        ../libgomp-dont-force-initial-exec.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++ optional
-      (
-        !crossStageStatic
-        && targetPlatform.isMinGW
-        && threadsCross.model == "mcf"
-      )
-      ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++
+      optional
+        (
+          !crossStageStatic
+          && targetPlatform.isMinGW
+          && threadsCross.model == "mcf"
+        )
+        ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
     ;
 
@@ -110,9 +111,10 @@ let
   crossMingw =
     targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
-  crossNameAddon = optionalString
-    (targetPlatform != hostPlatform)
-    "${targetPlatform.config}-${stageNameAddon}-";
+  crossNameAddon =
+    optionalString (targetPlatform != hostPlatform)
+      "${targetPlatform.config}-${stageNameAddon}-"
+    ;
 
   callFile = lib.callPackageWith {
     # lets
@@ -223,31 +225,33 @@ stdenv.mkDerivation (
         substituteInPlace libgfortran/configure \
           --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
       ''
-      + (lib.optionalString
-        (targetPlatform != hostPlatform || stdenv.cc.libc != null)
-        # On NixOS, use the right path to the dynamic linker instead of
-        # `/lib/ld*.so'.
-        (
-          let
-            libc = if libcCross != null then libcCross else stdenv.cc.libc;
-          in
+      + (
+        lib.optionalString
+          (targetPlatform != hostPlatform || stdenv.cc.libc != null)
+          # On NixOS, use the right path to the dynamic linker instead of
+          # `/lib/ld*.so'.
           (
-            ''
-              echo "fixing the \`GLIBC_DYNAMIC_LINKER', \`UCLIBC_DYNAMIC_LINKER', and \`MUSL_DYNAMIC_LINKER' macros..."
-                        for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
-                        do
-                          grep -q _DYNAMIC_LINKER "$header" || continue
-                          echo "  fixing \`$header'..."
-                          sed -i "$header" \
-                              -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g' \
-                              -e 's|define[[:blank:]]*MUSL_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define MUSL_DYNAMIC_LINKER\1 "${libc.out}\2"|g'
-                        done
-            ''
-            + lib.optionalString (targetPlatform.libc == "musl") ''
-              sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
-            ''
+            let
+              libc = if libcCross != null then libcCross else stdenv.cc.libc;
+            in
+            (
+              ''
+                echo "fixing the \`GLIBC_DYNAMIC_LINKER', \`UCLIBC_DYNAMIC_LINKER', and \`MUSL_DYNAMIC_LINKER' macros..."
+                          for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
+                          do
+                            grep -q _DYNAMIC_LINKER "$header" || continue
+                            echo "  fixing \`$header'..."
+                            sed -i "$header" \
+                                -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g' \
+                                -e 's|define[[:blank:]]*MUSL_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define MUSL_DYNAMIC_LINKER\1 "${libc.out}\2"|g'
+                          done
+              ''
+              + lib.optionalString (targetPlatform.libc == "musl") ''
+                sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
+              ''
+            )
           )
-        ))
+      )
       + lib.optionalString targetPlatform.isAvr ''
         makeFlagsArray+=(
            'LIMITS_H_TEST=false'
@@ -282,9 +286,10 @@ stdenv.mkDerivation (
     targetConfig =
       if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags = optional
-      (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-      (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+    buildFlags =
+      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
+        (if profiledCompiler then "profiledbootstrap" else "bootstrap")
+      ;
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
@@ -341,18 +346,18 @@ stdenv.mkDerivation (
   }
 
   // optionalAttrs
-  (
-    targetPlatform != hostPlatform
-    && targetPlatform.libc == "msvcrt"
-    && crossStageStatic
-  )
-  {
-    makeFlags = [
-      "all-gcc"
-      "all-target-libgcc"
-    ];
-    installTargets = "install-gcc install-target-libgcc";
-  }
+    (
+      targetPlatform != hostPlatform
+      && targetPlatform.libc == "msvcrt"
+      && crossStageStatic
+    )
+    {
+      makeFlags = [
+        "all-gcc"
+        "all-target-libgcc"
+      ];
+      installTargets = "install-gcc install-target-libgcc";
+    }
 
   // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
 )

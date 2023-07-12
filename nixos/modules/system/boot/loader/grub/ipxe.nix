@@ -66,11 +66,11 @@ in
       "ipxe.lkrn" = "${pkgs.ipxe}/ipxe.lkrn";
     } // builtins.listToAttrs (
       map
-      (name: {
-        name = name + ".ipxe";
-        value = scriptFile name;
-      })
-      scripts
+        (name: {
+          name = name + ".ipxe";
+          value = scriptFile name;
+        })
+        scripts
     );
   };
 }

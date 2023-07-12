@@ -11,37 +11,37 @@ mkCoqDerivation rec {
   inherit version;
   defaultVersion = with lib.versions;
     lib.switch coq.coq-version
-    [
-      {
-        case = range "8.11" "8.17";
-        out = "0.11.7";
-      }
-      {
-        case = range "8.8" "8.16";
-        out = "0.11.6";
-      }
-      {
-        case = range "8.8" "8.14";
-        out = "0.11.4";
-      }
-      {
-        case = range "8.8" "8.13";
-        out = "0.11.3";
-      }
-      {
-        case = "8.7";
-        out = "0.9.7";
-      }
-      {
-        case = "8.6";
-        out = "0.9.5";
-      }
-      {
-        case = "8.5";
-        out = "0.9.4";
-      }
-    ]
-    null;
+      [
+        {
+          case = range "8.11" "8.17";
+          out = "0.11.7";
+        }
+        {
+          case = range "8.8" "8.16";
+          out = "0.11.6";
+        }
+        {
+          case = range "8.8" "8.14";
+          out = "0.11.4";
+        }
+        {
+          case = range "8.8" "8.13";
+          out = "0.11.3";
+        }
+        {
+          case = "8.7";
+          out = "0.9.7";
+        }
+        {
+          case = "8.6";
+          out = "0.9.5";
+        }
+        {
+          case = "8.5";
+          out = "0.9.4";
+        }
+      ]
+      null;
   release."0.11.7".sha256 =
     "sha256-HkxUny0mxDDT4VouBBh8btwxGZgsb459kBufTLLnuEY=";
   release."0.11.6".sha256 =

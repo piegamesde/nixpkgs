@@ -134,12 +134,12 @@ in
             }"
             "config_reverse_proxy_login_header_name = '${cfg.options.reverseProxyAuth.header}'"
           ]
-          ++ optional
-            (cfg.options.calibreLibrary != null)
-            "config_calibre_dir = '${cfg.options.calibreLibrary}'"
-          ++ optional
-            cfg.options.enableBookConversion
-            "config_converterpath = '${pkgs.calibre}/bin/ebook-convert'"
+          ++
+            optional (cfg.options.calibreLibrary != null)
+              "config_calibre_dir = '${cfg.options.calibreLibrary}'"
+          ++
+            optional cfg.options.enableBookConversion
+              "config_converterpath = '${pkgs.calibre}/bin/ebook-convert'"
         );
       in
       {
@@ -171,8 +171,9 @@ in
       }
       ;
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.listen.port ];
+    };
 
     users.users = mkIf (cfg.user == "calibre-web") {
       calibre-web = {

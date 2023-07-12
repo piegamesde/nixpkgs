@@ -387,8 +387,10 @@ in
     '';
 
     services.postgresql.authentication =
-      optionalString (cfg.database.host == null) ''
-        local restya_board all ident map=restya-board-users
-      '';
+      optionalString (cfg.database.host == null)
+        ''
+          local restya_board all ident map=restya-board-users
+        ''
+      ;
   };
 }

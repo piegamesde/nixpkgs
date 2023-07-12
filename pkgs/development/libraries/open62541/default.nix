@@ -69,8 +69,8 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
       ++ lib.optional (withEncryption != false) "-DUA_ENABLE_ENCRYPTION=${
-          lib.toUpper withEncryption
-        }"
+            lib.toUpper withEncryption
+          }"
       ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON"
       ;
 

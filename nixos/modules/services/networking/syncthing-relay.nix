@@ -20,14 +20,14 @@ let
       "--provided-by=${escapeShellArg cfg.providedBy}"
     ]
     ++ optional (cfg.pools != null) "--pools=${
-        escapeShellArg (concatStringsSep "," cfg.pools)
-      }"
+          escapeShellArg (concatStringsSep "," cfg.pools)
+        }"
     ++ optional (cfg.globalRateBps != null) "--global-rate=${
-        toString cfg.globalRateBps
-      }"
+          toString cfg.globalRateBps
+        }"
     ++ optional (cfg.perSessionRateBps != null) "--per-session-rate=${
-        toString cfg.perSessionRateBps
-      }"
+          toString cfg.perSessionRateBps
+        }"
     ++ cfg.extraOptions
     ;
 in

@@ -33,14 +33,14 @@ let
     nixpkgs = nixpkgsSrc;
   };
 
-  nixpkgs' = builtins.removeAttrs
-    (import ../pkgs/top-level/release.nix {
-      inherit supportedSystems;
-      nixpkgs = nixpkgsSrc;
-    })
-    [
-      "unstable"
-    ];
+  nixpkgs' =
+    builtins.removeAttrs
+      (import ../pkgs/top-level/release.nix {
+        inherit supportedSystems;
+        nixpkgs = nixpkgsSrc;
+      })
+      [ "unstable" ]
+    ;
 in
 rec {
 

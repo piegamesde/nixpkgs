@@ -16,26 +16,26 @@ let
   mkImpureDrv =
     name: path:
     runCommandLocal "${name}-impure-darwin"
-    {
-      __impureHostDeps = [ path ];
+      {
+        __impureHostDeps = [ path ];
 
-      meta = { platforms = lib.platforms.darwin; };
-    }
-    ''
-      if ! [ -x ${path} ]; then
-        echo Cannot find command ${path}
-        exit 1
-      fi
+        meta = { platforms = lib.platforms.darwin; };
+      }
+      ''
+        if ! [ -x ${path} ]; then
+          echo Cannot find command ${path}
+          exit 1
+        fi
 
-      mkdir -p $out/bin
-      ln -s ${path} $out/bin
+        mkdir -p $out/bin
+        ln -s ${path} $out/bin
 
-      manpage="/usr/share/man/man1/${name}.1"
-      if [ -f $manpage ]; then
-        mkdir -p $out/share/man/man1
-        ln -s $manpage $out/share/man/man1
-      fi
-    ''
+        manpage="/usr/share/man/man1/${name}.1"
+        if [ -f $manpage ]; then
+          mkdir -p $out/share/man/man1
+          ln -s $manpage $out/share/man/man1
+        fi
+      ''
     ;
 in
 lib.mapAttrs mkImpureDrv commands

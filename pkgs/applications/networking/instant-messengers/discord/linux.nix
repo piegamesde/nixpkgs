@@ -64,17 +64,19 @@
 }:
 
 let
-  disableBreakingUpdates = runCommand "disable-breaking-updates.py"
-    {
-      pythonInterpreter = "${python3.interpreter}";
-      configDirName = lib.toLower binaryName;
-    }
-    ''
-      mkdir -p $out/bin
-      cp ${./disable-breaking-updates.py} $out/bin/disable-breaking-updates.py
-      substituteAllInPlace $out/bin/disable-breaking-updates.py
-      chmod +x $out/bin/disable-breaking-updates.py
-    '';
+  disableBreakingUpdates =
+    runCommand "disable-breaking-updates.py"
+      {
+        pythonInterpreter = "${python3.interpreter}";
+        configDirName = lib.toLower binaryName;
+      }
+      ''
+        mkdir -p $out/bin
+        cp ${./disable-breaking-updates.py} $out/bin/disable-breaking-updates.py
+        substituteAllInPlace $out/bin/disable-breaking-updates.py
+        chmod +x $out/bin/disable-breaking-updates.py
+      ''
+    ;
 in
 
 stdenv.mkDerivation rec {
@@ -207,15 +209,15 @@ stdenv.mkDerivation rec {
       set -eou pipefail;
       url=$(curl -sI "https://discordapp.com/api/download/${
         builtins.replaceStrings
-        [
-          "discord-"
-          "discord"
-        ]
-        [
-          ""
-          "stable"
-        ]
-        pname
+          [
+            "discord-"
+            "discord"
+          ]
+          [
+            ""
+            "stable"
+          ]
+          pname
       }?platform=linux&format=tar.gz" | grep -oP 'location: \K\S+')
       version=''${url##https://dl*.discordapp.net/apps/linux/}
       version=''${version%%/*.tar.gz}

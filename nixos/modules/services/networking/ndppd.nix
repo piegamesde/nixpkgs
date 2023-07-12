@@ -27,9 +27,8 @@ let
                 ruleNetworkName: rule: ''
                   rule ${prefer rule.network ruleNetworkName} {
                     ${rule.method}${
-                      optionalString
-                      (rule.method == "iface")
-                      " ${rule.interface}"
+                      optionalString (rule.method == "iface")
+                        " ${rule.interface}"
                     }
                   }''
               )
@@ -126,7 +125,7 @@ in
   options.services.ndppd = {
     enable = mkEnableOption (
       lib.mdDoc
-      "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces"
+        "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces"
     );
     interface = mkOption {
       type = types.nullOr types.str;
@@ -181,9 +180,9 @@ in
     '' ];
 
     services.ndppd.proxies =
-      mkIf (cfg.interface != null && cfg.network != null) {
-        ${cfg.interface}.rules.${cfg.network} = { };
-      };
+      mkIf (cfg.interface != null && cfg.network != null)
+        { ${cfg.interface}.rules.${cfg.network} = { }; }
+      ;
 
     systemd.services.ndppd = {
       description = "NDP Proxy Daemon";

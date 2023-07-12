@@ -53,8 +53,10 @@ in
   # included for clarity, but $out/initrd will always be a symlink to
   # the final image.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  extension ? _compressorMeta.extension or (throw
-    "Unrecognised compressor ${_compressorName}, please specify filename extension"),
+  extension ? _compressorMeta.extension or (
+    throw
+      "Unrecognised compressor ${_compressorName}, please specify filename extension"
+  ),
 
   # List of { object = path_or_derivation; symlink = "/path"; }
   # The paths are copied into the initramfs in their nix store path
@@ -78,63 +80,66 @@ in
   # The name of the compression, as recognised by u-boot.
   # See https://gitlab.denx.de/u-boot/u-boot/-/blob/9bfb567e5f1bfe7de8eb41f8c6d00f49d2b9a426/common/image.c#L195-204 for a list.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  uInitrdCompression ? _compressorMeta.ubootName or (throw
-    "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression"),
+  uInitrdCompression ? _compressorMeta.ubootName or (
+    throw
+      "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression"
+  ),
 }:
 runCommand name
-({
-  compress =
-    "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
-  passthru = {
-    compressorExecutableFunction = _compressorFunction;
-    compressorArgs = _compressorArgsReal;
-  };
+  ({
+    compress =
+      "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
+    passthru = {
+      compressorExecutableFunction = _compressorFunction;
+      compressorArgs = _compressorArgsReal;
+    };
 
-  inherit extension makeUInitrd uInitrdArch prepend;
-  ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
+    inherit extension makeUInitrd uInitrdArch prepend;
+    ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
 
-  passAsFile = [ "contents" ];
-  contents =
-    lib.concatMapStringsSep "\n"
-    (
-      {
-        object,
-        symlink,
-        ...
-      }: ''
-        ${object}
-        ${if symlink == null then "" else symlink}''
-    )
-    contents
-    + "\n"
-    ;
+    passAsFile = [ "contents" ];
+    contents =
+      lib.concatMapStringsSep "\n"
+        (
+          {
+            object,
+            symlink,
+            ...
+          }: ''
+            ${object}
+            ${if symlink == null then "" else symlink}''
+        )
+        contents
+      + "\n"
+      ;
 
-  nativeBuildInputs =
-    [
-      makeInitrdNGTool
-      cpio
-    ]
-    ++ lib.optional makeUInitrd ubootTools
-    ++ lib.optional strip binutils
-    ;
+    nativeBuildInputs =
+      [
+        makeInitrdNGTool
+        cpio
+      ]
+      ++ lib.optional makeUInitrd ubootTools
+      ++ lib.optional strip binutils
+      ;
 
-  STRIP = if strip then "${pkgsBuildHost.binutils.targetPrefix}strip" else null;
-})
-''
-  mkdir -p ./root/var/empty
-  make-initrd-ng "$contentsPath" ./root
-  mkdir "$out"
-  (cd root && find * .[^.*] -exec touch -h -d '@1' '{}' +)
-  for PREP in $prepend; do
-    cat $PREP >> $out/initrd
-  done
-  (cd root && find . -print0 | sort -z | cpio -o -H newc -R +0:+0 --reproducible --null | eval -- $compress >> "$out/initrd")
+    STRIP =
+      if strip then "${pkgsBuildHost.binutils.targetPrefix}strip" else null;
+  })
+  ''
+    mkdir -p ./root/var/empty
+    make-initrd-ng "$contentsPath" ./root
+    mkdir "$out"
+    (cd root && find * .[^.*] -exec touch -h -d '@1' '{}' +)
+    for PREP in $prepend; do
+      cat $PREP >> $out/initrd
+    done
+    (cd root && find . -print0 | sort -z | cpio -o -H newc -R +0:+0 --reproducible --null | eval -- $compress >> "$out/initrd")
 
-  if [ -n "$makeUInitrd" ]; then
-      mkimage -A "$uInitrdArch" -O linux -T ramdisk -C "$uInitrdCompression" -d "$out/initrd" $out/initrd.img
-      # Compatibility symlink
-      ln -sf "initrd.img" "$out/initrd"
-  else
-      ln -s "initrd" "$out/initrd$extension"
-  fi
-''
+    if [ -n "$makeUInitrd" ]; then
+        mkimage -A "$uInitrdArch" -O linux -T ramdisk -C "$uInitrdCompression" -d "$out/initrd" $out/initrd.img
+        # Compatibility symlink
+        ln -sf "initrd.img" "$out/initrd"
+    else
+        ln -s "initrd" "$out/initrd$extension"
+    fi
+  ''

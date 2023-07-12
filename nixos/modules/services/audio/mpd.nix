@@ -20,15 +20,17 @@ let
       creds:
       let
         placeholders =
-          (imap0
-            (
-              i: c:
-              ''
-                password "{{password-${toString i}}}@${
-                  concatStringsSep "," c.permissions
-                }"''
-            )
-            creds);
+          (
+            imap0
+              (
+                i: c:
+                ''
+                  password "{{password-${toString i}}}@${
+                    concatStringsSep "," c.permissions
+                  }"''
+              )
+              creds
+          );
       in
       concatStringsSep "\n" placeholders
     );
@@ -259,9 +261,8 @@ in
             cfg.network.listenAddress
           else
             "${
-              optionalString
-              (cfg.network.listenAddress != "any")
-              "${cfg.network.listenAddress}:"
+              optionalString (cfg.network.listenAddress != "any")
+                "${cfg.network.listenAddress}:"
             }${toString cfg.network.port}"
         )
       ];
@@ -278,13 +279,13 @@ in
         + optionalString (cfg.credentials != [ ]) (
           concatStringsSep "\n" (
             imap0
-            (
-              i: c:
-              "${pkgs.replace-secret}/bin/replace-secret '{{password-${
-                toString i
-              }}}' '${c.passwordFile}' /run/mpd/mpd.conf"
-            )
-            cfg.credentials
+              (
+                i: c:
+                "${pkgs.replace-secret}/bin/replace-secret '{{password-${
+                  toString i
+                }}}' '${c.passwordFile}' /run/mpd/mpd.conf"
+              )
+              cfg.credentials
           )
         )
         ;

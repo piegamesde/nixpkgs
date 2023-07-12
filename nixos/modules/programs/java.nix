@@ -44,8 +44,9 @@ in
         type = types.package;
       };
 
-      binfmt =
-        mkEnableOption (lib.mdDoc "binfmt to execute java jar's and classes");
+      binfmt = mkEnableOption (
+        lib.mdDoc "binfmt to execute java jar's and classes"
+      );
     };
   };
 

@@ -35,11 +35,11 @@ let
 in
 # Accepts only "ncurses" and "qt5" as possible uiToolkits
 assert lib.subtractLists
-  [
-    "ncurses"
-    "qt5"
-  ]
-  uiToolkits == [ ];
+    [
+      "ncurses"
+      "qt5"
+    ]
+    uiToolkits == [ ];
 # Minimal, bootstrap cmake does not have toolkits
 assert isBootstrap -> (uiToolkits == [ ]);
 stdenv.mkDerivation rec {
@@ -70,9 +70,9 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
     # Derived from https://github.com/curl/curl/commit/31f631a142d855f069242f3e0c643beec25d1b51
-    ++ lib.optional
-      (stdenv.isDarwin && isBootstrap)
-      ./005-remove-systemconfiguration-dep.diff
+    ++
+      lib.optional (stdenv.isDarwin && isBootstrap)
+        ./005-remove-systemconfiguration-dep.diff
     # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
     ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff
     ;
@@ -182,9 +182,11 @@ stdenv.mkDerivation rec {
 
   # make install attempts to use the just-built cmake
   preInstall =
-    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-      sed -i 's|bin/cmake|${buildPackages.cmakeMinimal}/bin/cmake|g' Makefile
-    '';
+    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+      ''
+        sed -i 's|bin/cmake|${buildPackages.cmakeMinimal}/bin/cmake|g' Makefile
+      ''
+    ;
 
   dontUseCmakeConfigure = true;
   enableParallelBuilding = true;

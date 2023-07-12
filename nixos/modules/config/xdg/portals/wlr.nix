@@ -12,7 +12,9 @@ let
   package = pkgs.xdg-desktop-portal-wlr;
   settingsFormat = pkgs.formats.ini { };
   configFile =
-    settingsFormat.generate "xdg-desktop-portal-wlr.ini" cfg.settings;
+    settingsFormat.generate "xdg-desktop-portal-wlr.ini"
+      cfg.settings
+    ;
 in
 {
   meta = { maintainers = with maintainers; [ minijackson ]; };

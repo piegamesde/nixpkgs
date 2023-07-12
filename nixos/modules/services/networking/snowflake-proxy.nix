@@ -14,7 +14,9 @@ in
   options = {
     services.snowflake-proxy = {
       enable =
-        mkEnableOption (lib.mdDoc "System to defeat internet censorship");
+        mkEnableOption
+          (lib.mdDoc "System to defeat internet censorship")
+        ;
 
       broker = mkOption {
         description = lib.mdDoc ''
@@ -25,7 +27,9 @@ in
 
       capacity = mkOption {
         description =
-          lib.mdDoc "Limits the amount of maximum concurrent clients allowed.";
+          lib.mdDoc
+            "Limits the amount of maximum concurrent clients allowed."
+          ;
         type = with types; nullOr int;
         default = null;
       };
@@ -55,8 +59,8 @@ in
           + concatStringsSep " " (
             optional (cfg.broker != null) "-broker ${cfg.broker}"
             ++ optional (cfg.capacity != null) "-capacity ${
-                builtins.toString cfg.capacity
-              }"
+                  builtins.toString cfg.capacity
+                }"
             ++ optional (cfg.relay != null) "-relay ${cfg.relay}"
             ++ optional (cfg.stun != null) "-stun ${cfg.stun}"
           )

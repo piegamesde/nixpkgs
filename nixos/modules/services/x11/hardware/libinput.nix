@@ -47,8 +47,9 @@ let
         type = types.nullOr types.str;
         default = null;
         example = "-0.5";
-        description = lib.mdDoc
-          "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
+        description =
+          lib.mdDoc
+            "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
           ;
       };
 
@@ -97,8 +98,9 @@ let
       leftHanded = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Enables left-handed button orientation, i.e. swapping left and right buttons."
+        description =
+          lib.mdDoc
+            "Enables left-handed button orientation, i.e. swapping left and right buttons."
           ;
       };
 
@@ -115,7 +117,9 @@ let
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Enables or disables natural scrolling behavior.";
+          lib.mdDoc
+            "Enables or disables natural scrolling behavior."
+          ;
       };
 
       scrollButton = mkOption {
@@ -275,44 +279,46 @@ in
 {
 
   imports =
-    (map
-      (
-        option:
-        mkRenamedOptionModule
-        ([
-          "services"
-          "xserver"
-          "libinput"
-          option
-        ])
+    (
+      map
+        (
+          option:
+          mkRenamedOptionModule
+            ([
+              "services"
+              "xserver"
+              "libinput"
+              option
+            ])
+            [
+              "services"
+              "xserver"
+              "libinput"
+              "touchpad"
+              option
+            ]
+        )
         [
-          "services"
-          "xserver"
-          "libinput"
-          "touchpad"
-          option
+          "accelProfile"
+          "accelSpeed"
+          "buttonMapping"
+          "calibrationMatrix"
+          "clickMethod"
+          "leftHanded"
+          "middleEmulation"
+          "naturalScrolling"
+          "scrollButton"
+          "scrollMethod"
+          "horizontalScrolling"
+          "sendEventsMode"
+          "tapping"
+          "tappingButtonMap"
+          "tappingDragLock"
+          "transformationMatrix"
+          "disableWhileTyping"
+          "additionalOptions"
         ]
-      )
-      [
-        "accelProfile"
-        "accelSpeed"
-        "buttonMapping"
-        "calibrationMatrix"
-        "clickMethod"
-        "leftHanded"
-        "middleEmulation"
-        "naturalScrolling"
-        "scrollButton"
-        "scrollMethod"
-        "horizontalScrolling"
-        "sendEventsMode"
-        "tapping"
-        "tappingButtonMap"
-        "tappingDragLock"
-        "transformationMatrix"
-        "disableWhileTyping"
-        "additionalOptions"
-      ]);
+    );
 
   options = {
 

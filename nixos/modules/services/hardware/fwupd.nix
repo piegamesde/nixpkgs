@@ -58,10 +58,12 @@ let
       };
     }
     ;
-  remotes = (foldl'
-    (configFiles: remote: configFiles // (enableRemote cfg.package remote))
-    { }
-    cfg.extraRemotes) // (
+  remotes = (
+    foldl'
+      (configFiles: remote: configFiles // (enableRemote cfg.package remote))
+      { }
+      cfg.extraRemotes
+  ) // (
       # We cannot include the file in $out and rely on filesInstalledToEtc
       # to install it because it would create a cyclic dependency between
       # the outputs. We also need to enable the remote,
@@ -148,7 +150,9 @@ in
               type = types.path;
               default = config.boot.loader.efi.efiSysMountPoint;
               defaultText =
-                lib.literalExpression "config.boot.loader.efi.efiSysMountPoint";
+                lib.literalExpression
+                  "config.boot.loader.efi.efiSysMountPoint"
+                ;
               description = lib.mdDoc ''
                 The EFI system partition (ESP) path used if UDisks is not available
                 or if this partition is not mounted at /boot/efi, /boot, or /efi
@@ -163,8 +167,9 @@ in
       };
 
       uefiCapsuleSettings = mkOption {
-        type =
-          types.submodule { freeformType = format.type.nestedTypes.elemType; };
+        type = types.submodule {
+          freeformType = format.type.nestedTypes.elemType;
+        };
         default = { };
         description = lib.mdDoc ''
           UEFI capsule configurations for the fwupd daemon.
@@ -174,54 +179,62 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "fwupd"
-        "blacklistDevices"
-      ]
-      [
-        "services"
-        "fwupd"
-        "daemonSettings"
-        "DisabledDevices"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "fwupd"
-        "blacklistPlugins"
-      ]
-      [
-        "services"
-        "fwupd"
-        "daemonSettings"
-        "DisabledPlugins"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "fwupd"
-        "disabledDevices"
-      ]
-      [
-        "services"
-        "fwupd"
-        "daemonSettings"
-        "DisabledDevices"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "fwupd"
-        "disabledPlugins"
-      ]
-      [
-        "services"
-        "fwupd"
-        "daemonSettings"
-        "DisabledPlugins"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "fwupd"
+          "blacklistDevices"
+        ]
+        [
+          "services"
+          "fwupd"
+          "daemonSettings"
+          "DisabledDevices"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "fwupd"
+          "blacklistPlugins"
+        ]
+        [
+          "services"
+          "fwupd"
+          "daemonSettings"
+          "DisabledPlugins"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "fwupd"
+          "disabledDevices"
+        ]
+        [
+          "services"
+          "fwupd"
+          "daemonSettings"
+          "DisabledDevices"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "fwupd"
+          "disabledPlugins"
+        ]
+        [
+          "services"
+          "fwupd"
+          "daemonSettings"
+          "DisabledPlugins"
+        ]
+    )
   ];
 
   ###### implementation

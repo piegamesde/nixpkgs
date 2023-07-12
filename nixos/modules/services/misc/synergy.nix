@@ -25,7 +25,7 @@ in
       client = {
         enable = mkEnableOption (
           lib.mdDoc
-          "the Synergy client (receive keyboard and mouse events from a Synergy server)"
+            "the Synergy client (receive keyboard and mouse events from a Synergy server)"
         );
 
         screenName = mkOption {
@@ -47,8 +47,10 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc
-            "Whether the Synergy client should be started automatically.";
+          description =
+            lib.mdDoc
+              "Whether the Synergy client should be started automatically."
+            ;
         };
       };
 
@@ -78,8 +80,10 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc
-            "Whether the Synergy server should be started automatically.";
+          description =
+            lib.mdDoc
+              "Whether the Synergy server should be started automatically."
+            ;
         };
         tls = {
           enable = mkOption {
@@ -99,7 +103,9 @@ in
             default = null;
             example = "~/.synergy/SSL/Synergy.pem";
             description =
-              lib.mdDoc "The TLS certificate to use for encryption.";
+              lib.mdDoc
+                "The TLS certificate to use for encryption."
+              ;
           };
         };
       };

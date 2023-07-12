@@ -131,7 +131,9 @@ in
     let
       manageGitoliteRc = cfg.extraGitoliteRc != "";
       rcDir =
-        pkgs.runCommand "gitolite-rc" { preferLocalBuild = true; } rcDirScript;
+        pkgs.runCommand "gitolite-rc" { preferLocalBuild = true; }
+          rcDirScript
+        ;
       rcDirScript =
         ''
           mkdir "$out"

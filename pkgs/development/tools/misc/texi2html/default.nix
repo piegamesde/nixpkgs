@@ -29,11 +29,13 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-      for f in $out/bin/*; do
-        substituteInPlace $f --replace "${buildPackages.perl}" "${perl}"
-      done
-    '';
+    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+      ''
+        for f in $out/bin/*; do
+          substituteInPlace $f --replace "${buildPackages.perl}" "${perl}"
+        done
+      ''
+    ;
 
   meta = with lib; {
     description =

@@ -10,12 +10,14 @@ with lib;
 let
   cfg = config.services.certmgr;
 
-  specs = mapAttrsToList
-    (n: v: rec {
-      name = n + ".json";
-      path = if isAttrs v then pkgs.writeText name (builtins.toJSON v) else v;
-    })
-    cfg.specs;
+  specs =
+    mapAttrsToList
+      (n: v: rec {
+        name = n + ".json";
+        path = if isAttrs v then pkgs.writeText name (builtins.toJSON v) else v;
+      })
+      cfg.specs
+    ;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;
 
@@ -32,16 +34,16 @@ let
 
   specPaths = map dirOf (
     concatMap
-    (
-      spec:
-      if isAttrs spec then
-        collect isString (
-          filterAttrsRecursive (n: v: isAttrs v || n == "path") spec
-        )
-      else
-        [ spec ]
-    )
-    (attrValues cfg.specs)
+      (
+        spec:
+        if isAttrs spec then
+          collect isString (
+            filterAttrsRecursive (n: v: isAttrs v || n == "path") spec
+          )
+        else
+          [ spec ]
+      )
+      (attrValues cfg.specs)
   );
 
   preStart = ''
@@ -69,16 +71,18 @@ in
     validMin = mkOption {
       default = "72h";
       type = types.str;
-      description = lib.mdDoc
-        "The interval before a certificate expires to start attempting to renew it."
+      description =
+        lib.mdDoc
+          "The interval before a certificate expires to start attempting to renew it."
         ;
     };
 
     renewInterval = mkOption {
       default = "30m";
       type = types.str;
-      description = lib.mdDoc
-        "How often to check certificate expirations and how often to update the cert_next_expires metric."
+      description =
+        lib.mdDoc
+          "How often to check certificate expirations and how often to update the cert_next_expires metric."
         ;
     };
 
@@ -141,8 +145,10 @@ in
                 service = mkOption {
                   type = nullOr str;
                   default = null;
-                  description = lib.mdDoc
-                    "The service on which to perform <action> after fetching.";
+                  description =
+                    lib.mdDoc
+                      "The service on which to perform <action> after fetching."
+                    ;
                 };
 
                 action = mkOption {
@@ -218,11 +224,11 @@ in
       {
         assertion =
           !any
-          (hasAttrByPath [
-            "authority"
-            "auth_key"
-          ])
-          (attrValues cfg.specs)
+            (hasAttrByPath [
+              "authority"
+              "auth_key"
+            ])
+            (attrValues cfg.specs)
           ;
         message = ''
           Inline services.certmgr.specs are added to the Nix store rendering them world readable.

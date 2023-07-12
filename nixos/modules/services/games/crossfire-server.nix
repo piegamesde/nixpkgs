@@ -125,41 +125,45 @@ in
     # For most files this consists of reading ${crossfire}/etc/crossfire/${name}
     # and appending the user setting to it; the motd, news, and rules are handled
     # specially, with user-provided values completely replacing the original.
-    environment.etc = lib.attrsets.mapAttrs'
-      (
-        name: value:
-        lib.attrsets.nameValuePair "crossfire/${name}" {
-          mode = "0644";
-          text =
-            (optionalString
+    environment.etc =
+      lib.attrsets.mapAttrs'
+        (
+          name: value:
+          lib.attrsets.nameValuePair "crossfire/${name}" {
+            mode = "0644";
+            text =
               (
-                !elem name [
-                  "motd"
-                  "news"
-                  "rules"
-                ]
+                optionalString
+                  (
+                    !elem name [
+                      "motd"
+                      "news"
+                      "rules"
+                    ]
+                  )
+                  (fileContents "${cfg.package}/etc/crossfire/${name}")
               )
-              (fileContents "${cfg.package}/etc/crossfire/${name}"))
-            + ''
+              + ''
 
-              ${value}''
-            ;
-        }
-      )
-      (
-        {
-          ban_file = "";
-          dm_file = "";
-          exp_table = "";
-          forbid = "";
-          metaserver2 = "";
-          motd = fileContents "${cfg.package}/etc/crossfire/motd";
-          news = fileContents "${cfg.package}/etc/crossfire/news";
-          rules = fileContents "${cfg.package}/etc/crossfire/rules";
-          settings = "";
-          stat_bonus = "";
-        } // cfg.configFiles
-      );
+                ${value}''
+              ;
+          }
+        )
+        (
+          {
+            ban_file = "";
+            dm_file = "";
+            exp_table = "";
+            forbid = "";
+            metaserver2 = "";
+            motd = fileContents "${cfg.package}/etc/crossfire/motd";
+            news = fileContents "${cfg.package}/etc/crossfire/news";
+            rules = fileContents "${cfg.package}/etc/crossfire/rules";
+            settings = "";
+            stat_bonus = "";
+          } // cfg.configFiles
+        )
+      ;
 
     systemd.services.crossfire-server = {
       description = "Crossfire Server Daemon";
@@ -196,7 +200,8 @@ in
       '';
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ serverPort ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ serverPort ];
+    };
   };
 }

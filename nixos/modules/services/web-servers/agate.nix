@@ -56,14 +56,18 @@ in
         default = null;
         type = types.nullOr types.str;
         description =
-          lib.mdDoc "RFC 4646 Language code for text/gemini documents.";
+          lib.mdDoc
+            "RFC 4646 Language code for text/gemini documents."
+          ;
       };
 
       onlyTls_1_3 = mkOption {
         default = false;
         type = types.bool;
         description =
-          lib.mdDoc "Only use TLSv1.3 (default also allows TLSv1.2).";
+          lib.mdDoc
+            "Only use TLSv1.3 (default also allows TLSv1.2)."
+          ;
       };
 
       extraArgs = mkOption {
@@ -93,11 +97,11 @@ in
           prefixKeyList =
             key: list:
             concatMap
-            (v: [
-              key
-              v
-            ])
-            list
+              (v: [
+                key
+                v
+              ])
+              list
             ;
           addresses = prefixKeyList "--addr" cfg.addresses;
           hostnames = prefixKeyList "--hostname" cfg.hostnames;

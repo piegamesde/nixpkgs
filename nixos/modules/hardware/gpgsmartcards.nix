@@ -38,6 +38,7 @@ in
     enable = mkEnableOption (lib.mdDoc "udev rules for gnupg smart cards");
   };
 
-  config =
-    mkIf cfg.enable { services.udev.packages = [ scdaemonUdevRulesPkg ]; };
+  config = mkIf cfg.enable {
+    services.udev.packages = [ scdaemonUdevRulesPkg ];
+  };
 }

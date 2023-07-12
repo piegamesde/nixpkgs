@@ -20,19 +20,21 @@ in
 {
   imports = [
     ./common.nix
-    (lib.mkRenamedOptionModule
-      [
-        "services"
-        "hercules-ci-agent"
-        "user"
-      ]
-      [
-        "systemd"
-        "services"
-        "hercules-ci-agent"
-        "serviceConfig"
-        "User"
-      ])
+    (
+      lib.mkRenamedOptionModule
+        [
+          "services"
+          "hercules-ci-agent"
+          "user"
+        ]
+        [
+          "systemd"
+          "services"
+          "hercules-ci-agent"
+          "serviceConfig"
+          "User"
+        ]
+    )
   ];
 
   config = mkIf cfg.enable {
@@ -98,7 +100,9 @@ in
           in
           {
             nixos.configurationRevision =
-              mkIfNotNull config.system.configurationRevision;
+              mkIfNotNull
+                config.system.configurationRevision
+              ;
             nixos.release = config.system.nixos.release;
             nixos.label = mkIfNotNull config.system.nixos.label;
             nixos.codeName = config.system.nixos.codeName;

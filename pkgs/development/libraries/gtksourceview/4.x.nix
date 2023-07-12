@@ -117,7 +117,9 @@ stdenv.mkDerivation (
     };
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       description = "Source code editing widget for GTK";

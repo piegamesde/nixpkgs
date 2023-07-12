@@ -88,8 +88,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!withEmacs) "--without-emacs"
     ++ lib.optional withEmacs "--emacslispdir=${
-        placeholder "emacs"
-      }/share/emacs/site-lisp"
+          placeholder "emacs"
+        }/share/emacs/site-lisp"
     ++ lib.optional (!withRuby) "--without-ruby"
     ;
 

@@ -92,7 +92,9 @@ let
 
     process_children_only = mkOption {
       description =
-        lib.mdDoc "Whether to only snapshot child datasets if recursing.";
+        lib.mdDoc
+          "Whether to only snapshot child datasets if recursing."
+        ;
       type = types.bool;
       default = false;
     };
@@ -176,9 +178,9 @@ in
               options.useTemplate or { }
             );
             config.process_children_only =
-              modules.mkAliasAndWrapDefsWithPriority id (
-                options.processChildrenOnly or { }
-              );
+              modules.mkAliasAndWrapDefsWithPriority id
+                (options.processChildrenOnly or { })
+              ;
           }
         )
       );
@@ -234,21 +236,25 @@ in
       description = "Sanoid snapshot service";
       serviceConfig = {
         ExecStartPre =
-          (map
-            (buildAllowCommand "allow" [
-              "snapshot"
-              "mount"
-              "destroy"
-            ])
-            datasets);
+          (
+            map
+              (buildAllowCommand "allow" [
+                "snapshot"
+                "mount"
+                "destroy"
+              ])
+              datasets
+          );
         ExecStopPost =
-          (map
-            (buildAllowCommand "unallow" [
-              "snapshot"
-              "mount"
-              "destroy"
-            ])
-            datasets);
+          (
+            map
+              (buildAllowCommand "unallow" [
+                "snapshot"
+                "mount"
+                "destroy"
+              ])
+              datasets
+          );
         ExecStart = lib.escapeShellArgs (
           [
             "${cfg.package}/bin/sanoid"

@@ -31,11 +31,11 @@ let
     ]
     ++ (concatLists (
       mapAttrsToList
-      (_k: _v: [
-        "--client-option"
-        "${_k}=${_v}"
-      ])
-      cfg.clientOptions
+        (_k: _v: [
+          "--client-option"
+          "${_k}=${_v}"
+        ])
+        cfg.clientOptions
     ))
     ++ [
       "--terminal-type"
@@ -115,7 +115,9 @@ in
         type = types.ints.u8;
         default = 1;
         description =
-          lib.mdDoc "Signal to send to the command on session close.";
+          lib.mdDoc
+            "Signal to send to the command on session close."
+          ;
       };
 
       clientOptions = mkOption {
@@ -142,8 +144,10 @@ in
       checkOrigin = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to allow a websocket connection from a different origin.";
+        description =
+          lib.mdDoc
+            "Whether to allow a websocket connection from a different origin."
+          ;
       };
 
       maxClients = mkOption {
@@ -191,7 +195,9 @@ in
         type = types.nullOr types.path;
         default = null;
         description =
-          lib.mdDoc "SSL CA file path for client certificate verification.";
+          lib.mdDoc
+            "SSL CA file path for client certificate verification."
+          ;
       };
 
       logLevel = mkOption {

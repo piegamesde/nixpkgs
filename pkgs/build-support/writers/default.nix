@@ -36,56 +36,56 @@ let
       in
 
       pkgs.runCommandLocal name
-      (
-        if (types.str.check content) then
-          {
-            inherit content interpreter;
-            passAsFile = [ "content" ];
-          }
-        else
-          {
-            inherit interpreter;
-            contentPath = content;
-          }
-      )
-      ''
-        # On darwin a script cannot be used as an interpreter in a shebang but
-        # there doesn't seem to be a limit to the size of shebang and multiple
-        # arguments to the interpreter are allowed.
-        if [[ -n "${
-          toString pkgs.stdenvNoCC.isDarwin
-        }" ]] && isScript $interpreter
-        then
-          wrapperInterpreterLine=$(head -1 "$interpreter" | tail -c+3)
-          # Get first word from the line (note: xargs echo remove leading spaces)
-          wrapperInterpreter=$(echo "$wrapperInterpreterLine" | xargs echo | cut -d " " -f1)
-
-          if isScript $wrapperInterpreter
+        (
+          if (types.str.check content) then
+            {
+              inherit content interpreter;
+              passAsFile = [ "content" ];
+            }
+          else
+            {
+              inherit interpreter;
+              contentPath = content;
+            }
+        )
+        ''
+          # On darwin a script cannot be used as an interpreter in a shebang but
+          # there doesn't seem to be a limit to the size of shebang and multiple
+          # arguments to the interpreter are allowed.
+          if [[ -n "${
+            toString pkgs.stdenvNoCC.isDarwin
+          }" ]] && isScript $interpreter
           then
-            echo "error: passed interpreter ($interpreter) is a script which has another script ($wrapperInterpreter) as an interpreter, which is not supported."
-            exit 1
+            wrapperInterpreterLine=$(head -1 "$interpreter" | tail -c+3)
+            # Get first word from the line (note: xargs echo remove leading spaces)
+            wrapperInterpreter=$(echo "$wrapperInterpreterLine" | xargs echo | cut -d " " -f1)
+
+            if isScript $wrapperInterpreter
+            then
+              echo "error: passed interpreter ($interpreter) is a script which has another script ($wrapperInterpreter) as an interpreter, which is not supported."
+              exit 1
+            fi
+
+            # This should work as long as wrapperInterpreter is a shell, which is
+            # the case for programs wrapped with makeWrapper, like
+            # python3.withPackages etc.
+            interpreterLine="$wrapperInterpreterLine $interpreter"
+          else
+            interpreterLine=$interpreter
           fi
 
-          # This should work as long as wrapperInterpreter is a shell, which is
-          # the case for programs wrapped with makeWrapper, like
-          # python3.withPackages etc.
-          interpreterLine="$wrapperInterpreterLine $interpreter"
-        else
-          interpreterLine=$interpreter
-        fi
-
-        echo "#! $interpreterLine" > $out
-        cat "$contentPath" >> $out
-        ${optionalString (check != "") ''
-          ${check} $out
-        ''}
-        chmod +x $out
-        ${optionalString (types.path.check nameOrPath) ''
-          mv $out tmp
-          mkdir -p $out/$(dirname "${nameOrPath}")
-          mv tmp $out/${nameOrPath}
-        ''}
-      ''
+          echo "#! $interpreterLine" > $out
+          cat "$contentPath" >> $out
+          ${optionalString (check != "") ''
+            ${check} $out
+          ''}
+          chmod +x $out
+          ${optionalString (types.path.check nameOrPath) ''
+            mv $out tmp
+            mkdir -p $out/$(dirname "${nameOrPath}")
+            mv tmp $out/${nameOrPath}
+          ''}
+        ''
       ;
 
     # Base implementation for compiled executables.
@@ -107,39 +107,40 @@ let
         name = last (builtins.split "/" nameOrPath);
       in
       pkgs.runCommand name
-      (
         (
-          if (types.str.check content) then
+          (
+            if (types.str.check content) then
+              {
+                inherit content;
+                passAsFile = [ "content" ];
+              }
+            else
+              { contentPath = content; }
+          ) // lib.optionalAttrs
+            (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
             {
-              inherit content;
-              passAsFile = [ "content" ];
+              # post-link-hook expects codesign_allocate to be in PATH
+              # https://github.com/NixOS/nixpkgs/issues/154203
+              # https://github.com/NixOS/nixpkgs/issues/148189
+              nativeBuildInputs = [ stdenv.cc.bintools ];
             }
-          else
-            { contentPath = content; }
-        ) // lib.optionalAttrs
-        (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-        {
-          # post-link-hook expects codesign_allocate to be in PATH
-          # https://github.com/NixOS/nixpkgs/issues/154203
-          # https://github.com/NixOS/nixpkgs/issues/148189
-          nativeBuildInputs = [ stdenv.cc.bintools ];
-        }
-      )
-      ''
-        ${compileScript}
-        ${lib.optionalString strip "${
-          lib.getBin buildPackages.bintools-unwrapped
-        }/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
-        # Sometimes binaries produced for darwin (e. g. by GHC) won't be valid
-        # mach-o executables from the get-go, but need to be corrected somehow
-        # which is done by fixupPhase.
-        ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isDarwin "fixupPhase"}
-        ${optionalString (types.path.check nameOrPath) ''
-          mv $out tmp
-          mkdir -p $out/$(dirname "${nameOrPath}")
-          mv tmp $out/${nameOrPath}
-        ''}
-      ''
+        )
+        ''
+          ${compileScript}
+          ${lib.optionalString strip "${
+              lib.getBin buildPackages.bintools-unwrapped
+            }/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
+          # Sometimes binaries produced for darwin (e. g. by GHC) won't be valid
+          # mach-o executables from the get-go, but need to be corrected somehow
+          # which is done by fixupPhase.
+          ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isDarwin
+            "fixupPhase"}
+          ${optionalString (types.path.check nameOrPath) ''
+            mv $out tmp
+            mkdir -p $out/$(dirname "${nameOrPath}")
+            mv tmp $out/${nameOrPath}
+          ''}
+        ''
       ;
 
     # Like writeScript but the first line is a shebang to bash
@@ -208,17 +209,17 @@ let
           ;
       in
       makeBinWriter
-      {
-        compileScript = ''
-          cp $contentPath tmp.hs
-          ${ghc.withPackages (_: libraries)}/bin/ghc ${
-            lib.escapeShellArgs ghcArgs'
-          } tmp.hs
-          mv tmp $out
-        '';
-        inherit strip;
-      }
-      name
+        {
+          compileScript = ''
+            cp $contentPath tmp.hs
+            ${ghc.withPackages (_: libraries)}/bin/ghc ${
+              lib.escapeShellArgs ghcArgs'
+            } tmp.hs
+            mv tmp $out
+          '';
+          inherit strip;
+        }
+        name
       ;
 
     # writeHaskellBin takes the same arguments as writeHaskell but outputs a directory (like writeScriptBin)
@@ -232,20 +233,21 @@ let
         strip ? true,
       }:
       let
-        darwinArgs =
-          lib.optionals stdenv.isDarwin [ "-L${lib.getLib libiconv}/lib" ];
+        darwinArgs = lib.optionals stdenv.isDarwin [
+          "-L${lib.getLib libiconv}/lib"
+        ];
       in
       makeBinWriter
-      {
-        compileScript = ''
-          cp "$contentPath" tmp.rs
-          PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${
-            lib.escapeShellArgs rustcArgs
-          } ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
-        '';
-        inherit strip;
-      }
-      name
+        {
+          compileScript = ''
+            cp "$contentPath" tmp.rs
+            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${
+              lib.escapeShellArgs rustcArgs
+            } ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
+          '';
+          inherit strip;
+        }
+        name
       ;
 
     writeRustBin = name: writeRust "/bin/${name}";
@@ -293,16 +295,16 @@ let
     writeNginxConfig =
       name: text:
       pkgs.runCommandLocal name
-      {
-        inherit text;
-        passAsFile = [ "text" ];
-        nativeBuildInputs = [ gixy ];
-      } # sh
-      ''
-        # nginx-config-formatter has an error - https://github.com/1connect/nginx-config-formatter/issues/16
-        awk -f ${awkFormatNginx} "$textPath" | sed '/^\s*$/d' > $out
-        gixy $out
-      ''
+        {
+          inherit text;
+          passAsFile = [ "text" ];
+          nativeBuildInputs = [ gixy ];
+        } # sh
+        ''
+          # nginx-config-formatter has an error - https://github.com/1connect/nginx-config-formatter/issues/16
+          awk -f ${awkFormatNginx} "$textPath" | sed '/^\s*$/d' > $out
+          gixy $out
+        ''
       ;
 
     # writePerl takes a name an attributeset with libraries and some perl sourcecode and
@@ -319,8 +321,8 @@ let
         libraries ? [ ],
       }:
       makeScriptWriter
-      { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
-      name
+        { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
+        name
       ;
 
     # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
@@ -337,24 +339,24 @@ let
       }:
       let
         ignoreAttribute = optionalString (flakeIgnore != [ ]) "--ignore ${
-            concatMapStringsSep "," escapeShellArg flakeIgnore
-          }";
+              concatMapStringsSep "," escapeShellArg flakeIgnore
+            }";
       in
       makeScriptWriter
-      {
-        interpreter =
-          if libraries == [ ] then
-            "${python}/bin/python"
-          else
-            "${python.withPackages (ps: libraries)}/bin/python"
-          ;
-        check = optionalString python.isPy3k (
-          writeDash "pythoncheck.sh" ''
-            exec ${buildPythonPackages.flake8}/bin/flake8 --show-source ${ignoreAttribute} "$1"
-          ''
-        );
-      }
-      name
+        {
+          interpreter =
+            if libraries == [ ] then
+              "${python}/bin/python"
+            else
+              "${python.withPackages (ps: libraries)}/bin/python"
+            ;
+          check = optionalString python.isPy3k (
+            writeDash "pythoncheck.sh" ''
+              exec ${buildPythonPackages.flake8}/bin/flake8 --show-source ${ignoreAttribute} "$1"
+            ''
+          );
+        }
+        name
       ;
 
     # writePyPy2 takes a name an attributeset with libraries and some pypy2 sourcecode and
@@ -370,7 +372,8 @@ let
     #   print Test.a
     # ''
     writePyPy2 =
-      makePythonWriter pkgs.pypy2 pkgs.pypy2Packages buildPackages.pypy2Packages
+      makePythonWriter pkgs.pypy2 pkgs.pypy2Packages
+        buildPackages.pypy2Packages
       ;
 
     # writePyPy2Bin takes the same arguments as writePyPy2 but outputs a directory (like writeScriptBin)
@@ -388,9 +391,10 @@ let
     #   """)
     #   print(y[0]['test'])
     # ''
-    writePython3 = makePythonWriter pkgs.python3
-      pkgs.python3Packages
-      buildPackages.python3Packages;
+    writePython3 =
+      makePythonWriter pkgs.python3 pkgs.python3Packages
+        buildPackages.python3Packages
+      ;
 
     # writePython3Bin takes the same arguments as writePython3 but outputs a directory (like writeScriptBin)
     writePython3Bin = name: writePython3 "/bin/${name}";
@@ -408,7 +412,8 @@ let
     #   print(y[0]['test'])
     # ''
     writePyPy3 =
-      makePythonWriter pkgs.pypy3 pkgs.pypy3Packages buildPackages.pypy3Packages
+      makePythonWriter pkgs.pypy3 pkgs.pypy3Packages
+        buildPackages.pypy3Packages
       ;
 
     # writePyPy3Bin takes the same arguments as writePyPy3 but outputs a directory (like writeScriptBin)

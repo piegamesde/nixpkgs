@@ -48,15 +48,17 @@ let
   allConfigPaths = [ configFile ] ++ cfg.extraSettingsPaths;
   configOptions = escapeShellArgs (
     lib.optional cfg.dev "-dev"
-    ++ lib.optional
-      (cfg.dev && cfg.devRootTokenID != null)
-      "-dev-root-token-id=${cfg.devRootTokenID}"
-    ++ (concatMap
-      (p: [
-        "-config"
-        p
-      ])
-      allConfigPaths)
+    ++
+      lib.optional (cfg.dev && cfg.devRootTokenID != null)
+        "-dev-root-token-id=${cfg.devRootTokenID}"
+    ++ (
+      concatMap
+        (p: [
+          "-config"
+          p
+        ])
+        allConfigPaths
+    )
   );
 in
 
@@ -70,7 +72,9 @@ in
         default = pkgs.vault;
         defaultText = literalExpression "pkgs.vault";
         description =
-          lib.mdDoc "This option specifies the vault package to use.";
+          lib.mdDoc
+            "This option specifies the vault package to use."
+          ;
       };
 
       dev = mkOption {
@@ -99,8 +103,9 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "/path/to/your/cert.pem";
-        description = lib.mdDoc
-          "TLS certificate file. TLS will be disabled unless this option is set"
+        description =
+          lib.mdDoc
+            "TLS certificate file. TLS will be disabled unless this option is set"
           ;
       };
 
@@ -108,8 +113,9 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "/path/to/your/key.pem";
-        description = lib.mdDoc
-          "TLS private key file. TLS will be disabled unless this option is set"
+        description =
+          lib.mdDoc
+            "TLS private key file. TLS will be disabled unless this option is set"
           ;
       };
 
@@ -252,9 +258,10 @@ in
     };
     users.groups.vault.gid = config.ids.gids.vault;
 
-    systemd.tmpfiles.rules = optional
-      (cfg.storagePath != null)
-      "d '${cfg.storagePath}' 0700 vault vault - -";
+    systemd.tmpfiles.rules =
+      optional (cfg.storagePath != null)
+        "d '${cfg.storagePath}' 0700 vault vault - -"
+      ;
 
     systemd.services.vault = {
       description = "Vault server daemon";
@@ -262,9 +269,10 @@ in
       wantedBy = [ "multi-user.target" ];
       after =
         [ "network.target" ]
-        ++ optional
-          (config.services.consul.enable && cfg.storageBackend == "consul")
-          "consul.service"
+        ++
+          optional
+            (config.services.consul.enable && cfg.storageBackend == "consul")
+            "consul.service"
         ;
 
       restartIfChanged =
@@ -292,7 +300,9 @@ in
       };
 
       unitConfig.RequiresMountsFor =
-        optional (cfg.storagePath != null) cfg.storagePath;
+        optional (cfg.storagePath != null)
+          cfg.storagePath
+        ;
     };
   };
 }

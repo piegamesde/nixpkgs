@@ -109,22 +109,24 @@ buildGoModule rec {
     });
 
   passthru = {
-    data-compressed = runCommand "forgejo-data-compressed"
-      {
-        nativeBuildInputs = [
-          brotli
-          xorg.lndir
-        ];
-      }
-      ''
-        mkdir $out
-        lndir ${forgejo.data}/ $out/
+    data-compressed =
+      runCommand "forgejo-data-compressed"
+        {
+          nativeBuildInputs = [
+            brotli
+            xorg.lndir
+          ];
+        }
+        ''
+          mkdir $out
+          lndir ${forgejo.data}/ $out/
 
-        # Create static gzip and brotli files
-        find -L $out -type f -regextype posix-extended -iregex '.*\.(css|html|js|svg|ttf|txt)' \
-          -exec gzip --best --keep --force {} ';' \
-          -exec brotli --best --keep --no-copy-stat {} ';'
-      '';
+          # Create static gzip and brotli files
+          find -L $out -type f -regextype posix-extended -iregex '.*\.(css|html|js|svg|ttf|txt)' \
+            -exec gzip --best --keep --force {} ';' \
+            -exec brotli --best --keep --no-copy-stat {} ';'
+        ''
+      ;
 
     tests = nixosTests.forgejo;
   };

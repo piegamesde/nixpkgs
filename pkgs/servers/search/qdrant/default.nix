@@ -47,7 +47,9 @@ rustPlatform.buildRustPackage rec {
   ];
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin "-faligned-allocation";
+    lib.optionalString stdenv.isDarwin
+      "-faligned-allocation"
+    ;
 
   meta = with lib; {
     description =

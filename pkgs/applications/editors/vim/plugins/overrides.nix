@@ -283,9 +283,9 @@ self: super:
   );
 
   cmp-nvim-lsp-signature-help =
-    super.cmp-nvim-lsp-signature-help.overrideAttrs (
-      old: { dependencies = with self; [ nvim-cmp ]; }
-    );
+    super.cmp-nvim-lsp-signature-help.overrideAttrs
+      (old: { dependencies = with self; [ nvim-cmp ]; })
+    ;
 
   cmp-nvim-tags = super.cmp-nvim-tags.overrideAttrs (
     old: { dependencies = with self; [ nvim-cmp ]; }
@@ -635,8 +635,9 @@ self: super:
     }
   );
 
-  fzf-lua =
-    super.fzf-lua.overrideAttrs (old: { propagatedBuildInputs = [ fzf ]; });
+  fzf-lua = super.fzf-lua.overrideAttrs (
+    old: { propagatedBuildInputs = [ fzf ]; }
+  );
 
   fzf-vim = super.fzf-vim.overrideAttrs (
     old: { dependencies = with self; [ fzfWrapper ]; }
@@ -653,8 +654,9 @@ self: super:
     '';
   };
 
-  ghcid =
-    super.ghcid.overrideAttrs (old: { configurePhase = "cd plugins/nvim"; });
+  ghcid = super.ghcid.overrideAttrs (
+    old: { configurePhase = "cd plugins/nvim"; }
+  );
 
   gitlinker-nvim = super.gitlinker-nvim.overrideAttrs (
     old: { dependencies = with self; [ plenary-nvim ]; }
@@ -809,7 +811,8 @@ self: super:
       # We only need its dependencies `node-modules`.
       nodeDep =
         nodePackages."markdown-preview-nvim-../../applications/editors/vim/plugins/markdown-preview-nvim".overrideAttrs
-        (old: { dontNpmInstall = true; });
+          (old: { dontNpmInstall = true; })
+        ;
     in
     {
       patches = [
@@ -863,9 +866,9 @@ self: super:
     }
   );
 
-  ncm2 =
-    super.ncm2.overrideAttrs (old: { dependencies = with self; [ nvim-yarp ]; })
-    ;
+  ncm2 = super.ncm2.overrideAttrs (
+    old: { dependencies = with self; [ nvim-yarp ]; }
+  );
 
   ncm2-jedi = super.ncm2-jedi.overrideAttrs (
     old: {
@@ -1089,8 +1092,9 @@ self: super:
     src = skim.vim;
   };
 
-  skim-vim =
-    super.skim-vim.overrideAttrs (old: { dependencies = [ self.skim ]; });
+  skim-vim = super.skim-vim.overrideAttrs (
+    old: { dependencies = [ self.skim ]; }
+  );
 
   sniprun =
     let
@@ -1415,9 +1419,9 @@ self: super:
   );
 
   vim-addon-goto-thing-at-cursor =
-    super.vim-addon-goto-thing-at-cursor.overrideAttrs (
-      old: { dependencies = with self; [ tlib_vim ]; }
-    );
+    super.vim-addon-goto-thing-at-cursor.overrideAttrs
+      (old: { dependencies = with self; [ tlib_vim ]; })
+    ;
 
   vim-addon-manager = super.vim-addon-manager.overrideAttrs (
     old: { buildInputs = lib.optional stdenv.isDarwin Cocoa; }
@@ -1655,8 +1659,9 @@ self: super:
     )
     ;
 
-  vim-metamath =
-    super.vim-metamath.overrideAttrs (old: { preInstall = "cd vim"; });
+  vim-metamath = super.vim-metamath.overrideAttrs (
+    old: { preInstall = "cd vim"; }
+  );
 
   vim-snipmate = super.vim-snipmate.overrideAttrs (
     old: {

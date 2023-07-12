@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags =
-    lib.optionals stdenv.isDarwin [ "LIBTOOL=${libtool}/bin/libtool" ];
+    lib.optionals stdenv.isDarwin
+      [ "LIBTOOL=${libtool}/bin/libtool" ]
+    ;
 
   enableParallelBuilding = true;
 

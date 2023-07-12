@@ -70,15 +70,18 @@ in
       options.port = mkOption {
         type = types.port;
         default = 8200;
-        description = lib.mdDoc
-          "Port number for HTTP traffic (descriptions, SOAP, media transfer).";
+        description =
+          lib.mdDoc
+            "Port number for HTTP traffic (descriptions, SOAP, media transfer)."
+          ;
       };
       options.db_dir = mkOption {
         type = types.path;
         default = "/var/cache/minidlna";
         example = "/tmp/minidlna";
-        description = lib.mdDoc
-          "Specify the directory where you want MiniDLNA to store its database and album art cache."
+        description =
+          lib.mdDoc
+            "Specify the directory where you want MiniDLNA to store its database and album art cache."
           ;
       };
       options.friendly_name = mkOption {
@@ -87,14 +90,17 @@ in
         defaultText = literalExpression "config.networking.hostName";
         example = "rpi3";
         description =
-          lib.mdDoc "Name that the DLNA server presents to clients.";
+          lib.mdDoc
+            "Name that the DLNA server presents to clients."
+          ;
       };
       options.root_container = mkOption {
         type = types.str;
         default = "B";
         example = ".";
-        description = lib.mdDoc
-          "Use a different container as the root of the directory tree presented to clients."
+        description =
+          lib.mdDoc
+            "Use a different container as the root of the directory tree presented to clients."
           ;
       };
       options.log_level = mkOption {
@@ -102,8 +108,9 @@ in
         default = "warn";
         example =
           "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
-        description = lib.mdDoc
-          "Defines the type of messages that should be logged and down to which level of importance."
+        description =
+          lib.mdDoc
+            "Defines the type of messages that should be logged and down to which level of importance."
           ;
       };
       options.inotify = mkOption {
@@ -112,8 +119,9 @@ in
           "no"
         ];
         default = "no";
-        description = lib.mdDoc
-          "Whether to enable inotify monitoring to automatically discover new files."
+        description =
+          lib.mdDoc
+            "Whether to enable inotify monitoring to automatically discover new files."
           ;
       };
       options.enable_tivo = mkOption {
@@ -122,8 +130,10 @@ in
           "no"
         ];
         default = "no";
-        description = lib.mdDoc
-          "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO.";
+        description =
+          lib.mdDoc
+            "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO."
+          ;
       };
       options.wide_links = mkOption {
         type = types.enum [
@@ -131,94 +141,110 @@ in
           "no"
         ];
         default = "no";
-        description = lib.mdDoc
-          "Set this to yes to allow symlinks that point outside user-defined `media_dir`."
+        description =
+          lib.mdDoc
+            "Set this to yes to allow symlinks that point outside user-defined `media_dir`."
           ;
       };
     };
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "minidlna"
-        "config"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "minidlna"
-        "extraConfig"
-      ]
-      "")
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "loglevel"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "log_level"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "rootContainer"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "root_container"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "mediaDirs"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "media_dir"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "friendlyName"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "friendly_name"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "announceInterval"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "notify_interval"
-      ])
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "minidlna"
+          "config"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "minidlna"
+          "extraConfig"
+        ]
+        ""
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "minidlna"
+          "loglevel"
+        ]
+        [
+          "services"
+          "minidlna"
+          "settings"
+          "log_level"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "minidlna"
+          "rootContainer"
+        ]
+        [
+          "services"
+          "minidlna"
+          "settings"
+          "root_container"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "minidlna"
+          "mediaDirs"
+        ]
+        [
+          "services"
+          "minidlna"
+          "settings"
+          "media_dir"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "minidlna"
+          "friendlyName"
+        ]
+        [
+          "services"
+          "minidlna"
+          "settings"
+          "friendly_name"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "minidlna"
+          "announceInterval"
+        ]
+        [
+          "services"
+          "minidlna"
+          "settings"
+          "notify_interval"
+        ]
+    )
   ];
 
   ###### implementation
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts =
-      mkIf cfg.openFirewall [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+      cfg.settings.port
+    ];
     networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 1900 ];
 
     users.users.minidlna = {

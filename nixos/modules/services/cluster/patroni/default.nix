@@ -184,8 +184,9 @@ in
         PATRONI_REPLICATION_PASSWORD = "/secret/file";
         PATRONI_SUPERUSER_PASSWORD = "/secret/file";
       };
-      description = mdDoc
-        "Environment variables made available to Patroni as files content, useful for providing secrets from files."
+      description =
+        mdDoc
+          "Environment variables made available to Patroni as files content, useful for providing secrets from files."
         ;
     };
   };
@@ -244,8 +245,8 @@ in
           ${concatStringsSep "\n" (
             attrValues (
               mapAttrs
-              (name: path: ''export ${name}="$(< ${escapeShellArg path})"'')
-              cfg.environmentFiles
+                (name: path: ''export ${name}="$(< ${escapeShellArg path})"'')
+                cfg.environmentFiles
             )
           )}
           exec ${patroni}/bin/patroni ${configFile}
@@ -261,17 +262,19 @@ in
             ExecReload = "${pkgs.coreutils}/bin/kill -s HUP $MAINPID";
             KillMode = "process";
           }
-          (mkIf
-            (
-              cfg.postgresqlDataDir
-              == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
-              && cfg.dataDir == "/var/lib/patroni"
-            )
-            {
-              StateDirectory =
-                "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";
-              StateDirectoryMode = "0750";
-            })
+          (
+            mkIf
+              (
+                cfg.postgresqlDataDir
+                == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
+                && cfg.dataDir == "/var/lib/patroni"
+              )
+              {
+                StateDirectory =
+                  "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";
+                StateDirectoryMode = "0750";
+              }
+          )
         ];
       };
     };

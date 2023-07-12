@@ -33,13 +33,15 @@ in
 
 {
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "zabbixAgent"
-        "extraConfig"
-      ]
-      "Use services.zabbixAgent.settings instead.")
+    (
+      lib.mkRemovedOptionModule
+        [
+          "services"
+          "zabbixAgent"
+          "extraConfig"
+        ]
+        "Use services.zabbixAgent.settings instead."
+    )
   ];
 
   # interface
@@ -163,8 +165,9 @@ in
       (mkIf (cfg.listen.ip != "0.0.0.0") { ListenIP = cfg.listen.ip; })
     ];
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.listen.port ];
+    };
 
     users.users.${user} = {
       description = "Zabbix Agent daemon user";

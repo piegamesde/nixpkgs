@@ -157,10 +157,11 @@ stdenv.mkDerivation {
     tests = {
       runDemos =
         runCommand "${pname}-run-demos" { buildInputs = [ faiss.demos ]; }
-        # There are more demos, we run just the one that documentation mentions
-        ''
-          demo_ivfpq_indexing && touch $out
-        '';
+          # There are more demos, we run just the one that documentation mentions
+          ''
+            demo_ivfpq_indexing && touch $out
+          ''
+        ;
     } // lib.optionalAttrs pythonSupport {
       pytest = pythonPackages.callPackage ./tests.nix { };
     };

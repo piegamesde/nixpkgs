@@ -30,29 +30,29 @@ mkCoqDerivation rec {
   inherit version;
   defaultVersion = with lib.versions;
     lib.switch coq.coq-version
-    [
-      {
-        case = range "8.10" "8.16";
-        out = "9.0.0";
-      }
-      {
-        case = "8.9";
-        out = "8.9.0";
-      }
-      {
-        case = "8.8";
-        out = "8.8.0";
-      }
-      {
-        case = "8.7";
-        out = "8.7.0";
-      }
-      {
-        case = "8.6";
-        out = "8.6.0";
-      }
-    ]
-    null;
+      [
+        {
+          case = range "8.10" "8.16";
+          out = "9.0.0";
+        }
+        {
+          case = "8.9";
+          out = "8.9.0";
+        }
+        {
+          case = "8.8";
+          out = "8.8.0";
+        }
+        {
+          case = "8.7";
+          out = "8.7.0";
+        }
+        {
+          case = "8.6";
+          out = "8.6.0";
+        }
+      ]
+      null;
 
   propagatedBuildInputs = [ zorns-lemma ];
 

@@ -102,7 +102,9 @@ let
     ;
 
   enabledModules =
-    (if modules != null then modules else defaultModules) availableModules;
+    (if modules != null then modules else defaultModules)
+      availableModules
+    ;
 
   modulesConf =
     let

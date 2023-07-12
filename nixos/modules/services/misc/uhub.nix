@@ -22,8 +22,8 @@ let
       pkgs.writeText name (
         lib.strings.concatStringsSep "\n" (
           lib.attrsets.mapAttrsToList
-          (key: value: "${key}=${builtins.toJSON value}")
-          attrs
+            (key: value: "${key}=${builtins.toJSON value}")
+            attrs
         )
       )
       ;
@@ -72,13 +72,17 @@ in
                     options = {
                       plugin = mkOption {
                         type = path;
-                        example = literalExpression
-                          "$\${pkgs.uhub}/plugins/mod_auth_sqlite.so";
+                        example =
+                          literalExpression
+                            "$\${pkgs.uhub}/plugins/mod_auth_sqlite.so"
+                          ;
                         description = lib.mdDoc "Path to plugin file.";
                       };
                       settings = mkOption {
                         description =
-                          lib.mdDoc "Settings specific to this plugin.";
+                          lib.mdDoc
+                            "Settings specific to this plugin."
+                          ;
                         type = with types; attrsOf str;
                         example = { file = "/etc/uhub/users.db"; };
                       };
@@ -99,68 +103,74 @@ in
     in
     {
 
-      environment.etc = lib.attrsets.mapAttrs'
-        (
-          name: cfg:
-          let
-            settings' = cfg.settings // {
-              tls_enable = cfg.enableTLS;
-              file_plugins = pkgs.writeText "uhub-plugins.conf" (
-                lib.strings.concatStringsSep "\n" (
-                  map
-                  (
-                    {
-                      plugin,
-                      settings,
-                    }:
-                    ''
-                      plugin ${plugin} "${
-                        toString (
-                          lib.attrsets.mapAttrsToList
-                          (key: value: "${key}=${value}")
-                          settings
-                        )
-                      }"''
-                  )
-                  cfg.plugins
-                )
-              );
-            };
-          in
-          {
-            name = "uhub/${name}.conf";
-            value.source =
-              settingsFormat.generate "uhub-${name}.conf" settings';
-          }
-        )
-        hubs;
-
-      systemd.services = lib.attrsets.mapAttrs'
-        (name: cfg: {
-          name = "uhub-${name}";
-          value =
+      environment.etc =
+        lib.attrsets.mapAttrs'
+          (
+            name: cfg:
             let
-              pkg = pkgs.uhub.override { tlsSupport = cfg.enableTLS; };
+              settings' = cfg.settings // {
+                tls_enable = cfg.enableTLS;
+                file_plugins = pkgs.writeText "uhub-plugins.conf" (
+                  lib.strings.concatStringsSep "\n" (
+                    map
+                      (
+                        {
+                          plugin,
+                          settings,
+                        }:
+                        ''
+                          plugin ${plugin} "${
+                            toString (
+                              lib.attrsets.mapAttrsToList
+                                (key: value: "${key}=${value}")
+                                settings
+                            )
+                          }"''
+                      )
+                      cfg.plugins
+                  )
+                );
+              };
             in
             {
-              description =
-                "high performance peer-to-peer hub for the ADC network";
-              after = [ "network.target" ];
-              wantedBy = [ "multi-user.target" ];
-              reloadIfChanged = true;
-              serviceConfig = {
-                Type = "notify";
-                ExecStart = "${pkg}/bin/uhub -c /etc/uhub/${name}.conf -L";
-                ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-                DynamicUser = true;
-
-                AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-                CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-              };
+              name = "uhub/${name}.conf";
+              value.source =
+                settingsFormat.generate "uhub-${name}.conf"
+                  settings'
+                ;
             }
-            ;
-        })
-        hubs;
+          )
+          hubs
+        ;
+
+      systemd.services =
+        lib.attrsets.mapAttrs'
+          (name: cfg: {
+            name = "uhub-${name}";
+            value =
+              let
+                pkg = pkgs.uhub.override { tlsSupport = cfg.enableTLS; };
+              in
+              {
+                description =
+                  "high performance peer-to-peer hub for the ADC network";
+                after = [ "network.target" ];
+                wantedBy = [ "multi-user.target" ];
+                reloadIfChanged = true;
+                serviceConfig = {
+                  Type = "notify";
+                  ExecStart = "${pkg}/bin/uhub -c /etc/uhub/${name}.conf -L";
+                  ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+                  DynamicUser = true;
+
+                  AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+                  CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
+                };
+              }
+              ;
+          })
+          hubs
+        ;
     }
     ;
 }

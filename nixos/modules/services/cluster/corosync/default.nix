@@ -31,7 +31,9 @@ in
       type = with types; listOf str;
       default = [ ];
       description =
-        lib.mdDoc "Additional options with which to start corosync.";
+        lib.mdDoc
+          "Additional options with which to start corosync."
+        ;
     };
 
     nodelist = mkOption {
@@ -74,28 +76,28 @@ in
       nodelist {
         ${
           concatMapStrings
-          (
-            {
-              nodeid,
-              name,
-              ring_addrs,
-            }: ''
-              node {
-                nodeid: ${toString nodeid}
-                name: ${name}
-                ${
-                  concatStrings (
-                    imap0
-                    (i: addr: ''
-                      ring${toString i}_addr: ${addr}
-                    '')
-                    ring_addrs
-                  )
+            (
+              {
+                nodeid,
+                name,
+                ring_addrs,
+              }: ''
+                node {
+                  nodeid: ${toString nodeid}
+                  name: ${name}
+                  ${
+                    concatStrings (
+                      imap0
+                        (i: addr: ''
+                          ring${toString i}_addr: ${addr}
+                        '')
+                        ring_addrs
+                    )
+                  }
                 }
-              }
-            ''
-          )
-          cfg.nodelist
+              ''
+            )
+            cfg.nodelist
         }
       }
 
@@ -133,8 +135,10 @@ in
     };
 
     environment.etc."sysconfig/corosync".text =
-      lib.optionalString (cfg.extraOptions != [ ]) ''
-        COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
-      '';
+      lib.optionalString (cfg.extraOptions != [ ])
+        ''
+          COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
+        ''
+      ;
   };
 }

@@ -47,8 +47,9 @@ in
 
     services.xrdp = {
 
-      enable =
-        mkEnableOption (lib.mdDoc "xrdp, the Remote Desktop Protocol server");
+      enable = mkEnableOption (
+        lib.mdDoc "xrdp, the Remote Desktop Protocol server"
+      );
 
       package = mkOption {
         type = types.package;
@@ -71,7 +72,9 @@ in
         default = false;
         type = types.bool;
         description =
-          lib.mdDoc "Whether to open the firewall for the specified RDP port.";
+          lib.mdDoc
+            "Whether to open the firewall for the specified RDP port."
+          ;
       };
 
       sslKey = mkOption {

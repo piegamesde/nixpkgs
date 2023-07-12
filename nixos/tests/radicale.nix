@@ -59,9 +59,11 @@ import ./make-test-python.nix (
         # WARNING: DON'T DO THIS IN PRODUCTION!
         # This puts unhashed secrets directly into the Nix store for ease of testing.
         environment.etc."radicale/users".source =
-          pkgs.runCommand "htpasswd" { } ''
-            ${pkgs.apacheHttpd}/bin/htpasswd -bcB "$out" ${user} ${password}
-          '';
+          pkgs.runCommand "htpasswd" { }
+            ''
+              ${pkgs.apacheHttpd}/bin/htpasswd -bcB "$out" ${user} ${password}
+            ''
+          ;
       }
       ;
     testScript = ''

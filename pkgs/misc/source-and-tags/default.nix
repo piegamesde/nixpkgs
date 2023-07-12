@@ -47,13 +47,13 @@
         let
           createTags = lib.concatStringsSep "\n" (
             map
-            (a: ''
-              TAG_FILE="$SRC_DEST/${a.name}$tagSuffix"
-              echo running tag cmd "${a.tagCmd}" in `pwd`
-              ${a.tagCmd}
-              TAG_FILES="$TAG_FILES''${TAG_FILES:+:}$TAG_FILE"
-            '')
-            createTagFiles
+              (a: ''
+                TAG_FILE="$SRC_DEST/${a.name}$tagSuffix"
+                echo running tag cmd "${a.tagCmd}" in `pwd`
+                ${a.tagCmd}
+                TAG_FILES="$TAG_FILES''${TAG_FILES:+:}$TAG_FILE"
+              '')
+              createTagFiles
           );
         in
         ''
@@ -88,9 +88,8 @@
             # *.*hs.* to catch gtk2hs .hs.pp files
             tagCmd =
               "\n                   srcs=\"`find . -type f -name \"*.*hs\"; find . -type f -name \"*.*hs*\";`\"\n                   [ -z \"$srcs\" ] || {\n                    # without this creating tag files for lifted-base fails\n                    export LC_ALL=en_US.UTF-8\n                    export LANG=en_US.UTF-8\n                    ${
-                                    lib.optionalString
-                                    stdenv.isLinux
-                                    "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"
+                                    lib.optionalString stdenv.isLinux
+                                      "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"
                                   }\n\n                    ${
                                     toString hasktags
                                   }/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }";

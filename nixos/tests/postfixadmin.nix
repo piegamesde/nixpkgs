@@ -16,9 +16,10 @@ import ./make-test-python.nix (
           services.postfixadmin = {
             enable = true;
             hostName = "postfixadmin";
-            setupPasswordFile = pkgs.writeText
-              "insecure-test-setup-pw-file"
-              "$2y$10$r0p63YCjd9rb9nHrV9UtVuFgGTmPDLKu.0UIJoQTkWCZZze2iuB1m";
+            setupPasswordFile =
+              pkgs.writeText "insecure-test-setup-pw-file"
+                "$2y$10$r0p63YCjd9rb9nHrV9UtVuFgGTmPDLKu.0UIJoQTkWCZZze2iuB1m"
+              ;
           };
           services.nginx.virtualHosts.postfixadmin = {
             forceSSL = false;

@@ -13,9 +13,8 @@ let
     (callPackageWith scope drv args) // {
       overrideScope =
         f:
-        callPackageWithScope (mkScope (fix' (extends f scope.__unfix__)))
-        drv
-        args
+        callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv
+          args
         ;
     }
     ;
@@ -229,7 +228,8 @@ let
     } // builtins_ // pkgs.lib.optionalAttrs config.allowAliases {
       # removed packages
       protobuf =
-        throw "idrisPackages.protobuf has been removed: abandoned by upstream"
+        throw
+          "idrisPackages.protobuf has been removed: abandoned by upstream"
         ; # Added 2022-02-06
     }
     ;

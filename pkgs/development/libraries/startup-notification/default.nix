@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags =
-    lib.optionals (stdenv.buildPlatform != stdenv.targetPlatform) [
-      "lf_cv_sane_realloc=yes"
-    ];
+    lib.optionals (stdenv.buildPlatform != stdenv.targetPlatform)
+      [ "lf_cv_sane_realloc=yes" ]
+    ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

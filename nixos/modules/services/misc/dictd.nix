@@ -34,7 +34,9 @@ in
           wordnet
         ];
         defaultText =
-          literalExpression "with pkgs.dictdDBs; [ wiktionary wordnet ]";
+          literalExpression
+            "with pkgs.dictdDBs; [ wiktionary wordnet ]"
+          ;
         example = literalExpression "[ pkgs.dictdDBs.nld2eng ]";
         description = lib.mdDoc "List of databases to make available.";
       };
@@ -46,12 +48,14 @@ in
   config =
     let
       dictdb = pkgs.dictDBCollector {
-        dictlist = map
-          (x: {
-            name = x.name;
-            filename = x;
-          })
-          cfg.DBs;
+        dictlist =
+          map
+            (x: {
+              name = x.name;
+              filename = x;
+            })
+            cfg.DBs
+          ;
       };
     in
     mkIf cfg.enable {

@@ -95,9 +95,9 @@ pinentryMkDerivation rec {
       pkg-config
       autoreconfHook
     ]
-    ++ lib.concatMap
-      (f: flavorInfo.${f}.nativeBuildInputs or [ ])
-      enabledFlavors
+    ++
+      lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ])
+        enabledFlavors
     ;
 
   buildInputs =

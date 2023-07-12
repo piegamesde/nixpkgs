@@ -49,42 +49,48 @@ let
       parm ${openafsSrv}/libexec/openafs/dasalvager ${cfg.roles.fileserver.salvagerArgs}
       end
     '')
-    + (optionalString
-      (
-        cfg.roles.database.enable
-        && cfg.roles.backup.enable
-        && (!cfg.roles.backup.enableFabs)
-      )
-      ''
-        bnode simple buserver 1
-        parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
-          optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
-        }
-        end
-      '')
-    + (optionalString
-      (
-        cfg.roles.database.enable
-        && cfg.roles.backup.enable
-        && cfg.roles.backup.enableFabs
-      )
-      ''
-        bnode simple buserver 1
-        parm ${
-          lib.getBin pkgs.fabs
-        }/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
-        end
-      '')
+    + (
+      optionalString
+        (
+          cfg.roles.database.enable
+          && cfg.roles.backup.enable
+          && (!cfg.roles.backup.enableFabs)
+        )
+        ''
+          bnode simple buserver 1
+          parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
+            optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
+          }
+          end
+        ''
+    )
+    + (
+      optionalString
+        (
+          cfg.roles.database.enable
+          && cfg.roles.backup.enable
+          && cfg.roles.backup.enableFabs
+        )
+        ''
+          bnode simple buserver 1
+          parm ${
+            lib.getBin pkgs.fabs
+          }/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
+          end
+        ''
+    )
   );
 
   netInfo =
     if (cfg.advertisedAddresses != [ ]) then
       pkgs.writeText "NetInfo" (
-        (concatStringsSep
-          ''
+        (
+          concatStringsSep
+            ''
 
-            f ''
-          cfg.advertisedAddresses)
+              f ''
+            cfg.advertisedAddresses
+        )
         + "\n"
       )
     else
@@ -141,8 +147,9 @@ in
       advertisedAddresses = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc
-          "List of IP addresses this server is advertised under. See NetInfo(5)"
+        description =
+          lib.mdDoc
+            "List of IP addresses this server is advertised under. See NetInfo(5)"
           ;
       };
 
@@ -158,7 +165,9 @@ in
         type =
           with types; listOf (submodule [ { options = cellServDBConfig; } ]);
         description =
-          lib.mdDoc "Definition of all cell-local database server machines.";
+          lib.mdDoc
+            "Definition of all cell-local database server machines."
+          ;
       };
 
       package = mkOption {
@@ -173,31 +182,38 @@ in
           enable = mkOption {
             default = true;
             type = types.bool;
-            description = lib.mdDoc
-              "Fileserver role, serves files and volumes from its local storage."
+            description =
+              lib.mdDoc
+                "Fileserver role, serves files and volumes from its local storage."
               ;
           };
 
           fileserverArgs = mkOption {
             default = "-vattachpar 128 -vhashsize 11 -L -rxpck 400 -cb 1000000";
             type = types.str;
-            description = lib.mdDoc
-              "Arguments to the dafileserver process. See its man page.";
+            description =
+              lib.mdDoc
+                "Arguments to the dafileserver process. See its man page."
+              ;
           };
 
           volserverArgs = mkOption {
             default = "";
             type = types.str;
-            description = lib.mdDoc
-              "Arguments to the davolserver process. See its man page.";
+            description =
+              lib.mdDoc
+                "Arguments to the davolserver process. See its man page."
+              ;
             example = "-sync never";
           };
 
           salvageserverArgs = mkOption {
             default = "";
             type = types.str;
-            description = lib.mdDoc
-              "Arguments to the salvageserver process. See its man page.";
+            description =
+              lib.mdDoc
+                "Arguments to the salvageserver process. See its man page."
+              ;
             example = "-showlog";
           };
 
@@ -205,7 +221,8 @@ in
             default = "";
             type = types.str;
             description =
-              lib.mdDoc "Arguments to the dasalvager process. See its man page."
+              lib.mdDoc
+                "Arguments to the dasalvager process. See its man page."
               ;
             example = "-showlog -showmounts";
           };
@@ -231,7 +248,9 @@ in
             default = "";
             type = types.str;
             description =
-              lib.mdDoc "Arguments to the vlserver process. See its man page.";
+              lib.mdDoc
+                "Arguments to the vlserver process. See its man page."
+              ;
             example = "-rxbind";
           };
 
@@ -239,7 +258,9 @@ in
             default = "";
             type = types.str;
             description =
-              lib.mdDoc "Arguments to the ptserver process. See its man page.";
+              lib.mdDoc
+                "Arguments to the ptserver process. See its man page."
+              ;
             example = "-restricted -default_access S---- S-M---";
           };
         };
@@ -268,7 +289,9 @@ in
             default = "";
             type = types.str;
             description =
-              lib.mdDoc "Arguments to the buserver process. See its man page.";
+              lib.mdDoc
+                "Arguments to the buserver process. See its man page."
+              ;
             example = "-p 8";
           };
 
@@ -381,9 +404,8 @@ in
         unitConfig.ConditionPathExists = [ "|/etc/openafs/server/KeyFileExt" ];
         preStart = ''
           mkdir -m 0755 -p /var/openafs
-          ${optionalString
-          (netInfo != null)
-          "cp ${netInfo} /var/openafs/netInfo"}
+          ${optionalString (netInfo != null)
+            "cp ${netInfo} /var/openafs/netInfo"}
           ${optionalString useBuCellServDB "cp ${buCellServDB}"}
         '';
         serviceConfig = {

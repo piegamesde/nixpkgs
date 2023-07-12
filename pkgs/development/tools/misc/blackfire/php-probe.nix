@@ -170,12 +170,12 @@ let
             lib.filterAttrsRecursive (name: _value: name != "system") hashes;
         in
         builtins.listToAttrs
-        # Collect all leaf attributes (containing hashes).
-        (
-          lib.collect (attrs: attrs ? name) (
-            lib.mapAttrsRecursive createUpdateable hashesOnly
+          # Collect all leaf attributes (containing hashes).
+          (
+            lib.collect (attrs: attrs ? name) (
+              lib.mapAttrsRecursive createUpdateable hashesOnly
+            )
           )
-        )
         ;
     };
 

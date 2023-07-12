@@ -62,23 +62,19 @@
 }@args:
 let
   rustfmtInNativeBuildInputs =
-    lib.lists.any (dep: lib.getName dep == "rustfmt") (
-      args.nativeBuildInputs or [ ]
-    );
+    lib.lists.any (dep: lib.getName dep == "rustfmt")
+      (args.nativeBuildInputs or [ ])
+    ;
 in
 
-assert lib.asserts.assertMsg
-  ((args.installPhase or "") == "")
-  "buildPgxExtensions overwrites the installPhase, so providing one does nothing";
-assert lib.asserts.assertMsg
-  ((args.buildPhase or "") == "")
-  "buildPgxExtensions overwrites the buildPhase, so providing one does nothing";
-assert lib.asserts.assertMsg
-  (useFakeRustfmt -> !rustfmtInNativeBuildInputs)
-  "The parameter useFakeRustfmt is set to true, but rustfmt is included in nativeBuildInputs. Either set useFakeRustfmt to false or remove rustfmt from nativeBuildInputs.";
-assert lib.asserts.assertMsg
-  (!useFakeRustfmt -> rustfmtInNativeBuildInputs)
-  "The parameter useFakeRustfmt is set to false, but rustfmt is not included in nativeBuildInputs. Either set useFakeRustfmt to true or add rustfmt from nativeBuildInputs.";
+assert lib.asserts.assertMsg ((args.installPhase or "") == "")
+    "buildPgxExtensions overwrites the installPhase, so providing one does nothing";
+assert lib.asserts.assertMsg ((args.buildPhase or "") == "")
+    "buildPgxExtensions overwrites the buildPhase, so providing one does nothing";
+assert lib.asserts.assertMsg (useFakeRustfmt -> !rustfmtInNativeBuildInputs)
+    "The parameter useFakeRustfmt is set to true, but rustfmt is included in nativeBuildInputs. Either set useFakeRustfmt to false or remove rustfmt from nativeBuildInputs.";
+assert lib.asserts.assertMsg (!useFakeRustfmt -> rustfmtInNativeBuildInputs)
+    "The parameter useFakeRustfmt is set to false, but rustfmt is not included in nativeBuildInputs. Either set useFakeRustfmt to true or add rustfmt from nativeBuildInputs.";
 
 let
   fakeRustfmt = writeShellScriptBin "rustfmt" ''
@@ -86,12 +82,16 @@ let
   '';
   maybeDebugFlag = lib.optionalString (buildType != "release") "--debug";
   maybeEnterBuildAndTestSubdir =
-    lib.optionalString (buildAndTestSubdir != null) ''
-      export CARGO_TARGET_DIR="$(pwd)/target"
-      pushd "${buildAndTestSubdir}"
-    '';
+    lib.optionalString (buildAndTestSubdir != null)
+      ''
+        export CARGO_TARGET_DIR="$(pwd)/target"
+        pushd "${buildAndTestSubdir}"
+      ''
+    ;
   maybeLeaveBuildAndTestSubdir =
-    lib.optionalString (buildAndTestSubdir != null) "popd";
+    lib.optionalString (buildAndTestSubdir != null)
+      "popd"
+    ;
 
   pgxPostgresMajor = lib.versions.major postgresql.version;
   preBuildAndTest = ''

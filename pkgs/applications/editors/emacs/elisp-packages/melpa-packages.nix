@@ -191,7 +191,9 @@ let
 
         # upstream issue: missing file header
         ido-complete-space-or-hyphen =
-          markBroken super.ido-complete-space-or-hyphen;
+          markBroken
+            super.ido-complete-space-or-hyphen
+          ;
       } // {
         # Expects bash to be at /bin/bash
         ac-rtags = fix-rtags super.ac-rtags;
@@ -201,13 +203,15 @@ let
         };
 
         auto-complete-clang-async =
-          super.auto-complete-clang-async.overrideAttrs (
-            old: {
-              buildInputs = old.buildInputs ++ [ pkgs.llvmPackages.llvm ];
-              CFLAGS = "-I${pkgs.llvmPackages.libclang.lib}/include";
-              LDFLAGS = "-L${pkgs.llvmPackages.libclang.lib}/lib";
-            }
-          );
+          super.auto-complete-clang-async.overrideAttrs
+            (
+              old: {
+                buildInputs = old.buildInputs ++ [ pkgs.llvmPackages.llvm ];
+                CFLAGS = "-I${pkgs.llvmPackages.libclang.lib}/include";
+                LDFLAGS = "-L${pkgs.llvmPackages.libclang.lib}/lib";
+              }
+            )
+          ;
 
         # part of a larger package
         caml = dontConfigure super.caml;
@@ -356,9 +360,10 @@ let
         );
 
         # Build same version as Haskell package
-        hindent = (externalSrc super.hindent pkgs.haskellPackages.hindent)
-          .overrideAttrs
-          (attrs: { packageRequires = [ self.haskell-mode ]; });
+        hindent =
+          (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs
+            (attrs: { packageRequires = [ self.haskell-mode ]; })
+          ;
 
         irony = super.irony.overrideAttrs (
           old: {
@@ -396,8 +401,9 @@ let
         );
 
         # tries to write a log file to $HOME
-        insert-shebang =
-          super.insert-shebang.overrideAttrs (attrs: { HOME = "/tmp"; });
+        insert-shebang = super.insert-shebang.overrideAttrs (
+          attrs: { HOME = "/tmp"; }
+        );
 
         ivy-rtags = fix-rtags super.ivy-rtags;
 
@@ -724,14 +730,16 @@ let
 
         # missing dependencies
         evil-search-highlight-persist =
-          super.evil-search-highlight-persist.overrideAttrs (
-            attrs: {
-              packageRequires = with self; [
-                evil
-                highlight
-              ];
-            }
-          );
+          super.evil-search-highlight-persist.overrideAttrs
+            (
+              attrs: {
+                packageRequires = with self; [
+                  evil
+                  highlight
+                ];
+              }
+            )
+          ;
 
         hamlet-mode = super.hamlet-mode.overrideAttrs (
           attrs: {
@@ -750,8 +758,9 @@ let
         helm-rtags = fix-rtags super.helm-rtags;
 
         # tries to write to $HOME
-        php-auto-yasnippets =
-          super.php-auto-yasnippets.overrideAttrs (attrs: { HOME = "/tmp"; });
+        php-auto-yasnippets = super.php-auto-yasnippets.overrideAttrs (
+          attrs: { HOME = "/tmp"; }
+        );
 
         racer = super.racer.overrideAttrs (
           attrs: {
@@ -765,8 +774,9 @@ let
           }
         );
 
-        spaceline =
-          super.spaceline.override { inherit (self.melpaPackages) powerline; };
+        spaceline = super.spaceline.override {
+          inherit (self.melpaPackages) powerline;
+        };
 
         vterm = super.vterm.overrideAttrs (
           old: {
@@ -847,9 +857,8 @@ let
         );
       };
     in
-    lib.mapAttrs
-    (n: v: if lib.hasAttr n overrides then overrides.${n} else v)
-    super
+    lib.mapAttrs (n: v: if lib.hasAttr n overrides then overrides.${n} else v)
+      super
   );
 in
 generateMelpa { }

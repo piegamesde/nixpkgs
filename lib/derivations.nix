@@ -67,15 +67,17 @@ in
       # These checks are strict in `drv` and some `drv` attributes, but the
       # attrset spine returned by lazyDerivation does not depend on it.
       # Instead, the individual derivation attributes do depend on it.
-      checked = throwIfNot (derivation.type or null == "derivation")
-        "lazySimpleDerivation: input must be a derivation."
-        throwIfNot
-        (derivation.outputs == [ "out" ])
-        # Supporting multiple outputs should be a matter of inheriting more attrs.
-        "The derivation ${
-          derivation.name or "<unknown>"
-        } has multiple outputs. This is not supported by lazySimpleDerivation yet. Support could be added, and be useful as long as the set of outputs is known in advance, without evaluating the actual derivation."
-        derivation;
+      checked =
+        throwIfNot (derivation.type or null == "derivation")
+          "lazySimpleDerivation: input must be a derivation."
+          throwIfNot
+          (derivation.outputs == [ "out" ])
+          # Supporting multiple outputs should be a matter of inheriting more attrs.
+          "The derivation ${
+            derivation.name or "<unknown>"
+          } has multiple outputs. This is not supported by lazySimpleDerivation yet. Support could be added, and be useful as long as the set of outputs is known in advance, without evaluating the actual derivation."
+          derivation
+        ;
     in
     {
       # Hardcoded `type`

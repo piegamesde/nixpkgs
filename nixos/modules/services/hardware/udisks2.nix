@@ -13,9 +13,8 @@ let
     listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { });
   };
   configFiles = mapAttrs (name: value: (settingsFormat.generate name value)) (
-    mapAttrs'
-    (name: value: nameValuePair name value)
-    config.services.udisks2.settings
+    mapAttrs' (name: value: nameValuePair name value)
+      config.services.udisks2.settings
   );
 in
 
@@ -29,7 +28,7 @@ in
 
       enable = mkEnableOption (
         mdDoc
-        "udisks2, a DBus service that allows applications to query and manipulate storage devices"
+          "udisks2, a DBus service that allows applications to query and manipulate storage devices"
       );
 
       mountOnMedia = mkOption {
@@ -78,9 +77,11 @@ in
 
     environment.systemPackages = [ pkgs.udisks2 ];
 
-    environment.etc = (mapAttrs'
-      (name: value: nameValuePair "udisks2/${name}" { source = value; })
-      configFiles) // {
+    environment.etc = (
+      mapAttrs'
+        (name: value: nameValuePair "udisks2/${name}" { source = value; })
+        configFiles
+    ) // {
         # We need to make sure /etc/libblockdev/conf.d is populated to avoid
         # warnings
         "libblockdev/conf.d/00-default.cfg".source =

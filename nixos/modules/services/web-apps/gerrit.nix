@@ -20,8 +20,9 @@ let
     lazyAttrsOf supersectionType
     ;
 
-  gerritConfig =
-    pkgs.writeText "gerrit.conf" (lib.generators.toGitINI cfg.settings);
+  gerritConfig = pkgs.writeText "gerrit.conf" (
+    lib.generators.toGitINI cfg.settings
+  );
 
   replicationConfig = pkgs.writeText "replication.conf" (
     lib.generators.toGitINI cfg.replicationSettings
@@ -42,21 +43,23 @@ let
   '';
 
   gerrit-plugins =
-    pkgs.runCommand "gerrit-plugins" { buildInputs = [ gerrit-cli ]; } ''
-      shopt -s nullglob
-      mkdir $out
+    pkgs.runCommand "gerrit-plugins" { buildInputs = [ gerrit-cli ]; }
+      ''
+        shopt -s nullglob
+        mkdir $out
 
-      for name in ${toString cfg.builtinPlugins}; do
-        echo "Installing builtin plugin $name.jar"
-        gerrit cat plugins/$name.jar > $out/$name.jar
-      done
+        for name in ${toString cfg.builtinPlugins}; do
+          echo "Installing builtin plugin $name.jar"
+          gerrit cat plugins/$name.jar > $out/$name.jar
+        done
 
-      for file in ${toString cfg.plugins}; do
-        name=$(echo "$file" | cut -d - -f 2-)
-        echo "Installing plugin $name"
-        ln -sf "$file" $out/$name
-      done
-    '';
+        for file in ${toString cfg.plugins}; do
+          name=$(echo "$file" | cut -d - -f 2-)
+          echo "Installing plugin $name"
+          ln -sf "$file" $out/$name
+        done
+      ''
+    ;
 in
 {
   options = {

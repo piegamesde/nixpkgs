@@ -92,22 +92,26 @@ let
     fileName:
     let
       # extract the unique part of the config's file name
-      configName =
-        builtins.head (builtins.match "configuration-(.+).nix" fileName);
+      configName = builtins.head (
+        builtins.match "configuration-(.+).nix" fileName
+      );
       # match the major and minor version of the GHC the config is intended for, if any
-      configVersion =
-        lib.concatStrings (builtins.match "ghc-([0-9]+).([0-9]+).x" configName);
+      configVersion = lib.concatStrings (
+        builtins.match "ghc-([0-9]+).([0-9]+).x" configName
+      );
       # return all package sets under haskell.packages matching the version components
       setsForVersion =
-        builtins.map (name: packageSetsWithVersionedHead.${name}) (
-          builtins.filter
+        builtins.map (name: packageSetsWithVersionedHead.${name})
           (
-            setName:
-            lib.hasPrefix "ghc${configVersion}" setName
-            && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
+            builtins.filter
+              (
+                setName:
+                lib.hasPrefix "ghc${configVersion}" setName
+                && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
+              )
+              (builtins.attrNames packageSetsWithVersionedHead)
           )
-          (builtins.attrNames packageSetsWithVersionedHead)
-        );
+        ;
 
       defaultSets = [ pkgs.haskellPackages ];
     in
@@ -137,12 +141,12 @@ let
       lib.fix (
         self:
         import (nixpkgsPath + "/pkgs/development/haskell-modules/${fileName}")
-        {
-          haskellLib = pkgs.haskell.lib.compose;
-          inherit pkgs;
-        }
-        self
-        availableHaskellPackages
+          {
+            haskellLib = pkgs.haskell.lib.compose;
+            inherit pkgs;
+          }
+          self
+          availableHaskellPackages
       )
     )
     ;
@@ -150,26 +154,28 @@ let
   # list of derivations that are affected by overrides in the given configuration
   # overlays. For common, nix, darwin etc. only the derivation from the default
   # package set will be emitted.
-  packages = builtins.filter
-    (
-      v:
-      lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (
-        v != null
-        && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success)
-      )
-    )
-    (
-      lib.concatMap
+  packages =
+    builtins.filter
       (
-        fileName:
-        let
-          sets = setsForFile fileName;
-          attrs = overriddenAttrs fileName;
-        in
-        lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
+        v:
+        lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (
+          v != null
+          && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success)
+        )
       )
-      files'
-    );
+      (
+        lib.concatMap
+          (
+            fileName:
+            let
+              sets = setsForFile fileName;
+              attrs = overriddenAttrs fileName;
+            in
+            lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
+          )
+          files'
+      )
+    ;
 in
 
 packages

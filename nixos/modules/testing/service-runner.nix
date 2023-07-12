@@ -53,10 +53,10 @@ let
       }
       ${concatStrings (
         mapAttrsToList
-        (n: v: ''
-          $ENV{'${n}'} = '${v}';
-        '')
-        service.environment
+          (n: v: ''
+            $ENV{'${n}'} = '${v}';
+          '')
+          service.environment
       )}
 
       # Run the ExecStartPre program.  FIXME: this could be a list.
@@ -136,6 +136,8 @@ in
 {
   options = {
     systemd.services =
-      mkOption { type = with types; attrsOf (submodule opts); };
+      mkOption
+        { type = with types; attrsOf (submodule opts); }
+      ;
   };
 }

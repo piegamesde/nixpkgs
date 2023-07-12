@@ -36,9 +36,8 @@ let
         user        = ${srv.user}
         server      = ${srv.server}
         ${
-          optionalString
-          (srv.serverArgs != "")
-          "server_args = ${srv.serverArgs}"
+          optionalString (srv.serverArgs != "")
+            "server_args = ${srv.serverArgs}"
         }
         ${srv.extraConfig}
       }
@@ -52,8 +51,9 @@ in
 
   options = {
 
-    services.xinetd.enable =
-      mkEnableOption (lib.mdDoc "the xinetd super-server daemon");
+    services.xinetd.enable = mkEnableOption (
+      lib.mdDoc "the xinetd super-server daemon"
+    );
 
     services.xinetd.extraDefaults = mkOption {
       default = "";
@@ -85,7 +85,9 @@ in
                 type = types.str;
                 default = "tcp";
                 description =
-                  lib.mdDoc "Protocol of the service.  Usually `tcp` or `udp`.";
+                  lib.mdDoc
+                    "Protocol of the service.  Usually `tcp` or `udp`."
+                  ;
               };
 
               port = mkOption {
@@ -105,14 +107,18 @@ in
                 type = types.str;
                 example = "/foo/bin/ftpd";
                 description =
-                  lib.mdDoc "Path of the program that implements the service.";
+                  lib.mdDoc
+                    "Path of the program that implements the service."
+                  ;
               };
 
               serverArgs = mkOption {
                 type = types.separatedString " ";
                 default = "";
                 description =
-                  lib.mdDoc "Command-line arguments for the server program.";
+                  lib.mdDoc
+                    "Command-line arguments for the server program."
+                  ;
               };
 
               flags = mkOption {
@@ -134,8 +140,9 @@ in
               extraConfig = mkOption {
                 type = types.lines;
                 default = "";
-                description = lib.mdDoc
-                  "Extra configuration-lines added to the section of the service."
+                description =
+                  lib.mdDoc
+                    "Extra configuration-lines added to the section of the service."
                   ;
               };
             };

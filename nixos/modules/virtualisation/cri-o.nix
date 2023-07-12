@@ -12,9 +12,9 @@ let
   crioPackage = pkgs.cri-o.override {
     extraPackages =
       cfg.extraPackages
-      ++ lib.optional
-        (builtins.elem "zfs" config.boot.supportedFilesystems)
-        config.boot.zfs.package
+      ++
+        lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
+          config.boot.zfs.package
       ;
   };
 
@@ -26,8 +26,9 @@ in
   meta = { maintainers = teams.podman.members; };
 
   options.virtualisation.cri-o = {
-    enable =
-      mkEnableOption (lib.mdDoc "Container Runtime Interface for OCI (CRI-O)");
+    enable = mkEnableOption (
+      lib.mdDoc "Container Runtime Interface for OCI (CRI-O)"
+    );
 
     storageDriver = mkOption {
       type = types.enum [
@@ -59,7 +60,9 @@ in
       type = types.nullOr types.str;
       default = null;
       description =
-        lib.mdDoc "Override the default pause image for pod sandboxes";
+        lib.mdDoc
+          "Override the default pause image for pod sandboxes"
+        ;
       example = "k8s.gcr.io/pause:3.2";
     };
 
@@ -142,9 +145,10 @@ in
         log_level = cfg.logLevel;
         manage_ns_lifecycle = true;
         pinns_path = "${cfg.package}/bin/pinns";
-        hooks_dir = optional
-          (config.virtualisation.containers.ociSeccompBpfHook.enable)
-          config.boot.kernelPackages.oci-seccomp-bpf-hook;
+        hooks_dir =
+          optional (config.virtualisation.containers.ociSeccompBpfHook.enable)
+            config.boot.kernelPackages.oci-seccomp-bpf-hook
+          ;
 
         default_runtime = mkIf (cfg.runtime != null) cfg.runtime;
         runtimes = mkIf (cfg.runtime != null) { "${cfg.runtime}" = { }; };

@@ -62,7 +62,7 @@ let
       "${stdenv.cc}/nix-support/dynamic-linker"
     else
       throw
-      "Unsupported platform for PlayOnLinux: ${stdenv.hostPlatform.system}"
+        "Unsupported platform for PlayOnLinux: ${stdenv.hostPlatform.system}"
     ;
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs =

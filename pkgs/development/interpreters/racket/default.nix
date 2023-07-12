@@ -64,21 +64,23 @@ stdenv.mkDerivation rec {
   pname = "racket";
   version = "8.8"; # always change at once with ./minimal.nix
 
-  src = (lib.makeOverridable (
-    {
-      name,
-      sha256,
-    }:
-    fetchurl {
-      url =
-        "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
-      inherit sha256;
-    }
-  ))
-    {
-      name = "${pname}-${version}";
-      sha256 = "sha256-OYQi4rQjc+FOTg+W2j2Vy1dEJHuj9z6pmBX7aTwnFKs=";
-    };
+  src =
+    (lib.makeOverridable (
+      {
+        name,
+        sha256,
+      }:
+      fetchurl {
+        url =
+          "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
+        inherit sha256;
+      }
+    ))
+      {
+        name = "${pname}-${version}";
+        sha256 = "sha256-OYQi4rQjc+FOTg+W2j2Vy1dEJHuj9z6pmBX7aTwnFKs=";
+      }
+    ;
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;

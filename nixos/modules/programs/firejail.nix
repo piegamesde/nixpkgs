@@ -10,57 +10,59 @@ with lib;
 let
   cfg = config.programs.firejail;
 
-  wrappedBins = pkgs.runCommand "firejail-wrapped-binaries"
-    {
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-      # take precedence over non-firejailed versions
-      meta.priority = -1;
-    }
-    ''
-      mkdir -p $out/bin
-      mkdir -p $out/share/applications
-      ${lib.concatStringsSep "\n" (
-        lib.mapAttrsToList
-        (
-          command: value:
-          let
-            opts =
-              if builtins.isAttrs value then
-                value
-              else
-                {
-                  executable = value;
-                  desktop = null;
-                  profile = null;
-                  extraArgs = [ ];
-                }
-              ;
-            args = lib.escapeShellArgs (
-              opts.extraArgs
-              ++ (optional (opts.profile != null) "--profile=${
-                  toString opts.profile
-                }")
-            );
-          in
-          ''
-            cat <<_EOF >$out/bin/${command}
-            #! ${pkgs.runtimeShell} -e
-            exec /run/wrappers/bin/firejail ${args} -- ${
-              toString opts.executable
-            } "\$@"
-            _EOF
-            chmod 0755 $out/bin/${command}
+  wrappedBins =
+    pkgs.runCommand "firejail-wrapped-binaries"
+      {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+        # take precedence over non-firejailed versions
+        meta.priority = -1;
+      }
+      ''
+        mkdir -p $out/bin
+        mkdir -p $out/share/applications
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList
+            (
+              command: value:
+              let
+                opts =
+                  if builtins.isAttrs value then
+                    value
+                  else
+                    {
+                      executable = value;
+                      desktop = null;
+                      profile = null;
+                      extraArgs = [ ];
+                    }
+                  ;
+                args = lib.escapeShellArgs (
+                  opts.extraArgs
+                  ++ (optional (opts.profile != null) "--profile=${
+                        toString opts.profile
+                      }")
+                );
+              in
+              ''
+                cat <<_EOF >$out/bin/${command}
+                #! ${pkgs.runtimeShell} -e
+                exec /run/wrappers/bin/firejail ${args} -- ${
+                  toString opts.executable
+                } "\$@"
+                _EOF
+                chmod 0755 $out/bin/${command}
 
-            ${lib.optionalString (opts.desktop != null) ''
-              substitute ${opts.desktop} $out/share/applications/$(basename ${opts.desktop}) \
-                --replace ${opts.executable} $out/bin/${command}
-            ''}
-          ''
-        )
-        cfg.wrappedBinaries
-      )}
-    '';
+                ${lib.optionalString (opts.desktop != null) ''
+                  substitute ${opts.desktop} $out/share/applications/$(basename ${opts.desktop}) \
+                    --replace ${opts.executable} $out/bin/${command}
+                ''}
+              ''
+            )
+            cfg.wrappedBinaries
+        )}
+      ''
+    ;
 in
 {
   options.programs.firejail = {
@@ -80,8 +82,9 @@ in
               desktop = mkOption {
                 type = types.nullOr types.path;
                 default = null;
-                description = lib.mkDoc
-                  ".desktop file to modify. Only necessary if it uses the absolute path to the executable."
+                description =
+                  lib.mkDoc
+                    ".desktop file to modify. Only necessary if it uses the absolute path to the executable."
                   ;
                 example = literalExpression ''
                   "''${pkgs.firefox}/share/applications/firefox.desktop"'';

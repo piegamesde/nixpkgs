@@ -64,7 +64,9 @@ self: super: {
 
   # Additionally depends on OneTuple for GHC < 9.0
   base-compat-batteries =
-    addBuildDepend self.OneTuple super.base-compat-batteries;
+    addBuildDepend self.OneTuple
+      super.base-compat-batteries
+    ;
 
   # Ignore overly restrictive upper version bounds.
   aeson-diff = doJailbreak super.aeson-diff;
@@ -75,7 +77,9 @@ self: super: {
   doctest = doJailbreak super.doctest;
   hashable = addBuildDepend self.base-orphans super.hashable;
   hashable-time = doJailbreak super.hashable-time;
-  hledger-lib = doJailbreak super.hledger-lib
+  hledger-lib =
+    doJailbreak
+      super.hledger-lib
     ; # base >=4.8 && <4.13, easytest >=0.2.1 && <0.3
   integer-logarithms = doJailbreak super.integer-logarithms;
   lucid = doJailbreak super.lucid;
@@ -89,7 +93,9 @@ self: super: {
   th-expand-syns = doJailbreak super.th-expand-syns;
   # TODO: remove when upstream accepts https://github.com/snapframework/io-streams-haproxy/pull/17
   io-streams-haproxy =
-    doJailbreak super.io-streams-haproxy; # base >=4.5 && <4.13
+    doJailbreak
+      super.io-streams-haproxy
+    ; # base >=4.5 && <4.13
   snap-server = doJailbreak super.snap-server;
   exact-pi = doJailbreak super.exact-pi;
   time-compat = doJailbreak super.time-compat;
@@ -100,12 +106,14 @@ self: super: {
   vault = dontHaddock super.vault;
 
   # https://github.com/snapframework/snap-core/issues/288
-  snap-core = overrideCabal
-    (drv: {
-      prePatch =
-        "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
-    })
-    super.snap-core;
+  snap-core =
+    overrideCabal
+      (drv: {
+        prePatch =
+          "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
+      })
+      super.snap-core
+    ;
 
   # Upstream ships a broken Setup.hs file.
   csv = overrideCabal (drv: { prePatch = "rm Setup.hs"; }) super.csv;
@@ -138,8 +146,9 @@ self: super: {
 
   mime-string = disableOptimization super.mime-string;
 
-  haskell-language-server = throw
-    "haskell-language-server dropped support for ghc 8.8 in version 1.9.0.0 please use a newer ghc version or an older nixpkgs version"
+  haskell-language-server =
+    throw
+      "haskell-language-server dropped support for ghc 8.8 in version 1.9.0.0 please use a newer ghc version or an older nixpkgs version"
     ;
 
   hlint = self.hlint_3_2_8;

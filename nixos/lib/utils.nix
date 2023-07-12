@@ -11,11 +11,11 @@ rec {
   copyFile =
     filePath:
     pkgs.runCommand
-    (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath))
-    { }
-    ''
-      cp ${filePath} $out
-    ''
+      (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath))
+      { }
+      ''
+        cp ${filePath} $out
+      ''
     ;
 
   # Check whenever fileSystem is needed for boot.  NOTE: Make sure
@@ -111,15 +111,15 @@ rec {
         ;
     in
     replaceStrings
-    [
-      "%"
-      "$"
-    ]
-    [
-      "%%"
-      "$$"
-    ]
-    (builtins.toJSON s)
+      [
+        "%"
+        "$"
+      ]
+      [
+        "%%"
+        "$$"
+      ]
+      (builtins.toJSON s)
     ;
 
   # Quotes a list of arguments into a single string for use in a Exec*
@@ -168,31 +168,30 @@ rec {
           nameValuePair prefix item.${attr}
         else if isAttrs item then
           map
-          (
-            name:
-            let
-              escapedName =
-                ''
-                  "${
-                    replaceStrings
-                    [
-                      ''"''
-                      "\\"
-                    ]
-                    [
-                      ''\"''
-                      "\\\\"
-                    ]
-                    name
-                  }"'';
-            in
-            recurse (prefix + "." + escapedName) item.${name}
-          )
-          (attrNames item)
+            (
+              name:
+              let
+                escapedName =
+                  ''
+                    "${
+                      replaceStrings
+                        [
+                          ''"''
+                          "\\"
+                        ]
+                        [
+                          ''\"''
+                          "\\\\"
+                        ]
+                        name
+                    }"'';
+              in
+              recurse (prefix + "." + escapedName) item.${name}
+            )
+            (attrNames item)
         else if isList item then
-          imap0
-          (index: item: recurse (prefix + "[${toString index}]") item)
-          item
+          imap0 (index: item: recurse (prefix + "[${toString index}]") item)
+            item
         else
           [ ]
         ;
@@ -269,11 +268,11 @@ rec {
     ''
     + concatStringsSep "\n" (
       imap1
-      (index: name: ''
-        secret${toString index}=$(<'${secrets.${name}}')
-        export secret${toString index}
-      '')
-      (attrNames secrets)
+        (index: name: ''
+          secret${toString index}=$(<'${secrets.${name}}')
+          export secret${toString index}
+        '')
+        (attrNames secrets)
     )
     + "\n"
     + "${pkgs.jq}/bin/jq >'${output}' "
@@ -312,8 +311,9 @@ rec {
 
   systemdUtils = {
     lib = import ./systemd-lib.nix { inherit lib config pkgs; };
-    unitOptions =
-      import ./systemd-unit-options.nix { inherit lib systemdUtils; };
+    unitOptions = import ./systemd-unit-options.nix {
+      inherit lib systemdUtils;
+    };
     types = import ./systemd-types.nix { inherit lib systemdUtils pkgs; };
   };
 }

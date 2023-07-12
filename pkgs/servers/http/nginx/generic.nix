@@ -49,14 +49,17 @@ outer@{
 
 let
 
-  moduleNames = map
-    (
-      mod:
-      mod.name or (throw "The nginx module with source ${
-          toString mod.src
-        } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported.")
-    )
-    modules;
+  moduleNames =
+    map
+      (
+        mod:
+        mod.name or (throw "The nginx module with source ${
+              toString mod.src
+            } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported."
+        )
+      )
+      modules
+    ;
 
   mapModules =
     attrPath:
@@ -69,17 +72,16 @@ let
         mod.${attrPath} or [ ]
       else
         throw "Module at ${
-          toString mod.src
-        } does not support nginx version ${nginxVersion}!"
+            toString mod.src
+          } does not support nginx version ${nginxVersion}!"
     )
     ;
 in
 
-assert lib.assertMsg
-  (lib.unique moduleNames == moduleNames)
-  "nginx: duplicate modules: ${
-    lib.concatStringsSep ", " moduleNames
-  }. A common cause for this is that services.nginx.additionalModules adds a module which the nixos module itself already adds.";
+assert lib.assertMsg (lib.unique moduleNames == moduleNames)
+    "nginx: duplicate modules: ${
+      lib.concatStringsSep ", " moduleNames
+    }. A common cause for this is that services.nginx.additionalModules adds a module which the nixos module itself already adds.";
 
 stdenv.mkDerivation {
   inherit pname version nginxVersion;
@@ -166,9 +168,9 @@ stdenv.mkDerivation {
     ++ lib.optional (gd != null) "--with-http_image_filter_module"
     ++ lib.optional (geoip != null) "--with-http_geoip_module"
     ++ lib.optional (withStream && geoip != null) "--with-stream_geoip_module"
-    ++ lib.optional
-      (with stdenv.hostPlatform; isLinux || isFreeBSD)
-      "--with-file-aio"
+    ++
+      lib.optional (with stdenv.hostPlatform; isLinux || isFreeBSD)
+        "--with-file-aio"
     ++ configureFlags
     ++ map (mod: "--add-module=${mod.src}") modules
     ;
@@ -178,12 +180,13 @@ stdenv.mkDerivation {
       "-I${libxml2.dev}/include/libxml2"
       "-Wno-error=implicit-fallthrough"
     ]
-    ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
-      [
-        # fix build vts module on gcc11
-        "-Wno-error=stringop-overread"
-      ]
+    ++
+      lib.optionals
+        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
+        [
+          # fix build vts module on gcc11
+          "-Wno-error=stringop-overread"
+        ]
     ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations"
   );
 
@@ -247,11 +250,13 @@ stdenv.mkDerivation {
 
   postInstall =
     let
-      noSourceRefs = lib.concatMapStrings
-        (m: ''
-          remove-references-to -t ${m.src} $out/sbin/nginx
-        '')
-        modules;
+      noSourceRefs =
+        lib.concatMapStrings
+          (m: ''
+            remove-references-to -t ${m.src} $out/sbin/nginx
+          '')
+          modules
+        ;
     in
     noSourceRefs + postInstall
     ;

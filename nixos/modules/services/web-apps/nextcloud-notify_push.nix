@@ -37,23 +37,25 @@ in
       default = "error";
       description = lib.mdDoc "Log level";
     };
-  } // (lib.genAttrs
-    [
-      "dbtype"
-      "dbname"
-      "dbuser"
-      "dbpassFile"
-      "dbhost"
-      "dbport"
-      "dbtableprefix"
-    ]
-    (
-      opt:
-      options.services.nextcloud.config.${opt} // {
-        default = config.services.nextcloud.config.${opt};
-        defaultText = "config.services.nextcloud.config.${opt}";
-      }
-    ));
+  } // (
+    lib.genAttrs
+      [
+        "dbtype"
+        "dbname"
+        "dbuser"
+        "dbpassFile"
+        "dbhost"
+        "dbport"
+        "dbtableprefix"
+      ]
+      (
+        opt:
+        options.services.nextcloud.config.${opt} // {
+          default = config.services.nextcloud.config.${opt};
+          defaultText = "config.services.nextcloud.config.${opt}";
+        }
+      )
+  );
 
   config = lib.mkIf cfg.enable {
     systemd.services.nextcloud-notify_push =
@@ -82,7 +84,9 @@ in
             dbType = if cfg.dbtype == "pgsql" then "postgresql" else cfg.dbtype;
             dbUser = lib.optionalString (cfg.dbuser != null) cfg.dbuser;
             dbPass =
-              lib.optionalString (cfg.dbpassFile != null) ":$DATABASE_PASSWORD";
+              lib.optionalString (cfg.dbpassFile != null)
+                ":$DATABASE_PASSWORD"
+              ;
             isSocket = lib.hasPrefix "/" (toString cfg.dbhost);
             dbHost = lib.optionalString (cfg.dbhost != null) (
               if isSocket then

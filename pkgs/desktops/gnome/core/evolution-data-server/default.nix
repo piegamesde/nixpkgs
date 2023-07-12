@@ -172,8 +172,9 @@ stdenv.mkDerivation rec {
         };
         updatePatch =
           _experimental-update-script-combinators.copyAttrOutputToFile
-          "evolution-data-server.hardcodeGsettingsPatch"
-          ./hardcode-gsettings.patch;
+            "evolution-data-server.hardcodeGsettingsPatch"
+            ./hardcode-gsettings.patch
+          ;
       in
       _experimental-update-script-combinators.sequence [
         updateSource

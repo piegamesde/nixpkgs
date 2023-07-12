@@ -79,15 +79,16 @@ stdenv.mkDerivation rec {
       openssl
       zlib
     ]
-    ++ lib.optionals
-      (
-        stdenv.isDarwin
-        && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))
-      )
-      [
-        CoreAudio
-        AudioToolbox
-      ]
+    ++
+      lib.optionals
+        (
+          stdenv.isDarwin
+          && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))
+        )
+        [
+          CoreAudio
+          AudioToolbox
+        ]
     ;
 
   # propagation is needed for Security.framework to be available when linking
@@ -105,8 +106,8 @@ stdenv.mkDerivation rec {
       "-DTARGET_ARCH=${host_os}"
     ]
     ++ lib.optional (apis != [ "*" ]) "-DBUILD_ONLY=${
-        lib.concatStringsSep ";" apis
-      }"
+          lib.concatStringsSep ";" apis
+        }"
     ;
 
   env.NIX_CFLAGS_COMPILE = toString [

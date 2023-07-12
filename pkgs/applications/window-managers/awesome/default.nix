@@ -133,9 +133,9 @@ stdenv.mkDerivation rec {
       #"-DGENERATE_MANPAGES=ON"
       "-DOVERRIDE_VERSION=${version}"
     ]
-    ++ lib.optional
-      lua.pkgs.isLuaJIT
-      "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so"
+    ++
+      lib.optional lua.pkgs.isLuaJIT
+        "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so"
     ;
 
   GI_TYPELIB_PATH = "${pango.out}/lib/girepository-1.0";

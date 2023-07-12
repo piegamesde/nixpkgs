@@ -46,32 +46,38 @@ in
 
 {
   imports = [
-    (lib.mkRenamedOptionModule
-      [
-        "services"
-        "zabbixServer"
-        "dbServer"
-      ]
-      [
-        "services"
-        "zabbixServer"
-        "database"
-        "host"
-      ])
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "zabbixServer"
-        "dbPassword"
-      ]
-      "Use services.zabbixServer.database.passwordFile instead.")
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "zabbixServer"
-        "extraConfig"
-      ]
-      "Use services.zabbixServer.settings instead.")
+    (
+      lib.mkRenamedOptionModule
+        [
+          "services"
+          "zabbixServer"
+          "dbServer"
+        ]
+        [
+          "services"
+          "zabbixServer"
+          "database"
+          "host"
+        ]
+    )
+    (
+      lib.mkRemovedOptionModule
+        [
+          "services"
+          "zabbixServer"
+          "dbPassword"
+        ]
+        "Use services.zabbixServer.database.passwordFile instead."
+    )
+    (
+      lib.mkRemovedOptionModule
+        [
+          "services"
+          "zabbixServer"
+          "extraConfig"
+        ]
+        "Use services.zabbixServer.settings instead."
+    )
   ];
 
   # interface
@@ -183,14 +189,18 @@ in
           default = null;
           example = "/run/postgresql";
           description =
-            lib.mdDoc "Path to the unix socket file to use for authentication.";
+            lib.mdDoc
+              "Path to the unix socket file to use for authentication."
+            ;
         };
 
         createLocally = mkOption {
           type = types.bool;
           default = true;
           description =
-            lib.mdDoc "Whether to create a local database automatically.";
+            lib.mdDoc
+              "Whether to create a local database automatically."
+            ;
         };
       };
 
@@ -270,7 +280,9 @@ in
         ListenPort = cfg.listen.port;
         # TODO: set to cfg.database.socket if database type is pgsql?
         DBHost =
-          optionalString (cfg.database.createLocally != true) cfg.database.host;
+          optionalString (cfg.database.createLocally != true)
+            cfg.database.host
+          ;
         DBName = cfg.database.name;
         DBUser = cfg.database.user;
         PidFile = "${runtimeDir}/zabbix_server.pid";
@@ -278,9 +290,10 @@ in
         FpingLocation = "/run/wrappers/bin/fping";
         LoadModule = builtins.attrNames cfg.modules;
       }
-      (mkIf (cfg.database.createLocally != true) {
-        DBPort = cfg.database.port;
-      })
+      (
+        mkIf (cfg.database.createLocally != true)
+          { DBPort = cfg.database.port; }
+      )
       (mkIf (cfg.database.passwordFile != null) {
         Include = [ "${passwordFile}" ];
       })
@@ -290,8 +303,9 @@ in
       (mkIf (cfg.modules != { }) { LoadModulePath = "${moduleEnv}/lib"; })
     ];
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.listen.port ];
+    };
 
     services.mysql = optionalAttrs mysqlLocal {
       enable = true;
@@ -400,9 +414,9 @@ in
 
     systemd.services.httpd.after =
       optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service"
-      ++ optional
-        (config.services.zabbixWeb.enable && pgsqlLocal)
-        "postgresql.service"
+      ++
+        optional (config.services.zabbixWeb.enable && pgsqlLocal)
+          "postgresql.service"
       ;
   };
 }

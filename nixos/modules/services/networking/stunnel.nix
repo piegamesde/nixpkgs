@@ -44,11 +44,11 @@ let
   generateConfig =
     c:
     generators.toINI
-    {
-      mkSectionName = id;
-      mkKeyValue = k: v: "${k} = ${mkValueString v}";
-    }
-    (removeNulls c)
+      {
+        mkSectionName = id;
+        mkKeyValue = k: v: "${k} = ${mkValueString v}";
+      }
+      (removeNulls c)
     ;
 in
 
@@ -64,7 +64,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether to enable the stunnel TLS tunneling service.";
+          lib.mdDoc
+            "Whether to enable the stunnel TLS tunneling service."
+          ;
       };
 
       user = mkOption {
@@ -98,14 +100,18 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Enable FIPS 140-2 mode required for compliance.";
+          lib.mdDoc
+            "Enable FIPS 140-2 mode required for compliance."
+          ;
       };
 
       enableInsecureSSLv3 = mkOption {
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Enable support for the insecure SSLv3 protocol.";
+          lib.mdDoc
+            "Enable support for the insecure SSLv3 protocol."
+          ;
       };
 
       servers = mkOption {

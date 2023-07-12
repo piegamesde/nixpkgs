@@ -25,16 +25,16 @@ let
       use-ipv4=${yesNo ipv4}
       use-ipv6=${yesNo ipv6}
       ${optionalString (allowInterfaces != null) "allow-interfaces=${
-        concatStringsSep "," allowInterfaces
-      }"}
+          concatStringsSep "," allowInterfaces
+        }"}
       ${optionalString (denyInterfaces != null) "deny-interfaces=${
-        concatStringsSep "," denyInterfaces
-      }"}
+          concatStringsSep "," denyInterfaces
+        }"}
       ${optionalString (domainName != null) "domain-name=${domainName}"}
       allow-point-to-point=${yesNo allowPointToPoint}
       ${optionalString (cacheEntriesMax != null) "cache-entries-max=${
-        toString cacheEntriesMax
-      }"}
+          toString cacheEntriesMax
+        }"}
 
       [wide-area]
       enable-wide-area=${yesNo wideArea}
@@ -54,17 +54,19 @@ let
 in
 {
   imports = [
-    (lib.mkRenamedOptionModule
-      [
-        "services"
-        "avahi"
-        "interfaces"
-      ]
-      [
-        "services"
-        "avahi"
-        "allowInterfaces"
-      ])
+    (
+      lib.mkRenamedOptionModule
+        [
+          "services"
+          "avahi"
+          "interfaces"
+        ]
+        [
+          "services"
+          "avahi"
+          "allowInterfaces"
+        ]
+    )
   ];
 
   options.services.avahi = {
@@ -171,8 +173,10 @@ in
     reflector = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc
-        "Reflect incoming mDNS requests to all allowed network interfaces.";
+      description =
+        lib.mdDoc
+          "Reflect incoming mDNS requests to all allowed network interfaces."
+        ;
     };
 
     extraServiceFiles = mkOption {
@@ -210,15 +214,18 @@ in
       userServices = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to publish user services. Will set `addresses=true`.";
+        description =
+          lib.mdDoc
+            "Whether to publish user services. Will set `addresses=true`."
+          ;
       };
 
       addresses = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to register mDNS address records for all local IP addresses."
+        description =
+          lib.mdDoc
+            "Whether to register mDNS address records for all local IP addresses."
           ;
       };
 
@@ -242,8 +249,9 @@ in
       domain = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to announce the locally used domain name for browsing by other hosts."
+        description =
+          lib.mdDoc
+            "Whether to announce the locally used domain name for browsing by other hosts."
           ;
       };
     };
@@ -297,14 +305,16 @@ in
     environment.systemPackages = [ pkgs.avahi ];
 
     environment.etc =
-      (mapAttrs'
-        (
-          n: v:
-          nameValuePair "avahi/services/${n}.service" {
-            ${if types.path.check v then "source" else "text"} = v;
-          }
-        )
-        cfg.extraServiceFiles);
+      (
+        mapAttrs'
+          (
+            n: v:
+            nameValuePair "avahi/services/${n}.service" {
+              ${if types.path.check v then "source" else "text"} = v;
+            }
+          )
+          cfg.extraServiceFiles
+      );
 
     systemd.sockets.avahi-daemon = {
       description = "Avahi mDNS/DNS-SD Stack Activation Socket";

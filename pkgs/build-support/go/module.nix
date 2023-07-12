@@ -220,10 +220,10 @@ let
               }
             else
               { outputHash = vendorHash; }
+          ) // (
+            lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "")
+              { outputHashAlgo = "sha256"; }
           )
-          // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
-            outputHashAlgo = "sha256";
-          })
         ) // overrideModAttrs modArgs
       )
     else
@@ -403,5 +403,5 @@ let
   );
 in
 lib.warnIf (buildFlags != "" || buildFlagsArray != "")
-"Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
-package
+  "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
+  package

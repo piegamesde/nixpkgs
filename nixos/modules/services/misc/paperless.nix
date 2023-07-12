@@ -113,15 +113,17 @@ in
   ];
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "paperless-ng"
-      ]
-      [
-        "services"
-        "paperless"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "paperless-ng"
+        ]
+        [
+          "services"
+          "paperless"
+        ]
+    )
   ];
 
   options.services.paperless = {
@@ -158,14 +160,18 @@ in
       default = "${cfg.dataDir}/consume";
       defaultText = literalExpression ''"''${dataDir}/consume"'';
       description =
-        lib.mdDoc "Directory from which new documents are imported.";
+        lib.mdDoc
+          "Directory from which new documents are imported."
+        ;
     };
 
     consumptionDirIsPublic = mkOption {
       type = types.bool;
       default = false;
       description =
-        lib.mdDoc "Whether all users can write to the consumption dir.";
+        lib.mdDoc
+          "Whether all users can write to the consumption dir."
+        ;
     };
 
     passwordFile = mkOption {

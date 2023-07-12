@@ -66,17 +66,17 @@ buildPythonPackage rec {
     [ pytestCheckHook ]
     ++ lib.concatLists (
       lib.attrVals
-      (
-        [
-          "woff"
-          "interpolatable"
-        ]
-        ++ lib.optionals (!skia-pathops.meta.broken) [
-          "pathops" # broken
-        ]
-        ++ [ "repacker" ]
-      )
-      passthru.optional-dependencies
+        (
+          [
+            "woff"
+            "interpolatable"
+          ]
+          ++ lib.optionals (!skia-pathops.meta.broken) [
+            "pathops" # broken
+          ]
+          ++ [ "repacker" ]
+        )
+        passthru.optional-dependencies
     )
     ;
 

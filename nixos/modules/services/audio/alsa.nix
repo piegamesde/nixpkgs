@@ -17,16 +17,18 @@ in
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "sound"
-        "enableMediaKeys"
-      ]
-      [
-        "sound"
-        "mediaKeys"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "sound"
+          "enableMediaKeys"
+        ]
+        [
+          "sound"
+          "mediaKeys"
+          "enable"
+        ]
+    )
   ];
 
   ###### interface
@@ -100,9 +102,9 @@ in
     environment.systemPackages = [ alsa-utils ];
 
     environment.etc =
-      mkIf (!pulseaudioEnabled && config.sound.extraConfig != "") {
-        "asound.conf".text = config.sound.extraConfig;
-      };
+      mkIf (!pulseaudioEnabled && config.sound.extraConfig != "")
+        { "asound.conf".text = config.sound.extraConfig; }
+      ;
 
     # ALSA provides a udev rule for restoring volume settings.
     services.udev.packages = [ alsa-utils ];

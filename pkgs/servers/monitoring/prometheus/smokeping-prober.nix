@@ -19,11 +19,11 @@ buildGoModule rec {
       };
       varFlags = lib.concatStringsSep " " (
         lib.mapAttrsToList
-        (
-          name: value:
-          "-X github.com/prometheus/common/version.${name}=${value}"
-        )
-        setVars
+          (
+            name: value:
+            "-X github.com/prometheus/common/version.${name}=${value}"
+          )
+          setVars
       );
     in
     [

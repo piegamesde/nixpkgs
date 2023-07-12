@@ -551,8 +551,8 @@ in
         "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"
       else
         lib.optionalString inPCSystems "${
-          pcSystems.${stdenv.hostPlatform.system}.target
-        }-pc"
+            pcSystems.${stdenv.hostPlatform.system}.target
+          }-pc"
       ;
 
     doCheck = false;

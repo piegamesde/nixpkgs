@@ -120,22 +120,22 @@ let
               enable = true;
               virtualHosts = lib.mkMerge (
                 map
-                (host: {
-                  ${host} = {
-                    sslCertificate = "/var/ssl/${host}-cert.pem";
-                    sslCertificateKey = "/var/ssl/${host}-key.pem";
-                    extraConfig = ''
-                      ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-                    '';
-                    onlySSL = true;
-                    serverName = host;
-                    root = pkgs.writeTextDir "index.html" "It works!";
-                  };
-                })
-                [
-                  "imp.example.org"
-                  "decl.example.org"
-                ]
+                  (host: {
+                    ${host} = {
+                      sslCertificate = "/var/ssl/${host}-cert.pem";
+                      sslCertificateKey = "/var/ssl/${host}-key.pem";
+                      extraConfig = ''
+                        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+                      '';
+                      onlySSL = true;
+                      serverName = host;
+                      root = pkgs.writeTextDir "index.html" "It works!";
+                    };
+                  })
+                  [
+                    "imp.example.org"
+                    "decl.example.org"
+                  ]
               );
             };
 

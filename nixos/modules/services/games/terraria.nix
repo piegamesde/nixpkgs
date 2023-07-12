@@ -21,11 +21,11 @@ let
     optionalString (val != null) ''
       -${name} "${
         escape
-        [
-          "\\"
-          ''"''
-        ]
-        (toString val)
+          [
+            "\\"
+            ''"''
+          ]
+          (toString val)
       }"''
     ;
   boolFlag = name: val: optionalString val "-${name}";
@@ -134,7 +134,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Adds additional cheat protection to the server.";
+          lib.mdDoc
+            "Adds additional cheat protection to the server."
+          ;
       };
 
       noUPnP = mkOption {
@@ -154,7 +156,9 @@ in
         default = "/var/lib/terraria";
         example = "/srv/terraria";
         description =
-          lib.mdDoc "Path to variable state data directory for terraria.";
+          lib.mdDoc
+            "Path to variable state data directory for terraria."
+          ;
       };
     };
   };

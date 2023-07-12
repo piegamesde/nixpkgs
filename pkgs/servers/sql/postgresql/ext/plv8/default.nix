@@ -73,8 +73,9 @@ stdenv.mkDerivation (
     passthru = {
       tests =
         let
-          postgresqlWithSelf =
-            postgresql.withPackages (_: [ finalAttrs.finalPackage ]);
+          postgresqlWithSelf = postgresql.withPackages (
+            _: [ finalAttrs.finalPackage ]
+          );
         in
         {
           smoke = runCommand "plv8-smoke-test" { } ''

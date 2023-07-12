@@ -318,22 +318,23 @@ in
               "jibri-auth-secret"
               "jibri-recorder-secret"
             ]
-            ++ (optional
-              (cfg.videobridge.passwordFile == null)
-              "videobridge-secret")
+            ++ (
+              optional (cfg.videobridge.passwordFile == null)
+                "videobridge-secret"
+            )
             ;
         in
         ''
           cd /var/lib/jitsi-meet
           ${concatMapStringsSep "\n"
-          (s: ''
-            if [ ! -f ${s} ]; then
-              tr -dc a-zA-Z0-9 </dev/urandom | head -c 64 > ${s}
-              chown root:jitsi-meet ${s}
-              chmod 640 ${s}
-            fi
-          '')
-          secrets}
+            (s: ''
+              if [ ! -f ${s} ]; then
+                tr -dc a-zA-Z0-9 </dev/urandom | head -c 64 > ${s}
+                chown root:jitsi-meet ${s}
+                chmod 640 ${s}
+              fi
+            '')
+            secrets}
 
           # for easy access in prosody
           echo "JICOFO_COMPONENT_SECRET=$(cat jicofo-component-secret)" > secrets-env
@@ -383,18 +384,23 @@ in
             proxy_set_header Host $host;
           '';
         };
-        locations."=/external_api.js" =
-          mkDefault { alias = "${pkgs.jitsi-meet}/libs/external_api.min.js"; };
+        locations."=/external_api.js" = mkDefault {
+          alias = "${pkgs.jitsi-meet}/libs/external_api.min.js";
+        };
         locations."=/config.js" = mkDefault {
-          alias = overrideJs "${pkgs.jitsi-meet}/config.js" "config"
-            (recursiveUpdate defaultCfg cfg.config)
-            cfg.extraConfig;
+          alias =
+            overrideJs "${pkgs.jitsi-meet}/config.js" "config"
+              (recursiveUpdate defaultCfg cfg.config)
+              cfg.extraConfig
+            ;
         };
         locations."=/interface_config.js" = mkDefault {
-          alias = overrideJs "${pkgs.jitsi-meet}/interface_config.js"
-            "interfaceConfig"
-            cfg.interfaceConfig
-            "";
+          alias =
+            overrideJs "${pkgs.jitsi-meet}/interface_config.js"
+              "interfaceConfig"
+              cfg.interfaceConfig
+              ""
+            ;
         };
       };
     };
@@ -414,14 +420,14 @@ in
               cp -R . $out
               cp ${
                 overrideJs "${pkgs.jitsi-meet}/config.js" "config"
-                (recursiveUpdate defaultCfg cfg.config)
-                cfg.extraConfig
+                  (recursiveUpdate defaultCfg cfg.config)
+                  cfg.extraConfig
               } $out/config.js
               cp ${
                 overrideJs "${pkgs.jitsi-meet}/interface_config.js"
-                "interfaceConfig"
-                cfg.interfaceConfig
-                ""
+                  "interfaceConfig"
+                  cfg.interfaceConfig
+                  ""
               } $out/interface_config.js
               cp ./libs/external_api.min.js $out/external_api.js
             '';

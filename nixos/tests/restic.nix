@@ -71,7 +71,9 @@ import ./make-test-python.nix (
               inherit passwordFile paths exclude pruneOpts;
               initialize = true;
               repositoryFile =
-                pkgs.writeText "repositoryFile" remoteFromFileRepository;
+                pkgs.writeText "repositoryFile"
+                  remoteFromFileRepository
+                ;
             };
             rclonebackup = {
               inherit passwordFile paths exclude pruneOpts;

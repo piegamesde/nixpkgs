@@ -23,7 +23,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether to enable the Exim mail transfer agent.";
+          lib.mdDoc
+            "Whether to enable the Exim mail transfer agent."
+          ;
       };
 
       config = mkOption {

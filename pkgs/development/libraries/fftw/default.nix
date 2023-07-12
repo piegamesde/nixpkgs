@@ -62,9 +62,10 @@ stdenv.mkDerivation (
       ++ lib.optional (precision != "double") "--enable-${precision}"
       # https://www.fftw.org/fftw3_doc/SIMD-alignment-and-fftw_005fmalloc.html
       # FFTW will try to detect at runtime whether the CPU supports these extensions
-      ++ lib.optional
-        (stdenv.isx86_64 && (precision == "single" || precision == "double"))
-        "--enable-sse2 --enable-avx --enable-avx2 --enable-avx512 --enable-avx128-fma"
+      ++
+        lib.optional
+          (stdenv.isx86_64 && (precision == "single" || precision == "double"))
+          "--enable-sse2 --enable-avx --enable-avx2 --enable-avx512 --enable-avx128-fma"
       ++ lib.optional enableMpi "--enable-mpi"
       # doc generation causes Fortran wrapper generation which hard-codes gcc
       ++ lib.optional (!withDoc) "--disable-doc"
@@ -80,7 +81,9 @@ stdenv.mkDerivation (
     nativeCheckInputs = [ perl ];
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       description = "Fastest Fourier Transform in the West library";

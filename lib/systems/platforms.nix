@@ -20,7 +20,9 @@
   };
 
   pc_simplekernel =
-    lib.recursiveUpdate pc { linux-kernel.autoModules = false; };
+    lib.recursiveUpdate pc
+      { linux-kernel.autoModules = false; }
+    ;
 
   powernv = {
     linux-kernel = {

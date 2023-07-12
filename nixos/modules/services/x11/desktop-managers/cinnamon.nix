@@ -14,10 +14,12 @@ let
   serviceCfg = config.services.cinnamon;
 
   nixos-gsettings-overrides =
-    pkgs.cinnamon.cinnamon-gsettings-overrides.override {
-      extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
-      extraGSettingsOverrides = cfg.extraGSettingsOverrides;
-    };
+    pkgs.cinnamon.cinnamon-gsettings-overrides.override
+      {
+        extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
+        extraGSettingsOverrides = cfg.extraGSettingsOverrides;
+      }
+    ;
 
   notExcluded =
     pkg: (!(lib.elem pkg config.environment.cinnamon.excludePackages));
@@ -54,7 +56,9 @@ in
         default = [ ];
         type = types.listOf types.path;
         description =
-          lib.mdDoc "List of packages for which gsettings are overridden.";
+          lib.mdDoc
+            "List of packages for which gsettings are overridden."
+          ;
       };
     };
 
@@ -62,8 +66,10 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.cinnamon.blueberry ]";
       type = types.listOf types.package;
-      description = lib.mdDoc
-        "Which packages cinnamon should exclude from the default environment";
+      description =
+        lib.mdDoc
+          "Which packages cinnamon should exclude from the default environment"
+        ;
     };
   };
 
@@ -95,17 +101,17 @@ in
             true
             ${
               concatMapStrings
-              (p: ''
-                if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
-                  export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
-                fi
+                (p: ''
+                  if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
+                    export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
+                  fi
 
-                if [ -d "${p}/lib/girepository-1.0" ]; then
-                  export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
-                  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
-                fi
-              '')
-              cfg.sessionPath
+                  if [ -d "${p}/lib/girepository-1.0" ]; then
+                    export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
+                    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
+                  fi
+                '')
+                cfg.sessionPath
             }
         fi
       '';
@@ -185,23 +191,24 @@ in
             glib # for gsettings
             xdg-user-dirs
           ]
-          ++ utils.removePackagesByName
-            [
-              # accessibility
-              onboard
-              orca
+          ++
+            utils.removePackagesByName
+              [
+                # accessibility
+                onboard
+                orca
 
-              # theme
-              sound-theme-freedesktop
-              nixos-artwork.wallpapers.simple-dark-gray
-              mint-artwork
-              mint-cursor-themes
-              mint-themes
-              mint-x-icons
-              mint-y-icons
-              xapp # provides some xapp-* icons
-            ]
-            config.environment.cinnamon.excludePackages
+                # theme
+                sound-theme-freedesktop
+                nixos-artwork.wallpapers.simple-dark-gray
+                mint-artwork
+                mint-cursor-themes
+                mint-themes
+                mint-x-icons
+                mint-y-icons
+                xapp # provides some xapp-* icons
+              ]
+              config.environment.cinnamon.excludePackages
         );
 
       xdg.mime.enable = true;
@@ -241,25 +248,25 @@ in
 
       environment.systemPackages = with pkgs // pkgs.gnome // pkgs.cinnamon;
         utils.removePackagesByName
-        [
-          # cinnamon team apps
-          bulky
-          warpinator
+          [
+            # cinnamon team apps
+            bulky
+            warpinator
 
-          # cinnamon xapp
-          xviewer
-          xreader
-          xed-editor
-          xplayer
-          pix
+            # cinnamon xapp
+            xviewer
+            xreader
+            xed-editor
+            xplayer
+            pix
 
-          # external apps shipped with linux-mint
-          hexchat
-          gnome-calculator
-          gnome-calendar
-          gnome-screenshot
-        ]
-        config.environment.cinnamon.excludePackages;
+            # external apps shipped with linux-mint
+            hexchat
+            gnome-calculator
+            gnome-calendar
+            gnome-screenshot
+          ]
+          config.environment.cinnamon.excludePackages;
     })
   ];
 }

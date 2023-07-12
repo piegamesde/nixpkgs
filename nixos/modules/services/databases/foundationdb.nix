@@ -61,18 +61,14 @@ let
       tls_verify_peers     = ${cfg.tls.allowedPeers}
     ''}
 
-    ${optionalString
-    (cfg.locality.machineId != null)
-    "locality_machineid=${cfg.locality.machineId}"}
-    ${optionalString
-    (cfg.locality.zoneId != null)
-    "locality_zoneid=${cfg.locality.zoneId}"}
-    ${optionalString
-    (cfg.locality.datacenterId != null)
-    "locality_dcid=${cfg.locality.datacenterId}"}
-    ${optionalString
-    (cfg.locality.dataHall != null)
-    "locality_data_hall=${cfg.locality.dataHall}"}
+    ${optionalString (cfg.locality.machineId != null)
+      "locality_machineid=${cfg.locality.machineId}"}
+    ${optionalString (cfg.locality.zoneId != null)
+      "locality_zoneid=${cfg.locality.zoneId}"}
+    ${optionalString (cfg.locality.datacenterId != null)
+      "locality_dcid=${cfg.locality.datacenterId}"}
+    ${optionalString (cfg.locality.dataHall != null)
+      "locality_data_hall=${cfg.locality.dataHall}"}
 
     ${fdbServers cfg.serverProcesses}
 
@@ -97,16 +93,18 @@ in
     publicAddress = mkOption {
       type = types.str;
       default = "auto";
-      description = lib.mdDoc
-        "Publicly visible IP address of the process. Port is determined by process ID"
+      description =
+        lib.mdDoc
+          "Publicly visible IP address of the process. Port is determined by process ID"
         ;
     };
 
     listenAddress = mkOption {
       type = types.str;
       default = "public";
-      description = lib.mdDoc
-        "Publicly visible IP address of the process. Port is determined by process ID"
+      description =
+        lib.mdDoc
+          "Publicly visible IP address of the process. Port is determined by process ID"
         ;
     };
 
@@ -133,7 +131,9 @@ in
       type = types.path;
       default = "/var/lib/foundationdb";
       description =
-        lib.mdDoc "Data directory. All cluster data will be put under here.";
+        lib.mdDoc
+          "Data directory. All cluster data will be put under here."
+        ;
     };
 
     logDir = mkOption {
@@ -170,7 +170,9 @@ in
       type = types.int;
       default = 10;
       description =
-        lib.mdDoc "Number of seconds to wait before restarting servers.";
+        lib.mdDoc
+          "Number of seconds to wait before restarting servers."
+        ;
     };
 
     logSize = mkOption {
@@ -202,7 +204,9 @@ in
       type = types.int;
       default = 1;
       description =
-        lib.mdDoc "Number of backup_agent processes to run for snapshots.";
+        lib.mdDoc
+          "Number of backup_agent processes to run for snapshots."
+        ;
     };
 
     memory = mkOption {

@@ -162,17 +162,18 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.finalPackage ];
-    environment.variables.EDITOR =
-      mkIf cfg.defaultEditor (mkOverride 900 "nvim");
+    environment.variables.EDITOR = mkIf cfg.defaultEditor (
+      mkOverride 900 "nvim"
+    );
 
     environment.etc = listToAttrs (
       attrValues (
         mapAttrs
-        (name: value: {
-          name = "xdg/nvim/${name}";
-          value = value // { target = "xdg/nvim/${value.target}"; };
-        })
-        cfg.runtime
+          (name: value: {
+            name = "xdg/nvim/${name}";
+            value = value // { target = "xdg/nvim/${value.target}"; };
+          })
+          cfg.runtime
       )
     );
 

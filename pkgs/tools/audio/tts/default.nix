@@ -50,9 +50,8 @@ python.pkgs.buildPythonApplication rec {
       sed -r -i \
         ${
           lib.concatStringsSep "\n" (
-            map
-            (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\")
-            relaxedConstraints
+            map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\")
+              relaxedConstraints
           )
         }
       requirements.txt

@@ -6,15 +6,17 @@
 }:
 
 rec {
-  composeAndroidPackages =
-    pkgs.callPackage ./compose-android-packages.nix { inherit licenseAccepted; }
-    ;
+  composeAndroidPackages = pkgs.callPackage ./compose-android-packages.nix {
+    inherit licenseAccepted;
+  };
 
-  buildApp =
-    pkgs.callPackage ./build-app.nix { inherit composeAndroidPackages; };
+  buildApp = pkgs.callPackage ./build-app.nix {
+    inherit composeAndroidPackages;
+  };
 
-  emulateApp =
-    pkgs.callPackage ./emulate-app.nix { inherit composeAndroidPackages; };
+  emulateApp = pkgs.callPackage ./emulate-app.nix {
+    inherit composeAndroidPackages;
+  };
 
   androidPkgs_9_0 = composeAndroidPackages {
     platformVersions = [ "28" ];

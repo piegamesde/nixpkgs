@@ -18,30 +18,34 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "spacecookie"
-        "root"
-      ]
-      [
-        "services"
-        "spacecookie"
-        "settings"
-        "root"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "spacecookie"
-        "hostname"
-      ]
-      [
-        "services"
-        "spacecookie"
-        "settings"
-        "hostname"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "spacecookie"
+          "root"
+        ]
+        [
+          "services"
+          "spacecookie"
+          "settings"
+          "root"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "spacecookie"
+          "hostname"
+        ]
+        [
+          "services"
+          "spacecookie"
+          "settings"
+          "hostname"
+        ]
+    )
   ];
 
   options = {
@@ -232,7 +236,8 @@ in
       };
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.port ];
+    };
   };
 }

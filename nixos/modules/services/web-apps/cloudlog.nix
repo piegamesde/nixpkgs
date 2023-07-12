@@ -101,7 +101,9 @@ in
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Create the database and database user locally.";
+          lib.mdDoc
+            "Create the database and database user locally."
+          ;
       };
       host = mkOption {
         type = str;

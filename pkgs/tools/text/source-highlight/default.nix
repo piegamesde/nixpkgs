@@ -43,9 +43,11 @@ stdenv.mkDerivation rec {
   # During cross-compilation, that binary was built for the target
   # platform architecture, so it can't run on the build host.
   postPatch =
-    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-      substituteInPlace Makefile.in --replace "src doc tests" "src tests"
-    '';
+    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+      ''
+        substituteInPlace Makefile.in --replace "src doc tests" "src tests"
+      ''
+    ;
 
   strictDeps = true;
   buildInputs = [ boost ];

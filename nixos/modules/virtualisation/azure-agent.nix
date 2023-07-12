@@ -24,7 +24,9 @@ in
     enable = mkOption {
       default = false;
       description =
-        lib.mdDoc "Whether to enable the Windows Azure Linux Agent.";
+        lib.mdDoc
+          "Whether to enable the Windows Azure Linux Agent."
+        ;
     };
     verboseLogging = mkOption {
       default = false;
@@ -32,8 +34,9 @@ in
     };
     mountResourceDisk = mkOption {
       default = true;
-      description = lib.mdDoc
-        "Whether the agent should format (ext4) and mount the resource disk to /mnt/resource."
+      description =
+        lib.mdDoc
+          "Whether the agent should format (ext4) and mount the resource disk to /mnt/resource."
         ;
     };
   };

@@ -41,74 +41,86 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "keycloak"
-        "bindAddress"
-      ]
-      [
-        "services"
-        "keycloak"
-        "settings"
-        "http-host"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "keycloak"
-        "forceBackendUrlToFrontendUrl"
-      ]
-      [
-        "services"
-        "keycloak"
-        "settings"
-        "hostname-strict-backchannel"
-      ])
-    (mkChangedOptionModule
-      [
-        "services"
-        "keycloak"
-        "httpPort"
-      ]
-      [
-        "services"
-        "keycloak"
-        "settings"
-        "http-port"
-      ]
-      (config: builtins.fromJSON config.services.keycloak.httpPort))
-    (mkChangedOptionModule
-      [
-        "services"
-        "keycloak"
-        "httpsPort"
-      ]
-      [
-        "services"
-        "keycloak"
-        "settings"
-        "https-port"
-      ]
-      (config: builtins.fromJSON config.services.keycloak.httpsPort))
-    (mkRemovedOptionModule
-      [
-        "services"
-        "keycloak"
-        "frontendUrl"
-      ]
-      ''
-        Set `services.keycloak.settings.hostname' and `services.keycloak.settings.http-relative-path' instead.
-        NOTE: You likely want to set 'http-relative-path' to '/auth' to keep compatibility with your clients.
-              See its description for more information.
-      '')
-    (mkRemovedOptionModule
-      [
-        "services"
-        "keycloak"
-        "extraConfig"
-      ]
-      "Use `services.keycloak.settings' instead.")
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "keycloak"
+          "bindAddress"
+        ]
+        [
+          "services"
+          "keycloak"
+          "settings"
+          "http-host"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "keycloak"
+          "forceBackendUrlToFrontendUrl"
+        ]
+        [
+          "services"
+          "keycloak"
+          "settings"
+          "hostname-strict-backchannel"
+        ]
+    )
+    (
+      mkChangedOptionModule
+        [
+          "services"
+          "keycloak"
+          "httpPort"
+        ]
+        [
+          "services"
+          "keycloak"
+          "settings"
+          "http-port"
+        ]
+        (config: builtins.fromJSON config.services.keycloak.httpPort)
+    )
+    (
+      mkChangedOptionModule
+        [
+          "services"
+          "keycloak"
+          "httpsPort"
+        ]
+        [
+          "services"
+          "keycloak"
+          "settings"
+          "https-port"
+        ]
+        (config: builtins.fromJSON config.services.keycloak.httpsPort)
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "keycloak"
+          "frontendUrl"
+        ]
+        ''
+          Set `services.keycloak.settings.hostname' and `services.keycloak.settings.http-relative-path' instead.
+          NOTE: You likely want to set 'http-relative-path' to '/auth' to keep compatibility with your clients.
+                See its description for more information.
+        ''
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "keycloak"
+          "extraConfig"
+        ]
+        "Use `services.keycloak.settings' instead."
+    )
   ];
 
   options.services.keycloak =
@@ -214,8 +226,8 @@ in
         useSSL = mkOption {
           type = bool;
           default = cfg.database.host != "localhost";
-          defaultText =
-            literalExpression ''config.${opt.database.host} != "localhost"'';
+          defaultText = literalExpression ''
+            config.${opt.database.host} != "localhost"'';
           description = lib.mdDoc ''
             Whether the database connection should be secured by SSL /
             TLS.
@@ -517,8 +529,8 @@ in
 
         ${concatStringsSep "\n" (
           mapAttrsToList
-          (name: theme: "linkTheme ${theme} ${escapeShellArg name}")
-          cfg.themes
+            (name: theme: "linkTheme ${theme} ${escapeShellArg name}")
+            cfg.themes
         )}
       '';
 
@@ -539,22 +551,24 @@ in
               hashString "sha256" v._secret
             else
               throw "unsupported type ${typeOf v}: ${
-                (lib.generators.toPretty { }) v
-              }"
+                  (lib.generators.toPretty { }) v
+                }"
             ;
         };
       };
 
       isSecret = v: isAttrs v && v ? _secret && isString v._secret;
-      filteredConfig = lib.converge
-        (lib.filterAttrsRecursive (
-          _: v:
-          !elem v [
-            { }
-            null
-          ]
-        ))
-        cfg.settings;
+      filteredConfig =
+        lib.converge
+          (lib.filterAttrsRecursive (
+            _: v:
+            !elem v [
+              { }
+              null
+            ]
+          ))
+          cfg.settings
+        ;
       confFile = pkgs.writeText "keycloak.conf" (keycloakConfig filteredConfig);
       keycloakBuild = cfg.package.override {
         inherit confFile;
@@ -735,7 +749,9 @@ in
             ''
             ;
           secretReplacements =
-            lib.concatMapStrings mkSecretReplacement secretPaths;
+            lib.concatMapStrings mkSecretReplacement
+              secretPaths
+            ;
         in
         {
           after = databaseServices;
@@ -753,12 +769,13 @@ in
           serviceConfig = {
             LoadCredential =
               map (p: "${baseNameOf p}:${p}") secretPaths
-              ++ optionals
-                (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
-                [
-                  "ssl_cert:${cfg.sslCertificate}"
-                  "ssl_key:${cfg.sslCertificateKey}"
-                ]
+              ++
+                optionals
+                  (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
+                  [
+                    "ssl_cert:${cfg.sslCertificate}"
+                    "ssl_key:${cfg.sslCertificateKey}"
+                  ]
               ;
             User = "keycloak";
             Group = "keycloak";
@@ -787,12 +804,13 @@ in
               sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
 
             ''
-            + optionalString
-              (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
-              ''
-                mkdir -p /run/keycloak/ssl
-                cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
-              ''
+            +
+              optionalString
+                (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
+                ''
+                  mkdir -p /run/keycloak/ssl
+                  cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
+                ''
             + ''
               export KEYCLOAK_ADMIN=admin
               export KEYCLOAK_ADMIN_PASSWORD=${

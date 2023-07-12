@@ -143,7 +143,9 @@ let
       CLS_U32_PERF = yes;
       CLS_U32_MARK = yes;
       BPF_JIT = whenPlatformHasEBPFJit yes;
-      BPF_JIT_ALWAYS_ON = whenPlatformHasEBPFJit no
+      BPF_JIT_ALWAYS_ON =
+        whenPlatformHasEBPFJit
+          no
         ; # whenPlatformHasEBPFJit yes; # see https://github.com/NixOS/nixpkgs/issues/79304
       HAVE_EBPF_JIT = whenPlatformHasEBPFJit yes;
       BPF_STREAM_PARSER = whenAtLeast "4.19" yes;
@@ -263,7 +265,9 @@ let
       IPW2100_MONITOR = option yes; # support promiscuous mode
       IPW2200_MONITOR = option yes; # support promiscuous mode
       HOSTAP_FIRMWARE =
-        option yes; # Support downloading firmware images with Host AP driver
+        option
+          yes
+        ; # Support downloading firmware images with Host AP driver
       HOSTAP_FIRMWARE_NVRAM = option yes;
       ATH9K_PCI = option yes; # Detect Atheros AR9xxx cards on PCI(e) bus
       ATH9K_AHB = option yes; # Ditto, AHB bus
@@ -354,51 +358,57 @@ let
       SND_HDA_RECONFIG = yes; # Support reconfiguration of jack functions
       # Support configuring jack functions via fw mechanism at boot
       SND_HDA_PATCH_LOADER = yes;
-      SND_HDA_CODEC_CA0132_DSP = whenOlder "5.7" yes
+      SND_HDA_CODEC_CA0132_DSP =
+        whenOlder "5.7"
+          yes
         ; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
       SND_OSSEMUL = yes;
       SND_USB_CAIAQ_INPUT = yes;
       # Enable Sound Open Firmware support
     } // optionalAttrs
-      (
-        stdenv.hostPlatform.system == "x86_64-linux"
-        && versionAtLeast version "5.5"
-      )
-      {
-        SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
-        SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES =
-          whenAtLeast "5.10" yes; # dep of SOF_MACH
-        SND_SOC_SOF_INTEL_SOUNDWIRE_LINK =
-          whenBetween "5.10" "5.11" yes; # dep of SOF_MACH
-        SND_SOC_SOF_TOPLEVEL = yes;
-        SND_SOC_SOF_ACPI = module;
-        SND_SOC_SOF_PCI = module;
-        SND_SOC_SOF_APOLLOLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_APOLLOLAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_CANNONLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_CANNONLAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_COFFEELAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_COFFEELAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_COMETLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_COMETLAKE_H_SUPPORT = whenOlder "5.8" yes;
-        SND_SOC_SOF_COMETLAKE_LP_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_ELKHARTLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_ELKHARTLAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_GEMINILAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_GEMINILAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_HDA_AUDIO_CODEC = yes;
-        SND_SOC_SOF_HDA_COMMON_HDMI_CODEC = whenOlder "5.7" yes;
-        SND_SOC_SOF_HDA_LINK = yes;
-        SND_SOC_SOF_ICELAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_ICELAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_INTEL_TOPLEVEL = yes;
-        SND_SOC_SOF_JASPERLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_JASPERLAKE_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_MERRIFIELD = whenAtLeast "5.12" module;
-        SND_SOC_SOF_MERRIFIELD_SUPPORT = whenOlder "5.12" yes;
-        SND_SOC_SOF_TIGERLAKE = whenAtLeast "5.12" module;
-        SND_SOC_SOF_TIGERLAKE_SUPPORT = whenOlder "5.12" yes;
-      };
+        (
+          stdenv.hostPlatform.system == "x86_64-linux"
+          && versionAtLeast version "5.5"
+        )
+        {
+          SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
+          SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES =
+            whenAtLeast "5.10"
+              yes
+            ; # dep of SOF_MACH
+          SND_SOC_SOF_INTEL_SOUNDWIRE_LINK =
+            whenBetween "5.10" "5.11"
+              yes
+            ; # dep of SOF_MACH
+          SND_SOC_SOF_TOPLEVEL = yes;
+          SND_SOC_SOF_ACPI = module;
+          SND_SOC_SOF_PCI = module;
+          SND_SOC_SOF_APOLLOLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_APOLLOLAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_CANNONLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_CANNONLAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_COFFEELAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_COFFEELAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_COMETLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_COMETLAKE_H_SUPPORT = whenOlder "5.8" yes;
+          SND_SOC_SOF_COMETLAKE_LP_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_ELKHARTLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_ELKHARTLAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_GEMINILAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_GEMINILAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_HDA_AUDIO_CODEC = yes;
+          SND_SOC_SOF_HDA_COMMON_HDMI_CODEC = whenOlder "5.7" yes;
+          SND_SOC_SOF_HDA_LINK = yes;
+          SND_SOC_SOF_ICELAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_ICELAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_INTEL_TOPLEVEL = yes;
+          SND_SOC_SOF_JASPERLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_JASPERLAKE_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_MERRIFIELD = whenAtLeast "5.12" module;
+          SND_SOC_SOF_MERRIFIELD_SUPPORT = whenOlder "5.12" yes;
+          SND_SOC_SOF_TIGERLAKE = whenAtLeast "5.12" module;
+          SND_SOC_SOF_TIGERLAKE_SUPPORT = whenOlder "5.12" yes;
+        };
 
     usb-serial = {
       USB_SERIAL_GENERIC = yes; # USB Generic Serial Driver
@@ -539,7 +549,9 @@ let
       STRICT_DEVMEM = mkDefault yes; # Filter access to /dev/mem
       IO_STRICT_DEVMEM = mkDefault yes;
       SECURITY_SELINUX_BOOTPARAM_VALUE =
-        whenOlder "5.1" (freeform "0"); # Disable SELinux by default
+        whenOlder "5.1"
+          (freeform "0")
+        ; # Disable SELinux by default
       # Prevent processes from ptracing non-children processes
       SECURITY_YAMA = option yes;
       # The goal of Landlock is to enable to restrict ambient rights (e.g. global filesystem access) for a set of processes.
@@ -553,8 +565,12 @@ let
       DEFAULT_SECURITY_APPARMOR = yes;
 
       RANDOM_TRUST_CPU =
-        whenOlder "6.2" (whenAtLeast "4.19" yes); # allow RDRAND to seed the RNG
-      RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" (whenAtLeast "5.4" yes)
+        whenOlder "6.2"
+          (whenAtLeast "4.19" yes)
+        ; # allow RDRAND to seed the RNG
+      RANDOM_TRUST_BOOTLOADER =
+        whenOlder "6.2"
+          (whenAtLeast "5.4" yes)
         ; # allow the bootloader to seed the RNG
 
       MODULE_SIG =
@@ -907,9 +923,9 @@ let
         DVB_DYNAMIC_MINORS = option yes; # we use udev
 
         EFI_STUB = yes; # EFI bootloader in the bzImage itself
-        EFI_GENERIC_STUB_INITRD_CMDLINE_LOADER =
-          whenOlder "6.2" (whenAtLeast "5.8" yes)
-          ; # initrd kernel parameter for EFI
+        EFI_GENERIC_STUB_INITRD_CMDLINE_LOADER = whenOlder "6.2" (
+          whenAtLeast "5.8" yes
+        ); # initrd kernel parameter for EFI
         CGROUPS = yes; # used by systemd
         FHANDLE = yes; # used by systemd
         SECCOMP = yes; # used by systemd >= 231
@@ -931,7 +947,9 @@ let
         }; # I-Force USB joysticks and wheels
         JOYSTICK_XPAD_FF = option yes; # X-Box gamepad rumble support
         JOYSTICK_XPAD_LEDS =
-          option yes; # LED Support for Xbox360 controller 'BigX' LED
+          option
+            yes
+          ; # LED Support for Xbox360 controller 'BigX' LED
 
         KEYBOARD_APPLESPI = whenAtLeast "5.3" module;
 
@@ -1033,9 +1051,9 @@ let
         LRU_GEN_ENABLED = whenAtLeast "6.1" yes;
 
         FSL_MC_UAPI_SUPPORT =
-          mkIf (stdenv.hostPlatform.system == "aarch64-linux") (
-            whenAtLeast "5.12" yes
-          );
+          mkIf (stdenv.hostPlatform.system == "aarch64-linux")
+            (whenAtLeast "5.12" yes)
+          ;
 
         ASHMEM = {
           optional = true;
@@ -1066,76 +1084,76 @@ let
         # Fresh toolchains frequently break -Werror build for minor issues.
         WERROR = whenAtLeast "5.15" no;
       } // optionalAttrs
-      (
-        stdenv.hostPlatform.system == "x86_64-linux"
-        || stdenv.hostPlatform.system == "aarch64-linux"
-      )
-      {
-        # Enable CPU/memory hotplug support
-        # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
-        ACPI_HOTPLUG_CPU = yes;
-        ACPI_HOTPLUG_MEMORY = yes;
-        MEMORY_HOTPLUG = yes;
-        MEMORY_HOTREMOVE = yes;
-        HOTPLUG_CPU = yes;
-        MIGRATION = yes;
-        SPARSEMEM = yes;
-
-        # Bump the maximum number of CPUs to support systems like EC2 x1.*
-        # instances and Xeon Phi.
-        NR_CPUS = freeform "384";
-      } // optionalAttrs
-      (
-        stdenv.hostPlatform.system == "armv7l-linux"
-        || stdenv.hostPlatform.system == "aarch64-linux"
-      )
-      {
-        # Enables support for the Allwinner Display Engine 2.0
-        SUN8I_DE2_CCU = yes;
-
-        # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
-        CRYPTO_AEGIS128_SIMD = whenAtLeast "5.4" no;
-
-        # Distros should configure the default as a kernel option.
-        # We previously defined it on the kernel command line as cma=
-        # The kernel command line will override a platform-specific configuration from its device tree.
-        # https://github.com/torvalds/linux/blob/856deb866d16e29bd65952e0289066f6078af773/kernel/dma/contiguous.c#L35-L44
-        CMA_SIZE_MBYTES = freeform "32";
-
-        # Many ARM SBCs hand off a pre-configured framebuffer.
-        # This always can can be replaced by the actual native driver.
-        # Keeping it a built-in ensures it will be used if possible.
-        FB_SIMPLE = yes;
-      } // optionalAttrs
-      (
-        versionAtLeast version "5.4"
-        && (
+        (
           stdenv.hostPlatform.system == "x86_64-linux"
           || stdenv.hostPlatform.system == "aarch64-linux"
         )
-      )
-      {
-        # Required for various hardware features on Chrome OS devices
-        CHROME_PLATFORMS = yes;
-        CHROMEOS_TBMC = module;
+        {
+          # Enable CPU/memory hotplug support
+          # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
+          ACPI_HOTPLUG_CPU = yes;
+          ACPI_HOTPLUG_MEMORY = yes;
+          MEMORY_HOTPLUG = yes;
+          MEMORY_HOTREMOVE = yes;
+          HOTPLUG_CPU = yes;
+          MIGRATION = yes;
+          SPARSEMEM = yes;
 
-        CROS_EC = module;
+          # Bump the maximum number of CPUs to support systems like EC2 x1.*
+          # instances and Xeon Phi.
+          NR_CPUS = freeform "384";
+        } // optionalAttrs
+        (
+          stdenv.hostPlatform.system == "armv7l-linux"
+          || stdenv.hostPlatform.system == "aarch64-linux"
+        )
+        {
+          # Enables support for the Allwinner Display Engine 2.0
+          SUN8I_DE2_CCU = yes;
 
-        CROS_EC_I2C = module;
-        CROS_EC_SPI = module;
-        CROS_EC_LPC = module;
-        CROS_EC_ISHTP = module;
+          # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
+          CRYPTO_AEGIS128_SIMD = whenAtLeast "5.4" no;
 
-        CROS_KBD_LED_BACKLIGHT = module;
-      } // optionalAttrs
-      (
-        versionAtLeast version "5.4"
-        && stdenv.hostPlatform.system == "x86_64-linux"
-      )
-      {
-        CHROMEOS_LAPTOP = module;
-        CHROMEOS_PSTORE = module;
-      }
+          # Distros should configure the default as a kernel option.
+          # We previously defined it on the kernel command line as cma=
+          # The kernel command line will override a platform-specific configuration from its device tree.
+          # https://github.com/torvalds/linux/blob/856deb866d16e29bd65952e0289066f6078af773/kernel/dma/contiguous.c#L35-L44
+          CMA_SIZE_MBYTES = freeform "32";
+
+          # Many ARM SBCs hand off a pre-configured framebuffer.
+          # This always can can be replaced by the actual native driver.
+          # Keeping it a built-in ensures it will be used if possible.
+          FB_SIMPLE = yes;
+        } // optionalAttrs
+        (
+          versionAtLeast version "5.4"
+          && (
+            stdenv.hostPlatform.system == "x86_64-linux"
+            || stdenv.hostPlatform.system == "aarch64-linux"
+          )
+        )
+        {
+          # Required for various hardware features on Chrome OS devices
+          CHROME_PLATFORMS = yes;
+          CHROMEOS_TBMC = module;
+
+          CROS_EC = module;
+
+          CROS_EC_I2C = module;
+          CROS_EC_SPI = module;
+          CROS_EC_LPC = module;
+          CROS_EC_ISHTP = module;
+
+          CROS_KBD_LED_BACKLIGHT = module;
+        } // optionalAttrs
+        (
+          versionAtLeast version "5.4"
+          && stdenv.hostPlatform.system == "x86_64-linux"
+        )
+        {
+          CHROMEOS_LAPTOP = module;
+          CHROMEOS_PSTORE = module;
+        }
       ;
   };
 in

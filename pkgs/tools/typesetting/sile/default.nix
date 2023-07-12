@@ -83,18 +83,18 @@ stdenv.mkDerivation rec {
     # Copied from Makefile.am
     tests.test = lib.optionalAttrs (!(stdenv.isDarwin && stdenv.isAarch64)) (
       runCommand "${pname}-test"
-      {
-        nativeBuildInputs = [
-          poppler_utils
-          sile
-        ];
-        inherit FONTCONFIG_FILE;
-      }
-      ''
-        output=$(mktemp -t selfcheck-XXXXXX.pdf)
-        echo "<sile>foo</sile>" | sile -o $output -
-        pdfinfo $output | grep "SILE v${version}" > $out
-      ''
+        {
+          nativeBuildInputs = [
+            poppler_utils
+            sile
+          ];
+          inherit FONTCONFIG_FILE;
+        }
+        ''
+          output=$(mktemp -t selfcheck-XXXXXX.pdf)
+          echo "<sile>foo</sile>" | sile -o $output -
+          pdfinfo $output | grep "SILE v${version}" > $out
+        ''
     );
   };
 

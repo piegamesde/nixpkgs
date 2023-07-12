@@ -25,13 +25,15 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "programs"
-        "bash"
-        "enable"
-      ]
-      "")
+    (
+      mkRemovedOptionModule
+        [
+          "programs"
+          "bash"
+          "enable"
+        ]
+        ""
+    )
   ];
 
   options = {

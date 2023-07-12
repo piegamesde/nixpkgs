@@ -53,29 +53,39 @@ stdenv.mkDerivation {
     in
     [
       ./gcc10.patch
-      (fetchDebianPatch "0002-gfxboot-menu-label.patch"
-        "fa1349f1"
-        "sha256-0f6QhM4lJmGflLige4n7AZTodL7vnyAvi5dIedd/Lho=")
-      (fetchArchlinuxPatch "0005-gnu-efi-version-compatibility.patch"
-        "821c3da473d1399d930d5b4a086e46a4179eaa45"
-        "sha256-hhCVnfbAFWj/R4yh60qsMB87ofW9RznarsByhl6L4tc=")
-      (fetchArchlinuxPatch "0025-reproducible-build.patch"
-        "821c3da473d1399d930d5b4a086e46a4179eaa45"
-        "sha256-mnb291pCSFvDNxY7o4BosJ94ib3BpOGRQIiY8Q3jZmI=")
-      (fetchDebianPatch
-        # mbr.bin: too big (452 > 440)
-        # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906414
-        "0016-strip-gnu-property.patch"
-        "7468ef0e38c43"
-        "sha256-lW+E6THuXlTGvhly0f/D9NwYHhkiKHot2l+bz9Eaxp4=")
-      (fetchDebianPatch
-        # mbr.bin: too big (452 > 440)
-        "0017-single-load-segment.patch"
-        "012e1dd312eb"
-        "sha256-C6VmdlTs1blMGUHH3OfOlFBZsfpwRn9vWodwqVn8+Cs=")
-      (fetchDebianPatch "0018-prevent-pow-optimization.patch"
-        "26f0e7b2"
-        "sha256-dVzXBi/oSV9vYgU85mRFHBKuZdup+1x1BipJX74ED7E=")
+      (
+        fetchDebianPatch "0002-gfxboot-menu-label.patch" "fa1349f1"
+          "sha256-0f6QhM4lJmGflLige4n7AZTodL7vnyAvi5dIedd/Lho="
+      )
+      (
+        fetchArchlinuxPatch "0005-gnu-efi-version-compatibility.patch"
+          "821c3da473d1399d930d5b4a086e46a4179eaa45"
+          "sha256-hhCVnfbAFWj/R4yh60qsMB87ofW9RznarsByhl6L4tc="
+      )
+      (
+        fetchArchlinuxPatch "0025-reproducible-build.patch"
+          "821c3da473d1399d930d5b4a086e46a4179eaa45"
+          "sha256-mnb291pCSFvDNxY7o4BosJ94ib3BpOGRQIiY8Q3jZmI="
+      )
+      (
+        fetchDebianPatch
+          # mbr.bin: too big (452 > 440)
+          # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906414
+          "0016-strip-gnu-property.patch"
+          "7468ef0e38c43"
+          "sha256-lW+E6THuXlTGvhly0f/D9NwYHhkiKHot2l+bz9Eaxp4="
+      )
+      (
+        fetchDebianPatch
+          # mbr.bin: too big (452 > 440)
+          "0017-single-load-segment.patch"
+          "012e1dd312eb"
+          "sha256-C6VmdlTs1blMGUHH3OfOlFBZsfpwRn9vWodwqVn8+Cs="
+      )
+      (
+        fetchDebianPatch "0018-prevent-pow-optimization.patch" "26f0e7b2"
+          "sha256-dVzXBi/oSV9vYgU85mRFHBKuZdup+1x1BipJX74ED7E="
+      )
     ]
     ;
 

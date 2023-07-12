@@ -74,16 +74,18 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "postgresqlBackup"
-        "period"
-      ]
-      ''
-        A systemd timer is now used instead of cron.
-        The starting time can be configured via <literal>services.postgresqlBackup.startAt</literal>.
-      '')
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "postgresqlBackup"
+          "period"
+        ]
+        ''
+          A systemd timer is now used instead of cron.
+          The starting time can be configured via <literal>services.postgresqlBackup.startAt</literal>.
+        ''
+    )
   ];
 
   options = {
@@ -103,7 +105,9 @@ in
       backupAll = mkOption {
         default = cfg.databases == [ ];
         defaultText =
-          literalExpression "services.postgresqlBackup.databases == []";
+          literalExpression
+            "services.postgresqlBackup.databases == []"
+          ;
         type = lib.types.bool;
         description = lib.mdDoc ''
           Backup all databases using pg_dumpall.
@@ -196,22 +200,24 @@ in
     })
     (mkIf (cfg.enable && cfg.backupAll) {
       systemd.services.postgresqlBackup =
-        postgresqlBackupService "all" "pg_dumpall";
+        postgresqlBackupService "all"
+          "pg_dumpall"
+        ;
     })
     (mkIf (cfg.enable && !cfg.backupAll) {
       systemd.services = listToAttrs (
         map
-        (
-          db:
-          let
-            cmd = "pg_dump ${cfg.pgdumpOptions} ${db}";
-          in
-          {
-            name = "postgresqlBackup-${db}";
-            value = postgresqlBackupService db cmd;
-          }
-        )
-        cfg.databases
+          (
+            db:
+            let
+              cmd = "pg_dump ${cfg.pgdumpOptions} ${db}";
+            in
+            {
+              name = "postgresqlBackup-${db}";
+              value = postgresqlBackupService db cmd;
+            }
+          )
+          cfg.databases
       );
     })
   ];

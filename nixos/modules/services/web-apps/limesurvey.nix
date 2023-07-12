@@ -133,7 +133,9 @@ in
           ;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
-          lib.mdDoc "Path to the unix socket file to use for authentication.";
+          lib.mdDoc
+            "Path to the unix socket file to use for authentication."
+          ;
       };
 
       createLocally = mkOption {
@@ -148,8 +150,9 @@ in
     };
 
     virtualHost = mkOption {
-      type =
-        types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
+      type = types.submodule (
+        import ../web-servers/apache-httpd/vhost-options.nix
+      );
       example = literalExpression ''
         {
           hostName = "survey.example.org";
@@ -252,13 +255,15 @@ in
         uploaddir = "${stateDir}/upload";
         encryptionnonce = cfg.encryptionNonce;
         encryptionsecretboxkey = cfg.encryptionKey;
-        force_ssl = mkIf
-          (
-            cfg.virtualHost.addSSL
-            || cfg.virtualHost.forceSSL
-            || cfg.virtualHost.onlySSL
-          )
-          "on";
+        force_ssl =
+          mkIf
+            (
+              cfg.virtualHost.addSSL
+              || cfg.virtualHost.forceSSL
+              || cfg.virtualHost.onlySSL
+            )
+            "on"
+          ;
         config.defaultlang = "en";
       };
     };

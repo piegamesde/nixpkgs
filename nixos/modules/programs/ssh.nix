@@ -53,7 +53,9 @@ in
         default = config.services.xserver.enable;
         defaultText = literalExpression "config.services.xserver.enable";
         description =
-          lib.mdDoc "Whether to configure SSH_ASKPASS in the environment.";
+          lib.mdDoc
+            "Whether to configure SSH_ASKPASS in the environment."
+          ;
       };
 
       askPassword = mkOption {
@@ -182,8 +184,10 @@ in
                 hostNames = mkOption {
                   type = types.listOf types.str;
                   default = [ name ] ++ config.extraHostNames;
-                  defaultText = literalExpression
-                    "[ ${name} ] ++ config.${options.extraHostNames}";
+                  defaultText =
+                    literalExpression
+                      "[ ${name} ] ++ config.${options.extraHostNames}"
+                    ;
                   description = lib.mdDoc ''
                     A list of host names and/or IP numbers used for accessing
                     the host's ssh service. This list includes the name of the
@@ -357,23 +361,22 @@ in
 
       ForwardX11 ${if cfg.forwardX11 then "yes" else "no"}
 
-      ${optionalString
-      (cfg.pubkeyAcceptedKeyTypes != [ ])
-      "PubkeyAcceptedKeyTypes ${
-        concatStringsSep "," cfg.pubkeyAcceptedKeyTypes
-      }"}
+      ${optionalString (cfg.pubkeyAcceptedKeyTypes != [ ])
+        "PubkeyAcceptedKeyTypes ${
+          concatStringsSep "," cfg.pubkeyAcceptedKeyTypes
+        }"}
       ${optionalString (cfg.hostKeyAlgorithms != [ ]) "HostKeyAlgorithms ${
-        concatStringsSep "," cfg.hostKeyAlgorithms
-      }"}
+          concatStringsSep "," cfg.hostKeyAlgorithms
+        }"}
       ${optionalString (cfg.kexAlgorithms != null) "KexAlgorithms ${
-        concatStringsSep "," cfg.kexAlgorithms
-      }"}
+          concatStringsSep "," cfg.kexAlgorithms
+        }"}
       ${optionalString (cfg.ciphers != null) "Ciphers ${
-        concatStringsSep "," cfg.ciphers
-      }"}
+          concatStringsSep "," cfg.ciphers
+        }"}
       ${optionalString (cfg.macs != null) "MACs ${
-        concatStringsSep "," cfg.macs
-      }"}
+          concatStringsSep "," cfg.macs
+        }"}
     '';
 
     environment.etc."ssh/ssh_known_hosts".text = knownHostsText;
@@ -404,7 +407,9 @@ in
       # unit to know about the user's $DISPLAY (via ‘systemctl
       # import-environment’).
       environment.SSH_ASKPASS =
-        optionalString cfg.enableAskPassword askPasswordWrapper;
+        optionalString cfg.enableAskPassword
+          askPasswordWrapper
+        ;
       environment.DISPLAY =
         "fake"; # required to make ssh-agent start $SSH_ASKPASS
     };
@@ -416,6 +421,8 @@ in
     '';
 
     environment.variables.SSH_ASKPASS =
-      optionalString cfg.enableAskPassword askPassword;
+      optionalString cfg.enableAskPassword
+        askPassword
+      ;
   };
 }

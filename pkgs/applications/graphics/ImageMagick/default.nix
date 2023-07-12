@@ -110,9 +110,10 @@ stdenv.mkDerivation (
         (lib.withFeature librsvgSupport "pango")
         (lib.withFeature liblqr1Support "lqr")
         (lib.withFeature libjxlSupport "jxl")
-        (lib.withFeatureAs ghostscriptSupport
-          "gs-font-dir"
-          "${ghostscript}/share/ghostscript/fonts")
+        (
+          lib.withFeatureAs ghostscriptSupport "gs-font-dir"
+            "${ghostscript}/share/ghostscript/fonts"
+        )
         (lib.withFeature ghostscriptSupport "gslib")
       ]
       ++ lib.optionals stdenv.hostPlatform.isMinGW [

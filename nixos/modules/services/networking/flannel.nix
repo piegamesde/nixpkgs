@@ -89,8 +89,10 @@ in
     };
 
     network = mkOption {
-      description = lib.mdDoc
-        " IPv4 network in CIDR format to use for the entire flannel network.";
+      description =
+        lib.mdDoc
+          " IPv4 network in CIDR format to use for the entire flannel network."
+        ;
       type = types.str;
     };
 
@@ -106,7 +108,8 @@ in
 
     storageBackend = mkOption {
       description =
-        lib.mdDoc "Determines where flannel stores its configuration at runtime"
+        lib.mdDoc
+          "Determines where flannel stores its configuration at runtime"
         ;
       type = types.enum [
         "etcd"
@@ -144,8 +147,10 @@ in
     };
 
     backend = mkOption {
-      description = lib.mdDoc
-        "Type of backend to use and specific configurations for that backend.";
+      description =
+        lib.mdDoc
+          "Type of backend to use and specific configurations for that backend."
+        ;
       type = types.attrs;
       default = { Type = "vxlan"; };
     };
@@ -201,8 +206,12 @@ in
     # for some reason, flannel doesn't let you configure this path
     # see: https://github.com/coreos/flannel/blob/master/Documentation/configuration.md#configuration
     environment.etc."kube-flannel/net-conf.json" =
-      mkIf (cfg.storageBackend == "kubernetes") {
-        source = pkgs.writeText "net-conf.json" (builtins.toJSON networkConfig);
-      };
+      mkIf (cfg.storageBackend == "kubernetes")
+        {
+          source = pkgs.writeText "net-conf.json" (
+            builtins.toJSON networkConfig
+          );
+        }
+      ;
   };
 }

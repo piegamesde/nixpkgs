@@ -20,9 +20,11 @@ let
     else
       client
     ;
-  filteredSettings = mapAttrs
-    (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
-    cfg.settings;
+  filteredSettings =
+    mapAttrs
+      (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
+      cfg.settings
+    ;
   secretFiles = flatten (
     builtins.map (c: if c ? secretFile then [ c.secretFile ] else [ ]) (
       cfg.settings.staticClients or [ ]
@@ -35,10 +37,10 @@ let
   startPreScript = pkgs.writeShellScript "dex-start-pre" (
     concatStringsSep "\n" (
       map
-      (file: ''
-        replace-secret '${file}' '${file}' /run/dex/config.yaml
-      '')
-      secretFiles
+        (file: ''
+          replace-secret '${file}' '${file}' /run/dex/config.yaml
+        '')
+        secretFiles
     )
   );
 in
@@ -99,9 +101,10 @@ in
       wantedBy = [ "multi-user.target" ];
       after =
         [ "networking.target" ]
-        ++ (optional
-          (cfg.settings.storage.type == "postgres")
-          "postgresql.service")
+        ++ (
+          optional (cfg.settings.storage.type == "postgres")
+            "postgresql.service"
+        )
         ;
       path = with pkgs; [ replace-secret ];
       serviceConfig = {
@@ -122,9 +125,10 @@ in
           "-/etc/resolv.conf"
           "-/etc/ssl/certs/ca-certificates.crt"
         ];
-        BindPaths = optional
-          (cfg.settings.storage.type == "postgres")
-          "/var/run/postgresql";
+        BindPaths =
+          optional (cfg.settings.storage.type == "postgres")
+            "/var/run/postgresql"
+          ;
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";

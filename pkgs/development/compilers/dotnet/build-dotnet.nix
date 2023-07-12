@@ -78,8 +78,10 @@ stdenv.mkDerivation (
       ;
 
     src = fetchurl (
-      srcs."${stdenv.hostPlatform.system}" or (throw
-        "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}")
+      srcs."${stdenv.hostPlatform.system}" or (
+        throw
+          "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}"
+      )
     );
 
     sourceRoot = ".";
@@ -157,16 +159,18 @@ stdenv.mkDerivation (
       tests = {
         version = testers.testVersion { package = finalAttrs.finalPackage; };
 
-        smoke-test = runCommand "dotnet-sdk-smoke-test"
-          { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-          ''
-            HOME=$(pwd)/fake-home
-            dotnet new console
-            dotnet build
-            output="$(dotnet run)"
-            # yes, older SDKs omit the comma
-            [[ "$output" =~ Hello,?\ World! ]] && touch "$out"
-          '';
+        smoke-test =
+          runCommand "dotnet-sdk-smoke-test"
+            { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+            ''
+              HOME=$(pwd)/fake-home
+              dotnet new console
+              dotnet build
+              output="$(dotnet run)"
+              # yes, older SDKs omit the comma
+              [[ "$output" =~ Hello,?\ World! ]] && touch "$out"
+            ''
+          ;
       };
     };
 

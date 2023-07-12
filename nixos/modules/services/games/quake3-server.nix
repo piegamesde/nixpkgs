@@ -78,7 +78,9 @@ in
         type = types.either types.package types.path;
         default = defaultBaseq3;
         defaultText =
-          literalMD "Manually downloaded Quake 3 installation directory.";
+          literalMD
+            "Manually downloaded Quake 3 installation directory."
+          ;
         example = "/var/lib/q3ds";
         description = lib.mdDoc ''
           Path to the baseq3 files (pak*.pk3). If this is on the nix store (type = package) all .pk3 files should be saved
@@ -110,9 +112,9 @@ in
 
           # It is possible to alter configuration files via RCON. To ensure reproducibility we have to prevent this
           ReadOnlyPaths = if baseq3InStore then home else cfg.baseq3;
-          ExecStartPre = optionalString
-            (!baseq3InStore)
-            "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg"
+          ExecStartPre =
+            optionalString (!baseq3InStore)
+              "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg"
             ;
 
           ExecStart = "${pkgs.ioquake3}/ioq3ded.x86_64 +exec nix.cfg";

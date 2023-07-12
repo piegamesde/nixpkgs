@@ -18,8 +18,9 @@ in
 {
   options = {
     environment.wordlist = {
-      enable =
-        mkEnableOption (lib.mdDoc "environment variables for lists of words");
+      enable = mkEnableOption (
+        lib.mdDoc "environment variables for lists of words"
+      );
 
       lists = mkOption {
         type = types.attrsOf (types.nonEmptyListOf types.path);
@@ -60,8 +61,9 @@ in
   };
 
   config = mkIf config.environment.wordlist.enable {
-    environment.variables = lib.mapAttrs
-      (name: value: "${concatAndSort "wordlist-${name}" value}")
-      config.environment.wordlist.lists;
+    environment.variables =
+      lib.mapAttrs (name: value: "${concatAndSort "wordlist-${name}" value}")
+        config.environment.wordlist.lists
+      ;
   };
 }

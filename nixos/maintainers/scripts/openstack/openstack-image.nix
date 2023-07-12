@@ -20,7 +20,9 @@ in
   system.build.openstackImage = import ../../../lib/make-disk-image.nix {
     inherit lib config copyChannel;
     additionalSpace = "1024M";
-    pkgs = import ../../../.. { inherit (pkgs) system; }
+    pkgs =
+      import ../../../..
+        { inherit (pkgs) system; }
       ; # ensure we use the regular qemu-kvm package
     format = "qcow2";
     configFile = pkgs.writeText "configuration.nix" ''

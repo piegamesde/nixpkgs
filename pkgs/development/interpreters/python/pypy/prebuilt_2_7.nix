@@ -41,10 +41,14 @@ let
     pythonOnBuildForBuild = throw "${pname} does not support cross compilation";
     pythonOnBuildForHost = self;
     pythonOnBuildForTarget =
-      throw "${pname} does not support cross compilation";
+      throw
+        "${pname} does not support cross compilation"
+      ;
     pythonOnHostForHost = throw "${pname} does not support cross compilation";
     pythonOnTargetForTarget =
-      throw "${pname} does not support cross compilation";
+      throw
+        "${pname} does not support cross compilation"
+      ;
   };
   pname = "${passthru.executable}_prebuilt";
   version = with sourceVersion; "${major}.${minor}.${patch}";

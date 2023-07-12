@@ -120,10 +120,10 @@ in
       environment.etc = mkIf (cfg.settings != { }) {
         atoprc.text = concatStrings (
           mapAttrsToList
-          (n: v: ''
-            ${n} ${toString v}
-          '')
-          cfg.settings
+            (n: v: ''
+              ${n} ${toString v}
+            '')
+            cfg.settings
         );
       };
       environment.systemPackages = [
@@ -166,22 +166,24 @@ in
               # XXX might trigger TimeoutStart but restarting atop.service will
               # convert remainings logs and start eventually
               atop.serviceConfig.ExecStartPre =
-                pkgs.writeShellScript "atop-update-log-format" ''
-                  set -e -u
-                  shopt -s nullglob
-                  for logfile in "$LOGPATH"/atop_*
-                  do
-                    ${atop}/bin/atopconvert "$logfile" "$logfile".new
-                    # only replace old file if version was upgraded to avoid
-                    # false positives for atop-rotate.service
-                    if ! ${pkgs.diffutils}/bin/cmp -s "$logfile" "$logfile".new
-                    then
-                      ${pkgs.coreutils}/bin/mv -v -f "$logfile".new "$logfile"
-                    else
-                      ${pkgs.coreutils}/bin/rm -f "$logfile".new
-                    fi
-                  done
-                '';
+                pkgs.writeShellScript "atop-update-log-format"
+                  ''
+                    set -e -u
+                    shopt -s nullglob
+                    for logfile in "$LOGPATH"/atop_*
+                    do
+                      ${atop}/bin/atopconvert "$logfile" "$logfile".new
+                      # only replace old file if version was upgraded to avoid
+                      # false positives for atop-rotate.service
+                      if ! ${pkgs.diffutils}/bin/cmp -s "$logfile" "$logfile".new
+                      then
+                        ${pkgs.coreutils}/bin/mv -v -f "$logfile".new "$logfile"
+                      else
+                        ${pkgs.coreutils}/bin/rm -f "$logfile".new
+                      fi
+                    done
+                  ''
+                ;
             } // mkService cfg.atopacctService.enable "atopacct" [ atop ]
             // mkService cfg.netatop.enable "netatop" [ cfg.netatop.package ]
             // mkService cfg.atopgpu.enable "atopgpu" [ atop ];

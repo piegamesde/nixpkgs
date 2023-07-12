@@ -21,14 +21,16 @@ let
     else
       (pkgs.buildEnv {
         name = "kubernetes-cni-config";
-        paths = imap
-          (
-            i: entry:
-            pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (
-              builtins.toJSON entry
+        paths =
+          imap
+            (
+              i: entry:
+              pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (
+                builtins.toJSON entry
+              )
             )
-          )
-          cfg.cni.config;
+            cfg.cni.config
+          ;
       })
     ;
 
@@ -81,46 +83,56 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "applyManifests"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "cadvisorPort"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "allowPrivileged"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "networkPlugin"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "containerRuntime"
-      ]
-      "")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "kubernetes"
+          "kubelet"
+          "applyManifests"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "kubernetes"
+          "kubelet"
+          "cadvisorPort"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "kubernetes"
+          "kubelet"
+          "allowPrivileged"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "kubernetes"
+          "kubelet"
+          "networkPlugin"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "kubernetes"
+          "kubelet"
+          "containerRuntime"
+        ]
+        ""
+    )
   ];
 
   ###### interface
@@ -128,7 +140,9 @@ in
 
     address = mkOption {
       description =
-        lib.mdDoc "Kubernetes kubelet info server listening address.";
+        lib.mdDoc
+          "Kubernetes kubelet info server listening address."
+        ;
       default = "0.0.0.0";
       type = str;
     };
@@ -142,14 +156,18 @@ in
     clusterDomain = mkOption {
       description = lib.mdDoc "Use alternative domain.";
       default = config.services.kubernetes.addons.dns.clusterDomain;
-      defaultText = literalExpression
-        "config.${options.services.kubernetes.addons.dns.clusterDomain}";
+      defaultText =
+        literalExpression
+          "config.${options.services.kubernetes.addons.dns.clusterDomain}"
+        ;
       type = str;
     };
 
     clientCaFile = mkOption {
       description =
-        lib.mdDoc "Kubernetes apiserver CA file for client authentication.";
+        lib.mdDoc
+          "Kubernetes apiserver CA file for client authentication."
+        ;
       default = top.caFile;
       defaultText = literalExpression "config.${otop.caFile}";
       type = nullOr path;
@@ -190,15 +208,19 @@ in
 
       configDir = mkOption {
         description =
-          lib.mdDoc "Path to Kubernetes CNI configuration directory.";
+          lib.mdDoc
+            "Path to Kubernetes CNI configuration directory."
+          ;
         type = nullOr path;
         default = null;
       };
     };
 
     containerRuntimeEndpoint = mkOption {
-      description = lib.mdDoc
-        "Endpoint at which to find the container runtime api interface/socket";
+      description =
+        lib.mdDoc
+          "Endpoint at which to find the container runtime api interface/socket"
+        ;
       type = str;
       default = "unix:///run/containerd/containerd.sock";
     };
@@ -241,16 +263,18 @@ in
     kubeconfig = top.lib.mkKubeConfigOptions "Kubelet";
 
     manifests = mkOption {
-      description = lib.mdDoc
-        "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)"
+      description =
+        lib.mdDoc
+          "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)"
         ;
       type = attrsOf attrs;
       default = { };
     };
 
     nodeIp = mkOption {
-      description = lib.mdDoc
-        "IP address of the node. If set, kubelet will use this IP address for the node."
+      description =
+        lib.mdDoc
+          "IP address of the node. If set, kubelet will use this IP address for the node."
         ;
       default = null;
       type = nullOr str;
@@ -258,7 +282,9 @@ in
 
     registerNode = mkOption {
       description =
-        lib.mdDoc "Whether to auto register kubelet with API server.";
+        lib.mdDoc
+          "Whether to auto register kubelet with API server."
+        ;
       default = true;
       type = bool;
     };
@@ -276,8 +302,9 @@ in
     };
 
     taints = mkOption {
-      description = lib.mdDoc
-        "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)."
+      description =
+        lib.mdDoc
+          "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)."
         ;
       default = { };
       type = attrsOf (submodule [ taintOptions ]);
@@ -291,14 +318,17 @@ in
 
     tlsKeyFile = mkOption {
       description =
-        lib.mdDoc "File containing x509 private key matching tlsCertFile.";
+        lib.mdDoc
+          "File containing x509 private key matching tlsCertFile."
+        ;
       default = null;
       type = nullOr path;
     };
 
     unschedulable = mkOption {
-      description = lib.mdDoc
-        "Whether to set node taint to unschedulable=true as it is the case of node that has only master role."
+      description =
+        lib.mdDoc
+          "Whether to set node taint to unschedulable=true as it is the case of node that has only master role."
         ;
       default = false;
       type = bool;
@@ -351,24 +381,24 @@ in
           ++ top.path;
         preStart = ''
           ${concatMapStrings
-          (img: ''
-            echo "Seeding container image: ${img}"
-            ${if (lib.hasSuffix "gz" img) then
-              ''
-                ${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
-            else
-              ''
-                ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
-          '')
-          cfg.seedDockerImages}
+            (img: ''
+              echo "Seeding container image: ${img}"
+              ${if (lib.hasSuffix "gz" img) then
+                ''
+                  ${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
+              else
+                ''
+                  ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
+            '')
+            cfg.seedDockerImages}
 
           rm /opt/cni/bin/* || true
           ${concatMapStrings
-          (package: ''
-            echo "Linking cni package: ${package}"
-            ln -fs ${package}/bin/* /opt/cni/bin
-          '')
-          cfg.cni.packages}
+            (package: ''
+              echo "Linking cni package: ${package}"
+              ln -fs ${package}/bin/* /opt/cni/bin
+            '')
+            cfg.cni.packages}
         '';
         serviceConfig = {
           Slice = "kubernetes.slice";
@@ -383,28 +413,24 @@ in
                         --authentication-token-webhook-cache-ttl="10s" \
                         --authorization-mode=Webhook \
                         ${
-                          optionalString
-                          (cfg.clientCaFile != null)
-                          "--client-ca-file=${cfg.clientCaFile}"
+                          optionalString (cfg.clientCaFile != null)
+                            "--client-ca-file=${cfg.clientCaFile}"
                         } \
                         ${
-                          optionalString
-                          (cfg.clusterDns != "")
-                          "--cluster-dns=${cfg.clusterDns}"
+                          optionalString (cfg.clusterDns != "")
+                            "--cluster-dns=${cfg.clusterDns}"
                         } \
                         ${
-                          optionalString
-                          (cfg.clusterDomain != "")
-                          "--cluster-domain=${cfg.clusterDomain}"
+                          optionalString (cfg.clusterDomain != "")
+                            "--cluster-domain=${cfg.clusterDomain}"
                         } \
                         ${
-                          optionalString
-                          (cfg.featureGates != [ ])
-                          "--feature-gates=${
-                            concatMapStringsSep ","
-                            (feature: "${feature}=true")
-                            cfg.featureGates
-                          }"
+                          optionalString (cfg.featureGates != [ ])
+                            "--feature-gates=${
+                              concatMapStringsSep ","
+                                (feature: "${feature}=true")
+                                cfg.featureGates
+                            }"
                         } \
                         --hairpin-mode=hairpin-veth \
                         --healthz-bind-address=${cfg.healthz.bind} \
@@ -412,38 +438,33 @@ in
                         --hostname-override=${cfg.hostname} \
                         --kubeconfig=${kubeconfig} \
                         ${
-                          optionalString
-                          (cfg.nodeIp != null)
-                          "--node-ip=${cfg.nodeIp}"
+                          optionalString (cfg.nodeIp != null)
+                            "--node-ip=${cfg.nodeIp}"
                         } \
                         --pod-infra-container-image=pause \
                         ${
-                          optionalString
-                          (cfg.manifests != { })
-                          "--pod-manifest-path=/etc/${manifestPath}"
+                          optionalString (cfg.manifests != { })
+                            "--pod-manifest-path=/etc/${manifestPath}"
                         } \
                         --port=${toString cfg.port} \
                         --register-node=${boolToString cfg.registerNode} \
                         ${
-                          optionalString
-                          (taints != "")
-                          "--register-with-taints=${taints}"
+                          optionalString (taints != "")
+                            "--register-with-taints=${taints}"
                         } \
                         --root-dir=${top.dataDir} \
                         ${
-                          optionalString
-                          (cfg.tlsCertFile != null)
-                          "--tls-cert-file=${cfg.tlsCertFile}"
+                          optionalString (cfg.tlsCertFile != null)
+                            "--tls-cert-file=${cfg.tlsCertFile}"
                         } \
                         ${
-                          optionalString
-                          (cfg.tlsKeyFile != null)
-                          "--tls-private-key-file=${cfg.tlsKeyFile}"
+                          optionalString (cfg.tlsKeyFile != null)
+                            "--tls-private-key-file=${cfg.tlsKeyFile}"
                         } \
                         ${
                           optionalString (cfg.verbosity != null) "--v=${
-                            toString cfg.verbosity
-                          }"
+                              toString cfg.verbosity
+                            }"
                         } \
                         --container-runtime-endpoint=${cfg.containerRuntimeEndpoint} \
                         --cgroup-driver=systemd \
@@ -466,7 +487,9 @@ in
       ];
 
       services.kubernetes.kubelet.hostname =
-        mkDefault config.networking.fqdnOrHostName;
+        mkDefault
+          config.networking.fqdnOrHostName
+        ;
 
       services.kubernetes.pki.certs = with top.lib; {
         kubelet = mkCert {
@@ -483,19 +506,23 @@ in
       };
 
       services.kubernetes.kubelet.kubeconfig.server =
-        mkDefault top.apiserverAddress;
+        mkDefault
+          top.apiserverAddress
+        ;
     })
 
     (mkIf (cfg.enable && cfg.manifests != { }) {
-      environment.etc = mapAttrs'
-        (
-          name: manifest:
-          nameValuePair "${manifestPath}/${name}.json" {
-            text = builtins.toJSON manifest;
-            mode = "0755";
-          }
-        )
-        cfg.manifests;
+      environment.etc =
+        mapAttrs'
+          (
+            name: manifest:
+            nameValuePair "${manifestPath}/${name}.json" {
+              text = builtins.toJSON manifest;
+              mode = "0755";
+            }
+          )
+          cfg.manifests
+        ;
     })
 
     (mkIf (cfg.unschedulable && cfg.enable) {

@@ -30,7 +30,9 @@ in
 
       config = mkOption {
         description =
-          lib.mdDoc "The ngircd configuration (see ngircd.conf(5)).";
+          lib.mdDoc
+            "The ngircd configuration (see ngircd.conf(5))."
+          ;
 
         type = types.lines;
       };

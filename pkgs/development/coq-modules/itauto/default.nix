@@ -21,25 +21,25 @@ mkCoqDerivation rec {
   inherit version;
   defaultVersion = with lib.versions;
     lib.switch coq.coq-version
-    [
-      {
-        case = isEq "8.16";
-        out = "8.16.0";
-      }
-      {
-        case = isEq "8.15";
-        out = "8.15.0";
-      }
-      {
-        case = isEq "8.14";
-        out = "8.14.0";
-      }
-      {
-        case = isEq "8.13";
-        out = "8.13+no";
-      }
-    ]
-    null;
+      [
+        {
+          case = isEq "8.16";
+          out = "8.16.0";
+        }
+        {
+          case = isEq "8.15";
+          out = "8.15.0";
+        }
+        {
+          case = isEq "8.14";
+          out = "8.14.0";
+        }
+        {
+          case = isEq "8.13";
+          out = "8.13+no";
+        }
+      ]
+      null;
 
   mlPlugin = true;
   nativeBuildInputs = (with coq.ocamlPackages; [ ocamlbuild ]);

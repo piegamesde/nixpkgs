@@ -12,7 +12,9 @@ let
   dataDir = "/var/lib/sssd";
   settingsFile = "${dataDir}/sssd.conf";
   settingsFileUnsubstituted =
-    pkgs.writeText "${dataDir}/sssd-unsubstituted.conf" cfg.config;
+    pkgs.writeText "${dataDir}/sssd-unsubstituted.conf"
+      cfg.config
+    ;
 in
 {
   options = {
@@ -119,7 +121,9 @@ in
           StateDirectory = baseNameOf dataDir;
           # We cannot use LoadCredential here because it's not available in ExecStartPre
           EnvironmentFile =
-            lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+            lib.mkIf (cfg.environmentFile != null)
+              cfg.environmentFile
+            ;
         };
         preStart = ''
           mkdir -p "${dataDir}/conf.d"

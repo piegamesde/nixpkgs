@@ -158,9 +158,10 @@ let
   crossMingw =
     targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
-  crossNameAddon = optionalString
-    (targetPlatform != hostPlatform)
-    "${targetPlatform.config}-${stageNameAddon}-";
+  crossNameAddon =
+    optionalString (targetPlatform != hostPlatform)
+      "${targetPlatform.config}-${stageNameAddon}-"
+    ;
 
   callFile = lib.callPackageWith {
     # lets
@@ -334,9 +335,10 @@ stdenv.mkDerivation (
     targetConfig =
       if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags = optional
-      (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-      (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+    buildFlags =
+      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
+        (if profiledCompiler then "profiledbootstrap" else "bootstrap")
+      ;
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
@@ -422,18 +424,18 @@ stdenv.mkDerivation (
   }
 
   // optionalAttrs
-  (
-    targetPlatform != hostPlatform
-    && targetPlatform.libc == "msvcrt"
-    && crossStageStatic
-  )
-  {
-    makeFlags = [
-      "all-gcc"
-      "all-target-libgcc"
-    ];
-    installTargets = "install-gcc install-target-libgcc";
-  }
+    (
+      targetPlatform != hostPlatform
+      && targetPlatform.libc == "msvcrt"
+      && crossStageStatic
+    )
+    {
+      makeFlags = [
+        "all-gcc"
+        "all-target-libgcc"
+      ];
+      installTargets = "install-gcc install-target-libgcc";
+    }
 
   // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
 )

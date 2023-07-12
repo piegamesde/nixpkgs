@@ -68,7 +68,9 @@ in
             ];
             default = "none";
             description =
-              lib.mdDoc "Announce game in LAN using given protocol.";
+              lib.mdDoc
+                "Announce game in LAN using given protocol."
+              ;
           };
           options.auth = mkEnableOption (lib.mdDoc "server authentication");
           options.Database = mkOption {
@@ -80,7 +82,9 @@ in
                 database="/var/lib/freeciv/auth.sqlite"
             '';
             description =
-              lib.mdDoc "Enable database connection with given configuration.";
+              lib.mdDoc
+                "Enable database connection with given configuration."
+              ;
           };
           options.debug = mkOption {
             type = types.ints.between 0 3;
@@ -90,10 +94,12 @@ in
           options.exit-on-end = mkEnableOption (
             lib.mdDoc "exit instead of restarting when a game ends"
           );
-          options.Guests =
-            mkEnableOption (lib.mdDoc "guests to login if auth is enabled");
-          options.Newusers =
-            mkEnableOption (lib.mdDoc "new users to login if auth is enabled");
+          options.Guests = mkEnableOption (
+            lib.mdDoc "guests to login if auth is enabled"
+          );
+          options.Newusers = mkEnableOption (
+            lib.mdDoc "new users to login if auth is enabled"
+          );
           options.port = mkOption {
             type = types.port;
             default = 5556;
@@ -103,7 +109,9 @@ in
             type = types.nullOr types.int;
             default = null;
             description =
-              lib.mdDoc "Quit if no players for given time in seconds.";
+              lib.mdDoc
+                "Quit if no players for given time in seconds."
+              ;
           };
           options.read = mkOption {
             type = types.lines;
@@ -241,8 +249,9 @@ in
         SystemCallErrorNumber = "EPERM";
       };
     };
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.settings.port ];
+    };
   };
   meta.maintainers = with lib.maintainers; [ julm ];
 }

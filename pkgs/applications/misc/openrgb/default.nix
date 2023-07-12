@@ -78,12 +78,12 @@ stdenv.mkDerivation rec {
             ''
               DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
                 lib.escape
-                [
-                  "\\"
-                  ''"''
-                  " "
-                ]
-                (toString pluginsDir)
+                  [
+                    "\\"
+                    ''"''
+                    " "
+                  ]
+                  (toString pluginsDir)
               }/lib\\\""''
           ]
           ;

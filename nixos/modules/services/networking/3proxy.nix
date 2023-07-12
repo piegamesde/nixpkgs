@@ -365,52 +365,50 @@ in
         nscache6 ${toString cfg.resolution.nscache6}
 
         ${concatMapStringsSep "\n" (x: "nsrecord " + x) (
-          mapAttrsToList
-          (name: value: "${name} ${value}")
-          cfg.resolution.nsrecord
+          mapAttrsToList (name: value: "${name} ${value}")
+            cfg.resolution.nsrecord
         )}
 
         ${optionalString (cfg.usersFile != null) ''users $"${cfg.usersFile}"''}
 
         ${concatMapStringsSep "\n"
-        (service: ''
-          auth ${concatStringsSep " " service.auth}
+          (service: ''
+            auth ${concatStringsSep " " service.auth}
 
-          ${optionalString (cfg.denyPrivate) "deny * * ${
-            optionalList cfg.privateRanges
-          }"}
+            ${optionalString (cfg.denyPrivate) "deny * * ${
+                optionalList cfg.privateRanges
+              }"}
 
-          ${concatMapStringsSep "\n"
-          (
-            acl:
-            "${acl.rule} ${
-              concatMapStringsSep " " optionalList [
-                acl.users
-                acl.sources
-                acl.targets
-                acl.targetPorts
-              ]
-            }"
-          )
-          service.acl}
+            ${concatMapStringsSep "\n"
+              (
+                acl:
+                "${acl.rule} ${
+                  concatMapStringsSep " " optionalList [
+                    acl.users
+                    acl.sources
+                    acl.targets
+                    acl.targetPorts
+                  ]
+                }"
+              )
+              service.acl}
 
-          maxconn ${toString service.maxConnections}
+            maxconn ${toString service.maxConnections}
 
-          ${optionalString (service.extraConfig != null) service.extraConfig}
+            ${optionalString (service.extraConfig != null) service.extraConfig}
 
-          ${service.type} -i${toString service.bindAddress} ${
-            optionalString (service.bindPort != null) "-p${
-              toString service.bindPort
-            }"
-          } ${
-            optionalString
-            (service.extraArguments != null)
-            service.extraArguments
-          }
+            ${service.type} -i${toString service.bindAddress} ${
+              optionalString (service.bindPort != null) "-p${
+                  toString service.bindPort
+                }"
+            } ${
+              optionalString (service.extraArguments != null)
+                service.extraArguments
+            }
 
-          flush
-        '')
-        cfg.services}
+            flush
+          '')
+          cfg.services}
         ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
       ''
     );

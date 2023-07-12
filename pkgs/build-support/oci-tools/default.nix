@@ -113,18 +113,20 @@
             cwd = "/";
           };
 
-          mounts = lib.mapAttrsToList
-            (
-              destination:
-              {
-                type,
-                source,
-                options ? null,
-              }: {
-                inherit destination type source options;
-              }
-            )
-            sysMounts;
+          mounts =
+            lib.mapAttrsToList
+              (
+                destination:
+                {
+                  type,
+                  source,
+                  options ? null,
+                }: {
+                  inherit destination type source options;
+                }
+              )
+              sysMounts
+            ;
         }
       );
     in

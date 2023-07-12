@@ -16,7 +16,9 @@
 let
   pythonEnv = python3.withPackages (ps: [ ps.pygobject3 ]);
   makeTypelibPath =
-    lib.makeSearchPathOutput "lib/girepository-1.0" "lib/girepository-1.0";
+    lib.makeSearchPathOutput "lib/girepository-1.0"
+      "lib/girepository-1.0"
+    ;
 in
 mkXfceDerivation {
   category = "apps";

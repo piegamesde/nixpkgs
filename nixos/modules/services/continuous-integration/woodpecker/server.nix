@@ -18,7 +18,7 @@ in
     services.woodpecker-server = {
       enable = lib.mkEnableOption (
         lib.mdDoc
-        "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests"
+          "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests"
       );
       package = lib.mkPackageOptionMD pkgs "woodpecker-server" { };
       environment = lib.mkOption {
@@ -33,8 +33,9 @@ in
             WOODPECKER_GITEA_URL = "https://git.example.com";
           }
         '';
-        description = lib.mdDoc
-          "woodpecker-server config envrionment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/server-config)"
+        description =
+          lib.mdDoc
+            "woodpecker-server config envrionment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/server-config)"
           ;
       };
       environmentFile = lib.mkOption {
@@ -69,7 +70,9 @@ in
           UMask = "0007";
           ConfigurationDirectory = "woodpecker-server";
           EnvironmentFile =
-            lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+            lib.optional (cfg.environmentFile != null)
+              cfg.environmentFile
+            ;
           ExecStart = "${cfg.package}/bin/woodpecker-server";
           Restart = "on-failure";
           RestartSec = 15;

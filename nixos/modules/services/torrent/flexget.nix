@@ -42,8 +42,9 @@ in
         default = "10m";
         example = "1h";
         type = types.str;
-        description = lib.mdDoc
-          "When to perform a {command}`flexget` run. See {command}`man 7 systemd.time` for the format."
+        description =
+          lib.mdDoc
+            "When to perform a {command}`flexget` run. See {command}`man 7 systemd.time` for the format."
           ;
       };
 
@@ -51,8 +52,9 @@ in
         default = true;
         example = false;
         type = types.bool;
-        description = lib.mdDoc
-          "When true, execute the runs via the flexget-runner.timer. If false, you have to specify the settings yourself in the YML file."
+        description =
+          lib.mdDoc
+            "When true, execute the runs via the flexget-runner.timer. If false, you have to specify the settings yourself in the YML file."
           ;
       };
 

@@ -93,6 +93,7 @@ stdenv.mkDerivation {
     maintainers = [ maintainers.kubukoz ];
   };
 
-  passthru.updateScript =
-    callPackage ./update.nix { } { inherit platforms pname version; };
+  passthru.updateScript = callPackage ./update.nix { } {
+    inherit platforms pname version;
+  };
 }

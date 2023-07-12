@@ -179,31 +179,36 @@ let
           SecurityInterface
           Vision
           ;
-        xcbuild =
-          buildPackages.xcbuild.override { productBuildVer = "20A2408"; };
+        xcbuild = buildPackages.xcbuild.override {
+          productBuildVer = "20A2408";
+        };
       };
       qtwebsockets = callPackage ./modules/qtwebsockets.nix { };
       qtwebview = callPackage ./modules/qtwebview.nix {
         inherit (darwin.apple_sdk_11_0.frameworks) WebKit;
       };
 
-      wrapQtAppsHook = makeSetupHook
-        {
-          name = "wrap-qt6-apps-hook";
-          propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
-        }
-        ./hooks/wrap-qt-apps-hook.sh;
+      wrapQtAppsHook =
+        makeSetupHook
+          {
+            name = "wrap-qt6-apps-hook";
+            propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
+          }
+          ./hooks/wrap-qt-apps-hook.sh
+        ;
 
-      qmake = makeSetupHook
-        {
-          name = "qmake6-hook";
-          propagatedBuildInputs = [ self.qtbase.dev ];
-          substitutions = {
-            inherit debug;
-            fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
-          };
-        }
-        ./hooks/qmake-hook.sh;
+      qmake =
+        makeSetupHook
+          {
+            name = "qmake6-hook";
+            propagatedBuildInputs = [ self.qtbase.dev ];
+            substitutions = {
+              inherit debug;
+              fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
+            };
+          }
+          ./hooks/qmake-hook.sh
+        ;
     }
     ;
 

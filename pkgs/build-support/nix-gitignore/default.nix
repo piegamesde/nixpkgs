@@ -25,12 +25,14 @@ rec {
       let
         relPath = lib.removePrefix ((toString root) + "/") name;
         matches = pair: (match (head pair) relPath) != null;
-        matched = map
-          (pair: [
-            (matches pair)
-            (last pair)
-          ])
-          patterns;
+        matched =
+          map
+            (pair: [
+              (matches pair)
+              (last pair)
+            ])
+            patterns
+          ;
       in
       last (
         last (
@@ -64,15 +66,17 @@ rec {
         ;
 
       # regex -> regex
-      handleHashesBangs = replaceStrings
-        [
-          "\\#"
-          "\\!"
-        ]
-        [
-          "#"
-          "!"
-        ];
+      handleHashesBangs =
+        replaceStrings
+          [
+            "\\#"
+            "\\!"
+          ]
+          [
+            "#"
+            "!"
+          ]
+        ;
 
       # ignore -> regex
       substWildcards =
@@ -99,26 +103,26 @@ rec {
           escape = s: map (c: "\\" + c) (chars s);
         in
         replaceStrings
-        (
-          (chars special)
-          ++ (escape escs)
-          ++ [
-            "**/"
-            "**"
-            "*"
-            "?"
-          ]
-        )
-        (
-          (escape special)
-          ++ (escape escs)
-          ++ [
-            "(.*/)?"
-            ".*"
-            "[^/]*"
-            "[^/]"
-          ]
-        )
+          (
+            (chars special)
+            ++ (escape escs)
+            ++ [
+              "**/"
+              "**"
+              "*"
+              "?"
+            ]
+          )
+          (
+            (escape special)
+            ++ (escape escs)
+            ++ [
+              "(.*/)?"
+              ".*"
+              "[^/]*"
+              "[^/]"
+            ]
+          )
         ;
 
       # (regex -> regex) -> regex -> regex
@@ -164,20 +168,20 @@ rec {
         ;
     in
     map
-    (
-      l: # `l' for "line"
-      mapPat
       (
-        l:
-        handleSlashSuffix (
-          handleSlashPrefix (
-            handleHashesBangs (mapAroundCharclass substWildcards l)
+        l: # `l' for "line"
+        mapPat
+          (
+            l:
+            handleSlashSuffix (
+              handleSlashPrefix (
+                handleHashesBangs (mapAroundCharclass substWildcards l)
+              )
+            )
           )
-        )
+          (computeNegation l)
       )
-      (computeNegation l)
-    )
-    (filter (l: !isList l && !isComment l) (split "\n" gitignore))
+      (filter (l: !isList l && !isComment l) (split "\n" gitignore))
     ;
 
   gitignoreFilter = ign: root: filterPattern (gitignoreToPatterns ign) root;
@@ -270,9 +274,8 @@ rec {
 
   gitignoreFilterRecursiveSource =
     filter: patterns: root:
-    gitignoreFilterSourcePure filter
-    (withRecursiveGitignoreFile patterns root)
-    root
+    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root)
+      root
     ;
 
   # "Filter"-less alternatives

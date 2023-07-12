@@ -72,8 +72,9 @@ let
             x:
             assert (
               builtins.stringLength x < 32
-              || abort
-                "Username '${x}' is longer than 31 characters which is not allowed!"
+              ||
+                abort
+                  "Username '${x}' is longer than 31 characters which is not allowed!"
             );
             x
             ;
@@ -138,8 +139,9 @@ let
             x:
             assert (
               builtins.stringLength x < 32
-              || abort
-                "Group name '${x}' is longer than 31 characters which is not allowed!"
+              ||
+                abort
+                  "Group name '${x}' is longer than 31 characters which is not allowed!"
             );
             x
             ;
@@ -162,8 +164,9 @@ let
         homeMode = mkOption {
           type = types.strMatching "[0-7]{1,5}";
           default = "700";
-          description = lib.mdDoc
-            "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true."
+          description =
+            lib.mdDoc
+              "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true."
             ;
         };
 
@@ -378,15 +381,15 @@ let
         (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
           hashedPassword = mkDefault config.initialHashedPassword;
         })
-        (mkIf
-          (
-            config.isNormalUser
-            && config.subUidRanges == [ ]
-            && config.subGidRanges == [ ]
-          )
-          {
-            autoSubUidGidRange = mkDefault true;
-          })
+        (
+          mkIf
+            (
+              config.isNormalUser
+              && config.subUidRanges == [ ]
+              && config.subGidRanges == [ ]
+            )
+            { autoSubUidGidRange = mkDefault true; }
+        )
       ];
     }
     ;
@@ -473,80 +476,92 @@ let
 
   idsAreUnique =
     set: idAttr:
-    !(foldr
-      (
-        name:
-        args@{
-          dup,
-          acc,
-        }:
-        let
-          id = builtins.toString (
-            builtins.getAttr idAttr (builtins.getAttr name set)
-          );
-          exists = builtins.hasAttr id acc;
-          newAcc = acc // (builtins.listToAttrs [ {
-            name = id;
-            value = true;
-          } ]);
-        in
-        if dup then
-          args
-        else if exists then
-          builtins.trace "Duplicate ${idAttr} ${id}" {
-            dup = true;
-            acc = null;
-          }
-        else
-          {
-            dup = false;
-            acc = newAcc;
-          }
-      )
-      {
-        dup = false;
-        acc = { };
-      }
-      (builtins.attrNames set)).dup
+    !(
+      foldr
+        (
+          name:
+          args@{
+            dup,
+            acc,
+          }:
+          let
+            id = builtins.toString (
+              builtins.getAttr idAttr (builtins.getAttr name set)
+            );
+            exists = builtins.hasAttr id acc;
+            newAcc = acc // (builtins.listToAttrs [ {
+              name = id;
+              value = true;
+            } ]);
+          in
+          if dup then
+            args
+          else if exists then
+            builtins.trace "Duplicate ${idAttr} ${id}" {
+              dup = true;
+              acc = null;
+            }
+          else
+            {
+              dup = false;
+              acc = newAcc;
+            }
+        )
+        {
+          dup = false;
+          acc = { };
+        }
+        (builtins.attrNames set)
+    ).dup
     ;
 
   uidsAreUnique =
-    idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
+    idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users)
+      "uid"
+    ;
   gidsAreUnique =
-    idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups) "gid";
-  sdInitrdUidsAreUnique = idsAreUnique
-    (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
-    "uid";
-  sdInitrdGidsAreUnique = idsAreUnique
-    (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
-    "gid";
+    idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups)
+      "gid"
+    ;
+  sdInitrdUidsAreUnique =
+    idsAreUnique
+      (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
+      "uid"
+    ;
+  sdInitrdGidsAreUnique =
+    idsAreUnique
+      (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
+      "gid"
+    ;
 
   spec = pkgs.writeText "users-groups.json" (
     builtins.toJSON {
       inherit (cfg) mutableUsers;
-      users = mapAttrsToList
-        (_: u: {
-          inherit (u)
-            name
-            uid
-            group
-            description
-            home
-            homeMode
-            createHome
-            isSystemUser
-            password
-            passwordFile
-            hashedPassword
-            autoSubUidGidRange
-            subUidRanges
-            subGidRanges
-            initialPassword
-            initialHashedPassword
-            ;
-          shell = utils.toShellPath u.shell;
-        })
-        cfg.users;
+      users =
+        mapAttrsToList
+          (_: u: {
+            inherit (u)
+              name
+              uid
+              group
+              description
+              home
+              homeMode
+              createHome
+              isSystemUser
+              password
+              passwordFile
+              hashedPassword
+              autoSubUidGidRange
+              subUidRanges
+              subGidRanges
+              initialPassword
+              initialHashedPassword
+              ;
+            shell = utils.toShellPath u.shell;
+          })
+          cfg.users
+        ;
       groups = attrValues cfg.groups;
     }
   );
@@ -560,35 +575,41 @@ let
 in
 {
   imports = [
-    (mkAliasOptionModuleMD
-      [
-        "users"
-        "extraUsers"
-      ]
-      [
-        "users"
-        "users"
-      ])
-    (mkAliasOptionModuleMD
-      [
-        "users"
-        "extraGroups"
-      ]
-      [
-        "users"
-        "groups"
-      ])
-    (mkRenamedOptionModule
-      [
-        "security"
-        "initialRootPassword"
-      ]
-      [
-        "users"
-        "users"
-        "root"
-        "initialHashedPassword"
-      ])
+    (
+      mkAliasOptionModuleMD
+        [
+          "users"
+          "extraUsers"
+        ]
+        [
+          "users"
+          "users"
+        ]
+    )
+    (
+      mkAliasOptionModuleMD
+        [
+          "users"
+          "extraGroups"
+        ]
+        [
+          "users"
+          "groups"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "security"
+          "initialRootPassword"
+        ]
+        [
+          "users"
+          "users"
+          "root"
+          "initialHashedPassword"
+        ]
+    )
   ];
 
   ###### interface
@@ -699,7 +720,9 @@ in
                 Group the user belongs to in initrd.
               '';
               defaultText =
-                literalExpression "config.users.users.\${name}.group";
+                literalExpression
+                  "config.users.users.\${name}.group"
+                ;
               default = cfg.users.${name}.group;
             };
           }
@@ -726,7 +749,9 @@ in
                 ID of the group in initrd.
               '';
               defaultText =
-                literalExpression "config.users.groups.\${name}.gid";
+                literalExpression
+                  "config.users.groups.\${name}.gid"
+                ;
               default = cfg.groups.${name}.gid;
             };
           }
@@ -832,24 +857,26 @@ in
       # Install all the user shells
       environment.systemPackages = systemShells;
 
-      environment.etc = mapAttrs'
-        (
-          _:
-          {
-            packages,
-            name,
-            ...
-          }: {
-            name = "profiles/per-user/${name}";
-            value.source = pkgs.buildEnv {
-              name = "user-environment";
-              paths = packages;
-              inherit (config.environment) pathsToLink extraOutputsToInstall;
-              inherit (config.system.path) ignoreCollisions postBuild;
-            };
-          }
-        )
-        (filterAttrs (_: u: u.packages != [ ]) cfg.users);
+      environment.etc =
+        mapAttrs'
+          (
+            _:
+            {
+              packages,
+              name,
+              ...
+            }: {
+              name = "profiles/per-user/${name}";
+              value.source = pkgs.buildEnv {
+                name = "user-environment";
+                paths = packages;
+                inherit (config.environment) pathsToLink extraOutputsToInstall;
+                inherit (config.system.path) ignoreCollisions postBuild;
+              };
+            }
+          )
+          (filterAttrs (_: u: u.packages != [ ]) cfg.users)
+        ;
 
       environment.profiles = [
         "$HOME/.nix-profile"
@@ -862,31 +889,31 @@ in
           "/etc/passwd".text = ''
             ${lib.concatStringsSep "\n" (
               lib.mapAttrsToList
-              (
-                n:
-                {
-                  uid,
-                  group,
-                }:
-                let
-                  g = config.boot.initrd.systemd.groups.${group};
-                in
-                "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
-              )
-              config.boot.initrd.systemd.users
+                (
+                  n:
+                  {
+                    uid,
+                    group,
+                  }:
+                  let
+                    g = config.boot.initrd.systemd.groups.${group};
+                  in
+                  "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
+                )
+                config.boot.initrd.systemd.users
             )}
           '';
           "/etc/group".text = ''
             ${lib.concatStringsSep "\n" (
               lib.mapAttrsToList
-              (
-                n:
-                {
-                  gid,
-                }:
-                "${n}:x:${toString gid}:"
-              )
-              config.boot.initrd.systemd.groups
+                (
+                  n:
+                  {
+                    gid,
+                  }:
+                  "${n}:x:${toString gid}:"
+                )
+                config.boot.initrd.systemd.groups
             )}
           '';
         };
@@ -943,22 +970,22 @@ in
               -> !cfg.allowNoPasswordLogin
               -> any id (
                 mapAttrsToList
-                (
-                  name: cfg:
                   (
-                    name == "root"
-                    || cfg.group == "wheel"
-                    || elem "wheel" cfg.extraGroups
+                    name: cfg:
+                    (
+                      name == "root"
+                      || cfg.group == "wheel"
+                      || elem "wheel" cfg.extraGroups
+                    )
+                    && (
+                      allowsLogin cfg.hashedPassword
+                      || cfg.password != null
+                      || cfg.passwordFile != null
+                      || cfg.openssh.authorizedKeys.keys != [ ]
+                      || cfg.openssh.authorizedKeys.keyFiles != [ ]
+                    )
                   )
-                  && (
-                    allowsLogin cfg.hashedPassword
-                    || cfg.password != null
-                    || cfg.passwordFile != null
-                    || cfg.openssh.authorizedKeys.keys != [ ]
-                    || cfg.openssh.authorizedKeys.keyFiles != [ ]
-                  )
-                )
-                cfg.users
+                  cfg.users
                 ++ [ config.security.googleOsLogin.enable ]
               )
               ;
@@ -1011,25 +1038,27 @@ in
                 '';
               }
             ]
-            ++ (map
-              (shell: {
-                assertion =
-                  (user.shell == pkgs.${shell})
-                  -> (config.programs.${shell}.enable == true)
-                  ;
-                message = ''
-                  users.users.${user.name}.shell is set to ${shell}, but
-                  programs.${shell}.enable is not true. This will cause the ${shell}
-                  shell to lack the basic nix directories in its PATH and might make
-                  logging in as that user impossible. You can fix it with:
-                  programs.${shell}.enable = true;
-                '';
-              })
-              [
-                "fish"
-                "xonsh"
-                "zsh"
-              ])
+            ++ (
+              map
+                (shell: {
+                  assertion =
+                    (user.shell == pkgs.${shell})
+                    -> (config.programs.${shell}.enable == true)
+                    ;
+                  message = ''
+                    users.users.${user.name}.shell is set to ${shell}, but
+                    programs.${shell}.enable is not true. This will cause the ${shell}
+                    shell to lack the basic nix directories in its PATH and might make
+                    logging in as that user impossible. You can fix it with:
+                    programs.${shell}.enable = true;
+                  '';
+                })
+                [
+                  "fish"
+                  "xonsh"
+                  "zsh"
+                ]
+            )
           )
         )
         ;

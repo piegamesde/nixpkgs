@@ -9,7 +9,9 @@ buildPythonPackage rec {
   pname = "validictory";
   version = "1.1.2";
 
-  disabled = pythonAtLeast "3.10"
+  disabled =
+    pythonAtLeast
+      "3.10"
     ; # abandoned, should be removed when we move to py310/311
 
   src = fetchPypi {

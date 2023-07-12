@@ -131,9 +131,11 @@ let
 
       optionalLocation =
         let
-          pos = builtins.unsafeGetAttrPos
-            (if attrs ? "pname" then "pname" else "name")
-            attrs;
+          pos =
+            builtins.unsafeGetAttrPos
+              (if attrs ? "pname" then "pname" else "name")
+              attrs
+            ;
         in
         if pos == null then
           ""
@@ -252,8 +254,9 @@ let
           ++ nativeBuildInputs
           ;
 
-        buildInputs =
-          validatePythonMatches "buildInputs" (buildInputs ++ pythonPath);
+        buildInputs = validatePythonMatches "buildInputs" (
+          buildInputs ++ pythonPath
+        );
 
         propagatedBuildInputs = validatePythonMatches "propagatedBuildInputs" (
           propagatedBuildInputs
@@ -292,11 +295,11 @@ let
           ;
 
         # Python packages built through cross-compilation are always for the host platform.
-        disallowedReferences = lib.optionals
-          (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
-          [
-            python.pythonForBuild
-          ];
+        disallowedReferences =
+          lib.optionals
+            (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
+            [ python.pythonForBuild ]
+          ;
 
         outputs = outputs ++ lib.optional withDistOutput "dist";
 
@@ -326,6 +329,9 @@ let
     ;
 in
 lib.extendDerivation
-(disabled -> throw "${name} not supported for interpreter ${python.executable}")
-passthru
-self
+  (
+    disabled
+    -> throw "${name} not supported for interpreter ${python.executable}"
+  )
+  passthru
+  self

@@ -17,19 +17,21 @@ let
   polkitEnabled = config.security.polkit.enable;
 
   additionalBackends =
-    pkgs.runCommand "additional-cups-backends" { preferLocalBuild = true; } ''
-      mkdir -p $out
-      if [ ! -e ${cups.out}/lib/cups/backend/smb ]; then
-        mkdir -p $out/lib/cups/backend
-        ln -sv ${pkgs.samba}/bin/smbspool $out/lib/cups/backend/smb
-      fi
+    pkgs.runCommand "additional-cups-backends" { preferLocalBuild = true; }
+      ''
+        mkdir -p $out
+        if [ ! -e ${cups.out}/lib/cups/backend/smb ]; then
+          mkdir -p $out/lib/cups/backend
+          ln -sv ${pkgs.samba}/bin/smbspool $out/lib/cups/backend/smb
+        fi
 
-      # Provide support for printing via HTTPS.
-      if [ ! -e ${cups.out}/lib/cups/backend/https ]; then
-        mkdir -p $out/lib/cups/backend
-        ln -sv ${cups.out}/lib/cups/backend/ipp $out/lib/cups/backend/https
-      fi
-    '';
+        # Provide support for printing via HTTPS.
+        if [ ! -e ${cups.out}/lib/cups/backend/https ]; then
+          mkdir -p $out/lib/cups/backend
+          ln -sv ${cups.out}/lib/cups/backend/ipp $out/lib/cups/backend/https
+        fi
+      ''
+    ;
 
   # Here we can enable additional backends, filters, etc. that are not
   # part of CUPS itself, e.g. the SMB backend is part of Samba.  Since
@@ -91,10 +93,10 @@ let
 
   cupsdFile = writeConf "cupsd.conf" ''
     ${concatMapStrings
-    (addr: ''
-      Listen ${addr}
-    '')
-    cfg.listenAddresses}
+      (addr: ''
+        Listen ${addr}
+      '')
+      cfg.listenAddresses}
     Listen /run/cups/cups.sock
 
     DefaultShared ${if cfg.defaultShared then "Yes" else "No"}
@@ -134,44 +136,52 @@ in
 {
 
   imports = [
-    (mkChangedOptionModule
-      [
-        "services"
-        "printing"
-        "gutenprint"
-      ]
-      [
-        "services"
-        "printing"
-        "drivers"
-      ]
-      (
-        config:
-        let
-          enabled = getAttrFromPath
-            [
-              "services"
-              "printing"
-              "gutenprint"
-            ]
-            config;
-        in
-        if enabled then [ pkgs.gutenprint ] else [ ]
-      ))
-    (mkRemovedOptionModule
-      [
-        "services"
-        "printing"
-        "cupsFilesConf"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "printing"
-        "cupsdConf"
-      ]
-      "")
+    (
+      mkChangedOptionModule
+        [
+          "services"
+          "printing"
+          "gutenprint"
+        ]
+        [
+          "services"
+          "printing"
+          "drivers"
+        ]
+        (
+          config:
+          let
+            enabled =
+              getAttrFromPath
+                [
+                  "services"
+                  "printing"
+                  "gutenprint"
+                ]
+                config
+              ;
+          in
+          if enabled then [ pkgs.gutenprint ] else [ ]
+        )
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "printing"
+          "cupsFilesConf"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "printing"
+          "cupsdConf"
+        ]
+        ""
+    )
   ];
 
   ###### interface
@@ -397,12 +407,15 @@ in
           ""
           "/run/cups/cups.sock"
         ]
-        ++ map
-          (
-            x:
-            replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x)
-          )
-          cfg.listenAddresses
+        ++
+          map
+            (
+              x:
+              replaceStrings [ "localhost" ] [ "127.0.0.1" ] (
+                removePrefix "*:" x
+              )
+            )
+            cfg.listenAddresses
         ;
     };
 

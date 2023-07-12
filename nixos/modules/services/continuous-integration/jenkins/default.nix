@@ -103,8 +103,9 @@ in
           config.programs.ssh.package
           pkgs.nix
         ];
-        defaultText = literalExpression
-          "[ pkgs.stdenv pkgs.git pkgs.jdk17 config.programs.ssh.package pkgs.nix ]"
+        defaultText =
+          literalExpression
+            "[ pkgs.stdenv pkgs.git pkgs.jdk17 config.programs.ssh.package pkgs.nix ]"
           ;
         type = types.listOf types.package;
         description = lib.mdDoc ''
@@ -209,9 +210,10 @@ in
 
       environment =
         let
-          selectedSessionVars = lib.filterAttrs
-            (n: v: builtins.elem n [ "NIX_PATH" ])
-            config.environment.sessionVariables;
+          selectedSessionVars =
+            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+              config.environment.sessionVariables
+            ;
         in
         selectedSessionVars // {
           JENKINS_HOME = cfg.home;
@@ -230,9 +232,11 @@ in
               ""
             else
               let
-                pluginCmds = lib.attrsets.mapAttrsToList
-                  (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi")
-                  cfg.plugins;
+                pluginCmds =
+                  lib.attrsets.mapAttrsToList
+                    (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi")
+                    cfg.plugins
+                  ;
               in
               ''
                 rm -r ${cfg.home}/plugins || true
@@ -258,9 +262,8 @@ in
                                                   --prefix=${cfg.prefix} \
                                                   -Djava.awt.headless=true \
                                                   ${
-                                                    concatStringsSep
-                                                    " "
-                                                    cfg.extraOptions
+                                                    concatStringsSep " "
+                                                      cfg.extraOptions
                                                   }
       '';
 

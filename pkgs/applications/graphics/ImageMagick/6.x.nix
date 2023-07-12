@@ -100,9 +100,10 @@ stdenv.mkDerivation (
         (lib.withFeatureAs (arch != null) "gcc-arch" arch)
         (lib.withFeature librsvgSupport "rsvg")
         (lib.withFeature liblqr1Support "lqr")
-        (lib.withFeatureAs ghostscriptSupport
-          "gs-font-dir"
-          "${ghostscript}/share/ghostscript/fonts")
+        (
+          lib.withFeatureAs ghostscriptSupport "gs-font-dir"
+            "${ghostscript}/share/ghostscript/fonts"
+        )
         (lib.withFeature ghostscriptSupport "gslib")
       ]
       ++ lib.optionals stdenv.hostPlatform.isMinGW [
@@ -171,7 +172,9 @@ stdenv.mkDerivation (
       ;
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       homepage = "https://legacy.imagemagick.org/";

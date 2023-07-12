@@ -54,9 +54,10 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-  buildFlags = lib.optional
-    stdenv.isDarwin
-    "pcsclite_CFLAGS=-I${PCSC}/Library/Frameworks/PCSC.framework/Headers";
+  buildFlags =
+    lib.optional stdenv.isDarwin
+      "pcsclite_CFLAGS=-I${PCSC}/Library/Frameworks/PCSC.framework/Headers"
+    ;
 
   meta = with lib; {
     description = "Sample implementation of the ARIB STD-B25 standard";

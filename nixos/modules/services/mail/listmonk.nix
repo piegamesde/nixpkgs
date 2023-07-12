@@ -25,17 +25,19 @@ let
     )
   );
   updateDatabaseConfigScript =
-    pkgs.writeShellScriptBin "update-database-config.sh" ''
-      ${if cfg.database.mutableSettings then
-        ''
-          if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
-            ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
-            touch /var/lib/listmonk/.db_settings_initialized
-          fi
-        ''
-      else
-        "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
-    '';
+    pkgs.writeShellScriptBin "update-database-config.sh"
+      ''
+        ${if cfg.database.mutableSettings then
+          ''
+            if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
+              ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
+              touch /var/lib/listmonk/.db_settings_initialized
+            fi
+          ''
+        else
+          "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
+      ''
+    ;
 
   databaseSettingsOpts = with types; {
     freeformType = oneOf [
@@ -61,16 +63,18 @@ let
           "campaign_views"
           "link_clicks"
         ];
-        description = lib.mdDoc
-          "List of fields which can be exported through an automatic export request"
+        description =
+          lib.mdDoc
+            "List of fields which can be exported through an automatic export request"
           ;
       };
 
       "privacy.domain_blocklist" = mkOption {
         type = listOf str;
         default = [ ];
-        description = lib.mdDoc
-          "E-mail addresses with these domains are disallowed from subscribing."
+        description =
+          lib.mdDoc
+            "E-mail addresses with these domains are disallowed from subscribing."
           ;
       };
 
@@ -87,8 +91,9 @@ let
               );
 
             options = {
-              enabled =
-                mkEnableOption (lib.mdDoc "this SMTP server for listmonk");
+              enabled = mkEnableOption (
+                lib.mdDoc "this SMTP server for listmonk"
+              );
               host = mkOption {
                 type = types.str;
                 description = lib.mdDoc "Hostname for the SMTP server";
@@ -99,8 +104,10 @@ let
               };
               max_conns = mkOption {
                 type = types.int;
-                description = lib.mdDoc
-                  "Maximum number of simultaneous connections, defaults to 1";
+                description =
+                  lib.mdDoc
+                    "Maximum number of simultaneous connections, defaults to 1"
+                  ;
                 default = 1;
               };
               tls_type = mkOption {
@@ -110,7 +117,9 @@ let
                   "TLS"
                 ];
                 description =
-                  lib.mdDoc "Type of TLS authentication with the SMTP server";
+                  lib.mdDoc
+                    "Type of TLS authentication with the SMTP server"
+                  ;
               };
             };
           }
@@ -138,8 +147,9 @@ let
       messengers = mkOption {
         type = listOf str;
         default = [ ];
-        description = lib.mdDoc
-          "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options."
+        description =
+          lib.mdDoc
+            "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options."
           ;
       };
     };
@@ -156,15 +166,18 @@ in
         createLocally = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc
-            "Create the PostgreSQL database and database user locally.";
+          description =
+            lib.mdDoc
+              "Create the PostgreSQL database and database user locally."
+            ;
         };
 
         settings = mkOption {
           default = null;
           type = with types; nullOr (submodule databaseSettingsOpts);
-          description = lib.mdDoc
-            "Dynamic settings in the PostgreSQL database, set by a SQL script, see <https://github.com/knadh/listmonk/blob/master/schema.sql#L177-L230> for details."
+          description =
+            lib.mdDoc
+              "Dynamic settings in the PostgreSQL database, set by a SQL script, see <https://github.com/knadh/listmonk/blob/master/schema.sql#L177-L230> for details."
             ;
         };
         mutableSettings = mkOption {
@@ -187,8 +200,9 @@ in
       secretFile = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc
-          "A file containing secrets as environment variables. See <https://listmonk.app/docs/configuration/#environment-variables> for details on supported values."
+        description =
+          lib.mdDoc
+            "A file containing secrets as environment variables. See <https://listmonk.app/docs/configuration/#environment-variables> for details on supported values."
           ;
       };
     };

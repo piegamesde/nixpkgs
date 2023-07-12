@@ -87,8 +87,10 @@ let
   binDists = makeBinDists versions;
 
   actual =
-    binDists.${stdenv.hostPlatform.system}.${releaseType}.${branch} or (throw
-      "Factorio ${releaseType}-${branch} binaries for ${stdenv.hostPlatform.system} are not available for download.");
+    binDists.${stdenv.hostPlatform.system}.${releaseType}.${branch} or (
+      throw
+        "Factorio ${releaseType}-${branch} binaries for ${stdenv.hostPlatform.system} are not available for download."
+    );
 
   makeBinDists =
     versions:
@@ -120,40 +122,42 @@ let
         if !needsAuth then
           fetchurl { inherit name url sha256; }
         else
-          (lib.overrideDerivation
-            (fetchurl {
-              inherit name url sha256;
-              curlOptsList = [
-                "--get"
-                "--data-urlencode"
-                "username@username"
-                "--data-urlencode"
-                "token@token"
-              ];
-            })
-            (
-              _: {
-                # This preHook hides the credentials from /proc
-                preHook =
-                  if username != "" && token != "" then
-                    ''
-                      echo -n "${username}" >username
-                      echo -n "${token}"    >token
-                    ''
-                  else
-                    ''
-                      # Deliberately failing since username/token was not provided, so we can't fetch.
-                      # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
-                      exit 1
-                    ''
-                  ;
-                failureHook = ''
-                  cat <<EOF
-                  ${helpMsg}
-                  EOF
-                '';
-              }
-            ))
+          (
+            lib.overrideDerivation
+              (fetchurl {
+                inherit name url sha256;
+                curlOptsList = [
+                  "--get"
+                  "--data-urlencode"
+                  "username@username"
+                  "--data-urlencode"
+                  "token@token"
+                ];
+              })
+              (
+                _: {
+                  # This preHook hides the credentials from /proc
+                  preHook =
+                    if username != "" && token != "" then
+                      ''
+                        echo -n "${username}" >username
+                        echo -n "${token}"    >token
+                      ''
+                    else
+                      ''
+                        # Deliberately failing since username/token was not provided, so we can't fetch.
+                        # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
+                        exit 1
+                      ''
+                    ;
+                  failureHook = ''
+                    cat <<EOF
+                    ${helpMsg}
+                    EOF
+                  '';
+                }
+              )
+          )
         ;
     }
     ;
@@ -267,9 +271,8 @@ let
             --argv0 ""                                                 \
             --add-flags "-c \$HOME/.factorio/config.cfg"               \
             ${
-              lib.optionalString
-              (mods != [ ])
-              "--add-flags --mod-directory=${modDir}"
+              lib.optionalString (mods != [ ])
+                "--add-flags --mod-directory=${modDir}"
             }
 
             # TODO Currently, every time a mod is changed/added/removed using the

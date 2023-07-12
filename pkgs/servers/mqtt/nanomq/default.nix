@@ -57,7 +57,9 @@ stdenv.mkDerivation (
     ];
 
     env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.cc.isClang "-Wno-return-type";
+      lib.optionalString stdenv.cc.isClang
+        "-Wno-return-type"
+      ;
 
     meta = with lib; {
       description =

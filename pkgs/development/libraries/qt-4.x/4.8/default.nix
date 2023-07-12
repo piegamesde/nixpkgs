@@ -370,9 +370,9 @@ stdenv.mkDerivation rec {
       "-Wno-expansion-to-defined"
       "-Wno-unused-local-typedefs"
     ]
-    ++ lib.optional
-      stdenv.isLinux
-      "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin
+    ++
+      lib.optional stdenv.isLinux
+        "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin
     ++ lib.optionals (stdenv.isFreeBSD || stdenv.isDarwin) [
       "-I${glib.dev}/include/glib-2.0"
       "-I${glib.out}/lib/glib-2.0/include"
@@ -381,7 +381,9 @@ stdenv.mkDerivation rec {
   );
 
   NIX_LDFLAGS =
-    lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin) "-lglib-2.0";
+    lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin)
+      "-lglib-2.0"
+    ;
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # resolve "extra qualification on member" error

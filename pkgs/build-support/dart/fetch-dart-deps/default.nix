@@ -46,16 +46,18 @@ let
     "postPatch"
   ];
 
-  buildDrvInheritArgs = builtins.foldl'
-    (
-      attrs: arg:
-      if buildDrvArgs ? ${arg} then
-        attrs // { ${arg} = buildDrvArgs.${arg}; }
-      else
-        attrs
-    )
-    { }
-    buildDrvInheritArgNames;
+  buildDrvInheritArgs =
+    builtins.foldl'
+      (
+        attrs: arg:
+        if buildDrvArgs ? ${arg} then
+          attrs // { ${arg} = buildDrvArgs.${arg}; }
+        else
+          attrs
+      )
+      { }
+      buildDrvInheritArgNames
+    ;
 
   drvArgs = buildDrvInheritArgs // (removeAttrs args [ "buildDrvArgs" ]);
   name =
@@ -94,9 +96,8 @@ let
         # so we can use lock, diff yaml
         mkdir -p "$out/pubspec"
         cp "pubspec.yaml" "$out/pubspec"
-        ${lib.optionalString
-        (pubspecLockFile != null)
-        "install -m644 ${pubspecLockFile} pubspec.lock"}
+        ${lib.optionalString (pubspecLockFile != null)
+          "install -m644 ${pubspecLockFile} pubspec.lock"}
         if ! cp "pubspec.lock" "$out/pubspec"; then
           echo 1>&2 -e '\nThe pubspec.lock file is missing. This is a requirement for reproducible builds.' \
                        '\nThe following steps should be taken to fix this issue:' \
@@ -195,21 +196,23 @@ let
     } // buildDrvInheritArgs
   );
 
-  hook = (makeSetupHook {
-    # The setup hook should not be part of the fixed-output derivation.
-    # Updates to the hook script should not change vendor hashes, and it won't
-    # work at all anyway due to https://github.com/NixOS/nix/issues/6660.
-    name = "${name}-dart-deps-setup-hook";
-    substitutions = { inherit deps; };
-    propagatedBuildInputs = [
-      dart
-      git
-    ];
-    passthru = {
-      files = deps.outPath;
-      depsListFile = depsListDrv.outPath;
-    };
-  })
-    ./setup-hook.sh;
+  hook =
+    (makeSetupHook {
+      # The setup hook should not be part of the fixed-output derivation.
+      # Updates to the hook script should not change vendor hashes, and it won't
+      # work at all anyway due to https://github.com/NixOS/nix/issues/6660.
+      name = "${name}-dart-deps-setup-hook";
+      substitutions = { inherit deps; };
+      propagatedBuildInputs = [
+        dart
+        git
+      ];
+      passthru = {
+        files = deps.outPath;
+        depsListFile = depsListDrv.outPath;
+      };
+    })
+      ./setup-hook.sh
+    ;
 in
 hook

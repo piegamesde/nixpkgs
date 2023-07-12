@@ -51,8 +51,10 @@ let
         type = types.listOf types.package;
         default = [ pkgs.OVMF.fd ];
         defaultText = literalExpression "[ pkgs.OVMF.fd ]";
-        example = literalExpression
-          "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
+        example =
+          literalExpression
+            "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]"
+          ;
         description = lib.mdDoc ''
           List of OVMF packages to use. Each listed package must contain files names FV/OVMF_CODE.fd and FV/OVMF_VARS.fd or FV/AAVMF_CODE.fd and FV/AAVMF_VARS.fd
         '';
@@ -139,82 +141,96 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "enableKVM"
-      ]
-      "Set the option `virtualisation.libvirtd.qemu.package' instead.")
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuPackage"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "package"
-      ])
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuRunAsRoot"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "runAsRoot"
-      ])
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuVerbatimConfig"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "verbatimConfig"
-      ])
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuOvmf"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "ovmf"
-        "enable"
-      ])
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuOvmfPackage"
-      ]
-      "If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead.")
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuSwtpm"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "swtpm"
-        "enable"
-      ])
+    (
+      mkRemovedOptionModule
+        [
+          "virtualisation"
+          "libvirtd"
+          "enableKVM"
+        ]
+        "Set the option `virtualisation.libvirtd.qemu.package' instead."
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemuPackage"
+        ]
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemu"
+          "package"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemuRunAsRoot"
+        ]
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemu"
+          "runAsRoot"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemuVerbatimConfig"
+        ]
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemu"
+          "verbatimConfig"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemuOvmf"
+        ]
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemu"
+          "ovmf"
+          "enable"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemuOvmfPackage"
+        ]
+        "If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead."
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemuSwtpm"
+        ]
+        [
+          "virtualisation"
+          "libvirtd"
+          "qemu"
+          "swtpm"
+          "enable"
+        ]
+    )
   ];
 
   ###### interface
@@ -338,7 +354,9 @@ in
     environment = {
       # this file is expected in /etc/qemu and not sysconfdir (/var/lib)
       etc."qemu/bridge.conf".text =
-        lib.concatMapStringsSep "\n" (e: "allow ${e}") cfg.allowedBridges;
+        lib.concatMapStringsSep "\n" (e: "allow ${e}")
+          cfg.allowedBridges
+        ;
       systemPackages = with pkgs; [
         libressl.nc
         iptables

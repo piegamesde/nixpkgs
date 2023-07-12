@@ -39,10 +39,10 @@ let
 
       ${toString (
         lib.mapAttrsToList
-        (k: v: ''
-          cp -R --no-preserve=mode ${v} _checkouts/${k}
-        '')
-        deps
+          (k: v: ''
+            cp -R --no-preserve=mode ${v} _checkouts/${k}
+          '')
+          deps
       )}
 
       # Bootstrap script expects the dependencies in _build/default/lib
@@ -123,8 +123,9 @@ let
       rebar3 ? _rebar3,
     }:
     let
-      pluginLibDirs =
-        map (p: "${p}/lib/erlang/lib") (lib.unique (plugins ++ globalPlugins));
+      pluginLibDirs = map (p: "${p}/lib/erlang/lib") (
+        lib.unique (plugins ++ globalPlugins)
+      );
       globalPluginNames = lib.unique (map (p: p.packageName) globalPlugins);
       rebar3Patched =
         (rebar3.overrideAttrs (

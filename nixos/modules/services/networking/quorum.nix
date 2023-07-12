@@ -20,8 +20,9 @@ let
   opt = options.services.quorum;
   dataDir = "/var/lib/quorum";
   genesisFile = pkgs.writeText "genesis.json" (builtins.toJSON cfg.genesis);
-  staticNodesFile =
-    pkgs.writeText "static-nodes.json" (builtins.toJSON cfg.staticNodes);
+  staticNodesFile = pkgs.writeText "static-nodes.json" (
+    builtins.toJSON cfg.staticNodes
+  );
 in
 {
   options = {
@@ -45,8 +46,10 @@ in
       port = mkOption {
         type = types.port;
         default = 21000;
-        description = lib.mdDoc
-          "Override the default port on which to listen for connections.";
+        description =
+          lib.mdDoc
+            "Override the default port on which to listen for connections."
+          ;
       };
 
       nodekeyFile = mkOption {
@@ -83,8 +86,9 @@ in
       blockperiod = mkOption {
         type = types.int;
         default = 5;
-        description = lib.mdDoc
-          "Default minimum difference between two consecutive block's timestamps in seconds."
+        description =
+          lib.mdDoc
+            "Default minimum difference between two consecutive block's timestamps in seconds."
           ;
       };
 
@@ -92,7 +96,9 @@ in
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Allow only a defined list of nodes to connect.";
+          lib.mdDoc
+            "Allow only a defined list of nodes to connect."
+          ;
       };
 
       rpc = {
@@ -111,8 +117,10 @@ in
         port = mkOption {
           type = types.port;
           default = 22004;
-          description = lib.mdDoc
-            "Override the default port on which to listen for RPC connections.";
+          description =
+            lib.mdDoc
+              "Override the default port on which to listen for RPC connections."
+            ;
         };
 
         api = mkOption {
@@ -139,8 +147,9 @@ in
         port = mkOption {
           type = types.port;
           default = 8546;
-          description = lib.mdDoc
-            "Override the default port on which to listen for WS-RPC connections."
+          description =
+            lib.mdDoc
+              "Override the default port on which to listen for WS-RPC connections."
             ;
         };
 
@@ -155,7 +164,9 @@ in
           type = types.str;
           default = "*";
           description =
-            lib.mdDoc "Origins from which to accept websockets requests";
+            lib.mdDoc
+              "Origins from which to accept websockets requests"
+            ;
         };
       };
 
@@ -232,18 +243,16 @@ in
                       ${optionalString (cfg.permissioned) "--permissioned"} \
                       --mine --minerthreads 1 \
                       ${
-                        optionalString
-                        (cfg.rpc.enable)
-                        "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${
-                          toString cfg.rpc.port
-                        } --rpcapi ${cfg.rpc.api}"
+                        optionalString (cfg.rpc.enable)
+                          "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${
+                            toString cfg.rpc.port
+                          } --rpcapi ${cfg.rpc.api}"
                       } \
                       ${
-                        optionalString
-                        (cfg.ws.enable)
-                        "--ws --wsaddr ${cfg.ws.address} --wsport ${
-                          toString cfg.ws.port
-                        } --wsapi ${cfg.ws.api} --wsorigins ${cfg.ws.origins}"
+                        optionalString (cfg.ws.enable)
+                          "--ws --wsaddr ${cfg.ws.address} --wsport ${
+                            toString cfg.ws.port
+                          } --wsapi ${cfg.ws.api} --wsorigins ${cfg.ws.origins}"
                       } \
                       --emitcheckpoints \
                       --datadir ${dataDir} \

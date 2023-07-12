@@ -41,7 +41,9 @@ assert (
 
 let
   layerDigestFlag =
-    lib.optionalString (layerDigest != "") "--layer ${layerDigest}";
+    lib.optionalString (layerDigest != "")
+      "--layer ${layerDigest}"
+    ;
 in
 stdenv.mkDerivation {
   inherit name;

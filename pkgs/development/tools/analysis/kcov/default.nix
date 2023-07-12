@@ -57,18 +57,20 @@ let
       '';
 
       works-on-rust =
-        runCommandCC "works-on-rust" { nativeBuildInputs = [ rustc ]; } ''
-          set -ex
-          cat - > a.rs <<EOF
-          fn main() {}
-          EOF
-          # Put gcc in the path so that `cc` is found
-          rustc a.rs -o a.out
-          ${self}/bin/kcov /tmp/kcov ./a.out
-          test -e /tmp/kcov/index.html
-          touch $out
-          set +x
-        '';
+        runCommandCC "works-on-rust" { nativeBuildInputs = [ rustc ]; }
+          ''
+            set -ex
+            cat - > a.rs <<EOF
+            fn main() {}
+            EOF
+            # Put gcc in the path so that `cc` is found
+            rustc a.rs -o a.out
+            ${self}/bin/kcov /tmp/kcov ./a.out
+            test -e /tmp/kcov/index.html
+            touch $out
+            set +x
+          ''
+        ;
     };
 
     meta = with lib; {

@@ -231,15 +231,15 @@ in
         "d '${cfg.dataDir}/.config' 0770 ${cfg.user} ${cfg.group}"
         "d '${cfg.dataDir}/.config/deluge' 0770 ${cfg.user} ${cfg.group}"
       ]
-      ++ optional
-        (cfg.config ? download_location)
-        "d '${cfg.config.download_location}' 0770 ${cfg.user} ${cfg.group}"
-      ++ optional
-        (cfg.config ? torrentfiles_location)
-        "d '${cfg.config.torrentfiles_location}' 0770 ${cfg.user} ${cfg.group}"
-      ++ optional
-        (cfg.config ? move_completed_path)
-        "d '${cfg.config.move_completed_path}' 0770 ${cfg.user} ${cfg.group}"
+      ++
+        optional (cfg.config ? download_location)
+          "d '${cfg.config.download_location}' 0770 ${cfg.user} ${cfg.group}"
+      ++
+        optional (cfg.config ? torrentfiles_location)
+          "d '${cfg.config.torrentfiles_location}' 0770 ${cfg.user} ${cfg.group}"
+      ++
+        optional (cfg.config ? move_completed_path)
+          "d '${cfg.config.move_completed_path}' 0770 ${cfg.user} ${cfg.group}"
       ;
 
     systemd.services.deluged = {
@@ -286,20 +286,22 @@ in
     };
 
     networking.firewall = mkMerge [
-      (mkIf
-        (
-          cfg.declarative
-          && cfg.openFirewall
-          && !(cfg.config.random_port or true)
-        )
-        {
-          allowedTCPPortRanges = singleton (
-            listToRange (cfg.config.listen_ports or listenPortsDefault)
-          );
-          allowedUDPPortRanges = singleton (
-            listToRange (cfg.config.listen_ports or listenPortsDefault)
-          );
-        })
+      (
+        mkIf
+          (
+            cfg.declarative
+            && cfg.openFirewall
+            && !(cfg.config.random_port or true)
+          )
+          {
+            allowedTCPPortRanges = singleton (
+              listToRange (cfg.config.listen_ports or listenPortsDefault)
+            );
+            allowedUDPPortRanges = singleton (
+              listToRange (cfg.config.listen_ports or listenPortsDefault)
+            );
+          }
+      )
       (mkIf (cfg.web.openFirewall) { allowedTCPPorts = [ cfg.web.port ]; })
     ];
 

@@ -55,8 +55,9 @@ in
       };
     };
 
-    nvidiaPatches =
-      mkEnableOption (mdDoc "patching wlroots for better Nvidia support");
+    nvidiaPatches = mkEnableOption (
+      mdDoc "patching wlroots for better Nvidia support"
+    );
   };
 
   config = mkIf cfg.enable {

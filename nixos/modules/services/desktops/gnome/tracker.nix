@@ -19,19 +19,21 @@ in
   imports =
     [
       # Added 2021-05-07
-      (mkRenamedOptionModule
-        [
-          "services"
-          "gnome3"
-          "tracker"
-          "enable"
-        ]
-        [
-          "services"
-          "gnome"
-          "tracker"
-          "enable"
-        ])
+      (
+        mkRenamedOptionModule
+          [
+            "services"
+            "gnome3"
+            "tracker"
+            "enable"
+          ]
+          [
+            "services"
+            "gnome"
+            "tracker"
+            "enable"
+          ]
+      )
     ];
 
   ###### interface

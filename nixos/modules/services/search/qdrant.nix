@@ -19,7 +19,7 @@ in
     services.qdrant = {
       enable = mkEnableOption (
         lib.mdDoc
-        "Vector Search Engine for the next generation of AI applications"
+          "Vector Search Engine for the next generation of AI applications"
       );
 
       settings = mkOption {

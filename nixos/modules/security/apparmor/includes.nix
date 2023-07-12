@@ -20,8 +20,8 @@ let
           trail ? "",
         }:
         lib.optionalString (hasAttr path etc) "${mode} ${
-          config.environment.etc.${path}.source
-        }${trail},"
+            config.environment.etc.${path}.source
+          }${trail},"
         ;
     in
     if isAttrs arg then go arg else go { path = arg; }
@@ -103,9 +103,8 @@ in
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/base"
       r ${pkgs.stdenv.cc.libc}/share/locale/**,
       r ${pkgs.stdenv.cc.libc}/share/locale.alias,
-      ${lib.optionalString
-      (pkgs.glibcLocales != null)
-      "r ${pkgs.glibcLocales}/lib/locale/locale-archive,"}
+      ${lib.optionalString (pkgs.glibcLocales != null)
+        "r ${pkgs.glibcLocales}/lib/locale/locale-archive,"}
       ${etcRule "localtime"}
       r ${pkgs.tzdata}/share/zoneinfo/**,
       r ${pkgs.stdenv.cc.libc}/share/i18n/**,

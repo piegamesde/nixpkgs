@@ -10,7 +10,9 @@ let
   cfg = config.services.kmscon;
 
   autologinArg =
-    lib.optionalString (cfg.autologinUser != null) "-f ${cfg.autologinUser}";
+    lib.optionalString (cfg.autologinUser != null)
+      "-f ${cfg.autologinUser}"
+    ;
 
   configDir = pkgs.writeTextFile {
     name = "kmscon-config";
@@ -34,8 +36,10 @@ in
       };
 
       hwRender = mkOption {
-        description = lib.mdDoc
-          "Whether to use 3D hardware acceleration to render the console.";
+        description =
+          lib.mdDoc
+            "Whether to use 3D hardware acceleration to render the console."
+          ;
         type = types.bool;
         default = false;
       };
@@ -130,8 +134,8 @@ in
           "hwaccel"
         ];
         fonts = optional (cfg.fonts != null) "font-name=${
-            lib.concatMapStringsSep ", " (f: f.name) cfg.fonts
-          }";
+              lib.concatMapStringsSep ", " (f: f.name) cfg.fonts
+            }";
       in
       lib.concatStringsSep "\n" (render ++ fonts)
       ;

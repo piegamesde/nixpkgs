@@ -10,13 +10,15 @@ let
   settingsFormat = pkgs.formats.toml { };
   # Remove null values, so we can document optional values that don't end up in the generated TOML file.
   filterConfig = lib.converge (lib.filterAttrsRecursive (_: v: v != null));
-  serverConfigFile =
-    settingsFormat.generate "server.toml" (filterConfig cfg.serverSettings);
+  serverConfigFile = settingsFormat.generate "server.toml" (
+    filterConfig cfg.serverSettings
+  );
   clientConfigFile = settingsFormat.generate "kanidm-config.toml" (
     filterConfig cfg.clientSettings
   );
-  unixConfigFile =
-    settingsFormat.generate "kanidm-unixd.toml" (filterConfig cfg.unixSettings);
+  unixConfigFile = settingsFormat.generate "kanidm-unixd.toml" (
+    filterConfig cfg.unixSettings
+  );
   certPaths = builtins.map builtins.dirOf [
     cfg.serverSettings.tls_chain
     cfg.serverSettings.tls_key
@@ -28,24 +30,31 @@ let
   hasPrefixInList =
     list: newPath:
     lib.any
-    (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
-    list
+      (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
+      list
     ;
-  mergePaths = lib.foldl'
-    (
-      merged: newPath:
-      let
-        # If the new path is a prefix to some existing path, we need to filter it out
-        filteredPaths = lib.filter
-          (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
-          merged;
-        # If a prefix of the new path is already in the list, do not add it
-        filteredNew =
-          if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
-      in
-      filteredPaths ++ filteredNew
-    )
-    [ ];
+  mergePaths =
+    lib.foldl'
+      (
+        merged: newPath:
+        let
+          # If the new path is a prefix to some existing path, we need to filter it out
+          filteredPaths =
+            lib.filter
+              (
+                p:
+                !lib.hasPrefix (builtins.toString newPath) (builtins.toString p)
+              )
+              merged
+            ;
+          # If a prefix of the new path is already in the list, do not add it
+          filteredNew =
+            if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
+        in
+        filteredPaths ++ filteredNew
+      )
+      [ ]
+    ;
 
   defaultServiceConfig = {
     BindReadOnlyPaths = [
@@ -96,8 +105,9 @@ in
   options.services.kanidm = {
     enableClient = lib.mkEnableOption (lib.mdDoc "the Kanidm client");
     enableServer = lib.mkEnableOption (lib.mdDoc "the Kanidm server");
-    enablePam =
-      lib.mkEnableOption (lib.mdDoc "the Kanidm PAM and NSS integration");
+    enablePam = lib.mkEnableOption (
+      lib.mdDoc "the Kanidm PAM and NSS integration"
+    );
 
     serverSettings = lib.mkOption {
       type = lib.types.submodule {
@@ -106,7 +116,9 @@ in
         options = {
           bindaddress = lib.mkOption {
             description =
-              lib.mdDoc "Address/port combination the webserver binds to.";
+              lib.mdDoc
+                "Address/port combination the webserver binds to."
+              ;
             example = "[::1]:8443";
             type = lib.types.str;
           };
@@ -120,8 +132,9 @@ in
             type = lib.types.nullOr lib.types.str;
           };
           origin = lib.mkOption {
-            description = lib.mdDoc
-              "The origin of your Kanidm instance. Must have https as protocol."
+            description =
+              lib.mdDoc
+                "The origin of your Kanidm instance. Must have https as protocol."
               ;
             example = "https://idm.example.org";
             type = lib.types.strMatching "^https://.*";
@@ -164,8 +177,9 @@ in
             ];
           };
           role = lib.mkOption {
-            description = lib.mdDoc
-              "The role of this server. This affects the replication relationship and thereby available features."
+            description =
+              lib.mdDoc
+                "The role of this server. This affects the replication relationship and thereby available features."
               ;
             default = "WriteReplica";
             type = lib.types.enum [
@@ -209,7 +223,9 @@ in
 
         options.pam_allowed_login_groups = lib.mkOption {
           description =
-            lib.mdDoc "Kanidm groups that are allowed to login using PAM.";
+            lib.mdDoc
+              "Kanidm groups that are allowed to login using PAM."
+            ;
           example = "my_pam_group";
           type = lib.types.listOf lib.types.str;
         };
@@ -293,8 +309,9 @@ in
         # Merge paths and ignore existing prefixes needs to sidestep mkMerge
         (
           defaultServiceConfig // {
-            BindReadOnlyPaths =
-              mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
+            BindReadOnlyPaths = mergePaths (
+              defaultServiceConfig.BindReadOnlyPaths ++ certPaths
+            );
           }
         )
         {

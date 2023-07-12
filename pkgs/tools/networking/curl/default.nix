@@ -166,9 +166,9 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional gssSupport "--with-gssapi=${lib.getDev libkrb5}"
       # For the 'urandom', maybe it should be a cross-system option
-      ++ lib.optional
-        (stdenv.hostPlatform != stdenv.buildPlatform)
-        "--with-random=/dev/urandom"
+      ++
+        lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+          "--with-random=/dev/urandom"
       ++ lib.optionals stdenv.hostPlatform.isWindows [
         "--disable-shared"
         "--enable-static"
@@ -179,11 +179,15 @@ stdenv.mkDerivation (
         "--without-ca-bundle"
         "--without-ca-path"
       ]
-      ++ lib.optionals
-        (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport)
-        [
-          "--without-ssl"
-        ]
+      ++
+        lib.optionals
+          (
+            !gnutlsSupport
+            && !opensslSupport
+            && !wolfsslSupport
+            && !rustlsSupport
+          )
+          [ "--without-ssl" ]
       ;
 
     CXX = "${stdenv.cc.targetPrefix}c++";
@@ -234,8 +238,9 @@ stdenv.mkDerivation (
       {
         inherit opensslSupport openssl;
         tests = {
-          withCheck =
-            finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
+          withCheck = finalAttrs.finalPackage.overrideAttrs (
+            _: { doCheck = true; }
+          );
           fetchpatch = tests.fetchpatch.simple.override {
             fetchpatch =
               (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // {

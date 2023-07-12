@@ -151,23 +151,25 @@ let
     prefix: properties:
     lib.concatStringsSep " \\\n" (
       lib.mapAttrsToList
-      (
-        property: value:
-        "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}"
-      )
-      properties
+        (
+          property: value:
+          "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}"
+        )
+        properties
     )
     ;
 
   createDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      sorted = lib.sort
-        (
-          left: right:
-          (lib.stringLength left.name) < (lib.stringLength right.name)
-        )
-        datasetlist;
+      sorted =
+        lib.sort
+          (
+            left: right:
+            (lib.stringLength left.name) < (lib.stringLength right.name)
+          )
+          datasetlist
+        ;
       cmd =
         {
           name,
@@ -185,22 +187,26 @@ let
   mountDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      mounts = lib.filter
-        (
-          {
-            value,
-            ...
-          }:
-          hasDefinedMount value
-        )
-        datasetlist;
-      sorted = lib.sort
-        (
-          left: right:
-          (lib.stringLength left.value.mount)
-          < (lib.stringLength right.value.mount)
-        )
-        mounts;
+      mounts =
+        lib.filter
+          (
+            {
+              value,
+              ...
+            }:
+            hasDefinedMount value
+          )
+          datasetlist
+        ;
+      sorted =
+        lib.sort
+          (
+            left: right:
+            (lib.stringLength left.value.mount)
+            < (lib.stringLength right.value.mount)
+          )
+          mounts
+        ;
       cmd =
         {
           name,
@@ -217,22 +223,26 @@ let
   unmountDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      mounts = lib.filter
-        (
-          {
-            value,
-            ...
-          }:
-          hasDefinedMount value
-        )
-        datasetlist;
-      sorted = lib.sort
-        (
-          left: right:
-          (lib.stringLength left.value.mount)
-          > (lib.stringLength right.value.mount)
-        )
-        mounts;
+      mounts =
+        lib.filter
+          (
+            {
+              value,
+              ...
+            }:
+            hasDefinedMount value
+          )
+          datasetlist
+        ;
+      sorted =
+        lib.sort
+          (
+            left: right:
+            (lib.stringLength left.value.mount)
+            > (lib.stringLength right.value.mount)
+          )
+          mounts
+        ;
       cmd =
         {
           name,
@@ -250,33 +260,35 @@ let
       mountable = lib.filterAttrs (_: value: hasDefinedMount value) datasets;
     in
     pkgs.runCommand "filesystem-config.nix"
-    {
-      buildInputs = with pkgs; [
-        jq
-        nixpkgs-fmt
-      ];
-      filesystems = builtins.toJSON {
-        fileSystems = lib.mapAttrs'
-          (dataset: attrs: {
-            name = attrs.mount;
-            value = {
-              fsType = "zfs";
-              device = "${dataset}";
-            };
-          })
-          mountable;
-      };
-      passAsFile = [ "filesystems" ];
-    }
-    ''
-      (
-        echo "builtins.fromJSON '''"
-        jq . < "$filesystemsPath"
-        echo "'''"
-      ) > $out
+      {
+        buildInputs = with pkgs; [
+          jq
+          nixpkgs-fmt
+        ];
+        filesystems = builtins.toJSON {
+          fileSystems =
+            lib.mapAttrs'
+              (dataset: attrs: {
+                name = attrs.mount;
+                value = {
+                  fsType = "zfs";
+                  device = "${dataset}";
+                };
+              })
+              mountable
+            ;
+        };
+        passAsFile = [ "filesystems" ];
+      }
+      ''
+        (
+          echo "builtins.fromJSON '''"
+          jq . < "$filesystemsPath"
+          echo "'''"
+        ) > $out
 
-      nixpkgs-fmt $out
-    ''
+        nixpkgs-fmt $out
+      ''
     ;
 
   mergedConfig =
@@ -284,123 +296,125 @@ let
       fileSystemsCfgFile
     else
       pkgs.runCommand "configuration.nix"
-      { buildInputs = with pkgs; [ nixpkgs-fmt ]; }
-      ''
-        (
-          echo '{ imports = ['
-          printf "(%s)\n" "$(cat ${fileSystemsCfgFile})";
-          printf "(%s)\n" "$(cat ${configFile})";
-          echo ']; }'
-        ) > $out
+        { buildInputs = with pkgs; [ nixpkgs-fmt ]; }
+        ''
+          (
+            echo '{ imports = ['
+            printf "(%s)\n" "$(cat ${fileSystemsCfgFile})";
+            printf "(%s)\n" "$(cat ${configFile})";
+            echo ']; }'
+          ) > $out
 
-        nixpkgs-fmt $out
-      ''
+          nixpkgs-fmt $out
+        ''
     ;
 
-  image = (pkgs.vmTools.override {
-    rootModules =
-      [
-        "zfs"
-        "9p"
-        "9pnet_virtio"
-        "virtio_pci"
-        "virtio_blk"
-      ]
-      ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos")
-      ;
-    kernel = modulesTree;
-  }).runInLinuxVM
-    (
-      pkgs.runCommand name
-      {
-        QEMU_OPTS =
-          "-drive file=$bootDiskImage,if=virtio,cache=unsafe,werror=report"
-          + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report"
-          ;
-        inherit memSize;
-        preVM = ''
-          PATH=$PATH:${pkgs.qemu_kvm}/bin
-          mkdir $out
-          bootDiskImage=boot.raw
-          qemu-img create -f raw $bootDiskImage ${toString bootSize}M
+  image =
+    (pkgs.vmTools.override {
+      rootModules =
+        [
+          "zfs"
+          "9p"
+          "9pnet_virtio"
+          "virtio_pci"
+          "virtio_blk"
+        ]
+        ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos")
+        ;
+      kernel = modulesTree;
+    }).runInLinuxVM
+      (
+        pkgs.runCommand name
+          {
+            QEMU_OPTS =
+              "-drive file=$bootDiskImage,if=virtio,cache=unsafe,werror=report"
+              + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report"
+              ;
+            inherit memSize;
+            preVM = ''
+              PATH=$PATH:${pkgs.qemu_kvm}/bin
+              mkdir $out
+              bootDiskImage=boot.raw
+              qemu-img create -f raw $bootDiskImage ${toString bootSize}M
 
-          rootDiskImage=root.raw
-          qemu-img create -f raw $rootDiskImage ${toString rootSize}M
-        '';
+              rootDiskImage=root.raw
+              qemu-img create -f raw $rootDiskImage ${toString rootSize}M
+            '';
 
-        postVM = ''
-          ${if formatOpt == "raw" then
-            ''
-              mv $bootDiskImage $out/${bootFilename}
-              mv $rootDiskImage $out/${rootFilename}
-            ''
-          else
-            ''
-              ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $bootDiskImage $out/${bootFilename}
-              ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
-            ''}
-          bootDiskImage=$out/${bootFilename}
-          rootDiskImage=$out/${rootFilename}
-          set -x
-          ${postVM}
-        '';
-      }
-      ''
-        export PATH=${tools}:$PATH
-        set -x
+            postVM = ''
+              ${if formatOpt == "raw" then
+                ''
+                  mv $bootDiskImage $out/${bootFilename}
+                  mv $rootDiskImage $out/${rootFilename}
+                ''
+              else
+                ''
+                  ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $bootDiskImage $out/${bootFilename}
+                  ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
+                ''}
+              bootDiskImage=$out/${bootFilename}
+              rootDiskImage=$out/${rootFilename}
+              set -x
+              ${postVM}
+            '';
+          }
+          ''
+            export PATH=${tools}:$PATH
+            set -x
 
-        cp -sv /dev/vda /dev/sda
-        cp -sv /dev/vda /dev/xvda
+            cp -sv /dev/vda /dev/sda
+            cp -sv /dev/vda /dev/xvda
 
-        parted --script /dev/vda -- \
-          mklabel gpt \
-          mkpart no-fs 1MiB 2MiB \
-          set 1 bios_grub on \
-          align-check optimal 1 \
-          mkpart ESP fat32 2MiB -1MiB \
-          align-check optimal 2 \
-          print
+            parted --script /dev/vda -- \
+              mklabel gpt \
+              mkpart no-fs 1MiB 2MiB \
+              set 1 bios_grub on \
+              align-check optimal 1 \
+              mkpart ESP fat32 2MiB -1MiB \
+              align-check optimal 2 \
+              print
 
-        sfdisk --dump /dev/vda
+            sfdisk --dump /dev/vda
 
 
-        zpool create \
-          ${stringifyProperties "  -o" rootPoolProperties} \
-          ${stringifyProperties "  -O" rootPoolFilesystemProperties} \
-          ${rootPoolName} /dev/vdb
-        parted --script /dev/vdb -- print
+            zpool create \
+              ${stringifyProperties "  -o" rootPoolProperties} \
+              ${stringifyProperties "  -O" rootPoolFilesystemProperties} \
+              ${rootPoolName} /dev/vdb
+            parted --script /dev/vdb -- print
 
-        ${createDatasets}
-        ${mountDatasets}
+            ${createDatasets}
+            ${mountDatasets}
 
-        mkdir -p /mnt/boot
-        mkfs.vfat -n ESP /dev/vda2
-        mount /dev/vda2 /mnt/boot
+            mkdir -p /mnt/boot
+            mkfs.vfat -n ESP /dev/vda2
+            mount /dev/vda2 /mnt/boot
 
-        mount
+            mount
 
-        # Install a configuration.nix
-        mkdir -p /mnt/etc/nixos
-        # `cat` so it is mutable on the fs
-        cat ${mergedConfig} > /mnt/etc/nixos/configuration.nix
+            # Install a configuration.nix
+            mkdir -p /mnt/etc/nixos
+            # `cat` so it is mutable on the fs
+            cat ${mergedConfig} > /mnt/etc/nixos/configuration.nix
 
-        export NIX_STATE_DIR=$TMPDIR/state
-        nix-store --load-db < ${closureInfo}/registration
+            export NIX_STATE_DIR=$TMPDIR/state
+            nix-store --load-db < ${closureInfo}/registration
 
-        nixos-install \
-          --root /mnt \
-          --no-root-passwd \
-          --system ${config.system.build.toplevel} \
-          --substituters "" \
-          ${lib.optionalString includeChannel "--channel ${channelSources}"}
+            nixos-install \
+              --root /mnt \
+              --no-root-passwd \
+              --system ${config.system.build.toplevel} \
+              --substituters "" \
+              ${lib.optionalString includeChannel "--channel ${channelSources}"}
 
-        df -h
+            df -h
 
-        umount /mnt/boot
-        ${unmountDatasets}
+            umount /mnt/boot
+            ${unmountDatasets}
 
-        zpool export ${rootPoolName}
-      ''
-    );
+            zpool export ${rootPoolName}
+          ''
+      )
+    ;
 in
 image

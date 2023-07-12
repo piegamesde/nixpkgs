@@ -131,9 +131,9 @@ stdenv.mkDerivation rec {
       "--without-stream_upstream_zone_module"
     ]
     ++ optional (gd != null) "--with-http_image_filter_module"
-    ++ optional
-      (with stdenv.hostPlatform; isLinux || isFreeBSD)
-      "--with-file-aio"
+    ++
+      optional (with stdenv.hostPlatform; isLinux || isFreeBSD)
+        "--with-file-aio"
     ++ map (mod: "--add-module=${mod.src}") modules
     ;
 

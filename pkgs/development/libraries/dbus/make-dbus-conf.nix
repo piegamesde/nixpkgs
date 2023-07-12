@@ -15,30 +15,30 @@
 # directive. That means that we can't just place our configuration to
 # *-local.conf -- it needs to be in the main configuration file.
 runCommand "dbus-1"
-{
-  inherit serviceDirectories suidHelper apparmor;
-  preferLocalBuild = true;
-  allowSubstitutes = false;
+  {
+    inherit serviceDirectories suidHelper apparmor;
+    preferLocalBuild = true;
+    allowSubstitutes = false;
 
-  nativeBuildInputs = [
-    libxslt.bin
-    findXMLCatalogs
-  ];
+    nativeBuildInputs = [
+      libxslt.bin
+      findXMLCatalogs
+    ];
 
-  buildInputs = [ dbus.out ];
-}
-''
-  mkdir -p $out
+    buildInputs = [ dbus.out ];
+  }
+  ''
+    mkdir -p $out
 
-  xsltproc --nonet \
-    --stringparam serviceDirectories "$serviceDirectories" \
-    --stringparam suidHelper "$suidHelper" \
-    --stringparam apparmor "$apparmor" \
-    ${./make-system-conf.xsl} ${dbus}/share/dbus-1/system.conf \
-    > $out/system.conf
-  xsltproc --nonet \
-    --stringparam serviceDirectories "$serviceDirectories" \
-    --stringparam apparmor "$apparmor" \
-    ${./make-session-conf.xsl} ${dbus}/share/dbus-1/session.conf \
-    > $out/session.conf
-''
+    xsltproc --nonet \
+      --stringparam serviceDirectories "$serviceDirectories" \
+      --stringparam suidHelper "$suidHelper" \
+      --stringparam apparmor "$apparmor" \
+      ${./make-system-conf.xsl} ${dbus}/share/dbus-1/system.conf \
+      > $out/system.conf
+    xsltproc --nonet \
+      --stringparam serviceDirectories "$serviceDirectories" \
+      --stringparam apparmor "$apparmor" \
+      ${./make-session-conf.xsl} ${dbus}/share/dbus-1/session.conf \
+      > $out/session.conf
+  ''

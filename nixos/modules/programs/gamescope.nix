@@ -18,12 +18,12 @@ let
         ;
     in
     pkgs.runCommand "gamescope"
-    { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
-    ''
-      mkdir -p $out/bin
-      makeWrapper ${cfg.package}/bin/gamescope $out/bin/gamescope --inherit-argv0 \
-        ${toString wrapperArgs}
-    ''
+      { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${cfg.package}/bin/gamescope $out/bin/gamescope --inherit-argv0 \
+          ${toString wrapperArgs}
+      ''
     ;
 in
 {

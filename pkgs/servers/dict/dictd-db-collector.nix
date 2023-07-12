@@ -23,24 +23,24 @@
     link_arguments = map (x: ''"${x.filename}" '') dictlist;
     databases = lib.concatStrings (
       map
-      (x: ''
-        ${x.name}  ${x.filename}
-      '')
-      dictlist
+        (x: ''
+          ${x.name}  ${x.filename}
+        '')
+        dictlist
     );
     allow = lib.concatStrings (
       map
-      (x: ''
-        allow ${x}
-      '')
-      allowList
+        (x: ''
+          allow ${x}
+        '')
+        allowList
     );
     deny = lib.concatStrings (
       map
-      (x: ''
-        deny ${x}
-      '')
-      denyList
+        (x: ''
+          deny ${x}
+        '')
+        denyList
     );
     accessSection = "\n  access {\n    ${allow}\n    ${deny}\n  }\n";
     installPhase = ''

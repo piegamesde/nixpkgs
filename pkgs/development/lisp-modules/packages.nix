@@ -33,23 +33,24 @@ let
       build =
         (build-asdf-system (args // { version = args.version + "-build"; }))
         .overrideAttrs
-        (
-          o: {
-            buildPhase = with builtins; ''
-              mkdir __fasls
-              export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
-              export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
-              ${o.pkg}/bin/${o.program} ${
-                toString (o.flags or [ ])
-              } < ${o.buildScript}
-            '';
-            installPhase = ''
-              mkdir -pv $out
-              rm -rf __fasls
-              cp -r * $out
-            '';
-          }
-        );
+          (
+            o: {
+              buildPhase = with builtins; ''
+                mkdir __fasls
+                export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
+                export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
+                ${o.pkg}/bin/${o.program} ${
+                  toString (o.flags or [ ])
+                } < ${o.buildScript}
+              '';
+              installPhase = ''
+                mkdir -pv $out
+                rm -rf __fasls
+                cp -r * $out
+              '';
+            }
+          )
+        ;
     in
     build-asdf-system (
       args // {

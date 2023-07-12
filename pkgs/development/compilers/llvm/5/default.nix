@@ -31,9 +31,10 @@ let
     }
     ;
 
-  clang-tools-extra_src = fetch
-    "clang-tools-extra"
-    "018b3fiwah8f8br5i26qmzh6sjvzchpn358sn8v079m49f2jldm3";
+  clang-tools-extra_src =
+    fetch "clang-tools-extra"
+      "018b3fiwah8f8br5i26qmzh6sjvzchpn358sn8v079m49f2jldm3"
+    ;
 
   llvm_meta = {
     license = lib.licenses.ncsa;
@@ -94,8 +95,9 @@ let
 
       llvm-polly = tools.libllvm-polly.lib // { outputSpecified = false; };
 
-      libclang =
-        callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
+      libclang = callPackage ./clang {
+        inherit clang-tools-extra_src llvm_meta;
+      };
 
       clang-unwrapped = tools.libclang;
 

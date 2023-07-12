@@ -42,7 +42,7 @@ let
       true
     else
       throw
-      "allowlistedLicenses and blocklistedLicenses are not mutually exclusive."
+        "allowlistedLicenses and blocklistedLicenses are not mutually exclusive."
     ;
 
   hasLicense = attrs: attrs ? meta.license;
@@ -152,8 +152,9 @@ let
   pos_str = meta: meta.position or "«unknown-file»";
 
   remediation = {
-    unfree =
-      remediate_allowlist "Unfree" (remediate_predicate "allowUnfreePredicate");
+    unfree = remediate_allowlist "Unfree" (
+      remediate_predicate "allowUnfreePredicate"
+    );
     non-source = remediate_allowlist "NonSource" (
       remediate_predicate "allowNonSourcePredicate"
     );
@@ -266,9 +267,10 @@ let
     let
       expectedOutputs = attrs.meta.outputsToInstall or [ ];
       actualOutputs = attrs.outputs or [ "out" ];
-      missingOutputs = builtins.filter
-        (output: !builtins.elem output actualOutputs)
-        expectedOutputs;
+      missingOutputs =
+        builtins.filter (output: !builtins.elem output actualOutputs)
+          expectedOutputs
+        ;
     in
     ''
       The package ${getName attrs} has set meta.outputsToInstall to: ${
@@ -373,18 +375,24 @@ let
     changelog = either (listOf str) str;
     license =
       let
-        licenseType = either (attrsOf anything) str
+        licenseType =
+          either (attrsOf anything)
+            str
           ; # TODO disallow `str` licenses, use a module
       in
       either licenseType (listOf licenseType)
       ;
     sourceProvenance = listOf lib.types.attrs;
-    maintainers = listOf (attrsOf anything)
+    maintainers =
+      listOf
+        (attrsOf anything)
       ; # TODO use the maintainer type from lib/tests/maintainer-module.nix
     priority = int;
     pkgConfigModules = listOf str;
     platforms =
-      listOf (either str (attrsOf anything)); # see lib.meta.platformMatch
+      listOf
+        (either str (attrsOf anything))
+      ; # see lib.meta.platformMatch
     hydraPlatforms = listOf str;
     broken = bool;
     unfree = bool;
@@ -459,9 +467,10 @@ let
     let
       expectedOutputs = attrs.meta.outputsToInstall or [ ];
       actualOutputs = attrs.outputs or [ "out" ];
-      missingOutputs = builtins.filter
-        (output: !builtins.elem output actualOutputs)
-        expectedOutputs;
+      missingOutputs =
+        builtins.filter (output: !builtins.elem output actualOutputs)
+          expectedOutputs
+        ;
     in
     if config.checkMeta then builtins.length missingOutputs > 0 else false
     ;

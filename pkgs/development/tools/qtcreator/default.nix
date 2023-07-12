@@ -36,8 +36,9 @@ in
 mkDerivation rec {
   pname = "qtcreator";
   version = "5.0.3";
-  baseVersion =
-    builtins.concatStringsSep "." (lib.take 2 (builtins.splitVersion version));
+  baseVersion = builtins.concatStringsSep "." (
+    lib.take 2 (builtins.splitVersion version)
+  );
 
   src = fetchurl {
     url =

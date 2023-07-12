@@ -38,9 +38,10 @@ mkDerivation rec {
     extra-cmake-modules
   ];
   buildInputs = [
-    (elfutils.override {
-      enableDebuginfod = true;
-    }) # perfparser needs to find debuginfod.h
+    (
+      elfutils.override
+        { enableDebuginfod = true; }
+    ) # perfparser needs to find debuginfod.h
     kconfigwidgets
     ki18n
     kio

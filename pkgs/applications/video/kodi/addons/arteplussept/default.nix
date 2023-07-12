@@ -26,8 +26,9 @@ buildKodiAddon rec {
   ];
 
   passthru = {
-    updateScript =
-      addonUpdateScript { attrPath = "kodi.packages.arteplussept"; };
+    updateScript = addonUpdateScript {
+      attrPath = "kodi.packages.arteplussept";
+    };
   };
 
   meta = with lib; {

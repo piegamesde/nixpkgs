@@ -19,8 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-8SNiPsxkjQ4gzhT47YUWIUDBPMSxCIZdGyUp+/oGwAg=";
   };
 
-  propagatedBuildInputs =
-    lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

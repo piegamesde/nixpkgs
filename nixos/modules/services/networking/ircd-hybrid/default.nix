@@ -36,18 +36,20 @@ let
       '')
       ;
 
-    extraListen = map
-      (
-        ip:
-        ''host = "''
-        + ip
-        + ''
-          ";
-          port = 6665 .. 6669, ''
-        + extraPort
-        + "; "
-      )
-      cfg.extraIPs;
+    extraListen =
+      map
+        (
+          ip:
+          ''host = "''
+          + ip
+          + ''
+            ";
+            port = 6665 .. 6669, ''
+          + extraPort
+          + "; "
+        )
+        cfg.extraIPs
+      ;
 
     builder = ./builder.sh;
   };

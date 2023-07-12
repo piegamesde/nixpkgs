@@ -164,9 +164,10 @@ rec {
       name' = if isList name then last name else name;
       default' = if isList default then default else [ default ];
       defaultPath = concatStringsSep "." default';
-      defaultValue = attrByPath default'
-        (throw "${defaultPath} cannot be found in pkgs")
-        pkgs;
+      defaultValue =
+        attrByPath default' (throw "${defaultPath} cannot be found in pkgs")
+          pkgs
+        ;
     in
     mkOption {
       defaultText = literalExpression ("pkgs." + defaultPath);
@@ -219,7 +220,7 @@ rec {
         apply =
           x:
           throw
-          "Option value is not readable because the option is not declared."
+            "Option value is not readable because the option is not declared."
           ;
       } // attrs
     )
@@ -246,8 +247,8 @@ rec {
       head list
     else
       throw "Cannot merge definitions of `${
-        showOption loc
-      }'. Definition values:${showDefs defs}"
+          showOption loc
+        }'. Definition values:${showDefs defs}"
     ;
 
   mergeOneOption = mergeUniqueOption { message = ""; };
@@ -281,25 +282,27 @@ rec {
     else if length defs == 1 then
       (head defs).value
     else
-      (foldl'
-        (
-          first: def:
-          if def.value != first.value then
-            throw ''
-              The option `${
-                showOption loc
-              }' has conflicting definition values:${
-                showDefs [
-                  first
-                  def
-                ]
-              }
-              ${prioritySuggestion}''
-          else
-            first
-        )
-        (head defs)
-        (tail defs)).value
+      (
+        foldl'
+          (
+            first: def:
+            if def.value != first.value then
+              throw ''
+                The option `${
+                  showOption loc
+                }' has conflicting definition values:${
+                  showDefs [
+                    first
+                    def
+                  ]
+                }
+                ${prioritySuggestion}''
+            else
+              first
+          )
+          (head defs)
+          (tail defs)
+      ).value
     ;
 
   /* Extracts values of all "value" keys of the given list.
@@ -329,52 +332,54 @@ rec {
   optionAttrSetToDocList' =
     _: options:
     concatMap
-    (
-      opt:
-      let
-        name = showOption opt.loc;
-        docOption = rec {
-          loc = opt.loc;
-          inherit name;
-          description = opt.description or null;
-          declarations = filter (x: x != unknownModule) opt.declarations;
-          internal = opt.internal or false;
-          visible =
-            if (opt ? visible && opt.visible == "shallow") then
-              true
-            else
-              opt.visible or true
-            ;
-          readOnly = opt.readOnly or false;
-          type = opt.type.description or "unspecified";
-        } // optionalAttrs (opt ? example) {
-          example = builtins.addErrorContext
-            "while evaluating the example of option `${name}`"
-            (renderOptionValue opt.example);
-        } // optionalAttrs (opt ? default) {
-          default = builtins.addErrorContext
-            "while evaluating the default value of option `${name}`"
-            (renderOptionValue (opt.defaultText or opt.default));
-        } // optionalAttrs
-          (opt ? relatedPackages && opt.relatedPackages != null)
-          {
-            inherit (opt) relatedPackages;
-          };
+      (
+        opt:
+        let
+          name = showOption opt.loc;
+          docOption = rec {
+            loc = opt.loc;
+            inherit name;
+            description = opt.description or null;
+            declarations = filter (x: x != unknownModule) opt.declarations;
+            internal = opt.internal or false;
+            visible =
+              if (opt ? visible && opt.visible == "shallow") then
+                true
+              else
+                opt.visible or true
+              ;
+            readOnly = opt.readOnly or false;
+            type = opt.type.description or "unspecified";
+          } // optionalAttrs (opt ? example) {
+            example =
+              builtins.addErrorContext
+                "while evaluating the example of option `${name}`"
+                (renderOptionValue opt.example)
+              ;
+          } // optionalAttrs (opt ? default) {
+            default =
+              builtins.addErrorContext
+                "while evaluating the default value of option `${name}`"
+                (renderOptionValue (opt.defaultText or opt.default))
+              ;
+          } // optionalAttrs
+              (opt ? relatedPackages && opt.relatedPackages != null)
+              { inherit (opt) relatedPackages; };
 
-        subOptions =
-          let
-            ss = opt.type.getSubOptions opt.loc;
-          in
-          if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ]
-          ;
-        subOptionsVisible =
-          docOption.visible && opt.visible or null != "shallow";
-      in
-      # To find infinite recursion in NixOS option docs:
-      # builtins.trace opt.loc
-      [ docOption ] ++ optionals subOptionsVisible subOptions
-    )
-    (collect isOption options)
+          subOptions =
+            let
+              ss = opt.type.getSubOptions opt.loc;
+            in
+            if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ]
+            ;
+          subOptionsVisible =
+            docOption.visible && opt.visible or null != "shallow";
+        in
+        # To find infinite recursion in NixOS option docs:
+        # builtins.trace opt.loc
+        [ docOption ] ++ optionals subOptionsVisible subOptions
+      )
+      (collect isOption options)
     ;
 
   /* This function recursively removes all derivation attributes from
@@ -415,11 +420,11 @@ rec {
     else
       literalExpression (
         lib.generators.toPretty
-        {
-          multiline = true;
-          allowPrettyValues = true;
-        }
-        v
+          {
+            multiline = true;
+            allowPrettyValues = true;
+          }
+          v
       )
     ;
 
@@ -439,9 +444,11 @@ rec {
       }
     ;
 
-  literalExample = lib.warn
-    "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
-    literalExpression;
+  literalExample =
+    lib.warn
+      "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
+      literalExpression
+    ;
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
      given DocBook text to be inserted verbatim in the documentation, for when
@@ -453,11 +460,11 @@ rec {
       throw "literalDocBook expects a string."
     else
       lib.warnIf (lib.isInOldestRelease 2211)
-      "literalDocBook is deprecated, use literalMD instead"
-      {
-        _type = "literalDocBook";
-        inherit text;
-      }
+        "literalDocBook is deprecated, use literalMD instead"
+        {
+          _type = "literalDocBook";
+          inherit text;
+        }
     ;
 
   /* Transition marker for documentation that's already migrated to markdown
@@ -530,42 +537,42 @@ rec {
   showDefs =
     defs:
     concatMapStrings
-    (
-      def:
-      let
-        # Pretty print the value for display, if successful
-        prettyEval = builtins.tryEval (
-          lib.generators.toPretty { } (
-            lib.generators.withRecursion
-            {
-              depthLimit = 10;
-              throwOnDepthLimit = false;
-            }
-            def.value
-          )
-        );
-        # Split it into its lines
-        lines = filter (v: !isList v) (builtins.split "\n" prettyEval.value);
-        # Only display the first 5 lines, and indent them for better visibility
-        value = concatStringsSep "\n    " (
-          take 5 lines ++ optional (length lines > 5) "..."
-        );
-        result =
-          # Don't print any value if evaluating the value strictly fails
-          if !prettyEval.success then
-            ""
-          # Put it on a new line if it consists of multiple
-          else if length lines > 1 then
-            ":\n    " + value
-          else
-            ": " + value
-          ;
-      in
-      ''
+      (
+        def:
+        let
+          # Pretty print the value for display, if successful
+          prettyEval = builtins.tryEval (
+            lib.generators.toPretty { } (
+              lib.generators.withRecursion
+                {
+                  depthLimit = 10;
+                  throwOnDepthLimit = false;
+                }
+                def.value
+            )
+          );
+          # Split it into its lines
+          lines = filter (v: !isList v) (builtins.split "\n" prettyEval.value);
+          # Only display the first 5 lines, and indent them for better visibility
+          value = concatStringsSep "\n    " (
+            take 5 lines ++ optional (length lines > 5) "..."
+          );
+          result =
+            # Don't print any value if evaluating the value strictly fails
+            if !prettyEval.success then
+              ""
+            # Put it on a new line if it consists of multiple
+            else if length lines > 1 then
+              ":\n    " + value
+            else
+              ": " + value
+            ;
+        in
+        ''
 
-        - In `${def.file}'${result}''
-    )
-    defs
+          - In `${def.file}'${result}''
+      )
+      defs
     ;
 
   showOptionWithDefLocs =

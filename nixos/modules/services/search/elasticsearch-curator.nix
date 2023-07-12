@@ -45,8 +45,10 @@ in
 
     enable = mkEnableOption (lib.mdDoc "elasticsearch curator");
     interval = mkOption {
-      description = lib.mdDoc
-        "The frequency to run curator, a systemd.time such as 'hourly'";
+      description =
+        lib.mdDoc
+          "The frequency to run curator, a systemd.time such as 'hourly'"
+        ;
       default = "hourly";
       type = types.str;
     };
@@ -61,8 +63,9 @@ in
       default = 9200;
     };
     actionYAML = mkOption {
-      description = lib.mdDoc
-        "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command"
+      description =
+        lib.mdDoc
+          "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command"
         ;
       type = types.lines;
       example = ''

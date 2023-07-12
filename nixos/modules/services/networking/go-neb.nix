@@ -39,7 +39,9 @@ in
     baseUrl = mkOption {
       type = types.str;
       description =
-        lib.mdDoc "Public-facing endpoint that can receive webhooks.";
+        lib.mdDoc
+          "Public-facing endpoint that can receive webhooks."
+        ;
     };
 
     config = mkOption {

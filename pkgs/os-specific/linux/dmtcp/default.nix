@@ -51,6 +51,8 @@ stdenv.mkDerivation rec {
     homepage = "http://dmtcp.sourceforge.net/";
     license = licenses.lgpl3Plus; # most files seem this or LGPL-2.1+
     platforms =
-      intersectLists platforms.linux platforms.x86; # broken on ARM and Darwin
+      intersectLists platforms.linux
+        platforms.x86
+      ; # broken on ARM and Darwin
   };
 }

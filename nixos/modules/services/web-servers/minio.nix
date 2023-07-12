@@ -39,16 +39,19 @@ in
     dataDir = mkOption {
       default = [ "/var/lib/minio/data" ];
       type = types.listOf types.path;
-      description = lib.mdDoc
-        "The list of data directories for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode."
+      description =
+        lib.mdDoc
+          "The list of data directories for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode."
         ;
     };
 
     configDir = mkOption {
       default = "/var/lib/minio/config";
       type = types.path;
-      description = lib.mdDoc
-        "The config directory, for the access keys and other settings.";
+      description =
+        lib.mdDoc
+          "The config directory, for the access keys and other settings."
+        ;
     };
 
     accessKey = mkOption {
@@ -105,9 +108,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = optional
-      ((cfg.accessKey != "") || (cfg.secretKey != ""))
-      "services.minio.`accessKey` and services.minio.`secretKey` are deprecated, please use services.minio.`rootCredentialsFile` instead."
+    warnings =
+      optional ((cfg.accessKey != "") || (cfg.secretKey != ""))
+        "services.minio.`accessKey` and services.minio.`secretKey` are deprecated, please use services.minio.`rootCredentialsFile` instead."
       ;
 
     systemd = lib.mkMerge [

@@ -14,13 +14,15 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "lxd"
-        "zfsPackage"
-      ]
-      "Override zfs in an overlay instead to override it globally")
+    (
+      mkRemovedOptionModule
+        [
+          "virtualisation"
+          "lxd"
+          "zfsPackage"
+        ]
+        "Override zfs in an overlay instead to override it globally"
+    )
   ];
 
   ###### interface
@@ -174,9 +176,10 @@ in
         # By default, `lxd` loads configuration files from hard-coded
         # `/usr/share/lxc/config` - since this is a no-go for us, we have to
         # explicitly tell it where the actual configuration files are
-        Environment = mkIf
-          (config.virtualisation.lxc.lxcfs.enable)
-          "LXD_LXC_TEMPLATE_CONFIG=${pkgs.lxcfs}/share/lxc/config";
+        Environment =
+          mkIf (config.virtualisation.lxc.lxcfs.enable)
+            "LXD_LXC_TEMPLATE_CONFIG=${pkgs.lxcfs}/share/lxc/config"
+          ;
       };
     };
 

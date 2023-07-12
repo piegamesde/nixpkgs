@@ -23,8 +23,9 @@
 
 let
   # only 'out' has to be changed, otherwise it would be replaced by the out of the writeTextFile
-  placeholderToSubstVar =
-    builtins.replaceStrings [ "${placeholder "out"}" ] [ "@out@" ];
+  placeholderToSubstVar = builtins.replaceStrings [ "${placeholder "out"}" ] [
+    "@out@"
+  ];
 
   replacePlaceholderAndListToString =
     x:
@@ -58,14 +59,14 @@ let
   renderVariable =
     name: value:
     lib.optionalString (value != "" && value != [ ]) "${name}=${
-      replacePlaceholderAndListToString value
-    }"
+        replacePlaceholderAndListToString value
+      }"
     ;
   renderKeyword =
     name: value:
     lib.optionalString (value != "" && value != [ ]) "${name}: ${
-      replacePlaceholderAndListToString value
-    }"
+        replacePlaceholderAndListToString value
+      }"
     ;
 
   renderSomething =

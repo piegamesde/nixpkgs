@@ -75,7 +75,9 @@ stdenv.mkDerivation rec {
     python3
   ];
   buildInputs =
-    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
+    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
+      libunwind
+    ;
 
   cmakeFlags =
     [

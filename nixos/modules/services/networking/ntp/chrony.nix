@@ -17,21 +17,20 @@ let
 
   configFile = pkgs.writeText "chrony.conf" ''
     ${concatMapStringsSep "\n"
-    (
-      server:
-      "server "
-      + server
-      + " "
-      + cfg.serverOption
-      + optionalString (cfg.enableNTS) " nts"
-    )
-    cfg.servers}
+      (
+        server:
+        "server "
+        + server
+        + " "
+        + cfg.serverOption
+        + optionalString (cfg.enableNTS) " nts"
+      )
+      cfg.servers}
 
-    ${optionalString
-    (cfg.initstepslew.enabled && (cfg.servers != [ ]))
-    "initstepslew ${toString cfg.initstepslew.threshold} ${
-      concatStringsSep " " cfg.servers
-    }"}
+    ${optionalString (cfg.initstepslew.enabled && (cfg.servers != [ ]))
+      "initstepslew ${toString cfg.initstepslew.threshold} ${
+        concatStringsSep " " cfg.servers
+      }"}
 
     driftfile ${driftFile}
     keyfile ${keyFile}

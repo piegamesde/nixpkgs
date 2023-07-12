@@ -25,7 +25,7 @@ in
 
       enable = mkEnableOption (
         lib.mdDoc
-        "pgpkeyserver-lite on a nginx vHost proxying to a gpg keyserver"
+          "pgpkeyserver-lite on a nginx vHost proxying to a gpg keyserver"
       );
 
       package = mkOption {

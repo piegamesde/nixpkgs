@@ -116,14 +116,15 @@ in
     attrs: {
       nativeBuildInputs =
         [ pkg-config ]
-        ++ lib.optionals
-          (stdenv.buildPlatform.config != stdenv.hostPlatform.config)
-          [
-            python3
-            autoconf
-            automake
-            libtool
-          ]
+        ++
+          lib.optionals
+            (stdenv.buildPlatform.config != stdenv.hostPlatform.config)
+            [
+              python3
+              autoconf
+              automake
+              libtool
+            ]
         ;
       buildInputs = [ libevdev ];
 

@@ -9,8 +9,9 @@ with lib;
 
 let
   cfg = config.services.ananicy;
-  configFile =
-    pkgs.writeText "ananicy.conf" (generators.toKeyValue { } cfg.settings);
+  configFile = pkgs.writeText "ananicy.conf" (
+    generators.toKeyValue { } cfg.settings
+  );
   extraRules = pkgs.writeText "extraRules" cfg.extraRules;
   servicename =
     if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then
@@ -77,9 +78,8 @@ in
         cp -r ${pkgs.ananicy}/etc/ananicy.d/* $out
         rm $out/ananicy.conf
         cp ${configFile} $out/ananicy.conf
-        ${optionalString
-        (cfg.extraRules != "")
-        "cp ${extraRules} $out/nixRules.rules"}
+        ${optionalString (cfg.extraRules != "")
+          "cp ${extraRules} $out/nixRules.rules"}
       '';
     };
 
@@ -104,7 +104,9 @@ in
             # https://gitlab.com/ananicy-cpp/ananicy-cpp/-/blob/master/src/config.cpp#L12
             loglevel = mkOD "warn"; # default is info but its spammy
             cgroup_realtime_workaround =
-              mkOD config.systemd.enableUnifiedCgroupHierarchy;
+              mkOD
+                config.systemd.enableUnifiedCgroupHierarchy
+              ;
           }
         else
           {

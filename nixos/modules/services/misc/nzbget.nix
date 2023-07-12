@@ -13,9 +13,8 @@ let
   stateDir = "/var/lib/nzbget";
   configFile = "${stateDir}/nzbget.conf";
   configOpts = concatStringsSep " " (
-    mapAttrsToList
-    (name: value: "-o ${name}=${escapeShellArg (toStr value)}")
-    cfg.settings
+    mapAttrsToList (name: value: "-o ${name}=${escapeShellArg (toStr value)}")
+      cfg.settings
   );
   toStr =
     v:
@@ -31,30 +30,36 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "misc"
-        "nzbget"
-        "configFile"
-      ]
-      "The configuration of nzbget is now managed by users through the web interface.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "misc"
-        "nzbget"
-        "dataDir"
-      ]
-      "The data directory for nzbget is now /var/lib/nzbget.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "misc"
-        "nzbget"
-        "openFirewall"
-      ]
-      "The port used by nzbget is managed through the web interface so you should adjust your firewall rules accordingly.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "misc"
+          "nzbget"
+          "configFile"
+        ]
+        "The configuration of nzbget is now managed by users through the web interface."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "misc"
+          "nzbget"
+          "dataDir"
+        ]
+        "The data directory for nzbget is now /var/lib/nzbget."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "misc"
+          "nzbget"
+          "openFirewall"
+        ]
+        "The port used by nzbget is managed through the web interface so you should adjust your firewall rules accordingly."
+    )
   ];
 
   # interface

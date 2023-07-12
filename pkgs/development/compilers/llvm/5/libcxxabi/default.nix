@@ -15,7 +15,9 @@ stdenv.mkDerivation {
   inherit version;
 
   src =
-    fetch "libcxxabi" "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv";
+    fetch "libcxxabi"
+      "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv"
+    ;
 
   outputs = [
     "out"

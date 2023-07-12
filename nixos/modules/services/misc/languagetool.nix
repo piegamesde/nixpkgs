@@ -25,9 +25,9 @@ in
       '';
     };
 
-    public =
-      mkEnableOption (mdDoc "access from anywhere (rather than just localhost)")
-      ;
+    public = mkEnableOption (
+      mdDoc "access from anywhere (rather than just localhost)"
+    );
 
     allowOrigin = mkOption {
       type = types.nullOr types.str;
@@ -82,9 +82,8 @@ in
             --port ${toString cfg.port} \
             ${optionalString cfg.public "--public"} \
             ${
-              optionalString
-              (cfg.allowOrigin != null)
-              "--allow-origin ${cfg.allowOrigin}"
+              optionalString (cfg.allowOrigin != null)
+                "--allow-origin ${cfg.allowOrigin}"
             } \
             "--config" ${
               settingsFormat.generate "languagetool.conf" cfg.settings

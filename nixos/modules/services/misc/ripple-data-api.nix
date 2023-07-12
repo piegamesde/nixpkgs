@@ -72,7 +72,9 @@ in
       redis = {
         enable = mkOption {
           description =
-            lib.mdDoc "Whether to enable caching of ripple data to redis.";
+            lib.mdDoc
+              "Whether to enable caching of ripple data to redis."
+            ;
           default = true;
           type = types.bool;
         };
@@ -122,8 +124,10 @@ in
         };
 
         create = mkOption {
-          description = lib.mdDoc
-            "Whether to create couchdb database needed by ripple data api.";
+          description =
+            lib.mdDoc
+              "Whether to create couchdb database needed by ripple data api."
+            ;
           type = types.bool;
           default = true;
         };
@@ -131,7 +135,9 @@ in
 
       rippleds = mkOption {
         description =
-          lib.mdDoc "List of rippleds to be used by ripple data api.";
+          lib.mdDoc
+            "List of rippleds to be used by ripple data api."
+          ;
         default = [
           "http://s_east.ripple.com:51234"
           "http://s_west.ripple.com:51234"
@@ -157,7 +163,9 @@ in
       environment = {
         NODE_ENV = "production";
         DEPLOYMENT_ENVS_CONFIG =
-          pkgs.writeText "deployment.environment.json" deployment_env_config;
+          pkgs.writeText "deployment.environment.json"
+            deployment_env_config
+          ;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
       };
 
@@ -176,7 +184,9 @@ in
       environment = {
         NODE_ENV = "production";
         DEPLOYMENT_ENVS_CONFIG =
-          pkgs.writeText "deployment.environment.json" deployment_env_config;
+          pkgs.writeText "deployment.environment.json"
+            deployment_env_config
+          ;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
         LOG_FILE = "/dev/null";
       };
@@ -201,9 +211,8 @@ in
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''
           HOST="http://${
-            optionalString
-            (cfg.couchdb.pass != "")
-            "${cfg.couchdb.user}:${cfg.couchdb.pass}@"
+            optionalString (cfg.couchdb.pass != "")
+              "${cfg.couchdb.user}:${cfg.couchdb.pass}@"
           }${cfg.couchdb.host}:${toString cfg.couchdb.port}"
           curl -X PUT $HOST/${cfg.couchdb.db} || true
         '')

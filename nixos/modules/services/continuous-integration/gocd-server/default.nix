@@ -86,8 +86,9 @@ in
           config.programs.ssh.package
           pkgs.nix
         ];
-        defaultText = literalExpression
-          "[ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ]"
+        defaultText =
+          literalExpression
+            "[ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ]"
           ;
         type = types.listOf types.package;
         description = lib.mdDoc ''
@@ -206,9 +207,10 @@ in
 
       environment =
         let
-          selectedSessionVars = lib.filterAttrs
-            (n: v: builtins.elem n [ "NIX_PATH" ])
-            config.environment.sessionVariables;
+          selectedSessionVars =
+            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+              config.environment.sessionVariables
+            ;
         in
         selectedSessionVars // {
           NIX_REMOTE = "daemon";

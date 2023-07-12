@@ -58,8 +58,10 @@ in
   # included for clarity, but $out/initrd will always be a symlink to
   # the final image.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  extension ? _compressorMeta.extension or (throw
-    "Unrecognised compressor ${_compressorName}, please specify filename extension"),
+  extension ? _compressorMeta.extension or (
+    throw
+      "Unrecognised compressor ${_compressorName}, please specify filename extension"
+  ),
 
   # List of { object = path_or_derivation; symlink = "/path"; }
   # The paths are copied into the initramfs in their nix store path
@@ -83,8 +85,10 @@ in
   # The name of the compression, as recognised by u-boot.
   # See https://gitlab.denx.de/u-boot/u-boot/-/blob/9bfb567e5f1bfe7de8eb41f8c6d00f49d2b9a426/common/image.c#L195-204 for a list.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  uInitrdCompression ? _compressorMeta.ubootName or (throw
-    "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression"),
+  uInitrdCompression ? _compressorMeta.ubootName or (
+    throw
+      "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression"
+  ),
 }:
 let
   # !!! Move this into a public lib function, it is probably useful for others
@@ -131,12 +135,14 @@ stdenvNoCC.mkDerivation rec {
   # For obtaining the closure of `contents'.
   # Note: we don't use closureInfo yet, as that won't build with nix-1.x.
   # See #36268.
-  exportReferencesGraph = lib.zipListsWith
-    (x: i: [
-      ("closure-${toValidStoreName (baseNameOf x.symlink)}-${toString i}")
-      x.object
-    ])
-    contents
-    (lib.range 0 (lib.length contents - 1));
+  exportReferencesGraph =
+    lib.zipListsWith
+      (x: i: [
+        ("closure-${toValidStoreName (baseNameOf x.symlink)}-${toString i}")
+        x.object
+      ])
+      contents
+      (lib.range 0 (lib.length contents - 1))
+    ;
   pathsFromGraph = ./paths-from-graph.pl;
 }

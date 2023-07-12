@@ -22,7 +22,9 @@
   tree-sitter-elixir = lib.importJSON ./tree-sitter-elixir.json;
   tree-sitter-elm = lib.importJSON ./tree-sitter-elm.json;
   tree-sitter-embedded-template =
-    lib.importJSON ./tree-sitter-embedded-template.json;
+    lib.importJSON
+      ./tree-sitter-embedded-template.json
+    ;
   tree-sitter-erlang = lib.importJSON ./tree-sitter-erlang.json;
   tree-sitter-fennel = lib.importJSON ./tree-sitter-fennel.json;
   tree-sitter-fish = lib.importJSON ./tree-sitter-fish.json;

@@ -172,15 +172,19 @@ in
           default = config.boot.kernelPackages.openafs;
           defaultText = literalExpression "config.boot.kernelPackages.openafs";
           type = types.package;
-          description = lib.mdDoc
-            "OpenAFS kernel module package. MUST match the userland package!";
+          description =
+            lib.mdDoc
+              "OpenAFS kernel module package. MUST match the userland package!"
+            ;
         };
         programs = mkOption {
           default = getBin pkgs.openafs;
           defaultText = literalExpression "getBin pkgs.openafs";
           type = types.package;
-          description = lib.mdDoc
-            "OpenAFS programs package. MUST match the kernel module package!";
+          description =
+            lib.mdDoc
+              "OpenAFS programs package. MUST match the kernel module package!"
+            ;
         };
       };
 
@@ -258,9 +262,8 @@ in
           -mountdir ${cfg.mountPoint} \
           -confdir ${afsConfig} \
           ${
-            optionalString
-            (!cfg.cache.diskless)
-            "-cachedir ${cfg.cache.directory}"
+            optionalString (!cfg.cache.diskless)
+              "-cachedir ${cfg.cache.directory}"
           } \
           -blocks ${toString cfg.cache.blocks} \
           -chunksize ${toString cfg.cache.chunksize} \
@@ -270,9 +273,8 @@ in
           ${if cfg.sparse then "-dynroot-sparse" else "-dynroot"} \
           ${optionalString cfg.afsdb "-afsdb"}
         ${openafsBin}/bin/fs setcrypt ${if cfg.crypt then "on" else "off"}
-        ${optionalString
-        cfg.startDisconnected
-        "${openafsBin}/bin/fs discon offline"}
+        ${optionalString cfg.startDisconnected
+          "${openafsBin}/bin/fs discon offline"}
       '';
 
       # Doing this in preStop, because after these commands AFS is basically

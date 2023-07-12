@@ -59,7 +59,7 @@ let
               bass.so.${stdenv.hostPlatform.system}
             else
               throw
-              "${name} not packaged for ${stdenv.hostPlatform.system} (yet)."
+                "${name} not packaged for ${stdenv.hostPlatform.system} (yet)."
             ;
         in
         ''

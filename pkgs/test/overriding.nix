@@ -59,8 +59,9 @@ let
 
   example = entangle pkgs.hello pkgs.figlet;
 
-  overrides1 =
-    example.overrideAttrs (_: super: { pname = "a-better-${super.pname}"; });
+  overrides1 = example.overrideAttrs (
+    _: super: { pname = "a-better-${super.pname}"; }
+  );
 
   repeatedOverrides = overrides1.overrideAttrs (
     _: super: { pname = "${super.pname}-with-blackjack"; }
@@ -74,13 +75,14 @@ stdenvNoCC.mkDerivation {
     ''
       touch $out
     ''
-    + lib.concatMapStringsSep "\n"
-      (
-        t:
-        "([[ ${lib.boolToString t.expr} == ${
-          lib.boolToString t.expected
-        } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)"
-      )
-      tests
+    +
+      lib.concatMapStringsSep "\n"
+        (
+          t:
+          "([[ ${lib.boolToString t.expr} == ${
+            lib.boolToString t.expected
+          } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)"
+        )
+        tests
     ;
 }

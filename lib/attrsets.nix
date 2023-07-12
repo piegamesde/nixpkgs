@@ -255,8 +255,8 @@ rec {
               # If we do have a value and it's an attribute set, override it
               # with the nested modifications
               value // mapAttrs
-              (name: go (prefixLength + 1) (value ? ${name}) value.${name})
-              nested
+                (name: go (prefixLength + 1) (value ? ${name}) value.${name})
+                nested
             else
               # However if it's not an attribute set, we can't apply the nested
               # modifications, throw an error
@@ -366,14 +366,14 @@ rec {
     set:
     listToAttrs (
       concatMap
-      (
-        name:
-        let
-          v = set.${name};
-        in
-        if pred name v then [ (nameValuePair name v) ] else [ ]
-      )
-      (attrNames set)
+        (
+          name:
+          let
+            v = set.${name};
+          in
+          if pred name v then [ (nameValuePair name v) ] else [ ]
+        )
+        (attrNames set)
     )
     ;
 
@@ -394,21 +394,21 @@ rec {
     set:
     listToAttrs (
       concatMap
-      (
-        name:
-        let
-          v = set.${name};
-        in
-        if pred name v then
-          [
-            (nameValuePair name (
-              if isAttrs v then filterAttrsRecursive pred v else v
-            ))
-          ]
-        else
-          [ ]
-      )
-      (attrNames set)
+        (
+          name:
+          let
+            v = set.${name};
+          in
+          if pred name v then
+            [
+              (nameValuePair name (
+                if isAttrs v then filterAttrsRecursive pred v else v
+              ))
+            ]
+          else
+            [ ]
+        )
+        (attrNames set)
     )
     ;
 
@@ -487,14 +487,14 @@ rec {
     # A list of attribute sets to fold together by key.
     list_of_attrs:
     foldr
-    (
-      n: a:
-      foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (
-        attrNames n
+      (
+        n: a:
+        foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (
+          attrNames n
+        )
       )
-    )
-    { }
-    list_of_attrs
+      { }
+      list_of_attrs
     ;
 
   /* Recursively collect sets that verify a given predicate named `pred`
@@ -542,19 +542,18 @@ rec {
     # Attribute set with attributes that are lists of values
     attrsOfLists:
     foldl'
-    (
-      listOfAttrs: attrName:
-      concatMap
       (
-        attrs:
-        map
-        (listValue: attrs // { ${attrName} = listValue; })
-        attrsOfLists.${attrName}
+        listOfAttrs: attrName:
+        concatMap
+          (
+            attrs:
+            map (listValue: attrs // { ${attrName} = listValue; })
+              attrsOfLists.${attrName}
+          )
+          listOfAttrs
       )
-      listOfAttrs
-    )
-    [ { } ]
-    (attrNames attrsOfLists)
+      [ { } ]
+      (attrNames attrsOfLists)
     ;
 
   /* Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.
@@ -590,11 +589,11 @@ rec {
       f: set:
       listToAttrs (
         map
-        (attr: {
-          name = attr;
-          value = f attr set.${attr};
-        })
-        (attrNames set)
+          (attr: {
+            name = attr;
+            value = f attr set.${attr};
+          })
+          (attrNames set)
       )
     );
 
@@ -753,9 +752,9 @@ rec {
       path' = builtins.storePath path;
       res = {
         type = "derivation";
-        name =
-          sanitizeDerivationName (builtins.substring 33 (-1) (baseNameOf path'))
-          ;
+        name = sanitizeDerivationName (
+          builtins.substring 33 (-1) (baseNameOf path')
+        );
         outPath = path';
         outputs = [ "out" ];
         out = res;
@@ -804,11 +803,11 @@ rec {
     sets:
     listToAttrs (
       map
-      (name: {
-        inherit name;
-        value = f name (catAttrs name sets);
-      })
-      names
+        (name: {
+          inherit name;
+          value = f name (catAttrs name sets);
+        })
+        names
     )
     ;
 
@@ -955,23 +954,23 @@ rec {
     all id (
       attrValues (
         zipAttrsWithNames (attrNames pattern)
-        (
-          n: values:
-          let
-            pat = head values;
-            val = elemAt values 1;
-          in
-          if length values == 1 then
-            false
-          else if isAttrs pat then
-            isAttrs val && matchAttrs pat val
-          else
-            pat == val
-        )
-        [
-          pattern
-          attrs
-        ]
+          (
+            n: values:
+            let
+              pat = head values;
+              val = elemAt values 1;
+            in
+            if length values == 1 then
+              false
+            else if isAttrs pat then
+              isAttrs val && matchAttrs pat val
+            else
+              pat == val
+          )
+          [
+            pattern
+            attrs
+          ]
       )
     )
     ;
@@ -1147,13 +1146,15 @@ rec {
     let
       intersection = builtins.intersectAttrs x y;
       collisions = lib.concatStringsSep " " (builtins.attrNames intersection);
-      mask = builtins.mapAttrs
-        (
-          name: value:
-          builtins.throw
-          "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
-        )
-        intersection;
+      mask =
+        builtins.mapAttrs
+          (
+            name: value:
+            builtins.throw
+              "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
+          )
+          intersection
+        ;
     in
     (x // y) // mask
     ;
@@ -1162,7 +1163,8 @@ rec {
   zipWithNames = zipAttrsWithNames;
 
   # DEPRECATED
-  zip = builtins.trace
-    "lib.zip is deprecated, use lib.zipAttrsWith instead"
-    zipAttrsWith;
+  zip =
+    builtins.trace "lib.zip is deprecated, use lib.zipAttrsWith instead"
+      zipAttrsWith
+    ;
 }

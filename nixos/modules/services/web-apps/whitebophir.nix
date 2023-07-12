@@ -15,7 +15,7 @@ in
     services.whitebophir = {
       enable = mkEnableOption (
         lib.mdDoc
-        "whitebophir, an online collaborative whiteboard server (persistent state will be maintained under {file}`/var/lib/whitebophir`)"
+          "whitebophir, an online collaborative whiteboard server (persistent state will be maintained under {file}`/var/lib/whitebophir`)"
       );
 
       package = mkOption {
@@ -28,8 +28,9 @@ in
       listenAddress = mkOption {
         type = types.str;
         default = "0.0.0.0";
-        description = lib.mdDoc
-          "Address to listen on (use 0.0.0.0 to allow access from any address)."
+        description =
+          lib.mdDoc
+            "Address to listen on (use 0.0.0.0 to allow access from any address)."
           ;
       };
 

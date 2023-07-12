@@ -41,7 +41,8 @@ in
         type = types.lines;
         default = "";
         description =
-          lib.mdDoc "Configuration to use for Cyrus SASL authentication daemon."
+          lib.mdDoc
+            "Configuration to use for Cyrus SASL authentication daemon."
           ;
       };
     };

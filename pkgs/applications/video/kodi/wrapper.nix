@@ -8,8 +8,9 @@
 }:
 
 let
-  kodiPackages =
-    callPackage ../../../top-level/kodi-packages.nix { inherit kodi; };
+  kodiPackages = callPackage ../../../top-level/kodi-packages.nix {
+    inherit kodi;
+  };
 
   # linux distros are supposed to provide pillow and pycryptodome
   requiredPythonPath = with kodi.pythonPackages;
@@ -26,11 +27,11 @@ let
       addonsWithPythonPath = lib.filter (addon: addon ? pythonPath) addons;
     in
     lib.concatMapStringsSep ":"
-    (
-      addon:
-      "${addon}${kodiPackages.addonDir}/${addon.namespace}/${addon.pythonPath}"
-    )
-    addonsWithPythonPath
+      (
+        addon:
+        "${addon}${kodiPackages.addonDir}/${addon.namespace}/${addon.pythonPath}"
+      )
+      addonsWithPythonPath
     ;
 in
 
@@ -51,9 +52,8 @@ buildEnv {
         --prefix KODI_HOME : $out/share/kodi \
         --prefix LD_LIBRARY_PATH ":" "${
           lib.makeLibraryPath (
-            lib.concatMap
-            (plugin: plugin.extraRuntimeDependencies or [ ])
-            addons
+            lib.concatMap (plugin: plugin.extraRuntimeDependencies or [ ])
+              addons
           )
         }"
     done

@@ -66,10 +66,10 @@ stdenv.mkDerivation rec {
     # Link to extra jars
     cd $out/lib;
     ${lib.concatMapStrings
-    (jar: ''
-      ln -s ${jar};
-    '')
-    extraJars}
+      (jar: ''
+        ln -s ${jar};
+      '')
+      extraJars}
   '';
 
   dontStrip = true;

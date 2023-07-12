@@ -188,8 +188,9 @@ buildPythonPackage rec {
     };
   };
 
-  env.MPLSETUPCFG =
-    writeText "mplsetup.cfg" (lib.generators.toINI { } passthru.config);
+  env.MPLSETUPCFG = writeText "mplsetup.cfg" (
+    lib.generators.toINI { } passthru.config
+  );
 
   # Matplotlib needs to be built against a specific version of freetype in
   # order for all of the tests to pass.

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw
-      "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}"
+        "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}"
     ;
 
   nativeBuildInputs = [

@@ -67,16 +67,19 @@ in
         defaultText = literalExpression "pkgs.fail2ban";
         type = types.package;
         example = literalExpression "pkgs.fail2ban_0_11";
-        description = lib.mdDoc
-          "The fail2ban package to use for running the fail2ban service.";
+        description =
+          lib.mdDoc
+            "The fail2ban package to use for running the fail2ban service."
+          ;
       };
 
       packageFirewall = mkOption {
         default = config.networking.firewall.package;
         defaultText = literalExpression "config.networking.firewall.package";
         type = types.package;
-        description = lib.mdDoc
-          "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables)."
+        description =
+          lib.mdDoc
+            "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables)."
           ;
       };
 
@@ -322,11 +325,14 @@ in
       '';
     } ];
 
-    warnings = mkIf
-      (!config.networking.firewall.enable && !config.networking.nftables.enable)
-      [
-        "fail2ban can not be used without a firewall"
-      ];
+    warnings =
+      mkIf
+        (
+          !config.networking.firewall.enable
+          && !config.networking.nftables.enable
+        )
+        [ "fail2ban can not be used without a firewall" ]
+      ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -399,26 +405,20 @@ in
     services.fail2ban.jails.DEFAULT = ''
       # Bantime increment options
       bantime.increment = ${boolToString cfg.bantime-increment.enable}
-      ${optionalString
-      (cfg.bantime-increment.rndtime != null)
-      "bantime.rndtime = ${cfg.bantime-increment.rndtime}"}
-      ${optionalString
-      (cfg.bantime-increment.maxtime != null)
-      "bantime.maxtime = ${cfg.bantime-increment.maxtime}"}
-      ${optionalString
-      (cfg.bantime-increment.factor != null)
-      "bantime.factor = ${cfg.bantime-increment.factor}"}
-      ${optionalString
-      (cfg.bantime-increment.formula != null)
-      "bantime.formula = ${cfg.bantime-increment.formula}"}
-      ${optionalString
-      (cfg.bantime-increment.multipliers != null)
-      "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
-      ${optionalString
-      (cfg.bantime-increment.overalljails != null)
-      "bantime.overalljails = ${
-        boolToString cfg.bantime-increment.overalljails
-      }"}
+      ${optionalString (cfg.bantime-increment.rndtime != null)
+        "bantime.rndtime = ${cfg.bantime-increment.rndtime}"}
+      ${optionalString (cfg.bantime-increment.maxtime != null)
+        "bantime.maxtime = ${cfg.bantime-increment.maxtime}"}
+      ${optionalString (cfg.bantime-increment.factor != null)
+        "bantime.factor = ${cfg.bantime-increment.factor}"}
+      ${optionalString (cfg.bantime-increment.formula != null)
+        "bantime.formula = ${cfg.bantime-increment.formula}"}
+      ${optionalString (cfg.bantime-increment.multipliers != null)
+        "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
+      ${optionalString (cfg.bantime-increment.overalljails != null)
+        "bantime.overalljails = ${
+          boolToString cfg.bantime-increment.overalljails
+        }"}
       # Miscellaneous options
       ignoreip    = 127.0.0.1/8 ${
         optionalString config.networking.enableIPv6 "::1"

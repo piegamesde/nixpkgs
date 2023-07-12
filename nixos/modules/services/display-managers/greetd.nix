@@ -49,7 +49,8 @@ in
       type = types.bool;
       default = !(cfg.settings ? initial_session);
       defaultText =
-        literalExpression "!(config.services.greetd.settings ? initial_session)"
+        literalExpression
+          "!(config.services.greetd.settings ? initial_session)"
         ;
       description = lib.mdDoc ''
         Whether to restart greetd when it terminates (e.g. on failure).

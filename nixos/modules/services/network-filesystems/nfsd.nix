@@ -16,30 +16,34 @@ in
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nfs"
-        "lockdPort"
-      ]
-      [
-        "services"
-        "nfs"
-        "server"
-        "lockdPort"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nfs"
-        "statdPort"
-      ]
-      [
-        "services"
-        "nfs"
-        "server"
-        "statdPort"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nfs"
+          "lockdPort"
+        ]
+        [
+          "services"
+          "nfs"
+          "server"
+          "lockdPort"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nfs"
+          "statdPort"
+        ]
+        [
+          "services"
+          "nfs"
+          "server"
+          "statdPort"
+        ]
+    )
   ];
 
   ###### interface
@@ -95,8 +99,9 @@ in
         createMountPoints = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc
-            "Whether to create the mount points in the exports file at startup time."
+          description =
+            lib.mdDoc
+              "Whether to create the mount points in the exports file at startup time."
             ;
         };
 
@@ -145,8 +150,8 @@ in
 
       [mountd]
       ${optionalString (cfg.mountdPort != null) "port=${
-        toString cfg.mountdPort
-      }"}
+          toString cfg.mountdPort
+        }"}
 
       [statd]
       ${optionalString (cfg.statdPort != null) "port=${toString cfg.statdPort}"}

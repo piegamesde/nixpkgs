@@ -16,7 +16,9 @@ stdenv.mkDerivation {
   inherit version;
 
   src =
-    fetch "libcxxabi" "1vznz8n1z1h8af0ga451m98lc2hjnv4fyzl71napsvjhvk4g6nxp";
+    fetch "libcxxabi"
+      "1vznz8n1z1h8af0ga451m98lc2hjnv4fyzl71napsvjhvk4g6nxp"
+    ;
 
   outputs = [
     "out"
@@ -47,7 +49,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
   buildInputs =
-    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
+    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
+      libunwind
+    ;
 
   cmakeFlags =
     lib.optionals (stdenv.hostPlatform.useLLVM or false) [

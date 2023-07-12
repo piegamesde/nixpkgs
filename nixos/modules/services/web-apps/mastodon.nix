@@ -45,10 +45,9 @@ let
 
     TRUSTED_PROXY_IP = cfg.trustedProxy;
   } // lib.optionalAttrs
-    (cfg.database.host != "/run/postgresql" && cfg.database.port != null)
-    {
-      DB_PORT = toString cfg.database.port;
-    } // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
+      (cfg.database.host != "/run/postgresql" && cfg.database.port != null)
+      { DB_PORT = toString cfg.database.port; }
+    // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
     // cfg.extraConfig;
 
   systemCallsList = [
@@ -116,22 +115,24 @@ let
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
         lib.mapAttrsToList
-        (
-          name: value:
-          if value != null then [ ''${name}="${toString value}"'' ] else [ ]
-        )
-        env
+          (
+            name: value:
+            if value != null then [ ''${name}="${toString value}"'' ] else [ ]
+          )
+          env
       ))
     )
   );
 
   mastodonTootctl =
     let
-      sourceExtraEnv = lib.concatMapStrings
-        (p: ''
-          source ${p}
-        '')
-        cfg.extraEnvFiles;
+      sourceExtraEnv =
+        lib.concatMapStrings
+          (p: ''
+            source ${p}
+          '')
+          cfg.extraEnvFiles
+        ;
     in
     pkgs.writeShellScriptBin "mastodon-tootctl" ''
       set -a
@@ -148,66 +149,69 @@ let
     ''
     ;
 
-  sidekiqUnits = lib.attrsets.mapAttrs'
-    (
-      name: processCfg:
-      lib.nameValuePair "mastodon-sidekiq-${name}" (
-        let
-          jobClassArgs =
-            toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
-          jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
-          threads = toString (
-            if processCfg.threads == null then
-              cfg.sidekiqThreads
-            else
-              processCfg.threads
-          );
-        in
-        {
-          after =
-            [
-              "network.target"
-              "mastodon-init-dirs.service"
-            ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-            ;
-          requires =
-            [ "mastodon-init-dirs.service" ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-            ;
-          description = "Mastodon sidekiq${jobClassLabel}";
-          wantedBy = [ "mastodon.target" ];
-          environment = env // {
-            PORT = toString (cfg.sidekiqPort);
-            DB_POOL = threads;
-          };
-          serviceConfig = {
-            ExecStart =
-              "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
-            Restart = "always";
-            RestartSec = 20;
-            EnvironmentFile =
-              [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-            WorkingDirectory = cfg.package;
-            # System Call Filtering
-            SystemCallFilter = [
-              ("~" + lib.concatStringsSep " " systemCallsList)
-              "@chown"
-              "pipe"
-              "pipe2"
+  sidekiqUnits =
+    lib.attrsets.mapAttrs'
+      (
+        name: processCfg:
+        lib.nameValuePair "mastodon-sidekiq-${name}" (
+          let
+            jobClassArgs = toString (
+              builtins.map (c: "-q ${c}") processCfg.jobClasses
+            );
+            jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
+            threads = toString (
+              if processCfg.threads == null then
+                cfg.sidekiqThreads
+              else
+                processCfg.threads
+            );
+          in
+          {
+            after =
+              [
+                "network.target"
+                "mastodon-init-dirs.service"
+              ]
+              ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+              ;
+            requires =
+              [ "mastodon-init-dirs.service" ]
+              ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+              ;
+            description = "Mastodon sidekiq${jobClassLabel}";
+            wantedBy = [ "mastodon.target" ];
+            environment = env // {
+              PORT = toString (cfg.sidekiqPort);
+              DB_POOL = threads;
+            };
+            serviceConfig = {
+              ExecStart =
+                "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
+              Restart = "always";
+              RestartSec = 20;
+              EnvironmentFile =
+                [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+              WorkingDirectory = cfg.package;
+              # System Call Filtering
+              SystemCallFilter = [
+                ("~" + lib.concatStringsSep " " systemCallsList)
+                "@chown"
+                "pipe"
+                "pipe2"
+              ];
+            } // cfgService;
+            path = with pkgs; [
+              file
+              imagemagick
+              ffmpeg
             ];
-          } // cfgService;
-          path = with pkgs; [
-            file
-            imagemagick
-            ffmpeg
-          ];
-        }
+          }
+        )
       )
-    )
-    cfg.sidekiqProcesses;
+      cfg.sidekiqProcesses
+    ;
 in
 {
 
@@ -263,7 +267,9 @@ in
 
       streamingPort = lib.mkOption {
         description =
-          lib.mdDoc "TCP port used by the mastodon-streaming service.";
+          lib.mdDoc
+            "TCP port used by the mastodon-streaming service."
+          ;
         type = lib.types.port;
         default = 55000;
       };
@@ -288,29 +294,35 @@ in
       };
       webThreads = lib.mkOption {
         description =
-          lib.mdDoc "Threads per process used by the mastodon-web service.";
+          lib.mdDoc
+            "Threads per process used by the mastodon-web service."
+          ;
         type = lib.types.int;
         default = 5;
       };
 
       sidekiqPort = lib.mkOption {
         description =
-          lib.mdDoc "TCP port used by the mastodon-sidekiq service.";
+          lib.mdDoc
+            "TCP port used by the mastodon-sidekiq service."
+          ;
         type = lib.types.port;
         default = 55002;
       };
 
       sidekiqThreads = lib.mkOption {
-        description = lib.mdDoc
-          "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used."
+        description =
+          lib.mdDoc
+            "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used."
           ;
         type = lib.types.int;
         default = 25;
       };
 
       sidekiqProcesses = lib.mkOption {
-        description = lib.mdDoc
-          "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*"
+        description =
+          lib.mdDoc
+            "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*"
           ;
         type = with lib.types;
           attrsOf (
@@ -327,14 +339,16 @@ in
                       "ingress"
                     ]
                   );
-                  description = lib.mdDoc
-                    "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*"
+                  description =
+                    lib.mdDoc
+                      "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*"
                     ;
                 };
                 threads = lib.mkOption {
                   type = nullOr int;
-                  description = lib.mdDoc
-                    "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used."
+                  description =
+                    lib.mdDoc
+                      "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used."
                     ;
                 };
               };
@@ -474,7 +488,8 @@ in
       database = {
         createLocally = lib.mkOption {
           description =
-            lib.mdDoc "Configure local PostgreSQL database server for Mastodon."
+            lib.mdDoc
+              "Configure local PostgreSQL database server for Mastodon."
             ;
           type = lib.types.bool;
           default = true;
@@ -524,35 +539,43 @@ in
       smtp = {
         createLocally = lib.mkOption {
           description =
-            lib.mdDoc "Configure local Postfix SMTP server for Mastodon.";
+            lib.mdDoc
+              "Configure local Postfix SMTP server for Mastodon."
+            ;
           type = lib.types.bool;
           default = true;
         };
 
         authenticate = lib.mkOption {
-          description = lib.mdDoc
-            "Authenticate with the SMTP server using username and password.";
+          description =
+            lib.mdDoc
+              "Authenticate with the SMTP server using username and password."
+            ;
           type = lib.types.bool;
           default = false;
         };
 
         host = lib.mkOption {
           description =
-            lib.mdDoc "SMTP host used when sending emails to users.";
+            lib.mdDoc
+              "SMTP host used when sending emails to users."
+            ;
           type = lib.types.str;
           default = "127.0.0.1";
         };
 
         port = lib.mkOption {
           description =
-            lib.mdDoc "SMTP port used when sending emails to users.";
+            lib.mdDoc
+              "SMTP port used when sending emails to users."
+            ;
           type = lib.types.port;
           default = 25;
         };
 
         fromAddress = lib.mkOption {
-          description =
-            lib.mdDoc ''"From" address used when sending Emails to users.'';
+          description = lib.mdDoc ''
+            "From" address used when sending Emails to users.'';
           type = lib.types.str;
         };
 
@@ -699,11 +722,12 @@ in
             assertion =
               1 == builtins.length (
                 lib.mapAttrsToList
-                (
-                  _: v:
-                  builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ]
-                )
-                cfg.sidekiqProcesses
+                  (
+                    _: v:
+                    builtins.elem "scheduler" v.jobClasses
+                    || v.jobClasses == [ ]
+                  )
+                  cfg.sidekiqProcesses
               )
               ;
             message =
@@ -942,25 +966,27 @@ in
         };
 
         systemd.services.mastodon-media-auto-remove =
-          lib.mkIf cfg.mediaAutoRemove.enable {
-            description = "Mastodon media auto remove";
-            environment = env;
-            serviceConfig = {
-              Type = "oneshot";
-              EnvironmentFile =
-                [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-            } // cfgService;
-            script =
-              let
-                olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
-              in
-              ''
-                ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
-                ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
-              ''
-              ;
-            startAt = cfg.mediaAutoRemove.startAt;
-          };
+          lib.mkIf cfg.mediaAutoRemove.enable
+            {
+              description = "Mastodon media auto remove";
+              environment = env;
+              serviceConfig = {
+                Type = "oneshot";
+                EnvironmentFile =
+                  [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+              } // cfgService;
+              script =
+                let
+                  olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
+                in
+                ''
+                  ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
+                  ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
+                ''
+                ;
+              startAt = cfg.mediaAutoRemove.startAt;
+            }
+          ;
 
         services.nginx = lib.mkIf cfg.configureNginx {
           enable = true;
@@ -1000,16 +1026,20 @@ in
         };
 
         services.postfix =
-          lib.mkIf (cfg.smtp.createLocally && cfg.smtp.host == "127.0.0.1") {
-            enable = true;
-            hostname = lib.mkDefault "${cfg.localDomain}";
-          };
+          lib.mkIf (cfg.smtp.createLocally && cfg.smtp.host == "127.0.0.1")
+            {
+              enable = true;
+              hostname = lib.mkDefault "${cfg.localDomain}";
+            }
+          ;
         services.redis.servers.mastodon =
-          lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1") {
-            enable = true;
-            port = cfg.redis.port;
-            bind = "127.0.0.1";
-          };
+          lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1")
+            {
+              enable = true;
+              port = cfg.redis.port;
+              bind = "127.0.0.1";
+            }
+          ;
         services.postgresql = lib.mkIf databaseActuallyCreateLocally {
           enable = true;
           ensureUsers = [ {
@@ -1028,19 +1058,23 @@ in
               inherit (cfg) group;
             };
           })
-          (lib.attrsets.setAttrByPath
-            [
-              cfg.user
-              "packages"
-            ]
-            [
-              cfg.package
-              pkgs.imagemagick
-            ])
+          (
+            lib.attrsets.setAttrByPath
+              [
+                cfg.user
+                "packages"
+              ]
+              [
+                cfg.package
+                pkgs.imagemagick
+              ]
+          )
         ];
 
         users.groups.${cfg.group}.members =
-          lib.optional cfg.configureNginx config.services.nginx.user;
+          lib.optional cfg.configureNginx
+            config.services.nginx.user
+          ;
       }
       { systemd.services = sidekiqUnits; }
     ]

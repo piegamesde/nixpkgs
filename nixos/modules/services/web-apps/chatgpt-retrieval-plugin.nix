@@ -18,15 +18,19 @@ in
       type = types.port;
       default = 8080;
       description =
-        lib.mdDoc "Port the chatgpt-retrieval-plugin service listens on.";
+        lib.mdDoc
+          "Port the chatgpt-retrieval-plugin service listens on."
+        ;
     };
 
     host = mkOption {
       type = types.str;
       default = "127.0.0.1";
       example = "0.0.0.0";
-      description = lib.mdDoc
-        "The hostname or IP address for chatgpt-retrieval-plugin to bind to.";
+      description =
+        lib.mdDoc
+          "The hostname or IP address for chatgpt-retrieval-plugin to bind to."
+        ;
     };
 
     bearerTokenPath = mkOption {
@@ -58,8 +62,9 @@ in
         "redis"
       ];
       default = "qdrant";
-      description = lib.mdDoc
-        "This specifies the vector database provider you want to use to store and query embeddings."
+      description =
+        lib.mdDoc
+          "This specifies the vector database provider you want to use to store and query embeddings."
         ;
     };
 
@@ -116,7 +121,9 @@ in
       environment = {
         DATASTORE = cfg.datastore;
         QDRANT_COLLECTION =
-          mkIf (cfg.datastore == "qdrant") cfg.qdrantCollection;
+          mkIf (cfg.datastore == "qdrant")
+            cfg.qdrantCollection
+          ;
       };
     };
 

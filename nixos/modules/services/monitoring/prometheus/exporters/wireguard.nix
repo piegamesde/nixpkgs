@@ -73,8 +73,8 @@ in
           ${optionalString cfg.withRemoteIp "-r true"} \
           ${
             optionalString (cfg.wireguardConfig != null) "-n ${
-              escapeShellArg cfg.wireguardConfig
-            }"
+                escapeShellArg cfg.wireguardConfig
+              }"
           }
       '';
       RestrictAddressFamilies =

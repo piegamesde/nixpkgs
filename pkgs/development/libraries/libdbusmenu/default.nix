@@ -54,7 +54,7 @@ stdenv.mkDerivation (
         "2" = gtk2;
         "3" = gtk3;
       }
-        .${gtkVersion} or (throw "unknown GTK version ${gtkVersion}")
+          .${gtkVersion} or (throw "unknown GTK version ${gtkVersion}")
       ;
 
     postPatch = ''
@@ -96,7 +96,9 @@ stdenv.mkDerivation (
     ];
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       description = "Library for passing menu structures across DBus";

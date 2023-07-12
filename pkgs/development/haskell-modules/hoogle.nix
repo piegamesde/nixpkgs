@@ -41,11 +41,13 @@ let
       ''
     ;
 
-  docPackages = lib.closePropagation
-    # we grab the doc outputs
-    (
-      map (lib.getOutput "doc") packages
-    );
+  docPackages =
+    lib.closePropagation
+      # we grab the doc outputs
+      (
+        map (lib.getOutput "doc") packages
+      )
+    ;
 in
 buildPackages.stdenv.mkDerivation {
   name = "hoogle-with-packages";
@@ -92,19 +94,19 @@ buildPackages.stdenv.mkDerivation {
 
     echo importing other packages
     ${lib.concatMapStringsSep "\n"
-    (el: ''
-      ln -sfn ${el.haddockDir} "$out/share/doc/hoogle/${el.name}"
-    '')
-    (
-      lib.filter (el: el.haddockDir != null) (
-        builtins.map
-        (p: {
-          haddockDir = if p ? haddockDir then p.haddockDir p else null;
-          name = p.pname;
-        })
-        docPackages
-      )
-    )}
+      (el: ''
+        ln -sfn ${el.haddockDir} "$out/share/doc/hoogle/${el.name}"
+      '')
+      (
+        lib.filter (el: el.haddockDir != null) (
+          builtins.map
+            (p: {
+              haddockDir = if p ? haddockDir then p.haddockDir p else null;
+              name = p.pname;
+            })
+            docPackages
+        )
+      )}
 
     echo building hoogle database
     hoogle generate --database $out/share/doc/hoogle/default.hoo --local=$out/share/doc/hoogle

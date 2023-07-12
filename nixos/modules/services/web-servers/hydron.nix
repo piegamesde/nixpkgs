@@ -81,15 +81,19 @@ with lib; {
       type = types.bool;
       default = true;
       description =
-        lib.mdDoc "Fetch tags for imported images and webm from gelbooru.";
+        lib.mdDoc
+          "Fetch tags for imported images and webm from gelbooru."
+        ;
     };
   };
 
   config = mkIf cfg.enable {
-    services.hydron.passwordFile =
-      mkDefault (pkgs.writeText "hydron-password-file" cfg.password);
-    services.hydron.postgresArgsFile =
-      mkDefault (pkgs.writeText "hydron-postgres-args" cfg.postgresArgs);
+    services.hydron.passwordFile = mkDefault (
+      pkgs.writeText "hydron-password-file" cfg.password
+    );
+    services.hydron.postgresArgsFile = mkDefault (
+      pkgs.writeText "hydron-postgres-args" cfg.postgresArgs
+    );
     services.hydron.postgresArgs = mkDefault ''
       {
         "driver": "postgres",
@@ -128,9 +132,9 @@ with lib; {
         Group = "hydron";
         ExecStart =
           "${pkgs.hydron}/bin/hydron serve"
-          + optionalString
-            (cfg.listenAddress != null)
-            " -a ${cfg.listenAddress}"
+          +
+            optionalString (cfg.listenAddress != null)
+              " -a ${cfg.listenAddress}"
           ;
       };
     };
@@ -180,17 +184,19 @@ with lib; {
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "hydron"
-        "baseDir"
-      ]
-      [
-        "services"
-        "hydron"
-        "dataDir"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "hydron"
+          "baseDir"
+        ]
+        [
+          "services"
+          "hydron"
+          "dataDir"
+        ]
+    )
   ];
 
   meta.maintainers = with maintainers; [ Madouura ];

@@ -15,10 +15,12 @@ import ./make-test-python.nix (
         }: {
           services.nginx.enable = true;
           services.nginx.virtualHosts.machine.root =
-            pkgs.runCommand "webroot" { } ''
-              mkdir $out
-              echo 'yay' >$out/index.html
-            '';
+            pkgs.runCommand "webroot" { }
+              ''
+                mkdir $out
+                echo 'yay' >$out/index.html
+              ''
+            ;
           systemd.services.nginx.enable = false;
         }
         ;

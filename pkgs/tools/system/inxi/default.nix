@@ -49,16 +49,18 @@ let
     pciutils
   ];
   recommendedDisplayInformationPrograms =
-    lib.optionals withRecommendedDisplayInformationPrograms (
-      [ glxinfo ]
-      ++ (
-        with xorg; [
-          xdpyinfo
-          xprop
-          xrandr
-        ]
+    lib.optionals withRecommendedDisplayInformationPrograms
+      (
+        [ glxinfo ]
+        ++ (
+          with xorg; [
+            xdpyinfo
+            xprop
+            xrandr
+          ]
+        )
       )
-    );
+    ;
   programs =
     [
       ps

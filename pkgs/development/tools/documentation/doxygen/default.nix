@@ -46,7 +46,9 @@ stdenv.mkDerivation rec {
     ;
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin "-mmacosx-version-min=10.9";
+    lib.optionalString stdenv.isDarwin
+      "-mmacosx-version-min=10.9"
+    ;
 
   meta = {
     license = lib.licenses.gpl2Plus;

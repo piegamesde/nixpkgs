@@ -39,12 +39,12 @@ rec {
       "${name}:${semicolons (map lib.escapeShellArg val)}"
     else
       nope
-      [
-        solution
-        env
-        name
-      ]
-      "unexpected type: ${builtins.typeOf val}"
+        [
+          solution
+          env
+          name
+        ]
+        "unexpected type: ${builtins.typeOf val}"
     ;
 
   # Build fake/fix/keep directives from Nix types
@@ -75,11 +75,11 @@ rec {
       spaces (phraseDirectives solution env val)
     else
       nope
-      [
-        solution
-        env
-      ]
-      "unexpected type: ${builtins.typeOf val}"
+        [
+          solution
+          env
+        ]
+        "unexpected type: ${builtins.typeOf val}"
     ;
 
   # Shell-format each env value
@@ -157,9 +157,10 @@ rec {
 
   injectUnresholved =
     solutions: unresholved:
-    (builtins.mapAttrs
-      (name: value: value // { inherit unresholved; })
-      solutions)
+    (
+      builtins.mapAttrs (name: value: value // { inherit unresholved; })
+        solutions
+    )
     ;
 
   # Build resholve invocation for each solution.

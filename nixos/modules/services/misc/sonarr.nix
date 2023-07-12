@@ -19,7 +19,9 @@ in
         type = types.str;
         default = "/var/lib/sonarr/.config/NzbDrone";
         description =
-          lib.mdDoc "The directory where Sonarr stores its data files.";
+          lib.mdDoc
+            "The directory where Sonarr stores its data files."
+          ;
       };
 
       openFirewall = mkOption {
@@ -83,7 +85,8 @@ in
       };
     };
 
-    users.groups =
-      mkIf (cfg.group == "sonarr") { sonarr.gid = config.ids.gids.sonarr; };
+    users.groups = mkIf (cfg.group == "sonarr") {
+      sonarr.gid = config.ids.gids.sonarr;
+    };
   };
 }

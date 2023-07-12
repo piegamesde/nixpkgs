@@ -11,11 +11,13 @@ let
   cfg = config.services.logcheck;
 
   defaultRules =
-    pkgs.runCommand "logcheck-default-rules" { preferLocalBuild = true; } ''
-      cp -prd ${pkgs.logcheck}/etc/logcheck $out
-      chmod u+w $out
-      rm -r $out/logcheck.*
-    '';
+    pkgs.runCommand "logcheck-default-rules" { preferLocalBuild = true; }
+      ''
+        cp -prd ${pkgs.logcheck}/etc/logcheck $out
+        chmod u+w $out
+        rm -r $out/logcheck.*
+      ''
+    ;
 
   rulesDir = pkgs.symlinkJoin {
     name = "logcheck-rules-dir";

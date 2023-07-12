@@ -38,19 +38,19 @@ rec {
       in
       if isList (head defs').value then
         concatMap
-        (
-          def:
-          if builtins.typeOf def.value == "list" then
-            def.value
-          else
-            throw
-            "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${
-              showOption loc
-            }, the definitions are a mix of list and non-list ${
-              lib.options.showDefs defs'
-            }"
-        )
-        defs'
+          (
+            def:
+            if builtins.typeOf def.value == "list" then
+              def.value
+            else
+              throw
+                "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${
+                  showOption loc
+                }, the definitions are a mix of list and non-list ${
+                  lib.options.showDefs defs'
+                }"
+          )
+          defs'
 
       else
         mergeEqualOption loc defs'
@@ -147,16 +147,18 @@ rec {
       description = mkOption {
         default = "";
         type = types.singleLineStr;
-        description = lib.mdDoc
-          "Description of this unit used in systemd messages and progress indicators."
+        description =
+          lib.mdDoc
+            "Description of this unit used in systemd messages and progress indicators."
           ;
       };
 
       documentation = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        description = lib.mdDoc
-          "A list of URIs referencing documentation for this unit or its configuration."
+        description =
+          lib.mdDoc
+            "A list of URIs referencing documentation for this unit or its configuration."
           ;
       };
 
@@ -333,7 +335,8 @@ rec {
             LANG = "nl_NL.UTF-8";
           };
           description =
-            lib.mdDoc "Environment variables passed to the service's processes."
+            lib.mdDoc
+              "Environment variables passed to the service's processes."
             ;
         };
 
@@ -369,7 +372,9 @@ rec {
           type = types.lines;
           default = "";
           description =
-            lib.mdDoc "Shell commands executed as the service's main process.";
+            lib.mdDoc
+              "Shell commands executed as the service's main process."
+            ;
         };
 
         scriptArgs = mkOption {
@@ -430,7 +435,9 @@ rec {
           type = with types; coercedTo path singleton (listOf path);
           internal = true;
           description =
-            lib.mdDoc "A list of all job script derivations of this unit.";
+            lib.mdDoc
+              "A list of all job script derivations of this unit."
+            ;
           default = [ ];
         };
       };
@@ -663,8 +670,10 @@ rec {
       what = mkOption {
         example = "/dev/sda1";
         type = types.str;
-        description = lib.mdDoc
-          "Absolute path of device node, file or other resource. (Mandatory)";
+        description =
+          lib.mdDoc
+            "Absolute path of device node, file or other resource. (Mandatory)"
+          ;
       };
 
       where = mkOption {

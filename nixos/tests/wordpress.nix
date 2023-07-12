@@ -15,88 +15,90 @@ import ./make-test-python.nix (
       ];
     };
 
-    nodes = lib.foldl
-      (
-        a: version:
-        let
-          package = pkgs."wordpress${version}";
-        in
-        a // {
-          "wp${version}_httpd" =
-            _: {
-              services.httpd.adminAddr = "webmaster@site.local";
-              services.httpd.logPerVirtualHost = true;
+    nodes =
+      lib.foldl
+        (
+          a: version:
+          let
+            package = pkgs."wordpress${version}";
+          in
+          a // {
+            "wp${version}_httpd" =
+              _: {
+                services.httpd.adminAddr = "webmaster@site.local";
+                services.httpd.logPerVirtualHost = true;
 
-              services.wordpress.webserver = "httpd";
-              services.wordpress.sites = {
-                "site1.local" = {
-                  database.tablePrefix = "site1_";
-                  inherit package;
+                services.wordpress.webserver = "httpd";
+                services.wordpress.sites = {
+                  "site1.local" = {
+                    database.tablePrefix = "site1_";
+                    inherit package;
+                  };
+                  "site2.local" = {
+                    database.tablePrefix = "site2_";
+                    inherit package;
+                  };
                 };
-                "site2.local" = {
-                  database.tablePrefix = "site2_";
-                  inherit package;
-                };
-              };
 
-              networking.firewall.allowedTCPPorts = [ 80 ];
-              networking.hosts."127.0.0.1" = [
-                "site1.local"
-                "site2.local"
-              ];
-            }
-            ;
+                networking.firewall.allowedTCPPorts = [ 80 ];
+                networking.hosts."127.0.0.1" = [
+                  "site1.local"
+                  "site2.local"
+                ];
+              }
+              ;
 
-          "wp${version}_nginx" =
-            _: {
-              services.wordpress.webserver = "nginx";
-              services.wordpress.sites = {
-                "site1.local" = {
-                  database.tablePrefix = "site1_";
-                  inherit package;
+            "wp${version}_nginx" =
+              _: {
+                services.wordpress.webserver = "nginx";
+                services.wordpress.sites = {
+                  "site1.local" = {
+                    database.tablePrefix = "site1_";
+                    inherit package;
+                  };
+                  "site2.local" = {
+                    database.tablePrefix = "site2_";
+                    inherit package;
+                  };
                 };
-                "site2.local" = {
-                  database.tablePrefix = "site2_";
-                  inherit package;
-                };
-              };
 
-              networking.firewall.allowedTCPPorts = [ 80 ];
-              networking.hosts."127.0.0.1" = [
-                "site1.local"
-                "site2.local"
-              ];
-            }
-            ;
+                networking.firewall.allowedTCPPorts = [ 80 ];
+                networking.hosts."127.0.0.1" = [
+                  "site1.local"
+                  "site2.local"
+                ];
+              }
+              ;
 
-          "wp${version}_caddy" =
-            _: {
-              services.wordpress.webserver = "caddy";
-              services.wordpress.sites = {
-                "site1.local" = {
-                  database.tablePrefix = "site1_";
-                  inherit package;
+            "wp${version}_caddy" =
+              _: {
+                services.wordpress.webserver = "caddy";
+                services.wordpress.sites = {
+                  "site1.local" = {
+                    database.tablePrefix = "site1_";
+                    inherit package;
+                  };
+                  "site2.local" = {
+                    database.tablePrefix = "site2_";
+                    inherit package;
+                  };
                 };
-                "site2.local" = {
-                  database.tablePrefix = "site2_";
-                  inherit package;
-                };
-              };
 
-              networking.firewall.allowedTCPPorts = [ 80 ];
-              networking.hosts."127.0.0.1" = [
-                "site1.local"
-                "site2.local"
-              ];
-            }
-            ;
-        }
-      )
-      { }
-      [
-        "6_1"
-        "6_2"
-      ];
+                networking.firewall.allowedTCPPorts = [ 80 ];
+                networking.hosts."127.0.0.1" = [
+                  "site1.local"
+                  "site2.local"
+                ];
+              }
+              ;
+          }
+        )
+        { }
+        [
+          "6_1"
+          "6_2"
+        ]
+      ;
 
     testScript = ''
       import re
@@ -105,10 +107,12 @@ import ./make-test-python.nix (
 
       ${lib.concatStrings (
         lib.mapAttrsToList
-        (name: value: ''
-          ${name}.wait_for_unit("${(value null).services.wordpress.webserver}")
-        '')
-        nodes
+          (name: value: ''
+            ${name}.wait_for_unit("${
+              (value null).services.wordpress.webserver
+            }")
+          '')
+          nodes
       )}
 
       site_names = ["site1.local", "site2.local"]

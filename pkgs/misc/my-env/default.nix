@@ -86,8 +86,9 @@ mkDerivation {
 
   buildPhase =
     let
-      initialPath =
-        import ../../stdenv/generic/common-path.nix { inherit pkgs; };
+      initialPath = import ../../stdenv/generic/common-path.nix {
+        inherit pkgs;
+      };
     in
     ''
       set -x

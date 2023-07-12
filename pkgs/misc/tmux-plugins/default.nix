@@ -35,7 +35,7 @@ let
     }:
     if lib.hasAttr "dependencies" a then
       throw
-      "dependencies attribute is obselete. see NixOS/nixpkgs#118034" # added 2021-04-01
+        "dependencies attribute is obselete. see NixOS/nixpkgs#118034" # added 2021-04-01
     else
       addRtp "${rtpPath}/${path}" rtpFilePath a (
         stdenv.mkDerivation (
@@ -72,8 +72,9 @@ in
 rec {
   inherit mkTmuxPlugin;
 
-  mkDerivation = throw
-    "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"
+  mkDerivation =
+    throw
+      "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"
     ; # added 2021-03-14
 
   battery = mkTmuxPlugin {

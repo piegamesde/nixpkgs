@@ -23,9 +23,9 @@
 stdenv.mkDerivation rec {
   pname =
     "util-linux"
-    + lib.optionalString
-      (!nlsSupport && !ncursesSupport && !systemdSupport)
-      "-minimal"
+    +
+      lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport)
+        "-minimal"
     ;
   version = "2.38.1";
 
@@ -74,14 +74,14 @@ stdenv.mkDerivation rec {
       (lib.withFeature ncursesSupport "ncursesw")
       (lib.withFeature systemdSupport "systemd")
       (lib.withFeatureAs systemdSupport "systemdsystemunitdir" "${
-          placeholder "bin"
-        }/lib/systemd/system/")
+            placeholder "bin"
+          }/lib/systemd/system/")
       (lib.enableFeature translateManpages "poman")
       "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
     ]
-    ++ lib.optional
-      (stdenv.hostPlatform != stdenv.buildPlatform)
-      "scanf_cv_type_modifier=ms"
+    ++
+      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+        "scanf_cv_type_modifier=ms"
     ;
 
   makeFlags = [

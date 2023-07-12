@@ -33,7 +33,9 @@ in
         type = types.str;
         default = "12h";
         description =
-          lib.mdDoc "How often to check the feeds, in systemd interval format";
+          lib.mdDoc
+            "How often to check the feeds, in systemd interval format"
+          ;
       };
 
       config = mkOption {
@@ -118,15 +120,16 @@ in
             {
               DEFAULT = cfg.config;
             } // lib.mapAttrs'
-            (
-              name: feed:
-              nameValuePair "feed.${name}" (
-                {
-                  inherit (feed) url;
-                } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }
+              (
+                name: feed:
+                nameValuePair "feed.${name}" (
+                  {
+                    inherit (feed) url;
+                  }
+                  // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }
+                )
               )
-            )
-            cfg.feeds
+              cfg.feeds
           )
         );
       in

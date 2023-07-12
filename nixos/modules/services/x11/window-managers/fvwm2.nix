@@ -15,19 +15,21 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "windowManager"
-        "fvwm"
-      ]
-      [
-        "services"
-        "xserver"
-        "windowManager"
-        "fvwm2"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "windowManager"
+          "fvwm"
+        ]
+        [
+          "services"
+          "xserver"
+          "windowManager"
+          "fvwm2"
+        ]
+    )
   ];
 
   ###### interface
@@ -40,7 +42,9 @@ in
         default = false;
         type = types.bool;
         description =
-          lib.mdDoc "Whether or not to enable libstroke for gesture support";
+          lib.mdDoc
+            "Whether or not to enable libstroke for gesture support"
+          ;
       };
     };
   };

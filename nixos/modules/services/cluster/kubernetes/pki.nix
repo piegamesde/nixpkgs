@@ -56,7 +56,9 @@ in
 
     certs = mkOption {
       description =
-        lib.mdDoc "List of certificate specs to feed to cert generator.";
+        lib.mdDoc
+          "List of certificate specs to feed to cert generator."
+        ;
       default = { };
       type = attrs;
     };
@@ -98,8 +100,9 @@ in
     };
 
     pkiTrustOnBootstrap = mkOption {
-      description = lib.mdDoc
-        "Whether to always trust remote cfssl server upon initial PKI bootstrap."
+      description =
+        lib.mdDoc
+          "Whether to always trust remote cfssl server upon initial PKI bootstrap."
         ;
       default = true;
       type = bool;
@@ -112,14 +115,16 @@ in
         the public and private keys respectively.
       '';
       default = "${config.services.cfssl.dataDir}/ca";
-      defaultText =
-        literalExpression ''"''${config.services.cfssl.dataDir}/ca"'';
+      defaultText = literalExpression ''
+        "''${config.services.cfssl.dataDir}/ca"'';
       type = str;
     };
 
     caSpec = mkOption {
       description =
-        lib.mdDoc "Certificate specification for the auto-generated CAcert.";
+        lib.mdDoc
+          "Certificate specification for the auto-generated CAcert."
+        ;
       default = {
         CN = "kubernetes-cluster-ca";
         O = "NixOS";
@@ -290,9 +295,11 @@ in
             serviceConfig.PermissionsStartOnly = true;
             preStart = with pkgs;
               let
-                files = mapAttrsToList
-                  (n: v: writeText "${n}.json" (builtins.toJSON v))
-                  top.addonManager.bootstrapAddons;
+                files =
+                  mapAttrsToList
+                    (n: v: writeText "${n}.json" (builtins.toJSON v))
+                    top.addonManager.bootstrapAddons
+                  ;
               in
               ''
                 export KUBECONFIG=${clusterAdminKubeconfig}
@@ -306,62 +313,66 @@ in
       );
 
       environment.etc.${cfg.etcClusterAdminKubeconfig}.source =
-        mkIf (cfg.etcClusterAdminKubeconfig != null) clusterAdminKubeconfig;
+        mkIf (cfg.etcClusterAdminKubeconfig != null)
+          clusterAdminKubeconfig
+        ;
 
       environment.systemPackages =
-        mkIf (top.kubelet.enable || top.proxy.enable) [
-          (pkgs.writeScriptBin "nixos-kubernetes-node-join" ''
-            set -e
-            exec 1>&2
+        mkIf (top.kubelet.enable || top.proxy.enable)
+          [
+            (pkgs.writeScriptBin "nixos-kubernetes-node-join" ''
+              set -e
+              exec 1>&2
 
-            if [ $# -gt 0 ]; then
-              echo "Usage: $(basename $0)"
-              echo ""
-              echo "No args. Apitoken must be provided on stdin."
-              echo "To get the apitoken, execute: 'sudo cat ${certmgrAPITokenPath}' on the master node."
-              exit 1
-            fi
+              if [ $# -gt 0 ]; then
+                echo "Usage: $(basename $0)"
+                echo ""
+                echo "No args. Apitoken must be provided on stdin."
+                echo "To get the apitoken, execute: 'sudo cat ${certmgrAPITokenPath}' on the master node."
+                exit 1
+              fi
 
-            if [ $(id -u) != 0 ]; then
-              echo "Run as root please."
-              exit 1
-            fi
+              if [ $(id -u) != 0 ]; then
+                echo "Run as root please."
+                exit 1
+              fi
 
-            read -r token
-            if [ ''${#token} != ${toString cfsslAPITokenLength} ]; then
-              echo "Token must be of length ${toString cfsslAPITokenLength}."
-              exit 1
-            fi
+              read -r token
+              if [ ''${#token} != ${toString cfsslAPITokenLength} ]; then
+                echo "Token must be of length ${toString cfsslAPITokenLength}."
+                exit 1
+              fi
 
-            echo $token > ${certmgrAPITokenPath}
-            chmod 600 ${certmgrAPITokenPath}
+              echo $token > ${certmgrAPITokenPath}
+              chmod 600 ${certmgrAPITokenPath}
 
-            echo "Restarting certmgr..." >&1
-            systemctl restart certmgr
+              echo "Restarting certmgr..." >&1
+              systemctl restart certmgr
 
-            echo "Waiting for certs to appear..." >&1
+              echo "Waiting for certs to appear..." >&1
 
-            ${optionalString top.kubelet.enable ''
-              while [ ! -f ${cfg.certs.kubelet.cert} ]; do sleep 1; done
-              echo "Restarting kubelet..." >&1
-              systemctl restart kubelet
-            ''}
+              ${optionalString top.kubelet.enable ''
+                while [ ! -f ${cfg.certs.kubelet.cert} ]; do sleep 1; done
+                echo "Restarting kubelet..." >&1
+                systemctl restart kubelet
+              ''}
 
-            ${optionalString top.proxy.enable ''
-              while [ ! -f ${cfg.certs.kubeProxyClient.cert} ]; do sleep 1; done
-              echo "Restarting kube-proxy..." >&1
-              systemctl restart kube-proxy
-            ''}
+              ${optionalString top.proxy.enable ''
+                while [ ! -f ${cfg.certs.kubeProxyClient.cert} ]; do sleep 1; done
+                echo "Restarting kube-proxy..." >&1
+                systemctl restart kube-proxy
+              ''}
 
-            ${optionalString top.flannel.enable ''
-              while [ ! -f ${cfg.certs.flannelClient.cert} ]; do sleep 1; done
-              echo "Restarting flannel..." >&1
-              systemctl restart flannel
-            ''}
+              ${optionalString top.flannel.enable ''
+                while [ ! -f ${cfg.certs.flannelClient.cert} ]; do sleep 1; done
+                echo "Restarting flannel..." >&1
+                systemctl restart flannel
+              ''}
 
-            echo "Node joined successfully"
-          '')
-        ];
+              echo "Node joined successfully"
+            '')
+          ]
+        ;
 
       # isolate etcd on loopback at the master node
       # easyCerts doesn't support multimaster clusters anyway atm.
@@ -402,12 +413,18 @@ in
             tlsKeyFile = mkDefault key;
             serviceAccountKeyFile = mkDefault cfg.certs.serviceAccount.cert;
             serviceAccountSigningKeyFile =
-              mkDefault cfg.certs.serviceAccount.key;
+              mkDefault
+                cfg.certs.serviceAccount.key
+              ;
             kubeletClientCaFile = mkDefault caCert;
             kubeletClientCertFile =
-              mkDefault cfg.certs.apiserverKubeletClient.cert;
+              mkDefault
+                cfg.certs.apiserverKubeletClient.cert
+              ;
             kubeletClientKeyFile =
-              mkDefault cfg.certs.apiserverKubeletClient.key;
+              mkDefault
+                cfg.certs.apiserverKubeletClient.key
+              ;
             proxyClientCertFile = mkDefault cfg.certs.apiserverProxyClient.cert;
             proxyClientKeyFile = mkDefault cfg.certs.apiserverProxyClient.key;
           }

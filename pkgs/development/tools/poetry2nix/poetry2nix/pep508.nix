@@ -58,16 +58,18 @@ let
     expr':
     let
       expr = " " + expr';
-      acc = builtins.foldl' findSubExpressionsFun
-        {
-          exprs = [ ];
-          expr = expr;
-          pos = 0;
-          openP = 0;
-          exprPos = 0;
-          startPos = 0;
-        }
-        (lib.stringToCharacters expr);
+      acc =
+        builtins.foldl' findSubExpressionsFun
+          {
+            exprs = [ ];
+            expr = expr;
+            pos = 0;
+            openP = 0;
+            exprPos = 0;
+            startPos = 0;
+          }
+          (lib.stringToCharacters expr)
+        ;
       tailExpr = (substr acc.exprPos acc.pos expr);
       tailExprs = if tailExpr != "" then [ tailExpr ] else [ ];
     in
@@ -80,13 +82,13 @@ let
         (
           s:
           builtins.map
-          (
-            x:
-            stripStr (
-              if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x
+            (
+              x:
+              stripStr (
+                if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x
+              )
             )
-          )
-          (builtins.split " (and|or) " (s + " "))
+            (builtins.split " (and|or) " (s + " "))
         );
       mapfn =
         expr:
@@ -116,18 +118,18 @@ let
         ;
     in
     builtins.foldl'
-    (
-      acc: v:
-      acc
-      ++ (
-        if builtins.typeOf v == "string" then
-          parse v
-        else
-          [ (parseExpressions v) ]
+      (
+        acc: v:
+        acc
+        ++ (
+          if builtins.typeOf v == "string" then
+            parse v
+          else
+            [ (parseExpressions v) ]
+        )
       )
-    )
-    [ ]
-    exprs
+      [ ]
+      exprs
     ;
 
   # Transform individual expressions to structured expressions
@@ -295,9 +297,9 @@ let
             let
               expr = exprs;
               result =
-                (op."${expr.value.op}") (builtins.elemAt expr.value.values 0) (
-                  builtins.elemAt expr.value.values 1
-                );
+                (op."${expr.value.op}") (builtins.elemAt expr.value.values 0)
+                  (builtins.elemAt expr.value.values 1)
+                ;
             in
             {
               type = "value";
@@ -334,12 +336,14 @@ let
           else if builtins.typeOf v == "list" then
             (
               let
-                ret = builtins.foldl' reduceExpressionsFun
-                  {
-                    value = true;
-                    cond = "and";
-                  }
-                  v;
+                ret =
+                  builtins.foldl' reduceExpressionsFun
+                    {
+                      value = true;
+                      cond = "and";
+                    }
+                    v
+                  ;
               in
               acc // {
                 value = cond."${acc.cond}" acc.value ret.value;
@@ -350,12 +354,14 @@ let
         )
         ;
     in
-    (builtins.foldl' reduceExpressionsFun
-      {
-        value = true;
-        cond = "and";
-      }
-      exprs).value
+    (
+      builtins.foldl' reduceExpressionsFun
+        {
+          value = true;
+          cond = "and";
+        }
+        exprs
+    ).value
     ;
 in
 e:

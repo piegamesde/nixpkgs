@@ -5,18 +5,20 @@ let
 
   generated =
     callPackage <localpkgs/pkgs/applications/editors/vim/plugins/generated.nix>
-    { inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix; }
-    { }
-    { };
+      { inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix; }
+      { }
+      { }
+    ;
   hasChecksum =
     value:
     lib.isAttrs value
-    && lib.hasAttrByPath
-      [
-        "src"
-        "outputHash"
-      ]
-      value
+    &&
+      lib.hasAttrByPath
+        [
+          "src"
+          "outputHash"
+        ]
+        value
     ;
   getChecksum =
     name: value:

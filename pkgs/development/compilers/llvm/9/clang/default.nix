@@ -24,7 +24,9 @@ let
       inherit version;
 
       src =
-        fetch "clang" "0ls2h3iv4finqyflyhry21qhc9cm9ga7g1zq21020p065qmm2y2p";
+        fetch "clang"
+          "0ls2h3iv4finqyflyhry21qhc9cm9ga7g1zq21020p065qmm2y2p"
+        ;
 
       unpackPhase = ''
         unpackFile $src

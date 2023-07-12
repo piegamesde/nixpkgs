@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
         sha256 = "13igdbqsxb3sz0h417k6ifmq2n4siwqspj6slhc7fdl5wd1fxmdz";
       }
     )
-    ++ lib.optional
-      (stdenv.hostPlatform != stdenv.buildPlatform)
-      ./abstract-socket-namespace.patch
+    ++
+      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+        ./abstract-socket-namespace.patch
     ;
 
   meta = with lib; {

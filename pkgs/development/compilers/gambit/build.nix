@@ -121,9 +121,8 @@ gccStdenv.mkDerivation rec {
 
     # Now use the bootstrap compiler to build the real thing!
     make -j$NIX_BUILD_CORES from-scratch
-    ${lib.optionalString
-    gambit-params.modules
-    "make -j$NIX_BUILD_CORES modules"}
+    ${lib.optionalString gambit-params.modules
+      "make -j$NIX_BUILD_CORES modules"}
   '';
 
   postInstall = ''

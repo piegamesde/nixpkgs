@@ -17,12 +17,14 @@ let
 
   nagiosObjectDefs = cfg.objectDefs;
 
-  nagiosObjectDefsDir = pkgs.runCommand "nagios-objects"
-    {
-      inherit nagiosObjectDefs;
-      preferLocalBuild = true;
-    }
-    "mkdir -p $out; ln -s $nagiosObjectDefs $out/";
+  nagiosObjectDefsDir =
+    pkgs.runCommand "nagios-objects"
+      {
+        inherit nagiosObjectDefs;
+        preferLocalBuild = true;
+      }
+      "mkdir -p $out; ln -s $nagiosObjectDefs $out/"
+    ;
 
   nagiosCfgFile =
     let
@@ -49,15 +51,17 @@ let
       content = concatStringsSep "\n" lines;
       file = pkgs.writeText "nagios.cfg" content;
       validated =
-        pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; } ''
-          cp ${file} nagios.cfg
-          # nagios checks the existence of /var/lib/nagios, but
-          # it does not exist in the build sandbox, so we fake it
-          mkdir lib
-          lib=$(readlink -f lib)
-          sed -i s@=${nagiosState}@=$lib@ nagios.cfg
-          ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
-        '';
+        pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; }
+          ''
+            cp ${file} nagios.cfg
+            # nagios checks the existence of /var/lib/nagios, but
+            # it does not exist in the build sandbox, so we fake it
+            mkdir lib
+            lib=$(readlink -f lib)
+            sed -i s@=${nagiosState}@=$lib@ nagios.cfg
+            ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
+          ''
+        ;
       defaultCfgFile = if cfg.validateConfig then validated else file;
     in
     if cfg.mainConfigFile == null then defaultCfgFile else cfg.mainConfigFile
@@ -90,13 +94,15 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "nagios"
-        "urlPath"
-      ]
-      "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "nagios"
+          "urlPath"
+        ]
+        "The urlPath option has been removed as it is hard coded to /nagios in the nagios package."
+    )
   ];
 
   meta.maintainers = with lib.maintainers; [ symphorien ];
@@ -105,7 +111,7 @@ in
     services.nagios = {
       enable = mkEnableOption (
         lib.mdDoc
-        "[Nagios](http://www.nagios.org/) to monitor your system or network."
+          "[Nagios](http://www.nagios.org/) to monitor your system or network."
       );
 
       objectDefs = mkOption {
@@ -125,8 +131,10 @@ in
           msmtp
           mailutils
         ];
-        defaultText = literalExpression
-          "[pkgs.monitoring-plugins pkgs.msmtp pkgs.mailutils]";
+        defaultText =
+          literalExpression
+            "[pkgs.monitoring-plugins pkgs.msmtp pkgs.mailutils]"
+          ;
         description = lib.mdDoc ''
           Packages to be added to the Nagios {env}`PATH`.
           Typically used to add plugins, but can be anything.
@@ -154,10 +162,13 @@ in
       validateConfig = mkOption {
         type = types.bool;
         default = pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform;
-        defaultText = literalExpression
-          "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform";
-        description = lib.mdDoc
-          "if true, the syntax of the nagios configuration file is checked at build time"
+        defaultText =
+          literalExpression
+            "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform"
+          ;
+        description =
+          lib.mdDoc
+            "if true, the syntax of the nagios configuration file is checked at build time"
           ;
       };
 
@@ -181,9 +192,9 @@ in
       };
 
       virtualHost = mkOption {
-        type =
-          types.submodule (import ../web-servers/apache-httpd/vhost-options.nix)
-          ;
+        type = types.submodule (
+          import ../web-servers/apache-httpd/vhost-options.nix
+        );
         example = literalExpression ''
           { hostName = "example.org";
             adminAddr = "webmaster@example.org";

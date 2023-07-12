@@ -54,26 +54,33 @@ in
       resource = {
         cpuVCores = mkOption {
           description =
-            lib.mdDoc "Number of vcores that can be allocated for containers.";
+            lib.mdDoc
+              "Number of vcores that can be allocated for containers."
+            ;
           type = with types; nullOr ints.positive;
           default = null;
         };
         maximumAllocationVCores = mkOption {
-          description = lib.mdDoc
-            "The maximum virtual CPU cores any container can be allocated.";
+          description =
+            lib.mdDoc
+              "The maximum virtual CPU cores any container can be allocated."
+            ;
           type = with types; nullOr ints.positive;
           default = null;
         };
         memoryMB = mkOption {
-          description = lib.mdDoc
-            "Amount of physical memory, in MB, that can be allocated for containers."
+          description =
+            lib.mdDoc
+              "Amount of physical memory, in MB, that can be allocated for containers."
             ;
           type = with types; nullOr ints.positive;
           default = null;
         };
         maximumAllocationMB = mkOption {
-          description = lib.mdDoc
-            "The maximum physical memory any container can be allocated.";
+          description =
+            lib.mdDoc
+              "The maximum physical memory any container can be allocated."
+            ;
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -89,7 +96,9 @@ in
 
       localDir = mkOption {
         description =
-          lib.mdDoc "List of directories to store localized files in.";
+          lib.mdDoc
+            "List of directories to store localized files in."
+          ;
         type = with types; nullOr (listOf path);
         example = [ "/var/lib/hadoop/yarn/nm" ];
         default = null;
@@ -158,9 +167,10 @@ in
       # Needed because yarn hardcodes /bin/bash in container start scripts
       # These scripts can't be patched, they are generated at runtime
       systemd.tmpfiles.rules = [
-        (mkIf
-          cfg.yarn.nodemanager.addBinBash
-          "L /bin/bash - - - - /run/current-system/sw/bin/bash")
+        (
+          mkIf cfg.yarn.nodemanager.addBinBash
+            "L /bin/bash - - - - /run/current-system/sw/bin/bash"
+        )
       ];
 
       systemd.services.yarn-nodemanager = {
@@ -201,8 +211,9 @@ in
       services.hadoop.yarnSiteInternal = with cfg.yarn.nodemanager;
         mkMerge [
           ({
-            "yarn.nodemanager.local-dirs" =
-              mkIf (localDir != null) (concatStringsSep "," localDir);
+            "yarn.nodemanager.local-dirs" = mkIf (localDir != null) (
+              concatStringsSep "," localDir
+            );
             "yarn.scheduler.maximum-allocation-vcores" =
               resource.maximumAllocationVCores;
             "yarn.scheduler.maximum-allocation-mb" =

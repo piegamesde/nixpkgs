@@ -47,7 +47,9 @@ rec {
       };
 
       _variants =
-        map (variant: builtins.replaceStrings [ " " ] [ "" ] variant) variants;
+        map (variant: builtins.replaceStrings [ " " ] [ "" ] variant)
+          variants
+        ;
 
       installPhase =
         ''
@@ -86,8 +88,9 @@ rec {
         )
         ;
 
-      passthru.updateScript =
-        gitUpdater { rev-prefix = "noto-monthly-release-"; };
+      passthru.updateScript = gitUpdater {
+        rev-prefix = "noto-monthly-release-";
+      };
 
       meta = with lib; {
         description = "Beautiful and free fonts for many languages";

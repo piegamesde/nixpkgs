@@ -49,13 +49,16 @@ let
           type =
             let
               hiddenOptions =
-                lib.mapAttrs (name: attr: attr // { visible = false; }) options;
+                lib.mapAttrs (name: attr: attr // { visible = false; })
+                  options
+                ;
             in
             types.attrsOf (types.submodule { options = hiddenOptions; })
             ;
           default = { };
-          description = lib.mdDoc
-            "Child entries of the current entry, with recursively the same structure."
+          description =
+            lib.mdDoc
+              "Child entries of the current entry, with recursively the same structure."
             ;
           example = lib.literalExpression ''
             {
@@ -90,17 +93,17 @@ let
       listValues = if lib.isList values then values else lib.singleton values;
     in
     map
-    (
-      value:
-      if lib.isAttrs value then
-        if lib.hasAttr "path" value then
-          "${attr}:< file://${value.path}"
+      (
+        value:
+        if lib.isAttrs value then
+          if lib.hasAttr "path" value then
+            "${attr}:< file://${value.path}"
+          else
+            "${attr}:: ${value.base64}"
         else
-          "${attr}:: ${value.base64}"
-      else
-        "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}"
-    )
-    listValues
+          "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}"
+      )
+      listValues
     ;
 
   attrsToLdif =
@@ -117,15 +120,16 @@ let
         lib.flatten (lib.mapAttrsToList valueToLdif attrs)
       )}
     '' ]
-    ++ (map
-      (path: ''
-        include: file://${path}
-      '')
-      includes)
+    ++ (
+      map
+        (path: ''
+          include: file://${path}
+        '')
+        includes
+    )
     ++ (lib.flatten (
-      lib.mapAttrsToList
-      (name: value: attrsToLdif "${name},${dn}" value)
-      children
+      lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value)
+        children
     ))
     ;
 in
@@ -278,27 +282,29 @@ in
 
   config =
     let
-      dbSettings = mapAttrs'
-        (
-          name:
-          {
-            attrs,
-            ...
-          }:
-          nameValuePair attrs.olcSuffix attrs
-        )
-        (
-          filterAttrs
+      dbSettings =
+        mapAttrs'
           (
             name:
             {
               attrs,
               ...
             }:
-            (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix
+            nameValuePair attrs.olcSuffix attrs
           )
-          cfg.settings.children
-        );
+          (
+            filterAttrs
+              (
+                name:
+                {
+                  attrs,
+                  ...
+                }:
+                (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix
+              )
+              cfg.settings.children
+          )
+        ;
       settingsFile = pkgs.writeText "config.ldif" (
         lib.concatStringsSep "\n" (attrsToLdif "cn=config" cfg.settings)
       );
@@ -315,9 +321,10 @@ in
         chmod -R ${if cfg.mutableConfig then "u+rw" else "u+r-w"} ${configDir}
       '';
 
-      contentsFiles = mapAttrs
-        (dn: ldif: pkgs.writeText "${dn}.ldif" ldif)
-        cfg.declarativeContents;
+      contentsFiles =
+        mapAttrs (dn: ldif: pkgs.writeText "${dn}.ldif" ldif)
+          cfg.declarativeContents
+        ;
       writeContents = pkgs.writeShellScript "openldap-load" ''
         set -euo pipefail
 
@@ -336,39 +343,43 @@ in
             supported with user-managed configuration.
           '';
         } ]
-        ++ (map
-          (dn: {
-            assertion = (getAttr dn dbSettings) ? "olcDbDirectory";
-            # olcDbDirectory is necessary to prepopulate database using `slapadd`.
-            message = ''
-              Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
-              `olcDbDirectory` configured.
-            '';
-          })
-          (attrNames cfg.declarativeContents))
-        ++ (mapAttrsToList
-          (
-            dn:
-            {
-              olcDbDirectory ? null,
-              ...
-            }: {
-              # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
-              # directories with `declarativeContents`.
-              assertion =
-                (olcDbDirectory != null)
-                -> (
-                  (hasPrefix "/var/lib/openldap/" olcDbDirectory)
-                  && (olcDbDirectory != "/var/lib/openldap/")
-                )
-                ;
+        ++ (
+          map
+            (dn: {
+              assertion = (getAttr dn dbSettings) ? "olcDbDirectory";
+              # olcDbDirectory is necessary to prepopulate database using `slapadd`.
               message = ''
-                Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
-                `/var/lib/openldap/`.
+                Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
+                `olcDbDirectory` configured.
               '';
-            }
-          )
-          dbSettings)
+            })
+            (attrNames cfg.declarativeContents)
+        )
+        ++ (
+          mapAttrsToList
+            (
+              dn:
+              {
+                olcDbDirectory ? null,
+                ...
+              }: {
+                # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
+                # directories with `declarativeContents`.
+                assertion =
+                  (olcDbDirectory != null)
+                  -> (
+                    (hasPrefix "/var/lib/openldap/" olcDbDirectory)
+                    && (olcDbDirectory != "/var/lib/openldap/")
+                  )
+                  ;
+                message = ''
+                  Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
+                  `/var/lib/openldap/`.
+                '';
+              }
+            )
+            dbSettings
+        )
         ;
       environment.systemPackages = [ openldap ];
 
@@ -402,17 +413,19 @@ in
               "+${pkgs.coreutils}/bin/chown $USER ${configDir}"
             ]
             ++ (lib.optional (cfg.configDir == null) writeConfig)
-            ++ (mapAttrsToList
-              (
-                dn: content:
-                lib.escapeShellArgs [
-                  writeContents
-                  dn
-                  (getAttr dn dbSettings).olcDbDirectory
-                  content
-                ]
-              )
-              contentsFiles)
+            ++ (
+              mapAttrsToList
+                (
+                  dn: content:
+                  lib.escapeShellArgs [
+                    writeContents
+                    dn
+                    (getAttr dn dbSettings).olcDbDirectory
+                    content
+                  ]
+                )
+                contentsFiles
+            )
             ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ]
             ;
           ExecStart = lib.escapeShellArgs ([
@@ -432,15 +445,17 @@ in
           RuntimeDirectory = "openldap";
           StateDirectory =
             [ "openldap" ]
-            ++ (map
-              (
-                {
-                  olcDbDirectory,
-                  ...
-                }:
-                removePrefix "/var/lib/" olcDbDirectory
-              )
-              (attrValues dbSettings))
+            ++ (
+              map
+                (
+                  {
+                    olcDbDirectory,
+                    ...
+                  }:
+                  removePrefix "/var/lib/" olcDbDirectory
+                )
+                (attrValues dbSettings)
+            )
             ;
           StateDirectoryMode = "700";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
@@ -455,8 +470,9 @@ in
         };
       };
 
-      users.groups =
-        lib.optionalAttrs (cfg.group == "openldap") { openldap = { }; };
+      users.groups = lib.optionalAttrs (cfg.group == "openldap") {
+        openldap = { };
+      };
     }
     ;
 }

@@ -221,9 +221,8 @@ stdenv.mkDerivation rec {
         --set-default FONTCONFIG_PATH "${fontconfig.out}/etc/fonts" \
         --suffix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}/ \
         ${
-          lib.optionalString
-          enableWidevine
-          "--suffix LD_LIBRARY_PATH : ${libPath}"
+          lib.optionalString enableWidevine
+            "--suffix LD_LIBRARY_PATH : ${libPath}"
         }
     ''
     + lib.optionalString enableWidevine ''

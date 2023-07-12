@@ -17,20 +17,20 @@ import ./make-test-python.nix (
             compileKernelModule =
               name: source:
               pkgs.runCommandCC name
-              rec {
-                inherit source;
-                kdev = config.boot.kernelPackages.kernel.dev;
-                kver = config.boot.kernelPackages.kernel.modDirVersion;
-                ksrc = "${kdev}/lib/modules/${kver}/build";
-                hardeningDisable = [ "pic" ];
-                nativeBuildInputs = kdev.moduleBuildDependencies;
-              }
-              ''
-                echo "obj-m += $name.o" > Makefile
-                echo "$source" > "$name.c"
-                make -C "$ksrc" M=$(pwd) modules
-                install -vD "$name.ko" "$out/lib/modules/$kver/$name.ko"
-              ''
+                rec {
+                  inherit source;
+                  kdev = config.boot.kernelPackages.kernel.dev;
+                  kver = config.boot.kernelPackages.kernel.modDirVersion;
+                  ksrc = "${kdev}/lib/modules/${kver}/build";
+                  hardeningDisable = [ "pic" ];
+                  nativeBuildInputs = kdev.moduleBuildDependencies;
+                }
+                ''
+                  echo "obj-m += $name.o" > Makefile
+                  echo "$source" > "$name.c"
+                  make -C "$ksrc" M=$(pwd) modules
+                  install -vD "$name.ko" "$out/lib/modules/$kver/$name.ko"
+                ''
               ;
 
             # This spawns a kthread which just waits until it gets a signal and

@@ -77,54 +77,62 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "nextcloud"
-        "config"
-        "adminpass"
-      ]
-      ''
-        Please use `services.nextcloud.config.adminpassFile' instead!
-      '')
-    (mkRemovedOptionModule
-      [
-        "services"
-        "nextcloud"
-        "config"
-        "dbpass"
-      ]
-      ''
-        Please use `services.nextcloud.config.dbpassFile' instead!
-      '')
-    (mkRemovedOptionModule
-      [
-        "services"
-        "nextcloud"
-        "nginx"
-        "enable"
-      ]
-      ''
-        The nextcloud module supports `nginx` as reverse-proxy by default and doesn't
-        support other reverse-proxies officially.
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "nextcloud"
+          "config"
+          "adminpass"
+        ]
+        ''
+          Please use `services.nextcloud.config.adminpassFile' instead!
+        ''
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "nextcloud"
+          "config"
+          "dbpass"
+        ]
+        ''
+          Please use `services.nextcloud.config.dbpassFile' instead!
+        ''
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "nextcloud"
+          "nginx"
+          "enable"
+        ]
+        ''
+          The nextcloud module supports `nginx` as reverse-proxy by default and doesn't
+          support other reverse-proxies officially.
 
-        However it's possible to use an alternative reverse-proxy by
+          However it's possible to use an alternative reverse-proxy by
 
-          * disabling nginx
-          * setting `listen.owner` & `listen.group` in the phpfpm-pool to a different value
+            * disabling nginx
+            * setting `listen.owner` & `listen.group` in the phpfpm-pool to a different value
 
-        Further details about this can be found in the `Nextcloud`-section of the NixOS-manual
-        (which can be opened e.g. by running `nixos-help`).
-      '')
-    (mkRemovedOptionModule
-      [
-        "services"
-        "nextcloud"
-        "disableImagemagick"
-      ]
-      ''
-        Use services.nextcloud.enableImagemagick instead.
-      '')
+          Further details about this can be found in the `Nextcloud`-section of the NixOS-manual
+          (which can be opened e.g. by running `nixos-help`).
+        ''
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "nextcloud"
+          "disableImagemagick"
+        ]
+        ''
+          Use services.nextcloud.enableImagemagick instead.
+        ''
+    )
   ];
 
   options.services.nextcloud = {
@@ -133,8 +141,8 @@ in
     enableBrokenCiphersForSSE = mkOption {
       type = types.bool;
       default = versionOlder stateVersion "22.11";
-      defaultText =
-        literalExpression ''versionOlder system.stateVersion "22.11"'';
+      defaultText = literalExpression ''
+        versionOlder system.stateVersion "22.11"'';
       description = lib.mdDoc ''
         This option enables using the OpenSSL PHP extension linked against OpenSSL 1.1
         rather than latest OpenSSL (≥ 3), this is not recommended unless you need
@@ -231,7 +239,9 @@ in
       type = types.ints.between 0 4;
       default = 2;
       description =
-        lib.mdDoc "Log level value between 0 (DEBUG) and 4 (FATAL).";
+        lib.mdDoc
+          "Log level value between 0 (DEBUG) and 4 (FATAL)."
+        ;
     };
     logType = mkOption {
       type = types.enum [
@@ -255,7 +265,9 @@ in
     package = mkOption {
       type = types.package;
       description =
-        lib.mdDoc "Which package to use for the Nextcloud instance.";
+        lib.mdDoc
+          "Which package to use for the Nextcloud instance."
+        ;
       relatedPackages = [
         "nextcloud25"
         "nextcloud26"
@@ -736,7 +748,9 @@ in
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Enable additional recommended HTTP response headers";
+          lib.mdDoc
+            "Enable additional recommended HTTP response headers"
+          ;
       };
       hstsMaxAge = mkOption {
         type = types.ints.positive;
@@ -810,15 +824,17 @@ in
 
             For more context, here is the implementing pull request: https://github.com/NixOS/nixpkgs/pull/198470
           '')
-          ++ (optional
-            (
-              cfg.enableBrokenCiphersForSSE
-              && versionAtLeast cfg.package.version "26"
-            )
-            ''
-              Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
-              `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
-            '')
+          ++ (
+            optional
+              (
+                cfg.enableBrokenCiphersForSSE
+                && versionAtLeast cfg.package.version "26"
+              )
+              ''
+                Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
+                `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
+              ''
+          )
           ;
 
         services.nextcloud.package = with pkgs;
@@ -906,26 +922,23 @@ in
                       'key' => '${s3.key}',
                       'secret' => nix_read_secret('${s3.secretFile}'),
                       ${
-                        optionalString
-                        (s3.hostname != null)
-                        "'hostname' => '${s3.hostname}',"
+                        optionalString (s3.hostname != null)
+                          "'hostname' => '${s3.hostname}',"
                       }
                       ${
                         optionalString (s3.port != null) "'port' => ${
-                          toString s3.port
-                        },"
+                            toString s3.port
+                          },"
                       }
                       'use_ssl' => ${boolToString s3.useSsl},
                       ${
-                        optionalString
-                        (s3.region != null)
-                        "'region' => '${s3.region}',"
+                        optionalString (s3.region != null)
+                          "'region' => '${s3.region}',"
                       }
                       'use_path_style' => ${boolToString s3.usePathStyle},
                       ${
-                        optionalString
-                        (s3.sseCKeyFile != null)
-                        "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
+                        optionalString (s3.sseCKeyFile != null)
+                          "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
                       }
                     ],
                   ]
@@ -973,56 +986,48 @@ in
                 $CONFIG = [
                   'apps_paths' => [
                     ${
-                      optionalString
-                      (cfg.extraApps != { })
-                      "[ 'path' => '${cfg.home}/nix-apps', 'url' => '/nix-apps', 'writable' => false ],"
+                      optionalString (cfg.extraApps != { })
+                        "[ 'path' => '${cfg.home}/nix-apps', 'url' => '/nix-apps', 'writable' => false ],"
                     }
                     [ 'path' => '${cfg.home}/apps', 'url' => '/apps', 'writable' => false ],
                     [ 'path' => '${cfg.home}/store-apps', 'url' => '/store-apps', 'writable' => true ],
                   ],
                   ${
-                    optionalString
-                    (showAppStoreSetting)
-                    "'appstoreenabled' => ${renderedAppStoreSetting},"
+                    optionalString (showAppStoreSetting)
+                      "'appstoreenabled' => ${renderedAppStoreSetting},"
                   }
                   'datadirectory' => '${datadir}/data',
                   'skeletondirectory' => '${cfg.skeletonDirectory}',
                   ${
-                    optionalString
-                    cfg.caching.apcu
-                    "'memcache.local' => '\\OC\\Memcache\\APCu',"
+                    optionalString cfg.caching.apcu
+                      "'memcache.local' => '\\OC\\Memcache\\APCu',"
                   }
                   'log_type' => '${cfg.logType}',
                   'loglevel' => '${builtins.toString cfg.logLevel}',
                   ${
-                    optionalString
-                    (c.overwriteProtocol != null)
-                    "'overwriteprotocol' => '${c.overwriteProtocol}',"
+                    optionalString (c.overwriteProtocol != null)
+                      "'overwriteprotocol' => '${c.overwriteProtocol}',"
                   }
                   ${
-                    optionalString
-                    (c.dbname != null)
-                    "'dbname' => '${c.dbname}',"
+                    optionalString (c.dbname != null)
+                      "'dbname' => '${c.dbname}',"
                   }
                   ${
-                    optionalString
-                    (c.dbhost != null)
-                    "'dbhost' => '${c.dbhost}',"
+                    optionalString (c.dbhost != null)
+                      "'dbhost' => '${c.dbhost}',"
                   }
                   ${
                     optionalString (c.dbport != null) "'dbport' => '${
-                      toString c.dbport
-                    }',"
+                        toString c.dbport
+                      }',"
                   }
                   ${
-                    optionalString
-                    (c.dbuser != null)
-                    "'dbuser' => '${c.dbuser}',"
+                    optionalString (c.dbuser != null)
+                      "'dbuser' => '${c.dbuser}',"
                   }
                   ${
-                    optionalString
-                    (c.dbtableprefix != null)
-                    "'dbtableprefix' => '${toString c.dbtableprefix}',"
+                    optionalString (c.dbtableprefix != null)
+                      "'dbtableprefix' => '${toString c.dbtableprefix}',"
                   }
                   ${
                     optionalString (c.dbpassFile != null) ''
@@ -1037,23 +1042,20 @@ in
                   },
                   'trusted_proxies' => ${writePhpArray (c.trustedProxies)},
                   ${
-                    optionalString
-                    (c.defaultPhoneRegion != null)
-                    "'default_phone_region' => '${c.defaultPhoneRegion}',"
+                    optionalString (c.defaultPhoneRegion != null)
+                      "'default_phone_region' => '${c.defaultPhoneRegion}',"
                   }
                   ${
-                    optionalString
-                    (nextcloudGreaterOrEqualThan "23")
-                    "'profile.enabled' => ${boolToString cfg.globalProfiles},"
+                    optionalString (nextcloudGreaterOrEqualThan "23")
+                      "'profile.enabled' => ${boolToString cfg.globalProfiles},"
                   }
                   ${objectstoreConfig}
                 ];
 
                 $CONFIG = array_replace_recursive($CONFIG, nix_decode_json_file(
                   "${
-                    jsonFormat.generate
-                    "nextcloud-extraOptions.json"
-                    cfg.extraOptions
+                    jsonFormat.generate "nextcloud-extraOptions.json"
+                      cfg.extraOptions
                   }",
                   "impossible: this should never happen (decoding generated extraOptions file %s failed)"
                 ));
@@ -1117,11 +1119,11 @@ in
                 ;
               occSetTrustedDomainsCmd = concatStringsSep "\n" (
                 imap0
-                (i: v: ''
-                  ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
-                    ${toString i} --value="${toString v}"
-                '')
-                ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains)
+                  (i: v: ''
+                    ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
+                      ${toString i} --value="${toString v}"
+                  '')
+                  ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains)
               );
             in
             {
@@ -1162,9 +1164,8 @@ in
                 ln -sfT \
                   ${
                     pkgs.linkFarm "nix-apps" (
-                      mapAttrsToList
-                      (name: path: { inherit name path; })
-                      cfg.extraApps
+                      mapAttrsToList (name: path: { inherit name path; })
+                        cfg.extraApps
                     )
                   } \
                   ${cfg.home}/nix-apps
@@ -1190,14 +1191,13 @@ in
 
                 ${occ}/bin/nextcloud-occ config:system:delete trusted_domains
 
-                ${optionalString
-                (cfg.extraAppsEnable && cfg.extraApps != { })
-                ''
-                  # Try to enable apps
-                  ${occ}/bin/nextcloud-occ app:enable ${
-                    concatStringsSep " " (attrNames cfg.extraApps)
-                  }
-                ''}
+                ${optionalString (cfg.extraAppsEnable && cfg.extraApps != { })
+                  ''
+                    # Try to enable apps
+                    ${occ}/bin/nextcloud-occ app:enable ${
+                      concatStringsSep " " (attrNames cfg.extraApps)
+                    }
+                  ''}
 
                 ${occSetTrustedDomainsCmd}
               '';
@@ -1206,7 +1206,9 @@ in
               # On Nextcloud ≥ 26, it is not necessary to patch the database files to prevent
               # an automatic creation of the database user.
               environment.NC_setup_create_db_user =
-                lib.mkIf (nextcloudGreaterOrEqualThan "26") "false";
+                lib.mkIf (nextcloudGreaterOrEqualThan "26")
+                  "false"
+                ;
             }
             ;
           nextcloud-cron = {

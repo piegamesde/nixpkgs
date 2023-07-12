@@ -14,8 +14,9 @@ in
   meta = { maintainers = teams.gnome.members; };
 
   options = {
-    programs.geary.enable =
-      mkEnableOption (lib.mdDoc "Geary, a Mail client for GNOME 3");
+    programs.geary.enable = mkEnableOption (
+      lib.mdDoc "Geary, a Mail client for GNOME 3"
+    );
   };
 
   config = mkIf cfg.enable {

@@ -24,9 +24,9 @@ let
     ;
 
   extlinuxConfBuilder =
-    import ../generic-extlinux-compatible/extlinux-conf-builder.nix {
-      pkgs = pkgs.buildPackages;
-    };
+    import ../generic-extlinux-compatible/extlinux-conf-builder.nix
+      { pkgs = pkgs.buildPackages; }
+    ;
 in
 pkgs.substituteAll {
   src = ./uboot-builder.sh;

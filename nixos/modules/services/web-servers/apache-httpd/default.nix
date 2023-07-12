@@ -40,26 +40,28 @@ let
   vhosts = attrValues cfg.virtualHosts;
 
   # certName is used later on to determine systemd service names.
-  acmeEnabledVhosts = map
-    (
-      hostOpts:
-      hostOpts // {
-        certName =
-          if hostOpts.useACMEHost != null then
-            hostOpts.useACMEHost
-          else
-            hostOpts.hostName
-          ;
-      }
-    )
-    (
-      filter
-      (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null)
-      vhosts
-    );
+  acmeEnabledVhosts =
+    map
+      (
+        hostOpts:
+        hostOpts // {
+          certName =
+            if hostOpts.useACMEHost != null then
+              hostOpts.useACMEHost
+            else
+              hostOpts.hostName
+            ;
+        }
+      )
+      (
+        filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null)
+          vhosts
+      )
+    ;
 
-  dependentCertNames =
-    unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
+  dependentCertNames = unique (
+    map (hostOpts: hostOpts.certName) acmeEnabledVhosts
+  );
 
   mkListenInfo =
     hostOpts:
@@ -68,21 +70,21 @@ let
     else
       optionals (hostOpts.onlySSL || hostOpts.addSSL || hostOpts.forceSSL) (
         map
-        (addr: {
-          ip = addr;
-          port = 443;
-          ssl = true;
-        })
-        hostOpts.listenAddresses
+          (addr: {
+            ip = addr;
+            port = 443;
+            ssl = true;
+          })
+          hostOpts.listenAddresses
       )
       ++ optionals (!hostOpts.onlySSL) (
         map
-        (addr: {
-          ip = addr;
-          port = 80;
-          ssl = false;
-        })
-        hostOpts.listenAddresses
+          (addr: {
+            ip = addr;
+            port = 80;
+            ssl = false;
+          })
+          hostOpts.listenAddresses
       )
     ;
 
@@ -247,17 +249,16 @@ let
     in
     optionalString (listen != [ ]) ''
       <VirtualHost ${
-        concatMapStringsSep " "
-        (listen: "${listen.ip}:${toString listen.port}")
-        listen
+        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}")
+          listen
       }>
           ServerName ${hostOpts.hostName}
           ${
             concatMapStrings
-            (alias: ''
-              ServerAlias ${alias}
-            '')
-            hostOpts.serverAliases
+              (alias: ''
+                ServerAlias ${alias}
+              '')
+              hostOpts.serverAliases
           }
           ${optionalString (adminAddr != null) "ServerAdmin ${adminAddr}"}
           <IfModule mod_ssl.c>
@@ -281,26 +282,24 @@ let
     ''
     + optionalString (listenSSL != [ ]) ''
       <VirtualHost ${
-        concatMapStringsSep " "
-        (listen: "${listen.ip}:${toString listen.port}")
-        listenSSL
+        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}")
+          listenSSL
       }>
           ServerName ${hostOpts.hostName}
           ${
             concatMapStrings
-            (alias: ''
-              ServerAlias ${alias}
-            '')
-            hostOpts.serverAliases
+              (alias: ''
+                ServerAlias ${alias}
+              '')
+              hostOpts.serverAliases
           }
           ${optionalString (adminAddr != null) "ServerAdmin ${adminAddr}"}
           SSLEngine on
           SSLCertificateFile ${sslServerCert}
           SSLCertificateKeyFile ${sslServerKey}
           ${
-            optionalString
-            (sslServerChain != null)
-            "SSLCertificateChainFile ${sslServerChain}"
+            optionalString (sslServerChain != null)
+              "SSLCertificateChainFile ${sslServerChain}"
           }
           ${optionalString hostOpts.http2 "Protocols h2 h2c http/1.1"}
           ${acmeChallenge}
@@ -323,38 +322,38 @@ let
         locations:
         concatStringsSep "\n" (
           map
-          (config: ''
-            <Location ${config.location}>
-              ${
-                optionalString (config.proxyPass != null) ''
-                  <IfModule mod_proxy.c>
-                      ProxyPass ${config.proxyPass}
-                      ProxyPassReverse ${config.proxyPass}
-                  </IfModule>
-                ''
-              }
-              ${
-                optionalString (config.index != null) ''
-                  <IfModule mod_dir.c>
-                      DirectoryIndex ${config.index}
-                  </IfModule>
-                ''
-              }
-              ${
-                optionalString (config.alias != null) ''
-                  <IfModule mod_alias.c>
-                      Alias "${config.alias}"
-                  </IfModule>
-                ''
-              }
-              ${config.extraConfig}
-            </Location>
-          '')
-          (
-            sortProperties (
-              mapAttrsToList (k: v: v // { location = k; }) locations
+            (config: ''
+              <Location ${config.location}>
+                ${
+                  optionalString (config.proxyPass != null) ''
+                    <IfModule mod_proxy.c>
+                        ProxyPass ${config.proxyPass}
+                        ProxyPassReverse ${config.proxyPass}
+                    </IfModule>
+                  ''
+                }
+                ${
+                  optionalString (config.index != null) ''
+                    <IfModule mod_dir.c>
+                        DirectoryIndex ${config.index}
+                    </IfModule>
+                  ''
+                }
+                ${
+                  optionalString (config.alias != null) ''
+                    <IfModule mod_alias.c>
+                        Alias "${config.alias}"
+                    </IfModule>
+                  ''
+                }
+                ${config.extraConfig}
+              </Location>
+            '')
+            (
+              sortProperties (
+                mapAttrsToList (k: v: v // { location = k; }) locations
+              )
             )
-          )
         )
         ;
     in
@@ -392,10 +391,10 @@ let
       ''}
 
       ${optionalString
-      (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "")
-      ''
-        RedirectPermanent / ${hostOpts.globalRedirect}
-      ''}
+        (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "")
+        ''
+          RedirectPermanent / ${hostOpts.globalRedirect}
+        ''}
 
       ${let
         makeDirConf =
@@ -462,12 +461,12 @@ let
           { inherit (module) name path; }
         else
           throw
-          "Expecting either a string or attribute set including a name and path."
+            "Expecting either a string or attribute set including a name and path."
         ;
     in
     concatMapStringsSep "\n"
-    (module: "LoadModule ${module.name}_module ${module.path}")
-    (unique (map mkModule modules))
+      (module: "LoadModule ${module.name}_module ${module.path}")
+      (unique (map mkModule modules))
     }
 
     AddHandler type-map var
@@ -512,142 +511,178 @@ let
 
   # Generate the PHP configuration file.  Should probably be factored
   # out into a separate module.
-  phpIni = pkgs.runCommand "php.ini"
-    {
-      options = cfg.phpOptions;
-      preferLocalBuild = true;
-    }
-    ''
-      cat ${php}/etc/php.ini > $out
-      cat ${php.phpIni} > $out
-      echo "$options" >> $out
-    '';
+  phpIni =
+    pkgs.runCommand "php.ini"
+      {
+        options = cfg.phpOptions;
+        preferLocalBuild = true;
+      }
+      ''
+        cat ${php}/etc/php.ini > $out
+        cat ${php.phpIni} > $out
+        echo "$options" >> $out
+      ''
+    ;
 
   mkCertOwnershipAssertion =
-    import ../../../security/acme/mk-cert-ownership-assertion.nix;
+    import
+      ../../../security/acme/mk-cert-ownership-assertion.nix
+    ;
 in
 
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "extraSubservices"
-      ]
-      "Most existing subservices have been ported to the NixOS module system. Please update your configuration accordingly.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "stateDir"
-      ]
-      "The httpd module now uses /run/httpd as a runtime directory.")
-    (mkRenamedOptionModule
-      [
-        "services"
-        "httpd"
-        "multiProcessingModule"
-      ]
-      [
-        "services"
-        "httpd"
-        "mpm"
-      ])
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "extraSubservices"
+        ]
+        "Most existing subservices have been ported to the NixOS module system. Please update your configuration accordingly."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "stateDir"
+        ]
+        "The httpd module now uses /run/httpd as a runtime directory."
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "httpd"
+          "multiProcessingModule"
+        ]
+        [
+          "services"
+          "httpd"
+          "mpm"
+        ]
+    )
 
     # virtualHosts options
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "documentRoot"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "enableSSL"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "enableUserDir"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "globalRedirect"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "hostName"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "listen"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "robotsEntries"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "servedDirs"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "servedFiles"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "serverAliases"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "sslServerCert"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "sslServerChain"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "httpd"
-        "sslServerKey"
-      ]
-      "Please define a virtual host using `services.httpd.virtualHosts`.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "documentRoot"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "enableSSL"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "enableUserDir"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "globalRedirect"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "hostName"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "listen"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "robotsEntries"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "servedDirs"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "servedFiles"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "serverAliases"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "sslServerCert"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "sslServerChain"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "httpd"
+          "sslServerKey"
+        ]
+        "Please define a virtual host using `services.httpd.virtualHosts`."
+    )
   ];
 
   # interface
@@ -870,8 +905,10 @@ in
       sslCiphers = mkOption {
         type = types.str;
         default = "HIGH:!aNULL:!MD5:!EXP";
-        description = lib.mdDoc
-          "Cipher Suite available for negotiation in SSL proxy handshake.";
+        description =
+          lib.mdDoc
+            "Cipher Suite available for negotiation in SSL proxy handshake."
+          ;
       };
 
       sslProtocols = mkOption {
@@ -898,15 +935,17 @@ in
           '';
         }
         {
-          assertion = all
-            (
-              hostOpts:
-              with hostOpts;
-              !(addSSL && onlySSL)
-              && !(forceSSL && onlySSL)
-              && !(addSSL && forceSSL)
-            )
-            vhosts;
+          assertion =
+            all
+              (
+                hostOpts:
+                with hostOpts;
+                !(addSSL && onlySSL)
+                && !(forceSSL && onlySSL)
+                && !(addSSL && forceSSL)
+              )
+              vhosts
+            ;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
             `services.httpd.virtualHosts.<name>.onlySSL` and `services.httpd.virtualHosts.<name>.forceSSL`
@@ -914,9 +953,11 @@ in
           '';
         }
         {
-          assertion = all
-            (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
-            vhosts;
+          assertion =
+            all
+              (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
+              vhosts
+            ;
           message = ''
             Options `services.httpd.virtualHosts.<name>.enableACME` and
             `services.httpd.virtualHosts.<name>.useACMEHost` are mutually exclusive.
@@ -930,27 +971,29 @@ in
           '';
         }
       ]
-      ++ map
-        (
-          name:
-          mkCertOwnershipAssertion {
-            inherit (cfg) group user;
-            cert = config.security.acme.certs.${name};
-            groups = config.users.groups;
-          }
-        )
-        dependentCertNames
+      ++
+        map
+          (
+            name:
+            mkCertOwnershipAssertion {
+              inherit (cfg) group user;
+              cert = config.security.acme.certs.${name};
+              groups = config.users.groups;
+            }
+          )
+          dependentCertNames
       ;
 
-    warnings = mapAttrsToList
-      (name: hostOpts: ''
-        Using config.services.httpd.virtualHosts."${name}".servedFiles is deprecated and will become unsupported in a future release. Your configuration will continue to work as is but please migrate your configuration to config.services.httpd.virtualHosts."${name}".locations before the 20.09 release of NixOS.
-      '')
-      (
-        filterAttrs
-        (name: hostOpts: hostOpts.servedFiles != [ ])
-        cfg.virtualHosts
-      );
+    warnings =
+      mapAttrsToList
+        (name: hostOpts: ''
+          Using config.services.httpd.virtualHosts."${name}".servedFiles is deprecated and will become unsupported in a future release. Your configuration will continue to work as is but please migrate your configuration to config.services.httpd.virtualHosts."${name}".locations before the 20.09 release of NixOS.
+        '')
+        (
+          filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ])
+            cfg.virtualHosts
+        )
+      ;
 
     users.users = optionalAttrs (cfg.user == "wwwrun") {
       wwwrun = {
@@ -966,34 +1009,38 @@ in
 
     security.acme.certs =
       let
-        acmePairs = map
-          (
-            hostOpts:
-            let
-              hasRoot = hostOpts.acmeRoot != null;
-            in
-            nameValuePair hostOpts.hostName {
-              group = mkDefault cfg.group;
-              # if acmeRoot is null inherit config.security.acme
-              # Since config.security.acme.certs.<cert>.webroot's own default value
-              # should take precedence set priority higher than mkOptionDefault
-              webroot =
-                mkOverride (if hasRoot then 1000 else 2000) hostOpts.acmeRoot;
-              # Also nudge dnsProvider to null in case it is inherited
-              dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
-              extraDomainNames = hostOpts.serverAliases;
-              # Use the vhost-specific email address if provided, otherwise let
-              # security.acme.email or security.acme.certs.<cert>.email be used.
-              email = mkOverride 2000 (
-                if hostOpts.adminAddr != null then
-                  hostOpts.adminAddr
-                else
-                  cfg.adminAddr
-              );
-              # Filter for enableACME-only vhosts. Don't want to create dud certs
-            }
-          )
-          (filter (hostOpts: hostOpts.useACMEHost == null) acmeEnabledVhosts);
+        acmePairs =
+          map
+            (
+              hostOpts:
+              let
+                hasRoot = hostOpts.acmeRoot != null;
+              in
+              nameValuePair hostOpts.hostName {
+                group = mkDefault cfg.group;
+                # if acmeRoot is null inherit config.security.acme
+                # Since config.security.acme.certs.<cert>.webroot's own default value
+                # should take precedence set priority higher than mkOptionDefault
+                webroot =
+                  mkOverride (if hasRoot then 1000 else 2000)
+                    hostOpts.acmeRoot
+                  ;
+                # Also nudge dnsProvider to null in case it is inherited
+                dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
+                extraDomainNames = hostOpts.serverAliases;
+                # Use the vhost-specific email address if provided, otherwise let
+                # security.acme.email or security.acme.certs.<cert>.email be used.
+                email = mkOverride 2000 (
+                  if hostOpts.adminAddr != null then
+                    hostOpts.adminAddr
+                  else
+                    cfg.adminAddr
+                );
+                # Filter for enableACME-only vhosts. Don't want to create dud certs
+              }
+            )
+            (filter (hostOpts: hostOpts.useACMEHost == null) acmeEnabledVhosts)
+          ;
       in
       listToAttrs acmePairs
       ;
@@ -1089,15 +1136,14 @@ in
       description = "Apache HTTPD";
       wantedBy = [ "multi-user.target" ];
       wants = concatLists (
-        map
-        (certName: [ "acme-finished-${certName}.target" ])
-        dependentCertNames
+        map (certName: [ "acme-finished-${certName}.target" ])
+          dependentCertNames
       );
       after =
         [ "network.target" ]
-        ++ map
-          (certName: "acme-selfsigned-${certName}.service")
-          dependentCertNames
+        ++
+          map (certName: "acme-selfsigned-${certName}.service")
+            dependentCertNames
         ;
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       restartTriggers = [ cfg.configFile ];
@@ -1145,9 +1191,13 @@ in
     systemd.services.httpd-config-reload =
       let
         sslServices =
-          map (certName: "acme-${certName}.service") dependentCertNames;
+          map (certName: "acme-${certName}.service")
+            dependentCertNames
+          ;
         sslTargets =
-          map (certName: "acme-finished-${certName}.target") dependentCertNames;
+          map (certName: "acme-finished-${certName}.target")
+            dependentCertNames
+          ;
       in
       mkIf (sslServices != [ ]) {
         wantedBy = sslServices ++ [ "multi-user.target" ];
@@ -1159,9 +1209,10 @@ in
         restartTriggers = [ cfg.configFile ];
         # Block reloading if not all certs exist yet.
         # Happens when config changes add new vhosts/certs.
-        unitConfig.ConditionPathExists = map
-          (certName: certs.${certName}.directory + "/fullchain.pem")
-          dependentCertNames;
+        unitConfig.ConditionPathExists =
+          map (certName: certs.${certName}.directory + "/fullchain.pem")
+            dependentCertNames
+          ;
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;

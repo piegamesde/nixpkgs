@@ -51,18 +51,18 @@ let
     else if isAttrs tests then
       (concatLists (
         map
-        (
-          subName:
-          run (name + "." + subName)
           (
-            if hasAttr subName under then
-              getAttr subName under
-            else
-              "<MISSING!>"
+            subName:
+            run (name + "." + subName)
+              (
+                if hasAttr subName under then
+                  getAttr subName under
+                else
+                  "<MISSING!>"
+              )
+              (getAttr subName tests)
           )
-          (getAttr subName tests)
-        )
-        (attrNames tests)
+          (attrNames tests)
       ))
     else if isFunction tests then
       let

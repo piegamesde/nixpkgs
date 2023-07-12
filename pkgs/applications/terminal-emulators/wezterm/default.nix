@@ -135,10 +135,12 @@ rustPlatform.buildRustPackage rec {
       terminal-emulators = nixosTests.terminal-emulators.wezterm;
     };
     terminfo =
-      runCommand "wezterm-terminfo" { nativeBuildInputs = [ ncurses ]; } ''
-        mkdir -p $out/share/terminfo $out/nix-support
-        tic -x -o $out/share/terminfo ${src}/termwiz/data/wezterm.terminfo
-      '';
+      runCommand "wezterm-terminfo" { nativeBuildInputs = [ ncurses ]; }
+        ''
+          mkdir -p $out/share/terminfo $out/nix-support
+          tic -x -o $out/share/terminfo ${src}/termwiz/data/wezterm.terminfo
+        ''
+      ;
   };
 
   meta = with lib; {

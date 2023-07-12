@@ -58,18 +58,20 @@ let
   };
 
   nodeDeps =
-    ((import ./build-deps/default.nix {
-      inherit pkgs nodejs;
-      inherit (stdenv.hostPlatform) system;
-    }).nodeDependencies.override
-      (
-        old: {
-          inherit src version;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ libsecret ];
-          dontNpmInstall = true;
-        }
-      ));
+    (
+      (import ./build-deps/default.nix {
+        inherit pkgs nodejs;
+        inherit (stdenv.hostPlatform) system;
+      }).nodeDependencies.override
+        (
+          old: {
+            inherit src version;
+            nativeBuildInputs = [ pkg-config ];
+            buildInputs = [ libsecret ];
+            dontNpmInstall = true;
+          }
+        )
+    );
 in
 stdenv.mkDerivation {
   pname = "vscode-extension-${publisher}-${pname}";

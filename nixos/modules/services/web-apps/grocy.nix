@@ -142,12 +142,14 @@ in
     };
 
     systemd.tmpfiles.rules =
-      map (dirName: "d '${cfg.dataDir}/${dirName}' - grocy nginx - -") [
-        "viewcache"
-        "plugins"
-        "settingoverrides"
-        "storage"
-      ];
+      map (dirName: "d '${cfg.dataDir}/${dirName}' - grocy nginx - -")
+        [
+          "viewcache"
+          "plugins"
+          "settingoverrides"
+          "storage"
+        ]
+      ;
 
     services.phpfpm.pools.grocy = {
       user = "grocy";

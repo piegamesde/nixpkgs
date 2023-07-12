@@ -28,21 +28,23 @@ let
     inherit stdenv lib requireFile writeText fetchFromGitHub haskellPackages;
   };
 
-  remixPacks = lib.imap1
-    (
-      num: sha256:
-      fetchurl rec {
-        name = "uqm-remix-disc${toString num}.uqm";
-        url = "mirror://sourceforge/sc2/${name}";
-        inherit sha256;
-      }
-    )
-    [
-      "1s470i6hm53l214f2rkrbp111q4jyvnxbzdziqg32ffr8m3nk5xn"
-      "1pmsq65k8gk4jcbyk3qjgi9yqlm0dlaimc2r8hz2fc9f2124gfvz"
-      "07g966ylvw9k5q9jdzqdczp7c5qv4s91xjlg4z5z27fgcs7rzn76"
-      "1l46k9aqlcp7d3fjkjb3n05cjfkxx8rjlypgqy0jmdx529vikj54"
-    ];
+  remixPacks =
+    lib.imap1
+      (
+        num: sha256:
+        fetchurl rec {
+          name = "uqm-remix-disc${toString num}.uqm";
+          url = "mirror://sourceforge/sc2/${name}";
+          inherit sha256;
+        }
+      )
+      [
+        "1s470i6hm53l214f2rkrbp111q4jyvnxbzdziqg32ffr8m3nk5xn"
+        "1pmsq65k8gk4jcbyk3qjgi9yqlm0dlaimc2r8hz2fc9f2124gfvz"
+        "07g966ylvw9k5q9jdzqdczp7c5qv4s91xjlg4z5z27fgcs7rzn76"
+        "1l46k9aqlcp7d3fjkjb3n05cjfkxx8rjlypgqy0jmdx529vikj54"
+      ]
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "uqm";
@@ -89,10 +91,10 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString useRemixPacks (
       lib.concatMapStrings
-      (disc: ''
-        ln -s "${disc}" "uqm-$version/content/addons/${disc.name}"
-      '')
-      remixPacks
+        (disc: ''
+          ln -s "${disc}" "uqm-$version/content/addons/${disc.name}"
+        '')
+        remixPacks
     )
     + lib.optionalString use3DOVideos ''
       ln -s "${videos}" "uqm-${version}/content/addons/3dovideo"

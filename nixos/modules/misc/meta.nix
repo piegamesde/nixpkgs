@@ -26,19 +26,20 @@ let
       zipAttrs (
         flatten (
           imap1
-          (
-            n: def:
-            imap1
             (
-              m: def':
-              maintainer.merge (loc ++ [ "[${toString n}-${toString m}]" ]) [ {
-                inherit (def) file;
-                value = def';
-              } ]
+              n: def:
+              imap1
+                (
+                  m: def':
+                  maintainer.merge (loc ++ [ "[${toString n}-${toString m}]" ])
+                    [ {
+                      inherit (def) file;
+                      value = def';
+                    } ]
+                )
+                def.value
             )
-            def.value
-          )
-          defs
+            defs
         )
       )
       ;

@@ -20,7 +20,7 @@ let
       act
     else
       builtins.throw
-      "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this"
+        "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this"
     ;
   jailbreakForCurrentVersion =
     p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
@@ -79,14 +79,22 @@ self: super: {
 
   doctest = doDistribute super.doctest_0_21_1;
   inspection-testing =
-    doDistribute self.inspection-testing_0_5_0_1; # allows base >= 4.18
+    doDistribute
+      self.inspection-testing_0_5_0_1
+    ; # allows base >= 4.18
   OneTuple =
-    doDistribute (dontCheck super.OneTuple_0_4_1_1); # allows base >= 4.18
+    doDistribute
+      (dontCheck super.OneTuple_0_4_1_1)
+    ; # allows base >= 4.18
   primitive =
-    doDistribute (dontCheck self.primitive_0_7_4_0); # allows base >= 4.18
+    doDistribute
+      (dontCheck self.primitive_0_7_4_0)
+    ; # allows base >= 4.18
   http-api-data = doDistribute self.http-api-data_0_5_1; # allows base >= 4.18
   attoparsec-iso8601 =
-    doDistribute self.attoparsec-iso8601_1_1_0_0; # for http-api-data-0.5.1
+    doDistribute
+      self.attoparsec-iso8601_1_1_0_0
+    ; # for http-api-data-0.5.1
   tagged = doDistribute self.tagged_0_8_7; # allows template-haskell-2.20
   some = doDistribute self.some_1_0_5;
   tasty-inspection-testing = doDistribute self.tasty-inspection-testing_0_2;
@@ -146,30 +154,34 @@ self: super: {
 
   # Add missing Functor instance for Tuple2
   # https://github.com/haskell-foundation/foundation/pull/572
-  foundation = appendPatches
-    [
-      (pkgs.fetchpatch {
-        name = "foundation-pr-572.patch";
-        url =
-          "https://github.com/haskell-foundation/foundation/commit/d3136f4bb8b69e273535352620e53f2196941b35.patch";
-        sha256 = "sha256-oPadhQdCPJHICdCPxn+GsSQUARIYODG8Ed6g2sK+eC4=";
-        stripLen = 1;
-      })
-    ]
-    (super.foundation);
+  foundation =
+    appendPatches
+      [
+        (pkgs.fetchpatch {
+          name = "foundation-pr-572.patch";
+          url =
+            "https://github.com/haskell-foundation/foundation/commit/d3136f4bb8b69e273535352620e53f2196941b35.patch";
+          sha256 = "sha256-oPadhQdCPJHICdCPxn+GsSQUARIYODG8Ed6g2sK+eC4=";
+          stripLen = 1;
+        })
+      ]
+      (super.foundation)
+    ;
 
   # Add support for time 1.10
   # https://github.com/vincenthz/hs-hourglass/pull/56
-  hourglass = appendPatches
-    [
-      (pkgs.fetchpatch {
-        name = "hourglass-pr-56.patch";
-        url =
-          "https://github.com/vincenthz/hs-hourglass/commit/cfc2a4b01f9993b1b51432f0a95fa6730d9a558a.patch";
-        sha256 = "sha256-gntZf7RkaR4qzrhjrXSC69jE44SknPDBmfs4z9rVa5Q=";
-      })
-    ]
-    (super.hourglass);
+  hourglass =
+    appendPatches
+      [
+        (pkgs.fetchpatch {
+          name = "hourglass-pr-56.patch";
+          url =
+            "https://github.com/vincenthz/hs-hourglass/commit/cfc2a4b01f9993b1b51432f0a95fa6730d9a558a.patch";
+          sha256 = "sha256-gntZf7RkaR4qzrhjrXSC69jE44SknPDBmfs4z9rVa5Q=";
+        })
+      ]
+      (super.hourglass)
+    ;
 
   # Test suite doesn't compile with base-4.18 / GHC 9.6
   # https://github.com/dreixel/syb/issues/40
@@ -199,21 +211,21 @@ self: super: {
 
   ghc-exactprint = unmarkBroken (
     addBuildDepends
-    (
-      with self.ghc-exactprint.scope; [
-        HUnit
-        Diff
-        data-default
-        extra
-        fail
-        free
-        ghc-paths
-        ordered-containers
-        silently
-        syb
-      ]
-    )
-    super.ghc-exactprint_1_7_0_0
+      (
+        with self.ghc-exactprint.scope; [
+          HUnit
+          Diff
+          data-default
+          extra
+          fail
+          free
+          ghc-paths
+          ordered-containers
+          silently
+          syb
+        ]
+      )
+      super.ghc-exactprint_1_7_0_0
   );
 
   inherit (pkgs.lib.mapAttrs (_: doJailbreak) super)

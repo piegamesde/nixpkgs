@@ -143,8 +143,9 @@ in
   options = {
     services.maddy = {
 
-      enable =
-        mkEnableOption (lib.mdDoc "Maddy, a free an open source mail server");
+      enable = mkEnableOption (
+        lib.mdDoc "Maddy, a free an open source mail server"
+      );
 
       user = mkOption {
         default = "maddy";
@@ -371,24 +372,24 @@ in
           script = ''
             ${optionalString (cfg.ensureAccounts != [ ]) ''
               ${concatMapStrings
-              (account: ''
-                if ! ${pkgs.maddy}/bin/maddyctl imap-acct list | grep "${account}"; then
-                  ${pkgs.maddy}/bin/maddyctl imap-acct create ${account}
-                fi
-              '')
-              cfg.ensureAccounts}
+                (account: ''
+                  if ! ${pkgs.maddy}/bin/maddyctl imap-acct list | grep "${account}"; then
+                    ${pkgs.maddy}/bin/maddyctl imap-acct create ${account}
+                  fi
+                '')
+                cfg.ensureAccounts}
             ''}
             ${optionalString (cfg.ensureCredentials != { }) ''
               ${concatStringsSep "\n" (
                 mapAttrsToList
-                (name: cfg: ''
-                  if ! ${pkgs.maddy}/bin/maddyctl creds list | grep "${name}"; then
-                    ${pkgs.maddy}/bin/maddyctl creds create --password $(cat ${
-                      escapeShellArg cfg.passwordFile
-                    }) ${name}
-                  fi
-                '')
-                cfg.ensureCredentials
+                  (name: cfg: ''
+                    if ! ${pkgs.maddy}/bin/maddyctl creds list | grep "${name}"; then
+                      ${pkgs.maddy}/bin/maddyctl creds create --password $(cat ${
+                        escapeShellArg cfg.passwordFile
+                      }) ${name}
+                    fi
+                  '')
+                  cfg.ensureCredentials
               )}
             ''}
           '';

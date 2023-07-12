@@ -14,9 +14,9 @@ in
   ###### interface
   options = {
     services.thermald = {
-      enable =
-        mkEnableOption (lib.mdDoc "thermald, the temperature management daemon")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc "thermald, the temperature management daemon"
+      );
 
       debug = mkOption {
         type = types.bool;
@@ -55,9 +55,8 @@ in
             --no-daemon \
             ${optionalString cfg.debug "--loglevel=debug"} \
             ${
-              optionalString
-              (cfg.configFile != null)
-              "--config-file ${cfg.configFile}"
+              optionalString (cfg.configFile != null)
+                "--config-file ${cfg.configFile}"
             } \
             --dbus-enable \
             --adaptive

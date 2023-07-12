@@ -58,8 +58,8 @@ let
     ++ optionalNull cfg.sampleFormat "--stream.sampleformat=${cfg.sampleFormat}"
     ++ optionalNull cfg.codec "--stream.codec=${cfg.codec}"
     ++ optionalNull cfg.streamBuffer "--stream.stream_buffer=${
-        toString cfg.streamBuffer
-      }"
+          toString cfg.streamBuffer
+        }"
     ++ optionalNull cfg.buffer "--stream.buffer=${toString cfg.buffer}"
     ++ optional cfg.sendToMuted "--stream.send_to_muted"
     # tcp json rpc
@@ -80,18 +80,20 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "snapserver"
-        "controlPort"
-      ]
-      [
-        "services"
-        "snapserver"
-        "tcp"
-        "port"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "snapserver"
+          "controlPort"
+        ]
+        [
+          "services"
+          "snapserver"
+          "tcp"
+          "port"
+        ]
+    )
   ];
 
   ###### interface
@@ -318,13 +320,13 @@ in
       # https://github.com/badaix/snapcast/blob/98ac8b2fb7305084376607b59173ce4097c620d8/server/streamreader/stream_manager.cpp#L85
       filter (w: w != "") (
         mapAttrsToList
-        (
-          k: v:
-          optionalString (v.type == "spotify") ''
-            services.snapserver.streams.${k}.type = "spotify" is deprecated, use services.snapserver.streams.${k}.type = "librespot" instead.
-          ''
-        )
-        cfg.streams
+          (
+            k: v:
+            optionalString (v.type == "spotify") ''
+              services.snapserver.streams.${k}.type = "spotify" is deprecated, use services.snapserver.streams.${k}.type = "librespot" instead.
+            ''
+          )
+          cfg.streams
       );
 
     systemd.services.snapserver = {

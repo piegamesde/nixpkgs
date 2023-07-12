@@ -70,7 +70,9 @@ let
     meta = with lib; {
       license = licenses.gpl2Classpath;
       description = "${brand-name}, prebuilt OpenJDK binary";
-      platforms = builtins.map (arch: arch + "-darwin") providedCpuTypes
+      platforms =
+        builtins.map (arch: arch + "-darwin")
+          providedCpuTypes
         ; # some inherit jre.meta.platforms
       maintainers = with maintainers; [ taku0 ];
       inherit knownVulnerabilities;

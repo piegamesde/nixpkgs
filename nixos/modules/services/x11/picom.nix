@@ -66,35 +66,41 @@ in
 {
 
   imports = [
-    (mkAliasOptionModuleMD
-      [
-        "services"
-        "compton"
-      ]
-      [
-        "services"
-        "picom"
-      ])
-    (mkRemovedOptionModule
-      [
-        "services"
-        "picom"
-        "refreshRate"
-      ]
-      ''
-        This option corresponds to `refresh-rate`, which has been unused
-        since picom v6 and was subsequently removed by upstream.
-        See https://github.com/yshui/picom/commit/bcbc410
-      '')
-    (mkRemovedOptionModule
-      [
-        "services"
-        "picom"
-        "experimentalBackends"
-      ]
-      ''
-        This option was removed by upstream since picom v10.
-      '')
+    (
+      mkAliasOptionModuleMD
+        [
+          "services"
+          "compton"
+        ]
+        [
+          "services"
+          "picom"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "picom"
+          "refreshRate"
+        ]
+        ''
+          This option corresponds to `refresh-rate`, which has been unused
+          since picom v6 and was subsequently removed by upstream.
+          See https://github.com/yshui/picom/commit/bcbc410
+        ''
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "picom"
+          "experimentalBackends"
+        ]
+        ''
+          This option was removed by upstream since picom v10.
+        ''
+    )
   ];
 
   options.services.picom = {
@@ -382,8 +388,9 @@ in
       partOf = [ "graphical-session.target" ];
 
       # Temporarily fixes corrupt colours with Mesa 18
-      environment =
-        mkIf (cfg.backend == "glx") { allow_rgb10_configs = "false"; };
+      environment = mkIf (cfg.backend == "glx") {
+        allow_rgb10_configs = "false";
+      };
 
       serviceConfig = {
         ExecStart = "${pkgs.picom}/bin/picom --config ${configFile}";

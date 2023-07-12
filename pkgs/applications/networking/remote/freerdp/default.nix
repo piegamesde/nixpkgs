@@ -95,12 +95,12 @@ stdenv.mkDerivation rec {
 
       # failing test(s)
       ${lib.concatMapStringsSep "\n"
-      (e: ''
-        substituteInPlace ${e.dir}/CMakeLists.txt \
-          --replace ${e.file} ""
-        rm ${e.dir}/${e.file}
-      '')
-      disabledTests}
+        (e: ''
+          substituteInPlace ${e.dir}/CMakeLists.txt \
+            --replace ${e.file} ""
+          rm ${e.dir}/${e.file}
+        '')
+        disabledTests}
 
       substituteInPlace "libfreerdp/freerdp.pc.in" \
         --replace "Requires:" "Requires: @WINPR_PKG_CONFIG_FILENAME@"

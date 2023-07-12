@@ -11,7 +11,7 @@ let
       act
     else
       builtins.throw
-      "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this"
+        "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this"
     ;
 in
 
@@ -76,9 +76,9 @@ in
   # consequences of doctest breakage follow:
 
   ghc-source-gen =
-    checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build" (
-      markBroken super.ghc-source-gen
-    );
+    checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build"
+      (markBroken super.ghc-source-gen)
+    ;
 
   haskell-src-meta = doJailbreak super.haskell-src-meta;
 
@@ -94,12 +94,14 @@ in
   binary-instances = doJailbreak super.binary-instances;
   ChasingBottoms = doJailbreak super.ChasingBottoms;
   constraints = doJailbreak super.constraints;
-  cpphs = overrideCabal
-    (drv: {
-      postPatch =
-        "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal";
-    })
-    super.cpphs;
+  cpphs =
+    overrideCabal
+      (drv: {
+        postPatch =
+          "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal";
+      })
+      super.cpphs
+    ;
   data-fix = doJailbreak super.data-fix;
   dec = doJailbreak super.dec;
   ed25519 = doJailbreak super.ed25519;
@@ -109,22 +111,28 @@ in
   ghc-lib-parser-ex = doDistribute self.ghc-lib-parser-ex_9_4_0_0;
   hackage-security = doJailbreak super.hackage-security;
   hashable-time = doJailbreak super.hashable-time;
-  HTTP = overrideCabal
-    (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
-    (doJailbreak super.HTTP);
-  integer-logarithms = overrideCabal
-    (drv: {
-      postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal";
-    })
-    (doJailbreak super.integer-logarithms);
+  HTTP =
+    overrideCabal
+      (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
+      (doJailbreak super.HTTP)
+    ;
+  integer-logarithms =
+    overrideCabal
+      (drv: {
+        postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal";
+      })
+      (doJailbreak super.integer-logarithms)
+    ;
   lifted-async = doJailbreak super.lifted-async;
   lukko = doJailbreak super.lukko;
   lzma-conduit = doJailbreak super.lzma-conduit;
   parallel = doJailbreak super.parallel;
   path = doJailbreak super.path;
-  polyparse = overrideCabal
-    (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; })
-    (doJailbreak super.polyparse);
+  polyparse =
+    overrideCabal
+      (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; })
+      (doJailbreak super.polyparse)
+    ;
   primitive = dontCheck (doJailbreak self.primitive_0_7_4_0);
   regex-posix = doJailbreak super.regex-posix;
   resolv = doJailbreak super.resolv;
@@ -160,27 +168,31 @@ in
   unordered-containers = doJailbreak super.unordered-containers;
   vector-binary-instances = doJailbreak super.vector-binary-instances;
 
-  hpack = overrideCabal
-    (drv: {
-      # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
-      # 2021-10-10: 9.2.1 is not yet supported (also no issue)
-      testFlags =
-        [ "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/" ]
-        ++ drv.testFlags or [ ]
-        ;
-    })
-    (doJailbreak super.hpack);
+  hpack =
+    overrideCabal
+      (drv: {
+        # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
+        # 2021-10-10: 9.2.1 is not yet supported (also no issue)
+        testFlags =
+          [ "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/" ]
+          ++ drv.testFlags or [ ]
+          ;
+      })
+      (doJailbreak super.hpack)
+    ;
 
   lens = doDistribute self.lens_5_2_2;
 
   # Apply patches from head.hackage.
-  language-haskell-extract = appendPatch
-    (pkgs.fetchpatch {
-      url =
-        "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
-      sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
-    })
-    (doJailbreak super.language-haskell-extract);
+  language-haskell-extract =
+    appendPatch
+      (pkgs.fetchpatch {
+        url =
+          "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
+        sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
+      })
+      (doJailbreak super.language-haskell-extract)
+    ;
 
   # Tests depend on `parseTime` which is no longer available
   hourglass = dontCheck super.hourglass;
@@ -204,22 +216,24 @@ in
   # 2022-10-06: https://gitlab.haskell.org/ghc/ghc/-/issues/22260
   ghc-check = dontHaddock super.ghc-check;
 
-  ghc-exactprint = overrideCabal
-    (drv: {
-      libraryHaskellDepends = with self; [
-        HUnit
-        data-default
-        fail
-        filemanip
-        free
-        ghc-paths
-        ordered-containers
-        silently
-        syb
-        Diff
-      ];
-    })
-    self.ghc-exactprint_1_6_1_1;
+  ghc-exactprint =
+    overrideCabal
+      (drv: {
+        libraryHaskellDepends = with self; [
+          HUnit
+          data-default
+          fail
+          filemanip
+          free
+          ghc-paths
+          ordered-containers
+          silently
+          syb
+          Diff
+        ];
+      })
+      self.ghc-exactprint_1_6_1_1
+    ;
 
   # needed to build servant
   http-api-data = super.http-api-data_0_5_1;
@@ -237,22 +251,27 @@ in
   relude = doJailbreak super.relude;
 
   # Fixes compilation failure with GHC >= 9.4 on aarch64-* due to an API change
-  cborg = appendPatch
-    (pkgs.fetchpatch {
-      name = "cborg-support-ghc-9.4.patch";
-      url = "https://github.com/well-typed/cborg/pull/304.diff";
-      sha256 = "sha256-W4HldlESKOVkTPhz9nkFrvbj9akCOtF1SbIt5eJqtj8=";
-      relative = "cborg";
-    })
-    super.cborg;
+  cborg =
+    appendPatch
+      (pkgs.fetchpatch {
+        name = "cborg-support-ghc-9.4.patch";
+        url = "https://github.com/well-typed/cborg/pull/304.diff";
+        sha256 = "sha256-W4HldlESKOVkTPhz9nkFrvbj9akCOtF1SbIt5eJqtj8=";
+        relative = "cborg";
+      })
+      super.cborg
+    ;
 
   ormolu = doDistribute self.ormolu_0_5_3_0;
   # https://github.com/tweag/ormolu/issues/941
-  fourmolu = overrideCabal
-    (drv: {
-      libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
-    })
-    (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
+  fourmolu =
+    overrideCabal
+      (drv: {
+        libraryHaskellDepends =
+          drv.libraryHaskellDepends ++ [ self.file-embed ];
+      })
+      (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0)
+    ;
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455
   # by making `pkg-config --static` happy. Note: Cabal 3.9 is also affected, so
@@ -266,9 +285,10 @@ in
   # The gtk2hs setup hook provided by this package lacks the ppOrdering field that
   # recent versions of Cabal require. This leads to builds like cairo and glib
   # failing during the Setup.hs phase: https://github.com/gtk2hs/gtk2hs/issues/323.
-  gtk2hs-buildtools = appendPatch
-    ./patches/gtk2hs-buildtools-fix-ghc-9.4.x.patch
-    super.gtk2hs-buildtools;
+  gtk2hs-buildtools =
+    appendPatch ./patches/gtk2hs-buildtools-fix-ghc-9.4.x.patch
+      super.gtk2hs-buildtools
+    ;
 
   # Pending text-2.0 support https://github.com/gtk2hs/gtk2hs/issues/327
   gtk = doJailbreak super.gtk;

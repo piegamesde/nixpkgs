@@ -47,8 +47,9 @@ let
   };
 
   lints = {
-    "deprecated licenses" =
-      intersectLists (attrNames licenseMap) (attrNames deprecatedAliases);
+    "deprecated licenses" = intersectLists (attrNames licenseMap) (
+      attrNames deprecatedAliases
+    );
 
     "invalid aliases" = attrNames (
       filterAttrs (k: v: licenses.${v}.deprecated or true) deprecatedAliases

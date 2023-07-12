@@ -22,23 +22,22 @@ let
         Username ${cfg.username}
         Domain ${cfg.domain}
         Password ${cfg.password}
-        ${optionalString
-        (cfg.netbios_hostname != "")
-        "Workstation ${cfg.netbios_hostname}"}
+        ${optionalString (cfg.netbios_hostname != "")
+          "Workstation ${cfg.netbios_hostname}"}
         ${concatMapStrings
-        (entry: ''
-          Proxy ${entry}
-        '')
-        cfg.proxy}
+          (entry: ''
+            Proxy ${entry}
+          '')
+          cfg.proxy}
         ${optionalString (cfg.noproxy != [ ]) "NoProxy ${
-          concatStringsSep ", " cfg.noproxy
-        }"}
+            concatStringsSep ", " cfg.noproxy
+          }"}
 
         ${concatMapStrings
-        (port: ''
-          Listen ${toString port}
-        '')
-        cfg.port}
+          (port: ''
+            Listen ${toString port}
+          '')
+          cfg.port}
 
         ${cfg.extraConfig}
       ''
@@ -66,8 +65,9 @@ in
     password = mkOption {
       default = "/etc/cntlm.password";
       type = types.str;
-      description = lib.mdDoc
-        "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security."
+      description =
+        lib.mdDoc
+          "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security."
         ;
     };
 
@@ -107,14 +107,17 @@ in
       default = [ 3128 ];
       type = types.listOf types.port;
       description =
-        lib.mdDoc "Specifies on which ports the cntlm daemon listens.";
+        lib.mdDoc
+          "Specifies on which ports the cntlm daemon listens."
+        ;
     };
 
     extraConfig = mkOption {
       type = types.lines;
       default = "";
-      description = lib.mdDoc
-        "Additional config appended to the end of the generated {file}`cntlm.conf`."
+      description =
+        lib.mdDoc
+          "Additional config appended to the end of the generated {file}`cntlm.conf`."
         ;
     };
 

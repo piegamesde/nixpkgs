@@ -49,7 +49,9 @@ in
 
     watch = mkOption {
       description =
-        lib.mdDoc "Confd, whether to watch etcd config for changes.";
+        lib.mdDoc
+          "Confd, whether to watch etcd config for changes."
+        ;
       default = true;
       type = types.bool;
     };

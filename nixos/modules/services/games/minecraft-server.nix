@@ -19,11 +19,11 @@ let
   whitelistFile = pkgs.writeText "whitelist.json" (
     builtins.toJSON (
       mapAttrsToList
-      (n: v: {
-        name = n;
-        uuid = v;
-      })
-      cfg.whitelist
+        (n: v: {
+          name = n;
+          uuid = v;
+        })
+        cfg.whitelist
     )
   );
 
@@ -126,7 +126,7 @@ in
         type =
           let
             minecraftUUID = types.strMatching
-              "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
               // {
                 description = "Minecraft UUID";
               };

@@ -75,7 +75,9 @@ mkDerivation {
 
   # error: "Your gnustep-base was configured for the objc-nonfragile-abi but you are not using it now."
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (!stdenv.isDarwin) "-fobjc-runtime=gnustep-2.0";
+    lib.optionalString (!stdenv.isDarwin)
+      "-fobjc-runtime=gnustep-2.0"
+    ;
 
   installPhase = ''
     runHook preInstall

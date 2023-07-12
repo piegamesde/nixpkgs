@@ -71,8 +71,7 @@ pkgs.runCommand "hadoop-conf" { } (
     cp ${pkgs.writeTextDir "hadoop-user-functions.sh" userFunctions}/* $out/
     cp ${pkgs.writeTextDir "hadoop-env.sh" hadoopEnv}/* $out/
     cp ${log4jProperties} $out/log4j.properties
-    ${lib.concatMapStringsSep "\n"
-    (dir: "cp -f -r ${dir}/* $out/")
-    extraConfDirs}
+    ${lib.concatMapStringsSep "\n" (dir: "cp -f -r ${dir}/* $out/")
+      extraConfDirs}
   ''
 )

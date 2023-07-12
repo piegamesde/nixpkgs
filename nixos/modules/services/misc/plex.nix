@@ -12,13 +12,15 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "plex"
-        "managePlugins"
-      ]
-      "Please omit or define the option: `services.plex.extraPlugins' instead.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "plex"
+          "managePlugins"
+        ]
+        "Please omit or define the option: `services.plex.extraPlugins' instead."
+    )
   ];
 
   options = {
@@ -155,9 +157,13 @@ in
         # Configuration for our FHS userenv script
         PLEX_DATADIR = cfg.dataDir;
         PLEX_PLUGINS =
-          concatMapStringsSep ":" builtins.toString cfg.extraPlugins;
+          concatMapStringsSep ":" builtins.toString
+            cfg.extraPlugins
+          ;
         PLEX_SCANNERS =
-          concatMapStringsSep ":" builtins.toString cfg.extraScanners;
+          concatMapStringsSep ":" builtins.toString
+            cfg.extraScanners
+          ;
 
         # The following variables should be set by the FHS userenv script:
         #   PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
@@ -199,7 +205,8 @@ in
       };
     };
 
-    users.groups =
-      mkIf (cfg.group == "plex") { plex = { gid = config.ids.gids.plex; }; };
+    users.groups = mkIf (cfg.group == "plex") {
+      plex = { gid = config.ids.gids.plex; };
+    };
   };
 }

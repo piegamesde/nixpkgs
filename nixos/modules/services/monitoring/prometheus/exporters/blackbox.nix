@@ -20,11 +20,11 @@ let
     else
       (
         lib.warn
-        ''
-          ${logPrefix}: configuration file "${file}" is being copied to the nix-store.
-          If you would like to avoid that, please set enableConfigCheck to false.
-        ''
-        /.
+          ''
+            ${logPrefix}: configuration file "${file}" is being copied to the nix-store.
+            If you would like to avoid that, please set enableConfigCheck to false.
+          ''
+          /.
         + file
       )
     ;
@@ -32,21 +32,21 @@ let
     file:
     if lib.hasPrefix "/tmp/" file then
       throw
-      "${logPrefix}: configuration file must not reside within /tmp - it won't be visible to the systemd service."
+        "${logPrefix}: configuration file must not reside within /tmp - it won't be visible to the systemd service."
     else
       true
     ;
   checkConfig =
     file:
     pkgs.runCommand "checked-blackbox-exporter.conf"
-    {
-      preferLocalBuild = true;
-      buildInputs = [ pkgs.buildPackages.prometheus-blackbox-exporter ];
-    }
-    ''
-      ln -s ${coerceConfigFile file} $out
-      blackbox_exporter --config.check --config.file $out
-    ''
+      {
+        preferLocalBuild = true;
+        buildInputs = [ pkgs.buildPackages.prometheus-blackbox-exporter ];
+      }
+      ''
+        ln -s ${coerceConfigFile file} $out
+        blackbox_exporter --config.check --config.file $out
+      ''
     ;
 in
 {

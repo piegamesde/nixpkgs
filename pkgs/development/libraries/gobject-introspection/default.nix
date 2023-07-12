@@ -150,13 +150,15 @@ stdenv.mkDerivation (
     '';
 
     postInstall =
-      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-        cp -r ${buildPackages.gobject-introspection-unwrapped.devdoc} $devdoc
-        # these are uncompiled c and header files which aren't installed when cross-compiling because
-        # code that installs them is in tests/meson.build which is only run when not cross-compiling
-        # pygobject3 needs them
-        cp -r ${buildPackages.gobject-introspection-unwrapped.dev}/share/gobject-introspection-1.0/tests $dev/share/gobject-introspection-1.0/tests
-      '';
+      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+        ''
+          cp -r ${buildPackages.gobject-introspection-unwrapped.devdoc} $devdoc
+          # these are uncompiled c and header files which aren't installed when cross-compiling because
+          # code that installs them is in tests/meson.build which is only run when not cross-compiling
+          # pygobject3 needs them
+          cp -r ${buildPackages.gobject-introspection-unwrapped.dev}/share/gobject-introspection-1.0/tests $dev/share/gobject-introspection-1.0/tests
+        ''
+      ;
 
     preCheck = ''
       # Our gobject-introspection patches make the shared library paths absolute

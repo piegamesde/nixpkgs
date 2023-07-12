@@ -46,17 +46,19 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "searx"
-        "configFile"
-      ]
-      [
-        "services"
-        "searx"
-        "settingsFile"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "searx"
+          "configFile"
+        ]
+        [
+          "services"
+          "searx"
+          "settingsFile"
+        ]
+    )
   ];
 
   ###### interface
@@ -70,7 +72,9 @@ in
         default = false;
         relatedPackages = [ "searx" ];
         description =
-          lib.mdDoc "Whether to enable Searx, the meta search engine.";
+          lib.mdDoc
+            "Whether to enable Searx, the meta search engine."
+          ;
       };
 
       environmentFile = mkOption {

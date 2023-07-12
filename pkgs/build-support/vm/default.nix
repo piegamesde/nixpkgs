@@ -50,39 +50,41 @@ rec {
 
   hd = "vda"; # either "sda" or "vda"
 
-  initrdUtils = runCommand "initrd-utils"
-    {
-      nativeBuildInputs = [ buildPackages.nukeReferences ];
-      allowedReferences = [
-        "out"
-        modulesClosure
-      ]; # prevent accidents like glibc being included in the initrd
-    }
-    ''
-      mkdir -p $out/bin
-      mkdir -p $out/lib
+  initrdUtils =
+    runCommand "initrd-utils"
+      {
+        nativeBuildInputs = [ buildPackages.nukeReferences ];
+        allowedReferences = [
+          "out"
+          modulesClosure
+        ]; # prevent accidents like glibc being included in the initrd
+      }
+      ''
+        mkdir -p $out/bin
+        mkdir -p $out/lib
 
-      # Copy what we need from Glibc.
-      cp -p \
-        ${pkgs.stdenv.cc.libc}/lib/ld-*.so.? \
-        ${pkgs.stdenv.cc.libc}/lib/libc.so.* \
-        ${pkgs.stdenv.cc.libc}/lib/libm.so.* \
-        ${pkgs.stdenv.cc.libc}/lib/libresolv.so.* \
-        $out/lib
+        # Copy what we need from Glibc.
+        cp -p \
+          ${pkgs.stdenv.cc.libc}/lib/ld-*.so.? \
+          ${pkgs.stdenv.cc.libc}/lib/libc.so.* \
+          ${pkgs.stdenv.cc.libc}/lib/libm.so.* \
+          ${pkgs.stdenv.cc.libc}/lib/libresolv.so.* \
+          $out/lib
 
-      # Copy BusyBox.
-      cp -pd ${pkgs.busybox}/bin/* $out/bin
+        # Copy BusyBox.
+        cp -pd ${pkgs.busybox}/bin/* $out/bin
 
-      # Run patchelf to make the programs refer to the copied libraries.
-      for i in $out/bin/* $out/lib/*; do if ! test -L $i; then nuke-refs $i; fi; done
+        # Run patchelf to make the programs refer to the copied libraries.
+        for i in $out/bin/* $out/lib/*; do if ! test -L $i; then nuke-refs $i; fi; done
 
-      for i in $out/bin/*; do
-          if [ -f "$i" -a ! -L "$i" ]; then
-              echo "patching $i..."
-              patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
-          fi
-      done
-    ''; # */
+        for i in $out/bin/*; do
+            if [ -f "$i" -a ! -L "$i" ]; then
+                echo "patching $i..."
+                patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
+            fi
+        done
+      ''
+    ; # */
 
   stage1Init = writeScript "vm-run-stage1" ''
     #! ${initrdUtils}/bin/ash -e
@@ -785,27 +787,27 @@ rec {
     }:
     assert (builtins.length packagesLists) == (builtins.length urlPrefixes);
     runCommand "${name}.nix"
-    {
-      nativeBuildInputs = [
-        buildPackages.perl
-        buildPackages.perlPackages.XMLSimple
-      ];
-      inherit archs;
-    }
-    ''
-      ${lib.concatImapStrings
-      (i: pl: ''
-        gunzip < ${pl} > ./packages_${toString i}.xml
-      '')
-      packagesLists}
-      perl -w ${rpm/rpm-closure.pl} \
-        ${
-          lib.concatImapStrings
-          (i: pl: "./packages_${toString i}.xml ${pl.snd} ")
-          (lib.zipLists packagesLists urlPrefixes)
-        } \
-        ${toString packages} > $out
-    ''
+      {
+        nativeBuildInputs = [
+          buildPackages.perl
+          buildPackages.perlPackages.XMLSimple
+        ];
+        inherit archs;
+      }
+      ''
+        ${lib.concatImapStrings
+          (i: pl: ''
+            gunzip < ${pl} > ./packages_${toString i}.xml
+          '')
+          packagesLists}
+        perl -w ${rpm/rpm-closure.pl} \
+          ${
+            lib.concatImapStrings
+              (i: pl: "./packages_${toString i}.xml ${pl.snd} ")
+              (lib.zipLists packagesLists urlPrefixes)
+          } \
+          ${toString packages} > $out
+      ''
     ;
 
   /* Helper function that combines rpmClosureGenerator and
@@ -850,14 +852,14 @@ rec {
         QEMU_OPTS
         memSize
         ;
-      rpms = import
-        (rpmClosureGenerator {
-          inherit name packagesLists urlPrefixes archs;
-          packages = packages ++ extraPackages;
-        })
-        {
-          inherit fetchurl;
-        };
+      rpms =
+        import
+          (rpmClosureGenerator {
+            inherit name packagesLists urlPrefixes archs;
+            packages = packages ++ extraPackages;
+          })
+          { inherit fetchurl; }
+        ;
     }
     ;
 
@@ -874,34 +876,34 @@ rec {
     }:
 
     runCommand "${name}.nix"
-    {
-      nativeBuildInputs = [
-        buildPackages.perl
-        buildPackages.dpkg
-      ];
-    }
-    ''
-      for i in ${toString packagesLists}; do
-        echo "adding $i..."
-        case $i in
-          *.xz | *.lzma)
-            xz -d < $i >> ./Packages
-            ;;
-          *.bz2)
-            bunzip2 < $i >> ./Packages
-            ;;
-          *.gz)
-            gzip -dc < $i >> ./Packages
-            ;;
-        esac
-      done
+      {
+        nativeBuildInputs = [
+          buildPackages.perl
+          buildPackages.dpkg
+        ];
+      }
+      ''
+        for i in ${toString packagesLists}; do
+          echo "adding $i..."
+          case $i in
+            *.xz | *.lzma)
+              xz -d < $i >> ./Packages
+              ;;
+            *.bz2)
+              bunzip2 < $i >> ./Packages
+              ;;
+            *.gz)
+              gzip -dc < $i >> ./Packages
+              ;;
+          esac
+        done
 
-      # Work around this bug: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=452279
-      sed -i ./Packages -e s/x86_64-linux-gnu/x86-64-linux-gnu/g
+        # Work around this bug: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=452279
+        sed -i ./Packages -e s/x86_64-linux-gnu/x86-64-linux-gnu/g
 
-      perl -w ${deb/deb-closure.pl} \
-        ./Packages ${urlPrefix} ${toString packages} > $out
-    ''
+        perl -w ${deb/deb-closure.pl} \
+          ./Packages ${urlPrefix} ${toString packages} > $out
+      ''
     ;
 
   /* Helper function that combines debClosureGenerator and
@@ -1501,14 +1503,16 @@ rec {
   */
   diskImageFuns =
     (lib.mapAttrs (name: as: as2: makeImageFromRPMDist (as // as2)) rpmDistros)
-    // (lib.mapAttrs
-      (name: as: as2: makeImageFromDebDist (as // as2))
-      debDistros);
+    // (
+      lib.mapAttrs (name: as: as2: makeImageFromDebDist (as // as2))
+        debDistros
+    );
 
   # Shorthand for `diskImageFuns.<attr> { extraPackages = ... }'.
-  diskImageExtraFuns = lib.mapAttrs
-    (name: f: extraPackages: f { inherit extraPackages; })
-    diskImageFuns;
+  diskImageExtraFuns =
+    lib.mapAttrs (name: f: extraPackages: f { inherit extraPackages; })
+      diskImageFuns
+    ;
 
   /* Default disk images generated from the `rpmDistros' and
      `debDistros' sets.

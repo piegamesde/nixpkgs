@@ -138,7 +138,9 @@ in
       [ mirakurun ] ++ optional cfg.allowSmartCardAccess polkitRule;
     environment.etc = {
       "mirakurun/server.yml".source =
-        settingsFmt.generate "server.yml" cfg.serverSettings;
+        settingsFmt.generate "server.yml"
+          cfg.serverSettings
+        ;
       "mirakurun/tuners.yml" = mkIf (cfg.tunerSettings != null) {
         source = settingsFmt.generate "tuners.yml" cfg.tunerSettings;
         mode = "0644";

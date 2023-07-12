@@ -109,9 +109,9 @@ stdenv.mkDerivation rec {
             CryptOpenSSLBignum
           ]
         )
-        + lib.optionalString
-          (builtins.length runtimeDeps > 0)
-          " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
+        +
+          lib.optionalString (builtins.length runtimeDeps > 0)
+            " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
         ;
       wrapMonkeysphere =
         runtimeDeps: program: ''
@@ -127,14 +127,13 @@ stdenv.mkDerivation rec {
       "monkeysphere-authentication"
       "monkeysphere-host"
     ]
-    + wrapPrograms
-      [
-        gnupg
-        lockfileProgs
-      ]
-      [
-        "monkeysphere"
-      ]
+    +
+      wrapPrograms
+        [
+          gnupg
+          lockfileProgs
+        ]
+        [ "monkeysphere" ]
     + ''
       # These 4 programs depend on the program name ($0):
       for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do

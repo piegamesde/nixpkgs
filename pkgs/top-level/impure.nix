@@ -62,17 +62,17 @@ in
         in
         map (n: import (path + ("/" + n))) (
           builtins.filter
-          (
-            n:
             (
-              builtins.match ".*\\.nix" n != null
-              &&
-                # ignore Emacs lock files (.#foo.nix)
-                builtins.match "\\.#.*" n == null
+              n:
+              (
+                builtins.match ".*\\.nix" n != null
+                &&
+                  # ignore Emacs lock files (.#foo.nix)
+                  builtins.match "\\.#.*" n == null
+              )
+              || builtins.pathExists (path + ("/" + n + "/default.nix"))
             )
-            || builtins.pathExists (path + ("/" + n + "/default.nix"))
-          )
-          (builtins.attrNames content)
+            (builtins.attrNames content)
         )
       else
         # it's a file, so the result is the contents of the file itself

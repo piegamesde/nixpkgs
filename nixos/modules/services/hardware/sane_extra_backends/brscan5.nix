@@ -12,8 +12,9 @@ let
 
   netDeviceList = attrValues cfg.netDevices;
 
-  etcFiles =
-    pkgs.callPackage ./brscan5_etc_files.nix { netDevices = netDeviceList; };
+  etcFiles = pkgs.callPackage ./brscan5_etc_files.nix {
+    netDevices = netDeviceList;
+  };
 
   netDeviceOpts =
     {
@@ -73,8 +74,9 @@ in
 {
   options = {
 
-    hardware.sane.brscan5.enable =
-      mkEnableOption (lib.mdDoc "the Brother brscan5 sane backend");
+    hardware.sane.brscan5.enable = mkEnableOption (
+      lib.mdDoc "the Brother brscan5 sane backend"
+    );
 
     hardware.sane.brscan5.netDevices = mkOption {
       default = { };

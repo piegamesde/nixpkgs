@@ -112,10 +112,10 @@ let
 
   configFile = pkgs.writeText "vsftpd.conf" ''
     ${concatMapStrings
-    (x: ''
-      ${x.cfgText}
-    '')
-    optionDescription}
+      (x: ''
+        ${x.cfgText}
+      '')
+      optionDescription}
     ${optionalString (cfg.rsaCertFile != null) ''
       ssl_enable=YES
       rsa_cert_file=${cfg.rsaCertFile}
@@ -171,10 +171,10 @@ in
         type = types.path;
         default = pkgs.writeText "userlist" (
           concatMapStrings
-          (x: ''
-            ${x}
-          '')
-          cfg.userlist
+            (x: ''
+              ${x}
+            '')
+            cfg.userlist
         );
         defaultText = literalExpression ''
           pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)''
@@ -275,8 +275,9 @@ in
         type = types.lines;
         default = "";
         example = "ftpd_banner=Hello";
-        description = lib.mdDoc
-          "Extra configuration to add at the bottom of the generated configuration file."
+        description =
+          lib.mdDoc
+            "Extra configuration to add at the bottom of the generated configuration file."
           ;
       };
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
@@ -335,11 +336,13 @@ in
     services.vsftpd.userlist = if cfg.userlistDeny then [ "root" ] else [ ];
 
     systemd = {
-      tmpfiles.rules = optional cfg.anonymousUser
-        #Type Path                       Mode User   Gr    Age Arg
-        "d    '${
-          builtins.toString cfg.anonymousUserHome
-        }' 0555 'ftp'  'ftp' -   -";
+      tmpfiles.rules =
+        optional cfg.anonymousUser
+          #Type Path                       Mode User   Gr    Age Arg
+          "d    '${
+            builtins.toString cfg.anonymousUserHome
+          }' 0555 'ftp'  'ftp' -   -"
+        ;
       services.vsftpd = {
         description = "Vsftpd Server";
 
@@ -352,9 +355,11 @@ in
     };
 
     security.pam.services.vsftpd.text =
-      mkIf (cfg.enableVirtualUsers && cfg.userDbPath != null) ''
-        auth required pam_userdb.so db=${cfg.userDbPath}
-        account required pam_userdb.so db=${cfg.userDbPath}
-      '';
+      mkIf (cfg.enableVirtualUsers && cfg.userDbPath != null)
+        ''
+          auth required pam_userdb.so db=${cfg.userDbPath}
+          account required pam_userdb.so db=${cfg.userDbPath}
+        ''
+      ;
   };
 }

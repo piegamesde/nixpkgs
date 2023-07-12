@@ -30,15 +30,19 @@ let
       metaFetch = import ../build-support/coq/meta-fetch/default.nix {
         inherit lib stdenv fetchzip;
       };
-      mkCoqDerivation =
-        lib.makeOverridable (callPackage ../build-support/coq { });
+      mkCoqDerivation = lib.makeOverridable (
+        callPackage ../build-support/coq { }
+      );
 
-      contribs =
-        recurseIntoAttrs (callPackage ../development/coq-modules/contribs { });
+      contribs = recurseIntoAttrs (
+        callPackage ../development/coq-modules/contribs { }
+      );
 
       aac-tactics = callPackage ../development/coq-modules/aac-tactics { };
       addition-chains =
-        callPackage ../development/coq-modules/addition-chains { };
+        callPackage ../development/coq-modules/addition-chains
+          { }
+        ;
       autosubst = callPackage ../development/coq-modules/autosubst { };
       bignums =
         if lib.versionAtLeast coq.coq-version "8.6" then
@@ -47,7 +51,9 @@ let
           null
         ;
       category-theory =
-        callPackage ../development/coq-modules/category-theory { };
+        callPackage ../development/coq-modules/category-theory
+          { }
+        ;
       ceres = callPackage ../development/coq-modules/ceres { };
       Cheerios = callPackage ../development/coq-modules/Cheerios { };
       CoLoR = callPackage ../development/coq-modules/CoLoR { };
@@ -60,7 +66,9 @@ let
       coq-haskell = callPackage ../development/coq-modules/coq-haskell { };
       coq-lsp = callPackage ../development/coq-modules/coq-lsp { };
       coq-record-update =
-        callPackage ../development/coq-modules/coq-record-update { };
+        callPackage ../development/coq-modules/coq-record-update
+          { }
+        ;
       coqeal = callPackage ../development/coq-modules/coqeal { };
       coqhammer = callPackage ../development/coq-modules/coqhammer { };
       coqide = callPackage ../development/coq-modules/coqide { };
@@ -82,7 +90,9 @@ let
       graph-theory = callPackage ../development/coq-modules/graph-theory { };
       heq = callPackage ../development/coq-modules/heq { };
       hierarchy-builder =
-        callPackage ../development/coq-modules/hierarchy-builder { };
+        callPackage ../development/coq-modules/hierarchy-builder
+          { }
+        ;
       HoTT = callPackage ../development/coq-modules/HoTT { };
       hydra-battles = callPackage ../development/coq-modules/hydra-battles { };
       interval = callPackage ../development/coq-modules/interval { };
@@ -103,20 +113,34 @@ let
       mathcomp-character = self.mathcomp.character;
       mathcomp-abel = callPackage ../development/coq-modules/mathcomp-abel { };
       mathcomp-algebra-tactics =
-        callPackage ../development/coq-modules/mathcomp-algebra-tactics { };
+        callPackage ../development/coq-modules/mathcomp-algebra-tactics
+          { }
+        ;
       mathcomp-analysis =
-        callPackage ../development/coq-modules/mathcomp-analysis { };
+        callPackage ../development/coq-modules/mathcomp-analysis
+          { }
+        ;
       mathcomp-apery =
-        callPackage ../development/coq-modules/mathcomp-apery { };
+        callPackage ../development/coq-modules/mathcomp-apery
+          { }
+        ;
       mathcomp-bigenough =
-        callPackage ../development/coq-modules/mathcomp-bigenough { };
+        callPackage ../development/coq-modules/mathcomp-bigenough
+          { }
+        ;
       mathcomp-classical = self.mathcomp-analysis.classical;
       mathcomp-finmap =
-        callPackage ../development/coq-modules/mathcomp-finmap { };
+        callPackage ../development/coq-modules/mathcomp-finmap
+          { }
+        ;
       mathcomp-real-closed =
-        callPackage ../development/coq-modules/mathcomp-real-closed { };
+        callPackage ../development/coq-modules/mathcomp-real-closed
+          { }
+        ;
       mathcomp-tarjan =
-        callPackage ../development/coq-modules/mathcomp-tarjan { };
+        callPackage ../development/coq-modules/mathcomp-tarjan
+          { }
+        ;
       mathcomp-word = callPackage ../development/coq-modules/mathcomp-word { };
       mathcomp-zify = callPackage ../development/coq-modules/mathcomp-zify { };
       metacoq = callPackage ../development/coq-modules/metacoq { };
@@ -134,7 +158,9 @@ let
       QuickChick = callPackage ../development/coq-modules/QuickChick { };
       reglang = callPackage ../development/coq-modules/reglang { };
       relation-algebra =
-        callPackage ../development/coq-modules/relation-algebra { };
+        callPackage ../development/coq-modules/relation-algebra
+          { }
+        ;
       semantics = callPackage ../development/coq-modules/semantics { };
       serapi = callPackage ../development/coq-modules/serapi { };
       simple-io = callPackage ../development/coq-modules/simple-io { };
@@ -150,10 +176,10 @@ let
       VST = callPackage ../development/coq-modules/VST (
         (lib.optionalAttrs (lib.versionAtLeast self.coq.version "8.14") {
           compcert = self.compcert.override { version = "3.11"; };
-        })
-        // (lib.optionalAttrs (lib.versions.isEq self.coq.coq-version "8.13") {
-          ITree = self.ITree.override { version = "4.0.0"; };
-        })
+        }) // (
+          lib.optionalAttrs (lib.versions.isEq self.coq.coq-version "8.13")
+            { ITree = self.ITree.override { version = "4.0.0"; }; }
+        )
       );
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
       filterPackages =
@@ -165,21 +191,21 @@ let
     set:
     lib.listToAttrs (
       lib.concatMap
-      (
-        name:
-        let
-          v = set.${name} or null;
-        in
-        lib.optional (!v.meta.coqFilter or false) (
-          lib.nameValuePair name (
-            if lib.isAttrs v && v.recurseForDerivations or false then
-              filterCoqPackages v
-            else
-              v
+        (
+          name:
+          let
+            v = set.${name} or null;
+          in
+          lib.optional (!v.meta.coqFilter or false) (
+            lib.nameValuePair name (
+              if lib.isAttrs v && v.recurseForDerivations or false then
+                filterCoqPackages v
+              else
+                v
+            )
           )
         )
-      )
-      (lib.attrNames set)
+        (lib.attrNames set)
     )
     ;
   mkCoq =

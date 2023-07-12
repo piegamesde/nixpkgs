@@ -35,15 +35,15 @@ let
       homepage ? "",
       # "registry.terraform.io/vancluever/acme"
       provider-source-address ? lib.replaceStrings
-        [
-          "https://registry"
-          ".io/providers"
-        ]
-        [
-          "registry"
-          ".io"
-        ]
-        homepage,
+          [
+            "https://registry"
+            ".io/providers"
+          ]
+          [
+            "registry"
+            ".io"
+          ]
+          homepage,
       ...
     }@attrs:
     assert lib.stringLength provider-source-address > 0;
@@ -115,12 +115,12 @@ let
       archived =
         name: date:
         throw
-        "the ${name} terraform provider has been archived by upstream on ${date}"
+          "the ${name} terraform provider has been archived by upstream on ${date}"
         ;
       license =
         name: date:
         throw
-        "the ${name} terraform provider removed from nixpkgs on ${date} because of unclear licensing"
+          "the ${name} terraform provider removed from nixpkgs on ${date} because of unclear licensing"
         ;
       removed =
         name: date:

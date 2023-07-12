@@ -38,15 +38,16 @@ in
   blosc = addToBuildInputs pkgs.c-blosc;
   cairo =
     old:
-    (addToBuildInputsWithPkgConfig pkgs.cairo old)
-    // (addToPropagatedBuildInputs
-      (
-        with chickenEggs; [
-          srfi-1
-          srfi-13
-        ]
-      )
-      old)
+    (addToBuildInputsWithPkgConfig pkgs.cairo old) // (
+      addToPropagatedBuildInputs
+        (
+          with chickenEggs; [
+            srfi-1
+            srfi-13
+          ]
+        )
+        old
+    )
     ;
   cmark = addToBuildInputs pkgs.cmark;
   dbus = addToBuildInputsWithPkgConfig pkgs.dbus;
@@ -84,12 +85,14 @@ in
   opengl =
     old:
     # csc: invalid option `-framework OpenGL'
-    (brokenOnDarwin old) // (addToBuildInputsWithPkgConfig
-      [
-        pkgs.libGL
-        pkgs.libGLU
-      ]
-      old)
+    (brokenOnDarwin old) // (
+      addToBuildInputsWithPkgConfig
+        [
+          pkgs.libGL
+          pkgs.libGLU
+        ]
+        old
+    )
     ;
   openssl = addToBuildInputs pkgs.openssl;
   plot = addToBuildInputs pkgs.plotutils;
@@ -110,12 +113,14 @@ in
   stfl =
     old:
     # Undefined symbols for architecture arm64: "_clearok"
-    (brokenOnDarwin old) // (addToBuildInputs
-      [
-        pkgs.ncurses
-        pkgs.stfl
-      ]
-      old)
+    (brokenOnDarwin old) // (
+      addToBuildInputs
+        [
+          pkgs.ncurses
+          pkgs.stfl
+        ]
+        old
+    )
     ;
   taglib = addToBuildInputs [
     pkgs.zlib

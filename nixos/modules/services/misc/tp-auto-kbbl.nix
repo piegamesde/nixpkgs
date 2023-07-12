@@ -17,7 +17,7 @@ in
     services.tp-auto-kbbl = {
       enable = mkEnableOption (
         lib.mdDoc
-        "Auto toggle keyboard back-lighting on Thinkpads (and maybe other laptops) for Linux"
+          "Auto toggle keyboard back-lighting on Thinkpads (and maybe other laptops) for Linux"
       );
 
       package = mkOption {

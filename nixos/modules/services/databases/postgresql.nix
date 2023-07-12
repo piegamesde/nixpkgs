@@ -61,13 +61,15 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "postgresql"
-        "extraConfig"
-      ]
-      "Use services.postgresql.settings instead.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "postgresql"
+          "extraConfig"
+        ]
+        "Use services.postgresql.settings instead."
+    )
   ];
 
   ###### interface
@@ -100,7 +102,8 @@ in
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Check the syntax of the configuration file at compile time"
+          lib.mdDoc
+            "Check the syntax of the configuration file at compile time"
           ;
       };
 
@@ -419,8 +422,10 @@ in
       extraPlugins = mkOption {
         type = types.listOf types.path;
         default = [ ];
-        example = literalExpression
-          "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]";
+        example =
+          literalExpression
+            "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]"
+          ;
         description = lib.mdDoc ''
           List of PostgreSQL plugins. PostgreSQL version for each plugin should
           match version for `services.postgresql.package` value.
@@ -499,7 +504,7 @@ in
         mkThrow =
           ver:
           throw
-          "postgresql_${ver} was removed, please upgrade your postgresql version."
+            "postgresql_${ver} was removed, please upgrade your postgresql version."
           ;
         base =
           if versionAtLeast config.system.stateVersion "22.05" then
@@ -521,7 +526,9 @@ in
       ;
 
     services.postgresql.dataDir =
-      mkDefault "/var/lib/postgresql/${cfg.package.psqlSchema}";
+      mkDefault
+        "/var/lib/postgresql/${cfg.package.psqlSchema}"
+      ;
 
     services.postgresql.authentication = mkAfter ''
       # Generated file; do not edit!
@@ -545,9 +552,14 @@ in
 
     environment.pathsToLink = [ "/share/postgresql" ];
 
-    system.extraDependencies = lib.optional
-      (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
-      configFileCheck;
+    system.extraDependencies =
+      lib.optional
+        (
+          cfg.checkConfig
+          && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
+        )
+        configFileCheck
+      ;
 
     systemd.services.postgresql = {
       description = "PostgreSQL Server";
@@ -599,46 +611,48 @@ in
         ''
         + optionalString (cfg.ensureDatabases != [ ]) ''
           ${concatMapStrings
-          (database: ''
-            $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc 'CREATE DATABASE "${database}"'
-          '')
-          cfg.ensureDatabases}
+            (database: ''
+              $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc 'CREATE DATABASE "${database}"'
+            '')
+            cfg.ensureDatabases}
         ''
         + ''
           ${concatMapStrings
-          (
-            user:
-            let
-              userPermissions = concatStringsSep "\n" (
-                mapAttrsToList
-                (
-                  database: permission:
+            (
+              user:
+              let
+                userPermissions = concatStringsSep "\n" (
+                  mapAttrsToList
+                    (
+                      database: permission:
+                      ''
+                        $PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' ''
+                    )
+                    user.ensurePermissions
+                );
+
+                filteredClauses =
+                  filterAttrs (name: value: value != null)
+                    user.ensureClauses
+                  ;
+
+                clauseSqlStatements = attrValues (
+                  mapAttrs (n: v: if v then n else "no${n}") filteredClauses
+                );
+
+                userClauses =
                   ''
-                    $PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' ''
-                )
-                user.ensurePermissions
-              );
-
-              filteredClauses =
-                filterAttrs (name: value: value != null) user.ensureClauses;
-
-              clauseSqlStatements = attrValues (
-                mapAttrs (n: v: if v then n else "no${n}") filteredClauses
-              );
-
-              userClauses =
-                ''
-                  $PSQL -tAc 'ALTER ROLE "${user.name}" ${
-                    concatStringsSep " " clauseSqlStatements
-                  }' '';
-            in
-            ''
-              $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc 'CREATE USER "${user.name}"'
-              ${userPermissions}
-              ${userClauses}
-            ''
-          )
-          cfg.ensureUsers}
+                    $PSQL -tAc 'ALTER ROLE "${user.name}" ${
+                      concatStringsSep " " clauseSqlStatements
+                    }' '';
+              in
+              ''
+                $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc 'CREATE USER "${user.name}"'
+                ${userPermissions}
+                ${userClauses}
+              ''
+            )
+            cfg.ensureUsers}
         ''
         ;
 

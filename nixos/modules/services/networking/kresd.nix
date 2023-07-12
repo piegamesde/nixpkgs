@@ -19,13 +19,15 @@ let
       al_v4 = builtins.match "([0-9.]+):([0-9]+)($)" addr;
       al_v6 = builtins.match "\\[(.+)]:([0-9]+)(%.*|$)" addr;
       al_portOnly = builtins.match "([0-9]+)" addr;
-      al = findFirst (a: a != null)
-        (throw "services.kresd.*: incorrect address specification '${addr}'")
-        [
-          al_v4
-          al_v6
-          al_portOnly
-        ];
+      al =
+        findFirst (a: a != null)
+          (throw "services.kresd.*: incorrect address specification '${addr}'")
+          [
+            al_v4
+            al_v6
+            al_portOnly
+          ]
+        ;
       port = elemAt al 1;
       addrSpec =
         if al_portOnly == null then
@@ -55,45 +57,51 @@ in
   ];
 
   imports = [
-    (mkChangedOptionModule
-      [
-        "services"
-        "kresd"
-        "interfaces"
-      ]
-      [
-        "services"
-        "kresd"
-        "listenPlain"
-      ]
-      (
-        config:
-        let
-          value = getAttrFromPath
-            [
-              "services"
-              "kresd"
-              "interfaces"
-            ]
-            config;
-        in
-        map
+    (
+      mkChangedOptionModule
+        [
+          "services"
+          "kresd"
+          "interfaces"
+        ]
+        [
+          "services"
+          "kresd"
+          "listenPlain"
+        ]
         (
-          iface:
-          if elem ":" (stringToCharacters iface) then
-            "[${iface}]:53"
-          else
-            "${iface}:53"
-        ) # Syntax depends on being IPv6 or IPv4.
-        value
-      ))
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kresd"
-        "cacheDir"
-      ]
-      "Please use (bind-)mounting instead.")
+          config:
+          let
+            value =
+              getAttrFromPath
+                [
+                  "services"
+                  "kresd"
+                  "interfaces"
+                ]
+                config
+              ;
+          in
+          map
+            (
+              iface:
+              if elem ":" (stringToCharacters iface) then
+                "[${iface}]:53"
+              else
+                "${iface}:53"
+            ) # Syntax depends on being IPv6 or IPv4.
+            value
+        )
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "kresd"
+          "cacheDir"
+        ]
+        "Please use (bind-)mounting instead."
+    )
   ];
 
   ###### interface
@@ -115,8 +123,10 @@ in
       '';
       default = pkgs.knot-resolver;
       defaultText = literalExpression "pkgs.knot-resolver";
-      example = literalExpression
-        "pkgs.knot-resolver.override { extraFeatures = true; }";
+      example =
+        literalExpression
+          "pkgs.knot-resolver.override { extraFeatures = true; }"
+        ;
     };
     extraConfig = mkOption {
       type = types.lines;

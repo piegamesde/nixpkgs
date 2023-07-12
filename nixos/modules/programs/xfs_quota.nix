@@ -16,12 +16,14 @@ let
   limitOptions =
     opts:
     concatStringsSep " " [
-      (optionalString
-        (opts.sizeSoftLimit != null)
-        "bsoft=${opts.sizeSoftLimit}")
-      (optionalString
-        (opts.sizeHardLimit != null)
-        "bhard=${opts.sizeHardLimit}")
+      (
+        optionalString (opts.sizeSoftLimit != null)
+          "bsoft=${opts.sizeSoftLimit}"
+      )
+      (
+        optionalString (opts.sizeHardLimit != null)
+          "bhard=${opts.sizeHardLimit}"
+      )
     ]
     ;
 in
@@ -46,7 +48,9 @@ in
               fileSystem = mkOption {
                 type = types.str;
                 description =
-                  lib.mdDoc "XFS filesystem hosting the xfs_quota project.";
+                  lib.mdDoc
+                    "XFS filesystem hosting the xfs_quota project."
+                  ;
                 default = "/";
               };
 
@@ -72,8 +76,9 @@ in
           }
         );
 
-        description = lib.mdDoc
-          "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option."
+        description =
+          lib.mdDoc
+            "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option."
           ;
 
         example = {
@@ -93,9 +98,8 @@ in
 
     environment.etc.projects.source = pkgs.writeText "etc-project" (
       concatStringsSep "\n" (
-        mapAttrsToList
-        (name: opts: "${toString opts.id}:${opts.path}")
-        cfg.projects
+        mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}")
+          cfg.projects
       )
     );
 
@@ -105,31 +109,33 @@ in
       )
     );
 
-    systemd.services = mapAttrs'
-      (
-        name: opts:
-        nameValuePair "xfs_quota-${name}" {
-          description = "Setup xfs_quota for project ${name}";
-          script = ''
-            ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'project -s ${name}' ${opts.fileSystem}
-            ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'limit -p ${
-              limitOptions opts
-            } ${name}' ${opts.fileSystem}
-          '';
+    systemd.services =
+      mapAttrs'
+        (
+          name: opts:
+          nameValuePair "xfs_quota-${name}" {
+            description = "Setup xfs_quota for project ${name}";
+            script = ''
+              ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'project -s ${name}' ${opts.fileSystem}
+              ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'limit -p ${
+                limitOptions opts
+              } ${name}' ${opts.fileSystem}
+            '';
 
-          wantedBy = [ "multi-user.target" ];
-          after = [
-            ((replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount")
-          ];
+            wantedBy = [ "multi-user.target" ];
+            after = [
+              ((replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount")
+            ];
 
-          restartTriggers = [ config.environment.etc.projects.source ];
+            restartTriggers = [ config.environment.etc.projects.source ];
 
-          serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = true;
-          };
-        }
-      )
-      cfg.projects;
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+            };
+          }
+        )
+        cfg.projects
+      ;
   };
 }

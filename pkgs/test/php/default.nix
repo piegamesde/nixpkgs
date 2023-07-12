@@ -34,46 +34,50 @@ let
 in
 {
   withExtensions-enables-previously-disabled-extensions =
-    runTest "php-test-withExtensions-enables-previously-disabled-extensions" ''
-      php="${php}"
+    runTest "php-test-withExtensions-enables-previously-disabled-extensions"
+      ''
+        php="${php}"
 
-      checking "that imagick is not present by default"
-      $php/bin/php -r 'exit(extension_loaded("imagick") ? 1 : 0);' && ok || nok
+        checking "that imagick is not present by default"
+        $php/bin/php -r 'exit(extension_loaded("imagick") ? 1 : 0);' && ok || nok
 
-      phpWithImagick="${
-        php.withExtensions (
+        phpWithImagick="${
+          php.withExtensions (
+            {
+              all,
+              ...
+            }: [
+              all.imagick
+            ]
+          )
+        }"
+        checking "that imagick extension is present when enabled"
+        $phpWithImagick/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
+      ''
+    ;
+
+  overrideAttrs-preserves-enabled-extensions =
+    let
+      customPhp =
+        (php.withExtensions (
           {
             all,
             ...
           }: [
             all.imagick
           ]
-        )
-      }"
-      checking "that imagick extension is present when enabled"
-      $phpWithImagick/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
-    '';
-
-  overrideAttrs-preserves-enabled-extensions =
-    let
-      customPhp = (php.withExtensions (
-        {
-          all,
-          ...
-        }: [
-          all.imagick
-        ]
-      )).overrideAttrs
-        (
-          attrs: {
-            postInstall =
-              attrs.postInstall or ""
-              + ''
-                touch "$out/oApee-was-here"
-              ''
-              ;
-          }
-        );
+        )).overrideAttrs
+          (
+            attrs: {
+              postInstall =
+                attrs.postInstall or ""
+                + ''
+                  touch "$out/oApee-was-here"
+                ''
+                ;
+            }
+          )
+        ;
     in
     runTest "php-test-overrideAttrs-preserves-enabled-extensions" ''
       php="${customPhp}"

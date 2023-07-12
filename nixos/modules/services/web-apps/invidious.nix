@@ -33,9 +33,9 @@ let
             ;
           jqFiles =
             [ settingsFile ]
-            ++ lib.optional
-              (cfg.extraSettingsFile != null)
-              cfg.extraSettingsFile
+            ++
+              lib.optional (cfg.extraSettingsFile != null)
+                cfg.extraSettingsFile
             ;
         in
         ''
@@ -254,7 +254,9 @@ in
         type = types.port;
         default = options.services.postgresql.port.default;
         defaultText =
-          lib.literalExpression "options.services.postgresql.port.default";
+          lib.literalExpression
+            "options.services.postgresql.port.default"
+          ;
         description = lib.mdDoc ''
           The port of the database Invidious should use.
 

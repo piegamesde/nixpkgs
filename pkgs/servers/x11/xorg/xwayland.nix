@@ -101,8 +101,8 @@ stdenv.mkDerivation rec {
     (lib.mesonOption "xkb_bin_dir" "${xkbcomp}/bin")
     (lib.mesonOption "xkb_dir" "${xkeyboard_config}/etc/X11/xkb")
     (lib.mesonOption "xkb_output_dir" "${
-        placeholder "out"
-      }/share/X11/xkb/compiled")
+          placeholder "out"
+        }/share/X11/xkb/compiled")
     (lib.mesonBool "libunwind" (libunwind != null))
   ];
 

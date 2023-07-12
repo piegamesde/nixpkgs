@@ -150,8 +150,9 @@ in
       systemPackages =
         optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
       # Needed for the default wallpaper:
-      pathsToLink =
-        optionals (cfg.package != null) [ "/share/backgrounds/sway" ];
+      pathsToLink = optionals (cfg.package != null) [
+        "/share/backgrounds/sway"
+      ];
       etc = {
         "sway/config.d/nixos.conf".source = pkgs.writeText "nixos.conf" ''
           # Import the most important environment variables into the D-Bus and systemd
@@ -169,7 +170,9 @@ in
     programs.dconf.enable = mkDefault true;
     # To make a Sway session available if a display manager like SDDM is enabled:
     services.xserver.displayManager.sessionPackages =
-      optionals (cfg.package != null) [ cfg.package ];
+      optionals (cfg.package != null)
+        [ cfg.package ]
+      ;
     programs.xwayland.enable = mkDefault true;
     # For screen sharing (this option only has an effect with xdg.portal.enable):
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];

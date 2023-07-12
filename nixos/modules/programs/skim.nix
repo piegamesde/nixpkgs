@@ -19,7 +19,9 @@ in
 
   config = {
     environment.systemPackages =
-      optional (cfg.keybindings || cfg.fuzzyCompletion) cfg.package;
+      optional (cfg.keybindings || cfg.fuzzyCompletion)
+        cfg.package
+      ;
 
     programs.bash.interactiveShellInit =
       optionalString cfg.fuzzyCompletion ''

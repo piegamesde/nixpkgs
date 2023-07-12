@@ -59,10 +59,12 @@ stdenv.mkDerivation rec {
 
   # Support 32bit Vulkan applications by linking in the 32bit Vulkan layer
   postInstall =
-    lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
-      ln -s ${obs-vkcapture32}/share/vulkan/implicit_layer.d/obs_vkcapture_32.json \
-        "$out/share/vulkan/implicit_layer.d/"
-    '';
+    lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
+      ''
+        ln -s ${obs-vkcapture32}/share/vulkan/implicit_layer.d/obs_vkcapture_32.json \
+          "$out/share/vulkan/implicit_layer.d/"
+      ''
+    ;
 
   meta = with lib; {
     description = "OBS Linux Vulkan/OpenGL game capture";

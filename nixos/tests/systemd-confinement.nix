@@ -101,13 +101,15 @@ import ./make-test-python.nix {
         }
         (
           let
-            symlink = pkgs.runCommand "symlink"
-              {
-                target = pkgs.writeText "symlink-target" ''
-                  got me
-                '';
-              }
-              ''ln -s "$target" "$out"'';
+            symlink =
+              pkgs.runCommand "symlink"
+                {
+                  target = pkgs.writeText "symlink-target" ''
+                    got me
+                  '';
+                }
+                ''ln -s "$target" "$out"''
+              ;
           in
           {
             config.confinement.packages = lib.singleton symlink;
@@ -191,7 +193,9 @@ import ./make-test-python.nix {
       options.__testSteps = lib.mkOption {
         type = lib.types.lines;
         description =
-          lib.mdDoc "All of the test steps combined as a single script.";
+          lib.mdDoc
+            "All of the test steps combined as a single script."
+          ;
       };
 
       config.environment.systemPackages = lib.singleton testClient;

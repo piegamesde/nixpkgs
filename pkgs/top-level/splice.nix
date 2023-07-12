@@ -49,13 +49,17 @@ let
               augmentedValue = defaultValue
                 # TODO(@Artturin): remove before release 23.05 and only have __spliced.
                 // (lib.optionalAttrs (pkgsBuildHost ? ${name}) {
-                  nativeDrv = lib.warn
-                    "use ${name}.__spliced.buildHost instead of ${name}.nativeDrv"
-                    valueBuildHost;
+                  nativeDrv =
+                    lib.warn
+                      "use ${name}.__spliced.buildHost instead of ${name}.nativeDrv"
+                      valueBuildHost
+                    ;
                 }) // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
-                  crossDrv = lib.warn
-                    "use ${name}.__spliced.hostTarget instead of ${name}.crossDrv"
-                    valueHostTarget;
+                  crossDrv =
+                    lib.warn
+                      "use ${name}.__spliced.hostTarget instead of ${name}.crossDrv"
+                      valueHostTarget
+                    ;
                 }) // {
                   __spliced = (lib.optionalAttrs (pkgsBuildBuild ? ${name}) {
                     buildBuild = valueBuildBuild;
@@ -84,8 +88,8 @@ let
               getOutputs =
                 value:
                 lib.genAttrs
-                (value.outputs or (lib.optional (value ? out) "out"))
-                (output: value.${output})
+                  (value.outputs or (lib.optional (value ? out) "out"))
+                  (output: value.${output})
                 ;
             in
             # The derivation along with its outputs, which we recur
@@ -180,7 +184,9 @@ in
 
   # prefill 2 fields of the function for convenience
   makeScopeWithSplicing =
-    lib.makeScopeWithSplicing splicePackages pkgs.newScope;
+    lib.makeScopeWithSplicing splicePackages
+      pkgs.newScope
+    ;
 
   # generate 'otherSplices' for 'makeScopeWithSplicing'
   generateSplicesForMkScope =

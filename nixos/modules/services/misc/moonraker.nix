@@ -17,9 +17,8 @@ let
       if builtins.length l == 1 then
         generators.mkValueStringDefault { } (head l)
       else
-        lib.concatMapStrings
-        (s: "\n  ${generators.mkValueStringDefault { } s}")
-        l
+        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
+          l
       ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
@@ -29,8 +28,9 @@ in
 {
   options = {
     services.moonraker = {
-      enable =
-        mkEnableOption (lib.mdDoc "Moonraker, an API web server for Klipper");
+      enable = mkEnableOption (
+        lib.mdDoc "Moonraker, an API web server for Klipper"
+      );
 
       klipperSocket = mkOption {
         type = types.path;
@@ -43,7 +43,9 @@ in
         type = types.path;
         default = "/var/lib/moonraker";
         description =
-          lib.mdDoc "The directory containing the Moonraker databases.";
+          lib.mdDoc
+            "The directory containing the Moonraker databases."
+          ;
       };
 
       configDir = mkOption {
@@ -114,9 +116,9 @@ in
   config = mkIf cfg.enable {
     warnings =
       [ ]
-      ++ optional
-        (cfg.settings ? update_manager)
-        "Enabling update_manager is not supported on NixOS and will lead to non-removable warnings in some clients."
+      ++
+        optional (cfg.settings ? update_manager)
+          "Enabling update_manager is not supported on NixOS and will lead to non-removable warnings in some clients."
       ++ optional (cfg.configDir != null) ''
         services.moonraker.configDir has been deprecated upstream and will be removed.
 
@@ -165,9 +167,9 @@ in
 
     systemd.tmpfiles.rules =
       [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ]
-      ++ lib.optional
-        (cfg.configDir != null)
-        "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -"
+      ++
+        lib.optional (cfg.configDir != null)
+          "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -"
       ;
 
     systemd.services.moonraker = {

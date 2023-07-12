@@ -134,7 +134,9 @@ let
 
         extraArguments = mkOption {
           description =
-            lib.mdDoc "Extra arguments to pass to `ghostunnel server`";
+            lib.mdDoc
+              "Extra arguments to pass to `ghostunnel server`"
+            ;
           type = types.separatedString " ";
           default = "";
         };
@@ -198,16 +200,16 @@ let
           };
           script = concatStringsSep " " (
             [ "${mainCfg.package}/bin/ghostunnel" ]
-            ++ optional
-              (config.keystore != null)
-              "--keystore=$CREDENTIALS_DIRECTORY/keystore"
-            ++ optional
-              (config.cert != null)
-              "--cert=$CREDENTIALS_DIRECTORY/cert"
+            ++
+              optional (config.keystore != null)
+                "--keystore=$CREDENTIALS_DIRECTORY/keystore"
+            ++
+              optional (config.cert != null)
+                "--cert=$CREDENTIALS_DIRECTORY/cert"
             ++ optional (config.key != null) "--key=$CREDENTIALS_DIRECTORY/key"
-            ++ optional
-              (config.cacert != null)
-              "--cacert=$CREDENTIALS_DIRECTORY/cacert"
+            ++
+              optional (config.cacert != null)
+                "--cacert=$CREDENTIALS_DIRECTORY/cacert"
             ++ [
               "server"
               "--listen ${config.listen}"
@@ -249,10 +251,12 @@ in
   };
 
   config = mkIf mainCfg.enable {
-    assertions =
-      lib.mkMerge (map (v: v.atRoot.assertions) (attrValues mainCfg.servers));
-    systemd =
-      lib.mkMerge (map (v: v.atRoot.systemd) (attrValues mainCfg.servers));
+    assertions = lib.mkMerge (
+      map (v: v.atRoot.assertions) (attrValues mainCfg.servers)
+    );
+    systemd = lib.mkMerge (
+      map (v: v.atRoot.systemd) (attrValues mainCfg.servers)
+    );
   };
 
   meta.maintainers = with lib.maintainers; [ roberth ];

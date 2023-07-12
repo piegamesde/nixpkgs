@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   #     error: 'TARGET_OS_IPHONE' is not defined, evaluates to 0 [-Werror,-Wundef-prefix=TARGET_OS_]
   # TODO: this should probably be fixed at a lower level than this?
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin "-Wno-undef-prefix";
+    lib.optionalString stdenv.isDarwin
+      "-Wno-undef-prefix"
+    ;
 
   meta = {
     description =

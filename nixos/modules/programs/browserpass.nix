@@ -9,8 +9,9 @@ with lib;
 
 {
 
-  options.programs.browserpass.enable =
-    mkEnableOption (lib.mdDoc "Browserpass native messaging host");
+  options.programs.browserpass.enable = mkEnableOption (
+    lib.mdDoc "Browserpass native messaging host"
+  );
 
   config = mkIf config.programs.browserpass.enable {
     environment.etc =
@@ -21,27 +22,43 @@ with lib;
       {
         # chromium
         "chromium/native-messaging-hosts/${appId}".source =
-          source "hosts/chromium";
+          source
+            "hosts/chromium"
+          ;
         "chromium/policies/managed/${appId}".source =
-          source "policies/chromium";
+          source
+            "policies/chromium"
+          ;
 
         # chrome
         "opt/chrome/native-messaging-hosts/${appId}".source =
-          source "hosts/chromium";
+          source
+            "hosts/chromium"
+          ;
         "opt/chrome/policies/managed/${appId}".source =
-          source "policies/chromium";
+          source
+            "policies/chromium"
+          ;
 
         # vivaldi
         "opt/vivaldi/native-messaging-hosts/${appId}".source =
-          source "hosts/chromium";
+          source
+            "hosts/chromium"
+          ;
         "opt/vivaldi/policies/managed/${appId}".source =
-          source "policies/chromium";
+          source
+            "policies/chromium"
+          ;
 
         # brave
         "opt/brave/native-messaging-hosts/${appId}".source =
-          source "hosts/chromium";
+          source
+            "hosts/chromium"
+          ;
         "opt/brave/policies/managed/${appId}".source =
-          source "policies/chromium";
+          source
+            "policies/chromium"
+          ;
       }
       ;
     nixpkgs.config.firefox.enableBrowserpass = true;

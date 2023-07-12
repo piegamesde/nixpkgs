@@ -67,11 +67,15 @@ let
 
   # metalogger config file
   metaloggerCfg =
-    settingsFormat.generate "mfsmetalogger.cfg" cfg.metalogger.settings;
+    settingsFormat.generate "mfsmetalogger.cfg"
+      cfg.metalogger.settings
+    ;
 
   # chunkserver config file
   chunkserverCfg =
-    settingsFormat.generate "mfschunkserver.cfg" cfg.chunkserver.settings;
+    settingsFormat.generate "mfschunkserver.cfg"
+      cfg.chunkserver.settings
+    ;
 
   # generic template for all daemons
   systemdService =
@@ -137,8 +141,9 @@ in
 
         openFirewall = mkOption {
           type = types.bool;
-          description = lib.mdDoc
-            "Whether to automatically open the necessary ports in the firewall."
+          description =
+            lib.mdDoc
+              "Whether to automatically open the necessary ports in the firewall."
             ;
           default = false;
         };
@@ -173,7 +178,9 @@ in
           };
 
           description =
-            lib.mdDoc "Contents of metalogger config file (mfsmetalogger.cfg).";
+            lib.mdDoc
+              "Contents of metalogger config file (mfsmetalogger.cfg)."
+            ;
         };
       };
 
@@ -182,8 +189,9 @@ in
 
         openFirewall = mkOption {
           type = types.bool;
-          description = lib.mdDoc
-            "Whether to automatically open the necessary ports in the firewall."
+          description =
+            lib.mdDoc
+              "Whether to automatically open the necessary ports in the firewall."
             ;
           default = false;
         };
@@ -191,8 +199,9 @@ in
         hdds = mkOption {
           type = with types; listOf str;
           default = null;
-          description = lib.mdDoc
-            "Mount points to be used by chunkserver for storage (see mfshdd.cfg)."
+          description =
+            lib.mdDoc
+              "Mount points to be used by chunkserver for storage (see mfshdd.cfg)."
             ;
           example = [ "/mnt/hdd1" ];
         };
@@ -208,8 +217,10 @@ in
             };
           };
 
-          description = lib.mdDoc
-            "Contents of chunkserver config file (mfschunkserver.cfg).";
+          description =
+            lib.mdDoc
+              "Contents of chunkserver config file (mfschunkserver.cfg)."
+            ;
         };
       };
     };
@@ -217,109 +228,116 @@ in
 
   ###### implementation
 
-  config = mkIf
-    (
-      cfg.client.enable
-      || cfg.master.enable
-      || cfg.metalogger.enable
-      || cfg.chunkserver.enable
-    )
-    {
+  config =
+    mkIf
+      (
+        cfg.client.enable
+        || cfg.master.enable
+        || cfg.metalogger.enable
+        || cfg.chunkserver.enable
+      )
+      {
 
-      warnings = [
-        (mkIf
-          (!cfg.runAsUser)
-          "Running moosefs services as root is not recommended.")
-      ];
-
-      # Service settings
-      services.moosefs = {
-        master.settings = mkIf cfg.master.enable {
-          WORKING_USER = mfsUser;
-          EXPORTS_FILENAME = toString (
-            pkgs.writeText "mfsexports.cfg" (
-              concatStringsSep "\n" cfg.master.exports
-            )
-          );
-        };
-
-        metalogger.settings = mkIf cfg.metalogger.enable {
-          WORKING_USER = mfsUser;
-          MASTER_HOST = cfg.masterHost;
-        };
-
-        chunkserver.settings = mkIf cfg.chunkserver.enable {
-          WORKING_USER = mfsUser;
-          MASTER_HOST = cfg.masterHost;
-          HDD_CONF_FILENAME = toString (
-            pkgs.writeText "mfshdd.cfg" (
-              concatStringsSep "\n" cfg.chunkserver.hdds
-            )
-          );
-        };
-      };
-
-      # Create system user account for daemons
-      users = mkIf
-        (
-          cfg.runAsUser
-          && (
-            cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable
+        warnings = [
+          (
+            mkIf (!cfg.runAsUser)
+              "Running moosefs services as root is not recommended."
           )
-        )
-        {
-          users.moosefs = {
-            isSystemUser = true;
-            description = "moosefs daemon user";
-            group = "moosefs";
+        ];
+
+        # Service settings
+        services.moosefs = {
+          master.settings = mkIf cfg.master.enable {
+            WORKING_USER = mfsUser;
+            EXPORTS_FILENAME = toString (
+              pkgs.writeText "mfsexports.cfg" (
+                concatStringsSep "\n" cfg.master.exports
+              )
+            );
           };
-          groups.moosefs = { };
+
+          metalogger.settings = mkIf cfg.metalogger.enable {
+            WORKING_USER = mfsUser;
+            MASTER_HOST = cfg.masterHost;
+          };
+
+          chunkserver.settings = mkIf cfg.chunkserver.enable {
+            WORKING_USER = mfsUser;
+            MASTER_HOST = cfg.masterHost;
+            HDD_CONF_FILENAME = toString (
+              pkgs.writeText "mfshdd.cfg" (
+                concatStringsSep "\n" cfg.chunkserver.hdds
+              )
+            );
+          };
         };
 
-      environment.systemPackages =
-        (lib.optional cfg.client.enable pkgs.moosefs)
-        ++ (lib.optional cfg.master.enable initTool)
-        ;
+        # Create system user account for daemons
+        users =
+          mkIf
+            (
+              cfg.runAsUser
+              && (
+                cfg.master.enable
+                || cfg.metalogger.enable
+                || cfg.chunkserver.enable
+              )
+            )
+            {
+              users.moosefs = {
+                isSystemUser = true;
+                description = "moosefs daemon user";
+                group = "moosefs";
+              };
+              groups.moosefs = { };
+            }
+          ;
 
-      networking.firewall.allowedTCPPorts =
-        (lib.optionals cfg.master.openFirewall [
-          9419
-          9420
-          9421
-        ])
-        ++ (lib.optional cfg.chunkserver.openFirewall 9422)
-        ;
+        environment.systemPackages =
+          (lib.optional cfg.client.enable pkgs.moosefs)
+          ++ (lib.optional cfg.master.enable initTool)
+          ;
 
-      # Ensure storage directories exist
-      systemd.tmpfiles.rules =
-        optional
-        cfg.master.enable
-        "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
-        ++ optional
-          cfg.metalogger.enable
-          "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
-        ++ optional
-          cfg.chunkserver.enable
-          "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
-        ;
+        networking.firewall.allowedTCPPorts =
+          (lib.optionals cfg.master.openFirewall [
+            9419
+            9420
+            9421
+          ])
+          ++ (lib.optional cfg.chunkserver.openFirewall 9422)
+          ;
 
-      # Service definitions
-      systemd.services.mfs-master = mkIf cfg.master.enable (
-        systemdService "master"
-        {
-          TimeoutStartSec = 1800;
-          TimeoutStopSec = 1800;
-          Restart = "no";
-        }
-        masterCfg
-      );
+        # Ensure storage directories exist
+        systemd.tmpfiles.rules =
+          optional cfg.master.enable
+            "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          ++
+            optional cfg.metalogger.enable
+              "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          ++
+            optional cfg.chunkserver.enable
+              "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          ;
 
-      systemd.services.mfs-metalogger = mkIf cfg.metalogger.enable (
-        systemdService "metalogger" { Restart = "on-abnormal"; } metaloggerCfg
-      );
+        # Service definitions
+        systemd.services.mfs-master = mkIf cfg.master.enable (
+          systemdService "master"
+            {
+              TimeoutStartSec = 1800;
+              TimeoutStopSec = 1800;
+              Restart = "no";
+            }
+            masterCfg
+        );
 
-      systemd.services.mfs-chunkserver = mkIf cfg.chunkserver.enable (
-        systemdService "chunkserver" { Restart = "on-abnormal"; } chunkserverCfg
-      );
-    };
+        systemd.services.mfs-metalogger = mkIf cfg.metalogger.enable (
+          systemdService "metalogger" { Restart = "on-abnormal"; } metaloggerCfg
+        );
+
+        systemd.services.mfs-chunkserver = mkIf cfg.chunkserver.enable (
+          systemdService "chunkserver" { Restart = "on-abnormal"; }
+            chunkserverCfg
+        );
+      }
+    ;
 }

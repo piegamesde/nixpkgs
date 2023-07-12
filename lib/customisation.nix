@@ -91,8 +91,9 @@ rec {
         ;
 
       # Re-call the function but with different arguments
-      overrideArgs =
-        copyArgs (newArgs: makeOverridable f (overrideWith newArgs));
+      overrideArgs = copyArgs (
+        newArgs: makeOverridable f (overrideWith newArgs)
+      );
       # Change the result of the function call by applying g to it
       overrideResult =
         g: makeOverridable (copyArgs (args: g (f args))) origArgs;
@@ -147,15 +148,17 @@ rec {
 
       # A list of argument names that the function requires, but
       # wouldn't be passed to it
-      missingArgs = lib.attrNames
-        # Filter out arguments that have a default value
-        (
-          lib.filterAttrs (name: value: !value)
-          # Filter out arguments that would be passed
+      missingArgs =
+        lib.attrNames
+          # Filter out arguments that have a default value
           (
-            removeAttrs fargs (lib.attrNames allArgs)
+            lib.filterAttrs (name: value: !value)
+              # Filter out arguments that would be passed
+              (
+                removeAttrs fargs (lib.attrNames allArgs)
+              )
           )
-        );
+        ;
 
       # Get a list of suggested argument names for a given missing one
       getSuggestions =
@@ -199,9 +202,9 @@ rec {
               loc.file + ":" + toString loc.line
             else if !lib.isFunction fn then
               toString fn
-              + lib.optionalString
-                (lib.sources.pathIsDirectory fn)
-                "/default.nix"
+              +
+                lib.optionalString (lib.sources.pathIsDirectory fn)
+                  "/default.nix"
             else
               "<unknown location>"
             ;
@@ -338,8 +341,8 @@ rec {
         overrideScope =
           g:
           lib.warn
-          "`overrideScope` (from `lib.makeScope`) is deprecated. Do `overrideScope' (self: super: { … })` instead of `overrideScope (super: self: { … })`. All other overrides have the parameters in that order, including other definitions of `overrideScope`. This was the only definition violating the pattern."
-          (makeScope newScope (lib.fixedPoints.extends (lib.flip g) f))
+            "`overrideScope` (from `lib.makeScope`) is deprecated. Do `overrideScope' (self: super: { … })` instead of `overrideScope (super: self: { … })`. All other overrides have the parameters in that order, including other definitions of `overrideScope`. This was the only definition violating the pattern."
+            (makeScope newScope (lib.fixedPoints.extends (lib.flip g) f))
           ;
         overrideScope' = g: makeScope newScope (lib.fixedPoints.extends g f);
         packages = f;
@@ -370,9 +373,8 @@ rec {
         # overridden.
         overrideScope =
           g:
-          makeScopeWithSplicing splicePackages newScope otherSplices keep
-          extra
-          (lib.fixedPoints.extends g f)
+          makeScopeWithSplicing splicePackages newScope otherSplices keep extra
+            (lib.fixedPoints.extends g f)
           ;
         packages = f;
       };

@@ -84,7 +84,9 @@ in
                 type = types.int;
                 default = 64;
                 description =
-                  lib.mdDoc "Maximum number of connections to accept at once.";
+                  lib.mdDoc
+                    "Maximum number of connections to accept at once."
+                  ;
               };
 
               outAddress = mkOption {
@@ -114,7 +116,9 @@ in
                 type = types.bool;
                 default = false;
                 description =
-                  lib.mdDoc "Enable clamsmtp's transparent proxy support.";
+                  lib.mdDoc
+                    "Enable clamsmtp's transparent proxy support."
+                  ;
               };
 
               virusAction = mkOption {
@@ -160,9 +164,8 @@ in
           TimeOut: ${toString conf.timeout}
           TransparentProxy: ${if conf.transparentProxy then "on" else "off"}
           User: clamav
-          ${optionalString
-          (conf.virusAction != null)
-          "VirusAction: ${conf.virusAction}"}
+          ${optionalString (conf.virusAction != null)
+            "VirusAction: ${conf.virusAction}"}
           XClient: ${if conf.xClient then "on" else "off"}
         ''
         ;
@@ -175,21 +178,21 @@ in
 
       systemd.services = listToAttrs (
         imap1
-        (
-          i: conf:
-          nameValuePair "clamsmtp-${toString i}" {
-            description = "ClamSMTP instance ${toString i}";
-            wantedBy = [ "multi-user.target" ];
-            script =
-              "exec ${pkgs.clamsmtp}/bin/clamsmtpd -f ${configfile conf}";
-            after = [ "clamav-daemon.service" ];
-            requires = [ "clamav-daemon.service" ];
-            serviceConfig.Type = "forking";
-            serviceConfig.PrivateTmp = "yes";
-            unitConfig.JoinsNamespaceOf = "clamav-daemon.service";
-          }
-        )
-        cfg.instances
+          (
+            i: conf:
+            nameValuePair "clamsmtp-${toString i}" {
+              description = "ClamSMTP instance ${toString i}";
+              wantedBy = [ "multi-user.target" ];
+              script =
+                "exec ${pkgs.clamsmtp}/bin/clamsmtpd -f ${configfile conf}";
+              after = [ "clamav-daemon.service" ];
+              requires = [ "clamav-daemon.service" ];
+              serviceConfig.Type = "forking";
+              serviceConfig.PrivateTmp = "yes";
+              unitConfig.JoinsNamespaceOf = "clamav-daemon.service";
+            }
+          )
+          cfg.instances
       );
     }
     ;

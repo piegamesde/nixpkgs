@@ -101,9 +101,8 @@ let
   withConfigFile =
     text: ''
       db_pass=${
-        optionalString
-        (cfg.database.passwordFile != null)
-        "$(head -n1 ${cfg.database.passwordFile})"
+        optionalString (cfg.database.passwordFile != null)
+          "$(head -n1 ${cfg.database.passwordFile})"
       }
 
       cp -f ${configFile} '${cfg.stateDir}/config.ini'
@@ -168,7 +167,9 @@ in
       type = types.path;
       default = "/var/lib/writefreely";
       description =
-        lib.mdDoc "The state directory where keys and data are stored.";
+        lib.mdDoc
+          "The state directory where keys and data are stored."
+        ;
     };
 
     user = mkOption {
@@ -261,21 +262,26 @@ in
         type = types.port;
         default = 3306;
         description =
-          lib.mdDoc "The port used when connecting to the database host.";
+          lib.mdDoc
+            "The port used when connecting to the database host."
+          ;
       };
 
       tls = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether or not TLS should be used for the database connection.";
+        description =
+          lib.mdDoc
+            "Whether or not TLS should be used for the database connection."
+          ;
       };
 
       migrate = mkOption {
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Whether or not to automatically run migrations on startup."
+          lib.mdDoc
+            "Whether or not to automatically run migrations on startup."
           ;
       };
 
@@ -311,8 +317,9 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether or not to enable and configure nginx as a proxy for WriteFreely."
+        description =
+          lib.mdDoc
+            "Whether or not to enable and configure nginx as a proxy for WriteFreely."
           ;
       };
 
@@ -327,8 +334,10 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether or not to automatically fetch and configure SSL certs.";
+        description =
+          lib.mdDoc
+            "Whether or not to automatically fetch and configure SSL certs."
+          ;
       };
     };
   };
@@ -361,7 +370,9 @@ in
       };
 
       groups =
-        optionalAttrs (cfg.group == "writefreely") { writefreely = { }; };
+        optionalAttrs (cfg.group == "writefreely")
+          { writefreely = { }; }
+        ;
     };
 
     systemd.tmpfiles.rules = [
@@ -387,7 +398,9 @@ in
         ExecStart =
           "${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' serve";
         AmbientCapabilities =
-          optionalString (settings.server.port < 1024) "cap_net_bind_service";
+          optionalString (settings.server.port < 1024)
+            "cap_net_bind_service"
+          ;
       };
 
       preStart = ''
@@ -411,9 +424,10 @@ in
         User = cfg.user;
         Group = cfg.group;
         WorkingDirectory = cfg.stateDir;
-        ReadOnlyPaths = optional
-          (cfg.admin.initialPasswordFile != null)
-          cfg.admin.initialPasswordFile;
+        ReadOnlyPaths =
+          optional (cfg.admin.initialPasswordFile != null)
+            cfg.admin.initialPasswordFile
+          ;
       };
 
       script =
@@ -453,9 +467,9 @@ in
         WorkingDirectory = cfg.stateDir;
         ReadOnlyPaths =
           optional isMysqlLocal cfg.database.passwordFile
-          ++ optional
-            (cfg.admin.initialPasswordFile != null)
-            cfg.admin.initialPasswordFile
+          ++
+            optional (cfg.admin.initialPasswordFile != null)
+              cfg.admin.initialPasswordFile
           ;
       };
 

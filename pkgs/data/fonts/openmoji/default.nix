@@ -14,16 +14,18 @@
 }:
 
 let
-  filename = builtins.replaceStrings
-    [
-      "color"
-      "black"
-    ]
-    [
-      "OpenMoji-Color.ttf"
-      "OpenMoji-Black.ttf"
-    ]
-    variant;
+  filename =
+    builtins.replaceStrings
+      [
+        "color"
+        "black"
+      ]
+      [
+        "OpenMoji-Color.ttf"
+        "OpenMoji-Black.ttf"
+      ]
+      variant
+    ;
 
   # With newer fontforge the build hangs, see
   # https://github.com/NixOS/nixpkgs/issues/167869
@@ -53,8 +55,9 @@ let
       buildInputs = old.buildInputs ++ [ libuninameslist ];
     }
   );
-  scfbuild-with-fontforge-20201107 =
-    scfbuild.override (old: { fontforge = fontforge-20201107; });
+  scfbuild-with-fontforge-20201107 = scfbuild.override (
+    old: { fontforge = fontforge-20201107; }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "openmoji";

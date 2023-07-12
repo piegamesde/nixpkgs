@@ -269,11 +269,11 @@ stdenv.mkDerivation (
       ${withTools "patches" (
         name: x: ''
           ${concatMapStringsSep "\n"
-          (p: ''
-            echo "# Patching with ${p}"
-            patch -p1 < ${p}
-          '')
-          x.patches}
+            (p: ''
+              echo "# Patching with ${p}"
+              patch -p1 < ${p}
+            '')
+            x.patches}
         ''
       )}
 
@@ -345,9 +345,9 @@ stdenv.mkDerivation (
       homepage = "http://www.xen.org/";
       description =
         "Xen hypervisor and related components"
-        + optionalString
-          (args ? meta && args.meta ? description)
-          " (${args.meta.description})"
+        +
+          optionalString (args ? meta && args.meta ? description)
+            " (${args.meta.description})"
         ;
       longDescription =
         (args.meta.longDescription or "")

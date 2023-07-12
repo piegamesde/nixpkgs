@@ -72,7 +72,9 @@ in
       configFile = mkOption {
         type = types.nullOr types.path;
         description =
-          lib.mdDoc "Configuration file for ejabberd in YAML format";
+          lib.mdDoc
+            "Configuration file for ejabberd in YAML format"
+          ;
         default = null;
       };
 
@@ -85,16 +87,20 @@ in
       loadDumps = mkOption {
         type = types.listOf types.path;
         default = [ ];
-        description = lib.mdDoc
-          "Configuration dumps that should be loaded on the first startup";
+        description =
+          lib.mdDoc
+            "Configuration dumps that should be loaded on the first startup"
+          ;
         example = literalExpression "[ ./myejabberd.dump ]";
       };
 
       imagemagick = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Add ImageMagick to server's path; allows for image thumbnailing";
+        description =
+          lib.mdDoc
+            "Add ImageMagick to server's path; allows for image thumbnailing"
+          ;
       };
     };
   };

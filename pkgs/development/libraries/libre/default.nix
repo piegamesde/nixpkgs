@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
     ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${
-        lib.getDev stdenv.cc.libc
-      }"
+          lib.getDev stdenv.cc.libc
+        }"
     ;
   enableParallelBuilding = true;
   meta = {

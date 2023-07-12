@@ -36,20 +36,24 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "bookstack"
-        "extraConfig"
-      ]
-      "Use services.bookstack.config instead.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "bookstack"
-        "cacheDir"
-      ]
-      "The cache directory is now handled automatically.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "bookstack"
+          "extraConfig"
+        ]
+        "Use services.bookstack.config instead."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "bookstack"
+          "cacheDir"
+        ]
+        "The cache directory is now handled automatically."
+    )
   ];
 
   options.services.bookstack = {
@@ -141,7 +145,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Create the database and database user locally.";
+          lib.mdDoc
+            "Create the database and database user locally."
+          ;
       };
     };
 
@@ -229,8 +235,11 @@ in
     nginx = mkOption {
       type = types.submodule (
         recursiveUpdate
-        (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
-        { }
+          (
+            import ../web-servers/nginx/vhost-options.nix
+              { inherit config lib; }
+          )
+          { }
       );
       default = { };
       example = literalExpression ''
@@ -253,27 +262,27 @@ in
         attrsOf (
           nullOr (
             either
-            (oneOf [
-              bool
-              int
-              port
-              path
-              str
-            ])
-            (
-              submodule {
-                options = {
-                  _secret = mkOption {
-                    type = nullOr str;
-                    description = lib.mdDoc ''
-                      The path to a file containing the value the
-                      option should be set to in the final
-                      configuration file.
-                    '';
+              (oneOf [
+                bool
+                int
+                port
+                path
+                str
+              ])
+              (
+                submodule {
+                  options = {
+                    _secret = mkOption {
+                      type = nullOr str;
+                      description = lib.mdDoc ''
+                        The path to a file containing the value the
+                        option should be set to in the final
+                        configuration file.
+                      '';
+                    };
                   };
-                };
-              }
-            )
+                }
+              )
           )
         );
       default = { };
@@ -436,8 +445,8 @@ in
                   hashString "sha256" v._secret
                 else
                   throw "unsupported type ${typeOf v}: ${
-                    (lib.generators.toPretty { }) v
-                  }"
+                      (lib.generators.toPretty { }) v
+                    }"
                 ;
             };
           };
@@ -456,18 +465,23 @@ in
             ''
             ;
           secretReplacements =
-            lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig = lib.converge
-            (lib.filterAttrsRecursive (
-              _: v:
-              !elem v [
-                { }
-                null
-              ]
-            ))
-            cfg.config;
-          bookstackEnv =
-            pkgs.writeText "bookstack.env" (bookstackEnvVars filteredConfig);
+            lib.concatMapStrings mkSecretReplacement
+              secretPaths
+            ;
+          filteredConfig =
+            lib.converge
+              (lib.filterAttrsRecursive (
+                _: v:
+                !elem v [
+                  { }
+                  null
+                ]
+              ))
+              cfg.config
+            ;
+          bookstackEnv = pkgs.writeText "bookstack.env" (
+            bookstackEnvVars filteredConfig
+          );
         in
         ''
           # error handling

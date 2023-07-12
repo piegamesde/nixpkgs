@@ -11,8 +11,9 @@
 }:
 
 let
-  makeDotElm =
-    import ./makeDotElm.nix { inherit stdenv lib fetchurl registryDat; };
+  makeDotElm = import ./makeDotElm.nix {
+    inherit stdenv lib fetchurl registryDat;
+  };
 in
 ''
   export ELM_HOME=`pwd`/.elm

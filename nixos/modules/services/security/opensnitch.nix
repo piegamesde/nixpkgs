@@ -202,31 +202,33 @@ in
           optionalString (rules != { }) ''
             -not \( ${
               concatMapStringsSep " -o "
-              (
-                {
-                  local,
-                  ...
-                }:
-                "-name '${baseNameOf local}*'"
-              )
-              rules
+                (
+                  {
+                    local,
+                    ...
+                  }:
+                  "-name '${baseNameOf local}*'"
+                )
+                rules
             } \) \
           ''
         } -delete
         ${concatMapStrings
-        (
-          {
-            file,
-            local,
-          }: ''
-            ln -sf '${file}' "${local}"
-          ''
-        )
-        rules}
+          (
+            {
+              file,
+              local,
+            }: ''
+              ln -sf '${file}' "${local}"
+            ''
+          )
+          rules}
       ''
     );
 
     environment.etc."opensnitchd/default-config.json".source =
-      format.generate "default-config.json" cfg.settings;
+      format.generate "default-config.json"
+        cfg.settings
+      ;
   };
 }

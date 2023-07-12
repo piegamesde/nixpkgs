@@ -128,18 +128,20 @@ in
               lib.concatStringsSep " " (builtins.attrNames cfg.configs)
             }"
           '';
-        } // (mapAttrs'
-          (
-            name: subvolume:
-            nameValuePair "snapper/configs/${name}" ({
-              text = ''
-                ${subvolume.extraConfig}
-                FSTYPE="${subvolume.fstype}"
-                SUBVOLUME="${subvolume.subvolume}"
-              '';
-            })
-          )
-          cfg.configs) // (lib.optionalAttrs (cfg.filters != null) {
+        } // (
+          mapAttrs'
+            (
+              name: subvolume:
+              nameValuePair "snapper/configs/${name}" ({
+                text = ''
+                  ${subvolume.extraConfig}
+                  FSTYPE="${subvolume.fstype}"
+                  SUBVOLUME="${subvolume.subvolume}"
+                '';
+              })
+            )
+            cfg.configs
+        ) // (lib.optionalAttrs (cfg.filters != null) {
             "snapper/filters/default.txt".text = cfg.filters;
           });
       };

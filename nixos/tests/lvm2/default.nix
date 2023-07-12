@@ -59,17 +59,17 @@ lib.listToAttrs (
         name: t:
         lib.nameValuePair "lvm-${name}-linux-${v'}" (
           lib.optionalAttrs
-          (builtins.elem version (t.kernelFilter kernelVersionsToTest))
-          (
-            t.test (
-              {
-                kernelPackages = pkgs."linuxPackages_${v'}";
-              } // builtins.removeAttrs t [
-                "test"
-                "kernelFilter"
-              ]
+            (builtins.elem version (t.kernelFilter kernelVersionsToTest))
+            (
+              t.test (
+                {
+                  kernelPackages = pkgs."linuxPackages_${v'}";
+                } // builtins.removeAttrs t [
+                  "test"
+                  "kernelFilter"
+                ]
+              )
             )
-          )
         )
       )
     )

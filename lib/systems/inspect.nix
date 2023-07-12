@@ -63,20 +63,22 @@ rec {
         bits = 32;
       };
     };
-    isArmv7 = map
-      (
-        {
-          arch,
-          ...
-        }: {
-          cpu = { inherit arch; };
-        }
-      )
-      (
-        lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (
-          lib.attrValues cpuTypes
+    isArmv7 =
+      map
+        (
+          {
+            arch,
+            ...
+          }: {
+            cpu = { inherit arch; };
+          }
         )
-      );
+        (
+          lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (
+            lib.attrValues cpuTypes
+          )
+        )
+      ;
     isAarch64 = {
       cpu = {
         family = "arm";
@@ -264,7 +266,7 @@ rec {
   # that `lib.meta.availableOn` can distinguish them from the patterns which
   # apply only to the `parsed` field.
 
-  platformPatterns =
-    mapAttrs (_: p: { parsed = { }; } // p) { isStatic = { isStatic = true; }; }
-    ;
+  platformPatterns = mapAttrs (_: p: { parsed = { }; } // p) {
+    isStatic = { isStatic = true; };
+  };
 }

@@ -27,7 +27,9 @@
 
 let
   debugInfoFlag =
-    lib.optionalString (enableDebugInfo || erlang.debugInfo) "debug-info";
+    lib.optionalString (enableDebugInfo || erlang.debugInfo)
+      "debug-info"
+    ;
 
   rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
 

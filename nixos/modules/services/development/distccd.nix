@@ -101,8 +101,9 @@ in
       };
 
       stats = {
-        enable =
-          mkEnableOption (lib.mdDoc "statistics reporting via HTTP server");
+        enable = mkEnableOption (
+          lib.mdDoc "statistics reporting via HTTP server"
+        );
         port = mkOption {
           type = types.port;
           default = 3633;
@@ -151,25 +152,24 @@ in
             --port ${toString cfg.port} \
             ${
               optionalString (cfg.jobTimeout != null) "--job-lifetime ${
-                toString cfg.jobTimeout
-              }"
+                  toString cfg.jobTimeout
+                }"
             } \
             ${
-              optionalString
-              (cfg.logLevel != null)
-              "--log-level ${cfg.logLevel}"
+              optionalString (cfg.logLevel != null)
+                "--log-level ${cfg.logLevel}"
             } \
             ${
               optionalString (cfg.maxJobs != null) "--jobs ${
-                toString cfg.maxJobs
-              }"
+                  toString cfg.maxJobs
+                }"
             } \
             ${optionalString (cfg.nice != null) "--nice ${toString cfg.nice}"} \
             ${optionalString cfg.stats.enable "--stats"} \
             ${
               optionalString cfg.stats.enable "--stats-port ${
-                toString cfg.stats.port
-              }"
+                  toString cfg.stats.port
+                }"
             } \
             ${optionalString cfg.zeroconf "--zeroconf"} \
             ${concatMapStrings (c: "--allow ${c} ") cfg.allowedClients}

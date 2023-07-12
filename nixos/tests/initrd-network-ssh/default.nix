@@ -56,9 +56,8 @@ import ../make-test-python.nix (
                     head (
                       splitString " " (
                         toString (
-                          elemAt
-                          (splitString "\n" config.networking.extraHosts)
-                          2
+                          elemAt (splitString "\n" config.networking.extraHosts)
+                            2
                         )
                       )
                     )

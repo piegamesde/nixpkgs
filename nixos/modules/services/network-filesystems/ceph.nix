@@ -12,19 +12,22 @@ let
 
   # function that translates "camelCaseOptions" to "camel case options", credits to tilpner in #nixos@freenode
   expandCamelCase = replaceStrings upperChars (map (s: " ${s}") lowerChars);
-  expandCamelCaseAttrs =
-    mapAttrs' (name: value: nameValuePair (expandCamelCase name) value);
+  expandCamelCaseAttrs = mapAttrs' (
+    name: value: nameValuePair (expandCamelCase name) value
+  );
 
   makeServices =
     (
       daemonType: daemonIds:
       mkMerge (
         map
-        (daemonId: {
-          "ceph-${daemonType}-${daemonId}" =
-            makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
-        })
-        daemonIds
+          (daemonId: {
+            "ceph-${daemonType}-${daemonId}" =
+              makeService daemonType daemonId cfg.global.clusterName
+                pkgs.ceph
+              ;
+          })
+          daemonIds
       )
     );
 
@@ -421,9 +424,9 @@ in
       }
     ];
 
-    warnings = optional
-      (cfg.global.monInitialMembers == null)
-      "Not setting up a list of members in monInitialMembers requires that you set the host variable for each mon daemon or else the cluster won't function"
+    warnings =
+      optional (cfg.global.monInitialMembers == null)
+        "Not setting up a list of members in monInitialMembers requires that you set the host variable for each mon daemon or else the cluster won't function"
       ;
 
     environment.etc."ceph/ceph.conf".text =
@@ -443,9 +446,8 @@ in
           mds = cfg.mds.extraConfig;
         } // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) {
           osd = cfg.osd.extraConfig;
-        } // optionalAttrs
-          (cfg.client.enable && cfg.client.extraConfig != { })
-          cfg.client.extraConfig;
+        } // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
+            cfg.client.extraConfig;
       in
       generators.toINI { } totalConfig
       ;

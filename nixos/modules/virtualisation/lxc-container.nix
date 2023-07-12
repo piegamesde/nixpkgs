@@ -25,7 +25,9 @@ let
         };
         when = mkOption {
           description =
-            lib.mdDoc "Events which trigger a rewrite (create, copy)";
+            lib.mdDoc
+              "Events which trigger a rewrite (create, copy)"
+            ;
           type = types.listOf (types.str);
         };
         properties = mkOption {
@@ -48,23 +50,25 @@ let
         );
       in
       {
-        files = map
-          (tpl: {
-            source = tpl.template;
-            target = "/templates/${tpl.name}.tpl";
-          })
-          list;
+        files =
+          map
+            (tpl: {
+              source = tpl.template;
+              target = "/templates/${tpl.name}.tpl";
+            })
+            list
+          ;
         properties = listToAttrs (
           map
-          (
-            tpl:
-            nameValuePair tpl.target {
-              when = tpl.when;
-              template = "${tpl.name}.tpl";
-              properties = tpl.properties;
-            }
-          )
-          list
+            (
+              tpl:
+              nameValuePair tpl.target {
+                when = tpl.when;
+                template = "${tpl.name}.tpl";
+                properties = tpl.properties;
+              }
+            )
+            list
         );
       }
     else
@@ -145,9 +149,11 @@ in
       contents =
         [ {
           source = toYAML "metadata.yaml" {
-            architecture = builtins.elemAt
-              (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
-              0;
+            architecture =
+              builtins.elemAt
+                (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
+                0
+              ;
             creation_date = 1;
             properties = {
               description =

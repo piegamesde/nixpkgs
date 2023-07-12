@@ -43,12 +43,14 @@ let
 
   systemsWithAnySupport = supportedSystems ++ limitedSupportedSystems;
 
-  supportDarwin = lib.genAttrs
-    [
-      "x86_64"
-      "aarch64"
-    ]
-    (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport);
+  supportDarwin =
+    lib.genAttrs
+      [
+        "x86_64"
+        "aarch64"
+      ]
+      (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport)
+    ;
 
   nonPackageJobs = {
     tarball = import ./make-tarball.nix {

@@ -11,30 +11,32 @@ let
   cfg = config.services.nitter;
   configFile = pkgs.writeText "nitter.conf" ''
     ${generators.toINI
-    {
-      # String values need to be quoted
-      mkKeyValue = generators.mkKeyValueDefault
-        {
-          mkValueString =
-            v:
-            if isString v then
-              ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
-            else
-              generators.mkValueStringDefault { } v
-            ;
-        }
-        " = ";
-    }
-    (
-      lib.recursiveUpdate
       {
-        Server = cfg.server;
-        Cache = cfg.cache;
-        Config = cfg.config // { hmacKey = "@hmac@"; };
-        Preferences = cfg.preferences;
+        # String values need to be quoted
+        mkKeyValue =
+          generators.mkKeyValueDefault
+            {
+              mkValueString =
+                v:
+                if isString v then
+                  ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
+                else
+                  generators.mkValueStringDefault { } v
+                ;
+            }
+            " = "
+          ;
       }
-      cfg.settings
-    )}
+      (
+        lib.recursiveUpdate
+          {
+            Server = cfg.server;
+            Cache = cfg.cache;
+            Config = cfg.config // { hmacKey = "@hmac@"; };
+            Preferences = cfg.preferences;
+          }
+          cfg.settings
+      )}
   '';
   # `hmac` is a secret used for cryptographic signing of video URLs.
   # Generate it on first launch, then copy configuration and replace
@@ -91,8 +93,9 @@ in
         https = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc
-            "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS."
+          description =
+            lib.mdDoc
+              "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS."
             ;
         };
 
@@ -128,8 +131,10 @@ in
         listMinutes = mkOption {
           type = types.int;
           default = 240;
-          description = lib.mdDoc
-            "How long to cache list info (not the tweets, so keep it high).";
+          description =
+            lib.mdDoc
+              "How long to cache list info (not the tweets, so keep it high)."
+            ;
         };
 
         rssMinutes = mkOption {
@@ -196,8 +201,9 @@ in
           type = types.str;
           default = "";
           example = "nitter.net";
-          description = lib.mdDoc
-            "Replace Twitter links with links to this instance (blank to disable)."
+          description =
+            lib.mdDoc
+              "Replace Twitter links with links to this instance (blank to disable)."
             ;
         };
 
@@ -205,8 +211,9 @@ in
           type = types.str;
           default = "";
           example = "piped.kavin.rocks";
-          description = lib.mdDoc
-            "Replace YouTube links with links to this instance (blank to disable)."
+          description =
+            lib.mdDoc
+              "Replace YouTube links with links to this instance (blank to disable)."
             ;
         };
 
@@ -214,16 +221,18 @@ in
           type = types.str;
           default = "";
           example = "teddit.net";
-          description = lib.mdDoc
-            "Replace Reddit links with links to this instance (blank to disable)."
+          description =
+            lib.mdDoc
+              "Replace Reddit links with links to this instance (blank to disable)."
             ;
         };
 
         replaceInstagram = mkOption {
           type = types.str;
           default = "";
-          description = lib.mdDoc
-            "Replace Instagram links with links to this instance (blank to disable)."
+          description =
+            lib.mdDoc
+              "Replace Instagram links with links to this instance (blank to disable)."
             ;
         };
 
@@ -237,14 +246,18 @@ in
           type = types.bool;
           default = false;
           description =
-            lib.mdDoc "Enable HLS video streaming (requires JavaScript).";
+            lib.mdDoc
+              "Enable HLS video streaming (requires JavaScript)."
+            ;
         };
 
         proxyVideos = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc
-            "Proxy video streaming through the server (might be slow).";
+          description =
+            lib.mdDoc
+              "Proxy video streaming through the server (might be slow)."
+            ;
         };
 
         muteVideos = mkOption {
@@ -269,7 +282,8 @@ in
           type = types.bool;
           default = false;
           description =
-            lib.mdDoc "Infinite scrolling (requires JavaScript, experimental!)."
+            lib.mdDoc
+              "Infinite scrolling (requires JavaScript, experimental!)."
             ;
         };
 
@@ -282,15 +296,19 @@ in
         bidiSupport = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc
-            "Support bidirectional text (makes clicking on tweets harder).";
+          description =
+            lib.mdDoc
+              "Support bidirectional text (makes clicking on tweets harder)."
+            ;
         };
 
         hideTweetStats = mkOption {
           type = types.bool;
           default = false;
           description =
-            lib.mdDoc "Hide tweet stats (replies, retweets, likes).";
+            lib.mdDoc
+              "Hide tweet stats (replies, retweets, likes)."
+            ;
         };
 
         hideBanner = mkOption {
@@ -333,7 +351,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Open ports in the firewall for Nitter web interface.";
+          lib.mdDoc
+            "Open ports in the firewall for Nitter web interface."
+          ;
       };
     };
   };
@@ -361,8 +381,9 @@ in
         WorkingDirectory = "${cfg.package}/share/nitter";
         ExecStart = "${cfg.package}/bin/nitter";
         ExecStartPre = "${preStart}";
-        AmbientCapabilities =
-          lib.mkIf (cfg.server.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) [
+          "CAP_NET_BIND_SERVICE"
+        ];
         Restart = "on-failure";
         RestartSec = "5s";
         # Hardening
@@ -410,7 +431,8 @@ in
       port = cfg.cache.redisPort;
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.server.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.server.port ];
+    };
   };
 }

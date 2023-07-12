@@ -19,10 +19,10 @@ let
       pkgs.writeText "magnetico-credentials" (
         concatStrings (
           mapAttrsToList
-          (user: hash: ''
-            ${user}:${hash}
-          '')
-          cfg.web.credentials
+            (user: hash: ''
+              ${user}:${hash}
+            '')
+            cfg.web.credentials
         )
       );
 

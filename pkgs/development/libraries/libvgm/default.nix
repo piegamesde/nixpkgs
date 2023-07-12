@@ -112,8 +112,9 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-  passthru.updateScript =
-    unstableGitUpdater { url = "https://github.com/ValleyBell/libvgm.git"; };
+  passthru.updateScript = unstableGitUpdater {
+    url = "https://github.com/ValleyBell/libvgm.git";
+  };
 
   meta = with lib; {
     homepage = "https://github.com/ValleyBell/libvgm";

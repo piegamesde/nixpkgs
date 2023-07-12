@@ -19,61 +19,71 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "iodined"
-        "enable"
-      ]
-      [
-        "services"
-        "iodine"
-        "server"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "iodined"
-        "domain"
-      ]
-      [
-        "services"
-        "iodine"
-        "server"
-        "domain"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "iodined"
-        "ip"
-      ]
-      [
-        "services"
-        "iodine"
-        "server"
-        "ip"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "iodined"
-        "extraConfig"
-      ]
-      [
-        "services"
-        "iodine"
-        "server"
-        "extraConfig"
-      ])
-    (mkRemovedOptionModule
-      [
-        "services"
-        "iodined"
-        "client"
-      ]
-      "")
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "iodined"
+          "enable"
+        ]
+        [
+          "services"
+          "iodine"
+          "server"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "iodined"
+          "domain"
+        ]
+        [
+          "services"
+          "iodine"
+          "server"
+          "domain"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "iodined"
+          "ip"
+        ]
+        [
+          "services"
+          "iodine"
+          "server"
+          "ip"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "iodined"
+          "extraConfig"
+        ]
+        [
+          "services"
+          "iodine"
+          "server"
+          "extraConfig"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "iodined"
+          "client"
+        ]
+        ""
+    )
   ];
 
   ### configuration
@@ -113,8 +123,9 @@ in
               relay = mkOption {
                 type = types.str;
                 default = "";
-                description = lib.mdDoc
-                  "DNS server to use as an intermediate relay to the iodined server"
+                description =
+                  lib.mdDoc
+                    "DNS server to use as an intermediate relay to the iodined server"
                   ;
                 example = "8.8.8.8";
               };
@@ -130,7 +141,9 @@ in
                 type = types.str;
                 default = "";
                 description =
-                  lib.mdDoc "Path to a file containing the password.";
+                  lib.mdDoc
+                    "Path to a file containing the password."
+                  ;
               };
             };
           })
@@ -155,7 +168,9 @@ in
           type = types.str;
           default = "";
           description =
-            lib.mdDoc "Domain or subdomain of which nameservers point to us";
+            lib.mdDoc
+              "Domain or subdomain of which nameservers point to us"
+            ;
           example = "tunnel.mydomain.com";
         };
 
@@ -221,11 +236,13 @@ in
       in
       listToAttrs (
         mapAttrsToList
-        (
-          name: value:
-          nameValuePair "iodine-${name}" (createIodineClientService name value)
-        )
-        cfg.clients
+          (
+            name: value:
+            nameValuePair "iodine-${name}" (
+              createIodineClientService name value
+            )
+          )
+          cfg.clients
       ) // {
         iodined = mkIf (cfg.server.enable) {
           description = "iodine, ip over dns server daemon";

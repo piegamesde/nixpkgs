@@ -253,9 +253,11 @@ rec {
       default
     ;
 
-  nixpkgsVersion = builtins.trace
-    "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!"
-    version;
+  nixpkgsVersion =
+    builtins.trace
+      "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!"
+      version
+    ;
 
   /* Determine whether the function is being called from inside a Nix
      shell.
@@ -392,7 +394,7 @@ rec {
       msg:
       builtins.trace "[1;31mwarning: ${msg}[0m" (
         abort
-        "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors."
+          "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors."
       )
     else
       msg: builtins.trace "[1;31mwarning: ${msg}[0m"
@@ -452,10 +454,12 @@ rec {
       unexpected = lib.subtractLists valid given;
     in
     lib.throwIfNot (unexpected == [ ]) "${msg}: ${
-      builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)
-    } unexpected; valid ones: ${
-      builtins.concatStringsSep ", " (builtins.map builtins.toString valid)
-    }"
+        builtins.concatStringsSep ", " (
+          builtins.map builtins.toString unexpected
+        )
+      } unexpected; valid ones: ${
+        builtins.concatStringsSep ", " (builtins.map builtins.toString valid)
+      }"
     ;
 
   info = msg: builtins.trace "INFO: ${msg}";

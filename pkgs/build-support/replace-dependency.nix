@@ -32,33 +32,35 @@ with lib;
 
 let
   warn = if verbose then builtins.trace else (x: y: y);
-  references = import (runCommandLocal "references.nix"
-    {
-      exportReferencesGraph = [
-        "graph"
-        drv
-      ];
-    }
-    ''
-      (echo {
-      while read path
-      do
-          echo "  \"$path\" = ["
-          read count
-          read count
-          while [ "0" != "$count" ]
-          do
-              read ref_path
-              if [ "$ref_path" != "$path" ]
-              then
-                  echo "    (builtins.storePath (/. + \"$ref_path\"))"
-              fi
-              count=$(($count - 1))
-          done
-          echo "  ];"
-      done < graph
-      echo }) > $out
-    '').outPath;
+  references = import (
+    runCommandLocal "references.nix"
+      {
+        exportReferencesGraph = [
+          "graph"
+          drv
+        ];
+      }
+      ''
+        (echo {
+        while read path
+        do
+            echo "  \"$path\" = ["
+            read count
+            read count
+            while [ "0" != "$count" ]
+            do
+                read ref_path
+                if [ "$ref_path" != "$path" ]
+                then
+                    echo "    (builtins.storePath (/. + \"$ref_path\"))"
+                fi
+                count=$(($count - 1))
+            done
+            echo "  ];"
+        done < graph
+        echo }) > $out
+      ''
+  ).outPath;
 
   discard = builtins.unsafeDiscardStringContext;
 
@@ -68,14 +70,14 @@ let
 
   dependsOnOldMemo = listToAttrs (
     map
-    (drv: {
-      name = discard (toString drv);
-      value =
-        elem oldStorepath (referencesOf drv)
-        || any dependsOnOld (referencesOf drv)
-        ;
-    })
-    (builtins.attrNames references)
+      (drv: {
+        name = discard (toString drv);
+        value =
+          elem oldStorepath (referencesOf drv)
+          || any dependsOnOld (referencesOf drv)
+          ;
+      })
+      (builtins.attrNames references)
   );
 
   dependsOnOld = drv: dependsOnOldMemo.${discard (toString drv)};
@@ -97,8 +99,8 @@ let
       }|'$(basename $out)'|g' | sed -e ${
         concatStringsSep " -e " (
           mapAttrsToList
-          (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'")
-          hashes
+            (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'")
+            hashes
         )
       } | $nixStore --restore $out
     ''
@@ -111,20 +113,20 @@ let
 
   rewriteMemo = listToAttrs (
     map
-    (drv: {
-      name = discard (toString drv);
-      value = rewriteHashes (builtins.storePath drv) (
-        filterAttrs
-        (
-          n: v:
-          builtins.elem (builtins.storePath (discard (toString n))) (
-            referencesOf drv
-          )
-        )
-        rewriteMemo
-      );
-    })
-    (filter dependsOnOld (builtins.attrNames references))
+      (drv: {
+        name = discard (toString drv);
+        value = rewriteHashes (builtins.storePath drv) (
+          filterAttrs
+            (
+              n: v:
+              builtins.elem (builtins.storePath (discard (toString n))) (
+                referencesOf drv
+              )
+            )
+            rewriteMemo
+        );
+      })
+      (filter dependsOnOld (builtins.attrNames references))
   ) // rewrittenDeps;
 
   drvHash = discard (toString drv);
@@ -133,8 +135,10 @@ assert (
   stringLength (drvName (toString oldDependency))
   == stringLength (drvName (toString newDependency))
 );
-rewriteMemo.${drvHash} or (warn
-  "replace-dependency.nix: Derivation ${drvHash} does not depend on ${
-    discard (toString oldDependency)
-  }"
-  drv)
+rewriteMemo.${drvHash} or (
+  warn
+    "replace-dependency.nix: Derivation ${drvHash} does not depend on ${
+      discard (toString oldDependency)
+    }"
+    drv
+)

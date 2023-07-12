@@ -23,9 +23,10 @@ let
     ;
   source =
     product: javaVersion:
-    (import ./hashes.nix).${product}.${javaPlatformVersion javaVersion}
-      or (throw
-        "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}")
+    (import ./hashes.nix).${product}.${javaPlatformVersion javaVersion} or (
+      throw
+        "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}"
+    )
     ;
 in
 rec {
@@ -72,11 +73,13 @@ rec {
   };
 
   native-image-installable-svm-java11 =
-    callPackage ./native-image-installable-svm.nix rec {
-      javaVersion = "11";
-      version = "22.3.1";
-      src = fetchurl (source "native-image-installable-svm" javaVersion);
-    };
+    callPackage ./native-image-installable-svm.nix
+      rec {
+        javaVersion = "11";
+        version = "22.3.1";
+        src = fetchurl (source "native-image-installable-svm" javaVersion);
+      }
+    ;
 
   nodejs-installable-svm-java11 = callPackage ./nodejs-installable-svm.nix rec {
     javaVersion = "11";
@@ -145,11 +148,13 @@ rec {
   };
 
   native-image-installable-svm-java17 =
-    callPackage ./native-image-installable-svm.nix rec {
-      javaVersion = "17";
-      version = "22.3.1";
-      src = fetchurl (source "native-image-installable-svm" javaVersion);
-    };
+    callPackage ./native-image-installable-svm.nix
+      rec {
+        javaVersion = "17";
+        version = "22.3.1";
+        src = fetchurl (source "native-image-installable-svm" javaVersion);
+      }
+    ;
 
   nodejs-installable-svm-java17 = callPackage ./nodejs-installable-svm.nix rec {
     javaVersion = "17";
@@ -218,11 +223,13 @@ rec {
   };
 
   native-image-installable-svm-java19 =
-    callPackage ./native-image-installable-svm.nix rec {
-      javaVersion = "19";
-      version = "22.3.1";
-      src = fetchurl (source "native-image-installable-svm" javaVersion);
-    };
+    callPackage ./native-image-installable-svm.nix
+      rec {
+        javaVersion = "19";
+        version = "22.3.1";
+        src = fetchurl (source "native-image-installable-svm" javaVersion);
+      }
+    ;
 
   nodejs-installable-svm-java19 = callPackage ./nodejs-installable-svm.nix rec {
     javaVersion = "19";

@@ -42,18 +42,20 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "dnsmasq"
-        "servers"
-      ]
-      [
-        "services"
-        "dnsmasq"
-        "settings"
-        "server"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "dnsmasq"
+          "servers"
+        ]
+        [
+          "services"
+          "dnsmasq"
+          "settings"
+          "server"
+        ]
+    )
   ];
 
   ###### interface
@@ -141,17 +143,19 @@ in
 
   config = mkIf cfg.enable {
 
-    warnings = lib.optional
-      (cfg.extraConfig != "")
-      "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config"
+    warnings =
+      lib.optional (cfg.extraConfig != "")
+        "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config"
       ;
 
     services.dnsmasq.settings = {
       dhcp-leasefile = mkDefault "${stateDir}/dnsmasq.leases";
-      conf-file =
-        mkDefault (optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf");
-      resolv-file =
-        mkDefault (optional cfg.resolveLocalQueries "/etc/dnsmasq-resolv.conf");
+      conf-file = mkDefault (
+        optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf"
+      );
+      resolv-file = mkDefault (
+        optional cfg.resolveLocalQueries "/etc/dnsmasq-resolv.conf"
+      );
     };
 
     networking.nameservers = optional cfg.resolveLocalQueries "127.0.0.1";

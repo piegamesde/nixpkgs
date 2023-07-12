@@ -99,7 +99,9 @@ let
       destination = mkOption {
         type = types.str;
         description =
-          lib.mdDoc "Remote endpoint, I2P hostname or b32.i2p address.";
+          lib.mdDoc
+            "Remote endpoint, I2P hostname or b32.i2p address."
+          ;
       };
       keys = mkOption {
         type = types.str;
@@ -192,76 +194,77 @@ let
           (boolOpt "yggdrasil" cfg.yggdrasil.enable)
         ]
         ++ (optionalNullString "yggaddress" cfg.yggdrasil.address)
-        ++ (flip map
-          (collect (proto: proto ? port && proto ? address) cfg.proto)
-          (
-            proto:
-            let
-              protoOpts =
-                [
-                  (sec proto.name)
-                  (boolOpt "enabled" proto.enable)
-                  (strOpt "address" proto.address)
-                  (intOpt "port" proto.port)
-                ]
-                ++ (
-                  if proto ? keys then
-                    optionalNullString "keys" proto.keys
-                  else
-                    [ ]
-                )
-                ++ (
-                  if proto ? auth then
-                    optionalNullBool "auth" proto.auth
-                  else
-                    [ ]
-                )
-                ++ (
-                  if proto ? user then
-                    optionalNullString "user" proto.user
-                  else
-                    [ ]
-                )
-                ++ (
-                  if proto ? pass then
-                    optionalNullString "pass" proto.pass
-                  else
-                    [ ]
-                )
-                ++ (
-                  if proto ? strictHeaders then
-                    optionalNullBool "strictheaders" proto.strictHeaders
-                  else
-                    [ ]
-                )
-                ++ (
-                  if proto ? hostname then
-                    optionalNullString "hostname" proto.hostname
-                  else
-                    [ ]
-                )
-                ++ (
-                  if proto ? outproxy then
-                    optionalNullString "outproxy" proto.outproxy
-                  else
-                    [ ]
-                )
-                ++ (
-                  if proto ? outproxyPort then
-                    optionalNullInt "outproxyport" proto.outproxyPort
-                  else
-                    [ ]
-                )
-                ++ (
-                  if proto ? outproxyEnable then
-                    optionalNullBool "outproxy.enabled" proto.outproxyEnable
-                  else
-                    [ ]
-                )
-                ;
-            in
-            (concatStringsSep "\n" protoOpts)
-          ))
+        ++ (
+          flip map (collect (proto: proto ? port && proto ? address) cfg.proto)
+            (
+              proto:
+              let
+                protoOpts =
+                  [
+                    (sec proto.name)
+                    (boolOpt "enabled" proto.enable)
+                    (strOpt "address" proto.address)
+                    (intOpt "port" proto.port)
+                  ]
+                  ++ (
+                    if proto ? keys then
+                      optionalNullString "keys" proto.keys
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if proto ? auth then
+                      optionalNullBool "auth" proto.auth
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if proto ? user then
+                      optionalNullString "user" proto.user
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if proto ? pass then
+                      optionalNullString "pass" proto.pass
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if proto ? strictHeaders then
+                      optionalNullBool "strictheaders" proto.strictHeaders
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if proto ? hostname then
+                      optionalNullString "hostname" proto.hostname
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if proto ? outproxy then
+                      optionalNullString "outproxy" proto.outproxy
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if proto ? outproxyPort then
+                      optionalNullInt "outproxyport" proto.outproxyPort
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if proto ? outproxyEnable then
+                      optionalNullBool "outproxy.enabled" proto.outproxyEnable
+                    else
+                      [ ]
+                  )
+                  ;
+              in
+              (concatStringsSep "\n" protoOpts)
+            )
+        )
         ;
     in
     pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
@@ -271,67 +274,72 @@ let
     let
       opts = [
         notice
-        (flip map
-          (collect (tun: tun ? port && tun ? destination) cfg.outTunnels)
-          (
-            tun:
-            let
-              outTunOpts =
-                [
-                  (sec tun.name)
-                  "type = client"
-                  (intOpt "port" tun.port)
-                  (strOpt "destination" tun.destination)
-                ]
-                ++ (
-                  if tun ? destinationPort then
-                    optionalNullInt "destinationport" tun.destinationPort
-                  else
-                    [ ]
-                )
-                ++ (
-                  if tun ? keys then optionalNullString "keys" tun.keys else [ ]
-                )
-                ++ (
-                  if tun ? address then
-                    optionalNullString "address" tun.address
-                  else
-                    [ ]
-                )
-                ++ (
-                  if tun ? inbound.length then
-                    optionalNullInt "inbound.length" tun.inbound.length
-                  else
-                    [ ]
-                )
-                ++ (
-                  if tun ? inbound.quantity then
-                    optionalNullInt "inbound.quantity" tun.inbound.quantity
-                  else
-                    [ ]
-                )
-                ++ (
-                  if tun ? outbound.length then
-                    optionalNullInt "outbound.length" tun.outbound.length
-                  else
-                    [ ]
-                )
-                ++ (
-                  if tun ? outbound.quantity then
-                    optionalNullInt "outbound.quantity" tun.outbound.quantity
-                  else
-                    [ ]
-                )
-                ++ (
-                  if tun ? crypto.tagsToSend then
-                    optionalNullInt "crypto.tagstosend" tun.crypto.tagsToSend
-                  else
-                    [ ]
-                )
-                ;
-            in
-            concatStringsSep "\n" outTunOpts
-          ))
+        (
+          flip map
+            (collect (tun: tun ? port && tun ? destination) cfg.outTunnels)
+            (
+              tun:
+              let
+                outTunOpts =
+                  [
+                    (sec tun.name)
+                    "type = client"
+                    (intOpt "port" tun.port)
+                    (strOpt "destination" tun.destination)
+                  ]
+                  ++ (
+                    if tun ? destinationPort then
+                      optionalNullInt "destinationport" tun.destinationPort
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if tun ? keys then
+                      optionalNullString "keys" tun.keys
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if tun ? address then
+                      optionalNullString "address" tun.address
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if tun ? inbound.length then
+                      optionalNullInt "inbound.length" tun.inbound.length
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if tun ? inbound.quantity then
+                      optionalNullInt "inbound.quantity" tun.inbound.quantity
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if tun ? outbound.length then
+                      optionalNullInt "outbound.length" tun.outbound.length
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if tun ? outbound.quantity then
+                      optionalNullInt "outbound.quantity" tun.outbound.quantity
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if tun ? crypto.tagsToSend then
+                      optionalNullInt "crypto.tagstosend" tun.crypto.tagsToSend
+                    else
+                      [ ]
+                  )
+                  ;
+              in
+              concatStringsSep "\n" outTunOpts
+            )
+        )
         (flip map (collect (tun: tun ? port && tun ? address) cfg.inTunnels) (
           tun:
           let
@@ -385,17 +393,19 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "i2pd"
-        "extIp"
-      ]
-      [
-        "services"
-        "i2pd"
-        "address"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "i2pd"
+          "extIp"
+        ]
+        [
+          "services"
+          "i2pd"
+          "address"
+        ]
+    )
   ];
 
   ###### interface
@@ -438,8 +448,9 @@ in
         '';
       };
 
-      logCLFTime =
-        mkEnableOption (lib.mdDoc "Full CLF-formatted date and time to log");
+      logCLFTime = mkEnableOption (
+        lib.mdDoc "Full CLF-formatted date and time to log"
+      );
 
       address = mkOption {
         type = with types; nullOr str;
@@ -807,7 +818,9 @@ in
                     type = with types; nullOr int;
                     default = null;
                     description =
-                      lib.mdDoc "Connect to particular port at destination.";
+                      lib.mdDoc
+                        "Connect to particular port at destination."
+                      ;
                   };
                 } // commonTunOpts name;
                 config = { name = mkDefault name; };
@@ -832,14 +845,18 @@ in
                   inPort = mkOption {
                     type = types.int;
                     default = 0;
-                    description = lib.mdDoc
-                      "Service port. Default to the tunnel's listen port.";
+                    description =
+                      lib.mdDoc
+                        "Service port. Default to the tunnel's listen port."
+                      ;
                   };
                   accessList = mkOption {
                     type = with types; listOf str;
                     default = [ ];
-                    description = lib.mdDoc
-                      "I2P nodes that are allowed to connect to this service.";
+                    description =
+                      lib.mdDoc
+                        "I2P nodes that are allowed to connect to this service."
+                      ;
                   };
                 } // commonTunOpts name;
                 config = { name = mkDefault name; };

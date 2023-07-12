@@ -33,9 +33,8 @@
   enableFdk ? false,
   fdk_aac,
 }:
-assert lib.assertMsg
-  (!enableFfmpegAudioDecoder || !enableFdk)
-  "Can't enable both enableFfmpegAudioDecoder and enableFdk";
+assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
+    "Can't enable both enableFfmpegAudioDecoder and enableFdk";
 
 stdenv.mkDerivation rec {
   inherit pname version src;
@@ -60,9 +59,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableSdl2 SDL2
     ++ lib.optional enableQtTranslation qttools
     ++ lib.optional enableCubeb libpulseaudio
-    ++ lib.optional
-      (enableFfmpegAudioDecoder || enableFfmpegVideoDumper)
-      ffmpeg_4
+    ++
+      lib.optional (enableFfmpegAudioDecoder || enableFfmpegVideoDumper)
+        ffmpeg_4
     ++ lib.optional useDiscordRichPresence rapidjson
     ++ lib.optional enableFdk fdk_aac
     ;

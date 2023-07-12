@@ -39,8 +39,10 @@ in
       hardwareClockInLocalTime = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc
-          "If set, keep the hardware clock in local time instead of UTC.";
+        description =
+          lib.mdDoc
+            "If set, keep the hardware clock in local time instead of UTC."
+          ;
       };
     };
 
@@ -88,9 +90,9 @@ in
     systemd.globalEnvironment.TZDIR = tzdir;
 
     systemd.services.systemd-timedated.environment =
-      lib.optionalAttrs (config.time.timeZone != null) {
-        NIXOS_STATIC_TIMEZONE = "1";
-      };
+      lib.optionalAttrs (config.time.timeZone != null)
+        { NIXOS_STATIC_TIMEZONE = "1"; }
+      ;
 
     environment.etc = {
       zoneinfo.source = tzdir;

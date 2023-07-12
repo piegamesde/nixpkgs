@@ -22,15 +22,19 @@ import ./make-test-python.nix (
           pkgs.jq
         ];
         networking.hosts = { "127.0.0.1" = [ host ]; };
-        services.mattermost = lib.recursiveUpdate
-          {
-            enable = true;
-            inherit siteName;
-            listenAddress = "0.0.0.0:${port}";
-            siteUrl = url;
-            extraConfig = { SupportSettings.AboutLink = "https://nixos.org"; };
-          }
-          mattermostConfig;
+        services.mattermost =
+          lib.recursiveUpdate
+            {
+              enable = true;
+              inherit siteName;
+              listenAddress = "0.0.0.0:${port}";
+              siteUrl = url;
+              extraConfig = {
+                SupportSettings.AboutLink = "https://nixos.org";
+              };
+            }
+            mattermostConfig
+          ;
       }
       ;
   in
@@ -85,7 +89,7 @@ import ./make-test-python.nix (
             echo "Config: $(echo "$config" | ${pkgs.jq}/bin/jq)" >&2
             [[ "$(echo "$config" | ${pkgs.jq}/bin/jq -r ${
               lib.escapeShellArg
-              ".SiteName == $siteName and .Version == ($mattermostName / $sep)[-1] and (${jqExpression})"
+                ".SiteName == $siteName and .Version == ($mattermostName / $sep)[-1] and (${jqExpression})"
             } --arg siteName ${
               lib.escapeShellArg siteName
             } --arg mattermostName ${

@@ -44,7 +44,9 @@ in
     homeserver = mkOption {
       type = types.str;
       description =
-        lib.mdDoc "The URL to the home server for client-server API calls";
+        lib.mdDoc
+          "The URL to the home server for client-server API calls"
+        ;
       example = "http://localhost:8008";
     };
 
@@ -62,7 +64,9 @@ in
     address = mkOption {
       type = types.str;
       description =
-        lib.mdDoc "Address to listen on. IPv6 does not seem to be supported.";
+        lib.mdDoc
+          "Address to listen on. IPv6 does not seem to be supported."
+        ;
       default = "127.0.0.1";
       example = "0.0.0.0";
     };
@@ -76,7 +80,9 @@ in
     debug = mkOption {
       type = types.bool;
       description =
-        lib.mdDoc "More verbose logging. Recommended during initial setup.";
+        lib.mdDoc
+          "More verbose logging. Recommended during initial setup."
+        ;
       default = false;
     };
 
@@ -90,8 +96,9 @@ in
     };
 
     namespaces = mkOption {
-      description = lib.mdDoc
-        "Configure the 'namespaces' section of the registration.yml for the bridge and the server"
+      description =
+        lib.mdDoc
+          "Configure the 'namespaces' section of the registration.yml for the bridge and the server"
         ;
       # TODO link to Matrix documentation of the format
       type = types.submodule { freeformType = jsonType; };
@@ -115,8 +122,9 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      description = lib.mdDoc
-        "Heisenbridge is configured over the command line. Append extra arguments here"
+      description =
+        lib.mdDoc
+          "Heisenbridge is configured over the command line. Append extra arguments here"
         ;
       default = [ ];
     };
@@ -212,9 +220,10 @@ in
 
         CapabilityBoundingSet =
           [ "CAP_CHOWN" ]
-          ++ optional
-            (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
-            "CAP_NET_BIND_SERVICE"
+          ++
+            optional
+              (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
+              "CAP_NET_BIND_SERVICE"
           ;
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;

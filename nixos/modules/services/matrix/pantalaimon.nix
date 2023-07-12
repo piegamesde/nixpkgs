@@ -20,18 +20,20 @@ let
       };
 
       ${name} =
-        (recursiveUpdate
-          {
-            Homeserver = instanceConfig.homeserver;
-            ListenAddress = instanceConfig.listenAddress;
-            ListenPort = instanceConfig.listenPort;
-            SSL = instanceConfig.ssl;
+        (
+          recursiveUpdate
+            {
+              Homeserver = instanceConfig.homeserver;
+              ListenAddress = instanceConfig.listenAddress;
+              ListenPort = instanceConfig.listenPort;
+              SSL = instanceConfig.ssl;
 
-            # Set some settings to prevent user interaction for headless operation
-            IgnoreVerification = true;
-            UseKeyring = false;
-          }
-          instanceConfig.extraSettings);
+              # Set some settings to prevent user interaction for headless operation
+              IgnoreVerification = true;
+              UseKeyring = false;
+            }
+            instanceConfig.extraSettings
+        );
     }
     ;
 
@@ -74,9 +76,10 @@ in
   };
 
   config = mkIf (config.services.pantalaimon-headless.instances != { }) {
-    systemd.services = mapAttrs'
-      mkPantalaimonService
-      config.services.pantalaimon-headless.instances;
+    systemd.services =
+      mapAttrs' mkPantalaimonService
+        config.services.pantalaimon-headless.instances
+      ;
   };
 
   meta = { maintainers = with maintainers; [ jojosch ]; };

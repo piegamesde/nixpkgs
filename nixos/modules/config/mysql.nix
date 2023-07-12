@@ -30,13 +30,17 @@ in
         type = types.str;
         example = "nss-user";
         description =
-          lib.mdDoc "The username to use when connecting to the database";
+          lib.mdDoc
+            "The username to use when connecting to the database"
+          ;
       };
       passwordFile = mkOption {
         type = types.path;
         example = "/run/secrets/mysql-auth-db-passwd";
         description =
-          lib.mdDoc "The path to the file containing the password for the user";
+          lib.mdDoc
+            "The path to the file containing the password for the user"
+          ;
       };
       pam = mkOption {
         description = lib.mdDoc "Settings for `pam_mysql`";
@@ -45,8 +49,9 @@ in
             table = mkOption {
               type = types.str;
               example = "users";
-              description = lib.mdDoc
-                "The name of table that maps unique login names to the passwords."
+              description =
+                lib.mdDoc
+                  "The name of table that maps unique login names to the passwords."
                 ;
             };
             updateTable = mkOption {
@@ -61,14 +66,17 @@ in
             userColumn = mkOption {
               type = types.str;
               example = "username";
-              description = lib.mdDoc
-                "The name of the column that contains a unix login name.";
+              description =
+                lib.mdDoc
+                  "The name of the column that contains a unix login name."
+                ;
             };
             passwordColumn = mkOption {
               type = types.str;
               example = "password";
-              description = lib.mdDoc
-                "The name of the column that contains a (encrypted) password string."
+              description =
+                lib.mdDoc
+                  "The name of the column that contains a (encrypted) password string."
                 ;
             };
             statusColumn = mkOption {
@@ -154,8 +162,10 @@ in
               );
               default = null;
               example = "blowfish";
-              description = lib.mdDoc
-                "The default encryption method to use for `passwordCrypt = 1`.";
+              description =
+                lib.mdDoc
+                  "The default encryption method to use for `passwordCrypt = 1`."
+                ;
             };
             where = mkOption {
               type = types.nullOr types.str;
@@ -185,15 +195,18 @@ in
               enable = mkOption {
                 type = types.bool;
                 default = false;
-                description = lib.mdDoc
-                  "Enables logging of authentication attempts in the MySQL database."
+                description =
+                  lib.mdDoc
+                    "Enables logging of authentication attempts in the MySQL database."
                   ;
               };
               table = mkOption {
                 type = types.str;
                 example = "logs";
                 description =
-                  lib.mdDoc "The name of the table to which logs are written.";
+                  lib.mdDoc
+                    "The name of the table to which logs are written."
+                  ;
               };
               msgColumn = mkOption {
                 type = types.str;

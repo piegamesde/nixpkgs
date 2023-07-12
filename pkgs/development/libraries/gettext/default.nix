@@ -43,9 +43,10 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  LDFLAGS = lib.optionalString
-    stdenv.isSunOS
-    "-lm -lmd -lmp -luutil -lnvpair -lnsl -lidmap -lavl -lsec";
+  LDFLAGS =
+    lib.optionalString stdenv.isSunOS
+      "-lm -lmd -lmp -luutil -lnvpair -lnsl -lidmap -lavl -lsec"
+    ;
 
   configureFlags =
     [

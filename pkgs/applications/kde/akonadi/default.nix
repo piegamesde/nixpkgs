@@ -81,8 +81,8 @@ mkDerivation {
     ''
       -DNIXPKGS_MYSQL_MYSQL_INSTALL_DB=\"${
         lib.optionalString mysqlSupport "${
-          lib.getBin mariadb
-        }/bin/mysql_install_db"
+            lib.getBin mariadb
+          }/bin/mysql_install_db"
       }\"''
     ''
       -DNIXPKGS_MYSQL_MYSQLCHECK=\"${
@@ -95,8 +95,8 @@ mkDerivation {
     ''
       -DNIXPKGS_POSTGRES_PG_UPGRADE=\"${
         lib.optionalString postgresSupport "${
-          lib.getBin postgresql
-        }/bin/pg_upgrade"
+            lib.getBin postgresql
+          }/bin/pg_upgrade"
       }\"''
     ''
       -DNIXPKGS_POSTGRES_INITDB=\"${
@@ -108,9 +108,10 @@ mkDerivation {
     }/include/KF5" # Fixes: kio_version.h: No such file or directory
   ];
 
-  cmakeFlags = lib.optional
-    (defaultDriver != "MYSQL")
-    "-DDATABASE_BACKEND=${defaultDriver}";
+  cmakeFlags =
+    lib.optional (defaultDriver != "MYSQL")
+      "-DDATABASE_BACKEND=${defaultDriver}"
+    ;
 
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing

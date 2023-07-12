@@ -100,8 +100,9 @@ let
       };
 
       caFile = mkOption {
-        description = lib.mdDoc
-          "${prefix} certificate authority file used to connect to kube-apiserver."
+        description =
+          lib.mdDoc
+            "${prefix} certificate authority file used to connect to kube-apiserver."
           ;
         type = types.nullOr types.path;
         default = cfg.caFile;
@@ -109,16 +110,19 @@ let
       };
 
       certFile = mkOption {
-        description = lib.mdDoc
-          "${prefix} client certificate file used to connect to kube-apiserver."
+        description =
+          lib.mdDoc
+            "${prefix} client certificate file used to connect to kube-apiserver."
           ;
         type = types.nullOr types.path;
         default = null;
       };
 
       keyFile = mkOption {
-        description = lib.mdDoc
-          "${prefix} client key file used to connect to kube-apiserver.";
+        description =
+          lib.mdDoc
+            "${prefix} client key file used to connect to kube-apiserver."
+          ;
         type = types.nullOr types.path;
         default = null;
       };
@@ -128,21 +132,25 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "addons"
-        "dashboard"
-      ]
-      "Removed due to it being an outdated version")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "verbose"
-      ]
-      "")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "kubernetes"
+          "addons"
+          "dashboard"
+        ]
+        "Removed due to it being an outdated version"
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "kubernetes"
+          "verbose"
+        ]
+        ""
+    )
   ];
 
   ###### interface
@@ -191,14 +199,17 @@ in
 
     dataDir = mkOption {
       description =
-        lib.mdDoc "Kubernetes root directory for managing kubelet files.";
+        lib.mdDoc
+          "Kubernetes root directory for managing kubelet files."
+        ;
       default = "/var/lib/kubernetes";
       type = types.path;
     };
 
     easyCerts = mkOption {
-      description = lib.mdDoc
-        "Automatically setup x509 certificates and keys for the entire cluster."
+      description =
+        lib.mdDoc
+          "Automatically setup x509 certificates and keys for the entire cluster."
         ;
       default = false;
       type = types.bool;
@@ -211,24 +222,27 @@ in
     };
 
     masterAddress = mkOption {
-      description = lib.mdDoc
-        "Clusterwide available network address or hostname for the kubernetes master server."
+      description =
+        lib.mdDoc
+          "Clusterwide available network address or hostname for the kubernetes master server."
         ;
       example = "master.example.com";
       type = types.str;
     };
 
     path = mkOption {
-      description = lib.mdDoc
-        "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added."
+      description =
+        lib.mdDoc
+          "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added."
         ;
       type = types.listOf types.package;
       default = [ ];
     };
 
     clusterCidr = mkOption {
-      description = lib.mdDoc
-        "Kubernetes controller manager and proxy CIDR Range for Pods in cluster."
+      description =
+        lib.mdDoc
+          "Kubernetes controller manager and proxy CIDR Range for Pods in cluster."
         ;
       default = "10.1.0.0/16";
       type = types.nullOr types.str;
@@ -245,8 +259,10 @@ in
     };
 
     secretsPath = mkOption {
-      description = lib.mdDoc
-        "Default location for kubernetes secrets. Not a store location.";
+      description =
+        lib.mdDoc
+          "Default location for kubernetes secrets. Not a store location."
+        ;
       type = types.path;
       default = cfg.dataDir + "/secrets";
       defaultText = literalExpression ''
@@ -303,7 +319,9 @@ in
 
     (mkIf cfg.apiserver.enable {
       services.kubernetes.pki.etcClusterAdminKubeconfig =
-        mkDefault "kubernetes/cluster-admin.kubeconfig";
+        mkDefault
+          "kubernetes/cluster-admin.kubeconfig"
+        ;
       services.kubernetes.apiserver.etcd.servers = mkDefault etcdEndpoints;
     })
 
@@ -311,7 +329,9 @@ in
       virtualisation.containerd = {
         enable = mkDefault true;
         settings =
-          mapAttrsRecursive (name: mkDefault) defaultContainerdSettings;
+          mapAttrsRecursive (name: mkDefault)
+            defaultContainerdSettings
+          ;
       };
     })
 
@@ -329,48 +349,50 @@ in
       };
     })
 
-    (mkIf
-      (
-        cfg.apiserver.enable
-        || cfg.scheduler.enable
-        || cfg.controllerManager.enable
-        || cfg.kubelet.enable
-        || cfg.proxy.enable
-        || cfg.addonManager.enable
-      )
-      {
-        systemd.targets.kubernetes = {
-          description = "Kubernetes";
-          wantedBy = [ "multi-user.target" ];
-        };
+    (
+      mkIf
+        (
+          cfg.apiserver.enable
+          || cfg.scheduler.enable
+          || cfg.controllerManager.enable
+          || cfg.kubelet.enable
+          || cfg.proxy.enable
+          || cfg.addonManager.enable
+        )
+        {
+          systemd.targets.kubernetes = {
+            description = "Kubernetes";
+            wantedBy = [ "multi-user.target" ];
+          };
 
-        systemd.tmpfiles.rules = [
-          "d /opt/cni/bin 0755 root root -"
-          "d /run/kubernetes 0755 kubernetes kubernetes -"
-          "d /var/lib/kubernetes 0755 kubernetes kubernetes -"
-        ];
+          systemd.tmpfiles.rules = [
+            "d /opt/cni/bin 0755 root root -"
+            "d /run/kubernetes 0755 kubernetes kubernetes -"
+            "d /var/lib/kubernetes 0755 kubernetes kubernetes -"
+          ];
 
-        users.users.kubernetes = {
-          uid = config.ids.uids.kubernetes;
-          description = "Kubernetes user";
-          group = "kubernetes";
-          home = cfg.dataDir;
-          createHome = true;
-        };
-        users.groups.kubernetes.gid = config.ids.gids.kubernetes;
+          users.users.kubernetes = {
+            uid = config.ids.uids.kubernetes;
+            description = "Kubernetes user";
+            group = "kubernetes";
+            home = cfg.dataDir;
+            createHome = true;
+          };
+          users.groups.kubernetes.gid = config.ids.gids.kubernetes;
 
-        # dns addon is enabled by default
-        services.kubernetes.addons.dns.enable = mkDefault true;
+          # dns addon is enabled by default
+          services.kubernetes.addons.dns.enable = mkDefault true;
 
-        services.kubernetes.apiserverAddress = mkDefault (
-          "https://${
-            if cfg.apiserver.advertiseAddress != null then
-              cfg.apiserver.advertiseAddress
-            else
-              "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
-          }"
-        );
-      })
+          services.kubernetes.apiserverAddress = mkDefault (
+            "https://${
+              if cfg.apiserver.advertiseAddress != null then
+                cfg.apiserver.advertiseAddress
+              else
+                "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
+            }"
+          );
+        }
+    )
   ];
 
   meta.buildDocsInSandbox = false;

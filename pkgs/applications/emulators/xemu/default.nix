@@ -114,23 +114,25 @@ stdenv.mkDerivation (
       ''
       +
         # Generate code to install the icons
-        (lib.concatMapStringsSep
-          ''
-            ;
-          ''
-          (
-            res:
-            "install -Dm644 -T ../ui/icons/xemu_${res}.png $out/share/icons/hicolor/${res}/apps/xemu.png"
-          )
-          [
-            "16x16"
-            "24x24"
-            "32x32"
-            "48x48"
-            "128x128"
-            "256x256"
-            "512x512"
-          ])
+        (
+          lib.concatMapStringsSep
+            ''
+              ;
+            ''
+            (
+              res:
+              "install -Dm644 -T ../ui/icons/xemu_${res}.png $out/share/icons/hicolor/${res}/apps/xemu.png"
+            )
+            [
+              "16x16"
+              "24x24"
+              "32x32"
+              "48x48"
+              "128x128"
+              "256x256"
+              "512x512"
+            ]
+        )
       + ''
 
         runHook postInstall

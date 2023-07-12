@@ -8,8 +8,9 @@
 }:
 
 let
-  configOverrides =
-    writeText "cinny-config-overrides.json" (builtins.toJSON conf);
+  configOverrides = writeText "cinny-config-overrides.json" (
+    builtins.toJSON conf
+  );
 in
 stdenv.mkDerivation rec {
   pname = "cinny";

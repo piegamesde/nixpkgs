@@ -34,9 +34,10 @@ let
     ;
 
   confNoServer = concatStringsSep "\n" (
-    (mapAttrsToList (toConf "") (
-      builtins.removeAttrs cfg.settings [ "server" ]
-    ))
+    (
+      mapAttrsToList (toConf "")
+        (builtins.removeAttrs cfg.settings [ "server" ])
+    )
     ++ [ "" ]
   );
   confServer = concatStringsSep "\n" (
@@ -88,7 +89,9 @@ in
         type = types.path;
         default = "/var/lib/unbound";
         description =
-          lib.mdDoc "Directory holding all state for unbound to run.";
+          lib.mdDoc
+            "Directory holding all state for unbound to run."
+          ;
       };
 
       resolveLocalQueries = mkOption {
@@ -104,7 +107,9 @@ in
         default = true;
         type = types.bool;
         description =
-          lib.mdDoc "Use and update root trust anchor for DNSSEC validation.";
+          lib.mdDoc
+            "Use and update root trust anchor for DNSSEC validation."
+          ;
       };
 
       localControlSocketPath = mkOption {
@@ -224,7 +229,9 @@ in
           ++ (optional config.networking.enableIPv6 "::1/128 allow")
         );
         auto-trust-anchor-file =
-          mkIf cfg.enableRootTrustAnchor rootTrustAnchorFile;
+          mkIf cfg.enableRootTrustAnchor
+            rootTrustAnchorFile
+          ;
         tls-cert-bundle = mkDefault "/etc/ssl/certs/ca-certificates.crt";
         # prevent race conditions on system startup when interfaces are not yet
         # configured
@@ -351,67 +358,75 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "unbound"
-        "interfaces"
-      ]
-      [
-        "services"
-        "unbound"
-        "settings"
-        "server"
-        "interface"
-      ])
-    (mkChangedOptionModule
-      [
-        "services"
-        "unbound"
-        "allowedAccess"
-      ]
-      [
-        "services"
-        "unbound"
-        "settings"
-        "server"
-        "access-control"
-      ]
-      (
-        config:
-        map (value: "${value} allow") (
-          getAttrFromPath
-          [
-            "services"
-            "unbound"
-            "allowedAccess"
-          ]
-          config
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "unbound"
+          "interfaces"
+        ]
+        [
+          "services"
+          "unbound"
+          "settings"
+          "server"
+          "interface"
+        ]
+    )
+    (
+      mkChangedOptionModule
+        [
+          "services"
+          "unbound"
+          "allowedAccess"
+        ]
+        [
+          "services"
+          "unbound"
+          "settings"
+          "server"
+          "access-control"
+        ]
+        (
+          config:
+          map (value: "${value} allow") (
+            getAttrFromPath
+              [
+                "services"
+                "unbound"
+                "allowedAccess"
+              ]
+              config
+          )
         )
-      ))
-    (mkRemovedOptionModule
-      [
-        "services"
-        "unbound"
-        "forwardAddresses"
-      ]
-      ''
-        Add a new setting:
-        services.unbound.settings.forward-zone = [{
-          name = ".";
-          forward-addr = [ # Your current services.unbound.forwardAddresses ];
-        }];
-        If any of those addresses are local addresses (127.0.0.1 or ::1), you must
-        also set services.unbound.settings.server.do-not-query-localhost to false.
-      '')
-    (mkRemovedOptionModule
-      [
-        "services"
-        "unbound"
-        "extraConfig"
-      ]
-      ''
-        You can use services.unbound.settings to add any configuration you want.
-      '')
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "unbound"
+          "forwardAddresses"
+        ]
+        ''
+          Add a new setting:
+          services.unbound.settings.forward-zone = [{
+            name = ".";
+            forward-addr = [ # Your current services.unbound.forwardAddresses ];
+          }];
+          If any of those addresses are local addresses (127.0.0.1 or ::1), you must
+          also set services.unbound.settings.server.do-not-query-localhost to false.
+        ''
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "unbound"
+          "extraConfig"
+        ]
+        ''
+          You can use services.unbound.settings to add any configuration you want.
+        ''
+    )
   ];
 }

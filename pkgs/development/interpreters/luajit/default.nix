@@ -119,16 +119,18 @@ stdenv.mkDerivation rec {
   LuaPathSearchPaths = luaPackages.luaLib.luaPathList;
   LuaCPathSearchPaths = luaPackages.luaLib.luaCPathList;
 
-  setupHook = luaPackages.lua-setup-hook
-    luaPackages.luaLib.luaPathList
-    luaPackages.luaLib.luaCPathList;
+  setupHook =
+    luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList
+      luaPackages.luaLib.luaCPathList
+    ;
 
   # copied from python
   passthru =
     let
       # When we override the interpreter we also need to override the spliced versions of the interpreter
       inputs' =
-        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs
+        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
+          inputs
         ;
       override =
         attr:

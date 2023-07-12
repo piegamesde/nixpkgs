@@ -1635,7 +1635,9 @@ with self;
       url = "mirror://cpan/authors/id/Z/ZE/ZEFRAM/Authen-DecHpwd-2.007.tar.gz";
       hash = "sha256-9DqTuwK0H3Mn2S+eljtpUF9nNQpS6PUHlvmK/E+z8Xc=";
     };
-    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
+    perlPreHook =
+      lib.optionalString stdenv.isi686
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     propagatedBuildInputs = [
       DataInteger
@@ -6779,7 +6781,9 @@ with self;
     };
     propagatedBuildInputs = [ ClassMix ];
     perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
+      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
+        "export LD=$CC"
+      ;
     meta = {
       description = "The Eksblowfish block cipher";
       license = with lib.licenses; [
@@ -7088,7 +7092,9 @@ with self;
     };
     propagatedBuildInputs = [ DigestSHA1 ];
     perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
+      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
+        "export LD=$CC"
+      ;
     meta = {
       description = "Emulate MySQL PASSWORD() function";
       license = with lib.licenses; [
@@ -7530,7 +7536,9 @@ with self;
       hash = "sha256-iKaZf6DfazlNHjRr0OV81WWFfiF9gHtlLxdrAGvm2tc=";
     };
     perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
+      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
+        "export LD=$CC"
+      ;
     meta = {
       description = "XS based CSS minifier";
       homepage = "https://metacpan.org/release/CSS-Minifier-XS";
@@ -8349,7 +8357,9 @@ with self;
       ScopeGuard
       TestException
     ];
-    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
+    perlPreHook =
+      lib.optionalString stdenv.isi686
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "A selection of utilities for data and data types";
@@ -12464,9 +12474,11 @@ with self;
       hash = "sha256-jPpOGxT7jVrKoiztZyxq9owKjiXcKpaXoO1/Sk77NOQ=";
     };
     postPatch =
-      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-        sed -i '/use IO::File/d' Makefile.PL
-      '';
+      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+        ''
+          sed -i '/use IO::File/d' Makefile.PL
+        ''
+      ;
     meta = {
       description = "Fast CGI module";
       license = with lib.licenses; [ oml ];
@@ -13011,7 +13023,8 @@ with self;
     };
     buildInputs = [ ExtUtilsCChecker ];
     perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC"
+      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Modify attributes of symlinks without dereferencing them";
@@ -14801,7 +14814,9 @@ with self;
       CairoGObject
       GlibObjectIntrospection
     ];
-    preCheck = lib.optionalString stdenv.isDarwin "rm t/overrides.t"
+    preCheck =
+      lib.optionalString stdenv.isDarwin
+        "rm t/overrides.t"
       ; # Currently failing on macOS
     meta = {
       description = "Perl interface to the 3.x series of the gtk+ toolkit";
@@ -15204,7 +15219,9 @@ with self;
       ModuleBuildPluggablePPPort
       TestRequires
     ];
-    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
+    perlPreHook =
+      lib.optionalString stdenv.isi686
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Extremely fast HTML escaping";
@@ -17507,7 +17524,9 @@ with self;
       hash = "sha256-FRISykvVCy9eHebQHjywhGBAe9dfJ9/IFi8veSeDnu4=";
     };
     perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
+      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
+        "export LD=$CC"
+      ;
     meta = {
       description = "XS based JavaScript minifier";
       homepage = "https://metacpan.org/release/JavaScript-Minifier-XS";
@@ -17545,9 +17564,11 @@ with self;
     };
     # Do not abort cross-compilation on failure to load native JSON module into host perl
     preConfigure =
-      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-        substituteInPlace Makefile.PL --replace "exit 0;" ""
-      '';
+      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+        ''
+          substituteInPlace Makefile.PL --replace "exit 0;" ""
+        ''
+      ;
     buildInputs = [ TestPod ];
     meta = {
       description = "JSON (JavaScript Object Notation) encoder/decoder";
@@ -18376,7 +18397,9 @@ with self;
     };
     buildInputs = [ TestException ];
     propagatedBuildInputs = [ SubExporter ];
-    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
+    perlPreHook =
+      lib.optionalString stdenv.isi686
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Linux specific special filehandles";
@@ -19254,9 +19277,11 @@ with self;
     ];
     # support cross-compilation by avoiding using `has_module` which does not work in miniperl (it requires B native module)
     postPatch =
-      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-        substituteInPlace Makefile.PL --replace 'if has_module' 'if 0; #'
-      '';
+      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+        ''
+          substituteInPlace Makefile.PL --replace 'if has_module' 'if 0; #'
+        ''
+      ;
     doCheck = !stdenv.isDarwin;
     nativeCheckInputs = [
       HTTPDaemon
@@ -23831,7 +23856,9 @@ with self;
     ];
     perlPreHook = "export LD=$CC";
     env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.isi686 "-fno-stack-protector";
+      lib.optionalString stdenv.isi686
+        "-fno-stack-protector"
+      ;
     hardeningDisable = lib.optional stdenv.isi686 "stackprotector";
     meta = {
       description = "Moose minus the antlers";
@@ -23909,7 +23936,9 @@ with self;
       url = "mirror://cpan/authors/id/N/NJ/NJH/MusicBrainz-DiscID-0.06.tar.gz";
       hash = "sha256-ugtu0JiX/1Y7pZhy7pNxW+83FXUVsZt8bW8obmVI7Ks=";
     };
-    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
+    perlPreHook =
+      lib.optionalString stdenv.isi686
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     # Makefile.PL in this package uses which to find pkg-config -- make it use path instead
     patchPhase = ''sed -ie 's/`which pkg-config`/"pkg-config"/' Makefile.PL'';
@@ -26006,7 +26035,9 @@ with self;
       url = "mirror://cpan/authors/id/Z/ZE/ZEFRAM/Params-Classify-0.015.tar.gz";
       hash = "sha256-OY7BXNiZ/Ni+89ueoXSL9jHxX2wyviA+R1tn31EKWRQ=";
     };
-    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
+    perlPreHook =
+      lib.optionalString stdenv.isi686
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Argument type classification";
@@ -30627,7 +30658,9 @@ with self;
   };
 
   strip-nondeterminism =
-    callPackage ../development/perl-modules/strip-nondeterminism { };
+    callPackage ../development/perl-modules/strip-nondeterminism
+      { }
+    ;
 
   StructDumb = buildPerlModule {
     pname = "Struct-Dumb";
@@ -31139,7 +31172,9 @@ with self;
       })
     ];
     buildInputs =
-      lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.Carbon;
+      lib.optional stdenv.isDarwin
+        pkgs.darwin.apple_sdk.frameworks.Carbon
+      ;
     doCheck = !stdenv.isAarch64;
     meta = {
       description =
@@ -31241,7 +31276,9 @@ with self;
       TestPodCoverage
       XMLXPath
     ];
-    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
+    perlPreHook =
+      lib.optionalString stdenv.isi686
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Libvirt Perl API";
@@ -31779,8 +31816,9 @@ with self;
       );
 
       # TermReadKey uses itself in the build process
-      nativeBuildInputs =
-        lib.optionals cross [ perl.perlOnBuild.pkgs.TermReadKey ];
+      nativeBuildInputs = lib.optionals cross [
+        perl.perlOnBuild.pkgs.TermReadKey
+      ];
       meta = {
         description = "A perl module for simple terminal control";
         license = with lib.licenses; [
@@ -36156,7 +36194,9 @@ with self;
         "mirror://cpan/authors/id/A/AR/ARODLAND/Unicode-CaseFold-1.01.tar.gz";
       hash = "sha256-QYohKAj50Li7MwrJBQltLdNkl2dT1McVNNq5g2pjGU0=";
     };
-    perlPreHook = lib.optionalString stdenv.isi686 "export LD=$CC"
+    perlPreHook =
+      lib.optionalString stdenv.isi686
+        "export LD=$CC"
       ; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Unicode case-folding for case-insensitive lookups";
@@ -36697,7 +36737,9 @@ with self;
       })
     ];
     env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.cc.isClang "-Wno-return-type";
+      lib.optionalString stdenv.cc.isClang
+        "-Wno-return-type"
+      ;
     buildInputs = [ pkgs.curl ];
     doCheck = false; # performs network access
     meta = {
@@ -36820,7 +36862,9 @@ with self;
   };
 
   WWWYoutubeViewer =
-    callPackage ../development/perl-modules/WWW-YoutubeViewer { };
+    callPackage ../development/perl-modules/WWW-YoutubeViewer
+      { }
+    ;
 
   Want = buildPerlPackage {
     pname = "Want";

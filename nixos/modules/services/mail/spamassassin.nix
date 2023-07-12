@@ -22,7 +22,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether to run the SpamAssassin daemon in debug mode";
+          lib.mdDoc
+            "Whether to run the SpamAssassin daemon in debug mode"
+          ;
       };
 
       config = mkOption {

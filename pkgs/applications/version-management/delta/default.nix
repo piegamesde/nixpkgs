@@ -41,8 +41,9 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --fish --name delta.fish etc/completion/completion.fish
   '';
 
-  checkFlags =
-    lib.optionals stdenv.isDarwin [ "--skip=test_diff_same_non_empty_file" ];
+  checkFlags = lib.optionals stdenv.isDarwin [
+    "--skip=test_diff_same_non_empty_file"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/dandavison/delta";

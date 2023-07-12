@@ -11,12 +11,14 @@ let
 in
 {
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "geoip-updater"
-      ]
-      "services.geoip-updater has been removed, use services.geoipupdate instead.")
+    (
+      lib.mkRemovedOptionModule
+        [
+          "services"
+          "geoip-updater"
+        ]
+        "services.geoip-updater has been removed, use services.geoipupdate instead."
+    )
   ];
 
   options = {
@@ -177,13 +179,14 @@ in
                     hashString "sha256" v._secret
                   else
                     throw "unsupported type ${typeOf v}: ${
-                      (lib.generators.toPretty { }) v
-                    }"
+                        (lib.generators.toPretty { }) v
+                      }"
                   ;
               };
             };
-            secretPaths =
-              lib.catAttrs "_secret" (lib.collect isSecret cfg.settings);
+            secretPaths = lib.catAttrs "_secret" (
+              lib.collect isSecret cfg.settings
+            );
             mkSecretReplacement =
               file: ''
                 replace-secret ${
@@ -196,7 +199,9 @@ in
               ''
               ;
             secretReplacements =
-              lib.concatMapStrings mkSecretReplacement secretPaths;
+              lib.concatMapStrings mkSecretReplacement
+                secretPaths
+              ;
 
             geoipupdateConf = pkgs.writeText "geoipupdate.conf" (
               geoipupdateKeyValue cfg.settings

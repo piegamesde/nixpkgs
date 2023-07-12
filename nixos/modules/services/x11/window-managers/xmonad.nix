@@ -20,35 +20,37 @@ let
     ]
     ;
 
-  xmonad-vanilla =
-    pkgs.xmonad-with-packages.override { inherit ghcWithPackages packages; };
+  xmonad-vanilla = pkgs.xmonad-with-packages.override {
+    inherit ghcWithPackages packages;
+  };
 
   xmonad-config =
     let
       xmonadAndPackages = self: [ self.xmonad ] ++ packages self;
       xmonadEnv = ghcWithPackages xmonadAndPackages;
-      configured = pkgs.writers.writeHaskellBin "xmonad"
-        {
-          ghc = cfg.haskellPackages.ghc;
-          libraries = xmonadAndPackages cfg.haskellPackages;
-          inherit (cfg) ghcArgs;
-        }
-        cfg.config;
+      configured =
+        pkgs.writers.writeHaskellBin "xmonad"
+          {
+            ghc = cfg.haskellPackages.ghc;
+            libraries = xmonadAndPackages cfg.haskellPackages;
+            inherit (cfg) ghcArgs;
+          }
+          cfg.config
+        ;
     in
-    pkgs.runCommandLocal "xmonad"
-    { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-    (
-      ''
-        install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
-        makeWrapper ${configured}/bin/xmonad $out/bin/xmonad \
-      ''
-      + optionalString cfg.enableConfiguredRecompile ''
-        --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
-      ''
-      + ''
-        --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
-      ''
-    )
+    pkgs.runCommandLocal "xmonad" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+      (
+        ''
+          install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
+          makeWrapper ${configured}/bin/xmonad $out/bin/xmonad \
+        ''
+        + optionalString cfg.enableConfiguredRecompile ''
+          --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
+        ''
+        + ''
+          --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
+        ''
+      )
     ;
 
   xmonad = if (cfg.config != null) then xmonad-config else xmonad-vanilla;

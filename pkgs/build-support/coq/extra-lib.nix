@@ -102,15 +102,15 @@ recursiveUpdate lib (rec {
             in
             if pred hd then
               loop
-              (
-                vv
-                ++ [
-                  v
-                  hd
-                ]
-              )
-              [ ]
-              tl
+                (
+                  vv
+                  ++ [
+                    v
+                    hd
+                  ]
+                )
+                [ ]
+                tl
             else
               loop vv (v ++ [ hd ]) tl
         );
@@ -188,13 +188,15 @@ recursiveUpdate lib (rec {
         ;
     in
     switch-if
-    (map
-      (cl: {
-        cond = combine cl var;
-        inherit (cl) out;
-      })
-      clauses)
-    default
+      (
+        map
+          (cl: {
+            cond = combine cl var;
+            inherit (cl) out;
+          })
+          clauses
+      )
+      default
     ;
 
   /* Override arguments to mkCoqDerivation for a Coq library.

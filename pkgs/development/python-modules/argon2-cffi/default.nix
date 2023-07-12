@@ -38,7 +38,9 @@ buildPythonPackage rec {
   ];
 
   ARGON2_CFFI_USE_SSE2 =
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) "0";
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+      "0"
+    ;
 
   nativeCheckInputs = [
     hypothesis

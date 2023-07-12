@@ -69,8 +69,8 @@ symlinkJoin {
       ${optionalString withGtkWrapper ''"''${gappsWrapperArgs[@]}"''} \
       ${
         optionalString (extraOptions != [ ]) "${concatMapStrings
-        (x: " --add-flags " + x)
-        extraOptions}"
+            (x: " --add-flags " + x)
+            extraOptions}"
       }
   '';
 

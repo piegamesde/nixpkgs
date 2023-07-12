@@ -12,10 +12,12 @@ import ./make-test-python.nix (
         }: {
           services.nginx.enable = true;
           services.nginx.virtualHosts."backend".root =
-            pkgs.runCommand "webroot" { } ''
-              mkdir $out
-              echo hi >$out/hi.txt
-            '';
+            pkgs.runCommand "webroot" { }
+              ''
+                mkdir $out
+                echo hi >$out/hi.txt
+              ''
+            ;
           networking.firewall.allowedTCPPorts = [ 80 ];
         }
         ;

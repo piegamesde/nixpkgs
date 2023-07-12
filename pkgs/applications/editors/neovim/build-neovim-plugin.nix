@@ -20,20 +20,22 @@ in
 let
   originalLuaDrv = lua.pkgs.${luaAttr};
 
-  luaDrv = (lua.pkgs.luaLib.overrideLuarocks originalLuaDrv (
-    drv: {
-      extraConfig = ''
-        -- to create a flat hierarchy
-        lua_modules_path = "lua"
-      '';
-    }
-  )).overrideAttrs
-    (
+  luaDrv =
+    (lua.pkgs.luaLib.overrideLuarocks originalLuaDrv (
       drv: {
-        version = attrs.version;
-        rockspecVersion = drv.rockspecVersion;
+        extraConfig = ''
+          -- to create a flat hierarchy
+          lua_modules_path = "lua"
+        '';
       }
-    );
+    )).overrideAttrs
+      (
+        drv: {
+          version = attrs.version;
+          rockspecVersion = drv.rockspecVersion;
+        }
+      )
+    ;
 
   finalDrv = toVimPlugin (
     luaDrv.overrideAttrs (

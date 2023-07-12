@@ -20,5 +20,7 @@ graalvmCEPackages.buildGraalvmProduct rec {
 
   # Not supported in aarch64-darwin yet as GraalVM 22.3.1 release
   meta.platforms =
-    builtins.filter (p: p != "aarch64-darwin") graalvm-ce.meta.platforms;
+    builtins.filter (p: p != "aarch64-darwin")
+      graalvm-ce.meta.platforms
+    ;
 }

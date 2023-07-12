@@ -36,7 +36,9 @@ stdenv.mkDerivation rec {
   ];
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) "-U__ARM_NEON__";
+    lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
+      "-U__ARM_NEON__"
+    ;
 
   meta = with lib; {
     homepage = "https://github.com/Samsung/rlottie";

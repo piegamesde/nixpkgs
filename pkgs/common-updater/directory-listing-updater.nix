@@ -31,7 +31,7 @@ genericUpdater {
       lib.optionalString (url != null) "--url=${lib.escapeShellArg url}"
     } ${
       lib.optionalString (extraRegex != null) "--extra-regex=${
-        lib.escapeShellArg extraRegex
-      }"
+          lib.escapeShellArg extraRegex
+        }"
     }";
 }

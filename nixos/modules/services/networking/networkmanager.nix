@@ -104,10 +104,10 @@ let
     pkgs.writeText "nameservers" (
       concatStrings (
         map
-        (s: ''
-          nameserver ${s}
-        '')
-        xs
+          (s: ''
+            nameserver ${s}
+          '')
+          xs
       )
     )
     ;
@@ -253,15 +253,15 @@ in
               check =
                 p:
                 lib.assertMsg
-                (
-                  types.package.check p
-                  && p ? networkManagerPlugin
-                  && lib.isString p.networkManagerPlugin
-                )
-                ''
-                  Package ‘${p.name}’, is not a NetworkManager plug-in.
-                  Those need to have a ‘networkManagerPlugin’ attribute.
-                ''
+                  (
+                    types.package.check p
+                    && p ? networkManagerPlugin
+                    && lib.isString p.networkManagerPlugin
+                  )
+                  ''
+                    Package ‘${p.name}’, is not a NetworkManager plug-in.
+                    Those need to have a ‘networkManagerPlugin’ attribute.
+                  ''
                 ;
             };
           in
@@ -458,42 +458,48 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "networkmanager"
-        "packages"
-      ]
-      [
-        "networking"
-        "networkmanager"
-        "plugins"
-      ])
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "networkmanager"
-        "useDnsmasq"
-      ]
-      [
-        "networking"
-        "networkmanager"
-        "dns"
-      ])
-    (mkRemovedOptionModule
-      [
-        "networking"
-        "networkmanager"
-        "dynamicHosts"
-      ]
-      ''
-        This option was removed because allowing (multiple) regular users to
-        override host entries affecting the whole system opens up a huge attack
-        vector. There seem to be very rare cases where this might be useful.
-        Consider setting system-wide host entries using networking.hosts, provide
-        them via the DNS server in your network, or use environment.etc
-        to add a file into /etc/NetworkManager/dnsmasq.d reconfiguring hostsdir.
-      '')
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "networkmanager"
+          "packages"
+        ]
+        [
+          "networking"
+          "networkmanager"
+          "plugins"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "networkmanager"
+          "useDnsmasq"
+        ]
+        [
+          "networking"
+          "networkmanager"
+          "dns"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "networking"
+          "networkmanager"
+          "dynamicHosts"
+        ]
+        ''
+          This option was removed because allowing (multiple) regular users to
+          override host entries affecting the whole system opens up a huge attack
+          vector. There seem to be very rare cases where this might be useful.
+          Consider setting system-wide host entries using networking.hosts, provide
+          them via the DNS server in your network, or use environment.etc
+          to add a file into /etc/NetworkManager/dnsmasq.d reconfiguring hostsdir.
+        ''
+    )
   ];
 
   ###### implementation
@@ -515,35 +521,35 @@ in
       "NetworkManager/NetworkManager.conf".source = configFile;
     } // builtins.listToAttrs (
       map
-      (
-        pkg:
-        nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" {
-          source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}";
-        }
-      )
-      cfg.plugins
+        (
+          pkg:
+          nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" {
+            source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}";
+          }
+        )
+        cfg.plugins
     ) // optionalAttrs cfg.enableFccUnlock {
       "ModemManager/fcc-unlock.d".source =
         "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
     } // optionalAttrs
-      (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ])
-      {
-        "NetworkManager/dispatcher.d/02overridedns".source =
-          overrideNameserversScript;
-      } // listToAttrs (
-        lib.imap1
-        (i: s: {
-          name =
-            "NetworkManager/dispatcher.d/${
-              dispatcherTypesSubdirMap.${s.type}
-            }03userscript${lib.fixedWidthNumber 4 i}";
-          value = {
-            mode = "0544";
-            inherit (s) source;
-          };
-        })
-        cfg.dispatcherScripts
-      );
+        (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ])
+        {
+          "NetworkManager/dispatcher.d/02overridedns".source =
+            overrideNameserversScript;
+        } // listToAttrs (
+          lib.imap1
+            (i: s: {
+              name =
+                "NetworkManager/dispatcher.d/${
+                  dispatcherTypesSubdirMap.${s.type}
+                }03userscript${lib.fixedWidthNumber 4 i}";
+              value = {
+                mode = "0544";
+                inherit (s) source;
+              };
+            })
+            cfg.dispatcherScripts
+        );
 
     environment.systemPackages = packages;
 

@@ -407,7 +407,9 @@ let
             virtualisation.vlans = [ ];
 
             boot.loader.systemd-boot.enable =
-              mkIf (bootLoader == "systemd-boot") true;
+              mkIf (bootLoader == "systemd-boot")
+                true
+              ;
 
             hardware.enableAllFirmware = mkForce false;
 
@@ -630,9 +632,9 @@ in
 
   # Test cloned configurations with the uefi grub configuration
   simpleUefiGrubSpecialisation =
-    makeInstallerTest "simpleUefiGrubSpecialisation" (
-      simple-uefi-grub-config // specialisation-test-extraconfig
-    );
+    makeInstallerTest "simpleUefiGrubSpecialisation"
+      (simple-uefi-grub-config // specialisation-test-extraconfig)
+    ;
 
   # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {

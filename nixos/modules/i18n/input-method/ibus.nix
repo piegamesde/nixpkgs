@@ -15,13 +15,15 @@ let
     check =
       x:
       (lib.types.package.check x)
-      && (attrByPath
-        [
-          "meta"
-          "isIbusEngine"
-        ]
-        false
-        x)
+      && (
+        attrByPath
+          [
+            "meta"
+            "isIbusEngine"
+          ]
+          false
+          x
+      )
       ;
   };
 
@@ -42,18 +44,20 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "ibus"
-        "plugins"
-      ]
-      [
-        "i18n"
-        "inputMethod"
-        "ibus"
-        "engines"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "programs"
+          "ibus"
+          "plugins"
+        ]
+        [
+          "i18n"
+          "inputMethod"
+          "ibus"
+          "engines"
+        ]
+    )
   ];
 
   options = {

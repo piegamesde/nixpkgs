@@ -45,14 +45,17 @@ let
         };
         file = mkOption {
           type = types.either types.str types.path;
-          description = lib.mdDoc
-            "Zone file resource records contain columns of data, separated by whitespace, that define the record."
+          description =
+            lib.mdDoc
+              "Zone file resource records contain columns of data, separated by whitespace, that define the record."
             ;
         };
         masters = mkOption {
           type = types.listOf types.str;
-          description = lib.mdDoc
-            "List of servers for inclusion in stub and secondary zones.";
+          description =
+            lib.mdDoc
+              "List of servers for inclusion in stub and secondary zones."
+            ;
         };
         slaves = mkOption {
           type = types.listOf types.str;
@@ -72,8 +75,10 @@ let
         };
         extraConfig = mkOption {
           type = types.str;
-          description = lib.mdDoc
-            "Extra zone config to be appended at the end of the zone section.";
+          description =
+            lib.mdDoc
+              "Extra zone config to be appended at the end of the zone section."
+            ;
           default = "";
         };
       };
@@ -110,51 +115,51 @@ let
     ${cfg.extraConfig}
 
     ${concatMapStrings
-    (
-      {
-        name,
-        file,
-        master ? true,
-        slaves ? [ ],
-        masters ? [ ],
-        allowQuery ? [ ],
-        extraConfig ? "",
-      }: ''
-        zone "${name}" {
-          type ${if master then "master" else "slave"};
-          file "${file}";
-          ${
-            if master then
-              ''
-                allow-transfer {
-                  ${
-                    concatMapStrings
-                    (ip: ''
-                      ${ip};
-                    '')
-                    slaves
-                  }
-                };
-              ''
-            else
-              ''
-                masters {
-                  ${
-                    concatMapStrings
-                    (ip: ''
-                      ${ip};
-                    '')
-                    masters
-                  }
-                };
-              ''
-          }
-          allow-query { ${concatMapStrings (ip: "${ip}; ") allowQuery}};
-          ${extraConfig}
-        };
-      ''
-    )
-    (attrValues cfg.zones)}
+      (
+        {
+          name,
+          file,
+          master ? true,
+          slaves ? [ ],
+          masters ? [ ],
+          allowQuery ? [ ],
+          extraConfig ? "",
+        }: ''
+          zone "${name}" {
+            type ${if master then "master" else "slave"};
+            file "${file}";
+            ${
+              if master then
+                ''
+                  allow-transfer {
+                    ${
+                      concatMapStrings
+                        (ip: ''
+                          ${ip};
+                        '')
+                        slaves
+                    }
+                  };
+                ''
+              else
+                ''
+                  masters {
+                    ${
+                      concatMapStrings
+                        (ip: ''
+                          ${ip};
+                        '')
+                        masters
+                    }
+                  };
+                ''
+            }
+            allow-query { ${concatMapStrings (ip: "${ip}; ") allowQuery}};
+            ${extraConfig}
+          };
+        ''
+      )
+      (attrValues cfg.zones)}
   '';
 in
 

@@ -3905,12 +3905,12 @@
           };
         in
         runCommand "9e7de2a6d917591f10a66389e62e1dc053c04fec"
-        { buildInputs = [ gnutar ]; }
-        ''
-          # Set u+w because tar-fs can't unpack archives with read-only dirs
-          # https://github.com/mafintosh/tar-fs/issues/79
-          tar cf $out --mode u+w -C ${repo} .
-        ''
+          { buildInputs = [ gnutar ]; }
+          ''
+            # Set u+w because tar-fs can't unpack archives with read-only dirs
+            # https://github.com/mafintosh/tar-fs/issues/79
+            tar cf $out --mode u+w -C ${repo} .
+          ''
         ;
     }
     {
@@ -8462,12 +8462,12 @@
           };
         in
         runCommand "e7cc9a63a1f512565da44cb57316d9fb10750e17"
-        { buildInputs = [ gnutar ]; }
-        ''
-          # Set u+w because tar-fs can't unpack archives with read-only dirs
-          # https://github.com/mafintosh/tar-fs/issues/79
-          tar cf $out --mode u+w -C ${repo} .
-        ''
+          { buildInputs = [ gnutar ]; }
+          ''
+            # Set u+w because tar-fs can't unpack archives with read-only dirs
+            # https://github.com/mafintosh/tar-fs/issues/79
+            tar cf $out --mode u+w -C ${repo} .
+          ''
         ;
     }
     {

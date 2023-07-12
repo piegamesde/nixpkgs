@@ -45,53 +45,63 @@ in
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "dnsSingleRequest"
-      ]
-      [
-        "networking"
-        "resolvconf"
-        "dnsSingleRequest"
-      ])
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "dnsExtensionMechanism"
-      ]
-      [
-        "networking"
-        "resolvconf"
-        "dnsExtensionMechanism"
-      ])
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "extraResolvconfConf"
-      ]
-      [
-        "networking"
-        "resolvconf"
-        "extraConfig"
-      ])
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "resolvconfOptions"
-      ]
-      [
-        "networking"
-        "resolvconf"
-        "extraOptions"
-      ])
-    (mkRemovedOptionModule
-      [
-        "networking"
-        "resolvconf"
-        "useHostResolvConf"
-      ]
-      "This option was never used for anything anyways")
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "dnsSingleRequest"
+        ]
+        [
+          "networking"
+          "resolvconf"
+          "dnsSingleRequest"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "dnsExtensionMechanism"
+        ]
+        [
+          "networking"
+          "resolvconf"
+          "dnsExtensionMechanism"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "extraResolvconfConf"
+        ]
+        [
+          "networking"
+          "resolvconf"
+          "extraConfig"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "resolvconfOptions"
+        ]
+        [
+          "networking"
+          "resolvconf"
+          "extraOptions"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "networking"
+          "resolvconf"
+          "useHostResolvConf"
+        ]
+        "This option was never used for anything anyways"
+    )
   ];
 
   options = {
@@ -101,8 +111,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = !(config.environment.etc ? "resolv.conf");
-        defaultText =
-          literalExpression ''!(config.environment.etc ? "resolv.conf")'';
+        defaultText = literalExpression ''
+          !(config.environment.etc ? "resolv.conf")'';
         description = lib.mdDoc ''
           Whether DNS configuration is managed by resolvconf.
         '';

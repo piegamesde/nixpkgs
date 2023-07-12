@@ -165,8 +165,8 @@ let
       }
     else
       throw "fetchurl requires a hash for fixed-output derivation: ${
-        lib.concatStringsSep ", " urls_
-      }"
+          lib.concatStringsSep ", " urls_
+        }"
     ;
 in
 
@@ -216,18 +216,20 @@ stdenvNoCC.mkDerivation (
     outputHashMode =
       if (recursiveHash || executable) then "recursive" else "flat";
 
-    curlOpts = lib.warnIf (lib.isList curlOpts)
-      ''
-        fetchurl for ${toString (builtins.head urls_)}: curlOpts is a list (${
-          lib.generators.toPretty { multiline = false; } curlOpts
-        }), which is not supported anymore.
-        - If you wish to get the same effect as before, for elements with spaces (even if escaped) to expand to multiple curl arguments, use a string argument instead:
-          curlOpts = ${lib.strings.escapeNixString (toString curlOpts)};
-        - If you wish for each list element to be passed as a separate curl argument, allowing arguments to contain spaces, use curlOptsList instead:
-          curlOptsList = [ ${
-            lib.concatMapStringsSep " " lib.strings.escapeNixString curlOpts
-          } ];''
-      curlOpts;
+    curlOpts =
+      lib.warnIf (lib.isList curlOpts)
+        ''
+          fetchurl for ${toString (builtins.head urls_)}: curlOpts is a list (${
+            lib.generators.toPretty { multiline = false; } curlOpts
+          }), which is not supported anymore.
+          - If you wish to get the same effect as before, for elements with spaces (even if escaped) to expand to multiple curl arguments, use a string argument instead:
+            curlOpts = ${lib.strings.escapeNixString (toString curlOpts)};
+          - If you wish for each list element to be passed as a separate curl argument, allowing arguments to contain spaces, use curlOptsList instead:
+            curlOptsList = [ ${
+              lib.concatMapStringsSep " " lib.strings.escapeNixString curlOpts
+            } ];''
+        curlOpts
+      ;
     curlOptsList = lib.escapeShellArgs curlOptsList;
     inherit showURLs mirrorsFile postFetch downloadToTemp executable;
 

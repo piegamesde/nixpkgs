@@ -17,8 +17,9 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "lib";
-    updateScript =
-      addonUpdateScript { attrPath = "kodi.packages.typing_extensions"; };
+    updateScript = addonUpdateScript {
+      attrPath = "kodi.packages.typing_extensions";
+    };
   };
 
   meta = with lib; {

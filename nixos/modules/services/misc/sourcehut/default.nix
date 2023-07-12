@@ -18,77 +18,80 @@ let
         ""
       else
         generators.mkKeyValueDefault
-        {
-          mkValueString =
-            v:
-            if v == true then
-              "yes"
-            else if v == false then
-              "no"
-            else
-              generators.mkValueStringDefault { } v
-            ;
-        }
-        "="
-        k
-        v
+          {
+            mkValueString =
+              v:
+              if v == true then
+                "yes"
+              else if v == false then
+                "no"
+              else
+                generators.mkValueStringDefault { } v
+              ;
+          }
+          "="
+          k
+          v
       ;
   };
   configIniOfService =
     srv:
     settingsFormat.generate "sourcehut-${srv}-config.ini"
-    # Each service needs access to only a subset of sections (and secrets).
-    (
-      filterAttrs (k: v: v != null) (
-        mapAttrs
-        (
-          section: v:
-          let
-            srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht(::.*)?$" section;
-          in
-          if
-            srvMatch == null # Include sections shared by all services
-            ||
-              head srvMatch
-              == srv # Include sections for the service being configured
-          then
-            v
-          # Enable Web links and integrations between services.
-          else if
-            tail srvMatch == [ null ] && elem (head srvMatch) cfg.services
-          then
-            {
-              inherit (v) origin;
-              # mansrht crashes without it
-              oauth-client-id = v.oauth-client-id or null;
-            }
-          # Drop sub-sections of other services
-          else
-            null
-        )
-        (
-          recursiveUpdate cfg.settings {
-            # Those paths are mounted using BindPaths= or BindReadOnlyPaths=
-            # for services needing access to them.
-            "builds.sr.ht::worker".buildlogs =
-              "/var/log/sourcehut/buildsrht-worker";
-            "git.sr.ht".post-update-script = "/usr/bin/gitsrht-update-hook";
-            "git.sr.ht".repos = "/var/lib/sourcehut/gitsrht/repos";
-            "hg.sr.ht".changegroup-script = "/usr/bin/hgsrht-hook-changegroup";
-            "hg.sr.ht".repos = "/var/lib/sourcehut/hgsrht/repos";
-            # Making this a per service option despite being in a global section,
-            # so that it uses the redis-server used by the service.
-            "sr.ht".redis-host = cfg.${srv}.redis.host;
-          }
+      # Each service needs access to only a subset of sections (and secrets).
+      (
+        filterAttrs (k: v: v != null) (
+          mapAttrs
+            (
+              section: v:
+              let
+                srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht(::.*)?$" section;
+              in
+              if
+                srvMatch == null # Include sections shared by all services
+                ||
+                  head srvMatch
+                  == srv # Include sections for the service being configured
+              then
+                v
+              # Enable Web links and integrations between services.
+              else if
+                tail srvMatch == [ null ] && elem (head srvMatch) cfg.services
+              then
+                {
+                  inherit (v) origin;
+                  # mansrht crashes without it
+                  oauth-client-id = v.oauth-client-id or null;
+                }
+              # Drop sub-sections of other services
+              else
+                null
+            )
+            (
+              recursiveUpdate cfg.settings {
+                # Those paths are mounted using BindPaths= or BindReadOnlyPaths=
+                # for services needing access to them.
+                "builds.sr.ht::worker".buildlogs =
+                  "/var/log/sourcehut/buildsrht-worker";
+                "git.sr.ht".post-update-script = "/usr/bin/gitsrht-update-hook";
+                "git.sr.ht".repos = "/var/lib/sourcehut/gitsrht/repos";
+                "hg.sr.ht".changegroup-script =
+                  "/usr/bin/hgsrht-hook-changegroup";
+                "hg.sr.ht".repos = "/var/lib/sourcehut/hgsrht/repos";
+                # Making this a per service option despite being in a global section,
+                # so that it uses the redis-server used by the service.
+                "sr.ht".redis-host = cfg.${srv}.redis.host;
+              }
+            )
         )
       )
-    )
     ;
   commonServiceSettings =
     srv: {
       origin = mkOption {
         description =
-          lib.mdDoc "URL ${srv}.sr.ht is being served at (protocol://domain)";
+          lib.mdDoc
+            "URL ${srv}.sr.ht is being served at (protocol://domain)"
+          ;
         type = types.str;
         default = "https://${srv}.${domain}";
         defaultText = "https://${srv}.example.com";
@@ -105,7 +108,9 @@ let
       };
       connection-string = mkOption {
         description =
-          lib.mdDoc "SQLAlchemy connection string for the database.";
+          lib.mdDoc
+            "SQLAlchemy connection string for the database."
+          ;
         type = types.str;
         default =
           "postgresql:///localhost?user=${srv}srht&host=/run/postgresql";
@@ -117,12 +122,16 @@ let
         };
       oauth-client-id = mkOption {
         description =
-          lib.mdDoc "${srv}.sr.ht's OAuth client id for meta.sr.ht.";
+          lib.mdDoc
+            "${srv}.sr.ht's OAuth client id for meta.sr.ht."
+          ;
         type = types.str;
       };
       oauth-client-secret = mkOption {
         description =
-          lib.mdDoc "${srv}.sr.ht's OAuth client secret for meta.sr.ht.";
+          lib.mdDoc
+            "${srv}.sr.ht's OAuth client secret for meta.sr.ht."
+          ;
         type = types.path;
         apply = s: "<" + toString s;
       };
@@ -215,8 +224,9 @@ in
       virtualHost = mkOption {
         type = types.attrs;
         default = { };
-        description = lib.mdDoc
-          "Virtual-host configuration merged with all Sourcehut's virtual-hosts."
+        description =
+          lib.mdDoc
+            "Virtual-host configuration merged with all Sourcehut's virtual-hosts."
           ;
       };
     };
@@ -296,7 +306,9 @@ in
           };
           site-name = mkOption {
             description =
-              lib.mdDoc "The name of your network of sr.ht-based sites.";
+              lib.mdDoc
+                "The name of your network of sr.ht-based sites."
+              ;
             type = types.str;
             default = "sourcehut";
           };
@@ -320,9 +332,13 @@ in
             description = lib.mdDoc "Outgoing SMTP FROM.";
           };
           error-to =
-            mkOptionNullOrStr "Address receiving application exceptions";
+            mkOptionNullOrStr
+              "Address receiving application exceptions"
+            ;
           error-from =
-            mkOptionNullOrStr "Address sending application exceptions";
+            mkOptionNullOrStr
+              "Address sending application exceptions"
+            ;
           pgp-privkey = mkOption {
             type = types.str;
             description = lib.mdDoc ''
@@ -347,13 +363,16 @@ in
         options.objects = {
           s3-upstream = mkOption {
             description =
-              lib.mdDoc "Configure the S3-compatible object storage service.";
+              lib.mdDoc
+                "Configure the S3-compatible object storage service."
+              ;
             type = with types; nullOr str;
             default = null;
           };
           s3-access-key = mkOption {
             description =
-              lib.mdDoc "Access key to the S3-compatible object storage service"
+              lib.mdDoc
+                "Access key to the S3-compatible object storage service"
               ;
             type = with types; nullOr str;
             default = null;
@@ -384,11 +403,14 @@ in
         };
 
         options."builds.sr.ht" = commonServiceSettings "builds" // {
-          allow-free =
-            mkEnableOption (lib.mdDoc "nonpaying users to submit builds");
+          allow-free = mkEnableOption (
+            lib.mdDoc "nonpaying users to submit builds"
+          );
           redis = mkOption {
             description =
-              lib.mdDoc "The Redis connection used for the Celery worker.";
+              lib.mdDoc
+                "The Redis connection used for the Celery worker."
+              ;
             type = types.str;
             default =
               "redis+socket:///run/redis-sourcehut-buildsrht/redis.sock?virtual_host=2";
@@ -465,7 +487,9 @@ in
           };
           webhooks = mkOption {
             description =
-              lib.mdDoc "The Redis connection used for the webhooks worker.";
+              lib.mdDoc
+                "The Redis connection used for the webhooks worker."
+              ;
             type = types.str;
             default =
               "redis+socket:///run/redis-sourcehut-gitsrht/redis.sock?virtual_host=1";
@@ -511,8 +535,9 @@ in
             (defaults to where the hgsrht code is)
           '';
           clone_bundle_threshold = mkOption {
-            description = lib.mdDoc
-              ".hg/store size (in MB) past which the nightly job generates clone bundles."
+            description =
+              lib.mdDoc
+                ".hg/store size (in MB) past which the nightly job generates clone bundles."
               ;
             type = types.ints.unsigned;
             default = 50;
@@ -525,7 +550,9 @@ in
           };
           webhooks = mkOption {
             description =
-              lib.mdDoc "The Redis connection used for the webhooks worker.";
+              lib.mdDoc
+                "The Redis connection used for the webhooks worker."
+              ;
             type = types.str;
             default =
               "redis+socket:///run/redis-sourcehut-hgsrht/redis.sock?virtual_host=1";
@@ -535,11 +562,14 @@ in
         options."hub.sr.ht" = commonServiceSettings "hub" // { };
 
         options."lists.sr.ht" = commonServiceSettings "lists" // {
-          allow-new-lists =
-            mkEnableOption (lib.mdDoc "Allow creation of new lists");
+          allow-new-lists = mkEnableOption (
+            lib.mdDoc "Allow creation of new lists"
+          );
           notify-from = mkOption {
             description =
-              lib.mdDoc "Outgoing email for notifications generated by users.";
+              lib.mdDoc
+                "Outgoing email for notifications generated by users."
+              ;
             type = types.str;
             default = "lists-notify@localhost.localdomain";
           };
@@ -550,14 +580,18 @@ in
           };
           redis = mkOption {
             description =
-              lib.mdDoc "The Redis connection used for the Celery worker.";
+              lib.mdDoc
+                "The Redis connection used for the Celery worker."
+              ;
             type = types.str;
             default =
               "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=2";
           };
           webhooks = mkOption {
             description =
-              lib.mdDoc "The Redis connection used for the webhooks worker.";
+              lib.mdDoc
+                "The Redis connection used for the webhooks worker."
+              ;
             type = types.str;
             default =
               "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=1";
@@ -615,7 +649,9 @@ in
           };
           webhooks = mkOption {
             description =
-              lib.mdDoc "The Redis connection used for the webhooks worker.";
+              lib.mdDoc
+                "The Redis connection used for the webhooks worker."
+              ;
             type = types.str;
             default =
               "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1";
@@ -640,16 +676,19 @@ in
           };
         };
         options."meta.sr.ht::aliases" = mkOption {
-          description = lib.mdDoc
-            "Aliases for the client IDs of commonly used OAuth clients.";
+          description =
+            lib.mdDoc
+              "Aliases for the client IDs of commonly used OAuth clients."
+            ;
           type = with types; attrsOf int;
           default = { };
           example = { "git.sr.ht" = 12345; };
         };
         options."meta.sr.ht::billing" = {
           enabled = mkEnableOption (lib.mdDoc "the billing system");
-          stripe-public-key = mkOptionNullOrStr
-            "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys"
+          stripe-public-key =
+            mkOptionNullOrStr
+              "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys"
             ;
           stripe-secret-key = mkOptionNullOrStr ''
             An absolute file path (which should be outside the Nix-store)
@@ -662,7 +701,9 @@ in
           registration = mkEnableOption (lib.mdDoc "public registration");
           onboarding-redirect = mkOption {
             description =
-              lib.mdDoc "Where to redirect new users upon registration.";
+              lib.mdDoc
+                "Where to redirect new users upon registration."
+              ;
             type = types.str;
             default = "https://meta.localhost.localdomain";
           };
@@ -687,7 +728,9 @@ in
           };
           max-site-size = mkOption {
             description =
-              lib.mdDoc "Maximum size of any given site (post-gunzip), in MiB.";
+              lib.mdDoc
+                "Maximum size of any given site (post-gunzip), in MiB."
+              ;
             type = types.int;
             default = 1024;
           };
@@ -721,13 +764,17 @@ in
         options."todo.sr.ht" = commonServiceSettings "todo" // {
           notify-from = mkOption {
             description =
-              lib.mdDoc "Outgoing email for notifications generated by users.";
+              lib.mdDoc
+                "Outgoing email for notifications generated by users."
+              ;
             type = types.str;
             default = "todo-notify@localhost.localdomain";
           };
           webhooks = mkOption {
             description =
-              lib.mdDoc "The Redis connection used for the webhooks worker.";
+              lib.mdDoc
+                "The Redis connection used for the webhooks worker."
+              ;
             type = types.str;
             default =
               "redis+socket:///run/redis-sourcehut-todosrht/redis.sock?virtual_host=1";
@@ -847,15 +894,17 @@ in
             "--pool eventlet"
             "--without-heartbeat"
           ];
-          description = lib.mdDoc
-            "Extra arguments passed to the Celery responsible for processing mails."
+          description =
+            lib.mdDoc
+              "Extra arguments passed to the Celery responsible for processing mails."
             ;
         };
         celeryConfig = mkOption {
           type = types.lines;
           default = "";
-          description = lib.mdDoc
-            "Content of the `celeryconfig.py` used by the Celery of `listssrht-process`."
+          description =
+            lib.mdDoc
+              "Content of the `celeryconfig.py` used by the Celery of `listssrht-process`."
             ;
         };
       };
@@ -872,7 +921,9 @@ in
           "lists.sr.ht".notify-from = mkDefault "lists-notify@${domain}";
           "lists.sr.ht".posting-domain = mkDefault "lists.${domain}";
           "meta.sr.ht::settings".onboarding-redirect =
-            mkDefault "https://meta.${domain}";
+            mkDefault
+              "https://meta.${domain}"
+            ;
           "todo.sr.ht".notify-from = mkDefault "todo-notify@${domain}";
           "todo.sr.ht::mail".posting-domain = mkDefault "todo.${domain}";
         };
@@ -918,9 +969,9 @@ in
           '';
         };
         environment.etc."ssh/sourcehut/config.ini".source =
-          settingsFormat.generate "sourcehut-dispatch-config.ini" (
-            filterAttrs (k: v: k == "git.sr.ht::dispatch") cfg.settings
-          );
+          settingsFormat.generate "sourcehut-dispatch-config.ini"
+            (filterAttrs (k: v: k == "git.sr.ht::dispatch") cfg.settings)
+          ;
         environment.etc."ssh/sourcehut/subdir/srht-dispatch" = {
           # sshd_config(5): The program must be owned by root, not writable by group or others
           mode = "0755";
@@ -1091,24 +1142,24 @@ in
         let
           image_dirs = flatten (
             mapAttrsToList
-            (
-              distro: revs:
-              mapAttrsToList
               (
-                rev: archs:
+                distro: revs:
                 mapAttrsToList
-                (
-                  arch: image:
-                  pkgs.runCommand "buildsrht-images" { } ''
-                    mkdir -p $out/${distro}/${rev}/${arch}
-                    ln -s ${image}/*.qcow2 $out/${distro}/${rev}/${arch}/root.img.qcow2
-                  ''
-                )
-                archs
+                  (
+                    rev: archs:
+                    mapAttrsToList
+                      (
+                        arch: image:
+                        pkgs.runCommand "buildsrht-images" { } ''
+                          mkdir -p $out/${distro}/${rev}/${arch}
+                          ln -s ${image}/*.qcow2 $out/${distro}/${rev}/${arch}/root.img.qcow2
+                        ''
+                      )
+                      archs
+                  )
+                  revs
               )
-              revs
-            )
-            cfg.builds.images
+              cfg.builds.images
           );
           image_dir_pre = pkgs.symlinkJoin {
             name = "buildsrht-worker-images-pre";
@@ -1131,13 +1182,17 @@ in
               { # Note that git.sr.ht::dispatch is not a typo,
                 # gitsrht-dispatch always use this section
                 "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" =
-                  mkDefault "${cfg.builds.user}:${cfg.builds.group}";
+                  mkDefault
+                    "${cfg.builds.user}:${cfg.builds.group}"
+                  ;
               }
               (mkIf cfg.builds.enableWorker {
                 "builds.sr.ht::worker".shell = "/usr/bin/runner-shell";
                 "builds.sr.ht::worker".images = mkDefault "${image_dir}/images";
                 "builds.sr.ht::worker".controlcmd =
-                  mkDefault "${image_dir}/images/control";
+                  mkDefault
+                    "${image_dir}/images/control"
+                  ;
               })
             ];
           }
@@ -1214,7 +1269,9 @@ in
             users.users.${cfg.git.user}.shell = pkgs.bash;
             services.sourcehut.settings = {
               "git.sr.ht::dispatch"."/usr/bin/gitsrht-keys" =
-                mkDefault "${cfg.git.user}:${cfg.git.group}";
+                mkDefault
+                  "${cfg.git.user}:${cfg.git.group}"
+                ;
             };
             systemd.services.sshd = baseService;
           }
@@ -1350,7 +1407,9 @@ in
               # Note that git.sr.ht::dispatch is not a typo,
               # gitsrht-dispatch always uses this section.
               "git.sr.ht::dispatch"."/usr/bin/hgsrht-keys" =
-                mkDefault "${cfg.hg.user}:${cfg.hg.group}";
+                mkDefault
+                  "${cfg.hg.user}:${cfg.hg.group}"
+                ;
             };
             systemd.services.sshd = baseService;
           }
@@ -1422,7 +1481,9 @@ in
         extraServices.listssrht-lmtp = {
           wants = [ "postfix.service" ];
           unitConfig.JoinsNamespaceOf =
-            optional cfg.postfix.enable "postfix.service";
+            optional cfg.postfix.enable
+              "postfix.service"
+            ;
           serviceConfig.ExecStart = "${cfg.python}/bin/listssrht-lmtp";
           # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
           serviceConfig.PrivateUsers = mkForce false;
@@ -1432,9 +1493,8 @@ in
           serviceConfig = {
             preStart = ''
               cp ${
-                pkgs.writeText
-                "${srvsrht}-webhooks-celeryconfig.py"
-                cfg.lists.process.celeryConfig
+                pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py"
+                  cfg.lists.process.celeryConfig
               } \
                  /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
             '';
@@ -1492,28 +1552,28 @@ in
           + concatStringsSep "\n\n" (
             attrValues (
               mapAttrs
-              (
-                k: s:
-                let
-                  srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
-                  srv = head srvMatch;
-                in
-                # Configure client(s) as "preauthorized"
-                optionalString
                 (
-                  srvMatch != null
-                  && cfg.${srv}.enable
-                  && ((s.oauth-client-id or null) != null)
+                  k: s:
+                  let
+                    srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
+                    srv = head srvMatch;
+                  in
+                  # Configure client(s) as "preauthorized"
+                  optionalString
+                    (
+                      srvMatch != null
+                      && cfg.${srv}.enable
+                      && ((s.oauth-client-id or null) != null)
+                    )
+                    ''
+                      # Configure ${srv}'s OAuth client as "preauthorized"
+                      ${postgresql.package}/bin/psql '${
+                        cfg.settings."meta.sr.ht".connection-string
+                      }' \
+                        -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
+                    ''
                 )
-                ''
-                  # Configure ${srv}'s OAuth client as "preauthorized"
-                  ${postgresql.package}/bin/psql '${
-                    cfg.settings."meta.sr.ht".connection-string
-                  }' \
-                    -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
-                ''
-              )
-              cfg.settings
+                cfg.settings
             )
           )
           ;
@@ -1616,10 +1676,12 @@ in
             touch ${stateDir}/webhook
           '';
           serviceConfig = {
-            ExecStart = mkForce
-              "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${
-                toString cfg.pages.port
-              }";
+            ExecStart =
+              mkForce
+                "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${
+                  toString cfg.pages.port
+                }"
+              ;
           };
         }
         ;
@@ -1645,7 +1707,9 @@ in
       extraServices.todosrht-lmtp = {
         wants = [ "postfix.service" ];
         unitConfig.JoinsNamespaceOf =
-          optional cfg.postfix.enable "postfix.service";
+          optional cfg.postfix.enable
+            "postfix.service"
+          ;
         serviceConfig.ExecStart = "${cfg.python}/bin/todosrht-lmtp";
         # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
         serviceConfig.PrivateUsers = mkForce false;
@@ -1670,41 +1734,47 @@ in
       };
     })
 
-    (mkRenamedOptionModule
-      [
-        "services"
-        "sourcehut"
-        "originBase"
-      ]
-      [
-        "services"
-        "sourcehut"
-        "settings"
-        "sr.ht"
-        "global-domain"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "sourcehut"
-        "address"
-      ]
-      [
-        "services"
-        "sourcehut"
-        "listenAddress"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "sourcehut"
+          "originBase"
+        ]
+        [
+          "services"
+          "sourcehut"
+          "settings"
+          "sr.ht"
+          "global-domain"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "sourcehut"
+          "address"
+        ]
+        [
+          "services"
+          "sourcehut"
+          "listenAddress"
+        ]
+    )
 
-    (mkRemovedOptionModule
-      [
-        "services"
-        "sourcehut"
-        "dispatch"
-      ]
-      ''
-        dispatch is deprecated. See https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/
-        for more information.
-      '')
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "sourcehut"
+          "dispatch"
+        ]
+        ''
+          dispatch is deprecated. See https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/
+          for more information.
+        ''
+    )
   ];
 
   meta.doc = ./default.md;

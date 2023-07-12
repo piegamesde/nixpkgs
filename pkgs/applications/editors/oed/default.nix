@@ -16,9 +16,11 @@ stdenv.mkDerivation rec {
   };
 
   postPatch =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-      substituteInPlace configure --replace "./conftest" "echo"
-    '';
+    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+      ''
+        substituteInPlace configure --replace "./conftest" "echo"
+      ''
+    ;
 
   installPhase = ''
     install -m755 -Dt $out/bin ed

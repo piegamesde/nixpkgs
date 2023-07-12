@@ -90,12 +90,12 @@ let
   toYAML =
     name: attrs:
     pkgs.runCommand name
-    {
-      preferLocalBuild = true;
-      json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
-      nativeBuildInputs = [ pkgs.remarshal ];
-    }
-    "json2yaml -i $json -o $out"
+      {
+        preferLocalBuild = true;
+        json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
+        nativeBuildInputs = [ pkgs.remarshal ];
+      }
+      "json2yaml -i $json -o $out"
     ;
 
   thanos =
@@ -160,18 +160,20 @@ let
 
     log = {
 
-      log.level = mkParamDef
-        (types.enum [
-          "debug"
+      log.level =
+        mkParamDef
+          (types.enum [
+            "debug"
+            "info"
+            "warn"
+            "error"
+            "fatal"
+          ])
           "info"
-          "warn"
-          "error"
-          "fatal"
-        ])
-        "info"
-        ''
-          Log filtering level.
-        '';
+          ''
+            Log filtering level.
+          ''
+        ;
 
       log.format = mkParam types.str ''
         Log format to use.
@@ -742,15 +744,16 @@ in
     };
 
     sidecar = paramsToOptions params.sidecar // {
-      enable =
-        mkEnableOption (lib.mdDoc "the Thanos sidecar for Prometheus server");
+      enable = mkEnableOption (
+        lib.mdDoc "the Thanos sidecar for Prometheus server"
+      );
       arguments = mkArgumentsOption "sidecar";
     };
 
     store = paramsToOptions params.store // {
       enable = mkEnableOption (
         lib.mdDoc
-        "the Thanos store node giving access to blocks in a bucket provider."
+          "the Thanos store node giving access to blocks in a bucket provider."
       );
       arguments = mkArgumentsOption "store";
     };
@@ -778,7 +781,7 @@ in
     compact = paramsToOptions params.compact // {
       enable = mkEnableOption (
         lib.mdDoc
-        "the Thanos compactor which continuously compacts blocks in an object store bucket"
+          "the Thanos compactor which continuously compacts blocks in an object store bucket"
       );
       arguments = mkArgumentsOption "compact";
     };
@@ -786,7 +789,7 @@ in
     downsample = paramsToOptions params.downsample // {
       enable = mkEnableOption (
         lib.mdDoc
-        "the Thanos downsampler which continuously downsamples blocks in an object store bucket"
+          "the Thanos downsampler which continuously downsamples blocks in an object store bucket"
       );
       arguments = mkArgumentsOption "downsample";
     };

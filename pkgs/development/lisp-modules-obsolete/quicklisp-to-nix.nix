@@ -21,60 +21,62 @@ let
 
     "hu_dot_dwim_dot_stefil_plus_swank" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."hu_dot_dwim_dot_stefil_plus_swank" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_swank.nix {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "hu_dot_dwim_dot_asdf" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-          "hu_dot_dwim_dot_stefil" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
-          "swank" = quicklisp-to-nix-packages."swank";
-        }
-      )
+        (qlOverrides."hu_dot_dwim_dot_stefil_plus_swank" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_swank.nix
+            {
+              inherit fetchurl;
+              "alexandria" = quicklisp-to-nix-packages."alexandria";
+              "hu_dot_dwim_dot_asdf" =
+                quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+              "hu_dot_dwim_dot_stefil" =
+                quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
+              "swank" = quicklisp-to-nix-packages."swank";
+            }
+        )
     );
 
     "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" or (x: { })
-      )
-      (
-        import
-        ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def.nix
-        {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "anaphora" = quicklisp-to-nix-packages."anaphora";
-          "hu_dot_dwim_dot_asdf" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-          "hu_dot_dwim_dot_def" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
-          "hu_dot_dwim_dot_stefil" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
-          "iterate" = quicklisp-to-nix-packages."iterate";
-          "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
-        }
-      )
+        (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def"
+          or (x: { })
+        )
+        (
+          import
+            ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def.nix
+            {
+              inherit fetchurl;
+              "alexandria" = quicklisp-to-nix-packages."alexandria";
+              "anaphora" = quicklisp-to-nix-packages."anaphora";
+              "hu_dot_dwim_dot_asdf" =
+                quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+              "hu_dot_dwim_dot_def" =
+                quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
+              "hu_dot_dwim_dot_stefil" =
+                quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
+              "iterate" = quicklisp-to-nix-packages."iterate";
+              "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
+            }
+        )
     );
 
     "hu_dot_dwim_dot_def_plus_swank" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."hu_dot_dwim_dot_def_plus_swank" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/hu_dot_dwim_dot_def_plus_swank.nix {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "anaphora" = quicklisp-to-nix-packages."anaphora";
-          "hu_dot_dwim_dot_asdf" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-          "hu_dot_dwim_dot_def" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
-          "iterate" = quicklisp-to-nix-packages."iterate";
-          "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
-          "swank" = quicklisp-to-nix-packages."swank";
-        }
-      )
+        (qlOverrides."hu_dot_dwim_dot_def_plus_swank" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_def_plus_swank.nix {
+            inherit fetchurl;
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "anaphora" = quicklisp-to-nix-packages."anaphora";
+            "hu_dot_dwim_dot_asdf" =
+              quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+            "hu_dot_dwim_dot_def" =
+              quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
+            "iterate" = quicklisp-to-nix-packages."iterate";
+            "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
+            "swank" = quicklisp-to-nix-packages."swank";
+          }
+        )
     );
 
     "hu_dot_dwim_dot_def" = buildLispPackage (
@@ -93,14 +95,14 @@ let
 
     "hu_dot_dwim_dot_common-lisp" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."hu_dot_dwim_dot_common-lisp" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/hu_dot_dwim_dot_common-lisp.nix {
-          inherit fetchurl;
-          "hu_dot_dwim_dot_asdf" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-        }
-      )
+        (qlOverrides."hu_dot_dwim_dot_common-lisp" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_common-lisp.nix {
+            inherit fetchurl;
+            "hu_dot_dwim_dot_asdf" =
+              quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+          }
+        )
     );
 
     "rove" = buildLispPackage (
@@ -295,34 +297,34 @@ let
 
     "cl-postgres_plus_local-time" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."cl-postgres_plus_local-time" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/cl-postgres_plus_local-time.nix {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "bordeaux-threads" = quicklisp-to-nix-packages."bordeaux-threads";
-          "cl-base64" = quicklisp-to-nix-packages."cl-base64";
-          "cl-postgres" = quicklisp-to-nix-packages."cl-postgres";
-          "cl-ppcre" = quicklisp-to-nix-packages."cl-ppcre";
-          "ironclad" = quicklisp-to-nix-packages."ironclad";
-          "local-time" = quicklisp-to-nix-packages."local-time";
-          "md5" = quicklisp-to-nix-packages."md5";
-          "split-sequence" = quicklisp-to-nix-packages."split-sequence";
-          "uax-15" = quicklisp-to-nix-packages."uax-15";
-          "usocket" = quicklisp-to-nix-packages."usocket";
-        }
-      )
+        (qlOverrides."cl-postgres_plus_local-time" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/cl-postgres_plus_local-time.nix {
+            inherit fetchurl;
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "bordeaux-threads" = quicklisp-to-nix-packages."bordeaux-threads";
+            "cl-base64" = quicklisp-to-nix-packages."cl-base64";
+            "cl-postgres" = quicklisp-to-nix-packages."cl-postgres";
+            "cl-ppcre" = quicklisp-to-nix-packages."cl-ppcre";
+            "ironclad" = quicklisp-to-nix-packages."ironclad";
+            "local-time" = quicklisp-to-nix-packages."local-time";
+            "md5" = quicklisp-to-nix-packages."md5";
+            "split-sequence" = quicklisp-to-nix-packages."split-sequence";
+            "uax-15" = quicklisp-to-nix-packages."uax-15";
+            "usocket" = quicklisp-to-nix-packages."usocket";
+          }
+        )
     );
 
     "wild-package-inferred-system" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."wild-package-inferred-system" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/wild-package-inferred-system.nix {
-          inherit fetchurl;
-          "fiveam" = quicklisp-to-nix-packages."fiveam";
-        }
-      )
+        (qlOverrides."wild-package-inferred-system" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/wild-package-inferred-system.nix {
+            inherit fetchurl;
+            "fiveam" = quicklisp-to-nix-packages."fiveam";
+          }
+        )
     );
 
     "parseq" = buildLispPackage (
@@ -459,16 +461,15 @@ let
     );
 
     "fare-quasiquote-readtable" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."fare-quasiquote-readtable" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/fare-quasiquote-readtable.nix {
-          inherit fetchurl;
-          "fare-quasiquote" = quicklisp-to-nix-packages."fare-quasiquote";
-          "fare-utils" = quicklisp-to-nix-packages."fare-utils";
-          "named-readtables" = quicklisp-to-nix-packages."named-readtables";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."fare-quasiquote-readtable" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/fare-quasiquote-readtable.nix {
+            inherit fetchurl;
+            "fare-quasiquote" = quicklisp-to-nix-packages."fare-quasiquote";
+            "fare-utils" = quicklisp-to-nix-packages."fare-utils";
+            "named-readtables" = quicklisp-to-nix-packages."named-readtables";
+          }
+        )
     );
 
     "fare-quasiquote-optima" = buildLispPackage (
@@ -520,36 +521,38 @@ let
     );
 
     "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" =
-      buildLispPackage (
-        (f: x: (x // (f x)))
-        (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
-          or (x: { })
-        )
+      buildLispPackage
         (
-          import
-          ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank.nix
-          {
-            inherit fetchurl;
-            "alexandria" = quicklisp-to-nix-packages."alexandria";
-            "anaphora" = quicklisp-to-nix-packages."anaphora";
-            "hu_dot_dwim_dot_asdf" =
-              quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-            "hu_dot_dwim_dot_def" =
-              quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
-            "hu_dot_dwim_dot_def_plus_swank" =
-              quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
-            "hu_dot_dwim_dot_stefil" =
-              quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
-            "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
-              quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
-            "hu_dot_dwim_dot_stefil_plus_swank" =
-              quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_swank";
-            "iterate" = quicklisp-to-nix-packages."iterate";
-            "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
-            "swank" = quicklisp-to-nix-packages."swank";
-          }
+          (f: x: (x // (f x)))
+            (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+              or (x: { })
+            )
+            (
+              import
+                ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank.nix
+                {
+                  inherit fetchurl;
+                  "alexandria" = quicklisp-to-nix-packages."alexandria";
+                  "anaphora" = quicklisp-to-nix-packages."anaphora";
+                  "hu_dot_dwim_dot_asdf" =
+                    quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+                  "hu_dot_dwim_dot_def" =
+                    quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
+                  "hu_dot_dwim_dot_def_plus_swank" =
+                    quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
+                  "hu_dot_dwim_dot_stefil" =
+                    quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
+                  "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
+                    quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
+                  "hu_dot_dwim_dot_stefil_plus_swank" =
+                    quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_swank";
+                  "iterate" = quicklisp-to-nix-packages."iterate";
+                  "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
+                  "swank" = quicklisp-to-nix-packages."swank";
+                }
+            )
         )
-      );
+      ;
 
     "hu_dot_dwim_dot_common" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."hu_dot_dwim_dot_common" or (x: { })) (
@@ -686,12 +689,12 @@ let
 
     "parse-declarations-1_dot_0" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."parse-declarations-1_dot_0" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/parse-declarations-1_dot_0.nix {
-          inherit fetchurl;
-        }
-      )
+        (qlOverrides."parse-declarations-1_dot_0" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/parse-declarations-1_dot_0.nix {
+            inherit fetchurl;
+          }
+        )
     );
 
     "introspect-environment" = buildLispPackage (
@@ -1058,169 +1061,169 @@ let
     );
 
     "generic-cl_dot_container" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."generic-cl_dot_container" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/generic-cl_dot_container.nix {
-          inherit fetchurl;
-          "agutil" = quicklisp-to-nix-packages."agutil";
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "anaphora" = quicklisp-to-nix-packages."anaphora";
-          "arrows" = quicklisp-to-nix-packages."arrows";
-          "cl-environments" = quicklisp-to-nix-packages."cl-environments";
-          "cl-form-types" = quicklisp-to-nix-packages."cl-form-types";
-          "closer-mop" = quicklisp-to-nix-packages."closer-mop";
-          "collectors" = quicklisp-to-nix-packages."collectors";
-          "generic-cl_dot_comparison" =
-            quicklisp-to-nix-packages."generic-cl_dot_comparison";
-          "generic-cl_dot_internal" =
-            quicklisp-to-nix-packages."generic-cl_dot_internal";
-          "generic-cl_dot_object" =
-            quicklisp-to-nix-packages."generic-cl_dot_object";
-          "introspect-environment" =
-            quicklisp-to-nix-packages."introspect-environment";
-          "iterate" = quicklisp-to-nix-packages."iterate";
-          "lisp-namespace" = quicklisp-to-nix-packages."lisp-namespace";
-          "optima" = quicklisp-to-nix-packages."optima";
-          "parse-declarations-1_dot_0" =
-            quicklisp-to-nix-packages."parse-declarations-1_dot_0";
-          "static-dispatch" = quicklisp-to-nix-packages."static-dispatch";
-          "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
-          "trivia" = quicklisp-to-nix-packages."trivia";
-          "trivia_dot_balland2006" =
-            quicklisp-to-nix-packages."trivia_dot_balland2006";
-          "trivia_dot_level0" = quicklisp-to-nix-packages."trivia_dot_level0";
-          "trivia_dot_level1" = quicklisp-to-nix-packages."trivia_dot_level1";
-          "trivia_dot_level2" = quicklisp-to-nix-packages."trivia_dot_level2";
-          "trivia_dot_trivial" = quicklisp-to-nix-packages."trivia_dot_trivial";
-          "trivial-cltl2" = quicklisp-to-nix-packages."trivial-cltl2";
-          "type-i" = quicklisp-to-nix-packages."type-i";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."generic-cl_dot_container" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/generic-cl_dot_container.nix {
+            inherit fetchurl;
+            "agutil" = quicklisp-to-nix-packages."agutil";
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "anaphora" = quicklisp-to-nix-packages."anaphora";
+            "arrows" = quicklisp-to-nix-packages."arrows";
+            "cl-environments" = quicklisp-to-nix-packages."cl-environments";
+            "cl-form-types" = quicklisp-to-nix-packages."cl-form-types";
+            "closer-mop" = quicklisp-to-nix-packages."closer-mop";
+            "collectors" = quicklisp-to-nix-packages."collectors";
+            "generic-cl_dot_comparison" =
+              quicklisp-to-nix-packages."generic-cl_dot_comparison";
+            "generic-cl_dot_internal" =
+              quicklisp-to-nix-packages."generic-cl_dot_internal";
+            "generic-cl_dot_object" =
+              quicklisp-to-nix-packages."generic-cl_dot_object";
+            "introspect-environment" =
+              quicklisp-to-nix-packages."introspect-environment";
+            "iterate" = quicklisp-to-nix-packages."iterate";
+            "lisp-namespace" = quicklisp-to-nix-packages."lisp-namespace";
+            "optima" = quicklisp-to-nix-packages."optima";
+            "parse-declarations-1_dot_0" =
+              quicklisp-to-nix-packages."parse-declarations-1_dot_0";
+            "static-dispatch" = quicklisp-to-nix-packages."static-dispatch";
+            "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
+            "trivia" = quicklisp-to-nix-packages."trivia";
+            "trivia_dot_balland2006" =
+              quicklisp-to-nix-packages."trivia_dot_balland2006";
+            "trivia_dot_level0" = quicklisp-to-nix-packages."trivia_dot_level0";
+            "trivia_dot_level1" = quicklisp-to-nix-packages."trivia_dot_level1";
+            "trivia_dot_level2" = quicklisp-to-nix-packages."trivia_dot_level2";
+            "trivia_dot_trivial" =
+              quicklisp-to-nix-packages."trivia_dot_trivial";
+            "trivial-cltl2" = quicklisp-to-nix-packages."trivial-cltl2";
+            "type-i" = quicklisp-to-nix-packages."type-i";
+          }
+        )
     );
 
     "generic-cl_dot_comparison" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."generic-cl_dot_comparison" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/generic-cl_dot_comparison.nix {
-          inherit fetchurl;
-          "agutil" = quicklisp-to-nix-packages."agutil";
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "anaphora" = quicklisp-to-nix-packages."anaphora";
-          "arrows" = quicklisp-to-nix-packages."arrows";
-          "cl-environments" = quicklisp-to-nix-packages."cl-environments";
-          "cl-form-types" = quicklisp-to-nix-packages."cl-form-types";
-          "closer-mop" = quicklisp-to-nix-packages."closer-mop";
-          "collectors" = quicklisp-to-nix-packages."collectors";
-          "generic-cl_dot_internal" =
-            quicklisp-to-nix-packages."generic-cl_dot_internal";
-          "introspect-environment" =
-            quicklisp-to-nix-packages."introspect-environment";
-          "iterate" = quicklisp-to-nix-packages."iterate";
-          "lisp-namespace" = quicklisp-to-nix-packages."lisp-namespace";
-          "optima" = quicklisp-to-nix-packages."optima";
-          "parse-declarations-1_dot_0" =
-            quicklisp-to-nix-packages."parse-declarations-1_dot_0";
-          "static-dispatch" = quicklisp-to-nix-packages."static-dispatch";
-          "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
-          "trivia" = quicklisp-to-nix-packages."trivia";
-          "trivia_dot_balland2006" =
-            quicklisp-to-nix-packages."trivia_dot_balland2006";
-          "trivia_dot_level0" = quicklisp-to-nix-packages."trivia_dot_level0";
-          "trivia_dot_level1" = quicklisp-to-nix-packages."trivia_dot_level1";
-          "trivia_dot_level2" = quicklisp-to-nix-packages."trivia_dot_level2";
-          "trivia_dot_trivial" = quicklisp-to-nix-packages."trivia_dot_trivial";
-          "trivial-cltl2" = quicklisp-to-nix-packages."trivial-cltl2";
-          "type-i" = quicklisp-to-nix-packages."type-i";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."generic-cl_dot_comparison" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/generic-cl_dot_comparison.nix {
+            inherit fetchurl;
+            "agutil" = quicklisp-to-nix-packages."agutil";
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "anaphora" = quicklisp-to-nix-packages."anaphora";
+            "arrows" = quicklisp-to-nix-packages."arrows";
+            "cl-environments" = quicklisp-to-nix-packages."cl-environments";
+            "cl-form-types" = quicklisp-to-nix-packages."cl-form-types";
+            "closer-mop" = quicklisp-to-nix-packages."closer-mop";
+            "collectors" = quicklisp-to-nix-packages."collectors";
+            "generic-cl_dot_internal" =
+              quicklisp-to-nix-packages."generic-cl_dot_internal";
+            "introspect-environment" =
+              quicklisp-to-nix-packages."introspect-environment";
+            "iterate" = quicklisp-to-nix-packages."iterate";
+            "lisp-namespace" = quicklisp-to-nix-packages."lisp-namespace";
+            "optima" = quicklisp-to-nix-packages."optima";
+            "parse-declarations-1_dot_0" =
+              quicklisp-to-nix-packages."parse-declarations-1_dot_0";
+            "static-dispatch" = quicklisp-to-nix-packages."static-dispatch";
+            "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
+            "trivia" = quicklisp-to-nix-packages."trivia";
+            "trivia_dot_balland2006" =
+              quicklisp-to-nix-packages."trivia_dot_balland2006";
+            "trivia_dot_level0" = quicklisp-to-nix-packages."trivia_dot_level0";
+            "trivia_dot_level1" = quicklisp-to-nix-packages."trivia_dot_level1";
+            "trivia_dot_level2" = quicklisp-to-nix-packages."trivia_dot_level2";
+            "trivia_dot_trivial" =
+              quicklisp-to-nix-packages."trivia_dot_trivial";
+            "trivial-cltl2" = quicklisp-to-nix-packages."trivial-cltl2";
+            "type-i" = quicklisp-to-nix-packages."type-i";
+          }
+        )
     );
 
     "generic-cl_dot_collector" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."generic-cl_dot_collector" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/generic-cl_dot_collector.nix {
-          inherit fetchurl;
-          "agutil" = quicklisp-to-nix-packages."agutil";
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "anaphora" = quicklisp-to-nix-packages."anaphora";
-          "arrows" = quicklisp-to-nix-packages."arrows";
-          "cl-environments" = quicklisp-to-nix-packages."cl-environments";
-          "cl-form-types" = quicklisp-to-nix-packages."cl-form-types";
-          "closer-mop" = quicklisp-to-nix-packages."closer-mop";
-          "collectors" = quicklisp-to-nix-packages."collectors";
-          "generic-cl_dot_comparison" =
-            quicklisp-to-nix-packages."generic-cl_dot_comparison";
-          "generic-cl_dot_container" =
-            quicklisp-to-nix-packages."generic-cl_dot_container";
-          "generic-cl_dot_internal" =
-            quicklisp-to-nix-packages."generic-cl_dot_internal";
-          "generic-cl_dot_iterator" =
-            quicklisp-to-nix-packages."generic-cl_dot_iterator";
-          "generic-cl_dot_object" =
-            quicklisp-to-nix-packages."generic-cl_dot_object";
-          "introspect-environment" =
-            quicklisp-to-nix-packages."introspect-environment";
-          "iterate" = quicklisp-to-nix-packages."iterate";
-          "lisp-namespace" = quicklisp-to-nix-packages."lisp-namespace";
-          "optima" = quicklisp-to-nix-packages."optima";
-          "parse-declarations-1_dot_0" =
-            quicklisp-to-nix-packages."parse-declarations-1_dot_0";
-          "static-dispatch" = quicklisp-to-nix-packages."static-dispatch";
-          "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
-          "trivia" = quicklisp-to-nix-packages."trivia";
-          "trivia_dot_balland2006" =
-            quicklisp-to-nix-packages."trivia_dot_balland2006";
-          "trivia_dot_level0" = quicklisp-to-nix-packages."trivia_dot_level0";
-          "trivia_dot_level1" = quicklisp-to-nix-packages."trivia_dot_level1";
-          "trivia_dot_level2" = quicklisp-to-nix-packages."trivia_dot_level2";
-          "trivia_dot_trivial" = quicklisp-to-nix-packages."trivia_dot_trivial";
-          "trivial-cltl2" = quicklisp-to-nix-packages."trivial-cltl2";
-          "type-i" = quicklisp-to-nix-packages."type-i";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."generic-cl_dot_collector" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/generic-cl_dot_collector.nix {
+            inherit fetchurl;
+            "agutil" = quicklisp-to-nix-packages."agutil";
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "anaphora" = quicklisp-to-nix-packages."anaphora";
+            "arrows" = quicklisp-to-nix-packages."arrows";
+            "cl-environments" = quicklisp-to-nix-packages."cl-environments";
+            "cl-form-types" = quicklisp-to-nix-packages."cl-form-types";
+            "closer-mop" = quicklisp-to-nix-packages."closer-mop";
+            "collectors" = quicklisp-to-nix-packages."collectors";
+            "generic-cl_dot_comparison" =
+              quicklisp-to-nix-packages."generic-cl_dot_comparison";
+            "generic-cl_dot_container" =
+              quicklisp-to-nix-packages."generic-cl_dot_container";
+            "generic-cl_dot_internal" =
+              quicklisp-to-nix-packages."generic-cl_dot_internal";
+            "generic-cl_dot_iterator" =
+              quicklisp-to-nix-packages."generic-cl_dot_iterator";
+            "generic-cl_dot_object" =
+              quicklisp-to-nix-packages."generic-cl_dot_object";
+            "introspect-environment" =
+              quicklisp-to-nix-packages."introspect-environment";
+            "iterate" = quicklisp-to-nix-packages."iterate";
+            "lisp-namespace" = quicklisp-to-nix-packages."lisp-namespace";
+            "optima" = quicklisp-to-nix-packages."optima";
+            "parse-declarations-1_dot_0" =
+              quicklisp-to-nix-packages."parse-declarations-1_dot_0";
+            "static-dispatch" = quicklisp-to-nix-packages."static-dispatch";
+            "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
+            "trivia" = quicklisp-to-nix-packages."trivia";
+            "trivia_dot_balland2006" =
+              quicklisp-to-nix-packages."trivia_dot_balland2006";
+            "trivia_dot_level0" = quicklisp-to-nix-packages."trivia_dot_level0";
+            "trivia_dot_level1" = quicklisp-to-nix-packages."trivia_dot_level1";
+            "trivia_dot_level2" = quicklisp-to-nix-packages."trivia_dot_level2";
+            "trivia_dot_trivial" =
+              quicklisp-to-nix-packages."trivia_dot_trivial";
+            "trivial-cltl2" = quicklisp-to-nix-packages."trivial-cltl2";
+            "type-i" = quicklisp-to-nix-packages."type-i";
+          }
+        )
     );
 
     "generic-cl_dot_arithmetic" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."generic-cl_dot_arithmetic" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/generic-cl_dot_arithmetic.nix {
-          inherit fetchurl;
-          "agutil" = quicklisp-to-nix-packages."agutil";
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "anaphora" = quicklisp-to-nix-packages."anaphora";
-          "arrows" = quicklisp-to-nix-packages."arrows";
-          "cl-environments" = quicklisp-to-nix-packages."cl-environments";
-          "cl-form-types" = quicklisp-to-nix-packages."cl-form-types";
-          "closer-mop" = quicklisp-to-nix-packages."closer-mop";
-          "collectors" = quicklisp-to-nix-packages."collectors";
-          "generic-cl_dot_comparison" =
-            quicklisp-to-nix-packages."generic-cl_dot_comparison";
-          "generic-cl_dot_internal" =
-            quicklisp-to-nix-packages."generic-cl_dot_internal";
-          "introspect-environment" =
-            quicklisp-to-nix-packages."introspect-environment";
-          "iterate" = quicklisp-to-nix-packages."iterate";
-          "lisp-namespace" = quicklisp-to-nix-packages."lisp-namespace";
-          "optima" = quicklisp-to-nix-packages."optima";
-          "parse-declarations-1_dot_0" =
-            quicklisp-to-nix-packages."parse-declarations-1_dot_0";
-          "static-dispatch" = quicklisp-to-nix-packages."static-dispatch";
-          "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
-          "trivia" = quicklisp-to-nix-packages."trivia";
-          "trivia_dot_balland2006" =
-            quicklisp-to-nix-packages."trivia_dot_balland2006";
-          "trivia_dot_level0" = quicklisp-to-nix-packages."trivia_dot_level0";
-          "trivia_dot_level1" = quicklisp-to-nix-packages."trivia_dot_level1";
-          "trivia_dot_level2" = quicklisp-to-nix-packages."trivia_dot_level2";
-          "trivia_dot_trivial" = quicklisp-to-nix-packages."trivia_dot_trivial";
-          "trivial-cltl2" = quicklisp-to-nix-packages."trivial-cltl2";
-          "type-i" = quicklisp-to-nix-packages."type-i";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."generic-cl_dot_arithmetic" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/generic-cl_dot_arithmetic.nix {
+            inherit fetchurl;
+            "agutil" = quicklisp-to-nix-packages."agutil";
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "anaphora" = quicklisp-to-nix-packages."anaphora";
+            "arrows" = quicklisp-to-nix-packages."arrows";
+            "cl-environments" = quicklisp-to-nix-packages."cl-environments";
+            "cl-form-types" = quicklisp-to-nix-packages."cl-form-types";
+            "closer-mop" = quicklisp-to-nix-packages."closer-mop";
+            "collectors" = quicklisp-to-nix-packages."collectors";
+            "generic-cl_dot_comparison" =
+              quicklisp-to-nix-packages."generic-cl_dot_comparison";
+            "generic-cl_dot_internal" =
+              quicklisp-to-nix-packages."generic-cl_dot_internal";
+            "introspect-environment" =
+              quicklisp-to-nix-packages."introspect-environment";
+            "iterate" = quicklisp-to-nix-packages."iterate";
+            "lisp-namespace" = quicklisp-to-nix-packages."lisp-namespace";
+            "optima" = quicklisp-to-nix-packages."optima";
+            "parse-declarations-1_dot_0" =
+              quicklisp-to-nix-packages."parse-declarations-1_dot_0";
+            "static-dispatch" = quicklisp-to-nix-packages."static-dispatch";
+            "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
+            "trivia" = quicklisp-to-nix-packages."trivia";
+            "trivia_dot_balland2006" =
+              quicklisp-to-nix-packages."trivia_dot_balland2006";
+            "trivia_dot_level0" = quicklisp-to-nix-packages."trivia_dot_level0";
+            "trivia_dot_level1" = quicklisp-to-nix-packages."trivia_dot_level1";
+            "trivia_dot_level2" = quicklisp-to-nix-packages."trivia_dot_level2";
+            "trivia_dot_trivial" =
+              quicklisp-to-nix-packages."trivia_dot_trivial";
+            "trivial-cltl2" = quicklisp-to-nix-packages."trivial-cltl2";
+            "type-i" = quicklisp-to-nix-packages."type-i";
+          }
+        )
     );
 
     "cl-form-types" = buildLispPackage (
@@ -1287,12 +1290,11 @@ let
 
     "net_dot_didierverna_dot_asdf-flv" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."net_dot_didierverna_dot_asdf-flv" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/net_dot_didierverna_dot_asdf-flv.nix {
-          inherit fetchurl;
-        }
-      )
+        (qlOverrides."net_dot_didierverna_dot_asdf-flv" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/net_dot_didierverna_dot_asdf-flv.nix
+            { inherit fetchurl; }
+        )
     );
 
     "iolib_dot_conf" = buildLispPackage (
@@ -1528,14 +1530,13 @@ let
     );
 
     "lack-middleware-backtrace" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."lack-middleware-backtrace" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/lack-middleware-backtrace.nix {
-          inherit fetchurl;
-          "uiop" = quicklisp-to-nix-packages."uiop";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."lack-middleware-backtrace" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/lack-middleware-backtrace.nix {
+            inherit fetchurl;
+            "uiop" = quicklisp-to-nix-packages."uiop";
+          }
+        )
     );
 
     "lack-component" = buildLispPackage (
@@ -1946,13 +1947,14 @@ let
 
     "trivial-with-current-source-form" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."trivial-with-current-source-form" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/trivial-with-current-source-form.nix {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-        }
-      )
+        (qlOverrides."trivial-with-current-source-form" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/trivial-with-current-source-form.nix
+            {
+              inherit fetchurl;
+              "alexandria" = quicklisp-to-nix-packages."alexandria";
+            }
+        )
     );
 
     "yason" = buildLispPackage (
@@ -2147,28 +2149,26 @@ let
     );
 
     "utilities_dot_print-tree" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."utilities_dot_print-tree" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/utilities_dot_print-tree.nix {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "fiveam" = quicklisp-to-nix-packages."fiveam";
-          "uiop" = quicklisp-to-nix-packages."uiop";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."utilities_dot_print-tree" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/utilities_dot_print-tree.nix {
+            inherit fetchurl;
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "fiveam" = quicklisp-to-nix-packages."fiveam";
+            "uiop" = quicklisp-to-nix-packages."uiop";
+          }
+        )
     );
 
     "utilities_dot_print-items" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."utilities_dot_print-items" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/utilities_dot_print-items.nix {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "fiveam" = quicklisp-to-nix-packages."fiveam";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."utilities_dot_print-items" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/utilities_dot_print-items.nix {
+            inherit fetchurl;
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "fiveam" = quicklisp-to-nix-packages."fiveam";
+          }
+        )
     );
 
     "usocket" = buildLispPackage (
@@ -2227,12 +2227,12 @@ let
 
     "trivial-package-local-nicknames" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."trivial-package-local-nicknames" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/trivial-package-local-nicknames.nix {
-          inherit fetchurl;
-        }
-      )
+        (qlOverrides."trivial-package-local-nicknames" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/trivial-package-local-nicknames.nix {
+            inherit fetchurl;
+          }
+        )
     );
 
     "trivial-mimes" = buildLispPackage (
@@ -3390,18 +3390,18 @@ let
 
     "hu_dot_dwim_dot_defclass-star" = buildLispPackage (
       (f: x: (x // (f x)))
-      (qlOverrides."hu_dot_dwim_dot_defclass-star" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/hu_dot_dwim_dot_defclass-star.nix {
-          inherit fetchurl;
-          "hu_dot_dwim_dot_asdf" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-          "hu_dot_dwim_dot_common" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_common";
-          "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank";
-        }
-      )
+        (qlOverrides."hu_dot_dwim_dot_defclass-star" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_defclass-star.nix {
+            inherit fetchurl;
+            "hu_dot_dwim_dot_asdf" =
+              quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+            "hu_dot_dwim_dot_common" =
+              quicklisp-to-nix-packages."hu_dot_dwim_dot_common";
+            "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" =
+              quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank";
+          }
+        )
     );
 
     "hu_dot_dwim_dot_asdf" = buildLispPackage (
@@ -4028,38 +4028,37 @@ let
     );
 
     "css-selectors-simple-tree" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."css-selectors-simple-tree" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/css-selectors-simple-tree.nix {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "babel" = quicklisp-to-nix-packages."babel";
-          "buildnode" = quicklisp-to-nix-packages."buildnode";
-          "cl-html5-parser" = quicklisp-to-nix-packages."cl-html5-parser";
-          "cl-interpol" = quicklisp-to-nix-packages."cl-interpol";
-          "cl-ppcre" = quicklisp-to-nix-packages."cl-ppcre";
-          "cl-unicode" = quicklisp-to-nix-packages."cl-unicode";
-          "closer-mop" = quicklisp-to-nix-packages."closer-mop";
-          "closure-common" = quicklisp-to-nix-packages."closure-common";
-          "closure-html" = quicklisp-to-nix-packages."closure-html";
-          "collectors" = quicklisp-to-nix-packages."collectors";
-          "css-selectors" = quicklisp-to-nix-packages."css-selectors";
-          "cxml" = quicklisp-to-nix-packages."cxml";
-          "flexi-streams" = quicklisp-to-nix-packages."flexi-streams";
-          "iterate" = quicklisp-to-nix-packages."iterate";
-          "named-readtables" = quicklisp-to-nix-packages."named-readtables";
-          "puri" = quicklisp-to-nix-packages."puri";
-          "split-sequence" = quicklisp-to-nix-packages."split-sequence";
-          "string-case" = quicklisp-to-nix-packages."string-case";
-          "swank" = quicklisp-to-nix-packages."swank";
-          "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
-          "trivial-features" = quicklisp-to-nix-packages."trivial-features";
-          "trivial-gray-streams" =
-            quicklisp-to-nix-packages."trivial-gray-streams";
-          "yacc" = quicklisp-to-nix-packages."yacc";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."css-selectors-simple-tree" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/css-selectors-simple-tree.nix {
+            inherit fetchurl;
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "babel" = quicklisp-to-nix-packages."babel";
+            "buildnode" = quicklisp-to-nix-packages."buildnode";
+            "cl-html5-parser" = quicklisp-to-nix-packages."cl-html5-parser";
+            "cl-interpol" = quicklisp-to-nix-packages."cl-interpol";
+            "cl-ppcre" = quicklisp-to-nix-packages."cl-ppcre";
+            "cl-unicode" = quicklisp-to-nix-packages."cl-unicode";
+            "closer-mop" = quicklisp-to-nix-packages."closer-mop";
+            "closure-common" = quicklisp-to-nix-packages."closure-common";
+            "closure-html" = quicklisp-to-nix-packages."closure-html";
+            "collectors" = quicklisp-to-nix-packages."collectors";
+            "css-selectors" = quicklisp-to-nix-packages."css-selectors";
+            "cxml" = quicklisp-to-nix-packages."cxml";
+            "flexi-streams" = quicklisp-to-nix-packages."flexi-streams";
+            "iterate" = quicklisp-to-nix-packages."iterate";
+            "named-readtables" = quicklisp-to-nix-packages."named-readtables";
+            "puri" = quicklisp-to-nix-packages."puri";
+            "split-sequence" = quicklisp-to-nix-packages."split-sequence";
+            "string-case" = quicklisp-to-nix-packages."string-case";
+            "swank" = quicklisp-to-nix-packages."swank";
+            "symbol-munger" = quicklisp-to-nix-packages."symbol-munger";
+            "trivial-features" = quicklisp-to-nix-packages."trivial-features";
+            "trivial-gray-streams" =
+              quicklisp-to-nix-packages."trivial-gray-streams";
+            "yacc" = quicklisp-to-nix-packages."yacc";
+          }
+        )
     );
 
     "css-selectors" = buildLispPackage (
@@ -4801,19 +4800,18 @@ let
     );
 
     "cl-gobject-introspection" = buildLispPackage (
-      (f: x: (x // (f x)))
-      (qlOverrides."cl-gobject-introspection" or (x: { }))
-      (
-        import ./quicklisp-to-nix-output/cl-gobject-introspection.nix {
-          inherit fetchurl;
-          "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "babel" = quicklisp-to-nix-packages."babel";
-          "cffi" = quicklisp-to-nix-packages."cffi";
-          "iterate" = quicklisp-to-nix-packages."iterate";
-          "trivial-features" = quicklisp-to-nix-packages."trivial-features";
-          "trivial-garbage" = quicklisp-to-nix-packages."trivial-garbage";
-        }
-      )
+      (f: x: (x // (f x))) (qlOverrides."cl-gobject-introspection" or (x: { }))
+        (
+          import ./quicklisp-to-nix-output/cl-gobject-introspection.nix {
+            inherit fetchurl;
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "babel" = quicklisp-to-nix-packages."babel";
+            "cffi" = quicklisp-to-nix-packages."cffi";
+            "iterate" = quicklisp-to-nix-packages."iterate";
+            "trivial-features" = quicklisp-to-nix-packages."trivial-features";
+            "trivial-garbage" = quicklisp-to-nix-packages."trivial-garbage";
+          }
+        )
     );
 
     "cl-geometry" = buildLispPackage (

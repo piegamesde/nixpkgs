@@ -19,7 +19,7 @@ with lib;
 
       enable = mkEnableOption (
         lib.mdDoc
-        "Service collection of DDE applications, including dconfig-center"
+          "Service collection of DDE applications, including dconfig-center"
       );
     };
   };

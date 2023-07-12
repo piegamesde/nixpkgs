@@ -37,7 +37,9 @@ in
         type = types.str;
         example = "127.0.0.1:10028";
         description =
-          lib.mdDoc "Address:port DKIMproxy should forward mail to.";
+          lib.mdDoc
+            "Address:port DKIMproxy should forward mail to."
+          ;
       };
 
       domains = mkOption {

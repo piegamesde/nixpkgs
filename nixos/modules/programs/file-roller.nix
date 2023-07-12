@@ -16,18 +16,20 @@ in
 
   # Added 2019-08-09
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gnome3"
-        "file-roller"
-        "enable"
-      ]
-      [
-        "programs"
-        "file-roller"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "file-roller"
+          "enable"
+        ]
+        [
+          "programs"
+          "file-roller"
+          "enable"
+        ]
+    )
   ];
 
   ###### interface
@@ -36,8 +38,9 @@ in
 
     programs.file-roller = {
 
-      enable =
-        mkEnableOption (lib.mdDoc "File Roller, an archive manager for GNOME");
+      enable = mkEnableOption (
+        lib.mdDoc "File Roller, an archive manager for GNOME"
+      );
 
       package = mkOption {
         type = types.package;

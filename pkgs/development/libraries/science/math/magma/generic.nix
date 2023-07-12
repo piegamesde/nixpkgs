@@ -52,19 +52,23 @@ let
   unsupportedRocmArches = lists.subtractLists supportedRocmArches rocmArches;
 
   supportedCustomGpuTargets =
-    lists.intersectLists gpuTargets supportedGpuTargets;
+    lists.intersectLists gpuTargets
+      supportedGpuTargets
+    ;
   unsupportedCustomGpuTargets =
-    lists.subtractLists supportedCustomGpuTargets gpuTargets;
+    lists.subtractLists supportedCustomGpuTargets
+      gpuTargets
+    ;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
     trivial.throwIf (supported == [ ])
-    (
-      "No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported
-    )
-    supported
+      (
+        "No supported GPU targets specified. Requested GPU targets: "
+        + strings.concatStringsSep ", " unsupported
+      )
+      supported
     ;
 
   gpuTargetString = strings.concatStringsSep "," (
@@ -85,8 +89,9 @@ let
   cudaArchitecturesString = strings.concatStringsSep ";" cudaArchitectures;
   minArch =
     let
-      minArch' =
-        builtins.head (builtins.sort strings.versionOlder cudaArchitectures);
+      minArch' = builtins.head (
+        builtins.sort strings.versionOlder cudaArchitectures
+      );
     in
     # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
     "${minArch'}0"

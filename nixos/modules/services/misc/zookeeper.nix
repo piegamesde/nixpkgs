@@ -95,7 +95,9 @@ in
 
     extraCmdLineOptions = mkOption {
       description =
-        lib.mdDoc "Extra command line options for the Zookeeper launcher.";
+        lib.mdDoc
+          "Extra command line options for the Zookeeper launcher."
+        ;
       default = [
         "-Dcom.sun.management.jmxremote"
         "-Dcom.sun.management.jmxremote.local.only=true"

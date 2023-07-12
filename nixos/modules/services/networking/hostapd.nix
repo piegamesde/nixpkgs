@@ -28,9 +28,8 @@ let
     channel=${toString cfg.channel}
     ieee80211n=1
     ieee80211ac=1
-    ${optionalString
-    (cfg.countryCode != null)
-    "country_code=${cfg.countryCode}"}
+    ${optionalString (cfg.countryCode != null)
+      "country_code=${cfg.countryCode}"}
     ${optionalString (cfg.countryCode != null) "ieee80211d=1"}
 
     # logging (debug level)
@@ -108,7 +107,9 @@ in
         example = "mySpecialSSID";
         type = types.str;
         description =
-          lib.mdDoc "SSID to be used in IEEE 802.11 management frames.";
+          lib.mdDoc
+            "SSID to be used in IEEE 802.11 management frames."
+          ;
       };
 
       hwMode = mkOption {
@@ -203,7 +204,9 @@ in
         '';
         type = types.lines;
         description =
-          lib.mdDoc "Extra configuration options to put in hostapd.conf.";
+          lib.mdDoc
+            "Extra configuration options to put in hostapd.conf."
+          ;
       };
     };
   };

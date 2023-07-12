@@ -42,8 +42,9 @@ in
       };
     };
 
-    users.groups =
-      optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
+    users.groups = optionalAttrs (cfg.group == defaultUser) {
+      ${defaultUser} = { };
+    };
 
     systemd.services.signald = {
       description =

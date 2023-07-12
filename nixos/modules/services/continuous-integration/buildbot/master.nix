@@ -88,8 +88,10 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to enable the Buildbot continuous integration server.";
+        description =
+          lib.mdDoc
+            "Whether to enable the Buildbot continuous integration server."
+          ;
       };
 
       extraConfig = mkOption {
@@ -100,8 +102,9 @@ in
 
       masterCfg = mkOption {
         type = types.path;
-        description = lib.mdDoc
-          "Optionally pass master.cfg path. Other options in this configuration will be ignored."
+        description =
+          lib.mdDoc
+            "Optionally pass master.cfg path. Other options in this configuration will be ignored."
           ;
         default = defaultMasterCfg;
         defaultText = literalMD "generated configuration file";
@@ -134,8 +137,9 @@ in
       reporters = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        description = lib.mdDoc
-          "List of reporter objects used to present build status to various users."
+        description =
+          lib.mdDoc
+            "List of reporter objects used to present build status to various users."
           ;
       };
 
@@ -143,7 +147,9 @@ in
         default = "buildbot";
         type = types.str;
         description =
-          lib.mdDoc "User the buildbot server should execute under.";
+          lib.mdDoc
+            "User the buildbot server should execute under."
+          ;
       };
 
       group = mkOption {
@@ -155,8 +161,10 @@ in
       extraGroups = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc
-          "List of extra groups that the buildbot user should be a part of.";
+        description =
+          lib.mdDoc
+            "List of extra groups that the buildbot user should be a part of."
+          ;
       };
 
       home = mkOption {
@@ -191,8 +199,9 @@ in
       listenAddress = mkOption {
         default = "0.0.0.0";
         type = types.str;
-        description = lib.mdDoc
-          "Specifies the bind address on which the buildbot HTTP interface listens."
+        description =
+          lib.mdDoc
+            "Specifies the bind address on which the buildbot HTTP interface listens."
           ;
       };
 
@@ -223,8 +232,10 @@ in
       port = mkOption {
         default = 8010;
         type = types.port;
-        description = lib.mdDoc
-          "Specifies port number on which the buildbot HTTP interface listens.";
+        description =
+          lib.mdDoc
+            "Specifies port number on which the buildbot HTTP interface listens."
+          ;
       };
 
       package = mkOption {
@@ -240,18 +251,26 @@ in
         defaultText = literalExpression "[ pkgs.git ]";
         type = types.listOf types.package;
         description =
-          lib.mdDoc "Packages to add to PATH for the buildbot process.";
+          lib.mdDoc
+            "Packages to add to PATH for the buildbot process."
+          ;
       };
 
       pythonPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
         default = pythonPackages: with pythonPackages; [ ];
         defaultText =
-          literalExpression "pythonPackages: with pythonPackages; [ ]";
-        description = lib.mdDoc
-          "Packages to add the to the PYTHONPATH of the buildbot process.";
+          literalExpression
+            "pythonPackages: with pythonPackages; [ ]"
+          ;
+        description =
+          lib.mdDoc
+            "Packages to add the to the PYTHONPATH of the buildbot process."
+          ;
         example =
-          literalExpression "pythonPackages: with pythonPackages; [ requests ]";
+          literalExpression
+            "pythonPackages: with pythonPackages; [ requests ]"
+          ;
       };
     };
   };
@@ -300,27 +319,31 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "buildbot-master"
-        "bpPort"
-      ]
-      [
-        "services"
-        "buildbot-master"
-        "pbPort"
-      ])
-    (mkRemovedOptionModule
-      [
-        "services"
-        "buildbot-master"
-        "status"
-      ]
-      ''
-        Since Buildbot 0.9.0, status targets are deprecated and ignored.
-        Review your configuration and migrate to reporters (available at services.buildbot-master.reporters).
-      '')
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "buildbot-master"
+          "bpPort"
+        ]
+        [
+          "services"
+          "buildbot-master"
+          "pbPort"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "buildbot-master"
+          "status"
+        ]
+        ''
+          Since Buildbot 0.9.0, status targets are deprecated and ignored.
+          Review your configuration and migrate to reporters (available at services.buildbot-master.reporters).
+        ''
+    )
   ];
 
   meta.maintainers = with lib.maintainers; [

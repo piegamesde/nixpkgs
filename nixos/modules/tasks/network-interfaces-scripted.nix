@@ -17,14 +17,15 @@ let
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
-    ++ concatMap
-      (
-        i:
-        attrNames (
-          filterAttrs (_: config: config.type != "internal") i.interfaces
+    ++
+      concatMap
+        (
+          i:
+          attrNames (
+            filterAttrs (_: config: config.type != "internal") i.interfaces
+          )
         )
-      )
-      (attrValues cfg.vswitches)
+        (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans)
     ;
@@ -65,9 +66,10 @@ let
     ];
     filterDeprecated =
       bond:
-      (filterAttrs
-        (attrName: attr: elem attrName deprecated && attr != null)
-        bond)
+      (
+        filterAttrs (attrName: attr: elem attrName deprecated && attr != null)
+          bond
+      )
       ;
   };
 
@@ -204,53 +206,47 @@ let
 
             # Set the default gateway.
             ${optionalString
-            (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
-            ''
-              ${optionalString (cfg.defaultGateway.interface != null) ''
-                ip route replace ${cfg.defaultGateway.address} dev ${cfg.defaultGateway.interface} ${
+              (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
+              ''
+                ${optionalString (cfg.defaultGateway.interface != null) ''
+                  ip route replace ${cfg.defaultGateway.address} dev ${cfg.defaultGateway.interface} ${
+                    optionalString (cfg.defaultGateway.metric != null)
+                      "metric ${toString cfg.defaultGateway.metric}"
+                  } proto static
+                ''}
+                ip route replace default ${
                   optionalString (cfg.defaultGateway.metric != null) "metric ${
-                    toString cfg.defaultGateway.metric
-                  }"
+                      toString cfg.defaultGateway.metric
+                    }"
+                } via "${cfg.defaultGateway.address}" ${
+                  optionalString (cfg.defaultGatewayWindowSize != null)
+                    "window ${toString cfg.defaultGatewayWindowSize}"
+                } ${
+                  optionalString (cfg.defaultGateway.interface != null)
+                    "dev ${cfg.defaultGateway.interface}"
                 } proto static
               ''}
-              ip route replace default ${
-                optionalString (cfg.defaultGateway.metric != null) "metric ${
-                  toString cfg.defaultGateway.metric
-                }"
-              } via "${cfg.defaultGateway.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null) "window ${
-                  toString cfg.defaultGatewayWindowSize
-                }"
-              } ${
-                optionalString
-                (cfg.defaultGateway.interface != null)
-                "dev ${cfg.defaultGateway.interface}"
-              } proto static
-            ''}
             ${optionalString
-            (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "")
-            ''
-              ${optionalString (cfg.defaultGateway6.interface != null) ''
-                ip -6 route replace ${cfg.defaultGateway6.address} dev ${cfg.defaultGateway6.interface} ${
+              (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "")
+              ''
+                ${optionalString (cfg.defaultGateway6.interface != null) ''
+                  ip -6 route replace ${cfg.defaultGateway6.address} dev ${cfg.defaultGateway6.interface} ${
+                    optionalString (cfg.defaultGateway6.metric != null)
+                      "metric ${toString cfg.defaultGateway6.metric}"
+                  } proto static
+                ''}
+                ip -6 route replace default ${
                   optionalString (cfg.defaultGateway6.metric != null) "metric ${
-                    toString cfg.defaultGateway6.metric
-                  }"
+                      toString cfg.defaultGateway6.metric
+                    }"
+                } via "${cfg.defaultGateway6.address}" ${
+                  optionalString (cfg.defaultGatewayWindowSize != null)
+                    "window ${toString cfg.defaultGatewayWindowSize}"
+                } ${
+                  optionalString (cfg.defaultGateway6.interface != null)
+                    "dev ${cfg.defaultGateway6.interface}"
                 } proto static
               ''}
-              ip -6 route replace default ${
-                optionalString (cfg.defaultGateway6.metric != null) "metric ${
-                  toString cfg.defaultGateway6.metric
-                }"
-              } via "${cfg.defaultGateway6.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null) "window ${
-                  toString cfg.defaultGatewayWindowSize
-                }"
-              } ${
-                optionalString
-                (cfg.defaultGateway6.interface != null)
-                "dev ${cfg.defaultGateway6.interface}"
-              } proto static
-            ''}
           '';
         };
 
@@ -314,8 +310,8 @@ let
                 route:
                 let
                   cidr = "${route.address}/${toString route.prefixLength}";
-                  via =
-                    optionalString (route.via != null) ''via "${route.via}"'';
+                  via = optionalString (route.via != null) ''
+                    via "${route.via}"'';
                   options = concatStrings (
                     mapAttrsToList (name: val: "${name} ${val} ") route.options
                   );
@@ -501,21 +497,21 @@ let
               deps = concatLists (
                 map deviceDependency (
                   attrNames (
-                    filterAttrs
-                    (_: config: config.type != "internal")
-                    v.interfaces
+                    filterAttrs (_: config: config.type != "internal")
+                      v.interfaces
                   )
                 )
               );
               internalConfigs = map (i: "network-addresses-${i}.service") (
                 attrNames (
-                  filterAttrs
-                  (_: config: config.type == "internal")
-                  v.interfaces
+                  filterAttrs (_: config: config.type == "internal")
+                    v.interfaces
                 )
               );
               ofRules =
-                pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
+                pkgs.writeText "vswitch-${n}-openFlowRules"
+                  v.openFlowRules
+                ;
             in
             {
               description = "Open vSwitch Interface ${n}";
@@ -563,32 +559,30 @@ let
                 ovs-vsctl ${
                   concatStrings (
                     mapAttrsToList
-                    (
-                      name: config:
-                      " -- add-port ${n} ${name}"
-                      + optionalString (config.vlan != null) " tag=${
-                           toString config.vlan
-                         }"
-                    )
-                    v.interfaces
+                      (
+                        name: config:
+                        " -- add-port ${n} ${name}"
+                        + optionalString (config.vlan != null) " tag=${
+                               toString config.vlan
+                             }"
+                      )
+                      v.interfaces
                   )
                 } \
                   ${
                     concatStrings (
                       mapAttrsToList
-                      (
-                        name: config:
-                        optionalString
-                        (config.type != null)
-                        " -- set interface ${name} type=${config.type}"
-                      )
-                      v.interfaces
+                        (
+                          name: config:
+                          optionalString (config.type != null)
+                            " -- set interface ${name} type=${config.type}"
+                        )
+                        v.interfaces
                     )
                   } \
                   ${
-                    concatMapStrings
-                    (x: " -- set-controller ${n} " + x)
-                    v.controllers
+                    concatMapStrings (x: " -- set-controller ${n} " + x)
+                      v.controllers
                   } \
                   ${
                     concatMapStrings (x: " -- " + x) (
@@ -723,12 +717,12 @@ let
                     "gue"
                 } ${
                   optionalString (v.local != null) "local ${
-                    escapeShellArg v.local.address
-                  } ${
-                    optionalString (v.local.dev != null) "dev ${
-                      escapeShellArg v.local.dev
+                      escapeShellArg v.local.address
+                    } ${
+                      optionalString (v.local.dev != null) "dev ${
+                          escapeShellArg v.local.dev
+                        }"
                     }"
-                  }"
                 }";
             in
             {
@@ -786,15 +780,13 @@ let
                   ${optionalString (v.ttl != null) "ttl ${toString v.ttl}"} \
                   ${optionalString (v.dev != null) ''dev "${v.dev}"''} \
                   ${
-                    optionalString
-                    (v.encapsulation != null)
-                    "encap ${v.encapsulation.type} encap-dport ${
-                      toString v.encapsulation.port
-                    } ${
-                      optionalString
-                      (v.encapsulation.sourcePort != null)
-                      "encap-sport ${toString v.encapsulation.sourcePort}"
-                    }"
+                    optionalString (v.encapsulation != null)
+                      "encap ${v.encapsulation.type} encap-dport ${
+                        toString v.encapsulation.port
+                      } ${
+                        optionalString (v.encapsulation.sourcePort != null)
+                          "encap-sport ${toString v.encapsulation.sourcePort}"
+                      }"
                   }
                 ip link set "${n}" up
               '';

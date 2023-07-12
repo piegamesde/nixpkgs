@@ -286,9 +286,8 @@ stdenv.mkDerivation rec {
     EOF
 
     WRAPPER_LD_PRELOAD=${
-      lib.optionalString
-      useHardenedMalloc
-      "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
+      lib.optionalString useHardenedMalloc
+        "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
     }
 
     WRAPPER_XDG_DATA_DIRS=${
@@ -298,13 +297,12 @@ stdenv.mkDerivation rec {
       ]
     }
     WRAPPER_XDG_DATA_DIRS+=":"${
-      lib.concatMapStringsSep ":"
-      (x: "${x}/share/gsettings-schemas/${x.name}")
-      [
-        glib
-        gsettings-desktop-schemas
-        gtk3
-      ]
+      lib.concatMapStringsSep ":" (x: "${x}/share/gsettings-schemas/${x.name}")
+        [
+          glib
+          gsettings-desktop-schemas
+          gtk3
+        ]
     };
 
     # Generate wrapper

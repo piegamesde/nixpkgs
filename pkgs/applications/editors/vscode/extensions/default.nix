@@ -237,24 +237,26 @@ let
       };
 
       arcticicestudio.nord-visual-studio-code =
-        buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "nord-visual-studio-code";
-            publisher = "arcticicestudio";
-            version = "0.19.0";
-            sha256 = "sha256-awbqFv6YuYI0tzM/QbHRTUl4B2vNUdy52F4nPmv+dRU=";
-          };
-          meta = {
-            description =
-              "An arctic, north-bluish clean and elegant Visual Studio Code theme.";
-            downloadPage =
-              "https://marketplace.visualstudio.com/items?itemName=arcticicestudio.nord-visual-studio-code";
-            homepage =
-              "https://github.com/arcticicestudio/nord-visual-studio-code";
-            license = lib.licenses.mit;
-            maintainers = [ lib.maintainers.imgabe ];
-          };
-        };
+        buildVscodeMarketplaceExtension
+          {
+            mktplcRef = {
+              name = "nord-visual-studio-code";
+              publisher = "arcticicestudio";
+              version = "0.19.0";
+              sha256 = "sha256-awbqFv6YuYI0tzM/QbHRTUl4B2vNUdy52F4nPmv+dRU=";
+            };
+            meta = {
+              description =
+                "An arctic, north-bluish clean and elegant Visual Studio Code theme.";
+              downloadPage =
+                "https://marketplace.visualstudio.com/items?itemName=arcticicestudio.nord-visual-studio-code";
+              homepage =
+                "https://github.com/arcticicestudio/nord-visual-studio-code";
+              license = lib.licenses.mit;
+              maintainers = [ lib.maintainers.imgabe ];
+            };
+          }
+        ;
 
       arjun.swagger-viewer = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -663,7 +665,9 @@ let
       };
 
       contextmapper.context-mapper-vscode-extension =
-        callPackage ./contextmapper.context-mapper-vscode-extension { };
+        callPackage ./contextmapper.context-mapper-vscode-extension
+          { }
+        ;
 
       coolbear.systemd-unit-file = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -933,25 +937,27 @@ let
       };
 
       divyanshuagrawal.competitive-programming-helper =
-        buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "competitive-programming-helper";
-            publisher = "DivyanshuAgrawal";
-            version = "5.10.0";
-            sha256 = "sha256-KALTldVaptKt8k2Y6PMqhJEMrayB4yn86x2CxHn6Ba0=";
-          };
-          meta = {
-            changelog =
-              "https://marketplace.visualstudio.com/items/DivyanshuAgrawal.competitive-programming-helper/changelog";
-            description =
-              "Makes judging, compiling, and downloading problems for competitve programming easy. Also supports auto-submit for a few sites.";
-            downloadPage =
-              "https://marketplace.visualstudio.com/items?itemName=DivyanshuAgrawal.competitive-programming-helper";
-            homepage = "https://github.com/agrawal-d/cph";
-            license = lib.licenses.gpl3;
-            maintainers = [ lib.maintainers.arcticlimer ];
-          };
-        };
+        buildVscodeMarketplaceExtension
+          {
+            mktplcRef = {
+              name = "competitive-programming-helper";
+              publisher = "DivyanshuAgrawal";
+              version = "5.10.0";
+              sha256 = "sha256-KALTldVaptKt8k2Y6PMqhJEMrayB4yn86x2CxHn6Ba0=";
+            };
+            meta = {
+              changelog =
+                "https://marketplace.visualstudio.com/items/DivyanshuAgrawal.competitive-programming-helper/changelog";
+              description =
+                "Makes judging, compiling, and downloading problems for competitve programming easy. Also supports auto-submit for a few sites.";
+              downloadPage =
+                "https://marketplace.visualstudio.com/items?itemName=DivyanshuAgrawal.competitive-programming-helper";
+              homepage = "https://github.com/agrawal-d/cph";
+              license = lib.licenses.gpl3;
+              maintainers = [ lib.maintainers.arcticlimer ];
+            };
+          }
+        ;
 
       donjayamanne.githistory = buildVscodeMarketplaceExtension {
         meta = {
@@ -1334,22 +1340,24 @@ let
       };
 
       gencer.html-slim-scss-css-class-completion =
-        buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "html-slim-scss-css-class-completion";
-            publisher = "gencer";
-            version = "1.7.8";
-            sha256 = "18qws35qvnl0ahk5sxh4mzkw0ib788y1l97ijmpjszs0cd4bfsa6";
-          };
-          meta = {
-            description = "VSCode extension for SCSS";
-            downloadPage =
-              "https://marketplace.visualstudio.com/items?itemName=gencer.html-slim-scss-css-class-completion";
-            homepage = "https://github.com/gencer/SCSS-Everywhere";
-            license = lib.licenses.mit;
-            maintainers = [ ];
-          };
-        };
+        buildVscodeMarketplaceExtension
+          {
+            mktplcRef = {
+              name = "html-slim-scss-css-class-completion";
+              publisher = "gencer";
+              version = "1.7.8";
+              sha256 = "18qws35qvnl0ahk5sxh4mzkw0ib788y1l97ijmpjszs0cd4bfsa6";
+            };
+            meta = {
+              description = "VSCode extension for SCSS";
+              downloadPage =
+                "https://marketplace.visualstudio.com/items?itemName=gencer.html-slim-scss-css-class-completion";
+              homepage = "https://github.com/gencer/SCSS-Everywhere";
+              license = lib.licenses.mit;
+              maintainers = [ ];
+            };
+          }
+        ;
 
       genieai.chatgpt-vscode = buildVscodeMarketplaceExtension {
         meta = {
@@ -2063,20 +2071,24 @@ let
       };
 
       ms-ceintl =
-        callPackage ./language-packs.nix { }; # non-English language packs
+        callPackage ./language-packs.nix
+          { }
+        ; # non-English language packs
 
       ms-dotnettools.csharp = callPackage ./ms-dotnettools.csharp { };
 
       ms-kubernetes-tools.vscode-kubernetes-tools =
-        buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "vscode-kubernetes-tools";
-            publisher = "ms-kubernetes-tools";
-            version = "1.3.11";
-            sha256 = "sha256-I2ud9d4VtgiiIT0MeoaMThgjLYtSuftFVZHVJTMlJ8s=";
-          };
-          meta = { license = lib.licenses.mit; };
-        };
+        buildVscodeMarketplaceExtension
+          {
+            mktplcRef = {
+              name = "vscode-kubernetes-tools";
+              publisher = "ms-kubernetes-tools";
+              version = "1.3.11";
+              sha256 = "sha256-I2ud9d4VtgiiIT0MeoaMThgjLYtSuftFVZHVJTMlJ8s=";
+            };
+            meta = { license = lib.licenses.mit; };
+          }
+        ;
 
       ms-pyright.pyright = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -2242,7 +2254,9 @@ let
       };
 
       ms-vscode-remote.remote-ssh =
-        callPackage ./ms-vscode-remote.remote-ssh { };
+        callPackage ./ms-vscode-remote.remote-ssh
+          { }
+        ;
 
       ms-vsliveshare.vsliveshare = callPackage ./ms-vsliveshare.vsliveshare { };
 
@@ -2825,25 +2839,27 @@ let
       };
 
       styled-components.vscode-styled-components =
-        buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "vscode-styled-components";
-            publisher = "styled-components";
-            version = "1.7.6";
-            sha256 = "sha256-ZXXXFUriu//2Wmj1N+plj7xzJauGBfj+79SyrkUZAO4=";
-          };
-          meta = {
-            changelog =
-              "https://marketplace.visualstudio.com/items/styled-components.vscode-styled-components/changelog";
-            description =
-              "Syntax highlighting and IntelliSense for styled-components";
-            downloadPage =
-              "https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components";
-            homepage =
-              "https://github.com/styled-components/vscode-styled-components";
-            license = lib.licenses.mit;
-          };
-        };
+        buildVscodeMarketplaceExtension
+          {
+            mktplcRef = {
+              name = "vscode-styled-components";
+              publisher = "styled-components";
+              version = "1.7.6";
+              sha256 = "sha256-ZXXXFUriu//2Wmj1N+plj7xzJauGBfj+79SyrkUZAO4=";
+            };
+            meta = {
+              changelog =
+                "https://marketplace.visualstudio.com/items/styled-components.vscode-styled-components/changelog";
+              description =
+                "Syntax highlighting and IntelliSense for styled-components";
+              downloadPage =
+                "https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components";
+              homepage =
+                "https://github.com/styled-components/vscode-styled-components";
+              license = lib.licenses.mit;
+            };
+          }
+        ;
 
       sumneko.lua = callPackage ./sumneko.lua { };
 
@@ -2933,15 +2949,17 @@ let
       };
 
       thenuprojectcontributors.vscode-nushell-lang =
-        buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "vscode-nushell-lang";
-            publisher = "thenuprojectcontributors";
-            version = "1.1.0";
-            sha256 = "sha256-7v4q0OEqv7q2ejHp4lph2Dsqg0GWE65pxyz9goQEm8g=";
-          };
-          meta.license = lib.licenses.mit;
-        };
+        buildVscodeMarketplaceExtension
+          {
+            mktplcRef = {
+              name = "vscode-nushell-lang";
+              publisher = "thenuprojectcontributors";
+              version = "1.1.0";
+              sha256 = "sha256-7v4q0OEqv7q2ejHp4lph2Dsqg0GWE65pxyz9goQEm8g=";
+            };
+            meta.license = lib.licenses.mit;
+          }
+        ;
 
       tiehuis.zig = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -3052,8 +3070,9 @@ let
         };
       };
 
-      vadimcn.vscode-lldb =
-        callPackage ./vadimcn.vscode-lldb { llvmPackages = llvmPackages_14; };
+      vadimcn.vscode-lldb = callPackage ./vadimcn.vscode-lldb {
+        llvmPackages = llvmPackages_14;
+      };
 
       valentjn.vscode-ltex = vscode-utils.buildVscodeMarketplaceExtension rec {
         mktplcRef = {
@@ -3088,18 +3107,20 @@ let
       };
 
       viktorqvarfordt.vscode-pitch-black-theme =
-        buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "vscode-pitch-black-theme";
-            publisher = "ViktorQvarfordt";
-            version = "1.3.0";
-            sha256 = "sha256-1JDm/cWNWwxa1gNsHIM/DIvqjXsO++hAf0mkjvKyi4g=";
-          };
-          meta = {
-            license = lib.licenses.mit;
-            maintainers = [ lib.maintainers.wolfangaukang ];
-          };
-        };
+        buildVscodeMarketplaceExtension
+          {
+            mktplcRef = {
+              name = "vscode-pitch-black-theme";
+              publisher = "ViktorQvarfordt";
+              version = "1.3.0";
+              sha256 = "sha256-1JDm/cWNWwxa1gNsHIM/DIvqjXsO++hAf0mkjvKyi4g=";
+            };
+            meta = {
+              license = lib.licenses.mit;
+              maintainers = [ lib.maintainers.wolfangaukang ];
+            };
+          }
+        ;
 
       vincaslt.highlight-matching-tag = buildVscodeMarketplaceExtension {
         mktplcRef = {

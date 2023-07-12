@@ -45,20 +45,25 @@ let
     # Config options
 
     warnUndeclaredOptions = mkOption {
-      description = lib.mdDoc
-        "Whether to warn when `config` contains an unrecognized attribute.";
+      description =
+        lib.mdDoc
+          "Whether to warn when `config` contains an unrecognized attribute."
+        ;
       type = types.bool;
       default = false;
     };
 
-    doCheckByDefault =
-      mkMassRebuild { feature = "run `checkPhase` by default"; };
+    doCheckByDefault = mkMassRebuild {
+      feature = "run `checkPhase` by default";
+    };
 
-    strictDepsByDefault =
-      mkMassRebuild { feature = "set `strictDeps` to true by default"; };
+    strictDepsByDefault = mkMassRebuild {
+      feature = "set `strictDeps` to true by default";
+    };
 
-    structuredAttrsByDefault =
-      mkMassRebuild { feature = "set `__structuredAttrs` to true by default"; };
+    structuredAttrsByDefault = mkMassRebuild {
+      feature = "set `__structuredAttrs` to true by default";
+    };
 
     enableParallelBuildingByDefault = mkMassRebuild {
       feature = "set `enableParallelBuilding` to true by default";
@@ -68,9 +73,9 @@ let
       feature = ''set `configurePlatforms` to `["build" "host"]` by default'';
     };
 
-    contentAddressedByDefault =
-      mkMassRebuild { feature = "set `__contentAddressed` to true by default"; }
-      ;
+    contentAddressedByDefault = mkMassRebuild {
+      feature = "set `__contentAddressed` to true by default";
+    };
 
     allowAliases = mkOption {
       type = types.bool;
@@ -176,9 +181,8 @@ in
 
   config = {
     warnings = lib.optionals config.warnUndeclaredOptions (
-      lib.mapAttrsToList
-      (k: v: "undeclared Nixpkgs option set: config.${k}")
-      config._undeclared or { }
+      lib.mapAttrsToList (k: v: "undeclared Nixpkgs option set: config.${k}")
+        config._undeclared or { }
     );
   };
 }
