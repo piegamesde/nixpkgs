@@ -7,7 +7,10 @@ let
   operators =
     let
       matchWildCard = s: match "([^*])(\\.[*])" s;
-      mkComparison = ret: version: v: builtins.compareVersions version v == ret;
+      mkComparison =
+        ret: version: v:
+        builtins.compareVersions version v == ret
+      ;
       mkIdxComparison =
         idx: version: v:
         let

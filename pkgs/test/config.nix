@@ -22,7 +22,10 @@ lib.recurseIntoAttrs {
       #     tempAllow = p: v: pa:
       #       lib.optionals (lib.assertMsg (p.version == v) "${p.name} is no longer at version ${v}, consider removing the tempAllow") pa;
       #
-      tempAllow = p: v: pa: builtins.seq v builtins.seq p.version pa;
+      tempAllow =
+        p: v: pa:
+        builtins.seq v builtins.seq p.version pa
+      ;
     in
     pkgs.hello
   ;

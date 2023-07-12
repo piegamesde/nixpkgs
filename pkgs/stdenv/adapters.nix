@@ -34,7 +34,8 @@ let
   extendMkDerivationArgs =
     old: f:
     withOldMkDerivation old (
-      _: mkDerivationSuper: args: (mkDerivationSuper args).overrideAttrs f
+      _: mkDerivationSuper: args:
+      (mkDerivationSuper args).overrideAttrs f
     )
   ;
 
@@ -42,7 +43,8 @@ let
   overrideMkDerivationResult =
     old: f:
     withOldMkDerivation old (
-      _: mkDerivationSuper: args: f (mkDerivationSuper args)
+      _: mkDerivationSuper: args:
+      f (mkDerivationSuper args)
     )
   ;
 in

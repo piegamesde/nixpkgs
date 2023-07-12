@@ -146,7 +146,12 @@ let
 
   overrideConfig =
     thrower:
-    recursiveUpdateUntil (path: old: new: path == thrower.path) eval.config
+    recursiveUpdateUntil
+      (
+        path: old: new:
+        path == thrower.path
+      )
+      eval.config
       thrower.config
   ;
 

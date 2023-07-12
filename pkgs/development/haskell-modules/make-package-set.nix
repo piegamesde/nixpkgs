@@ -322,7 +322,9 @@ package-set { inherit pkgs lib callPackage; } self // {
   ;
 
   callCabal2nix =
-    name: src: args: self.callCabal2nixWithOptions name src "" args;
+    name: src: args:
+    self.callCabal2nixWithOptions name src "" args
+  ;
 
   # : { root : Path
   #   , name : Defaulted String

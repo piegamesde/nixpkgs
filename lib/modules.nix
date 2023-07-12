@@ -1647,7 +1647,9 @@ rec {
      result of the change function
   */
   mkChangedOptionModule =
-    from: to: changeFn: mkMergedOptionModule [ from ] to changeFn;
+    from: to: changeFn:
+    mkMergedOptionModule [ from ] to changeFn
+  ;
 
   # Like ‘mkRenamedOptionModule’, but doesn't show a warning.
   mkAliasOptionModule =
