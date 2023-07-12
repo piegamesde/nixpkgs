@@ -2,18 +2,23 @@
   lib,
   stdenv,
   fetchFromGitLab,
-  nix-update-script, # base build deps
+  nix-update-script,
+  # base build deps
   meson,
   pkg-config,
-  ninja, # docs build deps
+  ninja,
+  # docs build deps
   python3,
   doxygen,
-  graphviz, # GI build deps
-  gobject-introspection, # runtime deps
+  graphviz,
+  # GI build deps
+  gobject-introspection,
+  # runtime deps
   glib,
   systemd,
   lua5_4,
-  pipewire, # options
+  pipewire,
+  # options
   enableDocs ? true,
   enableGI ? true,
 }:

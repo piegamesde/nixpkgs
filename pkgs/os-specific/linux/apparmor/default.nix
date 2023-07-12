@@ -385,7 +385,8 @@ let
   #
   #   include "${apparmorRulesFromClosure { } [ pkgs.hello ]}"
   apparmorRulesFromClosure =
-    { # The store path of the derivation is given in $path
+    {
+      # The store path of the derivation is given in $path
       additionalRules ? [ ],
       # TODO: factorize here some other common paths
       # that may emerge from use cases.

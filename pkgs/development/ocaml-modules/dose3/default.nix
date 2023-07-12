@@ -55,7 +55,8 @@ buildDunePackage rec {
     dpkg # Replaces: conf-dpkg
     ounit
   ];
-  doCheck = false; # Tests are failing.
+  doCheck = false;
+  # Tests are failing.
   # To enable tests use: lib.versionAtLeast ocaml.version "4.04";
 
   meta = with lib; {

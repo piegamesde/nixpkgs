@@ -9,8 +9,10 @@
   stdenv,
   vmTools,
   checkinstall,
-  fsTranslation ? false, # Features provided by this package.
-  debProvides ? [ ], # Features required by this package.
+  fsTranslation ? false,
+  # Features provided by this package.
+  debProvides ? [ ],
+  # Features required by this package.
   debRequires ? [ ],
   ...
 }@args:

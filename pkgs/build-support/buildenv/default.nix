@@ -13,33 +13,41 @@ lib.makeOverridable (
   {
     name
 
-    , # The manifest file (if any).  A symlink $out/manifest will be
+    ,
+    # The manifest file (if any).  A symlink $out/manifest will be
     # created to it.
     manifest ? ""
 
-    , # The paths to symlink.
+    ,
+    # The paths to symlink.
     paths
 
-    , # Whether to ignore collisions or abort.
+    ,
+    # Whether to ignore collisions or abort.
     ignoreCollisions ? false
 
-    , # If there is a collision, check whether the contents and permissions match
+    ,
+    # If there is a collision, check whether the contents and permissions match
     # and only if not, throw a collision error.
     checkCollisionContents ? true
 
-    , # The paths (relative to each element of `paths') that we want to
+    ,
+    # The paths (relative to each element of `paths') that we want to
     # symlink (e.g., ["/bin"]).  Any file not inside any of the
     # directories in the list is not symlinked.
     pathsToLink ? [ "/" ]
 
-    , # The package outputs to include. By default, only the default
+    ,
+    # The package outputs to include. By default, only the default
     # output is included.
     extraOutputsToInstall ? [ ]
 
-    , # Root the result in directory "$out${extraPrefix}", e.g. "/share".
+    ,
+    # Root the result in directory "$out${extraPrefix}", e.g. "/share".
     extraPrefix ? ""
 
-    , # Shell commands to run after building the symlink tree.
+    ,
+    # Shell commands to run after building the symlink tree.
     postBuild ? "",
 
     # Additional inputs

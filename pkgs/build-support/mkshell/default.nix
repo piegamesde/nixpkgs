@@ -7,8 +7,10 @@
 # A special kind of derivation that is only meant to be consumed by the
 # nix-shell.
 {
-  name ? "nix-shell", # a list of packages to add to the shell environment
-  packages ? [ ], # propagate all the inputs from the given derivations
+  name ? "nix-shell",
+  # a list of packages to add to the shell environment
+  packages ? [ ],
+  # propagate all the inputs from the given derivations
   inputsFrom ? [ ],
   buildInputs ? [ ],
   nativeBuildInputs ? [ ],

@@ -1247,7 +1247,8 @@ self: super:
                 "--enable-kdrive" # not built by default
                 "--enable-xephyr"
                 "--enable-xcsecurity" # enable SECURITY extension
-                "--with-default-font-path=" # there were only paths containing "${prefix}",
+                "--with-default-font-path="
+                # there were only paths containing "${prefix}",
                 # and there are no fonts in this package anyway
                 "--with-xkb-bin-directory=${xorg.xkbcomp}/bin"
                 "--with-xkb-path=${xorg.xkeyboardconfig}/share/X11/xkb"

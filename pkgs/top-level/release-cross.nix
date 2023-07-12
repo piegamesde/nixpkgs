@@ -8,14 +8,16 @@
    $ nix-build pkgs/top-level/release-cross.nix -A crossMingw32.nixUnstable --arg supportedSystems '[builtins.currentSystem]'
 */
 
-{ # The platforms *from* which we cross compile.
+{
+  # The platforms *from* which we cross compile.
   supportedSystems ? [
     "x86_64-linux"
     "x86_64-darwin"
     "aarch64-linux"
-  ], # Strip most of attributes when evaluating to spare memory usage
-  scrubJobs ?
-    true, # Attributes passed to nixpkgs. Don't build packages marked as unfree.
+  ],
+  # Strip most of attributes when evaluating to spare memory usage
+  scrubJobs ? true,
+  # Attributes passed to nixpkgs. Don't build packages marked as unfree.
   nixpkgsArgs ? {
     config = {
       allowUnfree = false;

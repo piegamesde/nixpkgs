@@ -17,7 +17,8 @@
   gpm,
   libidn,
   tre,
-  expat, # Incompatible licenses, LGPLv3 - GPLv2
+  expat,
+  # Incompatible licenses, LGPLv3 - GPLv2
   enableGuile ? false,
   guile ? null,
   enablePython ? false,

@@ -1,7 +1,8 @@
 {
   lib,
   stdenv,
-  fetchurl, # this also disables building tests.
+  fetchurl,
+  # this also disables building tests.
   # on static windows cross-compile they fail to build
   doCheck ? with stdenv.hostPlatform;
     !(isWindows && isStatic),

@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
           stdenv.hostPlatform.linuxArch
       }"
       "KLIBCKERNELSRC=${linuxHeaders}"
-    ] # TODO(@Ericson2314): We now can get the ABI from
+    ]
+    # TODO(@Ericson2314): We now can get the ABI from
     # `stdenv.hostPlatform.parsed.abi`, is this still a good idea?
     ++ lib.optional (stdenv.hostPlatform.linuxArch == "arm") "CONFIG_AEABI=y"
     ++

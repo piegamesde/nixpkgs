@@ -7,7 +7,8 @@
   runCommand,
   makeDesktopItem,
   xonotic-data,
-  copyDesktopItems, # required for both
+  copyDesktopItems,
+  # required for both
   unzip,
   libjpeg,
   zlib,
@@ -15,15 +16,18 @@
   curl,
   freetype,
   libpng,
-  libtheora, # glx
+  libtheora,
+  # glx
   libX11,
   libGLU,
   libGL,
   libXpm,
   libXext,
   libXxf86vm,
-  alsa-lib, # sdl
-  SDL2, # blind
+  alsa-lib,
+  # sdl
+  SDL2,
+  # blind
   gmp,
 
   withSDL ? true,

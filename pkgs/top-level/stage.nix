@@ -9,19 +9,22 @@
    import `pkgs/default.nix` or `default.nix`.
 */
 
-{ # # Misc parameters kept the same for all stages
+{
+  ## Misc parameters kept the same for all stages
   ##
 
   # Utility functions, could just import but passing in for efficiency
   lib
 
-  , # Use to reevaluate Nixpkgs
+  ,
+  # Use to reevaluate Nixpkgs
   nixpkgsFun
 
   ## Other parameters
   ##
 
-  , # Either null or an object in the form:
+  ,
+  # Either null or an object in the form:
   #
   #   {
   #     pkgsBuildBuild = ...;
@@ -39,15 +42,18 @@
   # defined as the current stage.
   adjacentPackages
 
-  , # The standard environment to use for building packages.
+  ,
+  # The standard environment to use for building packages.
   stdenv
 
-  , # This is used because stdenv replacement and the stdenvCross do benefit from
+  ,
+  # This is used because stdenv replacement and the stdenvCross do benefit from
   # the overridden configuration provided by the user, as opposed to the normal
   # bootstrapping stdenvs.
   allowCustomOverrides
 
-  , # Non-GNU/Linux OSes are currently "impure" platforms, with their libc
+  ,
+  # Non-GNU/Linux OSes are currently "impure" platforms, with their libc
   # outside of the store.  Thus, GCC, GFortran, & co. must always look for files
   # in standard system directories (/usr/include, etc.)
   noSysDirs ? stdenv.buildPlatform.system != "x86_64-freebsd"
@@ -55,10 +61,12 @@
     && stdenv.buildPlatform.system != "x86_64-solaris"
     && stdenv.buildPlatform.system != "x86_64-kfreebsd-gnu"
 
-  , # The configuration attribute set
+  ,
+  # The configuration attribute set
   config
 
-  , # A list of overlays (Additional `self: super: { .. }` customization
+  ,
+  # A list of overlays (Additional `self: super: { .. }` customization
   # functions) to be fixed together in the produced package set
   overlays,
 }@args:

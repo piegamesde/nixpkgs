@@ -15,7 +15,8 @@ let
   callInstalledTest = pkgs.newScope { inherit makeInstalledTest; };
 
   makeInstalledTest =
-    { # Package to test. Needs to have an installedTests output
+    {
+      # Package to test. Needs to have an installedTests output
       tested,
 
       # Config to inject into machine

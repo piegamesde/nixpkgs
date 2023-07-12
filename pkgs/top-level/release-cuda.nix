@@ -8,8 +8,10 @@
         $ hydra-eval-jobs pkgs/top-level/release-cuda.nix --option restrict-eval false -I foo=. --arg nixpkgs '{ outPath = ./.; revCount = 0; shortRev = "aabbcc"; }'
 */
 
-{ # The platforms for which we build Nixpkgs.
-  supportedSystems ? [ "x86_64-linux" ], # Attributes passed to nixpkgs.
+{
+  # The platforms for which we build Nixpkgs.
+  supportedSystems ? [ "x86_64-linux" ],
+  # Attributes passed to nixpkgs.
   nixpkgsArgs ? {
     config = {
       allowUnfree = true;

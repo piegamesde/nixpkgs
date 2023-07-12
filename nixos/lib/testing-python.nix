@@ -61,7 +61,8 @@ pkgs.lib.throwIf (args ? specialArgs)
         # Skip linting (mainly intended for faster dev cycles)
         skipLint ? false,
         passthru ? { },
-        meta ? { }, # For meta.position
+        meta ? { },
+        # For meta.position
         pos ? # position used in error messages and for meta.position
           (
             if meta.description or null != null then

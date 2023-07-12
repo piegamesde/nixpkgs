@@ -14,7 +14,8 @@
   pyyaml,
   pmdsky-debug-py,
   typing-extensions,
-  pythonOlder, # optional dependancies for SpriteCollab
+  pythonOlder,
+  # optional dependancies for SpriteCollab
   aiohttp,
   lru-dict,
   graphql-core,

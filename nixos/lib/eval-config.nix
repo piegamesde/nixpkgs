@@ -8,22 +8,26 @@
 # as subcomponents (e.g. the container feature, or nixops if network
 # expressions are ever made modular at the top level) can just use
 # types.submodule instead of using eval-config.nix
-evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
+evalConfigArgs@{
+  # !!! system can be set modularly, would be nice to remove,
   #     however, removing or changing this default is too much
   #     of a breaking change. To set it modularly, pass `null`.
-  system ?
-    builtins.currentSystem, # !!! is this argument needed any more? The pkgs argument can
+  system ? builtins.currentSystem,
+  # !!! is this argument needed any more? The pkgs argument can
   # be set modularly anyway.
-  pkgs ? null, # !!! what do we gain by making this configurable?
+  pkgs ? null,
+  # !!! what do we gain by making this configurable?
   #     we can add modules that are included in specialisations, regardless
   #     of inheritParentConfig.
-  baseModules ? import
-      ../modules/module-list.nix, # !!! See comment about args in lib/modules.nix
-  extraArgs ? { }, # !!! See comment about args in lib/modules.nix
+  baseModules ? import ../modules/module-list.nix,
+  # !!! See comment about args in lib/modules.nix
+  extraArgs ? { },
+  # !!! See comment about args in lib/modules.nix
   specialArgs ? { },
   modules,
   modulesLocation ? (builtins.unsafeGetAttrPos "modules" evalConfigArgs).file
-    or null, # !!! See comment about check in lib/modules.nix
+    or null,
+  # !!! See comment about check in lib/modules.nix
   check ? true,
   prefix ? [ ],
   lib ? import ../../lib,

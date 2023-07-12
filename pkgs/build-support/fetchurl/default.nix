@@ -46,22 +46,27 @@ let
   ;
 in
 
-{ # URL to fetch.
+{
+  # URL to fetch.
   url ? ""
 
-  , # Alternatively, a list of URLs specifying alternative download
+  ,
+  # Alternatively, a list of URLs specifying alternative download
   # locations.  They are tried in order.
   urls ? [ ]
 
-  , # Additional curl options needed for the download to succeed.
+  ,
+  # Additional curl options needed for the download to succeed.
   # Warning: Each space (no matter the escaping) will start a new argument.
   # If you wish to pass arguments with spaces, use `curlOptsList`
   curlOpts ? ""
 
-  , # Additional curl options needed for the download to succeed.
+  ,
+  # Additional curl options needed for the download to succeed.
   curlOptsList ? [ ]
 
-  , # Name of the file.  If empty, use the basename of `url' (or of the
+  ,
+  # Name of the file.  If empty, use the basename of `url' (or of the
   # first element of `urls').
   name ? "",
 
@@ -69,10 +74,12 @@ in
   pname ? "",
   version ? ""
 
-  , # SRI hash.
+  ,
+  # SRI hash.
   hash ? ""
 
-  , # Legacy ways of specifying the hash.
+  ,
+  # Legacy ways of specifying the hash.
   outputHash ? "",
   outputHashAlgo ? "",
   md5 ? "",
@@ -82,30 +89,37 @@ in
 
   recursiveHash ? false
 
-  , # Shell code to build a netrc file for BASIC auth
+  ,
+  # Shell code to build a netrc file for BASIC auth
   netrcPhase ? null
 
-  , # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
+  ,
+  # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
   # needed for netrcPhase
   netrcImpureEnvVars ? [ ]
 
-  , # Shell code executed after the file has been fetched
+  ,
+  # Shell code executed after the file has been fetched
   # successfully. This can do things like check or transform the file.
   postFetch ? ""
 
-  , # Whether to download to a temporary path rather than $out. Useful
+  ,
+  # Whether to download to a temporary path rather than $out. Useful
   # in conjunction with postFetch. The location of the temporary file
   # is communicated to postFetch via $downloadedFile.
   downloadToTemp ? false
 
-  , # If true, set executable bit on downloaded file
+  ,
+  # If true, set executable bit on downloaded file
   executable ? false
 
-  , # If set, don't download the file, but write a list of all possible
+  ,
+  # If set, don't download the file, but write a list of all possible
   # URLs (resulting from resolving mirror:// URLs) to $out.
   showURLs ? false
 
-  , # Meta information, if any.
+  ,
+  # Meta information, if any.
   meta ? { },
 
   # Passthru information, if any.

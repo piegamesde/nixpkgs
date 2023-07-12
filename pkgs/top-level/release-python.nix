@@ -2,11 +2,13 @@
    $ hydra-eval-jobs pkgs/top-level/release-python.nix
 */
 
-{ # The platforms for which we build Nixpkgs.
+{
+  # The platforms for which we build Nixpkgs.
   supportedSystems ? [
     "aarch64-linux"
     "x86_64-linux"
-  ], # Attributes passed to nixpkgs. Don't build packages marked as unfree.
+  ],
+  # Attributes passed to nixpkgs. Don't build packages marked as unfree.
   nixpkgsArgs ? {
     config = {
       allowUnfree = false;
