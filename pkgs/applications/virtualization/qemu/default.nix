@@ -221,8 +221,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals canokeySupport [ canokey-qemu ]
   ;
 
-  dontUseMesonConfigure =
-    true; # meson's configurePhase isn't compatible with qemu build
+  dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
 
   outputs = [ "out" ] ++ lib.optional guestAgentSupport "ga";
   # On aarch64-linux we would shoot over the Hydra's 2G output limit.

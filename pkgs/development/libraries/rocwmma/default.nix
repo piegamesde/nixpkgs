@@ -18,8 +18,7 @@
   buildExtendedTests ? false,
   buildBenchmarks ? false,
   buildSamples ? false,
-  gpuTargets ?
-    [ ] # gpuTargets = [ "gfx908:xnack-" "gfx90a:xnack-" "gfx90a:xnack+" ... ]
+  gpuTargets ? [ ] # gpuTargets = [ "gfx908:xnack-" "gfx90a:xnack-" "gfx90a:xnack+" ... ]
   ,
 }:
 

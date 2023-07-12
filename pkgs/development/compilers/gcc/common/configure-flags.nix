@@ -295,9 +295,7 @@ let
     ++
       lib.optional (targetPlatform == hostPlatform && targetPlatform.isx86_32)
         "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
-    ++
-      lib.optional targetPlatform.isNetBSD
-        "--disable-libssp" # Provided by libc.
+    ++ lib.optional targetPlatform.isNetBSD "--disable-libssp" # Provided by libc.
     ++ lib.optionals hostPlatform.isSunOS [
       "--enable-long-long"
       "--enable-libssp"

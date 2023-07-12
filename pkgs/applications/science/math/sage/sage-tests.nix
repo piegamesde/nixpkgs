@@ -24,8 +24,7 @@ let
   patienceSpecifier = lib.optionalString longTests "--long";
   timeSpecifier =
     if timeLimit == null then "" else "--short ${toString timeLimit}";
-  relpathToArg =
-    relpath: lib.escapeShellArg "${src}/${relpath}"; # paths need to be absolute
+  relpathToArg = relpath: lib.escapeShellArg "${src}/${relpath}"; # paths need to be absolute
   testFileList = lib.concatStringsSep " " (map relpathToArg files);
 in
 stdenv.mkDerivation {

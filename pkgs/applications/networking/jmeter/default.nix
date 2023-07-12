@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/jmeter.sh --set JAVA_HOME "${jre}"
   '';
 
-  doInstallCheck =
-    false; # NoClassDefFoundError: org/apache/logging/log4j/Level for tests
+  doInstallCheck = false; # NoClassDefFoundError: org/apache/logging/log4j/Level for tests
 
   nativeCheckInputs = [ coreutils ];
 

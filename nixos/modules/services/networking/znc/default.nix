@@ -36,8 +36,7 @@ let
             else if isAttrs set.${l} == isAttrs set.${r} then
               l < r
             else
-              isAttrs
-                set.${r} # Attrsets should be last, makes for a nice config
+              isAttrs set.${r} # Attrsets should be last, makes for a nice config
           # This last case occurs when any side (but not both) is an attrset
           # The order of these is correct when the attrset is on the right
           # which we're just returning
@@ -241,8 +240,7 @@ in
       };
 
       mutable = mkOption {
-        default =
-          true; # TODO: Default to true when config is set, make sure to not delete the old config if present
+        default = true; # TODO: Default to true when config is set, make sure to not delete the old config if present
         type = types.bool;
         description = lib.mdDoc ''
           Indicates whether to allow the contents of the

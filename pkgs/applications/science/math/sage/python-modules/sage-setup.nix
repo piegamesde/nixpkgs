@@ -20,8 +20,7 @@ buildPythonPackage rec {
     cd pkgs/sage-setup
   '';
 
-  doCheck =
-    false; # sagelib depends on sage-setup, but sage-setup's tests depend on sagelib
+  doCheck = false; # sagelib depends on sage-setup, but sage-setup's tests depend on sagelib
 
   meta = with lib; {
     description = "Build system of the Sage library";

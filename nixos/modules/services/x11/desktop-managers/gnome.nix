@@ -560,10 +560,7 @@ in
       # services.packagekit.enable = mkDefault true;
       services.udisks2.enable = true;
       services.upower.enable = config.powerManagement.enable;
-      services.xserver.libinput.enable =
-        mkDefault
-          true
-      ; # for controlling touchpad settings via gnome control center
+      services.xserver.libinput.enable = mkDefault true; # for controlling touchpad settings via gnome control center
 
       # Explicitly enabled since GNOME will be severely broken without these.
       xdg.mime.enable = true;
@@ -642,8 +639,7 @@ in
       xdg.portal.extraPortals = [ pkgs.gnome.gnome-shell ];
 
       services.geoclue2.enable = mkDefault true;
-      services.geoclue2.enableDemoAgent =
-        false; # GNOME has its own geoclue agent
+      services.geoclue2.enableDemoAgent = false; # GNOME has its own geoclue agent
 
       services.geoclue2.appConfig.gnome-datetime-panel = {
         isAllowed = true;

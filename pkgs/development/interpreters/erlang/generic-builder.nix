@@ -24,8 +24,7 @@
   parallelBuild ? false,
   systemd,
   wxSupport ? true,
-  systemdSupport ?
-    lib.meta.availableOn stdenv.hostPlatform systemd # systemd support in epmd
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd # systemd support in epmd
   ,
   # updateScript deps
   writeScript,
@@ -167,9 +166,7 @@ stdenv.mkDerivation (
 
     configureFlags =
       [ "--with-ssl=${lib.getOutput "out" opensslPackage}" ]
-      ++ [
-        "--with-ssl-incl=${lib.getDev opensslPackage}"
-      ] # This flag was introduced in R24
+      ++ [ "--with-ssl-incl=${lib.getDev opensslPackage}" ] # This flag was introduced in R24
       ++ optional enableThreads "--enable-threads"
       ++ optional enableSmpSupport "--enable-smp-support"
       ++ optional enableKernelPoll "--enable-kernel-poll"

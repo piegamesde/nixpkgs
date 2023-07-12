@@ -43,8 +43,7 @@ buildPythonPackage rec {
     sparse
   ];
 
-  doCheck =
-    false; # TODO: enable. Tests fail on unstable due to some multithreading issue?
+  doCheck = false; # TODO: enable. Tests fail on unstable due to some multithreading issue?
   nativeCheckInputs = [
     pytestCheckHook
     pytest-timeout

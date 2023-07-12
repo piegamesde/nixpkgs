@@ -61,8 +61,7 @@ buildPythonApplication rec {
   meta = {
     description = "Better lighting for Linux. Open source GUI for xflux";
     homepage = "https://justgetflux.com/linux.html";
-    license =
-      lib.licenses.unfree; # marked as unfree since the source code contains a copy of the unfree xflux binary
+    license = lib.licenses.unfree; # marked as unfree since the source code contains a copy of the unfree xflux binary
     maintainers = [ lib.maintainers.sheenobu ];
     platforms = lib.platforms.linux;
   };

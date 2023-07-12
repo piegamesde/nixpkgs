@@ -152,8 +152,7 @@ let
       pkgsBuildHost = withFallback adjacentPackages.pkgsBuildHost;
       pkgsBuildTarget = withFallback adjacentPackages.pkgsBuildTarget;
       pkgsHostHost = withFallback adjacentPackages.pkgsHostHost;
-      pkgsHostTarget =
-        self // { recurseForDerivations = false; }; # always `self`
+      pkgsHostTarget = self // { recurseForDerivations = false; }; # always `self`
       pkgsTargetTarget = withFallback adjacentPackages.pkgsTargetTarget;
 
       # Older names for package sets. Use these when only the host platform of the

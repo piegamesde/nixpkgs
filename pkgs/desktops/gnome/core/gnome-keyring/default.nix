@@ -67,9 +67,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    "--with-pkcs11-config=${
-      placeholder "out"
-    }/etc/pkcs11/" # installation directories
+    "--with-pkcs11-config=${placeholder "out"}/etc/pkcs11/" # installation directories
     "--with-pkcs11-modules=${placeholder "out"}/lib/pkcs11/"
   ];
 

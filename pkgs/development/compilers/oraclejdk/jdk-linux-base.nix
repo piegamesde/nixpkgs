@@ -228,8 +228,7 @@ let
         "/lib/${architecture}/plugins"
     ;
 
-    passthru.jre =
-      result; # FIXME: use multiple outputs or return actual JRE package
+    passthru.jre = result; # FIXME: use multiple outputs or return actual JRE package
 
     passthru.home = result;
 

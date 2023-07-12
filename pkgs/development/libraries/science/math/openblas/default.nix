@@ -252,8 +252,7 @@ stdenv.mkDerivation rec {
       # As described on https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
       USE_THREAD = false;
       USE_LOCKING = true; # available with openblas >= 0.3.7
-      USE_OPENMP =
-        false; # openblas will refuse building with both USE_OPENMP=1 and USE_THREAD=0
+      USE_OPENMP = false; # openblas will refuse building with both USE_OPENMP=1 and USE_THREAD=0
     })
   );
 

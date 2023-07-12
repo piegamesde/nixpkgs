@@ -33,7 +33,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Flask extension with lots of common time-savers";
     homepage = "https://github.com/kennethreitz/flask-common";
-    license =
-      licenses.asl20; # XXX: setup.py lists BSD but git repo has Apache 2.0 LICENSE
+    license = licenses.asl20; # XXX: setup.py lists BSD but git repo has Apache 2.0 LICENSE
   };
 }

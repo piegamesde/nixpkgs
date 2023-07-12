@@ -27,8 +27,7 @@ import ./make-test-python.nix (
 
         services.xserver.desktopManager.xfce.enable = true;
 
-        hardware.pulseaudio.enable =
-          true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
+        hardware.pulseaudio.enable = true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
       }
     ;
 

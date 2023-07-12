@@ -2351,8 +2351,7 @@ final: prev: {
             homepage = "https://github.com/bungle/lua-resty-session";
             description = "Session Library for OpenResty - Flexible and Secure";
             license.fullName = "BSD";
-            broken =
-              true; # lua_pack and lua-ffi-zlib are unpackaged, causing this package to not evaluate
+            broken = true; # lua_pack and lua-ffi-zlib are unpackaged, causing this package to not evaluate
           };
         }
       )

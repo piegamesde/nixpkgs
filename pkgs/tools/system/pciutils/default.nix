@@ -70,8 +70,6 @@ stdenv.mkDerivation rec {
     description = "A collection of programs for inspecting and manipulating configuration of PCI devices";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [
-      maintainers.vcunat
-    ]; # not really, but someone should watch it
+    maintainers = [ maintainers.vcunat ]; # not really, but someone should watch it
   };
 }

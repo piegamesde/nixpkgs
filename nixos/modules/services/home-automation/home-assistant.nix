@@ -648,8 +648,7 @@ in
           MemoryDenyWriteExecute = true;
           NoNewPrivileges = true;
           PrivateTmp = true;
-          PrivateUsers =
-            false; # prevents gaining capabilities in the host namespace
+          PrivateUsers = false; # prevents gaining capabilities in the host namespace
           ProtectClock = true;
           ProtectControlGroups = true;
           ProtectHome = true;

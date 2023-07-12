@@ -56,7 +56,6 @@ stdenv.mkDerivation rec {
     description = "A fast and lightweight 2D game physics library";
     homepage = "http://chipmunk2d.net/";
     license = licenses.mit;
-    platforms =
-      platforms.unix; # supports Windows and MacOS as well, but those require more work
+    platforms = platforms.unix; # supports Windows and MacOS as well, but those require more work
   };
 }

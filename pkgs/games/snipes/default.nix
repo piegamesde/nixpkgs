@@ -51,8 +51,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Modern port of the classic 1982 text-mode game Snipes";
     homepage = "https://www.vogons.org/viewtopic.php?f=7&t=49073";
-    license =
-      licenses.free; # This reverse-engineered source code is released with the original authors' permission.
+    license = licenses.free; # This reverse-engineered source code is released with the original authors' permission.
     maintainers = with maintainers; [ peterhoeg ];
   };
 }

@@ -50,8 +50,7 @@ python3.pkgs.buildPythonApplication rec {
     )
   ;
 
-  doCheck =
-    false; # Tests try to access an X11 session and dbus in weird locations.
+  doCheck = false; # Tests try to access an X11 session and dbus in weird locations.
 
   pythonImportsCheck = [ "DisplayCAL" ];
 

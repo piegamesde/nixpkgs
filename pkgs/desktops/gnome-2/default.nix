@@ -94,10 +94,7 @@ lib.makeScope pkgs.newScope (
     libgnomecanvasmm = "gnome2.libgnomecanvasmm has been removed"; # 2022-01-15
     libgnomecups = throw "gnome2.libgnomecups has been removed"; # 2023-01-15
     libgnomeprint = throw "gnome2.libgnomeprint has been removed"; # 2023-01-15
-    libgnomeprintui =
-      throw
-        "gnome2.libgnomeprintui has been removed"
-    ; # 2023-01-15
+    libgnomeprintui = throw "gnome2.libgnomeprintui has been removed"; # 2023-01-15
     libgtkhtml = throw "gnome2.libgtkhtml has been removed"; # 2023-01-15
     python_rsvg = throw "gnome2.python_rsvg has been removed"; # 2023-01-14
   }

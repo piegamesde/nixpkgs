@@ -713,8 +713,7 @@ rec {
   };
 } # un-indented
 
-// lib.optionalAttrs
-  (!clisp.meta.broken) # broken on aarch64 and darwin (#20062)
+// lib.optionalAttrs (!clisp.meta.broken) # broken on aarch64 and darwin (#20062)
   {
 
     xindy = stdenv.mkDerivation {

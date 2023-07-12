@@ -114,8 +114,7 @@
       ++ pure-python-adb.optional-dependencies.async
     ;
     "androidtv_remote" = ps: with ps; [ ]; # missing inputs: androidtvremote2
-    "anel_pwrctrl" =
-      ps: with ps; [ ]; # missing inputs: anel_pwrctrl-homeassistant
+    "anel_pwrctrl" = ps: with ps; [ ]; # missing inputs: anel_pwrctrl-homeassistant
     "anova" = ps: with ps; [ ]; # missing inputs: anova-wifi
     "anthemav" = ps: with ps; [ ]; # missing inputs: anthemav
     "anwb_energie" = ps: with ps; [ ];
@@ -749,8 +748,7 @@
         aiohttp-cors
       ]
     ;
-    "eddystone_temperature" =
-      ps: with ps; [ construct ]; # missing inputs: beacontools
+    "eddystone_temperature" = ps: with ps; [ construct ]; # missing inputs: beacontools
     "edimax" = ps: with ps; [ pyedimax ];
     "edl21" = ps: with ps; [ pysml ];
     "efergy" = ps: with ps; [ pyefergy ];
@@ -1870,8 +1868,7 @@
       ]
     ;
     "london_air" = ps: with ps; [ ];
-    "london_underground" =
-      ps: with ps; [ ]; # missing inputs: london-tube-status
+    "london_underground" = ps: with ps; [ ]; # missing inputs: london-tube-status
     "lookin" = ps: with ps; [ aiolookin ];
     "lovelace" = ps: with ps; [ ];
     "luci" = ps: with ps; [ openwrt-luci-rpc ];
@@ -2090,8 +2087,7 @@
       ]
     ;
     "modern_forms" = ps: with ps; [ aiomodernforms ];
-    "moehlenhoff_alpha2" =
-      ps: with ps; [ ]; # missing inputs: moehlenhoff-alpha2
+    "moehlenhoff_alpha2" = ps: with ps; [ ]; # missing inputs: moehlenhoff-alpha2
     "mold_indicator" = ps: with ps; [ ];
     "monessen" = ps: with ps; [ ];
     "monoprice" = ps: with ps; [ ]; # missing inputs: pymonoprice
@@ -3214,8 +3210,7 @@
         sqlalchemy
       ]
     ;
-    "stiebel_eltron" =
-      ps: with ps; [ pymodbus ]; # missing inputs: pystiebeleltron
+    "stiebel_eltron" = ps: with ps; [ pymodbus ]; # missing inputs: pystiebeleltron
     "stookalert" = ps: with ps; [ stookalert ];
     "stookwijzer" = ps: with ps; [ ]; # missing inputs: stookwijzer
     "stream" =
@@ -3412,8 +3407,7 @@
         zeroconf
       ]
     ;
-    "thermoworks_smoke" =
-      ps: with ps; [ stringcase ]; # missing inputs: thermoworks_smoke
+    "thermoworks_smoke" = ps: with ps; [ stringcase ]; # missing inputs: thermoworks_smoke
     "thethingsnetwork" = ps: with ps; [ ];
     "thingspeak" = ps: with ps; [ ]; # missing inputs: thingspeak
     "thinkingcleaner" = ps: with ps; [ ]; # missing inputs: pythinkingcleaner

@@ -54,8 +54,7 @@ rec {
         geolocationSupport = false;
         webrtcSupport = false;
 
-        pgoSupport =
-          false; # console.warn: feeds: "downloadFeed: network connection unavailable"
+        pgoSupport = false; # console.warn: feeds: "downloadFeed: network connection unavailable"
       }
   ;
 }

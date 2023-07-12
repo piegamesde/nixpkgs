@@ -28,8 +28,7 @@
 
 let
   release_version = "10.0.1";
-  version =
-    release_version; # differentiating these (variables) is important for RCs
+  version = release_version; # differentiating these (variables) is important for RCs
   targetConfig = stdenv.targetPlatform.config;
 
   fetch =

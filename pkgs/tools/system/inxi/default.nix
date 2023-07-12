@@ -7,8 +7,7 @@
   makeWrapper,
   ps,
   dnsutils, # dig is recommended for multiple categories
-  withRecommends ?
-    false # Install (almost) all recommended tools (see --recommends)
+  withRecommends ? false # Install (almost) all recommended tools (see --recommends)
   ,
   withRecommendedSystemPrograms ? withRecommends,
   util-linuxMinimal,

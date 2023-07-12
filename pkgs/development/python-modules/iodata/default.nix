@@ -36,8 +36,7 @@ buildPythonPackage rec {
     "iodata"
     "iodata.overlap_accel"
   ];
-  doCheck =
-    false; # Requires roberto or nose and a lenghtly setup to find the cython modules
+  doCheck = false; # Requires roberto or nose and a lenghtly setup to find the cython modules
 
   meta = with lib; {
     description = "Python library for reading, writing, and converting computational chemistry file formats and generating input files";

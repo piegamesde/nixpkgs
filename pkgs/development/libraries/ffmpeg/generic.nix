@@ -44,10 +44,7 @@
   ,
   withAom ? withFullDeps # AV1 reference encoder
   ,
-  withAss ? withHeadlessDeps
-    &&
-      stdenv.hostPlatform
-      == stdenv.buildPlatform # (Advanced) SubStation Alpha subtitle rendering
+  withAss ? withHeadlessDeps && stdenv.hostPlatform == stdenv.buildPlatform # (Advanced) SubStation Alpha subtitle rendering
   ,
   withBluray ? withFullDeps # BluRay reading
   ,
@@ -66,8 +63,7 @@
   ,
   withDc1394 ? withFullDeps && !stdenv.isDarwin # IIDC-1394 grabbing (ieee 1394)
   ,
-  withDrm ?
-    withHeadlessDeps && (with stdenv; isLinux || isFreeBSD) # libdrm support
+  withDrm ? withHeadlessDeps && (with stdenv; isLinux || isFreeBSD) # libdrm support
   ,
   withFdkAac ? withFullDeps && withUnfree # Fraunhofer FDK AAC de/encoder
   ,
@@ -91,15 +87,11 @@
   ,
   withLadspa ? withFullDeps # LADSPA audio filtering
   ,
-  withLibplacebo ?
-    withFullDeps && !stdenv.isDarwin # libplacebo video processing library
+  withLibplacebo ? withFullDeps && !stdenv.isDarwin # libplacebo video processing library
   ,
   withLzma ? withHeadlessDeps # xz-utils
   ,
-  withMfx ? withFullDeps
-    && (
-      with stdenv.targetPlatform; isLinux && !isAarch
-    ) # Hardware acceleration via intel-media-sdk/libmfx
+  withMfx ? withFullDeps && (with stdenv.targetPlatform; isLinux && !isAarch) # Hardware acceleration via intel-media-sdk/libmfx
   ,
   withModplug ? withFullDeps && !stdenv.isDarwin # ModPlug support
   ,
@@ -151,31 +143,26 @@
   ,
   withSvg ? withFullDeps # SVG protocol
   ,
-  withSvtav1 ? withFullDeps
-    && !stdenv.isAarch64 # AV1 encoder/decoder (focused on speed and correctness)
+  withSvtav1 ? withFullDeps && !stdenv.isAarch64 # AV1 encoder/decoder (focused on speed and correctness)
   ,
   withTheora ? withHeadlessDeps # Theora encoder
   ,
   withV4l2 ? withFullDeps && !stdenv.isDarwin # Video 4 Linux support
   ,
   withV4l2M2m ? withV4l2,
-  withVaapi ? withHeadlessDeps
-    && (with stdenv; isLinux || isFreeBSD) # Vaapi hardware acceleration
+  withVaapi ? withHeadlessDeps && (with stdenv; isLinux || isFreeBSD) # Vaapi hardware acceleration
   ,
   withVdpau ? withSmallDeps # Vdpau hardware acceleration
   ,
   withVidStab ? withFullDeps # Video stabilization
   ,
-  withVmaf ? withFullDeps
-    && withGPLv3
-    && !stdenv.isAarch64 # Netflix's VMAF (Video Multi-Method Assessment Fusion)
+  withVmaf ? withFullDeps && withGPLv3 && !stdenv.isAarch64 # Netflix's VMAF (Video Multi-Method Assessment Fusion)
   ,
   withVoAmrwbenc ? withFullDeps # AMR-WB encoder
   ,
   withVorbis ? withHeadlessDeps # Vorbis de/encoding, native encoder exists
   ,
-  withVpx ? withHeadlessDeps
-    && stdenv.buildPlatform == stdenv.hostPlatform # VP8 & VP9 de/encoding
+  withVpx ? withHeadlessDeps && stdenv.buildPlatform == stdenv.hostPlatform # VP8 & VP9 de/encoding
   ,
   withVulkan ? withFullDeps && !stdenv.isDarwin,
   withWebp ? withFullDeps # WebP encoder
@@ -213,19 +200,15 @@
   # *  Build options
   withSmallBuild ? false # Optimize for size instead of speed
   ,
-  withRuntimeCPUDetection ?
-    true # Detect CPU capabilities at runtime (disable to compile natively)
+  withRuntimeCPUDetection ? true # Detect CPU capabilities at runtime (disable to compile natively)
   ,
   withGrayscale ? withFullDeps # Full grayscale support
   ,
-  withSwscaleAlpha ?
-    buildSwscale # Alpha channel support in swscale. You probably want this when buildSwscale.
+  withSwscaleAlpha ? buildSwscale # Alpha channel support in swscale. You probably want this when buildSwscale.
   ,
-  withHardcodedTables ?
-    withHeadlessDeps # Hardcode decode tables instead of runtime generation
+  withHardcodedTables ? withHeadlessDeps # Hardcode decode tables instead of runtime generation
   ,
-  withSafeBitstreamReader ?
-    withHeadlessDeps # Buffer boundary checking in bitreaders
+  withSafeBitstreamReader ? withHeadlessDeps # Buffer boundary checking in bitreaders
   ,
   withMultithread ? true # Multithreading via pthreads/win32 threads
   ,
@@ -438,8 +421,7 @@ assert buildFfplay
 assert buildFfprobe -> buildAvcodec && buildAvformat;
 # *  Library dependencies
 assert buildAvcodec -> buildAvutil; # configure flag since 0.6
-assert buildAvdevice
-  -> buildAvformat && buildAvcodec && buildAvutil; # configure flag since 0.6
+assert buildAvdevice -> buildAvformat && buildAvcodec && buildAvutil; # configure flag since 0.6
 assert buildAvformat -> buildAvcodec && buildAvutil; # configure flag since 0.6
 assert buildPostproc -> buildAvutil;
 assert buildSwscale -> buildAvutil;
@@ -675,10 +657,7 @@ stdenv.mkDerivation (
     # such references except for data.
     postConfigure =
       let
-        toStrip =
-          lib.remove "data"
-            finalAttrs.outputs
-        ; # We want to keep references to the data dir.
+        toStrip = lib.remove "data" finalAttrs.outputs; # We want to keep references to the data dir.
       in
       "remove-references-to ${
         lib.concatStringsSep " " (map (o: "-t ${placeholder o}") toStrip)
@@ -697,9 +676,7 @@ stdenv.mkDerivation (
     # TODO This was always in buildInputs before, why?
     buildInputs =
       optionals withFullDeps [ libdc1394 ]
-      ++ optionals (withFullDeps && !stdenv.isDarwin) [
-        libraw1394
-      ] # TODO where does this belong to
+      ++ optionals (withFullDeps && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
       ++ optionals (withNvdec || withNvenc) [
         (
           if (lib.versionAtLeast version "6") then
@@ -728,9 +705,7 @@ stdenv.mkDerivation (
       ++ optionals withGme [ game-music-emu ]
       ++ optionals withGnutls [ gnutls ]
       ++ optionals withGsm [ gsm ]
-      ++ optionals withIconv [
-        libiconv
-      ] # On Linux this should be in libc, do we really need it?
+      ++ optionals withIconv [ libiconv ] # On Linux this should be in libc, do we really need it?
       ++ optionals withJack [ libjack2 ]
       ++ optionals withLadspa [ ladspaH ]
       ++ optionals withLibplacebo [
@@ -811,9 +786,7 @@ stdenv.mkDerivation (
       ]
     ;
 
-    buildFlags =
-      [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"
-    ; # Build qt-faststart executable
+    buildFlags = [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"; # Build qt-faststart executable
 
     doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
@@ -843,9 +816,7 @@ stdenv.mkDerivation (
     ;
 
     outputs =
-      optionals withBin [
-        "bin"
-      ] # The first output is the one that gets symlinked by default!
+      optionals withBin [ "bin" ] # The first output is the one that gets symlinked by default!
       ++ optionals withLib [
         "lib"
         "dev"

@@ -63,10 +63,7 @@ let
           toString cfg.zkConfigRetry.retryQuantity
         }";
       zkconfigzpath = cfg.zkConfigZPath;
-      zkconfigexhibitorport =
-        toString
-          cfg.zkConfigExhibitorPort
-      ; # NB: This might be null
+      zkconfigexhibitorport = toString cfg.zkConfigExhibitorPort; # NB: This might be null
     };
     file = {
       fsconfigdir = cfg.fsConfigDir;

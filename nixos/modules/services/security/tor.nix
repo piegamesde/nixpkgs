@@ -1219,10 +1219,7 @@ in
             optionBool
               "ClientPreferIPv6DirPort"
           ; # default is null and like "auto"
-          options.ClientPreferIPv6ORPort =
-            optionBool
-              "ClientPreferIPv6ORPort"
-          ; # default is null and like "auto"
+          options.ClientPreferIPv6ORPort = optionBool "ClientPreferIPv6ORPort"; # default is null and like "auto"
           options.ClientRejectInternalAddresses =
             optionBool
               "ClientRejectInternalAddresses"
@@ -1340,10 +1337,7 @@ in
             optionBool
               "DoSCircuitCreationEnabled"
           ;
-          options.DoSConnectionEnabled =
-            optionBool
-              "DoSConnectionEnabled"
-          ; # default is null and like "auto"
+          options.DoSConnectionEnabled = optionBool "DoSConnectionEnabled"; # default is null and like "auto"
           options.DoSRefuseSingleHopClientRendezvous =
             optionBool
               "DoSRefuseSingleHopClientRendezvous"
@@ -1364,10 +1358,7 @@ in
               "ExitPolicyRejectPrivate"
           ;
           options.ExitPortStatistics = optionBool "ExitPortStatistics";
-          options.ExitRelay =
-            optionBool
-              "ExitRelay"
-          ; # default is null and like "auto"
+          options.ExitRelay = optionBool "ExitRelay"; # default is null and like "auto"
           options.ExtORPort = mkOption {
             description = lib.mdDoc (descriptionGeneric "ExtORPort");
             default = null;
@@ -1486,10 +1477,7 @@ in
           options.Nickname = optionString "Nickname";
           options.ORPort = optionORPort "ORPort";
           options.OfflineMasterKey = optionBool "OfflineMasterKey";
-          options.OptimisticData =
-            optionBool
-              "OptimisticData"
-          ; # default is null and like "auto"
+          options.OptimisticData = optionBool "OptimisticData"; # default is null and like "auto"
           options.PaddingStatistics = optionBool "PaddingStatistics";
           options.PerConnBWBurst = optionBandwidth "PerConnBWBurst";
           options.PerConnBWRate = optionBandwidth "PerConnBWRate";
@@ -1521,10 +1509,7 @@ in
             default = null;
           };
           options.ReducedExitPolicy = optionBool "ReducedExitPolicy";
-          options.RefuseUnknownExits =
-            optionBool
-              "RefuseUnknownExits"
-          ; # default is null and like "auto"
+          options.RefuseUnknownExits = optionBool "RefuseUnknownExits"; # default is null and like "auto"
           options.RejectPlaintextPorts = optionPorts "RejectPlaintextPorts";
           options.RelayBandwidthBurst = optionBandwidth "RelayBandwidthBurst";
           options.RelayBandwidthRate = optionBandwidth "RelayBandwidthRate";
@@ -1891,9 +1876,7 @@ in
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         KillSignal = "SIGINT";
-        TimeoutSec =
-          cfg.settings.ShutdownWaitLength + 30
-        ; # Wait a bit longer than ShutdownWaitLength before actually timing out
+        TimeoutSec = cfg.settings.ShutdownWaitLength + 30; # Wait a bit longer than ShutdownWaitLength before actually timing out
         Restart = "on-failure";
         LimitNOFILE = 32768;
         RuntimeDirectory = [

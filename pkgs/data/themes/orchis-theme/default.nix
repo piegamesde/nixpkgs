@@ -8,8 +8,7 @@
   sassc,
   border-radius ? null # Suggested: 2 < value < 16
   ,
-  tweaks ?
-    [ ] # can be "solid" "compact" "black" "primary" "macos" "submenu" "nord|dracula"
+  tweaks ? [ ] # can be "solid" "compact" "black" "primary" "macos" "submenu" "nord|dracula"
   ,
   withWallpapers ? false,
 }:

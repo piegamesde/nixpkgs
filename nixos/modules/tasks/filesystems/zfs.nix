@@ -771,12 +771,9 @@ in
           "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";
         };
 
-      system.fsPackages = [
-        cfgZfs.package
-      ]; # XXX: needed? zfs doesn't have (need) a fsck
+      system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
       environment.systemPackages =
-        [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg
-      ; # so the user can run the command to see flags
+        [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
 
       services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
       systemd.packages = [ cfgZfs.package ];
@@ -982,9 +979,7 @@ in
 
       systemd.timers.zfs-scrub = {
         wantedBy = [ "timers.target" ];
-        after = [
-          "multi-user.target"
-        ]; # Apparently scrubbing before boot is complete hangs the system? #53583
+        after = [ "multi-user.target" ]; # Apparently scrubbing before boot is complete hangs the system? #53583
         timerConfig = {
           OnCalendar = cfgScrub.interval;
           Persistent = "yes";

@@ -10,8 +10,7 @@
   udev,
   firmware ? config.pcmciaUtils.firmware or [ ] # Special pcmcia cards.
   ,
-  configOpts ? config.pcmciaUtils.config
-    or null # Special hardware (map memory & port & irq)
+  configOpts ? config.pcmciaUtils.config or null # Special hardware (map memory & port & irq)
   ,
 }: # used to generate postInstall script.
 

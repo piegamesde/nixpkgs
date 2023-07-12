@@ -142,10 +142,7 @@ in
         extraModulePackages = [ config.boot.kernelPackages.kvdo ];
       };
 
-      services.lvm.package =
-        mkOverride 999
-          pkgs.lvm2_vdo
-      ; # this overrides mkDefault
+      services.lvm.package = mkOverride 999 pkgs.lvm2_vdo; # this overrides mkDefault
 
       environment.systemPackages = [ pkgs.vdo ];
     })

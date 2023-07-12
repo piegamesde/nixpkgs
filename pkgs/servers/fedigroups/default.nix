@@ -19,8 +19,7 @@ rustPlatform.buildRustPackage rec {
     repo = "group-actor";
     rev = "v${version}";
     sha256 = "sha256-NMqoYUNN2ntye9mNC3KAAc0DBg+QY7+6/DASwHPexY0=";
-    forceFetchGit =
-      true; # Archive generation is disabled on this gitea instance
+    forceFetchGit = true; # Archive generation is disabled on this gitea instance
     leaveDotGit = true; # git command in build.rs
   };
 

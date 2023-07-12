@@ -16,8 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ tornado ];
 
-  doCheck =
-    false; # ImportError: cannot import name 'ThreadLoop' from 'threadloop'
+  doCheck = false; # ImportError: cannot import name 'ThreadLoop' from 'threadloop'
 
   pythonImportsCheck = [ "threadloop" ];
 

@@ -24,8 +24,7 @@
   enableDebug ? false,
   enableSingleThreaded ? false,
   enableMultiThreaded ? true,
-  enableShared ?
-    !(with stdenv.hostPlatform; isStatic || libc == "msvcrt") # problems for now
+  enableShared ? !(with stdenv.hostPlatform; isStatic || libc == "msvcrt") # problems for now
   ,
   enableStatic ? !enableShared,
   enablePython ? false,

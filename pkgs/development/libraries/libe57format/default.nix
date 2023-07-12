@@ -68,7 +68,6 @@ stdenv.mkDerivation rec {
       chpatrick
       nh2
     ];
-    platforms =
-      platforms.linux; # because of the .so buiding in `postInstall` above
+    platforms = platforms.linux; # because of the .so buiding in `postInstall` above
   };
 }

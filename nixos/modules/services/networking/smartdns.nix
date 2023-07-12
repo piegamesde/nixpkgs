@@ -36,8 +36,7 @@ let
             }
             " "
         ;
-        listsAsDuplicateKeys =
-          true; # Allowing duplications because we need to deal with multiple entries with the same key.
+        listsAsDuplicateKeys = true; # Allowing duplications because we need to deal with multiple entries with the same key.
       }
       cfg.settings
   );

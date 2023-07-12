@@ -266,8 +266,7 @@ in
         meta.license = lib.licenses.unfreeRedistributableFirmware;
       };
     in
-    assert stdenv.buildPlatform.system
-      == "x86_64-linux"; # aml_encrypt_gxl is a x86_64 binary
+    assert stdenv.buildPlatform.system == "x86_64-linux"; # aml_encrypt_gxl is a x86_64 binary
     buildUBoot {
       defconfig = "libretech-cc_defconfig";
       extraMeta.platforms = [ "aarch64-linux" ];

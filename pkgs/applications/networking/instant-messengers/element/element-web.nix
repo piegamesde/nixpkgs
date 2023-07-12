@@ -16,8 +16,7 @@ let
   pinData = import ./pin.nix;
   inherit (pinData.hashes) webSrcHash webYarnHash;
   noPhoningHome = {
-    disable_guests =
-      true; # disable automatic guest account registration at matrix.org
+    disable_guests = true; # disable automatic guest account registration at matrix.org
   };
 in
 stdenv.mkDerivation (

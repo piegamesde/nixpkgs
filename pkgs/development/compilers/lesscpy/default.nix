@@ -20,8 +20,7 @@ python3Packages.buildPythonApplication rec {
     six
   ];
 
-  doCheck =
-    false; # Really weird test failures (`nix-build-python2.css not found`)
+  doCheck = false; # Really weird test failures (`nix-build-python2.css not found`)
 
   meta = with lib; {
     description = "Python LESS Compiler";

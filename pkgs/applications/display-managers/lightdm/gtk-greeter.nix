@@ -43,9 +43,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
     "--sysconfdir=/etc"
     "--disable-indicator-services-command"
-    "--sbindir=${
-      placeholder "out"
-    }/bin" # for wrapGAppsHook to wrap automatically
+    "--sbindir=${placeholder "out"}/bin" # for wrapGAppsHook to wrap automatically
   ];
 
   preConfigure = ''

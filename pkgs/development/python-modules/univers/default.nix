@@ -42,8 +42,7 @@ buildPythonPackage rec {
     saneyaml
   ];
 
-  dontConfigure =
-    true; # ./configure tries to setup virtualenv and downloads dependencies
+  dontConfigure = true; # ./configure tries to setup virtualenv and downloads dependencies
 
   pythonImportsCheck = [ "univers" ];
 

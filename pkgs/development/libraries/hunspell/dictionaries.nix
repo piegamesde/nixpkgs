@@ -936,8 +936,7 @@ rec {
       description = "Hunspell dictionary for Central Thai (Thailand)";
       homepage = "https://github.com/SyafiqHadzir/Hunspell-TH";
       license = with licenses; [ gpl3 ];
-      maintainers =
-        with maintainers; [ toastal ]; # looking for a native speaker
+      maintainers = with maintainers; [ toastal ]; # looking for a native speaker
       platforms = platforms.all;
     };
   };

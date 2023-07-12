@@ -24,8 +24,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  doCheck =
-    false; # installed tests need to be executed, not sure how to accomplish that
+  doCheck = false; # installed tests need to be executed, not sure how to accomplish that
 
   meta = with lib; {
     homepage = "https://github.com/python-greenlet/greenlet";

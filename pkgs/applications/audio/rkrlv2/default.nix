@@ -44,7 +44,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     maintainers = [ maintainers.joelmo ];
     platforms = platforms.unix;
-    broken =
-      stdenv.isAarch64; # g++: error: unrecognized command line option '-mfpmath=sse'
+    broken = stdenv.isAarch64; # g++: error: unrecognized command line option '-mfpmath=sse'
   };
 }

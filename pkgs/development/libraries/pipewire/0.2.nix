@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
       placeholder "out"
     }/lib/systemd/user";
 
-  FONTCONFIG_FILE =
-    fontsConf; # Fontconfig error: Cannot load default config file
+  FONTCONFIG_FILE = fontsConf; # Fontconfig error: Cannot load default config file
 
   doCheck = true;
 

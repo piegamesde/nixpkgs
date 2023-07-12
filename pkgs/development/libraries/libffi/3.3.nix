@@ -5,8 +5,7 @@
   fetchpatch,
   autoreconfHook,
 
-  doCheck ?
-    true # test suite depends on dejagnu which cannot be used during bootstrapping
+  doCheck ? true # test suite depends on dejagnu which cannot be used during bootstrapping
   ,
   dejagnu,
 }:
@@ -45,9 +44,7 @@ stdenv.mkDerivation rec {
     NIX_HARDENING_ENABLE=''${NIX_HARDENING_ENABLE/fortify/}
   '';
 
-  dontStrip =
-    stdenv.hostPlatform != stdenv.buildPlatform
-  ; # Don't run the native `strip' when cross-compiling.
+  dontStrip = stdenv.hostPlatform != stdenv.buildPlatform; # Don't run the native `strip' when cross-compiling.
 
   inherit doCheck;
 

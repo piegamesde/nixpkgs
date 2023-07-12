@@ -96,9 +96,7 @@
                     selfBuildHost = pythonOnBuildForHost.pkgs;
                     selfBuildTarget = pythonOnBuildForTarget.pkgs;
                     selfHostHost = pythonOnHostForHost.pkgs;
-                    selfTargetTarget =
-                      pythonOnTargetForTarget.pkgs
-                        or { }; # There is no Python TargetTarget.
+                    selfTargetTarget = pythonOnTargetForTarget.pkgs or { }; # There is no Python TargetTarget.
                   };
                   hooks = import ./hooks/default.nix;
                   keep = lib.extends hooks pythonPackagesFun;

@@ -17,8 +17,7 @@
   buildTests ? false,
   buildBenchmarks ? false,
   buildSamples ? false,
-  gpuTargets ?
-    [ ] # gpuTargets = [ "gfx803" "gfx900:xnack-" "gfx906:xnack-" ... ]
+  gpuTargets ? [ ] # gpuTargets = [ "gfx803" "gfx900:xnack-" "gfx906:xnack-" ... ]
   ,
 }:
 

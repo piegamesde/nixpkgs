@@ -52,20 +52,17 @@
   ,
   tclSupport ? config.vim.tcl or false # Include Tcl interpreter
   ,
-  multibyteSupport ? config.vim.multibyte
-    or false # Enable multibyte editing support
+  multibyteSupport ? config.vim.multibyte or false # Enable multibyte editing support
   ,
   cscopeSupport ? config.vim.cscope or true # Enable cscope interface
   ,
-  netbeansSupport ? config.netbeans
-    or true # Enable NetBeans integration support.
+  netbeansSupport ? config.netbeans or true # Enable NetBeans integration support.
   ,
   ximSupport ? config.vim.xim or true # less than 15KB, needed for deadkeys
   ,
   darwinSupport ? config.vim.darwin or false # Enable Darwin support
   ,
-  ftNixSupport ? config.vim.ftNix
-    or true # Add .nix filetype detection and minimal syntax highlighting support
+  ftNixSupport ? config.vim.ftNix or true # Add .nix filetype detection and minimal syntax highlighting support
   ,
 }:
 

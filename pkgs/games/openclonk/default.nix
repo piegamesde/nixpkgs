@@ -16,8 +16,7 @@
   freealut,
   readline,
   gcc-unwrapped,
-  enableSoundtrack ?
-    false # Enable the "Open Clonk Soundtrack - Explorers Journey" by David Oerther
+  enableSoundtrack ? false # Enable the "Open Clonk Soundtrack - Explorers Journey" by David Oerther
   ,
 }:
 

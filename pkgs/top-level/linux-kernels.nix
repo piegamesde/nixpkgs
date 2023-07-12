@@ -381,9 +381,7 @@ in
       {
         inherit callPackage;
         kernel = kernel_;
-        inherit (kernel)
-          stdenv
-        ; # in particular, use the same compiler by default
+        inherit (kernel) stdenv; # in particular, use the same compiler by default
 
         # to help determine module compatibility
         inherit (kernel) isZen isHardened isLibre;
@@ -922,10 +920,7 @@ in
           buildPackages.flex
         ]
       ;
-      patches =
-        map (p: p.patch)
-          kernelPatches
-      ; # Patches may include new configs.
+      patches = map (p: p.patch) kernelPatches; # Patches may include new configs.
       postPatch = ''
         patchShebangs scripts/
       '';

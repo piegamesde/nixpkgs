@@ -54,8 +54,7 @@ import ./make-test-python.nix (
           users.leo = {
             isNormalUser = true;
             initialHashedPassword = "!";
-            hashedPassword =
-              hashed_sha512crypt; # should take precedence over initialHashedPassword
+            hashedPassword = hashed_sha512crypt; # should take precedence over initialHashedPassword
             shell = pkgs.bash;
           };
         };

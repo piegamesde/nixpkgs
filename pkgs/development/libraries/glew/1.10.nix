@@ -31,9 +31,7 @@ stdenv.mkDerivation (
           libXext
         ]
     ;
-    propagatedBuildInputs =
-      if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]
-    ; # GL/glew.h includes GL/glu.h
+    propagatedBuildInputs = if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]; # GL/glew.h includes GL/glu.h
 
     outputs = [
       "out"

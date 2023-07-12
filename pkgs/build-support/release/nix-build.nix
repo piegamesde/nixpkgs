@@ -87,9 +87,7 @@ stdenv.mkDerivation (
     ;
   }
 
-  // removeAttrs args [
-    "lib"
-  ] # Propagating lib causes the evaluation to fail, because lib is a function that can't be converted to a string
+  // removeAttrs args [ "lib" ] # Propagating lib causes the evaluation to fail, because lib is a function that can't be converted to a string
 
   // {
     name = name + (lib.optionalString (src ? version) "-${src.version}");

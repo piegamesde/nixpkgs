@@ -263,8 +263,7 @@ stdenv.mkDerivation {
     } // (
       if gitlabEnterprise then
         {
-          license =
-            licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
+          license = licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
           description = "GitLab Enterprise Edition";
         }
       else

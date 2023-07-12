@@ -52,8 +52,7 @@ let
   removeFilenamePrefix =
     prefix: filename:
     let
-      prefixLen =
-        (builtins.stringLength prefix) + 1; # +1 to remove the leading /
+      prefixLen = (builtins.stringLength prefix) + 1; # +1 to remove the leading /
       filenameLen = builtins.stringLength filename;
       substr = builtins.substring prefixLen filenameLen filename;
     in

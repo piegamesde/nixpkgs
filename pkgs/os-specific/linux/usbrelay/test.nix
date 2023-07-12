@@ -43,8 +43,7 @@ import ../../../../nixos/tests/make-test-python.nix (
         pkgs.usbrelay
         pkgs.mosquitto
       ];
-      documentation.nixos.enable =
-        false; # building nixos manual takes long time
+      documentation.nixos.enable = false; # building nixos manual takes long time
     };
 
     testScript = ''

@@ -34,9 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nfc-tools/mfoc-hardnested";
     maintainers = with maintainers; [ azuwis ];
     platforms = platforms.unix;
-    broken =
-      (
-        stdenv.isDarwin && stdenv.isAarch64
-      ); # Undefined symbols "_memalign" referenced
+    broken = (stdenv.isDarwin && stdenv.isAarch64); # Undefined symbols "_memalign" referenced
   };
 }

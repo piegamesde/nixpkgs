@@ -44,9 +44,7 @@ stdenv.mkDerivation (
       libXi
       libXext
     ];
-    propagatedBuildInputs =
-      if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]
-    ; # GL/glew.h includes GL/glu.h
+    propagatedBuildInputs = if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]; # GL/glew.h includes GL/glu.h
 
     cmakeDir = "cmake";
     cmakeFlags =
@@ -83,8 +81,7 @@ stdenv.mkDerivation (
         free
         mit
         gpl2Only
-      ]
-      ; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
+      ]; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
       pkgConfigModules = [ "glew" ];
       platforms =
         with platforms;

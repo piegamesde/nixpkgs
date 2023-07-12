@@ -129,9 +129,7 @@ in
     # boot.kernelModules = [ "zram" ];
 
     systemd.packages = [ pkgs.zram-generator ];
-    systemd.services."systemd-zram-setup@".path = [
-      pkgs.util-linux
-    ]; # for mkswap
+    systemd.services."systemd-zram-setup@".path = [ pkgs.util-linux ]; # for mkswap
 
     environment.etc."systemd/zram-generator.conf".source =
       (pkgs.formats.ini { }).generate "zram-generator.conf"

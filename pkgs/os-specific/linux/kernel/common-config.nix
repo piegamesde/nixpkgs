@@ -147,18 +147,14 @@ let
       CLS_U32_PERF = yes;
       CLS_U32_MARK = yes;
       BPF_JIT = whenPlatformHasEBPFJit yes;
-      BPF_JIT_ALWAYS_ON =
-        whenPlatformHasEBPFJit
-          no
-      ; # whenPlatformHasEBPFJit yes; # see https://github.com/NixOS/nixpkgs/issues/79304
+      BPF_JIT_ALWAYS_ON = whenPlatformHasEBPFJit no; # whenPlatformHasEBPFJit yes; # see https://github.com/NixOS/nixpkgs/issues/79304
       HAVE_EBPF_JIT = whenPlatformHasEBPFJit yes;
       BPF_STREAM_PARSER = whenAtLeast "4.19" yes;
       XDP_SOCKETS = whenAtLeast "4.19" yes;
       XDP_SOCKETS_DIAG = whenAtLeast "5.1" yes;
       WAN = yes;
       TCP_CONG_ADVANCED = yes;
-      TCP_CONG_CUBIC =
-        yes; # This is the default congestion control algorithm since 2.6.19
+      TCP_CONG_CUBIC = yes; # This is the default congestion control algorithm since 2.6.19
       # Required by systemd per-cgroup firewalling
       CGROUP_BPF = option yes;
       CGROUP_NET_PRIO = yes; # Required by systemd
@@ -268,10 +264,7 @@ let
       CFG80211_WEXT = option yes; # Without it, ipw2200 drivers don't build
       IPW2100_MONITOR = option yes; # support promiscuous mode
       IPW2200_MONITOR = option yes; # support promiscuous mode
-      HOSTAP_FIRMWARE =
-        option
-          yes
-      ; # Support downloading firmware images with Host AP driver
+      HOSTAP_FIRMWARE = option yes; # Support downloading firmware images with Host AP driver
       HOSTAP_FIRMWARE_NVRAM = option yes;
       ATH9K_PCI = option yes; # Detect Atheros AR9xxx cards on PCI(e) bus
       ATH9K_AHB = option yes; # Ditto, AHB bus
@@ -362,10 +355,7 @@ let
       SND_HDA_RECONFIG = yes; # Support reconfiguration of jack functions
       # Support configuring jack functions via fw mechanism at boot
       SND_HDA_PATCH_LOADER = yes;
-      SND_HDA_CODEC_CA0132_DSP =
-        whenOlder "5.7"
-          yes
-      ; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
+      SND_HDA_CODEC_CA0132_DSP = whenOlder "5.7" yes; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
       SND_OSSEMUL = yes;
       SND_USB_CAIAQ_INPUT = yes;
       # Enable Sound Open Firmware support
@@ -376,14 +366,8 @@ let
         )
         {
           SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
-          SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES =
-            whenAtLeast "5.10"
-              yes
-          ; # dep of SOF_MACH
-          SND_SOC_SOF_INTEL_SOUNDWIRE_LINK =
-            whenBetween "5.10" "5.11"
-              yes
-          ; # dep of SOF_MACH
+          SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES = whenAtLeast "5.10" yes; # dep of SOF_MACH
+          SND_SOC_SOF_INTEL_SOUNDWIRE_LINK = whenBetween "5.10" "5.11" yes; # dep of SOF_MACH
           SND_SOC_SOF_TOPLEVEL = yes;
           SND_SOC_SOF_ACPI = module;
           SND_SOC_SOF_PCI = module;
@@ -440,8 +424,7 @@ let
       };
       USB_EHCI_ROOT_HUB_TT = yes; # Root Hub Transaction Translators
       USB_EHCI_TT_NEWSCHED = yes; # Improved transaction translator scheduling
-      USB_HIDDEV =
-        yes; # USB Raw HID Devices (like monitor controls and Uninterruptable Power Supplies)
+      USB_HIDDEV = yes; # USB Raw HID Devices (like monitor controls and Uninterruptable Power Supplies)
     };
 
     # Filesystem options - in particular, enable extended attributes and
@@ -552,9 +535,7 @@ let
       RANDOMIZE_BASE = option yes;
       STRICT_DEVMEM = mkDefault yes; # Filter access to /dev/mem
       IO_STRICT_DEVMEM = mkDefault yes;
-      SECURITY_SELINUX_BOOTPARAM_VALUE = whenOlder "5.1" (
-        freeform "0"
-      ); # Disable SELinux by default
+      SECURITY_SELINUX_BOOTPARAM_VALUE = whenOlder "5.1" (freeform "0"); # Disable SELinux by default
       # Prevent processes from ptracing non-children processes
       SECURITY_YAMA = option yes;
       # The goal of Landlock is to enable to restrict ambient rights (e.g. global filesystem access) for a set of processes.
@@ -567,15 +548,10 @@ let
       SECURITY_APPARMOR = yes;
       DEFAULT_SECURITY_APPARMOR = yes;
 
-      RANDOM_TRUST_CPU = whenOlder "6.2" (
-        whenAtLeast "4.19" yes
-      ); # allow RDRAND to seed the RNG
-      RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" (
-        whenAtLeast "5.4" yes
-      ); # allow the bootloader to seed the RNG
+      RANDOM_TRUST_CPU = whenOlder "6.2" (whenAtLeast "4.19" yes); # allow RDRAND to seed the RNG
+      RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" (whenAtLeast "5.4" yes); # allow the bootloader to seed the RNG
 
-      MODULE_SIG =
-        no; # r13y, generates a random key during build and bakes it in
+      MODULE_SIG = no; # r13y, generates a random key during build and bakes it in
       # Depends on MODULE_SIG and only really helps when you sign your modules
       # and enforce signatures which we don't do by default.
       SECURITY_LOCKDOWN_LSM = whenAtLeast "5.4" no;
@@ -908,8 +884,7 @@ let
         BT_HCIBTUSB_MTK = whenAtLeast "5.3" yes; # MediaTek protocol support
         BT_HCIUART_QCA = yes; # Qualcomm Atheros protocol support
         BT_HCIUART_SERDEV = yes; # required by BT_HCIUART_QCA
-        BT_HCIUART =
-          module; # required for BT devices with serial port interface (QCA6390)
+        BT_HCIUART = module; # required for BT devices with serial port interface (QCA6390)
         BT_HCIUART_BCSP = option yes;
         BT_HCIUART_H4 = option yes; # UART (H4) protocol support
         BT_HCIUART_LL = option yes;
@@ -947,10 +922,7 @@ let
           tristate = whenOlder "5.3" "y";
         }; # I-Force USB joysticks and wheels
         JOYSTICK_XPAD_FF = option yes; # X-Box gamepad rumble support
-        JOYSTICK_XPAD_LEDS =
-          option
-            yes
-        ; # LED Support for Xbox360 controller 'BigX' LED
+        JOYSTICK_XPAD_LEDS = option yes; # LED Support for Xbox360 controller 'BigX' LED
 
         KEYBOARD_APPLESPI = whenAtLeast "5.3" module;
 

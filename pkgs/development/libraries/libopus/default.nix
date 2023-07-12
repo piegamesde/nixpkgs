@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withCustomModes "--enable-custom-modes"
   ;
 
-  doCheck =
-    !stdenv.isi686 && !stdenv.isAarch32; # test_unit_LPC_inv_pred_gain fails
+  doCheck = !stdenv.isi686 && !stdenv.isAarch32; # test_unit_LPC_inv_pred_gain fails
 
   meta = with lib; {
     description = "Open, royalty-free, highly versatile audio codec";

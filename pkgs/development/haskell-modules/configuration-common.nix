@@ -129,9 +129,7 @@ self: super:
   haskell-language-server =
     (lib.pipe super.haskell-language-server [
       dontCheck
-      (disableCabalFlag
-        "stan"
-      ) # Sorry stan is totally unmaintained and terrible to get to run. It only works on ghc 8.8 or 8.10 anyways …
+      (disableCabalFlag "stan") # Sorry stan is totally unmaintained and terrible to get to run. It only works on ghc 8.8 or 8.10 anyways …
     ]).overrideScope
       (
         lself: lsuper: {
@@ -461,10 +459,7 @@ self: super:
 
   # The Haddock phase fails for one reason or another.
   deepseq-magic = dontHaddock super.deepseq-magic;
-  feldspar-signal =
-    dontHaddock
-      super.feldspar-signal
-  ; # https://github.com/markus-git/feldspar-signal/issues/1
+  feldspar-signal = dontHaddock super.feldspar-signal; # https://github.com/markus-git/feldspar-signal/issues/1
   hoodle-core = dontHaddock super.hoodle-core;
   hsc3-db = dontHaddock super.hsc3-db;
 
@@ -540,10 +535,7 @@ self: super:
   graceful = dontCheck super.graceful;
   HList = dontCheck super.HList;
   ide-backend = dontCheck super.ide-backend;
-  marquise =
-    dontCheck
-      super.marquise
-  ; # https://github.com/anchor/marquise/issues/69
+  marquise = dontCheck super.marquise; # https://github.com/anchor/marquise/issues/69
   memcached-binary = dontCheck super.memcached-binary;
   msgpack-rpc = dontCheck super.msgpack-rpc;
   persistent-zookeeper = dontCheck super.persistent-zookeeper;
@@ -610,93 +602,45 @@ self: super:
   structures = dontCheck super.structures;
 
   # Disable test suites to fix the build.
-  acme-year =
-    dontCheck
-      super.acme-year
-  ; # http://hydra.cryp.to/build/497858/log/raw
-  aeson-lens =
-    dontCheck
-      super.aeson-lens
-  ; # http://hydra.cryp.to/build/496769/log/raw
-  aeson-schema =
-    dontCheck
-      super.aeson-schema
-  ; # https://github.com/timjb/aeson-schema/issues/9
+  acme-year = dontCheck super.acme-year; # http://hydra.cryp.to/build/497858/log/raw
+  aeson-lens = dontCheck super.aeson-lens; # http://hydra.cryp.to/build/496769/log/raw
+  aeson-schema = dontCheck super.aeson-schema; # https://github.com/timjb/aeson-schema/issues/9
   angel = dontCheck super.angel;
-  apache-md5 =
-    dontCheck
-      super.apache-md5
-  ; # http://hydra.cryp.to/build/498709/nixlog/1/raw
-  app-settings =
-    dontCheck
-      super.app-settings
-  ; # http://hydra.cryp.to/build/497327/log/raw
+  apache-md5 = dontCheck super.apache-md5; # http://hydra.cryp.to/build/498709/nixlog/1/raw
+  app-settings = dontCheck super.app-settings; # http://hydra.cryp.to/build/497327/log/raw
   aws-kinesis = dontCheck super.aws-kinesis; # needs aws credentials for testing
-  binary-protocol =
-    dontCheck
-      super.binary-protocol
-  ; # http://hydra.cryp.to/build/499749/log/raw
+  binary-protocol = dontCheck super.binary-protocol; # http://hydra.cryp.to/build/499749/log/raw
   binary-search = dontCheck super.binary-search;
-  bloodhound =
-    dontCheck
-      super.bloodhound
-  ; # https://github.com/plow-technologies/quickcheck-arbitrary-template/issues/10
+  bloodhound = dontCheck super.bloodhound; # https://github.com/plow-technologies/quickcheck-arbitrary-template/issues/10
   buildwrapper = dontCheck super.buildwrapper;
-  burst-detection =
-    dontCheck
-      super.burst-detection
-  ; # http://hydra.cryp.to/build/496948/log/raw
-  cabal-meta =
-    dontCheck
-      super.cabal-meta
-  ; # http://hydra.cryp.to/build/497892/log/raw
+  burst-detection = dontCheck super.burst-detection; # http://hydra.cryp.to/build/496948/log/raw
+  cabal-meta = dontCheck super.cabal-meta; # http://hydra.cryp.to/build/497892/log/raw
   camfort = dontCheck super.camfort;
   cjk = dontCheck super.cjk;
   CLI = dontCheck super.CLI; # Upstream has no issue tracker.
-  command-qq =
-    dontCheck
-      super.command-qq
-  ; # http://hydra.cryp.to/build/499042/log/raw
+  command-qq = dontCheck super.command-qq; # http://hydra.cryp.to/build/499042/log/raw
   conduit-connection = dontCheck super.conduit-connection;
   craftwerk = dontCheck super.craftwerk;
   crc = dontCheck super.crc; # https://github.com/MichaelXavier/crc/issues/2
   css-text = dontCheck super.css-text;
-  damnpacket =
-    dontCheck
-      super.damnpacket
-  ; # http://hydra.cryp.to/build/496923/log
+  damnpacket = dontCheck super.damnpacket; # http://hydra.cryp.to/build/496923/log
   data-hash = dontCheck super.data-hash;
-  Deadpan-DDP =
-    dontCheck
-      super.Deadpan-DDP
-  ; # http://hydra.cryp.to/build/496418/log/raw
+  Deadpan-DDP = dontCheck super.Deadpan-DDP; # http://hydra.cryp.to/build/496418/log/raw
   DigitalOcean = dontCheck super.DigitalOcean;
   direct-sqlite = dontCheck super.direct-sqlite;
   directory-layout = dontCheck super.directory-layout;
   dlist = dontCheck super.dlist;
   docopt = dontCheck super.docopt; # http://hydra.cryp.to/build/499172/log/raw
-  dom-selector =
-    dontCheck
-      super.dom-selector
-  ; # http://hydra.cryp.to/build/497670/log/raw
-  dotenv =
-    dontCheck
-      super.dotenv
-  ; # Tests fail because of missing test file on version 0.8.0.2 fixed on version 0.8.0.4
+  dom-selector = dontCheck super.dom-selector; # http://hydra.cryp.to/build/497670/log/raw
+  dotenv = dontCheck super.dotenv; # Tests fail because of missing test file on version 0.8.0.2 fixed on version 0.8.0.4
   dotfs = dontCheck super.dotfs; # http://hydra.cryp.to/build/498599/log/raw
   DRBG = dontCheck super.DRBG; # http://hydra.cryp.to/build/498245/nixlog/1/raw
   ed25519 = dontCheck super.ed25519;
   etcd = dontCheck super.etcd;
   fb = dontCheck super.fb; # needs credentials for Facebook
   fptest = dontCheck super.fptest; # http://hydra.cryp.to/build/499124/log/raw
-  friday-juicypixels =
-    dontCheck
-      super.friday-juicypixels
-  ; # tarball missing test/rgba8.png
-  ghc-events-parallel =
-    dontCheck
-      super.ghc-events-parallel
-  ; # http://hydra.cryp.to/build/496828/log/raw
+  friday-juicypixels = dontCheck super.friday-juicypixels; # tarball missing test/rgba8.png
+  ghc-events-parallel = dontCheck super.ghc-events-parallel; # http://hydra.cryp.to/build/496828/log/raw
   ghc-imported-from = dontCheck super.ghc-imported-from;
   ghc-parmake = dontCheck super.ghc-parmake;
   git-vogue = dontCheck super.git-vogue;
@@ -709,14 +653,8 @@ self: super:
   hashed-storage = dontCheck super.hashed-storage;
   hashring = dontCheck super.hashring;
   hath = dontCheck super.hath;
-  haxl =
-    dontCheck
-      super.haxl
-  ; # non-deterministic failure https://github.com/facebook/Haxl/issues/85
-  haxl-facebook =
-    dontCheck
-      super.haxl-facebook
-  ; # needs facebook credentials for testing
+  haxl = dontCheck super.haxl; # non-deterministic failure https://github.com/facebook/Haxl/issues/85
+  haxl-facebook = dontCheck super.haxl-facebook; # needs facebook credentials for testing
   hdbi-postgresql = dontCheck super.hdbi-postgresql;
   hedis = dontCheck super.hedis;
   hedis-pile = dontCheck super.hedis-pile;
@@ -745,15 +683,9 @@ self: super:
   ;
   htsn = dontCheck super.htsn;
   htsn-import = dontCheck super.htsn-import;
-  http-link-header =
-    dontCheck
-      super.http-link-header
-  ; # non deterministic failure https://hydra.nixos.org/build/75041105
+  http-link-header = dontCheck super.http-link-header; # non deterministic failure https://hydra.nixos.org/build/75041105
   influxdb = dontCheck super.influxdb;
-  integer-roots =
-    dontCheck
-      super.integer-roots
-  ; # requires an old version of smallcheck, will be fixed in > 1.0
+  integer-roots = dontCheck super.integer-roots; # requires an old version of smallcheck, will be fixed in > 1.0
   itanium-abi = dontCheck super.itanium-abi;
   katt = dontCheck super.katt;
   language-slice = dontCheck super.language-slice;
@@ -781,49 +713,28 @@ self: super:
   memcache = dontCheck super.memcache;
   metrics = dontCheck super.metrics;
   milena = dontCheck super.milena;
-  modular-arithmetic =
-    dontCheck
-      super.modular-arithmetic
-  ; # tests require a very old Glob (0.7.*)
+  modular-arithmetic = dontCheck super.modular-arithmetic; # tests require a very old Glob (0.7.*)
   nats-queue = dontCheck super.nats-queue;
   netpbm = dontCheck super.netpbm;
   network = dontCheck super.network;
-  network_2_6_3_1 =
-    dontCheck
-      super.network_2_6_3_1
-  ; # package is missing files for test
+  network_2_6_3_1 = dontCheck super.network_2_6_3_1; # package is missing files for test
   network-dbus = dontCheck super.network-dbus;
   notcpp = dontCheck super.notcpp;
   ntp-control = dontCheck super.ntp-control;
-  odpic-raw =
-    dontCheck
-      super.odpic-raw
-  ; # needs a running oracle database server
+  odpic-raw = dontCheck super.odpic-raw; # needs a running oracle database server
   opaleye = dontCheck super.opaleye;
   openpgp = dontCheck super.openpgp;
   optional = dontCheck super.optional;
   orgmode-parse = dontCheck super.orgmode-parse;
   os-release = dontCheck super.os-release;
-  parameterized =
-    dontCheck
-      super.parameterized
-  ; # https://github.com/louispan/parameterized/issues/2
+  parameterized = dontCheck super.parameterized; # https://github.com/louispan/parameterized/issues/2
   persistent-redis = dontCheck super.persistent-redis;
   pipes-extra = dontCheck super.pipes-extra;
   pipes-websockets = dontCheck super.pipes-websockets;
-  posix-pty =
-    dontCheck
-      super.posix-pty
-  ; # https://github.com/merijn/posix-pty/issues/12
-  postgresql-binary =
-    dontCheck
-      super.postgresql-binary
-  ; # needs a running postgresql server
+  posix-pty = dontCheck super.posix-pty; # https://github.com/merijn/posix-pty/issues/12
+  postgresql-binary = dontCheck super.postgresql-binary; # needs a running postgresql server
   postgresql-simple-migration = dontCheck super.postgresql-simple-migration;
-  powerdns =
-    dontCheck
-      super.powerdns
-  ; # Tests require networking and external services
+  powerdns = dontCheck super.powerdns; # Tests require networking and external services
   process-streaming = dontCheck super.process-streaming;
   punycode = dontCheck super.punycode;
   pwstore-cli = dontCheck super.pwstore-cli;
@@ -836,28 +747,17 @@ self: super:
   saltine = dontCheck super.saltine; # https://github.com/tel/saltine/pull/56
   scp-streams = dontCheck super.scp-streams;
   sdl2 = dontCheck super.sdl2; # the test suite needs an x server
-  sdl2-ttf =
-    dontCheck
-      super.sdl2-ttf
-  ; # as of version 0.2.1, the test suite requires user intervention
+  sdl2-ttf = dontCheck super.sdl2-ttf; # as of version 0.2.1, the test suite requires user intervention
   separated = dontCheck super.separated;
   shadowsocks = dontCheck super.shadowsocks;
   shake-language-c = dontCheck super.shake-language-c;
-  snap-core = doJailbreak (
-    dontCheck super.snap-core
-  ); # attoparsec bound is too strict. This has been fixed on master
+  snap-core = doJailbreak (dontCheck super.snap-core); # attoparsec bound is too strict. This has been fixed on master
   snap-server = doJailbreak super.snap-server; # attoparsec bound is too strict
   sourcemap = dontCheck super.sourcemap;
   static-resources = dontCheck super.static-resources;
-  strive =
-    dontCheck
-      super.strive
-  ; # fails its own hlint test with tons of warnings
+  strive = dontCheck super.strive; # fails its own hlint test with tons of warnings
   svndump = dontCheck super.svndump;
-  tar =
-    dontCheck
-      super.tar
-  ; # https://hydra.nixos.org/build/25088435/nixlog/2 (fails only on 32-bit)
+  tar = dontCheck super.tar; # https://hydra.nixos.org/build/25088435/nixlog/2 (fails only on 32-bit)
   th-printf = dontCheck super.th-printf;
   thumbnail-plus = dontCheck super.thumbnail-plus;
   tickle = dontCheck super.tickle;
@@ -870,10 +770,7 @@ self: super:
   webdriver = dontCheck super.webdriver;
   webdriver-angular = dontCheck super.webdriver-angular;
   xsd = dontCheck super.xsd;
-  zip-archive =
-    dontCheck
-      super.zip-archive
-  ; # https://github.com/jgm/zip-archive/issues/57
+  zip-archive = dontCheck super.zip-archive; # https://github.com/jgm/zip-archive/issues/57
 
   # These test suites run for ages, even on a fast machine. This is nuts.
   Random123 = dontCheck super.Random123;
@@ -919,14 +816,8 @@ self: super:
   mikmod = addExtraLibrary pkgs.libmikmod super.mikmod;
 
   # Missing module.
-  rematch =
-    dontCheck
-      super.rematch
-  ; # https://github.com/tcrayford/rematch/issues/5
-  rematch-text =
-    dontCheck
-      super.rematch-text
-  ; # https://github.com/tcrayford/rematch/issues/6
+  rematch = dontCheck super.rematch; # https://github.com/tcrayford/rematch/issues/5
+  rematch-text = dontCheck super.rematch-text; # https://github.com/tcrayford/rematch/issues/6
 
   # Package exists only to be example of documentation, yet it has restrictive
   # "base" dependency.
@@ -1431,10 +1322,7 @@ self: super:
   protobuf = dontCheck super.protobuf;
 
   # jailbreak tasty < 1.2 until servant-docs > 0.11.3 is on hackage.
-  snap-templates =
-    doJailbreak
-      super.snap-templates
-  ; # https://github.com/snapframework/snap-templates/issues/22
+  snap-templates = doJailbreak super.snap-templates; # https://github.com/snapframework/snap-templates/issues/22
 
   # Copy hledger man pages from data directory into the proper place. This code
   # should be moved into the cabal2nix generator.

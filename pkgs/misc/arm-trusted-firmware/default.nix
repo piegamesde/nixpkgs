@@ -22,8 +22,7 @@ let
       filesToInstall,
       installDir ? "$out",
       platform ? null,
-      platformCanUseHDCPBlob ?
-        false # set this to true if the platform is able to use hdcp.bin
+      platformCanUseHDCPBlob ? false # set this to true if the platform is able to use hdcp.bin
       ,
       extraMakeFlags ? [ ],
       extraMeta ? { },

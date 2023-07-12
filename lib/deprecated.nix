@@ -372,8 +372,7 @@ rec {
         setAttr set n (
           if set ? ${n} then # merge
             if
-              elem n
-                mergeLists # attribute contains list, merge them by concatenating
+              elem n mergeLists # attribute contains list, merge them by concatenating
             then
               attrs2.${n} ++ attrs1.${n}
             else if elem n overrideSnd then

@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hiawatha-webserver.org";
     description = "An advanced and secure webserver";
     license = licenses.gpl2;
-    platforms =
-      platforms.unix; # "Hiawatha runs perfectly on Linux, BSD and MacOS X"
+    platforms = platforms.unix; # "Hiawatha runs perfectly on Linux, BSD and MacOS X"
     maintainers = [ ];
   };
 }

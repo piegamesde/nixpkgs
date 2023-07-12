@@ -87,8 +87,7 @@ rec {
 
   mkYarnModules =
     {
-      name ?
-        "${pname}-${version}", # safe name and version, e.g. testcompany-one-modules-1.0.0
+      name ? "${pname}-${version}", # safe name and version, e.g. testcompany-one-modules-1.0.0
       pname, # original name, e.g @testcompany/one
       version,
       packageJSON,

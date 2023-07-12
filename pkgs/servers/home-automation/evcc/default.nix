@@ -70,9 +70,7 @@ buildGoModule rec {
     make ui
   '';
 
-  doCheck =
-    !stdenv.isDarwin
-  ; # tries to bind to local network, doesn't work in darwin sandbox
+  doCheck = !stdenv.isDarwin; # tries to bind to local network, doesn't work in darwin sandbox
 
   preCheck = ''
     # requires network access

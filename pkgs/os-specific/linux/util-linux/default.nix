@@ -108,8 +108,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals systemdSupport [ systemd ]
   ;
 
-  doCheck =
-    false; # "For development purpose only. Don't execute on production system!"
+  doCheck = false; # "For development purpose only. Don't execute on production system!"
 
   enableParallelBuilding = true;
 
@@ -134,7 +133,6 @@ stdenv.mkDerivation rec {
       publicDomain
     ];
     platforms = platforms.linux;
-    priority =
-      6; # lower priority than coreutils ("kill") and shadow ("login" etc.) packages
+    priority = 6; # lower priority than coreutils ("kill") and shadow ("login" etc.) packages
   };
 }

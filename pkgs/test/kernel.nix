@@ -27,12 +27,8 @@ let
   ];
 
   freeformConfig = mkMerge [
-    {
-      NIXOS_FAKE_MMC_BLOCK_MINORS = freeform "32";
-    } # same as default, won't trigger any error
-    {
-      NIXOS_FAKE_MMC_BLOCK_MINORS = freeform "64";
-    } # will trigger an error but the message is not great:
+    { NIXOS_FAKE_MMC_BLOCK_MINORS = freeform "32"; } # same as default, won't trigger any error
+    { NIXOS_FAKE_MMC_BLOCK_MINORS = freeform "64"; } # will trigger an error but the message is not great:
   ];
 
   mkDefaultWorksConfig = mkMerge [

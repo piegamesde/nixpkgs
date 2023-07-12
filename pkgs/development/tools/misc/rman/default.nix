@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  doCheck =
-    false; # "check" target is probably meant to do "installcheck" or something
+  doCheck = false; # "check" target is probably meant to do "installcheck" or something
 
   meta = {
     description = "Parse formatted man pages and man page source from most flavors of UNIX and converts them to HTML, ASCII, TkMan, DocBook, and other formats";

@@ -590,8 +590,7 @@ in
                   ]
                   ++ deps
                 ;
-                wants =
-                  deps; # if one or more interface fails, the switch should continue to run
+                wants = deps; # if one or more interface fails, the switch should continue to run
                 serviceConfig.Type = "oneshot";
                 serviceConfig.RemainAfterExit = true;
                 path = [

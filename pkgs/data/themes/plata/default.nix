@@ -25,17 +25,13 @@
   telegramSupport ? false,
   zip,
   tweetdeckSupport ? false,
-  selectionColor ?
-    null # Primary color for 'selected-items' (Default: #3F51B5 = Indigo500)
+  selectionColor ? null # Primary color for 'selected-items' (Default: #3F51B5 = Indigo500)
   ,
-  accentColor ?
-    null # Secondary color for notifications and OSDs (Default: #7986CB = Indigo300)
+  accentColor ? null # Secondary color for notifications and OSDs (Default: #7986CB = Indigo300)
   ,
-  suggestionColor ?
-    null # Secondary color for 'suggested' buttons (Default: #673AB7 = DPurple500)
+  suggestionColor ? null # Secondary color for 'suggested' buttons (Default: #673AB7 = DPurple500)
   ,
-  destructionColor ?
-    null # Tertiary color for 'destructive' buttons (Default: #F44336 = Red500)
+  destructionColor ? null # Tertiary color for 'destructive' buttons (Default: #F44336 = Red500)
   ,
 }:
 

@@ -55,8 +55,7 @@ in
         ProtectHostname = true;
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
-        ProtectKernelTunables =
-          true; # only reads entropy pool size and watermark
+        ProtectKernelTunables = true; # only reads entropy pool size and watermark
         RestrictNamespaces = true;
         RestrictRealtime = true;
         LockPersonality = true;

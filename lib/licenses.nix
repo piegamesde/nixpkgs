@@ -8,8 +8,7 @@ lib.mapAttrs
     let
       defaultLicense = rec {
         shortName = lname;
-        free =
-          true; # Most of our licenses are Free, explicitly declare unfree additions as such!
+        free = true; # Most of our licenses are Free, explicitly declare unfree additions as such!
         deprecated = false;
       };
 
@@ -919,8 +918,7 @@ lib.mapAttrs
         # NOTE Debatable.
         # The license a slightly modified AGPL but still considered unfree by the
         # OSI for what seem like political reasons
-        redistributable =
-          true; # Definitely redistributable though, it's an AGPL derivative
+        redistributable = true; # Definitely redistributable though, it's an AGPL derivative
       };
 
       stk = {

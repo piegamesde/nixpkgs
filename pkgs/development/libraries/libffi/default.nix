@@ -59,9 +59,7 @@ stdenv.mkDerivation rec {
     NIX_HARDENING_ENABLE=''${NIX_HARDENING_ENABLE/fortify/}
   '';
 
-  dontStrip =
-    stdenv.hostPlatform != stdenv.buildPlatform
-  ; # Don't run the native `strip' when cross-compiling.
+  dontStrip = stdenv.hostPlatform != stdenv.buildPlatform; # Don't run the native `strip' when cross-compiling.
 
   inherit doCheck;
 

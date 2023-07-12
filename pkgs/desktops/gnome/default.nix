@@ -34,10 +34,7 @@ lib.makeScope pkgs.newScope (
 
     epiphany = callPackage ./core/epiphany { };
 
-    evince =
-      callPackage ./core/evince
-        { }
-    ; # ToDo: dbus would prevent compilation, enable tests
+    evince = callPackage ./core/evince { }; # ToDo: dbus would prevent compilation, enable tests
 
     evolution-data-server = callPackage ./core/evolution-data-server { };
 

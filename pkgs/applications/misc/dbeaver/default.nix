@@ -21,9 +21,7 @@
 }:
 
 (javaPackages.mavenfod.override {
-  inherit
-    maven
-  ; # use overridden maven version (see dbeaver's entry in all-packages.nix)
+  inherit maven; # use overridden maven version (see dbeaver's entry in all-packages.nix)
 })
   rec {
     pname = "dbeaver";

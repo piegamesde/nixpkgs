@@ -28,8 +28,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aiosomecomfort" ];
 
-  doCheck =
-    false; # tests only run on windows, due to WindowsSelectorEventLoopPolicy
+  doCheck = false; # tests only run on windows, due to WindowsSelectorEventLoopPolicy
 
   meta = {
     description = "AsyicIO client for US models of Honeywell Thermostats";

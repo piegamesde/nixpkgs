@@ -272,8 +272,7 @@ in
             "consul.service"
       ;
 
-      restartIfChanged =
-        false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
+      restartIfChanged = false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
 
       startLimitIntervalSec = 60;
       startLimitBurst = 3;

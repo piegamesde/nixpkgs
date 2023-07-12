@@ -376,10 +376,7 @@ buildPythonPackage rec {
   PYTORCH_BUILD_VERSION = version;
   PYTORCH_BUILD_NUMBER = 0;
 
-  USE_SYSTEM_NCCL =
-    setBool
-      useSystemNccl
-  ; # don't build pytorch's third_party NCCL
+  USE_SYSTEM_NCCL = setBool useSystemNccl; # don't build pytorch's third_party NCCL
 
   # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
   # (upstream seems to have fixed this in the wrong place?)
@@ -431,9 +428,7 @@ buildPythonPackage rec {
       blas.provider
       pybind11
     ]
-    ++ lib.optionals stdenv.isLinux [
-      linuxHeaders_5_19
-    ] # TMP: avoid "flexible array member" errors for now
+    ++ lib.optionals stdenv.isLinux [ linuxHeaders_5_19 ] # TMP: avoid "flexible array member" errors for now
     ++ lib.optionals cudaSupport [
       cudnn
       nccl

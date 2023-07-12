@@ -39,8 +39,7 @@
 
   enableCuda ? (config.cudaSupport or false) && stdenv.hostPlatform.isx86_64,
   enableCublas ? enableCuda,
-  enableCudnn ?
-    false # NOTE: CUDNN has a large impact on closure size so we disable it by default
+  enableCudnn ? false # NOTE: CUDNN has a large impact on closure size so we disable it by default
   ,
   enableCufft ? enableCuda,
   cudaPackages ? { },

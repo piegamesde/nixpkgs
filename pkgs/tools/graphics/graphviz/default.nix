@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
       "-I${cairo.dev}/include/cairo"
   ;
 
-  doCheck =
-    false; # fails with "Graphviz test suite requires ksh93" which is not in nixpkgs
+  doCheck = false; # fails with "Graphviz test suite requires ksh93" which is not in nixpkgs
 
   preAutoreconf = "./autogen.sh";
 

@@ -23,9 +23,7 @@ buildPythonPackage rec {
   # Tests require networking, and https://github.com/cinemagoer/cinemagoer/issues/240
   doCheck = false;
 
-  pythonImportsCheck = [
-    "imdb"
-  ]; # Former "imdbpy", upstream is yet to rename here
+  pythonImportsCheck = [ "imdb" ]; # Former "imdbpy", upstream is yet to rename here
 
   meta = with lib; {
     description = "A Python package for retrieving and managing the data of the IMDb movie database about movies and people";

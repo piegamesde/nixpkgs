@@ -26,7 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/hsiafan/httpdump";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ fab ];
-    broken =
-      true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
+    broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

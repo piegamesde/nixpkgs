@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  doCheck =
-    false; # FAIL: tests-gitg gtk_style_context_add_provider_for_screen: assertion 'GDK_IS_SCREEN (screen)' failed
+  doCheck = false; # FAIL: tests-gitg gtk_style_context_add_provider_for_screen: assertion 'GDK_IS_SCREEN (screen)' failed
 
   postPatch = ''
     chmod +x meson_post_install.py

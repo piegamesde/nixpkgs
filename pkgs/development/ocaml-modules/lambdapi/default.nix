@@ -45,8 +45,7 @@ buildDunePackage rec {
     alcotest
     dedukti
   ];
-  doCheck =
-    false; # anomaly: Sys_error("/homeless-shelter/.why3.conf: No such file or directory")
+  doCheck = false; # anomaly: Sys_error("/homeless-shelter/.why3.conf: No such file or directory")
 
   meta = with lib; {
     homepage = "https://github.com/Deducteam/lambdapi";

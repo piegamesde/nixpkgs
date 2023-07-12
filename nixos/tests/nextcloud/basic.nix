@@ -80,8 +80,7 @@ args@{
             hostName = "nextcloud";
             config = {
               # Don't inherit adminuser since "root" is supposed to be the default
-              adminpassFile = "${pkgs.writeText "adminpass"
-                  adminpass}"; # Don't try this at home!
+              adminpassFile = "${pkgs.writeText "adminpass" adminpass}"; # Don't try this at home!
               dbtableprefix = "nixos_";
             };
             package = pkgs.${"nextcloud" + (toString nextcloudVersion)};

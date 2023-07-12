@@ -26,9 +26,7 @@
   ,
   ppaSupport ? false # PPA profiling instrumentation
   ,
-  unittestsSupport ? (
-    stdenv.is64bit && !(stdenv.isDarwin && stdenv.isAarch64)
-  ) # Unit tests - only testing x64 assembly
+  unittestsSupport ? (stdenv.is64bit && !(stdenv.isDarwin && stdenv.isAarch64)) # Unit tests - only testing x64 assembly
   ,
   vtuneSupport ? false # Vtune profiling instrumentation
   ,

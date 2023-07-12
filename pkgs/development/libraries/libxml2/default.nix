@@ -36,8 +36,7 @@ let
   # Beware that the old version has known security issues, so the final set shouldn't use it.
   oldVer = python.pname == "python3-minimal";
 in
-assert oldVer
-  -> stdenv.isDarwin; # reduce likelihood of using old libxml2 unintentionally
+assert oldVer -> stdenv.isDarwin; # reduce likelihood of using old libxml2 unintentionally
 
 let
   libxml = stdenv.mkDerivation rec {

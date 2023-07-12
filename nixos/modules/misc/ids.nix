@@ -131,8 +131,7 @@ in
       amule = 90;
       minidlna = 91;
       elasticsearch = 92;
-      tcpcryptd =
-        93; # tcpcryptd uses a hard-coded uid. We patch it in Nixpkgs to match this choice.
+      tcpcryptd = 93; # tcpcryptd uses a hard-coded uid. We patch it in Nixpkgs to match this choice.
       firebird = 95;
       #keys = 96; # unused
       #haproxy = 97; # dynamically allocated as of 2020-03-11
@@ -692,8 +691,7 @@ in
       # https://www.debian.org/doc/debian-policy/ch-opersys.html#uid-and-gid-classes
 
       onepassword = 31001; # 1Password requires that its GID be larger than 1000
-      onepassword-cli =
-        31002; # 1Password requires that its GID be larger than 1000
+      onepassword-cli = 31002; # 1Password requires that its GID be larger than 1000
 
       users = 100;
       nixbld = 30000;

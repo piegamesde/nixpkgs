@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./maildrop.configure.hack.patch ]; # for building in chroot
 
-  doCheck =
-    false; # fails with "setlocale: LC_ALL: cannot change locale (en_US.UTF-8)"
+  doCheck = false; # fails with "setlocale: LC_ALL: cannot change locale (en_US.UTF-8)"
 
   meta = with lib; {
     homepage = "http://www.courier-mta.org/maildrop/";
