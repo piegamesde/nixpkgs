@@ -4,9 +4,23 @@
 }:
 let
 
-  inherit (builtins) isString isPath split match;
+  inherit (builtins)
+    isString
+    isPath
+    split
+    match
+  ;
 
-  inherit (lib.lists) length head last genList elemAt all concatMap foldl';
+  inherit (lib.lists)
+    length
+    head
+    last
+    genList
+    elemAt
+    all
+    concatMap
+    foldl'
+  ;
 
   inherit (lib.strings) concatStringsSep substring;
 

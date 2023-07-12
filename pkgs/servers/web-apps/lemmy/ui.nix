@@ -40,7 +40,12 @@ let
 in
 mkYarnPackage {
 
-  inherit src pkgConfig name version;
+  inherit
+    src
+    pkgConfig
+    name
+    version
+  ;
 
   extraBuildInputs = [ libsass ];
 

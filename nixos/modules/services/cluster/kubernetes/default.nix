@@ -79,7 +79,14 @@ let
       privateKeyOwner ? "kubernetes",
     }:
     rec {
-      inherit name caCert CN hosts fields action;
+      inherit
+        name
+        caCert
+        CN
+        hosts
+        fields
+        action
+      ;
       cert = secret name;
       key = secret "${name}-key";
       privateKeyOptions = {

@@ -294,7 +294,14 @@ let
 in
 runCommand "test-writers"
   {
-    passthru = { inherit writeTest bin simple path; };
+    passthru = {
+      inherit
+        writeTest
+        bin
+        simple
+        path
+      ;
+    };
     meta.platforms = lib.platforms.all;
   }
   ''

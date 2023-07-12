@@ -392,7 +392,14 @@ let
 
       disallowedReferences = lib.optional (!allowGoReference) go;
 
-      passthru = passthru // { inherit go go-modules vendorSha256 vendorHash; };
+      passthru = passthru // {
+        inherit
+          go
+          go-modules
+          vendorSha256
+          vendorHash
+        ;
+      };
 
       meta = {
         # Add default meta information

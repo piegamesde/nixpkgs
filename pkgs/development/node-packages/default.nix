@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) composeManyExtensions extends makeExtensible mapAttrs;
+  inherit (lib)
+    composeManyExtensions
+    extends
+    makeExtensible
+    mapAttrs
+  ;
 
   nodePackages =
     final:

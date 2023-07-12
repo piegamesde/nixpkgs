@@ -44,7 +44,18 @@ let
 
   update-all-grammars = callPackage ./update.nix { };
 
-  fetchGrammar = (v: fetchgit { inherit (v) url rev sha256 fetchSubmodules; });
+  fetchGrammar =
+    (
+      v:
+      fetchgit {
+        inherit (v)
+          url
+          rev
+          sha256
+          fetchSubmodules
+        ;
+      }
+    );
 
   grammars = runCommand "grammars" { } (
     ''
@@ -178,7 +189,13 @@ rustPlatform.buildRustPackage {
 
   passthru = {
     updater = { inherit update-all-grammars; };
-    inherit grammars buildGrammar builtGrammars withPlugins allGrammars;
+    inherit
+      grammars
+      buildGrammar
+      builtGrammars
+      withPlugins
+      allGrammars
+    ;
 
     tests = {
       # make sure all grammars build

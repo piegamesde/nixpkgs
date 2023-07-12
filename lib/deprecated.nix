@@ -2,7 +2,14 @@
   lib,
 }:
 let
-  inherit (builtins) head tail isList isAttrs isInt attrNames;
+  inherit (builtins)
+    head
+    tail
+    isList
+    isAttrs
+    isInt
+    attrNames
+  ;
 in
 
 with lib.lists;

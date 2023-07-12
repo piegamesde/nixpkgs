@@ -203,7 +203,13 @@ stdenv.mkDerivation rec {
 
   passthru.tests = {
     test-corpus-render = callPackage ./test-corpus-render.nix { };
-    inherit graphicsmagick imagemagick libspectre lilypond pstoedit;
+    inherit
+      graphicsmagick
+      imagemagick
+      libspectre
+      lilypond
+      pstoedit
+    ;
     inherit (python3.pkgs) matplotlib;
   };
 

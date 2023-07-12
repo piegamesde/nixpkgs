@@ -27,7 +27,12 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    inherit (cedille.meta) homepage license maintainers platforms;
+    inherit (cedille.meta)
+      homepage
+      license
+      maintainers
+      platforms
+    ;
     description = "Emacs major mode for Cedille";
   };
 }

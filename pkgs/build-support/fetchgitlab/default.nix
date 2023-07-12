@@ -73,7 +73,12 @@ let
   fetcherArgs = (
     if useFetchGit then
       {
-        inherit rev deepClone fetchSubmodules leaveDotGit;
+        inherit
+          rev
+          deepClone
+          fetchSubmodules
+          leaveDotGit
+        ;
         url = gitRepoUrl;
       }
     else

@@ -6,7 +6,13 @@
 }:
 
 let
-  inherit (lib) escapeShellArgs mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    escapeShellArgs
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+  ;
 
   cfg = config.services.mimir;
 

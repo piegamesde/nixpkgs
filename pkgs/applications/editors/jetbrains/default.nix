@@ -59,7 +59,13 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "CLion";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/clion/";
@@ -134,7 +140,13 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "DataGrip";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/datagrip/";
@@ -161,7 +173,14 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        product
+      ;
       productShort = "Gateway";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/remote-development/gateway/";
@@ -187,7 +206,13 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "Goland";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/go/";
@@ -232,7 +257,14 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        product
+      ;
       productShort = "IDEA";
       extraLdPath = [ zlib ];
       extraWrapperArgs = [
@@ -271,7 +303,14 @@ let
       ...
     }:
     (mkJetBrainsProduct rec {
-      inherit pname version src wmClass jdk product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        product
+      ;
       productShort = "MPS";
       meta = with lib; {
         broken = (stdenv.isLinux && stdenv.isAarch64);
@@ -299,7 +338,13 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "PhpStorm";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/phpstorm/";
@@ -327,7 +372,14 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        product
+      ;
       productShort = "PyCharm";
       meta = with lib; {
         broken = (stdenv.isLinux && stdenv.isAarch64);
@@ -380,7 +432,13 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "Rider";
       # icu is required by Rider.Backend
       extraLdPath = [ icu ];
@@ -427,7 +485,13 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "RubyMine";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/ruby/";
@@ -449,7 +513,13 @@ let
       ...
     }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "WebStorm";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/webstorm/";

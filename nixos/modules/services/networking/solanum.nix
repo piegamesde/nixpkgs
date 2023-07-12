@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+  ;
   inherit (pkgs) solanum util-linux;
   cfg = config.services.solanum;
 

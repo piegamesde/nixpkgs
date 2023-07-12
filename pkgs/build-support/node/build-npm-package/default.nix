@@ -42,7 +42,15 @@
 
 let
   npmDeps = fetchNpmDeps {
-    inherit forceGitDeps src srcs sourceRoot prePatch patches postPatch;
+    inherit
+      forceGitDeps
+      src
+      srcs
+      sourceRoot
+      prePatch
+      patches
+      postPatch
+    ;
     name = "${name}-npm-deps";
     hash = npmDepsHash;
   };

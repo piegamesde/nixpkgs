@@ -45,6 +45,11 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "USB Relay MQTT service";
-    inherit (usbrelay.meta) homepage license maintainers platforms;
+    inherit (usbrelay.meta)
+      homepage
+      license
+      maintainers
+      platforms
+    ;
   };
 }

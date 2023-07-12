@@ -36,7 +36,14 @@ let
       lib,
     }:
     import ../applications/editors/emacs/elisp-packages/elpa-packages.nix {
-      inherit (pkgs) stdenv texinfo writeText gcc pkgs buildPackages;
+      inherit (pkgs)
+        stdenv
+        texinfo
+        writeText
+        gcc
+        pkgs
+        buildPackages
+      ;
       inherit lib;
     }
   ;

@@ -18,7 +18,12 @@ let
 in
 
 (callPackage ./common.nix { inherit stdenv; } {
-  inherit withLinuxHeaders withGd profilingLibraries withLibcrypt;
+  inherit
+    withLinuxHeaders
+    withGd
+    profilingLibraries
+    withLibcrypt
+  ;
   pname = "glibc" + lib.optionalString withGd "-gd";
 }).overrideAttrs
   (

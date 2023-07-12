@@ -75,7 +75,14 @@ let
     sagelib = python3.pkgs.sagelib;
     sage-docbuild = python3.pkgs.sage-docbuild;
     inherit env-locations;
-    inherit python3 singular palp flint pythonEnv maxima;
+    inherit
+      python3
+      singular
+      palp
+      flint
+      pythonEnv
+      maxima
+    ;
     pkg-config =
       pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
   };

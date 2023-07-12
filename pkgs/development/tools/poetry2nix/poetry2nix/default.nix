@@ -164,7 +164,14 @@ lib.makeScope pkgs.newScope (
       }:
       assert editablePackageSources != { };
       import ./editable.nix {
-        inherit pyProject python pkgs lib poetryLib editablePackageSources;
+        inherit
+          pyProject
+          python
+          pkgs
+          lib
+          poetryLib
+          editablePackageSources
+        ;
       }
     ;
 
@@ -364,7 +371,12 @@ lib.makeScope pkgs.newScope (
               self: super:
               {
                 mkPoetryDep = self.callPackage ./mk-poetry-dep.nix {
-                  inherit lib python poetryLib evalPep508;
+                  inherit
+                    lib
+                    python
+                    poetryLib
+                    evalPep508
+                  ;
                 };
 
                 # # Use poetry-core from the poetry build (pep517/518 build-system)
@@ -430,7 +442,13 @@ lib.makeScope pkgs.newScope (
         };
 
         inputAttrs = mkInputAttrs {
-          inherit py pyProject groups checkGroups extras;
+          inherit
+            py
+            pyProject
+            groups
+            checkGroups
+            extras
+          ;
           attrs = { };
           includeBuildSystem = false;
         };
@@ -610,7 +628,14 @@ lib.makeScope pkgs.newScope (
         passedAttrs = builtins.removeAttrs attrs specialAttrs;
 
         inputAttrs = mkInputAttrs {
-          inherit py pyProject attrs groups checkGroups extras;
+          inherit
+            py
+            pyProject
+            attrs
+            groups
+            checkGroups
+            extras
+          ;
         };
 
         app = py.pkgs.buildPythonPackage (

@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) mkOption mkIf types optionalString;
+  inherit (lib)
+    mkOption
+    mkIf
+    types
+    optionalString
+  ;
 
   cfg = config.programs.tmux;
 

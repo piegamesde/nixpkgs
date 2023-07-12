@@ -76,7 +76,12 @@ let
           (component: {
             name = component.id;
             value = componentFromSnapshot self {
-              inherit component revision schema_version version;
+              inherit
+                component
+                revision
+                schema_version
+                version
+              ;
             };
           })
           components

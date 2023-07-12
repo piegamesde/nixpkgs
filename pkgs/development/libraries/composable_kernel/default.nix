@@ -101,7 +101,14 @@ let
   '';
 in
 stdenv.mkDerivation {
-  inherit (ck) pname version outputs src passthru meta;
+  inherit (ck)
+    pname
+    version
+    outputs
+    src
+    passthru
+    meta
+  ;
 
   dontUnpack = true;
   dontPatch = true;

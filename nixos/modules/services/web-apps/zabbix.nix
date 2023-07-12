@@ -8,8 +8,21 @@
 
 let
 
-  inherit (lib) mkDefault mkEnableOption mkForce mkIf mkMerge mkOption types;
-  inherit (lib) literalExpression mapAttrs optionalString versionAtLeast;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkForce
+    mkIf
+    mkMerge
+    mkOption
+    types
+  ;
+  inherit (lib)
+    literalExpression
+    mapAttrs
+    optionalString
+    versionAtLeast
+  ;
 
   cfg = config.services.zabbixWeb;
   opt = options.services.zabbixWeb;

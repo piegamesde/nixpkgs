@@ -50,7 +50,13 @@
 }:
 
 let
-  inherit (cudaPackages) backendStdenv cudatoolkit cudaFlags cudnn nccl;
+  inherit (cudaPackages)
+    backendStdenv
+    cudatoolkit
+    cudaFlags
+    cudnn
+    nccl
+  ;
 
   pname = "jaxlib";
   version = "0.4.4";

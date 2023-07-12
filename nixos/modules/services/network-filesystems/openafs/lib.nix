@@ -5,7 +5,12 @@
 }:
 
 let
-  inherit (lib) concatStringsSep mkOption types optionalString;
+  inherit (lib)
+    concatStringsSep
+    mkOption
+    types
+    optionalString
+  ;
 in
 {
 

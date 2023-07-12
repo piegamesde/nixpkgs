@@ -48,7 +48,12 @@ let
   };
 in
 stdenv.mkDerivation {
-  inherit pname version src appimage;
+  inherit
+    pname
+    version
+    src
+    appimage
+  ;
 
   nativeBuildInputs = [
     makeWrapper

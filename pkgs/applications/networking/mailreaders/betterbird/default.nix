@@ -106,7 +106,12 @@
       "Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will";
     homepage = "https://www.betterbird.eu/";
     maintainers = with maintainers; [ SuperSandro2000 ];
-    inherit (thunderbird-unwrapped.meta) platforms badPlatforms broken license;
+    inherit (thunderbird-unwrapped.meta)
+      platforms
+      badPlatforms
+      broken
+      license
+    ;
   };
 }).override
   {

@@ -24,7 +24,13 @@
 let
   version = "1.99.4";
   common = callPackage ./common.nix {
-    inherit tex extraFonts chineseFonts japaneseFonts koreanFonts;
+    inherit
+      tex
+      extraFonts
+      chineseFonts
+      japaneseFonts
+      koreanFonts
+    ;
   };
 in
 stdenv.mkDerivation {

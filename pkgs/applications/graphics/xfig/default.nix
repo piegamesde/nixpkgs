@@ -66,6 +66,11 @@ stdenv.mkDerivation rec {
       Note that you need to have the <literal>netpbm</literal> tools
       in your path to export bitmaps.
     '';
-    inherit (fig2dev.meta) license homepage platforms maintainers;
+    inherit (fig2dev.meta)
+      license
+      homepage
+      platforms
+      maintainers
+    ;
   };
 }

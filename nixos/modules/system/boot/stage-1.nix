@@ -360,7 +360,12 @@ let
       ${pkgs.buildPackages.busybox}/bin/ash -n $target
     '';
 
-    inherit linkUnits udevRules extraUtils modulesClosure;
+    inherit
+      linkUnits
+      udevRules
+      extraUtils
+      modulesClosure
+    ;
 
     inherit (config.boot) resumeDevice;
 

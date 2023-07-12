@@ -18,7 +18,13 @@
 
 let
   common = callPackage ./common.nix {
-    inherit CoreFoundation tiles Cocoa debug useXdgDir;
+    inherit
+      CoreFoundation
+      tiles
+      Cocoa
+      debug
+      useXdgDir
+    ;
   };
 
   self = common.overrideAttrs (

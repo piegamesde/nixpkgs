@@ -10,7 +10,14 @@
 }:
 
 buildPythonPackage {
-  inherit (dlib) pname version src nativeBuildInputs buildInputs meta;
+  inherit (dlib)
+    pname
+    version
+    src
+    nativeBuildInputs
+    buildInputs
+    meta
+  ;
 
   patches = [ ./build-cores.patch ];
 

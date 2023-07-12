@@ -351,7 +351,13 @@ rec {
       diskSize ? 1024,
     }:
     runWithOverlay {
-      inherit name fromImage fromImageName fromImageTag diskSize;
+      inherit
+        name
+        fromImage
+        fromImageName
+        fromImageTag
+        diskSize
+      ;
 
       postMount = ''
         echo "Packing raw image..."
@@ -477,7 +483,13 @@ rec {
     runWithOverlay {
       name = "docker-layer-${name}";
 
-      inherit fromImage fromImageName fromImageTag diskSize buildVMMemorySize;
+      inherit
+        fromImage
+        fromImageName
+        fromImageTag
+        diskSize
+        buildVMMemorySize
+      ;
 
       preMount = lib.optionalString (copyToRoot != null && copyToRoot != [ ]) ''
         echo "Adding contents..."
@@ -632,7 +644,13 @@ rec {
         if runAsRoot == null then
           mkPureLayer {
             name = baseName;
-            inherit baseJson keepContentsDirlinks extraCommands uid gid;
+            inherit
+              baseJson
+              keepContentsDirlinks
+              extraCommands
+              uid
+              gid
+            ;
             copyToRoot = rootContents;
           }
         else

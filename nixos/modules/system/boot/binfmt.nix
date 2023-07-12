@@ -5,7 +5,13 @@
   ...
 }:
 let
-  inherit (lib) mkOption mkDefault types optionalString stringAfter;
+  inherit (lib)
+    mkOption
+    mkDefault
+    types
+    optionalString
+    stringAfter
+  ;
 
   cfg = config.boot.binfmt;
 

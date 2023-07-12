@@ -12,7 +12,14 @@ pkgs:
 
 let
   inherit (pkgs) lib;
-  inherit (lib) all flip mapAttrs mapAttrsToList getAttrFromPath importJSON;
+  inherit (lib)
+    all
+    flip
+    mapAttrs
+    mapAttrsToList
+    getAttrFromPath
+    importJSON
+  ;
 
   data = importJSON ./pkg-config-data.json;
   inherit (data) modules;

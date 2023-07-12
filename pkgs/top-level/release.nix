@@ -54,7 +54,12 @@ let
 
   nonPackageJobs = {
     tarball = import ./make-tarball.nix {
-      inherit pkgs nixpkgs officialRelease supportedSystems;
+      inherit
+        pkgs
+        nixpkgs
+        officialRelease
+        supportedSystems
+      ;
     };
 
     metrics = import ./metrics.nix { inherit pkgs nixpkgs; };

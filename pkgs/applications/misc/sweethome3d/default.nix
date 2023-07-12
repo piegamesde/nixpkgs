@@ -53,7 +53,12 @@ let
     }:
 
     stdenv.mkDerivation rec {
-      inherit pname version src description;
+      inherit
+        pname
+        version
+        src
+        description
+      ;
       exec = lib.toLower module;
       sweethome3dItem = makeDesktopItem {
         inherit exec desktopName;

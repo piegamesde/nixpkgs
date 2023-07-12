@@ -23,7 +23,12 @@ let
   '';
 in
 buildPythonPackage {
-  inherit pname version src postPatch;
+  inherit
+    pname
+    version
+    src
+    postPatch
+  ;
   format = "setuptools";
 
   disabled = pythonOlder "3.8";

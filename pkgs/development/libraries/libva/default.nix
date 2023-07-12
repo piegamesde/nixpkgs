@@ -72,7 +72,13 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     # other drivers depending on libva and selected application users.
     # Please get a confirmation from the maintainer before adding more applications.
-    inherit intel-compute-runtime intel-media-driver vaapiIntel mpv vlc;
+    inherit
+      intel-compute-runtime
+      intel-media-driver
+      vaapiIntel
+      mpv
+      vlc
+    ;
   };
 
   meta = with lib; {

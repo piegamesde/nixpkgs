@@ -502,7 +502,12 @@ let
         inherit
           dontStrip
         ; # Stripping may fail a build for some package deployments
-        inherit dontNpmInstall preRebuild unpackPhase buildPhase;
+        inherit
+          dontNpmInstall
+          preRebuild
+          unpackPhase
+          buildPhase
+        ;
 
         compositionScript = composePackage args;
         pinpointDependenciesScript = pinpointDependenciesOfPackage args;
@@ -523,7 +528,13 @@ let
           source $compositionScriptPath
 
           ${prepareAndInvokeNPM {
-            inherit packageName bypassCache reconstructLock npmFlags production;
+            inherit
+              packageName
+              bypassCache
+              reconstructLock
+              npmFlags
+              production
+            ;
           }}
 
           # Create symlink to the deployed executable folder, if applicable
@@ -649,7 +660,13 @@ let
             "cd .."}
 
           ${prepareAndInvokeNPM {
-            inherit packageName bypassCache reconstructLock npmFlags production;
+            inherit
+              packageName
+              bypassCache
+              reconstructLock
+              npmFlags
+              production
+            ;
           }}
 
           # Expose the executables that were installed

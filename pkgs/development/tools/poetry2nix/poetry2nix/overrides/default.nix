@@ -1534,7 +1534,12 @@ lib.composeManyExtensions [
             };
           };
 
-          inherit (pkgs) tk tcl wayland qhull;
+          inherit (pkgs)
+            tk
+            tcl
+            wayland
+            qhull
+          ;
           inherit (pkgs.xorg) libX11;
           inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
         in
@@ -3428,7 +3433,16 @@ lib.composeManyExtensions [
         ((pkgs.python3.pkgs.override { python = self.python; }).wheel.override {
           inherit (self) buildPythonPackage bootstrapped-pip setuptools;
         }).overrideAttrs
-          (old: { inherit (super.wheel) pname name version src; })
+          (
+            old: {
+              inherit (super.wheel)
+                pname
+                name
+                version
+                src
+              ;
+            }
+          )
       ;
 
       zipp =

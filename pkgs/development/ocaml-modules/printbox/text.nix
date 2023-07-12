@@ -8,7 +8,12 @@
 
 buildDunePackage {
   pname = "printbox-text";
-  inherit (printbox) src version useDune2 doCheck;
+  inherit (printbox)
+    src
+    version
+    useDune2
+    doCheck
+  ;
 
   propagatedBuildInputs = [
     printbox

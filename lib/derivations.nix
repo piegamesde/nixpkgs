@@ -93,7 +93,15 @@ in
       # A fixed set of derivation values, so that `lazyDerivation` can return
       # its attrset before evaluating `derivation`.
       # This must only list attributes that are available on _all_ derivations.
-      inherit (checked) outputs out outPath outputName drvPath name system;
+      inherit (checked)
+        outputs
+        out
+        outPath
+        outputName
+        drvPath
+        name
+        system
+      ;
 
       # The meta attribute can either be taken from the derivation, or if the
       # `lazyDerivation` caller knew a shortcut, be taken from there.

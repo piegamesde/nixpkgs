@@ -6,7 +6,13 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption optionalString types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    optionalString
+    types
+  ;
 
   dataDir = "/var/lib/squeezelite";
   cfg = config.services.squeezelite;

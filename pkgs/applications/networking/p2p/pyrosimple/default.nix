@@ -53,7 +53,12 @@ let
   ;
 in
 buildPythonPackage {
-  inherit pname version src propagatedBuildInputs;
+  inherit
+    pname
+    version
+    src
+    propagatedBuildInputs
+  ;
 
   passthru = {
     updateScript = nix-update-script { };

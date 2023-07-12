@@ -165,7 +165,13 @@ let
   ;
 in
 rec {
-  inherit llvm clang-unwrapped lld bintools bintools-unwrapped;
+  inherit
+    llvm
+    clang-unwrapped
+    lld
+    bintools
+    bintools-unwrapped
+  ;
 
   # Runtimes
   libc = callPackage ./llvm.nix rec {

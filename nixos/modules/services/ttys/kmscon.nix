@@ -5,7 +5,14 @@
   ...
 }:
 let
-  inherit (lib) mapAttrs mkIf mkOption optional optionals types;
+  inherit (lib)
+    mapAttrs
+    mkIf
+    mkOption
+    optional
+    optionals
+    types
+  ;
 
   cfg = config.services.kmscon;
 

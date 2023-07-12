@@ -17,7 +17,12 @@
 
 let
   lua = lua5_4;
-  inherit (libsForQt5) qtbase qtmultimedia qttools wrapQtAppsHook;
+  inherit (libsForQt5)
+    qtbase
+    qtmultimedia
+    qttools
+    wrapQtAppsHook
+  ;
 in
 stdenv.mkDerivation (
   finalAttrs: {

@@ -112,7 +112,14 @@ stdenv.mkDerivation rec {
 
   # used to mark cudaSupport in python310Packages.mxnet as broken;
   # other attributes exposed for consistency
-  passthru = { inherit cudaSupport cudnnSupport cudatoolkit cudnn; };
+  passthru = {
+    inherit
+      cudaSupport
+      cudnnSupport
+      cudatoolkit
+      cudnn
+    ;
+  };
 
   meta = with lib; {
     description =

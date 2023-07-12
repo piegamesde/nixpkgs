@@ -19,7 +19,15 @@ let
   };
 
   # put packages that needs to be overridden in the py package scope
-  py = import ./python-packages.nix { inherit stdenv lib src version python3; };
+  py = import ./python-packages.nix {
+    inherit
+      stdenv
+      lib
+      src
+      version
+      python3
+    ;
+  };
 in
 py.pkgs.toPythonApplication (
   py.pkgs.buildAzureCliPackage {

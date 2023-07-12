@@ -483,7 +483,15 @@ stdenv.mkDerivation (
     ;
 
     passthru = {
-      inherit langC langCC langObjC langObjCpp langFortran langGo version;
+      inherit
+        langC
+        langCC
+        langObjC
+        langObjCpp
+        langFortran
+        langGo
+        version
+      ;
       isGNU = true;
       hardeningUnsupportedFlags = [ "fortify3" ];
     };

@@ -20,12 +20,26 @@ rec {
       ;
     in
     import titaniumSdkFile {
-      inherit (pkgs) stdenv lib fetchurl unzip makeWrapper;
+      inherit (pkgs)
+        stdenv
+        lib
+        fetchurl
+        unzip
+        makeWrapper
+      ;
     }
   ;
 
   buildApp = import ./build-app.nix {
-    inherit (pkgs) stdenv lib python which file jdk nodejs;
+    inherit (pkgs)
+      stdenv
+      lib
+      python
+      which
+      file
+      jdk
+      nodejs
+    ;
     inherit (pkgs.nodePackages) alloy titanium;
     inherit (androidenv) composeAndroidPackages;
     inherit (xcodeenv) composeXcodeWrapper;

@@ -85,7 +85,12 @@
 }:
 
 let
-  inherit (stdenv) is64bit isMips isDarwin isCygwin;
+  inherit (stdenv)
+    is64bit
+    isMips
+    isDarwin
+    isCygwin
+  ;
   inherit (lib) enableFeature optional optionals;
 
   # libvpx darwin targets include darwin version (ie. ARCH-darwinXX-gcc, XX being the darwin version)

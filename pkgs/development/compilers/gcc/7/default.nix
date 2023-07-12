@@ -280,7 +280,13 @@ stdenv.mkDerivation (
       ''
     ;
 
-    inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
+    inherit
+      noSysDirs
+      staticCompiler
+      crossStageStatic
+      libcCross
+      crossMingw
+    ;
 
     inherit (callFile ../common/dependencies.nix { })
       depsBuildBuild
@@ -356,7 +362,15 @@ stdenv.mkDerivation (
     ;
 
     passthru = {
-      inherit langC langCC langObjC langObjCpp langFortran langGo version;
+      inherit
+        langC
+        langCC
+        langObjC
+        langObjCpp
+        langFortran
+        langGo
+        version
+      ;
       isGNU = true;
       hardeningUnsupportedFlags = [ "fortify3" ];
     };

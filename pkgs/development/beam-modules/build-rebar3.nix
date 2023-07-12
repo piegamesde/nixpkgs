@@ -42,7 +42,12 @@ let
   ;
 
   customPhases = lib.filterAttrs (_: v: v != null) {
-    inherit setupHook configurePhase buildPhase installPhase;
+    inherit
+      setupHook
+      configurePhase
+      buildPhase
+      installPhase
+    ;
   };
 
   pkg =

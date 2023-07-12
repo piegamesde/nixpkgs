@@ -43,7 +43,13 @@ let
       wrapperBins ? [ ],
     }:
     {
-      inherit enable builtin propagatedBuildInputs testPaths wrapperBins;
+      inherit
+        enable
+        builtin
+        propagatedBuildInputs
+        testPaths
+        wrapperBins
+      ;
     }
   ;
 

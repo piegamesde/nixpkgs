@@ -43,7 +43,13 @@ let
 
     stdenv.mkDerivation rec {
       application = sweethome3dApp;
-      inherit pname module version src description;
+      inherit
+        pname
+        module
+        version
+        src
+        description
+      ;
       exec = sweetExec module;
       editorItem = makeDesktopItem {
         inherit exec desktopName;

@@ -40,7 +40,12 @@ let
     # This type definition resolves all
     # those types into a list of strings.
     let
-      inherit (lib.types) attrsOf coercedTo int listOf;
+      inherit (lib.types)
+        attrsOf
+        coercedTo
+        int
+        listOf
+      ;
       innerType = coercedTo bool (x: if x then "Yes" else "No") (
         coercedTo int (toString) str
       );

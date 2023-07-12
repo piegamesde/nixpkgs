@@ -5,7 +5,13 @@
   },
 }:
 let
-  inherit (pkgs) figlet zlib hello writeText runCommand;
+  inherit (pkgs)
+    figlet
+    zlib
+    hello
+    writeText
+    runCommand
+  ;
 in
 {
   hello = hello;

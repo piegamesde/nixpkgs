@@ -40,7 +40,13 @@ let
   };
 
   wrapper = import ./wrapper.nix {
-    inherit stdenv ffmpeg-full tone pname nodejs;
+    inherit
+      stdenv
+      ffmpeg-full
+      tone
+      pname
+      nodejs
+    ;
   };
 in
 buildNpmPackage {

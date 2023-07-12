@@ -45,10 +45,21 @@ let
   inherit (stdenv.hostPlatform) system;
   unwrapped = stdenv.mkDerivation {
 
-    inherit pname version src sourceRoot dontFixup;
+    inherit
+      pname
+      version
+      src
+      sourceRoot
+      dontFixup
+    ;
 
     passthru = {
-      inherit executableName longName tests updateScript;
+      inherit
+        executableName
+        longName
+        tests
+        updateScript
+      ;
       fhs = fhs { };
       fhsWithPackages = f: fhs { additionalPkgs = f; };
     };

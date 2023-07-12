@@ -26,7 +26,12 @@ let
   };
 in
 stdenv.mkDerivation {
-  inherit version m2Path m2File src;
+  inherit
+    version
+    m2Path
+    m2File
+    src
+  ;
   pname = artifactId;
 
   dontUnpack = true;

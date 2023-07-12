@@ -154,7 +154,12 @@ let
     URL=${src.meta.homepage}
   '';
 
-  inherit (lib) optional optionals optionalString versions;
+  inherit (lib)
+    optional
+    optionals
+    optionalString
+    versions
+  ;
 in
 let
   self = stdenv.mkDerivation rec {

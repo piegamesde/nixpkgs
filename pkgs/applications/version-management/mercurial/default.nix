@@ -27,7 +27,13 @@
 }:
 
 let
-  inherit (python3Packages) docutils python fb-re2 pygit2 pygments;
+  inherit (python3Packages)
+    docutils
+    python
+    fb-re2
+    pygit2
+    pygments
+  ;
 
   self = python3Packages.buildPythonApplication rec {
     pname = "mercurial${lib.optionalString fullBuild "-full"}";

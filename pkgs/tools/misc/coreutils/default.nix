@@ -35,7 +35,13 @@ assert aclSupport -> acl != null;
 assert selinuxSupport -> libselinux != null && libsepol != null;
 
 let
-  inherit (lib) concatStringsSep isString optional optionals optionalString;
+  inherit (lib)
+    concatStringsSep
+    isString
+    optional
+    optionals
+    optionalString
+  ;
   isCross = (stdenv.hostPlatform != stdenv.buildPlatform);
 in
 stdenv.mkDerivation rec {

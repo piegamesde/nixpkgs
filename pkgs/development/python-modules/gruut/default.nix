@@ -65,7 +65,14 @@ buildPythonPackage rec {
     ++ (map
       (
         lang:
-        callPackage ./language-pack.nix { inherit lang version format src; }
+        callPackage ./language-pack.nix {
+          inherit
+            lang
+            version
+            format
+            src
+          ;
+        }
       )
       langPkgs
     )

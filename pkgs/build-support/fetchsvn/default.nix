@@ -71,7 +71,12 @@ else
     outputHashMode = "recursive";
     outputHash = sha256;
 
-    inherit url rev ignoreExternals ignoreKeywords;
+    inherit
+      url
+      rev
+      ignoreExternals
+      ignoreKeywords
+    ;
 
     impureEnvVars = lib.fetchers.proxyImpureEnvVars;
     inherit preferLocalBuild;

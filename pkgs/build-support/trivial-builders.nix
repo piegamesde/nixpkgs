@@ -433,7 +433,15 @@ rec {
       meta ? { },
     }:
     runCommandLocal name
-      { inherit files executable checkPhase meta destination; }
+      {
+        inherit
+          files
+          executable
+          checkPhase
+          meta
+          destination
+        ;
+      }
       ''
         file=$out$destination
         mkdir -p "$(dirname "$file")"
@@ -977,7 +985,12 @@ rec {
       postPatch ? "",
     }:
     stdenvNoCC.mkDerivation {
-      inherit name src patches postPatch;
+      inherit
+        name
+        src
+        patches
+        postPatch
+      ;
       preferLocalBuild = true;
       allowSubstitutes = false;
       phases = "unpackPhase patchPhase installPhase";

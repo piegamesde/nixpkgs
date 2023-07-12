@@ -6,7 +6,14 @@
 }:
 
 let
-  inherit (lib) attrValues literalExpression mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    attrValues
+    literalExpression
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+  ;
   cfg = config.services.metricbeat;
 
   settingsFormat = pkgs.formats.yaml { };

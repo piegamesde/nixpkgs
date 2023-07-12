@@ -88,7 +88,15 @@ let
       derivation =
         (mkCoqDerivation (
           {
-            inherit version pname defaultVersion release releaseRev repo owner;
+            inherit
+              version
+              pname
+              defaultVersion
+              release
+              releaseRev
+              repo
+              owner
+            ;
 
             mlPlugin = true;
             propagatedBuildInputs =

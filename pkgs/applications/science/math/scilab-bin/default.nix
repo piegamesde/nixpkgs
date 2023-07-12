@@ -50,7 +50,12 @@ let
   };
 
   darwin = stdenv.mkDerivation rec {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     nativeBuildInputs = [
       makeWrapper
@@ -71,7 +76,12 @@ let
   };
 
   linux = stdenv.mkDerivation rec {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     nativeBuildInputs = [ autoPatchelfHook ];
 

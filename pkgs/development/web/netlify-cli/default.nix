@@ -12,7 +12,14 @@ nodePackages.package.override {
   preRebuild = ''
     export ESBUILD_BINARY_PATH="${pkgs.esbuild_netlify}/bin/esbuild"
   '';
-  src = fetchFromGitHub { inherit (sourceInfo) owner repo rev sha256; };
+  src = fetchFromGitHub {
+    inherit (sourceInfo)
+      owner
+      repo
+      rev
+      sha256
+    ;
+  };
   bypassCache = true;
   reconstructLock = true;
   passthru.tests.test = callPackage ./test.nix { };

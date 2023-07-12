@@ -39,7 +39,12 @@ let
   };
 
   linux = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     nativeBuildInputs = [
       unzip
@@ -67,7 +72,12 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     nativeBuildInputs = [
       unzip

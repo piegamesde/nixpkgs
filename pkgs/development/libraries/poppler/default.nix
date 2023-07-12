@@ -130,7 +130,12 @@ stdenv.mkDerivation (
       inherit testData;
       tests = {
         # These depend on internal poppler code that frequently changes.
-        inherit inkscape cups-filters texlive scribus;
+        inherit
+          inkscape
+          cups-filters
+          texlive
+          scribus
+        ;
       };
     };
 

@@ -674,8 +674,14 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               (
                 a: {
                   # so we can add them to allowedRequisites below
-                  passthru =
-                    a.passthru // { inherit (self) gmp mpfr libmpc isl; };
+                  passthru = a.passthru // {
+                    inherit (self)
+                      gmp
+                      mpfr
+                      libmpc
+                      isl
+                    ;
+                  };
                 }
               )
           ;
@@ -919,7 +925,12 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                 {
                   inherit lib;
                   inherit (prevStage) libidn2;
-                  inherit (self) stdenv runCommandLocal patchelf libunistring;
+                  inherit (self)
+                    stdenv
+                    runCommandLocal
+                    patchelf
+                    libunistring
+                  ;
                 }
             ;
 

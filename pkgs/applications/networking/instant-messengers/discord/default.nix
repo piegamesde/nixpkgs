@@ -86,7 +86,12 @@ let
         _: value:
         callPackage package (
           value // {
-            inherit src version openasar branch;
+            inherit
+              src
+              version
+              openasar
+              branch
+            ;
             meta = meta // { mainProgram = value.binaryName; };
           }
         )

@@ -101,7 +101,12 @@
 
 let
   inherit (lib) lists strings trivial;
-  inherit (cudaPackages) cudatoolkit cudaFlags cudnn nccl;
+  inherit (cudaPackages)
+    cudatoolkit
+    cudaFlags
+    cudnn
+    nccl
+  ;
 in
 
 assert cudaSupport -> (cudaPackages.cudaMajorVersion == "11");

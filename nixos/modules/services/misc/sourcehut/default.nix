@@ -6,7 +6,12 @@
 }:
 with lib;
 let
-  inherit (config.services) nginx postfix postgresql redis;
+  inherit (config.services)
+    nginx
+    postfix
+    postgresql
+    redis
+  ;
   inherit (config.users) users groups;
   cfg = config.services.sourcehut;
   domain = cfg.settings."sr.ht".global-domain;

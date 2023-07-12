@@ -23,7 +23,12 @@ import ./make-test-python.nix (
     };
 
     defaultMpdCfg = with defaultCfg; {
-      inherit dataDir musicDirectory user group;
+      inherit
+        dataDir
+        musicDirectory
+        user
+        group
+      ;
       enable = true;
     };
 

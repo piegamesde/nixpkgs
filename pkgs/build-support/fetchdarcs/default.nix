@@ -27,5 +27,10 @@ else
     outputHashMode = "recursive";
     outputHash = sha256;
 
-    inherit url rev context name;
+    inherit
+      url
+      rev
+      context
+      name
+    ;
   }

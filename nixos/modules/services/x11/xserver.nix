@@ -977,7 +977,12 @@ in
     system.extraDependencies = singleton (
       pkgs.runCommand "xkb-validated"
         {
-          inherit (cfg) xkbModel layout xkbVariant xkbOptions;
+          inherit (cfg)
+            xkbModel
+            layout
+            xkbVariant
+            xkbOptions
+          ;
           nativeBuildInputs = with pkgs.buildPackages; [ xkbvalidate ];
           preferLocalBuild = true;
         }

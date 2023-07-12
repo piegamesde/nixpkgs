@@ -557,7 +557,13 @@ rec {
 
   targetToUnit =
     name: def: {
-      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      inherit (def)
+        aliases
+        wantedBy
+        requiredBy
+        enable
+        overrideStrategy
+      ;
       text = ''
         [Unit]
         ${attrsToSection def.unitConfig}
@@ -567,7 +573,13 @@ rec {
 
   serviceToUnit =
     name: def: {
-      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      inherit (def)
+        aliases
+        wantedBy
+        requiredBy
+        enable
+        overrideStrategy
+      ;
       text =
         commonUnitText def
         + ''
@@ -613,7 +625,13 @@ rec {
 
   socketToUnit =
     name: def: {
-      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      inherit (def)
+        aliases
+        wantedBy
+        requiredBy
+        enable
+        overrideStrategy
+      ;
       text =
         commonUnitText def
         + ''
@@ -632,7 +650,13 @@ rec {
 
   timerToUnit =
     name: def: {
-      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      inherit (def)
+        aliases
+        wantedBy
+        requiredBy
+        enable
+        overrideStrategy
+      ;
       text =
         commonUnitText def
         + ''
@@ -645,7 +669,13 @@ rec {
 
   pathToUnit =
     name: def: {
-      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      inherit (def)
+        aliases
+        wantedBy
+        requiredBy
+        enable
+        overrideStrategy
+      ;
       text =
         commonUnitText def
         + ''
@@ -658,7 +688,13 @@ rec {
 
   mountToUnit =
     name: def: {
-      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      inherit (def)
+        aliases
+        wantedBy
+        requiredBy
+        enable
+        overrideStrategy
+      ;
       text =
         commonUnitText def
         + ''
@@ -671,7 +707,13 @@ rec {
 
   automountToUnit =
     name: def: {
-      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      inherit (def)
+        aliases
+        wantedBy
+        requiredBy
+        enable
+        overrideStrategy
+      ;
       text =
         commonUnitText def
         + ''
@@ -684,7 +726,13 @@ rec {
 
   sliceToUnit =
     name: def: {
-      inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
+      inherit (def)
+        aliases
+        wantedBy
+        requiredBy
+        enable
+        overrideStrategy
+      ;
       text =
         commonUnitText def
         + ''

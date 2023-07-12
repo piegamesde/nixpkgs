@@ -20,7 +20,12 @@
 }:
 
 let
-  inherit (python3.pkgs) pycairo pygobject3 numpy buildPythonApplication;
+  inherit (python3.pkgs)
+    pycairo
+    pygobject3
+    numpy
+    buildPythonApplication
+  ;
 in
 buildPythonApplication rec {
   pname = "mypaint";

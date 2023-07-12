@@ -8,7 +8,15 @@
 with lib;
 
 let
-  inherit (lib.types) attrsOf coercedTo listOf oneOf str int bool;
+  inherit (lib.types)
+    attrsOf
+    coercedTo
+    listOf
+    oneOf
+    str
+    int
+    bool
+  ;
   cfg = config.services.smartdns;
 
   confFile = pkgs.writeText "smartdns.conf" (

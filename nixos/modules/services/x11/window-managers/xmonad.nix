@@ -7,7 +7,13 @@
 
 with lib;
 let
-  inherit (lib) mkOption mkIf optionals literalExpression optionalString;
+  inherit (lib)
+    mkOption
+    mkIf
+    optionals
+    literalExpression
+    optionalString
+  ;
   cfg = config.services.xserver.windowManager.xmonad;
 
   ghcWithPackages = cfg.haskellPackages.ghcWithPackages;

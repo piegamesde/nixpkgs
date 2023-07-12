@@ -56,7 +56,12 @@ let
   };
 in
 stdenv.mkDerivation rec {
-  inherit pname version src postPatch;
+  inherit
+    pname
+    version
+    src
+    postPatch
+  ;
 
   nativeBuildInputs = [
     gradle_6

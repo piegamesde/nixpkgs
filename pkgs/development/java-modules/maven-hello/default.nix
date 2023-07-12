@@ -25,7 +25,13 @@ rec {
       quiet ? true,
     }:
     mavenbuild {
-      inherit mavenDeps sha512 version skipTests quiet;
+      inherit
+        mavenDeps
+        sha512
+        version
+        skipTests
+        quiet
+      ;
 
       name = "maven-hello-${version}";
       src = pkgs.fetchFromGitHub {

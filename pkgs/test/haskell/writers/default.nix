@@ -9,7 +9,12 @@
 }:
 
 let
-  inherit (tests.writers) writeTest bin simple path;
+  inherit (tests.writers)
+    writeTest
+    bin
+    simple
+    path
+  ;
 in
 
 runCommand "test-haskell-writers"

@@ -12,7 +12,14 @@ let
   pgsql = config.services.postgresql;
   mysql = config.services.mysql;
 
-  inherit (lib) mkAfter mkDefault mkEnableOption mkIf mkMerge mkOption;
+  inherit (lib)
+    mkAfter
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+  ;
   inherit (lib)
     attrValues
     concatMapStringsSep

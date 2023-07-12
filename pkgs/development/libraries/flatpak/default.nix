@@ -81,7 +81,12 @@ stdenv.mkDerivation (
       # https://github.com/flatpak/flatpak/issues/1460
       (substituteAll {
         src = ./fix-test-paths.patch;
-        inherit coreutils gettext socat gtk3;
+        inherit
+          coreutils
+          gettext
+          socat
+          gtk3
+        ;
         smi = shared-mime-info;
         dfu = desktop-file-utils;
         hicolorIconTheme = hicolor-icon-theme;

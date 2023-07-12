@@ -42,7 +42,14 @@ let
 
   # The klee-uclibc derivation.
   kleeuClibc = callPackage ./klee-uclibc.nix {
-    inherit stdenv clang llvm extraKleeuClibcConfig debugRuntime runtimeAsserts;
+    inherit
+      stdenv
+      clang
+      llvm
+      extraKleeuClibcConfig
+      debugRuntime
+      runtimeAsserts
+    ;
   };
 in
 stdenv.mkDerivation rec {

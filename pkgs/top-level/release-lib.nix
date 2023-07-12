@@ -219,5 +219,12 @@ rec {
   );
 
   # Common platform groups on which to test packages.
-  inherit (platforms) unix linux darwin cygwin all mesaPlatforms;
+  inherit (platforms)
+    unix
+    linux
+    darwin
+    cygwin
+    all
+    mesaPlatforms
+  ;
 }

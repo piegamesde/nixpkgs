@@ -50,7 +50,16 @@ stdenv.mkDerivation rec {
 
   postInstall = glib.flattenInclude;
 
-  passthru.tests = { inherit cairo qemu scribus tigervnc wlroots xwayland; };
+  passthru.tests = {
+    inherit
+      cairo
+      qemu
+      scribus
+      tigervnc
+      wlroots
+      xwayland
+    ;
+  };
 
   meta = with lib; {
     homepage = "http://pixman.org";

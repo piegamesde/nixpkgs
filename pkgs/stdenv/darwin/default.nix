@@ -131,7 +131,12 @@ rec {
           [ ./unpack-bootstrap-tools.sh ]
       ;
 
-      inherit (bootstrapFiles) mkdir bzip2 cpio tarball;
+      inherit (bootstrapFiles)
+        mkdir
+        bzip2
+        cpio
+        tarball
+      ;
 
       __impureHostDeps = commonImpureHostDeps;
     } // lib.optionalAttrs config.contentAddressedByDefault {
@@ -986,7 +991,13 @@ rec {
 
           darwin = super.darwin.overrideScope (
             _: superDarwin: {
-              inherit (darwin) dyld Libsystem libiconv locale darwin-stubs;
+              inherit (darwin)
+                dyld
+                Libsystem
+                libiconv
+                locale
+                darwin-stubs
+              ;
 
               # See useAppleSDKLibs in darwin-packages.nix
               CF =
@@ -1055,7 +1066,14 @@ rec {
           darwin = super.darwin.overrideScope (
             _: _:
             {
-              inherit (darwin) dyld ICU Libsystem Csu libiconv rewrite-tbd;
+              inherit (darwin)
+                dyld
+                ICU
+                Libsystem
+                Csu
+                libiconv
+                rewrite-tbd
+              ;
             } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem)
               { inherit (darwin) binutils binutils-unwrapped cctools; }
           );

@@ -10,7 +10,14 @@ rec {
   sourceTarball =
     args:
     import ./source-tarball.nix (
-      { inherit stdenv autoconf automake libtool; } // args
+      {
+        inherit
+          stdenv
+          autoconf
+          automake
+          libtool
+        ;
+      } // args
     )
   ;
 
@@ -58,7 +65,14 @@ rec {
   debBuild =
     args:
     import ./debian-build.nix (
-      { inherit lib stdenv vmTools checkinstall; } // args
+      {
+        inherit
+          lib
+          stdenv
+          vmTools
+          checkinstall
+        ;
+      } // args
     )
   ;
 

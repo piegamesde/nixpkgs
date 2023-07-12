@@ -40,7 +40,12 @@ let
   src = srcs.${stdenv.hostPlatform.system} or throwSystem;
 
   linux = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
     unpackPhase = ''
       ar x $src
       tar xfz data.tar.gz
@@ -84,7 +89,12 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
     nativeBuildInputs = [ unzip ];
 
     installPhase = ''

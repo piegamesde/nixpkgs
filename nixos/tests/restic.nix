@@ -69,7 +69,12 @@ import ./make-test-python.nix (
               initialize = true;
             };
             remote-from-file-backup = {
-              inherit passwordFile paths exclude pruneOpts;
+              inherit
+                passwordFile
+                paths
+                exclude
+                pruneOpts
+              ;
               initialize = true;
               repositoryFile =
                 pkgs.writeText "repositoryFile"
@@ -77,7 +82,12 @@ import ./make-test-python.nix (
               ;
             };
             rclonebackup = {
-              inherit passwordFile paths exclude pruneOpts;
+              inherit
+                passwordFile
+                paths
+                exclude
+                pruneOpts
+              ;
               initialize = true;
               repository = rcloneRepository;
               rcloneConfig = {

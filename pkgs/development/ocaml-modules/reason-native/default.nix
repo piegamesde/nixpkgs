@@ -30,7 +30,13 @@ let
             reason
             fetchpatch
           ;
-          inherit (reason-native) console file-context-printer fp pastel rely;
+          inherit (reason-native)
+            console
+            file-context-printer
+            fp
+            pastel
+            rely
+          ;
         };
       in
       buildDunePackage (

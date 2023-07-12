@@ -283,7 +283,16 @@ let
     let
       callPackage = newScope (
         libraries // buildLlvmTools // {
-          inherit stdenv cmake libxml2 python3 isl release_version version src;
+          inherit
+            stdenv
+            cmake
+            libxml2
+            python3
+            isl
+            release_version
+            version
+            src
+          ;
         }
       );
     in

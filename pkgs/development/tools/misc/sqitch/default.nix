@@ -52,5 +52,12 @@ stdenv.mkDerivation {
     }
   '';
 
-  meta = { inherit (sqitch.meta) description homepage license platforms; };
+  meta = {
+    inherit (sqitch.meta)
+      description
+      homepage
+      license
+      platforms
+    ;
+  };
 }

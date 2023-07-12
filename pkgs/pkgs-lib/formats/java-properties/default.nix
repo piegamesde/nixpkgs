@@ -4,7 +4,16 @@
 }:
 let
   inherit (lib) types;
-  inherit (types) attrsOf oneOf coercedTo str bool int float package;
+  inherit (types)
+    attrsOf
+    oneOf
+    coercedTo
+    str
+    bool
+    int
+    float
+    package
+  ;
 in
 {
   javaProperties =

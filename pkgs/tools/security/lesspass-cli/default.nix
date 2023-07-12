@@ -5,7 +5,12 @@
 }:
 
 let
-  inherit (python3.pkgs) buildPythonApplication pytest mock pexpect;
+  inherit (python3.pkgs)
+    buildPythonApplication
+    pytest
+    mock
+    pexpect
+  ;
   repo = "lesspass";
 in
 buildPythonApplication rec {

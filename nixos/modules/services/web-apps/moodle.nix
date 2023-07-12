@@ -6,7 +6,15 @@
 }:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkForce mkIf mkMerge mkOption types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkForce
+    mkIf
+    mkMerge
+    mkOption
+    types
+  ;
   inherit (lib)
     concatStringsSep
     literalExpression

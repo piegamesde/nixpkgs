@@ -4371,7 +4371,12 @@ rec {
                 crateWithTest {
                   crate = drv;
                   testCrate = testDrv;
-                  inherit testCrateFlags testInputs testPreRun testPostRun;
+                  inherit
+                    testCrateFlags
+                    testInputs
+                    testPreRun
+                    testPostRun
+                  ;
                 }
               else
                 drv
@@ -4752,7 +4757,13 @@ rec {
               mergePackageFeatures {
                 features = combinedFeatures;
                 featuresByPackageId = cache;
-                inherit crateConfigs packageId target runTests rootPackageId;
+                inherit
+                  crateConfigs
+                  packageId
+                  target
+                  runTests
+                  rootPackageId
+                ;
               }
           )
         ;

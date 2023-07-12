@@ -30,6 +30,11 @@ stdenv.mkDerivation rec {
     homepage = "http://pari.math.u-bordeaux.fr/";
     description = "A compiler to translate GP scripts to PARI programs";
     downloadPage = "http://pari.math.u-bordeaux.fr/download.html";
-    inherit (pari.meta) license maintainers platforms broken;
+    inherit (pari.meta)
+      license
+      maintainers
+      platforms
+      broken
+    ;
   };
 }

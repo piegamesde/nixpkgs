@@ -6,7 +6,13 @@
 }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkRenamedOptionModule teams;
+  inherit (lib)
+    mdDoc
+    mkEnableOption
+    mkIf
+    mkRenamedOptionModule
+    teams
+  ;
 in
 
 {

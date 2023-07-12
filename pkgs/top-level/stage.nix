@@ -111,7 +111,12 @@ let
     self: super:
     import ../build-support/trivial-builders.nix {
       inherit lib;
-      inherit (self) runtimeShell stdenv stdenvNoCC haskell;
+      inherit (self)
+        runtimeShell
+        stdenv
+        stdenvNoCC
+        haskell
+      ;
       inherit (self.pkgsBuildHost) shellcheck;
       inherit (self.pkgsBuildHost.xorg) lndir;
     }
@@ -161,7 +166,16 @@ let
     self: super:
     let
       res =
-        import ./all-packages.nix { inherit lib noSysDirs config overlays; } res
+        import ./all-packages.nix
+          {
+            inherit
+              lib
+              noSysDirs
+              config
+              overlays
+            ;
+          }
+          res
           self
           super
       ;

@@ -4516,7 +4516,18 @@ with self; {
 
   extractcode-libarchive =
     callPackage ../development/python-modules/extractcode/libarchive.nix
-      { inherit (pkgs) libarchive libb2 bzip2 expat lz4 xz zlib zstd; }
+      {
+        inherit (pkgs)
+          libarchive
+          libb2
+          bzip2
+          expat
+          lz4
+          xz
+          zlib
+          zstd
+        ;
+      }
   ;
 
   extras = callPackage ../development/python-modules/extras { };
@@ -6419,7 +6430,12 @@ with self; {
   importmagic = callPackage ../development/python-modules/importmagic { };
 
   imread = callPackage ../development/python-modules/imread {
-    inherit (pkgs) libjpeg libpng libtiff libwebp;
+    inherit (pkgs)
+      libjpeg
+      libpng
+      libtiff
+      libwebp
+    ;
   };
 
   imutils = callPackage ../development/python-modules/imutils { };
@@ -9642,12 +9658,30 @@ with self; {
   pillowfight = callPackage ../development/python-modules/pillowfight { };
 
   pillow = callPackage ../development/python-modules/pillow {
-    inherit (pkgs) freetype libjpeg zlib libtiff libwebp tcl lcms2 tk;
+    inherit (pkgs)
+      freetype
+      libjpeg
+      zlib
+      libtiff
+      libwebp
+      tcl
+      lcms2
+      tk
+    ;
     inherit (pkgs.xorg) libX11 libxcb;
   };
 
   pillow-simd = callPackage ../development/python-modules/pillow-simd {
-    inherit (pkgs) freetype libjpeg zlib libtiff libwebp tcl lcms2 tk;
+    inherit (pkgs)
+      freetype
+      libjpeg
+      zlib
+      libtiff
+      libwebp
+      tcl
+      lcms2
+      tk
+    ;
     inherit (pkgs.xorg) libX11;
   };
 
@@ -11748,7 +11782,15 @@ with self; {
   pysvg-py3 = callPackage ../development/python-modules/pysvg-py3 { };
 
   pysvn = callPackage ../development/python-modules/pysvn {
-    inherit (pkgs) bash subversion apr aprutil expat neon openssl;
+    inherit (pkgs)
+      bash
+      subversion
+      apr
+      aprutil
+      expat
+      neon
+      openssl
+    ;
   };
 
   pyswitchbee = callPackage ../development/python-modules/pyswitchbee { };
@@ -12477,7 +12519,12 @@ with self; {
   pythonocc-core = toPythonModule (
     callPackage ../development/python-modules/pythonocc-core {
       inherit (pkgs) fontconfig rapidjson;
-      inherit (pkgs.xorg) libX11 libXi libXmu libXext;
+      inherit (pkgs.xorg)
+        libX11
+        libXi
+        libXmu
+        libXext
+      ;
       inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
     }
   );
@@ -16522,7 +16569,13 @@ with self; {
   xmlschema = callPackage ../development/python-modules/xmlschema { };
 
   xmlsec = callPackage ../development/python-modules/xmlsec {
-    inherit (pkgs) libxslt libxml2 libtool pkg-config xmlsec;
+    inherit (pkgs)
+      libxslt
+      libxml2
+      libtool
+      pkg-config
+      xmlsec
+    ;
   };
 
   xmltodict = callPackage ../development/python-modules/xmltodict { };

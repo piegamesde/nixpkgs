@@ -162,7 +162,12 @@ let
               pkgs.substituteAll {
                 src = ./helper-tool.py;
                 inherit taskd certtool;
-                inherit (cfg) dataDir user group fqdn;
+                inherit (cfg)
+                  dataDir
+                  user
+                  group
+                  fqdn
+                ;
                 certBits = cfg.pki.auto.bits;
                 clientExpiration = cfg.pki.auto.expiration.client;
                 crlExpiration = cfg.pki.auto.expiration.crl;

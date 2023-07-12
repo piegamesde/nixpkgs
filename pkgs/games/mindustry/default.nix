@@ -137,7 +137,12 @@ in
 assert lib.assertMsg (enableClient || enableServer)
     "mindustry: at least one of 'enableClient' and 'enableServer' must be true";
 stdenv.mkDerivation rec {
-  inherit pname version unpackPhase patches;
+  inherit
+    pname
+    version
+    unpackPhase
+    patches
+  ;
 
   postPatch = cleanupMindustrySrc;
 

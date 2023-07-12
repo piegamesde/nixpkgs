@@ -22,7 +22,13 @@ let
   mavenMinimal = import ./maven-minimal.nix { inherit lib pkgs; };
 in
 stdenv.mkDerivation rec {
-  inherit mavenDeps src name meta m2Path;
+  inherit
+    mavenDeps
+    src
+    name
+    meta
+    m2Path
+  ;
 
   flatDeps = unique (flatten (mavenDeps ++ mavenMinimal.mavenMinimal));
 

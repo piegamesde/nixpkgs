@@ -290,7 +290,14 @@ rec {
           Network = { inherit libnetwork; };
           PCSC = { inherit CoreData; };
           PassKit = { inherit PassKitCore; };
-          QTKit = { inherit CoreMedia CoreMediaIO MediaToolbox VideoToolbox; };
+          QTKit = {
+            inherit
+              CoreMedia
+              CoreMediaIO
+              MediaToolbox
+              VideoToolbox
+            ;
+          };
           Quartz = { inherit QTKit; };
           QuartzCore = {
             inherit

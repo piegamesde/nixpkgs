@@ -8,7 +8,13 @@
 }:
 
 let
-  inherit (lib) concatStringsSep mapAttrs mapAttrsToList mkOption types;
+  inherit (lib)
+    concatStringsSep
+    mapAttrs
+    mapAttrsToList
+    mkOption
+    types
+  ;
 
   # This attribute is responsible for creating boot entries for
   # child configuration. They are only (directly) accessible

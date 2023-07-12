@@ -32,7 +32,12 @@
 let
   inherit
     (import ../bundled-common/functions.nix {
-      inherit lib ruby gemConfig groups;
+      inherit
+        lib
+        ruby
+        gemConfig
+        groups
+      ;
     })
     genStubsScript
   ;
@@ -68,7 +73,12 @@ else
 
       postBuild =
         genStubsScript {
-          inherit lib ruby bundler groups;
+          inherit
+            lib
+            ruby
+            bundler
+            groups
+          ;
           confFiles = basicEnv.confFiles;
           binPaths = [ basicEnv.gems.${pname} ];
         }

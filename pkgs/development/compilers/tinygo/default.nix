@@ -24,7 +24,12 @@
 
 let
   llvmMajor = lib.versions.major llvm.version;
-  inherit (llvmPackages) llvm clang compiler-rt lld;
+  inherit (llvmPackages)
+    llvm
+    clang
+    compiler-rt
+    lld
+  ;
 in
 
 buildGoModule rec {

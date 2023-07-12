@@ -113,7 +113,15 @@ in
   };
   config = lib.mkIf cfg.enable {
     services.vikunja.settings = {
-      database = { inherit (cfg.database) type host user database path; };
+      database = {
+        inherit (cfg.database)
+          type
+          host
+          user
+          database
+          path
+        ;
+      };
       service = {
         frontendurl = "${cfg.frontendScheme}://${cfg.frontendHostname}/";
       };

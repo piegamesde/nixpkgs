@@ -8,7 +8,12 @@ let
     variant: a:
     stdenv.mkDerivation (
       {
-        inherit (hspell) version src patchPhase nativeBuildInputs;
+        inherit (hspell)
+          version
+          src
+          patchPhase
+          nativeBuildInputs
+        ;
         buildFlags = [ variant ];
 
         meta = hspell.meta // {

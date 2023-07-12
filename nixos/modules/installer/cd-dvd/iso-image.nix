@@ -912,7 +912,12 @@ in
       pkgs.callPackage ../../../lib/make-iso9660-image.nix
         (
           {
-            inherit (config.isoImage) isoName compressImage volumeID contents;
+            inherit (config.isoImage)
+              isoName
+              compressImage
+              volumeID
+              contents
+            ;
             bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
             bootImage = "/isolinux/isolinux.bin";
             syslinux =

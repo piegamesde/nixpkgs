@@ -821,7 +821,14 @@ let
             ;
           };
 
-        meta = checkMeta.commonMeta { inherit validity attrs pos references; };
+        meta = checkMeta.commonMeta {
+          inherit
+            validity
+            attrs
+            pos
+            references
+          ;
+        };
         validity = checkMeta.assertValidity { inherit meta attrs; };
 
         checkedEnv =

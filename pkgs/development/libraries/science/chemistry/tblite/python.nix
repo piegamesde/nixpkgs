@@ -18,7 +18,12 @@
 }:
 
 buildPythonPackage {
-  inherit (tblite) pname version src meta;
+  inherit (tblite)
+    pname
+    version
+    src
+    meta
+  ;
 
   nativeBuildInputs = [
     tblite

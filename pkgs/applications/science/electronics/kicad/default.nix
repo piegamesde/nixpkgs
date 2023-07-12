@@ -115,7 +115,12 @@ let
   python = python3;
   wxPython = python.pkgs.wxPython_4_2;
 
-  inherit (lib) concatStringsSep flatten optionalString optionals;
+  inherit (lib)
+    concatStringsSep
+    flatten
+    optionalString
+    optionals
+  ;
 in
 stdenv.mkDerivation rec {
 

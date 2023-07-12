@@ -649,7 +649,12 @@ let
       position = pos.file + ":" + toString pos.line;
     } // {
       # Expose the result of the checks for everyone to see.
-      inherit (validity) unfree broken unsupported insecure;
+      inherit (validity)
+        unfree
+        broken
+        unsupported
+        insecure
+      ;
 
       available =
         validity.valid != "no"

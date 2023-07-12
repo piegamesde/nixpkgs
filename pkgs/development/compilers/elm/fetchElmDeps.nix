@@ -12,7 +12,12 @@
 
 let
   makeDotElm = import ./makeDotElm.nix {
-    inherit stdenv lib fetchurl registryDat;
+    inherit
+      stdenv
+      lib
+      fetchurl
+      registryDat
+    ;
   };
 in
 ''

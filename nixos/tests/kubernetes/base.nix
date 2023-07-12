@@ -104,10 +104,24 @@ let
                 ];
               })
               (optionalAttrs (machine ? extraConfiguration) (
-                machine.extraConfiguration { inherit config pkgs lib nodes; }
+                machine.extraConfiguration {
+                  inherit
+                    config
+                    pkgs
+                    lib
+                    nodes
+                  ;
+                }
               ))
               (optionalAttrs (extraConfiguration != null) (
-                extraConfiguration { inherit config pkgs lib nodes; }
+                extraConfiguration {
+                  inherit
+                    config
+                    pkgs
+                    lib
+                    nodes
+                  ;
+                }
               ))
             ]
           )

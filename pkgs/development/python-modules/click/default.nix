@@ -30,7 +30,15 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru.tests = { inherit black flask magic-wormhole mitmproxy typer; };
+  passthru.tests = {
+    inherit
+      black
+      flask
+      magic-wormhole
+      mitmproxy
+      typer
+    ;
+  };
 
   meta = with lib; {
     homepage = "https://click.palletsprojects.com/";

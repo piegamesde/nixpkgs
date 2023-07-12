@@ -15,7 +15,12 @@ stdenv.mkDerivation {
   # See ./boot.nix for an explanation of the gprbuild setupHook,
   # our custom knowledge base entry and the situation wrt a
   # (future) gprbuild wrapper.
-  inherit (gprbuild-boot) version src setupHook meta;
+  inherit (gprbuild-boot)
+    version
+    src
+    setupHook
+    meta
+  ;
 
   nativeBuildInputs = [
     gnat
