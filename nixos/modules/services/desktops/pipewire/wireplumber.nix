@@ -37,8 +37,7 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [ {
       assertion = !config.hardware.bluetooth.hsphfpd.enable;
-      message =
-        "Using Wireplumber conflicts with hsphfpd, as it provides the same functionality. `hardware.bluetooth.hsphfpd.enable` needs be set to false";
+      message = "Using Wireplumber conflicts with hsphfpd, as it provides the same functionality. `hardware.bluetooth.hsphfpd.enable` needs be set to false";
     } ];
 
     environment.systemPackages = [ cfg.package ];

@@ -55,8 +55,7 @@ let
     stdenv.mkDerivation (
       rec {
         inherit version;
-        pname =
-          "subversion${
+        pname = "subversion${
             lib.optionalString (!bdbSupport && perlBindings && pythonBindings)
               "-client"
           }";
@@ -174,8 +173,7 @@ let
         doCheck = false; # fails 10 out of ~2300 tests
 
         meta = with lib; {
-          description =
-            "A version control system intended to be a compelling replacement for CVS in the open source community";
+          description = "A version control system intended to be a compelling replacement for CVS in the open source community";
           license = licenses.asl20;
           homepage = "https://subversion.apache.org/";
           maintainers = with maintainers; [

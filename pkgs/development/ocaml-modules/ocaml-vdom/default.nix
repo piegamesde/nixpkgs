@@ -14,8 +14,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/LexiFi/ocaml-vdom/archive/refs/tags/v${version}.tar.gz";
+    url = "https://github.com/LexiFi/ocaml-vdom/archive/refs/tags/v${version}.tar.gz";
     sha256 = "sha256-FVR0WubW9VJBGVtVaXdJ+O/ghq0w5+BuItFWXkuVYL8=";
   };
 

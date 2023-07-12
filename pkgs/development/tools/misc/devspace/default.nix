@@ -28,8 +28,7 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "DevSpace is an open-source developer tool for Kubernetes that lets you develop and deploy cloud-native software faster";
+    description = "DevSpace is an open-source developer tool for Kubernetes that lets you develop and deploy cloud-native software faster";
     homepage = "https://devspace.sh/";
     changelog = "https://github.com/loft-sh/devspace/releases/tag/v${version}";
     license = licenses.asl20;

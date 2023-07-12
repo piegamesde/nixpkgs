@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A small, fast, portable implementation of TLS/SSL for embedded devices";
+    description = "A small, fast, portable implementation of TLS/SSL for embedded devices";
     homepage = "https://www.wolfssl.com/";
     platforms = platforms.all;
     license = licenses.gpl2Plus;

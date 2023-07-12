@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   version = "1.3.39";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/graphicsmagick/GraphicsMagick-${version}.tar.xz";
+    url = "mirror://sourceforge/graphicsmagick/GraphicsMagick-${version}.tar.xz";
     sha256 = "sha256-4wscpY6HPQoe4gg4RyRCTbLTwzpUA04mHRTo+7j40E8=";
   };
 

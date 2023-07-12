@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # "The minimal version is a packager friendly version which omits
     # the bundled sources of cdd, lrs, libnormaliz, nauty and jReality."
-    url =
-      "https://polymake.org/lib/exe/fetch.php/download/polymake-${version}-minimal.tar.bz2";
+    url = "https://polymake.org/lib/exe/fetch.php/download/polymake-${version}-minimal.tar.bz2";
     sha256 = "sha256-BMkLgms6JsWmPhi+MZv/Eqie8BKL+KaPtk3xBZSyWfM=";
   };
 
@@ -82,8 +81,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Software for research in polyhedral geometry";
     homepage = "https://www.polymake.org/doku.php";
-    changelog =
-      "https://github.com/polymake/polymake/blob/V${version}/ChangeLog";
+    changelog = "https://github.com/polymake/polymake/blob/V${version}/ChangeLog";
     license = licenses.gpl2Plus;
     maintainers = teams.sage.members;
     platforms = platforms.linux;

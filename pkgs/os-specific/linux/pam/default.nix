@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "1.5.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/linux-pam/linux-pam/releases/download/v${version}/Linux-PAM-${version}.tar.xz";
+    url = "https://github.com/linux-pam/linux-pam/releases/download/v${version}/Linux-PAM-${version}.tar.xz";
     sha256 = "sha256-5OxxMakdpEUSV0Jo9JPG2MoQXIcJFpG46bVspoXU+U0=";
   };
 
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.linux-pam.org/";
-    description =
-      "Pluggable Authentication Modules, a flexible mechanism for authenticating user";
+    description = "Pluggable Authentication Modules, a flexible mechanism for authenticating user";
     platforms = platforms.linux;
     license = licenses.bsd3;
   };

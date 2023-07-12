@@ -88,8 +88,7 @@ in
         PermissionsStartOnly = true;
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          "${cfg.package}/bin/tsdb tsd --staticroot=${cfg.package}/share/opentsdb/static --cachedir=/tmp/opentsdb --port=${
+        ExecStart = "${cfg.package}/bin/tsdb tsd --staticroot=${cfg.package}/share/opentsdb/static --cachedir=/tmp/opentsdb --port=${
             toString cfg.port
           } --config=${configFile}";
       };

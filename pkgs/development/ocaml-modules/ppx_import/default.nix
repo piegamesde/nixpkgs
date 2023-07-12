@@ -36,8 +36,7 @@ lib.throwIfNot (lib.versionAtLeast ppxlib.version "0.24.0")
     duneVersion = "3";
 
     src = fetchurl {
-      url =
-        "https://github.com/ocaml-ppx/ppx_import/releases/download/${version}/ppx_import-${version}.tbz";
+      url = "https://github.com/ocaml-ppx/ppx_import/releases/download/${version}/ppx_import-${version}.tbz";
       inherit (param) sha256;
     };
 
@@ -52,8 +51,7 @@ lib.throwIfNot (lib.versionAtLeast ppxlib.version "0.24.0")
     doCheck = true;
 
     meta = {
-      description =
-        "A syntax extension for importing declarations from interface files";
+      description = "A syntax extension for importing declarations from interface files";
       license = lib.licenses.mit;
       homepage = "https://github.com/ocaml-ppx/ppx_import";
     };

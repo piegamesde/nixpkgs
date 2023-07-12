@@ -55,8 +55,7 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "GUI for Legendary, an Epic Games Launcher open source alternative";
+    description = "GUI for Legendary, an Epic Games Launcher open source alternative";
     homepage = "https://github.com/Dummerle/Rare";
     maintainers = with maintainers; [ wolfangaukang ];
     license = licenses.gpl3Only;

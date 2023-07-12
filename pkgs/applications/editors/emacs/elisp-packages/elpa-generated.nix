@@ -207,8 +207,7 @@
           };
           packageRequires = [ emacs ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/aggressive-completion.html";
+            homepage = "https://elpa.gnu.org/packages/aggressive-completion.html";
             license = lib.licenses.free;
           };
         }
@@ -413,8 +412,7 @@
           };
           packageRequires = [ ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/ascii-art-to-unicode.html";
+            homepage = "https://elpa.gnu.org/packages/ascii-art-to-unicode.html";
             license = lib.licenses.free;
           };
         }
@@ -3220,8 +3218,7 @@
           };
           packageRequires = [ ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/f90-interface-browser.html";
+            homepage = "https://elpa.gnu.org/packages/f90-interface-browser.html";
             license = lib.licenses.free;
           };
         }
@@ -3708,14 +3705,12 @@
           ename = "gnu-elpa-keyring-update";
           version = "2022.12";
           src = fetchurl {
-            url =
-              "https://elpa.gnu.org/packages/gnu-elpa-keyring-update-2022.12.tar";
+            url = "https://elpa.gnu.org/packages/gnu-elpa-keyring-update-2022.12.tar";
             sha256 = "1kij50xw5km14x44zjsfc1cdkz4xq79nv7hgfjsz3pgypq672z5z";
           };
           packageRequires = [ ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/gnu-elpa-keyring-update.html";
+            homepage = "https://elpa.gnu.org/packages/gnu-elpa-keyring-update.html";
             license = lib.licenses.free;
           };
         }
@@ -4094,14 +4089,12 @@
           ename = "highlight-escape-sequences";
           version = "0.4";
           src = fetchurl {
-            url =
-              "https://elpa.gnu.org/packages/highlight-escape-sequences-0.4.el";
+            url = "https://elpa.gnu.org/packages/highlight-escape-sequences-0.4.el";
             sha256 = "1z8r9rnppn7iy7xv4kprfsqxday16h7c471i7rkyi3rv3l0pfxd0";
           };
           packageRequires = [ ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/highlight-escape-sequences.html";
+            homepage = "https://elpa.gnu.org/packages/highlight-escape-sequences.html";
             license = lib.licenses.free;
           };
         }
@@ -7464,8 +7457,7 @@
           ename = "realgud-node-inspect";
           version = "1.0.0";
           src = fetchurl {
-            url =
-              "https://elpa.gnu.org/packages/realgud-node-inspect-1.0.0.tar";
+            url = "https://elpa.gnu.org/packages/realgud-node-inspect-1.0.0.tar";
             sha256 = "16cx0rq4zx5k0y75j044dbqzrzs1df3r95rissmhfgsi5m2qf1h2";
           };
           packageRequires = [
@@ -7475,8 +7467,7 @@
             realgud
           ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/realgud-node-inspect.html";
+            homepage = "https://elpa.gnu.org/packages/realgud-node-inspect.html";
             license = lib.licenses.free;
           };
         }
@@ -9751,8 +9742,7 @@
           ename = "verilog-mode";
           version = "2022.12.18.181110314";
           src = fetchurl {
-            url =
-              "https://elpa.gnu.org/packages/verilog-mode-2022.12.18.181110314.tar";
+            url = "https://elpa.gnu.org/packages/verilog-mode-2022.12.18.181110314.tar";
             sha256 = "0vy2lfscirj7as106m94yi88n8pwp4d2ngaclsf0axyrbcagzkjn";
           };
           packageRequires = [ ];
@@ -9866,14 +9856,12 @@
           ename = "visual-filename-abbrev";
           version = "1.2";
           src = fetchurl {
-            url =
-              "https://elpa.gnu.org/packages/visual-filename-abbrev-1.2.tar";
+            url = "https://elpa.gnu.org/packages/visual-filename-abbrev-1.2.tar";
             sha256 = "0sipyqrgf723ii2zd6r8hvihn5kax5qd0dwwrrxqy6f58wnhyq1r";
           };
           packageRequires = [ emacs ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/visual-filename-abbrev.html";
+            homepage = "https://elpa.gnu.org/packages/visual-filename-abbrev.html";
             license = lib.licenses.free;
           };
         }
@@ -10208,8 +10196,7 @@
           ename = "wisitoken-grammar-mode";
           version = "1.3.0";
           src = fetchurl {
-            url =
-              "https://elpa.gnu.org/packages/wisitoken-grammar-mode-1.3.0.tar";
+            url = "https://elpa.gnu.org/packages/wisitoken-grammar-mode-1.3.0.tar";
             sha256 = "05g2zn3p9r7rha20wv8jy1dwvllfyjjpzr6agkcm523rj639jh2b";
           };
           packageRequires = [
@@ -10218,8 +10205,7 @@
             wisi
           ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/wisitoken-grammar-mode.html";
+            homepage = "https://elpa.gnu.org/packages/wisitoken-grammar-mode.html";
             license = lib.licenses.free;
           };
         }
@@ -10480,14 +10466,12 @@
           ename = "yasnippet-classic-snippets";
           version = "1.0.2";
           src = fetchurl {
-            url =
-              "https://elpa.gnu.org/packages/yasnippet-classic-snippets-1.0.2.tar";
+            url = "https://elpa.gnu.org/packages/yasnippet-classic-snippets-1.0.2.tar";
             sha256 = "1kk1sf9kgj6qp3z2d9nbswigl444sqq11pdrhx0gny2jsgi3283l";
           };
           packageRequires = [ yasnippet ];
           meta = {
-            homepage =
-              "https://elpa.gnu.org/packages/yasnippet-classic-snippets.html";
+            homepage = "https://elpa.gnu.org/packages/yasnippet-classic-snippets.html";
             license = lib.licenses.free;
           };
         }

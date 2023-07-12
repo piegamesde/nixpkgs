@@ -40,10 +40,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "bluetooth_sensor_state_data" ];
 
   meta = with lib; {
-    description =
-      "Models for storing and converting Bluetooth Sensor State Data";
-    homepage =
-      "https://github.com/bluetooth-devices/bluetooth-sensor-state-data";
+    description = "Models for storing and converting Bluetooth Sensor State Data";
+    homepage = "https://github.com/bluetooth-devices/bluetooth-sensor-state-data";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

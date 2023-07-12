@@ -16,8 +16,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-ghUdhWW5gURWxj/OhbcKPNeLzeJvndqAxEZmwKBATUk=";
 
   meta = {
-    description =
-      "All-in-one tool to convert decimal/bin/oct/hex and interpret bits as integers";
+    description = "All-in-one tool to convert decimal/bin/oct/hex and interpret bits as integers";
     longDescription = ''
       wambo is a binary that can easily shows you a numeric value in all important numeral systems
       (bin, hex, dec) + interprets the input as both signed and unsigned values (from i8 to i64,
@@ -25,8 +24,7 @@ rustPlatform.buildRustPackage rec {
       and so on.
     '';
     homepage = "https://github.com/phip1611/wambo";
-    changelog =
-      "https://github.com/phip1611/wambo/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/phip1611/wambo/blob/v${version}/CHANGELOG.md";
     license = with lib.licenses; [ mit ];
     maintainers = with lib.maintainers; [ phip1611 ];
   };

@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/html-encode/2010-10-06/html-encode-1.2.tgz";
+    url = "http://beta.quicklisp.org/archive/html-encode/2010-10-06/html-encode-1.2.tgz";
     sha256 = "06mf8wn95yf5swhmzk4vp0xr4ylfl33dgfknkabbkd8n6jns8gcf";
   };
 

@@ -266,8 +266,9 @@ in
         "catch_workers_output" = true;
       };
       phpPackage = phpWithPspell;
-      phpEnv.ASPELL_CONF =
-        "dict-dir ${pkgs.aspellWithDicts (_: cfg.dicts)}/lib/aspell";
+      phpEnv.ASPELL_CONF = "dict-dir ${
+          pkgs.aspellWithDicts (_: cfg.dicts)
+        }/lib/aspell";
     };
     systemd.services.phpfpm-roundcube.after = [ "roundcube-setup.service" ];
 
@@ -287,8 +288,7 @@ in
         wantedBy = [ "multi-user.target" ];
         script =
           let
-            psql =
-              "${
+            psql = "${
                 lib.optionalString (!localDB)
                   "PGPASSFILE=${cfg.database.passwordFile}"
               } ${pkgs.postgresql}/bin/psql ${

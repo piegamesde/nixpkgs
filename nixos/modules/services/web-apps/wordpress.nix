@@ -72,8 +72,7 @@ let
       DISALLOW_FILE_EDIT = true;
       AUTOMATIC_UPDATER_DISABLED = true;
       DB_NAME = cfg.database.name;
-      DB_HOST =
-        "${cfg.database.host}:${
+      DB_HOST = "${cfg.database.host}:${
           if cfg.database.socket != null then
             cfg.database.socket
           else
@@ -523,9 +522,8 @@ in
             (hostName: cfg: {
               assertion =
                 cfg.database.createLocally -> cfg.database.user == user;
-              message =
-                ''
-                  services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+              message = ''
+                services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
             })
             eachSite
           )
@@ -533,9 +531,8 @@ in
             (hostName: cfg: {
               assertion =
                 cfg.database.createLocally -> cfg.database.passwordFile == null;
-              message =
-                ''
-                  services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
+              message = ''
+                services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
             })
             eachSite
           )

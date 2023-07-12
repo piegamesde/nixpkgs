@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Highly customizable application finder written in Rust and uses Gtk3";
+    description = "Highly customizable application finder written in Rust and uses Gtk3";
     homepage = "https://github.com/mdgaziur/findex";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

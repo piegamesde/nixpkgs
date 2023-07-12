@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "EylCddu7rZY0s6g5DAjm8Svr/oT2zK+3Kyewwjuo2i8=";
@@ -175,8 +174,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Tracker";
-    description =
-      "Desktop-neutral user information store, search tool and indexer";
+    description = "Desktop-neutral user information store, search tool and indexer";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

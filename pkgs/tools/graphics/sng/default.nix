@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--with-rgbtxt=${netpbm.out}/share/netpbm/misc/rgb.txt" ];
 
   meta = with lib; {
-    description =
-      "Minilanguage designed to represent the entire contents of a PNG file in an editable form";
+    description = "Minilanguage designed to represent the entire contents of a PNG file in an editable form";
     homepage = "https://sng.sourceforge.net/";
     license = licenses.zlib;
     maintainers = [ maintainers.dezgeg ];

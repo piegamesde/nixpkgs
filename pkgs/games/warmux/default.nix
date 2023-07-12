@@ -69,8 +69,7 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "Ballistics turn-based battle game between teams - unofficial copy";
+    description = "Ballistics turn-based battle game between teams - unofficial copy";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
     license = with licenses; [

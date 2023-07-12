@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "1.8.5";
 
   src = fetchurl {
-    url =
-      "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz";
+    url = "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz";
     hash = "sha256-NVVAgKS0085S7yICVDBr1CrA2I7/nrhVkqV9BmPbXfI=";
   };
 
@@ -83,8 +82,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "High-level performance-oriented dynamical language for technical computing";
+    description = "High-level performance-oriented dynamical language for technical computing";
     homepage = "https://julialang.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ nickcao ];

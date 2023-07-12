@@ -20,8 +20,7 @@ let
               '';
 
               meta = old.meta // {
-                description =
-                  "Internet Routing Registry daemon version 4 is an IRR database server, processing IRR objects in the RPSL format.";
+                description = "Internet Routing Registry daemon version 4 is an IRR database server, processing IRR objects in the RPSL format.";
                 license = lib.licenses.mit;
                 homepage = "https://github.com/irrdnet/irrd";
                 maintainers = [ lib.maintainers.n0emis ];

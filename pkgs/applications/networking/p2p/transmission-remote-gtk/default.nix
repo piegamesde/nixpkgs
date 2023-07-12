@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "GTK remote control for the Transmission BitTorrent client";
-    homepage =
-      "https://github.com/transmission-remote-gtk/transmission-remote-gtk";
+    homepage = "https://github.com/transmission-remote-gtk/transmission-remote-gtk";
     license = licenses.gpl2;
     maintainers = [ maintainers.ehmry ];
     platforms = platforms.linux;

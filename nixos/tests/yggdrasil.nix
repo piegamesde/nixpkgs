@@ -1,10 +1,8 @@
 let
   aliceIp6 = "202:b70:9b0b:cf34:f93c:8f18:bbfd:7034";
   aliceKeys = {
-    PublicKey =
-      "3e91ec9e861960d86e1ce88051f97c435bdf2859640ab681dfa906eb45ad5182";
-    PrivateKey =
-      "a867f9e078e4ce58d310cf5acd4622d759e2a21df07e1d6fc380a2a26489480d3e91ec9e861960d86e1ce88051f97c435bdf2859640ab681dfa906eb45ad5182";
+    PublicKey = "3e91ec9e861960d86e1ce88051f97c435bdf2859640ab681dfa906eb45ad5182";
+    PrivateKey = "a867f9e078e4ce58d310cf5acd4622d759e2a21df07e1d6fc380a2a26489480d3e91ec9e861960d86e1ce88051f97c435bdf2859640ab681dfa906eb45ad5182";
   };
   bobIp6 = "202:a483:73a4:9f2d:a559:4a19:bc9:8458";
   bobPrefix = "302:a483:73a4:9f2d";
@@ -17,10 +15,8 @@ let
       Port = 54321;
       Priority = 0;
     } ];
-    PublicKey =
-      "2b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
-    PrivateKey =
-      "0c4a24acd3402722ce9277ed179f4a04b895b49586493c25fbaed60653d857d62b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
+    PublicKey = "2b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
+    PrivateKey = "0c4a24acd3402722ce9277ed179f4a04b895b49586493c25fbaed60653d857d62b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
   };
   danIp6 = bobPrefix + "::2";
 in

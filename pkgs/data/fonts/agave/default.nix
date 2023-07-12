@@ -11,8 +11,7 @@ let
   mkAg =
     name: hash:
     fetchurl {
-      url =
-        "https://github.com/agarick/agave/releases/download/v${version}/Agave-${name}.ttf";
+      url = "https://github.com/agarick/agave/releases/download/v${version}/Agave-${name}.ttf";
       sha256 = hash;
       name = "Agave-${name}.ttf";
     }

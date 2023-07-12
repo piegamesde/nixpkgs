@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "t5zgzEsMZtnFS8Ihg6EOVwmgAR0q8nICWUjvyrM6Pk8=";
@@ -62,8 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://gupnp.org/";
-    description =
-      "A collection of helpers for building AV (audio/video) applications using GUPnP";
+    description = "A collection of helpers for building AV (audio/video) applications using GUPnP";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
   };

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   version = metaocamlPatch;
 
   src = fetchurl {
-    url =
-      "https://caml.inria.fr/pub/distrib/ocaml-${baseOcamlBranch}/ocaml-${baseOcamlVersion}.tar.gz";
+    url = "https://caml.inria.fr/pub/distrib/ocaml-${baseOcamlBranch}/ocaml-${baseOcamlVersion}.tar.gz";
     sha256 = "sha256-3Yi2OFvZLgrZInMuKMxoyHd4QXcOoAPCC9FS9dtEFc4=";
   };
 
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
       # used SIGSTKSZ as the size of a statically-allocated array.  This
       # patch is also applied by the ocaml/4.07.nix expression.
       (fetchpatch {
-        url =
-          "https://github.com/ocaml/ocaml/commit/dd28ac0cf4365bd0ea1bcc374cbc5e95a6f39bea.patch";
+        url = "https://github.com/ocaml/ocaml/commit/dd28ac0cf4365bd0ea1bcc374cbc5e95a6f39bea.patch";
         sha256 = "sha256-OmyovAu+8sgg3n5YD29Cytx3u/9PO2ofMsmrwiKUxks=";
       })
     ];

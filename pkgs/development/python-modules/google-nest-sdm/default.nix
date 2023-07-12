@@ -51,11 +51,9 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Module for Google Nest Device Access using the Smart Device Management API";
+    description = "Module for Google Nest Device Access using the Smart Device Management API";
     homepage = "https://github.com/allenporter/python-google-nest-sdm";
-    changelog =
-      "https://github.com/allenporter/python-google-nest-sdm/releases/tag/${version}";
+    changelog = "https://github.com/allenporter/python-google-nest-sdm/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

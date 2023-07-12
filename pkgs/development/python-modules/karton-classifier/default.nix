@@ -48,8 +48,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "File type classifier for the Karton framework";
     homepage = "https://github.com/CERT-Polska/karton-classifier";
-    changelog =
-      "https://github.com/CERT-Polska/karton-classifier/releases/tag/v${version}";
+    changelog = "https://github.com/CERT-Polska/karton-classifier/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

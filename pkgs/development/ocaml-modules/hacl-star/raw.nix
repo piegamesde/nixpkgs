@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "0.7.0";
 
   src = fetchzip {
-    url =
-      "https://github.com/cryspen/hacl-packages/releases/download/ocaml-v${version}/hacl-star.${version}.tar.gz";
+    url = "https://github.com/cryspen/hacl-packages/releases/download/ocaml-v${version}/hacl-star.${version}.tar.gz";
     sha256 = "sha256-jJtxVYhQgP8ItfLhQ2wcF8RKNRnYhB2j0nR7/YH1NfY=";
     stripRoot = false;
   };

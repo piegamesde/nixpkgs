@@ -55,8 +55,7 @@ in
         description = "IMAP/SMTP autodiscover server";
         after = [ "network.target" ];
         serviceConfig = {
-          ExecStart =
-            "${pkgs.go-autoconfig}/bin/go-autoconfig -config ${configFile}";
+          ExecStart = "${pkgs.go-autoconfig}/bin/go-autoconfig -config ${configFile}";
           Restart = "on-failure";
           WorkingDirectory = "${pkgs.go-autoconfig}/";
           DynamicUser = true;

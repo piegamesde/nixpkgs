@@ -35,8 +35,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dirty_equals" ];
 
   meta = with lib; {
-    description =
-      "Module for doing dirty (but extremely useful) things with equals";
+    description = "Module for doing dirty (but extremely useful) things with equals";
     homepage = "https://github.com/samuelcolvin/dirty-equals";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

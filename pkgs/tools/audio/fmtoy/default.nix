@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/vampirefrog/fmtoy";
-    description =
-      "Tools for FM voices for Yamaha YM chips (OPL, OPM and OPN series)";
+    description = "Tools for FM voices for Yamaha YM chips (OPL, OPM and OPN series)";
     # Unclear if gpl3Only or gpl3Plus
     # https://github.com/vampirefrog/fmtoy/issues/1
     license = licenses.gpl3;

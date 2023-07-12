@@ -17,8 +17,7 @@ stdenv.mkDerivation (
     version = "1.85";
 
     src = fetchurl {
-      url =
-        "http://www.xl-project.com/download/atari++_${finalAttrs.version}.tar.gz";
+      url = "http://www.xl-project.com/download/atari++_${finalAttrs.version}.tar.gz";
       hash = "sha256-LbGTVUs1XXR+QfDhCxX9UMkQ3bnk4z0ckl94Cwwe9IQ=";
     };
 

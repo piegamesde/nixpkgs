@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "0.30";
 
   src = fetchurl {
-    url =
-      "http://0pointer.de/lennart/projects/libcanberra/${pname}-${version}.tar.xz";
+    url = "http://0pointer.de/lennart/projects/libcanberra/${pname}-${version}.tar.xz";
     sha256 = "0wps39h8rx2b00vyvkia5j40fkak3dpipp1kzilqla0cgvk73dn2";
   };
 
@@ -64,23 +63,19 @@ stdenv.mkDerivation rec {
   patches =
     [
       (fetchpatch {
-        name =
-          "0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch";
-        url =
-          "http://git.0pointer.net/libcanberra.git/patch/?id=c0620e432650e81062c1967cc669829dbd29b310";
+        name = "0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch";
+        url = "http://git.0pointer.net/libcanberra.git/patch/?id=c0620e432650e81062c1967cc669829dbd29b310";
         sha256 = "0rc7zwn39yxzxp37qh329g7375r5ywcqcaak8ryd0dgvg8m5hcx9";
       })
     ]
     ++ lib.optionals stdenv.isDarwin [
       (fetchpatch {
-        url =
-          "https://github.com/macports/macports-ports/raw/5a7965dfea7727d1ceedee46c7b0ccee9cb23468/audio/libcanberra/files/patch-configure.diff";
+        url = "https://github.com/macports/macports-ports/raw/5a7965dfea7727d1ceedee46c7b0ccee9cb23468/audio/libcanberra/files/patch-configure.diff";
         sha256 = "sha256-pEJy1krciUEg5BFIS8FJ4BubjfS/nt9aqi6BLnS1+4M=";
         extraPrefix = "";
       })
       (fetchpatch {
-        url =
-          "https://github.com/macports/macports-ports/raw/5a7965dfea7727d1ceedee46c7b0ccee9cb23468/audio/libcanberra/files/dynamic_lookup-11.patch";
+        url = "https://github.com/macports/macports-ports/raw/5a7965dfea7727d1ceedee46c7b0ccee9cb23468/audio/libcanberra/files/dynamic_lookup-11.patch";
         sha256 = "sha256-nUjha2pKh5VZl0ZZzcr9NTo1TVuMqF4OcLiztxW+ofQ=";
         extraPrefix = "";
       })
@@ -99,8 +94,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "An implementation of the XDG Sound Theme and Name Specifications";
+    description = "An implementation of the XDG Sound Theme and Name Specifications";
     longDescription = ''
       libcanberra is an implementation of the XDG Sound Theme and Name
       Specifications, for generating event sounds on free desktops

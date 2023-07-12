@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
   version = upstream-info.version;
 
   src = fetchurl {
-    url =
-      "https://chromedriver.storage.googleapis.com/${version}/chromedriver_${spec.system}.zip";
+    url = "https://chromedriver.storage.googleapis.com/${version}/chromedriver_${spec.system}.zip";
     sha256 = spec.sha256;
   };
 

@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/sycamore/2021-10-20/sycamore-20211020-git.tgz";
+    url = "http://beta.quicklisp.org/archive/sycamore/2021-10-20/sycamore-20211020-git.tgz";
     sha256 = "1msh2kpd96s7jfm565snf71bbsmnjmsf8b31y1xg9vkk7xp01cf4";
   };
 

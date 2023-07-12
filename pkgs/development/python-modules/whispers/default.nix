@@ -58,8 +58,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "whispers" ];
 
   meta = with lib; {
-    description =
-      "Tool to identify hardcoded secrets in static structured text";
+    description = "Tool to identify hardcoded secrets in static structured text";
     homepage = "https://github.com/Skyscanner/whispers";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

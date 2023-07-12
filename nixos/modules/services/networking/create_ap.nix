@@ -53,8 +53,7 @@ in
         after = [ "network.target" ];
         restartTriggers = [ configFile ];
         serviceConfig = {
-          ExecStart =
-            "${pkgs.linux-wifi-hotspot}/bin/create_ap --config ${configFile}";
+          ExecStart = "${pkgs.linux-wifi-hotspot}/bin/create_ap --config ${configFile}";
           KillSignal = "SIGINT";
           Restart = "on-failure";
         };

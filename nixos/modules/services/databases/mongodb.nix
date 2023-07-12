@@ -148,8 +148,7 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart =
-          "${mongodb}/bin/mongod --config ${
+        ExecStart = "${mongodb}/bin/mongod --config ${
             mongoCnf cfg
           } --fork --pidfilepath ${cfg.pidFile}";
         User = cfg.user;

@@ -52,8 +52,7 @@ let
           meta =
             with lib;
             {
-              description =
-                "Libraries for building and testing native Reason programs";
+              description = "Libraries for building and testing native Reason programs";
               downloadPage = "https://github.com/reasonml/reason-native";
               homepage = "https://reason-native.com/";
               license = licenses.mit;

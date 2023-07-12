@@ -98,8 +98,7 @@ llvmPackages_15.stdenv.mkDerivation {
   '';
 
   meta = {
-    description =
-      "A Common Lisp implementation based on LLVM with C++ integration";
+    description = "A Common Lisp implementation based on LLVM with C++ integration";
     license = lib.licenses.lgpl21Plus;
     maintainers = lib.teams.lisp.members;
     platforms = [

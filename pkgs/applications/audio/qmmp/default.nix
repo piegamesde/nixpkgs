@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
   version = "2.1.3";
 
   src = fetchurl {
-    url =
-      "https://qmmp.ylsoftware.com/files/qmmp/2.1/${pname}-${version}.tar.bz2";
+    url = "https://qmmp.ylsoftware.com/files/qmmp/2.1/${pname}-${version}.tar.bz2";
     hash = "sha256-+bHnvwXUmdBbQcO3Unybqou/MZgcf6CXhlAcBjNFCNQ=";
   };
 

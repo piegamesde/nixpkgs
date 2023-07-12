@@ -94,8 +94,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = src.meta.homepage;
-    description =
-      "ACME client that can obtain certs and extensibly update server configurations";
+    description = "ACME client that can obtain certs and extensibly update server configurations";
     platforms = platforms.unix;
     maintainers = with maintainers; [ domenkozar ];
     license = with licenses; [ asl20 ];

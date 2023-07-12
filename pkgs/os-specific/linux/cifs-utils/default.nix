@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "7.0";
 
   src = fetchurl {
-    url =
-      "mirror://samba/pub/linux-cifs/cifs-utils/${pname}-${version}.tar.bz2";
+    url = "mirror://samba/pub/linux-cifs/cifs-utils/${pname}-${version}.tar.bz2";
     sha256 = "sha256-De+quFvT6kb/xFq0H7DQrVTQWuLPqn5QPehtTxK8gWE=";
   };
 

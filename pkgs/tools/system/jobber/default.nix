@@ -38,8 +38,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://dshearer.github.io/jobber";
     changelog = "https://github.com/dshearer/jobber/releases/tag/v${version}";
-    description =
-      "An alternative to cron, with sophisticated status-reporting and error-handling";
+    description = "An alternative to cron, with sophisticated status-reporting and error-handling";
     license = licenses.mit;
     maintainers = with maintainers; [ urandom ];
   };

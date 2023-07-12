@@ -159,8 +159,7 @@ let
             " --perf-no_read_workqueue --perf-no_write_workqueue"
         + optionalString (dev.header != null) " --header=${dev.header}"
       ;
-      cschange =
-        "cryptsetup luksChangeKey ${dev.device} ${
+      cschange = "cryptsetup luksChangeKey ${dev.device} ${
           optionalString (dev.header != null) "--header=${dev.header}"
         }";
       fido2luksCredentials =
@@ -728,8 +727,7 @@ in
     boot.initrd.luks.devices = mkOption {
       default = { };
       example = {
-        luksroot.device =
-          "/dev/disk/by-uuid/430e9eff-d852-4f68-aa3b-2fa3599ebe08";
+        luksroot.device = "/dev/disk/by-uuid/430e9eff-d852-4f68-aa3b-2fa3599ebe08";
       };
       description = lib.mdDoc ''
         The encrypted disk that should be opened before the root
@@ -761,8 +759,7 @@ in
                 };
 
                 device = mkOption {
-                  example =
-                    "/dev/disk/by-uuid/430e9eff-d852-4f68-aa3b-2fa3599ebe08";
+                  example = "/dev/disk/by-uuid/430e9eff-d852-4f68-aa3b-2fa3599ebe08";
                   type = types.str;
                   description =
                     lib.mdDoc
@@ -921,8 +918,7 @@ in
                 fido2 = {
                   credential = mkOption {
                     default = null;
-                    example =
-                      "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2";
+                    example = "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2";
                     type = types.nullOr types.str;
                     description = lib.mdDoc "The FIDO2 credential ID.";
                   };
@@ -1156,8 +1152,7 @@ in
           any (dev: dev.bypassWorkqueues) (attrValues luks.devices)
           -> versionAtLeast kernelPackages.kernel.version "5.9"
         ;
-        message =
-          "boot.initrd.luks.devices.<name>.bypassWorkqueues is not supported for kernels older than 5.9";
+        message = "boot.initrd.luks.devices.<name>.bypassWorkqueues is not supported for kernels older than 5.9";
       }
 
       {
@@ -1165,8 +1160,7 @@ in
           !config.boot.initrd.systemd.enable
           -> all (x: x.keyFileTimeout == null) (attrValues luks.devices)
         ;
-        message =
-          "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd";
+        message = "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd";
       }
 
       {
@@ -1174,16 +1168,14 @@ in
           config.boot.initrd.systemd.enable
           -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices)
         ;
-        message =
-          "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1.";
+        message = "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1.";
       }
       {
         assertion =
           config.boot.initrd.systemd.enable
           -> all (dev: dev.preLVM) (attrValues luks.devices)
         ;
-        message =
-          "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
+        message = "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
       }
       {
         assertion =
@@ -1191,8 +1183,7 @@ in
           ->
             options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio
         ;
-        message =
-          "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
+        message = "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
       }
       {
         assertion =
@@ -1201,8 +1192,7 @@ in
             all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "")
               (attrValues luks.devices)
         ;
-        message =
-          "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
+        message = "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
       }
       # TODO
       {
@@ -1326,8 +1316,7 @@ in
     boot.initrd.systemd = {
       contents."/etc/crypttab".source = stage1Crypttab;
 
-      extraBin.systemd-cryptsetup =
-        "${config.boot.initrd.systemd.package}/lib/systemd/systemd-cryptsetup";
+      extraBin.systemd-cryptsetup = "${config.boot.initrd.systemd.package}/lib/systemd/systemd-cryptsetup";
 
       additionalUpstreamUnits = [
         "cryptsetup-pre.target"

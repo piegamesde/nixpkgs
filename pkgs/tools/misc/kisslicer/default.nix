@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "1.6.3";
 
   src = fetchzip {
-    url =
-      "https://www.kisslicer.com/uploads/1/5/3/8/15381852/kisslicer_linux64_${version}_release.zip";
+    url = "https://www.kisslicer.com/uploads/1/5/3/8/15381852/kisslicer_linux64_${version}_release.zip";
     sha256 = "1xmywj5jrcsqv1d5x3mphhvafs4mfm9l12npkhk7l03qxbwg9j82";
     stripRoot = false;
   };

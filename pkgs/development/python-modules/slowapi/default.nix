@@ -68,8 +68,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for API rate limiting";
     homepage = "https://github.com/laurentS/slowapi";
-    changelog =
-      "https://github.com/laurentS/slowapi/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/laurentS/slowapi/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -28,8 +28,7 @@ godot.overrideAttrs (
       (oldAttrs.stripAllList or [ ]) ++ [ "share/godot/templates" ];
 
     outputs = [ "out" ];
-    meta.description =
-      "Free and Open Source 2D and 3D game engine (export templates)";
+    meta.description = "Free and Open Source 2D and 3D game engine (export templates)";
     meta.maintainers = with lib.maintainers; [
       twey
       jojosch

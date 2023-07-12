@@ -223,8 +223,7 @@ in
 
       assertions = [ {
         assertion = !(cfg.alsa.enable && cfg.loopback.enable);
-        message =
-          "For JACK both alsa and loopback options shouldn't be used at the same time.";
+        message = "For JACK both alsa and loopback options shouldn't be used at the same time.";
       } ];
 
       users.users.jackaudio = {
@@ -252,8 +251,7 @@ in
 
       environment = {
         systemPackages = [ cfg.jackd.package ];
-        etc."alsa/conf.d/50-jack.conf".source =
-          "${pkgs.alsa-plugins}/etc/alsa/conf.d/50-jack.conf";
+        etc."alsa/conf.d/50-jack.conf".source = "${pkgs.alsa-plugins}/etc/alsa/conf.d/50-jack.conf";
         variables.JACK_PROMISCUOUS_SERVER = "jackaudio";
       };
 
@@ -273,8 +271,7 @@ in
               )
               "users"
           ;
-          ExecStart =
-            "${cfg.jackd.package}/bin/jackd ${
+          ExecStart = "${cfg.jackd.package}/bin/jackd ${
               lib.escapeShellArgs cfg.jackd.extraOptions
             }";
           LimitRTPRIO = 99;

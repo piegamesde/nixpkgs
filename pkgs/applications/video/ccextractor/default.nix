@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.ccextractor.org";
-    description =
-      "Tool that produces subtitles from closed caption data in videos";
+    description = "Tool that produces subtitles from closed caption data in videos";
     longDescription = ''
       A tool that analyzes video files and produces independent subtitle files from
       closed captions data. CCExtractor is portable, small, and very fast.

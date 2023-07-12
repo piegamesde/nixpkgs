@@ -25,8 +25,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "CLI and Go API to Test Internet Speed using speedtest.net";
     homepage = "https://github.com/showwin/speedtest-go";
-    changelog =
-      "https://github.com/showwin/speedtest-go/releases/tag/v${version}";
+    changelog = "https://github.com/showwin/speedtest-go/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ aleksana ];
   };

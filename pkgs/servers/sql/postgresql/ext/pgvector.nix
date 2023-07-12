@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open-source vector similarity search for PostgreSQL";
     homepage = "https://github.com/pgvector/pgvector";
-    changelog =
-      "https://github.com/pgvector/pgvector/raw/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/pgvector/pgvector/raw/v${version}/CHANGELOG.md";
     license = licenses.postgresql;
     platforms = postgresql.meta.platforms;
     maintainers = [ maintainers.marsam ];

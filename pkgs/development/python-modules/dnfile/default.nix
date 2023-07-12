@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to parse .NET executable files";
     homepage = "hhttps://github.com/malwarefrank/dnfile";
-    changelog =
-      "https://github.com/malwarefrank/dnfile/blob/v${version}/HISTORY.rst";
+    changelog = "https://github.com/malwarefrank/dnfile/blob/v${version}/HISTORY.rst";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

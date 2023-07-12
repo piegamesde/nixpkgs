@@ -111,8 +111,7 @@ in
           ];
 
           serviceConfig = serviceConfigSecurity // {
-            ExecStart =
-              "${pkgs.rsync}/bin/rsync --daemon --no-detach --config=${configFile}";
+            ExecStart = "${pkgs.rsync}/bin/rsync --daemon --no-detach --config=${configFile}";
             RestartSec = 1;
           };
 
@@ -124,8 +123,7 @@ in
           after = [ "network.target" ];
 
           serviceConfig = serviceConfigSecurity // {
-            ExecStart =
-              "${pkgs.rsync}/bin/rsync --daemon --config=${configFile}";
+            ExecStart = "${pkgs.rsync}/bin/rsync --daemon --config=${configFile}";
             StandardInput = "socket";
             StandardOutput = "inherit";
             StandardError = "journal";

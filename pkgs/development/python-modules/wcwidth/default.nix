@@ -26,8 +26,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Measures number of Terminal column cells of wide-character codes";
+    description = "Measures number of Terminal column cells of wide-character codes";
     longDescription = ''
       This API is mainly for Terminal Emulator implementors -- any Python
       program that attempts to determine the printable width of a string on

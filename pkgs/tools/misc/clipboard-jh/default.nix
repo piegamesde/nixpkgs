@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Cut, copy, and paste anything, anywhere, all from the terminal";
+    description = "Cut, copy, and paste anything, anywhere, all from the terminal";
     homepage = "https://github.com/Slackadays/clipboard";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ dit7ya ];

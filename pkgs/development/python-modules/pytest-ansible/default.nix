@@ -55,11 +55,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pytest_ansible" ];
 
   meta = with lib; {
-    description =
-      "Plugin for py.test to simplify calling ansible modules from tests or fixtures";
+    description = "Plugin for py.test to simplify calling ansible modules from tests or fixtures";
     homepage = "https://github.com/jlaska/pytest-ansible";
-    changelog =
-      "https://github.com/ansible-community/pytest-ansible/releases/tag/v${version}";
+    changelog = "https://github.com/ansible-community/pytest-ansible/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];
   };

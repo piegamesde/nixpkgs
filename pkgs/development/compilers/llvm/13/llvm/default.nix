@@ -118,8 +118,7 @@ stdenv.mkDerivation (
 
         # Fix random compiler crashes: https://bugs.llvm.org/show_bug.cgi?id=50611
         (fetchpatch {
-          url =
-            "https://raw.githubusercontent.com/archlinux/svntogit-packages/4764a4f8c920912a2bfd8b0eea57273acfe0d8a8/trunk/no-strict-aliasing-DwarfCompileUnit.patch";
+          url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/4764a4f8c920912a2bfd8b0eea57273acfe0d8a8/trunk/no-strict-aliasing-DwarfCompileUnit.patch";
           sha256 = "18l6mrvm2vmwm77ckcnbjvh6ybvn72rhrb799d4qzwac4x2ifl7g";
           stripLen = 1;
         })
@@ -311,8 +310,7 @@ stdenv.mkDerivation (
     requiredSystemFeatures = [ "big-parallel" ];
     meta = llvm_meta // {
       homepage = "https://llvm.org/";
-      description =
-        "A collection of modular and reusable compiler and toolchain technologies";
+      description = "A collection of modular and reusable compiler and toolchain technologies";
       longDescription = ''
         The LLVM Project is a collection of modular and reusable compiler and
         toolchain technologies. Despite its name, LLVM has little to do with

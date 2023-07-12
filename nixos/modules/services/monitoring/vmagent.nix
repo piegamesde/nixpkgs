@@ -101,8 +101,7 @@ in
           Type = "simple";
           Restart = "on-failure";
           WorkingDirectory = cfg.dataDir;
-          ExecStart =
-            "${cfg.package}/bin/vmagent -remoteWrite.url=${cfg.remoteWriteUrl} -promscrape.config=${prometheusConfig}";
+          ExecStart = "${cfg.package}/bin/vmagent -remoteWrite.url=${cfg.remoteWriteUrl} -promscrape.config=${prometheusConfig}";
         };
       }
     ;

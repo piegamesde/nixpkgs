@@ -101,15 +101,11 @@ python3Packages.buildPythonApplication {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "abomonation-0.7.3+smallvec1" =
-        "sha256-AxEXR6GC8gHjycIPOfoViP7KceM29p2ZISIt4iwJzvM=";
+      "abomonation-0.7.3+smallvec1" = "sha256-AxEXR6GC8gHjycIPOfoViP7KceM29p2ZISIt4iwJzvM=";
       "cloned-0.1.0" = "sha256-bgI2/Sb+jKylPt5OqhfzcWGh1N8S0zFk/yYOwv461Io=";
-      "fb303_core-0.0.0" =
-        "sha256-Rd42P2PPPgk9ohg45Lq067KcJBJ3Bw3IroYsH0YNh6s=";
-      "fbthrift-0.0.1+unstable" =
-        "sha256-/d8EJoPlSHRlkE7/d5OEy2/SEmPQyS6eUInbm/zYWH8=";
-      "serde_bser-0.3.1" =
-        "sha256-tfkIGQKi+eRnBUYEmoc3m+mb93tFdh/g5FPUAXYRMVM=";
+      "fb303_core-0.0.0" = "sha256-Rd42P2PPPgk9ohg45Lq067KcJBJ3Bw3IroYsH0YNh6s=";
+      "fbthrift-0.0.1+unstable" = "sha256-/d8EJoPlSHRlkE7/d5OEy2/SEmPQyS6eUInbm/zYWH8=";
+      "serde_bser-0.3.1" = "sha256-tfkIGQKi+eRnBUYEmoc3m+mb93tFdh/g5FPUAXYRMVM=";
     };
   };
   postPatch = ''

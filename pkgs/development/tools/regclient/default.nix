@@ -45,8 +45,7 @@ buildGoModule rec {
   );
 
   meta = with lib; {
-    description =
-      "Docker and OCI Registry Client in Go and tooling using those libraries";
+    description = "Docker and OCI Registry Client in Go and tooling using those libraries";
     homepage = "https://github.com/regclient/regclient";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];

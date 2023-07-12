@@ -16,8 +16,7 @@ buildPythonApplication rec {
   version = "0.13.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/Houston4444/RaySession/releases/download/v${version}/RaySession-${version}-source.tar.gz";
+    url = "https://github.com/Houston4444/RaySession/releases/download/v${version}/RaySession-${version}-source.tar.gz";
     sha256 = "sha256-iiFRtX43u9BHe7a4ojza7kav+dMW9e05dPi7Gf9d1GM=";
   };
 

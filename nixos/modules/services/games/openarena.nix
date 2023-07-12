@@ -46,8 +46,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "openarena";
-        ExecStart =
-          "${pkgs.openarena}/bin/oa_ded +set fs_basepath ${pkgs.openarena}/openarena-0.8.8 +set fs_homepath /var/lib/openarena ${
+        ExecStart = "${pkgs.openarena}/bin/oa_ded +set fs_basepath ${pkgs.openarena}/openarena-0.8.8 +set fs_homepath /var/lib/openarena ${
             concatStringsSep " " cfg.extraFlags
           }";
         Restart = "on-failure";

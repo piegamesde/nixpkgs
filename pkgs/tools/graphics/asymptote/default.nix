@@ -116,8 +116,7 @@ stdenv.mkDerivation rec {
   enableParallelInstalling = false;
 
   meta = with lib; {
-    description =
-      "A tool for programming graphics intended to replace Metapost";
+    description = "A tool for programming graphics intended to replace Metapost";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux ++ platforms.darwin;

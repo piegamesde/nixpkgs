@@ -79,10 +79,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dateparser" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/scrapinghub/dateparser/blob/${src.rev}/HISTORY.rst";
-    description =
-      "Date parsing library designed to parse dates from HTML pages";
+    changelog = "https://github.com/scrapinghub/dateparser/blob/${src.rev}/HISTORY.rst";
+    description = "Date parsing library designed to parse dates from HTML pages";
     homepage = "https://github.com/scrapinghub/dateparser";
     license = licenses.bsd3;
     maintainers = with maintainers; [ dotlambda ];

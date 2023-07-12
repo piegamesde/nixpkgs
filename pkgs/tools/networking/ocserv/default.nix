@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.com/openconnect/ocserv";
     license = licenses.gpl2Plus;
-    description =
-      "OpenConnect VPN server (ocserv), a server for the OpenConnect VPN client";
+    description = "OpenConnect VPN server (ocserv), a server for the OpenConnect VPN client";
     maintainers = with maintainers; [ neverbehave ];
   };
 }

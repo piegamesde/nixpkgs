@@ -19,8 +19,7 @@ let
 
           nixops = super.nixops.overridePythonAttrs (
             old: {
-              version =
-                "${old.version}-pre-${
+              version = "${old.version}-pre-${
                   lib.substring 0 7 super.nixops.src.rev or "dirty"
                 }";
 

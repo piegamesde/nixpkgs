@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
       # https://pari.math.u-bordeaux.fr/cgi-bin/bugreport.cgi?bug=2441
       (fetchpatch {
         name = "fix-find_isogenous_from_Atkin.patch";
-        url =
-          "https://git.sagemath.org/sage.git/plain/build/pkgs/pari/patches/bug2441.patch?id=9.8.rc0";
+        url = "https://git.sagemath.org/sage.git/plain/build/pkgs/pari/patches/bug2441.patch?id=9.8.rc0";
         hash = "sha256-DvOUFlFDnopN+MJY6GYRPNabuoHPFch/nNn+49ygznc=";
       })
     ];
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://pari.math.u-bordeaux.fr";
-    description =
-      "Computer algebra system for high-performance number theory computations";
+    description = "Computer algebra system for high-performance number theory computations";
     longDescription = ''
       PARI/GP is a widely used computer algebra system designed for fast
       computations in number theory (factorizations, algebraic number theory,

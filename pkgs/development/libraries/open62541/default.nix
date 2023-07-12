@@ -50,8 +50,7 @@ stdenv.mkDerivation (
     patches = [
       (fetchpatch {
         name = "Ensure-absolute-paths-in-pkg-config-file.patch";
-        url =
-          "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
+        url = "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
         sha256 = "sha256-mq4h32js2RjI0Ljown/01SXA3gc+7+zX8meIcvDPvoA=";
       })
     ];

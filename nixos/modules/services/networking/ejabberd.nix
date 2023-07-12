@@ -16,11 +16,10 @@ let
     ${cfg.ctlConfig}
   '';
 
-  ectl =
-    ''
-      ${cfg.package}/bin/ejabberdctl ${
-        optionalString (cfg.configFile != null) "--config ${cfg.configFile}"
-      } --ctl-config "${ctlcfg}" --spool "${cfg.spoolDir}" --logs "${cfg.logsDir}"'';
+  ectl = ''
+    ${cfg.package}/bin/ejabberdctl ${
+      optionalString (cfg.configFile != null) "--config ${cfg.configFile}"
+    } --ctl-config "${ctlcfg}" --spool "${cfg.spoolDir}" --logs "${cfg.logsDir}"'';
 
   dumps = lib.escapeShellArgs cfg.loadDumps;
 in

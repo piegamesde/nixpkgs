@@ -51,8 +51,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Some out-of-the-box hooks for pre-commit";
     homepage = "https://github.com/pre-commit/pre-commit-hooks";
-    changelog =
-      "https://github.com/pre-commit/pre-commit-hooks/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/pre-commit/pre-commit-hooks/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

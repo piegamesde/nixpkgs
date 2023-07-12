@@ -18,8 +18,7 @@ let
     version = "22.10.6";
 
     src = fetchurl {
-      url =
-        "https://github.com/nextflow-io/nextflow/releases/download/v${version}/nextflow-${version}-all";
+      url = "https://github.com/nextflow-io/nextflow/releases/download/v${version}/nextflow-${version}-all";
       hash = "sha256-zeYsKxWRnzr0W6CD+yjoAXwCN/AbN5P4HhH1oftnrjY=";
     };
 

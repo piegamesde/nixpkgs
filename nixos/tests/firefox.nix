@@ -73,8 +73,7 @@ import ./make-test-python.nix (
 
         systemd.services.audio-recorder = {
           description = "Record NixOS test audio to /tmp/record.wav";
-          script =
-            "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
+          script = "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
         };
       }
     ;

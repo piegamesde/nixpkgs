@@ -37,8 +37,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "gpustat" ];
 
   meta = with lib; {
-    description =
-      "A simple command-line utility for querying and monitoring GPU status";
+    description = "A simple command-line utility for querying and monitoring GPU status";
     homepage = "https://github.com/wookayin/gpustat";
     license = licenses.mit;
     maintainers = with maintainers; [ billhuang ];

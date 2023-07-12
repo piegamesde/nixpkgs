@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "https://www.freedesktop.org/software/colord/releases/${pname}-${version}.tar.xz";
+    url = "https://www.freedesktop.org/software/colord/releases/${pname}-${version}.tar.xz";
     sha256 = "dAdjGie/5dG2cueuQndwAcEF2GC3tzkig8jGMA3ojm8=";
   };
 
@@ -112,13 +111,16 @@ stdenv.mkDerivation rec {
     glib-compile-schemas $out/share/glib-2.0/schemas
   '';
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
-    "${placeholder "out"}/lib/systemd/system";
-  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
-    "${placeholder "out"}/lib/systemd/user";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${
+      placeholder "out"
+    }/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${
+      placeholder "out"
+    }/lib/systemd/user";
   PKG_CONFIG_SYSTEMD_TMPFILESDIR = "${placeholder "out"}/lib/tmpfiles.d";
-  PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR =
-    "${placeholder "out"}/share/bash-completion/completions";
+  PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR = "${
+      placeholder "out"
+    }/share/bash-completion/completions";
   PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
 
   passthru = {
@@ -126,8 +128,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "System service to manage, install and generate color profiles to accurately color manage input and output devices";
+    description = "System service to manage, install and generate color profiles to accurately color manage input and output devices";
     homepage = "https://www.freedesktop.org/software/colord/";
     license = licenses.lgpl2Plus;
     maintainers = [ maintainers.marcweber ] ++ teams.freedesktop.members;

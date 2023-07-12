@@ -45,8 +45,7 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # https://github.com/aio-libs/aiohttp/pull/7178
-      url =
-        "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch";
+      url = "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch";
       hash = "sha256-4UynkTZOzWzusQ2+MPZszhFA8I/PJNLeT/hHF/fASy8=";
     })
   ];
@@ -133,8 +132,7 @@ buildPythonPackage rec {
   ;
 
   meta = with lib; {
-    changelog =
-      "https://github.com/aio-libs/aiohttp/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/aio-libs/aiohttp/blob/v${version}/CHANGES.rst";
     description = "Asynchronous HTTP Client/Server for Python and asyncio";
     license = licenses.asl20;
     homepage = "https://github.com/aio-libs/aiohttp";

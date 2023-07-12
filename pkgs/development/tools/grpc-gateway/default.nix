@@ -18,8 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-WHwZ0EAJIz7mZr27x+Z7PKLLAiw1z2rQvvNynpMJQDw=";
 
   meta = with lib; {
-    description =
-      "A gRPC to JSON proxy generator plugin for Google Protocol Buffers";
+    description = "A gRPC to JSON proxy generator plugin for Google Protocol Buffers";
     longDescription = ''
       This is a plugin for the Google Protocol Buffers compiler (protoc). It reads
       protobuf service definitions and generates a reverse-proxy server which

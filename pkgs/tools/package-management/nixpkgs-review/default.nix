@@ -48,8 +48,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Review pull-requests on https://github.com/NixOS/nixpkgs";
     homepage = "https://github.com/Mic92/nixpkgs-review";
-    changelog =
-      "https://github.com/Mic92/nixpkgs-review/releases/tag/${version}";
+    changelog = "https://github.com/Mic92/nixpkgs-review/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [
       figsoda

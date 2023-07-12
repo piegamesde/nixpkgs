@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A tool to be able to bind the super key as a key rather than a modifier";
+    description = "A tool to be able to bind the super key as a key rather than a modifier";
     homepage = "https://github.com/hanschen/ksuperkey";
     license = licenses.gpl3;
     maintainers = [ ];

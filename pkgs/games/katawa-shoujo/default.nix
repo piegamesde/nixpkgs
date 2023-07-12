@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   version = "1.3.1";
 
   src = fetchurl {
-    url =
-      "https://dl.katawa-shoujo.com/gold_${version}/%5b4ls%5d_katawa_shoujo_${version}-${srcDetails.urlSuffix}";
+    url = "https://dl.katawa-shoujo.com/gold_${version}/%5b4ls%5d_katawa_shoujo_${version}-${srcDetails.urlSuffix}";
     inherit (srcDetails) hash;
   };
 
@@ -186,8 +185,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Bishoujo-style visual novel by Four Leaf Studios, built in Ren'Py";
+    description = "Bishoujo-style visual novel by Four Leaf Studios, built in Ren'Py";
     longDescription = ''
       Katawa Shoujo is a bishoujo-style visual novel set in the fictional Yamaku High School for disabled children,
       located somewhere in modern Japan. Hisao Nakai, a normal boy living a normal life, has his life turned upside down

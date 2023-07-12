@@ -271,15 +271,13 @@ in
 
     assertions = [ {
       assertion = cfg.autodetect || cfg.devices != [ ];
-      message =
-        "smartd can't run with both disabled autodetect and an empty list of devices to monitor.";
+      message = "smartd can't run with both disabled autodetect and an empty list of devices to monitor.";
     } ];
 
     systemd.services.smartd = {
       description = "S.M.A.R.T. Daemon";
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart =
-        "${pkgs.smartmontools}/sbin/smartd ${
+      serviceConfig.ExecStart = "${pkgs.smartmontools}/sbin/smartd ${
           lib.concatStringsSep " " cfg.extraOptions
         } --no-fork --configfile=${smartdConf}";
     };

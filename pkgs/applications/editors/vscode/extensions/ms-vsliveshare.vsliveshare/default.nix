@@ -65,8 +65,7 @@ in
       '';
 
       meta = {
-        description =
-          "Live Share lets you achieve greater confidence at speed by streamlining collaborative editing, debugging, and more in real-time during development";
+        description = "Live Share lets you achieve greater confidence at speed by streamlining collaborative editing, debugging, and more in real-time during development";
         homepage = "https://aka.ms/vsls-docs";
         license = lib.licenses.unfree;
         maintainers = [

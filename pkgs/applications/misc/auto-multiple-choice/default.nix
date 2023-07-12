@@ -29,8 +29,7 @@ stdenv.mkDerivation (
     pname = "auto-multiple-choice";
     version = "1.5.2";
     src = fetchurl {
-      url =
-        "https://download.auto-multiple-choice.net/${pname}_${version}_precomp.tar.gz";
+      url = "https://download.auto-multiple-choice.net/${pname}_${version}_precomp.tar.gz";
       sha256 = "sha256-AjonJOooSe53Fww3QU6Dft95ojNqWrTuPul3nkIbctM=";
     };
 
@@ -153,8 +152,7 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      description =
-        "Create and manage multiple choice questionnaires with automated marking.";
+      description = "Create and manage multiple choice questionnaires with automated marking.";
       longDescription = ''
         Create, manage and mark multiple-choice questionnaires.
         auto-multiple-choice features automated or manual formatting with
@@ -180,8 +178,7 @@ stdenv.mkDerivation (
         For usage instructions, see documentation at the project's homepage.
       '';
       homepage = "https://www.auto-multiple-choice.net/";
-      changelog =
-        "https://gitlab.com/jojo_boulix/auto-multiple-choice/-/blob/master/ChangeLog";
+      changelog = "https://gitlab.com/jojo_boulix/auto-multiple-choice/-/blob/master/ChangeLog";
       license = licenses.gpl2Plus;
       maintainers = [ maintainers.thblt ];
       platforms = platforms.all;

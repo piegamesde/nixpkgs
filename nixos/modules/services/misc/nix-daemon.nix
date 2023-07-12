@@ -137,8 +137,7 @@ let
           package
         ]
       ) // {
-        description =
-          "Nix config atom (null, bool, int, float, str, path or package)";
+        description = "Nix config atom (null, bool, int, float, str, path or package)";
       };
     in
     attrsOf (either confAtom (listOf confAtom))

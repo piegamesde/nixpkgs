@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python library for accessing Queensland Bushfire Alert feed";
-    homepage =
-      "https://github.com/exxamalte/python-georss-qld-bushfire-alert-client";
+    homepage = "https://github.com/exxamalte/python-georss-qld-bushfire-alert-client";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

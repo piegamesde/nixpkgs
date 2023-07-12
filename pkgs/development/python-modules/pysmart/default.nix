@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Wrapper for smartctl (smartmontools)";
     homepage = "https://github.com/truenas/py-SMART";
-    changelog =
-      "https://github.com/truenas/py-SMART/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/truenas/py-SMART/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ nyanloutre ];
   };

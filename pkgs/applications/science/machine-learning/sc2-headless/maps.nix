@@ -9,8 +9,7 @@ let
 in
 {
   minigames = fetchzip {
-    url =
-      "https://github.com/deepmind/pysc2/releases/download/v1.2/mini_games.zip";
+    url = "https://github.com/deepmind/pysc2/releases/download/v1.2/mini_games.zip";
     sha256 = "19f873ilcdsf50g2v0s2zzmxil1bqncsk8nq99bzy87h0i7khkla";
     stripRoot = false;
   };
@@ -31,8 +30,7 @@ in
     stripRoot = false;
   };
   ladder2017season3 = fetchzip' {
-    url =
-      "http://blzdistsc2-a.akamaihd.net/MapPacks/Ladder2017Season3_Updated.zip";
+    url = "http://blzdistsc2-a.akamaihd.net/MapPacks/Ladder2017Season3_Updated.zip";
     sha256 = "0wix3lwmbyxfgh8ldg0n66i21p0dbavk2dxjngz79rx708m8qvld";
     stripRoot = false;
   };
@@ -47,8 +45,7 @@ in
     stripRoot = false;
   };
   ladder2018season2 = fetchzip' {
-    url =
-      "http://blzdistsc2-a.akamaihd.net/MapPacks/Ladder2018Season2_Updated.zip";
+    url = "http://blzdistsc2-a.akamaihd.net/MapPacks/Ladder2018Season2_Updated.zip";
     sha256 = "176rs848cx5src7qbr6dnn81bv1i86i381fidk3v81q9bxlmc2rv";
     stripRoot = false;
   };

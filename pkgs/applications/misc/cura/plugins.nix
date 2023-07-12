@@ -30,8 +30,7 @@ let
       '';
 
       meta = with lib; {
-        description =
-          "Enables printing directly to OctoPrint and monitoring the process";
+        description = "Enables printing directly to OctoPrint and monitoring the process";
         homepage = "https://github.com/fieldOfView/Cura-OctoPrintPlugin";
         license = licenses.agpl3;
         maintainers = with maintainers; [ gebner ];

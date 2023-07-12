@@ -28,12 +28,9 @@
     '';
     sha256 =
       {
-        "us" =
-          "17ce077343c6133f8c9f2d6d6d9a4ab62c8cd2aa57c40aea1f490b4c8bb21d91";
-        "eu" =
-          "c792e5ebcba34c8d98c0c44cf29747c8ee67e7b907fcc77887f9ff2523f80572";
-        "jp" =
-          "9cf7a80db321b07a8d461fe536c02c87b7412433953891cdec9191bfad2db317";
+        "us" = "17ce077343c6133f8c9f2d6d6d9a4ab62c8cd2aa57c40aea1f490b4c8bb21d91";
+        "eu" = "c792e5ebcba34c8d98c0c44cf29747c8ee67e7b907fcc77887f9ff2523f80572";
+        "jp" = "9cf7a80db321b07a8d461fe536c02c87b7412433953891cdec9191bfad2db317";
       }
       .${region};
   },

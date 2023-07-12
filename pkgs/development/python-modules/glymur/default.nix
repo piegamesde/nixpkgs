@@ -56,8 +56,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Tools for accessing JPEG2000 files";
     homepage = "https://github.com/quintusdias/glymur";
-    changelog =
-      "https://github.com/quintusdias/glymur/blob/v${version}/CHANGES.txt";
+    changelog = "https://github.com/quintusdias/glymur/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];
   };

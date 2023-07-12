@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gupnp/${
+    url = "mirror://gnome/sources/gupnp/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-T09Biwe4EWTfH3q2EuKOTAFsLQhbik85+XlF+LFe4kg=";
@@ -38,8 +37,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # https://gitlab.gnome.org/GNOME/gupnp/-/merge_requests/32
       name = "gi-docgen-as-native-dep.patch";
-      url =
-        "https://gitlab.gnome.org/GNOME/gupnp/-/commit/11d4a33cff1f5d8b8ad4b80c4506246a9e0dff8f.diff";
+      url = "https://gitlab.gnome.org/GNOME/gupnp/-/commit/11d4a33cff1f5d8b8ad4b80c4506246a9e0dff8f.diff";
       hash = "sha256-+p4vzUG2v+7mxtQ5AUcEI7SW0cDX6XlzqlyegF+I1Go=";
     })
   ];

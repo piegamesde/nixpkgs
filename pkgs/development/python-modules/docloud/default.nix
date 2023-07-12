@@ -26,8 +26,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "The IBM Decision Optimization on Cloud Python client";
-    homepage =
-      "https://onboarding-oaas.docloud.ibmcloud.com/software/analytics/docloud/";
+    homepage = "https://onboarding-oaas.docloud.ibmcloud.com/software/analytics/docloud/";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };

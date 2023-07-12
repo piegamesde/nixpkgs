@@ -24,8 +24,7 @@ import ./make-test-python.nix (
           services.freeswitch = {
             enable = true;
             enableReload = true;
-            configTemplate =
-              "${config.services.freeswitch.package}/share/freeswitch/conf/minimal";
+            configTemplate = "${config.services.freeswitch.package}/share/freeswitch/conf/minimal";
           };
         }
       ;

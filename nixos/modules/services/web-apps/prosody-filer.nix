@@ -65,8 +65,7 @@ in
       serviceConfig = {
         User = "prosody-filer";
         Group = "prosody-filer";
-        ExecStart =
-          "${pkgs.prosody-filer}/bin/prosody-filer -config ${configFile}";
+        ExecStart = "${pkgs.prosody-filer}/bin/prosody-filer -config ${configFile}";
         Restart = "on-failure";
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;

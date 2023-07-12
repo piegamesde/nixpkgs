@@ -163,8 +163,7 @@ in
     makeLinuxHeaders {
       inherit version;
       src = fetchurl {
-        url =
-          "mirror://kernel/linux/kernel/v${
+        url = "mirror://kernel/linux/kernel/v${
             lib.versions.major version
           }.x/linux-${version}.tar.xz";
         hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";

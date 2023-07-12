@@ -24,8 +24,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description =
-      "Python binding for Tado web API. Pythonize your central heating!";
+    description = "Python binding for Tado web API. Pythonize your central heating!";
     homepage = "https://github.com/wmalgadey/PyTado";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ jamiemagee ];

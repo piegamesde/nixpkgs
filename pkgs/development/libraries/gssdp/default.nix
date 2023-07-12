@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
   ;
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gssdp/${
+    url = "mirror://gnome/sources/gssdp/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "VySWVDV9PVGxQDFRaaJMBnHeeqUsb3XIxcmr1Ao1JSk=";
@@ -81,8 +80,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "GObject-based API for handling resource discovery and announcement over SSDP";
+    description = "GObject-based API for handling resource discovery and announcement over SSDP";
     homepage = "http://www.gupnp.org/";
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;

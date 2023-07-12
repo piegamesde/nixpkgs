@@ -44,8 +44,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    homepage =
-      "https://github.com/joielechong/iso-country-flags-svg-collection";
+    homepage = "https://github.com/joielechong/iso-country-flags-svg-collection";
     description = "248 country flag SVG & PNG icons with different icon styles";
     license = [ licenses.publicDomain ];
     platforms =

@@ -35,8 +35,7 @@ stdenv.mkDerivation (
     version = "6.06";
 
     src = fetchurl {
-      url =
-        "https://www.jwz.org/xscreensaver/xscreensaver-${finalAttrs.version}.tar.gz";
+      url = "https://www.jwz.org/xscreensaver/xscreensaver-${finalAttrs.version}.tar.gz";
       hash = "sha256-9TT6uFqDbeW4vo6R/CG4DKfWpO2ThuviB9S+ek50mac=";
     };
 

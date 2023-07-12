@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Color themes for LIFX lights running on aiolifx";
     homepage = "https://github.com/Djelibeybi/aiolifx-themes";
-    changelog =
-      "https://github.com/Djelibeybi/aiolifx-themes/releases/tag/v${version}";
+    changelog = "https://github.com/Djelibeybi/aiolifx-themes/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ lukegb ];
   };

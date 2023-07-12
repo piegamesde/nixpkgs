@@ -91,8 +91,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://codeberg.org/dnkl/yambar";
-      changelog =
-        "https://codeberg.org/dnkl/yambar/releases/tag/${finalAttrs.version}";
+      changelog = "https://codeberg.org/dnkl/yambar/releases/tag/${finalAttrs.version}";
       description = "Modular status panel for X11 and Wayland";
       longDescription = ''
         yambar is a lightweight and configurable status panel (bar, for short) for

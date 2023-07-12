@@ -9,14 +9,12 @@ rec {
 
   parasites = [ "wild-package-inferred-system/test" ];
 
-  description =
-    "Introduces the wildcards `*' and `**' into package-inferred-system";
+  description = "Introduces the wildcards `*' and `**' into package-inferred-system";
 
   deps = [ args."fiveam" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/wild-package-inferred-system/2020-03-25/wild-package-inferred-system-20200325-git.tgz";
+    url = "http://beta.quicklisp.org/archive/wild-package-inferred-system/2020-03-25/wild-package-inferred-system-20200325-git.tgz";
     sha256 = "1ypnpzy9z4zkna29sgl4afc386ksa61302bm5kznxb3zz2v1sjas";
   };
 

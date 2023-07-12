@@ -45,8 +45,7 @@ rustPlatform.buildRustPackage {
 
   meta = with lib; {
     homepage = "https://rust-lang.github.io/rust-clippy/";
-    description =
-      "A bunch of lints to catch common mistakes and improve your Rust code";
+    description = "A bunch of lints to catch common mistakes and improve your Rust code";
     maintainers = with maintainers; [ basvandijk ] ++ teams.rust.members;
     license = with licenses; [
       mit

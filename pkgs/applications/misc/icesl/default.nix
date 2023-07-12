@@ -44,15 +44,13 @@ stdenv.mkDerivation rec {
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchzip {
-        url =
-          "https://icesl.loria.fr/assets/other/download.php?build=${version}&os=amd64";
+        url = "https://icesl.loria.fr/assets/other/download.php?build=${version}&os=amd64";
         extension = "zip";
         sha256 = "0rrnkqkhlsjclif5cjbf17qz64vs95ja49xarxjvq54wb4jhbs4l";
       }
     else if stdenv.hostPlatform.system == "i686-linux" then
       fetchzip {
-        url =
-          "https://icesl.loria.fr/assets/other/download.php?build=${version}&os=i386";
+        url = "https://icesl.loria.fr/assets/other/download.php?build=${version}&os=i386";
         extension = "zip";
         sha256 = "0n2yyxzw0arkc70f0qli4n5chdlh9vc7aqizk4v7825mcglhwlyh";
       }
@@ -77,8 +75,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "GPU-accelerated procedural modeler and slicer for 3D printing";
+    description = "GPU-accelerated procedural modeler and slicer for 3D printing";
     homepage = "https://icesl.loria.fr/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.inria-icesl;

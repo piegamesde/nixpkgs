@@ -41,10 +41,8 @@ let
           quicklispdist = pkgs.fetchurl {
             # Will usually be replaced with a fresh version anyway, but needs to be
             # a valid distinfo.txt
-            url =
-              "http://beta.quicklisp.org/dist/quicklisp/2021-12-09/distinfo.txt";
-            sha256 =
-              "sha256:0gc4cv73nl7xkfwvmkmfhfx6yqf876nfm2v24v6fky9n24sh4y6w";
+            url = "http://beta.quicklisp.org/dist/quicklisp/2021-12-09/distinfo.txt";
+            sha256 = "sha256:0gc4cv73nl7xkfwvmkmfhfx6yqf876nfm2v24v6fky9n24sh4y6w";
           };
           buildPhase = "true; ";
           postInstall = ''
@@ -114,8 +112,7 @@ let
       buildSystems = [ "clx-truetype" ];
       parasites = [ "clx-truetype-test" ];
 
-      description =
-        "clx-truetype is pure common lisp solution for antialiased TrueType font rendering using CLX and XRender extension.";
+      description = "clx-truetype is pure common lisp solution for antialiased TrueType font rendering using CLX and XRender extension.";
       deps = with pkgs.lispPackages; [
         alexandria
         bordeaux-threads
@@ -130,8 +127,7 @@ let
         zpb-ttf
       ];
       src = pkgs.fetchurl {
-        url =
-          "http://beta.quicklisp.org/archive/clx-truetype/2016-08-25/clx-truetype-20160825-git.tgz";
+        url = "http://beta.quicklisp.org/archive/clx-truetype/2016-08-25/clx-truetype-20160825-git.tgz";
         sha256 = "0ndy067rg9w6636gxwlpnw7f3ck9nrnjb03444pprik9r3c9in67";
       };
 
@@ -214,8 +210,7 @@ let
               # https://github.com/NixOS/nixpkgs/issues/158005
               (pkgs.fetchpatch {
                 name = "nyxt-webkit-disable-sandbox.patch";
-                url =
-                  "https://github.com/atlas-engineer/nyxt/commit/48ac0d8727f1ca1428188a1ab2c05b7be5f6cc51.patch";
+                url = "https://github.com/atlas-engineer/nyxt/commit/48ac0d8727f1ca1428188a1ab2c05b7be5f6cc51.patch";
                 sha256 = "0570mcfn5wmjha6jmfdgglp0w5b7rpfnv3flzn77clgbknwbxi0m";
               })
             ]
@@ -289,8 +284,7 @@ let
     mgl = buildLispPackage rec {
       baseName = "mgl";
       version = "2021-10-07";
-      description =
-        "MGL is a machine learning library for backpropagation neural networks, boltzmann machines, gaussian processes and more";
+      description = "MGL is a machine learning library for backpropagation neural networks, boltzmann machines, gaussian processes and more";
       deps = with pkgs.lispPackages; [
         alexandria
         closer-mop

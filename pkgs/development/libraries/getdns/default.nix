@@ -38,8 +38,7 @@ rec {
     ];
 
     src = fetchurl {
-      url =
-        "https://getdnsapi.net/releases/${pname}-${
+      url = "https://getdnsapi.net/releases/${pname}-${
           with builtins; concatStringsSep "-" (splitVersion version)
         }/${pname}-${version}.tar.gz";
       sha256 =

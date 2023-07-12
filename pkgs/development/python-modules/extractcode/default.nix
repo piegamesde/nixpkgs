@@ -71,8 +71,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "extractcode" ];
 
   meta = with lib; {
-    description =
-      "Universal archive extractor using z7zip, libarchve, other libraries and the Python standard library";
+    description = "Universal archive extractor using z7zip, libarchve, other libraries and the Python standard library";
     homepage = "https://github.com/nexB/extractcode";
     changelog = "https://github.com/nexB/extractcode/releases/tag/v${version}";
     license = licenses.asl20;

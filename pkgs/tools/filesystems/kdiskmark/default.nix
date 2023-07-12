@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "HDD and SSD benchmark tool with a friendly graphical user interface";
+    description = "HDD and SSD benchmark tool with a friendly graphical user interface";
     longDescription = ''
       If kdiskmark is not run as root it can rely on polkit to get the necessary
       privileges. In this case you must install it with `environment.systemPackages`

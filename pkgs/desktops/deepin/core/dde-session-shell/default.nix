@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.xgreeters = linkFarm "deepin-greeter-xgreeters" [ {
-    path =
-      "${dde-session-shell}/share/xgreeters/lightdm-deepin-greeter.desktop";
+    path = "${dde-session-shell}/share/xgreeters/lightdm-deepin-greeter.desktop";
     name = "lightdm-deepin-greeter.desktop";
   } ];
 

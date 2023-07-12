@@ -55,8 +55,7 @@ ocamlPackages.buildDunePackage {
   meta = {
     description = "A tool that helps you create and manage static websites";
     homepage = "https://soupault.app/";
-    changelog =
-      "https://codeberg.org/PataphysicalSociety/soupault/src/branch/main/CHANGELOG.md";
+    changelog = "https://codeberg.org/PataphysicalSociety/soupault/src/branch/main/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ toastal ];
   };

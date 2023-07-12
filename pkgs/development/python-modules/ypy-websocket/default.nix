@@ -55,8 +55,7 @@ buildPythonPackage rec {
     ];
 
   meta = {
-    changelog =
-      "https://github.com/y-crdt/ypy-websocket/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/y-crdt/ypy-websocket/blob/${version}/CHANGELOG.md";
     description = "WebSocket Connector for Ypy";
     homepage = "https://github.com/y-crdt/ypy-websocket";
     license = lib.licenses.mit;

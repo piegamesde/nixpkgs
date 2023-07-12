@@ -7,8 +7,7 @@
 
 let
   debianPatches = fetchurl {
-    url =
-      "mirror://debian/pool/main/u/uvccapture/uvccapture_0.5-3.debian.tar.gz";
+    url = "mirror://debian/pool/main/u/uvccapture/uvccapture_0.5-3.debian.tar.gz";
     sha256 = "0m29by13nw1r8sch366qzdxg5rsd1k766kqg1nj2pdb8f7pwjh9r";
   };
 in
@@ -18,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "0.5";
 
   src = fetchurl {
-    url =
-      "mirror://debian/pool/main/u/uvccapture/uvccapture_${version}.orig.tar.gz";
+    url = "mirror://debian/pool/main/u/uvccapture/uvccapture_${version}.orig.tar.gz";
     sha256 = "1b3akkcmr3brbf93akr8xi20w8zqf2g0qfq928500wy04qi6jqpi";
   };
 

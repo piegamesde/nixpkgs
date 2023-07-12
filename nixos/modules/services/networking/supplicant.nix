@@ -78,8 +78,7 @@ let
       ;
     in
     {
-      description =
-        "Supplicant ${iface}${
+      description = "Supplicant ${iface}${
           optionalString (iface == "WLAN" || iface == "LAN") " %I"
         }";
       wantedBy = [ "multi-user.target" ] ++ deps;
@@ -101,8 +100,7 @@ let
         ''}
       '';
 
-      serviceConfig.ExecStart =
-        "${pkgs.wpa_supplicant}/bin/wpa_supplicant -s ${driverArg} ${confFileArg} -I${extraConfFile} ${bridgeArg} ${suppl.extraCmdArgs} ${
+      serviceConfig.ExecStart = "${pkgs.wpa_supplicant}/bin/wpa_supplicant -s ${driverArg} ${confFileArg} -I${extraConfFile} ${bridgeArg} ${suppl.extraCmdArgs} ${
           if (iface == "WLAN" || iface == "LAN") then
             "-i%I"
           else

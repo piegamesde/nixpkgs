@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/linux-surface/iptsd/releases/tag/${src.rev}";
+    changelog = "https://github.com/linux-surface/iptsd/releases/tag/${src.rev}";
     description = "Userspace daemon for Intel Precise Touch & Stylus";
     homepage = "https://github.com/linux-surface/iptsd";
     license = licenses.gpl2Plus;

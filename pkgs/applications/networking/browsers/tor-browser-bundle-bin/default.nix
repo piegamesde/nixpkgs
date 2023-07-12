@@ -484,8 +484,7 @@ stdenv.mkDerivation rec {
       the `/nix/store`.
     '';
     homepage = "https://www.torproject.org/";
-    changelog =
-      "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
+    changelog = "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
     platforms = attrNames srcs;
     maintainers = with maintainers; [
       offline

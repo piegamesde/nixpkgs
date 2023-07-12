@@ -39,8 +39,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Go implementation of an Avalanche node";
     homepage = "https://github.com/ava-labs/avalanchego";
-    changelog =
-      "https://github.com/ava-labs/avalanchego/releases/tag/v${version}";
+    changelog = "https://github.com/ava-labs/avalanchego/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ urandom ];
   };

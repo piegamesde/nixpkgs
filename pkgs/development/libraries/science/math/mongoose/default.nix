@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Graph Coarsening and Partitioning Library";
-    homepage =
-      "https://github.com/DrTimothyAldenDavis/SuiteSparse/tree/dev/Mongoose";
+    homepage = "https://github.com/DrTimothyAldenDavis/SuiteSparse/tree/dev/Mongoose";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wegank ];
     platforms = with platforms; unix;

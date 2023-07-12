@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://download.moodle.org/stable${stableVersion}/${pname}-${version}.tgz";
+    url = "https://download.moodle.org/stable${stableVersion}/${pname}-${version}.tgz";
     sha256 = "sha256-ddXldOQLefV6Kjla+IeFwD50Vye4kholJD5R6X6A2Og=";
   };
 
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit (nixosTests) moodle; };
 
   meta = with lib; {
-    description =
-      "Free and open-source learning management system (LMS) written in PHP";
+    description = "Free and open-source learning management system (LMS) written in PHP";
     license = licenses.gpl3Plus;
     homepage = "https://moodle.org/";
     maintainers = with maintainers; [ freezeboy ];

@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
     substituteInPlace vers_string --replace "cvslib.pl" "./cvslib.pl"
   '';
 
-  preInstall =
-    "\n    substituteInPlace Makefile --replace '-o root -g root' ''\n  ";
+  preInstall = "\n    substituteInPlace Makefile --replace '-o root -g root' ''\n  ";
 
   nativeBuildInputs = [ perl ];
   buildInputs = [

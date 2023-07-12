@@ -28,8 +28,7 @@ let
       inherit (cfg.pantalaimon) username;
 
       use = cfg.pantalaimon.enable;
-      password =
-        "@PANTALAIMON_PASSWORD@"; # will be replaced in "generateConfig"
+      password = "@PANTALAIMON_PASSWORD@"; # will be replaced in "generateConfig"
     };
   };
 

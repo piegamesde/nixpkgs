@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Converts HTML files to PostScript and PDF";
     homepage = "https://michaelrsweet.github.io/htmldoc";
-    changelog =
-      "https://github.com/michaelrsweet/htmldoc/releases/tag/v${version}";
+    changelog = "https://github.com/michaelrsweet/htmldoc/releases/tag/v${version}";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;

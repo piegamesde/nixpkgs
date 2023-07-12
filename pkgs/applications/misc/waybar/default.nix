@@ -152,8 +152,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     changelog = "https://github.com/alexays/waybar/releases/tag/${version}";
-    description =
-      "Highly customizable Wayland bar for Sway and Wlroots based compositors";
+    description = "Highly customizable Wayland bar for Sway and Wlroots based compositors";
     license = licenses.mit;
     maintainers = with maintainers; [
       FlorianFranzen

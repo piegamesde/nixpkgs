@@ -88,8 +88,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for property based testing";
     homepage = "https://github.com/HypothesisWorks/hypothesis";
-    changelog =
-      "https://hypothesis.readthedocs.io/en/latest/changes.html#v${
+    changelog = "https://hypothesis.readthedocs.io/en/latest/changes.html#v${
         lib.replaceStrings [ "." ] [ "-" ] version
       }";
     license = licenses.mpl20;

@@ -52,8 +52,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for Yale BLE devices";
     homepage = "https://github.com/bdraco/yalexs-ble";
-    changelog =
-      "https://github.com/bdraco/yalexs-ble/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/bdraco/yalexs-ble/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

@@ -821,8 +821,7 @@ in
     assertions = [
       {
         assertion = any (fs: fs.mountPoint == "/") fileSystems;
-        message =
-          "The ‘fileSystems’ option does not specify your root file system.";
+        message = "The ‘fileSystems’ option does not specify your root file system.";
       }
       {
         assertion =

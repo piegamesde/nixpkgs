@@ -41,8 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A unified interface to many cloud providers";
     homepage = "https://libcloud.apache.org/";
-    changelog =
-      "https://github.com/apache/libcloud/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/apache/libcloud/blob/v${version}/CHANGES.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };

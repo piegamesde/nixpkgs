@@ -39,8 +39,7 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = {
-    description =
-      "Bindings to secp256k1 internal functions (generic operations on the curve)";
+    description = "Bindings to secp256k1 internal functions (generic operations on the curve)";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.ulrikstrid ];
   };

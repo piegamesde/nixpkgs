@@ -74,8 +74,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Install and run Python applications in isolated environments";
+    description = "Install and run Python applications in isolated environments";
     homepage = "https://github.com/pipxproject/pipx";
     changelog = "https://github.com/pypa/pipx/blob/${version}/CHANGELOG.md";
     license = licenses.mit;

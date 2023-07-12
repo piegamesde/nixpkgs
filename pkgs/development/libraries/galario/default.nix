@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "GPU Accelerated Library for Analysing Radio Interferometer Observations";
+    description = "GPU Accelerated Library for Analysing Radio Interferometer Observations";
     longDescription = ''
       Galario is a library that exploits the computing power of modern
       graphic cards (GPUs) to accelerate the comparison of model

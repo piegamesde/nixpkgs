@@ -120,8 +120,7 @@ in
     version = "1.7";
     module = "TexturesLibraryEditor";
     pname = module;
-    description =
-      "Easily create SH3T files and edit the properties of the texture images it contain";
+    description = "Easily create SH3T files and edit the properties of the texture images it contain";
     license = lib.licenses.gpl2Plus;
     src = fetchurl {
       url = "mirror://sourceforge/sweethome3d/${module}-${version}-src.zip";
@@ -134,8 +133,7 @@ in
     version = "1.28";
     module = "FurnitureLibraryEditor";
     pname = module;
-    description =
-      "Quickly create SH3F files and edit the properties of the 3D models it contain";
+    description = "Quickly create SH3F files and edit the properties of the 3D models it contain";
     license = lib.licenses.gpl2;
     src = fetchurl {
       url = "mirror://sourceforge/sweethome3d/${module}-${version}-src.zip";

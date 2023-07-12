@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "0.3.1";
 
   src = fetchurl {
-    url =
-      "https://pwmt.org/projects/${pname}/download/${pname}-${version}.tar.xz";
+    url = "https://pwmt.org/projects/${pname}/download/${pname}-${version}.tar.xz";
     sha256 = "12qhkshpp1wjfpjmjccsyi6wscqyqvaa19j85prjpyf65i9jg0gf";
   };
 

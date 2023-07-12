@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "2023.02";
 
   src = fetchurl {
-    url =
-      "https://github.com/raku/nqp/releases/download/${version}/nqp-${version}.tar.gz";
+    url = "https://github.com/raku/nqp/releases/download/${version}/nqp-${version}.tar.gz";
     hash = "sha256-417V7ZTsMqbXMO6BW/hcX8+IqGf6xlZjaMGtSf5jtT8=";
   };
 
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "Not Quite Perl -- a lightweight Raku-like environment for virtual machines";
+    description = "Not Quite Perl -- a lightweight Raku-like environment for virtual machines";
     homepage = "https://github.com/Raku/nqp";
     license = licenses.artistic2;
     platforms = platforms.unix;

@@ -13,8 +13,7 @@ mkDerivation {
   pname = "kshisen";
   meta = with lib; {
     homepage = "https://kde.org/applications/en/games/org.kde.kshisen";
-    description =
-      "A solitaire-like game played using the standard set of Mahjong tiles";
+    description = "A solitaire-like game played using the standard set of Mahjong tiles";
     maintainers = with maintainers; [ freezeboy ];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

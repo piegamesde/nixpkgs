@@ -86,8 +86,7 @@ buildGoModule rec {
   meta = with lib; {
     mainProgram = "opa";
     homepage = "https://www.openpolicyagent.org";
-    changelog =
-      "https://github.com/open-policy-agent/opa/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/open-policy-agent/opa/blob/v${version}/CHANGELOG.md";
     description = "General-purpose policy engine";
     longDescription = ''
       The Open Policy Agent (OPA, pronounced "oh-pa") is an open source, general-purpose policy engine that unifies

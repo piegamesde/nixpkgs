@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "A file transfer program supporting a number of network protocols";
+    description = "A file transfer program supporting a number of network protocols";
     homepage = "https://lftp.yar.ru/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

@@ -742,8 +742,9 @@ in
                     unixsocketperm = toString config.unixSocketPerm;
                   })
                   (mkIf (config.slaveOf != null) {
-                    slaveof =
-                      "${config.slaveOf.ip} ${toString config.slaveOf.port}";
+                    slaveof = "${config.slaveOf.ip} ${
+                        toString config.slaveOf.port
+                      }";
                   })
                   (mkIf (config.masterAuth != null) {
                     masterauth = config.masterAuth;
@@ -821,8 +822,7 @@ in
             after = [ "network.target" ];
 
             serviceConfig = {
-              ExecStart =
-                "${cfg.package}/bin/redis-server /var/lib/${
+              ExecStart = "${cfg.package}/bin/redis-server /var/lib/${
                   redisName name
                 }/redis.conf ${escapeShellArgs conf.extraParams}";
               ExecStartPre =
@@ -895,8 +895,7 @@ in
               PrivateMounts = true;
               # System Call Filtering
               SystemCallArchitectures = "native";
-              SystemCallFilter =
-                "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid";
+              SystemCallFilter = "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid";
             };
           }
         )

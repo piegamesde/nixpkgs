@@ -25,8 +25,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "nix-compat-0.1.0" =
-        "sha256-J9MedxcVcH5DdRxdqD8cb5YRC/SjZ0vQTCFBMLVMQPo=";
+      "nix-compat-0.1.0" = "sha256-J9MedxcVcH5DdRxdqD8cb5YRC/SjZ0vQTCFBMLVMQPo=";
     };
   };
 
@@ -58,11 +57,9 @@ rustPlatform.buildRustPackage rec {
   env = { GEN_ARTIFACTS = "artifacts"; };
 
   meta = with lib; {
-    description =
-      "Command-line tool to generate Nix fetcher calls from repository URLs";
+    description = "Command-line tool to generate Nix fetcher calls from repository URLs";
     homepage = "https://github.com/nix-community/nurl";
-    changelog =
-      "https://github.com/nix-community/nurl/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/nix-community/nurl/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "3.0.34";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/ijbswa/Sources/${version}%20%28stable%29/${pname}-${version}-stable-src.tar.gz";
+    url = "mirror://sourceforge/ijbswa/Sources/${version}%20%28stable%29/${pname}-${version}-stable-src.tar.gz";
     sha256 = "sha256-5sy8oWVvTmFrRlf4UU4zpw9ml+nXKUNWV3g5Mio8XSw=";
   };
 

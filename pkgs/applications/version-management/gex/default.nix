@@ -19,8 +19,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-ZFrIlNysjlXI8n78N2Hkff6gAplipxSQXUWG8HJq8fs=";
 
   meta = with lib; {
-    description =
-      "Git Explorer: cross-platform git workflow improvement tool inspired by Magit";
+    description = "Git Explorer: cross-platform git workflow improvement tool inspired by Magit";
     homepage = "https://github.com/Piturnah/gex";
     license = with licenses; [
       asl20 # or

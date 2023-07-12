@@ -14,8 +14,7 @@ rec {
   deps = [ args."rt" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/anaphora/2021-12-09/anaphora-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/anaphora/2021-12-09/anaphora-20211209-git.tgz";
     sha256 = "1pi166qwf3zwswhgq8c4r84rl5d6lnn0rkb3cdf5afyxmminsadg";
   };
 

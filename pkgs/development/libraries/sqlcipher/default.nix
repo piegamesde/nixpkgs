@@ -50,18 +50,17 @@ stdenv.mkDerivation rec {
 
   BUILD_CC = "$(CC_FOR_BUILD)";
 
-  TCLLIBDIR =
-    "${placeholder "out"}/lib/tcl${lib.versions.majorMinor tcl.version}";
+  TCLLIBDIR = "${placeholder "out"}/lib/tcl${
+      lib.versions.majorMinor tcl.version
+    }";
 
   postInstall = ''
     installManPage sqlcipher.1
   '';
 
   meta = with lib; {
-    changelog =
-      "https://github.com/sqlcipher/sqlcipher/blob/v${version}/CHANGELOG.md";
-    description =
-      "SQLite extension that provides 256 bit AES encryption of database files";
+    changelog = "https://github.com/sqlcipher/sqlcipher/blob/v${version}/CHANGELOG.md";
+    description = "SQLite extension that provides 256 bit AES encryption of database files";
     homepage = "https://www.zetetic.net/sqlcipher/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];

@@ -95,8 +95,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A library for manipulating block devices";
     homepage = "http://storaged.org/libblockdev/";
-    changelog =
-      "https://github.com/storaged-project/libblockdev/raw/${src.rev}/NEWS.rst";
+    changelog = "https://github.com/storaged-project/libblockdev/raw/${src.rev}/NEWS.rst";
     license = with licenses; [
       lgpl2Plus
       gpl2Plus

@@ -279,8 +279,7 @@ in
     # networking.firewall.allowedUDPPorts = ...
 
     systemd.services.cjdns = {
-      description =
-        "cjdns: routing engine designed for security, scalability, speed and ease of use";
+      description = "cjdns: routing engine designed for security, scalability, speed and ease of use";
       wantedBy = [
         "multi-user.target"
         "sleep.target"
@@ -355,8 +354,7 @@ in
             || cfg.UDPInterface.bind != ""
             || cfg.confFile != null
           );
-        message =
-          "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined.";
+        message = "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined.";
       }
       {
         assertion = config.networking.enableIPv6;

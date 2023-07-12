@@ -66,8 +66,7 @@ stdenv.mkDerivation {
 
   meta = {
     homepage = "https://www.inference.org.uk/dasher/";
-    description =
-      "Information-efficient text-entry interface, driven by natural continuous pointing gestures";
+    description = "Information-efficient text-entry interface, driven by natural continuous pointing gestures";
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.Profpatsch ];
     platforms = lib.platforms.all;

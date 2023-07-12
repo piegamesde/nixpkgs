@@ -25,8 +25,7 @@ buildPythonPackage rec {
   disabledTests = [ "test_real" ];
 
   meta = with lib; {
-    description =
-      "Calculates a token to run the Google Translate text to speech";
+    description = "Calculates a token to run the Google Translate text to speech";
     homepage = "https://github.com/boudewijn26/gTTS-token";
     license = licenses.mit;
     maintainers = with maintainers; [ makefu ];

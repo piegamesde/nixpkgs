@@ -34,11 +34,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "bite" ];
 
   meta = {
-    description =
-      "Asynchronous parser taking incremental bites out of your byte input stream";
+    description = "Asynchronous parser taking incremental bites out of your byte input stream";
     homepage = "https://github.com/jgosmann/bite-parser";
-    changelog =
-      "https://github.com/jgosmann/bite-parser/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/jgosmann/bite-parser/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };

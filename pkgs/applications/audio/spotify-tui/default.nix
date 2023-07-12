@@ -32,16 +32,14 @@ rustPlatform.buildRustPackage rec {
     # Needed so that the patch below it applies.
     (fetchpatch {
       name = "update-dirs.patch";
-      url =
-        "https://github.com/Rigellute/spotify-tui/commit/3881defc1ed0bcf79df1aef4836b857f64be657c.patch";
+      url = "https://github.com/Rigellute/spotify-tui/commit/3881defc1ed0bcf79df1aef4836b857f64be657c.patch";
       hash = "sha256-OGqiYLFojMwR3RgKbddXxPDiAdzPySnscVVsVmTT7t4=";
     })
 
     # https://github.com/Rigellute/spotify-tui/pull/990
     (fetchpatch {
       name = "update-socket2-for-rust-1.64.patch";
-      url =
-        "https://github.com/Rigellute/spotify-tui/commit/14df9419cf72da13f3b55654686a95647ea9dfea.patch";
+      url = "https://github.com/Rigellute/spotify-tui/commit/14df9419cf72da13f3b55654686a95647ea9dfea.patch";
       hash = "sha256-craY6UwmHDdxih3nZBdPkNJtQ6wvVgf09Ovqdxi0JZo=";
     })
   ];
@@ -112,8 +110,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Spotify for the terminal written in Rust";
     homepage = "https://github.com/Rigellute/spotify-tui";
-    changelog =
-      "https://github.com/Rigellute/spotify-tui/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/Rigellute/spotify-tui/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ jwijenbergh ];
     mainProgram = "spt";

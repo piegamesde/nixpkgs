@@ -66,8 +66,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/tomerfiliba/plumbum/releases/tag/v${version}";
+    changelog = "https://github.com/tomerfiliba/plumbum/releases/tag/v${version}";
     description = " Plumbum: Shell Combinators ";
     homepage = " https://github.com/tomerfiliba/plumbum ";
     license = licenses.mit;

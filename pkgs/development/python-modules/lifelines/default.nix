@@ -62,8 +62,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Survival analysis in Python";
     homepage = "https://lifelines.readthedocs.io";
-    changelog =
-      "https://github.com/CamDavidsonPilon/lifelines/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/CamDavidsonPilon/lifelines/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ swflint ];
   };

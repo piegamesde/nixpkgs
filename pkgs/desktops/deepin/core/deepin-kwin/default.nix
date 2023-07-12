@@ -112,8 +112,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Fork of kwin, an easy to use, but flexible, composited Window Manager";
+    description = "Fork of kwin, an easy to use, but flexible, composited Window Manager";
     homepage = "https://github.com/linuxdeepin/deepin-kwin";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;

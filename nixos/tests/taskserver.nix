@@ -147,8 +147,7 @@ import ./make-test-python.nix (
         cfg = nodes.server.config.services.taskserver;
         portStr = toString cfg.listenPort;
         newServerSystem = nodes.newServer.config.system.build.toplevel;
-        switchToNewServer =
-          "${newServerSystem}/bin/switch-to-configuration test";
+        switchToNewServer = "${newServerSystem}/bin/switch-to-configuration test";
       in
       ''
         from shlex import quote

@@ -9,8 +9,7 @@ let
   version = "13.0.3";
 
   src = fetchurl {
-    url =
-      "https://github.com/firstversionist/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
+    url = "https://github.com/firstversionist/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
     name = "${pname}-${version}.AppImage";
     sha256 = "sha256-wMWO8eRH8O93m4/HaRTdG3DhyCvHWw+s3sAtN+VLBeY=";
   };
@@ -32,8 +31,7 @@ appimageTools.wrapType2 {
   '';
 
   meta = with lib; {
-    description =
-      "Browser with unified devtools targeting responsability and acessibility";
+    description = "Browser with unified devtools targeting responsability and acessibility";
     longDescription = ''
       The stand-alone browser for ambitious developers that want to build responsive,
       accessible and performant websites in a fraction of the time it takes with other browsers.

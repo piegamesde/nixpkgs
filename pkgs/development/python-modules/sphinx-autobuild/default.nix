@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sphinx_autobuild" ];
 
   meta = with lib; {
-    description =
-      "Rebuild Sphinx documentation on changes, with live-reload in the browser";
+    description = "Rebuild Sphinx documentation on changes, with live-reload in the browser";
     homepage = "https://github.com/executablebooks/sphinx-autobuild";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ holgerpeters ];

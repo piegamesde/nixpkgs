@@ -41,8 +41,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "extension_helpers" ];
 
   meta = with lib; {
-    description =
-      "Utilities for building and installing packages in the Astropy ecosystem";
+    description = "Utilities for building and installing packages in the Astropy ecosystem";
     homepage = "https://github.com/astropy/extension-helpers";
     license = licenses.bsd3;
     maintainers = with maintainers; [ rmcgibbo ];

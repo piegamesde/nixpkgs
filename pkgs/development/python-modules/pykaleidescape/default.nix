@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for controlling Kaleidescape devices";
     homepage = "https://github.com/SteveEasley/pykaleidescape";
-    changelog =
-      "https://github.com/SteveEasley/pykaleidescape/releases/tag/v${version}";
+    changelog = "https://github.com/SteveEasley/pykaleidescape/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

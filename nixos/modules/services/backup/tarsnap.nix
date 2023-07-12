@@ -116,8 +116,7 @@ in
 
                 cachedir = mkOption {
                   type = types.nullOr types.path;
-                  default =
-                    "/var/cache/tarsnap/${
+                  default = "/var/cache/tarsnap/${
                       utils.escapeSystemdPath config.keyfile
                     }";
                   defaultText = literalExpression ''
@@ -433,11 +432,10 @@ in
               let
                 tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
                 lastArchive = "$(${tarsnap} --list-archives | sort | tail -1)";
-                run =
-                  ''
-                    ${tarsnap} -x -f "${lastArchive}" ${
-                      optionalString cfg.verbose "-v"
-                    }'';
+                run = ''
+                  ${tarsnap} -x -f "${lastArchive}" ${
+                    optionalString cfg.verbose "-v"
+                  }'';
                 cachedir = escapeShellArg cfg.cachedir;
               in
               if (cfg.cachedir != null) then

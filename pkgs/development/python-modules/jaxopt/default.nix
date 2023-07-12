@@ -53,8 +53,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://jaxopt.github.io";
-    description =
-      "Hardware accelerated, batchable and differentiable optimizers in JAX";
+    description = "Hardware accelerated, batchable and differentiable optimizers in JAX";
     license = licenses.asl20;
     maintainers = with maintainers; [ bcdarwin ];
   };

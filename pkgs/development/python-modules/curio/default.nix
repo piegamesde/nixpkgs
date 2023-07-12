@@ -38,8 +38,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "curio" ];
 
   meta = with lib; {
-    description =
-      "Library for performing concurrent I/O with coroutines in Python";
+    description = "Library for performing concurrent I/O with coroutines in Python";
     homepage = "https://github.com/dabeaz/curio";
     changelog = "https://github.com/dabeaz/curio/raw/${version}/CHANGES";
     license = licenses.bsd3;

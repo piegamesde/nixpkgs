@@ -172,8 +172,7 @@ in
       assertions = [
         {
           assertion = cfg.backupAll -> cfg.databases == [ ];
-          message =
-            "config.services.postgresqlBackup.backupAll cannot be used together with config.services.postgresqlBackup.databases";
+          message = "config.services.postgresqlBackup.backupAll cannot be used together with config.services.postgresqlBackup.databases";
         }
         {
           assertion =
@@ -189,8 +188,7 @@ in
               && cfg.compressionLevel <= 19
             )
           ;
-          message =
-            "config.services.postgresqlBackup.compressionLevel must be set between 1 and 9 for gzip and 1 and 19 for zstd";
+          message = "config.services.postgresqlBackup.compressionLevel must be set between 1 and 9 for gzip and 1 and 19 for zstd";
         }
       ];
     }

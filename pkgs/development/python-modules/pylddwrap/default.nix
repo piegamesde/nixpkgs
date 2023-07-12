@@ -43,11 +43,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "lddwrap" ];
 
   meta = with lib; {
-    description =
-      "Python wrapper around ldd *nix utility to determine shared libraries of a program";
+    description = "Python wrapper around ldd *nix utility to determine shared libraries of a program";
     homepage = "https://github.com/Parquery/pylddwrap";
-    changelog =
-      "https://github.com/Parquery/pylddwrap/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/Parquery/pylddwrap/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ thiagokokada ];
   };

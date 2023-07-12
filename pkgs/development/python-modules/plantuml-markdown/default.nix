@@ -62,8 +62,7 @@ buildPythonPackage rec {
       diagram which will be converted into an image and inserted in the document.
     '';
     homepage = "https://github.com/mikitex70/plantuml-markdown";
-    changelog =
-      "https://github.com/mikitex70/plantuml-markdown/releases/tag/${version}";
+    changelog = "https://github.com/mikitex70/plantuml-markdown/releases/tag/${version}";
     license = licenses.bsd2;
     maintainers = with maintainers; [ nikstur ];
   };

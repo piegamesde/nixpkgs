@@ -57,8 +57,7 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description =
-      "A library and cli tool that makes it easy to build static sites using Jinja2";
+    description = "A library and cli tool that makes it easy to build static sites using Jinja2";
     homepage = "https://staticjinja.readthedocs.io/en/latest/";
     license = licenses.mit;
     maintainers = with maintainers; [ fgaz ];

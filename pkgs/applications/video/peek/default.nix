@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       # Fix compatibility with GNOME Shell ≥ 40.
       # https://github.com/phw/peek/pull/910
       (fetchpatch {
-        url =
-          "https://github.com/phw/peek/commit/008d15316ab5428363c512b263ca8138cb8f52ba.patch";
+        url = "https://github.com/phw/peek/commit/008d15316ab5428363c512b263ca8138cb8f52ba.patch";
         sha256 = "xxJ+r5uRk93MEzWTFla88ewZsnUl3+YKTenzDygtKP0=";
       })
     ];
@@ -91,8 +90,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/phw/peek";
-    description =
-      "Simple animated GIF screen recorder with an easy to use interface";
+    description = "Simple animated GIF screen recorder with an easy to use interface";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ puffnfresh ];
     platforms = platforms.linux;

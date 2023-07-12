@@ -36,8 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     inherit (src.meta) homepage;
-    description =
-      "A simple library and cli-tool to help you solve some debts settlement scenarios";
+    description = "A simple library and cli-tool to help you solve some debts settlement scenarios";
     license = licenses.beerware;
     maintainers = [ maintainers.symphorien ];
   };

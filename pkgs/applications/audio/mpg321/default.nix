@@ -18,22 +18,19 @@ stdenv.mkDerivation rec {
   version = "0.3.2";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/mpg321/${version}/mpg321_${version}.orig.tar.gz";
+    url = "mirror://sourceforge/mpg321/${version}/mpg321_${version}.orig.tar.gz";
     sha256 = "0ki8mh76bbmdh77qsiw682dvi8y468yhbdabqwg05igmwc1wqvq5";
   };
 
   patches = [
     (fetchpatch {
       name = "CVE-2018-7263.patch";
-      url =
-        "https://sources.debian.org/data/main/m/mpg321/0.3.2-3/debian/patches/handle_illegal_bitrate_value.patch";
+      url = "https://sources.debian.org/data/main/m/mpg321/0.3.2-3/debian/patches/handle_illegal_bitrate_value.patch";
       sha256 = "15simp5fjvm9b024ryfh441rkh2d5bcrizqkzlrh07n9sm7fkw6x";
     })
     # Apple defines semun already. Skip redefining it to fix build errors.
     (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/Homebrew/formula-patches/85fa66a9/mpg321/0.3.2.patch";
+      url = "https://raw.githubusercontent.com/Homebrew/formula-patches/85fa66a9/mpg321/0.3.2.patch";
       sha256 = "sha256-qFYpKpE9PZSzOJrnsQINZi6FvUVX0anRyOvlF5eOYqE=";
     })
   ];

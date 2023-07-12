@@ -207,8 +207,7 @@ in
 
       serviceConfig = {
         LimitNOFILE = 65536;
-        ExecStart =
-          "${glusterfs}/sbin/glusterd --no-daemon --log-level=${cfg.logLevel} ${
+        ExecStart = "${glusterfs}/sbin/glusterd --no-daemon --log-level=${cfg.logLevel} ${
             toString cfg.extraFlags
           }";
         KillMode = cfg.killMode;
@@ -235,8 +234,7 @@ in
       serviceConfig = {
         Type = "simple";
         PIDFile = "/run/glustereventsd.pid";
-        ExecStart =
-          "${glusterfs}/sbin/glustereventsd --pid-file /run/glustereventsd.pid";
+        ExecStart = "${glusterfs}/sbin/glustereventsd --pid-file /run/glustereventsd.pid";
         ExecReload = "/bin/kill -SIGUSR2 $MAINPID";
         KillMode = "control-group";
       };

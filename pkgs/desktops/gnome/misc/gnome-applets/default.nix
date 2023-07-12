@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
   version = "3.46.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "TwRjyoDzCUA4WzCcHmkCWIxx2XFQxlQOg083Tk0nrPc=";
@@ -65,8 +64,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   # Don't try to install modules to gnome panel's directory, as it's read only
-  PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR =
-    "${placeholder "out"}/lib/gnome-panel/modules";
+  PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR = "${
+      placeholder "out"
+    }/lib/gnome-panel/modules";
 
   passthru = {
     updateScript = gnome.updateScript {

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   models = fetchzip {
     # Choose the newst release from https://github.com/xinntao/Real-ESRGAN/releases to update
-    url =
-      "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.3.0/realesrgan-ncnn-vulkan-20211212-ubuntu.zip";
+    url = "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.3.0/realesrgan-ncnn-vulkan-20211212-ubuntu.zip";
     stripRoot = false;
     sha256 = "sha256-17k6fewVEXxx7hi+vPXjHAOq4IIUHLh7WC80CwTeFKI=";
   };
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "NCNN implementation of Real-ESRGAN. Real-ESRGAN aims at developing Practical Algorithms for General Image Restoration.";
+    description = "NCNN implementation of Real-ESRGAN. Real-ESRGAN aims at developing Practical Algorithms for General Image Restoration.";
     homepage = "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan";
     license = licenses.mit;
     maintainers = with maintainers; [ tilcreator ];

@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   version = "1.2.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/terra-money/station-desktop/releases/download/v${version}/Terra.Station_${version}_${arch}.deb";
+    url = "https://github.com/terra-money/station-desktop/releases/download/v${version}/Terra.Station_${version}_${arch}.deb";
     inherit sha256;
   };
 
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Terra station is the official wallet of the Terra blockchain.";
+    description = "Terra station is the official wallet of the Terra blockchain.";
     homepage = "https://docs.terra.money/docs/learn/terra-station/README.html";
     license = licenses.isc;
     maintainers = [ maintainers.peterwilli ];

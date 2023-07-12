@@ -23,8 +23,7 @@ let
     inherit pname version;
 
     src = fetchurl {
-      url =
-        "https://www.expressvpn.works/clients/linux/expressvpn_${version}-1_amd64.deb";
+      url = "https://www.expressvpn.works/clients/linux/expressvpn_${version}-1_amd64.deb";
       hash = "sha256-lyDjG346FrgT7SZbsWET+Hexl9Un6mzMukfO2PwlInA=";
     };
 

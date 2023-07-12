@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Linux driver for setting the backlight brightness on laptops using NVIDIA GPU";
+    description = "Linux driver for setting the backlight brightness on laptops using NVIDIA GPU";
     homepage = "https://github.com/yorickvP/nvidiabl";
     license = licenses.gpl2;
     platforms = [

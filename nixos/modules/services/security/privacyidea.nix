@@ -346,21 +346,20 @@ in
         path = [ penv ];
         serviceConfig = {
           CapabilityBoundingSet = [ "" ];
-          ExecStart =
-            "${pkgs.writeShellScript "pi-token-janitor" ''
-              ${optionalString cfg.tokenjanitor.orphaned ''
-                echo >&2 "Removing orphaned tokens..."
-                privacyidea-token-janitor find \
-                  --orphaned true \
-                  --action ${cfg.tokenjanitor.action}
-              ''}
-              ${optionalString cfg.tokenjanitor.unassigned ''
-                echo >&2 "Removing unassigned tokens..."
-                privacyidea-token-janitor find \
-                  --assigned false \
-                  --action ${cfg.tokenjanitor.action}
-              ''}
-            ''}";
+          ExecStart = "${pkgs.writeShellScript "pi-token-janitor" ''
+            ${optionalString cfg.tokenjanitor.orphaned ''
+              echo >&2 "Removing orphaned tokens..."
+              privacyidea-token-janitor find \
+                --orphaned true \
+                --action ${cfg.tokenjanitor.action}
+            ''}
+            ${optionalString cfg.tokenjanitor.unassigned ''
+              echo >&2 "Removing unassigned tokens..."
+              privacyidea-token-janitor find \
+                --assigned false \
+                --action ${cfg.tokenjanitor.action}
+            ''}
+          ''}";
           Group = cfg.group;
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
@@ -415,12 +414,10 @@ in
           wantedBy = [ "multi-user.target" ];
           after = [ "postgresql.service" ];
           path = with pkgs; [ openssl ];
-          environment.PRIVACYIDEA_CONFIGFILE =
-            "${cfg.stateDir}/privacyidea.cfg";
+          environment.PRIVACYIDEA_CONFIGFILE = "${cfg.stateDir}/privacyidea.cfg";
           preStart =
             let
-              pi-manage =
-                "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage";
+              pi-manage = "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage";
               pgsu = config.services.postgresql.superUser;
               psql = config.services.postgresql.package;
             in
@@ -481,8 +478,7 @@ in
             cfg.ldap-proxy.configFile == null
           )
         ;
-        message =
-          "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
+        message = "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
       } ];
 
       warnings = mkIf (cfg.ldap-proxy.configFile != null) [
@@ -505,13 +501,14 @@ in
             EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null) [
               cfg.ldap-proxy.environmentFile
             ];
-            ExecStartPre =
-              "${pkgs.writeShellScript "substitute-secrets-ldap-proxy" ''
-                umask 0077
-                ${pkgs.envsubst}/bin/envsubst \
-                  -i ${ldapProxyConfig} \
-                  -o $STATE_DIRECTORY/ldap-proxy.ini
-              ''}";
+            ExecStartPre = "${pkgs.writeShellScript
+                "substitute-secrets-ldap-proxy"
+                ''
+                  umask 0077
+                  ${pkgs.envsubst}/bin/envsubst \
+                    -i ${ldapProxyConfig} \
+                    -o $STATE_DIRECTORY/ldap-proxy.ini
+                ''}";
             ExecStart =
               let
                 configPath =

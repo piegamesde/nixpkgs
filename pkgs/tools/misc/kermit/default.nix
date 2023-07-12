@@ -31,8 +31,7 @@ stdenv.mkDerivation {
       -e 's@/usr/local@'"$out"@ makefile
   '';
 
-  buildPhase =
-    "make -f makefile linux KFLAGS='-D_IO_file_flags' LNKFLAGS='-lcrypt -lresolv'";
+  buildPhase = "make -f makefile linux KFLAGS='-D_IO_file_flags' LNKFLAGS='-lcrypt -lresolv'";
 
   installPhase = ''
     mkdir -p $out/bin
@@ -42,8 +41,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.kermitproject.org/ck90.html";
-    description =
-      "Portable Scriptable Network and Serial Communication Software";
+    description = "Portable Scriptable Network and Serial Communication Software";
     license = licenses.bsd3;
     maintainers = with maintainers; [ pSub ];
     platforms = with platforms; linux;

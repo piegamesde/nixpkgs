@@ -68,8 +68,7 @@ buildGoModule {
   };
 
   meta = {
-    description =
-      "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
+    description = "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
     homepage = "https://www.navidrome.org/";
     license = lib.licenses.gpl3Only;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];

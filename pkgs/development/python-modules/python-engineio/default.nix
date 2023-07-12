@@ -63,8 +63,7 @@ buildPythonPackage rec {
       bidirectional event-based communication between clients and a server.
     '';
     homepage = "https://github.com/miguelgrinberg/python-engineio/";
-    changelog =
-      "https://github.com/miguelgrinberg/python-engineio/blob/v${version}/CHANGES.md";
+    changelog = "https://github.com/miguelgrinberg/python-engineio/blob/v${version}/CHANGES.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ mic92 ];
   };

@@ -468,8 +468,7 @@ in
           ->
             cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions
         ;
-        message =
-          "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
+        message = "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
       }
     ];
 
@@ -577,8 +576,7 @@ in
               wm,
             }:
             let
-              sessionName =
-                "${dm.name}${
+              sessionName = "${dm.name}${
                   optionalString (wm.name != "none") ("+" + wm.name)
                 }";
               script = xsession dm wm;

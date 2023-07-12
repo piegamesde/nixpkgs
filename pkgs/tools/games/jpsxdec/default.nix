@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://jpsxdec.blogspot.com/";
     platforms = platforms.all;
     license = {
-      url =
-        "https://raw.githubusercontent.com/m35/jpsxdec/readme/.github/LICENSE.md";
+      url = "https://raw.githubusercontent.com/m35/jpsxdec/readme/.github/LICENSE.md";
       free = true;
     };
     maintainers = with maintainers; [ zane ];

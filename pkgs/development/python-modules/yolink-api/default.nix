@@ -41,8 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to interface with Yolink";
     homepage = "https://github.com/YoSmart-Inc/yolink-api";
-    changelog =
-      "https://github.com/YoSmart-Inc/yolink-api/releases/tag/v${version}";
+    changelog = "https://github.com/YoSmart-Inc/yolink-api/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

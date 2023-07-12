@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "22.1.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/be5invis/Iosevka/releases/download/v${version}/ttc-${name}-${version}.zip";
+    url = "https://github.com/be5invis/Iosevka/releases/download/v${version}/ttc-${name}-${version}.zip";
     sha256 =
       variantHashes.${name} or (throw ''
         No such variant "${variant}" for package iosevka-bin.

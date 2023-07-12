@@ -67,8 +67,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "SDK for building Kubernetes APIs using CRDs";
     homepage = "https://github.com/kubernetes-sigs/kubebuilder";
-    changelog =
-      "https://github.com/kubernetes-sigs/kubebuilder/releases/tag/v${version}";
+    changelog = "https://github.com/kubernetes-sigs/kubebuilder/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ cmars ];
   };

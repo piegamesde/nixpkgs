@@ -40,8 +40,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     outputHashes = {
       "glutin-0.26.0" = "sha256-Ie4Jb3wCMZSmF1MUzkLG2TqsLrXXzzi6ATjzCjevZBc=";
       "winit-0.24.0" = "sha256-p/eAaDVmTHzfZ+0DiBA/9v06Z5o1dXVNoCgWRqC1ed0=";
-      "xkbcommon-dl-0.1.0" =
-        "sha256-ojokJF7ivN8JpXo+JAfX3kUOeXneNek7pzIy8D1n4oU=";
+      "xkbcommon-dl-0.1.0" = "sha256-ojokJF7ivN8JpXo+JAfX3kUOeXneNek7pzIy8D1n4oU=";
     };
   };
 

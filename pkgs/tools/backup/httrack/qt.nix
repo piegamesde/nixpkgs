@@ -48,8 +48,7 @@ mkDerivation rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description =
-      "Easy-to-use offline browser / website mirroring utility - QT frontend";
+    description = "Easy-to-use offline browser / website mirroring utility - QT frontend";
     homepage = "http://www.httrack.com";
     license = licenses.gpl3;
     maintainers = with maintainers; [ peterhoeg ];

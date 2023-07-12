@@ -42,8 +42,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "QuantiPhy support for evals in-line";
     homepage = "https://github.com/KenKundert/quantiphy_eval/";
-    changelog =
-      "https://github.com/KenKundert/quantiphy_eval/releases/tag/v${version}";
+    changelog = "https://github.com/KenKundert/quantiphy_eval/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

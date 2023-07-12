@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
       C++20.
     '';
     homepage = "https://github.com/gsl-lite/gsl-lite";
-    changelog =
-      "https://github.com/gsl-lite/gsl-lite/blob/${src.rev}/CHANGES.txt";
+    changelog = "https://github.com/gsl-lite/gsl-lite/blob/${src.rev}/CHANGES.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];
     platforms = platforms.all;

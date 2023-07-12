@@ -88,8 +88,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = {
-    description =
-      "Portable command-line CD/DVD recorder software, mostly compatible with cdrtools";
+    description = "Portable command-line CD/DVD recorder software, mostly compatible with cdrtools";
 
     longDescription = ''
       Cdrkit is a suite of programs for recording CDs and DVDs,

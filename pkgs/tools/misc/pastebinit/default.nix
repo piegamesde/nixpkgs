@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   pname = "pastebinit";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/pastebinit/trunk/${version}/+download/${pname}-${version}.tar.bz2";
+    url = "https://launchpad.net/pastebinit/trunk/${version}/+download/${pname}-${version}.tar.bz2";
     sha256 = "0mw48fgm9lyh9d3pw997fccmglzsjccf2y347gxjas74wx6aira2";
   };
 
@@ -24,15 +23,13 @@ stdenv.mkDerivation rec {
     # Required to allow pastebinit 1.5 to run on Python 3.8
     (fetchpatch {
       name = "use-distro-module.patch";
-      url =
-        "https://bazaar.launchpad.net/~arnouten/pastebinit/python38/diff/264?context=3";
+      url = "https://bazaar.launchpad.net/~arnouten/pastebinit/python38/diff/264?context=3";
       sha256 = "1gp5inp4xald65xbb7fc5aqq5s2fhw464niwjjja9anqyp3zhawj";
     })
     # Required because pastebin.com now redirects http requests to https
     (fetchpatch {
       name = "pastebin-com-https.patch";
-      url =
-        "https://bazaar.launchpad.net/~arnouten/pastebinit/pastebin-com-https/diff/264?context=3";
+      url = "https://bazaar.launchpad.net/~arnouten/pastebinit/pastebin-com-https/diff/264?context=3";
       sha256 = "0hxhhfcai0mll8qfyhdl3slmbf34ynb759b648x63274m9nd2kji";
     })
   ];
@@ -47,8 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://launchpad.net/pastebinit";
-    description =
-      "A software that lets you send anything you want directly to a pastebin from the command line";
+    description = "A software that lets you send anything you want directly to a pastebin from the command line";
     maintainers = with maintainers; [ raboof ];
     license = licenses.gpl2;
     platforms = platforms.linux;

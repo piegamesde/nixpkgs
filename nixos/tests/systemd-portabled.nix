@@ -39,8 +39,8 @@ import ./make-test-python.nix (
     demo-portable = pkgs.portableService {
       pname = "demo";
       version = "1.0";
-      description =
-        ''A demo "Portable Service" for a shell program built with nix'';
+      description = ''
+        A demo "Portable Service" for a shell program built with nix'';
       units = [
         demo-service
         demo-socket

@@ -234,8 +234,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         Type = "notify";
-        ExecStart =
-          "${cfg.package}/bin/uwsgi --json ${
+        ExecStart = "${cfg.package}/bin/uwsgi --json ${
             buildCfg "server" cfg.instance
           }/server.json";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

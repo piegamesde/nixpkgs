@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   ; # normal
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/goattracker2/GoatTracker_${version}${
+    url = "mirror://sourceforge/goattracker2/GoatTracker_${version}${
         lib.optionalString isStereo "_Stereo"
       }.zip";
     sha256 =

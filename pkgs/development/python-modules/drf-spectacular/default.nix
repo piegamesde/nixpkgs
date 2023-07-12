@@ -76,11 +76,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "drf_spectacular" ];
 
   meta = with lib; {
-    description =
-      "Sane and flexible OpenAPI 3 schema generation for Django REST framework";
+    description = "Sane and flexible OpenAPI 3 schema generation for Django REST framework";
     homepage = "https://github.com/tfranzel/drf-spectacular";
-    changelog =
-      "https://github.com/tfranzel/drf-spectacular/releases/tag/${version}";
+    changelog = "https://github.com/tfranzel/drf-spectacular/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

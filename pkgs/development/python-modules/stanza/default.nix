@@ -44,11 +44,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "stanza" ];
 
   meta = with lib; {
-    description =
-      "Official Stanford NLP Python Library for Many Human Languages";
+    description = "Official Stanford NLP Python Library for Many Human Languages";
     homepage = "https://github.com/stanfordnlp/stanza/";
-    changelog =
-      "https://github.com/stanfordnlp/stanza/releases/tag/v${version}";
+    changelog = "https://github.com/stanfordnlp/stanza/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ riotbib ];
   };

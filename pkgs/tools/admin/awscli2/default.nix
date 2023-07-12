@@ -21,8 +21,7 @@ in
 with py.pkgs;
 buildPythonApplication rec {
   pname = "awscli2";
-  version =
-    "2.11.15"; # N.B: if you change this, check if overrides are still up-to-date
+  version = "2.11.15"; # N.B: if you change this, check if overrides are still up-to-date
   format = "pyproject";
 
   src = fetchFromGitHub {
@@ -113,8 +112,7 @@ buildPythonApplication rec {
   };
 
   meta = with lib; {
-    homepage =
-      "https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html";
+    homepage = "https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html";
     changelog = "https://github.com/aws/aws-cli/blob/${version}/CHANGELOG.rst";
     description = "Unified tool to manage your AWS services";
     license = licenses.asl20;

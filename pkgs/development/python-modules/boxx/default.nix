@@ -55,8 +55,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Tool-box for efficient build and debug for Scientific Computing and Computer Vision";
+    description = "Tool-box for efficient build and debug for Scientific Computing and Computer Vision";
     homepage = "https://github.com/DIYer22/boxx";
     license = licenses.mit;
     maintainers = with maintainers; [ lucasew ];

@@ -646,8 +646,7 @@ builtins.intersectAttrs super {
       # hasn't been released to Hackage as of dyre-0.9.1.  Likely included in
       # next version.
       (pkgs.fetchpatch {
-        url =
-          "https://github.com/willdonnelly/dyre/commit/c7f29d321aae343d6b314f058812dffcba9d7133.patch";
+        url = "https://github.com/willdonnelly/dyre/commit/c7f29d321aae343d6b314f058812dffcba9d7133.patch";
         sha256 = "10m22k35bi6cci798vjpy4c2l08lq5nmmj24iwp0aflvmjdgscdb";
       })
       # dyre's tests appear to be trying to directly call GHC.
@@ -705,9 +704,8 @@ builtins.intersectAttrs super {
             "--extra-include-dirs=${pkgs.bluez.dev}/include"
           ]
         ;
-        prePatch =
-          ''
-            sed -i -e "/Extra-Lib-Dirs/d" -e "/Include-Dirs/d" "hcwiid.cabal" '';
+        prePatch = ''
+          sed -i -e "/Extra-Lib-Dirs/d" -e "/Include-Dirs/d" "hcwiid.cabal" '';
       })
       super.hcwiid
   ;
@@ -1114,26 +1112,22 @@ builtins.intersectAttrs super {
   spago =
     let
       docsSearchApp_0_0_10 = pkgs.fetchurl {
-        url =
-          "https://github.com/purescript/purescript-docs-search/releases/download/v0.0.10/docs-search-app.js";
+        url = "https://github.com/purescript/purescript-docs-search/releases/download/v0.0.10/docs-search-app.js";
         sha256 = "0m5ah29x290r0zk19hx2wix2djy7bs4plh9kvjz6bs9r45x25pa5";
       };
 
       docsSearchApp_0_0_11 = pkgs.fetchurl {
-        url =
-          "https://github.com/purescript/purescript-docs-search/releases/download/v0.0.11/docs-search-app.js";
+        url = "https://github.com/purescript/purescript-docs-search/releases/download/v0.0.11/docs-search-app.js";
         sha256 = "17qngsdxfg96cka1cgrl3zdrpal8ll6vyhhnazqm4hwj16ywjm02";
       };
 
       purescriptDocsSearch_0_0_10 = pkgs.fetchurl {
-        url =
-          "https://github.com/purescript/purescript-docs-search/releases/download/v0.0.10/purescript-docs-search";
+        url = "https://github.com/purescript/purescript-docs-search/releases/download/v0.0.10/purescript-docs-search";
         sha256 = "0wc1zyhli4m2yykc6i0crm048gyizxh7b81n8xc4yb7ibjqwhyj3";
       };
 
       purescriptDocsSearch_0_0_11 = pkgs.fetchurl {
-        url =
-          "https://github.com/purescript/purescript-docs-search/releases/download/v0.0.11/purescript-docs-search";
+        url = "https://github.com/purescript/purescript-docs-search/releases/download/v0.0.11/purescript-docs-search";
         sha256 = "1hjdprm990vyxz86fgq14ajn0lkams7i00h8k2i2g1a0hjdwppq6";
       };
 
@@ -1237,8 +1231,7 @@ builtins.intersectAttrs super {
   guid =
     overrideCabal
       (drv: {
-        prePatch =
-          "sed -i '1d' Setup.hs"; # 1st line is module declaration, remove it
+        prePatch = "sed -i '1d' Setup.hs"; # 1st line is module declaration, remove it
         doCheck = false;
       })
       super.guid

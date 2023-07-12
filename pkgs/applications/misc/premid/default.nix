@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   version = "2.3.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/premid/Linux/releases/download/v${version}/${pname}.tar.gz";
+    url = "https://github.com/premid/Linux/releases/download/v${version}/${pname}.tar.gz";
     sha256 = "sha256-TuID63cVZkQ2kBl2iZeuVvjRUJYBt62ppPvgffBlOXY=";
   };
 
@@ -156,8 +155,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A simple, configurable utility to show your web activity as playing status on Discord";
+    description = "A simple, configurable utility to show your web activity as playing status on Discord";
     homepage = "https://premid.app";
     downloadPage = "https://premid.app/downloads";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

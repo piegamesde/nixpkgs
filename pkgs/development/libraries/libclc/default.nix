@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "http://libclc.llvm.org/";
-    description =
-      "Implementation of the library requirements of the OpenCL C programming language";
+    description = "Implementation of the library requirements of the OpenCL C programming language";
     license = licenses.mit;
     platforms = platforms.all;
   };

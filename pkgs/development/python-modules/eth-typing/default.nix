@@ -27,8 +27,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Common type annotations for Ethereum Python packages";
     homepage = "https://github.com/ethereum/eth-typing";
-    changelog =
-      "https://github.com/ethereum/eth-typing/blob/v${version}/docs/release_notes.rst";
+    changelog = "https://github.com/ethereum/eth-typing/blob/v${version}/docs/release_notes.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

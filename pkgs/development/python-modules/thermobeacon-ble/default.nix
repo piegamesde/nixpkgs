@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for Thermobeacon BLE devices";
     homepage = "https://github.com/bluetooth-devices/thermobeacon-ble";
-    changelog =
-      "https://github.com/Bluetooth-Devices/thermobeacon-ble/releases/tag/v${version}";
+    changelog = "https://github.com/Bluetooth-Devices/thermobeacon-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

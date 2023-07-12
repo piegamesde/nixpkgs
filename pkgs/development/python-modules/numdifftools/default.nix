@@ -42,8 +42,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "numdifftools" ];
 
   meta = with lib; {
-    description =
-      "Library to solve automatic numerical differentiation problems in one or more variables";
+    description = "Library to solve automatic numerical differentiation problems in one or more variables";
     homepage = "https://github.com/pbrod/numdifftools";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];

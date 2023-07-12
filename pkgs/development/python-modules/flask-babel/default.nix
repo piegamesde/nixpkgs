@@ -60,8 +60,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/python-babel/flask-babel/releases/tag/v${version}";
+    changelog = "https://github.com/python-babel/flask-babel/releases/tag/v${version}";
     description = "Adds i18n/l10n support to Flask applications";
     longDescription = ''
       Implements i18n and l10n support for Flask.

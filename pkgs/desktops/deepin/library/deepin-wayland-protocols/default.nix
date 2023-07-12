@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "XML files of the non-standard wayland protocols use in deepin";
+    description = "XML files of the non-standard wayland protocols use in deepin";
     homepage = "https://github.com/linuxdeepin/deepin-wayland-protocols";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;

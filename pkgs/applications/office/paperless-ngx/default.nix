@@ -318,11 +318,9 @@ python.pkgs.buildPythonApplication rec {
   };
 
   meta = with lib; {
-    description =
-      "Tool to scan, index, and archive all of your physical documents";
+    description = "Tool to scan, index, and archive all of your physical documents";
     homepage = "https://docs.paperless-ngx.com/";
-    changelog =
-      "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v${version}";
+    changelog = "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [
       lukegb

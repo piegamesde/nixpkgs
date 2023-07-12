@@ -23,16 +23,14 @@ stdenv.mkDerivation rec {
     # "Array sys_siglist[] never was part of the public interface. Replace it with calls to psiginfo()."
     (fetchpatch {
       name = "sys_siglist.patch";
-      url =
-        "https://github.com/jcbeaudoin/MKCL/commit/0777dd08254c88676f4f101117b10786b22111d6.patch";
+      url = "https://github.com/jcbeaudoin/MKCL/commit/0777dd08254c88676f4f101117b10786b22111d6.patch";
       sha256 = "1dnr1jzha77nrxs22mclrcqyqvxxn6q1sfn35qjs77fi3jcinjsc";
     })
 
     # Pull upstream fix for -fno-common toolchins like gcc-10
     (fetchpatch {
       name = "fno-common.patch";
-      url =
-        "https://gitlab.common-lisp.net/mkcl/mkcl/-/commit/ef1981dbf4ceb1793cd6434e66e97b3db48b4ea0.patch";
+      url = "https://gitlab.common-lisp.net/mkcl/mkcl/-/commit/ef1981dbf4ceb1793cd6434e66e97b3db48b4ea0.patch";
       sha256 = "00y6qanwvgb1r4haaqmvz7lbqa51l4wcnns1rwlfgvcvkpjc3dif";
     })
   ];

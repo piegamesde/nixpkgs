@@ -224,8 +224,7 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "manim" ];
 
   meta = with lib; {
-    description =
-      "Animation engine for explanatory math videos - Community version";
+    description = "Animation engine for explanatory math videos - Community version";
     longDescription = ''
       Manim is an animation engine for explanatory math videos. It's used to
       create precise animations programmatically, as seen in the videos of

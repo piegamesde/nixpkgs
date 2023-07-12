@@ -48,8 +48,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "here_transit" ];
 
   meta = {
-    changelog =
-      "https://github.com/eifinger/here_transit/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/eifinger/here_transit/blob/${src.rev}/CHANGELOG.md";
     description = "Asynchronous Python client for the HERE Routing V8 API";
     homepage = "https://github.com/eifinger/here_transit";
     license = lib.licenses.mit;

@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   version = "1.0.2";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/retro-gtk/${
+    url = "mirror://gnome/sources/retro-gtk/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "1lnb7dwcj3lrrvdzd85dxwrlid28xf4qdbrgfjyg1wn1z6sv063i";
@@ -34,8 +33,7 @@ stdenv.mkDerivation rec {
     ./gio-unix.patch
     # fix build with meson 0.60 (https://gitlab.gnome.org/GNOME/retro-gtk/-/merge_requests/167)
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/retro-gtk/-/commit/8016c10e7216394bc66281f2d9be740140b6fad6.patch";
+      url = "https://gitlab.gnome.org/GNOME/retro-gtk/-/commit/8016c10e7216394bc66281f2d9be740140b6fad6.patch";
       sha256 = "sha256-HcQnqadK5sJM5mMqi4KERkJM3H+MUl8AJAorpFDsJ68=";
     })
   ];

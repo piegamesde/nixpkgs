@@ -34,11 +34,9 @@ stdenv.mkDerivation rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "email-0.0.21" = "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
-      "encoded-words-0.2.0" =
-        "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
+      "encoded-words-0.2.0" = "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
       "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
-      "quinn-proto-0.9.2" =
-        "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
+      "quinn-proto-0.9.2" = "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
     };
   };
 
@@ -78,8 +76,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Delta Chat Rust Core library";
     homepage = "https://github.com/deltachat/deltachat-core-rust/";
-    changelog =
-      "https://github.com/deltachat/deltachat-core-rust/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/deltachat/deltachat-core-rust/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [
       dotlambda

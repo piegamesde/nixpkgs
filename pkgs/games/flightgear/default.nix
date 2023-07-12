@@ -43,8 +43,7 @@ let
     inherit version;
 
     src = fetchurl {
-      url =
-        "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.txz";
+      url = "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.txz";
       sha256 = "sha256-Kl66K5rmejaRKFgzps4/a73z8gIp9YcdfJQOFR1U2Og=";
     };
 
@@ -62,8 +61,7 @@ stdenv.mkDerivation rec {
   inherit version data;
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2";
+    url = "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-ZnDe3qyiaDrKd/nwa/nR2AYq4yoqVFnd3IqgmJxfGFQ=";
   };
 

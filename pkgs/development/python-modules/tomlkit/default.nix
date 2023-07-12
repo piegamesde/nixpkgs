@@ -36,8 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/sdispater/tomlkit";
-    changelog =
-      "https://github.com/sdispater/tomlkit/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/sdispater/tomlkit/blob/${version}/CHANGELOG.md";
     description = "Style-preserving TOML library for Python";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];

@@ -64,8 +64,7 @@ let
 
   meta = {
     homepage = "https://www.ibm.com/products/data-protection-and-recovery";
-    downloadPage =
-      "https://www.ibm.com/support/pages/ibm-spectrum-protect-downloads-latest-fix-packs-and-interim-fixes";
+    downloadPage = "https://www.ibm.com/support/pages/ibm-spectrum-protect-downloads-latest-fix-packs-and-interim-fixes";
     platforms = [ "x86_64-linux" ];
     mainProgram = "dsmc";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
@@ -110,8 +109,7 @@ let
     version = "8.1.17.2";
     src = fetchurl {
       url = mkSrcUrl version;
-      hash =
-        "sha512-DZCXb3fZO2VYJJJUdjGt9TSdrYNhf8w7QMgEERzX8xb74jjA+UPNI2dbNCeja/vrgRYLYipWZPyjTQJmkxlM/g==";
+      hash = "sha512-DZCXb3fZO2VYJJJUdjGt9TSdrYNhf8w7QMgEERzX8xb74jjA+UPNI2dbNCeja/vrgRYLYipWZPyjTQJmkxlM/g==";
     };
     inherit meta passthru;
 

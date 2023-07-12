@@ -42,8 +42,7 @@ let
       version = fullVersion;
 
       src = fetchurl {
-        url =
-          "https://github.com/atom/atom/releases/download/v${fullVersion}/atom-amd64.deb";
+        url = "https://github.com/atom/atom/releases/download/v${fullVersion}/atom-amd64.deb";
         name = "${name}.deb";
         inherit sha256;
       };

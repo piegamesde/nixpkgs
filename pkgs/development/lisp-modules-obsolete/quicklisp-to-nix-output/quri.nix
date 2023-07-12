@@ -18,8 +18,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/quri/2021-06-30/quri-20210630-git.tgz";
+    url = "http://beta.quicklisp.org/archive/quri/2021-06-30/quri-20210630-git.tgz";
     sha256 = "0ihgsqdzi9rh8ybc221g46c5h7i4vrz67znwv76rm2z44v8x0wwh";
   };
 

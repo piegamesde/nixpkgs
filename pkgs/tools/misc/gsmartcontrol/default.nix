@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "1.1.4";
 
   src = fetchurl {
-    url =
-      "https://github.com/ashaduri/gsmartcontrol/releases/download/v${version}/gsmartcontrol-${version}.tar.bz2";
+    url = "https://github.com/ashaduri/gsmartcontrol/releases/download/v${version}/gsmartcontrol-${version}.tar.bz2";
     sha256 = "sha256-/ECfK4qEzEC7ED1sgkAbnUwBgtWjsiPJOVnHrWYZGEc=";
   };
 

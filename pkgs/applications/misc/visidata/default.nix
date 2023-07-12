@@ -158,7 +158,6 @@ buildPythonApplication rec {
       markus1189
     ];
     homepage = "https://visidata.org/";
-    changelog =
-      "https://github.com/saulpw/visidata/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/saulpw/visidata/blob/v${version}/CHANGELOG.md";
   };
 }

@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit nix; };
 
   meta = with lib; {
-    description =
-      "C99 library implementation for communicating with the S3 service";
+    description = "C99 library implementation for communicating with the S3 service";
     homepage = "https://github.com/awslabs/aws-c-s3";
     license = licenses.asl20;
     maintainers = with maintainers; [ r-burns ];

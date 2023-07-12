@@ -13,8 +13,7 @@ let
 
   toPyBoolStr = b: if b then "True" else "False";
 
-  daemonExe =
-    "${pkgs.openrazer-daemon}/bin/openrazer-daemon --config ${daemonConfFile}";
+  daemonExe = "${pkgs.openrazer-daemon}/bin/openrazer-daemon --config ${daemonConfFile}";
 
   daemonConfFile = pkgs.writeTextFile {
     name = "razer.conf";

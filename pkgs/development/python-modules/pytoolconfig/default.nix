@@ -86,8 +86,7 @@ buildPythonPackage rec {
   ;
 
   meta = with lib; {
-    changelog =
-      "https://github.com/bagel897/pytoolconfig/releases/tag/v${version}";
+    changelog = "https://github.com/bagel897/pytoolconfig/releases/tag/v${version}";
     description = "Python tool configuration";
     homepage = "https://github.com/bagel897/pytoolconfig";
     license = licenses.lgpl3Plus;

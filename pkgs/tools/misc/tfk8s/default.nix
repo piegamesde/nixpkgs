@@ -36,8 +36,7 @@ buildGoModule rec {
   passthru.tests = { sample1 = callPackage ./tests/sample1 { }; };
 
   meta = with lib; {
-    description =
-      "An utility to convert Kubernetes YAML manifests to Terraform's HCL format";
+    description = "An utility to convert Kubernetes YAML manifests to Terraform's HCL format";
     license = licenses.mit;
     longDescription = ''
       tfk8s is a tool that makes it easier to work with the Terraform Kubernetes Provider.

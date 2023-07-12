@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   ;
 
   src = fetchurl {
-    url =
-      "https://git.exherbo.org/${pname}.git/snapshot/${pname}-${version}.tar.xz";
+    url = "https://git.exherbo.org/${pname}.git/snapshot/${pname}-${version}.tar.xz";
     sha256 = "0664myrrzbvsw73q5b7cqwgv4hl9a7vkm642s1r96gaxm16jk0z7";
   };
 

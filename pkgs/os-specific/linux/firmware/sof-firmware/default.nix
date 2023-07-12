@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "2.2.4";
 
   src = fetchurl {
-    url =
-      "https://github.com/thesofproject/sof-bin/releases/download/v${version}/sof-bin-v${version}.tar.gz";
+    url = "https://github.com/thesofproject/sof-bin/releases/download/v${version}/sof-bin-v${version}.tar.gz";
     sha256 = "sha256-zoquuhA6pWqCZiVSsPM/M6hZqhAI2L+8LCLwzPyMazo=";
   };
 
@@ -25,8 +24,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    changelog =
-      "https://github.com/thesofproject/sof-bin/releases/tag/v${version}";
+    changelog = "https://github.com/thesofproject/sof-bin/releases/tag/v${version}";
     description = "Sound Open Firmware";
     homepage = "https://www.sofproject.org/";
     license = with licenses; [

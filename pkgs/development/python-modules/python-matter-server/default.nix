@@ -85,8 +85,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/home-assistant-libs/python-matter-server/releases/tag/${version}";
+    changelog = "https://github.com/home-assistant-libs/python-matter-server/releases/tag/${version}";
     description = "Python server to interact with Matter";
     homepage = "https://github.com/home-assistant-libs/python-matter-server";
     license = licenses.asl20;

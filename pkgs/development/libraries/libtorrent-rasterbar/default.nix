@@ -72,8 +72,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://libtorrent.org/";
-    description =
-      "A C++ BitTorrent implementation focusing on efficiency and scalability";
+    description = "A C++ BitTorrent implementation focusing on efficiency and scalability";
     license = licenses.bsd3;
     maintainers = [ ];
     platforms = platforms.unix;

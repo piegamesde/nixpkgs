@@ -30,8 +30,7 @@ buildPythonPackage {
   meta = with lib; {
     description = "Describe-style plugin for the pytest framework";
     homepage = "https://github.com/pytest-dev/pytest-describe";
-    changelog =
-      "https://github.com/pytest-dev/pytest-describe/releases/tag/${version}";
+    changelog = "https://github.com/pytest-dev/pytest-describe/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

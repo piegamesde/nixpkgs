@@ -69,8 +69,7 @@ in
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          "${cfg.package}/bin/Radarr -nobrowser -data='${cfg.dataDir}'";
+        ExecStart = "${cfg.package}/bin/Radarr -nobrowser -data='${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };

@@ -361,8 +361,7 @@ in
         environment.PULSE_RUNTIME_PATH = stateDir;
         serviceConfig = {
           Type = "notify";
-          ExecStart =
-            "${binaryNoDaemon} --log-level=${cfg.daemon.logLevel} --system -n --file=${myConfigFile}";
+          ExecStart = "${binaryNoDaemon} --log-level=${cfg.daemon.logLevel} --system -n --file=${myConfigFile}";
           Restart = "on-failure";
           RestartSec = "500ms";
         };

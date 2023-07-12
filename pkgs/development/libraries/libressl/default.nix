@@ -123,8 +123,7 @@ in
       (fetchpatch {
         # https://marc.info/?l=libressl&m=167582148932407&w=2
         name = "backport-type-confusion-fix.patch";
-        url =
-          "https://raw.githubusercontent.com/libressl/portable/30dc760ed1d7c70766b135500950d8ca9d17b13a/patches/x509_genn.c.diff";
+        url = "https://raw.githubusercontent.com/libressl/portable/30dc760ed1d7c70766b135500950d8ca9d17b13a/patches/x509_genn.c.diff";
         sha256 = "sha256-N9jsOueqposDWZwaR+n/v/cHgNiZbZ644d8/wKjN2/M=";
         stripLen = 2;
         extraPrefix = "crypto/";
@@ -141,8 +140,7 @@ in
         # Fix endianness detection on aarch64-darwin, issue #181187
         (fetchpatch {
           name = "fix-endian-header-detection.patch";
-          url =
-            "https://patch-diff.githubusercontent.com/raw/libressl-portable/portable/pull/771.patch";
+          url = "https://patch-diff.githubusercontent.com/raw/libressl-portable/portable/pull/771.patch";
           sha256 = "sha256-in5U6+sl0HB9qMAtUL6Py4X2rlv0HsqRMIQhhM1oThE=";
         })
       ];

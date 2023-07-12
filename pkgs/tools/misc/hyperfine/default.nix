@@ -32,8 +32,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Command-line benchmarking tool";
     homepage = "https://github.com/sharkdp/hyperfine";
-    changelog =
-      "https://github.com/sharkdp/hyperfine/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/sharkdp/hyperfine/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

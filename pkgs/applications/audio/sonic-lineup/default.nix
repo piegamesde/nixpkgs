@@ -33,15 +33,13 @@ stdenv.mkDerivation rec {
   version = "1.1";
 
   src = fetchurl {
-    url =
-      "https://code.soundsoftware.ac.uk/attachments/download/2765/${pname}-${version}.tar.gz";
+    url = "https://code.soundsoftware.ac.uk/attachments/download/2765/${pname}-${version}.tar.gz";
     sha256 = "0k45k9fawcm4s5yy05x00pgww7j8m7k2cxcc7g0fn9vqy7vcbq9h";
   };
 
   patches = [
     (fetchpatch2 {
-      url =
-        "https://github.com/sonic-visualiser/svcore/commit/5a7b517e43b7f0b3f03b7fc3145102cf4e5b0ffc.patch";
+      url = "https://github.com/sonic-visualiser/svcore/commit/5a7b517e43b7f0b3f03b7fc3145102cf4e5b0ffc.patch";
       stripLen = 1;
       extraPrefix = "svcore/";
       sha256 = "sha256-DOCdQqCihkR0g/6m90DbJxw00QTpyVmFzCxagrVWKiI=";

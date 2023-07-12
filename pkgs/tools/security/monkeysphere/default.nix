@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   disallowedRequisites = [ opensshUnsafe ];
 
   src = fetchurl {
-    url =
-      "http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_${version}.orig.tar.gz";
+    url = "http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_${version}.orig.tar.gz";
     sha256 = "1ah7hy8r9gj96pni8azzjb85454qky5l17m3pqn37854l6grgika";
   };
 
@@ -148,8 +147,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://web.monkeysphere.info/";
-    description =
-      "Leverage the OpenPGP web of trust for SSH and TLS authentication";
+    description = "Leverage the OpenPGP web of trust for SSH and TLS authentication";
     longDescription = ''
       The Monkeysphere project's goal is to extend OpenPGP's web of
       trust to new areas of the Internet to help us securely identify

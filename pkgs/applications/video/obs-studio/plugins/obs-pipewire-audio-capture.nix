@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      " Audio device and application capture for OBS Studio using PipeWire ";
+    description = " Audio device and application capture for OBS Studio using PipeWire ";
     homepage = "https://github.com/dimtpap/obs-pipewire-audio-capture";
     maintainers = with maintainers; [ Elinvention ];
     license = licenses.gpl2;

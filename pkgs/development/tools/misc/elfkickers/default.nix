@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "3.2";
 
   src = fetchurl {
-    url =
-      "https://www.muppetlabs.com/~breadbox/pub/software/ELFkickers-${version}.tar.gz";
+    url = "https://www.muppetlabs.com/~breadbox/pub/software/ELFkickers-${version}.tar.gz";
     sha256 = "sha256-m4HmxT4MlPwZjZiC63NxVvNtVlFS3DIRiJfHewaiaHw=";
   };
 
@@ -23,8 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.muppetlabs.com/~breadbox/software/elfkickers.html";
-    description =
-      "A collection of programs that access and manipulate ELF files";
+    description = "A collection of programs that access and manipulate ELF files";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.dtzWill ];

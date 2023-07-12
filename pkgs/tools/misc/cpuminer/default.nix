@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-build-on-aarch64.patch";
-      url =
-        "https://github.com/pooler/cpuminer/commit/5f02105940edb61144c09a7eb960bba04a10d5b7.patch";
+      url = "https://github.com/pooler/cpuminer/commit/5f02105940edb61144c09a7eb960bba04a10d5b7.patch";
       hash = "sha256-lGAcwDcXgcJBFhasSEdQIEIY7pp6x/PEXHBsVwAOqhc=";
     })
   ];

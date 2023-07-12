@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "spur" ];
 
   meta = with lib; {
-    description =
-      "Python module to run commands and manipulate files locally or over SSH";
+    description = "Python module to run commands and manipulate files locally or over SSH";
     homepage = "https://github.com/mwilliamson/spur.py";
     changelog = "https://github.com/mwilliamson/spur.py/blob/0.3.23/CHANGES";
     license = with licenses; [ bsd2 ];

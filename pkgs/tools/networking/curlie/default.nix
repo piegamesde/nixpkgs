@@ -33,8 +33,7 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description =
-      "Frontend to curl that adds the ease of use of httpie, without compromising on features and performance";
+    description = "Frontend to curl that adds the ease of use of httpie, without compromising on features and performance";
     homepage = "https://curlie.io/";
     maintainers = with maintainers; [ ma27 ];
     license = licenses.mit;

@@ -25,8 +25,7 @@ let
     ];
 
     src = fetchurl {
-      url =
-        "http://www.abisource.com/downloads/${pname}/${version}/${pname}-${version}.tar.gz";
+      url = "http://www.abisource.com/downloads/${pname}/${version}/${pname}-${version}.tar.gz";
       sha256 = "sha256-MkcQzYEyl1/5zLU1CXMvdVhHOxwZ8XiSAAo97bhhiu0=";
     };
 
@@ -65,8 +64,7 @@ let
     meta = with lib; {
       description = "A Grammar Checking library";
       homepage = "https://www.abisource.com/projects/link-grammar/";
-      changelog =
-        "https://github.com/opencog/link-grammar/blob/link-grammar-${version}/ChangeLog";
+      changelog = "https://github.com/opencog/link-grammar/blob/link-grammar-${version}/ChangeLog";
       license = licenses.lgpl21Only;
       maintainers = with maintainers; [ jtojnar ];
       platforms = platforms.unix;

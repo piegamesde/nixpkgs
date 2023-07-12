@@ -12,8 +12,7 @@
 
 buildPythonPackage rec {
   pname = "botocore";
-  version =
-    "1.29.79"; # N.B: if you change this, change boto3 and awscli to a matching version
+  version = "1.29.79"; # N.B: if you change this, change boto3 and awscli to a matching version
 
   src = fetchPypi {
     inherit pname version;
@@ -46,11 +45,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/boto/botocore";
-    changelog =
-      "https://github.com/boto/botocore/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/boto/botocore/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    description =
-      "A low-level interface to a growing number of Amazon Web Services";
+    description = "A low-level interface to a growing number of Amazon Web Services";
     maintainers = with maintainers; [ anthonyroussel ];
   };
 }

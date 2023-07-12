@@ -22,8 +22,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/boyter/scc";
-    description =
-      "A very fast accurate code counter with complexity calculations and COCOMO estimates written in pure Go";
+    description = "A very fast accurate code counter with complexity calculations and COCOMO estimates written in pure Go";
     maintainers = with maintainers; [
       sigma
       Br1ght0ne

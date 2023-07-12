@@ -101,8 +101,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
     inherit freebsdSrc;
 
     ports = fetchzip {
-      url =
-        "https://cgit.freebsd.org/ports/snapshot/ports-dde3b2b456c3a4bdd217d0bf3684231cc3724a0a.tar.gz";
+      url = "https://cgit.freebsd.org/ports/snapshot/ports-dde3b2b456c3a4bdd217d0bf3684231cc3724a0a.tar.gz";
       sha256 = "BpHqJfnGOeTE7tkFJBx0Wk8ryalmf4KNTit/Coh026E=";
     };
 
@@ -1035,8 +1034,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
         AWK = "${buildPackages.gawk}/bin/awk";
 
-        CWARNEXTRA =
-          "-Wno-error=shift-negative-value -Wno-address-of-packed-member";
+        CWARNEXTRA = "-Wno-error=shift-negative-value -Wno-address-of-packed-member";
 
         MK_CTF = "no";
 

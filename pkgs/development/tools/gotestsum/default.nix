@@ -29,8 +29,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/gotestyourself/gotestsum";
-    changelog =
-      "https://github.com/gotestyourself/gotestsum/releases/tag/v${version}";
+    changelog = "https://github.com/gotestyourself/gotestsum/releases/tag/v${version}";
     description = "A human friendly `go test` runner";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.asl20;

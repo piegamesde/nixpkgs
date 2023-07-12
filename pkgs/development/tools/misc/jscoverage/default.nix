@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "0.5.1";
 
   src = fetchurl {
-    url =
-      "https://siliconforks.com/${pname}/download/${pname}-${version}.tar.bz2";
+    url = "https://siliconforks.com/${pname}/download/${pname}-${version}.tar.bz2";
     sha256 = "c45f051cec18c10352f15f9844f47e37e8d121d5fd16680e2dd0f3b4420eb7f4";
   };
 

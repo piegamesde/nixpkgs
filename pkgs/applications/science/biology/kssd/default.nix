@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
       #   https://github.com/yhg926/public_kssd/pull/9
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/yhg926/public_kssd/commit/cdd1e8aae256146f5913a3b4c723b638d53bdf27.patch";
+        url = "https://github.com/yhg926/public_kssd/commit/cdd1e8aae256146f5913a3b4c723b638d53bdf27.patch";
         sha256 = "sha256-HhaTRqPfKR+ouh0PwEH6u22pbuqbX2OypRzw8BXm0W4=";
       })
     ];

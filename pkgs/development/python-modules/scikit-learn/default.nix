@@ -101,8 +101,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sklearn" ];
 
   meta = with lib; {
-    description =
-      "A set of python modules for machine learning and data mining";
+    description = "A set of python modules for machine learning and data mining";
     changelog =
       let
         major = versions.major version;

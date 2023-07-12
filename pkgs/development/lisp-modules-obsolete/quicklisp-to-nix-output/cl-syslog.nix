@@ -21,8 +21,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-syslog/2019-02-02/cl-syslog-20190202-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-syslog/2019-02-02/cl-syslog-20190202-git.tgz";
     sha256 = "1kzz613y9fvx33svlwc65vjaj1cafnxz8icds80ww7il7y6alwgh";
   };
 

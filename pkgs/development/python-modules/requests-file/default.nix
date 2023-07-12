@@ -27,8 +27,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "requests_file" ];
 
   meta = with lib; {
-    description =
-      "Transport adapter for fetching file:// URLs with the requests python library";
+    description = "Transport adapter for fetching file:// URLs with the requests python library";
     homepage = "https://github.com/dashea/requests-file";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];

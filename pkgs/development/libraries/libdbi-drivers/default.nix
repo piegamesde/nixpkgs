@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "0.9.0";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/libdbi-drivers/libdbi-drivers-${version}.tar.gz";
+    url = "mirror://sourceforge/libdbi-drivers/libdbi-drivers-${version}.tar.gz";
     sha256 = "0m680h8cc4428xin4p733azysamzgzcmv4psjvraykrsaz6ymlj3";
   };
 

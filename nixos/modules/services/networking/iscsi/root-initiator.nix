@@ -198,8 +198,7 @@ in
     assertions = [
       {
         assertion = cfg.loginAll -> cfg.target == null;
-        message =
-          "iSCSI target name is set while login on all portals is enabled.";
+        message = "iSCSI target name is set while login on all portals is enabled.";
       }
       {
         assertion = !config.boot.initrd.systemd.enable;

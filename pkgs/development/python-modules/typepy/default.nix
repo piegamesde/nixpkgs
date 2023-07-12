@@ -33,8 +33,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/thombashi/typepy";
-    description =
-      "A library for variable type checker/validator/converter at a run time";
+    description = "A library for variable type checker/validator/converter at a run time";
     maintainers = with maintainers; [ genericnerdyusername ];
     license = licenses.mit;
   };

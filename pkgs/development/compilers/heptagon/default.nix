@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Compiler for the Heptagon/BZR synchronous programming language";
+    description = "Compiler for the Heptagon/BZR synchronous programming language";
     homepage = "https://gitlab.inria.fr/synchrone/heptagon";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ wegank ];

@@ -37,8 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Thin wrapper around OVH's APIs";
     homepage = "https://github.com/ovh/python-ovh";
-    changelog =
-      "https://github.com/ovh/python-ovh/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/ovh/python-ovh/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = with maintainers; [ makefu ];
   };

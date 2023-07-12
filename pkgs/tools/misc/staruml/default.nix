@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
   pname = "staruml";
 
   src = fetchurl {
-    url =
-      "https://staruml.io/download/releases-v4/StarUML_${version}_amd64.deb";
+    url = "https://staruml.io/download/releases-v4/StarUML_${version}_amd64.deb";
     sha256 = "sha256-CUOdpR8RExMLeOX8469egENotMNuPU4z8S1IGqA21z0=";
   };
 

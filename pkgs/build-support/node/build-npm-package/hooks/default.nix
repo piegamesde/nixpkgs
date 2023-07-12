@@ -19,8 +19,7 @@
           # inputs do not cause us to find the wrong binaries.
           diff = "${buildPackages.diffutils}/bin/diff";
           jq = "${buildPackages.jq}/bin/jq";
-          prefetchNpmDeps =
-            "${buildPackages.prefetch-npm-deps}/bin/prefetch-npm-deps";
+          prefetchNpmDeps = "${buildPackages.prefetch-npm-deps}/bin/prefetch-npm-deps";
 
           nodeVersion = nodejs.version;
           nodeVersionMajor = lib.versions.major nodejs.version;

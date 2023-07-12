@@ -38,8 +38,7 @@ stdenv.mkDerivation {
   };
 
   meta = with lib; {
-    description =
-      "Bash shell-script implementation of SuperGenPass password generation";
+    description = "Bash shell-script implementation of SuperGenPass password generation";
     longDescription = ''
       Bash shell-script implementation of SuperGenPass password generation
       Usage: ./supergenpass.sh <domain> [ <length> ]

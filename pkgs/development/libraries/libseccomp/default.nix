@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "2.5.4";
 
   src = fetchurl {
-    url =
-      "https://github.com/seccomp/libseccomp/releases/download/v${version}/libseccomp-${version}.tar.gz";
+    url = "https://github.com/seccomp/libseccomp/releases/download/v${version}/libseccomp-${version}.tar.gz";
     sha256 = "sha256-2CkCQAQFzwBoV07z3B/l9ZJiB1Q7oa5vjnoVdjUdy9s=";
   };
 

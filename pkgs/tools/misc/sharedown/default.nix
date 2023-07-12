@@ -37,8 +37,7 @@ stdenvNoCC.mkDerivation rec {
       name = "Sharedown";
       exec = "Sharedown";
       icon = "Sharedown";
-      comment =
-        "An Application to save your Sharepoint videos for offline usage.";
+      comment = "An Application to save your Sharepoint videos for offline usage.";
       desktopName = "Sharedown";
       categories = [
         "Network"
@@ -117,8 +116,7 @@ stdenvNoCC.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "Application to save your Sharepoint videos for offline usage";
+    description = "Application to save your Sharepoint videos for offline usage";
     homepage = "https://github.com/kylon/Sharedown";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];

@@ -18,8 +18,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/CraigFe/progress/releases/download/${version}/terminal-${version}.tbz";
+    url = "https://github.com/CraigFe/progress/releases/download/${version}/terminal-${version}.tbz";
     hash = "sha256:0vjqkvmpyi8kvmb4vrx3f0994rph8i9pvlrz1dyi126vlb2zbrvs";
   };
 

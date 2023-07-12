@@ -43,8 +43,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/jkwill87/mnamer";
-    description =
-      "An intelligent and highly configurable media organization utility";
+    description = "An intelligent and highly configurable media organization utility";
     license = licenses.mit;
     maintainers = with maintainers; [ urlordjames ];
   };

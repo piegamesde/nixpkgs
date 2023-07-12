@@ -492,8 +492,7 @@ in
       }
       {
         assertion = (cfg.maxHeapSize == null) == (cfg.heapNewSize == null);
-        message =
-          "If you set either of maxHeapSize or heapNewSize you have to set both";
+        message = "If you set either of maxHeapSize or heapNewSize you have to set both";
       }
       {
         assertion = cfg.remoteJmx -> cfg.jmxRolesFile != null;

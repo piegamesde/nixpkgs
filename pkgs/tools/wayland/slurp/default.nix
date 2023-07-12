@@ -52,8 +52,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       homepage = "https://github.com/emersion/slurp";
       description = "Select a region in a Wayland compositor";
-      changelog =
-        "https://github.com/emersion/slurp/releases/tag/v${finalAttrs.version}";
+      changelog = "https://github.com/emersion/slurp/releases/tag/v${finalAttrs.version}";
       license = licenses.mit;
       maintainers = with maintainers; [ buffet ];
       inherit (wayland.meta) platforms;

@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
     # Fix cross-compilation
     # https://lists.gnu.org/archive/html/bug-mailutils/2020-11/msg00038.html
     (fetchpatch {
-      url =
-        "https://lists.gnu.org/archive/html/bug-mailutils/2020-11/txtiNjqcNpqOk.txt";
+      url = "https://lists.gnu.org/archive/html/bug-mailutils/2020-11/txtiNjqcNpqOk.txt";
       sha256 = "0ghzqb8qx2q8cffbvqzw19mivv7r5f16whplzhm7hdj0j2i6xf6s";
     })
     # https://github.com/NixOS/nixpkgs/issues/223967

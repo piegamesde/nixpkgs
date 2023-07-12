@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Library for intelligent sentence-based Chinese pinyin input method";
+    description = "Library for intelligent sentence-based Chinese pinyin input method";
     homepage = "https://github.com/libpinyin/libpinyin";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [

@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       # avoid using missing __GNUC_PREREQ(X,Y)
-      url =
-        "https://raw.githubusercontent.com/void-linux/void-packages/9583597eb3e6e6b33f61dbc615d511ce030bc443/srcpkgs/e2fsprogs/patches/fix-glibcism.patch";
+      url = "https://raw.githubusercontent.com/void-linux/void-packages/9583597eb3e6e6b33f61dbc615d511ce030bc443/srcpkgs/e2fsprogs/patches/fix-glibcism.patch";
       sha256 = "1gfcsr0i3q8q2f0lqza8na0iy4l4p3cbii51ds6zmj0y4hz2dwhb";
       excludes = [ "lib/ext2fs/hashmap.h" ];
       extraPrefix = "";
@@ -107,8 +106,7 @@ stdenv.mkDerivation rec {
   };
   meta = with lib; {
     homepage = "https://e2fsprogs.sourceforge.net/";
-    changelog =
-      "https://e2fsprogs.sourceforge.net/e2fsprogs-release.html#${version}";
+    changelog = "https://e2fsprogs.sourceforge.net/e2fsprogs-release.html#${version}";
     description = "Tools for creating and checking ext2/ext3/ext4 filesystems";
     license = with licenses; [
       gpl2Plus

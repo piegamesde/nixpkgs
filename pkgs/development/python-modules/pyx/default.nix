@@ -20,8 +20,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Python package for the generation of PostScript, PDF, and SVG files";
+    description = "Python package for the generation of PostScript, PDF, and SVG files";
     homepage = "https://pyx.sourceforge.net/";
     license = with licenses; [ gpl2 ];
   };

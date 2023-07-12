@@ -41,8 +41,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sqlobject" ];
 
   meta = with lib; {
-    description =
-      "Object Relational Manager for providing an object interface to your database";
+    description = "Object Relational Manager for providing an object interface to your database";
     homepage = "http://www.sqlobject.org/";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ ];

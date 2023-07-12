@@ -35,8 +35,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Vector tile server specialized on publishing MVT tiles";
     homepage = "https://t-rex.tileserver.ch/";
-    changelog =
-      "https://github.com/t-rex-tileserver/t-rex/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/t-rex-tileserver/t-rex/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     mainProgram = "t_rex";

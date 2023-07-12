@@ -21,14 +21,12 @@ stdenv.mkDerivation rec {
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
-        url =
-          "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_x86_64}_x86_64.tar.gz";
+        url = "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_x86_64}_x86_64.tar.gz";
         sha256 = "sha256-r4yRmnMd6uNay7CqmyqYj9F6huoqD8eBby+oDNk1T34=";
       }
     else if stdenv.hostPlatform.system == "i686-linux" then
       fetchurl {
-        url =
-          "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_i686}_i686.tar.gz";
+        url = "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_i686}_i686.tar.gz";
         sha256 = "sha256-TvEU1hDvPXQbF7fMI89I2bhap1Y0oetUoFl3yR5eTGg=";
       }
     else

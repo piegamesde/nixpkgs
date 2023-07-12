@@ -57,8 +57,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/zarr-developers/numcodecs";
     license = licenses.mit;
-    description =
-      "Buffer compression and transformation codecs for use in data storage and communication applications";
+    description = "Buffer compression and transformation codecs for use in data storage and communication applications";
     maintainers = [ maintainers.costrouc ];
   };
 }

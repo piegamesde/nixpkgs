@@ -7,8 +7,7 @@ rec {
   baseName = "cl-smt-lib";
   version = "20211020-git";
 
-  description =
-    "SMT object supporting SMT-LIB communication over input and output streams";
+  description = "SMT object supporting SMT-LIB communication over input and output streams";
 
   deps = [
     args."asdf-package-system"
@@ -17,8 +16,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-smt-lib/2021-10-20/cl-smt-lib-20211020-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-smt-lib/2021-10-20/cl-smt-lib-20211020-git.tgz";
     sha256 = "1x2d79xcc0c56cb02axly6c10y6dmvxcpr3f16qry02rpfqys3qm";
   };
 

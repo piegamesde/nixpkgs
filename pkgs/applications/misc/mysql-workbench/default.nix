@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   version = "8.0.33";
 
   src = fetchurl {
-    url =
-      "https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-${version}-src.tar.gz";
+    url = "https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-${version}-src.tar.gz";
     sha256 = "a6c9b05ee6f8accd45203d8234a43415da65ddc8118d427dd1a2ef2a209261bc";
   };
 
@@ -195,8 +194,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Visual MySQL database modeling, administration and querying tool";
+    description = "Visual MySQL database modeling, administration and querying tool";
     longDescription = ''
       MySQL Workbench is a modeling tool that allows you to design
       and generate MySQL databases graphically. It also has administration

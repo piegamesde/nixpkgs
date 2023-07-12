@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     # Bootstrap tarball has sources pretranslated from FreeBASIC to C
-    url =
-      "https://github.com/freebasic/fbc/releases/download/${version}/FreeBASIC-${version}-source-bootstrap.tar.xz";
+    url = "https://github.com/freebasic/fbc/releases/download/${version}/FreeBASIC-${version}-source-bootstrap.tar.xz";
     sha256 = "1q1gxp5kjz4vkcs9jl0x01v8qm1q2j789lgvxvikzd591ay0xini";
   };
 
@@ -30,8 +29,7 @@ stdenv.mkDerivation rec {
     # Remove when >1.09.0
     (fetchpatch {
       name = "fbc-tests-Fix-stack-corruption.patch";
-      url =
-        "https://github.com/freebasic/fbc/commit/42f4f6dfdaafdd5302a647152f16cda78e4ec904.patch";
+      url = "https://github.com/freebasic/fbc/commit/42f4f6dfdaafdd5302a647152f16cda78e4ec904.patch";
       excludes = [ "changelog.txt" ];
       sha256 = "sha256-Bn+mnTIkM2/uM2k/b9+Up4HJ7SJWwfD3bWLJsSycFRE=";
     })
@@ -39,8 +37,7 @@ stdenv.mkDerivation rec {
     # Remove when >1.09.0
     (fetchpatch {
       name = "fbc-SOURCE_DATE_EPOCH-support.patch";
-      url =
-        "https://github.com/freebasic/fbc/commit/74ea6efdcfe9a90d1c860f64d11ab4a6cd607269.patch";
+      url = "https://github.com/freebasic/fbc/commit/74ea6efdcfe9a90d1c860f64d11ab4a6cd607269.patch";
       excludes = [ "changelog.txt" ];
       sha256 = "sha256-v5FTi4vKOvSV03kigZDiOH8SEGEphhzkBL6p1hd+NtU=";
     })

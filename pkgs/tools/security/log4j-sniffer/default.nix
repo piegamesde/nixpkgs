@@ -27,8 +27,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "Tool that scans archives to check for vulnerable log4j versions";
+    description = "Tool that scans archives to check for vulnerable log4j versions";
     homepage = "https://github.com/palantir/log4j-sniffer";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

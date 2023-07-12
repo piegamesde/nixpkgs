@@ -50,8 +50,7 @@
 # make sure they're in the path if desired.
 let
   k3sVersion = "1.24.10+k3s1"; # k3s git tag
-  k3sCommit =
-    "546a94e9ae1c3be6f9c0dcde32a6e6672b035bc8"; # k3s git commit at the above version
+  k3sCommit = "546a94e9ae1c3be6f9c0dcde32a6e6672b035bc8"; # k3s git commit at the above version
   k3sRepoSha256 = "sha256-HfkGb3GtR2wQkVIze26aFh6A6W0fegr8ovpSel7oujQ=";
   k3sVendorSha256 = "sha256-YAerisDr/knlKPaO2fVMZA4FUpwshFmkpi3mJAmLqKM=";
 
@@ -114,8 +113,7 @@ let
   # k3s binary.
   k3sRoot = fetchzip {
     # Note: marked as apache 2.0 license
-    url =
-      "https://github.com/k3s-io/k3s-root/releases/download/v${k3sRootVersion}/k3s-root-amd64.tar";
+    url = "https://github.com/k3s-io/k3s-root/releases/download/v${k3sRootVersion}/k3s-root-amd64.tar";
     sha256 = k3sRootSha256;
     stripRoot = false;
   };
@@ -209,8 +207,7 @@ let
     '';
 
     meta = baseMeta // {
-      description =
-        "The various binaries that get packaged into the final k3s binary";
+      description = "The various binaries that get packaged into the final k3s binary";
     };
   };
   k3sContainerd = buildGoModule {

@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ukkonen" ];
 
   meta = with lib; {
-    description =
-      "Python implementation of bounded Levenshtein distance (Ukkonen)";
+    description = "Python implementation of bounded Levenshtein distance (Ukkonen)";
     homepage = "https://github.com/asottile/ukkonen";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

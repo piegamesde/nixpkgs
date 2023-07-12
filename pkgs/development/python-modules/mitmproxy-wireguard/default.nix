@@ -53,8 +53,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "WireGuard frontend for mitmproxy";
     homepage = "https://github.com/decathorpe/mitmproxy_wireguard";
-    changelog =
-      "https://github.com/decathorpe/mitmproxy_wireguard/releases/tag/${version}";
+    changelog = "https://github.com/decathorpe/mitmproxy_wireguard/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

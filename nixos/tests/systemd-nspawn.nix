@@ -77,8 +77,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          environment.etc."systemd/import-pubring.gpg".source =
-            "${gpgKeyring}/pubkey.gpg";
+          environment.etc."systemd/import-pubring.gpg".source = "${gpgKeyring}/pubkey.gpg";
         }
       ;
     };

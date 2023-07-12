@@ -26,8 +26,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://www.openrdap.org/";
-    description =
-      "Command line client for the Registration Data Access Protocol (RDAP)";
+    description = "Command line client for the Registration Data Access Protocol (RDAP)";
     license = licenses.mit;
     maintainers = with maintainers; [ sebastianblunt ];
   };

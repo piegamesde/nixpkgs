@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Stacking Wayland compositor which is actively developed on FreeBSD but also supports Linux";
+    description = "Stacking Wayland compositor which is actively developed on FreeBSD but also supports Linux";
     homepage = "https://hikari.acmelabs.space";
     license = licenses.bsd2;
     platforms = platforms.linux ++ platforms.freebsd;

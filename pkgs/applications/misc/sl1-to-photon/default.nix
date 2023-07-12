@@ -40,8 +40,7 @@ buildPythonApplication rec {
   meta = with lib; {
     maintainers = [ maintainers.cab404 ];
     license = licenses.gpl3Plus;
-    description =
-      "Tool for converting Slic3r PE's SL1 files to Photon files for the Anycubic Photon 3D-Printer";
+    description = "Tool for converting Slic3r PE's SL1 files to Photon files for the Anycubic Photon 3D-Printer";
     homepage = "https://github.com/fookatchu/SL1toPhoton";
   };
 }

@@ -36,8 +36,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/buildnode/2017-04-03/buildnode-20170403-git.tgz";
+    url = "http://beta.quicklisp.org/archive/buildnode/2017-04-03/buildnode-20170403-git.tgz";
     sha256 = "1gb3zsp4g31iscvvhvb99z0i7lfn1g3493q6sgpr46fmn2vdwwb6";
   };
 

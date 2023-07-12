@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Compute special values of symmetric power elliptic curve L-functions";
+    description = "Compute special values of symmetric power elliptic curve L-functions";
     license = {
       shortName = "sympow";
       fullName = "Custom, BSD-like. See COPYING file.";

@@ -9,8 +9,7 @@
 with lib;
 
 let
-  modDestDir =
-    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtl8192eu";
+  modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtl8192eu";
 in
 stdenv.mkDerivation rec {
   pname = "rtl8192eu";

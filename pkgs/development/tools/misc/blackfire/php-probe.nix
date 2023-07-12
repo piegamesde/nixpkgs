@@ -70,8 +70,7 @@ let
     in
     assert !isLinux -> (phpMajor != null);
     fetchurl {
-      url =
-        "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
+      url = "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
           if isLinux then "linux" else "darwin"
         }_${hashes.${system}.system}-php-${
           builtins.replaceStrings [ "." ] [ "" ] phpMajor

@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
       (avifenc/avifdec).
     '';
     homepage = "https://github.com/AOMediaCodec/libavif";
-    changelog =
-      "https://github.com/AOMediaCodec/libavif/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/AOMediaCodec/libavif/blob/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ mkg20001 ];
     platforms = platforms.all;
     license = licenses.bsd2;

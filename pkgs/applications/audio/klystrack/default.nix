@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/kometbomb/klystrack/commit/bb537595d02140176831c4a1b8e9121978b32d22.patch";
+      url = "https://github.com/kometbomb/klystrack/commit/bb537595d02140176831c4a1b8e9121978b32d22.patch";
       sha256 = "06gl9q0jwg039kpxb13lg9x0k59s11968qn4lybgkadvzmhxkgmi";
     })
   ];

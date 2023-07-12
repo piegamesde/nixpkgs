@@ -28,8 +28,7 @@ let
       # https://github.com/ma1uta/ma1sd/pull/122
       (fetchpatch {
         name = "java-16-compatibility.patch";
-        url =
-          "https://github.com/ma1uta/ma1sd/commit/be2e2e97ce21741ca6a2e29a06f5748f45dd414e.patch";
+        url = "https://github.com/ma1uta/ma1sd/commit/be2e2e97ce21741ca6a2e29a06f5748f45dd414e.patch";
         hash = "sha256-dvCeK/0InNJtUG9CWrsg7BE0FGWtXuHo3TU0iFFUmIk=";
       })
     ];

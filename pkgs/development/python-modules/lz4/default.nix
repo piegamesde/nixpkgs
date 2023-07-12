@@ -60,8 +60,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "LZ4 Bindings for Python";
     homepage = "https://github.com/python-lz4/python-lz4";
-    changelog =
-      "https://github.com/python-lz4/python-lz4/releases/tag/v${version}";
+    changelog = "https://github.com/python-lz4/python-lz4/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
   };

@@ -54,15 +54,15 @@ let
     ;
     implementation = "pypy";
     libPrefix = "pypy${pythonVersion}";
-    executable =
-      "pypy${
+    executable = "pypy${
         if isPy39OrNewer then
           lib.versions.majorMinor pythonVersion
         else
           lib.optionalString isPy3k "3"
       }";
-    sitePackages =
-      "${lib.optionalString isPy38OrNewer "lib/${libPrefix}/"}site-packages";
+    sitePackages = "${
+        lib.optionalString isPy38OrNewer "lib/${libPrefix}/"
+      }site-packages";
     hasDistutilsCxxPatch = false;
     inherit pythonAttr;
 
@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-src.tar.bz2";
+    url = "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-src.tar.bz2";
     inherit hash;
   };
 
@@ -270,8 +269,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://pypy.org/";
-    description =
-      "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
+    description = "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
     license = licenses.mit;
     platforms = [
       "aarch64-linux"

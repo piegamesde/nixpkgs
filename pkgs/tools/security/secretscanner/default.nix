@@ -29,8 +29,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "Tool to find secrets and passwords in container images and file systems";
+    description = "Tool to find secrets and passwords in container images and file systems";
     homepage = "https://github.com/deepfence/SecretScanner";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

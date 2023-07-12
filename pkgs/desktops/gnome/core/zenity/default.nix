@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "3.91.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/zenity/${
+    url = "mirror://gnome/sources/zenity/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "N2GeCYAwgXj9vPaDItmaB7MzbBwLuY7ysyycsQkCI5k=";
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Tool to display dialogs from the commandline and shell scripts";
+    description = "Tool to display dialogs from the commandline and shell scripts";
     homepage = "https://wiki.gnome.org/Projects/Zenity";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;

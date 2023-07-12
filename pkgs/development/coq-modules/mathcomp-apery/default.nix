@@ -33,8 +33,7 @@ mkCoqDerivation {
       null
   ;
 
-  release."1.0.2".sha256 =
-    "sha256-llxyMKYvWUA7fyroG1S/jtpioAoArmarR1edi3cikcY=";
+  release."1.0.2".sha256 = "sha256-llxyMKYvWUA7fyroG1S/jtpioAoArmarR1edi3cikcY=";
 
   propagatedBuildInputs = [
     mathcomp.field
@@ -46,8 +45,7 @@ mkCoqDerivation {
   ];
 
   meta = {
-    description =
-      "A formally verified proof in Coq, by computer algebra, that ζ(3) is irrational";
+    description = "A formally verified proof in Coq, by computer algebra, that ζ(3) is irrational";
     license = lib.licenses.cecill-c;
   };
 }

@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A set of pytest fixtures to test Flask applications";
     homepage = "https://pytest-flask.readthedocs.io/";
-    changelog =
-      "https://github.com/pytest-dev/pytest-flask/blob/${version}/docs/changelog.rst";
+    changelog = "https://github.com/pytest-dev/pytest-flask/blob/${version}/docs/changelog.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ vanschelven ];
   };

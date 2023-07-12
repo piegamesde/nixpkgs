@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-user-share/${
+    url = "mirror://gnome/sources/gnome-user-share/${
         lib.versions.major version
       }/gnome-user-share-${version}.tar.xz";
     sha256 = "DfMGqgVYMT81Pvf1G/onwDYoGtxFZ34c+/p8n4YVOM4=";
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://help.gnome.org/users/gnome-user-share/3.8";
-    description =
-      "Service that exports the contents of the Public folder in your home directory on the local network";
+    description = "Service that exports the contents of the Public folder in your home directory on the local network";
     maintainers = teams.gnome.members;
     license = licenses.gpl2;
     platforms = platforms.linux;

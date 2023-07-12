@@ -69,8 +69,7 @@ let
 
     meta = {
       homepage = "https://github.com/rebar/rebar3";
-      description =
-        "Erlang build tool that makes it easy to compile and test Erlang applications, port drivers and releases";
+      description = "Erlang build tool that makes it easy to compile and test Erlang applications, port drivers and releases";
 
       longDescription = ''
         rebar is a self-contained Erlang script, so it's easy to distribute or

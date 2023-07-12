@@ -22,8 +22,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/ACEnglish/acebinf";
-    description =
-      "Collection of simple utilities used when building bioinformatics tools";
+    description = "Collection of simple utilities used when building bioinformatics tools";
     license = licenses.unlicense;
     maintainers = with maintainers; [ ris ];
   };

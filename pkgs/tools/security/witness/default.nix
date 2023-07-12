@@ -52,8 +52,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "A pluggable framework for software supply chain security. Witness prevents tampering of build materials and verifies the integrity of the build process from source to target";
+    description = "A pluggable framework for software supply chain security. Witness prevents tampering of build materials and verifies the integrity of the build process from source to target";
     longDescription = ''
       Witness prevents tampering of build materials and verifies the integrity
       of the build process from source to target. It works by wrapping commands
@@ -64,8 +63,7 @@ buildGoModule rec {
       attack vectors and can be used as a framework for automated governance.
     '';
     homepage = "https://github.com/testifysec/witness";
-    changelog =
-      "https://github.com/testifysec/witness/releases/tag/v${version}";
+    changelog = "https://github.com/testifysec/witness/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [
       fkautz

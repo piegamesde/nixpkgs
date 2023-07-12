@@ -34,8 +34,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mypy_extensions" ];
 
   meta = with lib; {
-    description =
-      "Experimental type system extensions for programs checked with the mypy typechecker";
+    description = "Experimental type system extensions for programs checked with the mypy typechecker";
     homepage = "https://www.mypy-lang.org";
     license = licenses.mit;
     maintainers = with maintainers; [

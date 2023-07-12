@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "0sb0vm1sf8ismzd9ba33qswxmsirj2z1b7lnyrc9v5ixm7q0bnrm";
   };
 
-  preConfigure =
-    ''configureFlags="--with-cupsbackenddir=$out/lib/cups/backend"'';
+  preConfigure = ''
+    configureFlags="--with-cupsbackenddir=$out/lib/cups/backend"'';
 
   buildInputs = [ cups ];
   env.NIX_CFLAGS_COMPILE = toString [

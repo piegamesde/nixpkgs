@@ -36,8 +36,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "jaraco.collections" ];
 
   meta = with lib; {
-    description =
-      "Models and classes to supplement the stdlib 'collections' module";
+    description = "Models and classes to supplement the stdlib 'collections' module";
     homepage = "https://github.com/jaraco/jaraco.collections";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

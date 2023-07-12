@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A more modern http framework benchmarker supporting HTTP/1 and HTTP/2 benchmarks";
+    description = "A more modern http framework benchmarker supporting HTTP/1 and HTTP/2 benchmarks";
     homepage = "https://github.com/lnx-search/rewrk";
     changelog = "https://github.com/lnx-search/rewrk/releases/tag/${version}";
     license = licenses.mit;

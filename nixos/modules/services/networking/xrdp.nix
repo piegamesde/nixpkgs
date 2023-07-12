@@ -164,8 +164,7 @@ in
           User = "xrdp";
           Group = "xrdp";
           PermissionsStartOnly = true;
-          ExecStart =
-            "${cfg.package}/bin/xrdp --nodaemon --port ${
+          ExecStart = "${cfg.package}/bin/xrdp --nodaemon --port ${
               toString cfg.port
             } --config ${cfg.confDir}/xrdp.ini";
         };
@@ -178,8 +177,7 @@ in
         restartIfChanged =
           false; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
         serviceConfig = {
-          ExecStart =
-            "${cfg.package}/bin/xrdp-sesman --nodaemon --config ${cfg.confDir}/sesman.ini";
+          ExecStart = "${cfg.package}/bin/xrdp-sesman --nodaemon --config ${cfg.confDir}/sesman.ini";
           ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         };
       };

@@ -116,8 +116,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/z411/trackma";
-    description =
-      "Open multi-site list manager for Unix-like systems (ex-wMAL)";
+    description = "Open multi-site list manager for Unix-like systems (ex-wMAL)";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ WeebSorceress ];

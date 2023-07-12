@@ -239,8 +239,7 @@ in
         RuntimeDirectoryMode = "700";
         # TODO use LoadCredential= instead of running preStart with full privileges?
         ExecStartPre = "+${preStart}";
-        ExecStart =
-          "${pkgs.mpdscribble}/bin/mpdscribble --no-daemon --conf ${cfgFile}";
+        ExecStart = "${pkgs.mpdscribble}/bin/mpdscribble --no-daemon --conf ${cfgFile}";
       };
     };
   };

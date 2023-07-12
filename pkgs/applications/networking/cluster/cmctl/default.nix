@@ -42,8 +42,7 @@ buildGoModule rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "A CLI tool for managing cert-manager service on Kubernetes clusters";
+    description = "A CLI tool for managing cert-manager service on Kubernetes clusters";
     longDescription = ''
       cert-manager adds certificates and certificate issuers as resource types
       in Kubernetes clusters, and simplifies the process of obtaining, renewing

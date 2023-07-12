@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "tree-sitter-bash-0.19.0" =
-        "sha256-gTsA874qpCI/N5tmBI5eT8KDaM25gXM4VbcCbUU2EeI=";
+      "tree-sitter-bash-0.19.0" = "sha256-gTsA874qpCI/N5tmBI5eT8KDaM25gXM4VbcCbUU2EeI=";
     };
   };
 
@@ -49,11 +48,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A command-line tool for patching shell scripts inspired by resholve";
+    description = "A command-line tool for patching shell scripts inspired by resholve";
     homepage = "https://github.com/nix-community/patsh";
-    changelog =
-      "https://github.com/nix-community/patsh/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/nix-community/patsh/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

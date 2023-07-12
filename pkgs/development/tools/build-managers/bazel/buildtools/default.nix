@@ -35,8 +35,7 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Tools for working with Google's bazel buildtool. Includes buildifier, buildozer, and unused_deps";
+    description = "Tools for working with Google's bazel buildtool. Includes buildifier, buildozer, and unused_deps";
     homepage = "https://github.com/bazelbuild/buildtools";
     license = licenses.asl20;
     maintainers =

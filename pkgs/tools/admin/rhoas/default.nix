@@ -44,12 +44,10 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description =
-      "Command Line Interface for Red Hat OpenShift Application Services";
+    description = "Command Line Interface for Red Hat OpenShift Application Services";
     license = licenses.asl20;
     homepage = "https://github.com/redhat-developer/app-services-cli";
-    changelog =
-      "https://github.com/redhat-developer/app-services-cli/releases/v${version}";
+    changelog = "https://github.com/redhat-developer/app-services-cli/releases/v${version}";
     maintainers = with maintainers; [ stehessel ];
   };
 }

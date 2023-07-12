@@ -60,8 +60,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "typecode" ];
 
   meta = with lib; {
-    description =
-      "Comprehensive filetype and mimetype detection using libmagic and Pygments";
+    description = "Comprehensive filetype and mimetype detection using libmagic and Pygments";
     homepage = "https://github.com/nexB/typecode";
     changelog = "https://github.com/nexB/typecode/releases/tag/v${version}";
     license = licenses.asl20;

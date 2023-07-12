@@ -39,8 +39,7 @@ let
     dontFixup = true;
 
     meta = meta // {
-      description =
-        "Speech synthesizer based on the concatenation of diphones (voice files)";
+      description = "Speech synthesizer based on the concatenation of diphones (voice files)";
       homepage = "https://github.com/numediart/MBROLA-voices";
     };
   };
@@ -67,8 +66,7 @@ let
     '';
 
     meta = meta // {
-      description =
-        "Speech synthesizer based on the concatenation of diphones (binary only)";
+      description = "Speech synthesizer based on the concatenation of diphones (binary only)";
     };
   };
 in

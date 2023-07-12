@@ -17,7 +17,6 @@ mkDiscoursePlugin {
     homepage = "https://github.com/discourse/discourse-calendar";
     maintainers = with maintainers; [ ryantm ];
     license = licenses.mit;
-    description =
-      "Adds the ability to create a dynamic calendar in the first post of a topic";
+    description = "Adds the ability to create a dynamic calendar in the first post of a topic";
   };
 }

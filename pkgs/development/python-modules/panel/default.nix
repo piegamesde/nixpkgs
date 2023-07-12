@@ -52,8 +52,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A high level dashboarding library for python visualization libraries";
+    description = "A high level dashboarding library for python visualization libraries";
     homepage = "https://github.com/holoviz/panel";
     changelog = "https://github.com/holoviz/panel/releases/tag/v${version}";
     license = licenses.bsd3;

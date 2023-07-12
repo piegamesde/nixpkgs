@@ -50,8 +50,7 @@ in
     __darwinAllowLocalNetworking = true;
 
     meta = meta // {
-      description =
-        "A Lightning watchtower compliant with BOLT13, written in Rust";
+      description = "A Lightning watchtower compliant with BOLT13, written in Rust";
     };
   };
 

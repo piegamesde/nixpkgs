@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     # Upstream code not respecting our localedir
     # https://github.com/elementary/switchboard-plug-a11y/pull/79
     (fetchpatch {
-      url =
-        "https://github.com/elementary/switchboard-plug-a11y/commit/08db4b696128a6bf809da3403a818834fcd62b02.patch";
+      url = "https://github.com/elementary/switchboard-plug-a11y/commit/08db4b696128a6bf809da3403a818834fcd62b02.patch";
       sha256 = "1s13ak23bdxgcb74wdz3ql192bla5qhabdicqyjv1rp32plhkbg5";
     })
   ];

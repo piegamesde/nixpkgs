@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Anonymous, decentralized and IP based overlay network for the internet";
+    description = "Anonymous, decentralized and IP based overlay network for the internet";
     homepage = "https://lokinet.org/";
     changelog = "https://github.com/oxen-io/lokinet/releases/tag/v${version}";
     license = licenses.gpl3Plus;

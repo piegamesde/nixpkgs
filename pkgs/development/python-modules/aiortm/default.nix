@@ -50,8 +50,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for the Remember the Milk API";
     homepage = "https://github.com/MartinHjelmare/aiortm";
-    changelog =
-      "https://github.com/MartinHjelmare/aiortm/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/MartinHjelmare/aiortm/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

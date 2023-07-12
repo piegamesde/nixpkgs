@@ -23,14 +23,12 @@ python3.pkgs.buildPythonApplication {
   patches = [
     (fetchpatch {
       # Fixes compatibility with recent nix versions
-      url =
-        "https://github.com/timokau/nix-bisect/commit/01eefe174b740cb90e48b06d67d5582d51786b96.patch";
+      url = "https://github.com/timokau/nix-bisect/commit/01eefe174b740cb90e48b06d67d5582d51786b96.patch";
       hash = "sha256-Gls/NtHH7LujdEgLbcIRZ12KsJDrasXIMcHeeBVns4A=";
     })
     (fetchpatch {
       # Fixes TypeError crashes associated with drvs_failed inconsistency
-      url =
-        "https://github.com/timokau/nix-bisect/commit/9f3a17783046baae64c16f9e2be917c2603977fc.patch";
+      url = "https://github.com/timokau/nix-bisect/commit/9f3a17783046baae64c16f9e2be917c2603977fc.patch";
       hash = "sha256-U9NUtgwslcgIf/wvH/WE7t0HGs2OP3wvYDKrb5j+lp0=";
     })
   ];

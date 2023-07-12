@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sphinx_design" ];
 
   meta = with lib; {
-    description =
-      "A sphinx extension for designing beautiful, view size responsive web components";
+    description = "A sphinx extension for designing beautiful, view size responsive web components";
     homepage = "https://github.com/executablebooks/sphinx-design";
     license = licenses.mit;
     maintainers = with maintainers; [ marsam ];

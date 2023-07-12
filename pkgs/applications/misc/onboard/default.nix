@@ -41,8 +41,7 @@ python3.pkgs.buildPythonApplication rec {
   version = "${majorVersion}.1";
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/onboard/${majorVersion}/${version}/+download/${pname}-${version}.tar.gz";
+    url = "https://launchpad.net/onboard/${majorVersion}/${version}/+download/${pname}-${version}.tar.gz";
     sha256 = "0r9q38ikmr4in4dwqd8m9gh9xjbgxnfxglnjbfcapw8ybfnf3jh1";
   };
 
@@ -171,8 +170,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://launchpad.net/onboard";
-    description =
-      "Onscreen keyboard useful for tablet PC users and for mobility impaired users";
+    description = "Onscreen keyboard useful for tablet PC users and for mobility impaired users";
     maintainers = with maintainers; [ johnramsden ];
     license = licenses.gpl3;
   };

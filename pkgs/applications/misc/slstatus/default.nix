@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://tools.suckless.org/slstatus/";
-    description =
-      "status monitor for window managers that use WM_NAME like dwm";
+    description = "status monitor for window managers that use WM_NAME like dwm";
     license = licenses.isc;
     maintainers = with maintainers; [ oxzi ];
     platforms = platforms.linux;

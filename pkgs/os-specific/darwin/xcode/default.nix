@@ -26,8 +26,7 @@ let
       ;
       app = requireFile rec {
         name = "Xcode.app";
-        url =
-          "https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_${version}/${xip}";
+        url = "https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_${version}/${xip}";
         hashMode = "recursive";
         inherit sha256;
         message = ''

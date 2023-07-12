@@ -21,8 +21,7 @@ mkXfceDerivation {
   buildInputs = [ libxfce4util ];
 
   meta = with lib; {
-    description =
-      "Simple client-server configuration storage and query system for Xfce";
+    description = "Simple client-server configuration storage and query system for Xfce";
     maintainers = with maintainers; [ ] ++ teams.xfce.members;
   };
 }

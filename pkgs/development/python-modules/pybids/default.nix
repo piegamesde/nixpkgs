@@ -32,8 +32,7 @@ buildPythonPackage rec {
       # remove after next release
       (fetchpatch {
         name = "fix-pybids-sqlalchemy-dep";
-        url =
-          "https://github.com/bids-standard/pybids/commit/5f008dfc282394ef94a68d47dba37ceead9eac9a.patch";
+        url = "https://github.com/bids-standard/pybids/commit/5f008dfc282394ef94a68d47dba37ceead9eac9a.patch";
         hash = "sha256-gx6w35XqDBZ8cTGHeY/mz2xNQqza9E5z8bRJR7mbPcg=";
         excludes = [ "pyproject.toml" ]; # not in PyPI dist
       })

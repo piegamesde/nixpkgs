@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/codeplaysoftware/sycl-info";
-    description =
-      "Tool to show information about available SYCL implementations";
+    description = "Tool to show information about available SYCL implementations";
     platforms = platforms.linux;
     license = licenses.asl20;
     maintainers = with maintainers; [ davidtwco ];

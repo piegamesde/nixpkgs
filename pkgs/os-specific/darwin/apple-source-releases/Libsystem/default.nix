@@ -34,8 +34,7 @@
 
 let
   darling.src = fetchzip {
-    url =
-      "https://github.com/darlinghq/darling/archive/d2cc5fa748003aaa70ad4180fff0a9a85dc65e9b.tar.gz";
+    url = "https://github.com/darlinghq/darling/archive/d2cc5fa748003aaa70ad4180fff0a9a85dc65e9b.tar.gz";
     sha256 = "11b51fw47nl505h63bgx5kqiyhf3glhp1q6jkpb6nqfislnzzkrf";
     postFetch = ''
       # The archive contains both `src/opendirectory` and `src/OpenDirectory`,

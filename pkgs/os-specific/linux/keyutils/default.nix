@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "1.6.3";
 
   src = fetchurl {
-    url =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/${pname}-${version}.tar.gz";
+    url = "https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/${pname}-${version}.tar.gz";
     sha256 = "sha256-ph1XBhNq5MBb1I+GGGvP29iN2L1RB+Phlckkz8Gzm7Q=";
   };
 
@@ -28,8 +27,7 @@ stdenv.mkDerivation rec {
 
     # Fix build for s390-linux, where size_t is different from ptrdiff_t.
     (fetchurl {
-      url =
-        "https://lore.kernel.org/keyrings/20230301134250.301819-1-hi@alyssa.is/raw";
+      url = "https://lore.kernel.org/keyrings/20230301134250.301819-1-hi@alyssa.is/raw";
       sha256 = "1cbgwxq28fw5ldh38ngcs7xiqvpnmrw0hw9zzhbhb1hdxkavrc1s";
     })
   ];
@@ -65,8 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://people.redhat.com/dhowells/keyutils/";
-    description =
-      "Tools used to control the Linux kernel key management system";
+    description = "Tools used to control the Linux kernel key management system";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

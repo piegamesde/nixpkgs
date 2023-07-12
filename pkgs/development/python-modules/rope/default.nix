@@ -42,8 +42,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python refactoring library";
     homepage = "https://github.com/python-rope/rope";
-    changelog =
-      "https://github.com/python-rope/rope/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/python-rope/rope/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ goibhniu ];
   };

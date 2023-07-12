@@ -56,8 +56,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to retrieve and parse whois data";
     homepage = "https://github.com/secynic/ipwhois";
-    changelog =
-      "https://github.com/secynic/ipwhois/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/secynic/ipwhois/blob/v${version}/CHANGES.rst";
     license = licenses.bsd2;
     maintainers = with maintainers; [ fab ];
   };

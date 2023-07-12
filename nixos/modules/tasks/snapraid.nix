@@ -124,8 +124,7 @@ in
         }
         {
           assertion = builtins.length cfg.contentFiles >= nParity + 1;
-          message =
-            "There must be at least one SnapRAID content file for each SnapRAID parity file plus one.";
+          message = "There must be at least one SnapRAID content file for each SnapRAID parity file plus one.";
         }
       ];
 
@@ -166,8 +165,7 @@ in
           startAt = scrub.interval;
           serviceConfig = {
             Type = "oneshot";
-            ExecStart =
-              "${pkgs.snapraid}/bin/snapraid scrub -p ${
+            ExecStart = "${pkgs.snapraid}/bin/snapraid scrub -p ${
                 toString scrub.plan
               } -o ${toString scrub.olderThan}";
             Nice = 19;

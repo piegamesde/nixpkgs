@@ -57,10 +57,8 @@ let
     additional:
     let
       finalCfg = {
-        name =
-          "${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}";
-        params =
-          "init=${config.system.build.toplevel}/init ${additional} ${
+        name = "${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}";
+        params = "init=${config.system.build.toplevel}/init ${additional} ${
             toString config.boot.kernelParams
           }";
         image = "/boot/${config.system.boot.loader.kernelFile}";
@@ -557,8 +555,7 @@ in
 
     isoImage.volumeID = mkOption {
       # nixos-$EDITION-$RELEASE-$ARCH
-      default =
-        "nixos${
+      default = "nixos${
           optionalString (config.isoImage.edition != "")
             "-${config.isoImage.edition}"
         }-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
@@ -624,8 +621,7 @@ in
 
     isoImage.efiSplashImage = mkOption {
       default = pkgs.fetchurl {
-        url =
-          "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/efi-background.png";
+        url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/efi-background.png";
         sha256 = "18lfwmp8yq923322nlb9gxrh5qikj1wsk6g5qvdh31c4h5b1538x";
       };
       description = lib.mdDoc ''
@@ -635,8 +631,7 @@ in
 
     isoImage.splashImage = mkOption {
       default = pkgs.fetchurl {
-        url =
-          "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/isolinux/bios-boot.png";
+        url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/isolinux/bios-boot.png";
         sha256 = "1wp822zrhbg4fgfbwkr7cbkr4labx477209agzc0hr6k62fr6rxd";
       };
       description = lib.mdDoc ''
@@ -934,8 +929,7 @@ in
             )
             {
               usbBootable = true;
-              isohybridMbrImage =
-                "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
+              isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
             } // optionalAttrs config.isoImage.makeEfiBootable {
               efiBootable = true;
               efiBootImage = "boot/efi.img";

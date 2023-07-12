@@ -264,8 +264,7 @@ in
       ;
 
       # Settings from elementary-default-settings
-      environment.etc."gtk-3.0/settings.ini".source =
-        "${pkgs.pantheon.elementary-default-settings}/etc/gtk-3.0/settings.ini";
+      environment.etc."gtk-3.0/settings.ini".source = "${pkgs.pantheon.elementary-default-settings}/etc/gtk-3.0/settings.ini";
 
       xdg.mime.enable = true;
       xdg.icons.enable = true;
@@ -278,8 +277,7 @@ in
       ];
 
       # Override GSettings schemas
-      environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
-        "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+      environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
       environment.sessionVariables.GNOME_SESSION_DEBUG = mkIf cfg.debug "1";
 

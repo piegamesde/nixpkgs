@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   pname = "visualvm";
 
   src = fetchzip {
-    url =
-      "https://github.com/visualvm/visualvm.src/releases/download/${version}/visualvm_${
+    url = "https://github.com/visualvm/visualvm.src/releases/download/${version}/visualvm_${
         builtins.replaceStrings [ "." ] [ "" ] version
       }.zip";
     sha256 = "sha256-RqQEeYMYpBlqla+VmrxOUNyrlIGVL4YjZadg2Gq+f8k=";
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A visual interface for viewing information about Java applications";
+    description = "A visual interface for viewing information about Java applications";
     longDescription = ''
       VisualVM is a visual tool integrating several commandline JDK
       tools and lightweight profiling capabilities. Designed for both

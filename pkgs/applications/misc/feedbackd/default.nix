@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch2 {
-      url =
-        "https://source.puri.sm/Librem5/feedbackd/-/merge_requests/109.patch";
+      url = "https://source.puri.sm/Librem5/feedbackd/-/merge_requests/109.patch";
       hash = "sha256-z3Ud6P2GHYOaGA2vJDD3Sz47+M8p0VcYZ5gbYcGydMk=";
     })
   ];
@@ -107,8 +106,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A daemon to provide haptic (and later more) feedback on events";
+    description = "A daemon to provide haptic (and later more) feedback on events";
     homepage = "https://source.puri.sm/Librem5/feedbackd";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [

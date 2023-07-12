@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Provids dbus service for reading and writing DSG configuration";
+    description = "Provids dbus service for reading and writing DSG configuration";
     homepage = "https://github.com/linuxdeepin/dde-app-services";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;

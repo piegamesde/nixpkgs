@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DRH_STANDALONE_PROJECT=OFF" ];
 
   meta = with lib; {
-    description =
-      "A faster, more efficient replacement for std::unordered_map / std::unordered_set";
+    description = "A faster, more efficient replacement for std::unordered_map / std::unordered_set";
     homepage = "https://github.com/martinus/robin-hood-hashing";
     platforms = platforms.linux;
     license = licenses.mit;

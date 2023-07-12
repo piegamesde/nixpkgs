@@ -52,8 +52,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module with some convenient utilities";
     homepage = "https://github.com/WoLpH/python-utils";
-    changelog =
-      "https://github.com/wolph/python-utils/releases/tag/v${version}";
+    changelog = "https://github.com/wolph/python-utils/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

@@ -84,8 +84,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Backup tool for PC game saves";
     homepage = "https://github.com/mtkennerly/ludusavi";
-    changelog =
-      "https://github.com/mtkennerly/ludusavi/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/mtkennerly/ludusavi/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ pasqui23 ];
   };

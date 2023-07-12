@@ -29,8 +29,7 @@ buildGoModule rec {
   ldflags = [ "-X main.Version=${version}" ];
 
   meta = with lib; {
-    description =
-      "CLI tool which enables you to login and retrieve AWS temporary credentials using a SAML IDP";
+    description = "CLI tool which enables you to login and retrieve AWS temporary credentials using a SAML IDP";
     homepage = "https://github.com/Versent/saml2aws";
     license = licenses.mit;
     platforms = lib.platforms.unix;

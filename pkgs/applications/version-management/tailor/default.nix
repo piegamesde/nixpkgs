@@ -9,8 +9,7 @@ python3.pkgs.buildPythonApplication rec {
   version = "0.9.37";
 
   src = fetchurl {
-    url =
-      "https://gitlab.com/ports1/tailor/-/archive/0.937/tailor-0.937.tar.gz";
+    url = "https://gitlab.com/ports1/tailor/-/archive/0.937/tailor-0.937.tar.gz";
     hash = "sha256-Bdf8ZCRsbCsFz1GRxyQxxndXSsm8oOL2738m9UxOTVc=";
   };
 
@@ -20,8 +19,7 @@ python3.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A tool to migrate changesets between various kinds of version control system.";
+    description = "A tool to migrate changesets between various kinds of version control system.";
     longDescription = ''
       With its ability to "translate the history" from one VCS kind to another,
       this tool makes it easier to keep the upstream changes merged in

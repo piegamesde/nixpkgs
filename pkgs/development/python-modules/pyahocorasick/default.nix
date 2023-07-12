@@ -33,8 +33,7 @@ buildPythonPackage rec {
       key strings occurrences at once in some input text.
     '';
     homepage = "https://github.com/WojciechMula/pyahocorasick";
-    changelog =
-      "https://github.com/WojciechMula/pyahocorasick/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/WojciechMula/pyahocorasick/blob/${version}/CHANGELOG.rst";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

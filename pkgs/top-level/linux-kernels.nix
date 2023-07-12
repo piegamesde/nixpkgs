@@ -51,8 +51,7 @@ let
         modDirVersion =
           modDirVersion' + kernelPatches.hardened.${kernel.meta.branch}.extra;
         src = fetchurl {
-          url =
-            "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
+          url = "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
           inherit sha256;
         };
         extraMeta = {
@@ -257,8 +256,7 @@ in
                 modDirVersion = lib.versions.pad 3 version;
                 extraMeta.branch = lib.versions.majorMinor version;
                 src = fetchurl {
-                  url =
-                    "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+                  url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
                   hash = "sha256-bcia56dRPkM8WXxzRu1/9L/RFepDo7XiemvbOMVYAxc=";
                 };
               };
@@ -404,8 +402,7 @@ in
             orig: rec {
               version = "3.3";
               src = fetchurl {
-                url =
-                  "https://github.com/libffi/libffi/releases/download/v${version}/${orig.pname}-${version}.tar.gz";
+                url = "https://github.com/libffi/libffi/releases/download/v${version}/${orig.pname}-${version}.tar.gz";
                 sha256 = "0mi0cpf8aa40ljjmzxb7im6dbj45bb0kllcd09xgmp834y9agyvj";
               };
             }

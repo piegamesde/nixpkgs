@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/ihhub/fheroes2";
-    description =
-      "Free implementation of Heroes of Might and Magic II game engine";
+    description = "Free implementation of Heroes of Might and Magic II game engine";
     longDescription = ''
       In order to play this game, an original game data is required.
       Please refer to README of the project for instructions.

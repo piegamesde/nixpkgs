@@ -53,8 +53,7 @@ with lib; {
     systemd.services.meshcentral = {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/meshcentral --datapath /var/lib/meshcentral --configfile ${configFile}";
+        ExecStart = "${cfg.package}/bin/meshcentral --datapath /var/lib/meshcentral --configfile ${configFile}";
         DynamicUser = true;
         StateDirectory = "meshcentral";
         CacheDirectory = "meshcentral";

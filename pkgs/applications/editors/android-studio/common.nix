@@ -73,8 +73,7 @@ let
     name = "${drvName}-unwrapped";
 
     src = fetchurl {
-      url =
-        "https://dl.google.com/dl/android/studio/ide-zips/${version}/${filename}";
+      url = "https://dl.google.com/dl/android/studio/ide-zips/${version}/${filename}";
       sha256 = sha256Hash;
     };
 

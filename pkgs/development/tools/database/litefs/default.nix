@@ -36,8 +36,7 @@ buildGoModule rec {
   doCheck = false; # fails
 
   meta = with lib; {
-    description =
-      "FUSE-based file system for replicating SQLite databases across a cluster of machines";
+    description = "FUSE-based file system for replicating SQLite databases across a cluster of machines";
     homepage = "https://github.com/superfly/litefs";
     license = licenses.asl20;
     maintainers = with maintainers; [ dit7ya ];

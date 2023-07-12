@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "netease-cloud-music-api-1.0.2" =
-        "sha256-7Yp2ZBg5wHnDPtdPLwZQnqcSlVuGCrXpV5M/dp/IaOE=";
+      "netease-cloud-music-api-1.0.2" = "sha256-7Yp2ZBg5wHnDPtdPLwZQnqcSlVuGCrXpV5M/dp/IaOE=";
     };
   };
 

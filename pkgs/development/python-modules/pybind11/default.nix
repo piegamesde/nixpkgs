@@ -105,8 +105,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pybind/pybind11";
-    changelog =
-      "https://github.com/pybind/pybind11/blob/${src.rev}/docs/changelog.rst";
+    changelog = "https://github.com/pybind/pybind11/blob/${src.rev}/docs/changelog.rst";
     description = "Seamless operability between C++11 and Python";
     longDescription = ''
       Pybind11 is a lightweight header-only library that exposes

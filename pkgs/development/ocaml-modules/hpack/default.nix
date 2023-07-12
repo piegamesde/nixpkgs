@@ -11,8 +11,7 @@ buildDunePackage rec {
   version = "0.10.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/anmonteiro/ocaml-h2/releases/download/${version}/h2-${version}.tbz";
+    url = "https://github.com/anmonteiro/ocaml-h2/releases/download/${version}/h2-${version}.tbz";
     hash = "sha256-n9avpVL6HD2KBON2FpnUeuH3HOUDOA29iSmjdcxMRvE=";
   };
 
@@ -29,8 +28,7 @@ buildDunePackage rec {
 
   meta = {
     license = lib.licenses.bsd3;
-    description =
-      "An HPACK (Header Compression for HTTP/2) implementation in OCaml";
+    description = "An HPACK (Header Compression for HTTP/2) implementation in OCaml";
     homepage = "https://github.com/anmonteiro/ocaml-h2";
     maintainers = with lib.maintainers; [
       sternenseemann

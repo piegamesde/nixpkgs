@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   installFlags = [ "DESTDIR=${placeholder "out"}" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/opencryptoki/opencryptoki/blob/${src.rev}/ChangeLog";
+    changelog = "https://github.com/opencryptoki/opencryptoki/blob/${src.rev}/ChangeLog";
     description = "PKCS#11 implementation for Linux";
     homepage = "https://github.com/opencryptoki/opencryptoki";
     license = licenses.cpl10;

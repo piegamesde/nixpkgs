@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://mypaint.org/";
-    description =
-      "Library for making brushstrokes which is used by MyPaint and other projects";
+    description = "Library for making brushstrokes which is used by MyPaint and other projects";
     license = licenses.isc;
     maintainers = with maintainers; [
       goibhniu

@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   binaryVersion = 11;
 
   src = fetchurl {
-    url =
-      "https://code.call-cc.org/releases/${version}/chicken-${version}.tar.gz";
+    url = "https://code.call-cc.org/releases/${version}/chicken-${version}.tar.gz";
     sha256 = "sha256-w62Z2PnhftgQkS75gaw7DC4vRvsOzAM7XDttyhvbDXY=";
   };
 

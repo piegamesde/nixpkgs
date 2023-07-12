@@ -550,8 +550,7 @@ in
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.bacula ];
       serviceConfig = {
-        ExecStart =
-          "${pkgs.bacula}/sbin/bacula-fd -f -u root -g bacula -c ${fd_conf}";
+        ExecStart = "${pkgs.bacula}/sbin/bacula-fd -f -u root -g bacula -c ${fd_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LogsDirectory = "bacula";
         StateDirectory = "bacula";
@@ -564,8 +563,7 @@ in
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.bacula ];
       serviceConfig = {
-        ExecStart =
-          "${pkgs.bacula}/sbin/bacula-sd -f -u bacula -g bacula -c ${sd_conf}";
+        ExecStart = "${pkgs.bacula}/sbin/bacula-sd -f -u bacula -g bacula -c ${sd_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LogsDirectory = "bacula";
         StateDirectory = "bacula";
@@ -583,8 +581,7 @@ in
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.bacula ];
       serviceConfig = {
-        ExecStart =
-          "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}";
+        ExecStart = "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LogsDirectory = "bacula";
         StateDirectory = "bacula";

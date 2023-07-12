@@ -24,8 +24,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A textbox edit widget for urwid that supports readline shortcuts";
+    description = "A textbox edit widget for urwid that supports readline shortcuts";
     homepage = "https://github.com/rr-/urwid_readline";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

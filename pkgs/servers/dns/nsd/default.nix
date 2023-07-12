@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "4.6.1";
 
   src = fetchurl {
-    url =
-      "https://www.nlnetlabs.nl/downloads/${pname}/${pname}-${version}.tar.gz";
+    url = "https://www.nlnetlabs.nl/downloads/${pname}/${pname}-${version}.tar.gz";
     sha256 = "sha256-P2CjoT7D9o6Ev6fhna/2Y8grzx3pbk9T8iRlJedzono=";
   };
 
@@ -70,8 +69,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.nlnetlabs.nl";
-    description =
-      "Authoritative only, high performance, simple and open source name server";
+    description = "Authoritative only, high performance, simple and open source name server";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = [ maintainers.hrdinka ];

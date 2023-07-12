@@ -46,8 +46,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nacl" ];
 
   meta = with lib; {
-    description =
-      "Python binding to the Networking and Cryptography (NaCl) library";
+    description = "Python binding to the Networking and Cryptography (NaCl) library";
     homepage = "https://github.com/pyca/pynacl/";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];

@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "1.4.42V6";
 
   src = fetchurl {
-    url =
-      "https://github.com/magefree/mage/releases/download/xmage_1.4.42V6/xmage_${version}.zip";
+    url = "https://github.com/magefree/mage/releases/download/xmage_1.4.42V6/xmage_${version}.zip";
     sha256 = "14s4885ldi0rplqmab5m775plsqmmm0m89j402caiqm2q9mzvkhd";
   };
 

@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
-    description =
-      "Command line program to generate a graph showing number of GitHub stars of a user, org or repo over time";
+    description = "Command line program to generate a graph showing number of GitHub stars of a user, org or repo over time";
     homepage = "https://github.com/dtolnay/star-history";
     license = with licenses; [
       asl20 # or

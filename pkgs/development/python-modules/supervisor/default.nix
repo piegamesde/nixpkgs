@@ -37,8 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A system for controlling process state under UNIX";
     homepage = "http://supervisord.org/";
-    changelog =
-      "https://github.com/Supervisor/supervisor/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/Supervisor/supervisor/blob/${version}/CHANGES.rst";
     license = licenses.free; # http://www.repoze.org/LICENSE.txt
     maintainers = with maintainers; [ zimbatm ];
   };

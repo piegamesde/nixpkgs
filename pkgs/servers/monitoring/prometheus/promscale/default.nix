@@ -49,8 +49,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "An open-source analytical platform for Prometheus metrics";
     homepage = "https://github.com/timescale/promscale";
-    changelog =
-      "https://github.com/timescale/promscale/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/timescale/promscale/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [

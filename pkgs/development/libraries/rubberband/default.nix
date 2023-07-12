@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "3.1.0";
 
   src = fetchurl {
-    url =
-      "https://breakfastquay.com/files/releases/${pname}-${version}.tar.bz2";
+    url = "https://breakfastquay.com/files/releases/${pname}-${version}.tar.bz2";
     sha256 = "sha256-uVp22lzbOWZ3DGARXs2Dj4QGESD4hMO/3JBPdZMeyao=";
   };
 
@@ -47,8 +46,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "AR:=$(AR)" ];
 
   meta = with lib; {
-    description =
-      "High quality software library for audio time-stretching and pitch-shifting";
+    description = "High quality software library for audio time-stretching and pitch-shifting";
     homepage = "https://breakfastquay.com/rubberband/";
     # commercial license available as well, see homepage. You'll get some more optimized routines
     license = licenses.gpl2Plus;

@@ -13,8 +13,7 @@ let
   manifestsSha256 = "0v6skn065hqk0pq5k7c48g68pnpj5har8cfhgbc8xjzg149a22wa";
 
   manifests = fetchzip {
-    url =
-      "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz";
+    url = "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz";
     sha256 = manifestsSha256;
     stripRoot = false;
   };
@@ -71,8 +70,7 @@ buildGoModule rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "Open and extensible continuous delivery solution for Kubernetes";
+    description = "Open and extensible continuous delivery solution for Kubernetes";
     longDescription = ''
       Flux is a tool for keeping Kubernetes clusters in sync
       with sources of configuration (like Git repositories), and automating

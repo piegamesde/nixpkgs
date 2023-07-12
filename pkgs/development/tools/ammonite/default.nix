@@ -26,8 +26,7 @@ let
       version = "2.5.3";
 
       src = fetchurl {
-        url =
-          "https://github.com/lihaoyi/Ammonite/releases/download/${version}/${scalaVersion}-${version}";
+        url = "https://github.com/lihaoyi/Ammonite/releases/download/${version}/${scalaVersion}-${version}";
         inherit sha256;
       };
 

@@ -120,8 +120,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart =
-          "${pkgs.sysklogd}/sbin/syslogd ${
+        ExecStart = "${pkgs.sysklogd}/sbin/syslogd ${
             toString cfg.extraParams
           } -f ${syslogConf} -n";
         # Prevent syslogd output looping back through journald.

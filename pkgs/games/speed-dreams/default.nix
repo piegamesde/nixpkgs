@@ -42,26 +42,22 @@ stdenv.mkDerivation rec {
   pname = "speed-dreams";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/speed-dreams/${shortVersion}/speed-dreams-src-base-${version}.tar.xz";
+    url = "mirror://sourceforge/speed-dreams/${shortVersion}/speed-dreams-src-base-${version}.tar.xz";
     sha256 = "sha256-GvB8SDZB9UivJSsQfMMon9N5MURdxTOwsaN4F0XQUCE=";
   };
 
   cars-and-tracks = fetchurl {
-    url =
-      "mirror://sourceforge/speed-dreams/${shortVersion}/speed-dreams-src-hq-cars-and-tracks-${version}.tar.xz";
+    url = "mirror://sourceforge/speed-dreams/${shortVersion}/speed-dreams-src-hq-cars-and-tracks-${version}.tar.xz";
     sha256 = "sha256-BuryCUvBD7rKmApCNsTkRN0UJ1q6P3sdYrSzpTqdTHc=";
   };
 
   more-cars-and-tracks = fetchurl {
-    url =
-      "mirror://sourceforge/speed-dreams/${shortVersion}/speed-dreams-src-more-hq-cars-and-tracks-${version}.tar.xz";
+    url = "mirror://sourceforge/speed-dreams/${shortVersion}/speed-dreams-src-more-hq-cars-and-tracks-${version}.tar.xz";
     sha256 = "sha256-GSCHYbJS352yAMczzss7tYSQXwLQV68rv/XkyGy+GoY=";
   };
 
   wip-cars-and-tracks = fetchurl {
-    url =
-      "mirror://sourceforge/speed-dreams/${shortVersion}/speed-dreams-src-wip-cars-and-tracks-${version}.tar.xz";
+    url = "mirror://sourceforge/speed-dreams/${shortVersion}/speed-dreams-src-wip-cars-and-tracks-${version}.tar.xz";
     sha256 = "sha256-r/IOSf+UZg2e+WIHn2QNDO6qQUhpIJvh7EF2jQ7lyyA=";
   };
 
@@ -129,8 +125,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description =
-      "Car racing game - TORCS fork with more experimental approach";
+    description = "Car racing game - TORCS fork with more experimental approach";
     homepage = "https://speed-dreams.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ raskin ];

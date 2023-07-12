@@ -91,8 +91,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Awesome music player with brilliant and tweakful UI Deepin-UI based";
+    description = "Awesome music player with brilliant and tweakful UI Deepin-UI based";
     homepage = "https://github.com/linuxdeepin/deepin-music";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

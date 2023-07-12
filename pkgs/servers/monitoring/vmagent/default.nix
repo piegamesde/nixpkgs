@@ -25,8 +25,7 @@ buildGoModule rec {
   subPackages = [ "app/vmagent" ];
 
   meta = with lib; {
-    homepage =
-      "https://github.com/VictoriaMetrics/VictoriaMetrics/tree/master/app/vmagent";
+    homepage = "https://github.com/VictoriaMetrics/VictoriaMetrics/tree/master/app/vmagent";
     description = "VictoriaMetrics metrics scraper";
     license = licenses.asl20;
     platforms = platforms.linux;

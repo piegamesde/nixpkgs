@@ -27,8 +27,7 @@ openvpn.overrideAttrs (
     version = "2.5.3";
 
     src = fetchurl {
-      url =
-        "https://swupdate.openvpn.net/community/releases/openvpn-${version}.tar.gz";
+      url = "https://swupdate.openvpn.net/community/releases/openvpn-${version}.tar.gz";
       sha256 = "sha256-dfAETfRJQwVVynuZWit3qyTylG/cNmgwG47cI5hqX34=";
     };
 

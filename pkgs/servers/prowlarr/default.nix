@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
   version = "1.3.2.3006";
 
   src = fetchurl {
-    url =
-      "https://github.com/Prowlarr/Prowlarr/releases/download/v${version}/Prowlarr.master.${version}.${os}-core-${arch}.tar.gz";
+    url = "https://github.com/Prowlarr/Prowlarr/releases/download/v${version}/Prowlarr.master.${version}.${os}-core-${arch}.tar.gz";
     inherit hash;
   };
 
@@ -90,8 +89,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "An indexer manager/proxy built on the popular arr .net/reactjs base stack";
+    description = "An indexer manager/proxy built on the popular arr .net/reactjs base stack";
     homepage = "https://wiki.servarr.com/prowlarr";
     changelog = "https://github.com/Prowlarr/Prowlarr/releases/tag/v${version}";
     license = licenses.gpl3Only;

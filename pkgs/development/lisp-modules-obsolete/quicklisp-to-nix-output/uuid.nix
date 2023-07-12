@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/uuid/2020-07-15/uuid-20200715-git.tgz";
+    url = "http://beta.quicklisp.org/archive/uuid/2020-07-15/uuid-20200715-git.tgz";
     sha256 = "1ymir6hgax1vbbcgyprnwbsx224ih03a55v10l35xridwyzhzrx0";
   };
 

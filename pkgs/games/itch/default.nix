@@ -26,8 +26,7 @@ stdenvNoCC.mkDerivation rec {
       # Fixes crash while browsing the store.
       (fetchpatch {
         name = "itch.patch";
-        url =
-          "https://aur.archlinux.org/cgit/aur.git/plain/itch.patch?h=itch-bin&id=0b181454567029141749f870880b10093216e133";
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/itch.patch?h=itch-bin&id=0b181454567029141749f870880b10093216e133";
         sha256 = "sha256-gmLL/BMondSflERm0z+DuGDP56JhDXiyxEwLUavTD8Q=";
       })
     ];

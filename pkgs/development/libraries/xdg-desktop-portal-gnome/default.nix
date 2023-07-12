@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "44.1";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "NoLFRsgZIqW6adYthvacDCaxfJCWgj9YFJ0LVbvw7ts=";
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
-    description =
-      "Backend implementation for xdg-desktop-portal for the GNOME desktop environment";
+    description = "Backend implementation for xdg-desktop-portal for the GNOME desktop environment";
     homepage = "https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome";
     maintainers = teams.gnome.members;
     platforms = platforms.linux;

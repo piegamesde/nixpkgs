@@ -36,8 +36,7 @@ stdenv.mkDerivation {
   buildInputs = lib.optional (stdenv.hostPlatform.isLinux) libseccomp;
 
   src = fetchurl {
-    url =
-      "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
+    url = "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
     sha256 = "sha256-t80VOZ8Tr1Dq+mJfRPVLGqYprCaqegcQtDqdoHaSXW0=";
   };
 

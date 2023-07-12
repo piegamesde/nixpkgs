@@ -764,8 +764,7 @@ in
         serviceConfig = {
           User = "${cfg.user}";
           Group = "tt_rss";
-          ExecStart =
-            "${pkgs.php}/bin/php ${cfg.root}/www/update.php --daemon --quiet";
+          ExecStart = "${pkgs.php}/bin/php ${cfg.root}/www/update.php --daemon --quiet";
           Restart = "on-failure";
           RestartSec = "60";
           SyslogIdentifier = "tt-rss";

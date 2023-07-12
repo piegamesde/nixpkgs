@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/software/realmd/adcli/adcli.html";
-    description =
-      "A helper library and tools for Active Directory client operations.";
+    description = "A helper library and tools for Active Directory client operations.";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [
       SohamG

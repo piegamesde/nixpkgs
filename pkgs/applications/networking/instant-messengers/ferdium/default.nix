@@ -11,8 +11,7 @@ mkFranzDerivation rec {
   name = "Ferdium";
   version = "6.2.6";
   src = fetchurl {
-    url =
-      "https://github.com/ferdium/ferdium-app/releases/download/v${version}/Ferdium-linux-${version}-amd64.deb";
+    url = "https://github.com/ferdium/ferdium-app/releases/download/v${version}/Ferdium-linux-${version}-amd64.deb";
     sha256 = "sha256-jG3NdolWqQzj/62jYwnqJHz5uT6QIuOkrpL/FcLl56k=";
   };
 

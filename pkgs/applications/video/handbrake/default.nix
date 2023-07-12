@@ -103,8 +103,7 @@ let
     old: {
       version = ffmpeg-version;
       src = fetchurl {
-        url =
-          "https://www.ffmpeg.org/releases/ffmpeg-${ffmpeg-version}.tar.bz2";
+        url = "https://www.ffmpeg.org/releases/ffmpeg-${ffmpeg-version}.tar.bz2";
         hash = "sha256-zQ4W+QNCEmbVzN3t97g7nldUrvS596fwbOnkyALwVFs=";
       };
       patches =
@@ -293,8 +292,7 @@ let
         let
           # Big Buck Bunny example, licensed under CC Attribution 3.0.
           testMkv = fetchurl {
-            url =
-              "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
+            url = "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
             sha256 = "1hfxbbgxwfkzv85pvpvx55a72qsd0hxjbm9hkl5r3590zw4s75h9";
           };
         in

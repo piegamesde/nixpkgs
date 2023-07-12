@@ -45,8 +45,7 @@ in
       serviceConfig = {
         Type = "exec";
         StateDirectory = "jellyseerr";
-        WorkingDirectory =
-          "${pkgs.jellyseerr}/libexec/jellyseerr/deps/jellyseerr";
+        WorkingDirectory = "${pkgs.jellyseerr}/libexec/jellyseerr/deps/jellyseerr";
         DynamicUser = true;
         ExecStart = "${pkgs.jellyseerr}/bin/jellyseerr";
         BindPaths = [

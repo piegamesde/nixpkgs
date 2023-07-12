@@ -48,8 +48,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Library for accessing the ofono daemon, and declarative plugin for it";
+    description = "Library for accessing the ofono daemon, and declarative plugin for it";
     homepage = "https://git.sailfishos.org/mer-core/libqofono/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ samueldr ];

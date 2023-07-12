@@ -1,7 +1,6 @@
 rec {
   BASEDIR = "$NIX_BUILD_TOP";
-  BINUTILS_URL =
-    "https://ftp.gnu.org/gnu/binutils/binutils-${BINUTILS_VER}.tar.bz2";
+  BINUTILS_URL = "https://ftp.gnu.org/gnu/binutils/binutils-${BINUTILS_VER}.tar.bz2";
   DL_DIR = "${TOOLCHAIN_DIR}/dl";
   GMP_SUM = "f51c99cb114deb21a60075ffb494c1a210eb9d7cb729ed042ddb7de9534451ea";
   GMP_URL = "https://ftp.gnu.org/gnu/gmp/gmp-${GMP_VER}.tar.bz2";
@@ -15,8 +14,7 @@ rec {
   GCC_DIR = "gcc-${GCC_VER}";
   MPC_SUM = "6985c538143c1208dcb1ac42cedad6ff52e267b47e5f970183a3e75125b43c2e";
   GCC_SUM = "27e879dccc639cd7b0cc08ed575c1669492579529b53c9ff27b0b96265fa867d";
-  BINUTILS_SUM =
-    "7d24660f87093670738e58bcc7b7b06f121c0fcb0ca8fc44368d675a5ef9cff7";
+  BINUTILS_SUM = "7d24660f87093670738e58bcc7b7b06f121c0fcb0ca8fc44368d675a5ef9cff7";
   MPFR_DIR = "mpfr-${MPFR_VER}";
   MPC_DIR = "mpc-${MPC_VER}";
   MPFR_VER = "4.1.0";

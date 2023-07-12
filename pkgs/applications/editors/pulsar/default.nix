@@ -31,8 +31,7 @@ let
       x86_64-linux.tarname = "Linux.${pname}-${version}.tar.gz";
       x86_64-linux.hash = "sha256-HEMUQVNPb6qWIXX25N79HwHo7j11MyFiBRsq9otdAL8=";
       aarch64-linux.tarname = "ARM.Linux.${pname}-${version}-arm64.tar.gz";
-      aarch64-linux.hash =
-        "sha256-f+s54XtLLdhTFY9caKTKngJF6zLai0F7ur9v37bwuNE=";
+      aarch64-linux.hash = "sha256-f+s54XtLLdhTFY9caKTKngJF6zLai0F7ur9v37bwuNE=";
     }
     .${stdenv.hostPlatform.system}
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
@@ -50,8 +49,7 @@ let
     builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell")
       languages
   ;
-  hunspellTargetDirs =
-    "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
+  hunspellTargetDirs = "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
   hunspellCopyCommands =
     lib.concatMapStringsSep "\n"
       (lang: "cp -r ${lang}/* ${hunspellTargetDirs};")
@@ -64,8 +62,7 @@ stdenv.mkDerivation rec {
   src =
     with sourcesPath;
     fetchurl {
-      url =
-        "https://github.com/pulsar-edit/pulsar/releases/download/v${version}/${tarname}";
+      url = "https://github.com/pulsar-edit/pulsar/releases/download/v${version}/${tarname}";
       inherit hash;
     }
   ;

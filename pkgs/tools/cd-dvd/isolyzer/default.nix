@@ -22,8 +22,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/KBNLresearch/isolyzer";
-    description =
-      "Verify size of ISO 9660 image against Volume Descriptor fields";
+    description = "Verify size of ISO 9660 image against Volume Descriptor fields";
     license = licenses.asl20;
     maintainers = with maintainers; [ mkg20001 ];
   };

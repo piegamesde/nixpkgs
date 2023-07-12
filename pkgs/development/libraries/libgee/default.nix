@@ -21,8 +21,7 @@ stdenv.mkDerivation (
     ];
 
     src = fetchurl {
-      url =
-        "mirror://gnome/sources/libgee/${
+      url = "mirror://gnome/sources/libgee/${
           lib.versions.majorMinor finalAttrs.version
         }/libgee-${finalAttrs.version}.tar.xz";
       sha256 = "G/g09eENYMxhJNdO08HdONpkZ4f794ciILi0Bo5HbU0=";
@@ -40,10 +39,12 @@ stdenv.mkDerivation (
     doCheck = true;
 
     env = {
-      PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR =
-        "${placeholder "dev"}/share/gir-1.0";
-      PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR =
-        "${placeholder "out"}/lib/girepository-1.0";
+      PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR = "${
+          placeholder "dev"
+        }/share/gir-1.0";
+      PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR = "${
+          placeholder "out"
+        }/lib/girepository-1.0";
     };
 
     passthru = {
@@ -54,8 +55,7 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      description =
-        "Utility library providing GObject-based interfaces and classes for commonly used data structures";
+      description = "Utility library providing GObject-based interfaces and classes for commonly used data structures";
       homepage = "https://wiki.gnome.org/Projects/Libgee";
       license = licenses.lgpl21Plus;
       platforms = platforms.unix;

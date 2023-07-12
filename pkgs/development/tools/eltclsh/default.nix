@@ -41,8 +41,7 @@ tcl.mkTclDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Interactive shell for the TCL programming language based on editline";
+    description = "Interactive shell for the TCL programming language based on editline";
     homepage = "https://homepages.laas.fr/mallet/soft/shell/eltclsh";
     license = licenses.bsd3;
     maintainers = with maintainers; [ iwanb ];

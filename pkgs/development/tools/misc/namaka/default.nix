@@ -40,8 +40,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Snapshot testing tool for Nix based on haumea";
     homepage = "https://github.com/nix-community/namaka";
-    changelog =
-      "https://github.com/nix-community/namaka/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/nix-community/namaka/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

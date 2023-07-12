@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
       Expected objects in C++11 and later in a single-file header-only library
     '';
     homepage = "https://github.com/martinmoene/expected-lite";
-    changelog =
-      "https://github.com/martinmoene/expected-lite/blob/${src.rev}/CHANGES.txt";
+    changelog = "https://github.com/martinmoene/expected-lite/blob/${src.rev}/CHANGES.txt";
     license = licenses.boost;
     maintainers = with maintainers; [ azahi ];
   };

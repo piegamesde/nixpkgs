@@ -579,8 +579,7 @@ python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://home-assistant.io/";
-    description =
-      "Open source home automation that puts local control and privacy first";
+    description = "Open source home automation that puts local control and privacy first";
     license = licenses.asl20;
     maintainers = teams.home-assistant.members;
     platforms = platforms.linux;

@@ -64,8 +64,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for building Elasticsearch client objects";
     homepage = "https://github.com/untergeek/es_client";
-    changelog =
-      "https://github.com/untergeek/es_client/releases/tag/v${version}";
+    changelog = "https://github.com/untergeek/es_client/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

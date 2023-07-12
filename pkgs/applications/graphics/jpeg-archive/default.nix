@@ -11,8 +11,7 @@
 
 stdenv.mkDerivation {
   pname = "jpeg-archive";
-  version =
-    "2.2.0"; # can be found here https://github.com/danielgtaylor/jpeg-archive/blob/master/src/util.c#L15
+  version = "2.2.0"; # can be found here https://github.com/danielgtaylor/jpeg-archive/blob/master/src/util.c#L15
 
   # update with
   # nix-prefetch-git https://github.com/danielgtaylor/jpeg-archive
@@ -50,8 +49,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "Utilities for archiving photos for saving to long term storage or serving over the web";
+    description = "Utilities for archiving photos for saving to long term storage or serving over the web";
     homepage = "https://github.com/danielgtaylor/jpeg-archive";
     license = licenses.mit;
     maintainers = [ maintainers.srghma ];

@@ -60,8 +60,7 @@ stdenv.mkDerivation {
   ;
 
   meta = with lib; {
-    description =
-      "Unofficial open source recreation of the classic Grand Theft Auto III game executable";
+    description = "Unofficial open source recreation of the classic Grand Theft Auto III game executable";
     homepage = "https://github.com/rwengine/openrw";
     license = licenses.gpl3;
     longDescription = ''

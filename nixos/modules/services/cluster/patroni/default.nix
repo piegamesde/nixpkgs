@@ -271,8 +271,7 @@ in
               && cfg.dataDir == "/var/lib/patroni"
             )
             {
-              StateDirectory =
-                "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";
+              StateDirectory = "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";
               StateDirectoryMode = "0750";
             }
           )

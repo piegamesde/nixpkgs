@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "2.0.0";
 
   src = fetchurl {
-    url =
-      "https://es-static.fbk.eu/tools/nuxmv/downloads/nuXmv-${version}-${
+    url = "https://es-static.fbk.eu/tools/nuxmv/downloads/nuXmv-${version}-${
         if stdenv.isDarwin then "macosx64" else "linux64"
       }.tar.gz";
     sha256 =
@@ -36,8 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Symbolic model checker for analysis of finite and infinite state systems";
+    description = "Symbolic model checker for analysis of finite and infinite state systems";
     homepage = "https://nuxmv.fbk.eu/pmwiki.php";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

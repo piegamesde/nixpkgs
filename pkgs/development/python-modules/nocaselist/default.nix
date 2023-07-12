@@ -28,8 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A case-insensitive list for Python";
     homepage = "https://github.com/pywbem/nocaselist";
-    changelog =
-      "https://github.com/pywbem/nocaselist/blob/${version}/docs/changes.rst";
+    changelog = "https://github.com/pywbem/nocaselist/blob/${version}/docs/changes.rst";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ freezeboy ];
   };

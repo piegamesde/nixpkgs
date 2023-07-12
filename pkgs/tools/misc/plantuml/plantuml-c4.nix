@@ -21,14 +21,12 @@
 
 let
   c4-lib = fetchzip {
-    url =
-      "https://github.com/plantuml-stdlib/C4-PlantUML/archive/88a3f99150c6ff7953c4a99b184d03412ffdedb1.zip";
+    url = "https://github.com/plantuml-stdlib/C4-PlantUML/archive/88a3f99150c6ff7953c4a99b184d03412ffdedb1.zip";
     sha256 = "sha256-vk4YWdGb47OsI9mApGTQ7OfELRZdBouzKfUZq3kchcM=";
   };
 
   sprites = fetchzip {
-    url =
-      "https://github.com/tupadr3/plantuml-icon-font-sprites/archive/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582.zip";
+    url = "https://github.com/tupadr3/plantuml-icon-font-sprites/archive/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582.zip";
     sha256 = "sha256-lt9+NNMIaZSkKNsGyHoqXUCTlKmZFGfNYYGjer6X0Xc=";
   };
 
@@ -41,8 +39,9 @@ let
         c4-lib
         sprites
       ];
-      includeFlag =
-        "-Dplantuml.include.path=${lib.escapeShellArg plantumlIncludePath}";
+      includeFlag = "-Dplantuml.include.path=${
+          lib.escapeShellArg plantumlIncludePath
+        }";
       postFixedJre =
         runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; }
           ''
@@ -84,8 +83,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "PlantUML bundled with C4-Plantuml and plantuml sprites library";
+    description = "PlantUML bundled with C4-Plantuml and plantuml sprites library";
     homepage = "https://github.com/plantuml-stdlib/C4-PlantUML";
     license = licenses.mit;
     maintainers = with maintainers; [ tfc ];

@@ -40,8 +40,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
-    description =
-      "Removes duplicate and vanished files from the current playlist";
+    description = "Removes duplicate and vanished files from the current playlist";
     homepage = "https://github.com/kpcee/deadbeef-playlist-manager";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.cmm ];

@@ -91,8 +91,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Open source language that simplifies prototyping and writing algorithms on FPGA architectures";
+    description = "Open source language that simplifies prototyping and writing algorithms on FPGA architectures";
     homepage = "https://github.com/sylefeb/Silice";
     license = licenses.bsd2;
     maintainers = [ maintainers.astro ];

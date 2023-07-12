@@ -43,8 +43,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Various problem detectors running on the Kubernetes nodes";
     homepage = "https://github.com/kubernetes/node-problem-detector";
-    changelog =
-      "https://github.com/kubernetes/node-problem-detector/releases/tag/v${version}";
+    changelog = "https://github.com/kubernetes/node-problem-detector/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ lbpdt ];
   };

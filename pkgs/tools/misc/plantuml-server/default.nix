@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   pname = "plantuml-server";
   inherit version;
   src = fetchurl {
-    url =
-      "https://github.com/plantuml/plantuml-server/releases/download/v${version}/plantuml-v${version}.war";
+    url = "https://github.com/plantuml/plantuml-server/releases/download/v${version}/plantuml-v${version}.war";
     sha256 = "sha256-ECzmT6VMjuoJT91iEYOS2ov0bsmNuwIKTwBgsLqwgDI=";
   };
 

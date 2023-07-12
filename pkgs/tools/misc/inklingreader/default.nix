@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/roelj/inklingreader";
-    description =
-      "A GNU/Linux-friendly version of the Wacom Inkling SketchManager";
+    description = "A GNU/Linux-friendly version of the Wacom Inkling SketchManager";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ totoroot ];
     platforms = lib.platforms.linux;

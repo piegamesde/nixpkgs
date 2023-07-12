@@ -89,8 +89,7 @@ let
     '';
 
     meta = with lib; {
-      description =
-        "Aleph One is the open source continuation of Bungie’s Marathon 2 game engine";
+      description = "Aleph One is the open source continuation of Bungie’s Marathon 2 game engine";
       homepage = "https://alephone.lhowon.org/";
       license = with licenses; [ gpl3 ];
       maintainers = with maintainers; [ ehmry ];

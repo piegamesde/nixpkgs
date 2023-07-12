@@ -38,8 +38,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for convenient access to GeoJSON feeds";
     homepage = "https://github.com/exxamalte/python-geojson-client";
-    changelog =
-      "https://github.com/exxamalte/python-geojson-client/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/exxamalte/python-geojson-client/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

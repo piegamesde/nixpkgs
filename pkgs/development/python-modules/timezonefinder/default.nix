@@ -56,10 +56,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    changelog =
-      "https://github.com/jannikmi/timezonefinder/blob/${version}/CHANGELOG.rst";
-    description =
-      "Module for finding the timezone of any point on earth (coordinates) offline";
+    changelog = "https://github.com/jannikmi/timezonefinder/blob/${version}/CHANGELOG.rst";
+    description = "Module for finding the timezone of any point on earth (coordinates) offline";
     homepage = "https://github.com/MrMinimal64/timezonefinder";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

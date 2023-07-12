@@ -29,8 +29,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/drakma/2021-08-07/drakma-v2.0.8.tgz";
+    url = "http://beta.quicklisp.org/archive/drakma/2021-08-07/drakma-v2.0.8.tgz";
     sha256 = "07rig1649yxs0n03y2dc9is6cp9lxlyzqlhsb8g02ds8g86czdjf";
   };
 

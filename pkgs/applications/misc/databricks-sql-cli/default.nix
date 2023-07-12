@@ -21,8 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     [
       # https://github.com/databricks/databricks-sql-cli/pull/38
       (fetchpatch {
-        url =
-          "https://github.com/databricks/databricks-sql-cli/commit/fc294e00819b6966f1605e5c1ce654473510aefe.patch";
+        url = "https://github.com/databricks/databricks-sql-cli/commit/fc294e00819b6966f1605e5c1ce654473510aefe.patch";
         sha256 = "sha256-QVrb7mD0fVbHrbrDywI6tsFNYM19x74LY8rhqqC8szE=";
       })
     ];
@@ -51,8 +50,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "CLI for querying Databricks SQL";
     homepage = "https://github.com/databricks/databricks-sql-cli";
-    changelog =
-      "https://github.com/databricks/databricks-sql-cli/releases/tag/v${version}";
+    changelog = "https://github.com/databricks/databricks-sql-cli/releases/tag/v${version}";
     license = licenses.databricks;
     maintainers = with maintainers; [ kfollesdal ];
   };

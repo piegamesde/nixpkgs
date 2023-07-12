@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   ]; # $out contains all the config
 
   src = fetchurl {
-    url =
-      "https://www.freedesktop.org/software/fontconfig/release/${pname}-${version}.tar.xz";
+    url = "https://www.freedesktop.org/software/fontconfig/release/${pname}-${version}.tar.xz";
     sha256 = "3L64TJx0u/2xM9U1/hx77cnyIhqNrzkUuYTETFIOm6w=";
   };
 

@@ -23,8 +23,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool for situational awareness of cloud penetration tests";
     homepage = "https://github.com/BishopFox/cloudfox";
-    changelog =
-      "https://github.com/BishopFox/cloudfox/releases/tag/v${version}";
+    changelog = "https://github.com/BishopFox/cloudfox/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

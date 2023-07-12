@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "3.7.2";
 
   src = fetchurl {
-    url =
-      "https://gerrit-releases.storage.googleapis.com/gerrit-${version}.war";
+    url = "https://gerrit-releases.storage.googleapis.com/gerrit-${version}.war";
     sha256 = "sha256-XB5bplYpid2vxSjm1DCGYsd3d5kUk8PlnhFdCAORX6k=";
   };
 
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.gerritcodereview.com/index.md";
     license = licenses.asl20;
-    description =
-      "A web based code review and repository management for the git version control system";
+    description = "A web based code review and repository management for the git version control system";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     maintainers = with maintainers; [
       flokli

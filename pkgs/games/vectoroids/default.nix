@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "1.1.0";
 
   src = fetchurl {
-    url =
-      "ftp://ftp.tuxpaint.org/unix/x/vectoroids/src/vectoroids-${version}.tar.gz";
+    url = "ftp://ftp.tuxpaint.org/unix/x/vectoroids/src/vectoroids-${version}.tar.gz";
     sha256 = "0bkvd4a1v496w0vlvqyi1a6p25ssgpkchxxxi8899sb72wlds54d";
   };
 

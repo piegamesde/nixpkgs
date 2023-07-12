@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
       - DNS proxy
       - Compatible with NetworkManager (automatically set interface as unmanaged)
     '';
-    changelog =
-      "https://github.com/garywill/linux-router/releases/tag/${version}";
+    changelog = "https://github.com/garywill/linux-router/releases/tag/${version}";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ x3ro ];
     platforms = platforms.linux;

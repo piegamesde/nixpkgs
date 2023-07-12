@@ -121,8 +121,7 @@ in
     plong = "Beneath a Steel Sky";
     pshort = "bass";
     pcode = "sky";
-    description =
-      "2D point-and-click science fiction thriller set in a bleak vision of the future";
+    description = "2D point-and-click science fiction thriller set in a bleak vision of the future";
     version = "1.2";
     src = fetchurl {
       url = "mirror://sourceforge/scummvm/${pshort}-cd-${version}.zip";
@@ -153,8 +152,7 @@ in
     plong = "Drascula: The Vampire Strikes Back";
     pshort = "drascula";
     pcode = "drascula";
-    description =
-      "Spanish 2D classic point & click style adventure with tons of humor and an easy interface";
+    description = "Spanish 2D classic point & click style adventure with tons of humor and an easy interface";
     version = "1.0";
     # srcs = {
     src = fetchurl {

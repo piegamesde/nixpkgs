@@ -263,8 +263,7 @@ rec {
     '';
     meta = {
       homepage = "https://github.com/laktak/extrakto";
-      description =
-        "Fuzzy find your text with fzf instead of selecting it by hand ";
+      description = "Fuzzy find your text with fzf instead of selecting it by hand ";
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
       maintainers = with lib.maintainers; [ kidd ];
@@ -413,8 +412,7 @@ rec {
     };
     meta = with lib; {
       homepage = "https://github.com/MunifTanjim/tmux-mode-indicator";
-      description =
-        "Plugin that displays prompt indicating currently active Tmux mode";
+      description = "Plugin that displays prompt indicating currently active Tmux mode";
       license = licenses.mit;
       platforms = platforms.unix;
       maintainers = with maintainers; [ aacebedo ];
@@ -712,8 +710,7 @@ rec {
 
     meta = with lib; {
       homepage = "https://github.com/tmux-plugins/vim-tmux-focus-events";
-      description =
-        "Makes FocusGained and FocusLost autocommand events work in vim when using tmux";
+      description = "Makes FocusGained and FocusLost autocommand events work in vim when using tmux";
       license = licenses.mit;
       platforms = platforms.unix;
       maintainers = with maintainers; [ ronanmacf ];

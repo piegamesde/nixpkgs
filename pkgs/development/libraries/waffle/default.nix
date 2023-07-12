@@ -67,8 +67,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR =
-    "${placeholder "out"}/share/bash-completion/completions";
+  PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR = "${
+      placeholder "out"
+    }/share/bash-completion/completions";
 
   postInstall = ''
     wrapProgram $out/bin/wflinfo \
@@ -81,8 +82,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A cross-platform C library that allows one to defer selection of an OpenGL API and window system until runtime";
+    description = "A cross-platform C library that allows one to defer selection of an OpenGL API and window system until runtime";
     homepage = "https://www.waffle-gl.org/";
     license = licenses.bsd2;
     platforms = platforms.mesaPlatforms;

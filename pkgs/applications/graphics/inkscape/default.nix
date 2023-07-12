@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
   version = "1.2.2";
 
   src = fetchurl {
-    url =
-      "https://media.inkscape.org/dl/resources/file/inkscape-${version}.tar.xz";
+    url = "https://media.inkscape.org/dl/resources/file/inkscape-${version}.tar.xz";
     sha256 = "oMf9DQPAohU15kjvMB3PgN18/B81ReUQZfvxuj7opcQ=";
   };
 

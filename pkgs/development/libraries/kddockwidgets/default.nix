@@ -26,8 +26,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "KDAB's Dock Widget Framework for Qt";
-    homepage =
-      "https://www.kdab.com/development-resources/qt-tools/kddockwidgets";
+    homepage = "https://www.kdab.com/development-resources/qt-tools/kddockwidgets";
     license = with licenses; [
       gpl2Only
       gpl3Only

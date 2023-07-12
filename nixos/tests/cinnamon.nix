@@ -40,8 +40,7 @@ import ./make-test-python.nix (
         # Call javascript in cinnamon (the shell), returns a tuple (success, output),
         # where `success` is true if the dbus call was successful and `output` is what
         # the javascript evaluates to.
-        eval =
-          "call --session -d org.Cinnamon -o /org/Cinnamon -m org.Cinnamon.Eval";
+        eval = "call --session -d org.Cinnamon -o /org/Cinnamon -m org.Cinnamon.Eval";
 
         # Should be 2 (RunState.RUNNING) when startup is done.
         # https://github.com/linuxmint/cinnamon/blob/5.4.0/js/ui/main.js#L183-L187

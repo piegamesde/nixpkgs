@@ -141,8 +141,7 @@ with self;
       ppx_type_conv
       sexplib
     ];
-    meta.description =
-      "Generation of S-expression conversion functions from type definitions";
+    meta.description = "Generation of S-expression conversion functions from type definitions";
   };
 
   ppx_compare = janePackage {
@@ -166,8 +165,7 @@ with self;
       ppx_compare
       ppx_sexp_conv
     ];
-    meta.description =
-      "A ppx rewriter that generates hash functions from type expressions and definitions";
+    meta.description = "A ppx rewriter that generates hash functions from type expressions and definitions";
   };
 
   ppx_js_style = janePackage {
@@ -221,8 +219,7 @@ with self;
       ppx_sexp_conv
       ppx_traverse
     ];
-    meta.description =
-      "Printf-style format-strings for user-defined string conversion";
+    meta.description = "Printf-style format-strings for user-defined string conversion";
   };
 
   ppx_fields_conv = janePackage {
@@ -232,8 +229,7 @@ with self;
       fieldslib
       ppx_type_conv
     ];
-    meta.description =
-      "Generation of accessor and iteration functions for OCaml records";
+    meta.description = "Generation of accessor and iteration functions for OCaml records";
   };
 
   ppx_variants_conv = janePackage {
@@ -243,8 +239,7 @@ with self;
       ppx_type_conv
       variantslib
     ];
-    meta.description =
-      "Generation of accessor and iteration functions for OCaml variant types";
+    meta.description = "Generation of accessor and iteration functions for OCaml variant types";
   };
 
   bin_prot = janePackage {
@@ -287,8 +282,7 @@ with self;
       ppx_here
       ppx_compare
     ];
-    meta.description =
-      "Assert-like extension nodes that raise useful errors on failure";
+    meta.description = "Assert-like extension nodes that raise useful errors on failure";
   };
 
   ppx_inline_test = janePackage {
@@ -296,8 +290,7 @@ with self;
     version = "0.9.2";
     hash = "17j36ihiqprbpa2bk02449k93vaidid2sly5djrk848ccjq8n5aa";
     propagatedBuildInputs = [ ppx_metaquot ];
-    meta.description =
-      "Syntax extension for writing in-line tests in OCaml code";
+    meta.description = "Syntax extension for writing in-line tests in OCaml code";
   };
 
   typerep = janePackage {
@@ -311,8 +304,7 @@ with self;
     pname = "ppx_bench";
     hash = "1qk4y6c2mpw7bqjppi2nam74vs2sc89wzq162j92wsqxyqsv4p93";
     propagatedBuildInputs = [ ppx_inline_test ];
-    meta.description =
-      "Syntax extension for writing in-line benchmarks in OCaml code";
+    meta.description = "Syntax extension for writing in-line benchmarks in OCaml code";
   };
 
   ppx_expect = janePackage {
@@ -357,8 +349,7 @@ with self;
     pname = "ppx_pipebang";
     hash = "1wyfyyjvyi94ds1p90l60wdr85q2v3fq1qdf3gnv9zjfy6sb0g9h";
     propagatedBuildInputs = [ ppx_metaquot ];
-    meta.description =
-      "A ppx rewriter that inlines reverse application operators |> and |!";
+    meta.description = "A ppx rewriter that inlines reverse application operators |> and |!";
   };
 
   ppx_sexp_message = janePackage {
@@ -378,8 +369,7 @@ with self;
       ppx_sexp_conv
       ppx_here
     ];
-    meta.description =
-      "A ppx rewriter that simplifies building s-expressions from OCaml values";
+    meta.description = "A ppx rewriter that simplifies building s-expressions from OCaml values";
   };
 
   ppx_typerep_conv = janePackage {
@@ -494,8 +484,7 @@ with self;
     pname = "async_kernel";
     hash = "1zwxhzy7f9900rcjls2fql9cpfmwrcah3fazzdz4h2i51f41w62x";
     propagatedBuildInputs = [ core_kernel ];
-    meta.description =
-      "Jane Street Capital's asynchronous execution library (core)";
+    meta.description = "Jane Street Capital's asynchronous execution library (core)";
   };
 
   async_rpc_kernel = janePackage {
@@ -515,8 +504,7 @@ with self;
       core
       async_kernel
     ];
-    meta.description =
-      "Jane Street Capital's asynchronous execution library (unix)";
+    meta.description = "Jane Street Capital's asynchronous execution library (unix)";
   };
 
   async_extra = janePackage {
@@ -547,8 +535,7 @@ with self;
     pname = "async_interactive";
     hash = "1mmqqp6bi2wg7bmgf0sw34jn3iyl5kbm200dax8yqq6rfprcs49j";
     propagatedBuildInputs = [ async ];
-    meta.description =
-      "Utilities for building simple command-line based user interfaces";
+    meta.description = "Utilities for building simple command-line based user interfaces";
   };
 
   async_parallel = janePackage {
@@ -620,8 +607,7 @@ with self;
       core_kernel
       zarith
     ];
-    meta.description =
-      "Core-flavoured wrapper around zarith's arbitrary-precision rationals";
+    meta.description = "Core-flavoured wrapper around zarith's arbitrary-precision rationals";
   };
 
   cinaps = janePackage {
@@ -635,8 +621,7 @@ with self;
     pname = "command_rpc";
     hash = "0w58z9jkz5qzbvf33wrzhfshzdvnrphj6dq8dmi52ykhfvxm7824";
     propagatedBuildInputs = [ async ];
-    meta.description =
-      "Utilities for Versioned RPC communication with a child process over stdin and stdout";
+    meta.description = "Utilities for Versioned RPC communication with a child process over stdin and stdout";
   };
 
   core_bench = janePackage {
@@ -684,8 +669,7 @@ with self;
     pname = "incremental_kernel";
     hash = "0zq48wbgqcflh84n10iygi8aa3f0zzmgc7r0jwvsyg7i8zccgvf5";
     propagatedBuildInputs = [ core_kernel ];
-    meta.description =
-      "Library for incremental computations depending only on core_kernel";
+    meta.description = "Library for incremental computations depending only on core_kernel";
   };
 
   incremental = janePackage {
@@ -702,8 +686,7 @@ with self;
     pname = "incr_map";
     hash = "0358qg9irxbbhn18laqww3mn43mdwvlbr0h2mvg3vdbb2c5jp4fv";
     propagatedBuildInputs = [ incremental_kernel ];
-    meta.description =
-      "Helpers for incremental operations on map like data structures";
+    meta.description = "Helpers for incremental operations on map like data structures";
   };
 
   ocaml_plugin = janePackage {

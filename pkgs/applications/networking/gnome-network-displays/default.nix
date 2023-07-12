@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   version = "0.90.5";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-2SBVQK4fJeK8Y2UrrL0g5vQIerDdGE1nhFc6ke4oIpI=";
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
       # https://github.com/NixOS/nixpkgs/issues/36468 and
       # https://gitlab.gnome.org/GNOME/gnome-network-displays/-/merge_requests/147
       (fetchpatch {
-        url =
-          "https://gitlab.gnome.org/GNOME/gnome-network-displays/-/commit/ef3f3ff565acd8238da46de604a1e750d4f02f07.diff";
+        url = "https://gitlab.gnome.org/GNOME/gnome-network-displays/-/commit/ef3f3ff565acd8238da46de604a1e750d4f02f07.diff";
         sha256 = "1ljiwgqia6am4lansg70qnwkch9mp1fr6bga98s5fwyiaw6b6f4p";
       })
     ];

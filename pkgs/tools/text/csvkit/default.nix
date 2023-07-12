@@ -58,10 +58,8 @@ python.pkgs.buildPythonApplication rec {
     ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/wireservice/csvkit/blob/${version}/CHANGELOG.rst";
-    description =
-      "A suite of command-line tools for converting to and working with CSV";
+    changelog = "https://github.com/wireservice/csvkit/blob/${version}/CHANGELOG.rst";
+    description = "A suite of command-line tools for converting to and working with CSV";
     homepage = "https://github.com/wireservice/csvkit";
     license = licenses.mit;
     maintainers = with maintainers; [ vrthra ];

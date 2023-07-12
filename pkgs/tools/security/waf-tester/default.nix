@@ -34,8 +34,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to test Web Application Firewalls (WAFs)";
     homepage = "https://github.com/jreisinger/waf-tester";
-    changelog =
-      "https://github.com/jreisinger/waf-tester/releases/tag/v${version}";
+    changelog = "https://github.com/jreisinger/waf-tester/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

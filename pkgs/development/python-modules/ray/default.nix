@@ -68,8 +68,9 @@ buildPythonPackage rec {
 
   src =
     let
-      pyShortVersion =
-        "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+      pyShortVersion = "cp${
+          builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion
+        }";
       binary-hash = (import ./binary-hashes.nix)."${pyShortVersion}" or { };
     in
     fetchPypi (
@@ -170,8 +171,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A unified framework for scaling AI and Python applications";
     homepage = "https://github.com/ray-project/ray";
-    changelog =
-      "https://github.com/ray-project/ray/releases/tag/ray-${version}";
+    changelog = "https://github.com/ray-project/ray/releases/tag/ray-${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ billhuang ];
     platforms = [ "x86_64-linux" ];

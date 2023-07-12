@@ -89,8 +89,7 @@ pypkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Windows KMS (Key Management Service) server written in Python";
+    description = "Windows KMS (Key Management Service) server written in Python";
     homepage = "https://github.com/Py-KMS-Organization/py-kms";
     license = licenses.unlicense;
     maintainers = with maintainers; [

@@ -84,8 +84,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Miscellaneous utils for asyncio";
     homepage = "https://github.com/aiokitchen/aiomisc";
-    changelog =
-      "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
+    changelog = "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

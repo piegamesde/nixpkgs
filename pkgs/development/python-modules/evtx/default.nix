@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Bindings for evtx";
     homepage = "https://github.com/omerbenamram/pyevtx-rs";
-    changelog =
-      "https://github.com/omerbenamram/pyevtx-rs/releases/tag/${version}";
+    changelog = "https://github.com/omerbenamram/pyevtx-rs/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

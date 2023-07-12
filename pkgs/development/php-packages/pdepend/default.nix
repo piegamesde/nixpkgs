@@ -14,8 +14,7 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://github.com/pdepend/pdepend/releases/download/${version}/pdepend.phar";
+    url = "https://github.com/pdepend/pdepend/releases/download/${version}/pdepend.phar";
     sha256 = "sha256-cd76PoHzAqsRxQzvklyEIsNO+4jByK8Mwx1aNu8rnnk=";
   };
 
@@ -36,8 +35,7 @@ stdenv.mkDerivation {
     description = "An adaptation of JDepend for PHP";
     homepage = "https://github.com/pdepend/pdepend";
     license = licenses.bsd3;
-    longDescription =
-      "\n      PHP Depend is an adaptation of the established Java\n      development tool JDepend. This tool shows you the quality\n      of your design in terms of extensibility, reusability and\n      maintainability.\n    ";
+    longDescription = "\n      PHP Depend is an adaptation of the established Java\n      development tool JDepend. This tool shows you the quality\n      of your design in terms of extensibility, reusability and\n      maintainability.\n    ";
     maintainers = teams.php.members;
     platforms = platforms.all;
   };

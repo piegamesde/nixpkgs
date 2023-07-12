@@ -46,8 +46,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description =
-      "Mutation-based coverage testing for hardware designs, with Yosys";
+    description = "Mutation-based coverage testing for hardware designs, with Yosys";
     homepage = "https://github.com/YosysHQ/mcy";
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ thoughtpolice ];

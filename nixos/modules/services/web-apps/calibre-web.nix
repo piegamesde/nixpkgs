@@ -120,8 +120,7 @@ in
       let
         appDb = "/var/lib/${cfg.dataDir}/app.db";
         gdriveDb = "/var/lib/${cfg.dataDir}/gdrive.db";
-        calibreWebCmd =
-          "${pkgs.calibre-web}/bin/calibre-web -p ${appDb} -g ${gdriveDb}";
+        calibreWebCmd = "${pkgs.calibre-web}/bin/calibre-web -p ${appDb} -g ${gdriveDb}";
 
         settings = concatStringsSep ", " (
           [
@@ -143,8 +142,7 @@ in
         );
       in
       {
-        description =
-          "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
+        description = "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 

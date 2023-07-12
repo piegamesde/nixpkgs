@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "1.22.2";
 
   src = fetchurl {
-    url =
-      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+    url = "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-62JybT4nqHgjaaJP1jZKiIXtJGKzu9qwkd/8gTnuBtg=";
   };
 
@@ -62,8 +61,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [ (lib.mesonEnable "doc" enableDocumentation) ];
 
   meta = with lib; {
-    description =
-      "Integration testing infrastructure for the GStreamer framework";
+    description = "Integration testing infrastructure for the GStreamer framework";
     homepage = "https://gstreamer.freedesktop.org";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;

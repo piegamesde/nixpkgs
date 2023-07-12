@@ -48,8 +48,7 @@ in
         Path to the secret openai api key used for embeddings.
       '';
       default = "";
-      example =
-        "config.age.secrets.CHATGPT_RETRIEVAL_PLUGIN_OPENAI_API_KEY.path";
+      example = "config.age.secrets.CHATGPT_RETRIEVAL_PLUGIN_OPENAI_API_KEY.path";
     };
 
     datastore = mkOption {
@@ -82,13 +81,11 @@ in
     assertions = [
       {
         assertion = cfg.bearerTokenPath != "";
-        message =
-          "services.chatgpt-retrieval-plugin.bearerTokenPath should not be an empty string.";
+        message = "services.chatgpt-retrieval-plugin.bearerTokenPath should not be an empty string.";
       }
       {
         assertion = cfg.openaiApiKeyPath != "";
-        message =
-          "services.chatgpt-retrieval-plugin.openaiApiKeyPath should not be an empty string.";
+        message = "services.chatgpt-retrieval-plugin.openaiApiKeyPath should not be an empty string.";
       }
     ];
 

@@ -18,8 +18,7 @@ mkDerivation rec {
   version = "0.9.15";
 
   src = fetchurl {
-    url =
-      "https://download.tuxfamily.org/yabause/releases/${version}/${pname}-${version}.tar.gz";
+    url = "https://download.tuxfamily.org/yabause/releases/${version}/${pname}-${version}.tar.gz";
     sha256 = "1cn2rjjb7d9pkr4g5bqz55vd4pzyb7hg94cfmixjkzzkw0zw8d23";
   };
 

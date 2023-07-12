@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "7.2-rc";
 
   src = fetchzip {
-    url =
-      "https://github.com/icsharpcode/AvaloniaILSpy/releases/download/v${version}/Linux.x64.Release.zip";
+    url = "https://github.com/icsharpcode/AvaloniaILSpy/releases/download/v${version}/Linux.x64.Release.zip";
     sha256 = "1crf0ng4l6x70wjlz3r6qw8l166gd52ys11j7ilb4nyy3mkjxk11";
   };
 

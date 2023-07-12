@@ -302,8 +302,7 @@ buildPythonPackage rec {
   # see if they report success.
 
   meta = with lib; {
-    description =
-      "Programmatically author, schedule and monitor data pipelines";
+    description = "Programmatically author, schedule and monitor data pipelines";
     homepage = "https://airflow.apache.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [

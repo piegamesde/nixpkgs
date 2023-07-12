@@ -61,8 +61,7 @@ stdenv.mkDerivation {
   passthru.tests = { inherit firefox-unwrapped firefox-esr-unwrapped; };
 
   meta = with lib; {
-    changelog =
-      "https://github.com/WebAssembly/wasi-sdk/releases/tag/wasi-sdk-${version}";
+    changelog = "https://github.com/WebAssembly/wasi-sdk/releases/tag/wasi-sdk-${version}";
     description = "WASI libc implementation for WebAssembly";
     homepage = "https://wasi.dev";
     platforms = platforms.wasi;

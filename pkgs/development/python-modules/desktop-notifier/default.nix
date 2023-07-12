@@ -40,8 +40,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for cross-platform desktop notifications";
     homepage = "https://github.com/samschott/desktop-notifier";
-    changelog =
-      "https://github.com/samschott/desktop-notifier/releases/tag/v${version}";
+    changelog = "https://github.com/samschott/desktop-notifier/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sfrijters ];
     platforms = platforms.linux;

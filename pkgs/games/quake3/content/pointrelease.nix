@@ -12,8 +12,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://ftp.gwdg.de/pub/misc/ftp.idsoftware.com/idstuff/quake3/linux/linuxq3apoint-${version}.x86.run";
+    url = "https://ftp.gwdg.de/pub/misc/ftp.idsoftware.com/idstuff/quake3/linux/linuxq3apoint-${version}.x86.run";
     sha256 = "11piyksfqyxwl9mpgbc71w9sacsh4d3cdsgia0cy0dbbap2k4qf3";
   };
 

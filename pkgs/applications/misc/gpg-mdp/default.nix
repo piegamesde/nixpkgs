@@ -29,8 +29,7 @@ stdenv.mkDerivation {
       #   https://github.com/tamentis/mdp/pull/9
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/tamentis/mdp/commit/95c77de3beb96dc7c76ff36d3f3dfb18411d7c54.patch";
+        url = "https://github.com/tamentis/mdp/commit/95c77de3beb96dc7c76ff36d3f3dfb18411d7c54.patch";
         sha256 = "1j6yvjzkx31b758yav4arhlm5ig7phl8mgx4fcwj7lm2pfvzwcsz";
       })
     ];

@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A simple library for loading/saving images and animations, written in C";
+    description = "A simple library for loading/saving images and animations, written in C";
     homepage = "https://github.com/bcampbell/impy";
     license = licenses.gpl3;
     maintainers = with maintainers; [ fgaz ];

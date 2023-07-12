@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "${major}.${minor}.${patch}";
 
   src = fetchurl {
-    url =
-      "https://www.umlet.com/umlet_${major}_${minor}/umlet-standalone-${version}.zip";
+    url = "https://www.umlet.com/umlet_${major}_${minor}/umlet-standalone-${version}.zip";
     sha256 = "sha256-gdvhqYGyrFuQhhrkF26wXb3TQLRCLm59/uSxTPmHdAE=";
   };
 

@@ -56,8 +56,7 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        specialisations =
-          "${nodes.machine.system.build.toplevel}/specialisation";
+        specialisations = "${nodes.machine.system.build.toplevel}/specialisation";
       in
       ''
         machine.start()

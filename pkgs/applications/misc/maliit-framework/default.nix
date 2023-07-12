@@ -38,8 +38,7 @@ mkDerivation rec {
     [
       # FIXME: backport GCC 12 build fix, remove for next release
       (fetchpatch {
-        url =
-          "https://github.com/maliit/framework/commit/86e55980e3025678882cb9c4c78614f86cdc1f04.diff";
+        url = "https://github.com/maliit/framework/commit/86e55980e3025678882cb9c4c78614f86cdc1f04.diff";
         hash = "sha256-5R+sCI05vJX5epu6hcDSWWzlZ8ns1wKEJ+u8xC6d8Xo=";
       })
     ];

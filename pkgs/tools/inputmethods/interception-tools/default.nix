@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description =
-      "A minimal composable infrastructure on top of libudev and libevdev";
+    description = "A minimal composable infrastructure on top of libudev and libevdev";
     homepage = "https://gitlab.com/interception/linux/tools";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.vyp ];

@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   version = "4.7.3";
 
   src = fetchurl {
-    url =
-      "https://github.com/Snapmaker/Luban/releases/download/v${version}/snapmaker-luban-${version}-linux-x64.tar.gz";
+    url = "https://github.com/Snapmaker/Luban/releases/download/v${version}/snapmaker-luban-${version}-linux-x64.tar.gz";
     sha256 = "sha256-CPeTTnwykaa58tpA7Aznrvrs0DqxOKjspZjHrT+e9tw=";
   };
 
@@ -142,8 +141,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Snapmaker Luban is an easy-to-use 3-in-1 software tailor-made for Snapmaker machines";
+    description = "Snapmaker Luban is an easy-to-use 3-in-1 software tailor-made for Snapmaker machines";
     homepage = "https://github.com/Snapmaker/Luban";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3;

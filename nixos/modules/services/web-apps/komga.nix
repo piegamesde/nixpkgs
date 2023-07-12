@@ -80,8 +80,7 @@ in
         KOMGA_CONFIGDIR = cfg.stateDir;
       };
 
-      description =
-        "Komga is a free and open source comics/mangas media server";
+      description = "Komga is a free and open source comics/mangas media server";
 
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];

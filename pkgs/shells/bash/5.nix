@@ -27,8 +27,7 @@ let
   );
 in
 stdenv.mkDerivation rec {
-  name =
-    "bash-${lib.optionalString interactive "interactive-"}${version}-p${
+  name = "bash-${lib.optionalString interactive "interactive-"}${version}-p${
       toString (builtins.length upstreamPatches)
     }";
   version = "5.2";
@@ -79,8 +78,7 @@ stdenv.mkDerivation rec {
       ./pgrp-pipe-5.patch
       (fetchurl {
         name = "fix-static.patch";
-        url =
-          "https://cgit.freebsd.org/ports/plain/shells/bash/files/patch-configure?id=3e147a1f594751a68fea00a28090d0792bee0b51";
+        url = "https://cgit.freebsd.org/ports/plain/shells/bash/files/patch-configure?id=3e147a1f594751a68fea00a28090d0792bee0b51";
         sha256 = "XHFMQ6eXTReNoywdETyrfQEv1rKF8+XFbQZP4YoVKFk=";
       })
     ]

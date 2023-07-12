@@ -12,8 +12,7 @@ rec {
   deps = [ args."asdf-package-system" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/smug/2016-04-21/smug-20160421-git.tgz";
+    url = "http://beta.quicklisp.org/archive/smug/2016-04-21/smug-20160421-git.tgz";
     sha256 = "0f9ig6r0cm1sbhkasx1v27204rmrjbzgwc49d9hy4zn29ffrg0h2";
   };
 

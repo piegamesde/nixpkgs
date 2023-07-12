@@ -238,8 +238,7 @@ in
     };
 
     systemd.services.lighthouse-beacon = mkIf cfg.beacon.enable {
-      description =
-        "Lighthouse beacon node (connect to P2P nodes and verify blocks)";
+      description = "Lighthouse beacon node (connect to P2P nodes and verify blocks)";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
@@ -305,8 +304,7 @@ in
     };
 
     systemd.services.lighthouse-validator = mkIf cfg.validator.enable {
-      description =
-        "Lighthouse validtor node (manages validators, using data obtained from the beacon node via a HTTP API)";
+      description = "Lighthouse validtor node (manages validators, using data obtained from the beacon node via a HTTP API)";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 

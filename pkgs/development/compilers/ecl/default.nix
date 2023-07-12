@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "21.2.1";
 
   src = fetchurl {
-    url =
-      "https://common-lisp.net/project/ecl/static/files/release/ecl-${version}.tgz";
+    url = "https://common-lisp.net/project/ecl/static/files/release/ecl-${version}.tgz";
     sha256 = "sha256-sVp13PhLj2LmhyDMqxOT+WEcB4/NOv3WOaEIbK0BCQA=";
   };
 
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
     [
       # https://gitlab.com/embeddable-common-lisp/ecl/-/merge_requests/1
       (fetchpatch {
-        url =
-          "https://git.sagemath.org/sage.git/plain/build/pkgs/ecl/patches/write_error.patch?h=9.2";
+        url = "https://git.sagemath.org/sage.git/plain/build/pkgs/ecl/patches/write_error.patch?h=9.2";
         sha256 = "0hfxacpgn4919hg0mn4wf4m8r7y592r4gw7aqfnva7sckxi6w089";
       })
     ];
@@ -87,13 +85,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Lisp implementation aiming to be small, fast and easy to embed";
+    description = "Lisp implementation aiming to be small, fast and easy to embed";
     homepage = "https://common-lisp.net/project/ecl/";
     license = licenses.mit;
     maintainers = lib.teams.lisp.members;
     platforms = platforms.unix;
-    changelog =
-      "https://gitlab.com/embeddable-common-lisp/ecl/-/raw/${version}/CHANGELOG";
+    changelog = "https://gitlab.com/embeddable-common-lisp/ecl/-/raw/${version}/CHANGELOG";
   };
 }

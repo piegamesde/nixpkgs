@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "CLI tools for the offline version of the Esperanto dictionary Reta Vortaro";
+    description = "CLI tools for the offline version of the Esperanto dictionary Reta Vortaro";
     longDescription = ''
       PReVo is the "portable" ReVo, i.e., the offline version
       of the Esperanto dictionary Reta Vortaro.

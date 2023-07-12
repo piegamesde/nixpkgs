@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description =
-      "A framework for controlling entertainment lighting equipment";
+    description = "A framework for controlling entertainment lighting equipment";
     homepage = "https://www.openlighting.org/ola/";
     maintainers = with maintainers; [ globin ];
     license = with licenses; [

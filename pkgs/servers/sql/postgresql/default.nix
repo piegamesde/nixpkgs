@@ -67,8 +67,7 @@ let
       inherit version;
 
       src = fetchurl {
-        url =
-          "mirror://postgresql/source/v${version}/${pname}-${version}.tar.bz2";
+        url = "mirror://postgresql/source/v${version}/${pname}-${version}.tar.bz2";
         inherit hash;
       };
 
@@ -310,8 +309,7 @@ let
 
       meta = with lib; {
         homepage = "https://www.postgresql.org";
-        description =
-          "A powerful, open source object-relational database system";
+        description = "A powerful, open source object-relational database system";
         license = licenses.postgresql;
         maintainers = with maintainers; [
           thoughtpolice

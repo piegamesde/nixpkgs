@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "8.45";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/pcre/pcre/${version}/pcre-${version}.tar.bz2";
+    url = "mirror://sourceforge/project/pcre/pcre/${version}/pcre-${version}.tar.bz2";
     sha256 = "sha256-Ta5v3NK7C7bDe1+Xwzwr6VTadDmFNpzdrDVG4yGL/7g=";
   };
 

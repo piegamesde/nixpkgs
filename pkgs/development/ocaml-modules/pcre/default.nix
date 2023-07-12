@@ -15,8 +15,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.12";
 
   src = fetchurl {
-    url =
-      "https://github.com/mmottl/pcre-ocaml/releases/download/${version}/pcre-${version}.tbz";
+    url = "https://github.com/mmottl/pcre-ocaml/releases/download/${version}/pcre-${version}.tbz";
     sha256 = "sha256-ZxFC9AtthhccvAZyU/qt+QMBkWHVdIi9D7bFRWwsvRo=";
   };
 
@@ -26,8 +25,7 @@ buildDunePackage rec {
 
   meta = with lib; {
     homepage = "https://mmottl.github.io/pcre-ocaml";
-    description =
-      "An efficient C-library for pattern matching with Perl-style regular expressions in OCaml";
+    description = "An efficient C-library for pattern matching with Perl-style regular expressions in OCaml";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [
       maggesi

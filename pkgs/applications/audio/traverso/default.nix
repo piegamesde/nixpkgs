@@ -57,8 +57,7 @@ mkDerivation {
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
-    description =
-      "Cross-platform multitrack audio recording and audio editing suite";
+    description = "Cross-platform multitrack audio recording and audio editing suite";
     homepage = "https://traverso-daw.org/";
     license = with licenses; [
       gpl2Plus

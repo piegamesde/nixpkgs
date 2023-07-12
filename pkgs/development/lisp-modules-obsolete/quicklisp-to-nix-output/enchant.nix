@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-enchant/2021-12-09/cl-enchant-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-enchant/2021-12-09/cl-enchant-20211209-git.tgz";
     sha256 = "1j9qliyxfjfz4bbc6snysccnmmk2d2y8kb613rna239dh5g6c03c";
   };
 

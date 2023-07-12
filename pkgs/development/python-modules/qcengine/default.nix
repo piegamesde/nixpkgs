@@ -36,8 +36,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "qcengine" ];
 
   meta = with lib; {
-    description =
-      "Quantum chemistry program executor and IO standardizer (QCSchema) for quantum chemistry";
+    description = "Quantum chemistry program executor and IO standardizer (QCSchema) for quantum chemistry";
     homepage = "http://docs.qcarchive.molssi.org/projects/qcelemental/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ sheepforce ];

@@ -40,8 +40,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pure effects for Python";
     homepage = "https://effect.readthedocs.io/";
-    changelog =
-      "https://github.com/python-effect/effect/releases/tag/${version}";
+    changelog = "https://github.com/python-effect/effect/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

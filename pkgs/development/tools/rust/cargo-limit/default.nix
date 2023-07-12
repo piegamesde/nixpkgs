@@ -25,8 +25,8 @@ rustPlatform.buildRustPackage rec {
   passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description =
-      ''Cargo subcommand "limit": reduces the noise of compiler messages'';
+    description = ''
+      Cargo subcommand "limit": reduces the noise of compiler messages'';
     homepage = "https://github.com/alopatindev/cargo-limit";
     license = with licenses; [
       asl20 # or

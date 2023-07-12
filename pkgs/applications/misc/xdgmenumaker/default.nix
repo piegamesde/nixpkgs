@@ -54,8 +54,7 @@ python3Packages.buildPythonApplication rec {
   passthru.updateScript = gitUpdater { };
 
   meta = with lib; {
-    description =
-      "Command line tool that generates XDG menus for several window managers";
+    description = "Command line tool that generates XDG menus for several window managers";
     homepage = "https://github.com/gapan/xdgmenumaker";
     license = licenses.gpl3Plus;
     # NOTE: exclude darwin from platforms because Travis reports hash mismatch

@@ -49,8 +49,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ossfs" ];
 
   meta = with lib; {
-    description =
-      "Filesystem for Alibaba Cloud (Aliyun) Object Storage System (OSS)";
+    description = "Filesystem for Alibaba Cloud (Aliyun) Object Storage System (OSS)";
     homepage = "https://github.com/fsspec/ossfs";
     changelog = "https://github.com/fsspec/ossfs/releases/tag/${version}";
     license = licenses.asl20;

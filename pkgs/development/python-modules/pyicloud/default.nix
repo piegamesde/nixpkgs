@@ -53,8 +53,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "PyiCloud is a module which allows pythonistas to interact with iCloud webservices";
+    description = "PyiCloud is a module which allows pythonistas to interact with iCloud webservices";
     homepage = "https://github.com/picklepete/pyicloud";
     license = licenses.mit;
     maintainers = [ maintainers.mic92 ];

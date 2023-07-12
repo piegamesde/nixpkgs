@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       # podcasts-gtk/resources/meson.build:5:0: ERROR: Function does not take positional arguments.
       # podcasts-gtk/resources/meson.build:30:0: ERROR: Function does not take positional arguments.
       (fetchpatch {
-        url =
-          "https://gitlab.gnome.org/World/podcasts/-/commit/6614bb62ecbec7c3b18ea7fe44beb50fe7942b27.patch";
+        url = "https://gitlab.gnome.org/World/podcasts/-/commit/6614bb62ecbec7c3b18ea7fe44beb50fe7942b27.patch";
         sha256 = "3TVKFV9V6Ofdajgkdc+j+yxsU21C4JWSc6GjLExSM00=";
       })
     ];
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "gettext-rs-0.4.2" =
-        "sha256-wyZ1bf0oFcQo8gEi2GEalRUoKMoJYHysu79qcfjd4Ng=";
+      "gettext-rs-0.4.2" = "sha256-wyZ1bf0oFcQo8gEi2GEalRUoKMoJYHysu79qcfjd4Ng=";
     };
   };
 

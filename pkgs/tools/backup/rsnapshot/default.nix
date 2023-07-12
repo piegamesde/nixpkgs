@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A filesystem snapshot utility for making backups of local and remote systems";
+    description = "A filesystem snapshot utility for making backups of local and remote systems";
     homepage = "https://rsnapshot.org/";
     license = lib.licenses.gpl2Plus;
     platforms = platforms.linux;

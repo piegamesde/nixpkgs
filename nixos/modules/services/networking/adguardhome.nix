@@ -162,8 +162,7 @@ in
               cfg.settings
             )
         ;
-        message =
-          "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
+        message = "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
       }
       {
         assertion =
@@ -178,8 +177,7 @@ in
                 ]
                 cfg.settings
         ;
-        message =
-          "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
+        message = "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
       }
     ];
 

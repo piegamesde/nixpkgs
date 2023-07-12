@@ -18,8 +18,7 @@ xmrig.overrideAttrs (
     };
 
     meta = with lib; {
-      description =
-        "A fork of the XMRig CPU miner with support for algorithm switching";
+      description = "A fork of the XMRig CPU miner with support for algorithm switching";
       homepage = "https://github.com/MoneroOcean/xmrig";
       license = licenses.gpl3Plus;
       platforms = platforms.unix;

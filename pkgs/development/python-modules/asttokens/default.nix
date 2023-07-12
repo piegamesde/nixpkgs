@@ -43,8 +43,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/gristlabs/asttokens";
-    description =
-      "Annotate Python AST trees with source text and token information";
+    description = "Annotate Python AST trees with source text and token information";
     license = licenses.asl20;
     maintainers = with maintainers; [ leenaars ];
   };

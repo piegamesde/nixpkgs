@@ -51,8 +51,7 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    changelog =
-      "https://github.com/kubernetes-sigs/cluster-api/releases/tag/${src.rev}";
+    changelog = "https://github.com/kubernetes-sigs/cluster-api/releases/tag/${src.rev}";
     description = "Kubernetes cluster API tool";
     homepage = "https://cluster-api.sigs.k8s.io/";
     license = licenses.asl20;

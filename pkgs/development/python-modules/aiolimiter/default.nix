@@ -42,8 +42,7 @@ buildPythonPackage rec {
       # Switch to poetry-core, https://github.com/mjpieters/aiolimiter/pull/77
       (fetchpatch {
         name = "switch-to-peotry-core.patch";
-        url =
-          "https://github.com/mjpieters/aiolimiter/commit/84a85eff42621b0daff8fcf6bb485db313faae0b.patch";
+        url = "https://github.com/mjpieters/aiolimiter/commit/84a85eff42621b0daff8fcf6bb485db313faae0b.patch";
         hash = "sha256-xUfJwLvMF2Xt/V1bKBFn/fjn1uyw7bGNo9RpWxtyr50=";
       })
     ];

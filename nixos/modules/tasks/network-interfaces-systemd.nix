@@ -155,8 +155,9 @@ let
                 routeConfig = optionalAttrs
                     (route.address != null && route.prefixLength != null)
                     {
-                      Destination =
-                        "${route.address}/${toString route.prefixLength}";
+                      Destination = "${route.address}/${
+                          toString route.prefixLength
+                        }";
                     } // optionalAttrs (route.options ? fastopen_no_cookie) {
                       FastOpenNoCookie = route.options.fastopen_no_cookie;
                     }
@@ -223,23 +224,20 @@ in
         [
           {
             assertion = cfg.defaultGatewayWindowSize == null;
-            message =
-              "networking.defaultGatewayWindowSize is not supported by networkd.";
+            message = "networking.defaultGatewayWindowSize is not supported by networkd.";
           }
           {
             assertion =
               cfg.defaultGateway == null || cfg.defaultGateway.interface == null
             ;
-            message =
-              "networking.defaultGateway.interface is not supported by networkd.";
+            message = "networking.defaultGateway.interface is not supported by networkd.";
           }
           {
             assertion =
               cfg.defaultGateway6 == null
               || cfg.defaultGateway6.interface == null
             ;
-            message =
-              "networking.defaultGateway6.interface is not supported by networkd.";
+            message = "networking.defaultGateway6.interface is not supported by networkd.";
           }
         ]
         ++ flip mapAttrsToList cfg.bridges (
@@ -250,8 +248,7 @@ in
           }:
           {
             assertion = !rstp;
-            message =
-              "networking.bridges.${n}.rstp is not supported by networkd.";
+            message = "networking.bridges.${n}.rstp is not supported by networkd.";
           }
         )
         ++ flip mapAttrsToList cfg.fooOverUDP (
@@ -262,8 +259,7 @@ in
           }:
           {
             assertion = local == null;
-            message =
-              "networking.fooOverUDP.${n}.local is not supported by networkd.";
+            message = "networking.fooOverUDP.${n}.local is not supported by networkd.";
           }
         )
       ;

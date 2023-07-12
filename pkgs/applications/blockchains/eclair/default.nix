@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   revision = "0077471";
 
   src = fetchzip {
-    url =
-      "https://github.com/ACINQ/eclair/releases/download/v${version}/eclair-node-${version}-${revision}-bin.zip";
+    url = "https://github.com/ACINQ/eclair/releases/download/v${version}/eclair-node-${version}-${revision}-bin.zip";
     hash = "sha256-jkXdt1aQRVgItfFPuyh45uXjUFgJtKng/17Po5i7ang=";
   };
 

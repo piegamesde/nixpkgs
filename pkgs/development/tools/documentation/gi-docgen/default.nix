@@ -14,8 +14,7 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gi-docgen/${
+    url = "mirror://gnome/sources/gi-docgen/${
         lib.versions.major version
       }/gi-docgen-${version}.tar.xz";
     sha256 = "qaaHwbfEpBOaIUvUUeAcqGExoxYfaKo+BzJbBgArv7Y=";

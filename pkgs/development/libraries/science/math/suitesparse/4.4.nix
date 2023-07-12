@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   pname = "suitesparse";
 
   src = fetchurl {
-    url =
-      "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-${version}.tar.gz";
+    url = "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-${version}.tar.gz";
     sha256 = "1zdn1y0ij6amj7smmcslkqgbqv9yy5cwmbyzqc9v6drzdzllgbpj";
   };
 

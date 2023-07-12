@@ -45,8 +45,7 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = irmin.meta // {
-    description =
-      "Irmin implementation of the Tezos context hash specification";
+    description = "Irmin implementation of the Tezos context hash specification";
     maintainers = [ lib.maintainers.ulrikstrid ];
   };
 }

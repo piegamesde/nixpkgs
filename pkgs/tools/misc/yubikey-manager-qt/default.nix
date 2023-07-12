@@ -19,8 +19,7 @@ mkDerivation rec {
   version = "1.2.4";
 
   src = fetchurl {
-    url =
-      "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
+    url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
     sha256 = "sha256-PxHc7IeRsO+CPrNTofGypLLW8fSHDkcBqr75NwdlUyc=";
   };
 
@@ -84,8 +83,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Cross-platform application for configuring any YubiKey over all USB interfaces";
+    description = "Cross-platform application for configuring any YubiKey over all USB interfaces";
     homepage = "https://developers.yubico.com/yubikey-manager-qt/";
     license = licenses.bsd2;
     maintainers = [ maintainers.cbley ];

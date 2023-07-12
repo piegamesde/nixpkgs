@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
   version = "6.1.3";
 
   src = fetchurl {
-    url =
-      "https://bin.appgate-sdp.com/${
+    url = "https://bin.appgate-sdp.com/${
         lib.versions.majorMinor version
       }/client/appgate-sdp_${version}_amd64.deb";
     sha256 = "sha256-uk7+XBKtTGnX/bHBQttmxlu9+gKvFqu3VhzC7uIYCNQ=";
@@ -160,8 +159,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Appgate SDP (Software Defined Perimeter) desktop client";
-    homepage =
-      "https://www.appgate.com/support/software-defined-perimeter-support";
+    homepage = "https://www.appgate.com/support/software-defined-perimeter-support";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;

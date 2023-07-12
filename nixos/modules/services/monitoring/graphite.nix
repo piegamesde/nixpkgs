@@ -350,8 +350,9 @@ in
           environment = carbonEnv;
           serviceConfig = {
             RuntimeDirectory = name;
-            ExecStart =
-              "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
+            ExecStart = "${pkgs.python3Packages.twisted}/bin/twistd ${
+                carbonOpts name
+              }";
             User = "graphite";
             Group = "graphite";
             PermissionsStartOnly = true;
@@ -378,8 +379,9 @@ in
           environment = carbonEnv;
           serviceConfig = {
             RuntimeDirectory = name;
-            ExecStart =
-              "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
+            ExecStart = "${pkgs.python3Packages.twisted}/bin/twistd ${
+                carbonOpts name
+              }";
             User = "graphite";
             Group = "graphite";
             PIDFile = "/run/${name}/${name}.pid";
@@ -400,8 +402,9 @@ in
           environment = carbonEnv;
           serviceConfig = {
             RuntimeDirectory = name;
-            ExecStart =
-              "${pkgs.python3Packages.twisted}/bin/twistd ${carbonOpts name}";
+            ExecStart = "${pkgs.python3Packages.twisted}/bin/twistd ${
+                carbonOpts name
+              }";
             User = "graphite";
             Group = "graphite";
             PIDFile = "/run/${name}/${name}.pid";
@@ -490,8 +493,9 @@ in
         ];
         environment = seyrenConfig;
         serviceConfig = {
-          ExecStart =
-            "${pkgs.seyren}/bin/seyren -httpPort ${toString cfg.seyren.port}";
+          ExecStart = "${pkgs.seyren}/bin/seyren -httpPort ${
+              toString cfg.seyren.port
+            }";
           WorkingDirectory = dataDir;
           User = "graphite";
           Group = "graphite";

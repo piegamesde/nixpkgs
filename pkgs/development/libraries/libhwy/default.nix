@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   meta = with lib; {
-    description =
-      "Performance-portable, length-agnostic SIMD with runtime dispatch";
+    description = "Performance-portable, length-agnostic SIMD with runtime dispatch";
     homepage = "https://github.com/google/highway";
     license = licenses.asl20;
     platforms = platforms.unix;

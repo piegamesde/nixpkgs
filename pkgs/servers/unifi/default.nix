@@ -20,8 +20,7 @@ let
         pname = "unifi-controller";
 
         src = fetchurl {
-          url =
-            "https://dl.ubnt.com/unifi/${version}${suffix}/unifi_sysvinit_all.deb";
+          url = "https://dl.ubnt.com/unifi/${version}${suffix}/unifi_sysvinit_all.deb";
           inherit sha256;
         };
 

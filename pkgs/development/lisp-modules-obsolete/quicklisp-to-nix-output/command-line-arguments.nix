@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/command-line-arguments/2021-08-07/command-line-arguments-20210807-git.tgz";
+    url = "http://beta.quicklisp.org/archive/command-line-arguments/2021-08-07/command-line-arguments-20210807-git.tgz";
     sha256 = "1ggrzdaw79ls7hk629m31z0pikibqi8x1hyi3fwd0zc8w9k3k6wk";
   };
 

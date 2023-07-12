@@ -77,10 +77,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyproject_api" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/tox-dev/pyproject-api/releases/tag/${version}";
-    description =
-      "API to interact with the python pyproject.toml based projects";
+    changelog = "https://github.com/tox-dev/pyproject-api/releases/tag/${version}";
+    description = "API to interact with the python pyproject.toml based projects";
     homepage = "https://github.com/tox-dev/pyproject-api";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

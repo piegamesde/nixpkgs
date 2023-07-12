@@ -93,22 +93,19 @@ in
         setuid = true;
         owner = "root";
         group = "root";
-        source =
-          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_ckpasswd";
+        source = "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_ckpasswd";
       };
       enlightenment_sys = {
         setuid = true;
         owner = "root";
         group = "root";
-        source =
-          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_sys";
+        source = "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_sys";
       };
       enlightenment_system = {
         setuid = true;
         owner = "root";
         group = "root";
-        source =
-          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_system";
+        source = "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_system";
       };
     };
 

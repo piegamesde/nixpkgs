@@ -14,10 +14,8 @@ let
     inherit version;
 
     src = fetchurl {
-      url =
-        "https://github.com/JanisEst/KeePassQRCodeView/releases/download/v${version}/KeePassQRCodeView.plgx";
-      sha256 =
-        "e13c9f02bb0d79b479ca0e92490b822b5b88f49bb18ba2954d3bbe0808f46e6d";
+      url = "https://github.com/JanisEst/KeePassQRCodeView/releases/download/v${version}/KeePassQRCodeView.plgx";
+      sha256 = "e13c9f02bb0d79b479ca0e92490b822b5b88f49bb18ba2954d3bbe0808f46e6d";
     };
 
     dontUnpack = true;

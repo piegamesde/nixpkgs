@@ -15,8 +15,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-parser-combinators/2013-11-11/cl-parser-combinators-20131111-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-parser-combinators/2013-11-11/cl-parser-combinators-20131111-git.tgz";
     sha256 = "0wg1a7favbwqcxyqcy2zxi4l11qsp4ar9fvddmx960grf2d72lds";
   };
 

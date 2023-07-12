@@ -120,8 +120,7 @@ in
 
       assertions = [ {
         assertion = cfg.extraPortals != [ ];
-        message =
-          "Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde.";
+        message = "Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde.";
       } ];
 
       services.dbus.packages = packages;
@@ -137,8 +136,7 @@ in
         sessionVariables = {
           GTK_USE_PORTAL = mkIf cfg.gtkUsePortal "1";
           NIXOS_XDG_OPEN_USE_PORTAL = mkIf cfg.xdgOpenUsePortal "1";
-          XDG_DESKTOP_PORTAL_DIR =
-            "${joinedPortals}/share/xdg-desktop-portal/portals";
+          XDG_DESKTOP_PORTAL_DIR = "${joinedPortals}/share/xdg-desktop-portal/portals";
         };
       };
     }

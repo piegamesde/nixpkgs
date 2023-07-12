@@ -56,8 +56,7 @@ rec {
 
       src = fetchurl {
         inherit sha256;
-        url =
-          "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
+        url = "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
       };
 
       dontBuild = true;
@@ -75,8 +74,7 @@ rec {
             prefix = x: "JAVA_TOOLCHAIN_NIX_${toString x}";
             varDefs = (lib.imap0 (i: x: "${prefix i} ${x}") javaToolchains);
             varNames = lib.imap0 (i: x: prefix i) javaToolchains;
-            property =
-              " -Porg.gradle.java.installations.fromEnv='${
+            property = " -Porg.gradle.java.installations.fromEnv='${
                  concatStringsSep "," varNames
                }'";
           };

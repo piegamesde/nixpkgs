@@ -20,8 +20,7 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/interval/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Interval arithmetic to evaluate functions over subsets of their domain";
+    description = "Interval arithmetic to evaluate functions over subsets of their domain";
     longDescription = ''
       The interval package for real-valued interval arithmetic allows one to
       evaluate functions over subsets of their domain. All results are verified,

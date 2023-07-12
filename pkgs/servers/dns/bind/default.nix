@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
   version = "9.18.12";
 
   src = fetchurl {
-    url =
-      "https://downloads.isc.org/isc/bind9/${version}/${pname}-${version}.tar.xz";
+    url = "https://downloads.isc.org/isc/bind9/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-R3Zrt7BjqrutBUOGsZCqf2wUUkQnr9Qnww7EJlEgJ+c=";
   };
 
@@ -122,8 +121,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.isc.org/bind/";
     description = "Domain name server";
     license = licenses.mpl20;
-    changelog =
-      "https://downloads.isc.org/isc/bind9/cur/${
+    changelog = "https://downloads.isc.org/isc/bind9/cur/${
         lib.versions.majorMinor version
       }/CHANGES";
     maintainers = with maintainers; [ globin ];

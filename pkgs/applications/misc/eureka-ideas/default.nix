@@ -35,8 +35,7 @@ rustPlatform.buildRustPackage rec {
   useNextest = true;
 
   meta = with lib; {
-    description =
-      "CLI tool to input and store your ideas without leaving the terminal";
+    description = "CLI tool to input and store your ideas without leaving the terminal";
     homepage = "https://github.com/simeg/eureka";
     changelog = "https://github.com/simeg/eureka/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;

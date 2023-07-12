@@ -227,8 +227,7 @@ with lib;
       };
 
       use = mkOption {
-        default =
-          "web, web=checkip.dyndns.com/, web-skip='Current IP Address: '";
+        default = "web, web=checkip.dyndns.com/, web-skip='Current IP Address: '";
         type = str;
         description = lib.mdDoc ''
           Method to determine the IP address to send to the dynamic DNS provider.
@@ -282,8 +281,7 @@ with lib;
         inherit StateDirectory;
         Type = "oneshot";
         ExecStartPre = "!${pkgs.writeShellScript "ddclient-prestart" preStart}";
-        ExecStart =
-          "${
+        ExecStart = "${
             lib.getBin cfg.package
           }/bin/ddclient -file /run/${RuntimeDirectory}/ddclient.conf";
       };

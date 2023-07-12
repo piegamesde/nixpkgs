@@ -187,8 +187,7 @@ let
               DB_POOL = threads;
             };
             serviceConfig = {
-              ExecStart =
-                "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
+              ExecStart = "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
               Restart = "always";
               RestartSec = 20;
               EnvironmentFile =
@@ -732,9 +731,8 @@ in
                   cfg.sidekiqProcesses
               )
             ;
-            message =
-              ''
-                There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
+            message = ''
+              There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
           }
         ];
 
@@ -1046,8 +1044,7 @@ in
           enable = true;
           ensureUsers = [ {
             name = cfg.database.user;
-            ensurePermissions."DATABASE ${cfg.database.name}" =
-              "ALL PRIVILEGES";
+            ensurePermissions."DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
           } ];
           ensureDatabases = [ cfg.database.name ];
         };

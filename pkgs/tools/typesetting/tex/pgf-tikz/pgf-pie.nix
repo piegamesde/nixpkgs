@@ -27,8 +27,7 @@ stdenvNoCC.mkDerivation (
 
     meta = with lib; {
       homepage = "https://github.com/pgf-tikz/pgf-pie";
-      description =
-        "Some LaTeX macros for pie charts using the PGF/TikZ package";
+      description = "Some LaTeX macros for pie charts using the PGF/TikZ package";
       license = licenses.gpl2Plus;
       maintainers = with maintainers; [ AndersonTorres ];
       platforms = platforms.unix;

@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
     [
       # PR https://github.com/equinor/segyio/pull/531
       (fetchpatch {
-        url =
-          "https://github.com/equinor/segyio/commit/628bc5e02d0f98b89fe70b072df9b8e677622e9e.patch";
+        url = "https://github.com/equinor/segyio/commit/628bc5e02d0f98b89fe70b072df9b8e677622e9e.patch";
         hash = "sha256-j+vqHZNfPIh+yWBgqbGD3W04FBvFiDJKnmcC/oTk3a8=";
       })
     ];

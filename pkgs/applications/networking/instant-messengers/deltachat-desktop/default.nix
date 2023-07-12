@@ -33,14 +33,10 @@ let
       cargoDeps = rustPlatform.importCargoLock {
         lockFile = ./Cargo.lock;
         outputHashes = {
-          "email-0.0.21" =
-            "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
-          "encoded-words-0.2.0" =
-            "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
-          "lettre-0.9.2" =
-            "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
-          "quinn-proto-0.9.2" =
-            "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
+          "email-0.0.21" = "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
+          "encoded-words-0.2.0" = "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
+          "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
+          "quinn-proto-0.9.2" = "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
         };
       };
     }
@@ -155,8 +151,7 @@ buildNpmPackage rec {
   meta = with lib; {
     description = "Email-based instant messaging for Desktop";
     homepage = "https://github.com/deltachat/deltachat-desktop";
-    changelog =
-      "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     mainProgram = "deltachat";
     maintainers = with maintainers; [ dotlambda ];

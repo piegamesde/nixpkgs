@@ -31,8 +31,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    changelog =
-      "https://github.com/trentm/python-markdown2/blob/${src.rev}/CHANGES.md";
+    changelog = "https://github.com/trentm/python-markdown2/blob/${src.rev}/CHANGES.md";
     description = "A fast and complete Python implementation of Markdown";
     homepage = "https://github.com/trentm/python-markdown2";
     license = licenses.mit;

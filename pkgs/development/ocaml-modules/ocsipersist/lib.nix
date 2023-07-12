@@ -23,8 +23,7 @@ buildDunePackage rec {
   propagatedBuildInputs = [ lwt ];
 
   meta = {
-    description =
-      "Persistent key/value storage (for Ocsigen) - support library";
+    description = "Persistent key/value storage (for Ocsigen) - support library";
     license = lib.licenses.lgpl21Only;
     maintainers = [ lib.maintainers.vbgl ];
     inherit (src.meta) homepage;

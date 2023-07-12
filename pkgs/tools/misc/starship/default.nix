@@ -58,8 +58,7 @@ rustPlatform.buildRustPackage rec {
   passthru.tests = { inherit (nixosTests) starship; };
 
   meta = with lib; {
-    description =
-      "A minimal, blazing fast, and extremely customizable prompt for any shell";
+    description = "A minimal, blazing fast, and extremely customizable prompt for any shell";
     homepage = "https://starship.rs";
     license = licenses.isc;
     maintainers = with maintainers; [

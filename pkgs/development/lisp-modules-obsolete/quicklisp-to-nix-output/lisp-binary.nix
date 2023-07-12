@@ -7,8 +7,7 @@ rec {
   baseName = "lisp-binary";
   version = "20210411-git";
 
-  description =
-    "Declare binary formats as structs and then read and write them.";
+  description = "Declare binary formats as structs and then read and write them.";
 
   deps = [
     args."alexandria"
@@ -24,8 +23,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/lisp-binary/2021-04-11/lisp-binary-20210411-git.tgz";
+    url = "http://beta.quicklisp.org/archive/lisp-binary/2021-04-11/lisp-binary-20210411-git.tgz";
     sha256 = "1sbapl8qla4xb8wcix9yxpijkbk1bpybhay7ncb3z2im7r2kzsnb";
   };
 

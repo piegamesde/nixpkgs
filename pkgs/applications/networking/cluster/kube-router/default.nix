@@ -32,8 +32,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://www.kube-router.io/";
-    description =
-      "All-in-one router, firewall and service proxy for Kubernetes";
+    description = "All-in-one router, firewall and service proxy for Kubernetes";
     license = licenses.asl20;
     maintainers = with maintainers; [
       colemickens

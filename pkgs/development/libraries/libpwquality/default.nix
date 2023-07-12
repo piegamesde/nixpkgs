@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/libpwquality/libpwquality";
-    description =
-      "Password quality checking and random password generation library";
+    description = "Password quality checking and random password generation library";
     longDescription = ''
       The libpwquality library purpose is to provide common functions for
       password quality checking and also scoring them based on their apparent

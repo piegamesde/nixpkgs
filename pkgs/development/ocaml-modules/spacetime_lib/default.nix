@@ -31,8 +31,7 @@ lib.throwIfNot (lib.versionAtLeast "4.12" ocaml.version)
     '';
 
     meta = {
-      description =
-        "An OCaml library providing some simple operations for handling OCaml “spacetime” profiles";
+      description = "An OCaml library providing some simple operations for handling OCaml “spacetime” profiles";
       inherit (src.meta) homepage;
       license = lib.licenses.mit;
       maintainers = [ lib.maintainers.vbgl ];

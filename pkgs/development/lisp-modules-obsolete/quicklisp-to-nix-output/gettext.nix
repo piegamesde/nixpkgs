@@ -7,8 +7,7 @@ rec {
   baseName = "gettext";
   version = "20171130-git";
 
-  description =
-    "An pure Common Lisp implementation of gettext runtime. gettext is an internationalization and localization (i18n) system commonly used for writing multilingual programs on Unix-like computer operating systems.";
+  description = "An pure Common Lisp implementation of gettext runtime. gettext is an internationalization and localization (i18n) system commonly used for writing multilingual programs on Unix-like computer operating systems.";
 
   deps = [
     args."flexi-streams"
@@ -18,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/gettext/2017-11-30/gettext-20171130-git.tgz";
+    url = "http://beta.quicklisp.org/archive/gettext/2017-11-30/gettext-20171130-git.tgz";
     sha256 = "0nb8i66sb5qmpnk6rk2adlr87m322bra0xpirp63872mybd3y6yd";
   };
 

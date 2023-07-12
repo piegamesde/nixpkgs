@@ -56,10 +56,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The Plan 9 shell";
-    longDescription =
-      "Byron Rakitzis' UNIX reimplementation of Tom Duff's Plan 9 shell";
-    homepage =
-      "https://web.archive.org/web/20180820053030/tobold.org/article/rc";
+    longDescription = "Byron Rakitzis' UNIX reimplementation of Tom Duff's Plan 9 shell";
+    homepage = "https://web.archive.org/web/20180820053030/tobold.org/article/rc";
     license = with licenses; zlib;
     maintainers = with maintainers; [ ramkromberg ];
     mainProgram = "rc";

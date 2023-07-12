@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     #   https://github.com/lcdproc/lcdproc/pull/148
     (fetchpatch {
       name = "fno-common.patch";
-      url =
-        "https://github.com/lcdproc/lcdproc/commit/fda5302878692da933dc03cd011f8ddffefa07a4.patch";
+      url = "https://github.com/lcdproc/lcdproc/commit/fda5302878692da933dc03cd011f8ddffefa07a4.patch";
       sha256 = "0ld6p1r4rjsnjr63afw3lp5lx25jxjs07lsp9yc3q96r91r835cy";
     })
   ];
@@ -83,8 +82,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Client/server suite for controlling a wide variety of LCD devices";
+    description = "Client/server suite for controlling a wide variety of LCD devices";
     homepage = "https://lcdproc.org/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];

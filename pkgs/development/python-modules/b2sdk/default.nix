@@ -69,8 +69,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "b2sdk" ];
 
   meta = with lib; {
-    description =
-      "Client library and utilities for access to B2 Cloud Storage (backblaze)";
+    description = "Client library and utilities for access to B2 Cloud Storage (backblaze)";
     homepage = "https://github.com/Backblaze/b2-sdk-python";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

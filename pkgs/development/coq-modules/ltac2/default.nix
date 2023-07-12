@@ -38,8 +38,7 @@ mkCoqDerivation {
   release."0.1".sha256 = "1zz26cyv99whj7rrpgnhhm9dfqnpmrx5pqizn8ihf8jkq8d4drz7";
   release."0.1-8.7".version = "0.1";
   release."0.1-8.7".rev = "v0.1-8.7";
-  release."0.1-8.7".sha256 =
-    "0l6wiwi4cvd0i324fb29i9mdh0ijlxzggw4mrjjy695l2qdnlgg0";
+  release."0.1-8.7".sha256 = "0l6wiwi4cvd0i324fb29i9mdh0ijlxzggw4mrjjy695l2qdnlgg0";
 
   mlPlugin = true;
 

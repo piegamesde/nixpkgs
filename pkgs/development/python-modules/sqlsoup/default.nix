@@ -19,8 +19,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ nose ];
 
   meta = with lib; {
-    description =
-      "A one step database access tool, built on the SQLAlchemy ORM";
+    description = "A one step database access tool, built on the SQLAlchemy ORM";
     homepage = "https://github.com/zzzeek/sqlsoup";
     license = licenses.mit;
     maintainers = [ maintainers.globin ];

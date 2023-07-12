@@ -57,8 +57,7 @@ in
       ];
 
       serviceConfig = {
-        ExecStart =
-          "${pkgs.haveged}/bin/haveged -w ${
+        ExecStart = "${pkgs.haveged}/bin/haveged -w ${
             toString cfg.refill_threshold
           } --Foreground -v 1";
         Restart = "always";

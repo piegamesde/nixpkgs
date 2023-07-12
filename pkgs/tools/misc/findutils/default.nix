@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.gnu.org/software/findutils/";
-    description =
-      "GNU Find Utilities, the basic directory searching utilities of the GNU operating system";
+    description = "GNU Find Utilities, the basic directory searching utilities of the GNU operating system";
 
     longDescription = ''
       The GNU Find Utilities are the basic directory searching

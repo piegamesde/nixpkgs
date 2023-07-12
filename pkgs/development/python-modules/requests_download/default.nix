@@ -24,8 +24,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ requests ];
 
   meta = {
-    description =
-      "Download files using requests and save them to a target path";
+    description = "Download files using requests and save them to a target path";
     homepage = "https://www.github.com/takluyver/requests_download";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.fridh ];

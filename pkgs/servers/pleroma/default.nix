@@ -68,8 +68,7 @@ beamPackages.mixRelease rec {
           };
           beamDeps = with final; [ ];
 
-          postInstall =
-            "mv priv/* $out/lib/erlang/lib/${name}-${version}/priv/";
+          postInstall = "mv priv/* $out/lib/erlang/lib/${name}-${version}/priv/";
         };
         remote_ip = beamPackages.buildMix rec {
           name = "remote_ip";
@@ -181,8 +180,7 @@ beamPackages.mixRelease rec {
           in
           prev.crypt.override {
             buildInputs = [ libxcrypt-legacy ];
-            postInstall =
-              "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
+            postInstall = "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
           }
         ;
       });

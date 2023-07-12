@@ -9,16 +9,14 @@ stdenv.mkDerivation rec {
   version = "4.18";
 
   src = fetchurl {
-    url =
-      "https://billposer.org/Software/Downloads/uni2ascii-${version}.tar.gz";
+    url = "https://billposer.org/Software/Downloads/uni2ascii-${version}.tar.gz";
     sha256 = "03lklnzr6ngs4wqiqa7rifd246f441gfvardbsaa5l6fn9pbn94y";
   };
 
   meta = {
     license = lib.licenses.gpl3;
     homepage = "http://billposer.org/Software/uni2ascii.html";
-    description =
-      "Converts between UTF-8 and many 7-bit ASCII equivalents and back";
+    description = "Converts between UTF-8 and many 7-bit ASCII equivalents and back";
 
     longDescription = ''
       This package provides conversion in both directions between UTF-8

@@ -31,8 +31,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "Tool to manage and use Alibaba Cloud resources through a command line interface";
+    description = "Tool to manage and use Alibaba Cloud resources through a command line interface";
     homepage = "https://github.com/aliyun/aliyun-cli";
     changelog = "https://github.com/aliyun/aliyun-cli/releases/tag/v${version}";
     license = licenses.asl20;

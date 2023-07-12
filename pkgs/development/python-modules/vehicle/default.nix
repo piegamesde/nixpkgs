@@ -52,8 +52,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client providing RDW vehicle information";
     homepage = "https://github.com/frenck/python-vehicle";
-    changelog =
-      "https://github.com/frenck/python-vehicle/releases/tag/v${version}";
+    changelog = "https://github.com/frenck/python-vehicle/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

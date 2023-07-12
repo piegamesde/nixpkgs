@@ -84,8 +84,7 @@ with lib;
     mkIf cfg.enable {
       assertions = [ {
         assertion = (cfg.settingsFile == null) != (cfg.settings == null);
-        message =
-          "Either but not both `settingsFile` and `settings` should be specified for xray.";
+        message = "Either but not both `settingsFile` and `settings` should be specified for xray.";
       } ];
 
       systemd.services.xray = {

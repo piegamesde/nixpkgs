@@ -17,8 +17,7 @@ let
   pname = "key";
   version = "2.10.0";
   src = fetchurl {
-    url =
-      "https://www.key-project.org/dist/${version}/key-${version}-sources.tgz";
+    url = "https://www.key-project.org/dist/${version}/key-${version}-sources.tgz";
     sha256 = "1f201cbcflqd1z6ysrkh3mff5agspw3v74ybdc3s2lfdyz3b858w";
   };
   sourceRoot = "key-${version}/key";
@@ -116,8 +115,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Java formal verification tool";
-    homepage =
-      "https://www.key-project.org"; # also https://formal.iti.kit.edu/key/
+    homepage = "https://www.key-project.org"; # also https://formal.iti.kit.edu/key/
     longDescription = ''
       The KeY System is a formal software development tool that aims to
       integrate design, implementation, formal specification, and formal

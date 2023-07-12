@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "elkm1_lib" ];
 
   meta = with lib; {
-    description =
-      "Python module for interacting with ElkM1 alarm/automation panel";
+    description = "Python module for interacting with ElkM1 alarm/automation panel";
     homepage = "https://github.com/gwww/elkm1";
     changelog = "https://github.com/gwww/elkm1/blob/${version}/CHANGELOG.md";
     license = licenses.mit;

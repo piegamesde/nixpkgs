@@ -94,8 +94,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://box86.org/";
-    description =
-      "Lets you run x86_64 Linux programs on non-x86_64 Linux systems";
+    description = "Lets you run x86_64 Linux programs on non-x86_64 Linux systems";
     license = licenses.mit;
     maintainers = with maintainers; [
       gador

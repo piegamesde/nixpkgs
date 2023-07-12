@@ -263,8 +263,7 @@ in
               assertion = xor (cfg.ctrl-agent.settings == null) (
                 cfg.ctrl-agent.configFile == null
               );
-              message =
-                "Either services.kea.ctrl-agent.settings or services.kea.ctrl-agent.configFile must be set to a non-null value.";
+              message = "Either services.kea.ctrl-agent.settings or services.kea.ctrl-agent.configFile must be set to a non-null value.";
             } ];
 
             environment.etc."kea/ctrl-agent.conf".source = ctrlAgentConfig;
@@ -294,8 +293,7 @@ in
               restartTriggers = [ ctrlAgentConfig ];
 
               serviceConfig = {
-                ExecStart =
-                  "${package}/bin/kea-ctrl-agent -c /etc/kea/ctrl-agent.conf ${
+                ExecStart = "${package}/bin/kea-ctrl-agent -c /etc/kea/ctrl-agent.conf ${
                     lib.escapeShellArgs cfg.ctrl-agent.extraArgs
                   }";
                 KillMode = "process";
@@ -309,8 +307,7 @@ in
               assertion = xor (cfg.dhcp4.settings == null) (
                 cfg.dhcp4.configFile == null
               );
-              message =
-                "Either services.kea.dhcp4.settings or services.kea.dhcp4.configFile must be set to a non-null value.";
+              message = "Either services.kea.dhcp4.settings or services.kea.dhcp4.configFile must be set to a non-null value.";
             } ];
 
             environment.etc."kea/dhcp4-server.conf".source = dhcp4Config;
@@ -336,8 +333,7 @@ in
               restartTriggers = [ dhcp4Config ];
 
               serviceConfig = {
-                ExecStart =
-                  "${package}/bin/kea-dhcp4 -c /etc/kea/dhcp4-server.conf ${
+                ExecStart = "${package}/bin/kea-dhcp4 -c /etc/kea/dhcp4-server.conf ${
                     lib.escapeShellArgs cfg.dhcp4.extraArgs
                   }";
                 # Kea does not request capabilities by itself
@@ -358,8 +354,7 @@ in
               assertion = xor (cfg.dhcp6.settings == null) (
                 cfg.dhcp6.configFile == null
               );
-              message =
-                "Either services.kea.dhcp6.settings or services.kea.dhcp6.configFile must be set to a non-null value.";
+              message = "Either services.kea.dhcp6.settings or services.kea.dhcp6.configFile must be set to a non-null value.";
             } ];
 
             environment.etc."kea/dhcp6-server.conf".source = dhcp6Config;
@@ -385,8 +380,7 @@ in
               restartTriggers = [ dhcp6Config ];
 
               serviceConfig = {
-                ExecStart =
-                  "${package}/bin/kea-dhcp6 -c /etc/kea/dhcp6-server.conf ${
+                ExecStart = "${package}/bin/kea-dhcp6 -c /etc/kea/dhcp6-server.conf ${
                     lib.escapeShellArgs cfg.dhcp6.extraArgs
                   }";
                 # Kea does not request capabilities by itself
@@ -401,8 +395,7 @@ in
               assertion = xor (cfg.dhcp-ddns.settings == null) (
                 cfg.dhcp-ddns.configFile == null
               );
-              message =
-                "Either services.kea.dhcp-ddns.settings or services.kea.dhcp-ddns.configFile must be set to a non-null value.";
+              message = "Either services.kea.dhcp-ddns.settings or services.kea.dhcp-ddns.configFile must be set to a non-null value.";
             } ];
 
             environment.etc."kea/dhcp-ddns.conf".source = dhcpDdnsConfig;
@@ -428,8 +421,7 @@ in
               restartTriggers = [ dhcpDdnsConfig ];
 
               serviceConfig = {
-                ExecStart =
-                  "${package}/bin/kea-dhcp-ddns -c /etc/kea/dhcp-ddns.conf ${
+                ExecStart = "${package}/bin/kea-dhcp-ddns -c /etc/kea/dhcp-ddns.conf ${
                     lib.escapeShellArgs cfg.dhcp-ddns.extraArgs
                   }";
                 AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];

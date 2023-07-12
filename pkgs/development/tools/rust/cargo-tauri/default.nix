@@ -48,8 +48,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {
-    description =
-      "Build smaller, faster, and more secure desktop applications with a web frontend";
+    description = "Build smaller, faster, and more secure desktop applications with a web frontend";
     homepage = "https://tauri.app/";
     license = with licenses; [
       asl20 # or

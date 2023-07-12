@@ -76,8 +76,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    changelog =
-      "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${
+    changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${
         lib.versions.majorMinor version
       }.rst";
     description = "Radically simple IT automation";

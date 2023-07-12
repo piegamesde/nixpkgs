@@ -128,8 +128,7 @@ resholve.mkDerivation rec {
       * Provides a way to use alternate files on a specific OS or host.
       * Supplies a method of encrypting confidential data so it can safely be stored in your repository.
     '';
-    changelog =
-      "https://github.com/TheLocehiliosan/yadm/blob/${version}/CHANGES";
+    changelog = "https://github.com/TheLocehiliosan/yadm/blob/${version}/CHANGES";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ abathur ];
     platforms = lib.platforms.unix;

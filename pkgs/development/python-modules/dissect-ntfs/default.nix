@@ -47,11 +47,9 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    description =
-      "Dissect module implementing a parser for the NTFS file system";
+    description = "Dissect module implementing a parser for the NTFS file system";
     homepage = "https://github.com/fox-it/dissect.ntfs";
-    changelog =
-      "https://github.com/fox-it/dissect.ntfs/releases/tag/${version}";
+    changelog = "https://github.com/fox-it/dissect.ntfs/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

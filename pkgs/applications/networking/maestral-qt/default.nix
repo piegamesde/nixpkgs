@@ -56,11 +56,9 @@ python3.pkgs.buildPythonApplication rec {
   passthru.tests.maestral = nixosTests.maestral;
 
   meta = with lib; {
-    description =
-      "GUI front-end for maestral (an open-source Dropbox client) for Linux";
+    description = "GUI front-end for maestral (an open-source Dropbox client) for Linux";
     homepage = "https://maestral.app";
-    changelog =
-      "https://github.com/samschott/maestral/releases/tag/v${version}";
+    changelog = "https://github.com/samschott/maestral/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [
       peterhoeg

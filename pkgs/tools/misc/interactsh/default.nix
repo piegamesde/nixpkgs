@@ -27,16 +27,14 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "An Out of bounds interaction gathering server and client library";
+    description = "An Out of bounds interaction gathering server and client library";
     longDescription = ''
       Interactsh is an Open-Source Solution for Out of band Data Extraction,
       A tool designed to detect bugs that cause external interactions,
       For example - Blind SQLi, Blind CMDi, SSRF, etc.
     '';
     homepage = "https://github.com/projectdiscovery/interactsh";
-    changelog =
-      "https://github.com/projectdiscovery/interactsh/releases/tag/v${version}";
+    changelog = "https://github.com/projectdiscovery/interactsh/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ hanemile ];
   };

@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/mwouts/jupytext/commit/be9b65b03600227b737b5f10ea259a7cdb762b76.patch";
+      url = "https://github.com/mwouts/jupytext/commit/be9b65b03600227b737b5f10ea259a7cdb762b76.patch";
       hash = "sha256-3klx8I+T560EVfsKe/FlrSjF6JzdKSCt6uhAW2cSwtc=";
     })
   ];
@@ -89,8 +88,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Jupyter notebooks as Markdown documents, Julia, Python or R scripts";
+    description = "Jupyter notebooks as Markdown documents, Julia, Python or R scripts";
     homepage = "https://github.com/mwouts/jupytext";
     license = licenses.mit;
     maintainers = with maintainers; [ timokau ];

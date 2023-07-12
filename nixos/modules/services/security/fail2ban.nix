@@ -184,8 +184,7 @@ in
       bantime-increment.formula = mkOption {
         default = null;
         type = types.nullOr types.str;
-        example =
-          "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
+        example = "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
         description = lib.mdDoc ''
           "bantime.formula" used by default to calculate next value of ban time, default value bellow,
           the same ban time growing will be reached by multipliers 1, 2, 4, 8, 16, 32 ...
@@ -341,16 +340,12 @@ in
     environment.etc = {
       "fail2ban/fail2ban.local".source = fail2banConf;
       "fail2ban/jail.local".source = jailConf;
-      "fail2ban/fail2ban.conf".source =
-        "${cfg.package}/etc/fail2ban/fail2ban.conf";
+      "fail2ban/fail2ban.conf".source = "${cfg.package}/etc/fail2ban/fail2ban.conf";
       "fail2ban/jail.conf".source = "${cfg.package}/etc/fail2ban/jail.conf";
-      "fail2ban/paths-common.conf".source =
-        "${cfg.package}/etc/fail2ban/paths-common.conf";
+      "fail2ban/paths-common.conf".source = "${cfg.package}/etc/fail2ban/paths-common.conf";
       "fail2ban/paths-nixos.conf".source = pathsConf;
-      "fail2ban/action.d".source =
-        "${cfg.package}/etc/fail2ban/action.d/*.conf";
-      "fail2ban/filter.d".source =
-        "${cfg.package}/etc/fail2ban/filter.d/*.conf";
+      "fail2ban/action.d".source = "${cfg.package}/etc/fail2ban/action.d/*.conf";
+      "fail2ban/filter.d".source = "${cfg.package}/etc/fail2ban/filter.d/*.conf";
     };
 
     systemd.packages = [ cfg.package ];

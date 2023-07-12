@@ -88,8 +88,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to search and download subtitles";
     homepage = "https://github.com/Diaoul/subliminal";
-    changelog =
-      "https://github.com/Diaoul/subliminal/blob/${version}/HISTORY.rst";
+    changelog = "https://github.com/Diaoul/subliminal/blob/${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

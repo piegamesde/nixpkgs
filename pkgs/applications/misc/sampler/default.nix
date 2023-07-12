@@ -24,8 +24,7 @@ buildGoModule rec {
     [
       # fix build with go 1.17
       (fetchpatch {
-        url =
-          "https://github.com/sqshq/sampler/commit/97a4a0ebe396a780d62f50f112a99b27044e832b.patch";
+        url = "https://github.com/sqshq/sampler/commit/97a4a0ebe396a780d62f50f112a99b27044e832b.patch";
         sha256 = "1czns7jc85mzdf1mg874jimls8x32l35x3lysxfgfah7cvvwznbk";
       })
     ];
@@ -42,8 +41,7 @@ buildGoModule rec {
   ;
 
   meta = with lib; {
-    description =
-      "Tool for shell commands execution, visualization and alerting";
+    description = "Tool for shell commands execution, visualization and alerting";
     homepage = "https://sampler.dev";
     license = licenses.gpl3;
     maintainers = with maintainers; [ uvnikita ];

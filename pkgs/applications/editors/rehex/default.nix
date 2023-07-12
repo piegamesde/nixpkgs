@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
       engineering, and everything else.
     '';
     homepage = "https://github.com/solemnwarning/rehex";
-    changelog =
-      "https://github.com/solemnwarning/rehex/raw/${version}/CHANGES.txt";
+    changelog = "https://github.com/solemnwarning/rehex/raw/${version}/CHANGES.txt";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [
       markus1189

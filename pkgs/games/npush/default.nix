@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "0.7";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/npush/${pname}/${version}/${pname}-${version}.tgz";
+    url = "mirror://sourceforge/project/npush/${pname}/${version}/${pname}-${version}.tgz";
     hash = "sha256-8hbSsyeehzd4T3fUhDyebyI/oTHOHr3a8ArYAquivNk=";
   };
 

@@ -340,8 +340,7 @@ in
 
     services.trafficserver = {
       records.proxy.config.admin.user_id = user;
-      records.proxy.config.body_factory.template_sets_dir =
-        "${pkgs.trafficserver}/etc/trafficserver/body_factory";
+      records.proxy.config.body_factory.template_sets_dir = "${pkgs.trafficserver}/etc/trafficserver/body_factory";
     };
 
     users.users.trafficserver = {

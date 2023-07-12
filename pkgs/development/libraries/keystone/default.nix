@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Lightweight multi-platform, multi-architecture assembler framework";
+    description = "Lightweight multi-platform, multi-architecture assembler framework";
     homepage = "https://www.keystone-engine.org";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ luc65r ];

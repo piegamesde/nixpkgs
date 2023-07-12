@@ -19,8 +19,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/irccloud/irccat";
-    description =
-      "Send events to IRC channels from scripts and other applications";
+    description = "Send events to IRC channels from scripts and other applications";
     maintainers = with maintainers; [ qyliss ];
     license = licenses.gpl3Only;
   };

@@ -19,8 +19,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "stopit" ];
 
   meta = with lib; {
-    description =
-      "Raise asynchronous exceptions in other thread, control the timeout of blocks or callables with a context manager or a decorator";
+    description = "Raise asynchronous exceptions in other thread, control the timeout of blocks or callables with a context manager or a decorator";
     homepage = "https://github.com/glenfant/stopit";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ veprbl ];

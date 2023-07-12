@@ -48,8 +48,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Linter for PostgreSQL, focused on migrations";
     homepage = "https://squawkhq.com/";
-    changelog =
-      "https://github.com/sbdchd/squawk/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/sbdchd/squawk/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with lib.maintainers; [ andrewsmith ];
   };

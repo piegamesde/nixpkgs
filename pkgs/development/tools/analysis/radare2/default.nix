@@ -121,8 +121,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "UNIX-like reverse engineering framework and command-line tools";
+    description = "UNIX-like reverse engineering framework and command-line tools";
     homepage = "https://radare.org";
     changelog = "https://github.com/radareorg/radare2/releases/tag/${version}";
     license = licenses.gpl2Plus;

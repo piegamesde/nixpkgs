@@ -6,8 +6,7 @@
 }:
 
 let
-  modDestDir =
-    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/r8168";
+  modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/r8168";
 in
 stdenv.mkDerivation rec {
   name = "r8168-${kernel.version}-${version}";

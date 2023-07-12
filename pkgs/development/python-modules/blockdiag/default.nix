@@ -55,8 +55,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "blockdiag" ];
 
   meta = with lib; {
-    description =
-      "Generate block-diagram image from spec-text file (similar to Graphviz)";
+    description = "Generate block-diagram image from spec-text file (similar to Graphviz)";
     homepage = "http://blockdiag.com/";
     license = licenses.asl20;
     platforms = platforms.unix;

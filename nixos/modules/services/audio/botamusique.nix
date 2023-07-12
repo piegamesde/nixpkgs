@@ -61,8 +61,7 @@ in
 
             bot.comment = mkOption {
               type = types.str;
-              default =
-                "Hi, I'm here to play radio, local music or youtube/soundcloud music. Have fun!";
+              default = "Hi, I'm here to play radio, local music or youtube/soundcloud music. Have fun!";
               description = lib.mdDoc "Comment displayed for the bot.";
             };
           };

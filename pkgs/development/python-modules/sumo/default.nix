@@ -51,8 +51,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sumo" ];
 
   meta = with lib; {
-    description =
-      "Toolkit for plotting and analysis of ab initio solid-state calculation data";
+    description = "Toolkit for plotting and analysis of ab initio solid-state calculation data";
     homepage = "https://github.com/SMTG-UCL/sumo";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];

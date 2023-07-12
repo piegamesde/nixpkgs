@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://lifeograph.sourceforge.net/wiki/Main_Page";
-    description =
-      "Lifeograph is an off-line and private journal and note taking application";
+    description = "Lifeograph is an off-line and private journal and note taking application";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wolfangaukang ];
     platforms = platforms.linux;

@@ -112,8 +112,7 @@ stdenv.mkDerivation rec {
   BOOST_LIBRARYDIR = "${lib.getLib boost}/lib";
 
   meta = with lib; {
-    description =
-      "Limiter, compressor, reverberation, equalizer and auto volume effects for Pulseaudio applications";
+    description = "Limiter, compressor, reverberation, equalizer and auto volume effects for Pulseaudio applications";
     homepage = "https://github.com/wwmm/pulseeffects";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];

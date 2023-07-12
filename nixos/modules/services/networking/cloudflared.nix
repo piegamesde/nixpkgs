@@ -241,8 +241,7 @@ in
 
                                 See [https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/local-management/ingress/#supported-protocols](Supported protocols).
                               '';
-                              example =
-                                "http://localhost:80, tcp://localhost:8000, unix:/home/production/echo.sock, hello_world or http_status:404";
+                              example = "http://localhost:80, tcp://localhost:8000, unix:/home/production/echo.sock, hello_world or http_status:404";
                             };
 
                             path = mkOption {
@@ -366,8 +365,7 @@ in
             serviceConfig = {
               User = cfg.user;
               Group = cfg.group;
-              ExecStart =
-                "${cfg.package}/bin/cloudflared tunnel --config=${mkConfigFile} --no-autoupdate run";
+              ExecStart = "${cfg.package}/bin/cloudflared tunnel --config=${mkConfigFile} --no-autoupdate run";
               Restart = "on-failure";
             };
           })

@@ -43,7 +43,6 @@ buildDunePackage {
   doCheck = true;
 
   meta = happy-eyeballs.meta // {
-    description =
-      "Connecting to a remote host via IP version 4 or 6 using Mirage";
+    description = "Connecting to a remote host via IP version 4 or 6 using Mirage";
   };
 }

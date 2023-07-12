@@ -284,8 +284,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "WebM VP8/VP9 codec SDK";
     homepage = "https://www.webmproject.org/";
-    changelog =
-      "https://github.com/webmproject/libvpx/raw/v${version}/CHANGELOG";
+    changelog = "https://github.com/webmproject/libvpx/raw/v${version}/CHANGELOG";
     license = licenses.bsd3;
     maintainers = with maintainers; [ codyopel ];
     platforms = platforms.all;

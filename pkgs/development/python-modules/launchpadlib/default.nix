@@ -50,8 +50,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Script Launchpad through its web services interfaces. Officially supported";
+    description = "Script Launchpad through its web services interfaces. Officially supported";
     homepage = "https://help.launchpad.net/API/launchpadlib";
     license = licenses.lgpl3Only;
     maintainers = [ maintainers.marsam ];

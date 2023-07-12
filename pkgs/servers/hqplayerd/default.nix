@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   version = "4.34.0-100sse42";
 
   src = fetchurl {
-    url =
-      "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm";
+    url = "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm";
     hash = "sha256-MCRZ0XKi6pztVTuPQpPEn6wHsOwtSxR0Px9r12jnC9U=";
   };
 
@@ -115,8 +114,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.signalyst.com/custom.html";
-    description =
-      "High-end upsampling multichannel software embedded HD-audio player";
+    description = "High-end upsampling multichannel software embedded HD-audio player";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

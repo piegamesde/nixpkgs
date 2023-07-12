@@ -133,8 +133,7 @@ let
 
       serviceConfig = {
         Type = "simple";
-        ExecStart =
-          "${openconnect}/bin/openconnect --config=${
+        ExecStart = "${openconnect}/bin/openconnect --config=${
             generateConfig name icfg
           } ${icfg.gateway}";
         StandardInput =

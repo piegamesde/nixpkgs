@@ -24,8 +24,7 @@ stdenv.mkDerivation {
       #   https://github.com/HewlettPackard/netperf/pull/46
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/HewlettPackard/netperf/commit/c6a2e17fe35f0e68823451fedfdf5b1dbecddbe3.patch";
+        url = "https://github.com/HewlettPackard/netperf/commit/c6a2e17fe35f0e68823451fedfdf5b1dbecddbe3.patch";
         sha256 = "P/lRa6EakSalKWDTgZ7bWeGleaTLLa5UhzulxKd1xE4=";
       })
     ];
@@ -42,8 +41,7 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = {
-    description =
-      "Benchmark to measure the performance of many different types of networking";
+    description = "Benchmark to measure the performance of many different types of networking";
     homepage = "http://www.netperf.org/netperf/";
     license = lib.licenses.mit;
 

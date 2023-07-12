@@ -9,8 +9,7 @@ let
   version = "1.5.0";
   name = "${pname}-${version}";
   src = fetchurl {
-    url =
-      "https://github.com/mobilecoinofficial/desktop-wallet/releases/download/v${version}/MobileCoin-Wallet-${version}.AppImage";
+    url = "https://github.com/mobilecoinofficial/desktop-wallet/releases/download/v${version}/MobileCoin-Wallet-${version}.AppImage";
     sha256 = "sha256-zSTtnKvgcDSiicEDuVK2LN2d8WHiGReYI3XLBmm3Fbo=";
   };
   appimageContents = appimageTools.extractType2 { inherit name src; };
@@ -38,8 +37,7 @@ appimageTools.wrapType2 {
   '';
 
   meta = with lib; {
-    description =
-      "A user-friendly desktop wallet with support for transaction history, encrypted contact book, gift codes, and payments";
+    description = "A user-friendly desktop wallet with support for transaction history, encrypted contact book, gift codes, and payments";
     homepage = "https://github.com/mobilecoinofficial/desktop-wallet";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wolfangaukang ];

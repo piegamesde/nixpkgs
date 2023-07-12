@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ SDL2 ];
 
   meta = with lib; {
-    description =
-      "XAudio reimplementation focusing to develop a fully accurate DirectX audio library";
+    description = "XAudio reimplementation focusing to develop a fully accurate DirectX audio library";
     homepage = "https://github.com/FNA-XNA/FAudio";
     license = licenses.zlib;
     platforms = platforms.linux;

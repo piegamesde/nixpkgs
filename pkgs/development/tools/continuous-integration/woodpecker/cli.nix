@@ -22,7 +22,6 @@ buildGoModule {
   CGO_ENABLED = 0;
 
   meta = common.meta // {
-    description =
-      "Command line client for the Woodpecker Continuous Integration server";
+    description = "Command line client for the Woodpecker Continuous Integration server";
   };
 }

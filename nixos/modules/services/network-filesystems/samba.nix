@@ -66,8 +66,7 @@ let
       };
 
       serviceConfig = {
-        ExecStart =
-          "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
+        ExecStart = "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LimitNOFILE = 16384;
         PIDFile = "/run/${appName}.pid";
@@ -234,8 +233,7 @@ in
     {
       assertions = [ {
         assertion = cfg.nsswins -> cfg.enableWinbindd;
-        message =
-          "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
+        message = "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
       } ];
       # Always provide a smb.conf to shut up programs like smbclient and smbspool.
       environment.etc."samba/smb.conf".source = mkOptionDefault (

@@ -283,8 +283,7 @@ let
       abiFlags = optionalString isPy37 "m";
 
       # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L78
-      pythonSysconfigdataName =
-        "_sysconfigdata_${abiFlags}_${parsed.kernel.name}_${multiarch}";
+      pythonSysconfigdataName = "_sysconfigdata_${abiFlags}_${parsed.kernel.name}_${multiarch}";
     in
     ''
       sysconfigdataHook() {
@@ -333,8 +332,7 @@ stdenv.mkDerivation {
       # https://github.com/python/cpython/issues/100160
       (fetchpatch {
         name = "asyncio-deprecation-3.11.patch";
-        url =
-          "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
+        url = "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
         revert = true;
         excludes = [ "Misc/NEWS.d/*" ];
         hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";
@@ -379,8 +377,7 @@ stdenv.mkDerivation {
           ./3.11/python-3.x-distutils-C++.patch
         else
           fetchpatch {
-            url =
-              "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
+            url = "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
             sha256 = "1h18lnpx539h5lfxyk379dxwr8m2raigcjixkf133l4xy3f4bzi2";
           }
       )

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Perhaps the smallest useful terminal multiplexer in the world";
+    description = "Perhaps the smallest useful terminal multiplexer in the world";
     homepage = "https://github.com/deadpixi/mtm";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

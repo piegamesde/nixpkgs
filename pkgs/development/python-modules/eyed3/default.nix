@@ -37,8 +37,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A Python module and command line program for processing ID3 tags";
+    description = "A Python module and command line program for processing ID3 tags";
     homepage = "https://eyed3.nicfit.net/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ lovek323 ];

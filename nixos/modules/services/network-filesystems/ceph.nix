@@ -35,15 +35,13 @@ let
     (
       daemonType: daemonId: clusterName: ceph:
       let
-        stateDirectory =
-          "ceph/${
+        stateDirectory = "ceph/${
             if daemonType == "rgw" then "radosgw" else daemonType
           }/${clusterName}-${daemonId}";
       in
       {
         enable = true;
-        description =
-          "Ceph ${
+        description = "Ceph ${
             builtins.replaceStrings lowerChars upperChars daemonType
           } daemon ${daemonId}";
         after =
@@ -98,8 +96,7 @@ let
             } \
                                 -f --cluster ${clusterName} --id ${daemonId}'';
         } // optionalAttrs (daemonType == "osd") {
-          ExecStartPre =
-            "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
+          ExecStartPre = "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
           RestartSec = "20s";
           PrivateDevices = "no"; # osd needs disk access
         } // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
@@ -109,8 +106,7 @@ let
   makeTarget =
     (daemonType: {
       "ceph-${daemonType}" = {
-        description =
-          "Ceph target allowing to start/stop all ceph-${daemonType} services at once";
+        description = "Ceph target allowing to start/stop all ceph-${daemonType} services at once";
         partOf = [ "ceph.target" ];
         wantedBy = [ "ceph.target" ];
         before = [ "ceph.target" ];
@@ -399,28 +395,23 @@ in
     assertions = [
       {
         assertion = cfg.global.fsid != "";
-        message =
-          "fsid has to be set to a valid uuid for the cluster to function";
+        message = "fsid has to be set to a valid uuid for the cluster to function";
       }
       {
         assertion = cfg.mon.enable == true -> cfg.mon.daemons != [ ];
-        message =
-          "have to set id of atleast one MON if you're going to enable Monitor";
+        message = "have to set id of atleast one MON if you're going to enable Monitor";
       }
       {
         assertion = cfg.mds.enable == true -> cfg.mds.daemons != [ ];
-        message =
-          "have to set id of atleast one MDS if you're going to enable Metadata Service";
+        message = "have to set id of atleast one MDS if you're going to enable Metadata Service";
       }
       {
         assertion = cfg.osd.enable == true -> cfg.osd.daemons != [ ];
-        message =
-          "have to set id of atleast one OSD if you're going to enable OSD";
+        message = "have to set id of atleast one OSD if you're going to enable OSD";
       }
       {
         assertion = cfg.mgr.enable == true -> cfg.mgr.daemons != [ ];
-        message =
-          "have to set id of atleast one MGR if you're going to enable MGR";
+        message = "have to set id of atleast one MGR if you're going to enable MGR";
       }
     ];
 
@@ -480,8 +471,7 @@ in
         targets =
           [ {
             ceph = {
-              description =
-                "Ceph target allowing to start/stop all ceph service instances at once";
+              description = "Ceph target allowing to start/stop all ceph service instances at once";
               wantedBy = [ "multi-user.target" ];
               unitConfig.StopWhenUnneeded = true;
             };

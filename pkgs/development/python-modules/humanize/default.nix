@@ -55,8 +55,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python humanize utilities";
     homepage = "https://github.com/python-humanize/humanize";
-    changelog =
-      "https://github.com/python-humanize/humanize/releases/tag/${version}";
+    changelog = "https://github.com/python-humanize/humanize/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [
       rmcgibbo

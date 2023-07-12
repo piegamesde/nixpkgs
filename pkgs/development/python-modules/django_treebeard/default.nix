@@ -32,8 +32,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Efficient tree implementations for Django";
     homepage = "https://tabo.pe/projects/django-treebeard/";
-    changelog =
-      "https://github.com/django-treebeard/django-treebeard/blob/${version}/CHANGES.md";
+    changelog = "https://github.com/django-treebeard/django-treebeard/blob/${version}/CHANGES.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ desiderius ];
   };

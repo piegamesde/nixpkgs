@@ -54,8 +54,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://pngquant.org/lib/";
     description = "Image quantization library";
-    longDescription =
-      "Small, portable C library for high-quality conversion of RGBA images to 8-bit indexed-color (palette) images.";
+    longDescription = "Small, portable C library for high-quality conversion of RGBA images to 8-bit indexed-color (palette) images.";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [

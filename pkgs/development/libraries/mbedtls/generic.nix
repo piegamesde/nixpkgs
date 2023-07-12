@@ -54,10 +54,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.trustedfirmware.org/projects/mbed-tls/";
-    changelog =
-      "https://github.com/Mbed-TLS/mbedtls/blob/${pname}-${version}/ChangeLog";
-    description =
-      "Portable cryptographic and TLS library, formerly known as PolarSSL";
+    changelog = "https://github.com/Mbed-TLS/mbedtls/blob/${pname}-${version}/ChangeLog";
+    description = "Portable cryptographic and TLS library, formerly known as PolarSSL";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ raphaelr ];

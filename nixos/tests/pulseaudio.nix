@@ -12,8 +12,7 @@ let
       }:
       let
         testFile = pkgs.fetchurl {
-          url =
-            "https://file-examples.com/storage/fe5947fd2362fc197a3c2df/2017/11/file_example_MP3_700KB.mp3";
+          url = "https://file-examples.com/storage/fe5947fd2362fc197a3c2df/2017/11/file_example_MP3_700KB.mp3";
           hash = "sha256-+iggJW8s0/LfA/okfXsB550/55Q0Sq3OoIzuBrzOPJQ=";
         };
 
@@ -37,8 +36,7 @@ let
         };
       in
       {
-        name =
-          "pulseaudio${lib.optionalString fullVersion "Full"}${
+        name = "pulseaudio${lib.optionalString fullVersion "Full"}${
             lib.optionalString systemWide "-systemWide"
           }";
         meta = with pkgs.lib.maintainers; {

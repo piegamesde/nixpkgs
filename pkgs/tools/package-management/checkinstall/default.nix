@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "1.6.2";
 
   src = fetchurl {
-    url =
-      "https://www.asic-linux.com.mx/~izto/checkinstall/files/source/checkinstall-${version}.tar.gz";
+    url = "https://www.asic-linux.com.mx/~izto/checkinstall/files/source/checkinstall-${version}.tar.gz";
     sha256 = "1x4kslyvfd6lm6zd1ylbq2pjxrafb77ydfjaqi16sa5qywn1jqfw";
   };
 
@@ -43,8 +42,7 @@ stdenv.mkDerivation rec {
       ./set-buildroot.patch
 
       (fetchurl {
-        url =
-          "https://salsa.debian.org/debian/checkinstall/-/raw/7175ae9de0e45f42fdd7f185ab9a12043d5efeeb/debian/patches/0016-Define-_STAT_VER-_MKNOD_VER-locally-dropped-in-glibc.patch";
+        url = "https://salsa.debian.org/debian/checkinstall/-/raw/7175ae9de0e45f42fdd7f185ab9a12043d5efeeb/debian/patches/0016-Define-_STAT_VER-_MKNOD_VER-locally-dropped-in-glibc.patch";
         hash = "sha256-InodEfvVMuN708yjXPrVXb+q8aUcyFhCLx35PHls0Eo=";
       })
     ]
@@ -80,8 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://checkinstall.izto.org/";
-    description =
-      "A tool for automatically generating Slackware, RPM or Debian packages when doing `make install'";
+    description = "A tool for automatically generating Slackware, RPM or Debian packages when doing `make install'";
     maintainers = [ lib.maintainers.eelco ];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2;

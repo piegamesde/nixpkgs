@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
   version = "0.7.6";
 
   src = fetchurl {
-    url =
-      "https://github.com/breach/thrust/releases/download/v${version}/thrust-v${version}-linux-x64.zip";
+    url = "https://github.com/breach/thrust/releases/download/v${version}/thrust-v${version}-linux-x64.zip";
     sha256 = "07rrnlj0gk500pvar4b1wdqm05p4n9yjwn911x93bd2qwc8r5ymc";
   };
 
@@ -86,8 +85,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Chromium-based cross-platform / cross-language application framework";
+    description = "Chromium-based cross-platform / cross-language application framework";
     homepage = "https://github.com/breach/thrust";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;

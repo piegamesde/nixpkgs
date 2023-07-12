@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
 
   POPPLER_LIB = "${poppler}/lib";
 
-  OPENJPEG_INCLUDE =
-    "${openjpeg.dev}/include/${openjpeg.pname}-${
+  OPENJPEG_INCLUDE = "${openjpeg.dev}/include/${openjpeg.pname}-${
       lib.versions.majorMinor openjpeg.version
     }";
 
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Engauge Digitizer is a tool for recovering graph data from an image file";
+    description = "Engauge Digitizer is a tool for recovering graph data from an image file";
     homepage = "https://markummitchell.github.io/engauge-digitizer";
     license = with licenses; [ gpl2Only ];
     platforms = platforms.linux;

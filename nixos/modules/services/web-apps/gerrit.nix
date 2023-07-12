@@ -161,8 +161,7 @@ in
     assertions = [ {
       assertion =
         cfg.replicationSettings != { } -> elem "replication" cfg.builtinPlugins;
-      message =
-        "Gerrit replicationSettings require enabling the replication plugin";
+      message = "Gerrit replicationSettings require enabling the replication plugin";
     } ];
 
     services.gerrit.settings = {

@@ -9,8 +9,7 @@ package:
 runCommand "check-meta-pkg-config-modules-for-${package.name}"
   {
     meta = {
-      description =
-        "Test whether ${package.name} exposes all pkg-config modules ${
+      description = "Test whether ${package.name} exposes all pkg-config modules ${
           toString package.meta.pkgConfigModules
         }";
     };

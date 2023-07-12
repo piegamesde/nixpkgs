@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "1.9.1";
 
   src = fetchurl {
-    url =
-      "https://common-lisp.net/project/armedbear/releases/${version}/${pname}-src-${version}.tar.gz";
+    url = "https://common-lisp.net/project/armedbear/releases/${version}/${pname}-src-${version}.tar.gz";
     sha256 = "sha256-pbxnfJRB9KgzwgpUG93Rb/+SZIRmkd6aHa9mmfj/EeI=";
   };
 

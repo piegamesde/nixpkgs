@@ -32,8 +32,7 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE = "-Dg_thread_init= ";
 
   meta = with lib; {
-    description =
-      "An E-component of Network Intrusion Detection System which emulates the IP stack of Linux 2.0.x";
+    description = "An E-component of Network Intrusion Detection System which emulates the IP stack of Linux 2.0.x";
     homepage = "https://libnids.sourceforge.net/";
     license = licenses.gpl2;
     maintainers = [ maintainers.symphorien ];

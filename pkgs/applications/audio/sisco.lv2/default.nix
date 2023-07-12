@@ -51,14 +51,12 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  postUnpack =
-    "chmod u+w -R ${robtkName}-src; mv ${robtkName}-src/* ${sourceRoot}/robtk";
+  postUnpack = "chmod u+w -R ${robtkName}-src; mv ${robtkName}-src/* ${sourceRoot}/robtk";
   sisco_VERSION = version;
   preConfigure = "makeFlagsArray=(PREFIX=$out)";
 
   meta = with lib; {
-    description =
-      "Simple audio oscilloscope with variable time scale, triggering, cursors and numeric readout in LV2 plugin format";
+    description = "Simple audio oscilloscope with variable time scale, triggering, cursors and numeric readout in LV2 plugin format";
     homepage = "http://x42.github.io/sisco.lv2/";
     license = licenses.gpl2;
     maintainers = [ ];

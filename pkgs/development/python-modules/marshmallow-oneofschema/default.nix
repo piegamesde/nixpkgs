@@ -32,10 +32,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "marshmallow_oneofschema" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/marshmallow-code/marshmallow-oneofschema/blob/${src.rev}/CHANGELOG.rst";
-    description =
-      "Marshmallow library extension that allows schema (de)multiplexing";
+    changelog = "https://github.com/marshmallow-code/marshmallow-oneofschema/blob/${src.rev}/CHANGELOG.rst";
+    description = "Marshmallow library extension that allows schema (de)multiplexing";
     homepage = "https://github.com/marshmallow-code/marshmallow-oneofschema";
     license = licenses.mit;
     maintainers = with maintainers; [ ivan-tkatchev ];

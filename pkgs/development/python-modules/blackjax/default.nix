@@ -30,8 +30,7 @@ buildPythonPackage rec {
       # remove in next release
       (fetchpatch {
         name = "fix-lbfgs-args";
-        url =
-          "https://github.com/blackjax-devs/blackjax/commit/1aaa6f64bbcb0557b658604b2daba826e260cbc6.patch";
+        url = "https://github.com/blackjax-devs/blackjax/commit/1aaa6f64bbcb0557b658604b2daba826e260cbc6.patch";
         hash = "sha256-XyjorXPH5Ap35Tv1/lTeTWamjplJF29SsvOq59ypftE=";
       })
     ];
@@ -57,8 +56,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://blackjax-devs.github.io/blackjax";
-    description =
-      "Sampling library designed for ease of use, speed and modularity";
+    description = "Sampling library designed for ease of use, speed and modularity";
     license = licenses.asl20;
     maintainers = with maintainers; [ bcdarwin ];
   };

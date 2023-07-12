@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Represent large sets and maps compactly with finite state transducers";
+    description = "Represent large sets and maps compactly with finite state transducers";
     homepage = "https://github.com/BurntSushi/fst";
     license = with licenses; [
       unlicense # or

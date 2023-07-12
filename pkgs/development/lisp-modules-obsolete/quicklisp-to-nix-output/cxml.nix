@@ -26,8 +26,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cxml/2020-06-10/cxml-20200610-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cxml/2020-06-10/cxml-20200610-git.tgz";
     sha256 = "0545rh4mfxqx2yn9b48s0hzd5w80kars7hpykbg0lgf7ys5218mq";
   };
 

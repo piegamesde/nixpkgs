@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
       # fixes glfw compile error;
       # remove with next raylib version > 4.2.0 or when glfw 3.4.0 is released.
       (fetchpatch {
-        url =
-          "https://github.com/raysan5/raylib/commit/2ad7967db80644a25ca123536cf2f6efcb869684.patch";
+        url = "https://github.com/raysan5/raylib/commit/2ad7967db80644a25ca123536cf2f6efcb869684.patch";
         sha256 = "sha256-/xgzox1ITeoZ91QWdwnJJ+jJ5nJsMHcEgbIEdNYh4NY=";
         name = "raylib-glfw-fix.patch";
       })
@@ -85,8 +84,7 @@ stdenv.mkDerivation rec {
   passthru.tests = [ raylib-games ];
 
   meta = with lib; {
-    description =
-      "A simple and easy-to-use library to enjoy videogames programming";
+    description = "A simple and easy-to-use library to enjoy videogames programming";
     homepage = "https://www.raylib.com/";
     license = licenses.zlib;
     maintainers = with maintainers; [ adamlwgriffiths ];

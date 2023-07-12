@@ -42,8 +42,7 @@ melpaBuild {
     [
       # Fix: avatar loading when imagemagick support is not available
       (fetchpatch {
-        url =
-          "https://github.com/alphapapa/matrix-client.el/commit/5f49e615c7cf2872f48882d3ee5c4a2bff117d07.patch";
+        url = "https://github.com/alphapapa/matrix-client.el/commit/5f49e615c7cf2872f48882d3ee5c4a2bff117d07.patch";
         sha256 = "07bvid7s1nv1377p5n61q46yww3m1w6bw4vnd4iyayw3fby1lxbm";
       })
     ];

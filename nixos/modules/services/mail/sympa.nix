@@ -486,14 +486,12 @@ in
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
-        message =
-          "services.sympa.database.user must be set to ${user} if services.sympa.database.createLocally is set to true";
+        message = "services.sympa.database.user must be set to ${user} if services.sympa.database.createLocally is set to true";
       }
       {
         assertion =
           cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message =
-          "a password cannot be specified if services.sympa.database.createLocally is set to true";
+        message = "a password cannot be specified if services.sympa.database.createLocally is set to true";
       }
     ];
 

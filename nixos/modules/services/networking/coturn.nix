@@ -328,8 +328,7 @@ in
             cfg.static-auth-secret != null
             -> cfg.static-auth-secret-file == null
           ;
-          message =
-            "static-auth-secret and static-auth-secret-file cannot be set at the same time";
+          message = "static-auth-secret and static-auth-secret-file cannot be set at the same time";
         } ];
       }
 
@@ -355,8 +354,7 @@ in
             wantedBy = [ "multi-user.target" ];
 
             unitConfig = {
-              Documentation =
-                "man:coturn(1) man:turnadmin(1) man:turnserver(1)";
+              Documentation = "man:coturn(1) man:turnadmin(1) man:turnserver(1)";
             };
 
             preStart = ''

@@ -44,7 +44,6 @@ stdenv.mkDerivation rec {
     ];
     maintainers = with maintainers; [ nagy ];
     platforms = platforms.linux;
-    changelog =
-      "https://github.com/java-native-access/jna/blob/${version}/CHANGES.md";
+    changelog = "https://github.com/java-native-access/jna/blob/${version}/CHANGES.md";
   };
 }

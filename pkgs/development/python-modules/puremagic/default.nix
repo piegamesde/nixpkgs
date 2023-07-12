@@ -27,8 +27,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Implementation of magic file detection";
     homepage = "https://github.com/cdgriffith/puremagic";
-    changelog =
-      "https://github.com/cdgriffith/puremagic/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/cdgriffith/puremagic/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ globin ];
   };

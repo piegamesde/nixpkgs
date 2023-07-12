@@ -27,8 +27,7 @@ clangStdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Fast JSON parser/generator for C++ with both SAX/DOM style API";
+    description = "Fast JSON parser/generator for C++ with both SAX/DOM style API";
     homepage = "http://rapidjson.org/";
     maintainers = with maintainers; [ avakhrenev ];
     license = licenses.mit;

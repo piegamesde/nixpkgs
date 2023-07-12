@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "0.6";
 
   src = fetchurl {
-    url =
-      "http://faculty.missouri.edu/~stephen/software/xkbset/xkbset-${version}.tar.gz";
+    url = "http://faculty.missouri.edu/~stephen/software/xkbset/xkbset-${version}.tar.gz";
     sha256 = "sha256-rAMv7EnExPDyMY0/RhiXDFFBkbFC4GxRpmH+I0KlNaU=";
   };
 

@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
     # Fix for building on darwin
     (fetchpatch {
       name = "malloc-to-stdlib.patch";
-      url =
-        "https://github.com/stargateaudio/libcds/commit/65dc08f059deda8ba5707ba6116b616d0ad0bd8d.patch";
+      url = "https://github.com/stargateaudio/libcds/commit/65dc08f059deda8ba5707ba6116b616d0ad0bd8d.patch";
       sha256 = "sha256-FIGlobUVrDYOtnHjsWyE420PoULPHEK/3T9Fv8hfTl4=";
     })
   ];

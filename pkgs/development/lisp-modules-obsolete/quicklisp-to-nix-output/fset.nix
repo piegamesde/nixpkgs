@@ -21,8 +21,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/fset/2020-09-25/fset-20200925-git.tgz";
+    url = "http://beta.quicklisp.org/archive/fset/2020-09-25/fset-20200925-git.tgz";
     sha256 = "19fr6ds1a493b0kbsligpn7i771r1yfshbbkdp0hxs4l792l05wv";
   };
 

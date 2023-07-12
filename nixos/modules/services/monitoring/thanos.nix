@@ -811,8 +811,7 @@ in
       assertions = [
         {
           assertion = config.services.prometheus.enable;
-          message =
-            "Please enable services.prometheus when enabling services.thanos.sidecar.";
+          message = "Please enable services.prometheus when enabling services.thanos.sidecar.";
         }
         {
           assertion =

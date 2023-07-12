@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "3.2.0";
 
   src = fetchurl {
-    url =
-      "https://support.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/${pname}-${version}/src/${pname}-${version}.tar.gz";
+    url = "https://support.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/${pname}-${version}/src/${pname}-${version}.tar.gz";
     sha256 = "sha256-08De/yy9lZUIxNqccS2nL7IE/2gYo0NPAKcHH46M8rg=";
   };
 

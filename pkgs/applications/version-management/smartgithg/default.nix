@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "22.1.5";
 
   src = fetchurl {
-    url =
-      "https://www.syntevo.com/downloads/smartgit/smartgit-linux-${
+    url = "https://www.syntevo.com/downloads/smartgit/smartgit-linux-${
         builtins.replaceStrings [ "." ] [ "_" ] version
       }.tar.gz";
     sha256 = "sha256-s31sYEC1g7eLMhT9UkmjbBnHePY9wnQPmgGQXgVX4j4=";

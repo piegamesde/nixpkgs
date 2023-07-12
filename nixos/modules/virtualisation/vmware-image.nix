@@ -32,16 +32,14 @@ in
       };
       vmDerivationName = mkOption {
         type = types.str;
-        default =
-          "nixos-vmware-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+        default = "nixos-vmware-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
         description = lib.mdDoc ''
           The name of the derivation for the VMWare appliance.
         '';
       };
       vmFileName = mkOption {
         type = types.str;
-        default =
-          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vmdk";
+        default = "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vmdk";
         description = lib.mdDoc ''
           The file name of the VMWare appliance.
         '';

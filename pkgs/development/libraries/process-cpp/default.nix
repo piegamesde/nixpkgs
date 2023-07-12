@@ -42,10 +42,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A simple convenience library for handling processes in C++11";
-    homepage =
-      "https://gitlab.com/ubports/development/core/lib-cpp/process-cpp";
+    description = "A simple convenience library for handling processes in C++11";
+    homepage = "https://gitlab.com/ubports/development/core/lib-cpp/process-cpp";
     license = with licenses; [
       gpl3Only
       lgpl3Only

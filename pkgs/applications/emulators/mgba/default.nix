@@ -73,8 +73,7 @@ stdenv.mkDerivation (
         runners, and a modern feature set for emulators that older emulators may
         not support.
       '';
-      changelog =
-        "https://github.com/mgba-emu/mgba/blob/${finalAttrs.version}/CHANGES";
+      changelog = "https://github.com/mgba-emu/mgba/blob/${finalAttrs.version}/CHANGES";
       license = licenses.mpl20;
       maintainers = with maintainers; [
         MP2E

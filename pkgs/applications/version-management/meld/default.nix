@@ -24,8 +24,7 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-P8EHyY7251NY/9Kw0UyF3bSP4UoR6TmpQyL6qo6QxA0=";
@@ -63,8 +62,7 @@ python3.pkgs.buildPythonApplication rec {
   passthru = {
     updateScript = gnome.updateScript {
       packageName = pname;
-      versionPolicy =
-        "none"; # should be odd-unstable but we are tracking unstable versions for now
+      versionPolicy = "none"; # should be odd-unstable but we are tracking unstable versions for now
     };
   };
 

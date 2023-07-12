@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "3.13.7";
 
   src = fetchurl {
-    url =
-      "https://files.teamspeak-services.com/releases/server/${version}/teamspeak3-server_linux_${arch}-${version}.tar.bz2";
+    url = "https://files.teamspeak-services.com/releases/server/${version}/teamspeak3-server_linux_${arch}-${version}.tar.bz2";
     sha256 =
       if stdenv.is64bit then
         "sha256-d1pXMamAmAHkyPkGbNm8ViobNoVTE5wSSfKgdA1QBB4="

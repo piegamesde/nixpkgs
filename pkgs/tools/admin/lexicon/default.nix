@@ -66,11 +66,9 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "lexicon" ];
 
   meta = with lib; {
-    description =
-      "Manipulate DNS records of various DNS providers in a standardized way";
+    description = "Manipulate DNS records of various DNS providers in a standardized way";
     homepage = "https://github.com/AnalogJ/lexicon";
-    changelog =
-      "https://github.com/AnalogJ/lexicon/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/AnalogJ/lexicon/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ flyfloh ];
   };

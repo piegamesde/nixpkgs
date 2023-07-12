@@ -33,11 +33,9 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
-    description =
-      "Cargo subcommand to check rust documentation for broken links";
+    description = "Cargo subcommand to check rust documentation for broken links";
     homepage = "https://github.com/deadlinks/cargo-deadlinks";
-    changelog =
-      "https://github.com/deadlinks/cargo-deadlinks/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/deadlinks/cargo-deadlinks/blob/${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

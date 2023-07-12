@@ -44,8 +44,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "seqdiag" ];
 
   meta = with lib; {
-    description =
-      "Generate sequence-diagram image from spec-text file (similar to Graphviz)";
+    description = "Generate sequence-diagram image from spec-text file (similar to Graphviz)";
     homepage = "http://blockdiag.com/";
     license = licenses.asl20;
     platforms = platforms.unix;

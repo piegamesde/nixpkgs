@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to interact with a Dormakaba dkey lock";
     homepage = "https://github.com/emontnemery/py-dormakaba-dkey";
-    changelog =
-      "https://github.com/emontnemery/py-dormakaba-dkey/releases/tag/${version}";
+    changelog = "https://github.com/emontnemery/py-dormakaba-dkey/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -132,8 +132,7 @@ in
       ensureDatabases = [ cfg.settings.database.database ];
       ensureUsers = [ {
         name = cfg.settings.database.user;
-        ensurePermissions."DATABASE ${cfg.settings.database.database}" =
-          "ALL PRIVILEGES";
+        ensurePermissions."DATABASE ${cfg.settings.database.database}" = "ALL PRIVILEGES";
       } ];
     };
 
@@ -180,8 +179,7 @@ in
           cfg.settings.database.host == "localhost"
           || cfg.settings.database.host == "/run/postgresql"
       ;
-      message =
-        "if you want to create the database locally, you need to use a local database";
+      message = "if you want to create the database locally, you need to use a local database";
     } ];
 
     systemd.services.lemmy = {
@@ -214,8 +212,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         RuntimeDirectory = "lemmy";
-        ExecStartPre =
-          "${pkgs.coreutils}/bin/install -m 600 ${
+        ExecStartPre = "${pkgs.coreutils}/bin/install -m 600 ${
             settingsFormat.generate "config.hjson" cfg.settings
           } /run/lemmy/config.hjson";
         ExecStart = "${pkgs.lemmy-server}/bin/lemmy_server";
@@ -246,8 +243,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         WorkingDirectory = "${pkgs.lemmy-ui}";
-        ExecStart =
-          "${pkgs.nodejs}/bin/node ${pkgs.lemmy-ui}/dist/js/server.js";
+        ExecStart = "${pkgs.nodejs}/bin/node ${pkgs.lemmy-ui}/dist/js/server.js";
       };
     };
   };

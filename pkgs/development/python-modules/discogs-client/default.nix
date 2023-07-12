@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Unofficial Python API client for Discogs";
     homepage = "https://github.com/joalla/discogs_client";
-    changelog =
-      "https://github.com/joalla/discogs_client/releases/tag/v${version}";
+    changelog = "https://github.com/joalla/discogs_client/releases/tag/v${version}";
     license = licenses.bsd2;
     maintainers = with maintainers; [ fab ];
   };

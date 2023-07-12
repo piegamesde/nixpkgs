@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
   version = "4.12.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/gap-system/gap/releases/download/v${version}/gap-${version}.tar.gz";
+    url = "https://github.com/gap-system/gap/releases/download/v${version}/gap-${version}.tar.gz";
     sha256 = "sha256-ZyMIdF63iiIklO6N1nhu3VvDMUVvzGRWrAZL2yjVh6g=";
   };
 

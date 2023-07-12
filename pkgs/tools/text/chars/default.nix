@@ -22,8 +22,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
-    description =
-      "Commandline tool to display information about unicode characters";
+    description = "Commandline tool to display information about unicode characters";
     homepage = "https://github.com/antifuchs/chars";
     license = licenses.mit;
     maintainers = with maintainers; [ bbigras ];

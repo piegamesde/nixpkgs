@@ -42,8 +42,7 @@ in
         # We could link directly into pkgs.tzdata, but at least timedatectl seems
         # to expect the symlink to point directly to a file in etc.
         # Setting the "debian timezone file" to point at /dev/null stops it doing anything.
-        ExecStart =
-          "${pkgs.tzupdate}/bin/tzupdate -z /etc/zoneinfo -d /dev/null";
+        ExecStart = "${pkgs.tzupdate}/bin/tzupdate -z /etc/zoneinfo -d /dev/null";
       };
     };
   };

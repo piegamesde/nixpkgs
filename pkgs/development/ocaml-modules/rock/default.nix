@@ -16,8 +16,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/rgrinberg/opium/releases/download/${version}/opium-${version}.tbz";
+    url = "https://github.com/rgrinberg/opium/releases/download/${version}/opium-${version}.tbz";
     hash = "sha256-MmuRhm3pC69TX4t9Sy/yPjnZUuVzwEs8E/EFS1n/L7Y=";
   };
 
@@ -30,8 +29,7 @@ buildDunePackage rec {
   ];
 
   meta = {
-    description =
-      "Minimalist framework to build extensible HTTP servers and clients";
+    description = "Minimalist framework to build extensible HTTP servers and clients";
     homepage = "https://github.com/rgrinberg/opium";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];

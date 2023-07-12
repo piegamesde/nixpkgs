@@ -17,8 +17,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ unittestCheckHook ];
 
   meta = with lib; {
-    description =
-      "Transforms tokens into original source code while preserving whitespace";
+    description = "Transforms tokens into original source code while preserving whitespace";
     homepage = "https://github.com/myint/untokenize";
     license = licenses.mit;
     maintainers = with maintainers; [ FlorianFranzen ];

@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Fast, easy and reliable testing for anything that runs in a browser";
+    description = "Fast, easy and reliable testing for anything that runs in a browser";
     homepage = "https://www.cypress.io";
     mainProgram = "Cypress";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

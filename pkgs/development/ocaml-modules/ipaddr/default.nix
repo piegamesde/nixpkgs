@@ -29,8 +29,7 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = macaddr.meta // {
-    description =
-      "A library for manipulation of IP (and MAC) address representations ";
+    description = "A library for manipulation of IP (and MAC) address representations ";
     maintainers = with lib.maintainers; [
       alexfmpe
       ericbmerritt

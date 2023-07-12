@@ -35,8 +35,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "http://larsenwork.com/monoid";
-    description =
-      "Customisable coding font with alternates, ligatures and contextual positioning";
+    description = "Customisable coding font with alternates, ligatures and contextual positioning";
     license = [
       licenses.ofl
       licenses.mit

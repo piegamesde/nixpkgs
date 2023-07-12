@@ -60,8 +60,7 @@ let
             }:
             mkMerge [
               {
-                boot.postBootCommands =
-                  "rm -fr /var/lib/kubernetes/secrets /tmp/shared/*";
+                boot.postBootCommands = "rm -fr /var/lib/kubernetes/secrets /tmp/shared/*";
                 virtualisation.memorySize = mkDefault 1536;
                 virtualisation.diskSize = mkDefault 4096;
                 networking = {

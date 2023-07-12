@@ -14,8 +14,7 @@ appimageTools.wrapAppImage rec {
   src = appimageTools.extract {
     inherit name;
     src = fetchurl {
-      url =
-        "https://github.com/keyboardio/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
+      url = "https://github.com/keyboardio/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
       sha256 = "sha256-sQoEO1UII4Gbp7UbHCCyejsd94lkBbi93TH325EamFc=";
     };
   };

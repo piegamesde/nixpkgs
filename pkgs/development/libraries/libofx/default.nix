@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = {
-    description =
-      "Opensource implementation of the Open Financial eXchange specification";
+    description = "Opensource implementation of the Open Financial eXchange specification";
     homepage = "https://libofx.sourceforge.net/";
     license = "LGPL";
     platforms = lib.platforms.unix;

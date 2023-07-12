@@ -28,8 +28,7 @@ buildPythonPackage rec {
     [
       # Backport Python 3.11 support.
       (fetchpatch {
-        url =
-          "https://patch-diff.githubusercontent.com/raw/astropy/pyvo/pull/385.patch";
+        url = "https://patch-diff.githubusercontent.com/raw/astropy/pyvo/pull/385.patch";
         sha256 = "IHf3W9fIT8XFvyM41PUiJkt1j+B3RkX3TS4FOnRUMDk=";
       })
     ];
@@ -59,8 +58,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyvo" ];
 
   meta = with lib; {
-    description =
-      "Astropy affiliated package for accessing Virtual Observatory data and services";
+    description = "Astropy affiliated package for accessing Virtual Observatory data and services";
     homepage = "https://github.com/astropy/pyvo";
     license = licenses.bsd3;
     maintainers = with maintainers; [ smaret ];

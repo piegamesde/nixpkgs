@@ -22,8 +22,7 @@ rustPlatform.buildRustPackage rec {
     ln -s envfs $out/bin/mount.fuse.envfs
   '';
   meta = with lib; {
-    description =
-      "Fuse filesystem that returns symlinks to executables based on the PATH of the requesting process.";
+    description = "Fuse filesystem that returns symlinks to executables based on the PATH of the requesting process.";
     homepage = "https://github.com/Mic92/envfs";
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];

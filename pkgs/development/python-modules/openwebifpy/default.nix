@@ -30,8 +30,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Provides a python interface to interact with a device running OpenWebIf";
+    description = "Provides a python interface to interact with a device running OpenWebIf";
     homepage = "https://openwebifpy.readthedocs.io/";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

@@ -31,8 +31,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "routes" ];
 
   meta = with lib; {
-    description =
-      "Re-implementation of the Rails routes system for mapping URLs to application actions";
+    description = "Re-implementation of the Rails routes system for mapping URLs to application actions";
     homepage = "https://github.com/bbangert/routes";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

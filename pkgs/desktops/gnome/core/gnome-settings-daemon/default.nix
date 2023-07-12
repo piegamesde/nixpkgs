@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   version = "44.1";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-settings-daemon/${
+    url = "mirror://gnome/sources/gnome-settings-daemon/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "EmU7ctgfFRMApH1wCslBCsG8zjjoPxvdGc3tKTKUOYk=";
@@ -56,8 +55,7 @@ stdenv.mkDerivation rec {
   patches = [
     # https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/merge_requests/202
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/gnome-settings-daemon/commit/aae1e774dd9de22fe3520cf9eb2bfbf7216f5eb0.patch";
+      url = "https://gitlab.gnome.org/GNOME/gnome-settings-daemon/commit/aae1e774dd9de22fe3520cf9eb2bfbf7216f5eb0.patch";
       sha256 = "O4m0rOW8Zrgu3Q0p0OA8b951VC0FjYbOUk9MLzB9icI=";
     })
 

@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for ATC devices with custom firmware";
     homepage = "https://github.com/Bluetooth-Devices/atc-ble";
-    changelog =
-      "https://github.com/Bluetooth-Devices/atc-ble/releases/tag/v${version}";
+    changelog = "https://github.com/Bluetooth-Devices/atc-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

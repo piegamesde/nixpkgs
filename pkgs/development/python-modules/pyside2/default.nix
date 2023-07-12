@@ -21,8 +21,7 @@ disabledIf (pythonAtLeast "3.11") (
     version = "5.15.5";
 
     src = fetchurl {
-      url =
-        "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-${version}-src/pyside-setup-opensource-src-${version}.tar.xz";
+      url = "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-${version}-src/pyside-setup-opensource-src-${version}.tar.xz";
       sha256 = "0cwvw6695215498rsbm2xzkwaxdr3w7zfvy4kc62c01k6pxs881r";
     };
 
@@ -37,8 +36,7 @@ disabledIf (pythonAtLeast "3.11") (
       "-DPYTHON_EXECUTABLE=${python.interpreter}"
     ];
 
-    env.NIX_CFLAGS_COMPILE =
-      "-I${qt5.qtdeclarative.dev}/include/QtQuick/${qt5.qtdeclarative.version}/QtQuick";
+    env.NIX_CFLAGS_COMPILE = "-I${qt5.qtdeclarative.dev}/include/QtQuick/${qt5.qtdeclarative.version}/QtQuick";
 
     nativeBuildInputs = [
       cmake

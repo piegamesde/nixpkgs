@@ -56,8 +56,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ironicclient" ];
 
   meta = with lib; {
-    description =
-      "A client for OpenStack bare metal provisioning API, includes a Python module (ironicclient) and CLI (baremetal).";
+    description = "A client for OpenStack bare metal provisioning API, includes a Python module (ironicclient) and CLI (baremetal).";
     homepage = "https://github.com/openstack/python-ironicclient";
     license = licenses.asl20;
     maintainers = teams.openstack.members;

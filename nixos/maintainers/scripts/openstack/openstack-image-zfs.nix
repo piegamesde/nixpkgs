@@ -22,8 +22,7 @@ in
     name = mkOption {
       type = types.str;
       description = lib.mdDoc "The name of the generated derivation";
-      default =
-        "nixos-openstack-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+      default = "nixos-openstack-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
     };
 
     sizeMB = mkOption {

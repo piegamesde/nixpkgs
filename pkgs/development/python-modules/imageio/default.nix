@@ -28,8 +28,7 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./libgl-path.patch;
-      libgl =
-        "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libgl = "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
@@ -62,8 +61,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats";
+    description = "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats";
     homepage = "http://imageio.github.io/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ Luflosi ];

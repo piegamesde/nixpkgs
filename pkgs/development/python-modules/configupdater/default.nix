@@ -28,8 +28,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description =
-      "Parser like ConfigParser but for updating configuration files";
+    description = "Parser like ConfigParser but for updating configuration files";
     homepage = "https://configupdater.readthedocs.io/en/latest/";
     license = with licenses; [
       mit

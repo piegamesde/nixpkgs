@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/superctr/mmlgui";
-    description =
-      "MML (Music Macro Language) editor and compiler GUI, powered by the ctrmml framework";
+    description = "MML (Music Macro Language) editor and compiler GUI, powered by the ctrmml framework";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = platforms.all;

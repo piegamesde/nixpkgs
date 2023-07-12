@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       # This is a static email, so we shouldn't have to worry about
       # normalizing the patch.
       (fetchurl {
-        url =
-          "https://lore.kernel.org/selinux/20211113141616.361640-1-hi@alyssa.is/raw";
+        url = "https://lore.kernel.org/selinux/20211113141616.361640-1-hi@alyssa.is/raw";
         sha256 = "16a2s2ji9049892i15yyqgp4r20hi1hij4c1s4s8law9jsx65b3n";
         postFetch = ''
           mv "$out" $TMPDIR/patch

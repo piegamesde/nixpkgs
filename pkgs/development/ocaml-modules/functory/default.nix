@@ -28,8 +28,7 @@ stdenv.mkDerivation {
   inherit (param) version;
 
   src = fetchurl {
-    url =
-      "https://www.lri.fr/~filliatr/functory/download/functory-${param.version}.tar.gz";
+    url = "https://www.lri.fr/~filliatr/functory/download/functory-${param.version}.tar.gz";
     inherit (param) sha256;
   };
 
@@ -46,8 +45,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.lri.fr/~filliatr/functory/";
-    description =
-      "A distributed computing library for Objective Caml which facilitates distributed execution of parallelizable computations in a seamless fashion";
+    description = "A distributed computing library for Objective Caml which facilitates distributed execution of parallelizable computations in a seamless fashion";
     license = licenses.lgpl21;
     maintainers = [ maintainers.vbgl ];
     inherit (ocaml.meta) platforms;

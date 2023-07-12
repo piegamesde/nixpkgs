@@ -24,15 +24,13 @@ i3lock-color.overrideAttrs (
         # support: https://github.com/karulont/i3lock-blur/pull/22
         (fetchpatch {
           name = "fno-common.patch";
-          url =
-            "https://github.com/karulont/i3lock-blur/commit/ec8fe0e7f7d78bf445602ed517efd5c324bb32f7.patch";
+          url = "https://github.com/karulont/i3lock-blur/commit/ec8fe0e7f7d78bf445602ed517efd5c324bb32f7.patch";
           sha256 = "sha256-0hXUr+ZEB1tpI3xw80/hGzKyeGuna4CQmEvK6t0VBqU=";
         })
       ];
 
     meta = with lib; {
-      description =
-        "An improved screenlocker based upon XCB and PAM with background blurring filter";
+      description = "An improved screenlocker based upon XCB and PAM with background blurring filter";
       homepage = "https://github.com/karulont/i3lock-blur/";
       license = licenses.bsd3;
       maintainers = with maintainers; [ dan4ik605743 ];

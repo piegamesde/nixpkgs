@@ -18,8 +18,7 @@ clangStdenv.mkDerivation {
   };
   nativeBuildInputs = [ cmake ];
   meta = with lib; {
-    description =
-      "Fast Base64 stream encoder/decoder in C99, with SIMD acceleration";
+    description = "Fast Base64 stream encoder/decoder in C99, with SIMD acceleration";
     license = licenses.bsd2;
     homepage = "https://github.com/aklomp/base64";
     maintainers = with maintainers; [ avakhrenev ];

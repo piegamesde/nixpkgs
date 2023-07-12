@@ -87,8 +87,7 @@ import ./make-test-python.nix (
                     delegated-len = 48;
                   } ];
                   pools = [ {
-                    pool =
-                      "2001:DB8:0000:0000:FFFF::-2001:DB8:0000:0000:FFFF::FFFF";
+                    pool = "2001:DB8:0000:0000:FFFF::-2001:DB8:0000:0000:FFFF::FFFF";
                   } ];
                 } ];
 
@@ -183,8 +182,7 @@ import ./make-test-python.nix (
           1
           2
         ];
-        systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
-          "debug";
+        systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
 
         boot.kernel.sysctl = {
           # we want to forward packets from the ISP to the client and back.
@@ -296,8 +294,7 @@ import ./make-test-python.nix (
       # All we have to do is boot with the default (networkd) configuration.
       client = {
         virtualisation.vlans = [ 2 ];
-        systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
-          "debug";
+        systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
         networking = {
           useNetworkd = true;
           useDHCP = false;

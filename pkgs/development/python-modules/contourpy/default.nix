@@ -67,10 +67,8 @@ let
     pythonImportsCheck = [ "contourpy" ];
 
     meta = with lib; {
-      changelog =
-        "https://github.com/contourpy/contourpy/releases/tag/v${version}";
-      description =
-        "Python library for calculating contours in 2D quadrilateral grids";
+      changelog = "https://github.com/contourpy/contourpy/releases/tag/v${version}";
+      description = "Python library for calculating contours in 2D quadrilateral grids";
       homepage = "https://github.com/contourpy/contourpy";
       license = licenses.bsd3;
       maintainers = with maintainers; [ ];

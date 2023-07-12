@@ -28,11 +28,9 @@ rustPlatform.buildRustPackage rec {
   nativeCheckInputs = lib.optionals stdenv.isDarwin [ rustup ];
 
   meta = with lib; {
-    description =
-      "A tool for building final distributable artifacts and uploading them to an archive";
+    description = "A tool for building final distributable artifacts and uploading them to an archive";
     homepage = "https://github.com/axodotdev/cargo-dist";
-    changelog =
-      "https://github.com/axodotdev/cargo-dist/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/axodotdev/cargo-dist/blob/${src.rev}/CHANGELOG.md";
     license = with licenses; [
       asl20
       mit

@@ -479,8 +479,7 @@ stdenv.mkDerivation {
 
   env = {
     # for substitution in utils.bash
-    expandResponseParams =
-      "${expand-response-params}/bin/expand-response-params";
+    expandResponseParams = "${expand-response-params}/bin/expand-response-params";
     shell = getBin shell + shell.shellPath or "";
     gnugrep_bin = if nativeTools then "" else gnugrep;
     wrapperName = "BINTOOLS_WRAPPER";

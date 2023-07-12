@@ -42,8 +42,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = {
-    changelog =
-      "https://github.com/faust-streaming/cChardet/blob/${src.rev}/CHANGES.rst";
+    changelog = "https://github.com/faust-streaming/cChardet/blob/${src.rev}/CHANGES.rst";
     description = "High-speed universal character encoding detector";
     homepage = "https://github.com/faust-streaming/cChardet";
     license = lib.licenses.mpl11;

@@ -31,8 +31,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "AWS Access Policy Language creation library";
     homepage = "https://github.com/cloudtools/awacs";
-    changelog =
-      "https://github.com/cloudtools/awacs/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/cloudtools/awacs/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = with maintainers; [ jlesquembre ];
   };

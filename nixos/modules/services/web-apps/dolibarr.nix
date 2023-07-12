@@ -78,8 +78,8 @@ let
     force_install_createuser = false;
     force_install_dolibarrlogin = null;
   } // optionalAttrs (cfg.database.passwordFile != null) {
-    force_install_databasepass =
-      ''file_get_contents("${cfg.database.passwordFile}")'';
+    force_install_databasepass = ''
+      file_get_contents("${cfg.database.passwordFile}")'';
   };
 in
 {
@@ -255,8 +255,7 @@ in
         assertions = [ {
           assertion =
             cfg.database.createLocally -> cfg.database.user == cfg.user;
-          message =
-            "services.dolibarr.database.user must match services.dolibarr.user if the database is to be automatically provisioned";
+          message = "services.dolibarr.database.user must match services.dolibarr.user if the database is to be automatically provisioned";
         } ];
 
         services.dolibarr.settings = {
@@ -283,8 +282,7 @@ in
           # Security settings
           dolibarr_main_prod = true;
           dolibarr_main_force_https = vhostCfg.forceSSL or false;
-          dolibarr_main_restrict_os_commands =
-            "${pkgs.mariadb}/bin/mysqldump, ${pkgs.mariadb}/bin/mysql";
+          dolibarr_main_restrict_os_commands = "${pkgs.mariadb}/bin/mysqldump, ${pkgs.mariadb}/bin/mysql";
           dolibarr_nocsrfcheck = false;
           dolibarr_main_instance_unique_id = ''
             file_get_contents("${cfg.stateDir}/dolibarr_main_instance_unique_id")

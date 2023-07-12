@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     [
       # https://www.mozilla.org/en-US/security/advisories/mfsa2023-13/#MFSA-TMP-2023-0001
       (fetchpatch {
-        url =
-          "https://github.com/webmproject/libwebp/commit/a486d800b60d0af4cc0836bf7ed8f21e12974129.patch";
+        url = "https://github.com/webmproject/libwebp/commit/a486d800b60d0af4cc0836bf7ed8f21e12974129.patch";
         name = "fix-msfa-tmp-2023-0001.patch";
         hash = "sha256-TRKXpNkYVzftBw09mX+WeQRhRoOzBgXFTNZBzSdCKvc=";
       })

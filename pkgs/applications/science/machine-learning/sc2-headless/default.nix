@@ -61,13 +61,11 @@ else
 
     meta = {
       platforms = lib.platforms.linux;
-      description =
-        "Starcraft II headless linux client for machine learning research";
+      description = "Starcraft II headless linux client for machine learning research";
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       license = {
         fullName = "BLIZZARD® STARCRAFT® II AI AND MACHINE LEARNING LICENSE";
-        url =
-          "https://blzdistsc2-a.akamaihd.net/AI_AND_MACHINE_LEARNING_LICENSE.html";
+        url = "https://blzdistsc2-a.akamaihd.net/AI_AND_MACHINE_LEARNING_LICENSE.html";
         free = false;
       };
       maintainers = with lib.maintainers; [ ];

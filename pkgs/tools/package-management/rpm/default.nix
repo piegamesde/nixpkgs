@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   version = "4.18.0";
 
   src = fetchurl {
-    url =
-      "https://ftp.osuosl.org/pub/rpm/releases/rpm-${
+    url = "https://ftp.osuosl.org/pub/rpm/releases/rpm-${
         lib.versions.majorMinor version
       }.x/rpm-${version}.tar.bz2";
     hash = "sha256-KhcVLXGHqzDt8sL7WGRjvfY4jee1g3SAlVZZ5ekFRVQ=";
@@ -82,8 +81,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isLinux elfutils
   ;
 
-  env.NIX_CFLAGS_COMPILE =
-    "-I${nspr.dev}/include/nspr -I${nss.dev}/include/nss";
+  env.NIX_CFLAGS_COMPILE = "-I${nspr.dev}/include/nspr -I${nss.dev}/include/nss";
 
   configureFlags =
     [

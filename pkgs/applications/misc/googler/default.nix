@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/jarun/googler";
-    description =
-      "Google Search, Google Site Search, Google News from the terminal";
+    description = "Google Search, Google Site Search, Google News from the terminal";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       koral

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "6.4.0-1";
 
   src = fetchurl {
-    url =
-      "http://voip.null.ro/tarballs/yate${
+    url = "http://voip.null.ro/tarballs/yate${
         lib.versions.major version
       }/${pname}-${version}.tar.gz";
     hash = "sha256-jCPca/+/jUeNs6hZZLUBl3HI9sms9SIPNGVRanSKA7A=";

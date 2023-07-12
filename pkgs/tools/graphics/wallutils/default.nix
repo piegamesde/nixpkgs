@@ -66,8 +66,7 @@ buildGoModule rec {
   ;
 
   meta = {
-    description =
-      "Utilities for handling monitors, resolutions, and (timed) wallpapers";
+    description = "Utilities for handling monitors, resolutions, and (timed) wallpapers";
     inherit (src.meta) homepage;
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.AndersonTorres ];

@@ -107,8 +107,9 @@ mkDerivation rec {
 
   CFLAGS = [ "-DHAVE_PARANOIA_NEW_INCLUDES" ];
 
-  env.NIX_CFLAGS_COMPILE =
-    "-I${lib.getDev gst_all_1.gst-plugins-base}/include/gstreamer-1.0";
+  env.NIX_CFLAGS_COMPILE = "-I${
+      lib.getDev gst_all_1.gst-plugins-base
+    }/include/gstreamer-1.0";
 
   postInstall = ''
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
@@ -119,8 +120,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A lightweight GTK+ music manager - fork of Consonance Music Manager";
+    description = "A lightweight GTK+ music manager - fork of Consonance Music Manager";
     homepage = "https://pragha-music-player.github.io/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mbaeten ];

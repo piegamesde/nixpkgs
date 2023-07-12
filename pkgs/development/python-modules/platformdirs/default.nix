@@ -40,11 +40,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "platformdirs" ];
 
   meta = with lib; {
-    description =
-      "Module for determining appropriate platform-specific directories";
+    description = "Module for determining appropriate platform-specific directories";
     homepage = "https://platformdirs.readthedocs.io/";
-    changelog =
-      "https://github.com/platformdirs/platformdirs/releases/tag/${version}";
+    changelog = "https://github.com/platformdirs/platformdirs/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

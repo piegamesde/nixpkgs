@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Generate music from the entropy of Linux";
     homepage = "https://github.com/orhun/linuxwave";
-    changelog =
-      "https://github.com/orhun/linuxwave/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/orhun/linuxwave/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
     platforms = platforms.all;

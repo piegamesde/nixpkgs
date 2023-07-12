@@ -25,8 +25,7 @@ self: super: {
           ++ [
             (fetchpatch {
               name = "ghcjs-aeson-2.0.patch";
-              url =
-                "https://github.com/ghcjs/ghcjs/commit/9ef1f92d740e8503d15d91699f57db147f0474cc.patch";
+              url = "https://github.com/ghcjs/ghcjs/commit/9ef1f92d740e8503d15d91699f57db147f0474cc.patch";
               sha256 = "0cgxcy6b5870bv4kj54n3bzcqinh4gl4w4r78dg43h2mblhkzbnj";
             })
           ]

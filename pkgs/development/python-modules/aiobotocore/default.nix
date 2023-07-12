@@ -80,8 +80,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for amazon services";
     homepage = "https://github.com/aio-libs/aiobotocore";
-    changelog =
-      "https://github.com/aio-libs/aiobotocore/releases/tag/${version}";
+    changelog = "https://github.com/aio-libs/aiobotocore/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ teh ];
   };

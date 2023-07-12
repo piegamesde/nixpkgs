@@ -29,8 +29,7 @@ in
       ];
       serviceConfig = {
         PIDFile = "/run/xe-daemon.pid";
-        ExecStart =
-          "${pkgs.xe-guest-utilities}/bin/xe-daemon -p /run/xe-daemon.pid";
+        ExecStart = "${pkgs.xe-guest-utilities}/bin/xe-daemon -p /run/xe-daemon.pid";
         ExecStop = "${pkgs.procps}/bin/pkill -TERM -F /run/xe-daemon.pid";
       };
     };
@@ -48,8 +47,7 @@ in
       serviceConfig = {
         Type = "simple";
         RemainAfterExit = "yes";
-        ExecStart =
-          "${pkgs.xe-guest-utilities}/bin/xe-linux-distribution /var/cache/xe-linux-distribution";
+        ExecStart = "${pkgs.xe-guest-utilities}/bin/xe-linux-distribution /var/cache/xe-linux-distribution";
       };
     };
 

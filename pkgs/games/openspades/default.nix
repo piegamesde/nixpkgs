@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
     [
       # https://github.com/yvt/openspades/pull/793 fix Darwin build
       (fetchpatch {
-        url =
-          "https://github.com/yvt/openspades/commit/2d13704fefc475b279337e89057b117f711a35d4.diff";
+        url = "https://github.com/yvt/openspades/commit/2d13704fefc475b279337e89057b117f711a35d4.diff";
         sha256 = "1i7rcpjzkjhbv5pp6byzrxv7sb1iamqq5k1vyqlvkbr38k2dz0rv";
       })
     ];
@@ -73,14 +72,12 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DOPENSPADES_INSTALL_BINARY=bin" ];
 
   devPak = fetchurl {
-    url =
-      "https://github.com/yvt/openspades-paks/releases/download/r${devPakVersion}/OpenSpadesDevPackage-r${devPakVersion}.zip";
+    url = "https://github.com/yvt/openspades-paks/releases/download/r${devPakVersion}/OpenSpadesDevPackage-r${devPakVersion}.zip";
     sha256 = "1bd2fyn7mlxa3xnsvzj08xjzw02baimqvmnix07blfhb78rdq9q9";
   };
 
   notoFont = fetchurl {
-    url =
-      "https://github.com/yvt/openspades/releases/download/v0.1.1b/NotoFonts.pak";
+    url = "https://github.com/yvt/openspades/releases/download/v0.1.1b/NotoFonts.pak";
     sha256 = "0kaz8j85wjjnf18z0lz69xr1z8makg30jn2dzdyicd1asrj0q1jm";
   };
 

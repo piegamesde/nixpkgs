@@ -147,8 +147,7 @@ in
       serviceConfig = {
         Type = "simple";
         Restart = "always";
-        ExecStart =
-          "${cfg.package.infinoted} --config-file=/var/lib/infinoted/infinoted.conf";
+        ExecStart = "${cfg.package.infinoted} --config-file=/var/lib/infinoted/infinoted.conf";
         User = cfg.user;
         Group = cfg.group;
         PermissionsStartOnly = true;

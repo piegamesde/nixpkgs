@@ -46,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Jobs scheduler for managing background task (asyncio)";
     homepage = "https://github.com/aio-libs/aiojobs";
-    changelog =
-      "https://github.com/aio-libs/aiojobs/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/aio-libs/aiojobs/blob/v${version}/CHANGES.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ cmcdragonkai ];
   };

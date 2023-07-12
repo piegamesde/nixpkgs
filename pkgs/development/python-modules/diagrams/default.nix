@@ -65,8 +65,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Diagram as Code";
     homepage = "https://diagrams.mingrammer.com/";
-    changelog =
-      "https://github.com/mingrammer/diagrams/releases/tag/v${version}";
+    changelog = "https://github.com/mingrammer/diagrams/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ addict3d ];
   };

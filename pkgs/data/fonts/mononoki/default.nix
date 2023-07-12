@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "1.6";
 
   src = fetchzip {
-    url =
-      "https://github.com/madmalik/mononoki/releases/download/${version}/mononoki.zip";
+    url = "https://github.com/madmalik/mononoki/releases/download/${version}/mononoki.zip";
     stripRoot = false;
     hash = "sha256-HQM9rzIJXLOScPEXZu0MzRlblLfbVVNJ+YvpONxXuwQ=";
   };

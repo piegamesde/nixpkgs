@@ -99,8 +99,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "scapy" ];
 
   meta = with lib; {
-    description =
-      "A Python-based network packet manipulation program and library";
+    description = "A Python-based network packet manipulation program and library";
     longDescription = ''
       Scapy is a powerful Python-based interactive packet manipulation program
       and library.

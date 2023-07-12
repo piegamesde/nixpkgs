@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://trunk.io/";
-    description =
-      "Developer experience toolkit used to check, test, merge, and monitor code";
+    description = "Developer experience toolkit used to check, test, merge, and monitor code";
     license = licenses.unfree;
     maintainers = with maintainers; [ aaronjheng ];
   };

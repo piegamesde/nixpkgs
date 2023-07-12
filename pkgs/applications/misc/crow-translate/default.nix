@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "2.10.4";
 
   src = fetchzip {
-    url =
-      "https://github.com/${pname}/${pname}/releases/download/${version}/${pname}-${version}-source.tar.gz";
+    url = "https://github.com/${pname}/${pname}/releases/download/${version}/${pname}-${version}-source.tar.gz";
     hash = "sha256-M2vAH1YAvNOhDsz+BWxvteR8YX89FHtbUcQZr1uVoCs=";
   };
 
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
   passthru.tests.version = testers.testVersion { package = crow-translate; };
 
   meta = with lib; {
-    description =
-      "A simple and lightweight translator that allows to translate and speak text using Google, Yandex and Bing";
+    description = "A simple and lightweight translator that allows to translate and speak text using Google, Yandex and Bing";
     homepage = "https://crow-translate.github.io/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ sikmir ];

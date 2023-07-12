@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   autoreconfFlags = [ "-if" ];
 
   meta = with lib; {
-    description =
-      "What would cron do? Read crontab entries from stdin and print time of next execution(s)";
+    description = "What would cron do? Read crontab entries from stdin and print time of next execution(s)";
     homepage = "https://git.sr.ht/~bitfehler/wwcd";
     license = licenses.mit;
     maintainers = with maintainers; [ laalsaas ];

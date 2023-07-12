@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/libplctag/libplctag";
-    description =
-      "Library that uses EtherNet/IP or Modbus TCP to read and write tags in PLCs";
+    description = "Library that uses EtherNet/IP or Modbus TCP to read and write tags in PLCs";
     license = with licenses; [
       lgpl2Plus
       mpl20

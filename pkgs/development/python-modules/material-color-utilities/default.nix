@@ -28,8 +28,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pypi.org/project/material_color_utilities_python";
-    description =
-      "Python port of material_color_utilities used for Material You colors";
+    description = "Python port of material_color_utilities used for Material You colors";
     license = licenses.asl20;
     maintainers = with maintainers; [ foo-dogsquared ];
   };

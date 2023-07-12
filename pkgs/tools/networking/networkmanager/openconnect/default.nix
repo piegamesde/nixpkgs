@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   version = "1.2.8";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/NetworkManager-openconnect/${
+    url = "mirror://gnome/sources/NetworkManager-openconnect/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "Xe2qeF2C2OI53dCCv6xSUMaR6WRGS+GAe2gnJjYzzcw=";

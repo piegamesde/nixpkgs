@@ -94,8 +94,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6" || pythonAtLeast "3.8";
 
   meta = with lib; {
-    description =
-      "Parametric scripting language for creating and traversing CAD models";
+    description = "Parametric scripting language for creating and traversing CAD models";
     homepage = "https://github.com/CadQuery/cadquery";
     license = licenses.asl20;
     maintainers = with maintainers; [

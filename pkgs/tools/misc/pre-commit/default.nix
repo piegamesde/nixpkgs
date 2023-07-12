@@ -169,8 +169,7 @@ buildPythonApplication rec {
   passthru.tests.version = testers.testVersion { package = pre-commit; };
 
   meta = with lib; {
-    description =
-      "A framework for managing and maintaining multi-language pre-commit hooks";
+    description = "A framework for managing and maintaining multi-language pre-commit hooks";
     homepage = "https://pre-commit.com/";
     license = licenses.mit;
     maintainers = with maintainers; [ borisbabic ];

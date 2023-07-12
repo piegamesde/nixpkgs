@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "API for Tesla Powerwall";
     homepage = "https://github.com/jrester/tesla_powerwall";
-    changelog =
-      "https://github.com/jrester/tesla_powerwall/blob/v${version}/CHANGELOG";
+    changelog = "https://github.com/jrester/tesla_powerwall/blob/v${version}/CHANGELOG";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

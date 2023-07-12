@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "0.92.1";
 
   src = fetchurl {
-    url =
-      "https://ftp.i-scream.org/pub/i-scream/libstatgrab/${pname}-${version}.tar.gz";
+    url = "https://ftp.i-scream.org/pub/i-scream/libstatgrab/${pname}-${version}.tar.gz";
     sha256 = "sha256-VoiqSmhVR9cXSoo3PqnY7pJ+dm48wwK97jRSPCxdbBE=";
   };
 
@@ -19,8 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.i-scream.org/libstatgrab/";
-    description =
-      "A library that provides cross platforms access to statistics about the running system";
+    description = "A library that provides cross platforms access to statistics about the running system";
     maintainers = with maintainers; [ ];
     license = licenses.gpl2;
     platforms = platforms.unix;

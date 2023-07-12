@@ -74,8 +74,7 @@ let
     ];
 
     meta = with lib; {
-      description =
-        "D-Bus service which performs user authentication on behalf of its clients";
+      description = "D-Bus service which performs user authentication on behalf of its clients";
       homepage = "https://gitlab.com/accounts-sso/gsignond";
       license = licenses.lgpl21Plus;
       maintainers = with maintainers; [ ];

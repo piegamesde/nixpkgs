@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   version = "9.19.1";
 
   src = fetchurl {
-    url =
-      "https://pkg.linbit.com/downloads/drbd/utils/${pname}-utils-${version}.tar.gz";
+    url = "https://pkg.linbit.com/downloads/drbd/utils/${pname}-utils-${version}.tar.gz";
     sha256 = "1l99kcrb0j85wxxmrdihpx9bk1a4sdi7wlp5m1x5l24k8ck1m5cf";
   };
 
@@ -125,8 +124,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://linbit.com/drbd/";
-    description =
-      "Distributed Replicated Block Device, a distributed storage system for Linux (userspace utilities)";
+    description = "Distributed Replicated Block Device, a distributed storage system for Linux (userspace utilities)";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [

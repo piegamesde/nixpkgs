@@ -46,8 +46,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A library for looking up the frequencies of words in many languages, based on many sources of data";
+    description = "A library for looking up the frequencies of words in many languages, based on many sources of data";
     homepage = "https://github.com/LuminosoInsight/wordfreq/";
     license = licenses.mit;
     maintainers = with maintainers; [ ixxie ];

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "1.27.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/mobile-dev-inc/maestro/releases/download/cli-${version}/maestro.zip";
+    url = "https://github.com/mobile-dev-inc/maestro/releases/download/cli-${version}/maestro.zip";
     sha256 = "1ldlc8qj8nzy44h6qwgz0xiwp3a6fm0wkl05sl1r20iv7sr92grz";
   };
 
@@ -41,8 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://maestro.mobile.dev/";
     license = licenses.asl20;
     platforms = lib.platforms.all;
-    changelog =
-      "https://github.com/mobile-dev-inc/maestro/blob/main/CHANGELOG.md";
+    changelog = "https://github.com/mobile-dev-inc/maestro/blob/main/CHANGELOG.md";
     maintainers = with maintainers; [ SubhrajyotiSen ];
   };
 }

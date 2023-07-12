@@ -228,10 +228,8 @@ stdenv.mkDerivation (
     pname = "${targetPrefix}ghc${variantSuffix}";
 
     src = fetchurl {
-      url =
-        "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
-      sha256 =
-        "7227ef3b5e15a0d70b8f1a43aec32867e2a9b2d857cc0ed556aeed172d4db3a5";
+      url = "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz";
+      sha256 = "7227ef3b5e15a0d70b8f1a43aec32867e2a9b2d857cc0ed556aeed172d4db3a5";
     };
 
     enableParallelBuilding = true;
@@ -247,8 +245,7 @@ stdenv.mkDerivation (
         # https://gitlab.haskell.org/ghc/ghc/-/issues/22766
         (fetchpatch {
           name = "ghc-docs-sphinx-6.0.patch";
-          url =
-            "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
+          url = "https://gitlab.haskell.org/ghc/ghc/-/commit/10e94a556b4f90769b7fd718b9790d58ae566600.patch";
           sha256 = "0kmhfamr16w8gch0lgln2912r8aryjky1hfcda3jkcwa5cdzgjdv";
         })
       ];

@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
-    description =
-      "Privacy-Focused Marketplace & Decentralized Application Platform";
+    description = "Privacy-Focused Marketplace & Decentralized Application Platform";
     longDescription = ''
       An open source, decentralized privacy platform built for global person to person eCommerce.
       RPC daemon and CLI client only.

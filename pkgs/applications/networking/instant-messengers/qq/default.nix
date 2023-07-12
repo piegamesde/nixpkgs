@@ -26,13 +26,11 @@ let
   version = "3.1.1-11223";
   srcs = {
     x86_64-linux = fetchurl {
-      url =
-        "https://dldir1.qq.com/qqfile/qq/QQNT/2355235c/linuxqq_${version}_amd64.deb";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/2355235c/linuxqq_${version}_amd64.deb";
       sha256 = "sha256-TBgQ7zV+juB3KSgIIXuvxnYmvnnM/1/wU0EkiopIqvY=";
     };
     aarch64-linux = fetchurl {
-      url =
-        "https://dldir1.qq.com/qqfile/qq/QQNT/2355235c/linuxqq_${version}_arm64.deb";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/2355235c/linuxqq_${version}_arm64.deb";
       sha256 = "sha256-1ba/IA/+X/s7jUtIhh3OsBHU7MPggGrASsBPx8euBBs=";
     };
   };

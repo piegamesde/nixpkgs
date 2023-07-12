@@ -49,8 +49,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "drf_yasg" ];
 
   meta = with lib; {
-    description =
-      "Generation of Swagger/OpenAPI schemas for Django REST Framework";
+    description = "Generation of Swagger/OpenAPI schemas for Django REST Framework";
     homepage = "https://github.com/axnsan12/drf-yasg";
     maintainers = with maintainers; [ ];
     license = licenses.bsd3;

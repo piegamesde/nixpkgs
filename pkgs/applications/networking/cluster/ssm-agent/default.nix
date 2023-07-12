@@ -52,8 +52,7 @@ buildGoPackage rec {
 
     (fetchpatch {
       name = "CVE-2022-29527.patch";
-      url =
-        "https://github.com/aws/amazon-ssm-agent/commit/0fe8ae99b2ff25649c7b86d3bc05fc037400aca7.patch";
+      url = "https://github.com/aws/amazon-ssm-agent/commit/0fe8ae99b2ff25649c7b86d3bc05fc037400aca7.patch";
       sha256 = "sha256-5g14CxhsHLIgs1Vkfw8FCKEJ4AebNqZKf3ZzoAN/T9U=";
     })
   ];
@@ -131,8 +130,7 @@ buildGoPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Agent to enable remote management of your Amazon EC2 instance configuration";
+    description = "Agent to enable remote management of your Amazon EC2 instance configuration";
     homepage = "https://github.com/aws/amazon-ssm-agent";
     license = licenses.asl20;
     platforms = platforms.unix;

@@ -27,8 +27,7 @@ buildOctavePackage rec {
       bsd3
     ];
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Wrapper for OpenCV's CvCapture_FFMPEG and CvVideoWriter_FFMPEG";
+    description = "Wrapper for OpenCV's CvCapture_FFMPEG and CvVideoWriter_FFMPEG";
     # error: declaration of 'panic' has a different language linkage
     broken = stdenv.isDarwin;
   };

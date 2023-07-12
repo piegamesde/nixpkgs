@@ -38,8 +38,7 @@ buildGoModule rec {
   passthru.tests.version = testers.testVersion { package = kapp; };
 
   meta = with lib; {
-    description =
-      "CLI tool that encourages Kubernetes users to manage bulk resources with an application abstraction for grouping";
+    description = "CLI tool that encourages Kubernetes users to manage bulk resources with an application abstraction for grouping";
     homepage = "https://get-kapp.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ brodes ];

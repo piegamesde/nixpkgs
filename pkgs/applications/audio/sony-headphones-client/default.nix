@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       exec = "SonyHeadphonesClient";
       icon = "SonyHeadphonesClient";
       desktopName = "Sony Headphones Client";
-      comment =
-        "A client recreating the functionality of the Sony Headphones app";
+      comment = "A client recreating the functionality of the Sony Headphones app";
       categories = [
         "Audio"
         "Mixer"
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A client recreating the functionality of the Sony Headphones app";
+    description = "A client recreating the functionality of the Sony Headphones app";
     homepage = "https://github.com/Plutoberth/SonyHeadphonesClient";
     license = licenses.mit;
     maintainers = with maintainers; [ stunkymonkey ];

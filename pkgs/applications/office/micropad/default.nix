@@ -25,8 +25,7 @@ mkYarnPackage rec {
   };
 
   micropad-core = fetchzip {
-    url =
-      "https://github.com/MicroPad/MicroPad-Core/releases/download/v${version}/micropad.tar.xz";
+    url = "https://github.com/MicroPad/MicroPad-Core/releases/download/v${version}/micropad.tar.xz";
     sha256 = "0mzyd2p4mmnc19ffvd4sd75x7xwb1g5masdaqpn2n3h91687jmsf";
   };
 
@@ -94,8 +93,7 @@ mkYarnPackage rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "A powerful note-taking app that helps you organise + take notes without restrictions";
+    description = "A powerful note-taking app that helps you organise + take notes without restrictions";
     homepage = "https://getmicropad.com/";
     license = licenses.mpl20;
     maintainers = with maintainers; [ rhysmdnz ];

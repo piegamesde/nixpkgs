@@ -77,8 +77,7 @@ perlPackages.buildPerlPackage rec {
 
   postPatch =
     let
-      fontSubstitute =
-        "${liberation_ttf}/share/fonts/truetype/LiberationSans-Regular.ttf";
+      fontSubstitute = "${liberation_ttf}/share/fonts/truetype/LiberationSans-Regular.ttf";
     in
     ''
       # Required for the program to properly load its SVG assets

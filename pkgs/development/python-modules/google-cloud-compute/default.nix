@@ -54,8 +54,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "API Client library for Google Cloud Compute";
     homepage = "https://github.com/googleapis/python-compute";
-    changelog =
-      "https://github.com/googleapis/python-compute/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/googleapis/python-compute/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ jpetrucciani ];
   };

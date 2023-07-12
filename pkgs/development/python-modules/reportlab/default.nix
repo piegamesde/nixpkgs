@@ -53,8 +53,7 @@ buildPythonPackage rec {
   disabled = isPyPy;
 
   meta = {
-    description =
-      "An Open Source Python library for generating PDFs and graphics";
+    description = "An Open Source Python library for generating PDFs and graphics";
     homepage = "http://www.reportlab.com/";
   };
 }

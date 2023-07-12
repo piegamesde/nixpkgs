@@ -34,8 +34,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "GPipe implemented in Pytorch and optimized for CUDA rather than TPU";
+    description = "GPipe implemented in Pytorch and optimized for CUDA rather than TPU";
     homepage = "https://torchgpipe.readthedocs.io";
     license = licenses.asl20;
     maintainers = [ maintainers.bcdarwin ];

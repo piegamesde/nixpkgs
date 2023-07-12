@@ -240,8 +240,7 @@ let
     passthru.tests = nixosTests.installed-tests.pipewire;
 
     meta = with lib; {
-      description =
-        "Server and user space API to deal with multimedia pipelines";
+      description = "Server and user space API to deal with multimedia pipelines";
       homepage = "https://pipewire.org/";
       license = licenses.mit;
       platforms = platforms.linux;

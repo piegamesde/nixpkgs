@@ -20,8 +20,7 @@ import ./make-test-python.nix (
           enable = true;
           port = 3000;
           dbtype = "postgresql";
-          db =
-            "host=localhost port=5432 sslmode=disable user=documize password=documize dbname=documize";
+          db = "host=localhost port=5432 sslmode=disable user=documize password=documize dbname=documize";
         };
 
         systemd.services.documize-server = {

@@ -30,8 +30,7 @@ buildMongoDB {
       ./fix-build-with-boost-1.79-4_4.patch
       (fetchpatch {
         name = "mongodb-4.4.15-adjust-the-cache-alignment-assumptions.patch";
-        url =
-          "https://aur.archlinux.org/cgit/aur.git/plain/mongodb-4.4.15-adjust-cache-alignment-assumptions.patch.arm64?h=mongodb44";
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/mongodb-4.4.15-adjust-cache-alignment-assumptions.patch.arm64?h=mongodb44";
         sha256 = "Ah4zdSFgXUJ/HSN8VRLJqDpNy3CjMCBnRqlpALXzx+g=";
       })
     ]

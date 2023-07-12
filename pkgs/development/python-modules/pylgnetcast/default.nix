@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pylgnetcast" ];
 
   meta = with lib; {
-    description =
-      "Python API client for the LG Smart TV running NetCast 3 or 4";
+    description = "Python API client for the LG Smart TV running NetCast 3 or 4";
     homepage = "https://github.com/Drafteed/python-lgnetcast";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

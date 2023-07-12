@@ -51,8 +51,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "Istio configuration command line utility for service operators to debug and diagnose their Istio mesh";
+    description = "Istio configuration command line utility for service operators to debug and diagnose their Istio mesh";
     homepage = "https://istio.io/latest/docs/reference/commands/istioctl";
     license = licenses.asl20;
     maintainers = with maintainers; [

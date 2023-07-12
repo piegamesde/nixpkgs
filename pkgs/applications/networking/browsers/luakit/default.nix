@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
 
   preFixup =
     let
-      luaKitPath =
-        "$out/share/luakit/lib/?/init.lua;$out/share/luakit/lib/?.lua";
+      luaKitPath = "$out/share/luakit/lib/?/init.lua;$out/share/luakit/lib/?.lua";
     in
     ''
       gappsWrapperArgs+=(
@@ -84,8 +83,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://luakit.github.io/";
-    description =
-      "Fast, small, webkit-based browser framework extensible in Lua";
+    description = "Fast, small, webkit-based browser framework extensible in Lua";
     longDescription = ''
       Luakit is a highly configurable browser framework based on the WebKit web
       content engine and the GTK+ toolkit. It is very fast, extensible with Lua,

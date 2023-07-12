@@ -150,8 +150,7 @@ in
               '';
             };
             wakeup_cmd = mkOption {
-              default =
-                "sh -c 'echo 0 > /sys/class/rtc/rtc0/wakealarm && echo {timestamp:.0f} > /sys/class/rtc/rtc0/wakealarm' ";
+              default = "sh -c 'echo 0 > /sys/class/rtc/rtc0/wakealarm && echo {timestamp:.0f} > /sys/class/rtc/rtc0/wakealarm' ";
               type = with types; str;
               description = mdDoc ''
                 The command to execute for scheduling a wake up of the system. The given string is
@@ -251,8 +250,7 @@ in
         attrValues (filterAttrs (n: _: hasCheck n) dependenciesForChecks)
       );
       serviceConfig = {
-        ExecStart =
-          "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} daemon";
+        ExecStart = "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} daemon";
       };
     };
 
@@ -264,8 +262,7 @@ in
       wantedBy = [ "sleep.target" ];
       after = [ "sleep.target" ];
       serviceConfig = {
-        ExecStart =
-          "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} presuspend";
+        ExecStart = "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} presuspend";
       };
     };
   };

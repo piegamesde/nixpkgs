@@ -24,8 +24,7 @@ import ./make-test-python.nix (
           enable = true;
           crawler.port = 9000;
           web.port = port;
-          web.credentials.user =
-            "$2y$12$P88ZF6soFthiiAeXnz64aOWDsY3Dw7Yw8fZ6GtiqFNjknD70zDmNe";
+          web.credentials.user = "$2y$12$P88ZF6soFthiiAeXnz64aOWDsY3Dw7Yw8fZ6GtiqFNjknD70zDmNe";
         };
       }
     ;

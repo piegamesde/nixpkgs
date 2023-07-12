@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.optionals (!enableGrpc) [ "-DWITH_GRPC=OFF" ];
 
   meta = with lib; {
-    description =
-      "Distributed tracing system built on top of the OpenTracing standard";
+    description = "Distributed tracing system built on top of the OpenTracing standard";
     homepage = "https://lightstep.com/";
     license = licenses.mit;
     platforms = platforms.linux;

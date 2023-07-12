@@ -31,8 +31,7 @@ in
       };
 
       locker = mkOption {
-        default =
-          "${pkgs.xlockmore}/bin/xlock"; # default according to `man xautolock`
+        default = "${pkgs.xlockmore}/bin/xlock"; # default according to `man xautolock`
         defaultText = literalExpression ''"''${pkgs.xlockmore}/bin/xlock"'';
         example = literalExpression ''
           "''${pkgs.i3lock}/bin/i3lock -i /path/to/img"'';
@@ -140,13 +139,11 @@ in
       [
         {
           assertion = cfg.enableNotifier -> cfg.notifier != null;
-          message =
-            "When enabling the notifier for xautolock, you also need to specify the notify script";
+          message = "When enabling the notifier for xautolock, you also need to specify the notify script";
         }
         {
           assertion = cfg.killer != null -> cfg.killtime >= 10;
-          message =
-            "killtime has to be at least 10 minutes according to `man xautolock`";
+          message = "killtime has to be at least 10 minutes according to `man xautolock`";
         }
       ]
       ++ (lib.forEach
@@ -162,8 +159,7 @@ in
               cfg.${option} != null
               -> builtins.substring 0 1 cfg.${option} == "/"
             ;
-            message =
-              "Please specify a canonical path for `services.xserver.xautolock.${option}`";
+            message = "Please specify a canonical path for `services.xserver.xautolock.${option}`";
           }
         )
       )

@@ -29,8 +29,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Emoji for Python";
     homepage = "https://github.com/carpedm20/emoji/";
-    changelog =
-      "https://github.com/carpedm20/emoji/blob/v${version}/CHANGES.md";
+    changelog = "https://github.com/carpedm20/emoji/blob/v${version}/CHANGES.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ joachifm ];
   };

@@ -32,8 +32,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Factory boy classes for wagtail";
     homepage = "https://github.com/wagtail/wagtail-factories";
-    changelog =
-      "https://github.com/wagtail/wagtail-factories/blob/${version}/CHANGES";
+    changelog = "https://github.com/wagtail/wagtail-factories/blob/${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [ sephi ];
   };

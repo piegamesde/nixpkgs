@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
       }
     else
       fetchurl {
-        url =
-          "https://github.com/containers/libkrunfw/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz";
+        url = "https://github.com/containers/libkrunfw/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz";
         hash = "sha256-XcdsK8L5NwMgelSMhE2YKYxaAin/3p/+GrljGGZpK5Y=";
       }
   ;
@@ -63,8 +62,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "A dynamic library bundling the guest payload consumed by libkrun";
+    description = "A dynamic library bundling the guest payload consumed by libkrun";
     homepage = "https://github.com/containers/libkrunfw";
     license = with licenses; [
       lgpl2Only

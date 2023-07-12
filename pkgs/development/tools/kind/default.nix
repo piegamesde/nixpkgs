@@ -44,8 +44,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "Kubernetes IN Docker - local clusters for testing Kubernetes";
+    description = "Kubernetes IN Docker - local clusters for testing Kubernetes";
     homepage = "https://github.com/kubernetes-sigs/kind";
     maintainers = with maintainers; [
       offline

@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Embeddable expression evaluation engine from Disney Animation";
+    description = "Embeddable expression evaluation engine from Disney Animation";
     homepage = "https://wdas.github.io/SeExpr/";
     maintainers = with maintainers; [ hodapp ];
     license = licenses.asl20;

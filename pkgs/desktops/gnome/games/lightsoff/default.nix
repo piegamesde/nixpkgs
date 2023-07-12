@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "40.0.1";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/lightsoff/${
+    url = "mirror://gnome/sources/lightsoff/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "1aziy64g15bm83zfn3ifs20z9yvscdvsxbx132xnq77i0r3qvlxc";
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Lightsoff";
-    description =
-      "Puzzle game, where the objective is to turn off all of the tiles on the board";
+    description = "Puzzle game, where the objective is to turn off all of the tiles on the board";
     maintainers = teams.gnome.members;
     license = licenses.gpl2;
     platforms = platforms.unix;

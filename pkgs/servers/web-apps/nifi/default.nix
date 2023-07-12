@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   passthru = { tests.nifi = nixosTests.nifi; };
 
   meta = with lib; {
-    description =
-      "Easy to use, powerful, and reliable system to process and distribute data";
+    description = "Easy to use, powerful, and reliable system to process and distribute data";
     longDescription = ''
       Apache NiFi supports powerful and scalable directed graphs of data routing,
       transformation, and system mediation logic.

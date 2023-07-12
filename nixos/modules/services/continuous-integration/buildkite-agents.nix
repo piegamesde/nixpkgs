@@ -341,8 +341,7 @@ in
         ;
 
         serviceConfig = {
-          ExecStart =
-            "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg";
+          ExecStart = "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg";
           User = "buildkite-agent-${name}";
           RestartSec = 5;
           Restart = "on-failure";

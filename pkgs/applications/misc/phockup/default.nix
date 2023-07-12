@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Media sorting tool to organize photos and videos from your camera in folders by year, month and day";
+    description = "Media sorting tool to organize photos and videos from your camera in folders by year, month and day";
     homepage = "https://github.com/ivandokov/phockup";
     license = licenses.mit;
     maintainers = with maintainers; [ aanderse ];

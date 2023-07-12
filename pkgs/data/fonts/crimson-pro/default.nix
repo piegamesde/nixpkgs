@@ -32,8 +32,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/Fonthausen/CrimsonPro";
-    description =
-      "A professionally produced redesign of Crimson by Jacques Le Bailly";
+    description = "A professionally produced redesign of Crimson by Jacques Le Bailly";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ ncfavier ];

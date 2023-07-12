@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   pname = "libdigidocpp";
 
   src = fetchurl {
-    url =
-      "https://github.com/open-eid/libdigidocpp/releases/download/v${version}/libdigidocpp-${version}.tar.gz";
+    url = "https://github.com/open-eid/libdigidocpp/releases/download/v${version}/libdigidocpp-${version}.tar.gz";
     hash = "sha256-CNHBPeodU2EzvmQBa9KI+1vGuuD25gSwdU9dVhVG04Q=";
   };
 

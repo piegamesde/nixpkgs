@@ -28,11 +28,9 @@ rustPlatform.buildRustPackage rec {
   OPENSSL_NO_VENDOR = 1;
 
   meta = with lib; {
-    description =
-      "Beautiful, useful MOTD generation with zero runtime dependencies";
+    description = "Beautiful, useful MOTD generation with zero runtime dependencies";
     homepage = "https://github.com/rust-motd/rust-motd";
-    changelog =
-      "https://github.com/rust-motd/rust-motd/releases/tag/v${version}";
+    changelog = "https://github.com/rust-motd/rust-motd/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

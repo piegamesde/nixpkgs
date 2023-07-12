@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "0.3.21";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/libmwaw/libmwaw/libmwaw-${version}/libmwaw-${version}.tar.xz";
+    url = "mirror://sourceforge/libmwaw/libmwaw/libmwaw-${version}/libmwaw-${version}.tar.xz";
     sha256 = "sha256-6HUBI6eNYblDzveLdzbIp/ILsKZJqhEkAhJPunlPwhw=";
   };
 

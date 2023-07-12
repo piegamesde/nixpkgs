@@ -72,31 +72,26 @@ stdenv.mkDerivation rec {
     {
       i686-linux = {
         # Don't use the Fedora27 build (as below) because there isn't one!
-        url =
-          "${downloadsUrl}/${version}/ghc-${version}-i386-deb9-linux.tar.xz";
+        url = "${downloadsUrl}/${version}/ghc-${version}-i386-deb9-linux.tar.xz";
         sha256 = "1p2h29qghql19ajk755xa0yxkn85slbds8m9n5196ris743vkp8w";
       };
       x86_64-linux = {
         # This is the Fedora build because it links against ncurses6 where the
         # deb9 one links against ncurses5, see here
         # https://github.com/NixOS/nixpkgs/issues/85924 for a discussion
-        url =
-          "${downloadsUrl}/${version}/ghc-${version}-x86_64-fedora27-linux.tar.xz";
+        url = "${downloadsUrl}/${version}/ghc-${version}-x86_64-fedora27-linux.tar.xz";
         sha256 = "18dlqm5d028fqh6ghzn7pgjspr5smw030jjzl3kq6q1kmwzbay6g";
       };
       aarch64-linux = {
-        url =
-          "${downloadsUrl}/${version}/ghc-${version}-aarch64-ubuntu18.04-linux.tar.xz";
+        url = "${downloadsUrl}/${version}/ghc-${version}-aarch64-ubuntu18.04-linux.tar.xz";
         sha256 = "11n7l2a36i5vxzzp85la2555q4m34l747g0pnmd81cp46y85hlhq";
       };
       x86_64-darwin = {
-        url =
-          "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
+        url = "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
         sha256 = "0s9188vhhgf23q3rjarwhbr524z6h2qga5xaaa2pma03sfqvvhfz";
       };
       powerpc64le-linux = {
-        url =
-          "https://downloads.haskell.org/~ghc/${version}/ghc-${version}-powerpc64le-fedora29-linux.tar.xz";
+        url = "https://downloads.haskell.org/~ghc/${version}/ghc-${version}-powerpc64le-fedora29-linux.tar.xz";
         sha256 = "sha256-tWSsJdPVrCiqDyIKzpBt5DaXb3b6j951tCya584kWs4=";
       };
     }

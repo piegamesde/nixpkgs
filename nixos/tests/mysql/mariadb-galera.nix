@@ -109,8 +109,7 @@ let
                     wsrep_on = "ON";
                     wsrep_debug = "NONE";
                     wsrep_retry_autocommit = "3";
-                    wsrep_provider =
-                      "${galeraPackage}/lib/galera/libgalera_smm.so";
+                    wsrep_provider = "${galeraPackage}/lib/galera/libgalera_smm.so";
                     wsrep_cluster_address =
                       "gcomm://"
                       +

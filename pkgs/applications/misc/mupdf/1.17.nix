@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   pname = "mupdf";
 
   src = fetchurl {
-    url =
-      "https://mupdf.com/downloads/archive/${pname}-${version}-source.tar.gz";
+    url = "https://mupdf.com/downloads/archive/${pname}-${version}-source.tar.gz";
     sha256 = "13nl9nrcx2awz9l83mlv2psi1lmn3hdnfwxvwgwiwbxlkjl3zqq0";
   };
 
@@ -129,8 +128,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://mupdf.com";
-    description =
-      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
+    description = "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [
       vrthra

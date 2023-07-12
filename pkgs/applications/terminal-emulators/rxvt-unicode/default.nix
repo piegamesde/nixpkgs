@@ -48,8 +48,7 @@ let
       sha256,
     }:
     fetchpatch rec {
-      url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=${package}&id=${rev}";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=${package}&id=${rev}";
       extraPrefix = "";
       inherit name sha256;
     }
@@ -63,8 +62,7 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-${version}.tar.bz2";
+    url = "http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-${version}.tar.bz2";
     sha256 = "0badnkjsn3zps24r5iggj8k5v4f00npc77wqg92pcn1q5z8r677y";
   };
 

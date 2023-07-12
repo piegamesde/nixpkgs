@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib ];
 
   src = fetchurl {
-    url =
-      "https://www.ps.uni-saarland.de/~cebrown/satallax/downloads/${pname}-${version}.tar.gz";
+    url = "https://www.ps.uni-saarland.de/~cebrown/satallax/downloads/${pname}-${version}.tar.gz";
     sha256 = "1kvxn8mc35igk4vigi5cp7w3wpxk2z3bgwllfm4n3h2jfs0vkpib";
   };
 
@@ -109,8 +108,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.unix;
-    downloadPage =
-      "http://www.ps.uni-saarland.de/~cebrown/satallax/downloads.php";
+    downloadPage = "http://www.ps.uni-saarland.de/~cebrown/satallax/downloads.php";
     homepage = "http://www.ps.uni-saarland.de/~cebrown/satallax/index.php";
   };
 }

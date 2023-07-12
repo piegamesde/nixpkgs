@@ -25,8 +25,7 @@ in
     configFile = mkOption {
       type = types.path;
       default = yaml.generate "karma.yaml" cfg.settings;
-      defaultText =
-        "A configuration file generated from the provided nix attributes settings option.";
+      defaultText = "A configuration file generated from the provided nix attributes settings option.";
       description = mdDoc ''
         A YAML config file which can be used to configure karma instead of the nix-generated file.
       '';
@@ -118,8 +117,7 @@ in
         Type = "simple";
         DynamicUser = true;
         Restart = "on-failure";
-        ExecStart =
-          "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${
+        ExecStart = "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${
             concatStringsSep " " cfg.extraOptions
           }";
       };

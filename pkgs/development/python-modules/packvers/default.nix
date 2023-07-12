@@ -34,8 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for version handling of modules";
     homepage = "https://github.com/nexB/dparse2";
-    changelog =
-      "https://github.com/nexB/packvers/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/nexB/packvers/blob/${version}/CHANGELOG.rst";
     license = with licenses; [
       asl20 # and
       bsd2

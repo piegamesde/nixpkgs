@@ -157,8 +157,7 @@ with lib; {
     };
 
     systemd.timers.hydron-fetch = {
-      description =
-        "Automatically import paths into hydron and possibly fetch tags";
+      description = "Automatically import paths into hydron and possibly fetch tags";
       after = [
         "network.target"
         "hydron.service"

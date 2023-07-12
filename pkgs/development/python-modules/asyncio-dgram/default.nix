@@ -40,8 +40,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python support for higher level Datagram";
     homepage = "https://github.com/jsbronder/asyncio-dgram";
-    changelog =
-      "https://github.com/jsbronder/asyncio-dgram/blob/v${version}/ChangeLog";
+    changelog = "https://github.com/jsbronder/asyncio-dgram/blob/v${version}/ChangeLog";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

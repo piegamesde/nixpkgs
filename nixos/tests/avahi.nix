@@ -27,8 +27,7 @@ import ./make-test-python.nix
               publish.enable = true;
               publish.userServices = true;
               publish.workstation = true;
-              extraServiceFiles.ssh =
-                "${pkgs.avahi}/etc/avahi/services/ssh.service";
+              extraServiceFiles.ssh = "${pkgs.avahi}/etc/avahi/services/ssh.service";
             };
           } // pkgs.lib.optionalAttrs (networkd) {
             networking = {

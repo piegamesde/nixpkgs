@@ -36,8 +36,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
     passthru.updateScript = gitUpdater { };
 
     meta = with lib; {
-      description =
-        "A simple fork of OCaml parser with support for error recovery";
+      description = "A simple fork of OCaml parser with support for error recovery";
       homepage = "https://github.com/serokell/ocaml-recovery-parser";
       license = with licenses; [
         lgpl2Only

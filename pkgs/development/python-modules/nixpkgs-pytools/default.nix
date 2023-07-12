@@ -28,8 +28,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Tools for removing the tedious nature of creating nixpkgs derivations";
+    description = "Tools for removing the tedious nature of creating nixpkgs derivations";
     homepage = "https://github.com/nix-community/nixpkgs-pytools";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

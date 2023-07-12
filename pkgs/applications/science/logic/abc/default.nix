@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   passthru.rev = src.rev;
 
   meta = with lib; {
-    description =
-      "A tool for squential logic synthesis and formal verification";
+    description = "A tool for squential logic synthesis and formal verification";
     homepage = "https://people.eecs.berkeley.edu/~alanmi/abc";
     license = licenses.mit;
     maintainers = with maintainers; [ thoughtpolice ];

@@ -65,8 +65,7 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description =
-      "Send push notifications to your phone or desktop via PUT/POST";
+    description = "Send push notifications to your phone or desktop via PUT/POST";
     homepage = "https://ntfy.sh";
     license = licenses.asl20;
     maintainers = with maintainers; [

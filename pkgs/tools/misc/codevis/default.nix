@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
   RUSTONIG_SYSTEM_LIBONIG = true;
 
   meta = with lib; {
-    description =
-      "A tool to take all source code in a folder and render them to one image";
+    description = "A tool to take all source code in a folder and render them to one image";
     homepage = "https://github.com/sloganking/codevis";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

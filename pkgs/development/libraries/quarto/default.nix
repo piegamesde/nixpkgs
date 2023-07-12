@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   pname = "quarto";
   version = "1.2.475";
   src = fetchurl {
-    url =
-      "https://github.com/quarto-dev/quarto-cli/releases/download/v${version}/quarto-${version}-linux-amd64.tar.gz";
+    url = "https://github.com/quarto-dev/quarto-cli/releases/download/v${version}/quarto-${version}-linux-amd64.tar.gz";
     sha256 = "sha256-oyKjDlTKt2fIzirOqgNRrpuM7buNCG5mmgIztPa28rY=";
   };
 
@@ -74,15 +73,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Open-source scientific and technical publishing system built on Pandoc";
+    description = "Open-source scientific and technical publishing system built on Pandoc";
     longDescription = ''
       Quarto is an open-source scientific and technical publishing system built on Pandoc.
       Quarto documents are authored using markdown, an easy to write plain text format.
     '';
     homepage = "https://quarto.org/";
-    changelog =
-      "https://github.com/quarto-dev/quarto-cli/releases/tag/v${version}";
+    changelog = "https://github.com/quarto-dev/quarto-cli/releases/tag/v${version}";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ mrtarantoga ];
     platforms = [ "x86_64-linux" ];

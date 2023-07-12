@@ -32,8 +32,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
-    description =
-      "LC3 (Low Complexity Communication Codec) is an efficient low latency audio codec";
+    description = "LC3 (Low Complexity Communication Codec) is an efficient low latency audio codec";
     homepage = "https://github.com/google/liblc3";
     license = licenses.asl20;
     platforms = platforms.linux;

@@ -192,8 +192,7 @@ let
         } // lib.optionalAttrs usesNixExtensions {
           ExtensionSettings = {
             "*" = {
-              blocked_install_message =
-                "You can't have manual extension mixed with nix extensions";
+              blocked_install_message = "You can't have manual extension mixed with nix extensions";
               installation_mode = "blocked";
             };
           } // lib.foldr
@@ -251,8 +250,7 @@ let
           if libName == "thunderbird" then
             {
               genericName = "Email Client";
-              comment =
-                "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
+              comment = "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
               categories = [
                 "Network"
                 "Chat"

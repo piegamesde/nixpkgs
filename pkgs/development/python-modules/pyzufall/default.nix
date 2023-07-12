@@ -33,8 +33,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pyzufall.readthedocs.io/de/latest/";
-    description =
-      "Library for generating random data and sentences in german language";
+    description = "Library for generating random data and sentences in german language";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ davidak ];
   };

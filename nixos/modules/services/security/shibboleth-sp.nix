@@ -63,8 +63,7 @@ in
       ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart =
-          "${pkgs.shibboleth-sp}/bin/shibd -F -d ${pkgs.shibboleth-sp} -c ${cfg.configFile}";
+        ExecStart = "${pkgs.shibboleth-sp}/bin/shibd -F -d ${pkgs.shibboleth-sp} -c ${cfg.configFile}";
       };
     };
 
@@ -75,8 +74,7 @@ in
       path = [ "${pkgs.spawn_fcgi}" ];
       environment.SHIBSP_CONFIG = "${cfg.configFile}";
       serviceConfig = {
-        ExecStart =
-          "${pkgs.spawn_fcgi}/bin/spawn-fcgi -n -p ${
+        ExecStart = "${pkgs.spawn_fcgi}/bin/spawn-fcgi -n -p ${
             toString cfg.fastcgi.shibResponderPort
           } ${pkgs.shibboleth-sp}/lib/shibboleth/shibresponder";
       };
@@ -89,8 +87,7 @@ in
       path = [ "${pkgs.spawn_fcgi}" ];
       environment.SHIBSP_CONFIG = "${cfg.configFile}";
       serviceConfig = {
-        ExecStart =
-          "${pkgs.spawn_fcgi}/bin/spawn-fcgi -n -p ${
+        ExecStart = "${pkgs.spawn_fcgi}/bin/spawn-fcgi -n -p ${
             toString cfg.fastcgi.shibAuthorizerPort
           } ${pkgs.shibboleth-sp}/lib/shibboleth/shibauthorizer";
       };

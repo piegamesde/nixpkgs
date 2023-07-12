@@ -21,8 +21,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "olefile" ];
 
   meta = with lib; {
-    description =
-      "Python package to parse, read and write Microsoft OLE2 files";
+    description = "Python package to parse, read and write Microsoft OLE2 files";
     homepage = "https://www.decalage.info/python/olefileio";
     # BSD2 + reference to Pillow
     # http://olefile.readthedocs.io/en/latest/License.html

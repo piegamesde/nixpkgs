@@ -52,8 +52,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/xolox/python-executor/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/xolox/python-executor/blob/${version}/CHANGELOG.rst";
     description = "Programmer friendly subprocess wrapper";
     homepage = "https://github.com/xolox/python-executor";
     license = licenses.mit;

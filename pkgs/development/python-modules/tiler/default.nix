@@ -30,8 +30,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "tiler" ];
 
   meta = with lib; {
-    description =
-      "N-dimensional NumPy array tiling and merging with overlapping, padding and tapering";
+    description = "N-dimensional NumPy array tiling and merging with overlapping, padding and tapering";
     homepage = "https://the-lay.github.io/tiler/";
     license = licenses.mit;
     maintainers = with maintainers; [ atila ];

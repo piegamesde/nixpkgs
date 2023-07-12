@@ -58,8 +58,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pydot" ];
 
   meta = with lib; {
-    description =
-      "Allows to create both directed and non directed graphs from Python";
+    description = "Allows to create both directed and non directed graphs from Python";
     homepage = "https://github.com/erocarrera/pydot";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

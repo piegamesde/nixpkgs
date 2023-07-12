@@ -16,8 +16,9 @@ let
     n: m: elemType:
     mkOptionType rec {
       name = "matrixOf";
-      description =
-        "${toString n}×${toString m} matrix of ${elemType.description}s";
+      description = "${toString n}×${
+          toString m
+        } matrix of ${elemType.description}s";
       check =
         xss:
         let

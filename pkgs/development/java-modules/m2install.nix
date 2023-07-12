@@ -15,8 +15,7 @@
 }:
 
 let
-  m2Path =
-    "${
+  m2Path = "${
       builtins.replaceStrings [ "." ] [ "/" ] groupId
     }/${artifactId}/${version}";
   m2File = "${artifactId}-${version}${suffix}.${type}";

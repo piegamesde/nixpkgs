@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Use and manipulate unit-aware measurement objects in Python";
     homepage = "https://github.com/coddingtonbear/python-measurement";
-    changelog =
-      "https://github.com/coddingtonbear/python-measurement/releases/tag/${version}";
+    changelog = "https://github.com/coddingtonbear/python-measurement/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ bhipple ];
   };

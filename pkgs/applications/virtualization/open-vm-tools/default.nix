@@ -154,10 +154,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/vmware/open-vm-tools";
-    changelog =
-      "https://github.com/vmware/open-vm-tools/releases/tag/stable-${version}";
-    description =
-      "Set of tools for VMWare guests to improve host-guest interaction";
+    changelog = "https://github.com/vmware/open-vm-tools/releases/tag/stable-${version}";
+    description = "Set of tools for VMWare guests to improve host-guest interaction";
     longDescription = ''
       A set of services and modules that enable several features in VMware products for
       better management of, and seamless user interactions with, guests.

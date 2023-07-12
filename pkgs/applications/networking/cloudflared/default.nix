@@ -74,11 +74,9 @@ buildGoModule rec {
   passthru.tests.simple = callPackage ./tests.nix { inherit version; };
 
   meta = with lib; {
-    description =
-      "Cloudflare Tunnel daemon, Cloudflare Access toolkit, and DNS-over-HTTPS client";
+    description = "Cloudflare Tunnel daemon, Cloudflare Access toolkit, and DNS-over-HTTPS client";
     homepage = "https://www.cloudflare.com/products/tunnel";
-    changelog =
-      "https://github.com/cloudflare/cloudflared/releases/tag/${version}";
+    changelog = "https://github.com/cloudflare/cloudflared/releases/tag/${version}";
     license = licenses.asl20;
     platforms = platforms.unix ++ platforms.windows;
     maintainers = with maintainers; [

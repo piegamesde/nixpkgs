@@ -147,8 +147,7 @@ let
       };
       metricProvider = {
         services.bitcoind.default.enable = true;
-        services.bitcoind.default.rpc.users.bitcoinrpc.passwordHMAC =
-          "e8fe33f797e698ac258c16c8d7aadfbe$872bdb8f4d787367c26bcfd75e6c23c4f19d44a69f5d1ad329e5adf3f82710f7";
+        services.bitcoind.default.rpc.users.bitcoinrpc.passwordHMAC = "e8fe33f797e698ac258c16c8d7aadfbe$872bdb8f4d787367c26bcfd75e6c23c4f19d44a69f5d1ad329e5adf3f82710f7";
       };
       exporterTest = ''
         wait_for_unit("prometheus-bitcoin-exporter.service")
@@ -701,8 +700,7 @@ let
           virtualHosts."localhost" = {
             basicAuth.nextcloud-exporter = "snakeoilpw";
             locations."/" = {
-              root =
-                "${pkgs.prometheus-nextcloud-exporter.src}/serverinfo/testdata";
+              root = "${pkgs.prometheus-nextcloud-exporter.src}/serverinfo/testdata";
               tryFiles = "/negative-space.json =404";
             };
           };
@@ -806,11 +804,10 @@ let
     openldap = {
       exporterConfig = {
         enable = true;
-        ldapCredentialFile =
-          "${pkgs.writeText "exporter.yml" ''
-            ldapUser: "cn=root,dc=example"
-            ldapPass: "notapassword"
-          ''}";
+        ldapCredentialFile = "${pkgs.writeText "exporter.yml" ''
+          ldapUser: "cn=root,dc=example"
+          ldapPass: "notapassword"
+        ''}";
       };
       metricProvider = {
         services.openldap = {
@@ -1149,8 +1146,7 @@ let
               labels = [ "name" ];
               help = "Amount of points accumulated per person";
               values = [ "amount" ];
-              query =
-                "SELECT SUM(amount) as amount, name FROM points GROUP BY name";
+              query = "SELECT SUM(amount) as amount, name FROM points GROUP BY name";
             };
           };
         };

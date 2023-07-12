@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Security auditing tool for Linux, macOS, and UNIX-based systems";
+    description = "Security auditing tool for Linux, macOS, and UNIX-based systems";
     homepage = "https://cisofy.com/lynis/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;

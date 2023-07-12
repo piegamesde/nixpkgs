@@ -46,8 +46,7 @@ buildPythonPackage rec {
       # Can be removed with next release, https://github.com/cgtobi/PyRMVtransport/pull/55
       (fetchpatch {
         name = "update-tests.patch";
-        url =
-          "https://github.com/cgtobi/PyRMVtransport/commit/fe93b3d9d625f9ccf8eb7b0c39e0ff41c72d2e77.patch";
+        url = "https://github.com/cgtobi/PyRMVtransport/commit/fe93b3d9d625f9ccf8eb7b0c39e0ff41c72d2e77.patch";
         hash = "sha256-t+GP5VG1S86vVSsisl85ZHBtOqxIi7QS83DA+HgRet4=";
       })
     ];

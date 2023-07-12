@@ -29,8 +29,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "gast" ];
 
   meta = with lib; {
-    description =
-      "Compatibility layer between the AST of various Python versions";
+    description = "Compatibility layer between the AST of various Python versions";
     homepage = "https://github.com/serge-sans-paille/gast/";
     license = licenses.bsd3;
     maintainers = with maintainers; [

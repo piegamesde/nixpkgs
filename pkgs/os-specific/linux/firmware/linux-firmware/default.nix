@@ -12,8 +12,7 @@ stdenvNoCC.mkDerivation rec {
   version = source.version;
 
   src = fetchzip {
-    url =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${version}.tar.gz";
+    url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${version}.tar.gz";
     hash = source.sourceHash;
   };
 
@@ -28,8 +27,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description = "Binary firmware collection packaged by kernel.org";
-    homepage =
-      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
+    homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
     license = licenses.unfreeRedistributableFirmware;
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];

@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Fast Jaro and Jaro-Winkler distance";
     homepage = "https://github.com/maxbachmann/jarowinkler-cpp";
-    changelog =
-      "https://github.com/maxbachmann/jarowinkler-cpp/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/maxbachmann/jarowinkler-cpp/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
     platforms = lib.platforms.unix;

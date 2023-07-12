@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   version = "22.01";
 
   src = fetchurl {
-    url =
-      "https://7-zip.org/a/7z${
+    url = "https://7-zip.org/a/7z${
         lib.replaceStrings [ "." ] [ "" ] version
       }-src.tar.xz";
     hash =

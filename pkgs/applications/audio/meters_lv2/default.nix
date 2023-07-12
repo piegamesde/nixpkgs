@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
-    description =
-      "Collection of audio level meters with GUI in LV2 plugin format";
+    description = "Collection of audio level meters with GUI in LV2 plugin format";
     homepage = "https://x42.github.io/meters.lv2/";
     maintainers = with maintainers; [ ehmry ];
     license = licenses.gpl2;

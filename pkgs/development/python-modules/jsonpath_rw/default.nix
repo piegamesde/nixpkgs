@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/kennknowles/python-jsonpath-rw";
-    description =
-      "A robust and significantly extended implementation of JSONPath for Python, with a clear AST for metaprogramming";
+    description = "A robust and significantly extended implementation of JSONPath for Python, with a clear AST for metaprogramming";
     license = licenses.asl20;
   };
 }

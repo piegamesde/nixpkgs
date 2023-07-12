@@ -12,13 +12,13 @@ stdenv.mkDerivation rec {
   version = "4.2.1";
 
   src = fetchurl {
-    url =
-      "https://www.labri.fr/perso/lsimon/downloads/softwares/glucose-${version}.zip";
+    url = "https://www.labri.fr/perso/lsimon/downloads/softwares/glucose-${version}.zip";
     hash = "sha256-J0J9EKC/4cCiZr/y4lz+Hm7OcmJmMIIWzQ+4c+KhqXg=";
   };
 
-  sourceRoot =
-    "glucose-${version}/sources/${if enableUnfree then "parallel" else "simp"}";
+  sourceRoot = "glucose-${version}/sources/${
+      if enableUnfree then "parallel" else "simp"
+    }";
 
   postPatch = ''
     substituteInPlace Main.cc \
@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Modern, parallel SAT solver (${
+    description = "Modern, parallel SAT solver (${
         if enableUnfree then "parallel" else "sequential"
       } version)";
     homepage = "https://www.labri.fr/perso/lsimon/research/glucose/";

@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for Apache Thrift";
     homepage = "https://github.com/Thriftpy/thriftpy2";
-    changelog =
-      "https://github.com/Thriftpy/thriftpy2/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/Thriftpy/thriftpy2/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

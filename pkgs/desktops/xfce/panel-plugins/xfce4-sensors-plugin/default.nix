@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "1.4.4";
 
   src = fetchurl {
-    url =
-      "mirror://xfce/src/${category}/${pname}/${
+    url = "mirror://xfce/src/${category}/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.bz2";
     sha256 = "sha256-bBYFpzjl30DghNCKyT+WLNRFCTOW3h6b+tx6tFiMNrY=";
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://docs.xfce.org/panel-plugins/xfce4-sensors-plugin";
-    description =
-      "A panel plug-in for different sensors using acpi, lm_sensors and hddtemp";
+    description = "A panel plug-in for different sensors using acpi, lm_sensors and hddtemp";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ] ++ teams.xfce.members;

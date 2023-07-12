@@ -90,8 +90,7 @@ let
       pname = "asdf";
       version = "3.3.5.3";
       src = pkgs.fetchzip {
-        url =
-          "https://gitlab.common-lisp.net/asdf/asdf/-/archive/3.3.5.3/asdf-3.3.5.3.tar.gz";
+        url = "https://gitlab.common-lisp.net/asdf/asdf/-/archive/3.3.5.3/asdf-3.3.5.3.tar.gz";
         sha256 = "0aw200awhg58smmbdmz80bayzmbm1a6547gv0wmc8yv89gjqldbv";
       };
       systems = [
@@ -113,8 +112,7 @@ let
       in
       build-asdf-system {
         src = pkgs.fetchzip {
-          url =
-            "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
+          url = "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
           sha256 = "17ryim4xilb1rzxydfr7595dnhqkk02lmrbkqrkvi9091shi4cj3";
         };
         version = "0.24.1";
@@ -131,8 +129,7 @@ let
     cffi-libffi = ql.cffi-libffi.overrideLispAttrs (
       o: {
         src = pkgs.fetchzip {
-          url =
-            "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";
+          url = "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";
           sha256 = "1jilvmbbfrmb23j07lwmkbffc6r35wnvas5s4zjc84i856ccclm2";
         };
         patches = [ ./patches/cffi-libffi-darwin-ffi-h.patch ];
@@ -143,8 +140,7 @@ let
       pname = "cl-unicode";
       version = "0.1.6";
       src = pkgs.fetchzip {
-        url =
-          "https://github.com/edicl/cl-unicode/archive/refs/tags/v0.1.6.tar.gz";
+        url = "https://github.com/edicl/cl-unicode/archive/refs/tags/v0.1.6.tar.gz";
         sha256 = "0ykx2s9lqfl74p1px0ik3l2izd1fc9jd1b4ra68s5x34rvjy0hza";
       };
       systems = [ "cl-unicode" ];
@@ -156,8 +152,7 @@ let
 
     jzon = build-asdf-system {
       src = pkgs.fetchzip {
-        url =
-          "https://github.com/Zulu-Inuoe/jzon/archive/6b201d4208ac3f9721c461105b282c94139bed29.tar.gz";
+        url = "https://github.com/Zulu-Inuoe/jzon/archive/6b201d4208ac3f9721c461105b282c94139bed29.tar.gz";
         sha256 = "01d4a78pjb1amx5amdb966qwwk9vblysm1li94n3g26mxy5zc2k3";
       };
       version = "0.0.0-20210905-6b201d4208";
@@ -170,8 +165,7 @@ let
       pname = "cl-notify";
       version = "20080904-138ca7038";
       src = pkgs.fetchzip {
-        url =
-          "https://repo.or.cz/cl-notify.git/snapshot/138ca703861f4a1fbccbed557f92cf4d213668a1.tar.gz";
+        url = "https://repo.or.cz/cl-notify.git/snapshot/138ca703861f4a1fbccbed557f92cf4d213668a1.tar.gz";
         sha256 = "0k6ns6fzvjcbpsqgx85r4g5m25fvrdw9481i9vyabwym9q8bbqwx";
       };
       lispLibs = [ cffi ];
@@ -190,8 +184,7 @@ let
       pname = "tuple";
       version = "b74bd067d";
       src = pkgs.fetchzip {
-        url =
-          "https://fossil.galkowski.xyz/tuple/tarball/b74bd067d4533ac0/tuple.tar.gz";
+        url = "https://fossil.galkowski.xyz/tuple/tarball/b74bd067d4533ac0/tuple.tar.gz";
         sha256 = "0dk356vkv6kwwcmc3j08x7143549m94rd66rpkzq8zkb31cg2va8";
       };
     };
@@ -267,8 +260,7 @@ let
       pname = "lessp";
       version = "0.2-f8a9e4664";
       src = pkgs.fetchzip {
-        url =
-          "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
+        url = "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
         sha256 = "0i3ia14dzqwjpygd0zn785ff5vqnnmkn75psfpyx0ni3jr71lkq9";
       };
     };
@@ -277,8 +269,7 @@ let
       pname = "rollback";
       version = "0.1-5d3f21fda";
       src = pkgs.fetchzip {
-        url =
-          "https://github.com/facts-db/cl-rollback/archive/5d3f21fda8f04f35c5e9d20ee3b87db767915d15.tar.gz";
+        url = "https://github.com/facts-db/cl-rollback/archive/5d3f21fda8f04f35c5e9d20ee3b87db767915d15.tar.gz";
         sha256 = "12dpxsbm2al633y87i8p784k2dn4bbskz6sl40v9f5ljjmjqjzxf";
       };
     };
@@ -287,8 +278,7 @@ let
       pname = "facts";
       version = "0.1-632217602";
       src = pkgs.fetchzip {
-        url =
-          "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
+        url = "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
         sha256 = "09z1vwzjm7hlb529jl3hcjnfd11gh128lmdg51im7ar4jv4746iw";
       };
       lispLibs =
@@ -337,8 +327,7 @@ let
       pname = "clx-truetype";
       version = "20160825-git";
       src = pkgs.fetchzip {
-        url =
-          "http://beta.quicklisp.org/archive/clx-truetype/2016-08-25/clx-truetype-20160825-git.tgz";
+        url = "http://beta.quicklisp.org/archive/clx-truetype/2016-08-25/clx-truetype-20160825-git.tgz";
         sha256 = "079hyp92cjkdfn6bhkxsrwnibiqbz4y4af6nl31lzw6nm91j5j37";
       };
       lispLibs = with ql; [
@@ -429,8 +418,7 @@ let
     ltk = ql.ltk.overrideLispAttrs (
       o: {
         src = pkgs.fetchzip {
-          url =
-            "https://github.com/uthar/ltk/archive/f19162e76d6c7c2f51bd289b811d9ba20dd6555e.tar.gz";
+          url = "https://github.com/uthar/ltk/archive/f19162e76d6c7c2f51bd289b811d9ba20dd6555e.tar.gz";
           sha256 = "0mzikv4abq9yqlj6dsji1wh34mjizr5prv6mvzzj29z1485fh1bj";
         };
         version = "f19162e76";

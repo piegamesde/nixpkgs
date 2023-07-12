@@ -48,10 +48,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/python-poetry/cleo";
-    changelog =
-      "https://github.com/python-poetry/cleo/blob/${src.rev}/CHANGELOG.md";
-    description =
-      "Allows you to create beautiful and testable command-line interfaces";
+    changelog = "https://github.com/python-poetry/cleo/blob/${src.rev}/CHANGELOG.md";
+    description = "Allows you to create beautiful and testable command-line interfaces";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];
   };

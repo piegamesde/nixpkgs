@@ -158,8 +158,7 @@ stdenv.mkDerivation rec {
     description = "Multi-platform emulator frontend for libretro cores";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    changelog =
-      "https://github.com/libretro/RetroArch/blob/v${version}/CHANGES.md";
+    changelog = "https://github.com/libretro/RetroArch/blob/v${version}/CHANGES.md";
     maintainers =
       with maintainers;
       teams.libretro.members

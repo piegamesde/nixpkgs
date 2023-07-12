@@ -34,20 +34,17 @@ stdenv.mkDerivation rec {
     # The "davinci" module is only enabled on 32-bit arm.
     # https://github.com/deniskropp/DirectFB/pull/17
     (fetchpatch {
-      url =
-        "https://github.com/deniskropp/DirectFB/commit/3a236241bbec3f15b012b6f0dbe94353d8094557.patch";
+      url = "https://github.com/deniskropp/DirectFB/commit/3a236241bbec3f15b012b6f0dbe94353d8094557.patch";
       sha256 = "0rj3gv0zlb225sqjz04p4yagy4xacf3210aa8vra8i1f0fv0w4kw";
     })
 
     # Fixes for build of `pkgsMusl.directfb`; applied everywhere to prevent patchrot
     (fetchpatch {
-      url =
-        "https://git.alpinelinux.org/aports/plain/community/directfb/0001-directfb-fix-musl-compile.patch?id=f8158258493fc0c3eb5de2302e40f4bc44ecfb09";
+      url = "https://git.alpinelinux.org/aports/plain/community/directfb/0001-directfb-fix-musl-compile.patch?id=f8158258493fc0c3eb5de2302e40f4bc44ecfb09";
       sha256 = "sha256-hmwzbaXu30ZkAqUn1NmvtlJkM6ctddKcO4hxh+1LSS4=";
     })
     (fetchpatch {
-      url =
-        "https://git.alpinelinux.org/aports/plain/community/directfb/0002-Fix-musl-PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP-comp.patch?id=f8158258493fc0c3eb5de2302e40f4bc44ecfb09";
+      url = "https://git.alpinelinux.org/aports/plain/community/directfb/0002-Fix-musl-PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP-comp.patch?id=f8158258493fc0c3eb5de2302e40f4bc44ecfb09";
       sha256 = "sha256-j3+mcP6hV9LKuba1GOdcM1cZfmXuJtRgx4vE484jIns=";
     })
   ];
@@ -124,8 +121,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   meta = with lib; {
-    description =
-      "Graphics and input library designed with embedded systems in mind";
+    description = "Graphics and input library designed with embedded systems in mind";
     longDescription = ''
       DirectFB is a thin library that provides hardware graphics acceleration,
       input device handling and abstraction, integrated windowing system with

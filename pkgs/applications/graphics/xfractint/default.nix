@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "20.04p16";
   # or fetchFromGitHub(owner,repo,rev) or fetchgit(rev)
   src = fetchurl {
-    url =
-      "https://www.fractint.net/ftp/current/linux/xfractint-${version}.tar.gz";
+    url = "https://www.fractint.net/ftp/current/linux/xfractint-${version}.tar.gz";
     sha256 = "1ba77jifxv8jql044mdydh4p4ms4w5vw3qrqmcfzlvqfxk7h2m2f";
   };
 

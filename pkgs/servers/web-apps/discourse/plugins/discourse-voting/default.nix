@@ -16,7 +16,6 @@ mkDiscoursePlugin {
     homepage = "https://github.com/discourse/discourse-voting";
     maintainers = with maintainers; [ dpausp ];
     license = licenses.gpl2Only;
-    description =
-      "Adds the ability for voting on a topic within a specified category in Discourse";
+    description = "Adds the ability for voting on a topic within a specified category in Discourse";
   };
 }

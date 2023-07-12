@@ -50,8 +50,7 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/ClusterLabs/resource-agents";
-      description =
-        "Combined repository of OCF agents from the RHCS and Linux-HA projects";
+      description = "Combined repository of OCF agents from the RHCS and Linux-HA projects";
       license = licenses.gpl2Plus;
       platforms = platforms.linux;
       maintainers = with maintainers; [

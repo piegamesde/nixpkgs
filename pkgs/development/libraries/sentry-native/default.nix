@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/getsentry/sentry-native";
     description = "Sentry SDK for C, C++ and native applications";
-    changelog =
-      "https://github.com/getsentry/sentry-native/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/getsentry/sentry-native/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ wheelsandmetal ];

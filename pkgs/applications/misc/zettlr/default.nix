@@ -12,8 +12,7 @@ let
   version = "2.3.0";
   name = "${pname}-${version}";
   src = fetchurl {
-    url =
-      "https://github.com/Zettlr/Zettlr/releases/download/v${version}/Zettlr-${version}-x86_64.appimage";
+    url = "https://github.com/Zettlr/Zettlr/releases/download/v${version}/Zettlr-${version}-x86_64.appimage";
     sha256 = "sha256-3p9RO6hpioYF6kdGV+/9guoqxaPCJG73OsrN69SHQHk=";
   };
   appimageContents = appimageTools.extractType2 { inherit name src; };
@@ -39,8 +38,7 @@ appimageTools.wrapType2 rec {
   '';
 
   meta = with lib; {
-    description =
-      "A markdown editor for writing academic texts and taking notes";
+    description = "A markdown editor for writing academic texts and taking notes";
     homepage = "https://www.zettlr.com";
     platforms = [ "x86_64-linux" ];
     license = licenses.gpl3;

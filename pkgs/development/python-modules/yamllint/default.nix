@@ -46,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A linter for YAML files";
     homepage = "https://github.com/adrienverge/yamllint";
-    changelog =
-      "https://github.com/adrienverge/yamllint/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/adrienverge/yamllint/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       jonringer

@@ -38,8 +38,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Django middlewares to monitor your application with Prometheus.io";
+    description = "Django middlewares to monitor your application with Prometheus.io";
     homepage = "https://github.com/korfuri/django-prometheus";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

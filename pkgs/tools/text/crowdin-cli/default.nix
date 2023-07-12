@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "3.11.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/crowdin/${pname}/releases/download/${version}/${pname}.zip";
+    url = "https://github.com/crowdin/${pname}/releases/download/${version}/${pname}.zip";
     sha256 = "sha256-qT0vEqUISprR1pOPaO3r/HHA/Zt07Af/0WyY950MEgI=";
   };
 

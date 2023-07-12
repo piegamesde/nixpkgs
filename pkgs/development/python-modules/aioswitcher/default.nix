@@ -57,8 +57,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to interact with Switcher water heater";
     homepage = "https://github.com/TomerFi/aioswitcher";
-    changelog =
-      "https://github.com/TomerFi/aioswitcher/releases/tag/${version}";
+    changelog = "https://github.com/TomerFi/aioswitcher/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

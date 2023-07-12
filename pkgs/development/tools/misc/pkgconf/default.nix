@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "1.9.4";
 
   src = fetchurl {
-    url =
-      "https://distfiles.dereferenced.org/${pname}/${pname}-${version}.tar.xz";
+    url = "https://distfiles.dereferenced.org/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-2szxu+WjDRSbVWx9L//+r9dte1FOJJJxq91QFTPB2K4=";
   };
 

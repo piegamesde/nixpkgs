@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "pPXxrC27e3uS99bStCwDD2Ku2bVCa53BFpRgQfPLqPc=";
@@ -88,8 +87,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-bluetooth";
-    description =
-      "Application that lets you manage Bluetooth in the GNOME desktop";
+    description = "Application that lets you manage Bluetooth in the GNOME desktop";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

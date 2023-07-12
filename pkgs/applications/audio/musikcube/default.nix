@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     owner = "clangen";
     repo = pname;
     rev = version;
-    hash =
-      "sha512-W+Zug1SiOGJ+o6FBf2jeDGHFj87vudR4drtjyXiOzdoM8fUCnCj4pp7+70eZGilg6CvBi7CYkbVn53LXJf5qWA==";
+    hash = "sha512-W+Zug1SiOGJ+o6FBf2jeDGHFj87vudR4drtjyXiOzdoM8fUCnCj4pp7+70eZGilg6CvBi7CYkbVn53LXJf5qWA==";
   };
 
   outputs = [
@@ -94,8 +93,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Terminal-based music player, library, and streaming audio server";
+    description = "Terminal-based music player, library, and streaming audio server";
     homepage = "https://musikcube.com/";
     maintainers = with maintainers; [
       aanderse

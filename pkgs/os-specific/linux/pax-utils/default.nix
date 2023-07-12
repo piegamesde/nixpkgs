@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "ELF utils that can check files for security relevant properties";
+    description = "ELF utils that can check files for security relevant properties";
     longDescription = ''
       A suite of ELF tools to aid auditing systems. Contains
       various ELF related utils for ELF32, ELF64 binaries useful

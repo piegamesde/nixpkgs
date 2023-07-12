@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Checks rust documentation for spelling and grammar mistakes";
     homepage = "https://github.com/drahnr/cargo-spellcheck";
-    changelog =
-      "https://github.com/drahnr/cargo-spellcheck/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/drahnr/cargo-spellcheck/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

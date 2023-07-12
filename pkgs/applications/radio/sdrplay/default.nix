@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "3.07.1";
 
   src = fetchurl {
-    url =
-      "https://www.sdrplay.com/software/SDRplay_RSP_API-Linux-${version}.run";
+    url = "https://www.sdrplay.com/software/SDRplay_RSP_API-Linux-${version}.run";
     sha256 = "1a25c7rsdkcjxr7ffvx2lwj7fxdbslg9qhr8ghaq1r53rcrqgzmf";
   };
 

@@ -22,8 +22,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/data-frame/2021-04-11/data-frame-20210411-git.tgz";
+    url = "http://beta.quicklisp.org/archive/data-frame/2021-04-11/data-frame-20210411-git.tgz";
     sha256 = "1ycpbhzkc54x4mvghq6ss6s9ya1zn1s6d0cifh20c3b9kfca1xgv";
   };
 

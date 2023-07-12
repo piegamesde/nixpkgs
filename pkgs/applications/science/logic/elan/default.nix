@@ -84,8 +84,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Small tool to manage your installations of the Lean theorem prover";
+    description = "Small tool to manage your installations of the Lean theorem prover";
     homepage = "https://github.com/leanprover/elan";
     license = with licenses; [
       asl20 # or

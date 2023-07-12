@@ -24,11 +24,9 @@ buildPythonPackage rec {
   checkInputs = [ unittestCheckHook ];
 
   meta = {
-    description =
-      "Utility library for gitignore-style pattern matching of file paths";
+    description = "Utility library for gitignore-style pattern matching of file paths";
     homepage = "https://github.com/cpburnz/python-path-specification";
-    changelog =
-      "https://github.com/cpburnz/python-pathspec/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/cpburnz/python-pathspec/blob/v${version}/CHANGES.rst";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ copumpkin ];
   };

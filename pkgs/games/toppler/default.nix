@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
-    description =
-      "Jump and run game, reimplementation of Tower Toppler/Nebulus";
+    description = "Jump and run game, reimplementation of Tower Toppler/Nebulus";
     homepage = "https://gitlab.com/roever/toppler";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ fgaz ];

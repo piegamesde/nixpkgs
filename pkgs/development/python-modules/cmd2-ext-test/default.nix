@@ -30,8 +30,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Plugin supports testing of a cmd2 application";
-    homepage =
-      "https://github.com/python-cmd2/cmd2/tree/master/plugins/ext_test";
+    homepage = "https://github.com/python-cmd2/cmd2/tree/master/plugins/ext_test";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

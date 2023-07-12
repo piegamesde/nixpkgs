@@ -57,8 +57,7 @@ let
       };
 
       src = fetchurl {
-        url =
-          "mirror://gnome/sources/${pname}/${
+        url = "mirror://gnome/sources/${pname}/${
             lib.versions.majorMinor version
           }/${pname}-${version}.tar.xz";
         inherit sha256;

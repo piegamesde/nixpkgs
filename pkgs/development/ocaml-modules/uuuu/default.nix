@@ -13,8 +13,7 @@ buildDunePackage rec {
   version = "0.3.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/uuuu/releases/download/v${version}/uuuu-${version}.tbz";
+    url = "https://github.com/mirage/uuuu/releases/download/v${version}/uuuu-${version}.tbz";
     sha256 = "sha256:19n39yc7spgzpk9i70r0nhkwsb0bfbvbgpf8d863p0a3wgryhzkb";
   };
 
@@ -33,8 +32,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   meta = {
-    description =
-      "A library to normalize an ISO-8859 input to Unicode code-point";
+    description = "A library to normalize an ISO-8859 input to Unicode code-point";
     homepage = "https://github.com/mirage/uuuu";
     license = lib.licenses.mit;
     maintainers = [ ];

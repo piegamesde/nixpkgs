@@ -26,8 +26,7 @@ let
     version = "2.2.0";
 
     src = fetchurl {
-      url =
-        "mirror://sourceforge/project/xineliboutput/xineliboutput/${pname}-${version}/${pname}-${version}.tgz";
+      url = "mirror://sourceforge/project/xineliboutput/xineliboutput/${pname}-${version}/${pname}-${version}.tgz";
       sha256 = "0a24hs5nr7ncf51c5agyfn1xrvb4p70y3i0s6dlyyd9bwbfjldns";
     };
 

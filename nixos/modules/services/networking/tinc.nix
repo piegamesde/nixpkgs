@@ -460,8 +460,7 @@ in
                 mkIf (versionAtLeast version "1.1pre")
                   "${data.package}/bin/tinc -n ${network} reload"
               ;
-              ExecStart =
-                "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
+              ExecStart = "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
                   optionalString (data.chroot) "-R"
                 } --pidfile /run/tinc.${network}.pid -d ${
                   toString data.debugLevel

@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "1.1.2-2";
 
   src = fetchurl {
-    url =
-      "https://download.brother.com/welcome/dlf006170/${pname}-${version}.i386.deb";
+    url = "https://download.brother.com/welcome/dlf006170/${pname}-${version}.i386.deb";
     hash = "sha256-UOCwzB09/a1/2rliY+hTrslSvO5ztVj51auisPx7OIQ=";
   };
 
@@ -75,8 +74,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Brother MFC-5890CN CUPS wrapper driver.";
-    longDescription =
-      "Brother MFC-5890CN CUPS wrapper driver. Use the connection string 'lpd://\${IP_ADDRESS}/binary_p1' when connecting to this printer via the network.";
+    longDescription = "Brother MFC-5890CN CUPS wrapper driver. Use the connection string 'lpd://\${IP_ADDRESS}/binary_p1' when connecting to this printer via the network.";
     homepage = "http://www.brother.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl2Plus;

@@ -198,8 +198,7 @@ let
         # https://github.com/mumble-voip/mumble/pull/5850
         # Remove with next version update
         (fetchpatch {
-          url =
-            "https://github.com/mumble-voip/mumble/commit/13c051b36b387356815cff5d685bc628b74ba136.patch";
+          url = "https://github.com/mumble-voip/mumble/commit/13c051b36b387356815cff5d685bc628b74ba136.patch";
           hash = "sha256-Rq8fb6NFd4DCNWm6OOMYIP7tBllufmQcB5CSxPU4qqg=";
         })
       ];

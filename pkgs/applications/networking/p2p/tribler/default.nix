@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "7.11.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/Tribler/tribler/releases/download/v${version}/Tribler-v${version}.tar.xz";
+    url = "https://github.com/Tribler/tribler/releases/download/v${version}/Tribler-v${version}.tar.xz";
     sha256 = "0ffh8chb47iaar8872gvalgm84fjzyxph16nixsxknnprqdxyrkx";
   };
 
@@ -96,8 +95,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Decentralised P2P filesharing client based on the Bittorrent protocol";
+    description = "Decentralised P2P filesharing client based on the Bittorrent protocol";
     homepage = "https://www.tribler.org/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [

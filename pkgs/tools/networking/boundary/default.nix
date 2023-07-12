@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
       };
     in
     fetchzip {
-      url =
-        "https://releases.hashicorp.com/boundary/${version}/boundary_${version}_${suffix}.zip";
+      url = "https://releases.hashicorp.com/boundary/${version}/boundary_${version}_${suffix}.zip";
       inherit sha256;
     }
   ;
@@ -58,10 +57,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://boundaryproject.io/";
-    changelog =
-      "https://github.com/hashicorp/boundary/blob/v${version}/CHANGELOG.md";
-    description =
-      "Enables identity-based access management for dynamic infrastructure";
+    changelog = "https://github.com/hashicorp/boundary/blob/v${version}/CHANGELOG.md";
+    description = "Enables identity-based access management for dynamic infrastructure";
     longDescription = ''
       Boundary provides a secure way to access hosts and critical systems
       without having to manage credentials or expose your network, and is

@@ -85,8 +85,9 @@ in
 }:
 runCommand name
   ({
-    compress =
-      "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
+    compress = "${_compressorExecutable} ${
+        lib.escapeShellArgs _compressorArgsReal
+      }";
     passthru = {
       compressorExecutableFunction = _compressorFunction;
       compressorArgs = _compressorArgsReal;

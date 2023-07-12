@@ -41,13 +41,11 @@ buildPythonPackage rec {
   patches = [
     # Should be fixed in the next release
     (fetchpatch {
-      url =
-        "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/python-daemon-safe_hasattr.patch";
+      url = "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/python-daemon-safe_hasattr.patch";
       hash = "sha256-p5epAlM/sdel01oZkSI1vahUZYX8r90WCJuvBnfMaus=";
     })
     (fetchpatch {
-      url =
-        "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/tests-remove-duplicate-mocking.patch";
+      url = "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/tests-remove-duplicate-mocking.patch";
       hash = "sha256-5b/dFR3Z8xaPw8AZU95apDZd4ZfmMQhAmavWkVaJog8=";
     })
   ];

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
   ;
 
   src = fetchurl {
-    url =
-      "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${
+    url = "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${
         lib.versions.majorMinor version
       }/hdf5-${version}/src/hdf5-${version}.tar.bz2";
     sha256 = "sha256-5OeUM0UO2uKGWkxjKBiLtFORsp10+MU47mmfCxFsK6A=";
@@ -128,8 +127,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit (python3.pkgs) h5py; };
 
   meta = with lib; {
-    description =
-      "Data model, library, and file format for storing and managing data";
+    description = "Data model, library, and file format for storing and managing data";
     longDescription = ''
       HDF5 supports an unlimited variety of datatypes, and is designed for flexible and efficient
       I/O and for high volume and complex data. HDF5 is portable and is extensible, allowing

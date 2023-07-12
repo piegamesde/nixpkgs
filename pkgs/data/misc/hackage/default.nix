@@ -10,6 +10,5 @@ in
 fetchurl {
   inherit (pin) url sha256;
   name = "all-cabal-hashes-${lib.substring 0 7 pin.commit}.tar.gz";
-  passthru.updateScript =
-    ../../../../maintainers/scripts/haskell/update-hackage.sh;
+  passthru.updateScript = ../../../../maintainers/scripts/haskell/update-hackage.sh;
 }

@@ -46,8 +46,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "cdcs" ];
 
   meta = with lib; {
-    description =
-      "Python client for performing REST calls to configurable data curation system (CDCS) databases";
+    description = "Python client for performing REST calls to configurable data curation system (CDCS) databases";
     homepage = "https://github.com/usnistgov/pycdcs";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   timestamp = "202303161431";
 
   src = fetchurl {
-    url =
-      "https://download.eclipse.org/jdtls/milestones/${version}/jdt-language-server-${version}-${timestamp}.tar.gz";
+    url = "https://download.eclipse.org/jdtls/milestones/${version}/jdt-language-server-${version}-${timestamp}.tar.gz";
     sha256 = "sha256-c8RDSvOgLbl05LDNelKgQXucbJnjJ7GVcut6mVT6GjA=";
   };
 

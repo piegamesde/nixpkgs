@@ -18,8 +18,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/krobelus/git-branchstack";
-    description =
-      "Efficiently manage Git branches without leaving your local branch";
+    description = "Efficiently manage Git branches without leaving your local branch";
     license = licenses.mit;
     maintainers = [ maintainers.AndersonTorres ];
   };

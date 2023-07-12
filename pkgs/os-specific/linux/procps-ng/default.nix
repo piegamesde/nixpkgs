@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     # "--disable-w" to configureFlags instead to prevent the utmp errors
     (fetchpatch {
       name = "musl-fix-includes.patch";
-      url =
-        "https://git.alpinelinux.org/aports/plain/main/procps/musl-fixes.patch?id=37cb5b6ef194db66d9ed07c8ecab59bca3b91215";
+      url = "https://git.alpinelinux.org/aports/plain/main/procps/musl-fixes.patch?id=37cb5b6ef194db66d9ed07c8ecab59bca3b91215";
       sha256 = "sha256-DphAvESmVg1U3bJABU95R++QD34odStCl82EF0vmht0=";
     })
   ];
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.com/procps-ng/procps";
-    description =
-      "Utilities that give information about processes using the /proc filesystem";
+    description = "Utilities that give information about processes using the /proc filesystem";
     priority =
       11; # less than coreutils, which also provides "kill" and "uptime"
     license = licenses.gpl2;

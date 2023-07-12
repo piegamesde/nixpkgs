@@ -35,11 +35,9 @@ rustPlatform.buildRustPackage rec {
   ;
 
   meta = with lib; {
-    description =
-      "A cargo subcommand for displaying when Rust dependencies are out of date";
+    description = "A cargo subcommand for displaying when Rust dependencies are out of date";
     homepage = "https://github.com/kbknapp/cargo-outdated";
-    changelog =
-      "https://github.com/kbknapp/cargo-outdated/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/kbknapp/cargo-outdated/blob/${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

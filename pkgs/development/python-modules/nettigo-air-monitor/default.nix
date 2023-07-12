@@ -44,11 +44,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nettigo_air_monitor" ];
 
   meta = with lib; {
-    description =
-      "Python module to get air quality data from Nettigo Air Monitor devices";
+    description = "Python module to get air quality data from Nettigo Air Monitor devices";
     homepage = "https://github.com/bieniu/nettigo-air-monitor";
-    changelog =
-      "https://github.com/bieniu/nettigo-air-monitor/releases/tag/${version}";
+    changelog = "https://github.com/bieniu/nettigo-air-monitor/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

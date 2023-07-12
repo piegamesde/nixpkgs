@@ -51,8 +51,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "foolscap" ];
 
   meta = with lib; {
-    description =
-      "RPC protocol for Python that follows the distributed object-capability model";
+    description = "RPC protocol for Python that follows the distributed object-capability model";
     longDescription = ''
       "Foolscap" is the name for the next-generation RPC protocol, intended to
       replace Perspective Broker (part of Twisted). Foolscap is a protocol to

@@ -62,8 +62,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Typed scripting library / ORM / API wrapper for tmux";
     homepage = "https://libtmux.git-pull.com/";
-    changelog =
-      "https://github.com/tmux-python/libtmux/raw/v${version}/CHANGES";
+    changelog = "https://github.com/tmux-python/libtmux/raw/v${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

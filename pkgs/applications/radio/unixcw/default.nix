@@ -25,8 +25,7 @@ mkDerivation rec {
   CFLAGS = "-lasound -lpulse-simple";
 
   meta = with lib; {
-    description =
-      "sound characters as Morse code on the soundcard or console speaker";
+    description = "sound characters as Morse code on the soundcard or console speaker";
     longDescription = ''
       unixcw is a project providing libcw library and a set of programs
       using the library: cw, cwgen, cwcp and xcwcp.

@@ -49,8 +49,7 @@ in
     } ];
 
     systemd.services.hologram-agent = {
-      description =
-        "Provide EC2 instance credentials to machines outside of EC2";
+      description = "Provide EC2 instance credentials to machines outside of EC2";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       requires = [
@@ -61,8 +60,7 @@ in
         /run/current-system/sw/bin/rm -fv /run/hologram.sock
       '';
       serviceConfig = {
-        ExecStart =
-          "${pkgs.hologram}/bin/hologram-agent -debug -conf ${cfgFile} -port ${cfg.httpPort}";
+        ExecStart = "${pkgs.hologram}/bin/hologram-agent -debug -conf ${cfgFile} -port ${cfg.httpPort}";
       };
     };
   };

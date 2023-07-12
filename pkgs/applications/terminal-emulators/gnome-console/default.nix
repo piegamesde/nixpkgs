@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-console/${
+    url = "mirror://gnome/sources/gnome-console/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "0cGv1eyNK9+Eo9sCmwSiQy7Me80kLCp0X+mYakKJiEQ=";
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
   passthru.tests.test = nixosTests.terminal-emulators.kgx;
 
   meta = with lib; {
-    description =
-      "Simple user-friendly terminal emulator for the GNOME desktop";
+    description = "Simple user-friendly terminal emulator for the GNOME desktop";
     homepage = "https://gitlab.gnome.org/GNOME/console";
     license = licenses.gpl3Plus;
     maintainers = teams.gnome.members ++ (with maintainers; [ zhaofengli ]);

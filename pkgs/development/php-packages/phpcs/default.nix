@@ -14,8 +14,7 @@ mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
+    url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
     sha256 = "sha256-ehQyOhSvn1gwLRVEJJLuEHaozXLAGKgWy0SWW/OpsBU=";
   };
 
@@ -33,8 +32,7 @@ mkDerivation {
   '';
 
   meta = with lib; {
-    changelog =
-      "https://github.com/squizlabs/PHP_CodeSniffer/releases/tag/${version}";
+    changelog = "https://github.com/squizlabs/PHP_CodeSniffer/releases/tag/${version}";
     description = "PHP coding standard tool";
     license = licenses.bsd3;
     homepage = "https://squizlabs.github.io/PHP_CodeSniffer/";

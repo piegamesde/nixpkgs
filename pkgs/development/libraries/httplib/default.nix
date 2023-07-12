@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A C++ header-only HTTP/HTTPS server and client library";
     homepage = "https://github.com/yhirose/cpp-httplib";
-    changelog =
-      "https://github.com/yhirose/cpp-httplib/releases/tag/v${version}";
+    changelog = "https://github.com/yhirose/cpp-httplib/releases/tag/v${version}";
     maintainers = with maintainers; [ aidalgol ];
     license = licenses.mit;
   };

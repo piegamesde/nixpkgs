@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "0.69";
 
   src = fetchzip {
-    url =
-      "https://github.com/jenskutilek/sudo-font/releases/download/v${version}/sudo.zip";
+    url = "https://github.com/jenskutilek/sudo-font/releases/download/v${version}/sudo.zip";
     hash = "sha256-GXlQh9JRAzbwWKTJw/y003ywjaWtiQayHxiWPTPvIO0=";
   };
 
@@ -25,8 +24,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Font for programmers and command line users";
     homepage = "https://www.kutilek.de/sudo-font/";
-    changelog =
-      "https://github.com/jenskutilek/sudo-font/raw/v${version}/sudo/FONTLOG.txt";
+    changelog = "https://github.com/jenskutilek/sudo-font/raw/v${version}/sudo/FONTLOG.txt";
     license = licenses.ofl;
     maintainers = with maintainers; [ dtzWill ];
     platforms = platforms.all;

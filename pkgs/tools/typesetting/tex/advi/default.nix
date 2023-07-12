@@ -76,8 +76,7 @@ ocamlPackages.buildDunePackage rec {
 
   meta = with lib; {
     homepage = "http://advi.inria.fr/";
-    description =
-      "Active-DVI is a Unix-platform DVI previewer and a programmable presenter for slides written in LaTeX.";
+    description = "Active-DVI is a Unix-platform DVI previewer and a programmable presenter for slides written in LaTeX.";
     license = licenses.lgpl21Only;
     maintainers = [ maintainers.xworld21 ];
   };

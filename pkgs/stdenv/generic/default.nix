@@ -169,8 +169,7 @@ let
     // {
 
       meta = {
-        description =
-          "The default build environment for Unix packages in Nixpkgs";
+        description = "The default build environment for Unix packages in Nixpkgs";
         platforms = lib.platforms.all;
       };
 

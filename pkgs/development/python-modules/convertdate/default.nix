@@ -32,8 +32,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "convertdate" ];
 
   meta = with lib; {
-    description =
-      "Utils for converting between date formats and calculating holidays";
+    description = "Utils for converting between date formats and calculating holidays";
     homepage = "https://github.com/fitnr/convertdate";
     license = licenses.mit;
     maintainers = with maintainers; [ jluttine ];

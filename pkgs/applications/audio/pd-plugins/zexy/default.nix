@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "2.2.4";
 
   src = fetchurl {
-    url =
-      "https://puredata.info/downloads/zexy/releases/${version}/${pname}-${version}.tar.gz";
+    url = "https://puredata.info/downloads/zexy/releases/${version}/${pname}-${version}.tar.gz";
     sha256 = "1xpgl82c2lc6zfswjsa7z10yhv5jb7a4znzh3nc7ffrzm1z8vylp";
   };
 

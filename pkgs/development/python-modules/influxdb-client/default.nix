@@ -57,8 +57,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "InfluxDB client library";
     homepage = "https://github.com/influxdata/influxdb-client-python";
-    changelog =
-      "https://github.com/influxdata/influxdb-client-python/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/influxdata/influxdb-client-python/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];
   };

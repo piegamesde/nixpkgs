@@ -37,8 +37,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description =
-      "Asynchronous Python client for getting forecast solar information";
+    description = "Asynchronous Python client for getting forecast solar information";
     homepage = "https://github.com/home-assistant-libs/forecast_solar";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

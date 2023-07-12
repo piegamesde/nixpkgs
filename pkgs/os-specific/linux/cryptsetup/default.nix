@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   separateDebugInfo = true;
 
   src = fetchurl {
-    url =
-      "mirror://kernel/linux/utils/cryptsetup/v${
+    url = "mirror://kernel/linux/utils/cryptsetup/v${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     hash = "sha256-QQ3tZaEHKrnI5Brd7Te5cpwIf+9NLbArtO9SmtbaRpM=";
@@ -103,8 +102,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://gitlab.com/cryptsetup/cryptsetup/";
     description = "LUKS for dm-crypt";
-    changelog =
-      "https://gitlab.com/cryptsetup/cryptsetup/-/raw/v${version}/docs/v${version}-ReleaseNotes";
+    changelog = "https://gitlab.com/cryptsetup/cryptsetup/-/raw/v${version}/docs/v${version}-ReleaseNotes";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ ];
     platforms = with lib.platforms; linux;

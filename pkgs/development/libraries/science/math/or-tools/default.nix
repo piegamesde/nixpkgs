@@ -32,21 +32,18 @@ stdenv.mkDerivation rec {
   patches = [
     # Disable test that requires external input: https://github.com/google/or-tools/issues/3429
     (fetchpatch {
-      url =
-        "https://github.com/google/or-tools/commit/7072ae92ec204afcbfce17d5360a5884c136ce90.patch";
+      url = "https://github.com/google/or-tools/commit/7072ae92ec204afcbfce17d5360a5884c136ce90.patch";
       hash = "sha256-iWE+atp308q7pC1L1FD6sK8LvWchZ3ofxvXssguozbM=";
     })
     # Fix test that broke in parallel builds: https://github.com/google/or-tools/issues/3461
     (fetchpatch {
-      url =
-        "https://github.com/google/or-tools/commit/a26602f24781e7bfcc39612568aa9f4010bb9736.patch";
+      url = "https://github.com/google/or-tools/commit/a26602f24781e7bfcc39612568aa9f4010bb9736.patch";
       hash = "sha256-gM0rW0xRXMYaCwltPK0ih5mdo3HtX6mKltJDHe4gbLc=";
     })
     # Backport fix in cmake test configuration where pip installs newer version from PyPi over local build,
     #  breaking checkPhase: https://github.com/google/or-tools/issues/3260
     (fetchpatch {
-      url =
-        "https://github.com/google/or-tools/commit/edd1544375bd55f79168db315151a48faa548fa0.patch";
+      url = "https://github.com/google/or-tools/commit/edd1544375bd55f79168db315151a48faa548fa0.patch";
       hash = "sha256-S//1YM3IoRCp3Ghg8zMF0XXgIpVmaw4gH8cVb9eUbqM=";
     })
   ];

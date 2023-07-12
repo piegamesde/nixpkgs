@@ -18,8 +18,7 @@ bundlerEnv {
   passthru.updateScript = bundlerUpdateScript "homesick";
 
   meta = with lib; {
-    description =
-      "Your home directory is your castle. Don't leave your dotfiles behind";
+    description = "Your home directory is your castle. Don't leave your dotfiles behind";
     longDescription = ''
       Homesick is sorta like rip, but for dotfiles. It uses git to clone a repository containing
       dotfiles, and saves them in ~/.homesick. It then allows you to symlink all the dotfiles into

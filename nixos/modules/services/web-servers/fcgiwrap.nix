@@ -69,8 +69,7 @@ in
       wantedBy = optional (cfg.socketType != "unix") "multi-user.target";
 
       serviceConfig = {
-        ExecStart =
-          "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
+        ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
             builtins.toString cfg.preforkProcesses
           } ${
             optionalString (cfg.socketType != "unix")

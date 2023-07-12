@@ -17,8 +17,7 @@ stdenv.mkDerivation {
   pname = "sqlcl";
 
   src = requireFile rec {
-    url =
-      "https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/download/";
+    url = "https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/download/";
     name = "V${fileVersion}.zip";
     message = ''
       This Nix expression requires that ${name} already be part of the store. To
@@ -73,8 +72,7 @@ stdenv.mkDerivation {
       completion, and command recall for a feature-rich experience, all while
       also supporting your previously written SQL*Plus scripts.
     '';
-    homepage =
-      "https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/";
+    homepage = "https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ misterio77 ];

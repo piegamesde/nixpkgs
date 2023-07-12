@@ -66,8 +66,7 @@ buildPythonPackage rec {
       It can be used from Mutt the same way as abook.
     '';
     homepage = "https://pypi.org/project/goobook/";
-    changelog =
-      "https://gitlab.com/goobook/goobook/-/blob/${version}/CHANGES.rst";
+    changelog = "https://gitlab.com/goobook/goobook/-/blob/${version}/CHANGES.rst";
     license = licenses.gpl3;
     maintainers = with maintainers; [ primeos ];
   };

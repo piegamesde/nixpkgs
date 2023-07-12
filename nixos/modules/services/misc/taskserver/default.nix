@@ -196,8 +196,7 @@ in
         default = false;
         description =
           let
-            url =
-              "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver";
+            url = "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver";
           in
           lib.mdDoc ''
             Whether to enable the Taskwarrior server.
@@ -525,8 +524,9 @@ in
             {
               cert = "${cfg.pki.manual.server.cert}";
               key = "${cfg.pki.manual.server.key}";
-              ${mapNullable (_: "crl") cfg.pki.manual.server.crl} =
-                "${cfg.pki.manual.server.crl}";
+              ${
+                mapNullable (_: "crl") cfg.pki.manual.server.crl
+              } = "${cfg.pki.manual.server.crl}";
             }
         );
 

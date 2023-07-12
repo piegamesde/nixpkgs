@@ -51,8 +51,7 @@ with lib;
 
   config = mkIf config.boot.modprobeConfig.enable {
 
-    environment.etc."modprobe.d/ubuntu.conf".source =
-      "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
+    environment.etc."modprobe.d/ubuntu.conf".source = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
 
     environment.etc."modprobe.d/nixos.conf".text = ''
       ${flip concatMapStrings config.boot.blacklistedKernelModules (
@@ -64,8 +63,7 @@ with lib;
     '';
     environment.etc."modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
-    environment.etc."modprobe.d/systemd.conf".source =
-      "${config.systemd.package}/lib/modprobe.d/systemd.conf";
+    environment.etc."modprobe.d/systemd.conf".source = "${config.systemd.package}/lib/modprobe.d/systemd.conf";
 
     environment.systemPackages = [ pkgs.kmod ];
 

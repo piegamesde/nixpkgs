@@ -63,11 +63,9 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
-    description =
-      "Xournal++ is a handwriting Notetaking software with PDF annotation support";
+    description = "Xournal++ is a handwriting Notetaking software with PDF annotation support";
     homepage = "https://xournalpp.github.io/";
-    changelog =
-      "https://github.com/xournalpp/xournalpp/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/xournalpp/xournalpp/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       andrew-d

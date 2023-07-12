@@ -60,8 +60,7 @@ buildPythonApplication {
 
   meta = with lib; {
     homepage = "https://pypi.org/project/pandoc-acro/";
-    description =
-      "Pandoc filter which manages acronyms in Pandoc flavored Markdown sources";
+    description = "Pandoc filter which manages acronyms in Pandoc flavored Markdown sources";
     license = licenses.bsd2;
     maintainers = with maintainers; [ tfc ];
   };

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   version = "3.3.0";
 
   src = fetchzip {
-    url =
-      "https://github.com/engelsystem/engelsystem/releases/download/v3.3.0/engelsystem-v3.3.0.zip";
+    url = "https://github.com/engelsystem/engelsystem/releases/download/v3.3.0/engelsystem-v3.3.0.zip";
     hash = "sha256-DS0klm26udXsiiFToeOJooA1WUR8gk0qf/UJL8E77ps=";
   };
 
@@ -58,11 +57,9 @@ stdenv.mkDerivation rec {
   passthru.tests = nixosTests.engelsystem;
 
   meta = with lib; {
-    description =
-      "Coordinate your volunteers in teams, assign them to work shifts or let them decide for themselves when and where they want to help with what";
+    description = "Coordinate your volunteers in teams, assign them to work shifts or let them decide for themselves when and where they want to help with what";
     homepage = "https://engelsystem.de";
-    changelog =
-      "https://github.com/engelsystem/engelsystem/releases/tag/v${version}";
+    changelog = "https://github.com/engelsystem/engelsystem/releases/tag/v${version}";
     license = licenses.gpl2;
     maintainers = with maintainers; [ kloenk ];
     mainProgram = "migrate";

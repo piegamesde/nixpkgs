@@ -53,8 +53,7 @@ mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://download.kde.org/${kde-channel}/${pname}/${version}/${pname}-${version}.tar.gz";
+    url = "https://download.kde.org/${kde-channel}/${pname}/${version}/${pname}-${version}.tar.gz";
     inherit sha256;
   };
 

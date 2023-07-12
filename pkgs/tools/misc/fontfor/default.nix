@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1drfrq32lvmi1xlshynzh66gb1cah43pqcyxv3qxp487br9w1iyj";
 
   meta = with lib; {
-    description =
-      "Find fonts which can show a specified character and preview them in browser";
+    description = "Find fonts which can show a specified character and preview them in browser";
     homepage = "https://github.com/7sDream/fontfor";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ shamilton ];

@@ -35,8 +35,7 @@ buildPythonPackage rec {
       # Remove rogue mocking of py._path, https://github.com/wntrblm/nox/pull/677
       (fetchpatch {
         name = "remove-py-pyth.patch";
-        url =
-          "https://github.com/wntrblm/nox/commit/44d06b679761e21d76bb96b2b8ffe0ffbe3d4fd0.patch";
+        url = "https://github.com/wntrblm/nox/commit/44d06b679761e21d76bb96b2b8ffe0ffbe3d4fd0.patch";
         hash = "sha256-KRDVwbBMBd4GdiAcGJyS7DTNUw3Pumt0JO1igx6npnc=";
       })
     ];

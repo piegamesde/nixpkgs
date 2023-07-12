@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
   version = "1.3.4";
 
   src = fetchurl {
-    url =
-      "https://get.videolan.org/libbluray/${version}/${pname}-${version}.tar.bz2";
+    url = "https://get.videolan.org/libbluray/${version}/${pname}-${version}.tar.bz2";
     hash = "sha256-R4/9aKD13ejvbKmJt/A1taCiLFmRQuXNP/ewO76+Xys=";
   };
 

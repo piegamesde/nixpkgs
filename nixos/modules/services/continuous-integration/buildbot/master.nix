@@ -293,8 +293,7 @@ in
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       path = cfg.packages ++ cfg.pythonPackages python.pkgs;
-      environment.PYTHONPATH =
-        "${
+      environment.PYTHONPATH = "${
           python.withPackages (self: cfg.pythonPackages self ++ [ package ])
         }/${python.sitePackages}";
 
@@ -312,8 +311,7 @@ in
         Group = cfg.group;
         WorkingDirectory = cfg.home;
         # NOTE: call twistd directly with stdout logging for systemd
-        ExecStart =
-          "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}";
+        ExecStart = "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}";
       };
     };
   };

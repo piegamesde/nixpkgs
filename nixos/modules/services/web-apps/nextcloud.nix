@@ -1094,14 +1094,18 @@ in
                       # The following attributes are optional depending on the type of
                       # database.  Those that evaluate to null on the left hand side
                       # will be omitted.
-                      ${if c.dbname != null then "--database-name" else null} =
-                        ''"${c.dbname}"'';
-                      ${if c.dbhost != null then "--database-host" else null} =
-                        ''"${c.dbhost}"'';
-                      ${if c.dbport != null then "--database-port" else null} =
-                        ''"${toString c.dbport}"'';
-                      ${if c.dbuser != null then "--database-user" else null} =
-                        ''"${c.dbuser}"'';
+                      ${
+                        if c.dbname != null then "--database-name" else null
+                      } = ''"${c.dbname}"'';
+                      ${
+                        if c.dbhost != null then "--database-host" else null
+                      } = ''"${c.dbhost}"'';
+                      ${
+                        if c.dbport != null then "--database-port" else null
+                      } = ''"${toString c.dbport}"'';
+                      ${
+                        if c.dbuser != null then "--database-user" else null
+                      } = ''"${c.dbuser}"'';
                       "--database-pass" = ''"''$${dbpass.arg}"'';
                       "--admin-user" = ''"${c.adminuser}"'';
                       "--admin-pass" = ''"''$${adminpass.arg}"'';
@@ -1215,14 +1219,12 @@ in
             environment.NEXTCLOUD_CONFIG_DIR = "${datadir}/config";
             serviceConfig.Type = "oneshot";
             serviceConfig.User = "nextcloud";
-            serviceConfig.ExecStart =
-              "${phpPackage}/bin/php -f ${cfg.package}/cron.php";
+            serviceConfig.ExecStart = "${phpPackage}/bin/php -f ${cfg.package}/cron.php";
           };
           nextcloud-update-plugins = mkIf cfg.autoUpdateApps.enable {
             after = [ "nextcloud-setup.service" ];
             serviceConfig.Type = "oneshot";
-            serviceConfig.ExecStart =
-              "${occ}/bin/nextcloud-occ app:update --all";
+            serviceConfig.ExecStart = "${occ}/bin/nextcloud-occ app:update --all";
             serviceConfig.User = "nextcloud";
             startAt = cfg.autoUpdateApps.startAt;
           };
@@ -1235,8 +1237,7 @@ in
             phpPackage = phpPackage;
             phpEnv = {
               NEXTCLOUD_CONFIG_DIR = "${datadir}/config";
-              PATH =
-                "/run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin";
+              PATH = "/run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin";
             };
             settings = mapAttrs (name: mkDefault) {
               "listen.owner" = config.services.nginx.user;

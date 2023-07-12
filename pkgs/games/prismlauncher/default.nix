@@ -128,8 +128,7 @@ stdenv.mkDerivation rec {
       their associated options with a simple interface.
     '';
     platforms = platforms.linux;
-    changelog =
-      "https://github.com/PrismLauncher/PrismLauncher/releases/tag/${version}";
+    changelog = "https://github.com/PrismLauncher/PrismLauncher/releases/tag/${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [
       minion3665

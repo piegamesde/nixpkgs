@@ -102,8 +102,7 @@ in
         path = [ config.services.postgresql.package ];
 
         requires = [ "postgresql.service" ];
-        script =
-          "HOME=$STATE_DIRECTORY ${cfg.package}/bin/odoo ${
+        script = "HOME=$STATE_DIRECTORY ${cfg.package}/bin/odoo ${
             optionalString (cfg.addons != [ ]) "--addons-path=${
                 concatMapStringsSep "," escapeShellArg cfg.addons
               }"

@@ -58,19 +58,16 @@ in
     assertions = [
       {
         assertion = cfg.extraCommands == "";
-        message =
-          "extraCommands is incompatible with the nftables based firewall: ${cfg.extraCommands}";
+        message = "extraCommands is incompatible with the nftables based firewall: ${cfg.extraCommands}";
       }
       {
         assertion = cfg.extraStopCommands == "";
-        message =
-          "extraStopCommands is incompatible with the nftables based firewall: ${cfg.extraStopCommands}";
+        message = "extraStopCommands is incompatible with the nftables based firewall: ${cfg.extraStopCommands}";
       }
       {
         assertion = cfg.pingLimit == null || !(hasPrefix "--" cfg.pingLimit);
-        message =
-          ''
-            nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
+        message = ''
+          nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
       }
       {
         assertion = config.networking.nftables.rulesetFile == null;

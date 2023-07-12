@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Fuzzy string matching for Python";
     homepage = "https://github.com/seatgeek/thefuzz";
-    changelog =
-      "https://github.com/seatgeek/thefuzz/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/seatgeek/thefuzz/blob/${version}/CHANGES.rst";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ sumnerevans ];
   };

@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "12.10.0.1";
 
   src = fetchurl {
-    url =
-      "${meta.homepage}/indicator-application-gtk2/i-a-${version}/+download/indicator-application-${version}.tar.gz";
+    url = "${meta.homepage}/indicator-application-gtk2/i-a-${version}/+download/indicator-application-${version}.tar.gz";
     sha256 = "1xqsb6c1pwawabw854f7aybjrgyhc2r1316i9lyjspci51zk5m7v";
   };
 
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Indicator to take menus from applications and place them in the panel (GTK 2 library for Xfce/LXDE)";
+    description = "Indicator to take menus from applications and place them in the panel (GTK 2 library for Xfce/LXDE)";
     homepage = "https://launchpad.net/indicators-gtk2";
     license = licenses.gpl3;
     platforms = platforms.linux;

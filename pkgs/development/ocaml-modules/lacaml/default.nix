@@ -20,8 +20,7 @@ buildDunePackage rec {
   minimumOCamlVersion = "4.08";
 
   src = fetchurl {
-    url =
-      "https://github.com/mmottl/lacaml/releases/download/${version}/lacaml-${version}.tbz";
+    url = "https://github.com/mmottl/lacaml/releases/download/${version}/lacaml-${version}.tbz";
     sha256 = "1i47wqnd9iy6ndbi9zfahpb592gahp6im26rgpwch13vgzk3kifd";
   };
 

@@ -41,8 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python API for Synology DSM";
     homepage = "https://github.com/mib1185/py-synologydsm-api";
-    changelog =
-      "https://github.com/mib1185/py-synologydsm-api/releases/tag/v${version}";
+    changelog = "https://github.com/mib1185/py-synologydsm-api/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ uvnikita ];
   };

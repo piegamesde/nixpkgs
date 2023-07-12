@@ -22,8 +22,7 @@ stdenv.mkDerivation {
   makeFlags = [ "DESTDIR=$(out)" ];
 
   meta = with lib; {
-    description =
-      "Set the energy versus performance policy preference bias on recent X86 processors";
+    description = "Set the energy versus performance policy preference bias on recent X86 processors";
     homepage = "https://www.kernel.org/";
     license = licenses.gpl2;
     platforms = [

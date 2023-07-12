@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   version = "1.7.9";
 
   src = fetchurl {
-    url =
-      "https://github.com/balena-io/etcher/releases/download/v${version}/balena-etcher-electron_${version}_${arch}.deb";
+    url = "https://github.com/balena-io/etcher/releases/download/v${version}/balena-etcher-electron_${version}_${arch}.deb";
     inherit sha256;
   };
 
@@ -80,8 +79,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Flash OS images to SD cards and USB drives, safely and easily";
+    description = "Flash OS images to SD cards and USB drives, safely and easily";
     homepage = "https://etcher.io/";
     license = licenses.asl20;
     maintainers = [ maintainers.shou ];

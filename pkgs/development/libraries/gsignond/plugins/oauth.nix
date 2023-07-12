@@ -53,12 +53,12 @@ stdenv.mkDerivation {
 
   LC_ALL = "en_US.UTF-8";
 
-  PKG_CONFIG_GSIGNOND_GPLUGINSDIR =
-    "${placeholder "out"}/lib/gsignond/gplugins";
+  PKG_CONFIG_GSIGNOND_GPLUGINSDIR = "${
+      placeholder "out"
+    }/lib/gsignond/gplugins";
 
   meta = with lib; {
-    description =
-      "Plugin for the Accounts-SSO gSignOn daemon that handles the OAuth 1.0 and 2.0 authentication protocols";
+    description = "Plugin for the Accounts-SSO gSignOn daemon that handles the OAuth 1.0 and 2.0 authentication protocols";
     homepage = "https://gitlab.com/accounts-sso/gsignond-plugin-oa";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ ];

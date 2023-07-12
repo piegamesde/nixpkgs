@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "2.5.0-2826";
 
   src = fetchurl {
-    url =
-      "https://fastnlo.hepforge.org/code/v25/fastnlo_toolkit-${version}.tar.gz";
+    url = "https://fastnlo.hepforge.org/code/v25/fastnlo_toolkit-${version}.tar.gz";
     sha256 = "sha256-7aIMYCOkHC/17CHYiEfrxvtSJxTDivrS7BQ32cGiEy0=";
   };
 

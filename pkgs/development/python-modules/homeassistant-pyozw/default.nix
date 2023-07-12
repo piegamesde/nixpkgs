@@ -29,8 +29,7 @@
       src = fetchPypi {
         inherit pname version;
         extension = "zip";
-        sha256 =
-          "47c1abd8f3dc287760471c6c7b5fad222ead64763c4cb25e37d0599ea3b26952";
+        sha256 = "47c1abd8f3dc287760471c6c7b5fad222ead64763c4cb25e37d0599ea3b26952";
       };
 
       patches = [ ];

@@ -97,8 +97,7 @@ with lib; {
       "${pkgs.google-guest-configs}/etc/modprobe.d/gce-blacklist.conf"
   ;
 
-  environment.etc."sysctl.d/60-gce-network-security.conf".source =
-    "${pkgs.google-guest-configs}/etc/sysctl.d/60-gce-network-security.conf";
+  environment.etc."sysctl.d/60-gce-network-security.conf".source = "${pkgs.google-guest-configs}/etc/sysctl.d/60-gce-network-security.conf";
 
   environment.etc."default/instance_configs.cfg".text = ''
     [Accounts]

@@ -183,8 +183,9 @@ in
             nameValuePair "clamsmtp-${toString i}" {
               description = "ClamSMTP instance ${toString i}";
               wantedBy = [ "multi-user.target" ];
-              script =
-                "exec ${pkgs.clamsmtp}/bin/clamsmtpd -f ${configfile conf}";
+              script = "exec ${pkgs.clamsmtp}/bin/clamsmtpd -f ${
+                  configfile conf
+                }";
               after = [ "clamav-daemon.service" ];
               requires = [ "clamav-daemon.service" ];
               serviceConfig.Type = "forking";

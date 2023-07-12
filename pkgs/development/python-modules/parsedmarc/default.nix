@@ -36,8 +36,7 @@
 
 let
   dashboard = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/domainaware/parsedmarc/77331b55c54cb3269205295bd57d0ab680638964/grafana/Grafana-DMARC_Reports.json";
+    url = "https://raw.githubusercontent.com/domainaware/parsedmarc/77331b55c54cb3269205295bd57d0ab680638964/grafana/Grafana-DMARC_Reports.json";
     sha256 = "0wbihyqbb4ndjg79qs8088zgrcg88km8khjhv2474y7nzjzkf43i";
   };
 in
@@ -98,8 +97,7 @@ buildPythonPackage rec {
   };
 
   meta = {
-    changelog =
-      "https://github.com/domainaware/parsedmarc/blob/master/CHANGELOG.md#${
+    changelog = "https://github.com/domainaware/parsedmarc/blob/master/CHANGELOG.md#${
         lib.replaceStrings [ "." ] [ "" ] version
       }";
     description = "Python module and CLI utility for parsing DMARC reports";

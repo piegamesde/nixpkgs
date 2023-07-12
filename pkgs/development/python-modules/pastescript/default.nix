@@ -49,8 +49,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A pluggable command-line frontend, including commands to setup package file layouts";
+    description = "A pluggable command-line frontend, including commands to setup package file layouts";
     homepage = "https://github.com/cdent/pastescript/";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

@@ -16,8 +16,7 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description =
-      "Test classes and test cases using decorators, execute test cases by command line, and get clear reports";
+    description = "Test classes and test cases using decorators, execute test cases by command line, and get clear reports";
     homepage = "https://pypi.python.org/pypi/ptest";
     license = licenses.asl20;
   };

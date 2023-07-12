@@ -74,8 +74,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStart =
-          "@${cfg.package}/bin/radvd radvd -n -u radvd -C ${confFile}";
+        ExecStart = "@${cfg.package}/bin/radvd radvd -n -u radvd -C ${confFile}";
         Restart = "always";
       };
     };

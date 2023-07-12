@@ -39,8 +39,7 @@ python3Packages.buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Utility program that allows you to configure SteelSeries Rival gaming mice";
+    description = "Utility program that allows you to configure SteelSeries Rival gaming mice";
     homepage = "https://github.com/flozz/rivalcfg";
     license = licenses.wtfpl;
     maintainers = with maintainers; [ ornxka ];

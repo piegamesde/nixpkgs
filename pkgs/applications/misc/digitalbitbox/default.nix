@@ -113,8 +113,7 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "A QT based application for the Digital Bitbox hardware wallet";
+    description = "A QT based application for the Digital Bitbox hardware wallet";
     longDescription = ''
       Digital Bitbox provides dbb-app, a GUI tool, and dbb-cli, a CLI tool, to manage Digital Bitbox devices.
 

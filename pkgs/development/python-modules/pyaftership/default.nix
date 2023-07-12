@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper package for the AfterShip API";
     homepage = "https://github.com/ludeeus/pyaftership";
-    changelog =
-      "https://github.com/ludeeus/pyaftership/releases/tag/${version}";
+    changelog = "https://github.com/ludeeus/pyaftership/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jamiemagee ];
   };

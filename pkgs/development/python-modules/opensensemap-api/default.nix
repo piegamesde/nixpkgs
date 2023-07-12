@@ -35,10 +35,8 @@ buildPythonPackage rec {
       Python Client for interacting with the openSenseMap API. All
       available information from the sensor can be retrieved.
     '';
-    homepage =
-      "https://github.com/home-assistant-ecosystem/python-opensensemap-api";
-    changelog =
-      "https://github.com/home-assistant-ecosystem/python-opensensemap-api/releases/tag/${version}";
+    homepage = "https://github.com/home-assistant-ecosystem/python-opensensemap-api";
+    changelog = "https://github.com/home-assistant-ecosystem/python-opensensemap-api/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

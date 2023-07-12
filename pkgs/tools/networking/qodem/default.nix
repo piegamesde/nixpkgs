@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://qodem.sourceforge.net/";
-    description =
-      "Re-implementation of the DOS-era Qmodem serial communications package";
+    description = "Re-implementation of the DOS-era Qmodem serial communications package";
     longDescription = ''
       Qodem is a from-scratch clone implementation of the Qmodem
       communications program made popular in the days when Bulletin Board

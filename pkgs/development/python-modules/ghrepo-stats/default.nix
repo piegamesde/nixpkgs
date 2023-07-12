@@ -42,8 +42,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module and CLI tool for GitHub repo statistics";
     homepage = "https://github.com/mrbean-bremen/ghrepo-stats";
-    changelog =
-      "https://github.com/mrbean-bremen/ghrepo-stats/blob/v${version}/CHANGES.md";
+    changelog = "https://github.com/mrbean-bremen/ghrepo-stats/blob/v${version}/CHANGES.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

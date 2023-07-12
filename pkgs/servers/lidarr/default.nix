@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   version = "1.1.4.3027";
 
   src = fetchurl {
-    url =
-      "https://github.com/lidarr/Lidarr/releases/download/v${version}/Lidarr.master.${version}.${os}-core-${arch}.tar.gz";
+    url = "https://github.com/lidarr/Lidarr/releases/download/v${version}/Lidarr.master.${version}.${os}-core-${arch}.tar.gz";
     sha256 = hash;
   };
 

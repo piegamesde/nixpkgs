@@ -21,8 +21,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "transmissionrpc" ];
 
   meta = with lib; {
-    description =
-      "Python implementation of the Transmission bittorent client RPC protocol";
+    description = "Python implementation of the Transmission bittorent client RPC protocol";
     homepage = "https://pypi.python.org/pypi/transmissionrpc/";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

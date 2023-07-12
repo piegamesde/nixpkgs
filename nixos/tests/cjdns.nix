@@ -1,8 +1,7 @@
 let
   carolKey = "2d2a338b46f8e4a8c462f0c385b481292a05f678e19a2b82755258cf0f0af7e2";
   carolPubKey = "n932l3pjvmhtxxcdrqq2qpw5zc58f01vvjx01h4dtd1bb0nnu2h0.k";
-  carolPassword =
-    "678287829ce4c67bc8b227e56d94422ee1b85fa11618157b2f591de6c6322b52";
+  carolPassword = "678287829ce4c67bc8b227e56d94422ee1b85fa11618157b2f591de6c6322b52";
 
   basicConfig =
     {

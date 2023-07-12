@@ -64,14 +64,12 @@ stdenv.mkDerivation rec {
     #   https://github.com/awesomeWM/awesome/pull/3065
     (fetchpatch {
       name = "fno-common-prerequisite.patch";
-      url =
-        "https://github.com/awesomeWM/awesome/commit/c5202a48708585cc33528065af8d1b1d28b1a6e0.patch";
+      url = "https://github.com/awesomeWM/awesome/commit/c5202a48708585cc33528065af8d1b1d28b1a6e0.patch";
       sha256 = "0sv36xf0ibjcm63gn9k3bl039sqavb2b5i6d65il4bdclkc0n08b";
     })
     (fetchpatch {
       name = "fno-common.patch";
-      url =
-        "https://github.com/awesomeWM/awesome/commit/d256d9055095f27a33696e0aeda4ee20ed4fb1a0.patch";
+      url = "https://github.com/awesomeWM/awesome/commit/d256d9055095f27a33696e0aeda4ee20ed4fb1a0.patch";
       sha256 = "1n3y4wnjra8blss7642jgpxnm9n92zhhjj541bb9i60m4b7bgfzz";
     })
   ];

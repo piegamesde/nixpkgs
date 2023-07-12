@@ -133,8 +133,7 @@ let
           '';
 
           meta = {
-            description =
-              "A tool for securing communications between a client and a DNS resolver";
+            description = "A tool for securing communications between a client and a DNS resolver";
             homepage = "https://github.com/dyne/dnscrypt-proxy";
             license = licenses.isc;
             maintainers = with maintainers; [ rnhmjoj ];
@@ -268,8 +267,7 @@ in
         User = "dnscrypt-wrapper";
         WorkingDirectory = dataDir;
         Restart = "on-failure";
-        ExecStart =
-          "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${
+        ExecStart = "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${
             toString daemonArgs
           }";
       };

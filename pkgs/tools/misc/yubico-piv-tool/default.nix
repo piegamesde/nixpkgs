@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "2.3.1";
 
   src = fetchurl {
-    url =
-      "https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-${version}.tar.gz";
+    url = "https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-${version}.tar.gz";
     hash = "sha256-2ona/YthhapjU0Z1P53bKa8pvEq9kt2B832dZWC11k4=";
   };
 
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://developers.yubico.com/yubico-piv-tool/";
-    changelog =
-      "https://developers.yubico.com/yubico-piv-tool/Release_Notes.html";
+    changelog = "https://developers.yubico.com/yubico-piv-tool/Release_Notes.html";
     description = ''
       Used for interacting with the Privilege and Identification Card (PIV)
       application on a YubiKey

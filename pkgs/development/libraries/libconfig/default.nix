@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "1.7.3";
 
   src = fetchurl {
-    url =
-      "https://hyperrealm.github.io/${pname}/dist/${pname}-${version}.tar.gz";
+    url = "https://hyperrealm.github.io/${pname}/dist/${pname}-${version}.tar.gz";
     sha256 = "sha256-VFFm1srAN3RDgdHpzFpUBQlOe/rRakEWmbz/QLuzHuc=";
   };
 
@@ -29,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.hyperrealm.com/libconfig";
-    description =
-      "A simple library for processing structured configuration files";
+    description = "A simple library for processing structured configuration files";
     license = licenses.lgpl3;
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.all;

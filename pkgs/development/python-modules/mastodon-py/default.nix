@@ -56,8 +56,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mastodon" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/halcy/Mastodon.py/blob/${src.rev}/CHANGELOG.rst";
+    changelog = "https://github.com/halcy/Mastodon.py/blob/${src.rev}/CHANGELOG.rst";
     description = "Python wrapper for the Mastodon API";
     homepage = "https://github.com/halcy/Mastodon.py";
     license = licenses.mit;

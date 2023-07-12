@@ -43,8 +43,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "blebox_uniapi" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/blebox/blebox_uniapi/blob/${version}/HISTORY.rst";
+    changelog = "https://github.com/blebox/blebox_uniapi/blob/${version}/HISTORY.rst";
     description = "Python API for accessing BleBox smart home devices";
     homepage = "https://github.com/blebox/blebox_uniapi";
     license = licenses.asl20;

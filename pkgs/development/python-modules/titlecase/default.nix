@@ -35,8 +35,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "titlecase" ];
 
   meta = with lib; {
-    description =
-      "Python library to capitalize strings as specified by the New York Times";
+    description = "Python library to capitalize strings as specified by the New York Times";
     homepage = "https://github.com/ppannuto/python-titlecase";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

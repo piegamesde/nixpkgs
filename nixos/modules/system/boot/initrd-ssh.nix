@@ -199,8 +199,7 @@ in
       assertions = [
         {
           assertion = cfg.authorizedKeys != [ ];
-          message =
-            "You should specify at least one authorized key for initrd SSH";
+          message = "You should specify at least one authorized key for initrd SSH";
         }
 
         {
@@ -214,8 +213,7 @@ in
 
         {
           assertion = config.boot.initrd.systemd.enable -> cfg.shell == null;
-          message =
-            "systemd stage 1 does not support boot.initrd.network.ssh.shell";
+          message = "systemd stage 1 does not support boot.initrd.network.ssh.shell";
         }
       ];
 

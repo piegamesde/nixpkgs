@@ -100,8 +100,7 @@ stdenv.mkDerivation (
 
     meta = {
       homepage = "http://harelang.org/";
-      description =
-        "A systems programming language designed to be simple, stable, and robust";
+      description = "A systems programming language designed to be simple, stable, and robust";
       license = lib.licenses.gpl3Only;
       maintainers = [ lib.maintainers.AndersonTorres ];
       inherit (harec.meta) platforms badPlatforms;

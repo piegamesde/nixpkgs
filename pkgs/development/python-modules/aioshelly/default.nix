@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to control Shelly";
     homepage = "https://github.com/home-assistant-libs/aioshelly";
-    changelog =
-      "https://github.com/home-assistant-libs/aioshelly/releases/tag/${version}";
+    changelog = "https://github.com/home-assistant-libs/aioshelly/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

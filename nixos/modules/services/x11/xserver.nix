@@ -832,8 +832,7 @@ in
       )
       {
         assertion = cfg.upscaleDefaultCursor -> cfg.dpi != null;
-        message =
-          "Specify `config.services.xserver.dpi` to upscale the default cursor.";
+        message = "Specify `config.services.xserver.dpi` to upscale the default cursor.";
       }
     ];
 

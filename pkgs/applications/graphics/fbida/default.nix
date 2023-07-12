@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       # Upstream patch to fix build on -fno-common toolchains.
       (fetchurl {
         name = "no-common.patch";
-        url =
-          "https://git.kraxel.org/cgit/fbida/patch/?id=1bb8a8aa29845378903f3c690e17c0867c820da2";
+        url = "https://git.kraxel.org/cgit/fbida/patch/?id=1bb8a8aa29845378903f3c690e17c0867c820da2";
         sha256 = "0n5vqbp8wd87q60zfwdf22jirggzngypc02ha34gsj1rd6pvwahi";
       })
     ];
@@ -80,8 +79,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Image viewing and manipulation programs including fbi, fbgs, ida, exiftran and thumbnail.cgi";
+    description = "Image viewing and manipulation programs including fbi, fbgs, ida, exiftran and thumbnail.cgi";
     homepage = "https://www.kraxel.org/blog/linux/fbida/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ pSub ];

@@ -49,8 +49,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python tool for generating badges for your projects";
     homepage = "https://github.com/jongracecox/anybadge";
-    changelog =
-      "https://github.com/jongracecox/anybadge/releases/tag/v${version}";
+    changelog = "https://github.com/jongracecox/anybadge/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fabiangd ];
   };

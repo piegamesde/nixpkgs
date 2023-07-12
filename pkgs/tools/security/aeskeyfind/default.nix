@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "1.0";
 
   src = fetchurl {
-    url =
-      "https://citpsite.s3.amazonaws.com/memory-content/src/aeskeyfind-${version}.tar.gz";
+    url = "https://citpsite.s3.amazonaws.com/memory-content/src/aeskeyfind-${version}.tar.gz";
     sha256 = "sha256-FBflwbYehruVJ9sfW+4ZlaDuqCR12zy8iA4Ev3Bgg+Q=";
   };
 
@@ -22,8 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Locates 128-bit and 256-bit AES keys in a captured memory image";
+    description = "Locates 128-bit and 256-bit AES keys in a captured memory image";
     homepage = "https://citp.princeton.edu/our-work/memory/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fedx-sudo ];

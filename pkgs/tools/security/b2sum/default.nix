@@ -32,8 +32,7 @@ stdenv.mkDerivation (
     installFlags = [ "PREFIX=$(out)" ];
 
     meta = with lib; {
-      description =
-        "The b2sum utility is similar to the md5sum or shasum utilities but for BLAKE2";
+      description = "The b2sum utility is similar to the md5sum or shasum utilities but for BLAKE2";
       homepage = "https://blake2.net";
       license = with licenses; [
         asl20

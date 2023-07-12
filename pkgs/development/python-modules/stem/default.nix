@@ -30,8 +30,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Controller library that allows applications to interact with Tor";
+    description = "Controller library that allows applications to interact with Tor";
     homepage = "https://stem.torproject.org/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];

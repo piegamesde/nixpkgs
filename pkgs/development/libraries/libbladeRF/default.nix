@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Fixup shebang
-  prePatch =
-    "patchShebangs host/utilities/bladeRF-cli/src/cmd/doc/generate.bash";
+  prePatch = "patchShebangs host/utilities/bladeRF-cli/src/cmd/doc/generate.bash";
 
   # Let us avoid nettools as a dependency.
   postPatch = ''

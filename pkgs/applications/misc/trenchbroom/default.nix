@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://trenchbroom.github.io/";
-    changelog =
-      "https://github.com/TrenchBroom/TrenchBroom/releases/tag/v${version}";
+    changelog = "https://github.com/TrenchBroom/TrenchBroom/releases/tag/v${version}";
     description = "Level editor for Quake-engine based games";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ astro ];

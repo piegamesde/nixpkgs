@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "The big set of CLI tools to make/modify/optimize/show/export DJVU files";
+    description = "The big set of CLI tools to make/modify/optimize/show/export DJVU files";
     homepage = "https://djvu.sourceforge.net";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ Anton-Latukha ];

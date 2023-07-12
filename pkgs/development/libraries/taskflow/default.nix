@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = {
-    description =
-      "General-purpose Parallel and Heterogeneous Task Programming System";
+    description = "General-purpose Parallel and Heterogeneous Task Programming System";
     homepage = "https://taskflow.github.io/";
     changelog =
       let

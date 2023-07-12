@@ -22,8 +22,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "future_typing" ];
 
   meta = with lib; {
-    description =
-      "Use generic type hints and new union syntax `|` with python 3.6+";
+    description = "Use generic type hints and new union syntax `|` with python 3.6+";
     homepage = "https://github.com/PrettyWood/future-typing";
     license = licenses.mit;
     maintainers = with maintainers; [ kfollesdal ];

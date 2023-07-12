@@ -40,8 +40,7 @@ in
       # HPN Patch from FreeBSD ports
       (fetchpatch {
         name = "ssh-hpn-wo-channels.patch";
-        url =
-          "https://raw.githubusercontent.com/freebsd/freebsd-ports/10491773d88012fe81d9c039cbbba647bde9ebc9/security/openssh-portable/files/extra-patch-hpn";
+        url = "https://raw.githubusercontent.com/freebsd/freebsd-ports/10491773d88012fe81d9c039cbbba647bde9ebc9/security/openssh-portable/files/extra-patch-hpn";
         stripLen = 1;
         excludes = [ "channels.c" ];
         sha256 = "sha256-kSj0oE7gNHfIciy0/ErhdfrbmfjQmd8hduyiRXFnVZA=";
@@ -49,8 +48,7 @@ in
 
       (fetchpatch {
         name = "ssh-hpn-channels.patch";
-        url =
-          "https://raw.githubusercontent.com/freebsd/freebsd-ports/10491773d88012fe81d9c039cbbba647bde9ebc9/security/openssh-portable/files/extra-patch-hpn";
+        url = "https://raw.githubusercontent.com/freebsd/freebsd-ports/10491773d88012fe81d9c039cbbba647bde9ebc9/security/openssh-portable/files/extra-patch-hpn";
         extraPrefix = "";
         includes = [ "channels.c" ];
         sha256 = "sha256-pDLUbjv5XIyByEbiRAXC3WMUPKmn15af1stVmcvr7fE=";
@@ -81,8 +79,7 @@ in
 
       (fetchpatch {
         name = "openssh-gssapi.patch";
-        url =
-          "https://salsa.debian.org/ssh-team/openssh/raw/debian/1%25${version}-1/debian/patches/gssapi.patch";
+        url = "https://salsa.debian.org/ssh-team/openssh/raw/debian/1%25${version}-1/debian/patches/gssapi.patch";
         sha256 = "sha256-VG7+2dfu09nvHWuSAB6sLGMmjRCDCysl/9FR1WSF21k=";
       })
     ];

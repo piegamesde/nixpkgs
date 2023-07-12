@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/TigerVNC/tigervnc/pull/1383.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/TigerVNC/tigervnc/pull/1383.patch";
       sha256 = "sha256-r3QLtxVD0wIv2NWVN9r0LVxSlLurDHgkAZfkpIjmZyU=";
       name = "Xvnc-support-Xorg-1.21-PR1383.patch";
     })

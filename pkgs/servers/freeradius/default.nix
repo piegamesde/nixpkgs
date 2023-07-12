@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   version = "3.2.2";
 
   src = fetchurl {
-    url =
-      "ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-${version}.tar.gz";
+    url = "ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-${version}.tar.gz";
     hash = "sha256-FEv37X7fIcrL0HUdQWAI+s4VZwI7ODKxGm2wejsH2cA=";
   };
 

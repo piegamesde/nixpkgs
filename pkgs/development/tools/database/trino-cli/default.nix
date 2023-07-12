@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "The Trino CLI provides a terminal-based, interactive shell for running queries";
+    description = "The Trino CLI provides a terminal-based, interactive shell for running queries";
     homepage = "https://github.com/trinodb/trino";
     license = licenses.asl20;
     maintainers = with maintainers; [

@@ -120,8 +120,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Easy automated syncing between your computers and your MEGA Cloud Drive";
+    description = "Easy automated syncing between your computers and your MEGA Cloud Drive";
     homepage = "https://mega.nz/";
     license = licenses.unfree;
     platforms = [

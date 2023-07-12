@@ -28,8 +28,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "An implementation of endlessh exporting Prometheus metrics";
     homepage = "https://github.com/shizunge/endlessh-go";
-    changelog =
-      "https://github.com/shizunge/endlessh-go/releases/tag/${version}";
+    changelog = "https://github.com/shizunge/endlessh-go/releases/tag/${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ azahi ];
   };

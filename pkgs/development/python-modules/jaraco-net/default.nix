@@ -92,8 +92,7 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    changelog =
-      "https://github.com/jaraco/jaraco.net/blob/${src.rev}/CHANGES.rst";
+    changelog = "https://github.com/jaraco/jaraco.net/blob/${src.rev}/CHANGES.rst";
     description = "Networking tools by jaraco";
     homepage = "https://github.com/jaraco/jaraco.net";
     license = lib.licenses.mit;

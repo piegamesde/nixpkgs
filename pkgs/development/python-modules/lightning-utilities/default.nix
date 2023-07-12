@@ -65,10 +65,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/Lightning-AI/utilities/releases/tag/v${version}";
-    description =
-      "Common Python utilities and GitHub Actions in Lightning Ecosystem";
+    changelog = "https://github.com/Lightning-AI/utilities/releases/tag/v${version}";
+    description = "Common Python utilities and GitHub Actions in Lightning Ecosystem";
     homepage = "https://github.com/Lightning-AI/utilities";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "multidict" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/aio-libs/multidict/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/aio-libs/multidict/blob/v${version}/CHANGES.rst";
     description = "Multidict implementation";
     homepage = "https://github.com/aio-libs/multidict/";
     license = licenses.asl20;

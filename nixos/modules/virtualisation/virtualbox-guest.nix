@@ -43,8 +43,7 @@ in
       {
         assertions = [ {
           assertion = pkgs.stdenv.hostPlatform.isx86;
-          message =
-            "Virtualbox not currently supported on ${pkgs.stdenv.hostPlatform.system}";
+          message = "Virtualbox not currently supported on ${pkgs.stdenv.hostPlatform.system}";
         } ];
 
         environment.systemPackages = [ kernel.virtualboxGuestAdditions ];
@@ -65,8 +64,7 @@ in
 
           unitConfig.ConditionVirtualization = "oracle";
 
-          serviceConfig.ExecStart =
-            "@${kernel.virtualboxGuestAdditions}/bin/VBoxService VBoxService --foreground";
+          serviceConfig.ExecStart = "@${kernel.virtualboxGuestAdditions}/bin/VBoxService VBoxService --foreground";
         };
 
         services.udev.extraRules = ''

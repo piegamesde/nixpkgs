@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     maintainers = with lib.maintainers; [ n0emis ];
-    description =
-      "Utility to generate Nix expressions for Zammad's dependencies";
+    description = "Utility to generate Nix expressions for Zammad's dependencies";
     platforms = lib.platforms.unix;
   };
 }

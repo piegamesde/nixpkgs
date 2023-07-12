@@ -57,8 +57,7 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    description =
-      "High-performance data loading and augmentation library in PyTorch";
+    description = "High-performance data loading and augmentation library in PyTorch";
     homepage = "https://rising.rtfd.io";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];

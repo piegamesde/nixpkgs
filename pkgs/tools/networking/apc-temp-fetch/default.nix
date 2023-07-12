@@ -24,8 +24,7 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "APC_Temp_fetch" ];
 
   meta = with lib; {
-    description =
-      "unified temperature fetcher interface to several UPS network adapters";
+    description = "unified temperature fetcher interface to several UPS network adapters";
     homepage = "https://github.com/YZITE/APC_Temp_fetch";
     license = licenses.asl20;
     maintainers = [ maintainers.zseri ];

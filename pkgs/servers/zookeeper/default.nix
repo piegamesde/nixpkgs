@@ -18,10 +18,8 @@ stdenv.mkDerivation rec {
   version = "3.7.1";
 
   src = fetchurl {
-    url =
-      "mirror://apache/zookeeper/${pname}-${version}/apache-${pname}-${version}-bin.tar.gz";
-    sha512 =
-      "sha512-kQNiilB0X6GiibymZv2kqcCOwXxVzxPmaIfnunbpPbrmCh8f/WwQeYvjoWBpNE7LwAzrspvwPZzXCWzNCY7QEQ==";
+    url = "mirror://apache/zookeeper/${pname}-${version}/apache-${pname}-${version}-bin.tar.gz";
+    sha512 = "sha512-kQNiilB0X6GiibymZv2kqcCOwXxVzxPmaIfnunbpPbrmCh8f/WwQeYvjoWBpNE7LwAzrspvwPZzXCWzNCY7QEQ==";
   };
 
   nativeBuildInputs = [ makeWrapper ];

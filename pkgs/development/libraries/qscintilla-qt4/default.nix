@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "2.11.6";
 
   src = fetchurl {
-    url =
-      "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla-${version}.tar.gz";
+    url = "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla-${version}.tar.gz";
     sha256 = "5zRgV9tH0vs4RGf6/M/LE6oHQTc8XVk7xytVsvDdIKc=";
   };
 

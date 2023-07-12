@@ -216,8 +216,7 @@ import ./make-test-python.nix (
         ;
 
         # From what I can tell, StrictHostKeyChecking=no is necessary for ssh to work between machines.
-        sshOpts =
-          "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
+        sshOpts = "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
 
         restartAndCheckNebula =
           name: ip: ''

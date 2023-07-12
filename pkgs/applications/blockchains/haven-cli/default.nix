@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Haven Protocol is the world's only network of private stable asset";
+    description = "Haven Protocol is the world's only network of private stable asset";
     homepage = "https://havenprotocol.org/";
     license = licenses.bsd3;
     platforms = platforms.all;

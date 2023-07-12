@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     [
       # Fix cavern.tst to work with SOURCE_DATE_EPOCH set
       (fetchpatch {
-        url =
-          "https://github.com/ojwb/survex/commit/b1200a60be7bdea20ffebbd8bb15386041727fa6.patch";
+        url = "https://github.com/ojwb/survex/commit/b1200a60be7bdea20ffebbd8bb15386041727fa6.patch";
         hash = "sha256-OtFjqpU+u8XGy+PAHg2iea++b681p/Kl8YslisBs4sA=";
       })
     ];
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
   enableParallelChecking = false;
 
   meta = with lib; {
-    description =
-      "Free Software/Open Source software package for mapping caves";
+    description = "Free Software/Open Source software package for mapping caves";
     longDescription = ''
       Survex is a Free Software/Open Source software package for mapping caves,
       licensed under the GPL. It is designed to be portable and can be run on a

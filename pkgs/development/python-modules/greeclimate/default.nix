@@ -46,8 +46,7 @@ buildPythonPackage rec {
     broken = stdenv.isDarwin;
     description = "Discover, connect and control Gree based minisplit systems";
     homepage = "https://github.com/cmroche/greeclimate";
-    changelog =
-      "https://github.com/cmroche/greeclimate/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/cmroche/greeclimate/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ dotlambda ];
   };

@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
 
   src = fetchurl {
-    url =
-      "https://github.com/Ombi-app/Ombi/releases/download/v${version}/${os}-${arch}.tar.gz";
+    url = "https://github.com/Ombi-app/Ombi/releases/download/v${version}/${os}-${arch}.tar.gz";
     sha256 = hash;
   };
 
@@ -75,8 +74,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Self-hosted web application that automatically gives your shared Plex or Emby users the ability to request content by themselves";
+    description = "Self-hosted web application that automatically gives your shared Plex or Emby users the ability to request content by themselves";
     homepage = "https://ombi.io/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl2Only;

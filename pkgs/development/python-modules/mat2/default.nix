@@ -104,8 +104,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A handy tool to trash your metadata";
     homepage = "https://0xacab.org/jvoisin/mat2";
-    changelog =
-      "https://0xacab.org/jvoisin/mat2/-/blob/${version}/CHANGELOG.md";
+    changelog = "https://0xacab.org/jvoisin/mat2/-/blob/${version}/CHANGELOG.md";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ dotlambda ];
   };

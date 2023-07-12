@@ -19,8 +19,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://downloads.mariadb.com/Connectors/c/connector-c-${version}/mariadb-connector-c-${version}-src.tar.gz";
+    url = "https://downloads.mariadb.com/Connectors/c/connector-c-${version}/mariadb-connector-c-${version}-src.tar.gz";
     inherit sha256;
   };
 
@@ -79,8 +78,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description =
-      "Client library that can be used to connect to MySQL or MariaDB";
+    description = "Client library that can be used to connect to MySQL or MariaDB";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ globin ];
     platforms = platforms.all;

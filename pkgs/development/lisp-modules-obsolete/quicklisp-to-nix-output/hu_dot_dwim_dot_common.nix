@@ -7,8 +7,7 @@ rec {
   baseName = "hu_dot_dwim_dot_common";
   version = "20150709-darcs";
 
-  description =
-    "An extended Common Lisp package to the general needs of other hu.dwim systems.";
+  description = "An extended Common Lisp package to the general needs of other hu.dwim systems.";
 
   deps = [
     args."alexandria"
@@ -21,8 +20,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/hu.dwim.common/2015-07-09/hu.dwim.common-20150709-darcs.tgz";
+    url = "http://beta.quicklisp.org/archive/hu.dwim.common/2015-07-09/hu.dwim.common-20150709-darcs.tgz";
     sha256 = "12l1rr6w9m99w0b5gc6hv58ainjfhbc588kz6vwshn4gqsxyzbhp";
   };
 

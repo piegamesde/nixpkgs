@@ -16,8 +16,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flatbuffers" ];
 
   meta = flatbuffers.meta // {
-    description =
-      "Python runtime library for use with the Flatbuffers serialization format";
+    description = "Python runtime library for use with the Flatbuffers serialization format";
     maintainers = with lib.maintainers; [ wulfsta ];
     mainProgram = "flatc";
   };

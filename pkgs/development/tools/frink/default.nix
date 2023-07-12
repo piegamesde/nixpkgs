@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     # Upstream does not provide versioned download links
-    url =
-      "https://web.archive.org/web/20230202134810/https://frinklang.org/frinkjar/frink.jar";
+    url = "https://web.archive.org/web/20230202134810/https://frinklang.org/frinkjar/frink.jar";
     sha256 = "sha256-xs1FQvFPgeAxscAiwBBP8N8aYe0OlsYbH/vbzzCbYZc=";
   };
 

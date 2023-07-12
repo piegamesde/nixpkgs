@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     inherit owner;
     repo = pname;
-    rev =
-      "aa08255f0856e70fb001c5f9ee1f4e5a8c12d47d"; # new release, but no git tag
+    rev = "aa08255f0856e70fb001c5f9ee1f4e5a8c12d47d"; # new release, but no git tag
     sha256 = "XMTO6/HkyrrQ0s5DzJLCmmWheye2DGMnpDbcGdP6J+A=";
   };
 

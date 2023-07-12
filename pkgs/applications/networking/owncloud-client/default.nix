@@ -53,8 +53,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Synchronise your ownCloud with your computer using this desktop client";
+    description = "Synchronise your ownCloud with your computer using this desktop client";
     homepage = "https://owncloud.org";
     maintainers = with maintainers; [
       qknight

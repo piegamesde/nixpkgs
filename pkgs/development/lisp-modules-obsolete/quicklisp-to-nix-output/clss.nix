@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/clss/2019-11-30/clss-20191130-git.tgz";
+    url = "http://beta.quicklisp.org/archive/clss/2019-11-30/clss-20191130-git.tgz";
     sha256 = "0cbjzsc90fpa8zqv5s0ri7ncbv6f8azgbbfsxswqfphbibkcpcka";
   };
 

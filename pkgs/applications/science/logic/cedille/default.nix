@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "An interactive theorem-prover and dependently typed programming language, based on extrinsic (aka Curry-style) type theory";
+    description = "An interactive theorem-prover and dependently typed programming language, based on extrinsic (aka Curry-style) type theory";
     homepage = "https://cedille.github.io/";
     license = licenses.mit;
     maintainers = with maintainers; [

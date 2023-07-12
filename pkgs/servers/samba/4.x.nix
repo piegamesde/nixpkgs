@@ -277,8 +277,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.samba.org";
-    description =
-      "The standard Windows interoperability suite of programs for Linux and Unix";
+    description = "The standard Windows interoperability suite of programs for Linux and Unix";
     license = licenses.gpl3;
     platforms = platforms.unix;
     broken = enableGlusterFS;

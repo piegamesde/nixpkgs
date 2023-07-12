@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "0.105";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/polkit-gnome/${version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/polkit-gnome/${version}/${pname}-${version}.tar.xz";
     sha256 = "0sckmcbxyj6sbrnfc5p5lnw27ccghsid6v6wxq09mgxqcd4lk10p";
   };
 
@@ -38,8 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://gitlab.gnome.org/Archive/policykit-gnome";
-    description =
-      "A dbus session bus service that is used to bring up authentication dialogs";
+    description = "A dbus session bus service that is used to bring up authentication dialogs";
     license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [ ];
     platforms = lib.platforms.linux;

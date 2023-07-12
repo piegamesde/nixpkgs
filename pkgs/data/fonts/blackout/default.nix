@@ -25,8 +25,7 @@ stdenvNoCC.mkDerivation (
     '';
 
     meta = {
-      description =
-        "A bad-ass, unholy-mother-shut-your-mouth stencil sans-serif";
+      description = "A bad-ass, unholy-mother-shut-your-mouth stencil sans-serif";
       longDescription = ''
         Eats holes for breakfast lunch and dinner. Inspired by filling in
         sans-serif newspaper headlines. Continually updated with coffee and

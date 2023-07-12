@@ -39,8 +39,7 @@ mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.minizinc.org/";
-    description =
-      "IDE for MiniZinc, a medium-level constraint modelling language";
+    description = "IDE for MiniZinc, a medium-level constraint modelling language";
 
     longDescription = ''
       MiniZinc is a medium-level constraint modelling

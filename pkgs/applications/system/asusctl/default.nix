@@ -28,10 +28,8 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "ecolor-0.21.0" = "sha256-m7eHX6flwO21umtx3dnIuVUnNsEs3ZCyOk5Vvp/lVfI=";
-      "notify-rust-4.6.0" =
-        "sha256-jhCgisA9f6AI9e9JQUYRtEt47gQnDv5WsdRKFoKvHJs=";
-      "supergfxctl-5.1.1" =
-        "sha256-AThaZ9dp5T/DtLPE6gZ9qgkw0xksiq+VCL9Y4G41voE=";
+      "notify-rust-4.6.0" = "sha256-jhCgisA9f6AI9e9JQUYRtEt47gQnDv5WsdRKFoKvHJs=";
+      "supergfxctl-5.1.1" = "sha256-AThaZ9dp5T/DtLPE6gZ9qgkw0xksiq+VCL9Y4G41voE=";
     };
   };
 
@@ -83,8 +81,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A control daemon, CLI tools, and a collection of crates for interacting with ASUS ROG laptops";
+    description = "A control daemon, CLI tools, and a collection of crates for interacting with ASUS ROG laptops";
     homepage = "https://gitlab.com/asus-linux/asusctl";
     license = licenses.mpl20;
     platforms = [ "x86_64-linux" ];

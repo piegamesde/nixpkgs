@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "Music tracker application, free reimplementation of Impulse Tracker";
+    description = "Music tracker application, free reimplementation of Impulse Tracker";
     homepage = "http://schismtracker.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

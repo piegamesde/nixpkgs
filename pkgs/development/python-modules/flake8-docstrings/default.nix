@@ -32,11 +32,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flake8_docstrings" ];
 
   meta = with lib; {
-    description =
-      "Extension for flake8 which uses pydocstyle to check docstrings";
+    description = "Extension for flake8 which uses pydocstyle to check docstrings";
     homepage = "https://github.com/pycqa/flake8-docstrings";
-    changelog =
-      "https://github.com/PyCQA/flake8-docstrings/blob/${version}/HISTORY.rst";
+    changelog = "https://github.com/PyCQA/flake8-docstrings/blob/${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ smaret ];
   };

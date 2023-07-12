@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "openwrt_luci_rpc" ];
 
   meta = with lib; {
-    description =
-      "Python module for interacting with the OpenWrt Luci RPC interface";
+    description = "Python module for interacting with the OpenWrt Luci RPC interface";
     longDescription = ''
       This module allows you to use the Luci RPC interface to fetch connected devices
       on your OpenWrt based router. Supports 15.X & 17.X & 18.X or newer releases of

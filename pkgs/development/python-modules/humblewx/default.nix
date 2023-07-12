@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/thetimelineproj/humblewx";
-    description =
-      "Library that simplifies creating user interfaces with wxPython";
+    description = "Library that simplifies creating user interfaces with wxPython";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ davidak ];
   };

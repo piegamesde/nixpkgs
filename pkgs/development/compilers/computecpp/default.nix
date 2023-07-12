@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "2.3.0";
 
   src = fetchzip {
-    url =
-      "https://computecpp.codeplay.com/downloads/computecpp-ce/${version}/x86_64-linux-gnu.tar.gz";
+    url = "https://computecpp.codeplay.com/downloads/computecpp-ce/${version}/x86_64-linux-gnu.tar.gz";
     hash = "sha256-AUHSls4BOX20PVKzDAp3RqpeRDwgbgYzz6CRvRN+kdk=";
     stripRoot = true;
   };
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
   passthru = { isClang = true; };
 
   meta = with lib; {
-    description =
-      "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";
+    description = "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";
     homepage = "https://www.codeplay.com/products/computesuite/computecpp";
     license = licenses.unfree;
     maintainers = with maintainers; [ davidtwco ];

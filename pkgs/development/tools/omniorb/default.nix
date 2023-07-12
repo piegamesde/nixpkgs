@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "4.3.0";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/omniorb/omniORB/omniORB-${version}/omniORB-${version}.tar.bz2";
+    url = "mirror://sourceforge/project/omniorb/omniORB/omniORB-${version}/omniORB-${version}.tar.bz2";
     hash = "sha256-l2BFojQfTpqFBosh9L2SiZMpKTPu7O/qNy2wngIZ6t0=";
   };
 

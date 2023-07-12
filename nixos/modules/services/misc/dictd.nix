@@ -83,8 +83,7 @@ in
           LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
         };
         serviceConfig.Type = "forking";
-        script =
-          "${pkgs.dict}/sbin/dictd -s -c ${dictdb}/share/dictd/dictd.conf --locale en_US.UTF-8";
+        script = "${pkgs.dict}/sbin/dictd -s -c ${dictdb}/share/dictd/dictd.conf --locale en_US.UTF-8";
       };
     }
   ;

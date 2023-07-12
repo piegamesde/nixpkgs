@@ -103,8 +103,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A Java language server based on v3.0 of the protocol and implemented using the Java compiler API";
+    description = "A Java language server based on v3.0 of the protocol and implemented using the Java compiler API";
     homepage = "https://github.com/georgewfraser/java-language-server";
     license = licenses.mit;
     maintainers = with maintainers; [ hqurve ];

@@ -25,8 +25,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description =
-      "command line tool to automatically convert a project's Python code from old format style strings into Python 3.6+'s f-strings";
+    description = "command line tool to automatically convert a project's Python code from old format style strings into Python 3.6+'s f-strings";
     homepage = "https://github.com/ikamensh/flynt";
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];

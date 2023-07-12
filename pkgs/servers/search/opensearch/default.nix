@@ -18,8 +18,7 @@ stdenvNoCC.mkDerivation rec {
   version = "2.6.0";
 
   src = fetchurl {
-    url =
-      "https://artifacts.opensearch.org/releases/bundle/opensearch/${version}/opensearch-${version}-linux-x64.tar.gz";
+    url = "https://artifacts.opensearch.org/releases/bundle/opensearch/${version}/opensearch-${version}-linux-x64.tar.gz";
     hash = "sha256-qJrgWF8JCR4jmnF239gaiRr4Y7Tin0TyYjzxd1Q4Wko";
   };
 

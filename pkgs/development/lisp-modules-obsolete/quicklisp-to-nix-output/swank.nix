@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/slime/2020-12-20/slime-v2.26.1.tgz";
+    url = "http://beta.quicklisp.org/archive/slime/2020-12-20/slime-v2.26.1.tgz";
     sha256 = "12q3la9lwzs01x0ii5vss0i8i78lgyjrn3adr3rs027f4b7386ny";
   };
 

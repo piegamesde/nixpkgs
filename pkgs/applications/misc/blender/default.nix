@@ -72,8 +72,7 @@ let
   python = python310Packages.python;
   optix = fetchzip {
     # url taken from the archlinux blender PKGBUILD
-    url =
-      "https://developer.download.nvidia.com/redist/optix/v7.3/OptiX-7.3.0-Include.zip";
+    url = "https://developer.download.nvidia.com/redist/optix/v7.3/OptiX-7.3.0-Include.zip";
     sha256 = "0max1j4822mchj0xpz9lqzh91zkmvsn4py0r174cvqfz8z8ykjk8";
   };
 in
@@ -247,8 +246,7 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  env.NIX_CFLAGS_COMPILE =
-    "-I${ilmbase.dev}/include/OpenEXR -I${python}/include/${python.libPrefix}";
+  env.NIX_CFLAGS_COMPILE = "-I${ilmbase.dev}/include/OpenEXR -I${python}/include/${python.libPrefix}";
 
   # Since some dependencies are built with gcc 6, we need gcc 6's
   # libstdc++ in our RPATH. Sigh.

@@ -39,8 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for interacting with Amazon S3";
     homepage = "https://github.com/jpetrucciani/bucketstore";
-    changelog =
-      "https://github.com/jpetrucciani/bucketstore/releases/tag/${version}";
+    changelog = "https://github.com/jpetrucciani/bucketstore/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

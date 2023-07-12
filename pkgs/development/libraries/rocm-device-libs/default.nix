@@ -47,8 +47,7 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      description =
-        "Set of AMD-specific device-side language runtime libraries";
+      description = "Set of AMD-specific device-side language runtime libraries";
       homepage = "https://github.com/RadeonOpenCompute/ROCm-Device-Libs";
       license = licenses.ncsa;
       maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;

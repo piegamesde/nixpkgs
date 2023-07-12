@@ -20,8 +20,7 @@ buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-browser-connector/${
+    url = "mirror://gnome/sources/gnome-browser-connector/${
         lib.versions.major version
       }/gnome-browser-connector-${version}.tar.xz";
     sha256 = "vZcCzhwWNgbKMrjBPR87pugrJHz4eqxgYQtBHfFVYhI=";

@@ -7,8 +7,7 @@ rec {
   baseName = "classowary";
   version = "20191007-git";
 
-  description =
-    "An implementation of the Cassowary linear constraint solver toolkit";
+  description = "An implementation of the Cassowary linear constraint solver toolkit";
 
   deps = [
     args."documentation-utils"
@@ -16,8 +15,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/classowary/2019-10-07/classowary-20191007-git.tgz";
+    url = "http://beta.quicklisp.org/archive/classowary/2019-10-07/classowary-20191007-git.tgz";
     sha256 = "1r3535lgap7218v51k5rn2wlml4mlam3sgjg1lvac1vybiv4c287";
   };
 

@@ -61,8 +61,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Simplify the writing of REST APIs, and extend them with additional protocols";
+    description = "Simplify the writing of REST APIs, and extend them with additional protocols";
     homepage = "https://pythonhosted.org/WSME/";
     changelog = "https://pythonhosted.org/WSME/changes.html";
     license = licenses.mit;

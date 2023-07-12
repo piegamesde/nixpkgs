@@ -16,8 +16,9 @@ let
   version = "1.6.0";
 
   eac_exe = fetchurl {
-    url =
-      "http://www.exactaudiocopy.de/eac-${lib.versions.majorMinor version}.exe";
+    url = "http://www.exactaudiocopy.de/eac-${
+        lib.versions.majorMinor version
+      }.exe";
     sha256 = "8291d33104ebab2619ba8d85744083e241330a286f5bd7d54c7b0eb08f2b84c1";
   };
 
@@ -84,11 +85,9 @@ symlinkJoin {
   ];
 
   meta = with lib; {
-    description =
-      "A precise CD audio grabber for creating perfect quality rips using CD and DVD drives";
+    description = "A precise CD audio grabber for creating perfect quality rips using CD and DVD drives";
     homepage = "https://www.exactaudiocopy.de/";
-    changelog =
-      "https://www.exactaudiocopy.de/en/index.php/resources/whats-new/whats-new/";
+    changelog = "https://www.exactaudiocopy.de/en/index.php/resources/whats-new/whats-new/";
     license = licenses.unfree;
     maintainers = [ maintainers.brendanreis ];
     platforms = wine.meta.platforms;

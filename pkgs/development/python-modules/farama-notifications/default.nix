@@ -24,8 +24,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "farama_notifications" ];
 
   meta = with lib; {
-    description =
-      "Allows for providing notifications on import to all Farama Packages";
+    description = "Allows for providing notifications on import to all Farama Packages";
     homepage = "https://github.com/Farama-Foundation/Farama-Notifications";
     license = licenses.mit;
     maintainers = with maintainers; [ GaetanLepage ];

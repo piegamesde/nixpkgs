@@ -105,8 +105,7 @@ stdenv.mkDerivation (
         - Limited to 2000 SLOC to promote hackability
         - Tied to as few external dependencies as possible
       '';
-      changelog =
-        "https://github.com/djpohly/dwl/releases/tag/v${finalAttrs.version}";
+      changelog = "https://github.com/djpohly/dwl/releases/tag/v${finalAttrs.version}";
       license = lib.licenses.gpl3Only;
       maintainers = [ lib.maintainers.AndersonTorres ];
       inherit (wayland.meta) platforms;

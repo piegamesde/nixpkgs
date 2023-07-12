@@ -19,8 +19,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/mmap/2020-12-20/mmap-20201220-git.tgz";
+    url = "http://beta.quicklisp.org/archive/mmap/2020-12-20/mmap-20201220-git.tgz";
     sha256 = "147xw351xh90k3yvc1fn7k418afmgngd56i8a6d7p41fzs54g6ij";
   };
 

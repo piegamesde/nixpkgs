@@ -19,8 +19,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-gobject-introspection/2021-01-24/cl-gobject-introspection-20210124-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-gobject-introspection/2021-01-24/cl-gobject-introspection-20210124-git.tgz";
     sha256 = "1hrc451d9xdp3pfmwalw32r3iqfvw6ccy665kl5560lihwmk59w0";
   };
 

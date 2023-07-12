@@ -18,8 +18,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/ocaml-conduit/releases/download/v${version}/conduit-${version}.tbz";
+    url = "https://github.com/mirage/ocaml-conduit/releases/download/v${version}/conduit-${version}.tbz";
     sha256 = "sha256-PtRAsO3aGyEt12K9skgx85TcoFmF3RtKxPlFgdFFI5Q=";
   };
 

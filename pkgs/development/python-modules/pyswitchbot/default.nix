@@ -50,8 +50,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to control Switchbot IoT devices";
     homepage = "https://github.com/Danielhiversen/pySwitchbot";
-    changelog =
-      "https://github.com/Danielhiversen/pySwitchbot/releases/tag/${version}";
+    changelog = "https://github.com/Danielhiversen/pySwitchbot/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
     platforms = platforms.linux;

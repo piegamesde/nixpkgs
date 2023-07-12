@@ -114,8 +114,7 @@ stdenv.mkDerivation rec {
 
     # runtime: support riscv64 SV57 mode
     (fetchpatch {
-      url =
-        "https://github.com/golang/go/commit/1e3c19f3fee12e5e2b7802a54908a4d4d03960da.patch";
+      url = "https://github.com/golang/go/commit/1e3c19f3fee12e5e2b7802a54908a4d4d03960da.patch";
       sha256 = "sha256-mk/9gXwQEcAkiRemF6GiNU0c0fhDR29/YcKgQR7ONTA=";
     })
   ];
@@ -214,8 +213,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    changelog =
-      "https://go.dev/doc/devel/release#go${lib.versions.majorMinor version}";
+    changelog = "https://go.dev/doc/devel/release#go${
+        lib.versions.majorMinor version
+      }";
     description = "The Go Programming language";
     homepage = "https://go.dev/";
     license = licenses.bsd3;

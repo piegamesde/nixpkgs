@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "0.18.4";
 
   src = fetchurl {
-    url =
-      "http://www.bastoul.net/cloog/pages/download/count.php3?url=./${pname}-${version}.tar.gz";
+    url = "http://www.bastoul.net/cloog/pages/download/count.php3?url=./${pname}-${version}.tar.gz";
     sha256 = "03km1aqaiy3sbqc2f046ms9x0mlmacxlvs5rxsvjj8nf20vxynij";
   };
 

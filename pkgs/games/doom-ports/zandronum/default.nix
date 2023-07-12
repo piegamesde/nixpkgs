@@ -122,8 +122,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://zandronum.com/";
-    description =
-      "Multiplayer oriented port, based off Skulltag, for Doom and Doom II by id Software";
+    description = "Multiplayer oriented port, based off Skulltag, for Doom and Doom II by id Software";
     maintainers = with maintainers; [
       lassulus
       MP2E

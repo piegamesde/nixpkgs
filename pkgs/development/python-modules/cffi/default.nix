@@ -39,8 +39,7 @@ else
         ./darwin-use-libffi-closures.diff
         (fetchpatch {
           # Drop py.code usage from tests, no longer depend on the deprecated py package
-          url =
-            "https://foss.heptapod.net/pypy/cffi/-/commit/9c7d865e17ec16a847090a3e0d1498b698b99756.patch";
+          url = "https://foss.heptapod.net/pypy/cffi/-/commit/9c7d865e17ec16a847090a3e0d1498b698b99756.patch";
           excludes = [
             "README.md"
             "requirements.txt"
@@ -49,8 +48,7 @@ else
         })
         (fetchpatch {
           #  Replace py.test usage with pytest
-          url =
-            "https://foss.heptapod.net/pypy/cffi/-/commit/bd02e1b122612baa74a126e428bacebc7889e897.patch";
+          url = "https://foss.heptapod.net/pypy/cffi/-/commit/bd02e1b122612baa74a126e428bacebc7889e897.patch";
           excludes = [
             "README.md"
             "requirements.txt"
@@ -63,8 +61,7 @@ else
         # final release. This patch should be included in the next version and can be removed when
         # it is released.
         (fetchpatch {
-          url =
-            "https://foss.heptapod.net/pypy/cffi/-/commit/8a3c2c816d789639b49d3ae867213393ed7abdff.diff";
+          url = "https://foss.heptapod.net/pypy/cffi/-/commit/8a3c2c816d789639b49d3ae867213393ed7abdff.diff";
           hash = "sha256-3wpZeBqN4D8IP+47QDGK7qh/9Z0Ag4lAe+H0R5xCb1E=";
         })
       ]

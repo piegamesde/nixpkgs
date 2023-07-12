@@ -85,8 +85,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "Space Nerds In Space, a multi-player spaceship bridge simulator";
+    description = "Space Nerds In Space, a multi-player spaceship bridge simulator";
     homepage = "https://smcameron.github.io/space-nerds-in-space/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ alyaeanyx ];

@@ -83,8 +83,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description =
-      "High-speed web-based traffic analysis and flow collection tool";
+    description = "High-speed web-based traffic analysis and flow collection tool";
     homepage = "https://www.ntop.org/products/traffic-analysis/ntop/";
     changelog = "https://github.com/ntop/ntopng/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;

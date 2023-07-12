@@ -35,8 +35,7 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "python/test" ];
 
   meta = with lib; {
-    description =
-      "A library for synthesizing and manipulating quantum circuits";
+    description = "A library for synthesizing and manipulating quantum circuits";
     homepage = "https://github.com/boschmitt/tweedledum";
     license = licenses.mit;
     maintainers = with maintainers; [ drewrisinger ];

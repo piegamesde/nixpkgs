@@ -568,8 +568,7 @@ in
     pname = "gateway";
     product = "JetBrains Gateway";
     version = products.gateway.version;
-    description =
-      "Your single entry point to all remote development environments";
+    description = "Your single entry point to all remote development environments";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.gateway.url;
@@ -596,8 +595,7 @@ in
     pname = "idea-community";
     product = "IntelliJ IDEA CE";
     version = products.idea-community.version;
-    description =
-      "Integrated Development Environment (IDE) by Jetbrains, community edition";
+    description = "Integrated Development Environment (IDE) by Jetbrains, community edition";
     license = lib.licenses.asl20;
     src = fetchurl {
       url = products.idea-community.url;
@@ -611,8 +609,7 @@ in
     pname = "idea-ultimate";
     product = "IntelliJ IDEA";
     version = products.idea-ultimate.version;
-    description =
-      "Integrated Development Environment (IDE) by Jetbrains, requires paid license";
+    description = "Integrated Development Environment (IDE) by Jetbrains, requires paid license";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.idea-ultimate.url;
@@ -680,8 +677,7 @@ in
   rider = buildRider rec {
     pname = "rider";
     version = products.rider.version;
-    description =
-      "A cross-platform .NET IDE based on the IntelliJ platform and ReSharper";
+    description = "A cross-platform .NET IDE based on the IntelliJ platform and ReSharper";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.rider.url;

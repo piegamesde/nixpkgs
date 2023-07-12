@@ -31,8 +31,7 @@ mkDerivation rec {
   version = "3.13.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/supercollider/supercollider/releases/download/Version-${version}/SuperCollider-${version}-Source.tar.bz2";
+    url = "https://github.com/supercollider/supercollider/releases/download/Version-${version}/SuperCollider-${version}-Source.tar.bz2";
     sha256 = "sha256-D8Xbpbrq43+Qaa0oiFqkBcaiUwnjiGy+ERvTt8BVMc4=";
   };
 
@@ -109,8 +108,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Programming language for real time audio synthesis";
     homepage = "https://supercollider.github.io";
-    changelog =
-      "https://github.com/supercollider/supercollider/blob/Version-${version}/CHANGELOG.md";
+    changelog = "https://github.com/supercollider/supercollider/blob/Version-${version}/CHANGELOG.md";
     maintainers = with maintainers; [ lilyinstarlight ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

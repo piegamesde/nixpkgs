@@ -197,8 +197,9 @@ in
             }
             {
               exclusive = true;
-              regex =
-                "@${puppetRegex}:${escapeRegex cfg.settings.homeserver.domain}";
+              regex = "@${puppetRegex}:${
+                  escapeRegex cfg.settings.homeserver.domain
+                }";
             }
           ];
           aliases = [ ];

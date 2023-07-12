@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Digital emulation of the Klon Centaur guitar pedal using RNNs, Wave Digital Filters, and more";
+    description = "Digital emulation of the Klon Centaur guitar pedal using RNNs, Wave Digital Filters, and more";
     homepage = "https://github.com/jatinchowdhury18/KlonCentaur";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];

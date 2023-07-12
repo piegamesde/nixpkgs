@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "5.5";
 
   src = fetchurl {
-    url =
-      "https://github.com/tpm2-software/${pname}/releases/download/${version}/${pname}-${version}.tar.gz";
+    url = "https://github.com/tpm2-software/${pname}/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-H9tJxzBTe/2u0IiISIGmHjv9Eh6VfsC9zu7AJhI2wSM=";
   };
 
@@ -52,8 +51,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Command line tools that provide access to a TPM 2.0 compatible device";
+    description = "Command line tools that provide access to a TPM 2.0 compatible device";
     homepage = "https://github.com/tpm2-software/tpm2-tools";
     license = licenses.bsd3;
     platforms = platforms.linux;

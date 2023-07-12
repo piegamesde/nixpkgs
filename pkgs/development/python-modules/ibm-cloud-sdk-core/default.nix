@@ -55,8 +55,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Client library for the IBM Cloud services";
     homepage = "https://github.com/IBM/python-sdk-core";
-    changelog =
-      "https://github.com/IBM/python-sdk-core/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/IBM/python-sdk-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ globin ];
   };

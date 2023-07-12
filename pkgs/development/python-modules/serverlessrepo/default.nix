@@ -45,8 +45,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/awslabs/aws-serverlessrepo-python";
-    description =
-      "Helpers for working with the AWS Serverless Application Repository";
+    description = "Helpers for working with the AWS Serverless Application Repository";
     longDescription = ''
       A Python library with convenience helpers for working with the
       AWS Serverless Application Repository.

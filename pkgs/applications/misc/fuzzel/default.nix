@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Wayland-native application launcher, similar to rofi’s drun mode";
+    description = "Wayland-native application launcher, similar to rofi’s drun mode";
     homepage = "https://codeberg.org/dnkl/fuzzel";
     license = with licenses; [
       mit

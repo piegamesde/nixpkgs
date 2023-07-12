@@ -42,8 +42,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "jupyter_cache" ];
 
   meta = with lib; {
-    description =
-      "A defined interface for working with a cache of jupyter notebooks";
+    description = "A defined interface for working with a cache of jupyter notebooks";
     homepage = "https://github.com/executablebooks/jupyter-cache";
     license = licenses.mit;
     maintainers = with maintainers; [ marsam ];

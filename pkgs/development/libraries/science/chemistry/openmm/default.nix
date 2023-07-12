@@ -110,8 +110,7 @@ stdenv.mkDerivation rec {
   doCheck = !enableCuda && !enableOpencl;
 
   meta = with lib; {
-    description =
-      "Toolkit for molecular simulation using high performance GPU code";
+    description = "Toolkit for molecular simulation using high performance GPU code";
     homepage = "https://openmm.org/";
     license = with licenses; [
       gpl3Plus

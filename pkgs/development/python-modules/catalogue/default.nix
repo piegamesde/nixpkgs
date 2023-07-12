@@ -33,8 +33,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Tiny library for adding function or object registries";
     homepage = "https://github.com/explosion/catalogue";
-    changelog =
-      "https://github.com/explosion/catalogue/releases/tag/v${version}";
+    changelog = "https://github.com/explosion/catalogue/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
   };

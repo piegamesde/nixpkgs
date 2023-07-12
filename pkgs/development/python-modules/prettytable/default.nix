@@ -43,10 +43,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "prettytable" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/jazzband/prettytable/releases/tag/${version}";
-    description =
-      "Display tabular data in a visually appealing ASCII table format";
+    changelog = "https://github.com/jazzband/prettytable/releases/tag/${version}";
+    description = "Display tabular data in a visually appealing ASCII table format";
     homepage = "https://github.com/jazzband/prettytable";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];

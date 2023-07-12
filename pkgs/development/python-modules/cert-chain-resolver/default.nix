@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "cert_chain_resolver" ];
 
   meta = with lib; {
-    description =
-      "Resolve / obtain the certificate intermediates of a x509 certificate";
+    description = "Resolve / obtain the certificate intermediates of a x509 certificate";
     homepage = "https://github.com/rkoopmans/python-certificate-chain-resolver";
     license = licenses.mit;
     maintainers = with maintainers; [ veehaitch ];

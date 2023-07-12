@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A small programming language for writing short programs processing textual data";
+    description = "A small programming language for writing short programs processing textual data";
     homepage = "https://github.com/ezrosent/frawk";
     changelog = "https://github.com/ezrosent/frawk/releases/tag/v${version}";
     license = with licenses; [

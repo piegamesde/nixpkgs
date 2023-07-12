@@ -76,11 +76,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "qtile_extras" ];
 
   meta = with lib; {
-    description =
-      "Extra modules and widgets for the Qtile tiling window manager";
+    description = "Extra modules and widgets for the Qtile tiling window manager";
     homepage = "https://github.com/elParaguayo/qtile-extras";
-    changelog =
-      "https://github.com/elParaguayo/qtile-extras/blob/${src.rev}/CHANGELOG";
+    changelog = "https://github.com/elParaguayo/qtile-extras/blob/${src.rev}/CHANGELOG";
     license = licenses.mit;
     maintainers = with maintainers; [ arjan-s ];
   };

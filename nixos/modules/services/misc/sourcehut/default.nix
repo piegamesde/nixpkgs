@@ -75,12 +75,10 @@ let
               recursiveUpdate cfg.settings {
                 # Those paths are mounted using BindPaths= or BindReadOnlyPaths=
                 # for services needing access to them.
-                "builds.sr.ht::worker".buildlogs =
-                  "/var/log/sourcehut/buildsrht-worker";
+                "builds.sr.ht::worker".buildlogs = "/var/log/sourcehut/buildsrht-worker";
                 "git.sr.ht".post-update-script = "/usr/bin/gitsrht-update-hook";
                 "git.sr.ht".repos = "/var/lib/sourcehut/gitsrht/repos";
-                "hg.sr.ht".changegroup-script =
-                  "/usr/bin/hgsrht-hook-changegroup";
+                "hg.sr.ht".changegroup-script = "/usr/bin/hgsrht-hook-changegroup";
                 "hg.sr.ht".repos = "/var/lib/sourcehut/hgsrht/repos";
                 # Making this a per service option despite being in a global section,
                 # so that it uses the redis-server used by the service.
@@ -117,8 +115,7 @@ let
             "SQLAlchemy connection string for the database."
         ;
         type = types.str;
-        default =
-          "postgresql:///localhost?user=${srv}srht&host=/run/postgresql";
+        default = "postgresql:///localhost?user=${srv}srht&host=/run/postgresql";
       };
       migrate-on-upgrade =
         mkEnableOption (lib.mdDoc "automatic migrations on package upgrade")
@@ -419,8 +416,7 @@ in
                 "The Redis connection used for the Celery worker."
             ;
             type = types.str;
-            default =
-              "redis+socket:///run/redis-sourcehut-buildsrht/redis.sock?virtual_host=2";
+            default = "redis+socket:///run/redis-sourcehut-buildsrht/redis.sock?virtual_host=2";
           };
           shell = mkOption {
             description = lib.mdDoc ''
@@ -498,8 +494,7 @@ in
                 "The Redis connection used for the webhooks worker."
             ;
             type = types.str;
-            default =
-              "redis+socket:///run/redis-sourcehut-gitsrht/redis.sock?virtual_host=1";
+            default = "redis+socket:///run/redis-sourcehut-gitsrht/redis.sock?virtual_host=1";
           };
         };
         options."git.sr.ht::api" = {
@@ -561,8 +556,7 @@ in
                 "The Redis connection used for the webhooks worker."
             ;
             type = types.str;
-            default =
-              "redis+socket:///run/redis-sourcehut-hgsrht/redis.sock?virtual_host=1";
+            default = "redis+socket:///run/redis-sourcehut-hgsrht/redis.sock?virtual_host=1";
           };
         };
 
@@ -591,8 +585,7 @@ in
                 "The Redis connection used for the Celery worker."
             ;
             type = types.str;
-            default =
-              "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=2";
+            default = "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=2";
           };
           webhooks = mkOption {
             description =
@@ -600,8 +593,7 @@ in
                 "The Redis connection used for the webhooks worker."
             ;
             type = types.str;
-            default =
-              "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=1";
+            default = "redis+socket:///run/redis-sourcehut-listssrht/redis.sock?virtual_host=1";
           };
         };
         options."lists.sr.ht::worker" = {
@@ -648,8 +640,9 @@ in
           api-origin = mkOption {
             description = lib.mdDoc "Origin URL for API, 100 more than web.";
             type = types.str;
-            default =
-              "http://${cfg.listenAddress}:${toString (cfg.meta.port + 100)}";
+            default = "http://${cfg.listenAddress}:${
+                toString (cfg.meta.port + 100)
+              }";
             defaultText = lib.literalMD ''
               `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`''
             ;
@@ -660,8 +653,7 @@ in
                 "The Redis connection used for the webhooks worker."
             ;
             type = types.str;
-            default =
-              "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1";
+            default = "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1";
           };
           welcome-emails = mkEnableOption (
             lib.mdDoc "sending stock sourcehut welcome emails after signup"
@@ -783,8 +775,7 @@ in
                 "The Redis connection used for the webhooks worker."
             ;
             type = types.str;
-            default =
-              "redis+socket:///run/redis-sourcehut-todosrht/redis.sock?virtual_host=1";
+            default = "redis+socket:///run/redis-sourcehut-todosrht/redis.sock?virtual_host=1";
           };
         };
         options."todo.sr.ht::mail" = {
@@ -967,8 +958,8 @@ in
           # - /var/log/{build,git,hg}srht-keys
           # - /var/log/{git,hg}srht-shell
           # - /var/log/gitsrht-update-hook
-          authorizedKeysCommand =
-            ''/etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
+          authorizedKeysCommand = ''
+            /etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
           # srht-dispatch will setuid/setgid according to [git.sr.ht::dispatch]
           authorizedKeysCommandUser = "root";
           extraConfig = ''
@@ -1099,8 +1090,7 @@ in
       extraServices.buildsrht-api = {
         serviceConfig.Restart = "always";
         serviceConfig.RestartSec = "5s";
-        serviceConfig.ExecStart =
-          "${pkgs.sourcehut.buildsrht}/bin/buildsrht-api -b ${cfg.listenAddress}:${
+        serviceConfig.ExecStart = "${pkgs.sourcehut.buildsrht}/bin/buildsrht-api -b ${cfg.listenAddress}:${
             toString (cfg.builds.port + 100)
           }";
       };
@@ -1286,8 +1276,9 @@ in
           (mkIf cfg.nginx.enable {
             services.nginx.virtualHosts."git.${domain}" = {
               locations."/authorize" = {
-                proxyPass =
-                  "http://${cfg.listenAddress}:${toString cfg.git.port}";
+                proxyPass = "http://${cfg.listenAddress}:${
+                    toString cfg.git.port
+                  }";
                 extraConfig = ''
                   proxy_pass_request_body off;
                   proxy_set_header Content-Length "";
@@ -1326,16 +1317,14 @@ in
         extraServices.gitsrht-api = {
           serviceConfig.Restart = "always";
           serviceConfig.RestartSec = "5s";
-          serviceConfig.ExecStart =
-            "${pkgs.sourcehut.gitsrht}/bin/gitsrht-api -b ${cfg.listenAddress}:${
+          serviceConfig.ExecStart = "${pkgs.sourcehut.gitsrht}/bin/gitsrht-api -b ${cfg.listenAddress}:${
               toString (cfg.git.port + 100)
             }";
         };
         extraServices.gitsrht-fcgiwrap = mkIf cfg.nginx.enable {
           serviceConfig = {
             # Socket is passed by gitsrht-fcgiwrap.socket
-            ExecStart =
-              "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
+            ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
                 toString cfg.git.fcgiwrap.preforkProcess
               }";
             # No need for config.ini
@@ -1403,8 +1392,7 @@ in
         extraServices.hgsrht-api = {
           serviceConfig.Restart = "always";
           serviceConfig.RestartSec = "5s";
-          serviceConfig.ExecStart =
-            "${pkgs.sourcehut.hgsrht}/bin/hgsrht-api -b ${cfg.listenAddress}:${
+          serviceConfig.ExecStart = "${pkgs.sourcehut.hgsrht}/bin/hgsrht-api -b ${cfg.listenAddress}:${
               toString (cfg.hg.port + 100)
             }";
         };
@@ -1426,8 +1414,9 @@ in
             users.users.${nginx.user}.extraGroups = [ cfg.hg.group ];
             services.nginx.virtualHosts."hg.${domain}" = {
               locations."/authorize" = {
-                proxyPass =
-                  "http://${cfg.listenAddress}:${toString cfg.hg.port}";
+                proxyPass = "http://${cfg.listenAddress}:${
+                    toString cfg.hg.port
+                  }";
                 extraConfig = ''
                   proxy_pass_request_body off;
                   proxy_set_header Content-Length "";
@@ -1480,8 +1469,7 @@ in
         extraServices.listssrht-api = {
           serviceConfig.Restart = "always";
           serviceConfig.RestartSec = "5s";
-          serviceConfig.ExecStart =
-            "${pkgs.sourcehut.listssrht}/bin/listssrht-api -b ${cfg.listenAddress}:${
+          serviceConfig.ExecStart = "${pkgs.sourcehut.listssrht}/bin/listssrht-api -b ${cfg.listenAddress}:${
               toString (cfg.lists.port + 100)
             }";
         };
@@ -1585,8 +1573,7 @@ in
             )
           )
         ;
-        serviceConfig.ExecStart =
-          "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${
+        serviceConfig.ExecStart = "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${
             toString (cfg.meta.port + 100)
           }";
       };
@@ -1600,8 +1587,7 @@ in
               s.enabled == "yes"
               -> (s.stripe-public-key != null && s.stripe-secret-key != null)
             ;
-            message =
-              "If meta.sr.ht::billing is enabled, the keys must be defined.";
+            message = "If meta.sr.ht::billing is enabled, the keys must be defined.";
           } ];
           environment.systemPackages = optional cfg.meta.enable (
             pkgs.writeShellScriptBin "metasrht-manageuser" ''
@@ -1707,8 +1693,7 @@ in
       extraServices.todosrht-api = {
         serviceConfig.Restart = "always";
         serviceConfig.RestartSec = "5s";
-        serviceConfig.ExecStart =
-          "${pkgs.sourcehut.todosrht}/bin/todosrht-api -b ${cfg.listenAddress}:${
+        serviceConfig.ExecStart = "${pkgs.sourcehut.todosrht}/bin/todosrht-api -b ${cfg.listenAddress}:${
             toString (cfg.todo.port + 100)
           }";
       };

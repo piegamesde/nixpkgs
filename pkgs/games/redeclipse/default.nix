@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "2.0.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/redeclipse/base/releases/download/v${version}/redeclipse_${version}_nix.tar.bz2";
+    url = "https://github.com/redeclipse/base/releases/download/v${version}/redeclipse_${version}_nix.tar.bz2";
     sha256 = "143i713ggbk607qr4n39pi0pn8d93x9x6fcbh8rc51jb9qhi8p5i";
   };
 
@@ -55,8 +54,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A first person arena shooter, featuring parkour, impulse boosts, and more";
+    description = "A first person arena shooter, featuring parkour, impulse boosts, and more";
     longDescription = ''
       Red Eclipse is a fun-filled new take on the first person arena shooter,
       featuring parkour, impulse boosts, and more. The development is geared

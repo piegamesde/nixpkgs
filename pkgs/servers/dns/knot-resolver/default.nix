@@ -38,10 +38,8 @@ let # un-indented, over the whole file
     version = "5.6.0";
 
     src = fetchurl {
-      url =
-        "https://secure.nic.cz/files/knot-resolver/${pname}-${version}.tar.xz";
-      sha256 =
-        "0c82ae937b685dc477fb3176098e3dc106c898b7cd83553e5bc54dccb83c80d7";
+      url = "https://secure.nic.cz/files/knot-resolver/${pname}-${version}.tar.xz";
+      sha256 = "0c82ae937b685dc477fb3176098e3dc106c898b7cd83553e5bc54dccb83c80d7";
     };
 
     outputs = [

@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
   version = "1.42.6";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/NetworkManager/${
+    url = "mirror://gnome/sources/NetworkManager/${
         lib.versions.majorMinor version
       }/NetworkManager-${version}.tar.xz";
     sha256 = "sha256-jDiKw3daxrzrYF+uIb4sPiYcr+YGeZSonw36RhDtAnk=";
@@ -148,8 +147,7 @@ stdenv.mkDerivation rec {
 
     # Support for building with ppp 2.5.0
     (fetchpatch {
-      url =
-        "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/5df19f5b26c5921a401e63fb329e844a02d6b1f2.diff";
+      url = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/5df19f5b26c5921a401e63fb329e844a02d6b1f2.diff";
       hash = "sha256-BDm0P2U4HENAtq7OowWVDxqALNbG0nr9k/CLdE61Sck=";
     })
   ];
@@ -247,8 +245,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Projects/NetworkManager";
     description = "Network configuration and management tool";
     license = licenses.gpl2Plus;
-    changelog =
-      "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
+    changelog = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
     maintainers =
       teams.freedesktop.members
       ++ (

@@ -99,8 +99,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Best practices checker for Ansible";
     homepage = "https://github.com/ansible/ansible-lint";
-    changelog =
-      "https://github.com/ansible/ansible-lint/releases/tag/v${version}";
+    changelog = "https://github.com/ansible/ansible-lint/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sengaya ];
   };

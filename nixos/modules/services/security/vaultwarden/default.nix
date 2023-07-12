@@ -247,8 +247,7 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion = cfg.backupDir != null -> cfg.dbBackend == "sqlite";
-      message =
-        "Backups for database backends other than sqlite will need customization";
+      message = "Backups for database backends other than sqlite will need customization";
     } ];
 
     users.users.vaultwarden = {

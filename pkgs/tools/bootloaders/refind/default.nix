@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   version = "0.13.3.1";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/refind/${version}/${pname}-src-${version}.tar.gz";
+    url = "mirror://sourceforge/project/refind/${version}/${pname}-src-${version}.tar.gz";
     sha256 = "1lfgqqiyl6isy25wrxzyi3s334ii057g88714igyjjmxh47kygks";
   };
 
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
     # Fixes issue with null dereference in ReadHiddenTags
     # Upstream: https://sourceforge.net/p/refind/code/merge-requests/45/
     (fetchpatch {
-      url =
-        "https://github.com/samueldr/rEFInd/commit/29cd79dedabf84d5ddfe686f5692278cae6cc4d6.patch";
+      url = "https://github.com/samueldr/rEFInd/commit/29cd79dedabf84d5ddfe686f5692278cae6cc4d6.patch";
       sha256 = "sha256-/jAmOwvMmFWazyukN+ru1tQDiIBtgGk/e/pczsl1Xc8=";
     })
   ];

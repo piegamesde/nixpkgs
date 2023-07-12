@@ -36,8 +36,7 @@ rustPlatform.buildRustPackage rec {
       RTR and JSON and, in turn, provide an RTR service for routers to connect to.
     '';
     homepage = "https://github.com/NLnetLabs/rtrtr";
-    changelog =
-      "https://github.com/NLnetLabs/rtrtr/blob/v${version}/Changelog.md";
+    changelog = "https://github.com/NLnetLabs/rtrtr/blob/v${version}/Changelog.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ steamwalker ];
   };

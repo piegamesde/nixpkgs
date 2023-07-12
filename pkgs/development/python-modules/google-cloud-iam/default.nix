@@ -46,8 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "IAM Service Account Credentials API client library";
     homepage = "https://github.com/googleapis/python-iam";
-    changelog =
-      "https://github.com/googleapis/python-iam/releases/tag/v${version}";
+    changelog = "https://github.com/googleapis/python-iam/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [
       austinbutler

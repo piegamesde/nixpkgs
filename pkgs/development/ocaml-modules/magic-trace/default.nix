@@ -34,8 +34,7 @@ buildDunePackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Collects and displays high-resolution traces of what a process is doing";
+    description = "Collects and displays high-resolution traces of what a process is doing";
     license = licenses.mit;
     maintainers = [ maintainers.alizter ];
     homepage = "https://github.com/janestreet/magic-trace";

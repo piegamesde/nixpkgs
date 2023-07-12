@@ -77,8 +77,7 @@ mkDerivation {
 
   meta = {
     homepage = "https://github.com/kmkolasinski/AwesomeBump";
-    description =
-      "A program to generate normal, height, specular or ambient occlusion textures from a single image";
+    description = "A program to generate normal, height, specular or ambient occlusion textures from a single image";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.eelco ];
     platforms = lib.platforms.linux;

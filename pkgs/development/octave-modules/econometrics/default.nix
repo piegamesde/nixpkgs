@@ -20,7 +20,6 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/econometrics/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Econometrics functions including MLE and GMM based techniques";
+    description = "Econometrics functions including MLE and GMM based techniques";
   };
 }

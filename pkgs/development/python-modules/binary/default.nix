@@ -29,8 +29,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Easily convert between binary and SI units (kibibyte, kilobyte, etc.)";
+    description = "Easily convert between binary and SI units (kibibyte, kilobyte, etc.)";
     homepage = "https://github.com/ofek/binary";
     license = with licenses; [
       asl20

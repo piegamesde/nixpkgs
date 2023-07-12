@@ -45,8 +45,7 @@ buildGoModule rec {
   passthru.tests.version = testers.testVersion { package = d2; };
 
   meta = with lib; {
-    description =
-      "A modern diagram scripting language that turns text to diagrams";
+    description = "A modern diagram scripting language that turns text to diagrams";
     homepage = "https://d2lang.com";
     license = licenses.mpl20;
     maintainers = with maintainers; [ dit7ya ];

@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       # Fix build with libcaca 0.99.beta20 ; remove for xine-lib 1.2.12
       (fetchpatch {
         name = "xine-lib-libcaca-0.99.beta20-fix.patch";
-        url =
-          "https://raw.githubusercontent.com/archlinux/svntogit-community/209ae10d59d29c13633b75aa327cf937f3ff0725/trunk/010-xine-lib-libcaca-0.99.beta20-fix.patch";
+        url = "https://raw.githubusercontent.com/archlinux/svntogit-community/209ae10d59d29c13633b75aa327cf937f3ff0725/trunk/010-xine-lib-libcaca-0.99.beta20-fix.patch";
         sha256 = "088141x1yp84y09x3s01v21yzas2bwavxz9v30z5hyq6c3syrmgr";
       })
     ];
@@ -91,8 +90,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://xine.sourceforge.net/";
-    description =
-      "A high-performance, portable and reusable multimedia playback engine";
+    description = "A high-performance, portable and reusable multimedia playback engine";
     license = with licenses; [
       gpl2Plus
       lgpl2Plus

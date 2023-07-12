@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "4.18.0";
 
   src = fetchurl {
-    url =
-      "https://fc-solve.shlomifish.org/downloads/fc-solve/${pname}-${version}.tar.xz";
+    url = "https://fc-solve.shlomifish.org/downloads/fc-solve/${pname}-${version}.tar.xz";
     sha256 = "1cmaib69pijmcpvgjvrdry8j4xys8l906l80b8z21vvyhdwrfdnn";
   };
 

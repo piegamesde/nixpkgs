@@ -83,10 +83,8 @@ in
     ) // {
       # We need to make sure /etc/libblockdev/conf.d is populated to avoid
       # warnings
-      "libblockdev/conf.d/00-default.cfg".source =
-        "${pkgs.libblockdev}/etc/libblockdev/conf.d/00-default.cfg";
-      "libblockdev/conf.d/10-lvm-dbus.cfg".source =
-        "${pkgs.libblockdev}/etc/libblockdev/conf.d/10-lvm-dbus.cfg";
+      "libblockdev/conf.d/00-default.cfg".source = "${pkgs.libblockdev}/etc/libblockdev/conf.d/00-default.cfg";
+      "libblockdev/conf.d/10-lvm-dbus.cfg".source = "${pkgs.libblockdev}/etc/libblockdev/conf.d/10-lvm-dbus.cfg";
     };
 
     security.polkit.enable = true;

@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "2.001";
 
   src = fetchzip {
-    url =
-      "https://github.com/uswds/public-sans/releases/download/v${version}/public-sans-v${version}.zip";
+    url = "https://github.com/uswds/public-sans/releases/download/v${version}/public-sans-v${version}.zip";
     stripRoot = false;
     hash = "sha256-XFs/UMXI/kdrW+53t8Mj26+Rn5p+LQ6KW2K2/ShoIag=";
   };
@@ -25,11 +24,9 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A strong, neutral, principles-driven, open source typeface for text or display";
+    description = "A strong, neutral, principles-driven, open source typeface for text or display";
     homepage = "https://public-sans.digital.gov/";
-    changelog =
-      "https://github.com/uswds/public-sans/raw/v${version}/FONTLOG.txt";
+    changelog = "https://github.com/uswds/public-sans/raw/v${version}/FONTLOG.txt";
     license = licenses.ofl;
     maintainers = with maintainers; [ dtzWill ];
     platforms = platforms.all;

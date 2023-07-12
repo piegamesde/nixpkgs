@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://openphdguiding.org/";
     description = "Telescope auto-guidance application";
-    changelog =
-      "https://github.com/OpenPHDGuiding/phd2/releases/tag/v${version}";
+    changelog = "https://github.com/OpenPHDGuiding/phd2/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ hjones2199 ];
     platforms = platforms.linux;

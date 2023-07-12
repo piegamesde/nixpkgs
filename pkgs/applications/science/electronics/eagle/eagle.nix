@@ -53,8 +53,7 @@ mkDerivation rec {
   version = "9.6.2";
 
   src = fetchurl {
-    url =
-      "https://eagle-updates.circuits.io/downloads/${
+    url = "https://eagle-updates.circuits.io/downloads/${
         builtins.replaceStrings [ "." ] [ "_" ] version
       }/Autodesk_EAGLE_${version}_English_Linux_64bit.tar.gz";
     sha256 = "18syygnskl286kn8aqfzzdsyzq59d2w19y1h1ynyxsnrvkyv71h0";
@@ -127,8 +126,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Schematic editor and PCB layout tool from Autodesk (formerly CadSoft)";
+    description = "Schematic editor and PCB layout tool from Autodesk (formerly CadSoft)";
     homepage = "https://www.autodesk.com/products/eagle/overview";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

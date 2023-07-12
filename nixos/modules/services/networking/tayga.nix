@@ -165,8 +165,7 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/tayga -d --nodetach --config ${configFile}";
+        ExecStart = "${cfg.package}/bin/tayga -d --nodetach --config ${configFile}";
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGHUP $MAINPID";
         Restart = "always";
 

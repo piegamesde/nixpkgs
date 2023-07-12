@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "D97CEoU36LVcPFQNCoDcfCSaspFT9L4Bl6XzECWlpaA=";
@@ -110,8 +109,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A home media solution (UPnP AV MediaServer) that allows you to easily share audio, video and pictures to other devices";
+    description = "A home media solution (UPnP AV MediaServer) that allows you to easily share audio, video and pictures to other devices";
     homepage = "https://wiki.gnome.org/Projects/Rygel";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

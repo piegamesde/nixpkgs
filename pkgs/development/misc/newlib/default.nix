@@ -16,8 +16,7 @@ stdenv.mkDerivation (
     version = "4.3.0.20230120";
 
     src = fetchurl {
-      url =
-        "ftp://sourceware.org/pub/newlib/newlib-${finalAttrs.version}.tar.gz";
+      url = "ftp://sourceware.org/pub/newlib/newlib-${finalAttrs.version}.tar.gz";
       sha256 = "sha256-g6Yqma9Z4465sMWO0JLuJNcA//Q6IsA+QzlVET7zUVA=";
     };
 
@@ -25,8 +24,7 @@ stdenv.mkDerivation (
       # https://bugs.gentoo.org/723756
       (fetchpatch {
         name = "newlib-3.3.0-no-nano-cxx.patch";
-        url =
-          "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-libs/newlib/files/newlib-3.3.0-no-nano-cxx.patch?id=9ee5a1cd6f8da6d084b93b3dbd2e8022a147cfbf";
+        url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-libs/newlib/files/newlib-3.3.0-no-nano-cxx.patch?id=9ee5a1cd6f8da6d084b93b3dbd2e8022a147cfbf";
         sha256 = "sha256-S3mf7vwrzSMWZIGE+d61UDH+/SK/ao1hTPee1sElgco=";
       })
     ];

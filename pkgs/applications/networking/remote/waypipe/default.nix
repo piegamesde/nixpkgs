@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       makes application forwarding similar to ssh -X feasible.
     '';
     homepage = "https://mstoeckl.com/notes/gsoc/blog.html";
-    changelog =
-      "https://gitlab.freedesktop.org/mstoeckl/waypipe/-/releases#v${version}";
+    changelog = "https://gitlab.freedesktop.org/mstoeckl/waypipe/-/releases#v${version}";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];

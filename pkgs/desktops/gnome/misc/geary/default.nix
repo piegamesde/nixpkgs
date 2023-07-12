@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "SJFm+H3Z0pAR9eW3lpTyWItHP34ZHFnOkBPIyODjY+c=";
@@ -63,13 +62,11 @@ stdenv.mkDerivation rec {
     # Fix build with Vala 0.56.7 & 0.57+
     # https://hydra.nixos.org/build/217892787
     (fetchpatch2 {
-      url =
-        "https://gitlab.gnome.org/GNOME/geary/-/commit/4a7ca820b1d3d6130fedf254dc5b4cd7efb58f2c.patch";
+      url = "https://gitlab.gnome.org/GNOME/geary/-/commit/4a7ca820b1d3d6130fedf254dc5b4cd7efb58f2c.patch";
       sha256 = "L63TMOkxTYu8jxX+IIc9owoa1TBmaeGXgW+8gfMtFw4=";
     })
     (fetchpatch2 {
-      url =
-        "https://gitlab.gnome.org/GNOME/geary/-/commit/10f9c133a2ad515127d65f3bba13a0d91b75f4af.patch";
+      url = "https://gitlab.gnome.org/GNOME/geary/-/commit/10f9c133a2ad515127d65f3bba13a0d91b75f4af.patch";
       sha256 = "0yohy+FZyHW4MkImLQYNlcZyMekH7mXvO2yEuAm3fXw=";
     })
   ];

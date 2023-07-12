@@ -980,8 +980,7 @@ in
       sslCiphers = mkOption {
         type = types.nullOr types.str;
         # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
-        default =
-          "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
+        default = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
         description =
           lib.mdDoc
             "Ciphers to choose from when negotiating TLS handshakes."
@@ -1363,8 +1362,7 @@ in
             all (host: all hostOrAliasIsNull (attrValues host.locations))
               (attrValues virtualHosts)
           ;
-          message =
-            "Only one of nginx root or alias can be specified on a location.";
+          message = "Only one of nginx root or alias can be specified on a location.";
         }
 
         {
@@ -1600,10 +1598,8 @@ in
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;
-          ExecCondition =
-            "/run/current-system/systemd/bin/systemctl -q is-active nginx.service";
-          ExecStart =
-            "/run/current-system/systemd/bin/systemctl reload nginx.service";
+          ExecCondition = "/run/current-system/systemd/bin/systemctl -q is-active nginx.service";
+          ExecStart = "/run/current-system/systemd/bin/systemctl reload nginx.service";
         };
       }
     ;
@@ -1660,8 +1656,7 @@ in
       rotate = 26;
       compress = true;
       delaycompress = true;
-      postrotate =
-        "[ ! -f /var/run/nginx/nginx.pid ] || kill -USR1 `cat /var/run/nginx/nginx.pid`";
+      postrotate = "[ ! -f /var/run/nginx/nginx.pid ] || kill -USR1 `cat /var/run/nginx/nginx.pid`";
     };
   };
 }

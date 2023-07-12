@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ qtbase ];
 
   meta = with lib; {
-    description =
-      "Graphical companion application for various bridges like LinVst, etc";
+    description = "Graphical companion application for various bridges like LinVst, etc";
     homepage = "https://github.com/Goli4thus/linvstmanager";
     license = with licenses; [ gpl3 ];
     platforms = platforms.linux;

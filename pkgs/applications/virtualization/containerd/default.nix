@@ -51,8 +51,7 @@ buildGoModule rec {
   passthru.tests = { inherit (nixosTests) docker; } // kubernetes.tests;
 
   meta = with lib; {
-    changelog =
-      "https://github.com/containerd/containerd/releases/tag/${src.rev}";
+    changelog = "https://github.com/containerd/containerd/releases/tag/${src.rev}";
     homepage = "https://containerd.io/";
     description = "A daemon to control runC";
     license = licenses.asl20;

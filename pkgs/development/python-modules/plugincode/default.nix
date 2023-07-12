@@ -47,8 +47,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    description =
-      "Library that provides plugin functionality for ScanCode toolkit";
+    description = "Library that provides plugin functionality for ScanCode toolkit";
     homepage = "https://github.com/nexB/plugincode";
     license = licenses.asl20;
     maintainers = [ ];

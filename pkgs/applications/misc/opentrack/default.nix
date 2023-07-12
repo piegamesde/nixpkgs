@@ -25,8 +25,7 @@ let
 
   # license.txt inside the zip file is MIT
   xplaneSdk = fetchzip {
-    url =
-      "https://developer.x-plane.com/wp-content/plugins/code-sample-generation/sample_templates/XPSDK303.zip";
+    url = "https://developer.x-plane.com/wp-content/plugins/code-sample-generation/sample_templates/XPSDK303.zip";
     sha256 = "11wqjsr996c5qhiv2djsd55gc373a9qcq30dvc6rhzm0fys42zba";
   };
 in
@@ -76,8 +75,7 @@ mkDerivation {
       name = "opentrack";
       exec = "opentrack";
       icon = fetchurl {
-        url =
-          "https://github.com/opentrack/opentrack/raw/opentrack-${version}/gui/images/opentrack.png";
+        url = "https://github.com/opentrack/opentrack/raw/opentrack-${version}/gui/images/opentrack.png";
         sha256 = "0d114zk78f7nnrk89mz4gqn7yk3k71riikdn29w6sx99h57f6kgn";
       };
       desktopName = name;
@@ -89,8 +87,7 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/opentrack/opentrack";
     description = "Head tracking software for MS Windows, Linux, and Apple OSX";
-    changelog =
-      "https://github.com/opentrack/opentrack/releases/tag/${version}";
+    changelog = "https://github.com/opentrack/opentrack/releases/tag/${version}";
     license = licenses.isc;
     maintainers = with maintainers; [ zaninime ];
   };

@@ -233,8 +233,7 @@ in
         (
           gethName: cfg:
           let
-            stateDir =
-              "goethereum/${gethName}/${
+            stateDir = "goethereum/${gethName}/${
                 if (cfg.network == null) then "mainnet" else cfg.network
               }";
             dataDir = "/var/lib/${stateDir}";

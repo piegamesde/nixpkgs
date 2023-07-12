@@ -16,8 +16,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mnxn/promise_jsoo/releases/download/v${version}/promise_jsoo-v${version}.tbz";
+    url = "https://github.com/mnxn/promise_jsoo/releases/download/v${version}/promise_jsoo-v${version}.tbz";
     sha256 = "00pjnsbv0yv3hhxbbl8dsljgr95kjgi9w8j1x46gjyxg9zayrxzl";
   };
 
@@ -34,8 +33,7 @@ buildDunePackage rec {
 
   meta = {
     homepage = "https://github.com/mnxn/promise_jsoo";
-    description =
-      "Js_of_ocaml bindings to JS Promises with supplemental functions";
+    description = "Js_of_ocaml bindings to JS Promises with supplemental functions";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jayesh-bhoot ];
   };

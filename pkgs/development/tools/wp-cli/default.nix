@@ -12,8 +12,7 @@ let
   version = "2.6.0";
 
   completion = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/wp-cli/wp-cli/v${version}/utils/wp-completion.bash";
+    url = "https://raw.githubusercontent.com/wp-cli/wp-cli/v${version}/utils/wp-completion.bash";
     hash = "sha256-RDygYQzK6NLWrOug7EqnkpuH7Wz1T2Zq/tGNZjoYo5U=";
   };
 
@@ -27,8 +26,7 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://github.com/wp-cli/wp-cli/releases/download/v${version}/${pname}-${version}.phar";
+    url = "https://github.com/wp-cli/wp-cli/releases/download/v${version}/${pname}-${version}.phar";
     hash = "sha256-0WZSjKtgvIIpwGcp5wc4OPu6aNaytXRQTLAniDXIeIg=";
   };
 

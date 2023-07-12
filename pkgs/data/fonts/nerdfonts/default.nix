@@ -36,8 +36,7 @@ let
       (
         fName: fSha:
         (fetchurl {
-          url =
-            "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${fName}.zip";
+          url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${fName}.zip";
           sha256 = fSha;
         })
       )
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "Iconic font aggregator, collection, & patcher. 3,600+ icons, 50+ patched fonts";
+    description = "Iconic font aggregator, collection, & patcher. 3,600+ icons, 50+ patched fonts";
     longDescription = ''
       Nerd Fonts is a project that attempts to patch as many developer targeted
       and/or used fonts as possible. The patch is to specifically add a high

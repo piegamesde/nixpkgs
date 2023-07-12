@@ -50,8 +50,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for dependency injection and result processing";
     homepage = "https://app-model.readthedocs.io/";
-    changelog =
-      "https://github.com/pyapp-kit/in-n-out/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/pyapp-kit/in-n-out/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];
   };

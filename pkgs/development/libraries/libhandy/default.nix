@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-0RqizT5XCsbQ79ukbRcxR8EfRYJkV+kkwFmQuy4N+a0=";
@@ -86,8 +85,9 @@ stdenv.mkDerivation rec {
 
   # Uses define_variable in pkg-config, but we still need it to use the glade output
   PKG_CONFIG_GLADEUI_2_0_MODULEDIR = "${placeholder "glade"}/lib/glade/modules";
-  PKG_CONFIG_GLADEUI_2_0_CATALOGDIR =
-    "${placeholder "glade"}/share/glade/catalogs";
+  PKG_CONFIG_GLADEUI_2_0_CATALOGDIR = "${
+      placeholder "glade"
+    }/share/glade/catalogs";
 
   doCheck = !stdenv.isDarwin;
 

@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "1.0.14";
 
   src = fetchurl {
-    url =
-      "https://alioth-archive.debian.org/releases/sane/${pname}/${version}/${pname}-${version}.tar.gz";
+    url = "https://alioth-archive.debian.org/releases/sane/${pname}/${version}/${pname}-${version}.tar.gz";
     sha256 = "1ad4zr7rcxpda8yzvfkq1rfjgx9nl6lan5a628wvpdbh3fn9v0z7";
   };
 

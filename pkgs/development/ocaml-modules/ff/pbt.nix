@@ -23,7 +23,6 @@ buildDunePackage {
   ];
 
   meta = ff-sig.meta // {
-    description =
-      "Property based testing library for finite fields over the package ff-sig";
+    description = "Property based testing library for finite fields over the package ff-sig";
   };
 }

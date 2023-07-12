@@ -98,8 +98,7 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      description =
-        "Debugger support for control of execution and inspection state";
+      description = "Debugger support for control of execution and inspection state";
       homepage = "https://github.com/ROCm-Developer-Tools/ROCdbgapi";
       license = with licenses; [ mit ];
       maintainers = teams.rocm.members;

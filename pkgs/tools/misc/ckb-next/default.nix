@@ -64,8 +64,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Driver and configuration tool for Corsair keyboards and mice";
+    description = "Driver and configuration tool for Corsair keyboards and mice";
     homepage = "https://github.com/ckb-next/ckb-next";
     license = licenses.gpl2;
     platforms = platforms.linux;

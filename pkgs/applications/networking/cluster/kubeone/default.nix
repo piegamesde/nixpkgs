@@ -41,11 +41,9 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description =
-      "Automate cluster operations on all your cloud, on-prem, edge, and IoT environments";
+    description = "Automate cluster operations on all your cloud, on-prem, edge, and IoT environments";
     homepage = "https://kubeone.io/";
-    changelog =
-      "https://github.com/kubermatic/kubeone/releases/tag/v${version}";
+    changelog = "https://github.com/kubermatic/kubeone/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ lblasc ];
   };

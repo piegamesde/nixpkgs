@@ -62,8 +62,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStart =
-          "${pkgs.cpuminer-multi}/bin/minerd --syslog --config=${confFile}";
+        ExecStart = "${pkgs.cpuminer-multi}/bin/minerd --syslog --config=${confFile}";
         User = "nobody";
       };
     };

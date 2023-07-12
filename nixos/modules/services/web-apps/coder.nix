@@ -157,8 +157,7 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion = cfg.database.createLocally -> cfg.database.username == name;
-      message =
-        "services.coder.database.username must be set to ${user} if services.coder.database.createLocally is set true";
+      message = "services.coder.database.username must be set to ${user} if services.coder.database.createLocally is set true";
     } ];
 
     systemd.services.coder = {
@@ -169,8 +168,7 @@ in
       environment = {
         CODER_ACCESS_URL = cfg.accessUrl;
         CODER_WILDCARD_ACCESS_URL = cfg.wildcardAccessUrl;
-        CODER_PG_CONNECTION_URL =
-          "user=${cfg.database.username} ${
+        CODER_PG_CONNECTION_URL = "user=${cfg.database.username} ${
             optionalString (cfg.database.password != null)
               "password=${cfg.database.password}"
           } database=${cfg.database.database} host=${cfg.database.host} ${

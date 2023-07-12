@@ -30,8 +30,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Wrapper for Fully Kiosk Browser REST interface";
     homepage = "https://github.com/cgarwood/python-fullykiosk";
-    changelog =
-      "https://github.com/cgarwood/python-fullykiosk/releases/tag/${version}";
+    changelog = "https://github.com/cgarwood/python-fullykiosk/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

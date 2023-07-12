@@ -24,14 +24,12 @@ stdenv.mkDerivation rec {
     #  https://sourceforge.net/p/ri-li/bugs/2/
     (fetchpatch {
       name = "gcc-11.patch";
-      url =
-        "https://sourceforge.net/p/ri-li/bugs/2/attachment/0001-Fix-build-on-gcc-11.patch";
+      url = "https://sourceforge.net/p/ri-li/bugs/2/attachment/0001-Fix-build-on-gcc-11.patch";
       sha256 = "01il9lm3amwp3b435ka9q63p0jwlzajwnbshyazx6n9vcnrr17yw";
     })
   ];
 
-  CPPFLAGS =
-    "-I${lib.getDev SDL}/include -I${
+  CPPFLAGS = "-I${lib.getDev SDL}/include -I${
       lib.getDev SDL
     }/include/SDL -I${SDL_mixer}/include";
 

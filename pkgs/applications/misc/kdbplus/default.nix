@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ unzip ];
 
   phases = "unpackPhase installPhase";
-  unpackPhase =
-    "mkdir ${pname}-${version} && cd ${pname}-${version} && unzip -qq ${src}";
+  unpackPhase = "mkdir ${pname}-${version} && cd ${pname}-${version} && unzip -qq ${src}";
   installPhase = ''
     mkdir -p $out/bin $out/libexec
 

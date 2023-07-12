@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "0.3.4";
 
   src = fetchurl {
-    url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libtiger/libtiger-${version}.tar.gz";
+    url = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libtiger/libtiger-${version}.tar.gz";
     sha256 = "0rj1bmr9kngrgbxrjbn4f4f9pww0wmf6viflinq7ava7zdav4hkk";
   };
 

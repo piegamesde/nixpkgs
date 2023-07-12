@@ -99,8 +99,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A package which provides cryptographic recipes and primitives";
+    description = "A package which provides cryptographic recipes and primitives";
     longDescription = ''
       Cryptography includes both high level recipes and low level interfaces to
       common cryptographic algorithms such as symmetric ciphers, message

@@ -139,8 +139,7 @@ let
       fetch = if pname == "libiconv" then stdenv.fetchurlBoot else fetchurl;
     in
     fetch {
-      url =
-        "https://github.com/apple-oss-distributions/${pname}/archive/refs/tags/${pname}-${version}.tar.gz";
+      url = "https://github.com/apple-oss-distributions/${pname}/archive/refs/tags/${pname}-${version}.tar.gz";
       inherit sha256;
     }
   ;

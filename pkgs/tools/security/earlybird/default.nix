@@ -19,8 +19,7 @@ buildGoModule {
   vendorSha256 = "oSHBR1EvK/1+cXqGNCE9tWn6Kd/BwNY3m5XrKCAijhA=";
 
   meta = with lib; {
-    description =
-      "A sensitive data detection tool capable of scanning source code repositories for passwords, key files, and more";
+    description = "A sensitive data detection tool capable of scanning source code repositories for passwords, key files, and more";
     homepage = "https://github.com/americanexpress/earlybird";
     license = licenses.asl20;
     maintainers = [ ];

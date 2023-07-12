@@ -49,8 +49,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for checking syntax of reStructuredText";
     homepage = "https://github.com/rstcheck/rstcheck-core";
-    changelog =
-      "https://github.com/rstcheck/rstcheck-core/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/rstcheck/rstcheck-core/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A parser generator which emits GLR parsers, either in OCaml or C++";
+    description = "A parser generator which emits GLR parsers, either in OCaml or C++";
     homepage = "https://scottmcpeak.com/elkhound/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ peterhoeg ];

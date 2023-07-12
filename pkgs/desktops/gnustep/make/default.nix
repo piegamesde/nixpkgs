@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   version = "2.9.0";
 
   src = fetchurl {
-    url =
-      "ftp://ftp.gnustep.org/pub/gnustep/core/gnustep-make-${version}.tar.gz";
+    url = "ftp://ftp.gnustep.org/pub/gnustep/core/gnustep-make-${version}.tar.gz";
     sha256 = "sha256-oLBmwRJXh5x8hTEd6mnGf23HQe8znbZRT4W2SZLEDSo=";
   };
 
@@ -39,8 +38,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A build manager for GNUstep";
     homepage = "http://gnustep.org/";
-    changelog =
-      "https://github.com/gnustep/tools-make/releases/tag/make-${
+    changelog = "https://github.com/gnustep/tools-make/releases/tag/make-${
         builtins.replaceStrings [ "." ] [ "_" ] version
       }";
     license = lib.licenses.lgpl2Plus;

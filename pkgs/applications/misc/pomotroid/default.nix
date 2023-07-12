@@ -11,8 +11,7 @@
 let
   version = "0.13.0";
   appIcon = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/Splode/pomotroid/v${version}/static/icon.png";
+    url = "https://raw.githubusercontent.com/Splode/pomotroid/v${version}/static/icon.png";
     sha256 = "sha256-BEPoOBErw5ZCeK4rtdxdwZZLimbpglu1Cu++4xzuVUs=";
   };
 in
@@ -21,8 +20,7 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://github.com/Splode/pomotroid/releases/download/v${version}/${pname}-${version}-linux.tar.gz";
+    url = "https://github.com/Splode/pomotroid/releases/download/v${version}/${pname}-${version}-linux.tar.gz";
     sha256 = "sha256-AwpVnvwWQd/cgmZvtr5NprnLyeXz6ym4Fywc808tcSc=";
   };
 

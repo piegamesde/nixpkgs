@@ -269,8 +269,7 @@ rec {
       + cleanBrokenLinks
     ;
 
-    setupHook =
-      ./setup-hook.sh; # TODO: maybe texmf-nix -> texmf (and all references)
+    setupHook = ./setup-hook.sh; # TODO: maybe texmf-nix -> texmf (and all references)
     passthru = { inherit version buildInputs; };
 
     meta = with lib; {
@@ -311,8 +310,7 @@ rec {
         # https://mailman.ntg.nl/pipermail/dev-luatex/2022-April/006650.html
         (fetchpatch {
           name = "reproducible_exception_strings.patch";
-          url =
-            "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5";
+          url = "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5";
           sha256 = "sha256-RNZoEeTcWnrLaltcYrhNIORh42fFdwMzBfxMRWVurbk=";
         })
       ];
@@ -601,8 +599,7 @@ rec {
 
     meta = with lib; {
       homepage = "https://www.ctan.org/pkg/pygmentex";
-      description =
-        "Auxiliary tool for typesetting code listings in LaTeX documents using Pygments";
+      description = "Auxiliary tool for typesetting code listings in LaTeX documents using Pygments";
       longDescription = ''
         PygmenTeX is a Python-based LaTeX package that can be used for
         typesetting code listings in a LaTeX document using Pygments.

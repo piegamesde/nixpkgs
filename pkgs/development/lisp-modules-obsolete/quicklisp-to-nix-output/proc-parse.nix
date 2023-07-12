@@ -16,8 +16,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/proc-parse/2019-08-13/proc-parse-20190813-git.tgz";
+    url = "http://beta.quicklisp.org/archive/proc-parse/2019-08-13/proc-parse-20190813-git.tgz";
     sha256 = "126l7mqxjcgw2limddgrdq63cdhwkhaxabxl9l0bjadf92nczg0j";
   };
 

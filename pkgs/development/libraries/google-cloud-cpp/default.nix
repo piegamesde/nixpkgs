@@ -91,8 +91,9 @@ stdenv.mkDerivation rec {
         "$PWD/google/cloud/storage/benchmarks"
         "$PWD/google/cloud/testing_util"
       ];
-      ldLibraryPathName =
-        "${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH";
+      ldLibraryPathName = "${
+          lib.optionalString stdenv.isDarwin "DY"
+        }LD_LIBRARY_PATH";
     in
     lib.optionalString doInstallCheck (
       lib.optionalString (!staticOnly) ''

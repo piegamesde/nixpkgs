@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python YAML formatter that keeps your comments";
     homepage = "https://github.com/lyz-code/yamlfix";
-    changelog =
-      "https://github.com/lyz-code/yamlfix/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/lyz-code/yamlfix/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ koozz ];
   };

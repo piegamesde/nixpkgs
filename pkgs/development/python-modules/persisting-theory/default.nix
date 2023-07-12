@@ -20,8 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://code.agate.blue/agate/persisting-theory";
-    description =
-      "Automate data discovering and access inside a list of packages";
+    description = "Automate data discovering and access inside a list of packages";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

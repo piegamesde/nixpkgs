@@ -38,8 +38,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.7";
 
   src = fetchzip {
-    url =
-      "https://github.com/starkware-libs/cairo-lang/releases/download/v${version}/cairo-lang-${version}.zip";
+    url = "https://github.com/starkware-libs/cairo-lang/releases/download/v${version}/cairo-lang-${version}.zip";
     hash = "sha256-MNbzDqqNhij9JizozLp9hhQjbRGzWxECOErS3TOPlAA=";
   };
 

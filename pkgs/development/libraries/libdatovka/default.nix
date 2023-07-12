@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "0.3.0";
 
   src = fetchurl {
-    url =
-      "https://gitlab.nic.cz/datovka/libdatovka/-/archive/v${version}/libdatovka-v${version}.tar.gz";
+    url = "https://gitlab.nic.cz/datovka/libdatovka/-/archive/v${version}/libdatovka-v${version}.tar.gz";
     sha256 = "sha256-aG7U8jP3pvOeFDetYVOx+cE78ys0uSkKNjSgB09ste8=";
   };
 
@@ -46,8 +45,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Client library for accessing SOAP services of Czech government-provided Databox infomation system";
+    description = "Client library for accessing SOAP services of Czech government-provided Databox infomation system";
     homepage = "https://gitlab.nic.cz/datovka/libdatovka";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.ovlach ];

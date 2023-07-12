@@ -103,8 +103,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Alibaba Cloud OSS SDK for Python";
     homepage = "https://github.com/aliyun/aliyun-oss-python-sdk";
-    changelog =
-      "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${version}";
+    changelog = "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

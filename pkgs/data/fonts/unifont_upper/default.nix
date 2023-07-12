@@ -24,8 +24,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Unicode font for glyphs above the Unicode Basic Multilingual Plane";
+    description = "Unicode font for glyphs above the Unicode Basic Multilingual Plane";
     homepage = "https://unifoundry.com/unifont/";
 
     # Basically GPL2+ with font exception.

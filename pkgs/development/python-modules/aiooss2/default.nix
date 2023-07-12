@@ -66,8 +66,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for aliyun OSS (Object Storage Service)";
     homepage = "https://github.com/karajan1001/aiooss2";
-    changelog =
-      "https://github.com/karajan1001/aiooss2/blob/${version}/CHANGES.txt";
+    changelog = "https://github.com/karajan1001/aiooss2/blob/${version}/CHANGES.txt";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

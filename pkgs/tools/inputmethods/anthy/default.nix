@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "9100h";
 
   meta = with lib; {
-    description =
-      "Hiragana text to Kana Kanji mixed text Japanese input method";
+    description = "Hiragana text to Kana Kanji mixed text Japanese input method";
     homepage = "https://anthy.osdn.jp/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ericsagnes ];

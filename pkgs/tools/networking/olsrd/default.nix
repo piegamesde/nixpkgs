@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
       # remove if there's ever an upstream release that incorporates
       # https://github.com/OLSR/olsrd/pull/87
       (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/openwrt-routing/packages/b3897386771890ba1b15f672c2fed58630beedef/olsrd/patches/011-bison.patch";
+        url = "https://raw.githubusercontent.com/openwrt-routing/packages/b3897386771890ba1b15f672c2fed58630beedef/olsrd/patches/011-bison.patch";
         sha256 = "04cl4b8dpr1yjs7wa94jcszmkdzpnrn719a5m9nhm7lvfrn1rzd0";
       })
     ];

@@ -606,8 +606,7 @@ let
     in
     stdenv.mkDerivation (
       {
-        name =
-          "node-dependencies-${name}${
+        name = "node-dependencies-${name}${
             if version == null then "" else "-${version}"
           }";
 
@@ -715,8 +714,9 @@ let
     in
     stdenv.mkDerivation (
       {
-        name =
-          "node-shell-${name}${if version == null then "" else "-${version}"}";
+        name = "node-shell-${name}${
+            if version == null then "" else "-${version}"
+          }";
 
         buildInputs =
           [

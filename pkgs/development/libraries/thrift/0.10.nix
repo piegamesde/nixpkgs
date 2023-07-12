@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "0.10.0";
 
   src = fetchurl {
-    url =
-      "https://archive.apache.org/dist/thrift/${version}/${pname}-${version}.tar.gz";
+    url = "https://archive.apache.org/dist/thrift/${version}/${pname}-${version}.tar.gz";
     sha256 = "02x1xw0l669idkn6xww39j60kqxzcbmim4mvpb5h9nz8wqnx1292";
   };
 

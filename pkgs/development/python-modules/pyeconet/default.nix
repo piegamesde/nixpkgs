@@ -37,8 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python interface to the EcoNet API";
     homepage = "https://github.com/w1ll1am23/pyeconet";
-    changelog =
-      "https://github.com/w1ll1am23/pyeconet/releases/tag/v${version}";
+    changelog = "https://github.com/w1ll1am23/pyeconet/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

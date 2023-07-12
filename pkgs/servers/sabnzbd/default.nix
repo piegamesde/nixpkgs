@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { smoke-test = nixosTests.sabnzbd; };
 
   meta = with lib; {
-    description =
-      "Usenet NZB downloader, par2 repairer and auto extracting server";
+    description = "Usenet NZB downloader, par2 repairer and auto extracting server";
     homepage = "https://sabnzbd.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

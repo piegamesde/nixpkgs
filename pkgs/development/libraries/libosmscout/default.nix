@@ -33,8 +33,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Simple, high-level interfaces for offline location and POI lokup, rendering and routing functionalities based on OpenStreetMap (OSM) data";
+    description = "Simple, high-level interfaces for offline location and POI lokup, rendering and routing functionalities based on OpenStreetMap (OSM) data";
     homepage = "https://libosmscout.sourceforge.net/";
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.Thra11 ];

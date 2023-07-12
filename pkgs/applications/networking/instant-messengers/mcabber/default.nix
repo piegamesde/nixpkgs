@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
       # Pull upstream patch for ncurses-6.3.
       (fetchpatch {
         name = "ncurses-6.3.patch";
-        url =
-          "https://github.com/McKael/mcabber/commit/5a0893d69023b77b7671731defbdca5d47731130.patch";
+        url = "https://github.com/McKael/mcabber/commit/5a0893d69023b77b7671731defbdca5d47731130.patch";
         sha256 = "01bc23z0mva9l9jv587sq2r9w3diachgkmb9ad99hlzgj02fmq4v";
         stripLen = 1;
       })

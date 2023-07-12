@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
   version = "8.2304.0";
 
   src = fetchurl {
-    url =
-      "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz";
+    url = "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz";
     hash = "sha256-0JDpAoPrS4Dei0Pl/8bktZxOOXDyqpHmO+7woRcg100=";
   };
 
@@ -192,8 +191,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.rsyslog.com/";
     description = "Enhanced syslog implementation";
-    changelog =
-      "https://raw.githubusercontent.com/rsyslog/rsyslog/v${version}/ChangeLog";
+    changelog = "https://raw.githubusercontent.com/rsyslog/rsyslog/v${version}/ChangeLog";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

@@ -126,10 +126,10 @@ in
     } ];
 
     services.grafana.settings.rendering = mkIf cfg.provisionGrafana {
-      server_url =
-        "http://localhost:${toString cfg.settings.service.port}/render";
-      callback_url =
-        "http://localhost:${
+      server_url = "http://localhost:${
+          toString cfg.settings.service.port
+        }/render";
+      callback_url = "http://localhost:${
           toString config.services.grafana.settings.server.http_port
         }";
     };
@@ -152,16 +152,14 @@ in
     systemd.services.grafana-image-renderer = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      description =
-        " A Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
+      description = " A Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
 
       environment = { PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"; };
 
       serviceConfig = {
         DynamicUser = true;
         PrivateTmp = true;
-        ExecStart =
-          "${pkgs.grafana-image-renderer}/bin/grafana-image-renderer server --config=${configFile}";
+        ExecStart = "${pkgs.grafana-image-renderer}/bin/grafana-image-renderer server --config=${configFile}";
         Restart = "always";
       };
     };

@@ -48,8 +48,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "PyTorch image models, scripts, and pretrained weights";
     homepage = "https://huggingface.co/docs/timm/index";
-    changelog =
-      "https://github.com/huggingface/pytorch-image-models/blob/v${version}/README.md#whats-new";
+    changelog = "https://github.com/huggingface/pytorch-image-models/blob/v${version}/README.md#whats-new";
     license = licenses.asl20;
     maintainers = with maintainers; [ bcdarwin ];
   };

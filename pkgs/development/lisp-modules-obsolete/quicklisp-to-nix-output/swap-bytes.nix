@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/swap-bytes/2019-11-30/swap-bytes-v1.2.tgz";
+    url = "http://beta.quicklisp.org/archive/swap-bytes/2019-11-30/swap-bytes-v1.2.tgz";
     sha256 = "05g37m4cpsszh16jz7kiscd6m6l66ms73f3s6s94i56c49jfxdy8";
   };
 

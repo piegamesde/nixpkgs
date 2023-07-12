@@ -47,8 +47,7 @@ import ../make-test-python.nix (
           services.nginx = {
             enable = true;
             recommendedProxySettings = true;
-            virtualHosts."_".locations."/".proxyPass =
-              "http://unix:/run/grafana/sock";
+            virtualHosts."_".locations."/".proxyPass = "http://unix:/run/grafana/sock";
           };
         }
       ;

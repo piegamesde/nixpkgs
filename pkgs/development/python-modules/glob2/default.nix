@@ -19,8 +19,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Version of the glob module that can capture patterns and supports recursive wildcards";
+    description = "Version of the glob module that can capture patterns and supports recursive wildcards";
     homepage = "https://github.com/miracle2k/python-glob2/";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];

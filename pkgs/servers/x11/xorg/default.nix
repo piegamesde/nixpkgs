@@ -61,8 +61,7 @@ with self; {
           version = "1.1.1";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://xorg.freedesktop.org/archive/individual/util/bdftopcf-1.1.1.tar.xz";
+            url = "https://xorg.freedesktop.org/archive/individual/util/bdftopcf-1.1.1.tar.xz";
             sha256 = "026rzs92h9jsc7r0kvvyvwhm22q0805gp38rs14x6ghg7kam7j8i";
           };
           hardeningDisable = [
@@ -221,8 +220,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-adobe-100dpi-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-adobe-100dpi-1.0.3.tar.bz2";
             sha256 = "0m60f5bd0caambrk8ksknb5dks7wzsg7g7xaf0j21jxmx8rq9h5j";
           };
           hardeningDisable = [
@@ -238,8 +236,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -263,8 +260,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-adobe-75dpi-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-adobe-75dpi-1.0.3.tar.bz2";
             sha256 = "02advcv9lyxpvrjv8bjh1b797lzg6jvhipclz49z8r8y98g4l0n6";
           };
           hardeningDisable = [
@@ -280,8 +276,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -305,8 +300,7 @@ with self; {
           version = "1.0.4";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-adobe-utopia-100dpi-1.0.4.tar.bz2";
+            url = "mirror://xorg/individual/font/font-adobe-utopia-100dpi-1.0.4.tar.bz2";
             sha256 = "19dd9znam1ah72jmdh7i6ny2ss2r6m21z9v0l43xvikw48zmwvyi";
           };
           hardeningDisable = [
@@ -322,8 +316,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -347,8 +340,7 @@ with self; {
           version = "1.0.4";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-adobe-utopia-75dpi-1.0.4.tar.bz2";
+            url = "mirror://xorg/individual/font/font-adobe-utopia-75dpi-1.0.4.tar.bz2";
             sha256 = "152wigpph5wvl4k9m3l4mchxxisgsnzlx033mn5iqrpkc6f72cl7";
           };
           hardeningDisable = [
@@ -364,8 +356,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -388,8 +379,7 @@ with self; {
           version = "1.0.4";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-adobe-utopia-type1-1.0.4.tar.bz2";
+            url = "mirror://xorg/individual/font/font-adobe-utopia-type1-1.0.4.tar.bz2";
             sha256 = "0xw0pdnzj5jljsbbhakc6q9ha2qnca1jr81zk7w70yl9bw83b54p";
           };
           hardeningDisable = [
@@ -403,8 +393,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -458,8 +447,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-arabic-misc-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-arabic-misc-1.0.3.tar.bz2";
             sha256 = "1x246dfnxnmflzf0qzy62k8jdpkb6jkgspcjgbk8jcq9lw99npah";
           };
           hardeningDisable = [
@@ -474,8 +462,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -515,8 +502,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -556,8 +542,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -581,8 +566,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-bh-lucidatypewriter-100dpi-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-bh-lucidatypewriter-100dpi-1.0.3.tar.bz2";
             sha256 = "1fqzckxdzjv4802iad2fdrkpaxl4w0hhs9lxlkyraq2kq9ik7a32";
           };
           hardeningDisable = [
@@ -598,8 +582,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -623,8 +606,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-bh-lucidatypewriter-75dpi-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-bh-lucidatypewriter-75dpi-1.0.3.tar.bz2";
             sha256 = "0cfbxdp5m12cm7jsh3my0lym9328cgm7fa9faz2hqj05wbxnmhaa";
           };
           hardeningDisable = [
@@ -640,8 +622,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -678,8 +659,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -716,8 +696,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -741,8 +720,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-bitstream-100dpi-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-bitstream-100dpi-1.0.3.tar.bz2";
             sha256 = "1kmn9jbck3vghz6rj3bhc3h0w6gh0qiaqm90cjkqsz1x9r2dgq7b";
           };
           hardeningDisable = [
@@ -757,8 +735,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -782,8 +759,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-bitstream-75dpi-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-bitstream-75dpi-1.0.3.tar.bz2";
             sha256 = "13plbifkvfvdfym6gjbgy9wx2xbdxi9hfrl1k22xayy02135wgxs";
           };
           hardeningDisable = [
@@ -798,8 +774,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -822,8 +797,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-bitstream-type1-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-bitstream-type1-1.0.3.tar.bz2";
             sha256 = "1256z0jhcf5gbh1d03593qdwnag708rxqa032izmfb5dmmlhbsn6";
           };
           hardeningDisable = [
@@ -837,8 +811,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -862,8 +835,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-cronyx-cyrillic-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-cronyx-cyrillic-1.0.3.tar.bz2";
             sha256 = "0ai1v4n61k8j9x2a1knvfbl2xjxk3xxmqaq3p9vpqrspc69k31kf";
           };
           hardeningDisable = [
@@ -878,8 +850,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -903,8 +874,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-cursor-misc-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-cursor-misc-1.0.3.tar.bz2";
             sha256 = "0dd6vfiagjc4zmvlskrbjz85jfqhf060cpys8j0y1qpcbsrkwdhp";
           };
           hardeningDisable = [
@@ -919,8 +889,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -944,8 +913,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-daewoo-misc-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-daewoo-misc-1.0.3.tar.bz2";
             sha256 = "1s2bbhizzgbbbn5wqs3vw53n619cclxksljvm759h9p1prqdwrdw";
           };
           hardeningDisable = [
@@ -960,8 +928,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1000,8 +967,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1038,8 +1004,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1078,8 +1043,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1118,8 +1082,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1158,8 +1121,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1183,8 +1145,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-misc-cyrillic-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-misc-cyrillic-1.0.3.tar.bz2";
             sha256 = "0q2ybxs8wvylvw95j6x9i800rismsmx4b587alwbfqiw6biy63z4";
           };
           hardeningDisable = [
@@ -1199,8 +1160,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1223,8 +1183,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-misc-ethiopic-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-misc-ethiopic-1.0.3.tar.bz2";
             sha256 = "19cq7iq0pfad0nc2v28n681fdq3fcw1l1hzaq0wpkgpx7bc1zjsk";
           };
           hardeningDisable = [
@@ -1238,8 +1197,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1262,8 +1220,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-misc-meltho-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-misc-meltho-1.0.3.tar.bz2";
             sha256 = "148793fqwzrc3bmh2vlw5fdiwjc2n7vs25cic35gfp452czk489p";
           };
           hardeningDisable = [
@@ -1277,8 +1234,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1318,8 +1274,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1358,8 +1313,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1383,8 +1337,7 @@ with self; {
           version = "1.1.2";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-schumacher-misc-1.1.2.tar.bz2";
+            url = "mirror://xorg/individual/font/font-schumacher-misc-1.1.2.tar.bz2";
             sha256 = "0nkym3n48b4v36y4s927bbkjnsmicajarnf6vlp7wxp0as304i74";
           };
           hardeningDisable = [
@@ -1400,8 +1353,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1425,8 +1377,7 @@ with self; {
           version = "1.0.4";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-screen-cyrillic-1.0.4.tar.bz2";
+            url = "mirror://xorg/individual/font/font-screen-cyrillic-1.0.4.tar.bz2";
             sha256 = "0yayf1qlv7irf58nngddz2f1q04qkpr5jwp4aja2j5gyvzl32hl2";
           };
           hardeningDisable = [
@@ -1441,8 +1392,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1481,8 +1431,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1521,8 +1470,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1613,8 +1561,7 @@ with self; {
           version = "1.0.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2";
+            url = "mirror://xorg/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2";
             sha256 = "181n1bgq8vxfxqicmy1jpm1hnr6gwn1kdhl6hr4frjigs1ikpldb";
           };
           hardeningDisable = [
@@ -1629,8 +1576,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1653,8 +1599,7 @@ with self; {
           version = "1.0.4";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/font/font-xfree86-type1-1.0.4.tar.bz2";
+            url = "mirror://xorg/individual/font/font-xfree86-type1-1.0.4.tar.bz2";
             sha256 = "0jp3zc0qfdaqfkgzrb44vi9vi0a8ygb35wp082yz7rvvxhmg9sya";
           };
           hardeningDisable = [
@@ -1668,8 +1613,7 @@ with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch =
-            "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -3246,8 +3190,7 @@ with self; {
           version = "0.4";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://xcb.freedesktop.org/dist/libpthread-stubs-0.4.tar.bz2";
+            url = "https://xcb.freedesktop.org/dist/libpthread-stubs-0.4.tar.bz2";
             sha256 = "0cz7s9w8lqgzinicd4g36rjg08zhsbyngh0w68c3np8nlc8mkl74";
           };
           hardeningDisable = [
@@ -3494,8 +3437,7 @@ with self; {
           version = "20190106";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://invisible-mirror.net/archives/luit/luit-20190106.tgz";
+            url = "https://invisible-mirror.net/archives/luit/luit-20190106.tgz";
             sha256 = "081rrajj5hpgx3pvm43grqzscnq5kl320q0wq6zzhf6wrijhz41b";
           };
           hardeningDisable = [
@@ -4169,8 +4111,7 @@ with self; {
           version = "0.1.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.3.tar.bz2";
+            url = "https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.3.tar.bz2";
             sha256 = "0krr4rcw6r42cncinzvzzdqnmxk3nrgpnadyg2h8k9x10q3hm885";
           };
           hardeningDisable = [
@@ -4215,8 +4156,7 @@ with self; {
           version = "1.0.1";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://xcb.freedesktop.org/dist/xcb-util-errors-1.0.1.tar.xz";
+            url = "https://xcb.freedesktop.org/dist/xcb-util-errors-1.0.1.tar.xz";
             sha256 = "0mzkh3xj1n690dw8hrdhyjykd71ib0ls9n5cgf9asna2k1xwha2n";
           };
           hardeningDisable = [
@@ -4260,8 +4200,7 @@ with self; {
           version = "0.4.1";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://xcb.freedesktop.org/dist/xcb-util-image-0.4.1.tar.xz";
+            url = "https://xcb.freedesktop.org/dist/xcb-util-image-0.4.1.tar.xz";
             sha256 = "0g8dwknrlz96k176qxh8ar84x9kpppci9b978zyp24nvvbjqxbfc";
           };
           hardeningDisable = [
@@ -4303,8 +4242,7 @@ with self; {
           version = "0.4.1";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.1.tar.xz";
+            url = "https://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.1.tar.xz";
             sha256 = "0f66snk179hmp8ppgv1zp9y7pl1vzn52znpikm1fsaj1ji90l9kw";
           };
           hardeningDisable = [
@@ -4345,8 +4283,7 @@ with self; {
           version = "0.3.10";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.10.tar.xz";
+            url = "https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.10.tar.xz";
             sha256 = "1fh4dnlwlqyccrhmmwlv082a7mxc7ss7vmzmp7xxp39dwbqd859y";
           };
           hardeningDisable = [
@@ -4902,8 +4839,7 @@ with self; {
           version = "2.10.6";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-input-evdev-2.10.6.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-input-evdev-2.10.6.tar.bz2";
             sha256 = "1h1y0fwnawlp4yc5llr1l7hwfcxxpln2fxhy6arcf6w6h4z0f9l7";
           };
           hardeningDisable = [
@@ -4941,8 +4877,7 @@ with self; {
           version = "1.6.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-input-joystick-1.6.3.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-input-joystick-1.6.3.tar.bz2";
             sha256 = "1awfq496d082brgjbr60lhm6jvr9537rflwxqdfqwfzjy3n6jxly";
           };
           hardeningDisable = [
@@ -4977,8 +4912,7 @@ with self; {
           version = "1.9.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-input-keyboard-1.9.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-input-keyboard-1.9.0.tar.bz2";
             sha256 = "12032yg412kyvnmc5fha1in7mpi651d8sa1bk4138s2j2zr01jgp";
           };
           hardeningDisable = [
@@ -5014,8 +4948,7 @@ with self; {
           version = "1.2.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-input-libinput-1.2.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-input-libinput-1.2.0.tar.bz2";
             sha256 = "1xk9b05csndcgcj8kbb6fkwa3c7njzzxc6qvz9bvy77y2k2s63gq";
           };
           hardeningDisable = [
@@ -5051,8 +4984,7 @@ with self; {
           version = "1.9.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-input-mouse-1.9.3.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-input-mouse-1.9.3.tar.bz2";
             sha256 = "1iawr1wyl2qch1mqszcs0s84i92mh4xxprflnycbw1adc18b7v4k";
           };
           hardeningDisable = [
@@ -5091,8 +5023,7 @@ with self; {
           version = "1.9.1";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-input-synaptics-1.9.1.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-input-synaptics-1.9.1.tar.bz2";
             sha256 = "0xhm03qywwfgkpfl904d08lx00y28m1b6lqmks5nxizixwk3by3s";
           };
           hardeningDisable = [
@@ -5132,8 +5063,7 @@ with self; {
           version = "13.1.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-input-vmmouse-13.1.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-input-vmmouse-13.1.0.tar.bz2";
             sha256 = "06ckn4hlkpig5vnivl0zj8a7ykcgvrsj8b3iccl1pgn1gaamix8a";
           };
           hardeningDisable = [
@@ -5169,8 +5099,7 @@ with self; {
           version = "1.4.1";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-input-void-1.4.1.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-input-void-1.4.1.tar.bz2";
             sha256 = "171k8b8s42s3w73l7ln9jqwk88w4l7r1km2blx1vy898c854yvpr";
           };
           hardeningDisable = [
@@ -5209,8 +5138,7 @@ with self; {
           version = "23.0.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-amdgpu-23.0.0.tar.xz";
+            url = "mirror://xorg/individual/driver/xf86-video-amdgpu-23.0.0.tar.xz";
             sha256 = "0qf0kjh6pww5abxmqa4c9sfa2qq1hq4p8qcgqpfd1kpkcvmg012g";
           };
           hardeningDisable = [
@@ -5250,8 +5178,7 @@ with self; {
           version = "1.3.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-apm-1.3.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-apm-1.3.0.tar.bz2";
             sha256 = "0znwqfc8abkiha98an8hxsngnz96z6cd976bc4bsvz1km6wqk0c0";
           };
           hardeningDisable = [
@@ -5288,8 +5215,7 @@ with self; {
           version = "0.7.5";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-ark-0.7.5.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-ark-0.7.5.tar.bz2";
             sha256 = "07p5vdsj2ckxb6wh02s61akcv4qfg6s1d5ld3jn3lfaayd3f1466";
           };
           hardeningDisable = [
@@ -5326,8 +5252,7 @@ with self; {
           version = "1.1.5";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-ast-1.1.5.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-ast-1.1.5.tar.bz2";
             sha256 = "1pm2cy81ma7ldsw0yfk28b33h9z2hcj5rccrxhfxfgvxsiavrnqy";
           };
           hardeningDisable = [
@@ -5368,8 +5293,7 @@ with self; {
           version = "5eba006e4129e8015b822f9e1d2f1e613e252cda";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/archive/5eba006e4129e8015b822f9e1d2f1e613e252cda/xf86-video-ati-5eba006e4129e8015b822f9e1d2f1e613e252cda.tar.bz2";
+            url = "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/archive/5eba006e4129e8015b822f9e1d2f1e613e252cda/xf86-video-ati-5eba006e4129e8015b822f9e1d2f1e613e252cda.tar.bz2";
             sha256 = "0gmymk8207fd9rjliq05l2gvx220h432rj3h75hv2ylr3k9vmp2b";
           };
           hardeningDisable = [
@@ -5410,8 +5334,7 @@ with self; {
           version = "1.4.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-chips-1.4.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-chips-1.4.0.tar.bz2";
             sha256 = "1gqzy7q9v824m7hqkbbmncxg082zm0d4mafgc97c4skyiwgf9wq7";
           };
           hardeningDisable = [
@@ -5448,8 +5371,7 @@ with self; {
           version = "1.5.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-cirrus-1.5.3.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-cirrus-1.5.3.tar.bz2";
             sha256 = "1asifc6ld2g9kap15vfhvsvyl69lj7pw3d9ra9mi4najllh7pj7d";
           };
           hardeningDisable = [
@@ -5485,8 +5407,7 @@ with self; {
           version = "0.3.8";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-dummy-0.3.8.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-dummy-0.3.8.tar.bz2";
             sha256 = "1fcm9vwgv8wnffbvkzddk4yxrh3kc0np6w65wj8k88q7jf3bn4ip";
           };
           hardeningDisable = [
@@ -5522,8 +5443,7 @@ with self; {
           version = "0.5.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-fbdev-0.5.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-fbdev-0.5.0.tar.bz2";
             sha256 = "16a66zr0l1lmssa07i3rzy07djxnb45c17ks8c71h8l06xgxihyw";
           };
           hardeningDisable = [
@@ -5560,8 +5480,7 @@ with self; {
           version = "2.11.19";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-geode-2.11.19.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-geode-2.11.19.tar.bz2";
             sha256 = "0zn9gb49grds5mcs1dlrx241k2w1sgqmx4i5x7v6159xxqhlqsf6";
           };
           hardeningDisable = [
@@ -5597,8 +5516,7 @@ with self; {
           version = "1.2.2";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-glide-1.2.2.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-glide-1.2.2.tar.bz2";
             sha256 = "1vaav6kx4n00q4fawgqnjmbdkppl0dir2dkrj4ad372mxrvl9c4y";
           };
           hardeningDisable = [
@@ -5634,8 +5552,7 @@ with self; {
           version = "1.2.9";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-glint-1.2.9.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-glint-1.2.9.tar.bz2";
             sha256 = "1lkpspvrvrp9s539bhfdjfh4andaqyk63l6zjn8m3km95smk6a45";
           };
           hardeningDisable = [
@@ -5672,8 +5589,7 @@ with self; {
           version = "1.4.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-i128-1.4.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-i128-1.4.0.tar.bz2";
             sha256 = "1snhpv1igrhifcls3r498kjd14ml6x2xvih7zk9xlsd1ymmhlb4g";
           };
           hardeningDisable = [
@@ -5710,8 +5626,7 @@ with self; {
           version = "1.4.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-i740-1.4.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-i740-1.4.0.tar.bz2";
             sha256 = "0l3s1m95bdsg4gki943qipq8agswbb84dzcflpxa3vlckwhh3r26";
           };
           hardeningDisable = [
@@ -5764,8 +5679,7 @@ with self; {
           version = "2.99.917";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-intel-2.99.917.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-intel-2.99.917.tar.bz2";
             sha256 = "1jb7jspmzidfixbc0gghyjmnmpqv85i7pi13l4h2hn2ml3p83dq0";
           };
           hardeningDisable = [
@@ -5857,8 +5771,7 @@ with self; {
           version = "1.3.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-neomagic-1.3.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-neomagic-1.3.0.tar.bz2";
             sha256 = "0r4h673kw8fl7afc30anwbjlbhp82mg15fvaxf470xg7z983k0wk";
           };
           hardeningDisable = [
@@ -5894,8 +5807,7 @@ with self; {
           version = "0.2.4";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-newport-0.2.4.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-newport-0.2.4.tar.bz2";
             sha256 = "1yafmp23jrfdmc094i6a4dsizapsc9v0pl65cpc8w1kvn7343k4i";
           };
           hardeningDisable = [
@@ -5933,8 +5845,7 @@ with self; {
           version = "3ee7cbca8f9144a3bb5be7f71ce70558f548d268";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "https://gitlab.freedesktop.org/xorg/driver/xf86-video-nouveau/-/archive/3ee7cbca8f9144a3bb5be7f71ce70558f548d268/xf86-video-nouveau-3ee7cbca8f9144a3bb5be7f71ce70558f548d268.tar.bz2";
+            url = "https://gitlab.freedesktop.org/xorg/driver/xf86-video-nouveau/-/archive/3ee7cbca8f9144a3bb5be7f71ce70558f548d268/xf86-video-nouveau-3ee7cbca8f9144a3bb5be7f71ce70558f548d268.tar.bz2";
             sha256 = "0rhs3z274jdzd82pcsl25xn8hmw6i4cxs2kwfnphpfhxbbkiq7wl";
           };
           hardeningDisable = [
@@ -5973,8 +5884,7 @@ with self; {
           version = "2.1.21";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-nv-2.1.21.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-nv-2.1.21.tar.bz2";
             sha256 = "0bdk3pc5y0n7p53q4gc2ff7bw16hy5hwdjjxkm5j3s7hdyg6960z";
           };
           hardeningDisable = [
@@ -6011,8 +5921,7 @@ with self; {
           version = "0.4.5";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-omap-0.4.5.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-omap-0.4.5.tar.bz2";
             sha256 = "0nmbrx6913dc724y8wj2p6vqfbj5zdjfmsl037v627jj0whx9rwk";
           };
           hardeningDisable = [
@@ -6054,8 +5963,7 @@ with self; {
           version = "0.6.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-openchrome-0.6.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-openchrome-0.6.0.tar.bz2";
             sha256 = "0x9gq3hw6k661k82ikd1y2kkk4dmgv310xr5q59dwn4k6z37aafs";
           };
           hardeningDisable = [
@@ -6139,8 +6047,7 @@ with self; {
           version = "6.12.1";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-r128-6.12.1.tar.xz";
+            url = "mirror://xorg/individual/driver/xf86-video-r128-6.12.1.tar.xz";
             sha256 = "0hf7h54wxgs8njavp0kgadjq1787fhbd588j7pj685hz2wmkq0kx";
           };
           hardeningDisable = [
@@ -6178,8 +6085,7 @@ with self; {
           version = "4.2.7";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-rendition-4.2.7.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-rendition-4.2.7.tar.bz2";
             sha256 = "0yzqcdfrnnyaaaa76d4hpwycpq4x2j8qvg9m4q19lj4xbicwc4cm";
           };
           hardeningDisable = [
@@ -6216,8 +6122,7 @@ with self; {
           version = "1.11.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-s3virge-1.11.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-s3virge-1.11.0.tar.bz2";
             sha256 = "06d1v5s7xf00y18x12cz11sk00rgn0yq95w66kmgzy465pzxvj84";
           };
           hardeningDisable = [
@@ -6255,8 +6160,7 @@ with self; {
           version = "2.3.9";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-savage-2.3.9.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-savage-2.3.9.tar.bz2";
             sha256 = "11pcrsdpdrwk0mrgv83s5nsx8a9i4lhmivnal3fjbrvi3zdw94rc";
           };
           hardeningDisable = [
@@ -6294,8 +6198,7 @@ with self; {
           version = "1.7.9";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-siliconmotion-1.7.9.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-siliconmotion-1.7.9.tar.bz2";
             sha256 = "1g2r6gxqrmjdff95d42msxdw6vmkg2zn5sqv0rxd420iwy8wdwyh";
           };
           hardeningDisable = [
@@ -6333,8 +6236,7 @@ with self; {
           version = "0.11.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-sis-0.11.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-sis-0.11.0.tar.bz2";
             sha256 = "0srvrhydjnynfb7b1s145rgmsk4f71iz0ag4icpmb05944d90xr1";
           };
           hardeningDisable = [
@@ -6372,8 +6274,7 @@ with self; {
           version = "0.9.7";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-sisusb-0.9.7.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-sisusb-0.9.7.tar.bz2";
             sha256 = "090lfs3hjz3cjd016v5dybmcsigj6ffvjdhdsqv13k90p4b08h7l";
           };
           hardeningDisable = [
@@ -6409,8 +6310,7 @@ with self; {
           version = "1.1.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-suncg6-1.1.3.tar.xz";
+            url = "mirror://xorg/individual/driver/xf86-video-suncg6-1.1.3.tar.xz";
             sha256 = "16c3g5m0f5y9nx2x6w9jdzbs9yr6xhq31j37dcffxbsskmfxq57w";
           };
           hardeningDisable = [
@@ -6445,8 +6345,7 @@ with self; {
           version = "1.2.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-sunffb-1.2.3.tar.xz";
+            url = "mirror://xorg/individual/driver/xf86-video-sunffb-1.2.3.tar.xz";
             sha256 = "0pf4ddh09ww7sxpzs5gr9pxh3gdwkg3f54067cp802nkw1n8vypi";
           };
           hardeningDisable = [
@@ -6481,8 +6380,7 @@ with self; {
           version = "1.2.3";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-sunleo-1.2.3.tar.xz";
+            url = "mirror://xorg/individual/driver/xf86-video-sunleo-1.2.3.tar.xz";
             sha256 = "1px670aiqyzddl1nz3xx1lmri39irajrqw6dskirs2a64jgp3dpc";
           };
           hardeningDisable = [
@@ -6519,8 +6417,7 @@ with self; {
           version = "1.5.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-tdfx-1.5.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-tdfx-1.5.0.tar.bz2";
             sha256 = "0qc5wzwf1n65si9rc37bh224pzahh7gp67vfimbxs0b9yvhq0i9g";
           };
           hardeningDisable = [
@@ -6558,8 +6455,7 @@ with self; {
           version = "1.2.2";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-tga-1.2.2.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-tga-1.2.2.tar.bz2";
             sha256 = "0cb161lvdgi6qnf1sfz722qn38q7kgakcvj7b45ba3i0020828r0";
           };
           hardeningDisable = [
@@ -6596,8 +6492,7 @@ with self; {
           version = "1.4.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-trident-1.4.0.tar.xz";
+            url = "mirror://xorg/individual/driver/xf86-video-trident-1.4.0.tar.xz";
             sha256 = "16qqn1brz50mwcy42zi1wsw9af56qadsaaiwm9hn1p6plyf22xkz";
           };
           hardeningDisable = [
@@ -6633,8 +6528,7 @@ with self; {
           version = "0.3.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-v4l-0.3.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-v4l-0.3.0.tar.bz2";
             sha256 = "084x4p4avy72mgm2vnnvkicw3419i6pp3wxik8zqh7gmq4xv5z75";
           };
           hardeningDisable = [
@@ -6670,8 +6564,7 @@ with self; {
           version = "1.0.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-vboxvideo-1.0.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-vboxvideo-1.0.0.tar.bz2";
             sha256 = "195z1js3i51qgxvhfw4bxb4dw3jcrrx2ynpm2y3475dypjzs7dkz";
           };
           hardeningDisable = [
@@ -6708,8 +6601,7 @@ with self; {
           version = "2.5.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-vesa-2.5.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-vesa-2.5.0.tar.bz2";
             sha256 = "0nf6ai74c60xk96kgr8q9mx6lrxm5id3765ws4d801irqzrj85hz";
           };
           hardeningDisable = [
@@ -6750,8 +6642,7 @@ with self; {
           version = "13.3.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-vmware-13.3.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-vmware-13.3.0.tar.bz2";
             sha256 = "0v06qhm059klq40m2yx4wypzb7h53aaassbjfmm6clcyclj1k5s7";
           };
           hardeningDisable = [
@@ -6792,8 +6683,7 @@ with self; {
           version = "1.2.5";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-voodoo-1.2.5.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-voodoo-1.2.5.tar.bz2";
             sha256 = "1s6p7yxmi12q4y05va53rljwyzd6ry492r1pgi7wwq6cznivhgly";
           };
           hardeningDisable = [
@@ -6829,8 +6719,7 @@ with self; {
           version = "0.4.0";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-wsfb-0.4.0.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-wsfb-0.4.0.tar.bz2";
             sha256 = "0hr8397wpd0by1hc47fqqrnaw3qdqd8aqgwgzv38w5k3l3jy6p4p";
           };
           hardeningDisable = [
@@ -6867,8 +6756,7 @@ with self; {
           version = "1.6.1";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/driver/xf86-video-xgi-1.6.1.tar.bz2";
+            url = "mirror://xorg/individual/driver/xf86-video-xgi-1.6.1.tar.bz2";
             sha256 = "10xd2vah0pnpw5spn40n4p95mpmgvdkly4i1cz51imnlfsw7g8si";
           };
           hardeningDisable = [
@@ -7419,8 +7307,7 @@ with self; {
           version = "2.33";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/data/xkeyboard-config/xkeyboard-config-2.33.tar.bz2";
+            url = "mirror://xorg/individual/data/xkeyboard-config/xkeyboard-config-2.33.tar.bz2";
             sha256 = "1g6kn7l0mixw50kgn7d97gwv1990c5rczr2x776q3xywss8dfzv5";
           };
           hardeningDisable = [
@@ -7945,8 +7832,7 @@ with self; {
           version = "1.11";
           builder = ./builder.sh;
           src = fetchurl {
-            url =
-              "mirror://xorg/individual/doc/xorg-sgml-doctools-1.11.tar.bz2";
+            url = "mirror://xorg/individual/doc/xorg-sgml-doctools-1.11.tar.bz2";
             sha256 = "0k5pffyi5bx8dmfn033cyhgd3gf6viqj3x769fqixifwhbgy2777";
           };
           hardeningDisable = [

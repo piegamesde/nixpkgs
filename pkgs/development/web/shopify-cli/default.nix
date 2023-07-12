@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = bundlerUpdateScript "shopify-cli";
 
   meta = with lib; {
-    description =
-      "CLI which helps you build against the Shopify platform faster";
+    description = "CLI which helps you build against the Shopify platform faster";
     homepage = "https://github.com/Shopify/shopify-cli";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];

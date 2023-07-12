@@ -41,8 +41,7 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion = pkgs.stdenv.hostPlatform.isx86;
-      message =
-        "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}";
+      message = "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}";
     } ];
 
     boot.initrd.availableKernelModules = [ "mptspi" ];

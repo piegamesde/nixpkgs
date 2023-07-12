@@ -101,8 +101,7 @@ buildPythonPackage rec {
   SCIPY_USE_G77_ABI_WRAPPER = 1;
 
   meta = with lib; {
-    description =
-      "SciPy (pronounced 'Sigh Pie') is open-source software for mathematics, science, and engineering";
+    description = "SciPy (pronounced 'Sigh Pie') is open-source software for mathematics, science, and engineering";
     homepage = "https://www.scipy.org/";
     license = licenses.bsd3;
     maintainers = [ maintainers.fridh ];

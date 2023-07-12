@@ -14,8 +14,7 @@ gnustep'.gsmakeDerivation rec {
   version = "1.0-b10";
 
   src = fetchurl {
-    url =
-      "http://twilightedge.com/downloads/PikoPixel.Sources.${version}.tar.gz";
+    url = "http://twilightedge.com/downloads/PikoPixel.Sources.${version}.tar.gz";
     sha256 = "1b27npgsan2nx1p581b9q2krx4506yyd6s34r4sf1r9x9adshm77";
   };
 

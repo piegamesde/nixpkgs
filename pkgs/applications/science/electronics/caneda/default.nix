@@ -29,8 +29,7 @@ mkDerivation rec {
   ];
 
   meta = {
-    description =
-      "Open source EDA software focused on easy of use and portability";
+    description = "Open source EDA software focused on easy of use and portability";
     homepage = "http://caneda.org";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ viric ];

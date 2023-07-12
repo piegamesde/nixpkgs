@@ -18,8 +18,7 @@ stdenvNoCC.mkDerivation (
 
     src = fetchurl {
       name = "${pname}-${version}.zip";
-      url =
-        "https://grafana.com/api/plugins/${pname}/versions/${version}/download";
+      url = "https://grafana.com/api/plugins/${pname}/versions/${version}/download";
       hash = zipHash;
     };
 

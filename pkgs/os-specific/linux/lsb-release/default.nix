@@ -16,8 +16,7 @@ substituteAll {
   inherit coreutils getopt;
 
   meta = with lib; {
-    description =
-      "Prints certain LSB (Linux Standard Base) and Distribution information";
+    description = "Prints certain LSB (Linux Standard Base) and Distribution information";
     license = [ licenses.mit ];
     maintainers = with maintainers; [ primeos ];
     platforms = platforms.linux;

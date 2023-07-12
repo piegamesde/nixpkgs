@@ -58,8 +58,7 @@ stdenv.mkDerivation (
         inherit (finalAttrs) pname version;
       in
       fetchurl {
-        url =
-          "https://cran.r-project.org/src/base/R-${
+        url = "https://cran.r-project.org/src/base/R-${
             lib.versions.major version
           }/${pname}-${version}.tar.gz";
         sha256 = "sha256-VeSpptQ74xTiwD0CZqb6VESv3OULMDv8O4Kzl5UW4HQ=";
@@ -179,12 +178,10 @@ stdenv.mkDerivation (
     # The store path to "which" is baked into src/library/base/R/unix/system.unix.R,
     # but Nix cannot detect it as a run-time dependency because the installed file
     # is compiled and compressed, which hides the store path.
-    postFixup =
-      "echo ${which} > $out/nix-support/undetected-runtime-dependencies";
+    postFixup = "echo ${which} > $out/nix-support/undetected-runtime-dependencies";
 
     doCheck = true;
-    preCheck =
-      "export HOME=$TMPDIR; export TZ=CET; bin/Rscript -e 'sessionInfo()'";
+    preCheck = "export HOME=$TMPDIR; export TZ=CET; bin/Rscript -e 'sessionInfo()'";
 
     enableParallelBuilding = true;
 
@@ -197,8 +194,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "http://www.r-project.org/";
-      description =
-        "Free software environment for statistical computing and graphics";
+      description = "Free software environment for statistical computing and graphics";
       license = licenses.gpl2Plus;
 
       longDescription = ''

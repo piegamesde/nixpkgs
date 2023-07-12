@@ -11,8 +11,7 @@ import ./make-test-python.nix (
     port = "5232";
     filesystem_folder = "/data/radicale";
 
-    cli =
-      "${pkgs.calendar-cli}/bin/calendar-cli --caldav-user ${user} --caldav-pass ${password}";
+    cli = "${pkgs.calendar-cli}/bin/calendar-cli --caldav-user ${user} --caldav-pass ${password}";
   in
   {
     name = "radicale3";
@@ -34,8 +33,7 @@ import ./make-test-python.nix (
             };
             storage = {
               inherit filesystem_folder;
-              hook =
-                "git add -A && (git diff --cached --quiet || git commit -m 'Changes by '%(user)s)";
+              hook = "git add -A && (git diff --cached --quiet || git commit -m 'Changes by '%(user)s)";
             };
             logging.level = "info";
           };

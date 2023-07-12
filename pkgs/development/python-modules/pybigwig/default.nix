@@ -42,8 +42,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "File access to bigBed files, and read and write access to bigWig files";
+    description = "File access to bigBed files, and read and write access to bigWig files";
     longDescription = ''
       A Python extension, written in C, for quick access to bigBed files
       and access to and creation of bigWig files. This extension uses

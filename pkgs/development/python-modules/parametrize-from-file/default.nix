@@ -28,8 +28,7 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "replace contextlib2-with-contextlib.patch";
-      url =
-        "https://github.com/kalekundert/parametrize_from_file/commit/edee706770a713130da7c4b38b0a07de1bd79c1b.patch";
+      url = "https://github.com/kalekundert/parametrize_from_file/commit/edee706770a713130da7c4b38b0a07de1bd79c1b.patch";
       hash = "sha256-VkPKGkYYTB5XCavtEEnFJ+EdNUUhITz/euwlYAPC/tQ=";
     })
   ];
@@ -67,8 +66,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Read unit test parameters from config files";
     homepage = "https://github.com/kalekundert/parametrize_from_file";
-    changelog =
-      "https://github.com/kalekundert/parametrize_from_file/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/kalekundert/parametrize_from_file/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   pname = "open-pdf-sign";
 
   src = fetchurl {
-    url =
-      "https://github.com/open-pdf-sign/open-pdf-sign/releases/download/v${version}/open-pdf-sign.jar";
+    url = "https://github.com/open-pdf-sign/open-pdf-sign/releases/download/v${version}/open-pdf-sign.jar";
     sha256 = "sha256-tGpjVgG8UcOC0ZFhQ201HvPUyoWso58uM52Vsdwb2lM=";
   };
 

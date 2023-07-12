@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/WebAssembly/binaryen";
-    description =
-      "Compiler infrastructure and toolchain library for WebAssembly, in C++";
+    description = "Compiler infrastructure and toolchain library for WebAssembly, in C++";
     platforms = platforms.all;
     maintainers = with maintainers; [ asppsa ];
     license = licenses.asl20;

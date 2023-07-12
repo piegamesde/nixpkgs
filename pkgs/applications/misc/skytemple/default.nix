@@ -63,8 +63,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/skytemple";
-    description =
-      "ROM hacking tool for Pokémon Mystery Dungeon Explorers of Sky";
+    description = "ROM hacking tool for Pokémon Mystery Dungeon Explorers of Sky";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       xfix

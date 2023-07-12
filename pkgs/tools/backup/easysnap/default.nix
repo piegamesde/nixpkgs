@@ -28,8 +28,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/sjau/easysnap";
-    description =
-      "Customizable ZFS Snapshotting tool with zfs send/recv pulling";
+    description = "Customizable ZFS Snapshotting tool with zfs send/recv pulling";
     license = licenses.gpl3;
     maintainers = with maintainers; [ sjau ];
   };

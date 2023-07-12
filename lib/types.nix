@@ -429,8 +429,7 @@ let
                 "numbers.between: lowest must be smaller than highest";
             addCheck number (x: x >= lowest && x <= highest) // {
               name = "numberBetween";
-              description =
-                "integer or floating point number between ${
+              description = "integer or floating point number between ${
                   betweenDesc lowest highest
                 }";
             }
@@ -438,13 +437,11 @@ let
 
           nonnegative = addCheck number (x: x >= 0) // {
             name = "numberNonnegative";
-            description =
-              "nonnegative integer or floating point number, meaning >=0";
+            description = "nonnegative integer or floating point number, meaning >=0";
           };
           positive = addCheck number (x: x > 0) // {
             name = "numberPositive";
-            description =
-              "positive integer or floating point number, meaning >0";
+            description = "positive integer or floating point number, meaning >0";
           };
         }
       ;
@@ -536,16 +533,14 @@ let
       # strings, which is usually not what you want.
       string = separatedString "" // {
         name = "string";
-        deprecationMessage =
-          "See https://github.com/NixOS/nixpkgs/pull/66346 for better alternative types.";
+        deprecationMessage = "See https://github.com/NixOS/nixpkgs/pull/66346 for better alternative types.";
       };
 
       passwdEntry =
         entryType:
         addCheck entryType (str: !(hasInfix ":" str || hasInfix "\n" str)) // {
           name = "passwdEntry ${entryType.name}";
-          description =
-            "${
+          description = "${
               optionDescriptionPhrase (class: class == "noun") entryType
             }, not containing newlines or colons";
         }
@@ -599,8 +594,7 @@ let
         elemType:
         mkOptionType rec {
           name = "listOf";
-          description =
-            "list of ${
+          description = "list of ${
               optionDescriptionPhrase
                 (class: class == "noun" || class == "composite")
                 elemType
@@ -654,8 +648,7 @@ let
           list = addCheck (types.listOf elemType) (l: l != [ ]);
         in
         list // {
-          description =
-            "non-empty ${
+          description = "non-empty ${
               optionDescriptionPhrase (class: class == "noun") list
             }";
           emptyValue = { }; # no .value attr, meaning unset
@@ -666,8 +659,7 @@ let
         elemType:
         mkOptionType rec {
           name = "attrsOf";
-          description =
-            "attribute set of ${
+          description = "attribute set of ${
               optionDescriptionPhrase
                 (class: class == "noun" || class == "composite")
                 elemType
@@ -720,8 +712,7 @@ let
         elemType:
         mkOptionType rec {
           name = "lazyAttrsOf";
-          description =
-            "lazy attribute set of ${
+          description = "lazy attribute set of ${
               optionDescriptionPhrase
                 (class: class == "noun" || class == "composite")
                 elemType
@@ -818,8 +809,7 @@ let
         elemType:
         mkOptionType rec {
           name = "nullOr";
-          description =
-            "null or ${
+          description = "null or ${
               optionDescriptionPhrase
                 (class: class == "noun" || class == "conjunction")
                 elemType
@@ -855,8 +845,7 @@ let
         elemType:
         mkOptionType {
           name = "functionTo";
-          description =
-            "function that evaluates to a(n) ${
+          description = "function that evaluates to a(n) ${
               optionDescriptionPhrase
                 (class: class == "noun" || class == "composite")
                 elemType
@@ -1181,8 +1170,7 @@ let
         t1: t2:
         mkOptionType rec {
           name = "either";
-          description =
-            "${
+          description = "${
               optionDescriptionPhrase
                 (class: class == "noun" || class == "conjunction")
                 t1
@@ -1255,8 +1243,9 @@ let
             "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
         mkOptionType rec {
           name = "coercedTo";
-          description =
-            "${optionDescriptionPhrase (class: class == "noun") finalType} or ${
+          description = "${
+              optionDescriptionPhrase (class: class == "noun") finalType
+            } or ${
               optionDescriptionPhrase (class: class == "noun") coercedType
             } convertible to it";
           check =

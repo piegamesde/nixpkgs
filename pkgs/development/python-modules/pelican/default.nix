@@ -108,8 +108,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pelican" ];
 
   meta = with lib; {
-    description =
-      "Static site generator that requires no database or server-side logic";
+    description = "Static site generator that requires no database or server-side logic";
     homepage = "https://getpelican.com/";
     license = licenses.agpl3;
     maintainers = with maintainers; [

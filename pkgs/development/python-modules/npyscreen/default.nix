@@ -17,8 +17,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Framework for developing console applications using Python and curses";
+    description = "Framework for developing console applications using Python and curses";
     homepage = "http://www.npcole.com/npyscreen/";
     maintainers = with maintainers; [ dump_stack ];
     license = licenses.bsd3;

@@ -91,8 +91,7 @@ rustPlatform.buildRustPackage rec {
   NIX_LDFLAGS = optionalString mysqlSupport "-lz -lssl -lcrypto";
 
   meta = with lib; {
-    description =
-      "Database tool for working with Rust projects that use Diesel";
+    description = "Database tool for working with Rust projects that use Diesel";
     homepage = "https://github.com/diesel-rs/diesel/tree/master/diesel_cli";
     license = with licenses; [
       mit

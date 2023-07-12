@@ -33,8 +33,7 @@ buildDunePackage rec {
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
   meta = {
-    description =
-      "Bindings for ECDH and ECDSA for 8-bit, 32-bit, and 64-bit processors";
+    description = "Bindings for ECDH and ECDSA for 8-bit, 32-bit, and 64-bit processors";
     homepage = "https://gitlab.com/nomadic-labs/ocaml-uecc";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.ulrikstrid ];

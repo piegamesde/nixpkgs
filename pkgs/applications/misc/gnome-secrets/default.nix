@@ -65,8 +65,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Password manager for GNOME which makes use of the KeePass v.4 format";
+    description = "Password manager for GNOME which makes use of the KeePass v.4 format";
     homepage = "https://gitlab.gnome.org/World/secrets";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

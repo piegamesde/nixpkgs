@@ -24,8 +24,7 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # Django 4.2 support; https://github.com/jazzband/django-taggit/pull/850
-      url =
-        "https://github.com/jazzband/django-taggit/commit/5f19cfbaa14e8d6d4d1679529eb168a87ca97908.patch";
+      url = "https://github.com/jazzband/django-taggit/commit/5f19cfbaa14e8d6d4d1679529eb168a87ca97908.patch";
       hash = "sha256-KcsiACLy3+1JoFquu//Kz+iAySZQAVIuBEKzNZaaR9s=";
     })
   ];
@@ -50,8 +49,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Simple tagging for django";
     homepage = "https://github.com/jazzband/django-taggit";
-    changelog =
-      "https://github.com/jazzband/django-taggit/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/jazzband/django-taggit/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ desiderius ];
   };

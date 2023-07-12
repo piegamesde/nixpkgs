@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   meta = with lib; {
-    description =
-      "Cargo subcommand showing the assembly, LLVM-IR and MIR generated for Rust code";
+    description = "Cargo subcommand showing the assembly, LLVM-IR and MIR generated for Rust code";
     homepage = "https://github.com/pacak/cargo-show-asm";
     license = with licenses; [
       asl20

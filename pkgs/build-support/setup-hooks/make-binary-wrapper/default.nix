@@ -20,8 +20,7 @@ makeSetupHook
     ;
 
     substitutions = {
-      cc =
-        "${cc}/bin/${cc.targetPrefix}cc ${
+      cc = "${cc}/bin/${cc.targetPrefix}cc ${
           lib.escapeShellArgs (map (s: "-fsanitize=${s}") sanitizers)
         }";
     };

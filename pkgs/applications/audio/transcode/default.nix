@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   pname = "transcode";
   version = "1.1.7";
   src = fetchurl {
-    url =
-      "https://bitbucket.org/france/transcode-tcforge/downloads/${pname}-${version}.tar.bz2";
+    url = "https://bitbucket.org/france/transcode-tcforge/downloads/${pname}-${version}.tar.bz2";
     sha256 = "1e4e72d8e0dd62a80b8dd90699f5ca64c9b0cb37a5c9325c184166a9654f0a92";
   };
 
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {
-    description =
-      "Suite of command line utilities for transcoding video and audio codecs, and for converting between different container formats";
+    description = "Suite of command line utilities for transcoding video and audio codecs, and for converting between different container formats";
     homepage = "http://www.transcoding.org/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

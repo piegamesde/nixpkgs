@@ -36,8 +36,7 @@ let
     };
 
     standalone = {
-      description =
-        "Versatile front-end to the image processing framework G'MIC";
+      description = "Versatile front-end to the image processing framework G'MIC";
     };
   };
 in
@@ -53,8 +52,9 @@ assert lib.assertMsg
 
 stdenv.mkDerivation (
   finalAttrs: {
-    pname =
-      "gmic-qt${lib.optionalString (variant != "standalone") "-${variant}"}";
+    pname = "gmic-qt${
+        lib.optionalString (variant != "standalone") "-${variant}"
+      }";
     version = "3.2.4";
 
     src = fetchzip {

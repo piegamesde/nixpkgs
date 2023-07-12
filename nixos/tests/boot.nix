@@ -145,8 +145,7 @@ in
 
       machineConfig = pythonDict {
         bios = "${pkgs.ubootQemuX86}/u-boot.rom";
-        qemuFlags =
-          "-m 768 -machine type=pc,accel=tcg -drive file=${mutableImage},if=ide,format=qcow2";
+        qemuFlags = "-m 768 -machine type=pc,accel=tcg -drive file=${mutableImage},if=ide,format=qcow2";
       };
     in
     makeTest {

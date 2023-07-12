@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Full-featured text-mode web browser (package based on the fork felinks)";
+    description = "Full-featured text-mode web browser (package based on the fork felinks)";
     homepage = "https://github.com/rkd77/felinks";
     license = licenses.gpl2;
     platforms = with platforms; linux ++ darwin;

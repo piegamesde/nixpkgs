@@ -49,8 +49,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     broken = isPyPy; # missing 2to3 conversion utility
-    description =
-      "A unittest-based testing framework for python that makes writing and running tests easier";
+    description = "A unittest-based testing framework for python that makes writing and running tests easier";
     homepage = "https://nose.readthedocs.io/";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ ];

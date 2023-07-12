@@ -87,8 +87,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "CLI tool for advanced Databricks jobs management";
     homepage = "https://github.com/databrickslabs/dbx";
-    changelog =
-      "https://github.com/databrickslabs/dbx/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/databrickslabs/dbx/blob/v${version}/CHANGELOG.md";
     license = licenses.databricks-dbx;
     maintainers = with maintainers; [ GuillaumeDesforges ];
   };

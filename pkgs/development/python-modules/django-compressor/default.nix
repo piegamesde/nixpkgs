@@ -46,8 +46,7 @@ buildPythonPackage rec {
   DJANGO_SETTINGS_MODULE = "compressor.test_settings";
 
   meta = with lib; {
-    description =
-      "Compresses linked and inline JavaScript or CSS into single cached files";
+    description = "Compresses linked and inline JavaScript or CSS into single cached files";
     homepage = "https://django-compressor.readthedocs.org/en/latest/";
     license = licenses.mit;
     maintainers = with maintainers; [ desiderius ];

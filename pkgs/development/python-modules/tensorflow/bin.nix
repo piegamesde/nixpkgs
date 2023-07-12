@@ -213,8 +213,7 @@ buildPythonPackage {
   passthru = { inherit cudaPackages; };
 
   meta = with lib; {
-    description =
-      "Computation using data flow graphs for scalable machine learning";
+    description = "Computation using data flow graphs for scalable machine learning";
     homepage = "http://tensorflow.org";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;

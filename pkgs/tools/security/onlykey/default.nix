@@ -24,8 +24,7 @@ let
   ;
 
   # this must be updated anytime this package is updated.
-  onlykeyPkg =
-    "onlykey-git+https://github.com/trustcrypto/OnlyKey-App.git#v${version}";
+  onlykeyPkg = "onlykey-git+https://github.com/trustcrypto/OnlyKey-App.git#v${version}";
 
   # define a shortcut to get to onlykey.
   onlykey = self."${onlykeyPkg}";
@@ -63,8 +62,7 @@ let
   desktop = makeDesktopItem {
     name = onlykey.packageName;
     exec = script;
-    icon =
-      "${onlykey}/lib/node_modules/${onlykey.packageName}/resources/onlykey_logo_128.png";
+    icon = "${onlykey}/lib/node_modules/${onlykey.packageName}/resources/onlykey_logo_128.png";
     desktopName = onlykey.packageName;
     genericName = onlykey.packageName;
   };

@@ -14,8 +14,7 @@ import ./make-test-python.nix (
         services.httpd = {
           enable = true;
           adminAddr = "foo@example.org";
-          virtualHosts.localhost.documentRoot =
-            "${pkgs.valgrind.doc}/share/doc/valgrind/html";
+          virtualHosts.localhost.documentRoot = "${pkgs.valgrind.doc}/share/doc/valgrind/html";
         };
         networking.firewall.allowedTCPPorts = [ 80 ];
       }

@@ -32,8 +32,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python client for interacting with transport.opendata.ch";
-    homepage =
-      "https://github.com/home-assistant-ecosystem/python-opendata-transport";
+    homepage = "https://github.com/home-assistant-ecosystem/python-opendata-transport";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

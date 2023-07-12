@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   src =
     with lib.versions;
     fetchurl {
-      url =
-        "https://www.open-mpi.org/software/ompi/v${major version}.${
+      url = "https://www.open-mpi.org/software/ompi/v${major version}.${
           minor version
         }/downloads/${pname}-${version}.tar.bz2";
       sha256 = "sha256-pkCYa8JXOJ3TeYhv2uYmTIz6VryYtxzjrj372M5h2+M=";
@@ -149,8 +148,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.open-mpi.org/";
     description = "Open source MPI-3 implementation";
-    longDescription =
-      "The Open MPI Project is an open source MPI-3 implementation that is developed and maintained by a consortium of academic, research, and industry partners. Open MPI is therefore able to combine the expertise, technologies, and resources from all across the High Performance Computing community in order to build the best MPI library available. Open MPI offers advantages for system and software vendors, application developers and computer science researchers.";
+    longDescription = "The Open MPI Project is an open source MPI-3 implementation that is developed and maintained by a consortium of academic, research, and industry partners. Open MPI is therefore able to combine the expertise, technologies, and resources from all across the High Performance Computing community in order to build the best MPI library available. Open MPI offers advantages for system and software vendors, application developers and computer science researchers.";
     maintainers = with maintainers; [ markuskowa ];
     license = licenses.bsd3;
     platforms = platforms.unix;

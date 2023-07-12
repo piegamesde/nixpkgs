@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   version = "1.4.1";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/openastromenace/astromenace-src-${version}.tar.bz2";
+    url = "mirror://sourceforge/openastromenace/astromenace-src-${version}.tar.bz2";
     sha256 = "1rkz6lwjcd5mwv72kf07ghvx6z46kf3xs250mjbmnmjpn7r5sxwv";
   };
 
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Hardcore 3D space shooter with spaceship upgrade possibilities";
+    description = "Hardcore 3D space shooter with spaceship upgrade possibilities";
     homepage = "https://www.viewizard.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

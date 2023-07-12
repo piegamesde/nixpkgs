@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A fast version of fnv1a";
     homepage = "https://github.com/bdraco/fnv-hash-fast";
-    changelog =
-      "https://github.com/bdraco/fnv-hash-fast/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/bdraco/fnv-hash-fast/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

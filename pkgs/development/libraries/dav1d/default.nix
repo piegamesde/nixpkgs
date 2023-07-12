@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description =
-      "A cross-platform AV1 decoder focused on speed and correctness";
+    description = "A cross-platform AV1 decoder focused on speed and correctness";
     longDescription = ''
       The goal of this project is to provide a decoder for most platforms, and
       achieve the highest speed possible to overcome the temporary lack of AV1

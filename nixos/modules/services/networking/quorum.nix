@@ -125,8 +125,7 @@ in
 
         api = mkOption {
           type = types.str;
-          default =
-            "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
+          default = "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
           description = lib.mdDoc "API's offered over the HTTP-RPC interface.";
         };
       };
@@ -155,8 +154,7 @@ in
 
         api = mkOption {
           type = types.str;
-          default =
-            "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
+          default = "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
           description = lib.mdDoc "API's offered over the WS-RPC interface.";
         };
 

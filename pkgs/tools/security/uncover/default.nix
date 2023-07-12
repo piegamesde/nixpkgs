@@ -26,8 +26,7 @@ buildGoModule rec {
       Currently, it supports shodan,shodan-internetdb, censys, and fofa search API.
     '';
     homepage = "https://github.com/projectdiscovery/uncover";
-    changelog =
-      "https://github.com/projectdiscovery/uncover/releases/tag/v${version}";
+    changelog = "https://github.com/projectdiscovery/uncover/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

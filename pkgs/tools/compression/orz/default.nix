@@ -34,8 +34,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A high performance, general purpose data compressor written in rust";
+    description = "A high performance, general purpose data compressor written in rust";
     homepage = "https://github.com/richox/orz";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

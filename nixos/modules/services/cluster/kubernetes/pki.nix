@@ -33,8 +33,7 @@ let
   );
 
   cfsslAPITokenBaseName = "apitoken.secret";
-  cfsslAPITokenPath =
-    "${config.services.cfssl.dataDir}/${cfsslAPITokenBaseName}";
+  cfsslAPITokenPath = "${config.services.cfssl.dataDir}/${cfsslAPITokenBaseName}";
   certmgrAPITokenPath = "${top.secretsPath}/${cfsslAPITokenBaseName}";
   cfsslAPITokenLength = 32;
 

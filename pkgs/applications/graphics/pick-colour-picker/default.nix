@@ -47,8 +47,7 @@ buildPythonPackage rec {
     homepage = "https://kryogenix.org/code/pick/";
     license = licenses.mit;
     platforms = platforms.linux;
-    description =
-      "A colour picker that remembers where you picked colours from";
+    description = "A colour picker that remembers where you picked colours from";
     maintainers = [ maintainers.mkg20001 ];
 
     longDescription = ''

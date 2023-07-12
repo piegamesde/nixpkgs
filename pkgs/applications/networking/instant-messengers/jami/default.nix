@@ -215,8 +215,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://jami.net/";
-    description =
-      "The free and universal communication platform that respects the privacy and freedoms of its users";
+    description = "The free and universal communication platform that respects the privacy and freedoms of its users";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.linsui ];

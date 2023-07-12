@@ -63,8 +63,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Open-source penetration testing framework designed for social engineering";
+    description = "Open-source penetration testing framework designed for social engineering";
     longDescription = ''
       The Social-Engineer Toolkit is an open-source penetration testing framework
       designed for social engineering. SET has a number of custom attack vectors

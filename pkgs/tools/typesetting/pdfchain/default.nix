@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "0.4.4.2";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/${pname}/${pname}-${version}/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/${pname}/${pname}-${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-Hu4Pk9voyc75+f5OwKEOCkXKjN5nzWzv+izmyEN1Lz0=";
   };
 
@@ -41,8 +40,7 @@ stdenv.mkDerivation rec {
           sha256,
         }:
         fetchpatch {
-          url =
-            "https://salsa.debian.org/debian/pdfchain/raw/2d29107756a3194fb522bdea8e9b9e393b15a8f3/debian/patches/${name}";
+          url = "https://salsa.debian.org/debian/pdfchain/raw/2d29107756a3194fb522bdea8e9b9e393b15a8f3/debian/patches/${name}";
           inherit name sha256;
         }
       ;

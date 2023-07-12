@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
   version = "${gccVersion}-${alireRevision}";
 
   src = fetchzip {
-    url =
-      "https://github.com/alire-project/GNAT-FSF-builds/releases/download/gnat-${version}/gnat-${stdenv.hostPlatform.system}-${version}.tar.gz";
+    url = "https://github.com/alire-project/GNAT-FSF-builds/releases/download/gnat-${version}/gnat-${stdenv.hostPlatform.system}-${version}.tar.gz";
     inherit hash;
   };
 

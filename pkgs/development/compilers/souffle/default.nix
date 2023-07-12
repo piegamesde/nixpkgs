@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ./threads.patch
     (fetchpatch {
       name = "missing-override.patch";
-      url =
-        "https://github.com/souffle-lang/souffle/commit/da2d778f0cca94f206686546fa56b9ffc738ad75.patch";
+      url = "https://github.com/souffle-lang/souffle/commit/da2d778f0cca94f206686546fa56b9ffc738ad75.patch";
       sha256 = "Oefm3vRRwOyom94oGSOK2w9m23gkbJ++9gcWrdLlkyk=";
     })
   ];
@@ -80,8 +79,7 @@ stdenv.mkDerivation rec {
   outputs = [ "out" ];
 
   meta = with lib; {
-    description =
-      "A translator of declarative Datalog programs into the C++ language";
+    description = "A translator of declarative Datalog programs into the C++ language";
     homepage = "https://souffle-lang.github.io/";
     platforms = platforms.unix;
     maintainers = with maintainers; [

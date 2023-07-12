@@ -57,10 +57,8 @@ import ./make-test-python.nix (
 
         environment = {
           shellAliases = {
-            test-wayland =
-              "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
-            test-x11 =
-              "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
+            test-wayland = "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
+            test-x11 = "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
           };
 
           systemPackages = with pkgs; [

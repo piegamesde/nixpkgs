@@ -26,8 +26,7 @@ let
       dontBuild = true;
       dontConfigure = true;
 
-      datadir =
-        "${
+      datadir = "${
           placeholder "out"
         }/share/Geant4-${geant4.version}/data/${pname}${version}";
       installPhase = ''

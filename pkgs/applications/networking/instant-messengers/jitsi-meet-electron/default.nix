@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "2022.10.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/jitsi/jitsi-meet-electron/releases/download/v${version}/jitsi-meet-x86_64.AppImage";
+    url = "https://github.com/jitsi/jitsi-meet-electron/releases/download/v${version}/jitsi-meet-x86_64.AppImage";
     sha256 = "sha256-98zuAsGT30paxszSO1XcMY8tsrMBeBLDFjK/JWhLC8s=";
     name = "${pname}-${version}.AppImage";
   };

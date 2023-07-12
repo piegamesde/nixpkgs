@@ -29,8 +29,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ecs_logging" ];
 
   meta = with lib; {
-    description =
-      "Logging formatters for the Elastic Common Schema (ECS) in Python";
+    description = "Logging formatters for the Elastic Common Schema (ECS) in Python";
     homepage = "https://github.com/elastic/ecs-logging-python";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

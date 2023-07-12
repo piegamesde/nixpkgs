@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "u3Eoo8L+u/7pwDuQ131JjQzrI3sHiYAtYBhcccS+ok8=";
@@ -88,8 +87,9 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
-    "${placeholder "out"}/lib/systemd/user";
+  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${
+      placeholder "out"
+    }/lib/systemd/user";
 
   postPatch = ''
     patchShebangs gcr/fixtures/

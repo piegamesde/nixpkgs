@@ -145,8 +145,7 @@ in
   config = mkIf cfg.enable {
     assertions = singleton {
       assertion = cfg.password == null || cfg.passwordFile == null;
-      message =
-        "Cannot use both password and passwordFile for shadowsocks-libev";
+      message = "Cannot use both password and passwordFile for shadowsocks-libev";
     };
 
     systemd.services.shadowsocks-libev = {

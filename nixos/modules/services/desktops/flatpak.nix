@@ -27,8 +27,7 @@ in
 
     assertions = [ {
       assertion = (config.xdg.portal.enable == true);
-      message =
-        "To use Flatpak you must enable XDG Desktop Portals with xdg.portal.enable.";
+      message = "To use Flatpak you must enable XDG Desktop Portals with xdg.portal.enable.";
     } ];
 
     environment.systemPackages = [ pkgs.flatpak ];

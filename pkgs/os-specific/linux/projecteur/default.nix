@@ -41,8 +41,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Linux/X11 application for the Logitech Spotlight device (and similar devices).";
+    description = "Linux/X11 application for the Logitech Spotlight device (and similar devices).";
     homepage = "https://github.com/jahnf/Projecteur";
     license = licenses.mit;
     platforms = platforms.linux;

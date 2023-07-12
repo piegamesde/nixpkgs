@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "0.1.7";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/libwpd/libodfgen/libodfgen-${version}/libodfgen-${version}.tar.xz";
+    url = "mirror://sourceforge/project/libwpd/libodfgen/libodfgen-${version}/libodfgen-${version}.tar.xz";
     sha256 = "sha256-Mj5JH5VsjKKrsSyZjjUGcJMKMjF7+WYrBhXdSzkiuDE=";
   };
 

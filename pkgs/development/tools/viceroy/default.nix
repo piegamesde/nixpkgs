@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
   cargoTestFlags = [ "--package viceroy-lib" ];
 
   meta = with lib; {
-    description =
-      "Viceroy provides local testing for developers working with Compute@Edge";
+    description = "Viceroy provides local testing for developers working with Compute@Edge";
     homepage = "https://github.com/fastly/Viceroy";
     license = licenses.asl20;
     maintainers = with maintainers; [

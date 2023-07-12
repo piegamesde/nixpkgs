@@ -56,8 +56,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Terminal tool for file transfer and explorer";
     homepage = "https://github.com/veeso/termscp";
-    changelog =
-      "https://github.com/veeso/termscp/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/veeso/termscp/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

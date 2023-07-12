@@ -31,8 +31,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flexmock" ];
 
   meta = with lib; {
-    description =
-      "Testing library that makes it easy to create mocks,stubs and fakes";
+    description = "Testing library that makes it easy to create mocks,stubs and fakes";
     homepage = "https://flexmock.readthedocs.org";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ ];

@@ -40,8 +40,7 @@ let
     lockFile = ./Cargo.lock;
     outputHashes = {
       "csv-1.1.6" = "sha256-w728ffOVkI+IfK6FbmkGhr0CjuyqgJnPB1kutMJIUYg=";
-      "linkcheck-0.4.1-alpha.0" =
-        "sha256-Fiom8oHW9y7vV2RLXW0ClzHOdIlBq3Z9jLP+p6Sk4GI=";
+      "linkcheck-0.4.1-alpha.0" = "sha256-Fiom8oHW9y7vV2RLXW0ClzHOdIlBq3Z9jLP+p6Sk4GI=";
     };
   };
 

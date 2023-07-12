@@ -21,11 +21,9 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Run Rust files and expressions as scripts without any setup or compilation step";
+    description = "Run Rust files and expressions as scripts without any setup or compilation step";
     homepage = "https://rust-script.org";
-    changelog =
-      "https://github.com/fornwall/rust-script/releases/tag/${version}";
+    changelog = "https://github.com/fornwall/rust-script/releases/tag/${version}";
     license = with licenses; [
       mit # or
       asl20

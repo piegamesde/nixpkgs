@@ -42,8 +42,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Jupyter Notebook Tools for Sphinx";
     homepage = "https://nbsphinx.readthedocs.io/";
-    changelog =
-      "https://github.com/spatialaudio/nbsphinx/blob/${version}/NEWS.rst";
+    changelog = "https://github.com/spatialaudio/nbsphinx/blob/${version}/NEWS.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];
   };

@@ -107,8 +107,7 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          "${pkgs.shairport-sync}/bin/shairport-sync ${cfg.arguments}";
+        ExecStart = "${pkgs.shairport-sync}/bin/shairport-sync ${cfg.arguments}";
         RuntimeDirectory = "shairport-sync";
       };
     };

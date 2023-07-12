@@ -51,22 +51,18 @@ rec {
 
       linuxHostGuestMatrix = {
         x86_64-linux = "${qemuPkg}/bin/qemu-kvm -cpu max";
-        armv7l-linux =
-          "${qemuPkg}/bin/qemu-system-arm -machine virt,accel=kvm:tcg -cpu max";
-        aarch64-linux =
-          "${qemuPkg}/bin/qemu-system-aarch64 -machine virt,gic-version=max,accel=kvm:tcg -cpu max";
+        armv7l-linux = "${qemuPkg}/bin/qemu-system-arm -machine virt,accel=kvm:tcg -cpu max";
+        aarch64-linux = "${qemuPkg}/bin/qemu-system-aarch64 -machine virt,gic-version=max,accel=kvm:tcg -cpu max";
         powerpc64le-linux = "${qemuPkg}/bin/qemu-system-ppc64 -machine powernv";
         powerpc64-linux = "${qemuPkg}/bin/qemu-system-ppc64 -machine powernv";
         x86_64-darwin = "${qemuPkg}/bin/qemu-kvm -cpu max";
       };
       otherHostGuestMatrix = {
         aarch64-darwin = {
-          aarch64-linux =
-            "${qemuPkg}/bin/qemu-system-aarch64 -machine virt,gic-version=2,accel=hvf:tcg -cpu max";
+          aarch64-linux = "${qemuPkg}/bin/qemu-system-aarch64 -machine virt,gic-version=2,accel=hvf:tcg -cpu max";
         };
         x86_64-darwin = {
-          x86_64-linux =
-            "${qemuPkg}/bin/qemu-system-x86_64 -machine type=q35,accel=hvf:tcg -cpu max";
+          x86_64-linux = "${qemuPkg}/bin/qemu-system-x86_64 -machine type=q35,accel=hvf:tcg -cpu max";
         };
       };
 

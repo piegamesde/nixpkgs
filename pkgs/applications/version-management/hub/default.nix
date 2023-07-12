@@ -70,8 +70,7 @@ buildGoModule rec {
   passthru.tests = { inherit (nixosTests) hub; };
 
   meta = with lib; {
-    description =
-      "Command-line wrapper for git that makes you better at GitHub";
+    description = "Command-line wrapper for git that makes you better at GitHub";
     homepage = "https://hub.github.com/";
     license = licenses.mit;
     maintainers = with maintainers; [ globin ];

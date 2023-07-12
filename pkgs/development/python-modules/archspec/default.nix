@@ -36,8 +36,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "archspec" ];
 
   meta = with lib; {
-    description =
-      "Library for detecting, labeling, and reasoning about microarchitectures";
+    description = "Library for detecting, labeling, and reasoning about microarchitectures";
     homepage = "https://archspec.readthedocs.io/";
     changelog = "https://github.com/archspec/archspec/releases/tag/v0.2.0";
     license = with licenses; [

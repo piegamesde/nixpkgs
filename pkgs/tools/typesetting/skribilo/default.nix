@@ -29,8 +29,7 @@ stdenv.mkDerivation (
     version = "0.10.0";
 
     src = fetchurl {
-      url =
-        "http://download.savannah.nongnu.org/releases/skribilo/skribilo-${finalAttrs.version}.tar.gz";
+      url = "http://download.savannah.nongnu.org/releases/skribilo/skribilo-${finalAttrs.version}.tar.gz";
       hash = "sha256-jP9I7hds7f1QMmSaNJpGlSvqUOwGcg+CnBzMopIS9Q4=";
     };
 

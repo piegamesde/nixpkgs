@@ -73,8 +73,7 @@ py.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Google Photos and Albums backup with Google Photos Library API";
+    description = "Google Photos and Albums backup with Google Photos Library API";
     homepage = "https://github.com/gilesknap/gphotos-sync";
     license = licenses.asl20;
     maintainers = with maintainers; [ dnr ];

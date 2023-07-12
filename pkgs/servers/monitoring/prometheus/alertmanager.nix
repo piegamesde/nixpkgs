@@ -51,8 +51,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Alert dispatcher for the Prometheus monitoring system";
     homepage = "https://github.com/prometheus/alertmanager";
-    changelog =
-      "https://github.com/prometheus/alertmanager/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/prometheus/alertmanager/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [
       benley

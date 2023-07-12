@@ -62,8 +62,7 @@ buildPythonPackage rec {
     (fetchurl {
       # https://github.com/pyside/Shiboken/pull/90
       name = "fix-build-with-python-3.9.patch";
-      url =
-        "https://github.com/pyside/Shiboken/commit/d1c901d4c0af581003553865360ba964cda041e8.patch";
+      url = "https://github.com/pyside/Shiboken/commit/d1c901d4c0af581003553865360ba964cda041e8.patch";
       sha256 = "1f7slz8n8rps5r67hz3hi4rr82igc3l166shfy6647ivsb2fnxwy";
     })
   ];
@@ -75,8 +74,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Plugin (front-end) for pyside-generatorrunner, that generates bindings for C++ libraries using CPython source code";
+    description = "Plugin (front-end) for pyside-generatorrunner, that generates bindings for C++ libraries using CPython source code";
     license = licenses.gpl2;
     homepage = "http://www.pyside.org/";
     maintainers = [ ];

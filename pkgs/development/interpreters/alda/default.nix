@@ -11,14 +11,12 @@ stdenv.mkDerivation rec {
   version = "2.2.3";
 
   src_alda = fetchurl {
-    url =
-      "https://alda-releases.nyc3.digitaloceanspaces.com/${version}/client/linux-amd64/alda";
+    url = "https://alda-releases.nyc3.digitaloceanspaces.com/${version}/client/linux-amd64/alda";
     hash = "sha256-cyOAXQ3ITIgy4QusjdYBNmNIzB6BzfbQEypvJbkbvWo=";
   };
 
   src_player = fetchurl {
-    url =
-      "https://alda-releases.nyc3.digitaloceanspaces.com/${version}/player/non-windows/alda-player";
+    url = "https://alda-releases.nyc3.digitaloceanspaces.com/${version}/player/non-windows/alda-player";
     hash = "sha256-HsX0mNWrusL2FaK2oK8xhmr/ai+3ZiMmrJk7oS3b93g=";
   };
 

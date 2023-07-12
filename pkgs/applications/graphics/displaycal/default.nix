@@ -66,8 +66,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description =
-      "Display calibration and characterization powered by Argyll CMS (Migrated to Python 3)";
+    description = "Display calibration and characterization powered by Argyll CMS (Migrated to Python 3)";
     homepage = "https://github.com/eoyilmaz/displaycal-py3";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

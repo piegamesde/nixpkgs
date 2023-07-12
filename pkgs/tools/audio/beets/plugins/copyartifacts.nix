@@ -31,8 +31,7 @@ python3Packages.buildPythonApplication {
   ];
 
   meta = {
-    description =
-      "Beets plugin to move non-music files during the import process";
+    description = "Beets plugin to move non-music files during the import process";
     homepage = "https://github.com/sbarakat/beets-copyartifacts";
     license = lib.licenses.mit;
     inherit (beets.meta) platforms;

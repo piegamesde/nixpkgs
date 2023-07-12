@@ -43,8 +43,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "cryptg" ];
 
   meta = with lib; {
-    description =
-      "Official Telethon extension to provide much faster cryptography for Telegram API requests";
+    description = "Official Telethon extension to provide much faster cryptography for Telegram API requests";
     homepage = "https://github.com/cher-nov/cryptg";
     license = licenses.cc0;
     maintainers = with maintainers; [ nickcao ];

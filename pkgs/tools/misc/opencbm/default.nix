@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Kernel driver and development library to control serial CBM devices";
+    description = "Kernel driver and development library to control serial CBM devices";
     longDescription = ''
       Win 7/8/10, and Linux/i386/AMD64 kernel driver and development library to
       control serial CBM devices, such as the Commodore 1541 disk drive,

@@ -40,8 +40,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Microsoft Azure Container Registry Client Library for Python";
+    description = "Microsoft Azure Container Registry Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

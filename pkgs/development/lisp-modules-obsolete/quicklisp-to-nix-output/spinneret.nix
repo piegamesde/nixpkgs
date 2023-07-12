@@ -49,8 +49,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/spinneret/2021-10-20/spinneret-20211020-git.tgz";
+    url = "http://beta.quicklisp.org/archive/spinneret/2021-10-20/spinneret-20211020-git.tgz";
     sha256 = "1j3z2sr98j7rd8ssxp8r1yxlj8chvldn0k2nh2vf2jaynhwk3slq";
   };
 

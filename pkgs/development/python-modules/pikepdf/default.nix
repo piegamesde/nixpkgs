@@ -99,8 +99,7 @@ buildPythonPackage rec {
       kiwi
       dotlambda
     ];
-    changelog =
-      "https://github.com/pikepdf/pikepdf/blob/${src.rev}/docs/releasenotes/version${
+    changelog = "https://github.com/pikepdf/pikepdf/blob/${src.rev}/docs/releasenotes/version${
         lib.versions.major version
       }.rst";
   };

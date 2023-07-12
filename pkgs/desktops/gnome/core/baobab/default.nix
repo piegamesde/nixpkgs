@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "hFtju5Ej10VoyBJsVxu8dCc0g/+SAXmizx7du++hv8A=";
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
-    description =
-      "Graphical application to analyse disk usage in any GNOME environment";
+    description = "Graphical application to analyse disk usage in any GNOME environment";
     homepage = "https://wiki.gnome.org/Apps/DiskUsageAnalyzer";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

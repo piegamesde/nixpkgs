@@ -22,8 +22,7 @@ mkDerivation rec {
   version = "4.13.1-38";
 
   src = fetchurl {
-    url =
-      "https://www.signalyst.eu/bins/hqplayer/fc34/hqplayer4desktop-${version}.fc34.x86_64.rpm";
+    url = "https://www.signalyst.eu/bins/hqplayer/fc34/hqplayer4desktop-${version}.fc34.x86_64.rpm";
     sha256 = "sha256-DEZWEGk5SfhcNQddehCBVbfeTH8KfVCdaxQ+F3MrRe8=";
   };
 

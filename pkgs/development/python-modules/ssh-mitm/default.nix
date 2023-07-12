@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Tool for SSH security audits";
     homepage = "https://github.com/ssh-mitm/ssh-mitm";
-    changelog =
-      "https://github.com/ssh-mitm/ssh-mitm/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/ssh-mitm/ssh-mitm/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

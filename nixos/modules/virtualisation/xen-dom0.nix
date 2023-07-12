@@ -168,8 +168,7 @@ in
     assertions = [
       {
         assertion = pkgs.stdenv.isx86_64;
-        message =
-          "Xen currently not supported on ${pkgs.stdenv.hostPlatform.system}";
+        message = "Xen currently not supported on ${pkgs.stdenv.hostPlatform.system}";
       }
       {
         assertion =
@@ -284,8 +283,7 @@ in
         (builtins.compareVersions cfg.package.version "4.10" >= 0)
         {
           # in V 4.10 oxenstored requires /etc/xen/oxenstored.conf to start
-          "xen/oxenstored.conf".source =
-            "${cfg.package}/etc/xen/oxenstored.conf";
+          "xen/oxenstored.conf".source = "${cfg.package}/etc/xen/oxenstored.conf";
         };
 
     # Xen provides udev rules.
@@ -492,8 +490,7 @@ in
         ${pkgs.inetutils}/bin/ifconfig ${cfg.bridge.name} netmask $XEN_BRIDGE_NETMASK
         ${pkgs.inetutils}/bin/ifconfig ${cfg.bridge.name} up
       '';
-      serviceConfig.ExecStart =
-        "${pkgs.dnsmasq}/bin/dnsmasq --conf-file=/var/run/xen/dnsmasq.conf";
+      serviceConfig.ExecStart = "${pkgs.dnsmasq}/bin/dnsmasq --conf-file=/var/run/xen/dnsmasq.conf";
       postStop = ''
         IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
           toString cfg.bridge.prefixLength
@@ -517,8 +514,7 @@ in
     };
 
     systemd.services.xen-domains = {
-      description =
-        "Xen domains - automatically starts, saves and restores Xen domains";
+      description = "Xen domains - automatically starts, saves and restores Xen domains";
       wantedBy = [ "multi-user.target" ];
       after = [
         "xen-bridge.service"

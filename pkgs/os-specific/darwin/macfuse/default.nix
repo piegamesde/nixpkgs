@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "4.4.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/osxfuse/osxfuse/releases/download/macfuse-${version}/macfuse-${version}.dmg";
+    url = "https://github.com/osxfuse/osxfuse/releases/download/macfuse-${version}/macfuse-${version}.dmg";
     sha256 = "2a2d0f37ec5fcff547c5efa7d08539103a0b46bc16080c2b41a7e749f6e65c61";
   };
 

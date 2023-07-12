@@ -106,8 +106,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A python module for reading, manipulating and writing genome data sets";
+    description = "A python module for reading, manipulating and writing genome data sets";
     homepage = "https://pysam.readthedocs.io/";
     maintainers = with maintainers; [ unode ];
     license = licenses.mit;

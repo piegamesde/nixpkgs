@@ -334,8 +334,7 @@ rec {
         buildPhase = "./Setup sdist";
         haddockPhase = ":";
         checkPhase = ":";
-        installPhase =
-          "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz";
+        installPhase = "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz";
         fixupPhase = ":";
       }
     )

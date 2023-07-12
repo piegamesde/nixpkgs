@@ -30,8 +30,7 @@ import ./make-test-python.nix (
           common {
             systemd.user.services.maestral = {
               wantedBy = [ "default.target" ];
-              serviceConfig.ExecStart =
-                "${pkgs.maestral}/bin/maestral start --foreground";
+              serviceConfig.ExecStart = "${pkgs.maestral}/bin/maestral start --foreground";
             };
           }
         ;
@@ -56,8 +55,7 @@ import ./make-test-python.nix (
             systemd.user.services = {
               maestral = {
                 wantedBy = [ "graphical-session.target" ];
-                serviceConfig.ExecStart =
-                  "${pkgs.maestral-gui}/bin/maestral_qt";
+                serviceConfig.ExecStart = "${pkgs.maestral-gui}/bin/maestral_qt";
               };
               # PowerDevil doesn't like our VM
               plasma-powerdevil.enable = false;

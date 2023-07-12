@@ -10,8 +10,7 @@ stdenv.mkDerivation {
   version = "7.89";
 
   src = fetchurl {
-    url =
-      "http://business.toshiba.com/downloads/KB/f1Ulds/15178/TOSHIBA_ColorMFP_CUPS.tar";
+    url = "http://business.toshiba.com/downloads/KB/f1Ulds/15178/TOSHIBA_ColorMFP_CUPS.tar";
     sha256 = "0qz4r7q55i0adf4fv3aqnfqgi2pz3jb1jixkqm9x6nk4vanyjf4r";
   };
 
@@ -34,8 +33,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description =
-      "Printer only driver for the Toshiba e-STUDIO class of printers";
+    description = "Printer only driver for the Toshiba e-STUDIO class of printers";
     longDescription = ''
       This driver supports the following printers: TOSHIBA e-STUDIO2000AC,
       TOSHIBA e-STUDIO2005AC, TOSHIBA e-STUDIO2040C, TOSHIBA e-STUDIO2050C,

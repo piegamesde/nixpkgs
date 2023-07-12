@@ -22,8 +22,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/zopefoundation/zope.size";
-    description =
-      "Interfaces and simple adapter that give the size of an object";
+    description = "Interfaces and simple adapter that give the size of an object";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };

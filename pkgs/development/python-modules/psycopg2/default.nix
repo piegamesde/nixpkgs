@@ -46,8 +46,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "psycopg2" ];
 
   meta = with lib; {
-    description =
-      "PostgreSQL database adapter for the Python programming language";
+    description = "PostgreSQL database adapter for the Python programming language";
     homepage = "https://www.psycopg.org";
     license = with licenses; [
       lgpl3Plus

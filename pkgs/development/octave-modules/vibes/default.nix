@@ -23,8 +23,7 @@ buildOctavePackage rec {
       mit
     ];
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Easily display results (boxes, pavings) from interval methods";
+    description = "Easily display results (boxes, pavings) from interval methods";
     longDescription = ''
       The VIBes API allows one to easily display results (boxes, pavings) from
       interval methods. VIBes consists in two parts: (1) the VIBes application

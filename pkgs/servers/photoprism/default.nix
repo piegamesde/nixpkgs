@@ -96,8 +96,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://photoprism.app";
-    description =
-      "Personal Photo Management powered by Go and Google TensorFlow";
+    description = "Personal Photo Management powered by Go and Google TensorFlow";
     inherit (libtensorflow.meta) platforms;
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ benesim ];

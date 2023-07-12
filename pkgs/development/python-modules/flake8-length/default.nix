@@ -33,8 +33,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Flake8 plugin for a smart line length validation";
     homepage = "https://github.com/orsinium-labs/flake8-length";
-    changelog =
-      "https://github.com/orsinium-labs/flake8-length/releases/tag/${version}";
+    changelog = "https://github.com/orsinium-labs/flake8-length/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sauyon ];
   };

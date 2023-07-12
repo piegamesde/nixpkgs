@@ -110,8 +110,7 @@ let
         # Since this is a recursive type and the description by default contains
         # the description of its subtypes, infinite recursion would occur without
         # explicitly breaking this cycle
-        description =
-          "znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)";
+        description = "znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)";
       }
     );
   };
@@ -295,8 +294,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         Restart = "always";
-        ExecStart =
-          "${pkgs.znc}/bin/znc --foreground --datadir ${cfg.dataDir} ${
+        ExecStart = "${pkgs.znc}/bin/znc --foreground --datadir ${cfg.dataDir} ${
             escapeShellArgs cfg.extraFlags
           }";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

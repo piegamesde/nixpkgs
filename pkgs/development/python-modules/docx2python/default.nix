@@ -17,8 +17,7 @@ buildPythonPackage rec {
     sha256 = "1nwg17ziwm9a2x7yxsscj8zgc1d383ifsk5w7qa2fws6gf627kyi";
   };
 
-  preCheck =
-    "cd test"; # Tests require the `test/resources` folder to be accessible
+  preCheck = "cd test"; # Tests require the `test/resources` folder to be accessible
   nativeCheckInputs = [ pytestCheckHook ];
   disabledTests = [
     # asserts related to file deletions fail
@@ -30,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/ShayHill/docx2python";
-    description =
-      "Extract docx headers, footers, (formatted) text, footnotes, endnotes, properties, and images";
+    description = "Extract docx headers, footers, (formatted) text, footnotes, endnotes, properties, and images";
     maintainers = [ maintainers.ivar ];
     license = licenses.mit;
   };

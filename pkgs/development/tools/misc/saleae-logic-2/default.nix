@@ -8,8 +8,7 @@ let
   name = "saleae-logic-2";
   version = "2.4.7";
   src = fetchurl {
-    url =
-      "https://downloads.saleae.com/logic2/Logic-${version}-master.AppImage";
+    url = "https://downloads.saleae.com/logic2/Logic-${version}-master.AppImage";
     hash = "sha256-dMt8XWLatLNothU9oTJqYrBGNZZs0L5dXRMKP9ZeM6E=";
   };
   desktopItem = makeDesktopItem {

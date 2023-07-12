@@ -8,8 +8,9 @@
 }:
 
 let
-  pyVersion =
-    "${lib.versions.major python.version}${lib.versions.minor python.version}";
+  pyVersion = "${lib.versions.major python.version}${
+      lib.versions.minor python.version
+    }";
 in
 buildPythonPackage rec {
   pname = "tensorrt";
@@ -43,8 +44,7 @@ buildPythonPackage rec {
   pythonCheckImports = [ "tensorrt" ];
 
   meta = with lib; {
-    description =
-      "Python bindings for TensorRT, a high-performance deep learning interface";
+    description = "Python bindings for TensorRT, a high-performance deep learning interface";
     homepage = "https://developer.nvidia.com/tensorrt";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

@@ -17,8 +17,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchzip {
-    url =
-      "https://dist.ballerina.io/downloads/${version}/ballerina-${version}-${codeName}.zip";
+    url = "https://dist.ballerina.io/downloads/${version}/ballerina-${version}-${codeName}.zip";
     sha256 = "sha256-6UpUKoUHkYW9aPo2AbpP5uC1rCv578ultG9II1jZPRE=";
   };
 

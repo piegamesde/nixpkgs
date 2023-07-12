@@ -42,8 +42,9 @@ let
                   variant: [
                     { archive = "artifacts.zip"; }
                     {
-                      archive =
-                        "${lib.toLower hostPlatform.uname.system}-x64.zip";
+                      archive = "${
+                          lib.toLower hostPlatform.uname.system
+                        }-x64.zip";
                     }
                   ]
                 )
@@ -138,15 +139,13 @@ let
     in
     stdenv.mkDerivation (
       {
-        pname =
-          "flutter-artifact${
+        pname = "flutter-artifact${
             lib.optionalString (platform != null) "-${artifactDirectory}"
           }-${archiveBasename}";
         version = engineVersion;
 
         src = fetchzip {
-          url =
-            "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
+          url = "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
               lib.optionalString (platform != null) "/${artifactDirectory}"
             }/${archive}";
           stripRoot = false;

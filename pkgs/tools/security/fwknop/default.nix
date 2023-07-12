@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
       #   https://github.com/mrash/fwknop/pull/319
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/mrash/fwknop/commit/a8214fd58bc46d23b64b3a55db023c7f5a5ea6af.patch";
+        url = "https://github.com/mrash/fwknop/commit/a8214fd58bc46d23b64b3a55db023c7f5a5ea6af.patch";
         sha256 = "0cp1350q66n455hpd3rdydb9anx66bcirza5gyyyy5232zgg58bi";
       })
     ];
@@ -81,8 +80,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Single Packet Authorization (and Port Knocking) server/client";
+    description = "Single Packet Authorization (and Port Knocking) server/client";
     longDescription = ''
       fwknop stands for the "FireWall KNock OPerator", and implements an
       authorization scheme called Single Packet Authorization (SPA).

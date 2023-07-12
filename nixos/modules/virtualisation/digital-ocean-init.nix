@@ -42,8 +42,7 @@ in
 
   config = {
     systemd.services.digitalocean-init = mkIf cfg.rebuildFromUserData {
-      description =
-        "Reconfigure the system from Digital Ocean userdata on startup";
+      description = "Reconfigure the system from Digital Ocean userdata on startup";
       wantedBy = [ "network-online.target" ];
       unitConfig = {
         ConditionPathExists = "!/etc/nixos/do-userdata.nix";

@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "2.0.1";
 
   src = fetchurl {
-    url =
-      "http://savannah.nongnu.org/download/castget/castget-${version}.tar.bz2";
+    url = "http://savannah.nongnu.org/download/castget/castget-${version}.tar.bz2";
     hash = "sha256-Q4tffsfjGkXtN1ZjD+RH9CAVrNpT7AkgL0hihya16HU=";
   };
 

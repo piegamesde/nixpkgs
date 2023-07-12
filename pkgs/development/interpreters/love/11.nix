@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-lua=luajit" ];
 
-  env.NIX_CFLAGS_COMPILE =
-    "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
+  env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
 
   meta = {
     homepage = "https://love2d.org";

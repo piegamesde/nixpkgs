@@ -25,8 +25,7 @@ let
   # https://github.com/trevyn/librclone/pull/8
   librclone-mismatched-types-patch = fetchpatch {
     name = "use-c_char-to-be-platform-independent.patch";
-    url =
-      "https://github.com/trevyn/librclone/commit/91fdf3fa5f5eea0dfd06981ba72e09034974fdad.patch";
+    url = "https://github.com/trevyn/librclone/commit/91fdf3fa5f5eea0dfd06981ba72e09034974fdad.patch";
     hash = "sha256-8YDyUNP/ISP5jCliT6UCxZ89fdRFud+6u6P29XdPy58=";
   };
 in
@@ -113,10 +112,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = {
-    changelog =
-      "https://github.com/hwittenborn/celeste/blob/${src.rev}/CHANGELOG.md";
-    description =
-      "GUI file synchronization client that can sync with any cloud provider";
+    changelog = "https://github.com/hwittenborn/celeste/blob/${src.rev}/CHANGELOG.md";
+    description = "GUI file synchronization client that can sync with any cloud provider";
     homepage = "https://github.com/hwittenborn/celeste";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ dotlambda ];

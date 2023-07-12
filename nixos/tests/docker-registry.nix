@@ -36,8 +36,7 @@ import ./make-test-python.nix (
         }:
         {
           virtualisation.docker.enable = true;
-          virtualisation.docker.extraOptions =
-            "--insecure-registry registry:8080";
+          virtualisation.docker.extraOptions = "--insecure-registry registry:8080";
         }
       ;
 
@@ -47,8 +46,7 @@ import ./make-test-python.nix (
         }:
         {
           virtualisation.docker.enable = true;
-          virtualisation.docker.extraOptions =
-            "--insecure-registry registry:8080";
+          virtualisation.docker.extraOptions = "--insecure-registry registry:8080";
         }
       ;
     };

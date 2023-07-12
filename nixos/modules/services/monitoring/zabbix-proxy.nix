@@ -263,19 +263,16 @@ in
     assertions = [
       {
         assertion = !config.services.zabbixServer.enable;
-        message =
-          "Please choose one of services.zabbixServer or services.zabbixProxy.";
+        message = "Please choose one of services.zabbixServer or services.zabbixProxy.";
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
-        message =
-          "services.zabbixProxy.database.user must be set to ${user} if services.zabbixProxy.database.createLocally is set true";
+        message = "services.zabbixProxy.database.user must be set to ${user} if services.zabbixProxy.database.createLocally is set true";
       }
       {
         assertion =
           cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message =
-          "a password cannot be specified if services.zabbixProxy.database.createLocally is set to true";
+        message = "a password cannot be specified if services.zabbixProxy.database.createLocally is set to true";
       }
     ];
 
@@ -399,8 +396,7 @@ in
       ;
 
       serviceConfig = {
-        ExecStart =
-          "@${cfg.package}/sbin/zabbix_proxy zabbix_proxy -f --config ${configFile}";
+        ExecStart = "@${cfg.package}/sbin/zabbix_proxy zabbix_proxy -f --config ${configFile}";
         Restart = "always";
         RestartSec = 2;
 

@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description =
-      "Tool for converting single/multi part UIF image files to ISO";
+    description = "Tool for converting single/multi part UIF image files to ISO";
     homepage = "http://aluigi.org/mytoolz.htm#uif2iso";
     license = lib.licenses.gpl1Plus;
     platforms = lib.platforms.linux;

@@ -64,14 +64,12 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/louipc/turses/commit/be0961b51f502d49fd9e2e5253ac130e543a31c7.patch";
+      url = "https://github.com/louipc/turses/commit/be0961b51f502d49fd9e2e5253ac130e543a31c7.patch";
       sha256 = "17s1n0275mcj03vkf3n39dmc09niwv4y7ssrfk7k3vqx22kppzg3";
     })
     # python 3.7+ support
     (fetchpatch {
-      url =
-        "https://github.com/booxter/turses/commit/e6e285eae50fc3d2042a476185fe60daef1e758e.patch";
+      url = "https://github.com/booxter/turses/commit/e6e285eae50fc3d2042a476185fe60daef1e758e.patch";
       sha256 = "0g2zsrny955viwgs2l6gpiiz8m67b5sgdcxkjmfimfvvih5sg79f";
     })
   ];

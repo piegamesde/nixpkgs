@@ -20,8 +20,7 @@ mkDerivation {
   ];
 
   meta = with lib; {
-    description =
-      "Manage files as administrator using the admin:// KIO protocol.";
+    description = "Manage files as administrator using the admin:// KIO protocol.";
     homepage = "https://invent.kde.org/system/kio-admin";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

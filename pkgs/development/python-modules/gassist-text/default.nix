@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for interacting with Google Assistant API via text";
     homepage = "https://github.com/tronikos/gassist_text";
-    changelog =
-      "https://github.com/tronikos/gassist_text/releases/tag/${version}";
+    changelog = "https://github.com/tronikos/gassist_text/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

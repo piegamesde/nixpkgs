@@ -66,8 +66,7 @@ mkDerivation {
       # https://github.com/ghostop14/gr-grnet/pull/19
       (fetchpatch {
         name = "fix-compilation-on-darwin.patch";
-        url =
-          "https://github.com/ghostop14/gr-grnet/commit/52c07daa9ba595b76ffa5dd90c0c96694d95d140.patch";
+        url = "https://github.com/ghostop14/gr-grnet/commit/52c07daa9ba595b76ffa5dd90c0c96694d95d140.patch";
         sha256 = "sha256-1gJaYLIn09blOhALMfBPROt5YBXaosG41Vsd3+5h518=";
       })
     ];
@@ -102,8 +101,7 @@ mkDerivation {
   ];
 
   meta = with lib; {
-    description =
-      "GNURadio TCP/UDP source and sink blocks rewritten in C++/Boost";
+    description = "GNURadio TCP/UDP source and sink blocks rewritten in C++/Boost";
     homepage = "https://github.com/ghostop14/gr-grnet";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ chuangzhu ];

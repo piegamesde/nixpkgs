@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
       name = pname;
       desktopName = "Tour of Nix";
       genericName = "Tour of Nix";
-      comment =
-        "Interactive programming guide dedicated to the nix programming language";
+      comment = "Interactive programming guide dedicated to the nix programming language";
       categories = [
         "Development"
         "Documentation"

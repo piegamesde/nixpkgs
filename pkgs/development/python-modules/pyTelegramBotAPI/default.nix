@@ -58,8 +58,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python implementation for the Telegram Bot API";
     homepage = "https://github.com/eternnoir/pyTelegramBotAPI";
-    changelog =
-      "https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/${version}";
+    changelog = "https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/${version}";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ das_j ];
   };

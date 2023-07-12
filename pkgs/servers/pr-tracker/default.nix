@@ -12,8 +12,7 @@ rustPlatform.buildRustPackage rec {
   version = "1.2.0";
 
   src = fetchurl {
-    url =
-      "https://git.qyliss.net/pr-tracker/snapshot/pr-tracker-${version}.tar.xz";
+    url = "https://git.qyliss.net/pr-tracker/snapshot/pr-tracker-${version}.tar.xz";
     sha256 = "sha256-Tru9DsitRQLiO4Ln70J9LvkEqcj2i4A+eArBvIhd/ls=";
   };
 

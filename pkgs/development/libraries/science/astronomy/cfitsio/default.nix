@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "4.2.0";
 
   src = fetchurl {
-    url =
-      "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-${version}.tar.gz";
+    url = "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-${version}.tar.gz";
     sha256 = "sha256-66U9Gz9uNFYyuwmnt1LsfO09Y+xRU6hIOA84gMXWGIk=";
   };
 
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
               advanced features for manipulating and filtering the information in
               FITS files.
     '';
-    changelog =
-      "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/docs/changes.txt";
+    changelog = "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/docs/changes.txt";
     license = licenses.mit;
     maintainers = with maintainers; [
       xbreak

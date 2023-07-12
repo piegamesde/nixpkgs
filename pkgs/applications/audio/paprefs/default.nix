@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "1.2";
 
   src = fetchurl {
-    url =
-      "https://freedesktop.org/software/pulseaudio/paprefs/paprefs-${version}.tar.xz";
+    url = "https://freedesktop.org/software/pulseaudio/paprefs/paprefs-${version}.tar.xz";
     sha256 = "sha256-s/IeQNw5NtFeP/yRD7DAfBS4jowodxW0VqlIwXY49jM=";
   };
 

@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description =
-      "A fast-paced puzzle game inspired by the classic Super NES title Tetris Attack!";
+    description = "A fast-paced puzzle game inspired by the classic Super NES title Tetris Attack!";
     homepage = "https://www.nongnu.org/crack-attack/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;

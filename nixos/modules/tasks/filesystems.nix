@@ -435,8 +435,7 @@ in
       [
         {
           assertion = !(fileSystems' ? cycle);
-          message =
-            "The ‘fileSystems’ option can't be topologically sorted: mountpoint dependency path ${
+          message = "The ‘fileSystems’ option can't be topologically sorted: mountpoint dependency path ${
               ls " -> " fileSystems'.cycle
             } loops to ${ls ", " fileSystems'.loops}";
         }

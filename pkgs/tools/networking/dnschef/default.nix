@@ -25,8 +25,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/iphelix/dnschef";
-    description =
-      "Highly configurable DNS proxy for penetration testers and malware analysts";
+    description = "Highly configurable DNS proxy for penetration testers and malware analysts";
     license = licenses.bsd3;
     maintainers = [ maintainers.gfrascadorio ];
   };

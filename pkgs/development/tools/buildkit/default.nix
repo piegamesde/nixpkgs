@@ -31,8 +31,7 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit";
+    description = "Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit";
     homepage = "https://github.com/moby/buildkit";
     license = licenses.asl20;
     maintainers = with maintainers; [

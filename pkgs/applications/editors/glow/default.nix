@@ -28,8 +28,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Render markdown on the CLI, with pizzazz!";
     homepage = "https://github.com/charmbracelet/glow";
-    changelog =
-      "https://github.com/charmbracelet/glow/releases/tag/v${version}";
+    changelog = "https://github.com/charmbracelet/glow/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [
       Br1ght0ne

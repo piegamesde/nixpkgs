@@ -563,8 +563,7 @@ in
                                 ...
                               }:
                               {
-                                _file =
-                                  "module at ${__curPos.file}:${
+                                _file = "module at ${__curPos.file}:${
                                     toString __curPos.line
                                   }";
                                 config = {

@@ -64,8 +64,7 @@ stdenv.mkDerivation {
   pname = "zulu";
 
   src = fetchurl {
-    url =
-      "https://cdn.azul.com/zulu/bin/zulu${version}-ca-jdk${openjdk}-${platform}_${architecture}.${extension}";
+    url = "https://cdn.azul.com/zulu/bin/zulu${version}-ca-jdk${openjdk}-${platform}_${architecture}.${extension}";
     sha256 = hash;
   };
 

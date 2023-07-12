@@ -87,8 +87,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python package to read and write geospatial raster data";
     homepage = "https://rasterio.readthedocs.io/";
-    changelog =
-      "https://github.com/rasterio/rasterio/blob/${version}/CHANGES.txt";
+    changelog = "https://github.com/rasterio/rasterio/blob/${version}/CHANGES.txt";
     license = licenses.bsd3;
     maintainers = teams.geospatial.members;
   };

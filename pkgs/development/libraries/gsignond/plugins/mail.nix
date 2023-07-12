@@ -35,12 +35,12 @@ stdenv.mkDerivation rec {
     gsignond
   ];
 
-  PKG_CONFIG_GSIGNOND_GPLUGINSDIR =
-    "${placeholder "out"}/lib/gsignond/gplugins";
+  PKG_CONFIG_GSIGNOND_GPLUGINSDIR = "${
+      placeholder "out"
+    }/lib/gsignond/gplugins";
 
   meta = with lib; {
-    description =
-      "Plugin for the Accounts-SSO gSignOn daemon that handles E-Mail credentials";
+    description = "Plugin for the Accounts-SSO gSignOn daemon that handles E-Mail credentials";
     homepage = "https://gitlab.com/accounts-sso/gsignond-plugin-mail";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ ];

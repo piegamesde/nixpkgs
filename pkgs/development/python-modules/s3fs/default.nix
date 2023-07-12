@@ -45,8 +45,7 @@ buildPythonPackage rec {
     broken = stdenv.isDarwin;
     description = "A Pythonic file interface for S3";
     homepage = "https://github.com/fsspec/s3fs";
-    changelog =
-      "https://github.com/fsspec/s3fs/raw/${version}/docs/source/changelog.rst";
+    changelog = "https://github.com/fsspec/s3fs/raw/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ teh ];
   };

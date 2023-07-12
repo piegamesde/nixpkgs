@@ -22,8 +22,7 @@ buildGoPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/monochromegane/the_platinum_searcher";
-    description =
-      "A code search tool similar to ack and the_silver_searcher(ag)";
+    description = "A code search tool similar to ack and the_silver_searcher(ag)";
     license = licenses.mit;
   };
 }

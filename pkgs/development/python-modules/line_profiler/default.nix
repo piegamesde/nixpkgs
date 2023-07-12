@@ -50,8 +50,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Line-by-line profiler";
     homepage = "https://github.com/pyutils/line_profiler";
-    changelog =
-      "https://github.com/pyutils/line_profiler/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/pyutils/line_profiler/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fridh ];
   };

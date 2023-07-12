@@ -182,8 +182,7 @@ in
       '';
       serviceConfig = {
         PIDFile = "/run/squid.pid";
-        ExecStart =
-          "${cfg.package}/bin/squid --foreground -YCs -f ${squidConfig}";
+        ExecStart = "${cfg.package}/bin/squid --foreground -YCs -f ${squidConfig}";
         ExecReload = "kill -HUP $MAINPID";
         KillMode = "mixed";
         NotifyAccess = "all";

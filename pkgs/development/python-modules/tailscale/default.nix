@@ -52,8 +52,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for the Tailscale API";
     homepage = "https://github.com/frenck/python-tailscale";
-    changelog =
-      "https://github.com/frenck/python-tailscale/releases/tag/v${version}";
+    changelog = "https://github.com/frenck/python-tailscale/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "UI pattern libraries for Django templates";
     homepage = "https://github.com/torchbox/django-pattern-library/";
-    changelog =
-      "https://github.com/torchbox/django-pattern-library/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/torchbox/django-pattern-library/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ sephi ];
   };

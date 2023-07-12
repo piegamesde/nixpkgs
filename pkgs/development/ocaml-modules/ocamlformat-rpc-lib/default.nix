@@ -28,8 +28,7 @@ buildDunePackage rec {
   inherit (source) version;
 
   src = fetchurl {
-    url =
-      "https://github.com/ocaml-ppx/ocamlformat/releases/download/${version}/ocamlformat-${version}.tbz";
+    url = "https://github.com/ocaml-ppx/ocamlformat/releases/download/${version}/ocamlformat-${version}.tbz";
     inherit (source) sha256;
   };
 

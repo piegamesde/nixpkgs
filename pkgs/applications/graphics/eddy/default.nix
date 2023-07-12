@@ -40,8 +40,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "http://www.obdasystems.com/eddy";
-    description =
-      "Graphical editor for the specification and visualization of Graphol ontologies";
+    description = "Graphical editor for the specification and visualization of Graphol ontologies";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ koslambrou ];

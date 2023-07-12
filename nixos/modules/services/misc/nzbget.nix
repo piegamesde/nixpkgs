@@ -140,8 +140,7 @@ in
         Group = cfg.group;
         UMask = "0002";
         Restart = "on-failure";
-        ExecStart =
-          "${pkg}/bin/nzbget --server --configfile ${stateDir}/nzbget.conf ${configOpts}";
+        ExecStart = "${pkg}/bin/nzbget --server --configfile ${stateDir}/nzbget.conf ${configOpts}";
         ExecStop = "${pkg}/bin/nzbget --quit";
       };
     };

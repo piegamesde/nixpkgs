@@ -24,8 +24,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mistune" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/lepture/mistune/blob/v${version}/docs/changes.rst";
+    changelog = "https://github.com/lepture/mistune/blob/v${version}/docs/changes.rst";
     description = "A sane Markdown parser with useful plugins and renderers";
     homepage = "https://github.com/lepture/mistune";
     license = licenses.bsd3;

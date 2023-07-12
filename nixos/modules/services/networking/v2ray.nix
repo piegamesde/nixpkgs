@@ -84,8 +84,7 @@ with lib;
     mkIf cfg.enable {
       assertions = [ {
         assertion = (cfg.configFile == null) != (cfg.config == null);
-        message =
-          "Either but not both `configFile` and `config` should be specified for v2ray.";
+        message = "Either but not both `configFile` and `config` should be specified for v2ray.";
       } ];
 
       environment.etc."v2ray/config.json".source = configFile;

@@ -23,11 +23,9 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description =
-      "Tool to list all public repositories for (valid) GitHub usernames";
+    description = "Tool to list all public repositories for (valid) GitHub usernames";
     homepage = "https://github.com/trickest/enumerepo";
-    changelog =
-      "https://github.com/trickest/enumerepo/releases/tag/v${version}";
+    changelog = "https://github.com/trickest/enumerepo/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

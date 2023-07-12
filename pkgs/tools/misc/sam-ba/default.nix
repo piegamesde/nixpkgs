@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   pname = "sam-ba";
 
   src = fetchzip {
-    url =
-      "https://ww1.microchip.com/downloads/en/DeviceDoc/sam-ba_${version}-linux_x86_64.tar.gz";
+    url = "https://ww1.microchip.com/downloads/en/DeviceDoc/sam-ba_${version}-linux_x86_64.tar.gz";
     sha256 = "1k0nbgyc98z94nphm2q7s82b274clfnayf4a2kv93l5594rzdbp1";
   };
 
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Programming tools for Atmel SAM3/7/9 ARM-based microcontrollers";
+    description = "Programming tools for Atmel SAM3/7/9 ARM-based microcontrollers";
     longDescription = ''
       Atmel SAM-BA software provides an open set of tools for programming the
       Atmel SAM3, SAM7 and SAM9 ARM-based microcontrollers.

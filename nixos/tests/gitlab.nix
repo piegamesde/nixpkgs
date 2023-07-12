@@ -67,8 +67,7 @@ import ./make-test-python.nix (
             recommendedProxySettings = true;
             virtualHosts = {
               localhost = {
-                locations."/".proxyPass =
-                  "http://unix:/run/gitlab/gitlab-workhorse.socket";
+                locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
               };
             };
           };

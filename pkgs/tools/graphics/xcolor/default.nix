@@ -43,8 +43,7 @@ rustPlatform.buildRustPackage rec {
       name = "XColor";
       exec = "xcolor -s";
       desktopName = "XColor";
-      comment =
-        "Select colors visible anywhere on the screen to get their RGB representation";
+      comment = "Select colors visible anywhere on the screen to get their RGB representation";
       icon = "xcolor";
       categories = [ "Graphics" ];
     })

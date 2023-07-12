@@ -17,8 +17,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/roburio/happy-eyeballs/releases/download/v${version}/happy-eyeballs-${version}.tbz";
+    url = "https://github.com/roburio/happy-eyeballs/releases/download/v${version}/happy-eyeballs-${version}.tbz";
     hash = "sha256-T4BOFlSj3xfUFhP9v8UaCHgmhvGrMyeqNUQf79bdBh4=";
   };
 

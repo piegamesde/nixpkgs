@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/WayfireWM/wf-config";
-    description =
-      "Library for managing configuration files, written for Wayfire";
+    description = "Library for managing configuration files, written for Wayfire";
     license = licenses.mit;
     maintainers = with maintainers; [
       qyliss

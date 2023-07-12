@@ -17,8 +17,7 @@ import ./make-test-python.nix (
       {
         services.loki = {
           enable = true;
-          configFile =
-            "${pkgs.grafana-loki.src}/cmd/loki/loki-local-config.yaml";
+          configFile = "${pkgs.grafana-loki.src}/cmd/loki/loki-local-config.yaml";
         };
         services.promtail = {
           enable = true;

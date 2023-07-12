@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-heap/2013-03-12/cl-heap-0.1.6.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-heap/2013-03-12/cl-heap-0.1.6.tgz";
     sha256 = "163hb07p2nxz126rpq3cj5dyala24n0by5i5786n2qcr1w0bak4i";
   };
 

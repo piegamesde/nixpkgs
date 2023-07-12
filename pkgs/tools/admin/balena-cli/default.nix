@@ -27,8 +27,7 @@ let
 
   version = "15.2.2";
   src = fetchzip {
-    url =
-      "https://github.com/balena-io/balena-cli/releases/download/v${version}/balena-cli-v${version}-${plat}-standalone.zip";
+    url = "https://github.com/balena-io/balena-cli/releases/download/v${version}/balena-cli-v${version}-${plat}-standalone.zip";
     inherit sha256;
   };
 in
@@ -108,8 +107,7 @@ stdenv.mkDerivation (
         and the balena SDK, and can also be directly imported in Node.js applications.
       '';
       homepage = "https://github.com/balena-io/balena-cli";
-      changelog =
-        "https://github.com/balena-io/balena-cli/blob/v${version}/CHANGELOG.md";
+      changelog = "https://github.com/balena-io/balena-cli/blob/v${version}/CHANGELOG.md";
       license = licenses.asl20;
       maintainers = [ maintainers.kalebpace ];
       platforms = platforms.linux ++ platforms.darwin;

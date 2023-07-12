@@ -39,8 +39,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pydash" ];
 
   meta = with lib; {
-    description =
-      "Python utility libraries for doing stuff in a functional way";
+    description = "Python utility libraries for doing stuff in a functional way";
     homepage = "https://pydash.readthedocs.io";
     license = licenses.mit;
     maintainers = with maintainers; [ ma27 ];

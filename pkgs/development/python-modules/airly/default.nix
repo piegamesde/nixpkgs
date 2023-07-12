@@ -39,8 +39,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "airly" ];
 
   meta = with lib; {
-    description =
-      "Python module for getting air quality data from Airly sensors";
+    description = "Python module for getting air quality data from Airly sensors";
     homepage = "https://github.com/ak-ambi/python-airly";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

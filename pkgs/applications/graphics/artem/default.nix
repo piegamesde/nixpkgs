@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A small CLI program to convert images to ASCII art";
     homepage = "https://github.com/finefindus/artem";
-    changelog =
-      "https://github.com/finefindus/artem/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/finefindus/artem/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

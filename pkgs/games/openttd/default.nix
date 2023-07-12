@@ -30,14 +30,12 @@ let
   };
 
   opensfx = fetchzip {
-    url =
-      "https://cdn.openttd.org/opensfx-releases/1.0.3/opensfx-1.0.3-all.zip";
+    url = "https://cdn.openttd.org/opensfx-releases/1.0.3/opensfx-1.0.3-all.zip";
     sha256 = "sha256-QmfXizrRTu/fUcVOY7tCndv4t4BVW+fb0yUi8LgSYzM=";
   };
 
   openmsx = fetchzip {
-    url =
-      "https://cdn.openttd.org/openmsx-releases/0.4.2/openmsx-0.4.2-all.zip";
+    url = "https://cdn.openttd.org/openmsx-releases/0.4.2/openmsx-0.4.2-all.zip";
     sha256 = "sha256-Cgrg2m+uTODFg39mKgX+hE8atV7v5bVyZd716vSZB8M=";
   };
 
@@ -52,8 +50,7 @@ stdenv.mkDerivation rec {
   version = "13.1";
 
   src = fetchurl {
-    url =
-      "https://cdn.openttd.org/openttd-releases/${version}/${pname}-${version}-source.tar.xz";
+    url = "https://cdn.openttd.org/openttd-releases/${version}/${pname}-${version}-source.tar.xz";
     hash = "sha256-Xt8i03A1I4KF72cql9WeZCgL66sj5YR4CDTM1r4KWLs=";
   };
 
@@ -105,8 +102,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      ''Open source clone of the Microprose game "Transport Tycoon Deluxe"'';
+    description = ''
+      Open source clone of the Microprose game "Transport Tycoon Deluxe"'';
     longDescription = ''
       OpenTTD is a transportation economics simulator. In single player mode,
       players control a transportation business, and use rail, road, sea, and air
@@ -118,8 +115,7 @@ stdenv.mkDerivation rec {
         - observe as spectators
     '';
     homepage = "https://www.openttd.org/";
-    changelog =
-      "https://cdn.openttd.org/openttd-releases/${version}/changelog.txt";
+    changelog = "https://cdn.openttd.org/openttd-releases/${version}/changelog.txt";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [

@@ -7,8 +7,7 @@ rec {
   baseName = "cl-cuda";
   version = "20210807-git";
 
-  description =
-    "Cl-cuda is a library to use NVIDIA CUDA in Common Lisp programs.";
+  description = "Cl-cuda is a library to use NVIDIA CUDA in Common Lisp programs.";
 
   deps = [
     args."alexandria"
@@ -31,8 +30,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-cuda/2021-08-07/cl-cuda-20210807-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-cuda/2021-08-07/cl-cuda-20210807-git.tgz";
     sha256 = "0q974qrjxdn7c53frpac0hz9wnxhnf3lf8xngrc8zkphp1windc0";
   };
 

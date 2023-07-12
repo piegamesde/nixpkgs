@@ -13,8 +13,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          networking.firewall.extraCommands =
-            "iptables -A INPUT -p vrrp -j ACCEPT";
+          networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
           services.keepalived.enable = true;
           services.keepalived.vrrpInstances.test = {
             interface = "eth1";
@@ -32,8 +31,7 @@ import ./make-test-python.nix (
           ...
         }:
         {
-          networking.firewall.extraCommands =
-            "iptables -A INPUT -p vrrp -j ACCEPT";
+          networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
           services.keepalived.enable = true;
           services.keepalived.vrrpInstances.test = {
             interface = "eth1";

@@ -40,39 +40,33 @@ mkDerivation rec {
   version = "1.5.8";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/${pname}/${pname}-devel/${pname}-${version}.tar.xz";
+    url = "mirror://sourceforge/${pname}/${pname}-devel/${pname}-${version}.tar.xz";
     hash = "sha256-R4Fuj89tBXiP8WqkSZ+X/yJDHHd6d4kUmwqItFHha3Q=";
   };
 
   patches = [
     # For Poppler 22.02
     (fetchpatch {
-      url =
-        "https://github.com/scribusproject/scribus/commit/85c0dff3422fa3c26fbc2e8d8561f597ec24bd92.patch";
+      url = "https://github.com/scribusproject/scribus/commit/85c0dff3422fa3c26fbc2e8d8561f597ec24bd92.patch";
       sha256 = "YR0ii09EVU8Qazz6b8KAIWsUMTwPIwO8JuQPymAWKdw=";
     })
     (fetchpatch {
-      url =
-        "https://github.com/scribusproject/scribus/commit/f75c1613db67f4067643d0218a2db3235e42ec9f.patch";
+      url = "https://github.com/scribusproject/scribus/commit/f75c1613db67f4067643d0218a2db3235e42ec9f.patch";
       sha256 = "vJU8HsKHE3oXlhcXQk9uCYINPYVPF5IGmrWYFQ6Py5c=";
     })
     # For Poppler 22.03
     (fetchpatch {
-      url =
-        "https://github.com/scribusproject/scribus/commit/f19410ac3b27e33dd62105746784e61e85b90a1d.patch";
+      url = "https://github.com/scribusproject/scribus/commit/f19410ac3b27e33dd62105746784e61e85b90a1d.patch";
       sha256 = "JHdgntYcioYatPeqpmym3c9dORahj0CinGOzbGtA4ds=";
     })
     # For Poppler 22.04
     (fetchpatch {
-      url =
-        "https://github.com/scribusproject/scribus/commit/f2237b8f0b5cf7690e864a22ef7a63a6d769fa36.patch";
+      url = "https://github.com/scribusproject/scribus/commit/f2237b8f0b5cf7690e864a22ef7a63a6d769fa36.patch";
       sha256 = "FXpLoX/a2Jy3GcfzrUUyVUfEAp5wAy2UfzfVA5lhwJw=";
     })
     # For Poppler 22.09
     (fetchpatch {
-      url =
-        "https://github.com/archlinux/svntogit-community/raw/ea402a588c65d11973b148cf203b3463213431cf/trunk/scribus-1.5.8-poppler-22.09.0.patch";
+      url = "https://github.com/archlinux/svntogit-community/raw/ea402a588c65d11973b148cf203b3463213431cf/trunk/scribus-1.5.8-poppler-22.09.0.patch";
       sha256 = "IRQ6rSzH6ZWln6F13Ayk8k7ADj8l3lIJlGm/zjEURQM=";
     })
   ];

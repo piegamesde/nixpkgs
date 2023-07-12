@@ -42,8 +42,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "A TUI todo manager";
     homepage = "https://github.com/kraanzu/dooit";
-    changelog =
-      "https://github.com/kraanzu/dooit/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/kraanzu/dooit/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ wesleyjrz ];
   };

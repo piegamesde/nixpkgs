@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
       #  https://github.com/soulthreads/xwinmosaic/pull/33
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/soulthreads/xwinmosaic/commit/a193a3f30850327066e5a93b29316cba2735e10d.patch";
+        url = "https://github.com/soulthreads/xwinmosaic/commit/a193a3f30850327066e5a93b29316cba2735e10d.patch";
         sha256 = "0qpk802j5x6bsfvj6jqw1nz482jynwyk7yrrh4bsziwc53khm95q";
       })
     ];

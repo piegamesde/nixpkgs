@@ -25,8 +25,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Zero setup cross compilation and cross testing";
     homepage = "https://github.com/cross-rs/cross";
-    changelog =
-      "https://github.com/cross-rs/cross/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/cross-rs/cross/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

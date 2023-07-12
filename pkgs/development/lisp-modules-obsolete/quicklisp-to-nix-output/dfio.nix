@@ -7,8 +7,7 @@ rec {
   baseName = "dfio";
   version = "20210411-git";
 
-  description =
-    "Common Lisp library for reading data from text files (eg CSV).";
+  description = "Common Lisp library for reading data from text files (eg CSV).";
 
   deps = [
     args."alexandria"
@@ -28,8 +27,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/dfio/2021-04-11/dfio-20210411-git.tgz";
+    url = "http://beta.quicklisp.org/archive/dfio/2021-04-11/dfio-20210411-git.tgz";
     sha256 = "0r1ljv22mfjlp0khgfbmh9ajp9qmw8lqj2wl6k9abr5cc32vnmi5";
   };
 

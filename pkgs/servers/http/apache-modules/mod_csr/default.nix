@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   inherit (mod_ca) configureFlags installFlags;
 
   meta = with lib; {
-    description =
-      "RedWax CA service module to handle Certificate Signing Requests";
+    description = "RedWax CA service module to handle Certificate Signing Requests";
 
     homepage = "https://redwax.eu";
     license = licenses.asl20;

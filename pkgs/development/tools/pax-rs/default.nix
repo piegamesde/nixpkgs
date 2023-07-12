@@ -32,10 +32,8 @@ rustPlatform.buildRustPackage rec {
       };
 
       cargo-lock = fetchurl {
-        url =
-          "https://gist.github.com/klntsky/c7863424d7df0c379782015f6bb3b399/raw/1cf7481e33984fd1510dc77ed677606d08fa8eb6/Cargo.lock";
-        sha256 =
-          "0ff1b64b99cbca1cc2ceabcd2e4f7bc3411e3a2a9fbb9db2204d9240fe38ddeb";
+        url = "https://gist.github.com/klntsky/c7863424d7df0c379782015f6bb3b399/raw/1cf7481e33984fd1510dc77ed677606d08fa8eb6/Cargo.lock";
+        sha256 = "0ff1b64b99cbca1cc2ceabcd2e4f7bc3411e3a2a9fbb9db2204d9240fe38ddeb";
       };
     in
     runCommand "pax-rs-src" { } ''

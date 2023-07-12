@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url =
-      "https://launchpad.net/synapse-project/0.3/${version}/+download/${pname}-${version}.tar.xz";
+    url = "https://launchpad.net/synapse-project/0.3/${version}/+download/${pname}-${version}.tar.xz";
     sha256 = "1g6x9knb4jy1d8zgssjhzkgac583137pibisy9whjs8mckaj4k1j";
   };
 
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
       as well as find and access relevant documents and files by making use of
       the Zeitgeist engine
     '';
-    description =
-      "Semantic launcher to start applications and find relevant files";
+    description = "Semantic launcher to start applications and find relevant files";
     homepage = "https://launchpad.net/synapse-project";
     license = licenses.gpl3;
     maintainers = with maintainers; [ mahe ];

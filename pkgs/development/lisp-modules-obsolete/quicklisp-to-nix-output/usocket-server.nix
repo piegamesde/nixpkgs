@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/usocket/2019-12-27/usocket-0.8.3.tgz";
+    url = "http://beta.quicklisp.org/archive/usocket/2019-12-27/usocket-0.8.3.tgz";
     sha256 = "19gl72r9jqms8slzn7i7bww2cqng9mhiqqhhccadlrx2xv6d3lm7";
   };
 

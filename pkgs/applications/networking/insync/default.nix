@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
-        url =
-          "http://s.insynchq.com/builds/insync-portable_${version}_amd64.tar.bz2";
+        url = "http://s.insynchq.com/builds/insync-portable_${version}_amd64.tar.bz2";
         sha256 = "1cm3q6y2crw6pcsvh21sbkmh1hin7xl4fyslc96nbyql8rxsky5n";
       }
     else

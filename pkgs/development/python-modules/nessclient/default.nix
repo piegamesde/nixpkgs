@@ -38,8 +38,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nessclient" ];
 
   meta = with lib; {
-    description =
-      "Python implementation/abstraction of the Ness D8x/D16x Serial Interface ASCII protocol";
+    description = "Python implementation/abstraction of the Ness D8x/D16x Serial Interface ASCII protocol";
     homepage = "https://github.com/nickw444/nessclient";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

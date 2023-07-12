@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Free software that gathers information on CPU, motherboard and more";
+    description = "Free software that gathers information on CPU, motherboard and more";
     homepage = "https://thetumultuousunicornofdarkness.github.io/CPU-X";
     license = licenses.gpl3Plus;
     platforms = [ "x86_64-linux" ];

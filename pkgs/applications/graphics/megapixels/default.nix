@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "GTK4 camera application that knows how to deal with the media request api";
+    description = "GTK4 camera application that knows how to deal with the media request api";
     homepage = "https://gitlab.com/postmarketOS/megapixels";
     changelog = "https://gitlab.com/postmarketOS/megapixels/-/tags/${version}";
     license = licenses.gpl3Only;

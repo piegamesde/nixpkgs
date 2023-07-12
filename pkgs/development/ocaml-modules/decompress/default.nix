@@ -25,8 +25,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirage/decompress/releases/download/v${version}/decompress-${version}.tbz";
+    url = "https://github.com/mirage/decompress/releases/download/v${version}/decompress-${version}.tbz";
     hash = "sha256-qMmmuhMlFNVq02JvvV55EkhEg2AQNQ7hYdQ7spv1di4=";
   };
 

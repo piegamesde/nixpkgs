@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-characters/${
+    url = "mirror://gnome/sources/gnome-characters/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "BbFcAozBkK75LmCS/YT6jV8kSODpB2RGo1ZvOggf9Qs=";
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Characters";
-    description =
-      "Simple utility application to find and insert unusual characters";
+    description = "Simple utility application to find and insert unusual characters";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

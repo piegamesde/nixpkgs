@@ -45,8 +45,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Linting for your git commit messages";
     homepage = "https://jorisroovers.com/gitlint/";
-    changelog =
-      "https://github.com/jorisroovers/gitlint/releases/tag/v${version}";
+    changelog = "https://github.com/jorisroovers/gitlint/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [
       ethancedwards8

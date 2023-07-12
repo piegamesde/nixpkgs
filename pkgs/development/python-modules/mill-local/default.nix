@@ -34,8 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to communicate locally with Mill heaters";
     homepage = "https://github.com/Danielhiversen/pyMillLocal";
-    changelog =
-      "https://github.com/Danielhiversen/pyMillLocal/releases/tag/${version}";
+    changelog = "https://github.com/Danielhiversen/pyMillLocal/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

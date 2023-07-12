@@ -252,8 +252,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "wandb" ];
 
   meta = with lib; {
-    description =
-      "A CLI and library for interacting with the Weights and Biases API";
+    description = "A CLI and library for interacting with the Weights and Biases API";
     homepage = "https://github.com/wandb/wandb";
     changelog = "https://github.com/wandb/wandb/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;

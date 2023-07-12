@@ -114,8 +114,7 @@ in
 
       serviceConfig = {
         LoadCredential = "ERIGON_JWT:${cfg.secretJwtPath}";
-        ExecStart =
-          "${pkgs.erigon}/bin/erigon --config ${configFile} --authrpc.jwtsecret=%d/ERIGON_JWT ${
+        ExecStart = "${pkgs.erigon}/bin/erigon --config ${configFile} --authrpc.jwtsecret=%d/ERIGON_JWT ${
             lib.escapeShellArgs cfg.extraArgs
           }";
         DynamicUser = true;

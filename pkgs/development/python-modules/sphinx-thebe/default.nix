@@ -23,8 +23,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sphinx_thebe" ];
 
   meta = with lib; {
-    description =
-      "Integrate interactive code blocks into your documentation with Thebe and Binder";
+    description = "Integrate interactive code blocks into your documentation with Thebe and Binder";
     homepage = "https://github.com/executablebooks/sphinx-thebe";
     license = licenses.mit;
     maintainers = with maintainers; [ marsam ];

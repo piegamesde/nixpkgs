@@ -133,8 +133,7 @@ assert xarSupport -> libxml2 != null;
         includes implementations of the common tar, cpio, and zcat command-line
         tools that use the libarchive library.
       '';
-      changelog =
-        "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
+      changelog = "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
       license = licenses.bsd3;
       maintainers = with maintainers; [
         jcumming
@@ -156,8 +155,7 @@ assert xarSupport -> libxml2 != null;
           # https://github.com/libarchive/libarchive/pull/1825 merged upstream
           (fetchpatch {
             name = "001-only-add-iconv-to-pc-file-if-needed.patch";
-            url =
-              "https://github.com/libarchive/libarchive/commit/1f35c466aaa9444335a1b854b0b7223b0d2346c2.patch";
+            url = "https://github.com/libarchive/libarchive/commit/1f35c466aaa9444335a1b854b0b7223b0d2346c2.patch";
             hash = "sha256-lb+zwWSH6/MLUIROvu9I/hUjSbb2jOWO755WC/r+lbY=";
           })
         ];

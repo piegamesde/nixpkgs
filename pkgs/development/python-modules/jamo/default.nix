@@ -22,8 +22,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/JDongian/python-jamo/releases/tag/v${version}";
+    changelog = "https://github.com/JDongian/python-jamo/releases/tag/v${version}";
     description = "Hangul syllable decomposition and synthesis using jamo";
     homepage = "https://github.com/JDongian/python-jamo";
     license = licenses.asl20;

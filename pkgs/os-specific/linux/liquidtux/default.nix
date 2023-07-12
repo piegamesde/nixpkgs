@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Linux kernel hwmon drivers for AIO liquid coolers and other devices";
+    description = "Linux kernel hwmon drivers for AIO liquid coolers and other devices";
     homepage = "https://github.com/liquidctl/liquidtux";
     license = licenses.gpl2;
     platforms = [

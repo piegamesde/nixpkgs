@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "${cfg.version}-${kernel.version}";
 
   src = fetchurl {
-    url =
-      "http://downloads.open-mesh.org/batman/releases/${pname}-${cfg.version}/${pname}-${cfg.version}.tar.gz";
+    url = "http://downloads.open-mesh.org/batman/releases/${pname}-${cfg.version}/${pname}-${cfg.version}.tar.gz";
     sha256 = cfg.sha256.${pname};
   };
 
@@ -35,8 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.open-mesh.org/projects/batman-adv/wiki/Wiki";
-    description =
-      "B.A.T.M.A.N. routing protocol in a linux kernel module for layer 2";
+    description = "B.A.T.M.A.N. routing protocol in a linux kernel module for layer 2";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [
       fpletz

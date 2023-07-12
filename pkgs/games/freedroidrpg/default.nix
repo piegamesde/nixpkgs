@@ -27,8 +27,7 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url =
-      "ftp://ftp.osuosl.org/pub/freedroid/freedroidRPG-${
+    url = "ftp://ftp.osuosl.org/pub/freedroid/freedroidRPG-${
         lib.versions.majorMinor version
       }/freedroidRPG-${version}.tar.gz";
     sha256 = "0n4kn38ncmcy3lrxmq8fjry6c1z50z4q1zcqfig0j4jb0dsz2va2";
@@ -38,8 +37,7 @@ stdenv.mkDerivation {
     # Pull upstream fix for -fno-common tolchains.
     (fetchpatch {
       name = "fno-common.patch";
-      url =
-        "https://gitlab.com/freedroid/freedroid-src/-/commit/e610d427374226b79da5258d979936459f30c761.patch";
+      url = "https://gitlab.com/freedroid/freedroid-src/-/commit/e610d427374226b79da5258d979936459f30c761.patch";
       sha256 = "1s7sw4dkc7b6i72j6x47driq6v0k3wss48l9ivd4fw40n3iaxjb1";
     })
 

@@ -44,8 +44,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A tool to play and record videos or live streams with danmaku";
+    description = "A tool to play and record videos or live streams with danmaku";
     homepage = "https://github.com/THMonster/dmlive";
     license = licenses.mit;
     maintainers = with maintainers; [ nickcao ];

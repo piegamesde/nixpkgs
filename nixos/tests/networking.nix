@@ -799,8 +799,7 @@ let
             networking = {
               useNetworkd = networkd;
               useDHCP = false;
-              firewall.extraCommands =
-                "ip6tables -A nixos-fw -p gre -j nixos-fw-accept";
+              firewall.extraCommands = "ip6tables -A nixos-fw -p gre -j nixos-fw-accept";
             };
           }
         ;
@@ -1450,8 +1449,7 @@ mapAttrs
     attrs:
     makeTest (
       attrs // {
-        name =
-          "${attrs.name}-Networking-${
+        name = "${attrs.name}-Networking-${
             if networkd then "Networkd" else "Scripted"
           }";
       }

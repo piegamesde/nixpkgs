@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Markdown & Fountain editor that helps with organization and management";
+    description = "Markdown & Fountain editor that helps with organization and management";
     homepage = "https://thiefmd.com";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

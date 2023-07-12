@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   version = "0.14.9";
 
   src = fetchurl {
-    url =
-      "https://github.com/sile-typesetter/sile/releases/download/v${version}/${pname}-${version}.tar.xz";
+    url = "https://github.com/sile-typesetter/sile/releases/download/v${version}/${pname}-${version}.tar.xz";
     sha256 = "0528835iir2ws14fwb7w4dqs3wlzzcv5arjxs8v13drb194rlwcs";
   };
 
@@ -141,8 +140,7 @@ stdenv.mkDerivation rec {
       such as InDesign.
     '';
     homepage = "https://sile-typesetter.org";
-    changelog =
-      "https://github.com/sile-typesetter/sile/raw/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/sile-typesetter/sile/raw/v${version}/CHANGELOG.md";
     platforms = platforms.unix;
     maintainers = with maintainers; [
       doronbehar

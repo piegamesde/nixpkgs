@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
       and dead keys.
     ''; # and a separate library for listing available keyboard layouts.
     homepage = "https://xkbcommon.org";
-    changelog =
-      "https://github.com/xkbcommon/libxkbcommon/blob/xkbcommon-${version}/NEWS";
+    changelog = "https://github.com/xkbcommon/libxkbcommon/blob/xkbcommon-${version}/NEWS";
     license = licenses.mit;
     maintainers = with maintainers; [
       primeos

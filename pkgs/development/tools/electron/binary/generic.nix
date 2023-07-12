@@ -54,8 +54,7 @@ let
   fetcher =
     vers: tag: hash:
     fetchurl {
-      url =
-        "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip";
+      url = "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip";
       sha256 = hash;
     }
   ;
@@ -63,8 +62,7 @@ let
   headersFetcher =
     vers: hash:
     fetchurl {
-      url =
-        "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz";
+      url = "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz";
       sha256 = hash;
     }
   ;

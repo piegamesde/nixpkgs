@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2";
+    url = "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-bMHPJVaxckB5KezyurJDLG+wXuFt0ZAm6QNp8lc2Nso=";
   };
 

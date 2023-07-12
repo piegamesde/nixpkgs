@@ -34,8 +34,7 @@ in
       environment = { PORT = builtins.toString cfg.port; };
 
       serviceConfig = {
-        ExecStart =
-          "${pkgs.haskellPackages.duckling}/bin/duckling-example-exe --no-access-log --no-error-log";
+        ExecStart = "${pkgs.haskellPackages.duckling}/bin/duckling-example-exe --no-access-log --no-error-log";
         Restart = "always";
         DynamicUser = true;
       };

@@ -47,8 +47,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://containers.goodwith.tech";
-    changelog =
-      "https://github.com/goodwithtech/dockle/releases/tag/v${version}";
+    changelog = "https://github.com/goodwithtech/dockle/releases/tag/v${version}";
     description = "Container Image Linter for Security";
     longDescription = ''
       Container Image Linter for Security.

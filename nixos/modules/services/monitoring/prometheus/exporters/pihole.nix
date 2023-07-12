@@ -24,8 +24,7 @@ in
     apiToken = mkOption {
       type = types.str;
       default = "";
-      example =
-        "580a770cb40511eb85290242ac130003580a770cb40511eb85290242ac130003";
+      example = "580a770cb40511eb85290242ac130003580a770cb40511eb85290242ac130003";
       description = lib.mdDoc ''
         Pi-Hole API token which can be used instead of a password
       '';

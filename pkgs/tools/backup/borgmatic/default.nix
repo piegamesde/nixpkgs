@@ -62,8 +62,7 @@ python3Packages.buildPythonApplication rec {
   passthru.tests.version = testers.testVersion { package = borgmatic; };
 
   meta = with lib; {
-    description =
-      "Simple, configuration-driven backup software for servers and workstations";
+    description = "Simple, configuration-driven backup software for servers and workstations";
     homepage = "https://torsion.org/borgmatic/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

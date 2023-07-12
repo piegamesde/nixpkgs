@@ -18,8 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-ZbY5PyXKcTB9spVGfW2Qhj8SV9alOSH0DyXx1dh/NgQ=";
 
   meta = with lib; {
-    description =
-      "Tool used to brute-force URIs, DNS subdomains, Virtual Host names on target web servers";
+    description = "Tool used to brute-force URIs, DNS subdomains, Virtual Host names on target web servers";
     homepage = "https://github.com/OJ/gobuster";
     changelog = "https://github.com/OJ/gobuster/releases/tag/v${version}";
     license = licenses.asl20;

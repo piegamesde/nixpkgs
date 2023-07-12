@@ -15,8 +15,7 @@ let
     patchname: hash:
     fetchpatch {
       name = "${patchname}.patch";
-      url =
-        "https://sources.debian.org/data/main/r/rrootage/${version}-${debianRevision}/debian/patches/${patchname}.patch";
+      url = "https://sources.debian.org/data/main/r/rrootage/${version}-${debianRevision}/debian/patches/${patchname}.patch";
       sha256 = hash;
     }
   ;
@@ -25,8 +24,7 @@ stdenv.mkDerivation {
   pname = "rrootage";
   inherit version;
   src = fetchurl {
-    url =
-      "http://downloads.sourceforge.net/rrootage/rRootage-${version}.tar.gz";
+    url = "http://downloads.sourceforge.net/rrootage/rRootage-${version}.tar.gz";
     sha256 = "01zzg4ih3kmbhsn1p9zr7g8srv1d2dhrp8cdd86y9qq233idnkln";
   };
 

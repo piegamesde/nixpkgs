@@ -95,8 +95,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://ispc.github.io/";
-    description =
-      "Intel 'Single Program, Multiple Data' Compiler, a vectorised language";
+    description = "Intel 'Single Program, Multiple Data' Compiler, a vectorised language";
     license = licenses.bsd3;
     platforms = [
       "x86_64-linux"

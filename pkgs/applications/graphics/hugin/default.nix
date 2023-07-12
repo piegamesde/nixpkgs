@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://hugin.sourceforge.net/";
-    description =
-      "Toolkit for stitching photographs and assembling panoramas, together with an easy to use graphical front end";
+    description = "Toolkit for stitching photographs and assembling panoramas, together with an easy to use graphical front end";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ hrdinka ];
     platforms = platforms.linux;

@@ -39,8 +39,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Wrapper around podman or docker to create and start containers";
+    description = "Wrapper around podman or docker to create and start containers";
     longDescription = ''
       Use any linux distribution inside your terminal. Enable both backward and
       forward compatibility with software and freedom to use whatever distribution

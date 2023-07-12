@@ -16,8 +16,7 @@ import ../make-test-python.nix (
           # HA Quorum Journal Manager configuration
           "dfs.nameservices" = "ns1";
           "dfs.ha.namenodes.ns1" = "nn1,nn2";
-          "dfs.namenode.shared.edits.dir.ns1" =
-            "qjournal://jn1:8485;jn2:8485;jn3:8485/ns1";
+          "dfs.namenode.shared.edits.dir.ns1" = "qjournal://jn1:8485;jn2:8485;jn3:8485/ns1";
           "dfs.namenode.rpc-address.ns1.nn1" = "nn1:8020";
           "dfs.namenode.rpc-address.ns1.nn2" = "nn2:8020";
           "dfs.namenode.servicerpc-address.ns1.nn1" = "nn1:8022";
@@ -26,8 +25,7 @@ import ../make-test-python.nix (
           "dfs.namenode.http-address.ns1.nn2" = "nn2:9870";
 
           # Automatic failover configuration
-          "dfs.client.failover.proxy.provider.ns1" =
-            "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider";
+          "dfs.client.failover.proxy.provider.ns1" = "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider";
           "dfs.ha.automatic-failover.enabled.ns1" = "true";
           "dfs.ha.fencing.methods" = "shell(true)";
           "ha.zookeeper.quorum" = "zk1:2181";

@@ -77,8 +77,7 @@ in
 }:
 
 let
-  defaultPathOriginal =
-    "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin";
+  defaultPathOriginal = "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin";
   privileged-un-utils =
     if ((newuidmapPath == null) && (newgidmapPath == null)) then
       null

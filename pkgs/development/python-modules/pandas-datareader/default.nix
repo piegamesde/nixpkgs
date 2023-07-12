@@ -29,8 +29,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Up to date remote data access for pandas, works for multiple versions of pandas";
+    description = "Up to date remote data access for pandas, works for multiple versions of pandas";
     homepage = "https://github.com/pydata/pandas-datareader";
     license = licenses.bsd3;
     maintainers = with maintainers; [ evax ];

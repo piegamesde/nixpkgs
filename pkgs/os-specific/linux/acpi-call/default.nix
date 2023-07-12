@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     ];
     homepage = "https://github.com/nix-community/acpi_call";
     platforms = platforms.linux;
-    description =
-      "A module allowing arbitrary ACPI calls; use case: hybrid video";
+    description = "A module allowing arbitrary ACPI calls; use case: hybrid video";
     license = licenses.gpl3Plus;
   };
 }

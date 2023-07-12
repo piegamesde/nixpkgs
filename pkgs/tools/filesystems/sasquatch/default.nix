@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/devttys0/sasquatch";
-    description =
-      "Set of patches to the standard unsquashfs utility (part of squashfs-tools) that attempts to add support for as many hacked-up vendor-specific SquashFS implementations as possible";
+    description = "Set of patches to the standard unsquashfs utility (part of squashfs-tools) that attempts to add support for as many hacked-up vendor-specific SquashFS implementations as possible";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.pamplemousse ];
     platforms = platforms.linux;

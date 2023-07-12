@@ -198,8 +198,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://arcan-fe.com/";
-      description =
-        "Combined Display Server, Multimedia Framework, Game Engine";
+      description = "Combined Display Server, Multimedia Framework, Game Engine";
       longDescription = ''
         Arcan is a portable and fast self-sufficient multimedia engine for
         advanced visualization and analysis work in a wide range of applications

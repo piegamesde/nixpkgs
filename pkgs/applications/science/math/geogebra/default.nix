@@ -36,8 +36,7 @@ let
   };
 
   meta = with lib; {
-    description =
-      "Dynamic mathematics software with graphics, algebra and spreadsheets";
+    description = "Dynamic mathematics software with graphics, algebra and spreadsheets";
     longDescription = ''
       Dynamic mathematics software for all levels of education that brings
       together geometry, algebra, spreadsheets, graphing, statistics and

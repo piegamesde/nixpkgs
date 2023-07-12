@@ -96,8 +96,8 @@ in
         If you change this in the future you may need to run a command to update stored URLs in the database. Command example: `php artisan bookstack:update-url https://old.example.com https://new.example.com`
       '';
       default = "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
-      defaultText =
-        ''http''${lib.optionalString tlsEnabled "s"}://''${cfg.hostname}'';
+      defaultText = ''
+        http''${lib.optionalString tlsEnabled "s"}://''${cfg.hostname}'';
       example = "https://example.com";
       type = types.str;
     };
@@ -324,13 +324,11 @@ in
     assertions = [
       {
         assertion = db.createLocally -> db.user == user;
-        message =
-          "services.bookstack.database.user must be set to ${user} if services.bookstack.database.createLocally is set true.";
+        message = "services.bookstack.database.user must be set to ${user} if services.bookstack.database.createLocally is set true.";
       }
       {
         assertion = db.createLocally -> db.passwordFile == null;
-        message =
-          "services.bookstack.database.passwordFile cannot be specified if services.bookstack.database.createLocally is set to true.";
+        message = "services.bookstack.database.passwordFile cannot be specified if services.bookstack.database.createLocally is set to true.";
       }
     ];
 

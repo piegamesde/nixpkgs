@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Web based SSH client";
     homepage = "https://github.com/huashengdun/webssh/";
-    changelog =
-      "https://github.com/huashengdun/webssh/releases/tag/v${version}";
+    changelog = "https://github.com/huashengdun/webssh/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ davidtwco ];
     broken = stdenv.isDarwin;

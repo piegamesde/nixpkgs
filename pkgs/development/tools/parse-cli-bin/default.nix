@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "3.0.5";
 
   src = fetchurl {
-    url =
-      "https://github.com/ParsePlatform/parse-cli/releases/download/release_${version}/parse_linux";
+    url = "https://github.com/ParsePlatform/parse-cli/releases/download/release_${version}/parse_linux";
     sha256 = "1iyfizbbxmr87wjgqiwqds51irgw6l3vm9wn89pc3zpj2zkyvf5h";
   };
 

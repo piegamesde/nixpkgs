@@ -12,8 +12,7 @@ rec {
   deps = [ args."acclimation" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/clump/2016-08-25/clump-20160825-git.tgz";
+    url = "http://beta.quicklisp.org/archive/clump/2016-08-25/clump-20160825-git.tgz";
     sha256 = "1mngxmwklpi52inihkp4akzdi7y32609spfi70yamwgzc1wijbrl";
   };
 

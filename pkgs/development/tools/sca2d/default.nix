@@ -49,8 +49,7 @@ python.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "An experimental static code analyser for OpenSCAD";
     homepage = "https://gitlab.com/bath_open_instrumentation_group/sca2d";
-    changelog =
-      "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ traxys ];
   };

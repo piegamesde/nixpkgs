@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "2022.83";
 
   src = fetchurl {
-    url =
-      "https://matt.ucc.asn.au/dropbear/releases/dropbear-${version}.tar.bz2";
+    url = "https://matt.ucc.asn.au/dropbear/releases/dropbear-${version}.tar.bz2";
     sha256 = "sha256-vFoSH/vJS1FxrV6+Ab5CdG1Qqnl8lUmkY5iUoWdJRDs=";
   };
 
@@ -80,8 +79,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A small footprint implementation of the SSH 2 protocol";
     homepage = "https://matt.ucc.asn.au/dropbear/dropbear.html";
-    changelog =
-      "https://github.com/mkj/dropbear/raw/DROPBEAR_${version}/CHANGES";
+    changelog = "https://github.com/mkj/dropbear/raw/DROPBEAR_${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [ abbradar ];
     platforms = platforms.linux;

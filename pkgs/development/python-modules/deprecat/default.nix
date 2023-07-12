@@ -31,11 +31,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "deprecat" ];
 
   meta = with lib; {
-    description =
-      "Decorator to deprecate old python classes, functions or methods";
+    description = "Decorator to deprecate old python classes, functions or methods";
     homepage = "https://github.com/mjhajharia/deprecat";
-    changelog =
-      "https://github.com/mjhajharia/deprecat/releases/tag/v${version}";
+    changelog = "https://github.com/mjhajharia/deprecat/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

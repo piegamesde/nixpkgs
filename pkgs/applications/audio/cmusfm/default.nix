@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Last.fm and Libre.fm standalone scrobbler for the cmus music player";
+    description = "Last.fm and Libre.fm standalone scrobbler for the cmus music player";
     longDescription = ''
       Features:
       + Listening now notification support

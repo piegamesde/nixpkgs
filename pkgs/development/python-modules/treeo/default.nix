@@ -26,13 +26,11 @@ buildPythonPackage rec {
   # See https://github.com/cgarciae/treex/issues/68.
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/cgarciae/treeo/pull/14/commits/022915da2b3bf76406a7c79d1b4593bee7956f16.patch";
+      url = "https://github.com/cgarciae/treeo/pull/14/commits/022915da2b3bf76406a7c79d1b4593bee7956f16.patch";
       hash = "sha256-WGxJqqrf2g0yZe30RyG1xxbloiqj1awuf1Y4eh5y+z0=";
     })
     (fetchpatch {
-      url =
-        "https://github.com/cgarciae/treeo/pull/14/commits/99f9488bd0c977780844fd79743167b0010d359b.patch";
+      url = "https://github.com/cgarciae/treeo/pull/14/commits/99f9488bd0c977780844fd79743167b0010d359b.patch";
       hash = "sha256-oKDYs+Ah0QXkhiJysIudQ6VLIiUiIcnQisxYp6GJuTc=";
     })
   ];
@@ -46,8 +44,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "treeo" ];
 
   meta = with lib; {
-    description =
-      "A small library for creating and manipulating custom JAX Pytree classes.";
+    description = "A small library for creating and manipulating custom JAX Pytree classes.";
     homepage = "https://github.com/cgarciae/treeo";
     license = licenses.mit;
     maintainers = with maintainers; [ ndl ];

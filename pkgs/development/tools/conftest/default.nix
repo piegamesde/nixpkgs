@@ -46,8 +46,7 @@ buildGoModule rec {
     description = "Write tests against structured configuration data";
     downloadPage = "https://github.com/open-policy-agent/conftest";
     homepage = "https://www.conftest.dev";
-    changelog =
-      "https://github.com/open-policy-agent/conftest/releases/tag/v${version}";
+    changelog = "https://github.com/open-policy-agent/conftest/releases/tag/v${version}";
     license = licenses.asl20;
     longDescription = ''
       Conftest helps you write tests against structured configuration data.

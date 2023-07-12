@@ -116,8 +116,7 @@ in
             ProtectKernelTunables = true;
             ProtectKernelModules = true;
             ProtectControlGroups = true;
-            RestrictAddressFamilies =
-              "AF_INET AF_INET6 AF_UNIX AF_PACKET AF_NETLINK";
+            RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX AF_PACKET AF_NETLINK";
             RestrictNamespaces = true;
             LockPersonality = true;
             MemoryDenyWriteExecute = true;

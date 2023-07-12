@@ -24,8 +24,7 @@ let
     version = lib.versions.majorMinor version;
 
     src = fetchurl {
-      url =
-        "https://www.7kfans.com/downloads/7kaa-music-${
+      url = "https://www.7kfans.com/downloads/7kaa-music-${
           lib.versions.majorMinor version
         }.tar.bz2";
       sha256 = "sha256-sNdntuJXGaFPXzSpN0SoAi17wkr2YnW+5U38eIaVwcM=";
@@ -82,8 +81,7 @@ gccStdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.7kfans.com";
-    description =
-      "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
+    description = "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
     license = licenses.gpl2Only;
     platforms = platforms.x86_64 ++ platforms.aarch64;
     maintainers = with maintainers; [ _1000101 ];

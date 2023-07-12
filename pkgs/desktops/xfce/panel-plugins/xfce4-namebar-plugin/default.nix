@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/HugLifeTiZ/xfce4-namebar-plugin";
-    description =
-      "Plugin which integrates titlebar and window controls into the xfce4-panel";
+    description = "Plugin which integrates titlebar and window controls into the xfce4-panel";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ] ++ teams.xfce.members;

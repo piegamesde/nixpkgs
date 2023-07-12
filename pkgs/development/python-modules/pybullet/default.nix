@@ -32,8 +32,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    description =
-      "Open-source software for robot simulation, integrated with OpenAI Gym";
+    description = "Open-source software for robot simulation, integrated with OpenAI Gym";
     homepage = "https://pybullet.org/";
     license = licenses.zlib;
     maintainers = with maintainers; [ timokau ];

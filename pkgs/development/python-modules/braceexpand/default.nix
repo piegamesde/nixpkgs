@@ -24,8 +24,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Bash-style brace expansion for Python";
     homepage = "https://github.com/trendels/braceexpand";
-    changelog =
-      "https://github.com/trendels/braceexpand/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/trendels/braceexpand/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ newam ];
   };

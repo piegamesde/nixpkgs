@@ -120,8 +120,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A specification that Python filesystems should adhere to";
     homepage = "https://github.com/fsspec/filesystem_spec";
-    changelog =
-      "https://github.com/fsspec/filesystem_spec/raw/${version}/docs/source/changelog.rst";
+    changelog = "https://github.com/fsspec/filesystem_spec/raw/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
   };

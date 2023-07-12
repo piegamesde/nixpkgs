@@ -74,8 +74,9 @@ import ../make-test-python.nix (
 
           virtualHosts.netbox = {
             default = true;
-            locations."/".proxyPass =
-              "http://localhost:${toString config.services.netbox.port}";
+            locations."/".proxyPass = "http://localhost:${
+                toString config.services.netbox.port
+              }";
             locations."/static/".alias = "/var/lib/netbox/static/";
           };
         };

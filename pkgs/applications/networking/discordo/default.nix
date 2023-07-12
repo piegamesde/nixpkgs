@@ -46,8 +46,7 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description =
-      "A lightweight, secure, and feature-rich Discord terminal client";
+    description = "A lightweight, secure, and feature-rich Discord terminal client";
     homepage = "https://github.com/ayn2op/discordo";
     license = licenses.mit;
     maintainers = [ maintainers.arian-d ];

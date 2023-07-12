@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "2023.02.13";
 
   src = fetchurl {
-    url =
-      "https://www.kernel.org/pub/software/network/${pname}/${pname}-${version}.tar.xz";
+    url = "https://www.kernel.org/pub/software/network/${pname}/${pname}-${version}.tar.xz";
     sha256 = "sha256-/oHoqGlNxHU6RQh6HEx+G0je5aWfX3ls43TqVQ8LLnM=";
   };
 

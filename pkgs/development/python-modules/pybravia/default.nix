@@ -31,8 +31,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pybravia" ];
 
   meta = with lib; {
-    description =
-      "Library for remote control of Sony Bravia TVs 2013 and newer";
+    description = "Library for remote control of Sony Bravia TVs 2013 and newer";
     homepage = "https://github.com/Drafteed/pybravia";
     changelog = "https://github.com/Drafteed/pybravia/releases/tag/v${version}";
     license = licenses.mit;

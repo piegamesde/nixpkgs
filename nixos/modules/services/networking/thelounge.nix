@@ -115,8 +115,7 @@ in
     systemd.services.thelounge = {
       description = "The Lounge web IRC client";
       wantedBy = [ "multi-user.target" ];
-      preStart =
-        "ln -sf ${
+      preStart = "ln -sf ${
           pkgs.writeText "config.js" configJsData
         } ${dataDir}/config.js";
       environment.THELOUNGE_PACKAGES = mkIf (cfg.plugins != [ ]) "${plugins}";

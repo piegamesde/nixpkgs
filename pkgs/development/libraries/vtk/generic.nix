@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
   version = "${majorVersion}.${minorVersion}";
 
   src = fetchurl {
-    url =
-      "https://www.vtk.org/files/release/${majorVersion}/VTK-${version}.tar.gz";
+    url = "https://www.vtk.org/files/release/${majorVersion}/VTK-${version}.tar.gz";
     sha256 = sourceSha256;
   };
 
@@ -179,8 +178,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Open source libraries for 3D computer graphics, image processing and visualization";
+    description = "Open source libraries for 3D computer graphics, image processing and visualization";
     homepage = "https://www.vtk.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [

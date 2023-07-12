@@ -111,8 +111,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/vaxerski/Hyprland";
-    description =
-      "A dynamic tiling Wayland compositor that doesn't sacrifice on its looks";
+    description = "A dynamic tiling Wayland compositor that doesn't sacrifice on its looks";
     license = licenses.bsd3;
     maintainers = with maintainers; [
       wozeparrot

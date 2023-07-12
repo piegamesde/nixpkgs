@@ -27,8 +27,7 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Tool for extracting nested CI/CD supply chains and executing commands";
+    description = "Tool for extracting nested CI/CD supply chains and executing commands";
     homepage = "https://github.com/k1LoW/oshka";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

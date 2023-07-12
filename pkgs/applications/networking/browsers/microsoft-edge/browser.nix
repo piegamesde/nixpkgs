@@ -57,15 +57,13 @@ stdenv.mkDerivation rec {
   name = "${baseName}-${channel}-${version}";
 
   src = fetchurl {
-    url =
-      "https://packages.microsoft.com/repos/edge/pool/main/m/${baseName}-${channel}/${baseName}-${channel}_${version}-${revision}_amd64.deb";
+    url = "https://packages.microsoft.com/repos/edge/pool/main/m/${baseName}-${channel}/${baseName}-${channel}_${version}-${revision}_amd64.deb";
     inherit sha256;
   };
 
   nativeBuildInputs = [ makeWrapper ];
 
-  unpackCmd =
-    "${binutils-unwrapped}/bin/ar p $src data.tar.xz | ${xz}/bin/xz -dc | ${gnutar}/bin/tar -xf -";
+  unpackCmd = "${binutils-unwrapped}/bin/ar p $src data.tar.xz | ${xz}/bin/xz -dc | ${gnutar}/bin/tar -xf -";
   sourceRoot = ".";
 
   dontPatch = true;

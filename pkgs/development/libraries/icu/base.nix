@@ -20,8 +20,7 @@ let
 
   baseAttrs = {
     src = fetchurl {
-      url =
-        "https://github.com/unicode-org/icu/releases/download/release-${
+      url = "https://github.com/unicode-org/icu/releases/download/release-${
           lib.replaceStrings [ "." ] [ "-" ] version
         }/icu4c-${lib.replaceStrings [ "." ] [ "_" ] version}-src.tgz";
       inherit sha256;

@@ -114,8 +114,7 @@ mapAliases ({
     throw
       "cozy was removed because it was not actually https://pypi.org/project/Cozy/."
   ; # added 2022-01-14
-  cryptography_vectors =
-    "cryptography_vectors is no longer exposed in python*Packages because it is used for testing cryptography only."; # Added 2022-03-23
+  cryptography_vectors = "cryptography_vectors is no longer exposed in python*Packages because it is used for testing cryptography only."; # Added 2022-03-23
   dask-xgboost =
     throw
       "dask-xgboost was removed because its features are available in xgboost"
@@ -533,8 +532,7 @@ mapAliases ({
     throw
       "rig has been removed because it was pinned to python 2.7 and 3.5, failed to build and is otherwise unmaintained"
   ; # added 2022-11-28
-  rl-coach =
-    "rl-coach was removed because the project is discontinued and was archived by upstream"; # added 2023-05-03
+  rl-coach = "rl-coach was removed because the project is discontinued and was archived by upstream"; # added 2023-05-03
   roboschool =
     throw
       "roboschool is deprecated in favor of PyBullet and has been removed"

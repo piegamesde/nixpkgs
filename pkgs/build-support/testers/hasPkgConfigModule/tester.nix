@@ -17,8 +17,7 @@ runCommand testName
     buildInputs = [ package ];
     inherit moduleName;
     meta = {
-      description =
-        "Test whether ${package.name} exposes pkg-config module ${moduleName}";
+      description = "Test whether ${package.name} exposes pkg-config module ${moduleName}";
     }
       # Make sure licensing info etc is preserved, as this is a concern for e.g. cache.nixos.org,
       # as hydra can't check this meta info in dependencies.

@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
       an encoder (aomenc) and a decoder (aomdec).
     '';
     homepage = "https://aomedia.org/av1-features/get-started/";
-    changelog =
-      "https://aomedia.googlesource.com/aom/+/refs/tags/v${version}/CHANGELOG";
+    changelog = "https://aomedia.googlesource.com/aom/+/refs/tags/v${version}/CHANGELOG";
     maintainers = with maintainers; [
       primeos
       kiloreux

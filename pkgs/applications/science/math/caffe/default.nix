@@ -53,8 +53,7 @@ let
   toggle = bool: if bool then "ON" else "OFF";
 
   test_model_weights = fetchurl {
-    url =
-      "http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel";
+    url = "http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel";
     sha256 = "472d4a06035497b180636d8a82667129960371375bd10fcb6df5c6c7631f25e0";
   };
 in

@@ -52,8 +52,7 @@ let
       "web files group" = "root";
     };
     "plugin:cgroups" = {
-      "script to get cgroup network interfaces" =
-        "${wrappedPlugins}/libexec/netdata/plugins.d/cgroup-network";
+      "script to get cgroup network interfaces" = "${wrappedPlugins}/libexec/netdata/plugins.d/cgroup-network";
       "use unified cgroups" = "yes";
     };
   };
@@ -237,10 +236,8 @@ in
         config.environment.etc."netdata/conf.d".source
       ];
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/netdata -P /run/netdata/netdata.pid -D -c /etc/netdata/netdata.conf";
-        ExecReload =
-          "${pkgs.util-linux}/bin/kill -s HUP -s USR1 -s USR2 $MAINPID";
+        ExecStart = "${cfg.package}/bin/netdata -P /run/netdata/netdata.pid -D -c /etc/netdata/netdata.conf";
+        ExecReload = "${pkgs.util-linux}/bin/kill -s HUP -s USR1 -s USR2 $MAINPID";
         ExecStartPost = pkgs.writeShellScript "wait-for-netdata-up" ''
           while [ "$(${pkgs.netdata}/bin/netdatacli ping)" != pong ]; do sleep 0.5; done
         '';

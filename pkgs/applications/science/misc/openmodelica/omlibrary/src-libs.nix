@@ -222,15 +222,13 @@
     fetchSubmodules = true;
   }
   {
-    url =
-      "https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary.git";
+    url = "https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary.git";
     rev = "4a91d52248b0f17415bba1d58881fc730bd94215";
     sha256 = "19caxz6hvlrsls3b2387a24zwwnykbb138jpb42gwpy8jlh93yzi";
     fetchSubmodules = true;
   }
   {
-    url =
-      "https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary.git";
+    url = "https://github.com/OpenModelica/OpenModelica-ModelicaStandardLibrary.git";
     rev = "cab27240a4a3ed4ea137226f056bbc0d79543f7a";
     sha256 = "06y911i2hs7hg4ykhb8wngvxhwnaww8rsakwa7ssd047a7glzsb0";
     fetchSubmodules = true;
@@ -242,8 +240,7 @@
     fetchSubmodules = true;
   }
   {
-    url =
-      "https://github.com/modelica-3rdparty/Modelica-GNU_ScientificLibrary.git";
+    url = "https://github.com/modelica-3rdparty/Modelica-GNU_ScientificLibrary.git";
     rev = "9235ab28bdd7f0fe3e7abba48af53d73332858ec";
     sha256 = "168g9gg12lfa863ifs41bnx6yd0yyjnal6986dgpm51dj5arw6id";
     fetchSubmodules = true;
@@ -375,8 +372,7 @@
     fetchSubmodules = true;
   }
   {
-    url =
-      "https://github.com/modelica-3rdparty/RealTimeCoordinationLibrary.git";
+    url = "https://github.com/modelica-3rdparty/RealTimeCoordinationLibrary.git";
     rev = "v1.0.2";
     sha256 = "0ch4la04hm059ii5wzph9gsbvqhnfqrvvpqi57qn27bm10c4la0m";
     fetchSubmodules = true;

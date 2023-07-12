@@ -22,8 +22,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "Interactive package manager and resource monitor designed for the GNU/Linux";
+    description = "Interactive package manager and resource monitor designed for the GNU/Linux";
     homepage = "https://github.com/orhun/pkgtop";
     changelog = "https://github.com/orhun/pkgtop/releases/tag/${version}";
     license = licenses.gpl3Only;

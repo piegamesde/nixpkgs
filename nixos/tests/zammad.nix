@@ -40,8 +40,7 @@ import ./make-test-python.nix (
               WorkingDirectory = cfg.dataDir;
             };
             wantedBy = [ "zammad-web.service" ];
-            description =
-              "Hack in the locale files so zammad doesn't try to access the internet";
+            description = "Hack in the locale files so zammad doesn't try to access the internet";
             script = ''
               mkdir -p ./config/translations
               VERSION=$(cat ${cfg.package}/VERSION)

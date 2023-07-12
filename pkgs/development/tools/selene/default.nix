@@ -36,8 +36,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A blazing-fast modern Lua linter written in Rust";
     homepage = "https://github.com/kampfkarren/selene";
-    changelog =
-      "https://github.com/kampfkarren/selene/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/kampfkarren/selene/blob/${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

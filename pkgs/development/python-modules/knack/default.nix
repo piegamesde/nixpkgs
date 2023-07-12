@@ -52,8 +52,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/microsoft/knack";
     description = "A Command-Line Interface framework";
-    changelog =
-      "https://github.com/microsoft/knack/blob/v${version}/HISTORY.rst";
+    changelog = "https://github.com/microsoft/knack/blob/v${version}/HISTORY.rst";
     platforms = platforms.all;
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

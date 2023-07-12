@@ -77,8 +77,7 @@
 
     installPhase =
       let
-        productTargetPath =
-          "product/community/target/products/org.jkiss.dbeaver.core.product";
+        productTargetPath = "product/community/target/products/org.jkiss.dbeaver.core.product";
 
         platformMap = {
           aarch64-darwin = "aarch64";
@@ -142,8 +141,7 @@
 
     meta = with lib; {
       homepage = "https://dbeaver.io/";
-      description =
-        "Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more";
+      description = "Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more";
       longDescription = ''
         Free multi-platform database tool for developers, SQL programmers, database
         administrators and analysts. Supports all popular databases: MySQL,

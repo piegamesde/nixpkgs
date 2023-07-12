@@ -16,8 +16,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "decli" ];
 
   meta = with lib; {
-    description =
-      "Minimal, easy to use, declarative command line interface tool";
+    description = "Minimal, easy to use, declarative command line interface tool";
     homepage = "https://github.com/Woile/decli";
     license = licenses.mit;
     maintainers = with maintainers; [ lovesegfault ];

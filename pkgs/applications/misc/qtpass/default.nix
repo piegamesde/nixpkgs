@@ -49,8 +49,7 @@ mkDerivation rec {
       # TODO: Remove when https://github.com/IJHack/QtPass/pull/499 is merged and available.
       (fetchpatch {
         name = "qtpass-Dont-hardcode-pass-otp-usr-lib-path.patch";
-        url =
-          "https://github.com/IJHack/QtPass/commit/2ca9f0ec5a8d709c97a2433c5cd814040c82d4f3.patch";
+        url = "https://github.com/IJHack/QtPass/commit/2ca9f0ec5a8d709c97a2433c5cd814040c82d4f3.patch";
         sha256 = "0ljlvqxvarrz2a4j71i66aflrxi84zirb6cg9kvygnvhvm1zbc7d";
       })
     ];
@@ -79,8 +78,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A multi-platform GUI for pass, the standard unix password manager";
+    description = "A multi-platform GUI for pass, the standard unix password manager";
     homepage = "https://qtpass.org";
     license = licenses.gpl3;
     maintainers = [ maintainers.hrdinka ];

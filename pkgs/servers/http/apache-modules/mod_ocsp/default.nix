@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   inherit (mod_ca) configureFlags installFlags;
 
   meta = with lib; {
-    description =
-      "RedWax CA service modules of OCSP Online Certificate Validation";
+    description = "RedWax CA service modules of OCSP Online Certificate Validation";
 
     homepage = "https://redwax.eu";
     license = licenses.asl20;

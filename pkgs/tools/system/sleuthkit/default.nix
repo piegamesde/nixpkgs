@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A forensic/data recovery tool";
     homepage = "https://www.sleuthkit.org/";
-    changelog =
-      "https://github.com/sleuthkit/sleuthkit/releases/tag/sleuthkit-${version}";
+    changelog = "https://github.com/sleuthkit/sleuthkit/releases/tag/sleuthkit-${version}";
     maintainers = with maintainers; [
       raskin
       gfrascadorio

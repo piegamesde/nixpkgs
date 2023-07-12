@@ -70,8 +70,7 @@ import ./make-test-python.nix (
         # Call javascript in gnome shell, returns a tuple (success, output), where
         # `success` is true if the dbus call was successful and output is what the
         # javascript evaluates to.
-        eval =
-          "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval";
+        eval = "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval";
 
         # False when startup is done
         startingUp = su "${gdbus} ${eval} Main.layoutManager._startingUp";

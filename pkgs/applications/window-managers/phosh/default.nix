@@ -132,8 +132,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A pure Wayland shell prototype for GNOME on mobile devices";
     homepage = "https://gitlab.gnome.org/World/Phosh/phosh";
-    changelog =
-      "https://gitlab.gnome.org/World/Phosh/phosh/-/blob/v${version}/debian/changelog";
+    changelog = "https://gitlab.gnome.org/World/Phosh/phosh/-/blob/v${version}/debian/changelog";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       masipcat

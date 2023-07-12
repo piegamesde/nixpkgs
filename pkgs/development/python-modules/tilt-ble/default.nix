@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for Tilt BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/tilt-ble";
-    changelog =
-      "https://github.com/Bluetooth-Devices/tilt-ble/releases/tag/v${version}";
+    changelog = "https://github.com/Bluetooth-Devices/tilt-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

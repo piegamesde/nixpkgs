@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   outputDevdoc = "out";
 
-  preConfigure =
-    "\n    patchShebangs ./configure\n    patchShebangs ./do_install\n  ";
+  preConfigure = "\n    patchShebangs ./configure\n    patchShebangs ./do_install\n  ";
 
   buildInputs = [ curl ];
 

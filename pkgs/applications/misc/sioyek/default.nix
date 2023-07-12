@@ -83,10 +83,8 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://sioyek.info/";
-      description =
-        "A PDF viewer designed for research papers and technical books";
-      changelog =
-        "https://github.com/ahrm/sioyek/releases/tag/v${finalAttrs.version}";
+      description = "A PDF viewer designed for research papers and technical books";
+      changelog = "https://github.com/ahrm/sioyek/releases/tag/v${finalAttrs.version}";
       license = licenses.gpl3Only;
       maintainers = with maintainers; [ podocarp ];
       platforms = platforms.unix;

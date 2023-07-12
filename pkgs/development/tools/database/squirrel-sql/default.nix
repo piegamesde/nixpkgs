@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "4.5.1";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/squirrel-sql/1-stable/${version}-plainzip/squirrelsql-${version}-standard.zip";
+    url = "mirror://sourceforge/project/squirrel-sql/1-stable/${version}-plainzip/squirrelsql-${version}-standard.zip";
     sha256 = "sha256-LKX8yNSLs60546ZcvLlQF3e++VxHmPsczui4cfrpia0=";
   };
 

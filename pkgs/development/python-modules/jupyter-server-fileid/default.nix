@@ -44,10 +44,8 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    changelog =
-      "https://github.com/jupyter-server/jupyter_server_fileid/blob/${src.rev}/CHANGELOG.md";
-    description =
-      "An extension that maintains file IDs for documents in a running Jupyter Server";
+    changelog = "https://github.com/jupyter-server/jupyter_server_fileid/blob/${src.rev}/CHANGELOG.md";
+    description = "An extension that maintains file IDs for documents in a running Jupyter Server";
     homepage = "https://github.com/jupyter-server/jupyter_server_fileid";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ dotlambda ];

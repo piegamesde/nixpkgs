@@ -22,8 +22,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Content-addressed binary distribution system";
-    longDescription =
-      "An alternate implementation of the casync protocol and storage mechanism with a focus on production-readiness";
+    longDescription = "An alternate implementation of the casync protocol and storage mechanism with a focus on production-readiness";
     homepage = "https://github.com/folbricht/desync";
     license = licenses.bsd3;
     platforms =

@@ -17,8 +17,7 @@ let
       version = "${versionMajor}.${versionMinor}";
 
       src = fetchurl {
-        url =
-          "mirror://apache/tomcat/tomcat-${versionMajor}/v${version}/bin/${pname}-${version}.tar.gz";
+        url = "mirror://apache/tomcat/tomcat-${versionMajor}/v${version}/bin/${pname}-${version}.tar.gz";
         inherit sha256;
       };
 
@@ -35,8 +34,7 @@ let
 
       meta = with lib; {
         homepage = "https://tomcat.apache.org/";
-        description =
-          "An implementation of the Java Servlet and JavaServer Pages technologies";
+        description = "An implementation of the Java Servlet and JavaServer Pages technologies";
         platforms = platforms.all;
         maintainers = [ ];
         license = [ licenses.asl20 ];

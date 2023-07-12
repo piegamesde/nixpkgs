@@ -19,8 +19,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with lib; {
-    description =
-      "LHa is an archiver and compressor using the LZSS and Huffman encoding compression algorithms";
+    description = "LHa is an archiver and compressor using the LZSS and Huffman encoding compression algorithms";
     platforms = platforms.unix;
     maintainers = [ maintainers.sander ];
     # Some of the original LhA code has been rewritten and the current author

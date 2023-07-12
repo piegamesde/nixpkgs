@@ -41,8 +41,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pylaunches" ];
 
   meta = with lib; {
-    description =
-      "Python module to get information about upcoming space launches";
+    description = "Python module to get information about upcoming space launches";
     homepage = "https://github.com/ludeeus/pylaunches";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

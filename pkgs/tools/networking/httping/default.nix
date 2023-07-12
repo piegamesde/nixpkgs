@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
       #   https://github.com/folkertvanheusden/HTTPing/pull/8
       (fetchpatch {
         name = "add-unistd.patch";
-        url =
-          "https://github.com/folkertvanheusden/HTTPing/commit/aad3c275686344fe9a235faeac4ee3832f3aa8d5.patch";
+        url = "https://github.com/folkertvanheusden/HTTPing/commit/aad3c275686344fe9a235faeac4ee3832f3aa8d5.patch";
         hash = "sha256-bz3AMQTSfSTwUyf9WbkAFWVmFo06ei+Qd55x+RRDREY=";
       })
     ];

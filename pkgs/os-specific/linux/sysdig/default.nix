@@ -120,8 +120,7 @@ stdenv.mkDerivation rec {
   ;
 
   # needed since luajit-2.1.0-beta3
-  env.NIX_CFLAGS_COMPILE =
-    "-DluaL_reg=luaL_Reg -DluaL_getn(L,i)=((int)lua_objlen(L,i))";
+  env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg -DluaL_getn(L,i)=((int)lua_objlen(L,i))";
 
   preConfigure =
     ''
@@ -161,8 +160,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "A tracepoint-based system tracing tool for Linux (with clients for other OSes)";
+    description = "A tracepoint-based system tracing tool for Linux (with clients for other OSes)";
     license = with licenses; [
       asl20
       gpl2

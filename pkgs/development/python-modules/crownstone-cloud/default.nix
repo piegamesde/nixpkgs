@@ -29,8 +29,7 @@ buildPythonPackage rec {
       # Remove asynctest, https://github.com/crownstone/crownstone-lib-python-cloud/pull/4
       (fetchpatch {
         name = "remove-asynctest.patch";
-        url =
-          "https://github.com/crownstone/crownstone-lib-python-cloud/commit/7f22c9b284bf8d7f6f43e205816787dd3bb37e78.patch";
+        url = "https://github.com/crownstone/crownstone-lib-python-cloud/commit/7f22c9b284bf8d7f6f43e205816787dd3bb37e78.patch";
         hash = "sha256-LS1O9LVB14WyBXfuHf/bs1juJ59zWhJ8pL4aGtVrTG8=";
       })
     ];
@@ -50,8 +49,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "crownstone_cloud" ];
 
   meta = with lib; {
-    description =
-      "Python module for communicating with Crownstone Cloud and devices";
+    description = "Python module for communicating with Crownstone Cloud and devices";
     homepage = "https://github.com/crownstone/crownstone-lib-python-cloud";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

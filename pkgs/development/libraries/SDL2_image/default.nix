@@ -24,8 +24,7 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://www.libsdl.org/projects/SDL_image/release/${pname}-${version}.tar.gz";
+    url = "https://www.libsdl.org/projects/SDL_image/release/${pname}-${version}.tar.gz";
     inherit hash;
   };
 

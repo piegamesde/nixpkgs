@@ -146,8 +146,7 @@ stdenv.mkDerivation (
         Xbox game console, enabling people to play their original Xbox games on
         Windows, macOS, and Linux systems.
       '';
-      changelog =
-        "https://github.com/xemu-project/xemu/releases/tag/v${finalAttrs.version}";
+      changelog = "https://github.com/xemu-project/xemu/releases/tag/v${finalAttrs.version}";
       license = lib.licenses.gpl2Plus;
       maintainers = with lib.maintainers; [
         AndersonTorres

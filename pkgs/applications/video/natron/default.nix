@@ -37,8 +37,7 @@ let
   minorVersion = "2.3";
   version = "${minorVersion}.15";
   OpenColorIO-Configs = fetchurl {
-    url =
-      "https://github.com/NatronGitHub/OpenColorIO-Configs/archive/Natron-v${minorVersion}.tar.gz";
+    url = "https://github.com/NatronGitHub/OpenColorIO-Configs/archive/Natron-v${minorVersion}.tar.gz";
     sha256 = "AZK9J+RnMyxOYcAQOAQZj5QciPQ999m6jrtBt5rdpkA=";
   };
   seexpr = stdenv.mkDerivation rec {
@@ -68,8 +67,7 @@ let
       pname = "openfx-${pluginName}";
       version = version;
       src = fetchurl {
-        url =
-          "https://github.com/NatronGitHub/openfx-${pluginName}/releases/download/Natron-${version}/openfx-${pluginName}-Natron-${version}.tar.xz";
+        url = "https://github.com/NatronGitHub/openfx-${pluginName}/releases/download/Natron-${version}/openfx-${pluginName}-Natron-${version}.tar.xz";
         inherit sha256;
       };
       inherit nativeBuildInputs buildInputs postPatch;
@@ -81,24 +79,20 @@ let
     }
   ;
   lodepngcpp = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/lvandeve/lodepng/a70c086077c0eaecbae3845e4da4424de5f43361/lodepng.cpp";
+    url = "https://raw.githubusercontent.com/lvandeve/lodepng/a70c086077c0eaecbae3845e4da4424de5f43361/lodepng.cpp";
     sha256 = "1dxkkr4jbmvlwfr7m16i1mgcj1pqxg9s1a7y3aavs9rrk0ki8ys2";
   };
   lodepngh = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/lvandeve/lodepng/a70c086077c0eaecbae3845e4da4424de5f43361/lodepng.h";
+    url = "https://raw.githubusercontent.com/lvandeve/lodepng/a70c086077c0eaecbae3845e4da4424de5f43361/lodepng.h";
     sha256 = "14drdikd0vws3wwpyqq7zzm5z3kg98svv4q4w0hr45q6zh6hs0bq";
   };
   cimgversion = "89b9d062ec472df3d33989e6d5d2a8b50ba0775c";
   CImgh = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/dtschump/CImg/${cimgversion}/CImg.h";
+    url = "https://raw.githubusercontent.com/dtschump/CImg/${cimgversion}/CImg.h";
     sha256 = "sha256-NbYpZDNj2oZ+wqoEkRwwCjiujdr+iGOLA0Pa0Ynso6U=";
   };
   inpainth = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/dtschump/CImg/${cimgversion}/plugins/inpaint.h";
+    url = "https://raw.githubusercontent.com/dtschump/CImg/${cimgversion}/plugins/inpaint.h";
     sha256 = "sha256-cd28a3VOs5002GkthHkbIUrxZfKuGhqIYO4Oxe/2HIQ=";
   };
   plugins = map buildPlugin [

@@ -13,8 +13,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   meta = with lib; {
-    description =
-      "Program to rename and remove files and directories using your editor";
+    description = "Program to rename and remove files and directories using your editor";
     homepage = "https://github.com/bulletmark/edir";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ guyonvarch ];

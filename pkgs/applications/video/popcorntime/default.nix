@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "0.4.9";
 
   src = fetchurl {
-    url =
-      "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip";
+    url = "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip";
     sha256 = "sha256-cbKL5bgweZD/yfi/8KS0L7Raha8PTHqIm4qSPFidjUc=";
   };
 
@@ -79,8 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/popcorn-official/popcorn-desktop";
-    description =
-      "An application that streams movies and TV shows from torrents";
+    description = "An application that streams movies and TV shows from torrents";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.gpl3;

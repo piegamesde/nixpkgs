@@ -144,28 +144,23 @@ let
     [
       {
         assertion = i.interface != "";
-        message =
-          "services.keepalived.vrrpInstances.${i.name}.interface option cannot be empty.";
+        message = "services.keepalived.vrrpInstances.${i.name}.interface option cannot be empty.";
       }
       {
         assertion = i.virtualRouterId >= 0 && i.virtualRouterId <= 255;
-        message =
-          "services.keepalived.vrrpInstances.${i.name}.virtualRouterId must be an integer between 0..255.";
+        message = "services.keepalived.vrrpInstances.${i.name}.virtualRouterId must be an integer between 0..255.";
       }
       {
         assertion = i.priority >= 0 && i.priority <= 255;
-        message =
-          "services.keepalived.vrrpInstances.${i.name}.priority must be an integer between 0..255.";
+        message = "services.keepalived.vrrpInstances.${i.name}.priority must be an integer between 0..255.";
       }
       {
         assertion = i.vmacInterface == null || i.useVmac;
-        message =
-          "services.keepalived.vrrpInstances.${i.name}.vmacInterface has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set.";
+        message = "services.keepalived.vrrpInstances.${i.name}.vmacInterface has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set.";
       }
       {
         assertion = !i.vmacXmitBase || i.useVmac;
-        message =
-          "services.keepalived.vrrpInstances.${i.name}.vmacXmitBase has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set.";
+        message = "services.keepalived.vrrpInstances.${i.name}.vmacXmitBase has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set.";
       }
     ]
     ++ flatten (map (virtualIpAssertions i.name) i.virtualIps)
@@ -175,16 +170,14 @@ let
   virtualIpAssertions =
     vrrpName: ip: [ {
       assertion = ip.addr != "";
-      message =
-        "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
+      message = "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
     } ]
   ;
 
   vrrpScriptAssertion =
     vrrpName: scriptName: {
       assertion = builtins.hasAttr scriptName cfg.vrrpScripts;
-      message =
-        "services.keepalived.vrrpInstances.${vrrpName} trackscript ${scriptName} is not defined in services.keepalived.vrrpScripts.";
+      message = "services.keepalived.vrrpInstances.${vrrpName} trackscript ${scriptName} is not defined in services.keepalived.vrrpScripts.";
     }
   ;
 
@@ -334,8 +327,7 @@ in
     assertions = flatten (map vrrpInstanceAssertions vrrpInstances);
 
     systemd.timers.keepalived-boot-delay = {
-      description =
-        "Keepalive Daemon delay to avoid instant transition to MASTER state";
+      description = "Keepalive Daemon delay to avoid instant transition to MASTER state";
       after = [
         "network.target"
         "network-online.target"

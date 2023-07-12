@@ -72,8 +72,7 @@ let
             atemu
             shawn8901
           ];
-          description =
-            "Built with custom settings and new features built to provide a stable, responsive and smooth desktop experience";
+          description = "Built with custom settings and new features built to provide a stable, responsive and smooth desktop experience";
           broken = stdenv.isAarch64;
         };
       } // (args.argsOverride or { })

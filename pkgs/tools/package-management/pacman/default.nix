@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
   version = "6.0.2";
 
   src = fetchurl {
-    url =
-      "https://sources.archlinux.org/other/${pname}/${pname}-${version}.tar.xz";
+    url = "https://sources.archlinux.org/other/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-fY4+jFEhrsCWXfcfWb7fRgUsbPFPljZcRBHsPeCkwaU=";
   };
 
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
     ./dont-create-empty-dirs.patch
     # Add keyringdir meson option to configure the keyring directory
     (fetchpatch {
-      url =
-        "https://gitlab.archlinux.org/pacman/pacman/-/commit/79bd512181af12ec80fd8f79486fc9508fa4a1b3.patch";
+      url = "https://gitlab.archlinux.org/pacman/pacman/-/commit/79bd512181af12ec80fd8f79486fc9508fa4a1b3.patch";
       hash = "sha256-ivTPwWe06Q5shn++R6EY0x3GC0P4X0SuC+F5sndfAtM=";
     })
   ];
@@ -136,8 +134,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A simple library-based package manager";
     homepage = "https://archlinux.org/pacman/";
-    changelog =
-      "https://gitlab.archlinux.org/pacman/pacman/-/raw/v${version}/NEWS";
+    changelog = "https://gitlab.archlinux.org/pacman/pacman/-/raw/v${version}/NEWS";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ samlukeyes123 ];

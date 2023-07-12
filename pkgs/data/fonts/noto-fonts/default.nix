@@ -273,8 +273,7 @@ rec {
       inherit pname version;
 
       src = fetchurl {
-        url =
-          "https://github.com/C1710/blobmoji/releases/download/v${version}/Blobmoji.ttf";
+        url = "https://github.com/C1710/blobmoji/releases/download/v${version}/Blobmoji.ttf";
         hash = "sha256-w9s7uF6E6nomdDmeKB4ATcGB/5A4sTwDvwHT3YGXz8g=";
       };
 

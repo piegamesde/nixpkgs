@@ -13,23 +13,19 @@ let
   supported = {
     x86_64-linux = {
       name = "x86_64";
-      sha256 =
-        "90aa7e4f5eae6e60fd41978111b3ff124ba0269562d0d0ec3110d3cb4bb51fe2";
+      sha256 = "90aa7e4f5eae6e60fd41978111b3ff124ba0269562d0d0ec3110d3cb4bb51fe2";
     };
     i686-linux = {
       name = "i386";
-      sha256 =
-        "18aea42cd17591cada78af7cba0f94a9d851e9d29995b6c8e1e7033d0af35d1c";
+      sha256 = "18aea42cd17591cada78af7cba0f94a9d851e9d29995b6c8e1e7033d0af35d1c";
     };
     aarch64-linux = {
       name = "arm64";
-      sha256 =
-        "db410c1df80748827b4e25ff3abceee29e28305a0a7e30e4e39bb5c7e32f1aa2";
+      sha256 = "db410c1df80748827b4e25ff3abceee29e28305a0a7e30e4e39bb5c7e32f1aa2";
     };
     armv7l-linux = {
       name = "arm";
-      sha256 =
-        "abcdaf44aeb2ad4e769709ec4fe971e259b23d297a98f58199c7bdf26db82e84";
+      sha256 = "abcdaf44aeb2ad4e769709ec4fe971e259b23d297a98f58199c7bdf26db82e84";
     };
   };
 
@@ -39,8 +35,7 @@ let
 
   version = "766";
 
-  url =
-    "https://www.segger.com/downloads/jlink/JLink_Linux_V${version}_${platform.name}.tgz";
+  url = "https://www.segger.com/downloads/jlink/JLink_Linux_V${version}_${platform.name}.tgz";
 in
 stdenv.mkDerivation {
   pname = "segger-jlink";
@@ -125,8 +120,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "J-Link Software and Documentation pack";
-    homepage =
-      "https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack";
+    homepage = "https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack";
     license = licenses.unfree;
     platforms = attrNames supported;
     maintainers = with maintainers; [

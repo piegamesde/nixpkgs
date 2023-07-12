@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Unifi Video NVR (aka Airvision) is a software package for controlling Unifi cameras";
+    description = "Unifi Video NVR (aka Airvision) is a software package for controlling Unifi cameras";
     longDescription = ''
       Unifi Video is the NVR server software which can monitor and
       record footage from supported Unifi video cameras

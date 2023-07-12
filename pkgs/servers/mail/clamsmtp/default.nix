@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "1.10";
 
   src = fetchurl {
-    url =
-      "http://thewalter.net/stef/software/clamsmtp/${pname}-${version}.tar.gz";
+    url = "http://thewalter.net/stef/software/clamsmtp/${pname}-${version}.tar.gz";
     sha256 = "0apr1pxifw6f1rbbsdrrwzs1dnhybg4hda3qqhqcw7p14r5xnbx5";
   };
 

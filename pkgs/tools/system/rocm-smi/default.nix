@@ -41,8 +41,7 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      description =
-        "System management interface for AMD GPUs supported by ROCm";
+      description = "System management interface for AMD GPUs supported by ROCm";
       homepage = "https://github.com/RadeonOpenCompute/rocm_smi_lib";
       license = with licenses; [ mit ];
       maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;

@@ -33,11 +33,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Quickly and easily fetch .gitignore templates from gitignore.io";
+    description = "Quickly and easily fetch .gitignore templates from gitignore.io";
     homepage = "https://github.com/sondr3/git-ignore";
-    changelog =
-      "https://github.com/sondr3/git-ignore/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/sondr3/git-ignore/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ figsoda ];
   };

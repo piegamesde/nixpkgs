@@ -120,8 +120,7 @@ let
         #   https://github.com/openjdk/jdk/pull/12992
         (fetchpatch {
           name = "gnumake-4.4.1";
-          url =
-            "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
+          url = "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
           hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
         })
       ]

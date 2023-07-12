@@ -78,8 +78,7 @@ let
         pkgs.nettools
       ];
 
-      serviceConfig.ExecStart =
-        "@${openvpn}/sbin/openvpn openvpn --suppress-timestamps --config ${configFile}";
+      serviceConfig.ExecStart = "@${openvpn}/sbin/openvpn openvpn --suppress-timestamps --config ${configFile}";
       serviceConfig.Restart = "always";
       serviceConfig.Type = "notify";
     }
@@ -91,8 +90,7 @@ let
       path = [ pkgs.procps ];
       script = "pkill --signal SIGHUP --exact openvpn";
       #SIGHUP makes openvpn process to self-exit and then it got restarted by systemd because of Restart=always
-      description =
-        "Sends a signal to OpenVPN process to trigger a restart after return from sleep";
+      description = "Sends a signal to OpenVPN process to trigger a restart after return from sleep";
     };
   };
 in

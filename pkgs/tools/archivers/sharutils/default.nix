@@ -33,13 +33,11 @@ stdenv.mkDerivation rec {
   patches = [
     # CVE-2018-1000097
     (fetchurl {
-      url =
-        "https://sources.debian.org/data/main/s/sharutils/1:4.15.2-2+deb9u1/debian/patches/01-fix-heap-buffer-overflow-cve-2018-1000097.patch";
+      url = "https://sources.debian.org/data/main/s/sharutils/1:4.15.2-2+deb9u1/debian/patches/01-fix-heap-buffer-overflow-cve-2018-1000097.patch";
       sha256 = "19g0sxc8g79aj5gd5idz5409311253jf2q8wqkasf0handdvsbxx";
     })
     (fetchurl {
-      url =
-        "https://sources.debian.org/data/main/s/sharutils/1:4.15.2-4/debian/patches/02-fix-ftbfs-with-glibc-2.28.patch";
+      url = "https://sources.debian.org/data/main/s/sharutils/1:4.15.2-4/debian/patches/02-fix-ftbfs-with-glibc-2.28.patch";
       sha256 = "15kpjqnfs98n6irmkh8pw7masr08xala7gx024agv7zv14722vkc";
     })
 
@@ -47,14 +45,12 @@ stdenv.mkDerivation rec {
     # Taken from https://lists.gnu.org/archive/html/bug-gnu-utils/2020-01/msg00002.html
     (fetchpatch {
       name = "sharutils-4.15.2-Fix-building-with-GCC-10.patch";
-      url =
-        "https://lists.gnu.org/archive/html/bug-gnu-utils/2020-01/txtDL8i6V6mUU.txt";
+      url = "https://lists.gnu.org/archive/html/bug-gnu-utils/2020-01/txtDL8i6V6mUU.txt";
       sha256 = "0kfch1vm45lg237hr6fdv4b2lh5b1933k0fn8yj91gqm58svskvl";
     })
     (fetchpatch {
       name = "sharutils-4.15.2-Do-not-include-lib-md5.c-into-src-shar.c.patch";
-      url =
-        "https://lists.gnu.org/archive/html/bug-gnu-utils/2020-01/txt5Z_KZup0yN.txt";
+      url = "https://lists.gnu.org/archive/html/bug-gnu-utils/2020-01/txt5Z_KZup0yN.txt";
       sha256 = "0an8vfy3qj6sss9w0i4j8ilf7g5mbc7y13l644jy5bcm9przcjbd";
     })
   ];

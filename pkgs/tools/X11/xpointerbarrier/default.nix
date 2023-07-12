@@ -14,8 +14,7 @@ stdenv.mkDerivation (
     version = "20.07";
 
     src = fetchurl {
-      url =
-        "https://www.uninformativ.de/git/xpointerbarrier/archives/xpointerbarrier-v${finalAttrs.version}.tar.gz";
+      url = "https://www.uninformativ.de/git/xpointerbarrier/archives/xpointerbarrier-v${finalAttrs.version}.tar.gz";
       hash = "sha256-V1sNAQjsPVSjJ2nhCSdZqZQA78pjUE0z3IU4+I85CpI=";
     };
 
@@ -30,8 +29,7 @@ stdenv.mkDerivation (
     makeFlags = [ "prefix=$(out)" ];
 
     meta = with lib; {
-      homepage =
-        "https://www.uninformativ.de/git/xpointerbarrier/file/README.html";
+      homepage = "https://www.uninformativ.de/git/xpointerbarrier/file/README.html";
       description = "Create X11 pointer barriers around your working area";
       license = licenses.mit;
       maintainers = with maintainers; [

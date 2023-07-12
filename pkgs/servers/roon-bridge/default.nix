@@ -34,8 +34,7 @@ let
       throw "Unsupported platform ${host}"
   ;
   src = fetchurl {
-    url =
-      "https://download.roonlabs.com/updates/stable/RoonBridge_${system}_${urlVersion}.tar.bz2";
+    url = "https://download.roonlabs.com/updates/stable/RoonBridge_${system}_${urlVersion}.tar.bz2";
     hash =
       if system == "linuxx64" then
         "sha256-DbtKPFEz2WIoKTxP+zoehzz+BjfsLZ2ZQk/FMh+zFBM="
@@ -112,8 +111,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "The music player for music lovers";
-    changelog =
-      "https://community.roonlabs.com/c/roon/software-release-notes/18";
+    changelog = "https://community.roonlabs.com/c/roon/software-release-notes/18";
     homepage = "https://roonlabs.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

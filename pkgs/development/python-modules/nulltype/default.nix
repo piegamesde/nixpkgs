@@ -21,8 +21,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nulltype" ];
 
   meta = with lib; {
-    description =
-      "Python library to handle Null values and sentinels like (but not) None, False and True";
+    description = "Python library to handle Null values and sentinels like (but not) None, False and True";
     homepage = "https://pypi.org/project/nulltype/";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];

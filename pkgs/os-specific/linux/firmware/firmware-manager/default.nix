@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "ecflash-0.1.0" = "sha256-W613wbW54R65/rs6oiPAH/qov2OVEjMMszpUJdX4TxI=";
-      "system76-firmware-1.0.45" =
-        "sha256-2ougRwPvdet5nIKcFGElBRrsxukW8jMNCBw3C68VJ+Q=";
+      "system76-firmware-1.0.45" = "sha256-2ougRwPvdet5nIKcFGElBRrsxukW8jMNCBw3C68VJ+Q=";
     };
   };
 

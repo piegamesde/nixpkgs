@@ -76,8 +76,7 @@ import ./make-test-python.nix (
               repo = remoteRepo;
               encryption.mode = "none";
               startAt = [ ];
-              environment.BORG_RSH =
-                "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
+              environment.BORG_RSH = "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
             };
 
             remoteAppendOnly = {
@@ -85,8 +84,7 @@ import ./make-test-python.nix (
               repo = remoteRepo;
               encryption.mode = "none";
               startAt = [ ];
-              environment.BORG_RSH =
-                "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519.appendOnly";
+              environment.BORG_RSH = "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519.appendOnly";
             };
 
             commandSuccess = {
@@ -96,8 +94,7 @@ import ./make-test-python.nix (
               repo = remoteRepo;
               encryption.mode = "none";
               startAt = [ ];
-              environment.BORG_RSH =
-                "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
+              environment.BORG_RSH = "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
             };
 
             commandFail = {
@@ -105,8 +102,7 @@ import ./make-test-python.nix (
               repo = remoteRepo;
               encryption.mode = "none";
               startAt = [ ];
-              environment.BORG_RSH =
-                "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
+              environment.BORG_RSH = "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
             };
 
             sleepInhibited = {
@@ -118,8 +114,7 @@ import ./make-test-python.nix (
               repo = remoteRepo;
               encryption.mode = "none";
               startAt = [ ];
-              environment.BORG_RSH =
-                "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
+              environment.BORG_RSH = "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
             };
           };
         }

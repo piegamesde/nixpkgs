@@ -173,7 +173,6 @@ stdenv.mkDerivation rec {
       ajs124
       das_j
     ];
-    changelog =
-      "https://github.com/Exim/exim/blob/exim-${version}/doc/doc-txt/ChangeLog";
+    changelog = "https://github.com/Exim/exim/blob/exim-${version}/doc/doc-txt/ChangeLog";
   };
 }

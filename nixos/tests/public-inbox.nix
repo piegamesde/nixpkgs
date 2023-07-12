@@ -127,8 +127,7 @@ import ./make-test-python.nix (
         # Use gitolite to store Git repositories listed in coderepo entries
         services.gitolite = {
           enable = true;
-          adminPubkey =
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmoTOQnGqX+//us5oye8UuE+tQBx9QEM7PN13jrwgqY root@localhost";
+          adminPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmoTOQnGqX+//us5oye8UuE+tQBx9QEM7PN13jrwgqY root@localhost";
         };
         systemd.services.public-inbox-httpd = {
           serviceConfig.SupplementaryGroups = [ gitolite.group ];
@@ -147,8 +146,7 @@ import ./make-test-python.nix (
             sslCertificateKey = "${tls-cert}/key.pem";
             locations."/".return = "302 /inbox";
             locations."= /inbox".return = "302 /inbox/";
-            locations."/inbox".proxyPass =
-              "http://unix:${public-inbox.http.port}:/inbox";
+            locations."/inbox".proxyPass = "http://unix:${public-inbox.http.port}:/inbox";
             # If using TCP instead of a Unix socket:
             #locations."/inbox".proxyPass = "http://127.0.0.1:${toString public-inbox.http.port}/inbox";
             # Referred to by settings.publicinbox.css

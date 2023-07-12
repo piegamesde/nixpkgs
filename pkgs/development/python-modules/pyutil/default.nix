@@ -29,8 +29,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Pyutil, a collection of mature utilities for Python programmers";
+    description = "Pyutil, a collection of mature utilities for Python programmers";
 
     longDescription = ''
       These are a few data structures, classes and functions which

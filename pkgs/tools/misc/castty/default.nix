@@ -28,8 +28,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
-    description =
-      "CLI tool to record audio-enabled screencasts of your terminal, for the web";
+    description = "CLI tool to record audio-enabled screencasts of your terminal, for the web";
     homepage = "https://github.com/dhobsd/castty";
     license = licenses.bsd3;
     maintainers = with maintainers; [ iblech ];

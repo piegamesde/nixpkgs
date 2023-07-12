@@ -46,8 +46,7 @@ stdenv.mkDerivation (
     ;
 
     meta = with lib; {
-      description =
-        "Library for communicating with USB and Bluetooth HID devices";
+      description = "Library for communicating with USB and Bluetooth HID devices";
       homepage = "https://github.com/libusb/hidapi";
       maintainers = with maintainers; [ prusnak ];
       # You can choose between GPLv3, BSD or HIDAPI license (even more liberal)

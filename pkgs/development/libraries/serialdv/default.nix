@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description =
-      "C++ Minimal interface to encode and decode audio with AMBE3000 based devices in packet mode over a serial link";
+    description = "C++ Minimal interface to encode and decode audio with AMBE3000 based devices in packet mode over a serial link";
     homepage = "https://github.com/f4exb/serialdv";
     platforms = platforms.unix;
     maintainers = with maintainers; [ alkeryn ];

@@ -62,7 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/minetest/irrlicht";
     license = lib.licenses.zlib;
     maintainers = with lib.maintainers; [ DeeUnderscore ];
-    description =
-      "Minetest project's fork of Irrlicht, a realtime 3D engine written in C++";
+    description = "Minetest project's fork of Irrlicht, a realtime 3D engine written in C++";
   };
 }

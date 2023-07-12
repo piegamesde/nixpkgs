@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./libpath.patch;
-      env =
-        "${
+      env = "${
           buildEnv {
             name = "weechat-otr-env";
             paths = [

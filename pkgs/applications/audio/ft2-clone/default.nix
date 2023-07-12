@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { ft2-clone-starts = nixosTests.ft2-clone; };
 
   meta = with lib; {
-    description =
-      "A highly accurate clone of the classic Fasttracker II software for MS-DOS";
+    description = "A highly accurate clone of the classic Fasttracker II software for MS-DOS";
     homepage = "https://16-bits.org/ft2.php";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fgaz ];

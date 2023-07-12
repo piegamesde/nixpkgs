@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
   version = "0.4.6";
 
   src = fetchurl {
-    url =
-      "http://tadas.dailyda.com/software/obex-data-server-${version}.tar.gz";
+    url = "http://tadas.dailyda.com/software/obex-data-server-${version}.tar.gz";
     sha256 = "0kq940wqs9j8qjnl58d6l3zhx0jaszci356xprx23l6nvdfld6dk";
   };
 

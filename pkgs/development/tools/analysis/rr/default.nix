@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-flexible-array-member.patch";
-      url =
-        "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
+      url = "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
       sha256 = "cmdCJetQr3ELPOyWl37h1fGfG/xvaiJpywxIAnqb5YY=";
     })
   ];
@@ -93,8 +92,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://rr-project.org/";
-    description =
-      "Records nondeterministic executions and debugs them deterministically";
+    description = "Records nondeterministic executions and debugs them deterministically";
     longDescription = ''
       rr aspires to be your primary debugging tool, replacing -- well,
       enhancing -- gdb. You record a failure once, then debug the

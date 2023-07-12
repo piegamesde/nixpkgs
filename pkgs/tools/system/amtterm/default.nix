@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   src = fetchurl {
-    url =
-      "https://www.kraxel.org/cgit/amtterm/snapshot/${pname}-${version}.tar.gz";
+    url = "https://www.kraxel.org/cgit/amtterm/snapshot/${pname}-${version}.tar.gz";
     sha256 = "1jxcsqkag2bxmrnr4m6g88sln1j2d9liqlna57fj8kkc85316vlc";
   };
 

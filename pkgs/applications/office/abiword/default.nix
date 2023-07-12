@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "3.0.5";
 
   src = fetchurl {
-    url =
-      "https://www.abisource.com/downloads/abiword/${version}/source/${pname}-${version}.tar.gz";
+    url = "https://www.abisource.com/downloads/abiword/${version}/source/${pname}-${version}.tar.gz";
     hash = "sha256-ElckfplwUI1tFFbT4zDNGQnEtCsl4PChvDJSbW86IbQ=";
   };
 

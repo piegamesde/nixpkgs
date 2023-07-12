@@ -23,8 +23,7 @@ buildGoModule {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "User-friendly Lightweight TPM Remote Attestation over Bluetooth";
+    description = "User-friendly Lightweight TPM Remote Attestation over Bluetooth";
     homepage = "https://github.com/ANSSI-FR/ultrablue";
     license = licenses.asl20;
     platforms = platforms.linux;

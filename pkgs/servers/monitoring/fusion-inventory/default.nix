@@ -98,8 +98,7 @@ perlPackages.buildPerlPackage rec {
 
   meta = with lib; {
     homepage = "http://www.fusioninventory.org";
-    description =
-      "FusionInventory unified Agent for UNIX, Linux, Windows and MacOSX";
+    description = "FusionInventory unified Agent for UNIX, Linux, Windows and MacOSX";
     license = lib.licenses.gpl2;
     maintainers = [ maintainers.phile314 ];
   };

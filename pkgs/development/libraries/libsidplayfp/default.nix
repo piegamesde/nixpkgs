@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description =
-      "A library to play Commodore 64 music derived from libsidplay2";
+    description = "A library to play Commodore 64 music derived from libsidplay2";
     longDescription = ''
       libsidplayfp is a C64 music player library which integrates
       the reSID SID chip emulation into a cycle-based emulator

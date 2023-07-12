@@ -35,8 +35,7 @@ stdenv.mkDerivation {
 
   meta = {
     homepage = "https://github.com/ahroach/hexdiff";
-    description =
-      "A terminal application for differencing two binary files, with color-coded output";
+    description = "A terminal application for differencing two binary files, with color-coded output";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ rogarb ];
     platforms = lib.platforms.linux;

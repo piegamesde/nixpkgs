@@ -49,8 +49,7 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.inspircd = {
-      description =
-        "InspIRCd - the stable, high-performance and modular Internet Relay Chat Daemon";
+      description = "InspIRCd - the stable, high-performance and modular Internet Relay Chat Daemon";
       wantedBy = [ "multi-user.target" ];
       requires = [ "network.target" ];
 

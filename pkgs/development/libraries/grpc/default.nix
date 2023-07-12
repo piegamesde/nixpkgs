@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # armv6l support, https://github.com/grpc/grpc/pull/21341
       name = "grpc-link-libatomic.patch";
-      url =
-        "https://github.com/lopsided98/grpc/commit/164f55260262c816e19cd2c41b564486097d62fe.patch";
+      url = "https://github.com/lopsided98/grpc/commit/164f55260262c816e19cd2c41b564486097d62fe.patch";
       hash = "sha256-d6kMyjL5ZnEnEz4XZfRgXJBH53gp1r7q1tlwh+HM6+Y=";
     })
   ];

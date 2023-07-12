@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   version = "4.8.29";
 
   src = fetchurl {
-    url =
-      "https://www.midnight-commander.org/downloads/${pname}-${version}.tar.xz";
+    url = "https://www.midnight-commander.org/downloads/${pname}-${version}.tar.xz";
     sha256 = "sha256-AdijuU9YGAzKW/FyV7UHjR/W/SeptcDpcOx2dUlUCtQ=";
   };
 
@@ -104,8 +103,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "File Manager and User Shell for the GNU Project, known as Midnight Commander";
+    description = "File Manager and User Shell for the GNU Project, known as Midnight Commander";
     downloadPage = "https://www.midnight-commander.org/downloads/";
     homepage = "https://www.midnight-commander.org";
     license = licenses.gpl2Plus;

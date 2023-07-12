@@ -52,8 +52,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
     ];
 
     meta = with lib; {
-      description =
-        "A library that parses Java .class files into OCaml data structures";
+      description = "A library that parses Java .class files into OCaml data structures";
       homepage = "https://javalib-team.github.io/javalib/";
       license = licenses.lgpl3;
       maintainers = [ maintainers.vbgl ];

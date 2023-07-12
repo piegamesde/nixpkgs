@@ -105,10 +105,8 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
-    changelog =
-      "https://gitlab.gnome.org/GNOME/libadwaita/-/blob/${src.rev}/NEWS";
-    description =
-      "Library to help with developing UI for mobile devices using GTK/GNOME";
+    changelog = "https://gitlab.gnome.org/GNOME/libadwaita/-/blob/${src.rev}/NEWS";
+    description = "Library to help with developing UI for mobile devices using GTK/GNOME";
     homepage = "https://gitlab.gnome.org/GNOME/libadwaita";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members ++ (with maintainers; [ dotlambda ]);

@@ -7,8 +7,7 @@ import ./generic.nix {
 
     # Compatibility with Glibc 2.34
     {
-      url =
-        "https://github.com/ocaml/ocaml/commit/d111407bf4ff71171598d30825c8e59ed5f75fd6.patch";
+      url = "https://github.com/ocaml/ocaml/commit/d111407bf4ff71171598d30825c8e59ed5f75fd6.patch";
       sha256 = "sha256:08mpy7lsiwv8m5qrqc4xzyiv2hri5713gz2qs1nfz02hz1bd79mc";
     }
   ];

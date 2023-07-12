@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Free touch typing tutor program";
     homepage = "http://klavaro.sourceforge.net/";
-    changelog =
-      "https://sourceforge.net/p/klavaro/code/HEAD/tree/trunk/ChangeLog";
+    changelog = "https://sourceforge.net/p/klavaro/code/HEAD/tree/trunk/ChangeLog";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [

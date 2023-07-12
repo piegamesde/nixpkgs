@@ -36,8 +36,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {
-    description =
-      "An open source terminal based version of Typeracer written in rust";
+    description = "An open source terminal based version of Typeracer written in rust";
     homepage = "https://gitlab.com/ttyperacer/terminal-typeracer";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ yoctocell ];

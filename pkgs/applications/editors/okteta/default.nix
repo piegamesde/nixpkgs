@@ -22,8 +22,7 @@ mkDerivation rec {
   version = "0.26.10";
 
   src = fetchurl {
-    url =
-      "mirror://kde/stable/okteta/${version}/src/${pname}-${version}.tar.xz";
+    url = "mirror://kde/stable/okteta/${version}/src/${pname}-${version}.tar.xz";
     sha256 = "sha256-KKYU9+DDK0kXperKfgxuysqHsTGRq1NKtAT1Vps8M/o=";
   };
 

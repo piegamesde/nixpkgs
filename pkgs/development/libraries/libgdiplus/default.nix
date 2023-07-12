@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Mono library that provides a GDI+-compatible API on non-Windows operating systems";
+    description = "Mono library that provides a GDI+-compatible API on non-Windows operating systems";
     homepage = "https://www.mono-project.com/docs/gui/libgdiplus/";
     platforms = platforms.unix;
     license = licenses.mit;

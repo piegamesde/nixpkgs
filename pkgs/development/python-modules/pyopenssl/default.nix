@@ -97,8 +97,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper around the OpenSSL library";
     homepage = "https://github.com/pyca/pyopenssl";
-    changelog =
-      "https://github.com/pyca/pyopenssl/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/pyca/pyopenssl/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

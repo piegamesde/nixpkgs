@@ -34,8 +34,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A client tool to help manage KubeArmor";
     homepage = "https://kubearmor.io";
-    changelog =
-      "https://github.com/kubearmor/kubearmor-client/releases/v${version}";
+    changelog = "https://github.com/kubearmor/kubearmor-client/releases/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ urandom ];
   };

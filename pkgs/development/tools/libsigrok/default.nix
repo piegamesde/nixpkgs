@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   version = "0.5.2";
 
   src = fetchurl {
-    url =
-      "https://sigrok.org/download/source/${pname}/${pname}-${version}.tar.gz";
+    url = "https://sigrok.org/download/source/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0g6fl684bpqm5p2z4j12c62m45j1dircznjina63w392ns81yd2d";
   };
 

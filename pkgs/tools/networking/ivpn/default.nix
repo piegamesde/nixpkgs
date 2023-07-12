@@ -43,8 +43,7 @@ builtins.mapAttrs
         meta = with lib; {
           description = "Official IVPN Desktop app";
           homepage = "https://www.ivpn.net/apps";
-          changelog =
-            "https://github.com/ivpn/desktop-app/releases/tag/v${version}";
+          changelog = "https://github.com/ivpn/desktop-app/releases/tag/v${version}";
           license = licenses.gpl3Only;
           maintainers = with maintainers; [
             urandom

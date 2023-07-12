@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   pname = "genymotion";
   version = "3.3.3";
   src = fetchurl {
-    url =
-      "https://dl.genymotion.com/releases/genymotion-${version}/genymotion-${version}-linux_x64.bin";
+    url = "https://dl.genymotion.com/releases/genymotion-${version}/genymotion-${version}-linux_x64.bin";
     name = "genymotion-${version}-linux_x64.bin";
     sha256 = "sha256-8NJgYILOR63tWZc3tHDie79uM1hBnAwJNwGp/h2RHCo=";
   };

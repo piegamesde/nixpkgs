@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyp" ];
 
   meta = with lib; {
-    description =
-      "Easily run Python at the shell! Magical, but never mysterious";
+    description = "Easily run Python at the shell! Magical, but never mysterious";
     homepage = "https://github.com/hauntsaninja/pyp";
     license = licenses.mit;
     maintainers = with maintainers; [ rmcgibbo ];

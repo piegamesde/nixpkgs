@@ -58,8 +58,7 @@ import ./make-test-python.nix {
         } ];
         networking.hosts."fe00:aa:bb:cc::2" = [ "server" ];
         environment.etc.sshKey = {
-          source =
-            ./initrd-network-ssh/id_ed25519; # dont use this anywhere else
+          source = ./initrd-network-ssh/id_ed25519; # dont use this anywhere else
           mode = "0600";
         };
       }

@@ -17,8 +17,7 @@ stdenv.mkDerivation (
       [
         # submitted upstream: https://github.com/freeswitch/spandsp/pull/47
         (fetchpatch {
-          url =
-            "https://github.com/freeswitch/spandsp/commit/1f810894804d3fa61ab3fc2f3feb0599145a3436.patch";
+          url = "https://github.com/freeswitch/spandsp/commit/1f810894804d3fa61ab3fc2f3feb0599145a3436.patch";
           hash = "sha256-Cf8aaoriAvchh5cMb75yP2gsZbZaOLha/j5mq3xlkVA=";
         })
       ];
@@ -53,8 +52,7 @@ stdenv.mkDerivation (
     strictDeps = true;
 
     meta = {
-      description =
-        "A portable and modular SIP User-Agent with audio and video support";
+      description = "A portable and modular SIP User-Agent with audio and video support";
       homepage = "https://github.com/freeswitch/spandsp";
       platforms = with lib.platforms; unix;
       maintainers = with lib.maintainers; [

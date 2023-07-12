@@ -38,8 +38,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "objax" ];
 
   meta = with lib; {
-    description =
-      "Objax is a machine learning framework that provides an Object Oriented layer for JAX.";
+    description = "Objax is a machine learning framework that provides an Object Oriented layer for JAX.";
     homepage = "https://github.com/google/objax";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

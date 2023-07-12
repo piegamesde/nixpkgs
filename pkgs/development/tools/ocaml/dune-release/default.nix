@@ -49,8 +49,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.06";
 
   src = fetchurl {
-    url =
-      "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz";
+    url = "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz";
     sha256 = "sha256-oJ5SL7qNM5izoEpr+nTjbT+YmmNIoy7QgSNse3wNIA4=";
   };
 

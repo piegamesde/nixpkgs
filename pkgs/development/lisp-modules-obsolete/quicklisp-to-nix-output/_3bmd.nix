@@ -17,8 +17,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/3bmd/2021-04-11/3bmd-20210411-git.tgz";
+    url = "http://beta.quicklisp.org/archive/3bmd/2021-04-11/3bmd-20210411-git.tgz";
     sha256 = "1gwl3r8cffr8yldi0x7zdzbmngqhli2d19wsky5cf8h80m30k4vp";
   };
 

@@ -68,8 +68,7 @@ in
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          "${cfg.package}/bin/Jackett --NoUpdates --DataFolder '${cfg.dataDir}'";
+        ExecStart = "${cfg.package}/bin/Jackett --NoUpdates --DataFolder '${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };

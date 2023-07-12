@@ -31,10 +31,8 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./library-paths.patch;
-      fontconfig =
-        "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
-      gl =
-        "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+      fontconfig = "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
+      gl = "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 

@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "2020-09-22";
 
   src = fetchzip {
-    url =
-      "https://gist.github.com/glandium/01d54cefdb70561b5f6675e08f2990f2/archive/2f430f0c136a69b0886281d0c76708997d8878af.zip";
+    url = "https://gist.github.com/glandium/01d54cefdb70561b5f6675e08f2990f2/archive/2f430f0c136a69b0886281d0c76708997d8878af.zip";
     sha256 = "1mbmbyymgl75wparv3rgnyxnc44rd6n935jziz9anl9apy031ryi";
   };
 
@@ -30,8 +29,7 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      modDestDir =
-        "$out/lib/modules/${kernel.modDirVersion}/kernel"; # TODO: longer path?
+      modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel"; # TODO: longer path?
     in
     ''
       runHook preInstall
@@ -43,8 +41,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Kernel module supporting the rr debugger on (some) AMD Zen-based CPUs";
+    description = "Kernel module supporting the rr debugger on (some) AMD Zen-based CPUs";
     homepage = "https://github.com/rr-debugger/rr/wiki/Zen#kernel-module";
     license = licenses.gpl2;
     maintainers = [ maintainers.vcunat ];

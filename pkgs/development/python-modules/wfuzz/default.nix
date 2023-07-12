@@ -64,8 +64,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "wfuzz" ];
 
   meta = with lib; {
-    description =
-      "Web content fuzzer to facilitate web applications assessments";
+    description = "Web content fuzzer to facilitate web applications assessments";
     longDescription = ''
       Wfuzz provides a framework to automate web applications security assessments
       and could help you to secure your web applications by finding and exploiting

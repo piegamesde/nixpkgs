@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   version = "1.15.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/lwindolf/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
+    url = "https://github.com/lwindolf/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
     sha256 = "1a7dlwuUOHeCsB+ofAOPlbyuh/QAB8kf50MsocMNz70=";
   };
 

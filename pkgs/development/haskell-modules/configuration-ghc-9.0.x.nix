@@ -71,8 +71,7 @@ self: super: {
   hashable = pkgs.lib.pipe super.hashable [
     (overrideCabal (
       drv: {
-        postPatch =
-          "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal";
+        postPatch = "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal";
       }
     ))
     doJailbreak
@@ -88,8 +87,7 @@ self: super: {
   integer-logarithms =
     overrideCabal
       (drv: {
-        postPatch =
-          "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal";
+        postPatch = "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal";
       })
       (doJailbreak super.integer-logarithms)
   ;
@@ -114,8 +112,7 @@ self: super: {
   language-haskell-extract =
     appendPatch
       (pkgs.fetchpatch {
-        url =
-          "https://gitlab.haskell.org/ghc/head.hackage/-/raw/master/patches/language-haskell-extract-0.2.4.patch";
+        url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/master/patches/language-haskell-extract-0.2.4.patch";
         sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
       })
       (doJailbreak super.language-haskell-extract)

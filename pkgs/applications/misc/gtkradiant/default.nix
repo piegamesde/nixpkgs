@@ -65,8 +65,7 @@ let
     sha256 = "sha256-693k6KiIchQddVGBhRJf7ikv6ut5L9rcLt0FTZ7pSvw=";
   };
   unvanquishedPack = fetchsvn {
-    url =
-      "https://github.com/Unvanquished/unvanquished-mapeditor-support.git/trunk/build/gtkradiant/";
+    url = "https://github.com/Unvanquished/unvanquished-mapeditor-support.git/trunk/build/gtkradiant/";
     rev = 212;
     sha256 = "sha256-weBlnSBezPppbhsMOT66vubioTxpDC+AcKIOC2Xitdo=";
   };

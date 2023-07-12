@@ -16,8 +16,7 @@ import ./make-test-python.nix (
     nodes = {
       router = {
         virtualisation.vlans = [ 1 ];
-        systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
-          "debug";
+        systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
         networking = {
           useNetworkd = true;
           useDHCP = false;
@@ -49,8 +48,7 @@ import ./make-test-python.nix (
 
       client = {
         virtualisation.vlans = [ 1 ];
-        systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
-          "debug";
+        systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
         networking = {
           useNetworkd = true;
           useDHCP = false;
@@ -64,8 +62,7 @@ import ./make-test-python.nix (
         # This setting is important to have the router assign the
         # configured lease based on the client's MAC address. Also see:
         # https://github.com/systemd/systemd/issues/21368#issuecomment-982193546
-        systemd.network.networks."40-eth1".dhcpV4Config.ClientIdentifier =
-          "mac";
+        systemd.network.networks."40-eth1".dhcpV4Config.ClientIdentifier = "mac";
       };
     };
     testScript = ''

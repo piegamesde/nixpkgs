@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
   version = "6.0.11";
 
   src = fetchurl {
-    url =
-      "https://www.openinfosecfoundation.org/download/${pname}-${version}.tar.gz";
+    url = "https://www.openinfosecfoundation.org/download/${pname}-${version}.tar.gz";
     sha256 = "sha256-TaXk6R5JmSYzpgJM4Qr+ZEElWyd1qPIPHvGIvREprGY=";
   };
 
@@ -170,8 +169,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A free and open source, mature, fast and robust network threat detection engine";
+    description = "A free and open source, mature, fast and robust network threat detection engine";
     homepage = "https://suricata.io";
     license = licenses.gpl2;
     platforms = platforms.linux;

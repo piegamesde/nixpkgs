@@ -123,12 +123,10 @@ in
               in
               {
                 # Values from https://github.com/Zygo/bees/blob/v0.6.5/scripts/beesd@.service.in
-                ExecStart =
-                  "${pkgs.bees}/bin/bees-service-wrapper run ${configOptsStr} -- --no-timestamps ${
+                ExecStart = "${pkgs.bees}/bin/bees-service-wrapper run ${configOptsStr} -- --no-timestamps ${
                     escapeShellArgs fs.extraOptions
                   }";
-                ExecStopPost =
-                  "${pkgs.bees}/bin/bees-service-wrapper cleanup ${configOptsStr}";
+                ExecStopPost = "${pkgs.bees}/bin/bees-service-wrapper cleanup ${configOptsStr}";
                 CPUAccounting = true;
                 CPUSchedulingPolicy = "batch";
                 CPUWeight = 12;
@@ -142,8 +140,7 @@ in
                 Restart = "on-abnormal";
                 StartupCPUWeight = 25;
                 StartupIOWeight = 25;
-                SyslogIdentifier =
-                  "beesd"; # would otherwise be "bees-service-wrapper"
+                SyslogIdentifier = "beesd"; # would otherwise be "bees-service-wrapper"
               }
             ;
             unitConfig.RequiresMountsFor =

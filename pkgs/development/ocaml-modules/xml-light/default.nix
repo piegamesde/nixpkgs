@@ -12,8 +12,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03";
 
   src = fetchurl {
-    url =
-      "https://github.com/ncannasse/xml-light/releases/download/${version}/xml-light-${version}.tbz";
+    url = "https://github.com/ncannasse/xml-light/releases/download/${version}/xml-light-${version}.tbz";
     hash = "sha256-9YwrPbcK0boICw0wauMvgsy7ldq7ksWZzcRn0eROAD0=";
   };
 

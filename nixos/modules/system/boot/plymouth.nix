@@ -73,8 +73,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Plymouth boot splash screen");
 
       font = mkOption {
-        default =
-          "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
+        default = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
         defaultText = literalExpression ''
           "''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"''
         ;
@@ -108,8 +107,7 @@ in
       logo = mkOption {
         type = types.path;
         # Dimensions are 48x48 to match GDM logo
-        default =
-          "${nixos-icons}/share/icons/hicolor/48x48/apps/nix-snowflake-white.png";
+        default = "${nixos-icons}/share/icons/hicolor/48x48/apps/nix-snowflake-white.png";
         defaultText = literalExpression ''
           pkgs.fetchurl {
                     url = "https://nixos.org/logo/nixos-hires.png";
@@ -139,11 +137,9 @@ in
     environment.systemPackages = [ plymouth ];
 
     environment.etc."plymouth/plymouthd.conf".source = configFile;
-    environment.etc."plymouth/plymouthd.defaults".source =
-      "${plymouth}/share/plymouth/plymouthd.defaults";
+    environment.etc."plymouth/plymouthd.defaults".source = "${plymouth}/share/plymouth/plymouthd.defaults";
     environment.etc."plymouth/logo.png".source = cfg.logo;
-    environment.etc."plymouth/themes".source =
-      "${themesEnv}/share/plymouth/themes";
+    environment.etc."plymouth/themes".source = "${themesEnv}/share/plymouth/themes";
     # XXX: Needed because we supply a different set of plugins in initrd.
     environment.etc."plymouth/plugins".source = "${plymouth}/lib/plymouth";
 
@@ -179,8 +175,7 @@ in
       contents = {
         # Files
         "/etc/plymouth/plymouthd.conf".source = configFile;
-        "/etc/plymouth/plymouthd.defaults".source =
-          "${plymouth}/share/plymouth/plymouthd.defaults";
+        "/etc/plymouth/plymouthd.defaults".source = "${plymouth}/share/plymouth/plymouthd.defaults";
         "/etc/plymouth/logo.png".source = cfg.logo;
         # Directories
         "/etc/plymouth/plugins".source =

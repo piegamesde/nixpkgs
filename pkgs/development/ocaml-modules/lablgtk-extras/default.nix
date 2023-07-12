@@ -47,8 +47,7 @@ else
       inherit (ocaml.meta) platforms;
       maintainers = with lib.maintainers; [ vbgl ];
       homepage = "https://framagit.org/zoggy/lablgtk-extras/";
-      description =
-        "A collection of libraries and modules useful when developing OCaml/LablGtk2 applications";
+      description = "A collection of libraries and modules useful when developing OCaml/LablGtk2 applications";
       license = lib.licenses.lgpl2Plus;
     };
   }

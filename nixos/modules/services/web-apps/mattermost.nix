@@ -11,8 +11,7 @@ let
 
   cfg = config.services.mattermost;
 
-  database =
-    "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10";
+  database = "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10";
 
   postgresPackage = config.services.postgresql.package;
 
@@ -213,8 +212,7 @@ in
           ]
         );
         default = [ ];
-        example =
-          "[ ./com.github.moussetc.mattermost.plugin.giphy-2.0.0.tar.gz ]";
+        example = "[ ./com.github.moussetc.mattermost.plugin.giphy-2.0.0.tar.gz ]";
         description = lib.mdDoc ''
           Plugins to add to the configuration. Overrides any installed if non-null.
           This is a list of paths to .tar.gz files or derivations evaluating to
@@ -403,8 +401,7 @@ in
         serviceConfig = {
           User = "nobody";
           Group = "nogroup";
-          ExecStart =
-            "${cfg.matterircd.package}/bin/matterircd ${
+          ExecStart = "${cfg.matterircd.package}/bin/matterircd ${
               escapeShellArgs cfg.matterircd.parameters
             }";
           WorkingDirectory = "/tmp";

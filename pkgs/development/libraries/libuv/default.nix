@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
       # Fix tests for statically linked variant upstream PR is
       # https://github.com/libuv/libuv/pull/3735
       (fetchpatch {
-        url =
-          "https://github.com/libuv/libuv/commit/9d898acc564351dde74e9ed9865144e5c41f5beb.patch";
+        url = "https://github.com/libuv/libuv/commit/9d898acc564351dde74e9ed9865144e5c41f5beb.patch";
         sha256 = "sha256-6XsjrseD8a+ny887EKOX0NmHocLMXGf2YL13vkNHUZ0=";
       })
     ];
@@ -158,8 +157,7 @@ stdenv.mkDerivation rec {
   passthru.tests.static = pkgsStatic.libuv;
 
   meta = with lib; {
-    description =
-      "A multi-platform support library with a focus on asynchronous I/O";
+    description = "A multi-platform support library with a focus on asynchronous I/O";
     homepage = "https://libuv.org/";
     changelog = "https://github.com/libuv/libuv/blob/v${version}/ChangeLog";
     maintainers = with maintainers; [ cstrahan ];

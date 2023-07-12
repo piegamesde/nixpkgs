@@ -124,8 +124,7 @@ in
         Type = "notify";
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-        ExecStart =
-          "${pkgs.stubby}/bin/stubby -C ${confFile} ${
+        ExecStart = "${pkgs.stubby}/bin/stubby -C ${confFile} ${
             optionalString (cfg.logLevel != null) "-v ${toString cfg.logLevel}"
           }";
         DynamicUser = true;

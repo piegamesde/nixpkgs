@@ -27,10 +27,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aiolifx_effects" ];
 
   meta = with lib; {
-    changelog =
-      "https://github.com/amelchio/aiolifx_effects/releases/tag/v${version}";
-    description =
-      "Light effects (pulse, colorloop ...) for LIFX lights running on aiolifx";
+    changelog = "https://github.com/amelchio/aiolifx_effects/releases/tag/v${version}";
+    description = "Light effects (pulse, colorloop ...) for LIFX lights running on aiolifx";
     homepage = "https://github.com/amelchio/aiolifx_effects";
     license = licenses.mit;
     maintainers = with maintainers; [ netixx ];

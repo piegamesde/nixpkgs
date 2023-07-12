@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Store and access your passwords safely";
     homepage = "https://github.com/jaraco/keyring";
-    changelog =
-      "https://github.com/jaraco/keyring/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/jaraco/keyring/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [
       lovek323

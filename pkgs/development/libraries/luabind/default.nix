@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/luabind/luabind";
-    description =
-      "A library that helps you create bindings between C++ and Lua";
+    description = "A library that helps you create bindings between C++ and Lua";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
   };

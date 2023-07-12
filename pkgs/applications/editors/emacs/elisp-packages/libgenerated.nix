@@ -168,8 +168,7 @@ in
                 else
                   fetchurl {
                     name = pname + "-recipe";
-                    url =
-                      "https://raw.githubusercontent.com/melpa/melpa/${commit}/recipes/${ename}";
+                    url = "https://raw.githubusercontent.com/melpa/melpa/${commit}/recipes/${ename}";
                     inherit sha256;
                   }
               ;

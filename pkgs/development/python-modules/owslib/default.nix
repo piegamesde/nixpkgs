@@ -67,11 +67,9 @@ buildPythonPackage rec {
   ;
 
   meta = with lib; {
-    description =
-      "Client for Open Geospatial Consortium web service interface standards";
+    description = "Client for Open Geospatial Consortium web service interface standards";
     homepage = "https://www.osgeo.org/projects/owslib/";
-    changelog =
-      "https://github.com/geopython/OWSLib/blob/${version}/CHANGES.rst";
+    changelog = "https://github.com/geopython/OWSLib/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

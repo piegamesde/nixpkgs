@@ -61,8 +61,7 @@ let
         # Use Nixpkgs provided version
         extraConfigureFlags = [ "--without-conmon" ];
 
-        extraDescription =
-          " (Sylabs Inc's fork of Singularity, a.k.a. SingularityCE)";
+        extraDescription = " (Sylabs Inc's fork of Singularity, a.k.a. SingularityCE)";
         extraMeta.homepage = "https://sylabs.io/";
       })
       { defaultToSuid = true; }

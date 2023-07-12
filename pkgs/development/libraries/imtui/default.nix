@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
       ANSI colors and mouse/keyboard input.
     '';
     homepage = "https://imtui.ggerganov.com";
-    changelog =
-      "https://github.com/ggerganov/imtui/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/ggerganov/imtui/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];
   };

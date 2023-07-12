@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   version = "${remakeVersion}+dbg-${dbgVersion}";
 
   src = fetchurl {
-    url =
-      "mirror://sourceforge/project/bashdb/remake/${version}/remake-${remakeVersion}+dbg-${dbgVersion}.tar.gz";
+    url = "mirror://sourceforge/project/bashdb/remake/${version}/remake-${remakeVersion}+dbg-${dbgVersion}.tar.gz";
     sha256 = "11vvch8bi0yhjfz7gn92b3xmmm0cgi3qfiyhbnnj89frkhbwd87n";
   };
 

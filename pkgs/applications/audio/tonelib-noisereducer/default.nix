@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "ToneLib NoiseReducer – two-unit noise reduction rack effect plugin";
+    description = "ToneLib NoiseReducer – two-unit noise reduction rack effect plugin";
     homepage = "https://tonelib.net/tl-noisereducer.html";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

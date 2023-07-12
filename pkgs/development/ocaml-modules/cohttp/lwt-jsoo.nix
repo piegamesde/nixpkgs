@@ -35,7 +35,6 @@ buildDunePackage {
   ];
 
   meta = cohttp-lwt.meta // {
-    description =
-      "CoHTTP implementation for the Js_of_ocaml JavaScript compiler";
+    description = "CoHTTP implementation for the Js_of_ocaml JavaScript compiler";
   };
 }

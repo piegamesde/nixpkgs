@@ -71,8 +71,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool for testing if Kubernetes is deployed securely";
     homepage = "https://github.com/kubescape/kubescape";
-    changelog =
-      "https://github.com/kubescape/kubescape/releases/tag/v${version}";
+    changelog = "https://github.com/kubescape/kubescape/releases/tag/v${version}";
     longDescription = ''
       Kubescape is the first open-source tool for testing if Kubernetes is
       deployed securely according to multiple frameworks: regulatory, customized

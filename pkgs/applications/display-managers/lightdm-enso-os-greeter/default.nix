@@ -66,8 +66,7 @@ stdenv.mkDerivation {
   '';
 
   passthru.xgreeters = linkFarm "enso-os-greeter-xgreeters" [ {
-    path =
-      "${lightdm-enso-os-greeter}/share/xgreeters/pantheon-greeter.desktop";
+    path = "${lightdm-enso-os-greeter}/share/xgreeters/pantheon-greeter.desktop";
     name = "pantheon-greeter.desktop";
   } ];
 

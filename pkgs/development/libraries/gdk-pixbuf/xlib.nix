@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [ "-Dgtk_doc=true" ];
 
   meta = with lib; {
-    description =
-      "Deprecated API for integrating GdkPixbuf with Xlib data types";
+    description = "Deprecated API for integrating GdkPixbuf with Xlib data types";
     homepage = "https://gitlab.gnome.org/Archive/gdk-pixbuf-xlib";
     maintainers = teams.gnome.members;
     license = licenses.lgpl21Plus;

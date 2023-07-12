@@ -26,8 +26,7 @@ mkDerivation rec {
     [
       # FIXME: cherry-pick Plasma 5.27 build fix, remove for next release
       (fetchpatch {
-        url =
-          "https://github.com/psifidotos/applet-window-buttons/commit/924994e10402921bf22fefc099bca2914989081c.diff";
+        url = "https://github.com/psifidotos/applet-window-buttons/commit/924994e10402921bf22fefc099bca2914989081c.diff";
         hash = "sha256-4ErqmkIbkvKwns50LhI8Et1EMyvrXYcNRL1rXCxau2w=";
       })
     ];
@@ -45,8 +44,7 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Plasma 5 applet in order to show window buttons in your panels";
+    description = "Plasma 5 applet in order to show window buttons in your panels";
     homepage = "https://github.com/psifidotos/applet-window-buttons";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ dotlambda ];

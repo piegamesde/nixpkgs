@@ -16,8 +16,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-pdf/2021-10-20/cl-pdf-20211020-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-pdf/2021-10-20/cl-pdf-20211020-git.tgz";
     sha256 = "0wyh7iv86sqzdn5xj5crrip8iri5a64qzc6cczgbj1gkv65i28bk";
   };
 

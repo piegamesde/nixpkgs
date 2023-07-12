@@ -27,11 +27,9 @@ rustPlatform.buildRustPackage rec {
   nativeCheckInputs = [ git ];
 
   meta = with lib; {
-    description =
-      "Synchronize work-in-progress git branches in a light weight fashion";
+    description = "Synchronize work-in-progress git branches in a light weight fashion";
     homepage = "https://github.com/rraval/git-nomad";
-    changelog =
-      "https://github.com/rraval/git-nomad/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/rraval/git-nomad/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ rraval ];
   };

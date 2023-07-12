@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "A set of cli tools for the conventional commit and semver specifications";
+    description = "A set of cli tools for the conventional commit and semver specifications";
     homepage = "https://github.com/oknozor/cocogitto";
     license = licenses.mit;
     maintainers = with maintainers; [ travisdavis-ops ];

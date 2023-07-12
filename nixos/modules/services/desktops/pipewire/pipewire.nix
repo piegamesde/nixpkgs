@@ -127,19 +127,16 @@ in
     assertions = [
       {
         assertion = cfg.audio.enable -> !config.hardware.pulseaudio.enable;
-        message =
-          "Using PipeWire as the sound server conflicts with PulseAudio. This option requires `hardware.pulseaudio.enable` to be set to false";
+        message = "Using PipeWire as the sound server conflicts with PulseAudio. This option requires `hardware.pulseaudio.enable` to be set to false";
       }
       {
         assertion = cfg.jack.enable -> !config.services.jack.jackd.enable;
-        message =
-          "PipeWire based JACK emulation doesn't use the JACK service. This option requires `services.jack.jackd.enable` to be set to false";
+        message = "PipeWire based JACK emulation doesn't use the JACK service. This option requires `services.jack.jackd.enable` to be set to false";
       }
       {
         # JACK intentionally not checked, as PW-on-JACK setups are a thing that some people may want
         assertion = (cfg.alsa.enable || cfg.pulse.enable) -> cfg.audio.enable;
-        message =
-          "Using PipeWire's ALSA/PulseAudio compatibility layers requires running PipeWire as the sound server. Set `services.pipewire.audio.enable` to true.";
+        message = "Using PipeWire's ALSA/PulseAudio compatibility layers requires running PipeWire as the sound server. Set `services.pipewire.audio.enable` to true.";
       }
     ];
 
@@ -202,8 +199,7 @@ in
     environment.etc."alsa/conf.d/99-pipewire-default.conf" =
       mkIf cfg.alsa.enable
         {
-          source =
-            "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
+          source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
         }
     ;
 

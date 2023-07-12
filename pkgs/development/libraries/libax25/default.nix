@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   # Due to recent unsolvable administrative domain problems with linux-ax25.org,
   # the new domain is linux-ax25.in-berlin.de
   src = fetchurl {
-    url =
-      "https://linux-ax25.in-berlin.de/pub/ax25-lib/libax25-${version}.tar.gz";
+    url = "https://linux-ax25.in-berlin.de/pub/ax25-lib/libax25-${version}.tar.gz";
     hash = "sha256-vxV5GVDOHr38N/512ArZpnZ+a7FTbXBNpoSJkc9DI98=";
   };
 

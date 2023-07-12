@@ -52,8 +52,7 @@ buildPythonPackage rec {
       forms, flag icons static files, and a country field for models.
     '';
     homepage = "https://github.com/SmileyChris/django-countries";
-    changelog =
-      "https://github.com/SmileyChris/django-countries/blob/v${version}/CHANGES.rst";
+    changelog = "https://github.com/SmileyChris/django-countries/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "DockSTARTer helps you get started with running apps in Docker.";
+    description = "DockSTARTer helps you get started with running apps in Docker.";
     homepage = "https://dockstarter.com";
     license = licenses.mit;
     maintainers = with maintainers; [ urandom ];

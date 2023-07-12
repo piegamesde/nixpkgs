@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Ohmyzsh plugin that integrates kill-ring with system clipboard";
+    description = "Ohmyzsh plugin that integrates kill-ring with system clipboard";
     longDescription = ''
       Ohmyzsh plugin that integrates kill-ring with system clipboard.
 

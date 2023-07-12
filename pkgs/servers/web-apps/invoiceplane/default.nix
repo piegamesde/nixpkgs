@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "1.6.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/InvoicePlane/InvoicePlane/releases/download/v${version}/v${version}.zip";
+    url = "https://github.com/InvoicePlane/InvoicePlane/releases/download/v${version}/v${version}.zip";
     sha256 = "sha256-EwhOwUoOy3LNZTDgp9kvR/0OsO2TDpWkdT0fd7u0Ns8=";
   };
 
@@ -30,8 +29,7 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit (nixosTests) invoiceplane; };
 
   meta = with lib; {
-    description =
-      "Self-hosted open source application for managing your invoices, clients and payments";
+    description = "Self-hosted open source application for managing your invoices, clients and payments";
     license = licenses.mit;
     homepage = "https://www.invoiceplane.com";
     platforms = platforms.all;

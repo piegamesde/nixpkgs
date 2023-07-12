@@ -15,8 +15,7 @@ let
   mostOfVersion = builtins.concatStringsSep "." (
     lib.take 3 (lib.versions.splitVersion version)
   );
-  platform =
-    "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}";
+  platform = "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}";
 in
 
 stdenv.mkDerivation {
@@ -68,8 +67,7 @@ stdenv.mkDerivation {
   };
 
   meta = with lib; {
-    description =
-      "cuTENSOR: A High-Performance CUDA Library For Tensor Primitives";
+    description = "cuTENSOR: A High-Performance CUDA Library For Tensor Primitives";
     homepage = "https://developer.nvidia.com/cutensor";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

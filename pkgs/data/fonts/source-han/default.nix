@@ -25,8 +25,7 @@ let
       version = lib.removeSuffix "R" rev;
 
       src = fetchurl {
-        url =
-          "https://github.com/adobe-fonts/source-han-${family}/releases/download/${rev}/SourceHan${Family}.ttc${zip}";
+        url = "https://github.com/adobe-fonts/source-han-${family}/releases/download/${rev}/SourceHan${Family}.ttc${zip}";
         inherit hash;
       };
 

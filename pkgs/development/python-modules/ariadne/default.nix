@@ -55,11 +55,9 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Python library for implementing GraphQL servers using schema-first approach";
+    description = "Python library for implementing GraphQL servers using schema-first approach";
     homepage = "https://ariadnegraphql.org";
-    changelog =
-      "https://github.com/mirumee/ariadne/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/mirumee/ariadne/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ samuela ];
   };

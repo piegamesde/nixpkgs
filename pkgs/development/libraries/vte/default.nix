@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "sha256-BVT5+I1Wzi14OY/Mf2m8AOU7u8X2lOCuHcr1KG+J1+Q=";
@@ -54,8 +53,7 @@ stdenv.mkDerivation rec {
       # Taken from https://git.alpinelinux.org/aports/tree/community/vte3
       (fetchpatch {
         name = "0001-Add-W_EXITCODE-macro-for-non-glibc-systems.patch";
-        url =
-          "https://git.alpinelinux.org/aports/plain/community/vte3/fix-W_EXITCODE.patch?id=4d35c076ce77bfac7655f60c4c3e4c86933ab7dd";
+        url = "https://git.alpinelinux.org/aports/plain/community/vte3/fix-W_EXITCODE.patch?id=4d35c076ce77bfac7655f60c4c3e4c86933ab7dd";
         sha256 = "FkVyhsM0mRUzZmS2Gh172oqwcfXv6PyD6IEgjBhy2uU=";
       })
     ];

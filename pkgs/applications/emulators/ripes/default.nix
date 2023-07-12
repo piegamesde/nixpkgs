@@ -42,8 +42,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A graphical processor simulator and assembly editor for the RISC-V ISA";
+    description = "A graphical processor simulator and assembly editor for the RISC-V ISA";
     homepage = "https://github.com/mortbopet/Ripes";
     license = licenses.mit;
     platforms = platforms.linux;

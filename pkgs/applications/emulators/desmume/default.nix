@@ -40,8 +40,7 @@ stdenv.mkDerivation (
       [
         # Fix compiling on GCC for AArch64
         (fetchpatch {
-          url =
-            "https://github.com/TASEmulators/desmume/commit/24eb5ed95c6cbdaba8b3c63a99e95e899e8a5061.patch";
+          url = "https://github.com/TASEmulators/desmume/commit/24eb5ed95c6cbdaba8b3c63a99e95e899e8a5061.patch";
           hash = "sha256-J3ZRU1tPTl+4/jg0DBo6ro6DTUZkpQCey+QGF2EugCQ=";
         })
       ];

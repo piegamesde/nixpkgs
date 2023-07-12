@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "2.4.1";
 
   src = fetchurl {
-    url =
-      "http://www.cs.nyu.edu/acsys/cvc3/releases/${version}/${pname}-${version}.tar.gz";
+    url = "http://www.cs.nyu.edu/acsys/cvc3/releases/${version}/${pname}-${version}.tar.gz";
     sha256 = "1xxcwhz3y6djrycw8sm6xz83wb4hb12rd1n0skvc7fng0rh1snym";
   };
 

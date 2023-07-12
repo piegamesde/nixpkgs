@@ -10,11 +10,9 @@ let
   version = "4.6.2";
 
   src = fetchurl {
-    url =
-      "https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-${version}.AppImage";
+    url = "https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-${version}.AppImage";
     name = "${pname}-${version}.AppImage";
-    sha512 =
-      "xGmE/ikL3ez0WTJKiOIcB5QtI7Ta9wq1Qedy9albWVpCS04FTnxQH5S0esTXw6j+iDTD8Lc2JbOhw8tYo/zRXg==";
+    sha512 = "xGmE/ikL3ez0WTJKiOIcB5QtI7Ta9wq1Qedy9albWVpCS04FTnxQH5S0esTXw6j+iDTD8Lc2JbOhw8tYo/zRXg==";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
@@ -38,8 +36,7 @@ appimageTools.wrapType2 {
   passthru.updateScript = ./update-plexamp.sh;
 
   meta = with lib; {
-    description =
-      "A beautiful Plex music player for audiophiles, curators, and hipsters";
+    description = "A beautiful Plex music player for audiophiles, curators, and hipsters";
     homepage = "https://plexamp.com/";
     changelog = "https://forums.plex.tv/t/plexamp-release-notes/221280/49";
     license = licenses.unfree;

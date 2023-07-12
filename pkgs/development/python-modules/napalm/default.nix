@@ -43,14 +43,12 @@ buildPythonPackage rec {
   patches = [
     # netmiko 4.0.0 support
     (fetchpatch {
-      url =
-        "https://github.com/napalm-automation/napalm/commit/4b8cc85db3236099a04f742cf71773e74d9dd70e.patch";
+      url = "https://github.com/napalm-automation/napalm/commit/4b8cc85db3236099a04f742cf71773e74d9dd70e.patch";
       excludes = [ "requirements.txt" ];
       hash = "sha256-DBKp+wiKd+/j2xAqaQL3UCcGQd6wnWcNTsNXBBt9c98=";
     })
     (fetchpatch {
-      url =
-        "https://github.com/napalm-automation/napalm/commit/4a8b5b1823335dd79aa5269c038a1f08ecd35cdd.patch";
+      url = "https://github.com/napalm-automation/napalm/commit/4a8b5b1823335dd79aa5269c038a1f08ecd35cdd.patch";
       hash = "sha256-uiou/rzmnFf4wAvXwmUsGJx99GeHWKJB2JrMM1kLakM=";
     })
   ];
@@ -87,8 +85,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Network Automation and Programmability Abstraction Layer with Multivendor support";
+    description = "Network Automation and Programmability Abstraction Layer with Multivendor support";
     homepage = "https://github.com/napalm-automation/napalm";
     license = licenses.asl20;
     maintainers = with maintainers; [ ] ++ teams.c3d2.members;

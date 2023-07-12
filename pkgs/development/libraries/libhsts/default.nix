@@ -12,8 +12,7 @@ let
   chromium_version = "90.0.4417.1";
 
   hsts_list = fetchurl {
-    url =
-      "https://raw.github.com/chromium/chromium/${chromium_version}/net/http/transport_security_state_static.json";
+    url = "https://raw.github.com/chromium/chromium/${chromium_version}/net/http/transport_security_state_static.json";
     sha256 = "09f24n30x5dmqk8zk7k2glcilgr27832a3304wj1yp97158sqsfx";
   };
 in
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "Library to easily check a domain against the Chromium HSTS Preload list";
+    description = "Library to easily check a domain against the Chromium HSTS Preload list";
     homepage = "https://gitlab.com/rockdaboot/libhsts";
     license = with licenses; [
       mit

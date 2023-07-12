@@ -18,8 +18,7 @@ stdenv.mkDerivation (
     version = "1.3-20220728";
 
     src = fetchurl {
-      url =
-        "ftp://ftp.invisible-island.net/dialog/dialog-${finalAttrs.version}.tgz";
+      url = "ftp://ftp.invisible-island.net/dialog/dialog-${finalAttrs.version}.tgz";
       hash = "sha256-VEGJc9VZpGGwBpX6/mjfYvK8c9UGtDaCHXfKPfRUGQs=";
     };
 

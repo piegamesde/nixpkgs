@@ -35,8 +35,7 @@ buildGoModule rec {
   meta = {
     description = "gh extension to preview Markdown looking like on GitHub";
     homepage = "https://github.com/yusukebe/gh-markdown-preview";
-    changelog =
-      "https://github.com/yusukebe/gh-markdown-preview/releases/tag/${src.rev}";
+    changelog = "https://github.com/yusukebe/gh-markdown-preview/releases/tag/${src.rev}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ amesgen ];
   };

@@ -41,8 +41,7 @@ buildPythonPackage rec {
       # Fix default validation, https://github.com/asdf-format/asdf/pull/1203
       (fetchpatch {
         name = "default-validation.patch";
-        url =
-          "https://github.com/asdf-format/asdf/commit/6f79f620b4632e20178d9bd53528702605d3e976.patch";
+        url = "https://github.com/asdf-format/asdf/commit/6f79f620b4632e20178d9bd53528702605d3e976.patch";
         hash = "sha256-h/dYhXRCf5oIIC+u6+8C91mJnmEzuNmlEzqc0UEhLy0=";
         excludes = [ "CHANGES.rst" ];
       })

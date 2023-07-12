@@ -20,8 +20,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A daemon process control library and tools for Unix-based systems";
+    description = "A daemon process control library and tools for Unix-based systems";
     homepage = "https://pypi.python.org/pypi/zdaemon";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];

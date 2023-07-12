@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   installTargets = [ "install_sfrotz" ];
 
   meta = with lib; {
-    description =
-      "Interpreter for Infocom and other Z-Machine games (SDL interface)";
+    description = "Interpreter for Infocom and other Z-Machine games (SDL interface)";
     longDescription = ''
       Frotz is a Z-Machine interpreter. The Z-machine is a virtual machine
       designed by Infocom to run all of their text adventures. It went through

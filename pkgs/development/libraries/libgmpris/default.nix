@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.sonarnerd.net/src/";
-    description =
-      "GMPRIS GDBus bindings GDBus bindings generated from the GMPRIS XML spec files";
+    description = "GMPRIS GDBus bindings GDBus bindings generated from the GMPRIS XML spec files";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ lovesegfault ];
   };

@@ -48,10 +48,8 @@ let
     };
 
     meta = with lib; {
-      changelog =
-        "https://github.com/jupyter-server/jupyter_server_terminals/releases/tag/v${version}";
-      description =
-        "A Jupyter Server Extension Providing Support for Terminals";
+      changelog = "https://github.com/jupyter-server/jupyter_server_terminals/releases/tag/v${version}";
+      description = "A Jupyter Server Extension Providing Support for Terminals";
       homepage = "https://github.com/jupyter-server/jupyter_server_terminals";
       license = licenses.bsd3;
       maintainers = with maintainers; [ ];

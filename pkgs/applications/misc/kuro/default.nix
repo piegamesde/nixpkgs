@@ -77,8 +77,7 @@ mkYarnPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "An unofficial, featureful, open source, community-driven, free Microsoft To-Do app";
+    description = "An unofficial, featureful, open source, community-driven, free Microsoft To-Do app";
     homepage = "https://github.com/davidsmorais/kuro";
     license = licenses.mit;
     maintainers = with maintainers; [ ChaosAttractor ];

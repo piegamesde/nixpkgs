@@ -30,8 +30,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A mkdocs plugin to exclude files from input using globs or regexes.";
+    description = "A mkdocs plugin to exclude files from input using globs or regexes.";
     homepage = "https://github.com/apenwarr/mkdocs-exclude";
     license = licenses.asl20;
     maintainers = with maintainers; [ kaction ];

@@ -9,8 +9,7 @@ let
   pname = "Vial";
 
   src = fetchurl {
-    url =
-      "https://github.com/vial-kb/vial-gui/releases/download/v${version}/${pname}-v${version}-x86_64.AppImage";
+    url = "https://github.com/vial-kb/vial-gui/releases/download/v${version}/${pname}-v${version}-x86_64.AppImage";
     sha256 = "sha256-2EapikmY79KQdoHnz1A7gErVXBN8D80r1GJMKQ5gIM0=";
   };
 
@@ -29,8 +28,7 @@ appimageTools.wrapType2 {
   '';
 
   meta = with lib; {
-    description =
-      "An Open-source QMK GUI fork for configuring your keyboard in real time";
+    description = "An Open-source QMK GUI fork for configuring your keyboard in real time";
     homepage = "https://get.vial.today";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kranzes ];

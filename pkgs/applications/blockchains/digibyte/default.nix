@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "DigiByte (DGB) is a rapidly growing decentralized, global blockchain";
+    description = "DigiByte (DGB) is a rapidly growing decentralized, global blockchain";
     homepage = "https://digibyte.io/";
     license = licenses.mit;
     maintainers = [ maintainers.mmahut ];

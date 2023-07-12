@@ -55,8 +55,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
     propagatedBuildInputs = [ javalib ];
 
     meta = with lib; {
-      description =
-        "A library written in OCaml, relying on Javalib to provide a high level representation of Java bytecode programs";
+      description = "A library written in OCaml, relying on Javalib to provide a high level representation of Java bytecode programs";
       homepage = "http://sawja.inria.fr/";
       license = licenses.gpl3Plus;
       maintainers = [ maintainers.vbgl ];

@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "4.0.6";
 
   src = fetchzip {
-    url =
-      "https://github.com/BleuBleu/FamiStudio/releases/download/${version}/FamiStudio${
+    url = "https://github.com/BleuBleu/FamiStudio/releases/download/${version}/FamiStudio${
         lib.strings.concatStrings (lib.splitVersion version)
       }-LinuxAMD64.zip";
     stripRoot = false;

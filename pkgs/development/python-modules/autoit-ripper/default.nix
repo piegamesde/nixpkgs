@@ -31,8 +31,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "autoit_ripper" ];
 
   meta = with lib; {
-    description =
-      "Python module to extract AutoIt scripts embedded in PE binaries";
+    description = "Python module to extract AutoIt scripts embedded in PE binaries";
     homepage = "https://github.com/nazywam/AutoIt-Ripper";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

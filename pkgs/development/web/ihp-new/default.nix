@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Project generator for the IHP (Integrated Haskell Platform) web framework";
+    description = "Project generator for the IHP (Integrated Haskell Platform) web framework";
     homepage = "https://ihp.digitallyinduced.com";
     license = licenses.mit;
     maintainers = [ maintainers.mpscholten ];

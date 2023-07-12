@@ -38,8 +38,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pytest plugin to perform isort checks (import ordering)";
     homepage = "https://github.com/moccu/pytest-isort/";
-    changelog =
-      "https://github.com/stephrdev/pytest-isort/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/stephrdev/pytest-isort/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

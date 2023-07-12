@@ -149,8 +149,7 @@ in
         '';
         example = {
           bigbox = {
-            id =
-              "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
+            id = "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
             addresses = [ "tcp://192.168.0.10:51820" ];
           };
         };

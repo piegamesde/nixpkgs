@@ -77,8 +77,7 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    description =
-      "An async/await-native I/O library for humans and snake people";
+    description = "An async/await-native I/O library for humans and snake people";
     homepage = "https://github.com/python-trio/trio";
     license = with lib.licenses; [
       mit

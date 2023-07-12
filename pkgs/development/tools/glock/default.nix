@@ -22,8 +22,7 @@ buildGoPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/robfig/glock";
-    description =
-      "A command-line tool to lock Go dependencies to specific revisions";
+    description = "A command-line tool to lock Go dependencies to specific revisions";
     license = licenses.mit;
     maintainers = [ maintainers.rushmorem ];
   };

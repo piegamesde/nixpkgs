@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description =
-      "A simple app for checking usual checksums - Designed for elementary OS";
+    description = "A simple app for checking usual checksums - Designed for elementary OS";
     homepage = "https://github.com/artemanufrij/hashit";
     license = licenses.gpl2Plus;
     maintainers = teams.pantheon.members;

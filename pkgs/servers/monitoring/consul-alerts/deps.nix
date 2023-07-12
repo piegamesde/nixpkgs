@@ -30,8 +30,7 @@ in
     fetch = {
       type = "git";
       url = "https://github.com/mitchellh/hashstructure";
-      rev =
-        "2bca23e0e452137f789efbc8610126fd8b94f73b"; # has no releases as of writing
+      rev = "2bca23e0e452137f789efbc8610126fd8b94f73b"; # has no releases as of writing
       sha256 = "0vpacsls26474wya360fjhzi6l4y8s8s251c4szvqxh17n5f5gk1";
     };
   }

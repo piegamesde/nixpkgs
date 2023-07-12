@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   version = "1.22.8";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/cogl-${version}.tar.xz";
     sha256 = "0nfph4ai60ncdx7hy6hl1i1cmp761jgnyjfhagzi0iqq36qb41d8";
@@ -124,8 +123,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A small open source library for using 3D graphics hardware for rendering";
+    description = "A small open source library for using 3D graphics hardware for rendering";
     maintainers = with maintainers; [ lovek323 ];
 
     longDescription = ''

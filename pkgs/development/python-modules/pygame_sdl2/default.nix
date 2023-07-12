@@ -20,8 +20,7 @@ buildPythonPackage rec {
   name = "${pname}-${version}-${renpy_version}";
 
   src = fetchurl {
-    url =
-      "https://www.renpy.org/dl/${renpy_version}/pygame_sdl2-${version}-for-renpy-${renpy_version}.tar.gz";
+    url = "https://www.renpy.org/dl/${renpy_version}/pygame_sdl2-${version}-for-renpy-${renpy_version}.tar.gz";
     hash = "sha256-BpETor1dz8qdMM8iYijlthnsrPF0FS8b1FDvuXxFB9s=";
   };
 

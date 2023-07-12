@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
     # Adjust tests for compatibility with gcc 12 (https://github.com/herbstluftwm/herbstluftwm/issues/1512)
     # Can be removed with the next release (>0.9.5).
     (fetchpatch {
-      url =
-        "https://github.com/herbstluftwm/herbstluftwm/commit/8678168c7a3307b1271e94974e062799e745ab40.patch";
+      url = "https://github.com/herbstluftwm/herbstluftwm/commit/8678168c7a3307b1271e94974e062799e745ab40.patch";
       hash = "sha256-uI6ErfDitT2Tw0txx4lMSBn/jjiiyL4Qw6AJa/CTh1E=";
     })
   ];

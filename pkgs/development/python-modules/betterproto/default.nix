@@ -64,8 +64,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Clean, modern, Python 3.6+ code generator & library for Protobuf 3 and async gRPC";
+    description = "Clean, modern, Python 3.6+ code generator & library for Protobuf 3 and async gRPC";
     longDescription = ''
       This project aims to provide an improved experience when using Protobuf /
       gRPC in a modern Python environment by making use of modern language

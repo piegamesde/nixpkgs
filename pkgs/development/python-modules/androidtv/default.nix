@@ -52,8 +52,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "androidtv" ];
 
   meta = with lib; {
-    description =
-      "Communicate with an Android TV or Fire TV device via ADB over a network";
+    description = "Communicate with an Android TV or Fire TV device via ADB over a network";
     homepage = "https://github.com/JeffLIrion/python-androidtv/";
     license = licenses.mit;
     maintainers = with maintainers; [ jamiemagee ];

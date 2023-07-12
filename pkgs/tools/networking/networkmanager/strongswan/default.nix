@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   version = "1.6.0";
 
   src = fetchurl {
-    url =
-      "https://download.strongswan.org/NetworkManager/${pname}-${version}.tar.bz2";
+    url = "https://download.strongswan.org/NetworkManager/${pname}-${version}.tar.bz2";
     sha256 = "bbyA9qCboM9hBKMXhJWXgEFN13Fl4pY6zWZXwowlRMI=";
   };
 
@@ -47,8 +46,9 @@ stdenv.mkDerivation rec {
     "--with-gtk4"
   ];
 
-  PKG_CONFIG_LIBNM_VPNSERVICEDIR =
-    "${placeholder "out"}/lib/NetworkManager/VPN";
+  PKG_CONFIG_LIBNM_VPNSERVICEDIR = "${
+      placeholder "out"
+    }/lib/NetworkManager/VPN";
 
   passthru = { networkManagerPlugin = "VPN/nm-strongswan-service.name"; };
 

@@ -51,8 +51,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Signatures for entire Python programs";
     homepage = "https://github.com/mkdocstrings/griffe";
-    changelog =
-      "https://github.com/mkdocstrings/griffe/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/mkdocstrings/griffe/blob/${version}/CHANGELOG.md";
     license = licenses.isc;
     maintainers = with maintainers; [ fab ];
   };

@@ -26,8 +26,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mirleft/ocaml-x509/releases/download/v${version}/x509-${version}.tbz";
+    url = "https://github.com/mirleft/ocaml-x509/releases/download/v${version}/x509-${version}.tbz";
     hash = "sha256-XegxhdASQK/I7Xd0gJSLumTGbCYFpWsjR7PlZSWqaVo=";
   };
 

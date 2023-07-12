@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "0.90.8.3";
 
   src = fetchurl {
-    url =
-      "https://download.tuxfamily.org/librep/${pname}/${pname}_${version}.tar.xz";
+    url = "https://download.tuxfamily.org/librep/${pname}/${pname}_${version}.tar.xz";
     sha256 = "0hgkkywm8zczir3lqr727bn7ybgg71x9cwj1av8fykkr8pdpard9";
   };
 

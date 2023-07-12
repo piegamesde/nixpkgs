@@ -88,11 +88,9 @@ in
       ${cfg.extraConfig}
     '';
 
-    environment.etc."vmware/bootstrap".source =
-      "${cfg.package}/etc/vmware/bootstrap";
+    environment.etc."vmware/bootstrap".source = "${cfg.package}/etc/vmware/bootstrap";
     environment.etc."vmware/icu".source = "${cfg.package}/etc/vmware/icu";
-    environment.etc."vmware-installer".source =
-      "${cfg.package}/etc/vmware-installer";
+    environment.etc."vmware-installer".source = "${cfg.package}/etc/vmware-installer";
 
     # SUID wrappers
 

@@ -329,8 +329,7 @@ in
       mapAttrsToList
         (n: v: {
           assertion = (v.repository == null) != (v.repositoryFile == null);
-          message =
-            "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
+          message = "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
         })
         config.services.restic.backups
     ;

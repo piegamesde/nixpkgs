@@ -594,8 +594,7 @@ in
             (cfg.database.useSSL && cfg.database.type == "postgresql")
             -> (cfg.database.caCert != null)
           ;
-          message =
-            "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
+          message = "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
         }
         {
           assertion =
@@ -603,8 +602,7 @@ in
             -> config.services.postgresql.settings.standard_conforming_strings
               or true
           ;
-          message =
-            "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";
+          message = "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";
         }
       ];
 

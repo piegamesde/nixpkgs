@@ -32,8 +32,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "limiter" ];
 
   meta = with lib; {
-    description =
-      "Python rate-limiting, thread-safe and asynchronous decorators and context managers";
+    description = "Python rate-limiting, thread-safe and asynchronous decorators and context managers";
     homepage = "https://github.com/alexdelorenzo/limiter";
     license = with licenses; [ agpl3Only ];
     maintainers = with maintainers; [ fab ];

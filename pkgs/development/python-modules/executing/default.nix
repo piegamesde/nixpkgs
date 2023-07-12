@@ -41,8 +41,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "executing" ];
 
   meta = with lib; {
-    description =
-      "Get information about what a frame is currently doing, particularly the AST node being executed";
+    description = "Get information about what a frame is currently doing, particularly the AST node being executed";
     homepage = "https://github.com/alexmojaki/executing";
     license = licenses.mit;
     maintainers = with maintainers; [ renatoGarcia ];

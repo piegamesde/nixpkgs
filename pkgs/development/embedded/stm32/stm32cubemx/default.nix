@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   version = "6.8.0";
 
   src = fetchzip {
-    url =
-      "https://sw-center.st.com/packs/resource/library/stm32cube_mx_v${
+    url = "https://sw-center.st.com/packs/resource/library/stm32cube_mx_v${
         builtins.replaceStrings [ "." ] [ "" ] version
       }-lin.zip";
     sha256 = "sha256-jJeJTg2cCO6fqQ4vFq2dXsfsWmlN5ncZJWMoekJXkLQ=";
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A graphical tool for configuring STM32 microcontrollers and microprocessors";
+    description = "A graphical tool for configuring STM32 microcontrollers and microprocessors";
     longDescription = ''
       A graphical tool that allows a very easy configuration of STM32
       microcontrollers and microprocessors, as well as the generation of the

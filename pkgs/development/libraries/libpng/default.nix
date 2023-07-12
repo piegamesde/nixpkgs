@@ -11,8 +11,7 @@ assert zlib != null;
 let
   patchVersion = "1.6.39";
   patch_src = fetchurl {
-    url =
-      "mirror://sourceforge/libpng-apng/libpng-${patchVersion}-apng.patch.gz";
+    url = "mirror://sourceforge/libpng-apng/libpng-${patchVersion}-apng.patch.gz";
     hash = "sha256-SsS26roAzeISxI22XLlCkQc/68oixcef2ocJFQLoDP0=";
   };
   whenPatched = lib.optionalString apngSupport;

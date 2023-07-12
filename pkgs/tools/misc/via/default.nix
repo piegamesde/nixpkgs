@@ -9,8 +9,7 @@ let
   version = "3.0.0";
   name = "${pname}-${version}";
   src = fetchurl {
-    url =
-      "https://github.com/the-via/releases/releases/download/v${version}/via-${version}-linux.AppImage";
+    url = "https://github.com/the-via/releases/releases/download/v${version}/via-${version}-linux.AppImage";
     name = "via-${version}-linux.AppImage";
     sha256 = "sha256-+uTvmrqHK7L5VA/lUHCZZeRYPUrcVA+vjG7venxuHhs=";
   };

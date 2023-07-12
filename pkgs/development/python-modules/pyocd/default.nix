@@ -34,8 +34,7 @@ buildPythonPackage rec {
       # https://github.com/pyocd/pyOCD/pull/1332
       (fetchpatch {
         name = "libusb-package-optional.patch";
-        url =
-          "https://github.com/pyocd/pyOCD/commit/0b980cf253e3714dd2eaf0bddeb7172d14089649.patch";
+        url = "https://github.com/pyocd/pyOCD/commit/0b980cf253e3714dd2eaf0bddeb7172d14089649.patch";
         hash = "sha256-B2+50VntcQELeakJbCeJdgI1iBU+h2NkXqba+LRYa/0=";
       })
     ];
@@ -69,8 +68,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description =
-      "Python library for programming and debugging Arm Cortex-M microcontrollers";
+    description = "Python library for programming and debugging Arm Cortex-M microcontrollers";
     homepage = "https://pyocd.io/";
     license = licenses.asl20;
     maintainers = with maintainers; [

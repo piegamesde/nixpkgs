@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   version = "25.0.2";
   pname = "gams";
   src = fetchurl {
-    url =
-      "https://d37drm4t2jghv5.cloudfront.net/distributions/${version}/linux/linux_x64_64_sfx.exe";
+    url = "https://d37drm4t2jghv5.cloudfront.net/distributions/${version}/linux/linux_x64_64_sfx.exe";
     sha256 = "4f95389579f33ff7c2586838a2c19021aa0746279555cbb51aa6e0efd09bd297";
   };
   unpackCmd = "unzip $src";

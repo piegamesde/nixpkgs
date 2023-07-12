@@ -93,8 +93,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Client-side and server-side support for the OpenAPI Specification v3";
+    description = "Client-side and server-side support for the OpenAPI Specification v3";
     homepage = "https://github.com/p1c2u/openapi-core";
     license = licenses.bsd3;
     maintainers = with maintainers; [ dotlambda ];

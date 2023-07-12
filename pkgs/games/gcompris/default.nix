@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   version = "3.2";
 
   src = fetchurl {
-    url =
-      "https://download.kde.org/stable/gcompris/qt/src/gcompris-qt-${version}.tar.xz";
+    url = "https://download.kde.org/stable/gcompris/qt/src/gcompris-qt-${version}.tar.xz";
     hash = "sha256-WopJB9p7GnfCtUoEKxtzzRXCogcx03ofRjGLhkvW0Rs=";
   };
 
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A high quality educational software suite, including a large number of activities for children aged 2 to 10";
+    description = "A high quality educational software suite, including a large number of activities for children aged 2 to 10";
     homepage = "https://gcompris.net/";
     license = licenses.gpl3Plus;
     mainProgram = "gcompris-qt";

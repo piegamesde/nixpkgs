@@ -38,11 +38,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dissect.executable" ];
 
   meta = with lib; {
-    description =
-      "Dissect module implementing a parser for various executable formats such as PE, ELF and Macho-O";
+    description = "Dissect module implementing a parser for various executable formats such as PE, ELF and Macho-O";
     homepage = "https://github.com/fox-it/dissect.executable";
-    changelog =
-      "https://github.com/fox-it/dissect.executable/releases/tag/${version}";
+    changelog = "https://github.com/fox-it/dissect.executable/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

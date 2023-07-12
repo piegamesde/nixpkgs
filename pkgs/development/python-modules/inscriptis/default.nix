@@ -34,8 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "HTML to text converter";
     homepage = "https://github.com/weblyzard/inscriptis";
-    changelog =
-      "https://github.com/weblyzard/inscriptis/releases/tag/${version}";
+    changelog = "https://github.com/weblyzard/inscriptis/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

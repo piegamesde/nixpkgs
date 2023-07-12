@@ -52,11 +52,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aiopvpc" ];
 
   meta = with lib; {
-    description =
-      "Python module to download Spanish electricity hourly prices (PVPC)";
+    description = "Python module to download Spanish electricity hourly prices (PVPC)";
     homepage = "https://github.com/azogue/aiopvpc";
-    changelog =
-      "https://github.com/azogue/aiopvpc/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/azogue/aiopvpc/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

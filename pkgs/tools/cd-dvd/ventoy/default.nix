@@ -66,8 +66,7 @@ stdenv.mkDerivation (
         inherit (finalAttrs) version;
       in
       fetchurl {
-        url =
-          "https://github.com/ventoy/Ventoy/releases/download/v${version}/ventoy-${version}-linux.tar.gz";
+        url = "https://github.com/ventoy/Ventoy/releases/download/v${version}/ventoy-${version}-linux.tar.gz";
         hash = "sha256-9vsFdOxsW1Cs06gVPvQusju2+wp4PpBwbHZUugwb3co=";
       }
     ;
@@ -120,8 +119,7 @@ stdenv.mkDerivation (
       (makeDesktopItem {
         name = "Ventoy";
         desktopName = "Ventoy";
-        comment =
-          "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
+        comment = "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
         icon = "VentoyLogo";
         exec = "ventoy-gui";
         terminal = false;

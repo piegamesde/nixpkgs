@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  pythonMajorMinor =
-    "${python.sourceVersion.major}.${python.sourceVersion.minor}";
+  pythonMajorMinor = "${python.sourceVersion.major}.${python.sourceVersion.minor}";
 
   cmakeFlags = [
     "-DRUN_SWIG=ON"
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A toolbox designed to speak the many languages of chemical data";
+    description = "A toolbox designed to speak the many languages of chemical data";
     homepage = "http://openbabel.org";
     platforms = platforms.all;
     license = licenses.gpl2Plus;

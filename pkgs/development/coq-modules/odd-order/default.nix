@@ -9,12 +9,9 @@ mkCoqDerivation {
   pname = "odd-order";
   owner = "math-comp";
 
-  release."1.14.0".sha256 =
-    "0iln70npkvixqyz469l6nry545a15jlaix532i1l7pzfkqqn6v68";
-  release."1.13.0".sha256 =
-    "sha256-EzNKR/JzM8T17sMhPhgZNs14e50X4dY3OwFi133IsT0=";
-  release."1.12.0".sha256 =
-    "sha256-omsfdc294CxKAHNMMeqJCcVimvyRCHgxcQ4NJOWSfNM=";
+  release."1.14.0".sha256 = "0iln70npkvixqyz469l6nry545a15jlaix532i1l7pzfkqqn6v68";
+  release."1.13.0".sha256 = "sha256-EzNKR/JzM8T17sMhPhgZNs14e50X4dY3OwFi133IsT0=";
+  release."1.12.0".sha256 = "sha256-omsfdc294CxKAHNMMeqJCcVimvyRCHgxcQ4NJOWSfNM=";
   releaseRev = v: "mathcomp-odd-order.${v}";
 
   inherit version;

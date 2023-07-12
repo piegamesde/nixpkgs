@@ -273,8 +273,9 @@ let
     let
       # Because of the following line, clients do not need to specify an absolute repo path
       cdCommand = "cd ${escapeShellArg cfg.path}";
-      restrictedArg =
-        "--restrict-to-${if cfg.allowSubRepos then "path" else "repository"} .";
+      restrictedArg = "--restrict-to-${
+          if cfg.allowSubRepos then "path" else "repository"
+        } .";
       appendOnlyArg = optionalString appendOnly "--append-only";
       quotaArg =
         optionalString (cfg.quota != null)

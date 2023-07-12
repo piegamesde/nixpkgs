@@ -32,8 +32,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pep440" ];
 
   meta = with lib; {
-    description =
-      "Python module to check whether versions number match PEP 440";
+    description = "Python module to check whether versions number match PEP 440";
     homepage = "https://github.com/Carreau/pep440";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

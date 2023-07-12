@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "1.8.0";
 
   src = fetchzip {
-    url =
-      "https://github.com/belluzj/fantasque-sans/releases/download/v${version}/FantasqueSansMono-Normal.zip";
+    url = "https://github.com/belluzj/fantasque-sans/releases/download/v${version}/FantasqueSansMono-Normal.zip";
     stripRoot = false;
     hash = "sha256-MNXZoDPi24xXHXGVADH16a3vZmFhwX0Htz02+46hWFc=";
   };
@@ -26,8 +25,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/belluzj/fantasque-sans";
-    description =
-      "A font family with a great monospaced variant for programmers";
+    description = "A font family with a great monospaced variant for programmers";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = [ maintainers.rycee ];

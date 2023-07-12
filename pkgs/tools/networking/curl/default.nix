@@ -265,12 +265,10 @@ stdenv.mkDerivation (
     ;
 
     meta = with lib; {
-      changelog =
-        "https://curl.se/changes.html#${
+      changelog = "https://curl.se/changes.html#${
           lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version
         }";
-      description =
-        "A command line tool for transferring files with URL syntax";
+      description = "A command line tool for transferring files with URL syntax";
       homepage = "https://curl.se/";
       license = licenses.curl;
       maintainers = with maintainers; [ lovek323 ];

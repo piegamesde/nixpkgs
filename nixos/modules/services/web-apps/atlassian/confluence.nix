@@ -190,8 +190,7 @@ in
           != (cfg.sso.applicationPasswordFile)
         )
       ;
-      message =
-        "Please set either applicationPassword or applicationPasswordFile";
+      message = "Please set either applicationPassword or applicationPasswordFile";
     } ];
 
     warnings = mkIf (cfg.sso.enable && cfg.sso.applicationPassword != null) [

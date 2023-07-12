@@ -25,8 +25,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pycoolmasternet_async" ];
 
   meta = with lib; {
-    description =
-      "Python library to control CoolMasterNet HVAC bridges over asyncio";
+    description = "Python library to control CoolMasterNet HVAC bridges over asyncio";
     homepage = "https://github.com/OnFreund/pycoolmasternet-async";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

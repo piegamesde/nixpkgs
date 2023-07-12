@@ -11,8 +11,7 @@
 
 let
   src = fetchurl {
-    url =
-      "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.AppImage";
+    url = "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.AppImage";
     name = "Caprine-${version}.AppImage";
     inherit sha256;
   };

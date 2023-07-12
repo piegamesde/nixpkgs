@@ -53,8 +53,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A suite of tools to help you visualize, navigate, manipulate, and repair your commit history";
+    description = "A suite of tools to help you visualize, navigate, manipulate, and repair your commit history";
     homepage = "https://github.com/arxanas/git-branchless";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [

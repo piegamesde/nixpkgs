@@ -33,8 +33,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Client library for Microsoft Azure Storage services containing common code shared by blob, file and queue";
+    description = "Client library for Microsoft Azure Storage services containing common code shared by blob, file and queue";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ cmcdragonkai ];

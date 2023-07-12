@@ -227,8 +227,7 @@ in
         (vhost: cfg: {
           assertion =
             !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
-          message =
-            "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
+          message = "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
         })
         cfgs
     ;
@@ -259,8 +258,7 @@ in
             ) // {
               "~ ${regexLocation cfg}/.+/(info/refs|git-upload-pack)" = {
                 fastcgiParams = rec {
-                  SCRIPT_FILENAME =
-                    "${pkgs.git}/libexec/git-core/git-http-backend";
+                  SCRIPT_FILENAME = "${pkgs.git}/libexec/git-core/git-http-backend";
                   GIT_HTTP_EXPORT_ALL = "1";
                   GIT_PROJECT_ROOT = mkCgitReposDir cfg;
                   HOME = GIT_PROJECT_ROOT;

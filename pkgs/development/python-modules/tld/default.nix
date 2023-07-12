@@ -43,8 +43,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Extracts the top level domain (TLD) from the URL given";
     homepage = "https://github.com/barseghyanartur/tld";
-    changelog =
-      "https://github.com/barseghyanartur/tld/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/barseghyanartur/tld/blob/${version}/CHANGELOG.rst";
     # https://github.com/barseghyanartur/tld/blob/master/README.rst#license
     # MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-or-later
     license = with licenses; [

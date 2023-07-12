@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for syncing Google Calendar to local storage";
     homepage = "https://github.com/allenporter/gcal_sync";
-    changelog =
-      "https://github.com/allenporter/gcal_sync/releases/tag/${version}";
+    changelog = "https://github.com/allenporter/gcal_sync/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];
   };

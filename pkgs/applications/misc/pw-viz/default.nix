@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "egui_nodes-0.1.4" =
-        "sha256-Bb88T+erjgKD769eYOSiVEg9lFnB5pBEDLeWgCdyUus=";
+      "egui_nodes-0.1.4" = "sha256-Bb88T+erjgKD769eYOSiVEg9lFnB5pBEDLeWgCdyUus=";
     };
   };
 

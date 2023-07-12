@@ -13,8 +13,7 @@ stdenv.mkDerivation (
     version = "1.2.8";
 
     src = fetchurl {
-      url =
-        "mirror://alsa/lib/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2";
+      url = "mirror://alsa/lib/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2";
       hash = "sha256-GrAbdOM0JcqZwuNsCET9aIgnMZO9iYJA/o+TrMvL80c=";
     };
 

@@ -240,8 +240,7 @@ stdenv.mkDerivation {
     ./modtool-newmod-permissions.3_8.patch
     # Fix compilation with boost 177
     (fetchpatch {
-      url =
-        "https://github.com/gnuradio/gnuradio/commit/2c767bb260a25b415e8c9c4b3ea37280b2127cec.patch";
+      url = "https://github.com/gnuradio/gnuradio/commit/2c767bb260a25b415e8c9c4b3ea37280b2127cec.patch";
       sha256 = "sha256-l4dSzkXb5s3vcCeuKMMwiKfv83hFI9Yg+EMEX+sl+Uo=";
     })
   ];

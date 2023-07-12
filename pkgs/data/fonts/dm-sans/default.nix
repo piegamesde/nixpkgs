@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "1.002";
 
   src = fetchzip {
-    url =
-      "https://github.com/googlefonts/dm-fonts/releases/download/v${version}/DeepMindSans_v${version}.zip";
+    url = "https://github.com/googlefonts/dm-fonts/releases/download/v${version}/DeepMindSans_v${version}.zip";
     stripRoot = false;
     hash = "sha256-RSHHxiCac18qqF+hW5M3BbBcra4AQpNLLlUmhiWj9f8=";
   };

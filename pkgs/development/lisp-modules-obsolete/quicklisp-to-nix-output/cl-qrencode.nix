@@ -16,8 +16,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-qrencode/2019-10-07/cl-qrencode-20191007-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-qrencode/2019-10-07/cl-qrencode-20191007-git.tgz";
     sha256 = "0jc4bmw498bxkw5imvsj4p49njyybsjhbbvnmykivc38k5nlypz4";
   };
 

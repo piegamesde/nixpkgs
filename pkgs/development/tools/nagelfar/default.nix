@@ -11,8 +11,7 @@ tcl.mkTclDerivation {
   version = "1.3.3";
 
   src = fetchzip {
-    url =
-      "https://sourceforge.net/projects/nagelfar/files/Rel_133/nagelfar133.tar.gz";
+    url = "https://sourceforge.net/projects/nagelfar/files/Rel_133/nagelfar133.tar.gz";
     sha256 = "sha256-bdH53LSOKMwq53obVQitl7bpaSpwvMce8oJgg/GKrg0=";
   };
 

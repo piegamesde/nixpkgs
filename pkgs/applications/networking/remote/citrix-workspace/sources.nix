@@ -18,8 +18,7 @@ let
     }:
     {
       inherit homepage;
-      version =
-        "${major}.${minor}.${patch}.${
+      version = "${major}.${minor}.${patch}.${
           if stdenv.is64bit then x64suffix else x86suffix
         }";
       prefix = "linuxx${if stdenv.is64bit then "64" else "86"}";
@@ -37,14 +36,11 @@ let
       major = "23";
       minor = "2";
       patch = "0";
-      x64hash =
-        "d0030a4782ba4b2628139635a12a7de044a4eb36906ef1eadb05b6ea77c1a7bc";
-      x86hash =
-        "39228fc8dd69adca4e56991c1ebc0832fec183c3ab5abd2d65c66b39b634391b";
+      x64hash = "d0030a4782ba4b2628139635a12a7de044a4eb36906ef1eadb05b6ea77c1a7bc";
+      x86hash = "39228fc8dd69adca4e56991c1ebc0832fec183c3ab5abd2d65c66b39b634391b";
       x64suffix = "10";
       x86suffix = "10";
-      homepage =
-        "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html";
+      homepage = "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html";
     };
   };
 

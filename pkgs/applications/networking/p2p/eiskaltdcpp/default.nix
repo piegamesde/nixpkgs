@@ -84,8 +84,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A cross-platform program that uses the Direct Connect and ADC protocols";
+    description = "A cross-platform program that uses the Direct Connect and ADC protocols";
     homepage = "https://github.com/eiskaltdcpp/eiskaltdcpp";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

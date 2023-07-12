@@ -26,8 +26,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl+ssl/2021-12-09/cl+ssl-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/cl+ssl/2021-12-09/cl+ssl-20211209-git.tgz";
     sha256 = "1m1dx4jfqpd2jdica7safq3fig31xyn96a0yslvszbhkyn22r0nb";
   };
 

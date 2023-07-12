@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "bSeGclajXM+baSU+sqiKMrrKO5fV9O9/guNmf6Q1JRw=";
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A GObject based library for handling and rendering XPS documents";
+    description = "A GObject based library for handling and rendering XPS documents";
     homepage = "https://wiki.gnome.org/Projects/libgxps";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

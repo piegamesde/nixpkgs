@@ -153,8 +153,7 @@ python3.pkgs.buildPythonApplication {
     '';
     homepage = "https://electrum.org/";
     downloadPage = "https://electrum.org/#download";
-    changelog =
-      "https://github.com/spesmilo/electrum/blob/master/RELEASE-NOTES";
+    changelog = "https://github.com/spesmilo/electrum/blob/master/RELEASE-NOTES";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [

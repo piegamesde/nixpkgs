@@ -26,8 +26,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pykwb" ];
 
   meta = with lib; {
-    description =
-      "Library for interacting with KWB Easyfire Pellet Central Heating Units";
+    description = "Library for interacting with KWB Easyfire Pellet Central Heating Units";
     homepage = "https://github.com/bimbar/pykwb";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

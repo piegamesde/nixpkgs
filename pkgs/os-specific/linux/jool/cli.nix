@@ -21,8 +21,7 @@ stdenv.mkDerivation {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/NICMx/Jool/commit/490ddb0933061cab3c2a7952dffc61789deed565.patch";
+      url = "https://github.com/NICMx/Jool/commit/490ddb0933061cab3c2a7952dffc61789deed565.patch";
       hash = "sha256-1dpMth0ocPHujlk+96St1a63RipcWiL/CdmSz4O87Lg=";
     })
   ];
@@ -52,8 +51,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.jool.mx/";
-    description =
-      "Fairly compliant SIIT and Stateful NAT64 for Linux - CLI tools";
+    description = "Fairly compliant SIIT and Stateful NAT64 for Linux - CLI tools";
     platforms = platforms.linux;
     license = licenses.gpl2;
     maintainers = with maintainers; [ fpletz ];

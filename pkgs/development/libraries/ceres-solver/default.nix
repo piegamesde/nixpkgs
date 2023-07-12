@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
 
   meta = with lib; {
-    description =
-      "C++ library for modeling and solving large, complicated optimization problems";
+    description = "C++ library for modeling and solving large, complicated optimization problems";
     license = licenses.bsd3;
     homepage = "http://ceres-solver.org";
     maintainers = with maintainers; [ giogadi ];

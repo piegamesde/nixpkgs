@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "General purpose WebRTC server";
     homepage = "https://janus.conf.meetecho.com/";
-    changelog =
-      "https://github.com/meetecho/janus-gateway/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/meetecho/janus-gateway/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];

@@ -28,8 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Class based template tags for Django";
     homepage = "https://github.com/divio/django-classy-tags";
-    changelog =
-      "https://github.com/django-cms/django-classy-tags/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/django-cms/django-classy-tags/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

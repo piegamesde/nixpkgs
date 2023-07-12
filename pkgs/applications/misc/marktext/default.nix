@@ -9,8 +9,7 @@ let
   version = "0.17.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/marktext/marktext/releases/download/v${version}/marktext-x86_64.AppImage";
+    url = "https://github.com/marktext/marktext/releases/download/v${version}/marktext-x86_64.AppImage";
     sha256 = "2e2555113e37df830ba3958efcccce7020907b12fd4162368cfd906aeda630b7";
   };
 
@@ -45,8 +44,7 @@ appimageTools.wrapType2 rec {
   '';
 
   meta = with lib; {
-    description =
-      "A simple and elegant markdown editor, available for Linux, macOS and Windows";
+    description = "A simple and elegant markdown editor, available for Linux, macOS and Windows";
     homepage = "https://marktext.app";
     license = licenses.mit;
     maintainers = with maintainers; [

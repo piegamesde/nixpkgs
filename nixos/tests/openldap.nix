@@ -153,8 +153,7 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        specializations =
-          "${nodes.machine.system.build.toplevel}/specialisation";
+        specializations = "${nodes.machine.system.build.toplevel}/specialisation";
         changeRootPw = ''
           dn: olcDatabase={1}mdb,cn=config
           changetype: modify

@@ -25,8 +25,7 @@ python.pkgs.buildPythonApplication rec {
   patches = [
     (fetchpatch {
       # upgrade librosa to 0.10.0
-      url =
-        "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch";
+      url = "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch";
       hash = "sha256-QP9AnMbdEpGJywiZBreojHUjq29ihqy6HxvUtS5OKvQ=";
       excludes = [ "requirements.txt" ];
     })
@@ -187,8 +186,7 @@ python.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/coqui-ai/TTS";
     changelog = "https://github.com/coqui-ai/TTS/releases/tag/v${version}";
-    description =
-      "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";
+    description = "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";
     license = licenses.mpl20;
     maintainers = teams.tts.members;
   };

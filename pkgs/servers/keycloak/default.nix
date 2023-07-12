@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "20.0.5";
 
   src = fetchzip {
-    url =
-      "https://github.com/keycloak/keycloak/releases/download/${version}/keycloak-${version}.zip";
+    url = "https://github.com/keycloak/keycloak/releases/download/${version}/keycloak-${version}.zip";
     hash = "sha256-4h3q9J1+KufMaSuzbX9qaBwXPR8zhVpxQAXDBY3uPjM=";
   };
 
@@ -88,8 +87,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.keycloak.org/";
-    description =
-      "Identity and access management for modern applications and services";
+    description = "Identity and access management for modern applications and services";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
     platforms = jre.meta.platforms;

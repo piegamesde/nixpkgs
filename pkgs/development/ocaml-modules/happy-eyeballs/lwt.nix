@@ -40,7 +40,6 @@ buildDunePackage {
 
   meta = happy-eyeballs.meta // {
     mainProgram = "happy_eyeballs_client";
-    description =
-      "Connecting to a remote host via IP version 4 or 6 using Lwt_unix";
+    description = "Connecting to a remote host via IP version 4 or 6 using Lwt_unix";
   };
 }

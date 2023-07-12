@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     [
       # patch from debian to support libpng16 instead of libpng12
       (fetchurl {
-        url =
-          "https://salsa.debian.org/tux4kids-pkg-team/t4kcommon/raw/f7073fa384f5a725139f54844e59b57338b69dc7/debian/patches/libpng16.patch";
+        url = "https://salsa.debian.org/tux4kids-pkg-team/t4kcommon/raw/f7073fa384f5a725139f54844e59b57338b69dc7/debian/patches/libpng16.patch";
         sha256 = "1lcpkdy5gvxgljg1vkrxych74amq0gramb1snj2831dam48is054";
       })
     ];

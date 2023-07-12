@@ -47,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pure Python library for LaTeX to MathML conversion";
     homepage = "https://github.com/roniemartinez/latex2mathml";
-    changelog =
-      "https://github.com/roniemartinez/latex2mathml/releases/tag/${version}";
+    changelog = "https://github.com/roniemartinez/latex2mathml/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sfrijters ];
   };

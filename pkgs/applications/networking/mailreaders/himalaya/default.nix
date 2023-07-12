@@ -76,8 +76,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Command-line interface for email management";
     homepage = "https://github.com/soywod/himalaya";
-    changelog =
-      "https://github.com/soywod/himalaya/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/soywod/himalaya/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [
       soywod

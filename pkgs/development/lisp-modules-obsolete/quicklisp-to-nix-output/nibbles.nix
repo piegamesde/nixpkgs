@@ -9,14 +9,12 @@ rec {
 
   parasites = [ "nibbles/tests" ];
 
-  description =
-    "A library for accessing octet-addressed blocks of data in big- and little-endian orders";
+  description = "A library for accessing octet-addressed blocks of data in big- and little-endian orders";
 
   deps = [ args."rt" ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/nibbles/2021-12-09/nibbles-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/nibbles/2021-12-09/nibbles-20211209-git.tgz";
     sha256 = "1zkywrhz8p09pwdsa2mklr0yspqvvwa5fi6cz22n1z6fzvxz7m2s";
   };
 

@@ -35,8 +35,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Poetry plugin to simplify package updates";
     homepage = "https://github.com/MousaZeidBaker/poetry-plugin-up";
-    changelog =
-      "https://github.com/MousaZeidBaker/poetry-plugin-up/releases/tag/${version}";
+    changelog = "https://github.com/MousaZeidBaker/poetry-plugin-up/releases/tag/${version}";
     license = licenses.mit;
     maintainers = [ maintainers.k900 ];
   };

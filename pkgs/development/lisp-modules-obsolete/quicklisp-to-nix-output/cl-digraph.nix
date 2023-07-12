@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/cl-digraph/2021-10-20/cl-digraph-20211020-hg.tgz";
+    url = "http://beta.quicklisp.org/archive/cl-digraph/2021-10-20/cl-digraph-20211020-hg.tgz";
     sha256 = "0iqzqy322xywmal7y7vhn1myhdglr78fj89maiwfx6yjppcyd1i1";
   };
 

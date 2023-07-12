@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
       mupdf_patch = mkPatch {
         name = "mupdf";
         src = fetchurl {
-          url =
-            "https://mupdf.com/downloads/archive/mupdf-1.17.0-source.tar.gz";
+          url = "https://mupdf.com/downloads/archive/mupdf-1.17.0-source.tar.gz";
           sha256 = "13nl9nrcx2awz9l83mlv2psi1lmn3hdnfwxvwgwiwbxlkjl3zqq0";
         };
         patchCommands = ''
@@ -213,8 +212,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Optimizes PDF/DJVU files for mobile e-readers (e.g. the Kindle) and smartphones";
+    description = "Optimizes PDF/DJVU files for mobile e-readers (e.g. the Kindle) and smartphones";
     homepage = "http://www.willus.com/k2pdfopt";
     license = licenses.gpl3;
     platforms = platforms.linux;

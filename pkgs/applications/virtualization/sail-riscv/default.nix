@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://github.com/riscv/sail-riscv/pull/250/commits/8bd37c484b83a8ce89c8bb7a001b8ae34dc4d77f.patch";
+      url = "https://github.com/riscv/sail-riscv/pull/250/commits/8bd37c484b83a8ce89c8bb7a001b8ae34dc4d77f.patch";
       hash = "sha256-tDgkGhcbT6phoCAvilxMI56YUuUqQFgvh+2QduOjdMg=";
     })
   ];
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/riscv/sail-riscv";
-    description =
-      "A formal specification of the RISC-V architecture, written in Sail";
+    description = "A formal specification of the RISC-V architecture, written in Sail";
     maintainers = with maintainers; [ genericnerdyusername ];
     broken = stdenv.isDarwin && stdenv.isAarch64;
     license = licenses.bsd2;

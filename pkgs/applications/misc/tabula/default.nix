@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   version = "1.2.1";
 
   src = fetchzip {
-    url =
-      "https://github.com/tabulapdf/tabula/releases/download/v${version}/tabula-jar-${version}.zip";
+    url = "https://github.com/tabulapdf/tabula/releases/download/v${version}/tabula-jar-${version}.zip";
     sha256 = "0lkpv8hkji81fanyxm7ph8421fr9a6phqc3pbhw2bc4gljg7sgxi";
   };
 

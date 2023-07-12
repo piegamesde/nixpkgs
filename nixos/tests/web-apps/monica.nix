@@ -27,8 +27,8 @@ import ../make-test-python.nix (
           services.monica = {
             enable = true;
             hostname = "localhost";
-            appKeyFile =
-              "${pkgs.writeText "keyfile" "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}";
+            appKeyFile = "${pkgs.writeText "keyfile"
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}";
             nginx = {
               forceSSL = true;
               sslCertificate = "${cert}/cert.pem";

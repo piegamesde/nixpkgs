@@ -47,13 +47,11 @@ stdenv.mkDerivation rec {
 
   srcs = [
     (fetchurl {
-      url =
-        "https://cdn.mysql.com//Downloads/MySQL-Shell/mysql-shell-${version}-src.tar.gz";
+      url = "https://cdn.mysql.com//Downloads/MySQL-Shell/mysql-shell-${version}-src.tar.gz";
       hash = "sha256-ElcAOvyQjXNns35p4J+jnGu8orZR81Itz/fxYh7Usbs=";
     })
     (fetchurl {
-      url =
-        "https://dev.mysql.com/get/Downloads/MySQL-${
+      url = "https://dev.mysql.com/get/Downloads/MySQL-${
           lib.versions.majorMinor version
         }/mysql-${version}.tar.gz";
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
@@ -141,8 +139,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage =
-      "https://dev.mysql.com/doc/mysql-shell/${
+    homepage = "https://dev.mysql.com/doc/mysql-shell/${
         lib.versions.majorMinor version
       }/en/";
     description = "A new command line scriptable shell for MySQL";

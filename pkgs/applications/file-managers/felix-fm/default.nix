@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A tui file manager with vim-like key mapping";
     homepage = "https://github.com/kyoheiu/felix";
-    changelog =
-      "https://github.com/kyoheiu/felix/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/kyoheiu/felix/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
     mainProgram = "fx";

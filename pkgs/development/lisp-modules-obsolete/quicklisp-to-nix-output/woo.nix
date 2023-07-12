@@ -36,8 +36,7 @@ rec {
   ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/woo/2021-12-09/woo-20211209-git.tgz";
+    url = "http://beta.quicklisp.org/archive/woo/2021-12-09/woo-20211209-git.tgz";
     sha256 = "0pm4l4sp3zgygkhjzd03kjjk032m5cra628fs25lvcshbrpmkcp3";
   };
 

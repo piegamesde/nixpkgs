@@ -101,8 +101,7 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "http://leoeditor.com";
     description = "A powerful folding editor";
-    longDescription =
-      "Leo is a PIM, IDE and outliner that accelerates the work flow of programmers, authors and web designers.";
+    longDescription = "Leo is a PIM, IDE and outliner that accelerates the work flow of programmers, authors and web designers.";
     license = licenses.mit;
     maintainers = with maintainers; [ leonardoce ];
     mainProgram = "leo";

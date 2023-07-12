@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "A tool for Phylogenetic Analysis and Post-Analysis of Large Phylogenies";
+    description = "A tool for Phylogenetic Analysis and Post-Analysis of Large Phylogenies";
     license = licenses.gpl3;
     homepage = "https://sco.h-its.org/exelixis/web/software/raxml/";
     maintainers = [ maintainers.unode ];

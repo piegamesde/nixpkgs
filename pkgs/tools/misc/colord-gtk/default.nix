@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "https://www.freedesktop.org/software/colord/releases/${pname}-${version}.tar.xz";
+    url = "https://www.freedesktop.org/software/colord/releases/${pname}-${version}.tar.xz";
     sha256 = "uUZmVtZtmm/7wt0E+pHI9q9Ra/nvqstpdE7sD1bzwdA=";
   };
 

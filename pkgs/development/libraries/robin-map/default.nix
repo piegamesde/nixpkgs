@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description =
-      "C++ implementation of a fast hash map and hash set using robin hood hashing";
+    description = "C++ implementation of a fast hash map and hash set using robin hood hashing";
     homepage = "https://github.com/Tessil/robin-map";
     changelog = "https://github.com/Tessil/robin-map/releases/tag/v${version}";
     license = licenses.mit;

@@ -80,8 +80,7 @@ in
           User = cfg.user;
           Group = cfg.group;
           WorkingDirectory = cfg.dataDir;
-          ExecStart =
-            "${pkgs.owncast}/bin/owncast -webserverport ${
+          ExecStart = "${pkgs.owncast}/bin/owncast -webserverport ${
               toString cfg.port
             } -rtmpport ${toString cfg.rtmp-port} -webserverip ${cfg.listen}";
           Restart = "on-failure";

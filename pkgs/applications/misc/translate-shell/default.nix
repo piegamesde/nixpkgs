@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.soimort.org/translate-shell";
-    description =
-      "Command-line translator using Google Translate, Bing Translator, Yandex.Translate, and Apertium";
+    description = "Command-line translator using Google Translate, Bing Translator, Yandex.Translate, and Apertium";
     license = licenses.unlicense;
     maintainers = with maintainers; [
       ebzzry

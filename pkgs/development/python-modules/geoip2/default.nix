@@ -51,8 +51,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "GeoIP2 webservice client and database reader";
     homepage = "https://github.com/maxmind/GeoIP2-python";
-    changelog =
-      "https://github.com/maxmind/GeoIP2-python/blob/v${version}/HISTORY.rst";
+    changelog = "https://github.com/maxmind/GeoIP2-python/blob/v${version}/HISTORY.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };

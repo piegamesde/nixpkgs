@@ -67,11 +67,9 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Python wrapper for the extremely fast Blosc2 compression library";
+    description = "Python wrapper for the extremely fast Blosc2 compression library";
     homepage = "https://github.com/Blosc/python-blosc2";
-    changelog =
-      "https://github.com/Blosc/python-blosc2/releases/tag/v${version}";
+    changelog = "https://github.com/Blosc/python-blosc2/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

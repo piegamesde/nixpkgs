@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/geocode-glib/${
+    url = "mirror://gnome/sources/geocode-glib/${
         lib.versions.majorMinor version
       }/geocode-glib-${version}.tar.xz";
     sha256 = "LZpoJtFYRwRJoXOHEiFZbaD4Pr3P+YuQxwSQiQVqN6o=";
@@ -70,8 +69,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A convenience library for the geocoding and reverse geocoding using Nominatim service";
+    description = "A convenience library for the geocoding and reverse geocoding using Nominatim service";
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;
     platforms = platforms.unix;

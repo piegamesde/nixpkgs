@@ -159,8 +159,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Free and open source software for video recording and live streaming";
+    description = "Free and open source software for video recording and live streaming";
     longDescription = ''
       This project is a rewrite of what was formerly known as "Open Broadcaster
       Software", software originally designed for recording and streaming live

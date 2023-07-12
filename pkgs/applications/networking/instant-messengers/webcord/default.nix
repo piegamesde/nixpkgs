@@ -81,12 +81,10 @@ buildNpmPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "A Discord and Fosscord electron-based client implemented without Discord API";
+    description = "A Discord and Fosscord electron-based client implemented without Discord API";
     homepage = "https://github.com/SpacingBat3/WebCord";
     downloadPage = "https://github.com/SpacingBat3/WebCord/releases";
-    changelog =
-      "https://github.com/SpacingBat3/WebCord/releases/tag/v${version}";
+    changelog = "https://github.com/SpacingBat3/WebCord/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ huantian ];
     platforms = electron_24.meta.platforms;

@@ -74,8 +74,7 @@ let
     };
 
     meta = with lib; {
-      description =
-        "Code coverage tester for compiled programs, Python scripts and shell scripts";
+      description = "Code coverage tester for compiled programs, Python scripts and shell scripts";
 
       longDescription = ''
         Kcov is a code coverage tester for compiled programs, Python

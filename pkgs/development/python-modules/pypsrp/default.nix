@@ -73,8 +73,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "PowerShell Remoting Protocol Client library";
     homepage = "https://github.com/jborean93/pypsrp";
-    changelog =
-      "https://github.com/jborean93/pypsrp/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/jborean93/pypsrp/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

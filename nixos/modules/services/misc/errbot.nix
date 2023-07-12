@@ -124,8 +124,7 @@ in
               serviceConfig = {
                 User = "errbot";
                 Restart = "on-failure";
-                ExecStart =
-                  "${pkgs.errbot}/bin/errbot -c ${
+                ExecStart = "${pkgs.errbot}/bin/errbot -c ${
                     mkConfigDir instanceCfg dataDir
                   }/config.py";
                 PermissionsStartOnly = true;

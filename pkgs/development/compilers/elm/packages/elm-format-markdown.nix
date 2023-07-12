@@ -16,8 +16,7 @@ mkDerivation {
     rev = "b5cca4c26b473dab06e5d73b98148637e4770d45";
     fetchSubmodules = true;
   };
-  postUnpack =
-    "sourceRoot+=/elm-format-markdown; echo source root reset to $sourceRoot";
+  postUnpack = "sourceRoot+=/elm-format-markdown; echo source root reset to $sourceRoot";
   libraryHaskellDepends = [
     base
     containers

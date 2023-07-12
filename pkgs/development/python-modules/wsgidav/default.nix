@@ -51,8 +51,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Generic and extendable WebDAV server based on WSGI";
     homepage = "https://wsgidav.readthedocs.io/";
-    changelog =
-      "https://github.com/mar10/wsgidav/blob/v${version}/CHANGELOG.md";
+    changelog = "https://github.com/mar10/wsgidav/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

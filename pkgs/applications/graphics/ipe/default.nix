@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   version = "7.2.26";
 
   src = fetchurl {
-    url =
-      "https://github.com/otfried/ipe/releases/download/v${version}/ipe-${version}-src.tar.gz";
+    url = "https://github.com/otfried/ipe/releases/download/v${version}/ipe-${version}-src.tar.gz";
     sha256 = "sha256-5J0AV5E6SlFrIBfwDZrbJnkDUoVZ0fDH669s2RQ1CqU=";
   };
   patches = [ ./headers-lookup.patch ];

@@ -41,8 +41,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "langcodes" ];
 
   meta = with lib; {
-    description =
-      "Python toolkit for working with and comparing the standardized codes for languages";
+    description = "Python toolkit for working with and comparing the standardized codes for languages";
     homepage = "https://github.com/LuminosoInsight/langcodes";
     license = licenses.mit;
     maintainers = with maintainers; [ ixxie ];

@@ -33,8 +33,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Define your own hooks for mkdocs, without having to create a new package.";
+    description = "Define your own hooks for mkdocs, without having to create a new package.";
     homepage = "https://github.com/aklajnert/mkdocs-simple-hooks";
     license = licenses.mit;
     maintainers = with maintainers; [ arjan-s ];

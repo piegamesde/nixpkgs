@@ -37,8 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python ASN.1 encoder and decoder";
     homepage = "https://github.com/andrivet/python-asn1";
-    changelog =
-      "https://github.com/andrivet/python-asn1/blob/v${version}/CHANGELOG.rst";
+    changelog = "https://github.com/andrivet/python-asn1/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

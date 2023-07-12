@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   version = "2.4.1";
 
   src = fetchurl {
-    url =
-      "https://download.rethinkdb.com/repository/raw/dist/${pname}-${version}.tgz";
+    url = "https://download.rethinkdb.com/repository/raw/dist/${pname}-${version}.tgz";
     sha256 = "5f1786c94797a0f8973597796e22545849dc214805cf1962ef76969e0b7d495b";
   };
 

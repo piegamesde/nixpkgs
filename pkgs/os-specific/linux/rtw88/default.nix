@@ -6,8 +6,7 @@
 }:
 
 let
-  modDestDir =
-    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtw88";
+  modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtw88";
 in
 stdenv.mkDerivation {
   pname = "rtw88";

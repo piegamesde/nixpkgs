@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/hoytech/lmdbxx#readme";
-    description =
-      "C++11 wrapper for the LMDB embedded B+ tree database library";
+    description = "C++11 wrapper for the LMDB embedded B+ tree database library";
     license = lib.licenses.unlicense;
     maintainers = with lib.maintainers; [ fgaz ];
   };

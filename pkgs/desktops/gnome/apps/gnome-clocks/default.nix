@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-clocks/${
+    url = "mirror://gnome/sources/gnome-clocks/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "F9epc2XLjxoCOh1491AfM1Mhf6dXfXOv59DKHjtPODg=";

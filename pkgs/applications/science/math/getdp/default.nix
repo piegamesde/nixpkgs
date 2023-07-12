@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.optional mpiSupport "-DENABLE_MPI=1";
 
   meta = with lib; {
-    description =
-      "A General Environment for the Treatment of Discrete Problems";
+    description = "A General Environment for the Treatment of Discrete Problems";
     longDescription = ''
       GetDP is a free finite element solver using mixed elements to discretize
       de Rham-type complexes in one, two and three dimensions.  The main

@@ -145,8 +145,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://yuzu-emu.org";
     changelog = "https://yuzu-emu.org/entry";
-    description =
-      "The ${branch} branch of an experimental Nintendo Switch emulator written in C++";
+    description = "The ${branch} branch of an experimental Nintendo Switch emulator written in C++";
     longDescription = ''
       An experimental Nintendo Switch emulator written in C++.
       Using the mainline branch is recommanded for general usage.

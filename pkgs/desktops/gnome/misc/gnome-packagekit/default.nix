@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-packagekit/${
+    url = "mirror://gnome/sources/gnome-packagekit/${
         lib.versions.major version
       }/gnome-packagekit-${version}.tar.xz";
     sha256 = "zaRVplKpI7LqL3Axa9D92Clve2Lu8/r9nOUMjmbF8ZU=";
@@ -59,7 +58,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = teams.gnome.members;
     license = licenses.gpl2;
-    description =
-      "Tools for installing software on the GNOME desktop using PackageKit";
+    description = "Tools for installing software on the GNOME desktop using PackageKit";
   };
 }

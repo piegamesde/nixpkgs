@@ -43,8 +43,7 @@ buildDunePackage rec {
   pname = "jsonrpc";
   inherit (params) version;
   src = fetchurl {
-    url =
-      "https://github.com/ocaml/ocaml-lsp/releases/download/${version}/${params.name}-${version}.tbz";
+    url = "https://github.com/ocaml/ocaml-lsp/releases/download/${version}/${params.name}-${version}.tbz";
     inherit (params) sha256;
   };
 

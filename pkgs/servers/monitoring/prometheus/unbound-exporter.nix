@@ -23,8 +23,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "native-tls-0.2.3" =
-        "sha256-I1+ZNLDVGS1x9Iu81RD2//xnqhKhNGBmlrT0ryNFSlE=";
+      "native-tls-0.2.3" = "sha256-I1+ZNLDVGS1x9Iu81RD2//xnqhKhNGBmlrT0ryNFSlE=";
     };
   };
 

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     sha256 = "w43XV12vgUHh5CIzOldfr2XzySEMCOg+mBuI3UG/HvM=";
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A glib wrapper library around the libgit2 git access library";
+    description = "A glib wrapper library around the libgit2 git access library";
     homepage = "https://wiki.gnome.org/Projects/Libgit2-glib";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

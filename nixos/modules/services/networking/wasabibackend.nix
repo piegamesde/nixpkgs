@@ -24,18 +24,21 @@ let
     BitcoinRpcConnectionString = "${cfg.rpc.user}:${cfg.rpc.password}";
   } // optionalAttrs (cfg.network == "mainnet") {
     Network = "Main";
-    MainNetBitcoinP2pEndPoint =
-      "${cfg.endpoint.ip}:${toString cfg.endpoint.port}";
+    MainNetBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${
+        toString cfg.endpoint.port
+      }";
     MainNetBitcoinCoreRpcEndPoint = "${cfg.rpc.ip}:${toString cfg.rpc.port}";
   } // optionalAttrs (cfg.network == "testnet") {
     Network = "TestNet";
-    TestNetBitcoinP2pEndPoint =
-      "${cfg.endpoint.ip}:${toString cfg.endpoint.port}";
+    TestNetBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${
+        toString cfg.endpoint.port
+      }";
     TestNetBitcoinCoreRpcEndPoint = "${cfg.rpc.ip}:${toString cfg.rpc.port}";
   } // optionalAttrs (cfg.network == "regtest") {
     Network = "RegTest";
-    RegTestBitcoinP2pEndPoint =
-      "${cfg.endpoint.ip}:${toString cfg.endpoint.port}";
+    RegTestBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${
+        toString cfg.endpoint.port
+      }";
     RegTestBitcoinCoreRpcEndPoint = "${cfg.rpc.ip}:${toString cfg.rpc.port}";
   };
 

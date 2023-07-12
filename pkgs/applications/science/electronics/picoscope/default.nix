@@ -183,8 +183,7 @@ stdenv.mkDerivation rec {
   meta =
     with lib;
     shared_meta lib // {
-      description =
-        "Oscilloscope application that works with all PicoScope models";
+      description = "Oscilloscope application that works with all PicoScope models";
       longDescription = ''
         PicoScope for Linux is a powerful oscilloscope application that works
         with all PicoScope models. The most important features from PicoScope

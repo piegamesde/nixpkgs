@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/recutils/";
-    description =
-      "Tools and libraries to access human-editable, text-based databases";
+    description = "Tools and libraries to access human-editable, text-based databases";
     longDescription = ''
       GNU Recutils is a set of tools and libraries to access human-editable,
       text-based databases called recfiles. The data is stored as a sequence of

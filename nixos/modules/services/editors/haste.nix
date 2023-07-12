@@ -78,8 +78,7 @@ in
         DynamicUser = true;
         StateDirectory = "haste-server";
         WorkingDirectory = "/var/lib/haste-server";
-        ExecStart =
-          "${pkg}/bin/haste-server ${
+        ExecStart = "${pkg}/bin/haste-server ${
             format.generate "config.json" cfg.settings
           }";
       };

@@ -19,8 +19,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "lcov_cobertura" ];
 
   meta = {
-    description =
-      "Converts code coverage from lcov format to Cobertura's XML format";
+    description = "Converts code coverage from lcov format to Cobertura's XML format";
     homepage = "https://eriwen.github.io/lcov-to-cobertura-xml/";
     license = lib.licenses.asl20;
   };

@@ -18,8 +18,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-8b718qYPFFstjl2LQ23IoQDikF9YV1Ao+pDg2tiXxsc=";
 
   meta = with lib; {
-    description =
-      "A tool to execute Rust code carefully, with extra checking along the way";
+    description = "A tool to execute Rust code carefully, with extra checking along the way";
     homepage = "https://github.com/RalfJung/cargo-careful";
     license = with licenses; [
       asl20

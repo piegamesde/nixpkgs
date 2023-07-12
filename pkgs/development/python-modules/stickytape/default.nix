@@ -28,8 +28,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "stickytape" ];
 
   meta = with lib; {
-    description =
-      "Python module to convert Python packages into a single script";
+    description = "Python module to convert Python packages into a single script";
     homepage = "https://github.com/mwilliamson/stickytape";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ fab ];

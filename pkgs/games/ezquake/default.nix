@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://ezquake.github.io/";
-    description =
-      "A modern QuakeWorld client focused on competitive online play";
+    description = "A modern QuakeWorld client focused on competitive online play";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ edwtjo ];

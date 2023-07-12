@@ -40,8 +40,7 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "KWin script that automatically adds/removes virtual desktops";
+    description = "KWin script that automatically adds/removes virtual desktops";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
     inherit (src.meta) homepage;

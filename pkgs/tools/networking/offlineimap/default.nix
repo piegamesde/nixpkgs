@@ -58,8 +58,7 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "offlineimap" ];
 
   meta = with lib; {
-    description =
-      "Synchronize emails between two repositories, so that you can read the same mailbox from multiple computers";
+    description = "Synchronize emails between two repositories, so that you can read the same mailbox from multiple computers";
     homepage = "http://offlineimap.org";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ endocrimes ];

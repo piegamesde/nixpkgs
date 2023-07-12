@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gnome-keyring/${
+    url = "mirror://gnome/sources/gnome-keyring/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "x/TQQMx2prf+Z+CO+RBpEcPIDUD8iMv8jiaEpMlG4+Y=";
@@ -108,8 +107,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Collection of components in GNOME that store secrets, passwords, keys, certificates and make them available to applications";
+    description = "Collection of components in GNOME that store secrets, passwords, keys, certificates and make them available to applications";
     homepage = "https://wiki.gnome.org/Projects/GnomeKeyring";
     license = licenses.gpl2;
     maintainers = teams.gnome.members;

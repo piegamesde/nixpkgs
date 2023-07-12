@@ -9,8 +9,7 @@
 
 let
   src = fetchurl {
-    url =
-      "https://github.com/ocaml-ppx/ocamlformat/releases/download/${version}/${tarballName}";
+    url = "https://github.com/ocaml-ppx/ocamlformat/releases/download/${version}/${tarballName}";
     sha256 =
       {
         "0.19.0" = "0ihgwl7d489g938m1jvgx8azdgq9f5np5mzqwwya797hx2m4dz32";

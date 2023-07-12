@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Logitech G203 Prodigy / G203 LightSync Mouse LED control for Linux";
+    description = "Logitech G203 Prodigy / G203 LightSync Mouse LED control for Linux";
     longDescription = ''
       Allows you to control the LED lighting of your G203 Prodigy
       or G203 LightSync Mouse programmatically.

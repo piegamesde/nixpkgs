@@ -100,8 +100,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A gamedriver for LPMuds including a LPC compiler, interpreter and runtime";
+    description = "A gamedriver for LPMuds including a LPC compiler, interpreter and runtime";
     homepage = "https://ldmud.eu";
     changelog = "https://github.com/ldmud/ldmud/blob/${version}/HISTORY";
     longDescription = ''

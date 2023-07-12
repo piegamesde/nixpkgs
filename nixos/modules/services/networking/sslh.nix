@@ -111,8 +111,7 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       systemd.services.sslh = {
-        description =
-          "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
+        description = "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 
@@ -124,8 +123,7 @@ in
           RestartSec = "1s";
           ExecStart = "${pkgs.sslh}/bin/sslh -F${configFile}";
           KillMode = "process";
-          AmbientCapabilities =
-            "CAP_NET_BIND_SERVICE CAP_NET_ADMIN CAP_SETGID CAP_SETUID";
+          AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN CAP_SETGID CAP_SETUID";
           PrivateTmp = true;
           PrivateDevices = true;
           ProtectSystem = "full";
@@ -157,14 +155,12 @@ in
             # Mark all connections made by ssl for special treatment (here sslh is run as user ${user})
             {
               table = "nat";
-              command =
-                "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f";
+              command = "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f";
             }
             # Outgoing packets that should go to sslh instead have to be rerouted, so mark them accordingly (copying over the connection mark)
             {
               table = "mangle";
-              command =
-                "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
+              command = "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
             }
           ];
           ip6tablesCommands = [
@@ -178,13 +174,11 @@ in
             }
             {
               table = "nat";
-              command =
-                "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f";
+              command = "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f";
             }
             {
               table = "mangle";
-              command =
-                "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
+              command = "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
             }
           ];
         in

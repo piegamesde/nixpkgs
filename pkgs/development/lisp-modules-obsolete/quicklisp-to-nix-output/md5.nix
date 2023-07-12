@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/md5/2021-06-30/md5-20210630-git.tgz";
+    url = "http://beta.quicklisp.org/archive/md5/2021-06-30/md5-20210630-git.tgz";
     sha256 = "16kilbw3p68xf5fnj00xpvm4l8ylk5k9z6vbnq244ip0sygfizcv";
   };
 

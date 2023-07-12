@@ -59,8 +59,7 @@ let
 
   pkgsType = mkOptionType {
     name = "nixpkgs";
-    description =
-      "An evaluation of Nixpkgs; the top level attribute set of packages";
+    description = "An evaluation of Nixpkgs; the top level attribute set of packages";
     check = builtins.isAttrs;
   };
 
@@ -414,8 +413,7 @@ in
           assertion =
             constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem
           ;
-          message =
-            "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
+          message = "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
         }
       )
       {

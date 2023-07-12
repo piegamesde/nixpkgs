@@ -103,8 +103,7 @@ in
 
     assertions = [ {
       assertion = !config.services.mysqlBackup.enable;
-      message =
-        "Please choose one of services.mysqlBackup or services.automysqlbackup.";
+      message = "Please choose one of services.mysqlBackup or services.automysqlbackup.";
     } ];
 
     services.automysqlbackup.config = mapAttrs (name: mkDefault) {

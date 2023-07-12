@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A simple application to extract, merge, rotate and reorder pages of PDF documents";
+    description = "A simple application to extract, merge, rotate and reorder pages of PDF documents";
     homepage = "https://junrrein.github.io/pdfslicer/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dotlambda ];

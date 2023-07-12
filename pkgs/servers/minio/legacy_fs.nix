@@ -62,8 +62,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://www.minio.io/";
     description = "An S3-compatible object storage server";
-    changelog =
-      "https://github.com/minio/minio/releases/tag/RELEASE.${version}";
+    changelog = "https://github.com/minio/minio/releases/tag/RELEASE.${version}";
     maintainers = with maintainers; [
       eelco
       bachp

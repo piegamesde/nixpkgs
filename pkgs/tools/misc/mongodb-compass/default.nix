@@ -81,8 +81,7 @@ let
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       fetchurl {
-        url =
-          "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
+        url = "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
         sha256 = "sha256-GAg5zj2ETXdXVfVwNvf4VjRVEHePNWf28xMDsTyjiEs=";
       }
     else

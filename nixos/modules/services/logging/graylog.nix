@@ -86,8 +86,7 @@ in
 
       rootPasswordSha2 = mkOption {
         type = types.str;
-        example =
-          "e3c652f0ba0b4801205814f8b6bc49672c4c74e25b497770bb89b22cdeb4e952";
+        example = "e3c652f0ba0b4801205814f8b6bc49672c4c74e25b497770bb89b22cdeb4e952";
         description = lib.mdDoc ''
           You MUST specify a hash password for the root user (which you only need to initially set up the
           system and in case you lose connectivity to your authentication backend)

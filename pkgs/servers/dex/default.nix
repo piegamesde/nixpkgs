@@ -34,8 +34,7 @@ buildGoModule rec {
   passthru.tests = { inherit (nixosTests) dex-oidc; };
 
   meta = with lib; {
-    description =
-      "OpenID Connect and OAuth2 identity provider with pluggable connectors";
+    description = "OpenID Connect and OAuth2 identity provider with pluggable connectors";
     homepage = "https://github.com/dexidp/dex";
     license = licenses.asl20;
     maintainers = with maintainers; [

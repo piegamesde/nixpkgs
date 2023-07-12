@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
     [
       # Fix compile errors with GCC 10 on newer Kali
       (fetchpatch {
-        url =
-          "https://github.com/sensepost/hostapd-mana/commit/8581994d8d19646da63e1e37cde27dd4c966e526.patch";
+        url = "https://github.com/sensepost/hostapd-mana/commit/8581994d8d19646da63e1e37cde27dd4c966e526.patch";
         hash = "sha256-UBkhuqvX1nFiceECAIC9B13ReKbrAAUtPKjqD17mQgg=";
       })
     ];

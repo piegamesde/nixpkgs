@@ -107,8 +107,7 @@ stdenv.mkDerivation rec {
   passthru.tests = callPackage ./tests.nix { inherit pname; };
 
   meta = {
-    description =
-      "A purely functional programming language with first class types";
+    description = "A purely functional programming language with first class types";
     homepage = "https://github.com/idris-lang/Idris2";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [

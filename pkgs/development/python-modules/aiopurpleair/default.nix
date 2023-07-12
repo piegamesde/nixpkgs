@@ -56,8 +56,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for interacting with the PurpleAir API";
     homepage = "https://github.com/bachya/aiopurpleair";
-    changelog =
-      "https://github.com/bachya/aiopurpleair/releases/tag/${version}";
+    changelog = "https://github.com/bachya/aiopurpleair/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

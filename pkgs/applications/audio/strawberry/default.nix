@@ -120,8 +120,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Music player and music collection organizer";
     homepage = "https://www.strawberrymusicplayer.org/";
-    changelog =
-      "https://raw.githubusercontent.com/jonaski/strawberry/${version}/Changelog";
+    changelog = "https://raw.githubusercontent.com/jonaski/strawberry/${version}/Changelog";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ peterhoeg ];
     # upstream says darwin should work but they lack maintainers as of 0.6.6

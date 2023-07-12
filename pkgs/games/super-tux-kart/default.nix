@@ -167,7 +167,6 @@ stdenv.mkDerivation rec {
       peterhoeg
     ];
     platforms = with platforms; unix;
-    changelog =
-      "https://github.com/supertuxkart/stk-code/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/supertuxkart/stk-code/blob/${version}/CHANGELOG.md";
   };
 }

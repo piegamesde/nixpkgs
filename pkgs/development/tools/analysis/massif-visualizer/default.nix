@@ -21,8 +21,7 @@ mkDerivation rec {
   version = "0.7.0";
 
   src = fetchurl {
-    url =
-      "mirror://kde/stable/massif-visualizer/${version}/src/${pname}-${version}.tar.xz";
+    url = "mirror://kde/stable/massif-visualizer/${version}/src/${pname}-${version}.tar.xz";
     sha256 = "0v8z6r9gngzckvqyxjm9kp7hilwfqibyk2f9vag9l98ar0iwr97q";
   };
 

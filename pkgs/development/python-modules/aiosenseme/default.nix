@@ -28,8 +28,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Module to interact with SenseME fans and lights by Big Ass Fans";
+    description = "Module to interact with SenseME fans and lights by Big Ass Fans";
     homepage = "https://github.com/bdraco/aiosenseme";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];

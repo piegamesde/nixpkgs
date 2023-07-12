@@ -39,15 +39,13 @@ let
   mkPantalaimonService =
     name: instanceConfig:
     nameValuePair "pantalaimon-${name}" {
-      description =
-        "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients";
+      description = "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients";
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart =
-          "${pkgs.pantalaimon-headless}/bin/pantalaimon --config ${
+        ExecStart = "${pkgs.pantalaimon-headless}/bin/pantalaimon --config ${
             mkConfigFile name instanceConfig
           } --data-path ${instanceConfig.dataPath}";
         Restart = "on-failure";

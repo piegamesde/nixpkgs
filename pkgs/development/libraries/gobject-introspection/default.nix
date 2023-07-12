@@ -53,8 +53,7 @@ stdenv.mkDerivation (
     outputBin = "dev";
 
     src = fetchurl {
-      url =
-        "mirror://gnome/sources/gobject-introspection/${
+      url = "mirror://gnome/sources/gobject-introspection/${
           lib.versions.majorMinor finalAttrs.version
         }/gobject-introspection-${finalAttrs.version}.tar.xz";
       sha256 = "GWF4v2Q0VQHc3E2EabNqpv6ASJNU7+cct8uKuCo3OL8=";
@@ -184,8 +183,7 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      description =
-        "A middleware layer between C libraries and language bindings";
+      description = "A middleware layer between C libraries and language bindings";
       homepage = "https://gi.readthedocs.io/";
       maintainers =
         teams.gnome.members

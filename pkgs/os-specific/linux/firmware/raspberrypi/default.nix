@@ -13,8 +13,7 @@ stdenvNoCC.mkDerivation rec {
     owner = "raspberrypi";
     repo = "firmware";
     rev = version;
-    hash =
-      "sha512-iKUR16RipN8BGAmXteTJUzd/P+m5gnbWCJ28LEzYfOTJnGSal63zI7LDQg/HIKXx9wMTARQKObeKn+7ioS4QkA==";
+    hash = "sha512-iKUR16RipN8BGAmXteTJUzd/P+m5gnbWCJ28LEzYfOTJnGSal63zI7LDQg/HIKXx9wMTARQKObeKn+7ioS4QkA==";
   };
 
   installPhase = ''

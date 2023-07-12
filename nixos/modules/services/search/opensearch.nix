@@ -250,8 +250,9 @@ in
             sleep 1
           done
         '';
-        ExecStart =
-          "${cfg.package}/bin/opensearch ${toString cfg.extraCmdLineOptions}";
+        ExecStart = "${cfg.package}/bin/opensearch ${
+            toString cfg.extraCmdLineOptions
+          }";
         User = cfg.user;
         Group = cfg.group;
         LimitNOFILE = "1024000";

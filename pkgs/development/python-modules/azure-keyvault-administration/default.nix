@@ -37,10 +37,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.keyvault.administration" ];
 
   meta = with lib; {
-    description =
-      "Microsoft Azure Key Vault Administration Client Library for Python";
-    homepage =
-      "https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-administration";
+    description = "Microsoft Azure Key Vault Administration Client Library for Python";
+    homepage = "https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-administration";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];
   };

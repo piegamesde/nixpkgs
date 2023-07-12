@@ -43,8 +43,7 @@ stdenv.mkDerivation {
           or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
     in
     fetchurl {
-      url =
-        "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";
+      url = "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";
       sha256 = asset.sha256;
     }
   ;
@@ -85,8 +84,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://scala-cli.virtuslab.org";
-    downloadPage =
-      "https://github.com/VirtusLab/scala-cli/releases/v${version}";
+    downloadPage = "https://github.com/VirtusLab/scala-cli/releases/v${version}";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     description = "Command-line tool to interact with the Scala language";

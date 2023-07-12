@@ -24,10 +24,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/corneliusweig/rakkess";
-    changelog =
-      "https://github.com/corneliusweig/rakkess/releases/tag/v${version}";
-    description =
-      "Review Access - kubectl plugin to show an access matrix for k8s server resources";
+    changelog = "https://github.com/corneliusweig/rakkess/releases/tag/v${version}";
+    description = "Review Access - kubectl plugin to show an access matrix for k8s server resources";
     longDescription = ''
       Have you ever wondered what access rights you have on a provided
       kubernetes cluster? For single resources you can use

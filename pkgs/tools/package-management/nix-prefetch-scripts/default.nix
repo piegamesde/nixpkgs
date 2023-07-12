@@ -91,8 +91,7 @@ rec {
     ];
 
     meta = with lib; {
-      description =
-        "Collection of all the nix-prefetch-* scripts which may be used to obtain source hashes";
+      description = "Collection of all the nix-prefetch-* scripts which may be used to obtain source hashes";
       maintainers = with maintainers; [ bennofs ];
       platforms = platforms.unix;
     };

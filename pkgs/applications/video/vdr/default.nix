@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  postPatch =
-    "substituteInPlace Makefile --replace libsystemd-daemon libsystemd";
+  postPatch = "substituteInPlace Makefile --replace libsystemd-daemon libsystemd";
 
   buildInputs =
     [

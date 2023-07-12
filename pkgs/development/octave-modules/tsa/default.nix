@@ -20,7 +20,6 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/tsa/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description =
-      "Stochastic concepts and maximum entropy methods for time series analysis";
+    description = "Stochastic concepts and maximum entropy methods for time series analysis";
   };
 }

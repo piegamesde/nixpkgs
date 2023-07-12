@@ -20,8 +20,7 @@ collectd.overrideAttrs (
     postInstall = "rm -rf $out/{bin,etc,sbin,share}";
 
     meta = with lib; {
-      description =
-        "C Library for collectd, a daemon which collects system performance statistics periodically";
+      description = "C Library for collectd, a daemon which collects system performance statistics periodically";
       homepage = "http://collectd.org";
       license = licenses.gpl2;
       platforms =

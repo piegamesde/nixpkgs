@@ -25,8 +25,7 @@ nimPackages.buildNimPackage {
 
   patches = [
     (fetchpatch {
-      url =
-        "https://patch-diff.githubusercontent.com/raw/wheineman/nrpl/pull/12.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/wheineman/nrpl/pull/12.patch";
       name = "update_for_new_nim.patch";
       sha256 = "1zff7inhn3l1jnxcnidy705lzi3wqib1chf4rayh1g9i23an7wg1";
     })

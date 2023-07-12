@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
       # gcc-10: https://github.com/lh3/bwa/pull/267
       (fetchpatch {
         name = "fno-common.patch";
-        url =
-          "https://github.com/lh3/bwa/commit/2a1ae7b6f34a96ea25be007ac9d91e57e9d32284.patch";
+        url = "https://github.com/lh3/bwa/commit/2a1ae7b6f34a96ea25be007ac9d91e57e9d32284.patch";
         sha256 = "1lihfxai6vcshv5vr3m7yhk833bdivkja3gld6ilwrc4z28f6wqy";
       })
     ];
@@ -52,8 +51,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A software package for mapping low-divergent sequences against a large reference genome, such as the human genome";
+    description = "A software package for mapping low-divergent sequences against a large reference genome, such as the human genome";
     license = licenses.gpl3;
     homepage = "https://bio-bwa.sourceforge.net/";
     maintainers = with maintainers; [ luispedro ];

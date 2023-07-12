@@ -31,8 +31,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "SimpleHTTPServer with support for Range requests";
     homepage = "https://github.com/danvk/RangeHTTPServer";
-    changelog =
-      "https://github.com/danvk/RangeHTTPServer/releases/tag/${version}";
+    changelog = "https://github.com/danvk/RangeHTTPServer/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

@@ -70,8 +70,7 @@ buildPythonPackage rec {
   meta = {
     description = "Metric learning library for PyTorch";
     homepage = "https://github.com/KevinMusgrave/pytorch-metric-learning";
-    changelog =
-      "https://github.com/KevinMusgrave/pytorch-metric-learning/releases/tag/v${version}";
+    changelog = "https://github.com/KevinMusgrave/pytorch-metric-learning/releases/tag/v${version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];
   };

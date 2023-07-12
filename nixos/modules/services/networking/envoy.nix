@@ -73,8 +73,7 @@ in
       requires = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/envoy -c ${
+        ExecStart = "${cfg.package}/bin/envoy -c ${
             validateConfig cfg.requireValidConfig conf
           }";
         CacheDirectory = [ "envoy" ];

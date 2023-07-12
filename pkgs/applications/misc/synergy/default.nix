@@ -174,8 +174,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Share one mouse and keyboard between multiple computers";
     homepage = "https://symless.com/synergy";
-    changelog =
-      "https://github.com/symless/synergy-core/blob/${version}/ChangeLog";
+    changelog = "https://github.com/symless/synergy-core/blob/${version}/ChangeLog";
     mainProgram = lib.optionalString (!withGUI) "synergyc";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [

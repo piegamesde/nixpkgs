@@ -43,10 +43,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/aquasecurity/trivy";
-    changelog =
-      "https://github.com/aquasecurity/trivy/releases/tag/v${version}";
-    description =
-      "A simple and comprehensive vulnerability scanner for containers, suitable for CI";
+    changelog = "https://github.com/aquasecurity/trivy/releases/tag/v${version}";
+    description = "A simple and comprehensive vulnerability scanner for containers, suitable for CI";
     longDescription = ''
       Trivy is a simple and comprehensive vulnerability scanner for containers
       and other artifacts. A software vulnerability is a glitch, flaw, or

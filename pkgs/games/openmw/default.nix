@@ -37,8 +37,7 @@ let
               # For Darwin, OSG doesn't build some plugins as they're redundant with QuickTime.
               # OpenMW doesn't like this, and expects them to be there. Apply their patch for it.
               name = "darwin-osg-plugins-fix.patch";
-              url =
-                "https://gitlab.com/OpenMW/openmw-dep/-/raw/0abe3c9c3858211028d881d7706813d606335f72/macos/osg.patch";
+              url = "https://gitlab.com/OpenMW/openmw-dep/-/raw/0abe3c9c3858211028d881d7706813d606335f72/macos/osg.patch";
               sha256 = "sha256-/CLRZofZHot8juH78VG1/qhTHPhy5DoPMN+oH8hC58U=";
             })
           ];
@@ -130,8 +129,7 @@ mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "An unofficial open source engine reimplementation of the game Morrowind";
+    description = "An unofficial open source engine reimplementation of the game Morrowind";
     homepage = "https://openmw.org";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [

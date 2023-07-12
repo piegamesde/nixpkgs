@@ -33,8 +33,7 @@ buildPythonPackage rec {
     ];
 
   meta = with lib; {
-    description =
-      "Given Unicode text, make its representation consistent and possibly less broken";
+    description = "Given Unicode text, make its representation consistent and possibly less broken";
     homepage = "https://github.com/LuminosoInsight/python-ftfy";
     license = licenses.mit;
     maintainers = with maintainers; [ aborsu ];

@@ -101,8 +101,7 @@ stdenv.mkDerivation rec {
   passthru = { inherit broker; };
 
   meta = with lib; {
-    description =
-      "Network analysis framework much different from a typical IDS";
+    description = "Network analysis framework much different from a typical IDS";
     homepage = "https://www.zeek.org";
     changelog = "https://github.com/zeek/zeek/blob/v${version}/CHANGES";
     license = licenses.bsd3;

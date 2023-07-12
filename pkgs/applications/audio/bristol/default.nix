@@ -28,11 +28,9 @@ stdenv.mkDerivation rec {
     xorg.xorgproto
   ];
 
-  patchPhase =
-    "sed -i '41,43d' libbristolaudio/audioEngineJack.c"; # disable alsa/iatomic
+  patchPhase = "sed -i '41,43d' libbristolaudio/audioEngineJack.c"; # disable alsa/iatomic
 
-  configurePhase =
-    "./configure --prefix=$out --enable-jack-default-audio --enable-jack-default-midi";
+  configurePhase = "./configure --prefix=$out --enable-jack-default-audio --enable-jack-default-midi";
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

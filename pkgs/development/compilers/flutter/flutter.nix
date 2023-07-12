@@ -80,8 +80,7 @@ let
             variant ? null,
           }:
           let
-            artifactDirectory =
-              "${os}-${architecture}${
+            artifactDirectory = "${os}-${architecture}${
                 lib.optionalString (variant != null) "-${variant}"
               }";
           in
@@ -263,8 +262,7 @@ let
     };
 
     meta = with lib; {
-      description =
-        "Flutter is Google's SDK for building mobile, web and desktop with Dart";
+      description = "Flutter is Google's SDK for building mobile, web and desktop with Dart";
       longDescription = ''
         Flutter is Google’s UI toolkit for building beautiful,
         natively compiled applications for mobile, web, and desktop from a single codebase.

@@ -44,8 +44,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A GitHub activity digest tool";
     homepage = "https://github.com/nedbat/dinghy";
-    changelog =
-      "https://github.com/nedbat/dinghy/blob/${version}/CHANGELOG.rst";
+    changelog = "https://github.com/nedbat/dinghy/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [
       trundle

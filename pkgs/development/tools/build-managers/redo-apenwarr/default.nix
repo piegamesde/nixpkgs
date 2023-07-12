@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Smaller, easier, more powerful, and more reliable than make. An implementation of djb's redo";
+    description = "Smaller, easier, more powerful, and more reliable than make. An implementation of djb's redo";
     homepage = "https://github.com/apenwarr/redo";
     maintainers = with maintainers; [
       andrewchambers

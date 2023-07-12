@@ -27,8 +27,7 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://github.com/savonet/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
+    url = "https://github.com/savonet/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-GQuG7f9U+/HqPcuj6hnBoH5mWEhxSwWgBnkCuLqHTAc=";
   };
 

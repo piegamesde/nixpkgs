@@ -51,8 +51,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "Create and manage the lifecycle of MicroVMs backed by containerd";
+    description = "Create and manage the lifecycle of MicroVMs backed by containerd";
     homepage = "https://github.com/weaveworks-liquidmetal/flintlock";
     license = licenses.mpl20;
     platforms = [

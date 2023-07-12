@@ -9,8 +9,7 @@ stdenvNoCC.mkDerivation rec {
   version = "4.105";
 
   src = fetchzip {
-    url =
-      "http://vollkorn-typeface.com/download/vollkorn-${
+    url = "http://vollkorn-typeface.com/download/vollkorn-${
         builtins.replaceStrings [ "." ] [ "-" ] version
       }.zip";
     stripRoot = false;

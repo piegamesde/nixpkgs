@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   version = "2.1.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/coursier/coursier/releases/download/v${version}/coursier";
+    url = "https://github.com/coursier/coursier/releases/download/v${version}/coursier";
     sha256 = "WuZnwVFycHTzU/3x07Yd5dcirwdHM7qAVR7Jq0Zqn/4=";
   };
 
@@ -56,8 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://get-coursier.io/";
-    description =
-      "Scala library to fetch dependencies from Maven / Ivy repositories";
+    description = "Scala library to fetch dependencies from Maven / Ivy repositories";
     license = licenses.asl20;
     maintainers = with maintainers; [
       adelbertc

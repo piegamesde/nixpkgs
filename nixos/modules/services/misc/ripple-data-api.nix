@@ -201,8 +201,7 @@ in
           ;
         in
         {
-          ExecStart =
-            "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
+          ExecStart = "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
           Restart = "always";
           User = "ripple-data-api";
         }

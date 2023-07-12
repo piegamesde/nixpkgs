@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-82o3B6qmBVPpBVAogClmTbxrBRXY8Lmd2sHmonP5/s8=";
 
   meta = with lib; {
-    description =
-      "Serial flasher utility for Espressif SoCs and modules based on esptool.py";
+    description = "Serial flasher utility for Espressif SoCs and modules based on esptool.py";
     homepage = "https://github.com/esp-rs/cargo-espflash";
     license = with licenses; [
       mit # or

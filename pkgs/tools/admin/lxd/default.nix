@@ -132,8 +132,7 @@ buildGoModule rec {
   passthru.tests.lxd-nftables = nixosTests.lxd-nftables;
 
   meta = with lib; {
-    description =
-      "Daemon based on liblxc offering a REST API to manage containers";
+    description = "Daemon based on liblxc offering a REST API to manage containers";
     homepage = "https://linuxcontainers.org/lxd/";
     changelog = "https://github.com/lxc/lxd/releases/tag/lxd-${version}";
     license = licenses.asl20;

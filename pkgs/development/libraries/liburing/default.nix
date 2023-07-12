@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
 
     # More portability fixes, in the process of being upstreamed
     (fetchpatch {
-      url =
-        "https://github.com/axboe/liburing/pull/798/commits/0fbcc44fe1fb2dc6807660b2cff1c2995add095b.patch";
+      url = "https://github.com/axboe/liburing/pull/798/commits/0fbcc44fe1fb2dc6807660b2cff1c2995add095b.patch";
       hash = "sha256-xOMsw0VpYGst/+Isd2Tmq8CmBDK+uyLw3KNKPnsCSoA=";
     })
   ];

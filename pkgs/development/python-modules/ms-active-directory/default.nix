@@ -40,8 +40,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ms_active_directory" ];
 
   meta = with lib; {
-    description =
-      "Python module for integrating with Microsoft Active Directory domains";
+    description = "Python module for integrating with Microsoft Active Directory domains";
     homepage = "https://github.com/zorn96/ms_active_directory/";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

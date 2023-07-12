@@ -19,8 +19,7 @@ import ./versions.nix (
     inherit version;
 
     src = fetchurl {
-      url =
-        "https://cdn.zabbix.com/zabbix/sources/stable/${
+      url = "https://cdn.zabbix.com/zabbix/sources/stable/${
           lib.versions.majorMinor version
         }/zabbix-${version}.tar.gz";
       inherit sha256;
@@ -50,8 +49,7 @@ import ./versions.nix (
     '';
 
     meta = with lib; {
-      description =
-        "An enterprise-class open source distributed monitoring solution (client-side agent)";
+      description = "An enterprise-class open source distributed monitoring solution (client-side agent)";
       homepage = "https://www.zabbix.com/";
       license = licenses.gpl2;
       maintainers = with maintainers; [

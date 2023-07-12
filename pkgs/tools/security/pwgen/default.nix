@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with lib; {
-    description =
-      "Password generator which creates passwords which can be easily memorized by a human";
+    description = "Password generator which creates passwords which can be easily memorized by a human";
     homepage = "https://github.com/tytso/pwgen";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fab ];

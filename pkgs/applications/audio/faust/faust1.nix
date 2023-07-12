@@ -76,8 +76,7 @@ let
     '';
 
     meta = meta // {
-      description =
-        "A functional programming language for realtime audio signal processing";
+      description = "A functional programming language for realtime audio signal processing";
       longDescription = ''
         FAUST (Functional Audio Stream) is a functional programming
         language specifically designed for real-time signal processing
@@ -135,8 +134,7 @@ let
       '';
 
       meta = meta // {
-        description =
-          "The ${baseName} script, part of faust functional programming language for realtime audio signal processing";
+        description = "The ${baseName} script, part of faust functional programming language for realtime audio signal processing";
       };
     }
   ;

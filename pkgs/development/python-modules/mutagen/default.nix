@@ -41,8 +41,7 @@ buildPythonPackage rec {
     (fetchpatch {
       # docs: Make extlinks compatible with sphinx 6.0
       # https://github.com/quodlibet/mutagen/pull/590
-      url =
-        "https://github.com/quodlibet/mutagen/commit/37b4e6bddc03e1f715425c418ea84bac15116907.patch";
+      url = "https://github.com/quodlibet/mutagen/commit/37b4e6bddc03e1f715425c418ea84bac15116907.patch";
       hash = "sha256-CnGfHY4RhRhOLvlRTH/NZwzCnAL3VhU6xosuh6fkqGQ=";
     })
   ];
@@ -79,8 +78,7 @@ buildPythonPackage rec {
       manipulate Ogg streams on an individual packet/page level.
     '';
     homepage = "https://mutagen.readthedocs.io";
-    changelog =
-      "https://mutagen.readthedocs.io/en/latest/changelog.html#release-${
+    changelog = "https://mutagen.readthedocs.io/en/latest/changelog.html#release-${
         lib.replaceStrings [ "." ] [ "-" ] version
       }";
     license = licenses.gpl2Plus;

@@ -21,14 +21,12 @@ stdenv.mkDerivation rec {
   src =
     if stdenv.hostPlatform.system == "aarch64-linux" then
       fetchurl {
-        url =
-          "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_arm64.deb";
+        url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_arm64.deb";
         sha256 = "sha256-96nvvjrE+aHdGLKZpZvu1+JLDJNjM4fCKlK3UFW5VfM=";
       }
     else
       fetchurl {
-        url =
-          "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
+        url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
         sha256 = "sha256-fwMD/vYdwMrUvDB7JmMmVCt47ZtD17zk3bfIuO91dH8=";
       }
   ;

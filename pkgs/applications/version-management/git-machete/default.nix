@@ -44,10 +44,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/VirtusLab/git-machete";
-    description =
-      "Git repository organizer and rebase/merge workflow automation tool";
-    changelog =
-      "https://github.com/VirtusLab/git-machete/releases/tag/v${version}";
+    description = "Git repository organizer and rebase/merge workflow automation tool";
+    changelog = "https://github.com/VirtusLab/git-machete/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ blitz ];
   };

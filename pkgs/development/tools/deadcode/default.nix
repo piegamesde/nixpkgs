@@ -23,8 +23,7 @@ buildGoPackage rec {
   };
 
   meta = with lib; {
-    description =
-      "Very simple utility which detects unused declarations in a Go package";
+    description = "Very simple utility which detects unused declarations in a Go package";
     homepage = "https://github.com/remyoudompheng/go-misc/tree/master/deadcode";
     license = licenses.bsd3;
     maintainers = with maintainers; [ kalbasit ];

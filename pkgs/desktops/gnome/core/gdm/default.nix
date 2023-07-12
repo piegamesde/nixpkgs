@@ -38,8 +38,7 @@ let
 
   override = substituteAll {
     src = ./org.gnome.login-screen.gschema.override;
-    icon =
-      "${nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
+    icon = "${nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
   };
 in
 
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/gdm/${
+    url = "mirror://gnome/sources/gdm/${
         lib.versions.major version
       }/${pname}-${version}.tar.xz";
     sha256 = "ziCwoiHb+M3gBktQH9jzj3ODkVKFfEU1M36wnMUvf2w=";
@@ -103,8 +101,7 @@ stdenv.mkDerivation rec {
     # gdm-x-session[976]: dbus-run-session: failed to exec 'gnome-session': No such file or directory
     # https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/92
     (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/gdm/-/commit/ccecd9c975d04da80db4cd547b67a1a94fa83292.patch";
+      url = "https://gitlab.gnome.org/GNOME/gdm/-/commit/ccecd9c975d04da80db4cd547b67a1a94fa83292.patch";
       sha256 = "5hKS9wjjhuSAYwXct5vS0dPbmPRIINJoLC0Zm1naz6Q=";
       revert = true;
     })
@@ -190,8 +187,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "A program that manages graphical display servers and handles graphical user logins";
+    description = "A program that manages graphical display servers and handles graphical user logins";
     homepage = "https://wiki.gnome.org/Projects/GDM";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

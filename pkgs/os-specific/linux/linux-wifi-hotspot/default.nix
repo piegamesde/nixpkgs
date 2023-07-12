@@ -95,8 +95,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Feature-rich wifi hotspot creator for Linux which provides both GUI and command-line interface";
+    description = "Feature-rich wifi hotspot creator for Linux which provides both GUI and command-line interface";
     homepage = "https://github.com/lakinduakash/linux-wifi-hotspot";
     license = licenses.bsd2;
     maintainers = with maintainers; [ onny ];

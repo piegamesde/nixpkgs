@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   version = "1.1.0-beta1";
 
   src = fetchurl {
-    url =
-      "https://www.gaia-gis.it/gaia-sins/librasterlite2-sources/librasterlite2-${version}.tar.gz";
+    url = "https://www.gaia-gis.it/gaia-sins/librasterlite2-sources/librasterlite2-${version}.tar.gz";
     hash = "sha256-9yhM38B600OjFOSHjfAwCHSwFF2dMxsGOwlrSC5+RPQ=";
   };
 

@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./libmpv-path.patch;
-      libmpv =
-        "${
+      libmpv = "${
           lib.getLib mpv
         }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
@@ -81,8 +80,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "IPTV streaming application";
     homepage = "https://github.com/linuxmint/hypnotix";
-    changelog =
-      "https://github.com/linuxmint/hypnotix/blob/${src.rev}/debian/changelog";
+    changelog = "https://github.com/linuxmint/hypnotix/blob/${src.rev}/debian/changelog";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [
       dotlambda

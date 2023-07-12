@@ -26,8 +26,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aiopulse" ];
 
   meta = with lib; {
-    description =
-      "Python Rollease Acmeda Automate Pulse hub protocol implementation";
+    description = "Python Rollease Acmeda Automate Pulse hub protocol implementation";
     longDescription = ''
       The Rollease Acmeda Pulse Hub is a WiFi hub that communicates with
       Rollease Acmeda Automate roller blinds via a proprietary RF protocol.

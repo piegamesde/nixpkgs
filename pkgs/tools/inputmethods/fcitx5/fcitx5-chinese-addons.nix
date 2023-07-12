@@ -69,8 +69,7 @@ mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Addons related to Chinese, including IME previous bundled inside fcitx4";
+    description = "Addons related to Chinese, including IME previous bundled inside fcitx4";
     homepage = "https://github.com/fcitx/fcitx5-chinese-addons";
     license = with licenses; [
       gpl2Plus

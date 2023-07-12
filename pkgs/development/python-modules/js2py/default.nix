@@ -29,8 +29,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "js2py" ];
 
   meta = with lib; {
-    description =
-      "JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python";
+    description = "JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python";
     homepage = "https://github.com/PiotrDabkowski/Js2Py";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];

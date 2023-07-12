@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
   version = "2.1.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/streamlink/${basename}/releases/download/v${version}/${basename}-v${version}-${arch}.tar.gz";
+    url = "https://github.com/streamlink/${basename}/releases/download/v${version}/${basename}-v${version}-${arch}.tar.gz";
     hash =
       if arch == "linux64" then
         "sha256-kfCGhIgKMI0siDqnmIHSMk6RMHFlW6uwVsW48aiRua0="
@@ -128,11 +127,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Twitch.tv browser for Streamlink";
-    longDescription =
-      "Browse Twitch.tv and watch streams in your videoplayer of choice";
+    longDescription = "Browse Twitch.tv and watch streams in your videoplayer of choice";
     homepage = "https://streamlink.github.io/streamlink-twitch-gui/";
-    downloadPage =
-      "https://github.com/streamlink/streamlink-twitch-gui/releases";
+    downloadPage = "https://github.com/streamlink/streamlink-twitch-gui/releases";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     maintainers = with maintainers; [ rileyinman ];

@@ -12,8 +12,7 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url =
-      "http://beta.quicklisp.org/archive/chipz/2021-08-07/chipz-20210807-git.tgz";
+    url = "http://beta.quicklisp.org/archive/chipz/2021-08-07/chipz-20210807-git.tgz";
     sha256 = "0g7xhh4yq9azjq7gnszaq2kbxima2q30apb3rrglc1ign973hr8x";
   };
 

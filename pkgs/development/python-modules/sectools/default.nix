@@ -30,8 +30,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "library containing functions to write security tools";
     homepage = "https://github.com/p0dalirius/sectools";
-    changelog =
-      "https://github.com/p0dalirius/sectools/releases/tag/${version}";
+    changelog = "https://github.com/p0dalirius/sectools/releases/tag/${version}";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

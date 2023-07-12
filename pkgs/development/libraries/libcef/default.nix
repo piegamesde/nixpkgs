@@ -67,10 +67,8 @@ let
       projectArch = "x86_64";
     };
   };
-  platforms."aarch64-linux".sha256 =
-    "0qn412iv3sl843vwx38c5wc9nwf0sx34a4x78qkdn17wjbrfjj79";
-  platforms."x86_64-linux".sha256 =
-    "02vipzdcmq5cvpmra44r82z8y9d53yqpnymsc2mfk98fvkvgz2j9";
+  platforms."aarch64-linux".sha256 = "0qn412iv3sl843vwx38c5wc9nwf0sx34a4x78qkdn17wjbrfjj79";
+  platforms."x86_64-linux".sha256 = "02vipzdcmq5cvpmra44r82z8y9d53yqpnymsc2mfk98fvkvgz2j9";
 
   platformInfo = builtins.getAttr stdenv.targetPlatform.system platforms;
 in
@@ -81,8 +79,7 @@ stdenv.mkDerivation rec {
   chromiumVersion = "112.0.5615.165";
 
   src = fetchurl {
-    url =
-      "https://cef-builds.spotifycdn.com/cef_binary_${version}+g${gitRevision}+chromium-${chromiumVersion}_${platformInfo.platformStr}_minimal.tar.bz2";
+    url = "https://cef-builds.spotifycdn.com/cef_binary_${version}+g${gitRevision}+chromium-${chromiumVersion}_${platformInfo.platformStr}_minimal.tar.bz2";
     inherit (platformInfo) sha256;
   };
 
@@ -108,8 +105,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "Simple framework for embedding Chromium-based browsers in other applications";
+    description = "Simple framework for embedding Chromium-based browsers in other applications";
     homepage = "https://cef-builds.spotifycdn.com/index.html";
     maintainers = with maintainers; [ puffnfresh ];
     sourceProvenance = with sourceTypes; [

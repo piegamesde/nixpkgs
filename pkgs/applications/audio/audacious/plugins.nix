@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
   version = "4.3";
 
   src = fetchurl {
-    url =
-      "http://distfiles.audacious-media-player.org/audacious-plugins-${version}.tar.bz2";
+    url = "http://distfiles.audacious-media-player.org/audacious-plugins-${version}.tar.bz2";
     sha256 = "sha256-Zi72yMS9cNDzX9HF8IuRVJuUNmOLZfihozlWsJ34n8Y=";
   };
 

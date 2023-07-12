@@ -18,8 +18,7 @@ rustPlatform.buildRustPackage {
   cargoHash = "sha256-9glaxThm/ovgvUWCyrycS/Oe5t8iN5P38fF5vO5awQE=";
 
   meta = with lib; {
-    description =
-      "A simple tool to cyclically switch between the windows on the active workspace";
+    description = "A simple tool to cyclically switch between the windows on the active workspace";
     homepage = "https://github.com/TheDoctor314/i3-cycle-focus";
     license = licenses.unlicense;
     maintainers = with maintainers; [ GaetanLepage ];

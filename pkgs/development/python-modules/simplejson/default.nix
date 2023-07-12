@@ -36,8 +36,7 @@ buildPythonPackage rec {
       for unicode characters).
     '';
     homepage = "https://github.com/simplejson/simplejson";
-    changelog =
-      "https://github.com/simplejson/simplejson/blob/v${version}/CHANGES.txt";
+    changelog = "https://github.com/simplejson/simplejson/blob/v${version}/CHANGES.txt";
     license = with licenses; [
       mit
       afl21

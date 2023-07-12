@@ -36,11 +36,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "blobfile" ];
 
   meta = with lib; {
-    description =
-      "Read Google Cloud Storage, Azure Blobs, and local paths with the same interface";
+    description = "Read Google Cloud Storage, Azure Blobs, and local paths with the same interface";
     homepage = "https://github.com/christopher-hesse/blobfile";
-    changelog =
-      "https://github.com/christopher-hesse/blobfile/blob/v${version}/CHANGES.md";
+    changelog = "https://github.com/christopher-hesse/blobfile/blob/v${version}/CHANGES.md";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

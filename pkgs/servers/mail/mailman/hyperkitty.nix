@@ -21,16 +21,14 @@ buildPythonPackage rec {
   patches = [
     # FIXME: backport Python 3.10 support fix, remove for next release
     (fetchpatch {
-      url =
-        "https://gitlab.com/mailman/hyperkitty/-/commit/551a44a76e46931fc5c1bcb341235d8f579820be.patch";
+      url = "https://gitlab.com/mailman/hyperkitty/-/commit/551a44a76e46931fc5c1bcb341235d8f579820be.patch";
       sha256 = "sha256-5XCrvyrDEqH3JryPMoOXSlVVDLQ+PdYBqwGYxkExdvk=";
       includes = [ "hyperkitty/*" ];
     })
 
     # Fix for Python >=3.9.13
     (fetchpatch {
-      url =
-        "https://gitlab.com/mailman/hyperkitty/-/commit/3efe7507944dbdbfcfa4c182d332528712476b28.patch";
+      url = "https://gitlab.com/mailman/hyperkitty/-/commit/3efe7507944dbdbfcfa4c182d332528712476b28.patch";
       sha256 = "sha256-yXuhTbmfDiYEXEsnz+zp+xLHRqI4GtkOhGHN+37W0iQ=";
     })
   ];

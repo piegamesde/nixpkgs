@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://nufraw.sourceforge.io/";
-    description =
-      "Utility to read and manipulate raw images from digital cameras";
+    description = "Utility to read and manipulate raw images from digital cameras";
     longDescription = ''
       A new version of the popular raw digital images manipulator ufraw.
       Forks from the version 0.23 of ufraw (that's why the first nufraw version is the 0.24).

@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
   version = "2023.3";
 
   src = fetchurl {
-    url =
-      "https://github.com/mullvad/mullvadvpn-app/releases/download/${version}/MullvadVPN-${version}_amd64.deb";
+    url = "https://github.com/mullvad/mullvadvpn-app/releases/download/${version}/MullvadVPN-${version}_amd64.deb";
     sha256 = "sha256-+XK9xUeSs93egmtsQ7qATug/n9taeQkmc4ZgObPYvn4=";
   };
 
@@ -120,8 +119,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/mullvad/mullvadvpn-app";
     description = "Client for Mullvad VPN";
-    changelog =
-      "https://github.com/mullvad/mullvadvpn-app/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/mullvad/mullvadvpn-app/blob/${version}/CHANGELOG.md";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];

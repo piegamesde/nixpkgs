@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/goocanvas/${
+    url = "mirror://gnome/sources/goocanvas/${
         lib.versions.majorMinor version
       }/goocanvas-${version}.tar.xz";
     sha256 = "06j05g2lmwvklmv51xsb7gm7rszcarhm01sal41jfp0qzrbpa2k7";
@@ -46,8 +45,7 @@ stdenv.mkDerivation rec {
   ];
 
   PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR = "$(dev)/share/gir-1.0";
-  PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR =
-    "$(out)/lib/girepository-1.0";
+  PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR = "$(out)/lib/girepository-1.0";
 
   passthru = {
     updateScript = gnome.updateScript {

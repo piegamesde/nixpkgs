@@ -27,8 +27,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "Tool to switch the online time of profiles in the AVM Fritz!Box";
+    description = "Tool to switch the online time of profiles in the AVM Fritz!Box";
     homepage = "https://github.com/AaronDavidSchneider/fritzprofiles";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

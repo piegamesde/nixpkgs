@@ -280,11 +280,11 @@ in
               [
                 {
                   forceSSL = mkDefault true;
-                  locations."/".proxyPass =
-                    "http://${cfg.listenAddress}:${toString srvCfg.port}";
+                  locations."/".proxyPass = "http://${cfg.listenAddress}:${
+                      toString srvCfg.port
+                    }";
                   locations."/static" = {
-                    root =
-                      "${
+                    root = "${
                         pkgs.sourcehut.${srvsrht}
                       }/${pkgs.sourcehut.python.sitePackages}/${srvsrht}";
                     extraConfig = mkDefault ''
@@ -307,8 +307,7 @@ in
               (name: {
                 inherit name;
                 ensurePermissions = {
-                  "DATABASE \"${srvCfg.postgresql.database}\"" =
-                    "ALL PRIVILEGES";
+                  "DATABASE \"${srvCfg.postgresql.database}\"" = "ALL PRIVILEGES";
                 };
               })
               [ srvCfg.user ]

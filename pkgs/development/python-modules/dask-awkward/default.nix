@@ -55,11 +55,9 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description =
-      "Native Dask collection for awkward arrays, and the library to use it";
+    description = "Native Dask collection for awkward arrays, and the library to use it";
     homepage = "https://github.com/dask-contrib/dask-awkward";
-    changelog =
-      "https://github.com/dask-contrib/dask-awkward/releases/tag/${version}";
+    changelog = "https://github.com/dask-contrib/dask-awkward/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ veprbl ];
   };

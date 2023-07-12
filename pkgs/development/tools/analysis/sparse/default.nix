@@ -12,16 +12,14 @@
 }:
 
 let
-  GCC_BASE =
-    "${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.uname.processor}-unknown-linux-gnu/${stdenv.cc.cc.version}";
+  GCC_BASE = "${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.uname.processor}-unknown-linux-gnu/${stdenv.cc.cc.version}";
 in
 stdenv.mkDerivation rec {
   pname = "sparse";
   version = "0.6.4";
 
   src = fetchurl {
-    url =
-      "mirror://kernel/software/devel/sparse/dist/${pname}-${version}.tar.xz";
+    url = "mirror://kernel/software/devel/sparse/dist/${pname}-${version}.tar.xz";
     sha256 = "sha256-arKLSZG8au29c1UCkTYKpqs99B9ZIGqb3paQIIpuOHw=";
   };
 

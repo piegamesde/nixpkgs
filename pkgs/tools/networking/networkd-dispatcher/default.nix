@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Dispatcher service for systemd-networkd connection status changes";
+    description = "Dispatcher service for systemd-networkd connection status changes";
     homepage = "https://gitlab.com/craftyguy/networkd-dispatcher";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

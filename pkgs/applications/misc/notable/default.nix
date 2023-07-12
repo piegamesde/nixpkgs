@@ -13,8 +13,7 @@ let
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url =
-      "https://github.com/notable/notable/releases/download/v${version}/Notable-${version}.AppImage";
+    url = "https://github.com/notable/notable/releases/download/v${version}/Notable-${version}.AppImage";
     inherit sha256;
   };
 

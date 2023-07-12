@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description =
-      "A realtime scripted modular audio engine for video games and musical applications";
+    description = "A realtime scripted modular audio engine for video games and musical applications";
     homepage = "http://audiality.org";
     license = licenses.zlib;
     platforms = platforms.all;

@@ -83,8 +83,7 @@ stdenv.mkDerivation (
     };
 
     meta = with lib; {
-      changelog =
-        "https://github.com/OSGeo/PROJ/blob/${src.rev}/docs/source/news.rst";
+      changelog = "https://github.com/OSGeo/PROJ/blob/${src.rev}/docs/source/news.rst";
       description = "Cartographic Projections Library";
       homepage = "https://proj.org/";
       license = licenses.mit;

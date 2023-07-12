@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url =
-      "mirror://gnome/sources/${pname}/${
+    url = "mirror://gnome/sources/${pname}/${
         lib.versions.majorMinor version
       }/${pname}-${version}.tar.xz";
     hash = "sha256-2PbixllmjHffgsPdlboE/O+MQMIo4sImBfmhepFh7IM=";
@@ -105,8 +104,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description =
-      "Component of Gnome Flashback that provides panels and default applets for the desktop";
+    description = "Component of Gnome Flashback that provides panels and default applets for the desktop";
     homepage = "https://wiki.gnome.org/Projects/GnomePanel";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

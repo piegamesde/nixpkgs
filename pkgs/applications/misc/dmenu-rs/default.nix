@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
   patches =
     let
       fix-broken-make-install-patch = fetchpatch {
-        url =
-          "https://github.com/Shizcow/dmenu-rs/commit/1f4b3f8a07d73272f8c6f19bfb6ff3de5e042815.patch";
+        url = "https://github.com/Shizcow/dmenu-rs/commit/1f4b3f8a07d73272f8c6f19bfb6ff3de5e042815.patch";
         sha256 = "sha256-hmXApWg8qngc1vHkHUnB7Lt7wQUOyCSsBmn4HC1j53M=";
       };
     in
@@ -79,8 +78,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description =
-      "A pixel perfect port of dmenu, rewritten in Rust with extensive plugin support";
+    description = "A pixel perfect port of dmenu, rewritten in Rust with extensive plugin support";
     homepage = "https://github.com/Shizcow/dmenu-rs";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ benjaminedwardwebb ];

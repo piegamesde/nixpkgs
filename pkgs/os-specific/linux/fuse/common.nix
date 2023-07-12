@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       (!isFuse3 && (stdenv.isAarch64 || stdenv.hostPlatform.isLoongArch64))
       (
         fetchpatch {
-          url =
-            "https://github.com/libfuse/libfuse/commit/914871b20a901e3e1e981c92bc42b1c93b7ab81b.patch";
+          url = "https://github.com/libfuse/libfuse/commit/914871b20a901e3e1e981c92bc42b1c93b7ab81b.patch";
           sha256 = "1w4j6f1awjrycycpvmlv0x5v9gprllh4dnbjxl4dyl2jgbkaw6pa";
         }
       )
@@ -56,8 +55,7 @@ stdenv.mkDerivation rec {
         [
           ./fuse2-Do-not-set-FUSERMOUNT_DIR.patch
           (fetchpatch {
-            url =
-              "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-fs/fuse/files/fuse-2.9.9-closefrom-glibc-2-34.patch?id=8a970396fca7aca2d5a761b8e7a8242f1eef14c9";
+            url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-fs/fuse/files/fuse-2.9.9-closefrom-glibc-2-34.patch?id=8a970396fca7aca2d5a761b8e7a8242f1eef14c9";
             sha256 = "sha256-ELYBW/wxRcSMssv7ejCObrpsJHtOPJcGq33B9yHQII4=";
           })
         ]
@@ -150,8 +148,7 @@ stdenv.mkDerivation rec {
   ;
 
   meta = with lib; {
-    description =
-      "Library that allows filesystems to be implemented in user space";
+    description = "Library that allows filesystems to be implemented in user space";
     longDescription = ''
       FUSE (Filesystem in Userspace) is an interface for userspace programs to
       export a filesystem to the Linux kernel. The FUSE project consists of two
@@ -161,8 +158,7 @@ stdenv.mkDerivation rec {
       kernel module.
     '';
     homepage = "https://github.com/libfuse/libfuse";
-    changelog =
-      "https://github.com/libfuse/libfuse/releases/tag/fuse-${version}";
+    changelog = "https://github.com/libfuse/libfuse/releases/tag/fuse-${version}";
     platforms = platforms.linux;
     license = with licenses; [
       gpl2Only
