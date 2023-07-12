@@ -52,10 +52,9 @@ let
     };
   } // cfg.webSettings;
 
-  webSettingsJSON =
-    pkgs.writeText "settings.json"
-      (builtins.toJSON webSettings)
-  ;
+  webSettingsJSON = pkgs.writeText "settings.json" (
+    builtins.toJSON webSettings
+  );
 
   # TODO: Should this be RFC42-ised so that users can set additional options without modifying the module?
   postfixMtaConfig = pkgs.writeText "mailman-postfix.cfg" ''

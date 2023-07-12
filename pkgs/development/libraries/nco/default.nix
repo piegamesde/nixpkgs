@@ -47,10 +47,9 @@ stdenv.mkDerivation rec {
       --replace "/bin/mv" "${coreutils}/bin/mv"
   '';
 
-  makeFlags =
-    lib.optionals stdenv.isDarwin
-      [ "LIBTOOL=${libtool}/bin/libtool" ]
-  ;
+  makeFlags = lib.optionals stdenv.isDarwin [
+    "LIBTOOL=${libtool}/bin/libtool"
+  ];
 
   enableParallelBuilding = true;
 

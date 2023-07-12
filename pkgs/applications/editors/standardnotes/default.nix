@@ -16,10 +16,9 @@ let
   name = "${pname}-${version}";
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
-  src =
-    fetchurl
-      (srcjson.appimage.${stdenv.hostPlatform.system} or throwSystem)
-  ;
+  src = fetchurl (
+    srcjson.appimage.${stdenv.hostPlatform.system} or throwSystem
+  );
 
   appimageContents = appimageTools.extract { inherit name src; };
 

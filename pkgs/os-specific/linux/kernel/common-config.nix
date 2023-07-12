@@ -548,10 +548,9 @@ let
       RANDOMIZE_BASE = option yes;
       STRICT_DEVMEM = mkDefault yes; # Filter access to /dev/mem
       IO_STRICT_DEVMEM = mkDefault yes;
-      SECURITY_SELINUX_BOOTPARAM_VALUE =
-        whenOlder "5.1"
-          (freeform "0")
-      ; # Disable SELinux by default
+      SECURITY_SELINUX_BOOTPARAM_VALUE = whenOlder "5.1" (
+        freeform "0"
+      ); # Disable SELinux by default
       # Prevent processes from ptracing non-children processes
       SECURITY_YAMA = option yes;
       # The goal of Landlock is to enable to restrict ambient rights (e.g. global filesystem access) for a set of processes.
@@ -564,14 +563,12 @@ let
       SECURITY_APPARMOR = yes;
       DEFAULT_SECURITY_APPARMOR = yes;
 
-      RANDOM_TRUST_CPU =
-        whenOlder "6.2"
-          (whenAtLeast "4.19" yes)
-      ; # allow RDRAND to seed the RNG
-      RANDOM_TRUST_BOOTLOADER =
-        whenOlder "6.2"
-          (whenAtLeast "5.4" yes)
-      ; # allow the bootloader to seed the RNG
+      RANDOM_TRUST_CPU = whenOlder "6.2" (
+        whenAtLeast "4.19" yes
+      ); # allow RDRAND to seed the RNG
+      RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" (
+        whenAtLeast "5.4" yes
+      ); # allow the bootloader to seed the RNG
 
       MODULE_SIG =
         no; # r13y, generates a random key during build and bakes it in

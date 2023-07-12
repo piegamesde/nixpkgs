@@ -107,10 +107,9 @@ stdenv.mkDerivation {
   inherit version;
 
   nativeBuildInputs = [ squashfsTools ];
-  closureInfo =
-    pkgs.closureInfo
-      { rootPaths = [ rootFsScaffold ] ++ contents; }
-  ;
+  closureInfo = pkgs.closureInfo {
+    rootPaths = [ rootFsScaffold ] ++ contents;
+  };
 
   buildCommand = ''
     mkdir -p nix/store

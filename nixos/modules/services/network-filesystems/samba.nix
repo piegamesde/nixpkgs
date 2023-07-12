@@ -261,10 +261,9 @@ in
         services = {
           samba-smbd = daemonService "smbd" "";
           samba-nmbd = mkIf cfg.enableNmbd (daemonService "nmbd" "");
-          samba-winbindd =
-            mkIf cfg.enableWinbindd
-              (daemonService "winbindd" "")
-          ;
+          samba-winbindd = mkIf cfg.enableWinbindd (
+            daemonService "winbindd" ""
+          );
         };
         tmpfiles.rules = [
           "d /var/lock/samba - - - - -"

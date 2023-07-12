@@ -198,10 +198,9 @@ stdenv.mkDerivation rec {
   ];
 
   passthru.tests = {
-    clang-default-compilation =
-      foot.override
-        { inherit (llvmPackages) stdenv; }
-    ;
+    clang-default-compilation = foot.override {
+      inherit (llvmPackages) stdenv;
+    };
 
     clang-latest-compilation = foot.override {
       inherit (llvmPackages_latest) stdenv;

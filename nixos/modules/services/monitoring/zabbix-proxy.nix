@@ -293,9 +293,9 @@ in
         FpingLocation = "/run/wrappers/bin/fping";
         LoadModule = builtins.attrNames cfg.modules;
       }
-      (mkIf (cfg.database.createLocally != true)
-        { DBPort = cfg.database.port; }
-      )
+      (mkIf (cfg.database.createLocally != true) {
+        DBPort = cfg.database.port;
+      })
       (mkIf (cfg.database.passwordFile != null) {
         Include = [ "${passwordFile}" ];
       })

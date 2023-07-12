@@ -320,10 +320,9 @@ in
       };
     };
     mda = {
-      enable =
-        mkEnableOption
-          (lib.mdDoc "the public-inbox Mail Delivery Agent")
-      ;
+      enable = mkEnableOption (
+        lib.mdDoc "the public-inbox Mail Delivery Agent"
+      );
       args = mkOption {
         type = with types; listOf str;
         default = [ ];

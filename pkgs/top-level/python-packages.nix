@@ -2813,10 +2813,9 @@ with self; {
 
   coveralls = callPackage ../development/python-modules/coveralls { };
 
-  cppe =
-    callPackage ../development/python-modules/cppe
-      { inherit (pkgs) cppe; }
-  ;
+  cppe = callPackage ../development/python-modules/cppe {
+    inherit (pkgs) cppe;
+  };
 
   cppheaderparser =
     callPackage ../development/python-modules/cppheaderparser
@@ -3920,10 +3919,9 @@ with self; {
 
   dkimpy = callPackage ../development/python-modules/dkimpy { };
 
-  dlib =
-    callPackage ../development/python-modules/dlib
-      { inherit (pkgs) dlib; }
-  ;
+  dlib = callPackage ../development/python-modules/dlib {
+    inherit (pkgs) dlib;
+  };
 
   dlinfo = callPackage ../development/python-modules/dlinfo { };
 
@@ -6065,10 +6063,9 @@ with self; {
 
   hickle = callPackage ../development/python-modules/hickle { };
 
-  hid =
-    callPackage ../development/python-modules/hid
-      { inherit (pkgs) hidapi; }
-  ;
+  hid = callPackage ../development/python-modules/hid {
+    inherit (pkgs) hidapi;
+  };
 
   hidapi = callPackage ../development/python-modules/hidapi {
     inherit (pkgs) udev libusb1;
@@ -7623,10 +7620,9 @@ with self; {
     llvm = pkgs.llvm_11;
   };
 
-  lmdb =
-    callPackage ../development/python-modules/lmdb
-      { inherit (pkgs) lmdb; }
-  ;
+  lmdb = callPackage ../development/python-modules/lmdb {
+    inherit (pkgs) lmdb;
+  };
 
   lml = callPackage ../development/python-modules/lml { };
 
@@ -11576,10 +11572,9 @@ with self; {
 
   pysdl2 = callPackage ../development/python-modules/pysdl2 { };
 
-  pysearpc =
-    toPythonModule
-      (pkgs.libsearpc.override { python3 = self.python; })
-  ;
+  pysearpc = toPythonModule (
+    pkgs.libsearpc.override { python3 = self.python; }
+  );
 
   pysecuritas = callPackage ../development/python-modules/pysecuritas { };
 
@@ -14346,10 +14341,9 @@ with self; {
 
   soupsieve = callPackage ../development/python-modules/soupsieve { };
 
-  soxr =
-    callPackage ../development/python-modules/soxr
-      { libsoxr = pkgs.soxr; }
-  ;
+  soxr = callPackage ../development/python-modules/soxr {
+    libsoxr = pkgs.soxr;
+  };
 
   spacy = callPackage ../development/python-modules/spacy { };
 
@@ -16920,10 +16914,9 @@ with self; {
 
   zstandard = callPackage ../development/python-modules/zstandard { };
 
-  zstd =
-    callPackage ../development/python-modules/zstd
-      { inherit (pkgs) zstd; }
-  ;
+  zstd = callPackage ../development/python-modules/zstd {
+    inherit (pkgs) zstd;
+  };
 
   zulip = callPackage ../development/python-modules/zulip { };
 

@@ -21,8 +21,7 @@ in
       description = lib.mdDoc ''
         Enables the Hail Auto Update Service. Hail can automatically deploy artifacts
         built by a Hydra Continuous Integration server. A common use case is to provide
-        continuous deployment for single services or a full NixOS configuration.''
-      ;
+        continuous deployment for single services or a full NixOS configuration.'';
     };
     profile = mkOption {
       type = types.str;

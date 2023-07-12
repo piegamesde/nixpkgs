@@ -397,10 +397,9 @@ let
 
   closureInfo = pkgs.closureInfo { rootPaths = basePaths ++ additionalPaths'; };
 
-  blockSize =
-    toString
-      (4 * 1024)
-  ; # ext4fs block size (not block device sector size)
+  blockSize = toString (
+    4 * 1024
+  ); # ext4fs block size (not block device sector size)
 
   prepareImage = ''
     export PATH=${binPath}

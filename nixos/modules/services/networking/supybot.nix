@@ -11,10 +11,9 @@ let
   cfg = config.services.supybot;
   isStateDirHome = hasPrefix "/home/" cfg.stateDir;
   isStateDirVar = cfg.stateDir == "/var/lib/supybot";
-  pyEnv =
-    pkgs.python3.withPackages
-      (p: [ p.limnoria ] ++ (cfg.extraPackages p))
-  ;
+  pyEnv = pkgs.python3.withPackages (
+    p: [ p.limnoria ] ++ (cfg.extraPackages p)
+  );
 in
 {
   options = {

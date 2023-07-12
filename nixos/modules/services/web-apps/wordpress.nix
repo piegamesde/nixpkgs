@@ -588,10 +588,9 @@ in
                 mkMerge [
                   cfg.virtualHost
                   {
-                    documentRoot =
-                      mkForce
-                        "${pkg hostName cfg}/share/wordpress"
-                    ;
+                    documentRoot = mkForce "${
+                          pkg hostName cfg
+                        }/share/wordpress";
                     extraConfig = ''
                       <Directory "${pkg hostName cfg}/share/wordpress">
                         <FilesMatch "\.php$">

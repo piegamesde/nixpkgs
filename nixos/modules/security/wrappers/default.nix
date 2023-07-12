@@ -10,10 +10,9 @@ let
 
   parentWrapperDir = dirOf wrapperDir;
 
-  securityWrapper =
-    pkgs.callPackage ./wrapper.nix
-      { inherit parentWrapperDir; }
-  ;
+  securityWrapper = pkgs.callPackage ./wrapper.nix {
+    inherit parentWrapperDir;
+  };
 
   fileModeType =
     let

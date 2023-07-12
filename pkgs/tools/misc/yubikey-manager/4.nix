@@ -23,10 +23,9 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-MwM/b1QP6pkyBjz/r6oC4sW1mKC0CKMay45a0wCktk0=";
   };
 
-  patches =
-    lib.optionals (!pyOpenSSLSupport)
-      [ ./remove-pyopenssl-tests.patch ]
-  ;
+  patches = lib.optionals (!pyOpenSSLSupport) [
+    ./remove-pyopenssl-tests.patch
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

@@ -71,10 +71,9 @@ let
 
   # Add all supported builds as attributes
   # allBuilds :: AttrSet String Derivation
-  allBuilds =
-    builtins.listToAttrs
-      (builtins.map toBuildAttrs supportedReleases)
-  ;
+  allBuilds = builtins.listToAttrs (
+    builtins.map toBuildAttrs supportedReleases
+  );
 
   defaultBuild = attrsets.optionalAttrs (supportedReleases != [ ]) {
     cudnn =

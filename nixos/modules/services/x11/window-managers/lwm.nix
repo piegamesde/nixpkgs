@@ -13,10 +13,9 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.lwm.enable =
-      mkEnableOption
-        (lib.mdDoc "lwm")
-    ;
+    services.xserver.windowManager.lwm.enable = mkEnableOption (
+      lib.mdDoc "lwm"
+    );
   };
 
   ###### implementation

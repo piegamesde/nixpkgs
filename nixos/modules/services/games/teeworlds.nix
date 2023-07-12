@@ -97,10 +97,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall =
-      mkIf cfg.openPorts
-        { allowedUDPPorts = [ cfg.port ]; }
-    ;
+    networking.firewall = mkIf cfg.openPorts {
+      allowedUDPPorts = [ cfg.port ];
+    };
 
     systemd.services.teeworlds = {
       description = "Teeworlds Server";

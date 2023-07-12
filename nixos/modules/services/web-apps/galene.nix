@@ -112,10 +112,8 @@ in
       groupsDir = mkOption {
         type = types.str;
         default = defaultgroupsDir;
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.stateDir}}/groups"''
-        ;
+        defaultText = literalExpression ''
+          "''${config.${opt.stateDir}}/groups"'';
         example = "/var/lib/galene/groups";
         description = lib.mdDoc "Web server directory.";
       };

@@ -317,10 +317,9 @@ in
             );
 
             filterIngressSet = filterAttrs (_: v: builtins.typeOf v == "set");
-            filterIngressStr =
-              filterAttrs
-                (_: v: builtins.typeOf v == "string")
-            ;
+            filterIngressStr = filterAttrs (
+              _: v: builtins.typeOf v == "string"
+            );
 
             ingressesSet = filterIngressSet tunnel.ingress;
             ingressesStr = filterIngressStr tunnel.ingress;

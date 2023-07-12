@@ -55,8 +55,7 @@ let
         mod:
         mod.name or (throw "The nginx module with source ${
             toString mod.src
-          } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported."
-        )
+          } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported.")
       )
       modules
   ;

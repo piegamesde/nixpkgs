@@ -86,10 +86,9 @@ let
       dbd-mysql = super.dbd-mysql.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.mariadb.client ]; }
       );
-      lla =
-        super.lla.overrideLispAttrs
-          (o: { nativeLibs = [ pkgs.openblas ]; })
-      ;
+      lla = super.lla.overrideLispAttrs (
+        o: { nativeLibs = [ pkgs.openblas ]; }
+      );
       cffi-libffi = super.cffi-libffi.overrideLispAttrs (
         o: {
           nativeBuildInputs = [ pkgs.libffi ];

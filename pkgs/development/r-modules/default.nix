@@ -1350,10 +1350,9 @@ let
         attrs: { preConfigure = "patchShebangs configure"; }
       );
 
-      Cairo =
-        old.Cairo.overrideAttrs
-          (attrs: { NIX_LDFLAGS = "-lfontconfig"; })
-      ;
+      Cairo = old.Cairo.overrideAttrs (
+        attrs: { NIX_LDFLAGS = "-lfontconfig"; }
+      );
 
       curl = old.curl.overrideAttrs (
         attrs: { preConfigure = "patchShebangs configure"; }

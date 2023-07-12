@@ -723,10 +723,9 @@ in
                       You might want to disable this if you plan running a dedicated Tor relay''
         );
 
-        transparentProxy.enable =
-          mkEnableOption
-            (lib.mdDoc "transparent proxy")
-        ;
+        transparentProxy.enable = mkEnableOption (
+          lib.mdDoc "transparent proxy"
+        );
         dns.enable = mkEnableOption (lib.mdDoc "DNS resolver");
 
         socksListenAddress = mkOption {
@@ -1551,10 +1550,9 @@ in
           ;
           options.ServerDNSSearchDomains = optionBool "ServerDNSSearchDomains";
           options.ServerTransportPlugin = mkOption {
-            description =
-              lib.mdDoc
-                (descriptionGeneric "ServerTransportPlugin")
-            ;
+            description = lib.mdDoc (
+              descriptionGeneric "ServerTransportPlugin"
+            );
             default = null;
             type =
               with types;

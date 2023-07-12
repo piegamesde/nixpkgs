@@ -17,10 +17,9 @@ let
   configFile = format.generate "homeserver.yaml" finalSettings;
   logConfigFile = format.generate "log_config.yaml" cfg.logConfig;
 
-  pluginsEnv =
-    cfg.package.python.buildEnv.override
-      { extraLibs = cfg.plugins; }
-  ;
+  pluginsEnv = cfg.package.python.buildEnv.override {
+    extraLibs = cfg.plugins;
+  };
 
   usePostgresql = cfg.settings.database.name == "psycopg2";
   hasLocalPostgresDB =

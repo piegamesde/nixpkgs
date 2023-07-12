@@ -33,10 +33,8 @@ stdenv.mkDerivation {
   inherit version;
   pname = "libtorch";
 
-  src =
-    fetchzip
-      srcs."${stdenv.targetPlatform.system}-${device}" or unavailable
-  ;
+  src = fetchzip srcs."${stdenv.targetPlatform.system}-${device}"
+    or unavailable;
 
   nativeBuildInputs =
     if stdenv.isDarwin then
