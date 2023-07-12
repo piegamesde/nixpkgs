@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       ssh
     ]
     ++ (lib.optional slurmSupport slurm)
-    ;
+  ;
 
   nativeBuildInputs = [ autoreconfHook ];
 

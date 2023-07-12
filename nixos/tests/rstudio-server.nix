@@ -18,7 +18,7 @@ import ./make-test-python.nix (
       }: {
         services.rstudio-server.enable = true;
       }
-      ;
+    ;
 
     nodes.customPackageMachine =
       {
@@ -34,7 +34,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("rstudio-server.service")

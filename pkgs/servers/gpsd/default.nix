@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
       wrapGAppsHook
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       libXt
       pango
     ]
-    ;
+  ;
 
   pythonPath = lib.optionals guiSupport [
     python3Packages.pygobject3

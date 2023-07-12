@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [ gdk-pixbuf ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = "-fno-stack-protector";
 

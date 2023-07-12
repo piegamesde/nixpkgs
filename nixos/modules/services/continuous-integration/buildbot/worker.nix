@@ -65,7 +65,7 @@ in
         description =
           lib.mdDoc
             "User the buildbot Worker should execute under."
-          ;
+        ;
       };
 
       group = mkOption {
@@ -80,7 +80,7 @@ in
         description =
           lib.mdDoc
             "List of extra groups that the Buildbot Worker user should be a part of."
-          ;
+        ;
       };
 
       home = mkOption {
@@ -113,7 +113,7 @@ in
         description =
           lib.mdDoc
             "File used to store the Buildbot Worker password"
-          ;
+        ;
       };
 
       hostMessage = mkOption {
@@ -134,7 +134,7 @@ in
         description =
           lib.mdDoc
             "Specifies the Buildbot Worker connection string."
-          ;
+        ;
       };
 
       keepalive = mkOption {
@@ -161,7 +161,7 @@ in
         description =
           lib.mdDoc
             "Packages to add to PATH for the buildbot process."
-          ;
+        ;
       };
     };
   };

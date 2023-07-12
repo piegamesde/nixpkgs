@@ -107,7 +107,7 @@ import ../make-test-python.nix (
         specialisation.boot-lvm.configuration.virtualisation.rootDevice =
           "/dev/test_vg/test_lv";
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

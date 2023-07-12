@@ -28,7 +28,7 @@ let
 
       touch $out
     ''
-    ;
+  ;
 
   check = cond: if cond then "ok" else "nok";
 in
@@ -54,7 +54,7 @@ in
         checking "that imagick extension is present when enabled"
         $phpWithImagick/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
       ''
-    ;
+  ;
 
   overrideAttrs-preserves-enabled-extensions =
     let
@@ -74,10 +74,10 @@ in
                 + ''
                   touch "$out/oApee-was-here"
                 ''
-                ;
+              ;
             }
           )
-        ;
+      ;
     in
     runTest "php-test-overrideAttrs-preserves-enabled-extensions" ''
       php="${customPhp}"
@@ -93,7 +93,7 @@ in
       echo $php
       $php/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
     ''
-    ;
+  ;
 
   unwrapped-overrideAttrs-stacks =
     let
@@ -107,7 +107,7 @@ in
                 + ''
                   touch "$out/oAs-first"
                 ''
-                ;
+              ;
             }
           )
         )
@@ -121,7 +121,7 @@ in
                 + ''
                   touch "$out/oAs-second"
                 ''
-                ;
+              ;
             }
           )
         )
@@ -134,7 +134,7 @@ in
       checking "if second override is there"
       ${check (builtins.match ".*oAs-second.*" customPhp.postInstall != null)}
     ''
-    ;
+  ;
 
   wrapped-overrideAttrs-stacks =
     let
@@ -148,7 +148,7 @@ in
                 + ''
                   touch "$out/oAs-first"
                 ''
-                ;
+              ;
             }
           )
         )
@@ -162,7 +162,7 @@ in
                 + ''
                   touch "$out/oAs-second"
                 ''
-                ;
+              ;
             }
           )
         )
@@ -179,5 +179,5 @@ in
         builtins.match ".*oAs-second.*" customPhp.unwrapped.postInstall != null
       )}
     ''
-    ;
+  ;
 }

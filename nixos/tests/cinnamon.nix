@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         services.xserver.enable = true;
         services.xserver.desktopManager.cinnamon.enable = true;
       }
-      ;
+    ;
 
     enableOCR = true;
 
@@ -78,6 +78,6 @@ import ./make-test-python.nix (
             machine.sleep(20)
             machine.screenshot("screen")
       ''
-      ;
+    ;
   }
 )

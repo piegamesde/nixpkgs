@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   postInstall = ''
     moveToOutput bin/gsl-config "$dev"

@@ -125,7 +125,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       def switch_to_tty(tty_number):

@@ -38,7 +38,7 @@ buildPythonPackage rec {
       pygments
     ]
     ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

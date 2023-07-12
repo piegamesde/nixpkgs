@@ -59,7 +59,7 @@ buildPythonPackage rec {
       sphinxHook
     ]
     ++ passthru.optional-dependencies.doc
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -83,7 +83,7 @@ buildPythonPackage rec {
   nativeCheckInputs =
     [ pytestCheckHook ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   meta = with lib; {
     changelog =

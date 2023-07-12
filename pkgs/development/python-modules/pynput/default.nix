@@ -26,7 +26,7 @@ buildPythonPackage rec {
       xlib
     ]
     ++ lib.optionals stdenv.isLinux [ evdev ]
-    ;
+  ;
 
   doCheck = false;
 

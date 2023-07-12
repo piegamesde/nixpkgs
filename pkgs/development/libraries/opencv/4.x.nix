@@ -124,7 +124,7 @@ let
         sha256 = "1msbkc3zixx61rcg6a04i1bcfhw1phgsrh93glq1n80hgsk3nbjq";
       }
       + "/ippicv"
-      ;
+    ;
     files =
       let
         name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
@@ -138,7 +138,7 @@ let
       else
         throw
           "ICV is not available for this platform (or not yet supported by this package)"
-      ;
+    ;
     dst = ".cache/ippicv";
   };
 
@@ -233,13 +233,13 @@ let
         ''
       )
     )
-    ;
+  ;
   installExtraFile =
     extra: ''
       mkdir -p "${extra.dst}"
       ln -s "${extra.src}" "${extra.dst}/${extra.md5}-${extra.name}"
     ''
-    ;
+  ;
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";
 
@@ -302,7 +302,7 @@ stdenv.mkDerivation {
   patches =
     [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ]
     ++ lib.optional enableCuda ./cuda_opt_flow.patch
-    ;
+  ;
 
   # This prevents cmake from using libraries in impure paths (which
   # causes build failure on non NixOS)
@@ -321,7 +321,7 @@ stdenv.mkDerivation {
       ${installExtraFiles face}
       ${installExtraFiles wechat_qrcode}
     '')
-    ;
+  ;
 
   postConfigure = ''
     [ -e modules/core/version_string.inc ]
@@ -389,12 +389,12 @@ stdenv.mkDerivation {
       graphviz-nox
     ]
     ++ lib.optionals enableCuda [ cuda-redist ]
-    ;
+  ;
 
   propagatedBuildInputs =
     lib.optional enablePython pythonPackages.numpy
     ++ lib.optionals enableCuda [ nvidia-optical-flow-sdk ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -408,12 +408,12 @@ stdenv.mkDerivation {
       pythonPackages.setuptools
     ]
     ++ lib.optionals enableCuda [ cuda-native-redist ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR
       "-I${ilmbase.dev}/include/OpenEXR"
-    ;
+  ;
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString withOpenblas openblas_.dev;
@@ -488,7 +488,7 @@ stdenv.mkDerivation {
       "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
     ]
     ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
-    ;
+  ;
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen
@@ -503,7 +503,7 @@ stdenv.mkDerivation {
       mv ./bin/*test* $package_tests/ 
     ''
     + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/"
-    ;
+  ;
 
   # By default $out/lib/pkgconfig/opencv4.pc looks something like this:
   #
@@ -537,7 +537,7 @@ stdenv.mkDerivation {
       popd
       popd
     ''
-    ;
+  ;
 
   passthru = {
     tests = {
@@ -554,7 +554,7 @@ stdenv.mkDerivation {
             runAccuracyTests
             runPerformanceTests
             testDataSrc
-            ;
+          ;
           inherit opencv4;
         };
       };

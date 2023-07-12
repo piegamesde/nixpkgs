@@ -37,12 +37,12 @@ let
           extglobScript
       )
       { }
-    ;
+  ;
 
   binCase =
     case:
     writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript
-    ;
+  ;
 
   # building this derivation would fail without overriding
   textFileCase = writeTextFile {
@@ -64,7 +64,7 @@ let
         '';
       }
     )
-    ;
+  ;
 
   # Run old checkPhase, but only succeed if it fails.
   # This HACK is required because we can't introspect build failures
@@ -81,7 +81,7 @@ let
         '';
       }
     )
-    ;
+  ;
 
   mkCase =
     case: outcome: isBin:
@@ -95,7 +95,7 @@ let
       );
     in
     if isBin then "${drv}/bin/${drv.name}" else drv
-    ;
+  ;
 
   writeTextOverrides = {
     # Make sure extglob works by default
@@ -128,7 +128,7 @@ let
         exit 1
       fi
     ''
-    ;
+  ;
 in
 
 runCommand "test-writeShellScript-overriding"

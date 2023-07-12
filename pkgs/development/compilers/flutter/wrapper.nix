@@ -70,16 +70,16 @@ let
         builtins.filter lib.isDerivation (
           (pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ])
         )
-        ;
+      ;
       collect =
         pkg:
         lib.unique (
           [ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg)
         )
-        ;
+      ;
     in
     builtins.concatMap collect appRuntimeDeps
-    ;
+  ;
 
   # Some header files and libraries are not properly located by the Flutter SDK.
   # They must be manually included.
@@ -90,7 +90,7 @@ let
       zlib
     ])
     ++ extraLibraries
-    ;
+  ;
 
   # Tools used by the Flutter SDK to compile applications.
   buildTools = lib.optionals supportsLinuxDesktop [
@@ -110,7 +110,7 @@ let
   linkerFlags =
     (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps)
     ++ extraLinkerFlags
-    ;
+  ;
 in
 (callPackage ./sdk-symlink.nix { }) (
   runCommandLocal "flutter-wrapped"

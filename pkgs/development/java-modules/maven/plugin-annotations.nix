@@ -27,7 +27,7 @@
             "1jd8b32kl9kh4dxpdg5i9qf3haqc5br0mz8bl1ri4hb9qgwkzsijvx6jr7pv9zgplanwvgca3lhpgzsgs03n8jlqnbxbmgsv1pl93zb";
         }
       ]
-    ;
+  ;
 
   mavenPluginAnnotations_3_2 =
     map
@@ -53,5 +53,5 @@
             "2j2lrm2dlikbpncz20r4yxhyi7h5dnhkxalvkih35m7fz57csbgd53whq969hixpfhyj18svd6695a3v4bfa94hg99mw78lzq8lwb37";
         }
       ]
-    ;
+  ;
 }

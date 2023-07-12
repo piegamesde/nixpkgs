@@ -22,7 +22,7 @@ import ./make-test-python.nix (
         ip =
           builtins.elemAt nodesIps
             index
-          ; # since we already use IPs to identify servers
+        ; # since we already use IPs to identify servers
       in
       {
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
@@ -94,22 +94,22 @@ import ./make-test-python.nix (
             PATRONI_REPLICATION_PASSWORD =
               pkgs.writeText "replication-password"
                 "postgres"
-              ;
+            ;
             PATRONI_SUPERUSER_PASSWORD =
               pkgs.writeText "superuser-password"
                 "postgres"
-              ;
+            ;
             PATRONI_REWIND_PASSWORD =
               pkgs.writeText "rewind-password"
                 "postgres"
-              ;
+            ;
           };
         };
 
         # We always want to restart so the tests never hang
         systemd.services.patroni.serviceConfig.StartLimitIntervalSec = 0;
       }
-      ;
+    ;
   in
   {
     name = "patroni";
@@ -137,7 +137,7 @@ import ./make-test-python.nix (
 
           networking.firewall.allowedTCPPorts = [ 2379 ];
         }
-        ;
+      ;
 
       client =
         {
@@ -184,7 +184,7 @@ import ./make-test-python.nix (
             '';
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

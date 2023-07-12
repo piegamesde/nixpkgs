@@ -14,7 +14,7 @@ import ./make-test-python.nix (
         programs.bcc.enable = true;
         environment.systemPackages = with pkgs; [ bpftrace ];
       }
-      ;
+    ;
 
     testScript = ''
       ## bcc

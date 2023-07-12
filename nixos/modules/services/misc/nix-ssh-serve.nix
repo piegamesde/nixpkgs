@@ -12,7 +12,7 @@ let
       "nix-store --serve ${lib.optionalString cfg.write "--write"}"
     else
       "nix-daemon --stdio"
-    ;
+  ;
 in
 {
   options = {
@@ -25,7 +25,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable serving the Nix store as a remote store via SSH."
-          ;
+        ;
       };
 
       write = mkOption {
@@ -34,7 +34,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable writing to the Nix store as a remote store via SSH. Note: the sshServe user is named nix-ssh and is not a trusted-user. nix-ssh should be added to the {option}`nix.settings.trusted-users` option in most use cases, such as allowing remote building of derivations."
-          ;
+        ;
       };
 
       keys = mkOption {
@@ -44,7 +44,7 @@ in
         description =
           lib.mdDoc
             "A list of SSH public keys allowed to access the binary cache via SSH."
-          ;
+        ;
       };
 
       protocol = mkOption {

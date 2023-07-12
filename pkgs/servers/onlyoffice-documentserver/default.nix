@@ -72,7 +72,7 @@ let
             dejavu_fonts
             liberation_ttf_v1
           ]
-          ;
+        ;
 
         extraBwrapArgs = [
           "--bind var/lib/onlyoffice/ var/lib/onlyoffice/"

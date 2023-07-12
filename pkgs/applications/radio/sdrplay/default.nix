@@ -13,7 +13,7 @@ let
       "i686"
     else
       throw "unsupported architecture"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "sdrplay";

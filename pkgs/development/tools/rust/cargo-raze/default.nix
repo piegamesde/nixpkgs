@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       curl
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   meta = with lib; {
     description = "Generate Bazel BUILD files from Cargo dependencies";

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       xz
     ]
     ++ lib.optional stdenv.isDarwin gtk-mac-integration
-    ;
+  ;
 
   # fix compilation under Darwin
   # remove these patches upon next release

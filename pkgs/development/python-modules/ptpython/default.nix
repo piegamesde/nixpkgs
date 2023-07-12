@@ -33,7 +33,7 @@ buildPythonPackage rec {
       pygments
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   # no tests to run
   doCheck = false;

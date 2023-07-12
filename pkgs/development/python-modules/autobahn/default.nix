@@ -90,7 +90,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.scram
     ++ passthru.optional-dependencies.serialization
     ++ passthru.optional-dependencies.xbr
-    ;
+  ;
 
   preCheck = ''
     # Run asyncio tests (requires twisted)
@@ -112,7 +112,7 @@ buildPythonPackage rec {
       ++ twisted
       ++ ui
       ++ xbr
-      ;
+    ;
     accelerate =
       [ # wsaccel
       ];

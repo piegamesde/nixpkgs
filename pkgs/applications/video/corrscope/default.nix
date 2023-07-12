@@ -32,7 +32,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
         pythonRelaxDepsHook
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     ffmpeg

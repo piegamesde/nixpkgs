@@ -12,7 +12,7 @@ sgx-azure-dcap-client.overrideAttrs (
         makeWrapper
         gtest
       ]
-      ;
+    ;
 
     buildFlags = [ "tests" ];
 

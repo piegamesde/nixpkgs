@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS =
     lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
       "-lgcc_s"
-    ;
+  ;
 
   configureFlags =
     [
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       # though it isn't used.
       "--with-luks2-external-tokens-path=/"
     ]
-    ;
+  ;
 
   nativeBuildInputs =
     [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];

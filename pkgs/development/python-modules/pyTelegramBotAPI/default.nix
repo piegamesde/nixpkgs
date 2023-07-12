@@ -51,7 +51,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.watchdog
     ++ passthru.optional-dependencies.aiohttp
-    ;
+  ;
 
   pythonImportsCheck = [ "telebot" ];
 

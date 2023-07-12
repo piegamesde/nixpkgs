@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       ./dont_create_privsep_path.patch
     ]
     ++ extraPatches
-    ;
+  ;
 
   postPatch =
     # On Hydra this makes installation fail (sometimes?),
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     # https://github.com/NixOS/nixpkgs/pull/107606
     ++ lib.optional withKerberos pkgs.libkrb5
     ++ extraNativeBuildInputs
-    ;
+  ;
   buildInputs =
     [
       zlib
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withFIDO libfido2
     ++ lib.optional withKerberos libkrb5
     ++ lib.optional stdenv.isLinux pam
-    ;
+  ;
 
   preConfigure = ''
     # Setting LD causes `configure' and `make' to disagree about which linker
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin "--disable-libutil"
     ++ lib.optional (!linkOpenssl) "--without-openssl"
     ++ extraConfigureFlags
-    ;
+  ;
 
   ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} =
     [ "-laudit" ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
@@ -174,7 +174,7 @@ stdenv.mkDerivation rec {
       "file-tests"
       "interop-tests"
     ]
-    ;
+  ;
 
   postInstall = ''
     # Install ssh-copy-id, it's very useful.
@@ -203,7 +203,7 @@ stdenv.mkDerivation rec {
             aneeshusa
           ]
         )
-        ;
+      ;
       mainProgram = "ssh";
     } // extraMeta;
 }

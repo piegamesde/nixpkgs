@@ -48,7 +48,7 @@ stdenv.mkDerivation (
         libGL
       ]
       ++ lib.optionals stdenv.isDarwin [ OpenGL ]
-      ;
+    ;
 
     configureFlags = [
       "--enable-ILU"
@@ -63,7 +63,7 @@ stdenv.mkDerivation (
       + lib.optionalString stdenv.cc.isClang ''
         sed -i 's/libIL_la_CXXFLAGS = $(AM_CFLAGS)/libIL_la_CXXFLAGS =/g' lib/Makefile.in
       ''
-      ;
+    ;
 
     postConfigure = ''
       sed -i '/RESTRICT_KEYWORD/d' include/IL/config.h
@@ -91,7 +91,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://openil.sourceforge.net/";

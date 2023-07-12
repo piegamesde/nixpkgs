@@ -37,7 +37,7 @@ let
               };
             };
           }
-          ;
+        ;
       };
 
       testScript = ''
@@ -55,7 +55,7 @@ let
         assert "Hello" in ${backend}.succeed("cat /tmp/result"), "no greeting in output"
       '';
     }
-    ;
+  ;
 
   mkContainersTest = makeTest {
     name = "cntr-containers";
@@ -81,7 +81,7 @@ let
           config = { };
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

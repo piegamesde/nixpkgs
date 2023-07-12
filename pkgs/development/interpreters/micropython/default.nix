@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
         " -e ffi_callback"
     + lib.optionalString (stdenv.isLinux && stdenv.isAarch64) " -e float_parse"
-    ;
+  ;
 
   checkPhase = ''
     runHook preCheck

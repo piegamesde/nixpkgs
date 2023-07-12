@@ -16,7 +16,7 @@ in
       enable =
         mkEnableOption
           (lib.mdDoc "System to defeat internet censorship")
-        ;
+      ;
 
       broker = mkOption {
         description = lib.mdDoc ''
@@ -29,7 +29,7 @@ in
         description =
           lib.mdDoc
             "Limits the amount of maximum concurrent clients allowed."
-          ;
+        ;
         type = with types; nullOr int;
         default = null;
       };
@@ -64,7 +64,7 @@ in
             ++ optional (cfg.relay != null) "-relay ${cfg.relay}"
             ++ optional (cfg.stun != null) "-stun ${cfg.stun}"
           )
-          ;
+        ;
 
         # Security Hardening
         # Refer to systemd.exec(5) for option descriptions.

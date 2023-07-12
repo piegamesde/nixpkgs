@@ -16,7 +16,7 @@ qtModule {
       qtdeclarative
     ]
     ++ lib.optional stdenv.isDarwin GameController
-    ;
+  ;
   buildInputs = [ ];
   nativeBuildInputs = [ pkg-config ];
   outputs = [

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
         SysCPU
       ]
     )
-    ;
+  ;
 
   postInstall = ''
     substituteInPlace $out/bin/compiler_test.pl \

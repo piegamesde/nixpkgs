@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       libnetfilter_conntrack
       libnetfilter_queue
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

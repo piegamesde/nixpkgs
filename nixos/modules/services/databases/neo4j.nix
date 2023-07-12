@@ -42,7 +42,7 @@ let
         dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
       '')
       cfg.ssl.policies
-    ;
+  ;
 
   serverConfig = pkgs.writeText "neo4j.conf" ''
     # General
@@ -710,7 +710,7 @@ in
                       filter isDefaultPathOption (attrValues options)
                     )
                   )
-                ;
+              ;
             }
           )
         );
@@ -812,7 +812,7 @@ in
       };
       users.groups.neo4j = { };
     }
-    ;
+  ;
 
   meta = {
     maintainers = with lib.maintainers; [

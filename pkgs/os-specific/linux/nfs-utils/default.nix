@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       tcp_wrappers
     ]
     ++ lib.optional enablePython python3
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
       # Remove all scripts that require python (currently mountstats and nfsiostat)
       grep -l /usr/bin/python $out/bin/* | xargs -I {} rm -v {}
     ''
-    ;
+  ;
 
   # One test fails on mips.
   # doCheck = !stdenv.isMips;

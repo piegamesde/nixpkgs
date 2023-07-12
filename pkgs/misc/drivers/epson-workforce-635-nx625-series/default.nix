@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
         else
           throw
             "other platforms than i686_linux and x86_64-linux are not yet supported"
-        ;
+      ;
     in
     ''
       mkdir -p "$out" "${docdir}" "${filterdir}" "${ppddir}"
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       cp COPYING.EPSON README "${docdir}"
       cp -r resource watermark ${libdir} "$out"
     ''
-    ;
+  ;
 
   meta = {
     description = "Proprietary CUPS drivers for Epson inkjet printers";

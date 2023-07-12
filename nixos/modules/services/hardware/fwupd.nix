@@ -18,7 +18,7 @@ let
       lib.concatStringsSep ";" (
         map (s: generators.mkValueStringDefault { } s) l
       )
-      ;
+    ;
     mkKeyValue = generators.mkKeyValueDefault { } "=";
   };
 
@@ -39,14 +39,14 @@ let
       mkEtcFile = n: nameValuePair n { source = "${cfg.package}/etc/${n}"; };
     in
     listToAttrs (map mkEtcFile cfg.package.filesInstalledToEtc)
-    ;
+  ;
   extraTrustedKeys =
     let
       mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
       mkEtcFile = p: nameValuePair (mkName p) { source = p; };
     in
     listToAttrs (map mkEtcFile cfg.extraTrustedKeys)
-    ;
+  ;
 
   enableRemote =
     base: remote: {
@@ -57,7 +57,7 @@ let
         '';
       };
     }
-    ;
+  ;
   remotes = (
     foldl'
       (configFiles: remote: configFiles // (enableRemote cfg.package remote))
@@ -152,7 +152,7 @@ in
               defaultText =
                 lib.literalExpression
                   "config.boot.loader.efi.efiSysMountPoint"
-                ;
+              ;
               description = lib.mdDoc ''
                 The EFI system partition (ESP) path used if UDisks is not available
                 or if this partition is not mounted at /boot/efi, /boot, or /efi

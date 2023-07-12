@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       # all build .so plugins:
       "TC_CONFIG_NO_XT=y"
     ]
-    ;
+  ;
 
   buildFlags = [ "CONFDIR=/etc/iproute2" ];
 

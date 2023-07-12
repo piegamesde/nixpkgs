@@ -27,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
         sha256 = "0vf2qaf66jh56728pq1zbnw50yckjz6pf6c6qw6dl7vk60kkqnpb";
       }
     )
-    ;
+  ;
   sourceRoot = "source";
 
   nativeBuildInputs = [ unzip ]; # The music is zipped

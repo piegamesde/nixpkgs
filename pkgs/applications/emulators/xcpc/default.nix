@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     ]
     ++ optional libDSKSupport libdsk
     ++ optional motifSupport lesstif
-    ;
+  ;
 
   meta = {
     description = "A portable Amstrad CPC 464/664/6128 emulator written in C";

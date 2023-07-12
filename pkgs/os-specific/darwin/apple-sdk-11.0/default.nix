@@ -34,7 +34,7 @@ let
         passthru = { inherit (args) version; };
       }
     )
-    ;
+  ;
 
   MacOSX-SDK = mkSusDerivation {
     pname = "MacOSX-SDK";
@@ -85,7 +85,7 @@ let
           darwinSdkVersion = "11.0";
         };
       }
-    ;
+  ;
 
   stdenvs = {
     stdenv = mkStdenv stdenv;
@@ -132,7 +132,7 @@ let
         CoreServices
         CoreGraphics
         ImageIO
-        ;
+      ;
     };
 
     rustPlatform = pkgs.makeRustPlatform {
@@ -155,7 +155,7 @@ let
                 libcharset
                 libunwind
                 objc4
-                ;
+              ;
               apple_sdk = prev.darwin.apple_sdk_11_0;
               CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
             }

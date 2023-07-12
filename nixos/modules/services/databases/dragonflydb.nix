@@ -98,7 +98,7 @@ in
         description =
           lib.mdDoc
             "Maximum number of supported databases for `select`"
-          ;
+        ;
       };
 
       cacheMode = mkOption {

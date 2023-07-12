@@ -30,13 +30,13 @@ let
               })"'"'"''
             + " | .[0]"
             + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]"
-            ;
+          ;
           jqFiles =
             [ settingsFile ]
             ++
               lib.optional (cfg.extraSettingsFile != null)
                 cfg.extraSettingsFile
-            ;
+          ;
         in
         ''
           export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${
@@ -44,7 +44,7 @@ let
           })"
           exec ${cfg.package}/bin/invidious
         ''
-        ;
+      ;
 
       serviceConfig = {
         RestartSec = "2s";
@@ -256,7 +256,7 @@ in
         defaultText =
           lib.literalExpression
             "options.services.postgresql.port.default"
-          ;
+        ;
         description = lib.mdDoc ''
           The port of the database Invidious should use.
 

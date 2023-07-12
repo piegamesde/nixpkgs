@@ -108,7 +108,7 @@ stdenv.mkDerivation {
         make
       )
     ''
-    ;
+  ;
 
   installPhase = ''
     (

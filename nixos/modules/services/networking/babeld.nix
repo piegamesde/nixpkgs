@@ -19,7 +19,7 @@ let
     concatMapStringsSep " "
       (name: "${name} ${conditionalBoolToString (getAttr name params)}")
       (attrNames params)
-    ;
+  ;
 
   interfaceConfig =
     name:
@@ -29,7 +29,7 @@ let
     ''
       interface ${name} ${paramsString interface}
     ''
-    ;
+  ;
 
   configFile = with cfg;
     pkgs.writeText "babeld.conf" (

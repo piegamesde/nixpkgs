@@ -27,12 +27,12 @@ stdenv.mkDerivation rec {
         arch: version: ''
           mkdir -p $out/${arch}/qemupanic; cp pvpanic/${version}/${arch}/* $out/${arch}/qemupanic/. 
         ''
-        ;
+      ;
       copy_pciserial =
         arch: ''
           mkdir -p $out/${arch}/qemupciserial; cp qemupciserial/* $out/${arch}/qemupciserial/. 
         ''
-        ;
+      ;
       copy_agent =
         arch: ''
           mkdir -p $out/${arch}/qemuagent
@@ -41,14 +41,14 @@ stdenv.mkDerivation rec {
           } $out/${arch}/qemuagent/qemu-guest-agent.msi
           (cd $out/${arch}/qemuagent; ${p7zip}/bin/7z x qemu-guest-agent.msi; rm qemu-guest-agent.msi)
         ''
-        ;
+      ;
       copy =
         arch: version:
         (copy_pvpanic arch version) + (copy_pciserial arch) + (copy_agent arch)
-        ;
+      ;
     in
     (copy "amd64" "w8.1") + (copy "x86" "w8.1")
-    ;
+  ;
 
   meta = with lib; {
     description = "Windows QEMU Drivers";

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       json_c
     ]
     ++ lib.optional jackSupport libjack2
-    ;
+  ;
 
   configureFlags = lib.optional (!jackSupport) "--disable-jack";
 

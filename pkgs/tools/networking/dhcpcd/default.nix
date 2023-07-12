@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
           "--privsepuser=dhcpcd"
         ]
     )
-    ;
+  ;
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

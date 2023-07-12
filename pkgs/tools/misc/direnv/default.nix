@@ -25,7 +25,7 @@ buildGoModule rec {
   BASH_PATH =
     lib.optionalString (!stdenv.hostPlatform.isWindows)
       "${bash}/bin/bash"
-    ;
+  ;
 
   # replace the build phase to use the GNUMakefile instead
   buildPhase = ''

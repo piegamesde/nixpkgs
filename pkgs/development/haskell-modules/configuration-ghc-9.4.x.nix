@@ -12,7 +12,7 @@ let
     else
       builtins.throw
         "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this"
-    ;
+  ;
 in
 
 with haskellLib;
@@ -61,7 +61,7 @@ in
       null
     else
       self.terminfo_0_4_1_6
-    ;
+  ;
   text = null;
   time = null;
   transformers = null;
@@ -78,7 +78,7 @@ in
   ghc-source-gen =
     checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build"
       (markBroken super.ghc-source-gen)
-    ;
+  ;
 
   haskell-src-meta = doJailbreak super.haskell-src-meta;
 
@@ -101,7 +101,7 @@ in
           "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal";
       })
       super.cpphs
-    ;
+  ;
   data-fix = doJailbreak super.data-fix;
   dec = doJailbreak super.dec;
   ed25519 = doJailbreak super.ed25519;
@@ -115,14 +115,14 @@ in
     overrideCabal
       (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
       (doJailbreak super.HTTP)
-    ;
+  ;
   integer-logarithms =
     overrideCabal
       (drv: {
         postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal";
       })
       (doJailbreak super.integer-logarithms)
-    ;
+  ;
   lifted-async = doJailbreak super.lifted-async;
   lukko = doJailbreak super.lukko;
   lzma-conduit = doJailbreak super.lzma-conduit;
@@ -132,7 +132,7 @@ in
     overrideCabal
       (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; })
       (doJailbreak super.polyparse)
-    ;
+  ;
   primitive = dontCheck (doJailbreak self.primitive_0_7_4_0);
   regex-posix = doJailbreak super.regex-posix;
   resolv = doJailbreak super.resolv;
@@ -176,10 +176,10 @@ in
         testFlags =
           [ "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/" ]
           ++ drv.testFlags or [ ]
-          ;
+        ;
       })
       (doJailbreak super.hpack)
-    ;
+  ;
 
   lens = doDistribute self.lens_5_2_2;
 
@@ -192,7 +192,7 @@ in
         sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
       })
       (doJailbreak super.language-haskell-extract)
-    ;
+  ;
 
   # Tests depend on `parseTime` which is no longer available
   hourglass = dontCheck super.hourglass;
@@ -233,7 +233,7 @@ in
         ];
       })
       self.ghc-exactprint_1_6_1_1
-    ;
+  ;
 
   # needed to build servant
   http-api-data = super.http-api-data_0_5_1;
@@ -260,7 +260,7 @@ in
         relative = "cborg";
       })
       super.cborg
-    ;
+  ;
 
   ormolu = doDistribute self.ormolu_0_5_3_0;
   # https://github.com/tweag/ormolu/issues/941
@@ -271,7 +271,7 @@ in
           drv.libraryHaskellDepends ++ [ self.file-embed ];
       })
       (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0)
-    ;
+  ;
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455
   # by making `pkg-config --static` happy. Note: Cabal 3.9 is also affected, so
@@ -288,7 +288,7 @@ in
   gtk2hs-buildtools =
     appendPatch ./patches/gtk2hs-buildtools-fix-ghc-9.4.x.patch
       super.gtk2hs-buildtools
-    ;
+  ;
 
   # Pending text-2.0 support https://github.com/gtk2hs/gtk2hs/issues/327
   gtk = doJailbreak super.gtk;

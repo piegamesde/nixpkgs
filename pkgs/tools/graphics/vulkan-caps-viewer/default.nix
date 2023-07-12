@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       wayland
     ]
     ++ lib.lists.optionals withX11 [ qtx11extras ]
-    ;
+  ;
 
   patchPhase = ''
     substituteInPlace vulkanCapsViewer.pro \

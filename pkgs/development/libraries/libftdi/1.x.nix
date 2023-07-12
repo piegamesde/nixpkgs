@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       graphviz
     ]
     ++ optionals pythonSupport [ swig ]
-    ;
+  ;
 
   buildInputs = [ libconfuse ] ++ optionals cppSupport [ boost ];
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       "-DPYTHON_EXECUTABLE=${python3.pythonForBuild.interpreter}"
       "-DPYTHON_LIBRARY=${python3}/lib/libpython${python3.pythonVersion}${stdenv.hostPlatform.extensions.sharedLibrary}"
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ libusb1 ];
 
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       cp -r doc/man "$out/share/"
       cp -r doc/html "$out/share/doc/libftdi1/"
     ''
-    ;
+  ;
 
   postFixup = optionalString cppSupport ''
     # This gets misassigned to the C++ version's path for some reason

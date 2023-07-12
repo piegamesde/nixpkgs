@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     }
     .${stdenv.hostPlatform.system}
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}")
-    ;
+  ;
 
   nativeBuildInputs = [
     autoPatchelfHook

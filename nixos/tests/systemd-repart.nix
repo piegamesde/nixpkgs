@@ -44,7 +44,7 @@ let
       # Set NIX_DISK_IMAGE so that the qemu script finds the right disk image.
       os.environ['NIX_DISK_IMAGE'] = tmp_disk_image.name
     ''
-    ;
+  ;
 
   common =
     {
@@ -85,7 +85,7 @@ let
         copyChannel = false;
       };
     }
-    ;
+  ;
 in
 {
   basic = makeTest {
@@ -107,7 +107,7 @@ in
           "10-root" = { Type = "linux-generic"; };
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -122,7 +122,7 @@ in
         systemd_repart_logs = machine.succeed("journalctl --boot --unit systemd-repart.service")
         assert "Growing existing partition 1." in systemd_repart_logs
       ''
-      ;
+    ;
   };
 
   after-initrd = makeTest {
@@ -142,7 +142,7 @@ in
           "10-root" = { Type = "linux-generic"; };
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -157,6 +157,6 @@ in
         systemd_repart_logs = machine.succeed("journalctl --unit systemd-repart.service")
         assert "Growing existing partition 1." in systemd_repart_logs
       ''
-      ;
+    ;
   };
 }

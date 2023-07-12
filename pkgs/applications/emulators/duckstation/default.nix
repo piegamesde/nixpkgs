@@ -44,7 +44,7 @@ stdenv.mkDerivation {
       wrapQtAppsHook
     ]
     ++ lib.optionals enableWayland [ extra-cmake-modules ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -61,7 +61,7 @@ stdenv.mkDerivation {
       qtwayland
       wayland
     ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DUSE_DRMKMS=ON" ] ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];

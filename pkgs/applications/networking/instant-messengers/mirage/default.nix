@@ -48,7 +48,7 @@ mkDerivation rec {
       qtquickcontrols2
     ]
     ++ pythonPath
-    ;
+  ;
 
   pythonPath = with python3Packages;
     [

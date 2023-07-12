@@ -38,7 +38,7 @@ let
         xs = lib.filter (p: f x != f p) (lib.drop 1 list);
       in
       [ x ] ++ nubOn f xs
-    ;
+  ;
 
   /* Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
 
@@ -69,7 +69,7 @@ let
               # We cannot always use `meta.position` since it might not be available
               # or it might be shared among multiple packages.
             }
-            ;
+          ;
 
           dedupResults =
             lst: nubOn somewhatUniqueRepresentant (lib.concatLists lst);
@@ -101,10 +101,10 @@ let
             [ ]
         else
           [ ]
-        ;
+      ;
     in
     packagesWithPathInner rootPath pkgs
-    ;
+  ;
 
   # Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
   packagesWith = packagesWithPath [ ];
@@ -115,7 +115,7 @@ let
     packagesWith (
       path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg
     )
-    ;
+  ;
 
   # Recursively find all packages in `pkgs` with updateScript by given maintainer.
   packagesWithUpdateScriptAndMaintainer =
@@ -127,7 +127,7 @@ let
             "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
         else
           builtins.getAttr maintainer' lib.maintainers
-        ;
+      ;
     in
     packagesWithUpdateScriptMatchingPredicate (
       path: pkg:
@@ -143,7 +143,7 @@ let
           false
       )
     )
-    ;
+  ;
 
   # Recursively find all packages under `path` in `pkgs` with updateScript.
   packagesWithUpdateScript =
@@ -157,7 +157,7 @@ let
     else
       packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg)
         pathContent
-    ;
+  ;
 
   # Find a package under `path` in `pkgs` and require that it has an updateScript.
   packageByName =
@@ -175,7 +175,7 @@ let
         attrPath = path;
         inherit package;
       }
-    ;
+  ;
 
   # List of packages matched based on the CLI arguments.
   packages =
@@ -192,7 +192,7 @@ let
         No arguments provided.
 
         ${helpText}''
-    ;
+  ;
 
   helpText = ''
     Please run:
@@ -245,7 +245,7 @@ let
       supportedFeatures = package.updateScript.supportedFeatures or [ ];
       attrPath = package.updateScript.attrPath or attrPath;
     }
-    ;
+  ;
 
   # JSON file with data for update.py.
   packagesJson = pkgs.writeText "packages.json" (
@@ -256,7 +256,7 @@ let
     lib.optional (max-workers != null) "--max-workers=${max-workers}"
     ++ lib.optional (keep-going == "true") "--keep-going"
     ++ lib.optional (commit == "true") "--commit"
-    ;
+  ;
 
   args = [ packagesJson ] ++ optionalArgs;
 in

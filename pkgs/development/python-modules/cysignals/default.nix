@@ -40,7 +40,7 @@ buildPythonPackage rec {
       # pari.
       pari
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ autoreconfHook ];
 

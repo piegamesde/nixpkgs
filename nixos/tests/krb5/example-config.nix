@@ -54,7 +54,7 @@ import ../make-test-python.nix (
           '';
         };
       }
-      ;
+    ;
 
     testScript =
       let
@@ -107,6 +107,6 @@ import ../make-test-python.nix (
             "diff /etc/krb5.conf ${snapshot}"
         )
       ''
-      ;
+    ;
   }
 )

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_SKIP_BUILD_RPATH=ON"
     ]
     ++ lib.optionals freedvSupport [ "-DLPCNET=ON" ]
-    ;
+  ;
 
   meta = with lib; {
     description =

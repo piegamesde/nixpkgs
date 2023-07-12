@@ -58,7 +58,7 @@ buildPythonPackage rec {
       vcrpy
     ]
     ++ passthru.optional-dependencies.all
-    ;
+  ;
 
   passthru.optional-dependencies = {
     all = [

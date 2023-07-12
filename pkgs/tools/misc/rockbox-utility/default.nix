@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       qt5.qttools
     ]
     ++ lib.optional withEspeak espeak
-    ;
+  ;
 
   postPatch = ''
     sed -i rbutil/rbutilqt/rbutilqt.pro \

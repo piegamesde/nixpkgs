@@ -43,7 +43,7 @@ buildPythonPackage rec {
       six
     ]
     ++ lib.optionals withCuda [ cudatoolkit ]
-    ;
+  ;
 
   patches = [ ./nix-support.patch ];
 

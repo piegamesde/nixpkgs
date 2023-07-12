@@ -19,7 +19,7 @@ let
       "arm64"
     else
       hostPlatform.parsed.cpu.name
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "ldc-bootstrap";
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   nativeBuildInputs =
     lib.optionals hostPlatform.isLinux [ autoPatchelfHook ]
     ++ lib.optional hostPlatform.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     libxml2

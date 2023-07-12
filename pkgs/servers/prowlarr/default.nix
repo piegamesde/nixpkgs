@@ -20,7 +20,7 @@ let
   unsupported =
     throw
       "Unsupported system ${stdenv.hostPlatform.system} for ${pname}"
-    ;
+  ;
 
   os =
     if stdenv.isDarwin then
@@ -29,7 +29,7 @@ let
       "linux"
     else
       unsupported
-    ;
+  ;
 
   arch =
     {

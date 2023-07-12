@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
       SystemConfiguration
       AppKit
     ]
-    ;
+  ;
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
   checkFlags =
     [ "--skip=kbs2::config::tests::test_find_config_dir" ]
     ++ lib.optionals stdenv.isDarwin [ "--skip=test_ragelib_rewrap_keyfile" ]
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $out/share/kbs2

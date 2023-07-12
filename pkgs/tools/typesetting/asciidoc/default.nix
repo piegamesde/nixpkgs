@@ -109,7 +109,7 @@ let
       url = "https://api.github.com/repos/lvv/mplw/tarball/${commit}";
       sha256 = "0yfhkm2dr8gnp0fcg25x89hwiymkri2m5cyqzmzragzwj0hbmcf1";
     }
-    ;
+  ;
 
   aafigureFilterSrc = fetchurl {
     url =
@@ -144,7 +144,7 @@ python3.pkgs.buildPythonApplication rec {
     "asciidoc"
     + lib.optionalString enableStandardFeatures "-full"
     + lib.optionalString enableExtraPlugins "-with-plugins"
-    ;
+  ;
   version = "10.2.0";
 
   src = fetchFromGitHub {

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       Foundation
       IOKit
     ]
-    ;
+  ;
 
   # Help CMake find SDL_mixer.h
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DBUNDLE_DEPENDENCIES=OFF" ]
     ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON"
-    ;
+  ;
 
   desktopItems = [
     (makeDesktopItem {
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       +
         lib.optionalString makeAndPlay
           " (redistributable, without original levels)"
-      ;
+    ;
     longDescription =
       ''
         VVVVVV is a platform game all about exploring one simple mechanical
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       + lib.optionalString makeAndPlay ''
         (Redistributable version, doesn't include the original levels.)
       ''
-      ;
+    ;
     homepage = "https://thelettervsixtim.es";
     license = licenses.unfree;
     maintainers = with maintainers; [ martfont ];

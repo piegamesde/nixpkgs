@@ -16,7 +16,7 @@ let
   generatedDerivations =
     lib.filterAttrs (_: lib.isDerivation)
       generatedGrammars
-    ;
+  ;
 
   # add aliases so grammars from `tree-sitter` are overwritten in `withPlugins`
   # for example, for ocaml_interface, the following aliases will be added
@@ -57,7 +57,7 @@ let
       mkdir -p $out/parser
       ln -s ${grammar}/parser $out/parser/${name}.so
     ''
-    ;
+  ;
 
   allGrammars = lib.attrValues generatedDerivations;
 
@@ -74,7 +74,7 @@ let
         );
       }
     )
-    ;
+  ;
 
   withAllGrammars = withPlugins (_: allGrammars);
 in
@@ -91,7 +91,7 @@ in
       grammarToPlugin
       withPlugins
       withAllGrammars
-      ;
+    ;
 
     grammarPlugins = lib.mapAttrs (_: grammarToPlugin) generatedDerivations;
 
@@ -118,7 +118,7 @@ in
             exit 1
           fi
         ''
-      ;
+    ;
   };
 
   meta = with lib;

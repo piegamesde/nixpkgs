@@ -24,7 +24,7 @@ let
           description =
             lib.mdDoc
               "The name of the zope2 instance. If undefined, the name of the attribute set will be used."
-            ;
+          ;
         };
 
         threads = mkOption {
@@ -33,7 +33,7 @@ let
           description =
             lib.mdDoc
               "Specify the number of threads that Zope's ZServer web server will use to service requests. "
-            ;
+          ;
         };
 
         http_address = mkOption {
@@ -42,7 +42,7 @@ let
           description =
             lib.mdDoc
               "Give a port and address for the HTTP server."
-            ;
+          ;
         };
 
         user = mkOption {
@@ -51,7 +51,7 @@ let
           description =
             lib.mdDoc
               "The name of the effective user for the Zope process."
-            ;
+          ;
         };
 
         clientHome = mkOption {
@@ -81,11 +81,11 @@ let
           description =
             lib.mdDoc
               "The list of packages you want to make available to the zope2 instance."
-            ;
+          ;
         };
       };
     }
-    ;
+  ;
 in
 
 {
@@ -120,7 +120,7 @@ in
       description =
         lib.mdDoc
           "zope2 instances to be created automatically by the system."
-        ;
+      ;
     };
   };
 
@@ -178,7 +178,7 @@ in
                 ]
                 ++ attrValues pkgs.python27.modules
                 ++ opts.packages
-                ;
+              ;
               postBuild = ''
                 echo "#!$out/bin/python" > $out/bin/interpreter
                 cat ${interpreter} >> $out/bin/interpreter
@@ -280,7 +280,7 @@ in
             serviceConfig.ExecStop = "${ctl} stop";
             serviceConfig.ExecReload = "${ctl} restart";
           }
-          ;
+        ;
       in
       listToAttrs (
         map
@@ -289,10 +289,10 @@ in
             value =
               createZope2Instance (builtins.getAttr name cfg.instances)
                 name
-              ;
+            ;
           })
           (builtins.attrNames cfg.instances)
       )
-      ;
+    ;
   };
 }

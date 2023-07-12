@@ -37,7 +37,7 @@ buildPythonPackage rec {
       scipy
     ]
     ++ lib.optionals (!isPy3k) [ enum34 ]
-    ;
+  ;
 
   doCheck = true;
   nativeCheckInputs = [ pytest ];

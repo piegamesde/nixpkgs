@@ -30,7 +30,7 @@ buildDunePackage rec {
       dune-configurator
     ]
     ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
-    ;
+  ;
 
   doCheck =
     !(
@@ -38,7 +38,7 @@ buildDunePackage rec {
       # https://github.com/Chris00/ocaml-cairo/issues/19
       || lib.versionAtLeast ocaml.version "4.10"
     )
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/Chris00/ocaml-cairo";

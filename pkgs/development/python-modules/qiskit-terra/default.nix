@@ -77,7 +77,7 @@ buildPythonPackage rec {
         cargoSetupHook
       ]
     )
-    ;
+  ;
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -104,7 +104,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals withVisualization visualizationPackages
     ++ lib.optionals withCrosstalkPass crosstalkPackages
-    ;
+  ;
 
   # *** Tests ***
   nativeCheckInputs =
@@ -116,7 +116,7 @@ buildPythonPackage rec {
       nbconvert
     ]
     ++ lib.optionals (!withVisualization) visualizationPackages
-    ;
+  ;
 
   pythonImportsCheck = [
     "qiskit"
@@ -191,7 +191,7 @@ buildPythonPackage rec {
       "test_dag_from_networkx"
       "test_defaults_to_dict_46"
     ]
-    ;
+  ;
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
   # cythonized modules and expecting to find some resource files in the test directory.

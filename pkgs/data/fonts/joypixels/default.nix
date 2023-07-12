@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
         .${kernel.name}
           or "17gjaz7353zyprmds64p01qivy2r8pwf88nvvhi57idas2qd604n";
     }
-    ;
+  ;
 
   dontUnpack = true;
 
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
         appendixUrl = appendix.url;
         free = false;
       }
-      ;
+    ;
     maintainers = with maintainers; [
       toonn
       jtojnar

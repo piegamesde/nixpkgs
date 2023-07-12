@@ -32,7 +32,7 @@ let
       "qemu-i386"
     else
       throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!"
-    ;
+  ;
   libdislocator = callPackage ./libdislocator.nix { inherit aflplusplus; };
   libtokencap = callPackage ./libtokencap.nix { inherit aflplusplus; };
   aflplusplus = stdenvNoCC.mkDerivation rec {
@@ -62,7 +62,7 @@ let
         gmp
       ]
       ++ lib.optional (wine != null) python.pkgs.wrapPython
-      ;
+    ;
 
     postPatch = ''
       # Replace the CLANG_BIN variables with the correct path
@@ -141,7 +141,7 @@ let
         makeWrapperArgs="--set-default 'AFL_WINE_PATH' '$winePath'" \
           wrapPythonProgramsIn $out/bin ${python.pkgs.pefile}
       ''
-      ;
+    ;
 
     nativeInstallCheckInputs = [
       perl

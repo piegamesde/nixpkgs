@@ -37,7 +37,7 @@ buildGoModule rec {
           "$out"
         else
           buildPackages.stern
-        ;
+      ;
     in
     ''
       for shell in bash zsh; do
@@ -45,7 +45,7 @@ buildGoModule rec {
         installShellCompletion stern.$shell
       done
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Multi pod and container log tailing for Kubernetes";

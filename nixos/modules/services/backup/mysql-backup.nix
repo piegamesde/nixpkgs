@@ -37,7 +37,7 @@ let
         failed="$failed ${db}"
       fi
     ''
-    ;
+  ;
 in
 
 {
@@ -107,7 +107,7 @@ in
           grant = db: nameValuePair "${db}.*" privs;
         in
         listToAttrs (map grant cfg.databases)
-        ;
+      ;
     } ];
 
     systemd = {

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   patches =
     lib.optional stdenv.hostPlatform.isLoongArch64
       ./loong-fix-build.patch
-    ;
+  ;
   postPatch =
     if stdenv.hostPlatform.isLoongArch64 then
       ''
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   strictDeps = true;
   enableParallelBuilding = true;
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--with-syscmd-shell=${stdenv.shell}" ]
     ++ lib.optional stdenv.hostPlatform.isMinGW "CFLAGS=-fno-stack-protector"
-    ;
+  ;
 
   meta = {
     description = "GNU M4, a macro processor";

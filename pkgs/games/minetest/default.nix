@@ -97,7 +97,7 @@ let
         ]
         ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ]
         ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ]
-        ;
+      ;
 
       env.NIX_CFLAGS_COMPILE =
         "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
@@ -145,7 +145,7 @@ let
           hiredis
           prometheus-cpp
         ]
-        ;
+      ;
 
       postPatch =
         ''
@@ -154,7 +154,7 @@ let
         + lib.optionalString stdenv.isDarwin ''
           sed -i '/pagezero_size/d;/fixup_bundle/d' src/CMakeLists.txt
         ''
-        ;
+      ;
 
       postInstall =
         lib.optionalString stdenv.isLinux ''
@@ -166,7 +166,7 @@ let
           mkdir -p $out/Applications
           mv $out/minetest.app $out/Applications
         ''
-        ;
+      ;
 
       meta = with lib; {
         homepage = "http://minetest.net/";
@@ -180,7 +180,7 @@ let
         ];
       };
     }
-    ;
+  ;
 
   v5 = {
     version = "5.7.0";
@@ -196,7 +196,7 @@ let
         buildServer = false;
       }
     )
-    ;
+  ;
   mkServer =
     version:
     generic (
@@ -205,7 +205,7 @@ let
         buildServer = true;
       }
     )
-    ;
+  ;
 in
 {
   minetestclient_5 = mkClient v5;

@@ -41,14 +41,14 @@ stdenv.mkDerivation rec {
       IOKit
       Security
     ]
-    ;
+  ;
 
   dontDisableStatic = withStatic;
 
   configureFlags =
     lib.optional (!enableUdev) "--disable-udev"
     ++ lib.optional (withExamples) "--enable-examples-build"
-    ;
+  ;
 
   preFixup = lib.optionalString enableUdev ''
     sed 's,-ludev,-L${lib.getLib udev}/lib -ludev,' -i $out/lib/libusb-1.0.la

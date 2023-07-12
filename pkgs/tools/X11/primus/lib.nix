@@ -18,7 +18,7 @@ let
       libglvnd
     else
       nvidia_x11
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "primus-lib";

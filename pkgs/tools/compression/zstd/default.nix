@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
         LEGACY_SUPPORT = legacySupport;
         BUILD_TESTS = doCheck;
       }
-    ;
+  ;
 
   cmakeDir = "../build/cmake";
   dontUseCmakeBuildDir = true;
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
         install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
       ''
     )
-    ;
+  ;
 
   outputs =
     [
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.hostPlatform.isUnix "man"
     ++ [ "out" ]
-    ;
+  ;
 
   passthru = {
     updateScript = nix-update-script { };

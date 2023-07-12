@@ -33,7 +33,7 @@ buildPythonPackage rec {
       secretstorage
     ]
     ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ]
-    ;
+  ;
 
   pythonImportsCheck = [
     "keyring"

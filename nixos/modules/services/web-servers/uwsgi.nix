@@ -32,7 +32,7 @@ let
             "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
         else
           c.plugins or cfg.plugins
-        ;
+      ;
       plugins = unique plugins';
 
       hasPython = v: filter (n: n == "python${v}") plugins != [ ];
@@ -49,7 +49,7 @@ let
           cfg.package.python3
         else
           null
-        ;
+      ;
 
       pythonEnv = python.withPackages (c.pythonPackages or (self: [ ]));
 
@@ -70,11 +70,11 @@ let
                   oldPaths =
                     map (x: substring (stringLength "PATH=") (stringLength x) x)
                       envs.right
-                    ;
+                  ;
                   paths = oldPaths ++ [ "${pythonEnv}/bin" ];
                 in
                 [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong
-                ;
+              ;
             }
           else if isEmperor then
             {
@@ -86,7 +86,7 @@ let
                     name = "vassals";
                     paths = mapAttrsToList buildCfg c.vassals;
                   }
-                ;
+              ;
             } // removeAttrs c [
               "type"
               "vassals"
@@ -94,11 +94,11 @@ let
           else
             throw
               "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'"
-          ;
+        ;
       };
     in
     pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg)
-    ;
+  ;
 in
 {
 
@@ -146,7 +146,7 @@ in
             };
           in
           valueType
-          ;
+        ;
         default = { type = "normal"; };
         example = literalExpression ''
           {

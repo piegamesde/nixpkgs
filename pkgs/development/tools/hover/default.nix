@@ -100,7 +100,7 @@ buildFHSEnv rec {
       roboto
     ]
     ++ libs
-    ;
+  ;
 
   runScript = "hover";
 }

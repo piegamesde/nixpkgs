@@ -38,7 +38,7 @@ stdenv.mkDerivation (
       [ portaudio ]
       ++ lib.optional stdenv.isLinux alsa-lib
       ++ lib.optional pulseaudioSupport libpulseaudio
-      ;
+    ;
 
     preConfigure = ''
       ./autogen.sh

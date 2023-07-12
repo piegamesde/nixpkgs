@@ -32,7 +32,7 @@ import ./make-test-python.nix (
           pdfgrep
         ];
       }
-      ;
+    ;
 
     enableOCR = true;
 
@@ -110,6 +110,6 @@ import ./make-test-python.nix (
 
         machine.screenshot("MuseScore5")
       ''
-      ;
+    ;
   }
 )

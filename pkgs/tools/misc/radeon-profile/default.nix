@@ -30,7 +30,7 @@ mkDerivation rec {
       sha256 = "0z6a9w79s5wiy8cvwcdp5wmgf6702d0wzw95f6176yhp4cwy4cq2";
     })
     + "/radeon-profile"
-    ;
+  ;
 
   preConfigure = ''
     substituteInPlace radeon-profile.pro \

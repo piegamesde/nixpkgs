@@ -27,7 +27,7 @@
             "144xr23kq2ljhzzvac6w2s120s96jfaccaishb9lqmrx0a8gkq949ccyf3qmv6srryflsqc0sksl7rr3294iwjgwj04xidhd8c5jycd";
         }
       ]
-    ;
+  ;
 
   plexusContainerDefault_1_0_alpha9_stable1 =
     map
@@ -53,7 +53,7 @@
             "1gnm9ivwrkr3aqpnmdl34hkx53189wxj9acp2fms8inhznrxqcyyk355gpgzwvs9qpgdis1q88mj1fy3x1v3ffa3b6wi758p95q79jc";
         }
       ]
-    ;
+  ;
 
   plexusContainerDefault_1_5_5 =
     map
@@ -79,5 +79,5 @@
             "2axphhx8xiii80gbf9gmm6qrm6m4ws4fbdcmghzfsn1yvmmjsj7x1c15g5mkq0lhh0skscibqifsxh44qix21qfkxr532681jh5qq5h";
         }
       ]
-    ;
+  ;
 }

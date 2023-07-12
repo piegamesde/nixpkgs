@@ -38,7 +38,7 @@ let
           react
         ];
       }
-    ;
+  ;
 in
 
 buildDunePackage rec {

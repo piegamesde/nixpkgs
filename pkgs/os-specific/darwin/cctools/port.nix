@@ -22,7 +22,7 @@ let
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
       "${stdenv.targetPlatform.config}-"
-    ;
+  ;
 in
 
 # Non-Darwin alternatives
@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     [ libuuid ]
     ++ lib.optionals stdenv.isDarwin [ libobjc ]
     ++ lib.optional enableTapiSupport libtapi
-    ;
+  ;
 
   patches =
     [
@@ -78,7 +78,7 @@ stdenv.mkDerivation {
       })
     ]
     ++ lib.optional stdenv.isDarwin ./darwin-no-memstream.patch
-    ;
+  ;
 
   __propagatedImpureHostDeps = [
     # As far as I can tell, otool from cctools is the only thing that depends on these two, and we should fix them
@@ -95,14 +95,14 @@ stdenv.mkDerivation {
       "host"
     ]
     ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target"
-    ;
+  ;
   configureFlags =
     [ "--disable-clang-as" ]
     ++ lib.optionals enableTapiSupport [
       "--enable-tapi-support"
       "--with-libtapi=${libtapi}"
     ]
-    ;
+  ;
 
   postPatch =
     lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -125,7 +125,7 @@ stdenv.mkDerivation {
 
       cd cctools
     ''
-    ;
+  ;
 
   preInstall = ''
     installManPage ar/ar.{1,5}

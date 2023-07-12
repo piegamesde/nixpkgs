@@ -49,7 +49,7 @@ let
                       }
                     ]
                   )
-                ;
+              ;
             }
           )
       ) // {
@@ -113,10 +113,10 @@ let
                     "release"
                   ]
                   (variant: [ linux-flutter-gtk ])
-                ;
+              ;
             }
           )
-        ;
+      ;
     };
   };
 
@@ -133,11 +133,11 @@ let
           null
         else
           "${platform}${lib.optionalString (variant != null) "-${variant}"}"
-        ;
+      ;
       archiveBasename =
         lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}"
           archive
-        ;
+      ;
     in
     stdenv.mkDerivation (
       {
@@ -167,7 +167,7 @@ let
         installPhase = "cp -r . $out";
       } // args
     )
-    ;
+  ;
 
   artifactDerivations = {
     common = builtins.mapAttrs (name: mkArtifactDerivation) artifacts.common;
@@ -186,7 +186,7 @@ let
                     )
                   )
                   variants.base
-                ;
+              ;
               variants =
                 builtins.mapAttrs
                   (
@@ -204,12 +204,12 @@ let
                       variantArtifacts
                   )
                   variants.variants
-                ;
+              ;
             })
             architectures
         )
         artifacts.platform
-      ;
+    ;
   };
 in
 artifactDerivations

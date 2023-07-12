@@ -57,11 +57,11 @@ import ./make-test-python.nix (
                   GRANT ALL PRIVILEGES ON DATABASE invidious TO kemal;
                 '';
               }
-              ;
+            ;
           };
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -95,6 +95,6 @@ import ./make-test-python.nix (
         machine.wait_for_open_port(port)
         curl_assert_status_code(f"{url}/search", 200)
       ''
-      ;
+    ;
   }
 )

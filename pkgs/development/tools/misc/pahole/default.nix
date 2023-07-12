@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       argp-standalone
       musl-obstack
     ]
-    ;
+  ;
 
   # Put libraries in "lib" subdirectory, not top level of $out
   cmakeFlags = [

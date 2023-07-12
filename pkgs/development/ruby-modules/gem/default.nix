@@ -93,7 +93,7 @@ lib.makeOverridable (
         "-N"
       else
         "--document ${lib.concatStringsSep "," document}"
-      ;
+    ;
   in
 
   stdenv.mkDerivation (
@@ -111,7 +111,7 @@ lib.makeOverridable (
         ++ lib.optionals (type == "git") [ gitMinimal ]
         ++ lib.optionals (type != "gem") [ bundler ]
         ++ nativeBuildInputs
-        ;
+      ;
 
       buildInputs =
         [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ buildInputs;

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
         CT14nlo
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     patchShebangs ./

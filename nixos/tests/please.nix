@@ -41,7 +41,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       with subtest("root: can run anything by default"):

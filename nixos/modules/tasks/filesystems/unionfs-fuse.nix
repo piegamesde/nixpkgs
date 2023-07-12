@@ -28,7 +28,7 @@
                   --replace '${pkgs.unionfs-fuse}/bin' /bin
                 chmod +x $out/bin/mount.unionfs-fuse
               ''
-            ;
+          ;
 
           boot.initrd.postDeviceCommands =
             lib.mkIf (!config.boot.initrd.systemd.enable)
@@ -38,7 +38,7 @@
                 ln -s $(which mount) /nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-${pkgs.util-linux.name}-bin/bin
                 ln -s $(which umount) /nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-${pkgs.util-linux.name}-bin/bin
               ''
-            ;
+          ;
 
           boot.initrd.systemd.extraBin = {
             "mount.fuse" = "${pkgs.fuse}/bin/mount.fuse";

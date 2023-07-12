@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isGnu ''
       cp ./examples/ucontext-cp $bin/bin/io_uring-ucontext-cp
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Userspace library for the Linux io_uring API";

@@ -83,7 +83,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytest-xdist

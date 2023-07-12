@@ -19,7 +19,7 @@ import ./make-test-python.nix (
           port = 3000;
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

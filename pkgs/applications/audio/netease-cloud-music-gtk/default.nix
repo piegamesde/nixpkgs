@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       Foundation
       SystemConfiguration
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A Rust + GTK based netease cloud music player";

@@ -14,7 +14,7 @@ let
         mapAttrsToList (name: value: "-o '${name}'='${value}'") options
       )
     )
-    ;
+  ;
   ensurePrinter =
     p: ''
       ${pkgs.cups}/bin/lpadmin -p '${p.name}' -E \
@@ -24,12 +24,12 @@ let
         -m '${p.model}' \
         ${ppdOptionsString p.ppdOptions}
     ''
-    ;
+  ;
   ensureDefaultPrinter =
     name: ''
       ${pkgs.cups}/bin/lpadmin -d '${name}'
     ''
-    ;
+  ;
 
   # "graph but not # or /" can't be implemented as regex alone due to missing lookahead support
   noInvalidChars = str: all (c: c != "#" && c != "/") (stringToCharacters str);

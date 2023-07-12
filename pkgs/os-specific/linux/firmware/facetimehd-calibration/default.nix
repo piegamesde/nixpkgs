@@ -83,7 +83,7 @@ stdenvNoCC.mkDerivation {
           ''
         )
         calibrationFiles
-    ;
+  ;
 
   meta = with lib; {
     description = "facetimehd calibration";

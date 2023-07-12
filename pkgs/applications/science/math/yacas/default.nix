@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ lib.optionals enableJava [ openjdk ]
-    ;
+  ;
   buildInputs =
     [ ]
     ++ lib.optionals enableGui [
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       openssl
       zmqpp
     ]
-    ;
+  ;
 
   meta = {
     description =

@@ -20,7 +20,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable fcgiwrap, a server for running CGI applications over FastCGI."
-          ;
+        ;
       };
 
       preforkProcesses = mkOption {
@@ -46,7 +46,7 @@ in
         description =
           lib.mdDoc
             "Socket address. In case of a UNIX socket, this should be its filesystem path."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -97,6 +97,6 @@ in
         }
       else
         { }
-      ;
+    ;
   };
 }

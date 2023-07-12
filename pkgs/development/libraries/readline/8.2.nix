@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
               "mirror://gnu/readline/readline-${meta.branch}-patches/readline82-${nr}";
             inherit sha256;
           }
-          ;
+        ;
       in
       import ./readline-8.2-patches.nix patch
     );
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       ./no-arch_only-8.2.patch
     ]
     ++ upstreamPatches
-    ;
+  ;
 
   meta = with lib; {
     description = "Library for interactive line editing";

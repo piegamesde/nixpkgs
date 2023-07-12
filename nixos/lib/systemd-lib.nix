@@ -31,13 +31,13 @@ rec {
         ""
         ""
       ]
-    ;
+  ;
 
   # a type for options that take a unit name
   unitNameType =
     types.strMatching
       "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)"
-    ;
+  ;
 
   makeUnit =
     name: unit:
@@ -64,7 +64,7 @@ rec {
           mkdir -p "$out/$(dirname "$name")"
           ln -s /dev/null "$out/$name"
         ''
-    ;
+  ;
 
   boolValues = [
     true
@@ -92,13 +92,13 @@ rec {
       ++ digits
     )
     && all (num: elem num digits) nums
-    ;
+  ;
 
   assertByteFormat =
     name: group: attr:
     optional (attr ? ${name} && !isByteFormat attr.${name})
       "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT]."
-    ;
+  ;
 
   hexChars = stringToCharacters "0123456789abcdefABCDEF";
 
@@ -108,13 +108,13 @@ rec {
     && flip all (splitString ":" s) (
       bytes: all (byte: elem byte hexChars) (stringToCharacters bytes)
     )
-    ;
+  ;
 
   assertMacAddress =
     name: group: attr:
     optional (attr ? ${name} && !isMacAddress attr.${name})
       "Systemd ${group} field `${name}' must be a valid mac address."
-    ;
+  ;
 
   isPort = i: i >= 0 && i <= 65535;
 
@@ -122,7 +122,7 @@ rec {
     name: group: attr:
     optional (attr ? ${name} && !isPort attr.${name})
       "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number."
-    ;
+  ;
 
   assertValueOneOf =
     name: values: group: attr:
@@ -130,12 +130,12 @@ rec {
       "Systemd ${group} field `${name}' cannot have value `${
         toString attr.${name}
       }'."
-    ;
+  ;
 
   assertHasField =
     name: group: attr:
     optional (!(attr ? ${name})) "Systemd ${group} field `${name}' must exist."
-    ;
+  ;
 
   assertRange =
     name: min: max: group: attr:
@@ -143,7 +143,7 @@ rec {
       "Systemd ${group} field `${name}' is outside the range [${toString min},${
         toString max
       }]"
-    ;
+  ;
 
   assertMinimum =
     name: min: group: attr:
@@ -151,7 +151,7 @@ rec {
       "Systemd ${group} field `${name}' must be greater than or equal to ${
         toString min
       }"
-    ;
+  ;
 
   assertOnlyFields =
     fields: group: attr:
@@ -161,13 +161,13 @@ rec {
     optional (badFields != [ ]) "Systemd ${group} has extra fields [${
         concatStringsSep " " badFields
       }]."
-    ;
+  ;
 
   assertInt =
     name: group: attr:
     optional (attr ? ${name} && !isInt attr.${name})
       "Systemd ${group} field `${name}' is not an integer"
-    ;
+  ;
 
   checkUnitConfig =
     group: checks: attrs:
@@ -187,14 +187,14 @@ rec {
               v
           ))
           attrs
-        ;
+      ;
       errors = concatMap (c: c group defs) checks;
     in
     if errors == [ ] then
       true
     else
       builtins.trace (concatStringsSep "\n" errors) false
-    ;
+  ;
 
   toOption =
     x:
@@ -204,7 +204,7 @@ rec {
       "false"
     else
       toString x
-    ;
+  ;
 
   attrsToSection =
     as:
@@ -222,7 +222,7 @@ rec {
           as
       )
     )
-    ;
+  ;
 
   generateUnits =
     {
@@ -415,7 +415,7 @@ rec {
           ln -s ../remote-fs.target $out/multi-user.target.wants/
         ''}
       ''
-    ; # */
+  ; # */
 
   makeJobScript =
     name: text:
@@ -431,7 +431,7 @@ rec {
             "_"
           ]
           (shellEscape name)
-        ;
+      ;
       out =
         (pkgs.writeShellScriptBin scriptName ''
           set -e
@@ -444,10 +444,10 @@ rec {
               name = "unit-script-${scriptName}";
             }
           )
-        ;
+      ;
     in
     "${out}/bin/${scriptName}"
-    ;
+  ;
 
   unitConfig =
     {
@@ -493,7 +493,7 @@ rec {
           };
       };
     }
-    ;
+  ;
 
   serviceConfig =
     {
@@ -504,7 +504,7 @@ rec {
             makeBinPath config.path
           }:${makeSearchPathOutput "bin" "sbin" config.path}";
     }
-    ;
+  ;
 
   stage2ServiceConfig = {
     imports = [ serviceConfig ];
@@ -533,7 +533,7 @@ rec {
           // optionalAttrs (config.options != "") { Options = config.options; };
       };
     }
-    ;
+  ;
 
   automountConfig =
     {
@@ -542,14 +542,14 @@ rec {
     }: {
       config = { automountConfig = { Where = config.where; }; };
     }
-    ;
+  ;
 
   commonUnitText =
     def: ''
       [Unit]
       ${attrsToSection def.unitConfig}
     ''
-    ;
+  ;
 
   targetToUnit =
     name: def: {
@@ -559,7 +559,7 @@ rec {
         ${attrsToSection def.unitConfig}
       '';
     }
-    ;
+  ;
 
   serviceToUnit =
     name: def: {
@@ -603,9 +603,9 @@ rec {
             "X-StopIfChanged=false"}
           ${attrsToSection def.serviceConfig}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   socketToUnit =
     name: def: {
@@ -622,9 +622,9 @@ rec {
             map (s: "ListenDatagram=${s}") def.listenDatagrams
           )}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   timerToUnit =
     name: def: {
@@ -635,9 +635,9 @@ rec {
           [Timer]
           ${attrsToSection def.timerConfig}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   pathToUnit =
     name: def: {
@@ -648,9 +648,9 @@ rec {
           [Path]
           ${attrsToSection def.pathConfig}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   mountToUnit =
     name: def: {
@@ -661,9 +661,9 @@ rec {
           [Mount]
           ${attrsToSection def.mountConfig}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   automountToUnit =
     name: def: {
@@ -674,9 +674,9 @@ rec {
           [Automount]
           ${attrsToSection def.automountConfig}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   sliceToUnit =
     name: def: {
@@ -687,7 +687,7 @@ rec {
           [Slice]
           ${attrsToSection def.sliceConfig}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 }

@@ -56,7 +56,7 @@ let
       )}
       unitsToStart+=("${name}")
     ''
-    ;
+  ;
 in
 writeScriptBin "setup-systemd-units" ''
   #!${bash}/bin/bash -e

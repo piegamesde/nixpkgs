@@ -46,7 +46,7 @@ buildGoModule rec {
         builtins.concatStringsSep "|" skippedTests
       })]")
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Easily rename multiple files using your text editor";

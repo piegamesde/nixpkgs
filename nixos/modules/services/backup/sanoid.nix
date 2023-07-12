@@ -94,7 +94,7 @@ let
       description =
         lib.mdDoc
           "Whether to only snapshot child datasets if recursing."
-        ;
+      ;
       type = types.bool;
       default = false;
     };
@@ -116,7 +116,7 @@ let
       (concatStringsSep "," permissions)
       dataset
     ]
-    ;
+  ;
 
   configFile =
     let
@@ -126,7 +126,7 @@ let
           concatStringsSep "," v
         else
           generators.mkValueStringDefault { } v
-        ;
+      ;
 
       mkKeyValue =
         k: v:
@@ -138,10 +138,10 @@ let
           ""
         else
           generators.mkKeyValueDefault { inherit mkValueString; } "=" k v
-        ;
+      ;
     in
     generators.toINI { inherit mkKeyValue; } cfg.settings
-    ;
+  ;
 in
 {
 
@@ -180,7 +180,7 @@ in
             config.process_children_only =
               modules.mkAliasAndWrapDefsWithPriority id
                 (options.processChildrenOnly or { })
-              ;
+            ;
           }
         )
       );

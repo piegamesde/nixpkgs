@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       removeReferencesTo
     ]
     ++ lib.optional i3Support makeWrapper
-    ;
+  ;
 
   buildInputs =
     [
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       jsoncpp
       i3
     ]
-    ;
+  ;
 
   patches = [ ./remove-hardcoded-etc.diff ];
 

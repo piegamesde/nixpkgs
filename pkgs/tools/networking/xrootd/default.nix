@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       voms
     ]
     ++ lib.optionals enableTests [ cppunit ]
-    ;
+  ;
 
   preConfigure = ''
     patchShebangs genversion.sh
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       mkdir -p "$out/lib/systemd/system"
       install -m 644 -t "$out/lib/systemd/system" ../packaging/common/*.service ../packaging/common/*.socket
     ''
-    ;
+  ;
 
   cmakeFlags = lib.optionals enableTests [ "-DENABLE_TESTS=TRUE" ];
 

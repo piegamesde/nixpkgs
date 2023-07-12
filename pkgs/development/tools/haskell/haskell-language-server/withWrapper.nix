@@ -21,13 +21,13 @@ let
     splitString
     pipe
     optionals
-    ;
+  ;
   inherit (haskell.lib.compose)
     justStaticExecutables
     overrideCabal
     enableCabalFlag
     disableCabalFlag
-    ;
+  ;
   getPackages = version: haskell.packages."ghc${version}";
   tunedHls =
     hsPkgs:
@@ -47,14 +47,14 @@ let
       ]
       ++ optionals (!dynamic) [ justStaticExecutables ]
     )
-    ;
+  ;
   targets =
     version:
     let
       packages = getPackages version;
     in
     [ "haskell-language-server-${packages.ghc.version}" ]
-    ;
+  ;
   makeSymlinks =
     version:
     concatMapStringsSep "\n"
@@ -65,7 +65,7 @@ let
         }/bin/haskell-language-server $out/bin/${x}"
       )
       (targets version)
-    ;
+  ;
 in
 assert supportedGhcVersions != [ ];
 stdenv.mkDerivation {

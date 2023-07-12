@@ -65,7 +65,7 @@ buildPythonApplication rec {
       pygobject3
       pydbus
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytest

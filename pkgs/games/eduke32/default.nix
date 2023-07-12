@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       GLUT
       OpenGL
     ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional (stdenv.hostPlatform.system == "i686-linux") nasm
-    ;
+  ;
 
   postPatch =
     ''
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
           --replace libGL.so ${libGL}/lib/libGL.so
       done
     ''
-    ;
+  ;
 
   makeFlags =
     [ "SDLCONFIG=${SDL2}/bin/sdl2-config" ]
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       # broken, see: https://github.com/NixOS/nixpkgs/issues/19098
       "LTO=0"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Enhanched port of Duke Nukem 3D for various platforms";

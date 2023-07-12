@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       scalapack
     ]
     ++ lib.optional enableCuda cudatoolkit
-    ;
+  ;
 
   preConfigure = ''
     export FC="mpifort"
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       "--enable-nvidia-gpu"
       "--with-NVIDIA-GPU-compute-capability=${nvidiaArch}"
     ]
-    ;
+  ;
 
   doCheck = true;
 

@@ -56,7 +56,7 @@
     + (lib.optionalString koreanFonts ''
       gunzip < ${koreanFontsSrc} | (cd TeXmacs && tar xvf -)
     '')
-    ;
+  ;
 
   meta = {
     description =

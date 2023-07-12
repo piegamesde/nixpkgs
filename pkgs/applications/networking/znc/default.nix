@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withCyrus cyrus_sasl
     ++ lib.optional withUnicode icu
     ++ lib.optional withZlib zlib
-    ;
+  ;
 
   configureFlags =
     [
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!withIPv6) [ "--disable-ipv6" ]
     ++ lib.optionals withDebug [ "--enable-debug" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

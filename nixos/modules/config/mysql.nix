@@ -32,7 +32,7 @@ in
         description =
           lib.mdDoc
             "The username to use when connecting to the database"
-          ;
+        ;
       };
       passwordFile = mkOption {
         type = types.path;
@@ -40,7 +40,7 @@ in
         description =
           lib.mdDoc
             "The path to the file containing the password for the user"
-          ;
+        ;
       };
       pam = mkOption {
         description = lib.mdDoc "Settings for `pam_mysql`";
@@ -52,7 +52,7 @@ in
               description =
                 lib.mdDoc
                   "The name of table that maps unique login names to the passwords."
-                ;
+              ;
             };
             updateTable = mkOption {
               type = types.nullOr types.str;
@@ -69,7 +69,7 @@ in
               description =
                 lib.mdDoc
                   "The name of the column that contains a unix login name."
-                ;
+              ;
             };
             passwordColumn = mkOption {
               type = types.str;
@@ -77,7 +77,7 @@ in
               description =
                 lib.mdDoc
                   "The name of the column that contains a (encrypted) password string."
-                ;
+              ;
             };
             statusColumn = mkOption {
               type = types.nullOr types.str;
@@ -165,7 +165,7 @@ in
               description =
                 lib.mdDoc
                   "The default encryption method to use for `passwordCrypt = 1`."
-                ;
+              ;
             };
             where = mkOption {
               type = types.nullOr types.str;
@@ -198,7 +198,7 @@ in
                 description =
                   lib.mdDoc
                     "Enables logging of authentication attempts in the MySQL database."
-                  ;
+                ;
               };
               table = mkOption {
                 type = types.str;
@@ -206,7 +206,7 @@ in
                 description =
                   lib.mdDoc
                     "The name of the table to which logs are written."
-                  ;
+                ;
               };
               msgColumn = mkOption {
                 type = types.str;
@@ -443,7 +443,7 @@ in
           log.rhost_column=${cfg.pam.logging.rHostColumn}
           log.time_column=${cfg.pam.logging.timeColumn}
         ''
-        ;
+      ;
     };
 
     environment.etc."libnss-mysql.cfg" = {
@@ -485,7 +485,7 @@ in
           host ${cfg.host}
           database ${cfg.database}
         ''
-        ;
+      ;
     };
 
     environment.etc."libnss-mysql-root.cfg" = {

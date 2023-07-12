@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       systemd
       libcap
     ]
-    ;
+  ;
 
   patches = [ ./disable-monotonic-timer-tests.patch ];
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     ++
       # sandbox is broken on aarch64-linux https://gitlab.torproject.org/tpo/core/tor/-/issues/40599
       lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "--disable-seccomp" ]
-    ;
+  ;
 
   NIX_CFLAGS_LINK = lib.optionalString stdenv.cc.isGNU "-lgcc_s";
 
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
         gnugrep
         gnused
         nix
-        ;
+      ;
     };
   };
 

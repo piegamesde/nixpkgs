@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       xorgproto
       libXext
     ]
-    ;
+  ;
 
   # First, replace port 9090 (rather low, can be used)
   # with 64237 (much higher, IANA private area, not
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!ffcallAvailable) "--without-ffcall"
     ++ builtins.map (x: " --with-module=" + x) withModules
     ++ lib.optional threadSupport "--with-threads=POSIX_THREADS"
-    ;
+  ;
 
   preBuild = ''
     sed -e '/avcall.h/a\#include "config.h"' -i src/foreign.d

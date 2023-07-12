@@ -38,7 +38,7 @@ import ./make-test-python.nix (
             openFirewall = false;
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -55,7 +55,7 @@ import ./make-test-python.nix (
           ];
           environment.systemPackages = [ pkgs.nagiosPluginsOfficial ];
         }
-        ;
+      ;
     };
 
     testScript = ''

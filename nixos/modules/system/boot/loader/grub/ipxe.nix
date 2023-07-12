@@ -20,7 +20,7 @@ let
       }
 
     ''
-    ;
+  ;
 
   scriptFile =
     name:
@@ -31,7 +31,7 @@ let
       value
     else
       builtins.toFile "${name}.ipxe" value
-    ;
+  ;
 in
 {
   options = {
@@ -60,7 +60,7 @@ in
         toString (map grubEntry scripts)
       else
         throw "iPXE is not supported with GRUB 1."
-      ;
+    ;
 
     boot.loader.grub.extraFiles = {
       "ipxe.lkrn" = "${pkgs.ipxe}/ipxe.lkrn";

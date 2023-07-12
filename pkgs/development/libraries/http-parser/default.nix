@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-rZZMJeow3V1fTnjadRaRa+xTq3pdhZn/eJ4xjxEDoU4=";
       })
     ]
-    ;
+  ;
   makeFlags = [
     "DESTDIR="
     "PREFIX=$(out)"

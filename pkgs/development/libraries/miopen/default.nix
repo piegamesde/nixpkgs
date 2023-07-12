@@ -47,7 +47,7 @@ let
       tabulary
       varwidth
       titlesec
-      ;
+    ;
   };
 
   kdbs = lib.optionalAttrs fetchKDBs import ./deps.nix {
@@ -64,7 +64,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildDocs [ "doc" ]
       ++ lib.optionals buildTests [ "test" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -104,7 +104,7 @@ stdenv.mkDerivation (
         python3Packages.myst-parser
       ]
       ++ lib.optionals buildTests [ zlib ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -131,7 +131,7 @@ stdenv.mkDerivation (
         "-DMIOPEN_TEST_GFX103X=ON"
         "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
       ]
-      ;
+    ;
 
     postPatch =
       ''
@@ -158,7 +158,7 @@ stdenv.mkDerivation (
         ln -sf ${kdbs.gfx90a68} src/kernels/gfx90a68.kdb
         ln -sf ${kdbs.gfx90a6e} src/kernels/gfx90a6e.kdb
       ''
-      ;
+    ;
 
     # Unfortunately, it seems like we have to call make on these manually
     postBuild =
@@ -169,7 +169,7 @@ stdenv.mkDerivation (
       + lib.optionalString buildTests ''
         make -j$NIX_BUILD_CORES check
       ''
-      ;
+    ;
 
     postInstall =
       ''
@@ -201,7 +201,7 @@ stdenv.mkDerivation (
         # Should be fixed in the next miopen kernel generation batch
         ln -s ${kdbs.gfx1030_36} $out/share/miopen/db/gfx1030_40.kdb
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       Cocoa
       OpenGL
     ]
-    ;
+  ;
 
   patches = [
     ./sw_vers_root5.patch
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString noSplash ''
       substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
     ''
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -178,7 +178,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional stdenv.isDarwin
         "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-    ;
+  ;
 
   setupHook = ./setup-hook.sh;
 

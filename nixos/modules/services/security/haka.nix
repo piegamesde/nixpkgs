@@ -120,7 +120,7 @@ in
         description =
           lib.mdDoc
             "Path to file where incoming packets are dumped"
-          ;
+        ;
       };
 
       dump.output = mkOption {
@@ -130,7 +130,7 @@ in
         description =
           lib.mdDoc
             "Path to file where outgoing packets are dumped"
-          ;
+        ;
       };
     };
   };

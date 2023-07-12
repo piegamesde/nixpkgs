@@ -57,7 +57,7 @@ qtModule {
       qtwebchannel
     ]
     ++ lib.optional stdenv.isDarwin qtmultimedia
-    ;
+  ;
   buildInputs =
     [
       fontconfig
@@ -74,7 +74,7 @@ qtModule {
       ICU
       OpenGL
     ]
-    ;
+  ;
   nativeBuildInputs = [
     bison
     flex
@@ -96,7 +96,7 @@ qtModule {
       }/lib/cmake/Qt5MultimediaWidgets"
       "-DMACOS_FORCE_SYSTEM_XML_LIBRARIES=OFF"
     ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [

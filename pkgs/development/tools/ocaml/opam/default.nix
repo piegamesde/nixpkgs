@@ -114,7 +114,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals stdenv.isLinux [ bubblewrap ]
     ++ lib.optionals stdenv.isDarwin [ Foundation ]
-    ;
+  ;
 
   src = srcs.opam;
 

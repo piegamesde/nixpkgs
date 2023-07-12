@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       gnutar
       unzip
     ]
-    ;
+  ;
 
   src = fetchurl {
     url =

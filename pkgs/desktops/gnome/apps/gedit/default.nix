@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       libsoup
     ]
     ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ]
-    ;
+  ;
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py

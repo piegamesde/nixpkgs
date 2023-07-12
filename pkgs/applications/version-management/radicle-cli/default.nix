@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage rec {
       asciidoctor
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ DarwinTools ]
-    ;
+  ;
 
   buildInputs =
     [ openssl ]
@@ -60,7 +60,7 @@ rustPlatform.buildRustPackage rec {
       libusb1
       AppKit
     ]
-    ;
+  ;
 
   postInstall = ''
     for f in $(find . -name '*.adoc'); do

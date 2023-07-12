@@ -58,7 +58,7 @@ rustPlatform.buildRustPackage rec {
       darwin.apple_sdk.frameworks.Cocoa
       rustPlatform.bindgenHook
     ]
-    ;
+  ;
 
   cargoBuildFlags = [
     "--bin"

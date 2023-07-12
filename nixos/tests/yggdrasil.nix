@@ -67,7 +67,7 @@ import ./make-test-python.nix (
             );
           };
         }
-        ;
+      ;
 
       # Bob is set up to peer with Alice, and also to do local multicast
       # peering.  Bob's yggdrasil config is in a file.
@@ -125,10 +125,10 @@ import ./make-test-python.nix (
                 services.httpd.adminAddr = "foo@example.org";
                 networking.firewall.allowedTCPPorts = [ 80 ];
               }
-              ;
+            ;
           };
         }
-        ;
+      ;
 
       # Carol only does local peering.  Carol's yggdrasil config is all Nix.
       carol =
@@ -148,7 +148,7 @@ import ./make-test-python.nix (
             persistentKeys = true;
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

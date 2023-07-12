@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     lib.optionals stdenv.isLinux [ libxcb ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/replydev/cotp";

@@ -54,9 +54,9 @@ import ./make-test-python.nix (
             xorg.lndir
             documentation-highlighter
           ]
-          ;
+        ;
       }
-      ;
+    ;
 
     testScript =
       let
@@ -191,6 +191,6 @@ import ./make-test-python.nix (
             )
             machine.succeed("test ! -e /var/lib/nixos-containers/b0rk")
       ''
-      ;
+    ;
   }
 )

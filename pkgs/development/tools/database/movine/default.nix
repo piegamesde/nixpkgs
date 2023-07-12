@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
           libiconv
         ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description =

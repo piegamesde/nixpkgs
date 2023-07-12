@@ -56,7 +56,7 @@ let
             makeWrapper
             tcl
           ]
-          ;
+        ;
         propagatedBuildInputs = propagatedBuildInputs ++ [ tcl ];
 
         TCLSH = "${getBin tcl}/bin/tclsh";
@@ -74,7 +74,7 @@ let
             (configureFlags ++ defaultTclPkgConfigureFlags)
           else
             configureFlags
-          ;
+        ;
 
         meta = { platforms = tcl.meta.platforms; } // meta;
       } // optionalAttrs (attrs ? checkPhase) {

@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional gssSupport libkrb5
     ++ lib.optional saslSupport cyrus_sasl
     ++ lib.optional gpgmeSupport gpgme
-    ;
+  ;
 
   configureFlags =
     [
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional sslSupport "--with-ssl"
     ++ lib.optional gssSupport "--with-gss"
     ++ lib.optional saslSupport "--with-sasl"
-    ;
+  ;
 
   postPatch = lib.optionalString (smimeSupport || gpgmeSupport) ''
     sed -i 's#/usr/bin/openssl#${openssl}/bin/openssl#' smime_keys.pl
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       sed -i 's#\(command="\)gpg #\1${gnupg}/bin/gpg #' $out/etc/gpg.rc
       echo "source $out/etc/gpg.rc" >> $out/etc/Muttrc
     ''
-    ;
+  ;
 
   passthru = {
     updateScript = writeScript "update-mutt" ''

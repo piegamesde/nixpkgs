@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       ocl-icd
       opencl-headers
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

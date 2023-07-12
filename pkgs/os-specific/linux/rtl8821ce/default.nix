@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
       || (
         (lib.versions.majorMinor kernel.version) == "5.4" && kernel.isHardened
       )
-      ;
+    ;
   };
 }

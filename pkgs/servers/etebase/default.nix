@@ -41,7 +41,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optional withLdap python-ldap
     ++ lib.optional withPostgres psycopg2
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/bin $out/lib

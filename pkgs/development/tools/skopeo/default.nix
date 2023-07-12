@@ -50,7 +50,7 @@ buildGoModule rec {
       lvm2
       btrfs-progs
     ]
-    ;
+  ;
 
   buildPhase = ''
     runHook preBuild
@@ -74,7 +74,7 @@ buildGoModule rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   passthru = {
     policy = runCommand "policy" { } ''

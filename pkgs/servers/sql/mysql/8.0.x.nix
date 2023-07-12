@@ -48,7 +48,7 @@ let
         pkg-config
       ]
       ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
-      ;
+    ;
 
     patches = [
       ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
@@ -87,7 +87,7 @@ let
         developer_cmds
         DarwinTools
       ]
-      ;
+    ;
 
     outputs = [
       "out"

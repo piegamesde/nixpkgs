@@ -133,7 +133,7 @@ let
     ++ lib.optionals (stdenv.cc ? cc.libgcc) [
       "${lib.getLib stdenv.cc.cc.libgcc}/lib"
     ]
-    ;
+  ;
 in
 (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation (
   finalAttrs:
@@ -148,7 +148,7 @@ in
           lib.optionalString
             (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3)
             "-nox"
-        ;
+      ;
       inherit version;
 
       patches =
@@ -160,7 +160,7 @@ in
                 ./native-comp-driver-options-28.patch
               else
                 ./native-comp-driver-options.patch
-              ;
+            ;
             backendPath =
               (lib.concatStringsSep " " (
                 builtins.map (x: ''"-B${x}"'') (
@@ -179,7 +179,7 @@ in
               ));
           })
         ]
-        ;
+      ;
 
       src =
         if macportVersion != null then
@@ -195,7 +195,7 @@ in
             rev = version;
             inherit sha256;
           }
-        ;
+      ;
 
       enableParallelBuilding = true;
 
@@ -246,7 +246,7 @@ in
         ++
           lib.optional (withPgtk || withX && (withGTK3 || withXwidgets))
             wrapGAppsHook
-        ;
+      ;
 
       buildInputs =
         [
@@ -318,7 +318,7 @@ in
         ++ lib.optionals stdenv.isDarwin [ sigtool ]
         ++ lib.optionals nativeComp [ libgccjit ]
         ++ lib.optionals withTreeSitter [ tree-sitter ]
-        ;
+      ;
 
       hardeningDisable = [ "format" ];
 
@@ -361,7 +361,7 @@ in
         ++ lib.optional withXinput2 "--with-xinput2"
         ++ lib.optional (!withToolkitScrollBars) "--without-toolkit-scroll-bars"
         ++ lib.optional withTreeSitter "--with-tree-sitter"
-        ;
+      ;
 
       installTargets = [
         "tags"
@@ -409,7 +409,7 @@ in
             --eval "(add-to-list 'native-comp-eln-load-path \"$out/share/emacs/native-lisp\")" \
             -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
         ''
-        ;
+      ;
 
       postFixup =
         lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid")
@@ -419,7 +419,7 @@ in
             } $out/bin/emacs
             patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
           ''
-        ;
+      ;
 
       passthru = {
         inherit nativeComp;
@@ -434,13 +434,13 @@ in
           +
             optionalString withMacport
               " with Mitsuharu Yamamoto's macport patches"
-          ;
+        ;
         homepage =
           if withMacport then
             "https://bitbucket.org/mituharu/emacs-mac/"
           else
             "https://www.gnu.org/software/emacs/"
-          ;
+        ;
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [
           lovek323

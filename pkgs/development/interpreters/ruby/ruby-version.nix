@@ -43,10 +43,10 @@ let
                 ]
                 num
             )
-            ;
+          ;
         in
         if lib.hasPrefix "p" tail && isPosInt p then p else null
-        ;
+      ;
 
       # Shortcuts
       majMin = "${major}.${minor}";
@@ -63,7 +63,7 @@ let
           "1.9.1"
         else
           throw "version ${majMinTiny} is not supported"
-        ;
+      ;
 
       # How ruby releases are tagged on github.com/ruby/ruby
       gitTag =
@@ -76,7 +76,7 @@ let
           "${base}_${tail}"
         else
           base
-        ;
+      ;
 
       # Implements the builtins.toString interface.
       __toString =
@@ -88,8 +88,8 @@ let
           else
             lib.optionalString (self.tail != "") "-${self.tail}"
         )
-        ;
+      ;
     }
-    ;
+  ;
 in
 rubyVersion

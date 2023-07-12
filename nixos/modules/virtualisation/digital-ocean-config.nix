@@ -18,7 +18,7 @@ with lib; {
       description =
         lib.mdDoc
           "Whether to set the root password from the Digital Ocean metadata"
-        ;
+      ;
     };
     setSshKeys = mkOption {
       type = bool;
@@ -33,7 +33,7 @@ with lib; {
       description =
         lib.mdDoc
           "Whether to run the kernel RNG entropy seeding script from the Digital Ocean vendor data"
-        ;
+      ;
     };
   };
   config =
@@ -108,7 +108,7 @@ with lib; {
             [ "network-pre.target" ]
             ++ optional config.networking.dhcpcd.enable "dhcpcd.service"
             ++ optional config.systemd.network.enable "systemd-networkd.service"
-            ;
+          ;
         };
       };
 
@@ -138,7 +138,7 @@ with lib; {
             };
             serviceConfig = { Type = "oneshot"; };
           }
-        ;
+      ;
 
       # Set the hostname from Digital Ocean, unless the user configured it in
       # the NixOS configuration. The cached metadata file isn't used here
@@ -215,7 +215,7 @@ with lib; {
         serviceConfig = { Type = "oneshot"; };
       };
     } ]
-    ;
+  ;
   meta.maintainers = with maintainers; [
     arianvp
     eamsden

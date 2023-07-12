@@ -31,7 +31,7 @@ buildDotnetModule rec {
 
   doCheck =
     !(stdenv.isDarwin && stdenv.isAarch64)
-    ; # mono is not available on aarch64-darwin
+  ; # mono is not available on aarch64-darwin
   nativeCheckInputs = [ mono ];
   testProjectFile = "src/Jackett.Test/Jackett.Test.csproj";
 

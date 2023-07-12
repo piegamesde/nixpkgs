@@ -53,7 +53,7 @@ rustPlatform.buildRustPackage rec {
       Cocoa
       WebKit
     ]
-    ;
+  ;
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ "doh" ] ++ lib.optional withGui "webgui";

@@ -52,7 +52,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.http2
     ++ passthru.optional-dependencies.socks
-    ;
+  ;
 
   pythonImportsCheck = [ "httpcore" ];
 

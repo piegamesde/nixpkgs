@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       "--enable-deprecated"
     ]
     ++ lib.optional withExperimental "--enable-experimental"
-    ;
+  ;
 
   # Work around `make install' trying to create /var/lib/bluetooth.
   installFlags = [ "statedir=$(TMPDIR)/var/lib/bluetooth" ];
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
       done
       install -Dm755 attrib/gatttool $out/bin/gatttool
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

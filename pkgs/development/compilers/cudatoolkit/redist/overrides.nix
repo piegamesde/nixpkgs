@@ -17,7 +17,7 @@ in
           pkgs.numactl
           pkgs.rdma-core
         ]
-        ;
+      ;
       # libcuda needs to be resolved during runtime
       autoPatchelfIgnoreMissingDeps = true;
     }
@@ -62,7 +62,7 @@ in
           export NVCC_PREPEND_FLAGS+=' --compiler-bindir=${cc}/bin -Xfatbin=-compress-all'
           EOF
         ''
-        ;
+      ;
     }
   );
 
@@ -95,7 +95,7 @@ in
           else
             [ pkgs.qt6.wrapQtAppsHook ]
         )
-        ;
+      ;
       buildInputs =
         oldAttrs.buildInputs
         ++ (
@@ -104,7 +104,7 @@ in
           else
             [ pkgs.qt6.qtwebview ]
         )
-        ;
+      ;
     }
   );
 
@@ -116,7 +116,7 @@ in
           pkgs.addOpenGLRunpath
           pkgs.qt5.wrapQtAppsHook
         ]
-        ;
+      ;
       buildInputs =
         oldAttrs.buildInputs
         ++ [
@@ -131,7 +131,7 @@ in
           pkgs.xorg.libXrandr
           pkgs.xorg.libXtst
         ]
-        ;
+      ;
       # libcuda needs to be resolved during runtime
       autoPatchelfIgnoreMissingDeps = true;
     }

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib"
     ]
-    ;
+  ;
 
   postInstall =
     if stdenv.isDarwin then
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
         mkdir -p $out/bin
         ln -s $out/XyGrib/XyGrib $out/bin/xygrib
       ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://opengribs.org";

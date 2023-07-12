@@ -23,7 +23,7 @@ let
         type = types.nullOr types.lines;
       } // (if example == null then { } else { inherit example; });
     }
-    ;
+  ;
   mkHookOptions = hooks: listToAttrs (map mkHookOption hooks);
 
   hooksDir =
@@ -38,7 +38,7 @@ let
           EOF
           chmod 755 $out/${name}
         ''
-        ;
+      ;
     in
     pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
       mkdir $out
@@ -46,7 +46,7 @@ let
         mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks)
       )}
     ''
-    ;
+  ;
 
   buildkiteOptions =
     {
@@ -85,11 +85,11 @@ let
           defaultText =
             literalExpression
               "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]"
-            ;
+          ;
           description =
             lib.mdDoc
               "Add programs to the buildkite-agent environment"
-            ;
+          ;
           type = types.listOf types.package;
         };
 
@@ -115,7 +115,7 @@ let
           type =
             types.attrsOf
               (types.either types.str (types.listOf types.str))
-            ;
+          ;
           default = { };
           example = {
             queue = "default";
@@ -234,7 +234,7 @@ let
           defaultText =
             literalMD
               "generated from {option}`services.buildkite-agents.<name>.hooks`"
-            ;
+          ;
           description = lib.mdDoc ''
             Path to the directory storing the hooks.
             Consider using {option}`services.buildkite-agents.<name>.hooks.<name>`
@@ -252,7 +252,7 @@ let
         };
       };
     }
-    ;
+  ;
   enabledAgents = lib.filterAttrs (n: v: v.enable) cfg;
   mapAgents = function: lib.mkMerge (lib.mapAttrsToList function enabledAgents);
 in
@@ -297,7 +297,7 @@ in
             cfg.package
             pkgs.coreutils
           ]
-          ;
+        ;
         environment = config.networking.proxy.envVars // {
           HOME = cfg.dataDir;
           NIX_REMOTE = "daemon";
@@ -316,7 +316,7 @@ in
                 )
               else
                 "${name}=${value}"
-              ;
+            ;
             tagsStr = lib.concatStringsSep "," (
               lib.mapAttrsToList tagStr cfg.tags
             );
@@ -336,7 +336,7 @@ in
             ${cfg.extraConfig}
             EOF
           ''
-          ;
+        ;
 
         serviceConfig = {
           ExecStart =
@@ -358,7 +358,7 @@ in
       assertion =
         cfg.hooksPath == (hooksDir cfg)
         || all (v: v == null) (attrValues cfg.hooks)
-        ;
+      ;
       message = ''
         Options `services.buildkite-agents.${name}.hooksPath' and
         `services.buildkite-agents.${name}.hooks.<name>' are mutually exclusive.

@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       udev
       mesa
     ]
-    ;
+  ;
 
   dontUseCmakeConfigure = true;
 

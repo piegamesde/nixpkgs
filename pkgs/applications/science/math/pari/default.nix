@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       tex
     ]
     ++ lib.optionals withThread [ libpthreadstubs ]
-    ;
+  ;
 
   configureScript = "./Configure";
   configureFlags =
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       "--with-readline=${lib.getDev readline}"
     ]
     ++ lib.optional withThread "--mt=pthread"
-    ;
+  ;
 
   preConfigure = ''
     export LD=$CC

@@ -43,7 +43,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   versionOpts =
     v: {
@@ -73,7 +73,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 {
   options = {
@@ -87,7 +87,7 @@ in
         description =
           lib.mdDoc
             "This option specifies the TAYGA package to use."
-          ;
+        ;
       };
 
       ipv4 = mkOption {

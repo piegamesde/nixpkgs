@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       "NOVATEK=1"
     ]
     ++ installFlags
-    ;
+  ;
 
   checkTarget = "test";
   doCheck = true;

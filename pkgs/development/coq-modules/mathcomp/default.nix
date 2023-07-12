@@ -113,7 +113,7 @@ let
           [ ]
         else
           map mathcomp_ (head (splitList (lib.pred.equal package) packages))
-        ;
+      ;
       pkgpath =
         if package == "single" then "mathcomp" else "mathcomp/${package}";
       pname = if package == "single" then "mathcomp" else "mathcomp-${package}";
@@ -149,7 +149,7 @@ let
               cd ${pkgpath}
             ''
             + optionalString (package == "all") pkgallMake
-            ;
+          ;
 
           meta = {
             homepage = "https://math-comp.github.io/";
@@ -181,7 +181,7 @@ let
               cp -r htmldoc ${tgt}
               cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
             ''
-            ;
+          ;
           buildTargets = "doc";
           extraInstallFlags = [ "-f Makefile.coq" ];
         }
@@ -213,6 +213,6 @@ let
       );
     in
     patched-derivation
-    ;
+  ;
 in
 mathcomp_ (if single then "single" else "all")

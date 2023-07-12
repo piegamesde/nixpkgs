@@ -146,7 +146,7 @@ stdenv.mkDerivation rec {
           ]
         } \
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A cross-platform soundboard.";

@@ -37,7 +37,7 @@ in
                   "libraryDir"
                 ]
                 config
-              ;
+            ;
           in
           [ libraryDir ]
         )

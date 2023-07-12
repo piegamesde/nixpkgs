@@ -31,7 +31,7 @@ in
         description =
           lib.mdDoc
             "The package providing the bee binary for the service."
-          ;
+        ;
       };
 
       settings = mkOption {
@@ -84,7 +84,7 @@ in
         assertion =
           (hasAttr "swap-endpoint" cfg.settings)
           || (cfg.settings.swap-enable or true == false)
-          ;
+        ;
         message = ''
           In a swap-enabled network a working Ethereum blockchain node is required. You must specify one using `services.bee.settings.swap-endpoint`, or disable `services.bee.settings.swap-enable` = false.
         '';
@@ -94,7 +94,7 @@ in
     warnings =
       optional (!config.services.bee-clef.enable)
         "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true"
-      ;
+    ;
 
     services.bee.settings = {
       data-dir = lib.mkDefault "/var/lib/bee";
@@ -156,7 +156,7 @@ in
         extraGroups =
           optional config.services.bee-clef.enable
             config.services.bee-clef.group
-          ;
+        ;
       };
     };
 

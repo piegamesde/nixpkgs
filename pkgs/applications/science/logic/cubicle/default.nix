@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
         ocaml
       ]
     )
-    ;
+  ;
 
   buildInputs = with ocamlPackages; [
     functory

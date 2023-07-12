@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       "NSIS_CONFIG_CONST_DATA=no"
     ]
     ++ lib.optional stdenv.isDarwin "APPEND_LINKFLAGS=-liconv"
-    ;
+  ;
 
   preBuild = ''
     sconsFlagsArray+=(

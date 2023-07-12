@@ -31,7 +31,7 @@ buildGoModule rec {
       ''
         sed -i '/go:/d' ui/assets.go
       ''
-    ;
+  ;
 
   ldflags = [
     "-s"

@@ -65,7 +65,7 @@ lib.throwIf (attrs ? name)
               else
                 [ perl ]
             )
-            ;
+          ;
 
           inherit outputs src doCheck checkTarget enableParallelBuilding;
           env = {

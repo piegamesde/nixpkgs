@@ -28,7 +28,7 @@ let
       "x86_64-darwin"
       "aarch64-darwin"
     ]
-    ;
+  ;
   ideaPlatforms = [
     "x86_64-darwin"
     "i686-darwin"
@@ -82,7 +82,7 @@ let
               autoPatchelfHook
               patchelf
             ]
-            ;
+          ;
           buildInputs =
             (attrs.buildInputs or [ ])
             ++ lib.optionals (stdenv.isLinux) [
@@ -93,7 +93,7 @@ let
               expat
               libxcrypt-legacy
             ]
-            ;
+          ;
           dontAutoPatchelf = true;
           postFixup =
             (attrs.postFixup or "")
@@ -118,10 +118,10 @@ let
                   --set CL_JDK "${jdk}"
               )
             ''
-            ;
+          ;
         }
       )
-    ;
+  ;
 
   buildDataGrip =
     {
@@ -147,7 +147,7 @@ let
         maintainers = with maintainers; [ ];
       };
     })
-    ;
+  ;
 
   buildGateway =
     {
@@ -174,7 +174,7 @@ let
         maintainers = with maintainers; [ kouyk ];
       };
     })
-    ;
+  ;
 
   buildGoland =
     {
@@ -215,10 +215,10 @@ let
               wrapProgram $out/bin/goland \
                 --prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
             ''
-            ;
+          ;
         }
       )
-    ;
+  ;
 
   buildIdea =
     {
@@ -257,7 +257,7 @@ let
         platforms = ideaPlatforms;
       };
     })
-    ;
+  ;
 
   buildMps =
     {
@@ -286,7 +286,7 @@ let
         maintainers = with maintainers; [ rasendubi ];
       };
     })
-    ;
+  ;
 
   buildPhpStorm =
     {
@@ -312,7 +312,7 @@ let
         maintainers = with maintainers; [ dritter ];
       };
     })
-    ;
+  ;
 
   buildPycharm =
     {
@@ -367,7 +367,7 @@ let
           # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
         }
       )
-    ;
+  ;
 
   buildRider =
     {
@@ -414,7 +414,7 @@ let
           );
         }
       )
-    ;
+  ;
 
   buildRubyMine =
     {
@@ -436,7 +436,7 @@ let
         maintainers = with maintainers; [ edwtjo ];
       };
     })
-    ;
+  ;
 
   buildWebStorm =
     {
@@ -462,7 +462,7 @@ let
         maintainers = with maintainers; [ abaldeau ];
       };
     })
-    ;
+  ;
 in
 
 {

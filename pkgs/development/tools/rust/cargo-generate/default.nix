@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-    ;
+  ;
 
   nativeCheckInputs = [ git ];
 
@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       "--skip=git::utils::should_canonicalize"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -53,7 +53,7 @@ stdenv.mkDerivation (
       ++ optional enableEmacs emacs
       ++ optional enableLout lout
       ++ optional enableTex tex
-      ;
+    ;
 
     postInstall =
       let
@@ -64,7 +64,7 @@ stdenv.mkDerivation (
           --prefix GUILE_LOAD_PATH : "$out/share/guile/site/${guileVersion}:$GUILE_LOAD_PATH" \
           --prefix GUILE_LOAD_COMPILED_PATH : "$out/lib/guile/${guileVersion}/site-ccache:$GUILE_LOAD_COMPILED_PATH"
       ''
-      ;
+    ;
 
     meta = {
       homepage = "https://www.nongnu.org/skribilo/";

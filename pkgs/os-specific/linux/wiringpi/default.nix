@@ -36,7 +36,7 @@ let
         "LDCONFIG=echo"
       ];
     }
-    ;
+  ;
   passthru = {
     inherit mkSubProject;
     wiringPi = mkSubProject {

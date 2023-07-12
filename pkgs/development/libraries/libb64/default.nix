@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-KTsiIWJe66BKlu/A43FWfW0XAu4E7lWX/RY4NITRrm4=";
       }
     )
-    ;
+  ;
 
   enableParallelBuilding = true;
 

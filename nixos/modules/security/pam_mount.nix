@@ -140,7 +140,7 @@ in
           extraUserVolumes =
             filterAttrs (n: u: u.cryptHomeLuks != null || u.pamMount != { })
               config.users.users
-            ;
+          ;
           mkAttr = k: v: ''${k}="${v}"'';
           userVolumeEntry =
             user:
@@ -154,7 +154,7 @@ in
             ''
               <volume ${concatStringsSep " " (mapAttrsToList mkAttr attrs)} />
             ''
-            ;
+          ;
         in
         pkgs.writeText "pam_mount.conf.xml" ''
           <?xml version="1.0" encoding="utf-8" ?>
@@ -192,7 +192,7 @@ in
           ${concatStringsSep "\n" cfg.extraVolumes}
           </pam_mount>
         ''
-        ;
+      ;
     };
   };
 }

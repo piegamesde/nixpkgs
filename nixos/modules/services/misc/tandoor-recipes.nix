@@ -29,7 +29,7 @@ let
       ${setupEnv}
       exec ${pkg}/bin/tandoor-recipes "$@"
     ''
-    ;
+  ;
 in
 {
   meta.maintainers = with maintainers; [ ambroisie ];

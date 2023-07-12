@@ -40,7 +40,7 @@ buildGoModule rec {
       "-X ${t}/cmd/crane/cmd.Version=v${version}"
       "-X ${t}/pkg/v1/remote/transport.Version=${version}"
     ]
-    ;
+  ;
 
   postInstall = lib.concatStringsSep "\n" (
     map

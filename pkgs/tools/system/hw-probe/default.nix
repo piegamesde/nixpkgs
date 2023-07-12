@@ -117,11 +117,11 @@ stdenv.mkDerivation rec {
           lib.optional
             (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms)
             cpuid
-        ;
+      ;
       conditionallyRecommendedPrograms =
         lib.optional systemdSupport
           systemd
-        ; # (systemd-analyze)
+      ; # (systemd-analyze)
       suggestedPrograms = [
         hplip # (hp-probe)
         sane-backends # (sane-find-scanner)
@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
         ++ conditionallyRecommendedPrograms
         ++ lib.optionals withRecommended recommendedPrograms
         ++ lib.optionals withSuggested suggestedPrograms
-        ;
+      ;
     in
     [
       "--set"
@@ -150,7 +150,7 @@ stdenv.mkDerivation rec {
       ":"
       "${lib.makeBinPath programs}"
     ]
-    ;
+  ;
 
   postInstall = ''
     wrapProgram $out/bin/hw-probe \

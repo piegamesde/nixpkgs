@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       AppKit
       IOKit
     ]
-    ;
+  ;
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 

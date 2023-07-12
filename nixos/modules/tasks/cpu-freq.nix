@@ -70,7 +70,7 @@ in
       boot.kernelModules =
         optional governorEnable
           "cpufreq_${cfg.cpuFreqGovernor}"
-        ;
+      ;
 
       environment.systemPackages = [ cpupower ];
 
@@ -91,10 +91,10 @@ in
             + optionalString governorEnable "--governor ${cfg.cpuFreqGovernor} "
             + optionalString maxEnable "--max ${toString cfg.cpufreq.max} "
             + optionalString minEnable "--min ${toString cfg.cpufreq.min} "
-            ;
+          ;
           SuccessExitStatus = "0 237";
         };
       };
     }
-    ;
+  ;
 }

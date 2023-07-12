@@ -83,7 +83,7 @@ let
       serviceConfig.Restart = "always";
       serviceConfig.Type = "notify";
     }
-    ;
+  ;
 
   restartService = optionalAttrs cfg.restartAfterSleep {
     openvpn-restart = {
@@ -197,7 +197,7 @@ in
                 description =
                   lib.mdDoc
                     "Whether this OpenVPN instance should be started automatically."
-                  ;
+                ;
               };
 
               updateResolvConf = mkOption {
@@ -226,7 +226,7 @@ in
                         description =
                           lib.mdDoc
                             "The username to store inside the credentials file."
-                          ;
+                        ;
                         type = types.str;
                       };
 
@@ -234,7 +234,7 @@ in
                         description =
                           lib.mdDoc
                             "The password to store inside the credentials file."
-                          ;
+                        ;
                         type = types.str;
                       };
                     };
@@ -252,7 +252,7 @@ in
       description =
         lib.mdDoc
           "Whether OpenVPN client should be restarted after sleep."
-        ;
+      ;
     };
   };
 

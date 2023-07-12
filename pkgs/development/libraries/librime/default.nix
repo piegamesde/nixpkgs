@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       capnproto
     ]
     ++ plugins
-    ; # for propagated build inputs
+  ; # for propagated build inputs
 
   preConfigure = copyPlugins;
 

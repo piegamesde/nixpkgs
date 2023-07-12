@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       libGLU
       curl
     ]
-    ;
+  ;
 
   patches = [
     # fix build on aarch64-darwin
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       }/${pythonPackages.python.sitePackages}"
     ]
     ++ lib.optional cudaSupport "-DBUILD_WITH_CUDA:bool=true"
-    ;
+  ;
 
   # ensure python package contains its __init__.py. for some reason the install
   # script does not do this, and it's questionable if intel knows it should be

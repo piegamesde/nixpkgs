@@ -22,7 +22,7 @@ buildGoModule rec {
       "-X ${t}/pkg/buildinfo.GitSHA=${rev}"
       "-X ${t}/pkg/buildDate=unknown"
     ]
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "vmware-tanzu";

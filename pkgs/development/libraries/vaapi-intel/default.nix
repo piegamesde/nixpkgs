@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "--enable-wayland"
     ]
     ++ lib.optional enableHybridCodec "--enable-hybrid-codec"
-    ;
+  ;
 
   nativeBuildInputs = [
     autoreconfHook
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       wayland
     ]
     ++ lib.optional enableHybridCodec vaapi-intel-hybrid
-    ;
+  ;
 
   enableParallelBuilding = true;
 

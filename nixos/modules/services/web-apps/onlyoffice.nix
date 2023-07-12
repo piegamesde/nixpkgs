@@ -17,7 +17,7 @@ in
     enableExampleServer =
       mkEnableOption
         (lib.mdDoc "OnlyOffice example server")
-      ;
+    ;
 
     hostname = mkOption {
       type = types.str;
@@ -41,7 +41,7 @@ in
       description =
         lib.mdDoc
           "Which package to use for the OnlyOffice instance."
-        ;
+      ;
     };
 
     port = mkOption {
@@ -50,7 +50,7 @@ in
       description =
         lib.mdDoc
           "Port the OnlyOffice DocumentServer should listens on."
-        ;
+      ;
     };
 
     examplePort = mkOption {
@@ -59,7 +59,7 @@ in
       description =
         lib.mdDoc
           "Port the OnlyOffice Example server should listens on."
-        ;
+      ;
     };
 
     postgresHost = mkOption {
@@ -68,7 +68,7 @@ in
       description =
         lib.mdDoc
           "The Postgresql hostname or socket path OnlyOffice should connect to."
-        ;
+      ;
     };
 
     postgresName = mkOption {
@@ -101,7 +101,7 @@ in
       description =
         lib.mdDoc
           "The Rabbitmq in amqp URI style OnlyOffice should connect to."
-        ;
+      ;
     };
   };
 
@@ -323,7 +323,7 @@ in
             User = "onlyoffice";
           };
         }
-        ;
+      ;
     };
 
     users.users = {

@@ -28,7 +28,7 @@ buildPythonPackage rec {
       enum34
       pathlib
     ]
-    ;
+  ;
 
   # Test suite is broken.
   # See https://github.com/Kronuz/pyScss/issues/415

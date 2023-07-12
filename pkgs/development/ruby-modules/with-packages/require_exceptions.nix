@@ -4,7 +4,7 @@ let
       require "cocoapods"
       require "#{Gem::Specification.find_by_name(%(${name})).gem_dir}/lib/cocoapods_plugin"
     ''
-    ;
+  ;
 in
 {
   actioncable = [ "action_cable" ];
@@ -48,7 +48,7 @@ in
   cocoapods-disable-podfile-validations =
     cocoapod-plugin
       "cocoapods-disable-podfile-validations"
-    ;
+  ;
   cocoapods-stats = [ "cocoapods_stats" ];
   cocoapods-testing = [ "cocoapods_testing" ];
   cocoapods-trunk = [ "cocoapods_trunk" ];

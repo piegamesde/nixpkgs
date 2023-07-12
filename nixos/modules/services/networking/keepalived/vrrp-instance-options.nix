@@ -120,7 +120,7 @@ with lib; {
       description =
         lib.mdDoc
           "List of script names to invoke for health tracking."
-        ;
+      ;
     };
 
     trackInterfaces = mkOption {
@@ -133,7 +133,7 @@ with lib; {
       description =
         lib.mdDoc
           "List of network interfaces to monitor for health tracking."
-        ;
+      ;
     };
 
     extraConfig = mkOption {

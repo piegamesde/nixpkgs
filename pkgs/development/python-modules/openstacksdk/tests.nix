@@ -67,5 +67,5 @@ buildPythonPackage {
       openstack.tests.unit.test_stats.TestStats.test_timeout
       ")
     ''
-    ;
+  ;
 }

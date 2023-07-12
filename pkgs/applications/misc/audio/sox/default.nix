@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       # configure.ac uses pkg-config only to locate libopusfile
       pkg-config
     ]
-    ;
+  ;
 
   patches = [ ./0001-musl-rewind-pipe-workaround.patch ];
 
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableLibpulseaudio libpulseaudio
     ++ lib.optional stdenv.isDarwin CoreAudio
-    ;
+  ;
 
   meta = with lib; {
     description = "Sample Rate Converter for audio";

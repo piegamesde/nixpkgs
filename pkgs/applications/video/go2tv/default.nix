@@ -45,7 +45,7 @@ buildGoModule rec {
       Kernel
       UserNotifications
     ]
-    ;
+  ;
 
   ldflags = [
     "-s"

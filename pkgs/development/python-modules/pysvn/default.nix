@@ -46,7 +46,7 @@ buildPythonPackage rec {
       fsprogs
     ]
     ++ lib.optionals stdenv.isDarwin [ gcc ]
-    ;
+  ;
 
   preConfigure = ''
     cd Source

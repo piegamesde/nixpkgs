@@ -21,7 +21,7 @@ let
             example = !default;
             description = lib.mdDoc "Whether to make use of the ${description}";
           }
-          ;
+        ;
       in
       {
         base = mkWrapperFeature true ''
@@ -33,7 +33,7 @@ let
           variables for GTK applications.
         '';
       }
-      ;
+    ;
   };
 
   defaultSwayPackage = pkgs.sway.override {
@@ -172,7 +172,7 @@ in
     services.xserver.displayManager.sessionPackages =
       optionals (cfg.package != null)
         [ cfg.package ]
-      ;
+    ;
     programs.xwayland.enable = mkDefault true;
     # For screen sharing (this option only has an effect with xdg.portal.enable):
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];

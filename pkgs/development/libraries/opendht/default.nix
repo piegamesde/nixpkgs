@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       fmt
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   cmakeFlags =
     lib.optionals enableProxyServerAndClient [
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enablePushNotifications [
       "-DOPENDHT_PUSH_NOTIFICATIONS=ON"
     ]
-    ;
+  ;
 
   # https://github.com/savoirfairelinux/opendht/issues/612
   postPatch = ''

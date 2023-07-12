@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       AGL
     ]
     ++ lib.optionals withCuda [ cudatoolkit ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     boost
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
     ]
     ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ]
-    ;
+  ;
 
   meta = {
     homepage = "https://pointclouds.org/";

@@ -63,7 +63,7 @@ buildPythonPackage rec {
       else
         [ gtk3 ]
     )
-    ;
+  ;
 
   propagatedBuildInputs = [
     numpy
@@ -88,7 +88,7 @@ buildPythonPackage rec {
       # Remove the OSX-Only wx.webkit module
       sed -i "s/makeETGRule(.*'WXWEBKIT')/pass/" wscript
     ''
-    ;
+  ;
 
   buildPhase = ''
     ${python.pythonForBuild.interpreter} build.py -v --use_syswx dox etg --nodoc sip build_py

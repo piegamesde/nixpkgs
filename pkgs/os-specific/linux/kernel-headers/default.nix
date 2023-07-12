@@ -78,20 +78,20 @@ let
               darwin-endian-h
               darwin-byteswap-h
             ]
-        ;
+      ;
 
       extraIncludeDirs =
         lib.optionals
           (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
           [ "ppc" ]
-        ;
+      ;
 
       inherit patches;
 
       hardeningDisable =
         lib.optional stdenvNoCC.buildPlatform.isDarwin
           "format"
-        ;
+      ;
 
       makeFlags = [
         "SHELL=bash"
@@ -121,7 +121,7 @@ let
               make headers $makeFlags
             ''
         )
-        ;
+      ;
 
       checkPhase = ''
         make headers_check $makeFlags
@@ -143,7 +143,7 @@ let
           mkdir -p $out/include/config
           echo "${version}-default" > $out/include/config/kernel.release
         ''
-        ;
+      ;
 
       meta = with lib; {
         description = "Header files and scripts for Linux kernel";
@@ -151,7 +151,7 @@ let
         platforms = platforms.linux;
       };
     }
-    ;
+  ;
 in
 {
   inherit makeLinuxHeaders;
@@ -173,5 +173,5 @@ in
         ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
       ];
     }
-    ;
+  ;
 }

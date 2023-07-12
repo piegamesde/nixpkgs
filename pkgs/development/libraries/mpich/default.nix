@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       "FFLAGS=-fallow-argument-mismatch" # https://github.com/pmodels/mpich/issues/4300
       "FCFLAGS=-fallow-argument-mismatch"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       hwloc
     ]
     ++ lib.optional (!stdenv.isDarwin) ch4backend
-    ;
+  ;
 
   doCheck = true;
 

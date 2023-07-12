@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (portaudio.api_version == 19) ''
       cp src/portaudio19.h src/portaudio.h
     ''
-    ;
+  ;
 
   buildPhase = ''
     make -C src

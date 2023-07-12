@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       libglvnd
     ]
     ++ runtimeDependencies
-    ;
+  ;
 
   runtimeDependencies = map lib.getLib [
     curl

@@ -19,7 +19,7 @@ let
       conf
     else
       "src/config.def.hpp"
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {

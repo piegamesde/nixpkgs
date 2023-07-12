@@ -90,7 +90,7 @@ rustPlatform.buildRustPackage rec {
       System
       Libsystem
     ]
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $out/bin/sdk/bpf

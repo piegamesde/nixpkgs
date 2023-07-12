@@ -41,7 +41,7 @@ with lib;
             [ ]
         )
         config.system.build.fileSystems
-      ;
+    ;
 
     systemd.services.disable-kernel-module-loading = {
       description = "Disable kernel module loading";

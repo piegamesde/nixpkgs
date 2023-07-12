@@ -26,7 +26,7 @@ let
       "x86_64"
     else
       "x86"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "SunVox";

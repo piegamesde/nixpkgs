@@ -43,7 +43,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.requests
-    ;
+  ;
 
   preCheck = ''
     # prevent shadowing imports

@@ -57,6 +57,6 @@ with lib;
             environment.NIXOS_USERS_PURE = "true";
           }
         )
-      ;
+    ;
   };
 }

@@ -37,7 +37,7 @@ let
       deepin-system-monitor
     ]
     ++ extraGSettingsOverridePackages
-    ;
+  ;
 in
 with lib;
 

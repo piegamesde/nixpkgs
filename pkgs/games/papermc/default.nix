@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
         "https://papermc.io/api/v2/projects/paper/versions/${mcVersion}/builds/${buildNum}/downloads/paper-${mcVersion}-${buildNum}.jar";
       sha256 = "sha256-NAl4+mCkO6xQQpIx2pd9tYX2N8VQa+2dmFwyBNbDa10=";
     }
-    ;
+  ;
 
   preferLocalBuild = true;
 

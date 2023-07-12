@@ -28,7 +28,7 @@ import ./make-test-python.nix (
           ping -c1 10.0.2.2 && exit 1
         '';
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

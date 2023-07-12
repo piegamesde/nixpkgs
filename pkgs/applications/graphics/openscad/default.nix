@@ -101,7 +101,7 @@ mkDerivation rec {
     ]
     ++ lib.optional stdenv.isDarwin qtmacextras
     ++ lib.optional spacenavSupport libspnav
-    ;
+  ;
 
   qmakeFlags =
     [ "VERSION=${version}" ]
@@ -110,7 +110,7 @@ mkDerivation rec {
       "SPNAV_INCLUDEPATH=${libspnav}/include"
       "SPNAV_LIBPATH=${libspnav}/lib"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

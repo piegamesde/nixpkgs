@@ -39,7 +39,7 @@ let
       glib
       gtk3
     ]
-    ;
+  ;
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 in
 stdenv.mkDerivation {
@@ -69,7 +69,7 @@ stdenv.mkDerivation {
     [ makeWrapper ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ++ lib.optionals stdenv.isDarwin [ unzip ]
-    ;
+  ;
 
   installPhase =
     ''
@@ -102,7 +102,7 @@ stdenv.mkDerivation {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   preFixup = ''
     find "$out" -name libfontmanager.so -exec \

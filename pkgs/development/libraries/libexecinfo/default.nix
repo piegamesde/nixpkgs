@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString enableStatic ''
       install -Dm755 libexecinfo.a -t $out/lib
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

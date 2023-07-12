@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       "CC=mpicc"
       "F77=mpif77"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -91,10 +91,10 @@ stdenv.mkDerivation rec {
           enumitem
           multirow
           preprint
-          ;
+        ;
       })
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
       trilinos
     ]
     ++ lib.optionals withMPI [ mpi ]
-    ;
+  ;
 
   doCheck = enableTests;
 
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
       mpi
       openssh
     ]
-    ;
+  ;
 
   checkPhase = ''
     XYCE_BINARY="$(pwd)/src/Xyce"

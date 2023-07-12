@@ -24,5 +24,5 @@ buildNodejs {
       ./bypass-darwin-xcrun-node16.patch
     ]
     ++ npmPatches
-    ;
+  ;
 }

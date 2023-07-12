@@ -24,7 +24,7 @@ pkg.overrideAttrs (
         playerctl
         libxkbcommon
       ]
-      ;
+    ;
 
     makeFlags = o.makeFlags ++ [ "PLAYERCTL=1" ];
 
@@ -37,6 +37,6 @@ pkg.overrideAttrs (
           sha256 = "1q7nd66ai6nr2m6iqxn55gvbr4r5gjc00c8wyjc3riv31qcbqbhv";
         })
       ]
-      ;
+    ;
   }
 )

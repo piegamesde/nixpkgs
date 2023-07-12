@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
       "-Dfinite=isfinite"
-    ;
+  ;
 
   meta = {
     homepage = "http://www.desy.de/~znagy/Site/NLOJet++.html";

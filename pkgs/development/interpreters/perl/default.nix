@@ -42,11 +42,11 @@ let
                         pkgs.__splicedPackages
                       else
                         pkgs
-                      ;
+                    ;
                     inherit stdenv;
                     perl = self;
                   }
-                ;
+              ;
 
               otherSplices = {
                 selfBuildBuild = perlOnBuildForBuild.pkgs;
@@ -61,7 +61,7 @@ let
             makeScopeWithSplicing otherSplices keep extra perlPackagesFun
           )
           { perl = self; }
-        ;
+      ;
     in
     rec {
       buildEnv = callPackage ./wrapper.nix {
@@ -77,7 +77,7 @@ let
         self = perlOnBuild;
       };
     }
-    ;
+  ;
 in
 rec {
   # Maint version

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString isBootstrap "-boot"
     + lib.optionalString cursesUI "-cursesUI"
     + lib.optionalString qt5UI "-qt5UI"
-    ;
+  ;
   version = "3.25.3";
 
   src = fetchurl {
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
         ./005-remove-systemconfiguration-dep.diff
     # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
     ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff
-    ;
+  ;
 
   outputs =
     [ "out" ]
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       "man"
       "info"
     ]
-    ;
+  ;
   setOutputFlags = false;
 
   setupHooks = [
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     ++ [ pkg-config ]
     ++ lib.optionals buildDocs [ texinfo ]
     ++ lib.optionals qt5UI [ wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     lib.optionals useSharedLibraries [
@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional cursesUI ncurses
     ++ lib.optional qt5UI qtbase
     ++ lib.optional (stdenv.isDarwin && !isBootstrap) SystemConfiguration
-    ;
+  ;
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin ps;
 
@@ -178,7 +178,7 @@ stdenv.mkDerivation rec {
       # Avoid depending on frameworks.
       "-DBUILD_CursesDialog=${if cursesUI then "ON" else "OFF"}"
     ]
-    ;
+  ;
 
   # make install attempts to use the just-built cmake
   preInstall =
@@ -186,7 +186,7 @@ stdenv.mkDerivation rec {
       ''
         sed -i 's|bin/cmake|${buildPackages.cmakeMinimal}/bin/cmake|g' Makefile
       ''
-    ;
+  ;
 
   dontUseCmakeConfigure = true;
   enableParallelBuilding = true;

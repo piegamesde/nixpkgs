@@ -115,7 +115,7 @@ import ./make-test-python.nix (
             }: {
               services.openldap.declarativeContents."dc=example" = dbContents;
             }
-            ;
+          ;
           mutableConfig.configuration =
             {
               ...
@@ -125,7 +125,7 @@ import ./make-test-python.nix (
                 mutableConfig = true;
               };
             }
-            ;
+          ;
           manualConfigDir = {
             inheritParentConfig = false;
             configuration =
@@ -138,11 +138,11 @@ import ./make-test-python.nix (
                   configDir = "/var/db/slapd.d";
                 };
               }
-              ;
+            ;
           };
         };
       }
-      ;
+    ;
     testScript =
       {
         nodes,
@@ -196,6 +196,6 @@ import ./make-test-python.nix (
           }')
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w foobar')
       ''
-      ;
+    ;
   }
 )

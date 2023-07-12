@@ -18,6 +18,6 @@ in
           "groups"
         ]
         config.system.build.etcActivationCommands
-      ;
+    ;
   };
 }

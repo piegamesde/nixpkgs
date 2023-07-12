@@ -59,7 +59,7 @@ stdenv.mkDerivation (
         "devdoc"
       ]
       ++ lib.optional crossCompiling "mini"
-      ;
+    ;
     setOutputFlags = false;
 
     # On FreeBSD, if Perl is built with threads support, having
@@ -74,7 +74,7 @@ stdenv.mkDerivation (
     propagatedBuildInputs =
       lib.optional (enableCrypt && !stdenv.isFreeBSD)
         libxcrypt
-      ;
+    ;
 
     disallowedReferences = [ stdenv.cc ];
 
@@ -92,7 +92,7 @@ stdenv.mkDerivation (
         ./sw_vers.patch
       ]
       ++ lib.optional crossCompiling ./MakeMaker-cross.patch
-      ;
+    ;
 
     # This is not done for native builds because pwd may need to come from
     # bootstrap tools when building bootstrap perl.
@@ -116,7 +116,7 @@ stdenv.mkDerivation (
         ''
           unset src
         ''
-      ;
+    ;
 
     # Build a thread-safe Perl with a dynamic libperl.so.  We need the
     # "installstyle" option to ensure that modules are put under
@@ -162,12 +162,12 @@ stdenv.mkDerivation (
         "-Dman1dir=${placeholder "out"}/share/man/man1"
         "-Dman3dir=${placeholder "out"}/share/man/man3"
       ]
-      ;
+    ;
 
     configureScript =
       lib.optionalString (!crossCompiling)
         "${stdenv.shell} ./Configure"
-      ;
+    ;
 
     dontAddStaticConfigureFlags = true;
 
@@ -212,7 +212,7 @@ stdenv.mkDerivation (
         # We need to do this because the bootstrap doesn't have a static libpthread
         sed -i 's,\(libswanted.*\)pthread,\1,g' Configure
       ''
-      ;
+    ;
 
     # Default perl does not support --host= & co.
     configurePlatforms = [ ];
@@ -226,14 +226,14 @@ stdenv.mkDerivation (
         inputs' =
           lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
             inputs
-          ;
+        ;
         override =
           attr:
           let
             perl = attr.override (inputs' // { self = perl; });
           in
           perl
-          ;
+        ;
       in
       passthruFun rec {
         inherit self perlAttr;
@@ -247,9 +247,9 @@ stdenv.mkDerivation (
             (override pkgsTargetTarget.${perlAttr})
           else
             { }
-          ;
+        ;
       }
-      ;
+    ;
 
     doCheck = false; # some tests fail, expensive
 
@@ -293,7 +293,7 @@ stdenv.mkDerivation (
         wrapProgram $mini/bin/perl --prefix PERL5LIB : \
           "$mini/lib/perl5/cross_perl/${version}:$out/lib/perl5/${version}:$out/lib/perl5/${version}/$runtimeArch"
       ''
-      ; # */
+    ; # */
 
     meta = with lib; {
       homepage = "https://www.perl.org/";

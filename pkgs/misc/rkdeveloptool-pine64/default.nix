@@ -50,5 +50,5 @@ stdenv.mkDerivation {
       license = lib.licenses.gpl2;
       maintainers = [ maintainers.adisbladis ];
     }
-    ;
+  ;
 }

@@ -30,7 +30,7 @@ in
         description =
           lib.mdDoc
             "List of bundles that should be activated on startup"
-          ;
+        ;
       };
 
       user = mkOption {

@@ -37,7 +37,7 @@ lib.overrideDerivation
               "bcmrpi3_defconfig"
             else
               "bcm2709_defconfig"
-            ;
+          ;
           "4" = "bcm2711_defconfig";
         }
         .${toString rpiVersion};
@@ -68,7 +68,7 @@ lib.overrideDerivation
             platforms = with lib.platforms; arm ++ aarch64;
             hydraPlatforms = [ "aarch64-linux" ];
           }
-        ;
+      ;
     } // (args.argsOverride or { })
   ))
   (
@@ -125,6 +125,6 @@ lib.overrideDerivation
               copyDTB bcm2710-rpi-cm3.dtb bcm2837-rpi-cm3.dtb
               copyDTB bcm2711-rpi-4-b.dtb bcm2838-rpi-4-b.dtb
             ''
-        ;
+      ;
     }
   )

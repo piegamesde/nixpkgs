@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
       ./eigen-3.4.patch
     ]
     ++ lib.optional (!withSvmLight) ./svmlight-scrubber.patch
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
         ply
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [
@@ -154,7 +154,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optional opencvSupport opencv
-    ;
+  ;
 
   cmakeFlags =
     let
@@ -176,7 +176,7 @@ stdenv.mkDerivation rec {
       "-DOpenCV=${enableIf opencvSupport}"
       "-DUSE_SVMLIGHT=${enableIf withSvmLight}"
     ]
-    ;
+  ;
 
   CXXFLAGS = "-faligned-new";
 
@@ -205,7 +205,7 @@ stdenv.mkDerivation rec {
       echo "removing SVMlight code"
       ./scripts/light-scrubber.sh
     ''
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $doc/share/doc/shogun/examples

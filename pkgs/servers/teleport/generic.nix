@@ -50,7 +50,7 @@ let
         CoreFoundation
         Security
       ]
-      ;
+    ;
     nativeBuildInputs = [ pkg-config ];
 
     # https://github.com/NixOS/nixpkgs/issues/161570 ,
@@ -121,7 +121,7 @@ buildGoModule rec {
       "webassets_embed"
     ]
     ++ lib.optional withRdpClient "desktop_access_rdp"
-    ;
+  ;
 
   buildInputs =
     [
@@ -133,7 +133,7 @@ buildGoModule rec {
       Security
       AppKit
     ]
-    ;
+  ;
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -162,7 +162,7 @@ buildGoModule rec {
       ln -s ${rdpClient}/lib/* lib/
       ln -s ${rdpClient}/include/* lib/srv/desktop/rdp/rdpclient/
     ''
-    ;
+  ;
 
   # Multiple tests fail in the build sandbox
   # due to trying to spawn nixbld's shell (/noshell), etc.

@@ -16,7 +16,7 @@ let
     mkMerge
     optional
     versionOlder
-    ;
+  ;
   cfg = config.hardware.system76;
   opt = options.hardware.system76;
 
@@ -27,7 +27,7 @@ let
       "system76-io"
     ]
     ++ (optional (versionOlder kpkgs.kernel.version "5.5") "system76-acpi")
-    ;
+  ;
   modulePackages = map (m: kpkgs.${m}) modules;
   moduleConfig = mkIf cfg.kernel-modules.enable {
     boot.extraModulePackages = modulePackages;
@@ -90,7 +90,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the system76 firmware daemon"
-          ;
+        ;
         type = types.bool;
       };
 
@@ -101,7 +101,7 @@ in
         description =
           lib.mdDoc
             "Whether to make the system76 out-of-tree kernel modules available"
-          ;
+        ;
         type = types.bool;
       };
 

@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     ''
       ar p "$src/Debian/${region}/kyodialog_${platform}/kyodialog_${kyodialog_version}-0_${platform}.deb" data.tar.gz | tar -xz
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       python3Packages.wrapPython
     ]
     ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs = [ cups ] ++ lib.optionals withQtGui [ qt5.qtbase ];
 
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
         --replace Exec=\"/usr/bin/kyodialog${kyodialog_version}\" Exec=\"$out/bin/kyodialog\" \
         --replace Icon=/usr/share/kyocera/appicon_H.png Icon=$out/share/${pname}/icons/appicon_H.png
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "CUPS drivers for several Kyocera printers";

@@ -31,7 +31,7 @@ let
     ]
     ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ]
     ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ]
-    ;
+  ;
   perfTestNames =
     [
       "calib3d"
@@ -45,7 +45,7 @@ let
       "video"
     ]
     ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ]
-    ;
+  ;
   testRunner = if stdenv.isDarwin then "" else "${lib.getExe xvfb-run} -a ";
   testsPreparation = ''
     touch $out

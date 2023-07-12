@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       python3
       ncurses
     ]
-    ;
+  ;
   nativeBuildInputs = [
     autoconf-archive
     pkg-config
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       "--prefix=${placeholder "out"}"
     ]
     ++ lib.optional enablePython "--enable-bindings-python"
-    ;
+  ;
 
   meta = with lib; {
     description =

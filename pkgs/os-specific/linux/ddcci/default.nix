@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       "KERNEL_MODLIB=$(out)/lib/modules/${kernel.modDirVersion}"
       "INCLUDEDIR=$(out)/include"
     ]
-    ;
+  ;
 
   patches =
     [

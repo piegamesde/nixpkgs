@@ -111,14 +111,14 @@ in
                     )
                   )
                   cfg.rules
-                ;
+              ;
             };
           in
           [
             ""
             "${pkgs.networkd-dispatcher}/bin/networkd-dispatcher -v --script-dir ${scriptDir} $networkd_dispatcher_args"
           ]
-          ;
+        ;
       };
     };
   };

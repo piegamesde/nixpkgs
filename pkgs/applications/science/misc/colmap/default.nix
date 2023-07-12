@@ -51,12 +51,12 @@ mkDerivation rec {
       qtbase
     ]
     ++ lib.optionals cudaSupport [ cudatoolkit ]
-    ;
+  ;
 
   nativeBuildInputs =
     [ cmake ]
     ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
-    ;
+  ;
 
   meta = with lib; {
     description =

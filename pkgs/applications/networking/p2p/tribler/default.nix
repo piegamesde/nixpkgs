@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
         anyio
       ]
     )
-    ;
+  ;
 
   installPhase = ''
     mkdir -pv $out

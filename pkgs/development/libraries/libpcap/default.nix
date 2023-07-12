@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optionals stdenv.isLinux [ libnl ]
     ++ lib.optionals withRemote [ libxcrypt ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [ pkg-config ]
     ++ lib.optionals withBluez [ bluez.dev ]
-    ;
+  ;
 
   # We need to force the autodetection because detection doesn't
   # work in pure build environments.
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
       "ac_cv_linux_vers=2"
     ]
-    ;
+  ;
 
   postInstall = ''
     if [ "$dontDisableStatic" -ne "1" ]; then

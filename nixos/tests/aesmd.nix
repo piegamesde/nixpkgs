@@ -47,10 +47,10 @@
               environment = { AZDCAP_DEBUG_LOG_LEVEL = "INFO"; };
             };
           }
-          ;
+        ;
       };
     }
-    ;
+  ;
 
   testScript =
     {
@@ -117,5 +117,5 @@
         azdcp_debug_log_level = machine.succeed(f"xargs -0 -L1 -a /proc/{main_pid}/environ | grep AZDCAP_DEBUG_LOG_LEVEL")
         assert azdcp_debug_log_level == "AZDCAP_DEBUG_LOG_LEVEL=INFO\n", "AZDCAP_DEBUG_LOG_LEVEL is not set to INFO"
     ''
-    ;
+  ;
 }

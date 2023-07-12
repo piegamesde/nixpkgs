@@ -173,7 +173,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Peer-to-peer ephemeral public communities";

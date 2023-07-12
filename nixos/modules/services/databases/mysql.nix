@@ -220,7 +220,7 @@ in
         description =
           lib.mdDoc
             "A file containing SQL statements to be executed on the first startup. Can be used for granting certain permissions on the database."
-          ;
+        ;
       };
 
       ensureDatabases = mkOption {
@@ -317,7 +317,7 @@ in
           description =
             lib.mdDoc
               "Id of the MySQL server instance. This number must be unique for each instance."
-            ;
+          ;
         };
 
         masterHost = mkOption {
@@ -346,7 +346,7 @@ in
           description =
             lib.mdDoc
               "Port number on which the MySQL master server runs."
-            ;
+          ;
         };
       };
     };
@@ -434,7 +434,7 @@ in
               touch ${cfg.dataDir}/mysql_init
             fi
           ''
-        ;
+      ;
 
       script = ''
         # https://mariadb.com/kb/en/getting-started-with-mariadb-galera-cluster/#systemd-and-galera-recovery
@@ -575,7 +575,7 @@ in
             '')
             cfg.ensureUsers}
         ''
-        ;
+      ;
 
       serviceConfig = mkMerge [
         {

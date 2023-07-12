@@ -37,7 +37,7 @@ buildGoModule rec {
       "-X ${t}.Version=v${version}"
       "-X ${t}.Revision=<unknown>"
     ]
-    ;
+  ;
 
   # Many checks require a containerd socket and running nerdctl after it's built
   doCheck = false;

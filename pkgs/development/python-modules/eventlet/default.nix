@@ -33,7 +33,7 @@ buildPythonPackage rec {
       six
     ]
     ++ lib.optionals (pythonOlder "3.5") [ monotonic ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

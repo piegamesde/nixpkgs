@@ -48,7 +48,7 @@ let
     }
     .${config}
       or (throw "Android NDK doesn't support ${config}, as far as we know")
-    ;
+  ;
 
   buildInfo = ndkInfoFun stdenv.buildPlatform;
   hostInfo = ndkInfoFun stdenv.hostPlatform;
@@ -66,7 +66,7 @@ let
         "_"
       ]
       stdenv.targetPlatform.config
-    ;
+  ;
 
   # targetInfo.triple is what Google thinks the toolchain should be, this is a little
   # different from what we use. We make it four parts to conform with the existing
@@ -74,7 +74,7 @@ let
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
       (stdenv.targetPlatform.config + "-")
-    ;
+  ;
 in
 
 rec {

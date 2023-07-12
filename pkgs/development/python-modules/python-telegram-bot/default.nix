@@ -43,7 +43,7 @@ buildPythonPackage rec {
     ]
     ++ httpx.optional-dependencies.socks
     ++ httpx.optional-dependencies.http2
-    ;
+  ;
 
   nativeCheckInputs = [
     beautifulsoup4

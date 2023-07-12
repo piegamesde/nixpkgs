@@ -98,7 +98,7 @@ in
           DynamicUser = !rootRequired;
           LimitMEMLOCK = toString (1024 * 1024);
         }
-        ;
+      ;
     };
   };
 

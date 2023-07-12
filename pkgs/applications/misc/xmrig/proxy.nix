@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       CoreServices
       IOKit
     ]
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

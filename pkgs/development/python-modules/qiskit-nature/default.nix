@@ -44,7 +44,7 @@ buildPythonPackage rec {
       scipy
     ]
     ++ lib.optional withPyscf pyscf
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

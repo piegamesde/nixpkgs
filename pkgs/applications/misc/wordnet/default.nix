@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       tk
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
 

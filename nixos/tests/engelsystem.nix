@@ -25,7 +25,7 @@ import ./make-test-python.nix (
           libxml2
         ];
       }
-      ;
+    ;
 
     testScript = ''
       engelsystem.start()

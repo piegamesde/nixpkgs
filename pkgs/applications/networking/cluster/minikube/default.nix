@@ -40,7 +40,7 @@ buildGoModule rec {
       [ libvirt ]
     else
       null
-    ;
+  ;
 
   buildPhase = ''
     make COMMIT=${src.rev}

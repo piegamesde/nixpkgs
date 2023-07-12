@@ -38,7 +38,7 @@ stdenv.mkDerivation {
       libmicrohttpd
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-    ;
+  ;
 
   meta = {
     description = "Stubbed XMPP Server";

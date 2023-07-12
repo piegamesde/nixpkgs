@@ -100,7 +100,7 @@ let
         "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
       ];
     }
-    ;
+  ;
 
   base = {
     name = "dns";

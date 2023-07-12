@@ -34,7 +34,7 @@ mkDerivation rec {
       libtiff
     ]
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AGL
-    ;
+  ;
 
   configureFlags =
     [
@@ -45,7 +45,7 @@ mkDerivation rec {
       # NOTE: 2019-09-19: experimental "--enable-npdjvu" fails
     ]
     ++ lib.optional stdenv.isDarwin "--enable-mac"
-    ;
+  ;
 
   passthru = { mozillaPlugin = "/lib/mozilla/plugins"; };
 

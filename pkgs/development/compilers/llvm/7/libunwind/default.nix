@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
         ];
       })
     ]
-    ;
+  ;
 
   outputs = [
     "out"
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
       "-DLLVM_ENABLE_LIBCXX=ON"
     ]
-    ;
+  ;
 
   meta = llvm_meta // {
     # Details: https://github.com/llvm/llvm-project/blob/main/libunwind/docs/index.rst

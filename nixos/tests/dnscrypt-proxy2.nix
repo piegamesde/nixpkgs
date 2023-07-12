@@ -38,7 +38,7 @@ import ./make-test-python.nix (
             "127.0.0.1#${toString localProxyPort}"
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

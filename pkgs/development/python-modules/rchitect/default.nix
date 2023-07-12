@@ -31,7 +31,7 @@ buildPythonPackage rec {
       six
     ]
     ++ (with rPackages; [ reticulate ])
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

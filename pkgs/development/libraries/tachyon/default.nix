@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     lib.optionals stdenv.isDarwin [ Carbon ]
     ++ lib.optionals withJpegSupport [ libjpeg ]
     ++ lib.optionals withPngSupport [ libpng ]
-    ;
+  ;
   preBuild =
     ''
       cd unix
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       export USEPNG=" -DUSEPNG"
       export PNGLIB=" -lpng -lz"
     ''
-    ;
+  ;
   arch =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "linux-64-thr"
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       "bsd"
     else
       throw "Don't know what arch to select for tachyon build"
-    ;
+  ;
   makeFlags = [ arch ];
 
   patches = [

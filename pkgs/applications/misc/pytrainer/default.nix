@@ -92,7 +92,7 @@ python.pkgs.buildPythonApplication rec {
         psycopg2
       ]
     )
-    ;
+  ;
 
   checkPhase = ''
     env HOME=$TEMPDIR TZDIR=${tzdata}/share/zoneinfo \

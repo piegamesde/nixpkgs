@@ -9,7 +9,7 @@ let
         sha256 = "0014b6kl3rbjhjbk7jz116wdgdls54b1bwz454pkn1snlvkj3qil";
       };
     }
-    ;
+  ;
 in
 [
   (mkAwsPackage "")

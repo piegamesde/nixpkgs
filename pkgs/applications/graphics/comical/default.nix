@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   makeFlags = [
     "prefix=${placeholder "out"}"

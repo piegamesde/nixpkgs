@@ -71,7 +71,7 @@ buildDunePackage {
         [ cmdliner_1_0 ]
     )
     ++ lib.optionals (lib.versionAtLeast version "0.22.4") [ csexp ]
-    ;
+  ;
 
   meta = {
     homepage = "https://github.com/ocaml-ppx/ocamlformat";

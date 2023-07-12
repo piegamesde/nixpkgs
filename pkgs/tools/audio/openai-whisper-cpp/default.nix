@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       CoreGraphics
       CoreVideo
     ]
-    ;
+  ;
 
   makeFlags = [
     "main"

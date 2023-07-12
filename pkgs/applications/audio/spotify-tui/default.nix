@@ -79,7 +79,7 @@ rustPlatform.buildRustPackage rec {
     ''
       ln -s ${rspotify} ./rspotify-${rspotify.version}
     ''
-    ;
+  ;
 
   cargoHash = "sha256-aZJ6Q/rvqrv+wvQw2eKFPnSROhI5vXPvr5pu1hwtZKA=";
 
@@ -89,7 +89,7 @@ rustPlatform.buildRustPackage rec {
       pkg-config
       python3
     ]
-    ;
+  ;
   buildInputs =
     [ ]
     ++ lib.optionals stdenv.isLinux [
@@ -100,7 +100,7 @@ rustPlatform.buildRustPackage rec {
       AppKit
       Security
     ]
-    ;
+  ;
 
   postInstall = ''
     for shell in bash fish zsh; do

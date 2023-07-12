@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
       darwin.apple_sdk.frameworks.CoreFoundation
       darwin.apple_sdk.frameworks.Security
     ]
-    ;
+  ;
 
   checkFlags = [
     # requires internet access

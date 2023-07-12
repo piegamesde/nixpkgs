@@ -25,7 +25,7 @@ let
       "[${concatMapStringsSep "," toHOCON x}]"
     else
       builtins.toJSON x
-    ;
+  ;
 
   configFile = pkgs.writeText "jicofo.conf" (toHOCON cfg.config);
 in
@@ -180,13 +180,13 @@ in
           RestrictSUIDSGID = true;
         };
       }
-      ;
+    ;
 
     environment.etc."jitsi/jicofo/sip-communicator.properties".text = "";
     environment.etc."jitsi/jicofo/logging.properties".source =
       mkDefault
         "${pkgs.jicofo}/etc/jitsi/jicofo/logging.properties-journal"
-      ;
+    ;
   };
 
   meta.maintainers = lib.teams.jitsi.members;

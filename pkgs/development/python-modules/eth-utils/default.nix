@@ -31,7 +31,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optional (!isPyPy) cytoolz
     ++ lib.optional isPyPy toolz
-    ;
+  ;
 
   nativeCheckInputs =
     [
@@ -39,7 +39,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ eth-hash.optional-dependencies.pycryptodome
-    ;
+  ;
 
   pythonImportsCheck = [ "eth_utils" ];
 

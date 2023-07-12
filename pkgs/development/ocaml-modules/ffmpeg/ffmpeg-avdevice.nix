@@ -39,7 +39,7 @@ buildDunePackage {
       OpenGL
       VideoToolbox
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     ffmpeg-av

@@ -25,7 +25,7 @@ let
       "LINUX"
     else
       throw "Unknown host OS"
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       # EPSILON is exceeded
       rm tests/aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
     ''
-    ;
+  ;
 
   # FIXME: might be nice to put different APIs in different outputs
   # (e.g. libaws-cpp-sdk-s3.so in output "s3").
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
           CoreAudio
           AudioToolbox
         ]
-    ;
+  ;
 
   # propagation is needed for Security.framework to be available when linking
   propagatedBuildInputs = [ aws-crt-cpp ];
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (apis != [ "*" ]) "-DBUILD_ONLY=${
           lib.concatStringsSep ";" apis
         }"
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [
     # openssl 3 generates several deprecation warnings
@@ -144,6 +144,6 @@ stdenv.mkDerivation rec {
     broken =
       stdenv.buildPlatform.is32bit
       && ((builtins.elem "ec2" apis) || (builtins.elem "*" apis))
-      ;
+    ;
   };
 }

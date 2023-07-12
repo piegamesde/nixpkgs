@@ -51,7 +51,7 @@ let
         list:
         lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}")
           list
-        ;
+      ;
       name = "${open-watcom.passthru.prettyName}-${open-watcom.version}";
     in
     symlinkJoin {
@@ -137,7 +137,7 @@ let
                     "./test_cpp"}
                   touch $out
                 ''
-              ;
+            ;
             cross =
               runCommand "${name}-test-cross"
                 {
@@ -171,13 +171,13 @@ let
                   file ./dos.exe | grep "MS-DOS" | grep -v "LE" | grep -v "Windows 3.x"
                   touch $out
                 ''
-              ;
+            ;
           }
-          ;
+        ;
       };
 
       inherit (open-watcom) meta;
     }
-    ;
+  ;
 in
 lib.makeOverridable wrapper

@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         ln -sf $file-6d.x $file.x
       done
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A Package for Analyzing Lattice Polytopes";

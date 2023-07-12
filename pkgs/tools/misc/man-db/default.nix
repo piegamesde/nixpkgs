@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       "ac_cv_func_posix_fadvise=no"
       "ac_cv_func_mempcpy=no"
     ]
-    ;
+  ;
 
   preConfigure = ''
     configureFlagsArray+=("--with-sections=1 n l 8 3 0 2 5 4 9 6 7")
@@ -101,14 +101,14 @@ stdenv.mkDerivation rec {
   disallowedReferences =
     lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
       [ buildPackages.groff ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
   doCheck =
     !stdenv.hostPlatform.isMusl # iconv binary
     && !stdenv.hostPlatform.isDarwin
-    ;
+  ;
 
   passthru.tests = { nixos = nixosTests.man; };
 

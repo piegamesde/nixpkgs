@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
       Security
     ]
-    ;
+  ;
 
   OPENSSL_NO_VENDOR = 1;
 

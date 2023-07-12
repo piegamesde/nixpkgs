@@ -136,7 +136,7 @@ let
       blas64_
     else
       lib.hasPrefix "x86_64" stdenv.hostPlatform.system
-    ;
+  ;
   # Convert flag values to format OpenBLAS's build expects.
   # `toString` is almost what we need other than bools,
   # which we need to map {true -> 1, false -> 0}
@@ -149,7 +149,7 @@ let
       "1"
     else
       "0"
-    ;
+  ;
   mkMakeFlagsFromConfig = lib.mapAttrsToList (
     var: val: "${var}=${mkMakeFlagValue val}"
   );
@@ -242,7 +242,7 @@ stdenv.mkDerivation rec {
           toString (stdenv.hostPlatform != stdenv.buildPlatform)
         else
           stdenv.hostPlatform != stdenv.buildPlatform
-        ;
+      ;
       # This disables automatic build job count detection (which honours neither enableParallelBuilding nor NIX_BUILD_CORES)
       # and uses the main make invocation's job count, falling back to 1 if no parallelism is used.
       # https://github.com/xianyi/OpenBLAS/blob/v0.3.20/getarch.c#L1781-L1792
@@ -293,7 +293,7 @@ stdenv.mkDerivation rec {
       ln -s $out/lib/libopenblas.a $out/lib/liblapack.a
       ln -s $out/lib/libopenblas.a $out/lib/liblapacke.a
     ''
-    ;
+  ;
 
   passthru.tests = {
     inherit (python3.pkgs) numpy scipy;

@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
         libSM
       ]
     )
-    ;
+  ;
 
   # some bundled libs are found through LD_LIBRARY_PATH
   autoPatchelfIgnoreMissingDeps = true;
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") (
       ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
     )
-    ;
+  ;
 
   unpackPhase = ''
     # find offset from file

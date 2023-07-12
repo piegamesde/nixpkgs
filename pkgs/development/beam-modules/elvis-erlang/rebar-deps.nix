@@ -6,7 +6,7 @@ let
       ...
     }:
     src
-    ;
+  ;
 in
 {
   builder ? fetchOnly,

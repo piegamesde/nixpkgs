@@ -20,7 +20,7 @@ let
     isPyPy
     pythonAtLeast
     pythonOlder
-    ;
+  ;
 
   namePrefix = python.libPrefix + "-";
 
@@ -43,7 +43,7 @@ let
       overrideWith =
         newArgs:
         args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs)
-        ;
+      ;
     in
     if builtins.isAttrs result then
       result
@@ -55,14 +55,14 @@ let
       }
     else
       result
-    ;
+  ;
 
   buildPythonPackage = makeOverridablePythonPackage (
     lib.makeOverridable (
       callPackage ./mk-python-derivation.nix {
         inherit
           namePrefix
-          ; # We want Python libraries to be named like e.g. "python3.6-${name}"
+        ; # We want Python libraries to be named like e.g. "python3.6-${name}"
         inherit toPythonModule; # Libraries provide modules
       }
     )
@@ -94,7 +94,7 @@ let
       ++ modules
       ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules)
     )
-    ;
+  ;
 
   # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
   # providing Python modules.
@@ -115,11 +115,11 @@ let
           requiredPythonModules =
             requiredPythonModules
               drv.propagatedBuildInputs
-            ;
+          ;
         };
       }
     )
-    ;
+  ;
 
   # Convert a Python library to an application.
   toPythonApplication =
@@ -135,14 +135,14 @@ let
         };
       }
     )
-    ;
+  ;
 
   disabled =
     drv:
     throw "${
         removePythonPrefix (drv.pname or drv.name)
       } not supported for interpreter ${python.executable}"
-    ;
+  ;
 
   disabledIf = x: drv: if x then disabled drv else drv;
 in
@@ -160,7 +160,7 @@ in
     isPyPy
     pythonAtLeast
     pythonOlder
-    ;
+  ;
   inherit buildPythonPackage buildPythonApplication;
   inherit (pkgs) fetchPypi;
   inherit
@@ -169,7 +169,7 @@ in
     makePythonPath
     disabled
     disabledIf
-    ;
+  ;
   inherit toPythonModule toPythonApplication;
   inherit buildSetupcfg;
 

@@ -78,7 +78,7 @@ buildPythonPackage rec {
       export CVXOPT_FFTW_LIB_DIR=${lib.getLib fftw}/lib
       export CVXOPT_FFTW_INC_DIR=${lib.getDev fftw}/include
     ''
-    ;
+  ;
 
   nativeCheckInputs = [ unittestCheckHook ];
 

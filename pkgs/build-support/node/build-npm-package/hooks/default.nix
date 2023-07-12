@@ -27,7 +27,7 @@
         };
       }
       ./npm-config-hook.sh
-    ;
+  ;
 
   npmBuildHook = makeSetupHook { name = "npm-build-hook"; } ./npm-build-hook.sh;
 
@@ -42,5 +42,5 @@
         };
       }
       ./npm-install-hook.sh
-    ;
+  ;
 }

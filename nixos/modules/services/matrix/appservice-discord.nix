@@ -111,7 +111,7 @@ in
         default =
           optional config.services.matrix-synapse.enable
             "matrix-synapse.service"
-          ;
+        ;
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"
         '';

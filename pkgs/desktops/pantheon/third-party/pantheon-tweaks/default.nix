@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
         switchboard
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     chmod +x meson/post_install.py

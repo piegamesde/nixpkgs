@@ -16,7 +16,7 @@ in
     services.xserver.windowManager.e16.enable =
       mkEnableOption
         (lib.mdDoc "e16")
-      ;
+    ;
   };
 
   ###### implementation

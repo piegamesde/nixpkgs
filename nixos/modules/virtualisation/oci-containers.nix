@@ -70,7 +70,7 @@ let
           description =
             lib.mdDoc
               "Commandline arguments to pass to the image's entrypoint."
-            ;
+          ;
           example = literalExpression ''
             ["--port=9000"]
           '';
@@ -81,7 +81,7 @@ let
           description =
             lib.mdDoc
               "Override the default entrypoint of the image."
-            ;
+          ;
           default = null;
           example = "/bin/my-app";
         };
@@ -92,7 +92,7 @@ let
           description =
             lib.mdDoc
               "Environment variables to set for this container."
-            ;
+          ;
           example = literalExpression ''
             {
               DATABASE_HOST = "db.example.com";
@@ -200,7 +200,7 @@ let
           description =
             lib.mdDoc
               "Override the default working directory for the container."
-            ;
+          ;
           example = "/var/lib/hello_world";
         };
 
@@ -228,7 +228,7 @@ let
           description =
             lib.mdDoc
               "Extra options for {command}`${defaultBackend} run`."
-            ;
+          ;
           example = literalExpression ''
             ["--network=host"]
           '';
@@ -244,14 +244,14 @@ let
         };
       };
     }
-    ;
+  ;
 
   isValidLogin =
     login:
     login.username != null
     && login.passwordFile != null
     && login.registry != null
-    ;
+  ;
 
   mkService =
     name: container:
@@ -271,7 +271,7 @@ let
           "network-online.target"
         ]
         ++ dependsOn
-        ;
+      ;
       requires = dependsOn;
       environment = proxy_env;
 
@@ -282,7 +282,7 @@ let
           [ config.virtualisation.podman.package ]
         else
           throw "Unhandled backend: ${cfg.backend}"
-        ;
+      ;
 
       preStart = ''
         ${cfg.backend} rm -f ${name} || true
@@ -341,13 +341,13 @@ let
           "[ $SERVICE_RESULT = success ] || podman stop --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
         else
           "[ $SERVICE_RESULT = success ] || ${cfg.backend} stop ${name}"
-        ;
+      ;
       postStop =
         if cfg.backend == "podman" then
           "podman rm -f --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
         else
           "${cfg.backend} rm -f ${name} || true"
-        ;
+      ;
 
       serviceConfig = {
         ### There is no generalized way of supporting `reload` for docker
@@ -375,7 +375,7 @@ let
         NotifyAccess = "all";
       };
     }
-    ;
+  ;
 in
 {
   imports = [
@@ -397,7 +397,7 @@ in
                     [ "extraDockerOptions" ]
                 )
                 oldcfg.docker-containers
-              ;
+            ;
           }
         )
     )
@@ -415,7 +415,7 @@ in
           "podman"
         else
           "docker"
-        ;
+      ;
       description = lib.mdDoc "The underlying Docker implementation to use.";
     };
 
@@ -425,7 +425,7 @@ in
       description =
         lib.mdDoc
           "OCI (Docker) containers to run as systemd services."
-        ;
+      ;
     };
   };
 
@@ -435,7 +435,7 @@ in
         systemd.services =
           mapAttrs' (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
             cfg.containers
-          ;
+        ;
       }
       (lib.mkIf (cfg.backend == "podman") {
         virtualisation.podman.enable = true;

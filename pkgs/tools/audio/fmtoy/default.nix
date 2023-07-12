@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       substituteInPlace Makefile \
         --replace '$(shell pkg-config alsa jack --cflags)' ""
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [ dos2unix ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       alsa-lib
       libjack2
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

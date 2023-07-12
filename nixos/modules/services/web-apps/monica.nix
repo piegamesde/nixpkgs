@@ -33,7 +33,7 @@ let
     || cfg.nginx.forceSSL
     || cfg.nginx.onlySSL
     || cfg.nginx.enableACME
-    ;
+  ;
 in
 {
   options.services.monica = {
@@ -68,7 +68,7 @@ in
           config.networking.fqdn
         else
           config.networking.hostName
-        ;
+      ;
       defaultText = lib.literalExpression "config.networking.fqdn";
       example = "monica.example.com";
       description = lib.mdDoc ''
@@ -132,7 +132,7 @@ in
         description =
           lib.mdDoc
             "Create the database and database user locally."
-          ;
+        ;
       };
     };
 
@@ -432,7 +432,7 @@ in
                   throw "unsupported type ${typeOf v}: ${
                       (lib.generators.toPretty { }) v
                     }"
-                ;
+              ;
             };
           };
           secretPaths = lib.mapAttrsToList (_: v: v._secret) (
@@ -448,11 +448,11 @@ in
                 ]
               }
             ''
-            ;
+          ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement
               secretPaths
-            ;
+          ;
           filteredConfig =
             lib.converge
               (lib.filterAttrsRecursive (
@@ -463,11 +463,11 @@ in
                 ]
               ))
               cfg.config
-            ;
+          ;
           monicaEnv =
             pkgs.writeText "monica.env"
               (monicaEnvVars filteredConfig)
-            ;
+          ;
         in
         ''
           # error handling
@@ -484,7 +484,7 @@ in
           ${pkgs.php}/bin/php artisan key:generate --force
           ${pkgs.php}/bin/php artisan setup:production -v --force
         ''
-        ;
+      ;
     };
 
     systemd.services.monica-scheduler = {

@@ -25,7 +25,7 @@ buildGoModule rec {
   propagatedBuildInputs =
     lib.optionals stdenv.isLinux [ trezor-udev-rules ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ;
+  ;
 
   ldflags = [
     "-s"

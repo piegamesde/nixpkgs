@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-base
     ]
-    ;
+  ;
 
   mesonFlags =
     [
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (xwayland != null) [
       "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
     ]
-    ;
+  ;
 
   passthru.providedSessions = [ "weston" ];
 

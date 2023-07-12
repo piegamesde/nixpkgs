@@ -35,7 +35,7 @@ in
                 description =
                   lib.mdDoc
                     "Name of the user the AutoSSH session should run as"
-                  ;
+                ;
               };
               monitoringPort = mkOption {
                 type = types.int;
@@ -115,12 +115,12 @@ in
                     } ${s.extraArguments}";
                 };
               }
-              ;
+            ;
           }
         )
         { }
         cfg.sessions
-      ;
+    ;
 
     environment.systemPackages = [ pkgs.autossh ];
   };

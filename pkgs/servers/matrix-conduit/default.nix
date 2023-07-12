@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     [ sqlite ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-    ;
+  ;
 
   ROCKSDB_INCLUDE_DIR = "${rocksdb_6_23}/include";
   ROCKSDB_LIB_DIR = "${rocksdb_6_23}/lib";

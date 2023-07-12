@@ -16,7 +16,7 @@ let
           upper = builtins.concatStringsSep "." (ireplace idx minor ver);
         in
         operators.">=" version v && operators."<" version upper
-        ;
+      ;
       dropWildcardPrecision =
         f: version: constraint:
         let
@@ -28,10 +28,10 @@ let
               (builtins.substring 0 (builtins.stringLength c) version)
             else
               version
-            ;
+          ;
         in
         f v c
-        ;
+      ;
     in
     {
       # Prefix operators
@@ -59,7 +59,7 @@ let
           );
         in
         operators.">=" v c && operators."<" v upperConstraint
-        ;
+      ;
       # Infix operators
       "-" =
         version: v: operators.">=" version v.vl && operators."<=" version v.vu;
@@ -67,7 +67,7 @@ let
       "===" = v: c: v == c;
       #
     }
-    ;
+  ;
   re = {
     operators = "([=><!~^]+)";
     version = "([0-9.*x]+)";
@@ -99,14 +99,14 @@ let
       else
         throw ''Constraint "${constraintStr}" could not be parsed''
     )
-    ;
+  ;
   satisfiesSemver =
     version: constraint:
     let
       inherit (parseConstraint constraint) op v;
     in
     if constraint == "*" then true else operators."${op}" version v
-    ;
+  ;
 in
 {
   inherit satisfiesSemver;

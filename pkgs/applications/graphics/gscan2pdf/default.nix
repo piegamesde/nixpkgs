@@ -73,7 +73,7 @@ perlPackages.buildPerlPackage rec {
         SubOverride
       ]
     )
-    ;
+  ;
 
   postPatch =
     let
@@ -88,7 +88,7 @@ perlPackages.buildPerlPackage rec {
       # Substitute the non-free Helvetica font in the tests
       sed -i 's|-pointsize|-font ${fontSubstitute} -pointsize|g' t/*.t
     ''
-    ;
+  ;
 
   postInstall = ''
     # Remove impurity
@@ -130,7 +130,7 @@ perlPackages.buildPerlPackage rec {
       tesseract # tests are expecting tesseract 3.x precisely
     ]
     ++ (with perlPackages; [ TestPod ])
-    ;
+  ;
 
   checkPhase = ''
     # Temporarily disable a test failing after a patch imagemagick update.

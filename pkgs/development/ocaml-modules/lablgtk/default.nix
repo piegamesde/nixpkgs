@@ -46,7 +46,7 @@ let
       }
     else
       throw "lablgtk is not available for OCaml ${ocaml.version}"
-    ;
+  ;
 in
 
 stdenv.mkDerivation {
@@ -67,7 +67,7 @@ stdenv.mkDerivation {
       gtksourceview
     ]
     ++ param.buildInputs or [ ]
-    ;
+  ;
 
   configureFlags = [
     "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib"

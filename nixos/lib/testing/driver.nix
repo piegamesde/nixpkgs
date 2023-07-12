@@ -29,7 +29,7 @@ let
     ++
       lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
         "machine"
-    ;
+  ;
 
   # TODO: This is an implementation error and needs fixing
   # the testing famework cannot legitimately restrict hostnames further
@@ -37,7 +37,7 @@ let
   invalidNodeNames =
     lib.filter (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
       nodeHostNames
-    ;
+  ;
 
   uniqueVlans = lib.unique (builtins.concatLists vlans);
   vlanNames = map (i: "vlan${toString i}: VLan;") uniqueVlans;
@@ -57,7 +57,7 @@ let
       ''
     else
       lib.warnIf config.skipLint "Linting is disabled"
-    ;
+  ;
 
   driver =
     hostPkgs.runCommand "nixos-test-driver-${config.name}"
@@ -66,7 +66,7 @@ let
         nativeBuildInputs =
           [ hostPkgs.makeWrapper ]
           ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ]
-          ;
+        ;
         buildInputs = [ testDriver ];
         testScript = config.testScriptString;
         preferLocalBuild = true;
@@ -126,7 +126,7 @@ let
             )
           }
       ''
-    ;
+  ;
 in
 {
   options = {
@@ -149,7 +149,7 @@ in
       description =
         mdDoc
           "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes)."
-        ;
+      ;
       type = types.package;
       default = hostPkgs.qemu_test;
       defaultText = "hostPkgs.qemu_test";

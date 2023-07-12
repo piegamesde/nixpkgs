@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       libmnl # XDP support (it's Linux kernel API)
     ]
     ++ lib.optional stdenv.isDarwin zlib
-    ; # perhaps due to gnutls
+  ; # perhaps due to gnutls
 
   enableParallelBuilding = true;
 
@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
           done
           touch "$out"
         ''
-      ;
+    ;
   };
 
   meta = with lib; {

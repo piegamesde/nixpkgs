@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
         FileTouch
       ]
     )
-    ;
+  ;
 
   preConfigure = ''
     export PERL5LIB="$PERL5LIB''${PERL5LIB:+:}${dpkg}";

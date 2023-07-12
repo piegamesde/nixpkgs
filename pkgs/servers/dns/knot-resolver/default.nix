@@ -77,7 +77,7 @@ let # un-indented, over the whole file
         sed -E '/^[[:blank:]]*test_(dstaddr|headers),?$/d' -i \
           tests/config/doh2.test.lua modules/http/http_doh.test.lua
       ''
-      ;
+    ;
 
     preConfigure = ''
       patchShebangs scripts/
@@ -106,8 +106,8 @@ let # un-indented, over the whole file
         jemalloc
         nghttp2
       ]
-      ## optional dependencies; TODO: dnstap
-      ;
+    ## optional dependencies; TODO: dnstap
+    ;
 
     mesonFlags =
       [
@@ -122,8 +122,9 @@ let # un-indented, over the whole file
       ++
         optional stdenv.isLinux
           "-Dsystemd_files=enabled" # used by NixOS service
-      #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
-      ;
+
+    #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
+    ;
 
     postInstall =
       ''
@@ -133,7 +134,7 @@ let # un-indented, over the whole file
       + optionalString stdenv.targetPlatform.isLinux ''
         rm -r "$out"/lib/sysusers.d/ # ATM more likely to harm than help
       ''
-      ;
+    ;
 
     doInstallCheck = with stdenv; hostPlatform == buildPlatform;
     nativeInstallCheckInputs = [
@@ -188,6 +189,6 @@ let # un-indented, over the whole file
         echo "modules.load('http')" > test-http.lua
         echo -e 'quit()' | env -i "$out"/bin/kresd -a 127.0.0.1#53535 -c test-http.lua
       ''
-    ;
+  ;
 in
 result

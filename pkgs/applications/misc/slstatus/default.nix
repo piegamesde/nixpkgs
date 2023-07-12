@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   configFile =
     lib.optionalString (conf != null)
       (writeText "config.def.h" conf)
-    ;
+  ;
   preBuild = ''
     ${lib.optionalString (conf != null) "cp ${configFile} config.def.h"}
     makeFlagsArray+=(LDLIBS="-lX11 -lxcb -lXau -lXdmcp" CC=$CC)

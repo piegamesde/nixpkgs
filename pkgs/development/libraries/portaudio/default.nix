@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
       "-Wno-error=nullability-inferred-on-nested-type -Wno-error=nullability-completeness-on-arrays -Wno-error=implicit-const-int-float-conversion"
-    ;
+  ;
 
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [
     AudioUnit
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       cp include/pa_mac_core.h $out/include/pa_mac_core.h
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Portable cross-platform Audio API";

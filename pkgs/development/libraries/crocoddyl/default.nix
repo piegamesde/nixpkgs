@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       python3Packages.example-robot-data
       python3Packages.pinocchio
     ]
-    ;
+  ;
 
   cmakeFlags = lib.optionals (!pythonSupport) [
     "-DBUILD_EXAMPLES=OFF"

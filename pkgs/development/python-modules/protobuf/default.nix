@@ -22,7 +22,7 @@ buildPythonPackage {
       "${toString (lib.toInt versionMajor + 1)}.${versionMinor}.${versionPatch}"
     else
       protobuf.version
-    ;
+  ;
 
   disabled = isPyPy;
 

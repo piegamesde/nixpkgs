@@ -22,7 +22,7 @@ let
               required to find the c and c++ standard libary, as well as the libraries
               specified in the buildInputs of your derivation.
             ''
-            ;
+          ;
         };
         passthru.tests = {
           simple-c = runCommandCC "simple-c-bindgen-tests" { } ''
@@ -45,7 +45,7 @@ let
                 grep compress output
                 touch $out
               ''
-            ;
+          ;
         };
       }
       # if you modify the logic to find the right clang flags, also modify rustPlatform.bindgenHook
@@ -56,6 +56,6 @@ let
         substituteAll ${./wrapper.sh} $out/bin/bindgen
         chmod +x $out/bin/bindgen
       ''
-    ;
+  ;
 in
 self

@@ -22,7 +22,7 @@ let
         pki_dir = "/var/lib/salt/pki/master";
       }
       cfg.configuration
-    ;
+  ;
 in
 
 {
@@ -35,7 +35,7 @@ in
         description =
           lib.mdDoc
             "Salt master configuration as Nix attribute set."
-          ;
+        ;
       };
     };
   };

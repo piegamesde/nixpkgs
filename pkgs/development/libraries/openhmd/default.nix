@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       glew
       libGL
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_BOTH_STATIC_SHARED_LIBS=ON"

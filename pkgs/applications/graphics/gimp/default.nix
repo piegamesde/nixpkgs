@@ -97,7 +97,7 @@ stdenv.mkDerivation (
         gtk-doc
       ]
       ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -148,7 +148,7 @@ stdenv.mkDerivation (
         # Duplicated here because python.withPackages does not expose the dev output with pkg-config files
         python2.pkgs.pygtk
       ]
-      ;
+    ;
 
     # needed by gimp-2.0.pc
     propagatedBuildInputs = [ gegl ];
@@ -165,7 +165,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (!withPython) [
         "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
       ]
-      ;
+    ;
 
     enableParallelBuilding = true;
 
@@ -175,7 +175,7 @@ stdenv.mkDerivation (
       NIX_CFLAGS_COMPILE =
         lib.optionalString stdenv.isDarwin
           "-DGDK_OSX_BIG_SUR=16"
-        ;
+      ;
 
       # Check if librsvg was built with --disable-pixbuf-loader.
       PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR =

@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       suitesparse
     ]
     ++ lib.optionals withMPI [ mpi ]
-    ;
+  ;
 
   preConfigure =
     if withMPI then
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
       ''
         cmakeFlagsArray+=(${flagsBase})
       ''
-    ;
+  ;
 
   passthru = { inherit withMPI; };
 

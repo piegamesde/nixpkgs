@@ -82,7 +82,7 @@ buildPythonPackage rec {
       samplerate
     ]
     ++ passthru.optional-dependencies.matplotlib
-    ;
+  ;
 
   preCheck = ''
     export HOME=$TMPDIR

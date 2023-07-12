@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
 
       sed 's|\bwhich\b|type -P|g' -i "$out"/bin/*
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/wiki/Software/xdg-utils/";

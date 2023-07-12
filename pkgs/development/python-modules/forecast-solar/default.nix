@@ -30,7 +30,7 @@ buildPythonPackage rec {
       aiohttp
     ]
     ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-    ;
+  ;
 
   pythonImportsCheck = [ "forecast_solar" ];
 

@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage {
         name' = builtins.baseNameOf name;
       in
       name' != "default.nix" && name' != "target"
-      ;
+    ;
   };
 
   cargoLock.lockFile = ./Cargo.lock;

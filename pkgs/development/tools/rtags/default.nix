@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       apple_sdk.libs.xpc
       apple_sdk.frameworks.CoreServices
     ]
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "andersbakken";

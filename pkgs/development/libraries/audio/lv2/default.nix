@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       "-Ddocs=disabled"
     ]
     ++ lib.optionals stdenv.isDarwin [ "-Dlv2dir=${placeholder "out"}/lib/lv2" ]
-    ;
+  ;
 
   passthru = {
     tests = { inherit pipewire; };

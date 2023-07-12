@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       ''
         substituteInPlace Makefile.in --replace "src doc tests" "src tests"
       ''
-    ;
+  ;
 
   strictDeps = true;
   buildInputs = [ boost ];

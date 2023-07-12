@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       }
     )
     ++ lib.optional stdenv.hostPlatform.isMusl ./musl-fixes.patch
-    ;
+  ;
 
   buildInputs = [ libevent ];
   propagatedBuildInputs = [ cyrus_sasl ];

@@ -13,7 +13,7 @@ import ./make-test-python.nix (
         # See https://bugs.busybox.net/show_bug.cgi?id=15101
         extraConfig = "CONFIG_FEATURE_SUID n";
       }
-      ;
+    ;
   in
   {
     name = "wrappers";
@@ -57,7 +57,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       def cmd_as_regular(cmd):

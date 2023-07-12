@@ -36,7 +36,7 @@ import ./make-test-python.nix (
         security.acme.acceptTerms = true;
         security.acme.server = "https://example.com"; # self-signed only
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("jitsi-videobridge2.service")

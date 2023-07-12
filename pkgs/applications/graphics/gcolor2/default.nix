@@ -45,7 +45,7 @@ stdenv.mkDerivation {
         sha256 = "0187zc8as9g3d6mpm3isg87jfpryj0hajb4inwvii8gxrzbi5l5f";
       })
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
@@ -56,7 +56,7 @@ stdenv.mkDerivation {
         XMLParser
       ]
     )
-    ;
+  ;
 
   meta = {
     description = "Simple GTK 2 color selector";

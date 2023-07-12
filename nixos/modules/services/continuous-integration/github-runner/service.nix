@@ -52,7 +52,7 @@ in
     )
     ++ [ config.nix.package ]
     ++ cfg.extraPackages
-    ;
+  ;
 
   serviceConfig = mkMerge [
     {
@@ -86,7 +86,7 @@ in
 
               ${lines}
             ''
-            ;
+          ;
           runnerRegistrationConfig =
             getAttrs
               [
@@ -99,7 +99,7 @@ in
                 "workDir"
               ]
               cfg
-            ;
+          ;
           newConfigPath = builtins.toFile "${svcName}-config.json" (
             builtins.toJSON runnerRegistrationConfig
           );
@@ -226,7 +226,7 @@ in
             configureRunner
             setupWorkDir
           ]
-        ;
+      ;
 
       # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)
       # to trigger a fresh registration.

@@ -27,7 +27,7 @@ buildDunePackage rec {
       Accelerate
       CoreAudio
     ]
-    ;
+  ;
   propagatedBuildInputs = [
     libsamplerate
     libjack2

@@ -34,7 +34,7 @@ let
       parts = splitVersion release_version;
     in
     imap (i: _: concatStringsSep "." (take i parts)) parts
-    ;
+  ;
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -61,7 +61,7 @@ let
       python3.withPackages checkDeps
     else
       python3
-    ;
+  ;
 in
 
 stdenv.mkDerivation (
@@ -73,7 +73,7 @@ stdenv.mkDerivation (
     polly_src =
       fetch "polly"
         "1k2frwg5mkqh0raia8xf69h3jhdw7a5nxd6vjscjn44cdkgmyxp7"
-      ;
+    ;
 
     unpackPhase =
       ''
@@ -85,7 +85,7 @@ stdenv.mkDerivation (
         unpackFile $polly_src
         mv polly-* $sourceRoot/tools/polly
       ''
-      ;
+    ;
 
     outputs = [
       "out"
@@ -100,7 +100,7 @@ stdenv.mkDerivation (
         python
       ]
       ++ optional enableManpages python3.pkgs.sphinx
-      ;
+    ;
 
     buildInputs = [
       libxml2
@@ -145,7 +145,7 @@ stdenv.mkDerivation (
         })
       ]
       ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
-      ;
+    ;
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -189,7 +189,7 @@ stdenv.mkDerivation (
             --replace 'Finished llvm::' 'Finished {{.*}}'
         done
       ''
-      ;
+    ;
 
     preConfigure = ''
       # Workaround for configure flags that need to have spaces
@@ -219,7 +219,7 @@ stdenv.mkDerivation (
             "-DLLVM_ENABLE_RTTI=ON"
           ]
           ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
-          ;
+        ;
       in
       flagsForLlvmConfig
       ++ [
@@ -280,7 +280,7 @@ stdenv.mkDerivation (
           )
         )
       ]
-      ;
+    ;
 
     postBuild = ''
       rm -fR $out
@@ -313,7 +313,7 @@ stdenv.mkDerivation (
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
       ''
-      ;
+    ;
 
     inherit doCheck;
 

@@ -52,7 +52,7 @@ let
         })
       )
       cfg.server.exports
-    ;
+  ;
   serverConfig = pkgs.writeText "nbd-server-config" ''
     ${lib.generators.toINI { } genericSection}
     ${lib.generators.toINI { } exportSections}
@@ -86,7 +86,7 @@ in
           description =
             lib.mdDoc
               "Port to listen on. The port is NOT automatically opened in the firewall."
-            ;
+          ;
         };
 
         extraOptions = mkOption {
@@ -102,7 +102,7 @@ in
           description =
             lib.mdDoc
               "Files or block devices to make available over the network."
-            ;
+          ;
           default = { };
           type = with types;
             attrsOf (
@@ -124,7 +124,7 @@ in
                     description =
                       lib.mdDoc
                         "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections."
-                      ;
+                    ;
                   };
 
                   extraOptions = mkOption {
@@ -148,7 +148,7 @@ in
           description =
             lib.mdDoc
               "Address to listen on. If not specified, the server will listen on all interfaces."
-            ;
+          ;
           default = null;
           example = "10.10.0.1";
         };

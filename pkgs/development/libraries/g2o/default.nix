@@ -67,7 +67,7 @@ mkDerivation rec {
         if stdenv.hostPlatform.sse4_aSupport then "OFF" else "ON"
       }"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A General Framework for Graph Optimization";

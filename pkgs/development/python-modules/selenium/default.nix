@@ -44,7 +44,7 @@ buildPythonPackage rec {
       urllib3
     ]
     ++ urllib3.optional-dependencies.socks
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -60,7 +60,7 @@ spago.overrideAttrs (
 
             touch $out
           ''
-        ;
+      ;
     };
   }
 )

@@ -153,7 +153,7 @@ let
   haveDozen =
     (lib.elem "d3d12" galliumDrivers)
     || (lib.elem "microsoft-experimental" vulkanDrivers)
-    ;
+  ;
   self = stdenv.mkDerivation {
     pname = "mesa";
     inherit version;
@@ -197,7 +197,7 @@ let
       + ''
         sed '/--size_t-is-usize/d' -i src/gallium/frontends/rusticl/meson.build
       ''
-      ;
+    ;
 
     outputs =
       [
@@ -212,7 +212,7 @@ let
       # libspirv2dxil itself is pretty chonky, so relocate it to its own output
       # in case anything wants to use it at some point
       ++ lib.optional haveDozen "spirv2dxil"
-      ;
+    ;
 
     # FIXME: this fixes rusticl/iris segfaulting on startup, _somehow_.
     # Needs more investigating.
@@ -278,7 +278,7 @@ let
       ++ lib.optional (vulkanLayers != [ ]) "-D vulkan-layers=${
             builtins.concatStringsSep "," vulkanLayers
           }"
-      ;
+    ;
 
     buildInputs = with xorg;
       [
@@ -341,7 +341,7 @@ let
         glslang
       ]
       ++ lib.optional haveWayland wayland-scanner
-      ;
+    ;
 
     propagatedBuildInputs = with xorg;
       [
@@ -415,7 +415,7 @@ let
         mv -t $spirv2dxil/lib $out/lib/libspirv_to_dxil*
         mv -t $spirv2dxil/bin $out/bin/spirv2dxil
       ''
-      ;
+    ;
 
     postFixup = lib.optionalString stdenv.isLinux ''
       # set the default search path for DRI drivers; used e.g. by X server

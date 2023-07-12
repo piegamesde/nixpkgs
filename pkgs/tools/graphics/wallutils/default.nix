@@ -63,7 +63,7 @@ buildGoModule rec {
         builtins.concatStringsSep "|" skippedTests
       })]")
     ''
-    ;
+  ;
 
   meta = {
     description =

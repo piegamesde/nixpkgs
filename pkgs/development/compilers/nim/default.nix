@@ -53,7 +53,7 @@ let
       "amd64"
     else
       abort "no Nim CPU support known for ${config}"
-    ;
+  ;
 
   parseOs =
     platform:
@@ -81,14 +81,14 @@ let
       "iOS"
     else
       abort "no Nim OS support known for ${config}"
-    ;
+  ;
 
   parsePlatform =
     p: {
       cpu = parseCpu p;
       os = parseOs p;
     }
-    ;
+  ;
 
   nimHost = parsePlatform stdenv.hostPlatform;
   nimTarget = parsePlatform stdenv.targetPlatform;
@@ -125,7 +125,7 @@ in
         sqlite
       ]
       ++ lib.optional stdenv.isDarwin Security
-      ;
+    ;
 
     patches =
       [
@@ -136,7 +136,7 @@ in
         # Load libraries at runtime by absolute path
       ]
       ++ lib.optional (!stdenv.hostPlatform.isWindows) ./toLocation.patch
-      ;
+    ;
 
     configurePhase = ''
       runHook preConfigure
@@ -153,7 +153,7 @@ in
         "-d:useGnuReadline"
       ]
       ++ lib.optional (stdenv.isDarwin || stdenv.isLinux) "-d:nativeStacktrace"
-      ;
+    ;
 
     preBuild = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       substituteInPlace makefile \
@@ -381,5 +381,5 @@ in
     self // {
       pkgs = callPackage ../../../top-level/nim-packages.nix { nim = self; };
     }
-    ;
+  ;
 }

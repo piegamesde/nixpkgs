@@ -21,7 +21,7 @@ let
       config.services.postgresql.package
     else
       pkgs.postgresql
-    ;
+  ;
 
   postgresqlVersion = lib.getVersion postgresqlPackage;
 
@@ -33,7 +33,7 @@ let
     cfg.enableACME
     || cfg.sslCertificate != null
     || cfg.sslCertificateKey != null
-    ;
+  ;
 in
 {
   options = {
@@ -48,7 +48,7 @@ in
         apply =
           p:
           p.override { plugins = lib.unique (p.enabledPlugins ++ cfg.plugins); }
-          ;
+        ;
         defaultText = lib.literalExpression "pkgs.discourse";
         description = lib.mdDoc ''
           The discourse package to use.
@@ -573,12 +573,12 @@ in
             databaseActuallyCreateLocally
             -> upstreamPostgresqlVersion == postgresqlVersion
           )
-          ;
+        ;
         message =
           "The PostgreSQL version recommended for use with Discourse is ${upstreamPostgresqlVersion}, you're using ${postgresqlVersion}. "
           + "Either update your PostgreSQL package to the correct version or set services.discourse.database.ignorePostgresqlVersion. "
           + "See https://nixos.org/manual/nixos/stable/index.html#module-postgresql for details on how to upgrade PostgreSQL."
-          ;
+        ;
       }
     ];
 
@@ -599,7 +599,7 @@ in
           "discourse"
         else
           cfg.database.username
-        ;
+      ;
       db_password = cfg.database.passwordFile;
       db_prepared_statements = false;
       db_replica_host = null;
@@ -719,7 +719,7 @@ in
           bind = cfg.redis.host;
           port = cfg.backendSettings.redis_port;
         }
-      ;
+    ;
 
     services.postgresql = lib.mkIf databaseActuallyCreateLocally {
       enable = true;
@@ -754,7 +754,7 @@ in
           RemainAfterExit = true;
         };
       }
-      ;
+    ;
 
     systemd.services.discourse = {
       wantedBy = [ "multi-user.target" ];
@@ -769,7 +769,7 @@ in
           "postgresql.service"
           "discourse-postgresql.service"
         ]
-        ;
+      ;
       path =
         cfg.package.runtimeDeps
         ++ [
@@ -777,7 +777,7 @@ in
           pkgs.replace-secret
           cfg.package.rake
         ]
-        ;
+      ;
       environment = cfg.package.runtimeEnv // {
         UNICORN_TIMEOUT = builtins.toString cfg.unicornTimeout;
         UNICORN_SIDEKIQS = builtins.toString cfg.sidekiqProcesses;
@@ -807,7 +807,7 @@ in
                   throw "unsupported type ${typeOf v}: ${
                       (lib.generators.toPretty { }) v
                     }"
-                ;
+              ;
             };
           };
 
@@ -820,7 +820,7 @@ in
             lib.optionalString (file != null) ''
               replace-secret '${file}' '${file}' /run/discourse/config/discourse.conf
             ''
-            ;
+          ;
 
           mkAdmin = ''
             export ADMIN_EMAIL="${cfg.admin.email}"
@@ -867,7 +867,7 @@ in
           discourse-rake themes:update
           discourse-rake uploads:regenerate_missing_optimized
         ''
-        ;
+      ;
 
       serviceConfig = {
         Type = "simple";
@@ -944,15 +944,15 @@ in
                   + ''
                     proxy_set_header X-Request-Start "t=''${msec}";
                   ''
-                  ;
+                ;
               }
-              ;
+            ;
             cache =
               time: ''
                 expires ${time};
                 add_header Cache-Control public,immutable;
               ''
-              ;
+            ;
             cache_1y = cache "1y";
             cache_1d = cache "1d";
           in
@@ -976,7 +976,7 @@ in
               + ''
                 add_header Access-Control-Allow-Origin *;
               ''
-              ;
+            ;
             "/srv/status" = proxy {
               extraConfig = ''
                 access_log off;
@@ -991,7 +991,7 @@ in
                 brotli_static on;
                 gzip_static on;
               ''
-              ;
+            ;
             "~ ^/plugins/".extraConfig = cache_1y;
             "~ /images/emoji/".extraConfig = cache_1y;
             "~ ^/uploads/" = proxy {
@@ -1017,7 +1017,7 @@ in
                       try_files $uri =404;
                   }
                 ''
-                ;
+              ;
             };
             "~ ^/admin/backups/" = proxy {
               extraConfig = ''
@@ -1042,7 +1042,7 @@ in
                     proxy_cache_valid 200 301 302 7d;
                   '';
                 }
-              ;
+            ;
             "/message-bus/" = proxy {
               extraConfig = ''
                 proxy_http_version 1.1;
@@ -1054,7 +1054,7 @@ in
               alias ${cfg.package}/share/discourse/public/;
             '';
           }
-          ;
+        ;
       };
     };
 
@@ -1072,7 +1072,7 @@ in
             mail-receiver-json =
               json.generate "mail-receiver.json"
                 mail-receiver-environment
-              ;
+            ;
           in
           {
             before = [ "postfix.service" ];
@@ -1093,7 +1093,7 @@ in
                       discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
                   fi
                 ''
-              ;
+            ;
             script =
               let
                 apiKeyPath =
@@ -1101,7 +1101,7 @@ in
                     "/var/lib/discourse-mail-receiver/api_key"
                   else
                     cfg.mail.incoming.apiKeyFile
-                  ;
+                ;
               in
               ''
                 set -o errexit -o pipefail -o nounset -o errtrace
@@ -1114,7 +1114,7 @@ in
                    '.DISCOURSE_API_KEY = $ENV.api_key' \
                    >'/run/discourse-mail-receiver/mail-receiver-environment.json'
               ''
-              ;
+            ;
 
             serviceConfig = {
               Type = "oneshot";
@@ -1127,7 +1127,7 @@ in
             };
           }
         )
-      ;
+    ;
 
     services.discourse.siteSettings = {
       required = {
@@ -1147,11 +1147,11 @@ in
       sslCert =
         lib.optionalString (cfg.sslCertificate != null)
           cfg.sslCertificate
-        ;
+      ;
       sslKey =
         lib.optionalString (cfg.sslCertificateKey != null)
           cfg.sslCertificateKey
-        ;
+      ;
 
       origin = cfg.hostname;
       relayDomains = [ cfg.hostname ];

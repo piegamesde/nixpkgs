@@ -95,7 +95,7 @@ rec {
             ${varDefs}
             --add-flags "-classpath $gradle_launcher_jar org.gradle.launcher.GradleMain${toolchain.property}"
         ''
-        ;
+      ;
 
       dontFixup = !stdenv.isLinux;
 
@@ -130,7 +130,7 @@ rec {
           echo ${ncurses5} >> $out/nix-support/manual-runtime-dependencies
           echo ${ncurses6} >> $out/nix-support/manual-runtime-dependencies
         ''
-        ;
+      ;
 
       meta = with lib; {
         inherit platforms;
@@ -157,7 +157,7 @@ rec {
         ];
       };
     }
-    ;
+  ;
 
   # NOTE: Default JDKs that are hardcoded below must be LTS versions
   # and respect the compatibility matrix at

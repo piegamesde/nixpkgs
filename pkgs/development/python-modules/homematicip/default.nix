@@ -80,7 +80,7 @@ buildPythonPackage rec {
       "test_ws_message"
       "test_ws_no_pong"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "homematicip" ];
 

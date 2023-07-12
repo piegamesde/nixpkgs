@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
         CoreServices
       ]
     )
-    ;
+  ;
 
   cargoSha256 = "sha256:1dpdlzv96kpc25yf5jgsz9qldghyw35x382qpxhkadkn5dryzjvd";
   verifyCargoDeps = true;

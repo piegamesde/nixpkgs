@@ -161,17 +161,17 @@ let
 
                         driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
                       ''
-                    ;
+                  ;
                 in
                 [
                   pkgs.firefox-unwrapped
                   pkgs.geckodriver
                   testRunner
                 ]
-                ;
+              ;
             }
           ]
-          ;
+        ;
 
         client =
           {
@@ -180,7 +180,7 @@ let
           }: {
             environment.systemPackages = [ pkgs.bitwarden-cli ];
           }
-          ;
+        ;
       };
 
       testScript = ''
@@ -214,7 +214,7 @@ let
             assert password.strip() == "${storedPassword}"
       '';
     }
-    ;
+  ;
 in
 builtins.listToAttrs (
   map

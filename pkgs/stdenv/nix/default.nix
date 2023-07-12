@@ -62,9 +62,9 @@ bootStages
             gnugrep
             gnupatch
             perl
-            ;
+          ;
         }
-        ;
+      ;
     };
   })
 ]

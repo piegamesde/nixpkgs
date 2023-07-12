@@ -59,6 +59,6 @@ let
         maintainers = with maintainers; [ tadfisher ];
       };
     }
-    ;
+  ;
 in
 lib.mapAttrs toDrv games

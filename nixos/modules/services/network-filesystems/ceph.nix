@@ -25,7 +25,7 @@ let
             "ceph-${daemonType}-${daemonId}" =
               makeService daemonType daemonId cfg.global.clusterName
                 pkgs.ceph
-              ;
+            ;
           })
           daemonIds
       )
@@ -52,7 +52,7 @@ let
             "time-sync.target"
           ]
           ++ optional (daemonType == "osd") "ceph-mon.target"
-          ;
+        ;
         wants = [
           "network-online.target"
           "time-sync.target"
@@ -76,7 +76,7 @@ let
             3
           else
             5
-          ;
+        ;
         startLimitIntervalSec = 60 * 30; # 30 mins
 
         serviceConfig = {
@@ -427,7 +427,7 @@ in
     warnings =
       optional (cfg.global.monInitialMembers == null)
         "Not setting up a list of members in monInitialMembers requires that you set the host variable for each mon daemon or else the cluster won't function"
-      ;
+    ;
 
     environment.etc."ceph/ceph.conf".text =
       let
@@ -450,7 +450,7 @@ in
             cfg.client.extraConfig;
       in
       generators.toINI { } totalConfig
-      ;
+    ;
 
     users.users.ceph = {
       uid = config.ids.uids.ceph;
@@ -470,10 +470,10 @@ in
           ++ optional cfg.osd.enable (makeServices "osd" cfg.osd.daemons)
           ++ optional cfg.rgw.enable (makeServices "rgw" cfg.rgw.daemons)
           ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons)
-          ;
+        ;
       in
       mkMerge services
-      ;
+    ;
 
     systemd.targets =
       let
@@ -491,10 +491,10 @@ in
           ++ optional cfg.osd.enable (makeTarget "osd")
           ++ optional cfg.rgw.enable (makeTarget "rgw")
           ++ optional cfg.mgr.enable (makeTarget "mgr")
-          ;
+        ;
       in
       mkMerge targets
-      ;
+    ;
 
     systemd.tmpfiles.rules =
       [
@@ -505,6 +505,6 @@ in
       ++ optionals cfg.mgr.enable [ "d /var/lib/ceph/mgr - ceph ceph - -" ]
       ++ optionals cfg.mon.enable [ "d /var/lib/ceph/mon - ceph ceph - -" ]
       ++ optionals cfg.osd.enable [ "d /var/lib/ceph/osd - ceph ceph - -" ]
-      ;
+    ;
   };
 }

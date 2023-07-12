@@ -19,7 +19,7 @@ import ./make-test-python.nix (
           keyutils
         ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("modprobe bcachefs")

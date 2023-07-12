@@ -41,7 +41,7 @@ let
         )
         set
     ))
-    ;
+  ;
 in
 packagesWith
   (

@@ -14,7 +14,7 @@ let
       "Mac OSX"
     else
       throw "unsupported platform"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "pixelorama";

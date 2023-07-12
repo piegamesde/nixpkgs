@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

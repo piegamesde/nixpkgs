@@ -52,7 +52,7 @@ let
         darwin.apple_sdk.frameworks.CoreFoundation
         darwin.apple_sdk.frameworks.Security
       ]
-      ;
+    ;
   };
 in
 

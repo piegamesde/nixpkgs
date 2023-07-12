@@ -58,7 +58,7 @@ mkDerivation rec {
     ++ (
       if stdenv.isLinux then [ "--with-inotify" ] else [ "--without-inotify" ]
     )
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [ "-DNIXPKGS" ];
 
@@ -87,7 +87,7 @@ mkDerivation rec {
     ]
     ++ lib.optionals withGui [ qtbase ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
-    ;
+  ;
 
   # the filters search through ${PATH} using a sh proc 'checkcmds' for the
   # filtering utils. Short circuit this by replacing the filtering command with
@@ -174,7 +174,7 @@ mkDerivation rec {
       mkdir $out/Applications
       mv $out/bin/recoll.app $out/Applications
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

@@ -40,7 +40,7 @@ in
         description =
           lib.mdDoc
             "Directory where the pleroma service will save the uploads and static files."
-          ;
+        ;
       };
 
       configs = mkOption {
@@ -142,7 +142,7 @@ in
             '';
           in
           "${preScript}/bin/pleromaStartPre"
-          ;
+        ;
 
         ExecStart = "${cfg.package}/bin/pleroma start";
         ExecStop = "${cfg.package}/bin/pleroma stop";

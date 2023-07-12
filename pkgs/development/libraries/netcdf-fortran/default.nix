@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       curl
     ]
     ++ lib.optional stdenv.isDarwin CoreFoundation
-    ;
+  ;
   doCheck = true;
 
   FFLAGS = [ "-std=legacy" ];

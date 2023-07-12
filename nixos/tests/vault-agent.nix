@@ -20,7 +20,7 @@ import ./make-test-python.nix (
               config.token_file_path =
                 pkgs.writeText "vault-token"
                   config.environment.variables.VAULT_TOKEN
-                ;
+              ;
             } ];
           } ];
 
@@ -49,7 +49,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("vault.service")

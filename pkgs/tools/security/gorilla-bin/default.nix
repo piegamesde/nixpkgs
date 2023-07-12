@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       makeWrapper "$out/opt/password-gorilla/gorilla-${version}" "$out/bin/gorilla" \
         --prefix LD_LIBRARY_PATH : "${libPath}"
     ''
-    ;
+  ;
 
   meta = {
     description = "Password Gorilla is a Tk based password manager";

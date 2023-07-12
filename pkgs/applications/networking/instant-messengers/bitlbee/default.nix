@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableLibPurple pidgin
     ++ lib.optional enablePam pam
-    ;
+  ;
 
   propagatedBuildInputs = [ glib ];
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableLibPurple "--purple=1"
     ++ lib.optional enablePam "--pam=1"
-    ;
+  ;
 
   patches =
     [

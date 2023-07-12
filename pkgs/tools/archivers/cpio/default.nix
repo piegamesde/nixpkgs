@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
           url = "https://git.savannah.gnu.org/cgit/cpio.git/patch/?id=${rev}";
           inherit sha256;
         }
-        ;
+      ;
     in
     [
       (
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
         sha256 = "1ffawzxjw72kzpdwffi2y7pvibrmwf4jzrxdq9f4a75q6crl66iq";
       })
     ]
-    ;
+  ;
 
   separateDebugInfo = true;
 

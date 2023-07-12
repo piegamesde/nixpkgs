@@ -23,7 +23,7 @@ let
         ${cfg.setupCommands}
         exec "$@"
       ''
-    ;
+  ;
 
   # Solves problems like:
   # https://wiki.archlinux.org/index.php/Talk:Bluetooth_headset#GDMs_pulseaudio_instance_captures_bluetooth_headset
@@ -204,7 +204,7 @@ in
         # Create stamp file for gnome-initial-setup to prevent it starting in GDM.
         "f /run/gdm/.config/gnome-initial-setup-done 0711 gdm gdm - yes"
       ]
-      ;
+    ;
 
     # Otherwise GDM will not be able to start correctly and display Wayland sessions
     systemd.packages = with pkgs.gnome; [
@@ -302,7 +302,7 @@ in
           sed '2ifile-db:${customDconfDb}' ${gdm}/share/dconf/profile/gdm > $out
         '';
       }
-      ;
+    ;
 
     # Use AutomaticLogin if delay is zero, because it's immediate.
     # Otherwise with TimedLogin with zero seconds the prompt is still

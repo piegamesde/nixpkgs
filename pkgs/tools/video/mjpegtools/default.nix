@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       SDL
       SDL_gfx
     ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString (!withMinimal) "-I${
         lib.getDev SDL

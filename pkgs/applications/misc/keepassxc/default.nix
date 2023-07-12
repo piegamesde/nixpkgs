@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")
     ++ (lib.optional withKeePassNetworking "-DWITH_XC_NETWORKING=ON")
     ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON")
-    ;
+  ;
 
   doCheck = true;
   checkPhase = ''
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       wrapQtApp "$out/Applications/KeePassXC.app/Contents/MacOS/KeePassXC"
     ''
-    ;
+  ;
 
   buildInputs =
     [
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin qtmacextras
     ++ lib.optional stdenv.isLinux libusb1
     ++ lib.optional withKeePassX11 qtx11extras
-    ;
+  ;
 
   passthru.tests = nixosTests.keepassxc;
 

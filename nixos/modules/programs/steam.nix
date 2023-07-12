@@ -23,7 +23,7 @@ let
         toString cfg.gamescopeSession.args
       } -- steam -tenfoot -pipewire-dmabuf
     ''
-    ;
+  ;
 
   gamescopeSessionFile =
     (pkgs.writeTextDir "share/wayland-sessions/steam.desktop" ''
@@ -34,7 +34,7 @@ let
       Type=Application
     '').overrideAttrs
       (_: { passthru.providedSessions = [ "steam" ]; })
-    ;
+  ;
 in
 {
   options.programs.steam = {
@@ -69,7 +69,7 @@ in
                     prev.extraLibraries pkgs
                   else
                     [ ]
-                  ;
+                ;
                 additionalLibs = with config.hardware.opengl;
                   if pkgs.stdenv.hostPlatform.is64bit then
                     [ package ] ++ extraPackages
@@ -77,7 +77,7 @@ in
                     [ package32 ] ++ extraPackages32;
               in
               prevLibs ++ additionalLibs
-              ;
+            ;
           } // optionalAttrs
             (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice)
             {
@@ -87,7 +87,7 @@ in
               };
             }
         )
-        ;
+      ;
       description = lib.mdDoc ''
         The Steam package to use. Additional libraries are added from the system
         configuration to ensure graphics work properly.
@@ -117,7 +117,7 @@ in
       description =
         mdDoc
           "Run a GameScope driven Steam session from your display-manager"
-        ;
+      ;
       default = { };
       type = types.submodule {
         options = {
@@ -160,13 +160,13 @@ in
             setuid = true;
           };
         }
-      ;
+    ;
 
     programs.gamescope.enable = mkDefault cfg.gamescopeSession.enable;
     services.xserver.displayManager.sessionPackages =
       mkIf cfg.gamescopeSession.enable
         [ gamescopeSessionFile ]
-      ;
+    ;
 
     # optionally enable 32bit pulseaudio support if pulseaudio is enabled
     hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
@@ -179,7 +179,7 @@ in
         cfg.package.run
       ]
       ++ lib.optional cfg.gamescopeSession.enable steam-gamescope
-      ;
+    ;
 
     networking.firewall = lib.mkMerge [
       (mkIf cfg.remotePlay.openFirewall {

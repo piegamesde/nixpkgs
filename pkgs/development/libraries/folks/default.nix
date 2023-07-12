@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       vala
     ]
     ++ lib.optionals telepathySupport [ python3 ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       readline
     ]
     ++ lib.optionals telepathySupport [ telepathy-glib ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     glib

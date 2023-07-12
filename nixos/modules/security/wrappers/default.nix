@@ -13,7 +13,7 @@ let
   securityWrapper =
     pkgs.callPackage ./wrapper.nix
       { inherit parentWrapperDir; }
-    ;
+  ;
 
   fileModeType =
     let
@@ -25,7 +25,7 @@ let
     lib.types.strMatching mode // {
       description = "file mode string";
     }
-    ;
+  ;
 
   wrapperType = lib.types.submodule (
     {
@@ -38,7 +38,7 @@ let
         description =
           lib.mdDoc
             "The absolute path to the program to be wrapped."
-          ;
+        ;
       };
       options.program = lib.mkOption {
         type = with lib.types; nullOr str;
@@ -90,7 +90,7 @@ let
         description =
           lib.mdDoc
             "Whether to add the setuid bit the wrapper program."
-          ;
+        ;
       };
       options.setgid = lib.mkOption {
         type = lib.types.bool;
@@ -98,7 +98,7 @@ let
         description =
           lib.mdDoc
             "Whether to add the setgid bit the wrapper program."
-          ;
+        ;
       };
     }
   );
@@ -129,7 +129,7 @@ let
       # Set the executable bit
       chmod ${permissions} "$wrapperDir/${program}"
     ''
-    ;
+  ;
 
   ###### Activation script for the setuid wrappers
   mkSetuidProgram =
@@ -154,7 +154,7 @@ let
         if setgid then "+" else "-"
       }s,${permissions}" "$wrapperDir/${program}"
     ''
-    ;
+  ;
 
   mkWrappedPrograms =
     builtins.map
@@ -166,7 +166,7 @@ let
           mkSetuidProgram opts
       )
       (lib.attrValues wrappers)
-    ;
+  ;
 in
 {
   imports = [
@@ -264,7 +264,7 @@ in
           '';
         })
         wrappers
-      ;
+    ;
 
     security.wrappers =
       let
@@ -275,7 +275,7 @@ in
             group = "root";
             inherit source;
           }
-          ;
+        ;
       in
       { # These are mount related wrappers that require the +s permission.
         fusermount = mkSetuidRoot "${pkgs.fuse}/bin/fusermount";
@@ -283,7 +283,7 @@ in
         mount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/mount";
         umount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/umount";
       }
-      ;
+    ;
 
     boot.specialFileSystems.${parentWrapperDir} = {
       fsType = "tmpfs";
@@ -340,7 +340,7 @@ in
             ln --symbolic "$wrapperDir" "${wrapperDir}"
           fi
         ''
-      ;
+    ;
 
     ###### wrappers consistency checks
     system.extraDependencies = lib.singleton (

@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       xwayland
     ]
     ++ lib.optionals withSystemd [ systemd ]
-    ;
+  ;
 
   mesonBuildType = if debug then "debug" else "release";
 

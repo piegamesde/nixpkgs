@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       curl
       Security
     ]
-    ;
+  ;
 
   nativeCheckInputs = [ nodejs ];
 

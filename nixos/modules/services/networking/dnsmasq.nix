@@ -23,7 +23,7 @@ let
       "# setting `${name}` explicitly set to false"
     else
       generators.mkKeyValueDefault { } "=" name value
-    ;
+  ;
 
   settingsFormat = pkgs.formats.keyValue {
     mkKeyValue = formatKeyValue;
@@ -146,7 +146,7 @@ in
     warnings =
       lib.optional (cfg.extraConfig != "")
         "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config"
-      ;
+    ;
 
     services.dnsmasq.settings = {
       dhcp-leasefile = mkDefault "${stateDir}/dnsmasq.leases";

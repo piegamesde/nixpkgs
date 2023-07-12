@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       IOKit
       Security
     ]
-    ;
+  ;
 
   # build script tries to get information from git
   postPatch = ''

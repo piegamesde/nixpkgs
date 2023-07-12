@@ -38,7 +38,7 @@ stdenv.mkDerivation (
         re2c
       ]
       ++ nativeBuildInputs
-      ;
+    ;
     buildInputs = [ php ] ++ peclDeps ++ buildInputs;
 
     makeFlags = [ "EXTENSION_DIR=$(out)/lib/php/extensions" ] ++ makeFlags;

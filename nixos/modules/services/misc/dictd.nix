@@ -36,7 +36,7 @@ in
         defaultText =
           literalExpression
             "with pkgs.dictdDBs; [ wiktionary wordnet ]"
-          ;
+        ;
         example = literalExpression "[ pkgs.dictdDBs.nld2eng ]";
         description = lib.mdDoc "List of databases to make available.";
       };
@@ -55,7 +55,7 @@ in
               filename = x;
             })
             cfg.DBs
-          ;
+        ;
       };
     in
     mkIf cfg.enable {
@@ -87,5 +87,5 @@ in
           "${pkgs.dict}/sbin/dictd -s -c ${dictdb}/share/dictd/dictd.conf --locale en_US.UTF-8";
       };
     }
-    ;
+  ;
 }

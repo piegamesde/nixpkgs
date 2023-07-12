@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       libiconv
       CoreServices
     ]
-    ;
+  ;
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

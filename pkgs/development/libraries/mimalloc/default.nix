@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ''
       export ${ldLibraryPathEnv}="$(pwd)/build:''${${ldLibraryPathEnv}}"
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals secureBuild [ "-DMI_SECURE=ON" ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DMI_BUILD_SHARED=OFF" ]
     ++ lib.optionals (!doCheck) [ "-DMI_BUILD_TESTS=OFF" ]
-    ;
+  ;
 
   postInstall =
     let
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       ln -sfv $out/lib/libmimalloc-secure.a $out/lib/libmimalloc.a
       ln -sfv $out/lib/mimalloc-secure.o $out/lib/mimalloc.o
     '')
-    ;
+  ;
 
   outputs = [
     "out"

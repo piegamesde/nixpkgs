@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       xz
     ]
     ++ lib.optional stdenv.hostPlatform.isx86 syslinux
-    ;
+  ;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   strictDeps = true;
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       "CROSS=${stdenv.cc.targetPrefix}"
     ]
     ++ lib.optional (embedScript != null) "EMBED=${embedScript}"
-    ;
+  ;
 
   enabledOptions =
     [
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       "DOWNLOAD_PROTO_HTTPS"
     ]
     ++ additionalOptions
-    ;
+  ;
 
   configurePhase =
     ''
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postConfigure
     ''
-    ;
+  ;
 
   preBuild = "cd src";
 

@@ -62,7 +62,7 @@ buildPythonPackage rec {
       cudatoolkit
       cudatoolkit.lib
     ]
-    ;
+  ;
 
   patches =
     [
@@ -84,7 +84,7 @@ buildPythonPackage rec {
         cuda_toolkit_lib_path = cudatoolkit.lib;
       })
     ]
-    ;
+  ;
 
   postFixup = lib.optionalString cudaSupport ''
     find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do

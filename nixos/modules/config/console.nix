@@ -24,7 +24,7 @@ let
       ''
         loadkeys -b ${optionalString isUnicode "-u"} "${cfg.keyMap}" > $out
       ''
-    ;
+  ;
 
   # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
   vconsoleConf = pkgs.writeText "vconsole.conf" ''
@@ -44,7 +44,7 @@ let
         "/share/unimaps"
       ];
     }
-    ;
+  ;
 in
 
 {
@@ -191,7 +191,7 @@ in
                   ''}
                 ''
               )
-            ;
+          ;
 
           boot.initrd.systemd.contents = {
             "/etc/vconsole.conf".source = vconsoleConf;
@@ -222,7 +222,7 @@ in
             ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [
               "${cfg.keyMap}"
             ]
-            ;
+          ;
 
           systemd.services.reload-systemd-vconsole-setup = {
             description = "Reset console on configuration changes";

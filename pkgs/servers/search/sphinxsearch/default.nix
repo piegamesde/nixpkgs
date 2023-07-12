@@ -26,14 +26,14 @@ stdenv.mkDerivation rec {
       "--enable-id64"
     ]
     ++ lib.optionals (!enableMysql) [ "--without-mysql" ]
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
     lib.optionals enableMysql [ libmysqlclient ]
     ++ lib.optionals enableXmlpipe2 [ expat ]
-    ;
+  ;
 
   CXXFLAGS = with lib;
     concatStringsSep " " (

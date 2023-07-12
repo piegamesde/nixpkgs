@@ -38,7 +38,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals cudaSupport [ cupy ]
-    ;
+  ;
 
   nativeCheckInputs = [
     mock

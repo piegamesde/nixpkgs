@@ -55,7 +55,7 @@ let
       modules = [ configuration ];
       inherit specialArgs;
     }
-    ;
+  ;
 
   eval = evalFun { };
   inherit (eval) pkgs;
@@ -120,12 +120,12 @@ let
             name = showOption opt.loc;
           } // builtins.tryEval (strict opt.value)
         )
-        ;
+      ;
     in
     keepNames (
       filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new))
     )
-    ;
+  ;
 
   # Create a list of modules where each module contains only one failling
   # options.
@@ -139,16 +139,16 @@ let
             throw "Usage introspection of '${name}' by forced failure."
           );
         }
-        ;
+      ;
     in
     map setIntrospection (collect isOption eval.options)
-    ;
+  ;
 
   overrideConfig =
     thrower:
     recursiveUpdateUntil (path: old: new: path == thrower.path) eval.config
       thrower.config
-    ;
+  ;
 
   graph =
     map
@@ -159,10 +159,10 @@ let
           reportNewFailures eval.options (evalFun {
             specialArgs = { config = overrideConfig thrower; };
           }).options
-          ;
+        ;
       })
       introspectionModules
-    ;
+  ;
 
   displayOptionsGraph =
     let
@@ -176,7 +176,7 @@ let
       }:
       (checkAll || elem option checkList) && !(elem option excludedTestOptions)
     )
-    ;
+  ;
 
   graphToDot =
     graph: ''
@@ -194,7 +194,7 @@ let
         }
       }
     ''
-    ;
+  ;
 
   graphToText =
     graph:
@@ -211,7 +211,7 @@ let
           usedBy
       )
       displayOptionsGraph
-    ;
+  ;
 in
 
 rec {

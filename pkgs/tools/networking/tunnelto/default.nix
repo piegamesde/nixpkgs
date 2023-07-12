@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     [ ]
     ++ lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   meta = with lib; {
     description =

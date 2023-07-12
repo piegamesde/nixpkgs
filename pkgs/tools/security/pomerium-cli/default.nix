@@ -47,7 +47,7 @@ buildGoModule rec {
       );
     in
     [ "${varFlags}" ]
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

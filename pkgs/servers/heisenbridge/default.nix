@@ -21,7 +21,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 in
 python.pkgs.buildPythonApplication rec {

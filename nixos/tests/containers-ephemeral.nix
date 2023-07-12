@@ -33,7 +33,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       assert "webserver" in machine.succeed("nixos-container list")

@@ -50,7 +50,7 @@ let
         "aarch64"
       ]
       (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport)
-    ;
+  ;
 
   nonPackageJobs = {
     tarball = import ./make-tarball.nix {
@@ -114,7 +114,7 @@ let
         }
       else
         null
-      ;
+    ;
 
     unstable = pkgs.releaseTools.aggregate {
       name = "nixpkgs-${jobs.tarball.version}";
@@ -189,7 +189,7 @@ let
              jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
           */
         ]
-        ;
+      ;
     };
 
     stdenvBootstrapTools = with lib;

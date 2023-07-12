@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       # See https://github.com/aws/s2n-tls/issues/1592 and https://github.com/aws/s2n-tls/pull/1609
       "-DS2N_NO_PQ=ON"
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     openssl

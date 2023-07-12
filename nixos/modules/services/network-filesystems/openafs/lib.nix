@@ -24,7 +24,7 @@ in
         db
     ))
     + "\n"
-    ;
+  ;
 
   # CellServDB configuration type
   cellServDBConfig = {
@@ -41,7 +41,7 @@ in
       description =
         lib.mdDoc
           "DNS full-qualified domain name of a database server"
-        ;
+      ;
     };
   };
 

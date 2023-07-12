@@ -50,7 +50,7 @@ mkDerivation rec {
       libpulseaudio
     ]
     ++ lib.optional withJack libjack2
-    ;
+  ;
 
   dontFixCmake = true;
 

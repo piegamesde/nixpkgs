@@ -28,7 +28,7 @@ import ./make-test-python.nix (
         };
         environment.systemPackages = [ pkgs.rrdtool ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("collectd.service")

@@ -36,7 +36,7 @@ import ./make-test-python.nix (
 
         environment.systemPackages = with pkgs; [ diffutils ];
       }
-      ;
+    ;
 
     testScript = ''
       import subprocess

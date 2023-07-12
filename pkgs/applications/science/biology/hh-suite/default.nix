@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isAarch "-DHAVE_ARM8=1"
     ++ lib.optional stdenv.hostPlatform.avx2Support "-DHAVE_AVX2=1"
     ++ lib.optional stdenv.hostPlatform.sse4_1Support "-DHAVE_SSE4_1=1"
-    ;
+  ;
 
   buildInputs =
     lib.optional stdenv.cc.isClang openmp ++ lib.optional enableMpi mpi;

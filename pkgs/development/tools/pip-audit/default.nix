@@ -20,7 +20,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 in
 with py.pkgs;
@@ -51,7 +51,7 @@ buildPythonApplication rec {
       toml
     ]
     ++ cachecontrol.optional-dependencies.filecache
-    ;
+  ;
 
   nativeCheckInputs = [
     pretend

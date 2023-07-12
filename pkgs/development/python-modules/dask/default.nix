@@ -86,7 +86,7 @@ buildPythonPackage rec {
       fastparquet
       pyarrow
     ]
-    ;
+  ;
 
   dontUseSetuptoolsCheck = true;
 
@@ -127,7 +127,7 @@ buildPythonPackage rec {
       # RuntimeWarning: invalid value encountered in cast
       "test_setitem_extended_API_2d_mask"
     ]
-    ;
+  ;
 
   __darwinAllowLocalNetworking = true;
 

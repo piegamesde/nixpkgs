@@ -52,7 +52,7 @@ buildPythonPackage rec {
       python-dateutil
     ]
     ++ google-api-core.optional-dependencies.grpc
-    ;
+  ;
 
   passthru.optional-dependencies = {
     bqstorage = [
@@ -82,7 +82,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.pandas
     ++ passthru.optional-dependencies.ipython
-    ;
+  ;
 
   # prevent google directory from shadowing google imports
   preCheck = ''

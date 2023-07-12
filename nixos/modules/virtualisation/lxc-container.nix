@@ -27,7 +27,7 @@ let
           description =
             lib.mdDoc
               "Events which trigger a rewrite (create, copy)"
-            ;
+          ;
           type = types.listOf (types.str);
         };
         properties = mkOption {
@@ -37,7 +37,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   toYAML = name: data: pkgs.writeText name (generators.toYAML { } data);
 
@@ -57,7 +57,7 @@ let
               target = "/templates/${tpl.name}.tpl";
             })
             list
-          ;
+        ;
         properties = listToAttrs (
           map
             (
@@ -76,7 +76,7 @@ let
         files = [ ];
         properties = { };
       }
-    ;
+  ;
 in
 {
   imports = [
@@ -153,7 +153,7 @@ in
               builtins.elemAt
                 (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
                 0
-              ;
+            ;
             creation_date = 1;
             properties = {
               description =
@@ -166,7 +166,7 @@ in
           target = "/metadata.yaml";
         } ]
         ++ templates.files
-        ;
+      ;
     };
 
     # TODO: build rootfs as squashfs for faster unpack
@@ -220,7 +220,7 @@ in
             ProtectKernelModules=no
             ReadWritePaths=
           ''
-          ;
+        ;
       })
     ];
 

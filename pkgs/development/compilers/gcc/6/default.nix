@@ -141,7 +141,7 @@ let
     )
 
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
-    ;
+  ;
 
   javaEcj = fetchurl {
     # The `$(top_srcdir)/ecj.jar' file is automatically picked up at
@@ -180,7 +180,7 @@ let
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-${stageNameAddon}-"
-    ;
+  ;
 
   callFile = lib.callPackageWith {
     # lets
@@ -198,7 +198,7 @@ let
       crossMingw
       stageNameAddon
       crossNameAddon
-      ;
+    ;
     # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc6.cc.override)" | jq '.[]' --raw-output'
     inherit
       binutils
@@ -260,7 +260,7 @@ let
       xorgproto
       zip
       zlib
-      ;
+    ;
   };
 in
 
@@ -302,7 +302,7 @@ stdenv.mkDerivation (
           url = "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.xz";
           sha256 = "0i89fksfp6wr1xg9l8296aslcymv2idn60ip31wr9s4pwin7kwby";
         }
-      ;
+    ;
 
     inherit patches;
 
@@ -320,7 +320,7 @@ stdenv.mkDerivation (
           "man"
           "info"
         ]
-      ;
+    ;
     setOutputFlags = false;
     NIX_NO_SELF_RPATH = true;
 
@@ -371,7 +371,7 @@ stdenv.mkDerivation (
             )
           )
       )
-      ;
+    ;
 
     inherit
       noSysDirs
@@ -380,7 +380,7 @@ stdenv.mkDerivation (
       crossStageStatic
       libcCross
       crossMingw
-      ;
+    ;
 
     inherit (callFile ../common/dependencies.nix { })
       depsBuildBuild
@@ -388,7 +388,7 @@ stdenv.mkDerivation (
       depsBuildTarget
       buildInputs
       depsTargetTarget
-      ;
+    ;
 
     NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
@@ -410,13 +410,13 @@ stdenv.mkDerivation (
     buildFlags =
       optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
         (if profiledCompiler then "profiledbootstrap" else "bootstrap")
-      ;
+    ;
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
       stripDebugListTarget
       preFixup
-      ;
+    ;
 
     doCheck =
       false; # requires a lot of tools, causes a dependency cycle for stdenv
@@ -468,7 +468,7 @@ stdenv.mkDerivation (
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
       EXTRA_LDFLAGS_FOR_TARGET
-      ;
+    ;
 
     passthru = {
       inherit
@@ -480,7 +480,7 @@ stdenv.mkDerivation (
         langAda
         langGo
         version
-        ;
+      ;
       isGNU = true;
       hardeningUnsupportedFlags = [ "fortify3" ];
     };
@@ -496,7 +496,7 @@ stdenv.mkDerivation (
         longDescription
         platforms
         maintainers
-        ;
+      ;
       badPlatforms = [ "aarch64-darwin" ];
     };
   }

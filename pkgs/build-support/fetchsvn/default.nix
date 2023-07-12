@@ -30,7 +30,7 @@ let
       path_ =
         (p: if head p == "" then tail p else p) # ~ drop final slash if any
           (reverseList (splitString "/" url))
-        ;
+      ;
       path = [ (removeSuffix "/" (head path_)) ] ++ (tail path_);
     in
     # ../repo/trunk -> repo
@@ -45,7 +45,7 @@ let
     # ../repo (no trunk) -> repo
     else
       fst path
-    ;
+  ;
 
   name_ = if name == null then "${repoName}-r${toString rev}" else name;
 in
@@ -62,7 +62,7 @@ else
         glibcLocales
       ]
       ++ lib.optional sshSupport openssh
-      ;
+    ;
 
     SVN_SSH = if sshSupport then "${buildPackages.openssh}/bin/ssh" else null;
 

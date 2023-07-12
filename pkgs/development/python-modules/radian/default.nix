@@ -50,7 +50,7 @@ buildPythonPackage rec {
         askpass
       ]
     )
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

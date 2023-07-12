@@ -40,9 +40,9 @@ let
         self.elpaBuild (
           args // { meta = (args.meta or { }) // { broken = true; }; }
         )
-        ;
+      ;
     }
-    ;
+  ;
 
   elpaBuild = import ../../../../build-support/emacs/elpa.nix {
     inherit lib stdenv texinfo writeText gcc;
@@ -72,7 +72,7 @@ let
             markBroken super.org-transclusion
           else
             super.org-transclusion
-          ;
+        ;
         rcirc-menu = markBroken super.rcirc-menu; # Missing file header
         cl-lib = null; # builtin
         cl-print = null; # builtin
@@ -80,7 +80,7 @@ let
         advice = null; # builtin
         seq =
           if lib.versionAtLeast self.emacs.version "27" then null else super.seq
-          ;
+        ;
         # Compilation instructions for the Ada executables:
         # https://www.nongnu.org/ada-mode/
         ada-mode = super.ada-mode.overrideAttrs (
@@ -117,7 +117,7 @@ let
               + ''
                 ./install.sh --prefix=$out
               ''
-              ;
+            ;
 
             meta =
               old.meta // { maintainers = [ lib.maintainers.sternenseemann ]; };
@@ -150,7 +150,7 @@ let
                 install -m444 -t $outd jinx-mod${libExt}
                 rm $outd/jinx-mod.c $outd/emacs-module.h
               ''
-              ;
+            ;
 
             meta =
               old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
@@ -166,7 +166,7 @@ let
                 substituteInPlace ./plz.el \
                   --replace 'plz-curl-program "curl"' 'plz-curl-program "${pkgs.curl}/bin/curl"'
               ''
-              ;
+            ;
             preInstall = ''
               tar -cf "$pname-$version.tar" --transform "s,^,$pname-$version/," * .[!.]*
               src="$pname-$version.tar"

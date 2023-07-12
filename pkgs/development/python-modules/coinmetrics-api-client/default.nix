@@ -46,7 +46,7 @@ buildPythonPackage rec {
       pytest-mock
     ]
     ++ passthru.optional-dependencies.pandas
-    ;
+  ;
 
   pythonImportsCheck = [ "coinmetrics.api_client" ];
 

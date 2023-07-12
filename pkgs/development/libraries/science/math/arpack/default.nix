@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       eigen
     ]
     ++ lib.optional useMpi mpi
-    ;
+  ;
 
   nativeCheckInputs = lib.optional useMpi openssh;
 

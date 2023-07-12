@@ -44,7 +44,7 @@ buildPythonPackage rec {
       pyparsing
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     html = [ html5lib ];
@@ -58,7 +58,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.networkx
     ++ passthru.optional-dependencies.html
-    ;
+  ;
 
   pytestFlagsArray = [
     # requires network access
@@ -80,7 +80,7 @@ buildPythonPackage rec {
       # Require loopback network access
       "TestGraphHTTP"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "rdflib" ];
 

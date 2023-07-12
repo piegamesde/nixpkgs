@@ -56,7 +56,7 @@ in
           description =
             lib.mdDoc
               "Number of vcores that can be allocated for containers."
-            ;
+          ;
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -64,7 +64,7 @@ in
           description =
             lib.mdDoc
               "The maximum virtual CPU cores any container can be allocated."
-            ;
+          ;
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -72,7 +72,7 @@ in
           description =
             lib.mdDoc
               "Amount of physical memory, in MB, that can be allocated for containers."
-            ;
+          ;
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -80,7 +80,7 @@ in
           description =
             lib.mdDoc
               "The maximum physical memory any container can be allocated."
-            ;
+          ;
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -98,7 +98,7 @@ in
         description =
           lib.mdDoc
             "List of directories to store localized files in."
-          ;
+        ;
         type = with types; nullOr (listOf path);
         example = [ "/var/lib/hadoop/yarn/nm" ];
         default = null;
@@ -146,7 +146,7 @@ in
             + " resourcemanager ${
                  escapeShellArgs cfg.yarn.resourcemanager.extraFlags
                }"
-            ;
+          ;
           Restart = "always";
         };
       };
@@ -201,7 +201,7 @@ in
           ExecStart =
             "${cfg.package}/bin/yarn --config ${hadoopConf} "
             + " nodemanager ${escapeShellArgs cfg.yarn.nodemanager.extraFlags}"
-            ;
+          ;
           Restart = "always";
         };
       };

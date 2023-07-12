@@ -84,7 +84,7 @@ buildPythonPackage rec {
       sphinxcontrib-apidoc
     ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ;
+  ;
 
   nativeCheckInputs =
     [
@@ -93,7 +93,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typed-ast ]
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -150,7 +150,7 @@ buildPythonPackage rec {
       "test_follows_redirects_on_GET"
       "test_connect_to_selfsigned_fails"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Python documentation generator";

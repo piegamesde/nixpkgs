@@ -22,12 +22,12 @@ let
         range 0 (n - 1)
       )
     )
-    ;
+  ;
 
   backupAgents =
     n:
     concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n))
-    ;
+  ;
 
   configFile = pkgs.writeText "foundationdb.conf" ''
     [general]
@@ -96,7 +96,7 @@ in
       description =
         lib.mdDoc
           "Publicly visible IP address of the process. Port is determined by process ID"
-        ;
+      ;
     };
 
     listenAddress = mkOption {
@@ -105,7 +105,7 @@ in
       description =
         lib.mdDoc
           "Publicly visible IP address of the process. Port is determined by process ID"
-        ;
+      ;
     };
 
     listenPortStart = mkOption {
@@ -133,7 +133,7 @@ in
       description =
         lib.mdDoc
           "Data directory. All cluster data will be put under here."
-        ;
+      ;
     };
 
     logDir = mkOption {
@@ -172,7 +172,7 @@ in
       description =
         lib.mdDoc
           "Number of seconds to wait before restarting servers."
-        ;
+      ;
     };
 
     logSize = mkOption {
@@ -206,7 +206,7 @@ in
       description =
         lib.mdDoc
           "Number of backup_agent processes to run for snapshots."
-        ;
+      ;
     };
 
     memory = mkOption {
@@ -385,7 +385,7 @@ in
         + ''
           , and enabling it is an error.
         ''
-        ;
+      ;
     } ];
 
     environment.systemPackages = [ pkg ];
@@ -431,7 +431,7 @@ in
               "/etc/foundationdb"
             ]
             ++ cfg.extraReadWritePaths
-            ;
+          ;
         in
         {
           Type = "simple";
@@ -454,7 +454,7 @@ in
           PrivateDevices = true;
           ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
         }
-        ;
+      ;
 
       path = [
         pkg

@@ -19,7 +19,7 @@ import ./make-test-python.nix (
         users.users.alice.isNormalUser = true;
         services.openssh.enable = true;
       }
-      ;
+    ;
 
     # machine for testing GnuPG
     nodes.machine =
@@ -51,7 +51,7 @@ import ./make-test-python.nix (
         programs.gnupg.agent.enable = true;
         programs.gnupg.agent.enableSSHSupport = true;
       }
-      ;
+    ;
 
     testScript = ''
       import shlex

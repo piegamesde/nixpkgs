@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       beancount
     ]
     ++ perlDeps
-    ;
+  ;
 
   makeFlags = [ "prefix=$(out)" ];
   installFlags = [ "INSTALL=install" ];

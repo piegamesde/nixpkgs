@@ -47,7 +47,7 @@ python27.pkgs.buildPythonApplication {
       phraseSolution
       writeScript
       writeScriptBin
-      ;
+    ;
     tests = callPackage ./test.nix { inherit rSrc binlore python27 resholve; };
   };
 

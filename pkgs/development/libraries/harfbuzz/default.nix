@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/hb.hh \
         --replace '#pragma GCC diagnostic error   "-Wcast-align"' ""
     ''
-    ;
+  ;
 
   outputs = [
     "out"
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_43
     ]
     ++ lib.optional withIntrospection gobject-introspection
-    ;
+  ;
 
   buildInputs =
     [
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       ApplicationServices
       CoreText
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     lib.optional withGraphite2 graphite2
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
       icu
       harfbuzz
     ]
-    ;
+  ;
 
   doCheck = true;
 

@@ -210,7 +210,7 @@ in
                     Permissions can be "${concatStringsSep ''", "'' perms}".
                   '';
                 }
-                ;
+              ;
             };
           }
         );
@@ -288,7 +288,7 @@ in
               cfg.credentials
           )
         )
-        ;
+      ;
 
       serviceConfig = {
         User = "${cfg.user}";
@@ -309,7 +309,7 @@ in
             name
             "${name}/music"
           ]
-          ;
+        ;
       };
     };
 

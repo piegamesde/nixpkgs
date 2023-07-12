@@ -41,7 +41,7 @@ buildPythonPackage rec {
       sortedcontainers
     ]
     ++ lib.optional (!isPy3k) enum34
-    ;
+  ;
 
   nativeCheckInputs = [
     pytest

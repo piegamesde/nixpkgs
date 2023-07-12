@@ -43,7 +43,7 @@ python3Packages.buildPythonApplication rec {
         setuptools
       ]
     )
-    ;
+  ;
 
   doCheck = true;
 
@@ -80,7 +80,7 @@ python3Packages.buildPythonApplication rec {
       # (hard to skip via disabledTests since the test name contains an absolute path)
       rm tests/potential-godot-bugs/multiline-subscription-expression.gd
     ''
-    ;
+  ;
 
   pythonImportsCheck = [
     "gdtoolkit"

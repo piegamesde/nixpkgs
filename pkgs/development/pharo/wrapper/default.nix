@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
           isUnix && !isDarwin
         )
         lib.platforms.mesaPlatforms
-      ;
+    ;
   };
 }

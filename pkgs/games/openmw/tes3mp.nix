@@ -84,7 +84,7 @@ let
           "-DRakNet_LIBRARY_RELEASE=${raknet}/lib/libRakNetLibStatic.a"
           "-DRakNet_LIBRARY_DEBUG=${raknet}/lib/libRakNetLibStatic.a"
         ]
-        ;
+      ;
 
       prePatch = ''
         substituteInPlace components/process/processinvoker.cpp \

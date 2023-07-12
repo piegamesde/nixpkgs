@@ -48,7 +48,7 @@ let
             cp "${quicklispdist}" "$out/lib/common-lisp/quicklisp/quicklisp-distinfo.txt"
           '';
         }
-        ;
+      ;
     };
 
     quicklisp-to-nix-system-info = stdenv.mkDerivation {
@@ -214,9 +214,9 @@ let
                 sha256 = "0570mcfn5wmjha6jmfdgglp0w5b7rpfnv3flzn77clgbknwbxi0m";
               })
             ]
-            ;
+          ;
         }
-        ;
+      ;
 
       deps = with pkgs.lispPackages; [
         alexandria

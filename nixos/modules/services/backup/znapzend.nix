@@ -56,7 +56,7 @@ let
       description =
         "string containing all of the characters ${concatStringsSep ", " list}";
     }
-    ;
+  ;
 
   timestampType = stringContainingStrings [
     "%Y"
@@ -81,7 +81,7 @@ let
             description =
               lib.mdDoc
                 "Label for this destination. Defaults to the attribute name."
-              ;
+            ;
           };
 
           plan = mkOption {
@@ -137,7 +137,7 @@ let
         };
       }
     )
-    ;
+  ;
 
   srcType = submodule (
     {
@@ -290,7 +290,7 @@ let
     concatStringsSep "\n" (
       builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config)
     )
-    ;
+  ;
 
   mkDestAttrs =
     dst:
@@ -302,7 +302,7 @@ let
       } // optionalAttrs (presend != null) { _precmd = presend; }
       // optionalAttrs (postsend != null) { _pstcmd = postsend; }
     )
-    ;
+  ;
 
   mkSrcAttrs =
     srcCfg:
@@ -326,7 +326,7 @@ let
     } // foldr (a: b: a // b) { } (
       map mkDestAttrs (builtins.attrValues destinations)
     )
-    ;
+  ;
 
   files =
     mapAttrs'
@@ -341,7 +341,7 @@ let
         }
       )
       cfg.zetup
-    ;
+  ;
 in
 {
   options = {
@@ -379,7 +379,7 @@ in
         description =
           lib.mdDoc
             "Does all changes to the filesystem except destroy."
-          ;
+        ;
       };
 
       autoCreation = mkOption {
@@ -388,7 +388,7 @@ in
         description =
           lib.mdDoc
             "Automatically create the destination dataset if it does not exist."
-          ;
+        ;
       };
 
       zetup = mkOption {
@@ -528,7 +528,7 @@ in
           + ''
             wait
           ''
-          ;
+        ;
 
         serviceConfig = {
           # znapzendzetup --import apparently tries to connect to the backup
@@ -552,7 +552,7 @@ in
               ];
             in
             "${pkgs.znapzend}/bin/znapzend ${args}"
-            ;
+          ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "on-failure";
         };

@@ -41,7 +41,7 @@ let
         pytestCheckHook
       ]
       ++ pytest-jupyter.optional-dependencies.server
-      ;
+    ;
 
     passthru.tests = {
       check = self.overridePythonAttrs (_: { doCheck = true; });

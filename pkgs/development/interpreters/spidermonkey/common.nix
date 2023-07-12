@@ -86,7 +86,7 @@ stdenv.mkDerivation (
             # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
             ./fix-float-i686.patch
           ]
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -106,7 +106,7 @@ stdenv.mkDerivation (
         yasm # to buid icu? seems weird
       ]
       ++ lib.optionals stdenv.isDarwin [ xcbuild ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -119,7 +119,7 @@ stdenv.mkDerivation (
         libobjc
         libiconv
       ]
-      ;
+    ;
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -151,7 +151,7 @@ stdenv.mkDerivation (
         "--host=${stdenv.buildPlatform.config}"
         "--target=${stdenv.hostPlatform.config}"
       ]
-      ;
+    ;
 
     # mkDerivation by default appends --build/--host to configureFlags when cross compiling
     # These defaults are bogus for Spidermonkey - avoid passing them by providing an empty list
@@ -168,7 +168,7 @@ stdenv.mkDerivation (
           isRiscV && is64bit && lib.versionOlder version "91"
         )
         "-mabi=lp64d"
-      ;
+    ;
 
     postPatch = lib.optionalString (lib.versionOlder version "102") ''
       # This patch is a manually applied fix of
@@ -205,7 +205,7 @@ stdenv.mkDerivation (
         cd obj/
         configureScript=../js/src/configure
       ''
-      ;
+    ;
 
     # Remove unnecessary static lib
     preFixup = ''

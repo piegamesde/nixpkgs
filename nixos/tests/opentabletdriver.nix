@@ -22,7 +22,7 @@ import ./make-test-python.nix (
         test-support.displayManager.auto.user = testUser;
         hardware.opentabletdriver.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

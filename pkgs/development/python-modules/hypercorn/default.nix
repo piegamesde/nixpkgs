@@ -42,7 +42,7 @@ buildPythonPackage rec {
       priority
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs =
     [
@@ -51,7 +51,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.optionals (pythonOlder "3.8") [ mock ]
-    ;
+  ;
 
   pythonImportsCheck = [ "hypercorn" ];
 

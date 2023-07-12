@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       Cocoa
       IOKit
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

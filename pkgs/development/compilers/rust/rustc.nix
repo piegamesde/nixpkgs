@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
       # https://github.com/rust-lang/rust/issues/92173
       "--set rust.jemalloc"
     ]
-    ;
+  ;
 
   # The bootstrap.py will generated a Makefile that then executes the build.
   # The BOOTSTRAP_ARGS used by this Makefile must include all flags to pass
@@ -224,7 +224,7 @@ stdenv.mkDerivation rec {
       # Using a value of 48 should work on both emulated and native x86_64-darwin.
       export JEMALLOC_SYS_WITH_LG_VADDR=48
     ''
-    ;
+  ;
 
   # rustc unfortunately needs cmake to compile llvm-rt but doesn't
   # use it for the normal build. This disables cmake in Nix.
@@ -254,7 +254,7 @@ stdenv.mkDerivation rec {
       Security
     ]
     ++ optional (!withBundledLLVM) llvmShared
-    ;
+  ;
 
   outputs = [
     "out"
@@ -284,7 +284,7 @@ stdenv.mkDerivation rec {
       # remove uninstall script that doesn't really make sense for Nix.
       rm $out/lib/rustlib/uninstall.sh
     ''
-    ;
+  ;
 
   configurePlatforms = [ ];
 

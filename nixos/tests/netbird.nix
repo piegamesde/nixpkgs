@@ -15,7 +15,7 @@ import ./make-test-python.nix (
         }: {
           services.netbird.enable = true;
         }
-        ;
+      ;
     };
 
     testScript = ''

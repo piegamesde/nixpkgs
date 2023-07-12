@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       SDL2_ttf
     ]
     ++ lib.optional stdenv.isDarwin Cocoa
-    ;
+  ;
 
   meta = with lib; {
     description = "Free/Libre Action Roleplaying Engine";

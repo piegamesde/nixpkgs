@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
       "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
       "INSTALL_MOD_PATH=$(out)"
     ]
-    ;
+  ;
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   meta = with lib; {

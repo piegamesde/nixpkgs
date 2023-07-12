@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals (stdenv.isDarwin) [ libiconv ]
-    ;
+  ;
 
   propagatedBuildInputs = [ ncurses ];
 

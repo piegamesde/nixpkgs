@@ -42,7 +42,7 @@ let
       gtk3
     ]
     ++ extraGSettingsOverridePackages
-    ;
+  ;
 
   gsettingsOverrides = ''
     # Use Fedora's default to make text readable and

@@ -83,7 +83,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals (isPy27) [ futures ]
-    ;
+  ;
 
   # This test suite is a complete pain. Somehow it can't find its fixtures.
   doCheck = false;

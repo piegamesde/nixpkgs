@@ -58,7 +58,7 @@ let
         hydraPlatforms = [ ];
       };
     }
-    ;
+  ;
 in
 {
   descent1-assets = generic 1 "descent";

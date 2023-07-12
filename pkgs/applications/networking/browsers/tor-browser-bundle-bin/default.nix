@@ -84,7 +84,7 @@ let
     ]
     ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
     ++ lib.optionals mediaSupport [ ffmpeg ]
-    ;
+  ;
 
   # Library search path for the fte transport
   fteLibPath = lib.makeLibraryPath [

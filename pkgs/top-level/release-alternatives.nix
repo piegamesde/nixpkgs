@@ -94,7 +94,7 @@ let
       ]
     ]
     ++ lib.optionals allowUnfree [ "magma" ]
-    ;
+  ;
   blas64Users =
     [
       "rspamd"
@@ -125,7 +125,7 @@ let
       ]
     ]
     ++ lib.optionals allowUnfree [ "magma" ]
-    ;
+  ;
   blasProviders =
     system:
     [
@@ -137,7 +137,7 @@ let
       "mkl"
       "mkl64"
     ]
-    ;
+  ;
 
   blas64Providers = [
     "mkl64"
@@ -154,12 +154,12 @@ let
               builtins.elemAt name (builtins.length name - 1)
             else
               name
-            ;
+          ;
           value = f name;
         })
         xs
     )
-    ;
+  ;
 in
 
 {
@@ -185,7 +185,7 @@ in
                     super.mkl
                   else
                     builtins.getAttr provider super
-                  ;
+                ;
                 inherit isILP64;
               };
               blas = super.blas.override {
@@ -194,7 +194,7 @@ in
                     super.mkl
                   else
                     builtins.getAttr provider super
-                  ;
+                ;
                 inherit isILP64;
               };
             })

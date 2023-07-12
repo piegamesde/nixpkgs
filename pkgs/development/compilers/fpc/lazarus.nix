@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       libqt5pas
       qtbase
     ]
-    ;
+  ;
 
   # Disable parallel build, errors:
   #  Fatal: (1018) Compilation aborted
@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
           ]
         }"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Graphical IDE for the FreePascal language";

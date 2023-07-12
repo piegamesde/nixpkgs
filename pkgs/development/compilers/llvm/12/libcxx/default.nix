@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       ../../libcxx-0001-musl-hacks.patch
     ]
-    ;
+  ;
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isMusl ''
     patchShebangs utils/cat_files.py
@@ -51,7 +51,7 @@ stdenv.mkDerivation {
       python3
     ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   buildInputs = [ cxxabi ];
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation {
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-    ;
+  ;
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

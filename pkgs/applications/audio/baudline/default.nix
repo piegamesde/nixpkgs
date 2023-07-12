@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "baudline isn't supported (yet?) on ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
 

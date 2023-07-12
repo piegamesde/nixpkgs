@@ -69,7 +69,7 @@ import ./make-test-python.nix (
           };
           services.openssh.enable = true;
         }
-        ;
+      ;
 
       client =
         {
@@ -87,7 +87,7 @@ import ./make-test-python.nix (
           users.users.alice = { isNormalUser = true; };
           users.users.bob = { isNormalUser = true; };
         }
-        ;
+      ;
     };
 
     testScript = ''

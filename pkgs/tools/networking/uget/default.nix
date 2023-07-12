@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ (lib.optional (aria2 != null) aria2)
-    ;
+  ;
 
   enableParallelBuilding = true;
 

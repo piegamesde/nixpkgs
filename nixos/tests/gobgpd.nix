@@ -8,7 +8,7 @@ import ./make-test-python.nix (
       node: iface:
       (pkgs.lib.head node.config.networking.interfaces.${iface}.ipv4.addresses)
       .address
-      ;
+    ;
   in
   {
     name = "gobgpd";
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
       node2 =
         {
           nodes,
@@ -67,7 +67,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -92,6 +92,6 @@ import ./make-test-python.nix (
             node1.wait_until_succeeds("gobgp neighbor ${addr2} | grep -q ESTABLISHED")
             node2.wait_until_succeeds("gobgp neighbor ${addr1} | grep -q ESTABLISHED")
       ''
-      ;
+    ;
   }
 )

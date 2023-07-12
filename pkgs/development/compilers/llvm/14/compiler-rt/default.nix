@@ -44,7 +44,7 @@ stdenv.mkDerivation {
       libllvm.dev
     ]
     ++ lib.optional stdenv.isDarwin xcbuild.xcrun
-    ;
+  ;
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
   env.NIX_CFLAGS_COMPILE = toString [
@@ -90,7 +90,7 @@ stdenv.mkDerivation {
       "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
       "-DDARWIN_osx_BUILTIN_ARCHS=${stdenv.hostPlatform.darwinArch}"
     ]
-    ;
+  ;
 
   outputs = [
     "out"
@@ -138,7 +138,7 @@ stdenv.mkDerivation {
       substituteInPlace lib/builtins/cpu_model.c \
         --replace "#include <assert.h>" ""
     ''
-    ;
+  ;
 
   # Hack around weird upsream RPATH bug
   postInstall =
@@ -156,7 +156,7 @@ stdenv.mkDerivation {
     + lib.optionalString doFakeLibgcc ''
       ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/libgcc.a
     ''
-    ;
+  ;
 
   meta = llvm_meta // {
     homepage = "https://compiler-rt.llvm.org/";

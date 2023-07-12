@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optionals (stdenv.isLinux) [ libmnl ]
-    ;
+  ;
 
   # some options are only available on x86
   mesonFlags = lib.optionals (!stdenv.hostPlatform.isx86) [

@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
       Security
     ]
-    ;
+  ;
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {

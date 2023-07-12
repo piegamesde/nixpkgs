@@ -55,7 +55,7 @@ stdenv.mkDerivation (
         copyDesktopItems
       ]
       ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
-      ;
+    ;
 
     configurePhase = ''
       runHook preConfigure

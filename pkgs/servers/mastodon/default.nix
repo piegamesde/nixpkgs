@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
       cp -r * $out/
       ln -s ${run-streaming} $out/run-streaming.sh
     ''
-    ;
+  ;
 
   passthru = {
     tests.mastodon = nixosTests.mastodon;

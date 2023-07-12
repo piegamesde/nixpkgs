@@ -59,7 +59,7 @@ mkDerivation rec {
       sqlcipher
     ]
     ++ lib.optionals stdenv.isDarwin [ AVFoundation ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -68,7 +68,7 @@ mkDerivation rec {
       qttools
     ]
     ++ lib.optionals stdenv.isDarwin [ perl ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DGIT_DESCRIBE=v${version}"

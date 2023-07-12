@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       Carbon
       CoreServices
     ]
-    ;
+  ;
 
   configureFlags = [
     "--disable-local-libopts"

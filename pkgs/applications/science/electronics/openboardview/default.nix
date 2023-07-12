@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       gtk3
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace src/openboardview/CMakeLists.txt \
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       wrapGApp "$out/bin/${pname}" \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk3 ]}
     ''
-    ;
+  ;
 
   passthru.updateScript = gitUpdater { ignoredVersions = ".*\\.90\\..*"; };
 

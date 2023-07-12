@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
             moveToOutput "$(dirname "''${file/"$out/"/}")" "$devdoc"
         done
       ''
-    ;
+  ;
 
   passthru = {
     updateScript = gnome.updateScript {

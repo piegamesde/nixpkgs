@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
           --set-rpath $out/lib:"${libPath}" \
           $out/bin/iaca
     ''
-    ;
+  ;
   postFixup = "wrapProgram $out/bin/iaca --set LD_LIBRARY_PATH $out/lib";
   meta = with lib; {
     description = "Intel Architecture Code Analyzer";

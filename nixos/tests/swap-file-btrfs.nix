@@ -32,7 +32,7 @@ import ./make-test-python.nix (
           size = 1; # 1MiB.
         } ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit('var-swapfile.swap')

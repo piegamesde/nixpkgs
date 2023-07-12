@@ -22,7 +22,7 @@ stdenv.mkDerivation (
           "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz";
         sha256 = "sha256-bnKA/1hcah2d/N8vykiSUWNLM3e/wzwp5AAkZqONAtQ=";
       }
-      ;
+    ;
 
     nativeBuildInputs = [ pkg-config ];
     propagatedBuildInputs =
@@ -36,7 +36,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = {
       description = "OpenGL utility library";

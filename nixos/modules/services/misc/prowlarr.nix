@@ -21,7 +21,7 @@ in
         description =
           lib.mdDoc
             "Open ports in the firewall for the Prowlarr web interface."
-          ;
+        ;
       };
     };
   };

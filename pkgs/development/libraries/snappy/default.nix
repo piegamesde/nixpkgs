@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-Wno-sign-compare"
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"

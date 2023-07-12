@@ -14,7 +14,7 @@ let
       "unix://${server}"
     else
       "${server.host},${builtins.toString server.port}"
-    ;
+  ;
 
   # Filter out submodule parameters whose value is null or false or is
   # the key _module.
@@ -25,7 +25,7 @@ let
     lib.filterAttrs (n: v: ("_module" != n) && (null != v) && (false != v)) (
       lib.optionalAttrs (null != p) p
     )
-    ;
+  ;
 
   # renderBackend :: BackendSubmodule -> String
   renderBackend =
@@ -50,7 +50,7 @@ let
               "${n}=${builtins.toString v}"
           )
           (filterParams backend.params)
-        ;
+      ;
 
       # NB: params are delimited by a ";" which is the same delimiter
       # to separate the host;[pattern];[params] sections of a backend
@@ -64,7 +64,7 @@ let
       formattedSections = lib.concatStringsSep ";" sections;
     in
     "backend=${formattedSections}"
-    ;
+  ;
 
   # renderFrontend :: FrontendSubmodule -> String
   renderFrontend =
@@ -83,7 +83,7 @@ let
       formattedSections = lib.concatStringsSep ";" sections;
     in
     "frontend=${formattedSections}"
-    ;
+  ;
 
   configurationFile = pkgs.writeText "nghttpx.conf" ''
     ${lib.optionalString (null != cfg.tls) ("private-key-file=" + cfg.tls.key)}

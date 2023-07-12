@@ -63,7 +63,7 @@ stdenv.mkDerivation (
           "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
         hash = "sha256-62USDE7nm3oVPDwZctXAFYwhUYd8xR7Hclu6V0lnnUk=";
       }
-      ;
+    ;
 
     strictDeps = true;
     depsBuildBuild = [ pkg-config ];
@@ -81,7 +81,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals enableDocumentation [ hotdoc ]
       ++ lib.optionals enableWayland [ wayland ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -112,7 +112,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional enableCocoa Cocoa
       ++ lib.optional enableCdparanoia cdparanoia
-      ;
+    ;
 
     propagatedBuildInputs = [ gstreamer ];
 
@@ -138,7 +138,7 @@ stdenv.mkDerivation (
       ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
       ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
       ++ lib.optionals stdenv.isDarwin [ "-Dlibvisual=disabled" ]
-      ;
+    ;
 
     postPatch = ''
       patchShebangs \
@@ -172,7 +172,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "Base GStreamer plug-ins and helper libraries";

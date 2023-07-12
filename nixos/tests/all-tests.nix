@@ -33,13 +33,13 @@ let
       discoverTests (val { inherit system pkgs; })
     else
       val
-    ;
+  ;
   handleTest =
     path: args: discoverTests (import path ({ inherit system pkgs; } // args));
   handleTestOn =
     systems: path: args:
     if elem system systems then handleTest path args else { }
-    ;
+  ;
 
   nixosLib = import ../lib {
     # Experimental features need testing too, but there's no point in warning
@@ -55,7 +55,7 @@ let
         ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest {
           imports = [ arg ];
         }).config.result
-        ;
+      ;
       findTests =
         tree:
         if tree ? recurseForDerivations && tree.recurseForDerivations then
@@ -64,7 +64,7 @@ let
           )
         else
           callTest tree
-        ;
+      ;
 
       runTest =
         arg:
@@ -72,13 +72,13 @@ let
           r = doRunTest arg;
         in
         findTests r
-        ;
+      ;
       runTestOn =
         systems: arg: if elem system systems then runTest arg else { };
     })
     runTest
     runTestOn
-    ;
+  ;
 in
 {
   _3proxy = runTest ./3proxy.nix;
@@ -97,7 +97,7 @@ in
       ]
       ./akkoma.nix
       { }
-    ;
+  ;
   akkoma-confined =
     handleTestOn
       [
@@ -106,7 +106,7 @@ in
       ]
       ./akkoma.nix
       { confined = true; }
-    ;
+  ;
   allTerminfo = handleTest ./all-terminfo.nix { };
   alps = handleTest ./alps.nix { };
   amazon-init-shell = handleTest ./amazon-init-shell.nix { };
@@ -130,7 +130,7 @@ in
       ]
       ./bcachefs.nix
       { }
-    ;
+  ;
   beanstalkd = handleTest ./beanstalkd.nix { };
   bees = handleTest ./bees.nix { };
   binary-cache = handleTest ./binary-cache.nix { };
@@ -148,7 +148,7 @@ in
       ]
       ./boot.nix
       { }
-    ;
+  ;
   bootspec = handleTestOn [ "x86_64-linux" ] ./bootspec.nix { };
   boot-stage1 = handleTest ./boot-stage1.nix { };
   borgbackup = handleTest ./borgbackup.nix { };
@@ -161,7 +161,7 @@ in
       ]
       ./bpf.nix
       { }
-    ;
+  ;
   breitbandmessung = handleTest ./breitbandmessung.nix { };
   brscan5 = handleTest ./brscan5.nix { };
   btrbk = handleTest ./btrbk.nix { };
@@ -191,7 +191,7 @@ in
       ]
       ./ceph-multi-node.nix
       { }
-    ;
+  ;
   ceph-single-node =
     handleTestOn
       [
@@ -200,7 +200,7 @@ in
       ]
       ./ceph-single-node.nix
       { }
-    ;
+  ;
   ceph-single-node-bluestore =
     handleTestOn
       [
@@ -209,7 +209,7 @@ in
       ]
       ./ceph-single-node-bluestore.nix
       { }
-    ;
+  ;
   certmgr = handleTest ./certmgr.nix { };
   cfssl =
     handleTestOn
@@ -219,7 +219,7 @@ in
       ]
       ./cfssl.nix
       { }
-    ;
+  ;
   cgit = handleTest ./cgit.nix { };
   charliecloud = handleTest ./charliecloud.nix { };
   chromium =
@@ -240,7 +240,7 @@ in
       ]
       ./chrony-ptp.nix
       { }
-    ;
+  ;
   cinnamon = handleTest ./cinnamon.nix { };
   cjdns = handleTest ./cjdns.nix { };
   clickhouse = handleTest ./clickhouse.nix { };
@@ -255,7 +255,7 @@ in
       ]
       ./cntr.nix
       { }
-    ;
+  ;
   cockpit = handleTest ./cockpit.nix { };
   cockroachdb = handleTestOn [ "x86_64-linux" ] ./cockroachdb.nix { };
   coder = handleTest ./coder.nix { };
@@ -276,18 +276,18 @@ in
   containers-physical_interfaces =
     handleTest ./containers-physical_interfaces.nix
       { }
-    ;
+  ;
   containers-portforward = handleTest ./containers-portforward.nix { };
   containers-reloadable = handleTest ./containers-reloadable.nix { };
   containers-restart_networking =
     handleTest ./containers-restart_networking.nix
       { }
-    ;
+  ;
   containers-tmpfs = handleTest ./containers-tmpfs.nix { };
   containers-unified-hierarchy =
     handleTest ./containers-unified-hierarchy.nix
       { }
-    ;
+  ;
   convos = handleTest ./convos.nix { };
   corerad = handleTest ./corerad.nix { };
   coturn = handleTest ./coturn.nix { };
@@ -300,7 +300,7 @@ in
       ]
       ./cri-o.nix
       { }
-    ;
+  ;
   cups-pdf = handleTest ./cups-pdf.nix { };
   custom-ca = handleTest ./custom-ca.nix { };
   croc = handleTest ./croc.nix { };
@@ -323,7 +323,7 @@ in
       ]
       ./docker.nix
       { }
-    ;
+  ;
   docker-rootless =
     handleTestOn
       [
@@ -332,7 +332,7 @@ in
       ]
       ./docker-rootless.nix
       { }
-    ;
+  ;
   docker-registry = handleTest ./docker-registry.nix { };
   docker-tools = handleTestOn [ "x86_64-linux" ] ./docker-tools.nix { };
   docker-tools-cross =
@@ -343,11 +343,11 @@ in
       ]
       ./docker-tools-cross.nix
       { }
-    ;
+  ;
   docker-tools-overlay =
     handleTestOn [ "x86_64-linux" ] ./docker-tools-overlay.nix
       { }
-    ;
+  ;
   documize = handleTest ./documize.nix { };
   documentation = pkgs.callPackage ../modules/misc/documentation/test.nix {
     inherit nixosLib;
@@ -402,7 +402,7 @@ in
   firefox-esr =
     handleTest ./firefox.nix
       { firefoxPackage = pkgs.firefox-esr; }
-    ; # used in `tested` job
+  ; # used in `tested` job
   firefox-esr-102 = handleTest ./firefox.nix {
     firefoxPackage = pkgs.firefox-esr-102;
   };
@@ -487,7 +487,7 @@ in
       ]
       ./oci-containers.nix
       { }
-    ;
+  ;
   odoo = handleTest ./odoo.nix { };
   # 9pnet_virtio used to mount /nix partition doesn't support
   # hibernation. This test happens to work on x86_64-linux but
@@ -515,7 +515,7 @@ in
   initrd-luks-empty-passphrase =
     handleTest ./initrd-luks-empty-passphrase.nix
       { }
-    ;
+  ;
   initrdNetwork = handleTest ./initrd-network.nix { };
   initrd-secrets = handleTest ./initrd-secrets.nix { };
   initrd-secrets-changing = handleTest ./initrd-secrets-changing.nix { };
@@ -544,7 +544,7 @@ in
   kbd-update-search-paths-patch =
     handleTest ./kbd-update-search-paths-patch.nix
       { }
-    ;
+  ;
   kea = handleTest ./kea.nix { };
   keepalived = handleTest ./keepalived.nix { };
   keepassxc = handleTest ./keepassxc.nix { };
@@ -553,7 +553,7 @@ in
   kernel-latest-ath-user-regd =
     handleTest ./kernel-latest-ath-user-regd.nix
       { }
-    ;
+  ;
   keter = handleTest ./keter.nix { };
   kexec = handleTest ./kexec.nix { };
   keycloak = discoverTests (import ./keycloak.nix);
@@ -601,7 +601,7 @@ in
   magic-wormhole-mailbox-server =
     handleTest ./magic-wormhole-mailbox-server.nix
       { }
-    ;
+  ;
   magnetico = handleTest ./magnetico.nix { };
   mailcatcher = handleTest ./mailcatcher.nix { };
   mailhog = handleTest ./mailhog.nix { };
@@ -710,7 +710,7 @@ in
   nixos-rebuild-specialisations =
     handleTest ./nixos-rebuild-specialisations.nix
       { }
-    ;
+  ;
   nixpkgs = pkgs.callPackage ../modules/misc/nixpkgs/test.nix {
     inherit evalMinimalConfig;
   };
@@ -721,7 +721,7 @@ in
   noto-fonts-cjk-qt-default-weight =
     handleTest ./noto-fonts-cjk-qt-default-weight.nix
       { }
-    ;
+  ;
   novacomd = handleTestOn [ "x86_64-linux" ] ./novacomd.nix { };
   nscd = handleTest ./nscd.nix { };
   nsd = handleTest ./nsd.nix { };
@@ -791,7 +791,7 @@ in
       ]
       ./pleroma.nix
       { }
-    ;
+  ;
   plikd = handleTest ./plikd.nix { };
   plotinus = handleTest ./plotinus.nix { };
   podgrab = handleTest ./podgrab.nix { };
@@ -803,7 +803,7 @@ in
       ]
       ./podman/default.nix
       { }
-    ;
+  ;
   podman-tls-ghostunnel =
     handleTestOn
       [
@@ -812,14 +812,14 @@ in
       ]
       ./podman/tls-ghostunnel.nix
       { }
-    ;
+  ;
   polaris = handleTest ./polaris.nix { };
   pomerium = handleTestOn [ "x86_64-linux" ] ./pomerium.nix { };
   postfix = handleTest ./postfix.nix { };
   postfix-raise-smtpd-tls-security-level =
     handleTest ./postfix-raise-smtpd-tls-security-level.nix
       { }
-    ;
+  ;
   postfixadmin = handleTest ./postfixadmin.nix { };
   postgis = handleTest ./postgis.nix { };
   postgresql = handleTest ./postgresql.nix { };
@@ -832,7 +832,7 @@ in
   predictable-interface-names =
     handleTest ./predictable-interface-names.nix
       { }
-    ;
+  ;
   printing-socket = handleTest ./printing.nix { socket = true; };
   printing-service = handleTest ./printing.nix { socket = false; };
   privacyidea = handleTest ./privacyidea.nix { };
@@ -856,7 +856,7 @@ in
       ]
       ./qboot.nix
       { }
-    ;
+  ;
   qemu-vm-restrictnetwork = handleTest ./qemu-vm-restrictnetwork.nix { };
   quorum = handleTest ./quorum.nix { };
   quake3 = handleTest ./quake3.nix { };
@@ -914,7 +914,7 @@ in
       ]
       ./spark
       { }
-    ;
+  ;
   sqlite3-to-mysql = handleTest ./sqlite3-to-mysql.nix { };
   sslh = handleTest ./sslh.nix { };
   sssd = handleTestOn [ "x86_64-linux" ] ./sssd.nix { };
@@ -949,15 +949,15 @@ in
   systemd-initrd-luks-keyfile =
     handleTest ./systemd-initrd-luks-keyfile.nix
       { }
-    ;
+  ;
   systemd-initrd-luks-empty-passphrase =
     handleTest ./initrd-luks-empty-passphrase.nix
       { systemdStage1 = true; }
-    ;
+  ;
   systemd-initrd-luks-password =
     handleTest ./systemd-initrd-luks-password.nix
       { }
-    ;
+  ;
   systemd-initrd-luks-tpm2 = handleTest ./systemd-initrd-luks-tpm2.nix { };
   systemd-initrd-modprobe = handleTest ./systemd-initrd-modprobe.nix { };
   systemd-initrd-shutdown = handleTest ./systemd-shutdown.nix {
@@ -970,7 +970,7 @@ in
   systemd-initrd-networkd-ssh =
     handleTest ./systemd-initrd-networkd-ssh.nix
       { }
-    ;
+  ;
   systemd-initrd-networkd-openvpn = handleTest ./initrd-network-openvpn {
     systemdStage1 = true;
   };
@@ -980,15 +980,15 @@ in
   systemd-networkd-dhcpserver =
     handleTest ./systemd-networkd-dhcpserver.nix
       { }
-    ;
+  ;
   systemd-networkd-dhcpserver-static-leases =
     handleTest ./systemd-networkd-dhcpserver-static-leases.nix
       { }
-    ;
+  ;
   systemd-networkd-ipv6-prefix-delegation =
     handleTest ./systemd-networkd-ipv6-prefix-delegation.nix
       { }
-    ;
+  ;
   systemd-networkd-vrf = handleTest ./systemd-networkd-vrf.nix { };
   systemd-no-tainted = handleTest ./systemd-no-tainted.nix { };
   systemd-nspawn = handleTest ./systemd-nspawn.nix { };
@@ -1000,7 +1000,7 @@ in
   systemd-user-tmpfiles-rules =
     handleTest ./systemd-user-tmpfiles-rules.nix
       { }
-    ;
+  ;
   systemd-misc = handleTest ./systemd-misc.nix { };
   systemd-userdbd = handleTest ./systemd-userdbd.nix { };
   systemd-homed = handleTest ./systemd-homed.nix { };
@@ -1031,7 +1031,7 @@ in
       ]
       ./traefik.nix
       { }
-    ;
+  ;
   trafficserver = handleTest ./trafficserver.nix { };
   transmission = handleTest ./transmission.nix { };
   # tracee requires bpf

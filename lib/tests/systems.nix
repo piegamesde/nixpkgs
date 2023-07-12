@@ -12,7 +12,7 @@ let
       expr = lib.sort lib.lessThan x;
       expected = lib.sort lib.lessThan y;
     }
-    ;
+  ;
 in
 with lib.systems.doubles;
 lib.runTests {

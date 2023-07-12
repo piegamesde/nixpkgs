@@ -27,7 +27,7 @@ let
           ]
           (toString val)
       }"''
-    ;
+  ;
   boolFlag = name: val: optionalString val "-${name}";
   flags = [
     (valFlag "port" cfg.port)
@@ -136,7 +136,7 @@ in
         description =
           lib.mdDoc
             "Adds additional cheat protection to the server."
-          ;
+        ;
       };
 
       noUPnP = mkOption {
@@ -158,7 +158,7 @@ in
         description =
           lib.mdDoc
             "Path to variable state data directory for terraria."
-          ;
+        ;
       };
     };
   };

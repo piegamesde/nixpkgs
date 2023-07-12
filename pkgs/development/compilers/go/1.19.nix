@@ -26,7 +26,7 @@ let
       buildPackages.gccgo12
     else
       buildPackages.callPackage ./bootstrap116.nix { }
-    ;
+  ;
 
   skopeoTest = skopeo.override { buildGoModule = buildGo119Module; };
 
@@ -49,7 +49,7 @@ let
     }
     .${platform.parsed.cpu.name}
       or (throw "Unsupported system: ${platform.parsed.cpu.name}")
-    ;
+  ;
 
   # We need a target compiler which is still runnable at build time,
   # to handle the cross-building case where build != host == target
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [
       stdenv.cc.libc.static
     ]
-    ;
+  ;
 
   depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
     Foundation
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
   depsTargetTarget =
     lib.optional stdenv.targetPlatform.isWindows
       threadsCross.package
-    ;
+  ;
 
   postPatch = ''
     patchShebangs .
@@ -196,7 +196,7 @@ stdenv.mkDerivation rec {
               ''}
           ''
     )
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

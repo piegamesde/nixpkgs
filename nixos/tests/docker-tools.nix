@@ -41,7 +41,7 @@ import ./make-test-python.nix (
 
               tar --sort=name --hard-dereference -cf $out .
             ''
-          ;
+        ;
       in
       pkgs.dockerTools.buildImage {
         fromImage = repeatedRootfsDiffs;
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
           echo 'runAsRoot has run.'
         '';
       }
-      ;
+    ;
   in
   {
     name = "docker-tools";
@@ -74,7 +74,7 @@ import ./make-test-python.nix (
             docker.enable = true;
           };
         }
-        ;
+      ;
     };
 
     testScript = with pkgs.dockerTools; ''

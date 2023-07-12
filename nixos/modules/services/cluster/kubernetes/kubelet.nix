@@ -30,9 +30,9 @@ let
               )
             )
             cfg.cni.config
-          ;
+        ;
       })
-    ;
+  ;
 
   infraContainer = pkgs.dockerTools.buildImage {
     name = "pause";
@@ -142,7 +142,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes kubelet info server listening address."
-        ;
+      ;
       default = "0.0.0.0";
       type = str;
     };
@@ -159,7 +159,7 @@ in
       defaultText =
         literalExpression
           "config.${options.services.kubernetes.addons.dns.clusterDomain}"
-        ;
+      ;
       type = str;
     };
 
@@ -167,7 +167,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes apiserver CA file for client authentication."
-        ;
+      ;
       default = top.caFile;
       defaultText = literalExpression "config.${otop.caFile}";
       type = nullOr path;
@@ -210,7 +210,7 @@ in
         description =
           lib.mdDoc
             "Path to Kubernetes CNI configuration directory."
-          ;
+        ;
         type = nullOr path;
         default = null;
       };
@@ -220,7 +220,7 @@ in
       description =
         lib.mdDoc
           "Endpoint at which to find the container runtime api interface/socket"
-        ;
+      ;
       type = str;
       default = "unix:///run/containerd/containerd.sock";
     };
@@ -266,7 +266,7 @@ in
       description =
         lib.mdDoc
           "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)"
-        ;
+      ;
       type = attrsOf attrs;
       default = { };
     };
@@ -275,7 +275,7 @@ in
       description =
         lib.mdDoc
           "IP address of the node. If set, kubelet will use this IP address for the node."
-        ;
+      ;
       default = null;
       type = nullOr str;
     };
@@ -284,7 +284,7 @@ in
       description =
         lib.mdDoc
           "Whether to auto register kubelet with API server."
-        ;
+      ;
       default = true;
       type = bool;
     };
@@ -305,7 +305,7 @@ in
       description =
         lib.mdDoc
           "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)."
-        ;
+      ;
       default = { };
       type = attrsOf (submodule [ taintOptions ]);
     };
@@ -320,7 +320,7 @@ in
       description =
         lib.mdDoc
           "File containing x509 private key matching tlsCertFile."
-        ;
+      ;
       default = null;
       type = nullOr path;
     };
@@ -329,7 +329,7 @@ in
       description =
         lib.mdDoc
           "Whether to set node taint to unschedulable=true as it is the case of node that has only master role."
-        ;
+      ;
       default = false;
       type = bool;
     };
@@ -489,7 +489,7 @@ in
       services.kubernetes.kubelet.hostname =
         mkDefault
           config.networking.fqdnOrHostName
-        ;
+      ;
 
       services.kubernetes.pki.certs = with top.lib; {
         kubelet = mkCert {
@@ -508,7 +508,7 @@ in
       services.kubernetes.kubelet.kubeconfig.server =
         mkDefault
           top.apiserverAddress
-        ;
+      ;
     })
 
     (mkIf (cfg.enable && cfg.manifests != { }) {
@@ -522,7 +522,7 @@ in
             }
           )
           cfg.manifests
-        ;
+      ;
     })
 
     (mkIf (cfg.unschedulable && cfg.enable) {

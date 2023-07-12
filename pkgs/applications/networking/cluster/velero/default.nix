@@ -50,7 +50,7 @@ buildGoModule rec {
         $out/bin/velero completion zsh > velero.zsh
         installShellCompletion velero.{bash,zsh}
       ''
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         }: {
           environment.systemPackages = [ pkgs.curl ];
         }
-        ;
+      ;
       traefik =
         {
           config,
@@ -77,7 +77,7 @@ import ./make-test-python.nix (
 
           users.users.traefik.extraGroups = [ "docker" ];
         }
-        ;
+      ;
     };
 
     testScript = ''

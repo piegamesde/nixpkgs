@@ -15,7 +15,7 @@ import ./make-test-python.nix (
         services.atd.enable = true;
         users.users.alice = { isNormalUser = true; };
       }
-      ;
+    ;
 
     # "at" has a resolution of 1 minute
     testScript = ''

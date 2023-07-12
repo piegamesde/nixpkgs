@@ -22,7 +22,7 @@ let
       with open('${cfg.saltFile}') as file:
         SALT = file.read()
     ''
-    ;
+  ;
 in
 {
   options.services.powerdns-admin = {
@@ -84,7 +84,7 @@ in
       environment.FLASK_CONF =
         builtins.toFile "powerdns-admin-config.py"
           configText
-        ;
+      ;
       environment.PYTHONPATH = pkgs.powerdns-admin.pythonPath;
       serviceConfig = {
         ExecStart =
@@ -111,7 +111,7 @@ in
           ]
           ++ (optional (cfg.secretKeyFile != null) cfg.secretKeyFile)
           ++ (optional (cfg.saltFile != null) cfg.saltFile)
-          ;
+        ;
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";

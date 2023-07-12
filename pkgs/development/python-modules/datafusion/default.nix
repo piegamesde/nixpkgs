@@ -61,7 +61,7 @@ buildPythonPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ pyarrow ];
 

@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       done
       patches="$fedorapatches $patches"
     ''
-    ;
+  ;
 
   # Cherry-pick extra patches for recent glibc support in the test suite.
   patches = [

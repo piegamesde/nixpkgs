@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
         libXext.dev
       ]
     )
-    ;
+  ;
 
   nativeBuildInputs = [
     file

@@ -59,7 +59,7 @@ stdenv.mkDerivation (
         CoreFoundation
         Security
       ]
-      ;
+    ;
 
     preConfigure = ''
       export LD=$CC
@@ -68,7 +68,7 @@ stdenv.mkDerivation (
     NIX_CFLAGS_LINK =
       lib.optionalString stdenv.isDarwin
         "-headerpad_max_install_names"
-      ;
+    ;
 
     postBuild = lib.optionalString pythonSupport ''
       make -C pjsip-apps/src/swig/python
@@ -124,7 +124,7 @@ stdenv.mkDerivation (
           install_name_tool "''${change_args[@]}" "$executable"
         done
       ''
-      ;
+    ;
 
     # We need the libgcc_s.so.1 loadable (for pthread_cancel to work)
     dontPatchELF = true;

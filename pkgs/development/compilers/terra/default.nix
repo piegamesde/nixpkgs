@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       Cocoa
       Foundation
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       "-DCLANG_RESOURCE_DIR=${llvmMerged}/lib/clang/${clangVersion}"
     ]
     ++ lib.optional enableCUDA "-DTERRA_ENABLE_CUDA=ON"
-    ;
+  ;
 
   doCheck = true;
   hardeningDisable = [ "fortify" ];

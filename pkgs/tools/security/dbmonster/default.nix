@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
       wirelesstools
     ]
     ++ (with python3.pkgs; [ matplotlib ])
-    ;
+  ;
 
   dontBuild = true;
 

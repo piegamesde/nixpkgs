@@ -28,7 +28,7 @@ let
       lib.licenses.mit # musl
       lib.licenses.lgpl2Plus # glibc
     ]
-    ;
+  ;
 
   # compatible if libc is compatible
   libcModules = [
@@ -59,7 +59,7 @@ let
       "ssl_gnutls"
     ]
     ++ lib.optionals (compatible lib stdenv.cc.libc) libcModules
-    ;
+  ;
 in
 
 {
@@ -126,7 +126,7 @@ let
     lib.concatMap
       (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
       extraModules
-    ;
+  ;
 
   # if true, we can't provide a binary version of this
   # package without violating the GPL 2
@@ -135,7 +135,7 @@ let
       allowed = compatibleModules lib stdenv;
     in
     !lib.all (lib.flip lib.elem allowed) extraModules
-    ;
+  ;
 
   # return list of the license(s) of the given derivation
   getLicenses =
@@ -144,7 +144,7 @@ let
       lics = drv.meta.license or [ ];
     in
     if lib.isAttrs lics || lib.isString lics then [ lics ] else lics
-    ;
+  ;
 
   # Whether any member of list1 is also member of list2, i. e. set intersection.
   anyMembers = list1: list2: lib.any (m1: lib.elem m1 list2) list1;
@@ -228,7 +228,7 @@ stdenv.mkDerivation rec {
       # a GPL 2 incompatibility even if it is not in a top-level attribute,
       # but pulled in indirectly somehow.
       ++ lib.optional gpl2Conflict lib.licenses.unfree
-      ;
+    ;
     maintainers = [ lib.maintainers.sternenseemann ];
     # windows is theoretically possible, but requires extra work
     # which I am not willing to do and can't test.

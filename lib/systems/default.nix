@@ -44,12 +44,12 @@ rec {
           final.isAndroid == platform.isAndroid
           && parse.isCompatible final.parsed.cpu platform.parsed.cpu
           && final.parsed.kernel == platform.parsed.kernel
-          ;
+        ;
         isCompatible =
           _:
           throw
             "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details"
-          ;
+        ;
         # Derived meta-data
         libc =
           if final.isDarwin then
@@ -81,7 +81,7 @@ rec {
           # TODO(@Ericson2314) think more about other operating systems
           else
             "native/impure"
-          ;
+        ;
         # Choose what linker we wish to use by default. Someday we might also
         # choose the C compiler, runtime library, C++ standard library, etc. in
         # this way, nice and orthogonally, and deprecate `useLLVM`. But due to
@@ -98,7 +98,7 @@ rec {
           # choice.
           else
             "bfd"
-          ;
+        ;
         extensions = rec {
           sharedLibrary =
             if final.isDarwin then
@@ -107,7 +107,7 @@ rec {
               ".dll"
             else
               ".so"
-            ;
+          ;
           staticLibrary = if final.isWindows then ".lib" else ".a";
           library = if final.isStatic then staticLibrary else sharedLibrary;
           executable = if final.isWindows then ".exe" else "";
@@ -143,7 +143,7 @@ rec {
               "mips64" # endianness is *not* included on mips64
             else
               final.parsed.cpu.name
-            ;
+          ;
 
           # uname -r
           release = null;
@@ -162,7 +162,7 @@ rec {
           linux-kernel
           gcc
           rustc
-          ;
+        ;
 
         linuxArch =
           if final.isAarch32 then
@@ -190,7 +190,7 @@ rec {
             "loongarch"
           else
             final.parsed.cpu.name
-          ;
+        ;
 
         qemuArch =
           if final.isAarch32 then
@@ -203,7 +203,7 @@ rec {
             "i386"
           else
             final.uname.processor
-          ;
+        ;
 
         # Name used by UEFI for architectures.
         efiArch =
@@ -217,7 +217,7 @@ rec {
             "aa64"
           else
             final.parsed.cpu.name
-          ;
+        ;
 
         darwinArch =
           {
@@ -233,7 +233,7 @@ rec {
             "ios"
           else
             null
-          ;
+        ;
         # The canonical name for this attribute is darwinSdkVersion, but some
         # platforms define the old name "sdkVer".
         darwinSdkVersion =
@@ -246,7 +246,7 @@ rec {
             "IPHONEOS_DEPLOYMENT_TARGET"
           else
             null
-          ;
+        ;
       } // (
         let
           selectEmulator =
@@ -292,7 +292,7 @@ rec {
               "${pkgs.mmixware}/bin/mmix"
             else
               null
-            ;
+          ;
         in
         {
           emulatorAvailable = pkgs: (selectEmulator pkgs) != null;
@@ -303,7 +303,7 @@ rec {
               selectEmulator pkgs
             else
               throw "Don't know how to run ${final.config} executables."
-            ;
+          ;
         }
       ) // mapAttrs (n: v: v final.parsed) inspect.predicates
         // mapAttrs (n: v: v final.gcc.arch or "default")
@@ -322,5 +322,5 @@ rec {
         true
         (final.parsed.abi.assertions or [ ]);
     final
-    ;
+  ;
 }

@@ -38,7 +38,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   # Tests require network access.
   doCheck = false;

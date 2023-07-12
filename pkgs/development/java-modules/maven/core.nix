@@ -27,7 +27,7 @@
             "04hrkgcpvxdisdgcp1mslkylm0b461mp42mylwpm6xdi9lcfdbd97k2rybvwgxd0y9r9j72ahm4fsqjb53xlz4737w96cmynpr8mrz4";
         }
       ]
-    ;
+  ;
 
   mavenCore_2_0_6 =
     map
@@ -53,7 +53,7 @@
             "2ar2qvhig92gifm4zhd7mzcm0c7cnlyvd3d089a7chlvxhrxyhf08xxpd8sxa525sa413v2d762yx2mbhnkf564i1zw4gg7cdjl5z47";
         }
       ]
-    ;
+  ;
 
   mavenCore_2_0_9 =
     map
@@ -79,7 +79,7 @@
             "0qp0kns07h4j7d67z0j09kjn0hwf6k6iz4vp2pmisx131f98acm516y8ca35ly7pp6zn9mdk3c4nh9c0rd7xnqvi12ijqrfvg01dri2";
         }
       ]
-    ;
+  ;
 
   mavenCore_2_2_1 =
     map
@@ -105,5 +105,5 @@
             "1dxfcyic0skz4pm4w5pxbvligyl9pif78lk915pdhzia16b54c65ffk832zs7d774ynjfxrgzpbicvldsdb1wmi15vfgxn421vynbjj";
         }
       ]
-    ;
+  ;
 }

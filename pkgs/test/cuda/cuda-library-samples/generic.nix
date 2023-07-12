@@ -21,7 +21,7 @@ let
       lib.strings.substring 0 7 rev
       + "-"
       + lib.versions.majorMinor cudatoolkit.version
-      ;
+    ;
     nativeBuildInputs = [
       cmake
       addOpenGLRunpath

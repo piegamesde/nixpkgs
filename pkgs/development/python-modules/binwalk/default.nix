@@ -68,7 +68,7 @@ buildPythonPackage rec {
       cramfsswap
       sasquatch
     ]
-    ;
+  ;
 
   # setup.py only installs version.py during install, not test
   postPatch = ''

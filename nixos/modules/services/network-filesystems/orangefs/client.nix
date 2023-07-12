@@ -105,6 +105,6 @@ in
           where = fs.mountPoint;
         })
         cfg.fileSystems
-      ;
+    ;
   };
 }

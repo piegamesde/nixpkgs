@@ -67,7 +67,7 @@ buildPythonPackage rec {
       tzlocal
     ]
     ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-    ;
+  ;
 
   nativeCheckInputs = [
     flake8

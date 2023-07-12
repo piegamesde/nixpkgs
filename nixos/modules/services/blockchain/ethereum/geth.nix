@@ -28,7 +28,7 @@ let
           description =
             lib.mdDoc
               "Port number Go Ethereum will be listening on, both TCP and UDP."
-            ;
+          ;
         };
 
         http = {
@@ -64,7 +64,7 @@ let
             description =
               lib.mdDoc
                 "Listen address of Go Ethereum WebSocket API."
-              ;
+            ;
           };
 
           port = mkOption {
@@ -92,7 +92,7 @@ let
             description =
               lib.mdDoc
                 "Listen address of Go Ethereum Auth RPC API."
-              ;
+            ;
           };
 
           port = mkOption {
@@ -107,7 +107,7 @@ let
             description =
               lib.mdDoc
                 "List of virtual hostnames from which to accept requests."
-              ;
+            ;
             example = [
               "localhost"
               "geth.example.org"
@@ -120,7 +120,7 @@ let
             description =
               lib.mdDoc
                 "Path to a JWT secret for authenticated RPC endpoint."
-              ;
+            ;
             example = "/var/run/geth/jwtsecret";
           };
         };
@@ -135,7 +135,7 @@ let
             description =
               lib.mdDoc
                 "Listen address of Go Ethereum metrics service."
-              ;
+            ;
           };
 
           port = mkOption {
@@ -144,7 +144,7 @@ let
             description =
               lib.mdDoc
                 "Port number of Go Ethereum metrics service."
-              ;
+            ;
           };
         };
 
@@ -161,7 +161,7 @@ let
           description =
             lib.mdDoc
               "The network to connect to. Mainnet (null) is the default ethereum network."
-            ;
+          ;
         };
 
         syncmode = mkOption {
@@ -204,7 +204,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 
 {
@@ -312,6 +312,6 @@ in
           ))
         )
         eachGeth
-      ;
+    ;
   };
 }

@@ -50,7 +50,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional stdenv.isLinux autoPatchelfHook
       ++ extraNativeBuildInputs
-      ;
+    ;
 
     buildInputs =
       [
@@ -59,7 +59,7 @@ stdenv.mkDerivation (
         libxcrypt-legacy # libcrypt.so.1 (default is .2 now)
       ]
       ++ extraBuildInputs
-      ;
+    ;
 
     unpackPhase = ''
       runHook preUnpack
@@ -121,7 +121,7 @@ stdenv.mkDerivation (
             sourceProvenance
             maintainers
             platforms
-            ;
+          ;
           description = "High-Performance Polyglot VM (Product: ${product})";
         } // meta
       );

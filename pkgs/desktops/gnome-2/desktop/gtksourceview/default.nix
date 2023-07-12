@@ -36,7 +36,7 @@ stdenv.mkDerivation (
         sha256 =
           "c585773743b1df8a04b1be7f7d90eecdf22681490d6810be54c81a7ae152191e";
       }
-      ;
+    ;
 
     patches = lib.optionals stdenv.isDarwin [
       (fetchpatch {
@@ -59,7 +59,7 @@ stdenv.mkDerivation (
         intltool
       ]
       ++ lib.optionals stdenv.isDarwin [ autoreconfHook ]
-      ;
+    ;
     buildInputs =
       [
         atk
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
         gnome-common
         gtk-mac-integration-gtk2
       ]
-      ;
+    ;
 
     preConfigure = lib.optionalString stdenv.isDarwin ''
       intltoolize --force
@@ -86,7 +86,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = { pkgConfigModules = [ "gtksourceview-2.0" ]; };
   }

@@ -41,7 +41,7 @@ lib.recurseIntoAttrs {
             figlet
           ];
         }
-        ;
+      ;
       testScript = ''
         machine.succeed("hello | figlet >/dev/console")
       '';
@@ -77,7 +77,7 @@ lib.recurseIntoAttrs {
 
           touch $out
         ''
-      ;
+    ;
 
     helloDoesNotFail =
       runCommand "testBuildFailure-helloDoesNotFail"
@@ -95,7 +95,7 @@ lib.recurseIntoAttrs {
           touch $out
           echo 'All good.'
         ''
-      ;
+    ;
 
     multiOutput =
       runCommand "testBuildFailure-multiOutput"
@@ -125,7 +125,7 @@ lib.recurseIntoAttrs {
           echo 'All good.'
           touch $out
         ''
-      ;
+    ;
   };
 
   testEqualContents = lib.recurseIntoAttrs {
@@ -185,7 +185,7 @@ lib.recurseIntoAttrs {
           echo 'All good.'
           touch $out
         ''
-      ;
+    ;
 
     fileDiff =
       runCommand "testEqualContents-fileDiff"
@@ -224,7 +224,7 @@ lib.recurseIntoAttrs {
           echo 'All good.'
           touch $out
         ''
-      ;
+    ;
 
     fileMissing =
       runCommand "testEqualContents-fileMissing"
@@ -259,6 +259,6 @@ lib.recurseIntoAttrs {
           echo 'All good.'
           touch $out
         ''
-      ;
+    ;
   };
 }

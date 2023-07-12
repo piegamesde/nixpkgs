@@ -40,7 +40,7 @@ let
         ]
         ++ lib.optional enableManpages python3.pkgs.sphinx
         ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-        ;
+      ;
 
       buildInputs = [
         libxml2
@@ -68,7 +68,7 @@ let
           "-DWITH_POLLY=ON"
           "-DLINK_POLLY_INTO_TOOLS=ON"
         ]
-        ;
+      ;
 
       patches = [
         ./purity.patch
@@ -103,7 +103,7 @@ let
           substituteInPlace tools/extra/clangd/CMakeLists.txt \
             --replace "NOT HAVE_CXX_ATOMICS64_WITHOUT_LIB" FALSE
         ''
-        ;
+      ;
 
       outputs = [
         "out"

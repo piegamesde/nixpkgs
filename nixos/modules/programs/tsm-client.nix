@@ -15,7 +15,7 @@ let
     mapAttrs
     mapAttrsToList
     optionalAttrs
-    ;
+  ;
   inherit (lib.modules) mkDefault mkIf;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.strings) concatLines optionalString toLower;
@@ -31,7 +31,7 @@ let
     str
     strMatching
     submodule
-    ;
+  ;
 
   # Checks if given list of strings contains unique
   # elements when compared without considering case.
@@ -43,7 +43,7 @@ let
       lenUniq = l: length (lib.lists.unique l);
     in
     lenUniq lst == lenUniq (map toLower lst)
-    ;
+  ;
 
   # TSM rejects servername strings longer than 64 chars.
   servernameType = strMatching ".{1,64}";
@@ -175,7 +175,7 @@ let
         description =
           lib.mdDoc
             "Server stanza text generated from the options."
-          ;
+        ;
       };
       config.name = mkDefault name;
       # Client system-options file directives are explained here:
@@ -200,13 +200,13 @@ let
           lines = mapAttrsToList mkLine attrset;
         in
         concatLines lines
-        ;
+      ;
       config.stanza = ''
         server  ${config.name}
         ${config.text}
       '';
     }
-    ;
+  ;
 
   options.programs.tsmClient = {
     enable = mkEnableOption (
@@ -292,7 +292,7 @@ let
       assertion =
         (cfg.defaultServername != null)
         -> (hasAttr cfg.defaultServername cfg.servers)
-        ;
+      ;
       message = "TSM defaultServername not found in list of servers";
     }
   ];

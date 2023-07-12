@@ -35,7 +35,7 @@ buildPythonPackage rec {
       "thresholdPointPen"
       "transformPointPen"
     ])
-    ;
+  ;
 
   meta = with lib; {
     description =

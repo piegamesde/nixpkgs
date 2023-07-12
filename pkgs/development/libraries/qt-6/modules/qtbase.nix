@@ -180,7 +180,7 @@ stdenv.mkDerivation rec {
       MetalKit
     ]
     ++ lib.optional libGLSupported libGL
-    ;
+  ;
 
   buildInputs =
     [ at-spi2-core ]
@@ -194,7 +194,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (cups != null) cups
     ++ lib.optional (libmysqlclient != null) libmysqlclient
     ++ lib.optional (postgresql != null) postgresql
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -210,7 +210,7 @@ stdenv.mkDerivation rec {
       ninja
     ]
     ++ lib.optionals stdenv.isDarwin [ moveBuildTree ]
-    ;
+  ;
 
   propagatedNativeBuildInputs = [ lndir ];
 
@@ -228,7 +228,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace cmake/QtAutoDetect.cmake --replace "/usr/bin/xcrun" "${xcbuild}/bin/xcrun"
     ''
-    ;
+  ;
 
   fix_qt_builtin_paths = ../hooks/fix-qt-builtin-paths.sh;
   fix_qt_module_paths = ../hooks/fix-qt-module-paths.sh;
@@ -258,7 +258,7 @@ stdenv.mkDerivation rec {
       # error: 'path' is unavailable: introduced in macOS 10.15
       "-DQT_FEATURE_cxx17_filesystem=OFF"
     ]
-    ;
+  ;
 
   NIX_LDFLAGS = toString (
     lib.optionals stdenv.isDarwin [

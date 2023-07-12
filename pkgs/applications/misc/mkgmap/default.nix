@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/share/mkgmap
       cp -r dist/examples $out/share/mkgmap/
     ''
-    ;
+  ;
 
   passthru.updateScript = [
     ./update.sh

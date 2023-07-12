@@ -35,7 +35,7 @@ buildPythonPackage rec {
       "TestBCSetup"
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ "Socket" ]
-    ;
+  ;
 
   pythonImportsCheck = [ "Pyro5" ];
 

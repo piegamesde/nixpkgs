@@ -12,7 +12,7 @@ let
     doJailbreak
     markUnbroken
     overrideCabal
-    ;
+  ;
 in
 self: super: {
   ghcjs =
@@ -30,7 +30,7 @@ self: super: {
               sha256 = "0cgxcy6b5870bv4kj54n3bzcqinh4gl4w4r78dg43h2mblhkzbnj";
             })
           ]
-          ;
+        ;
       })
       (
         super.ghcjs.overrideScope (
@@ -39,9 +39,9 @@ self: super: {
             optparse-applicative =
               doJailbreak
                 self.optparse-applicative_0_15_1_0
-              ;
+            ;
           }
         )
       )
-    ;
+  ;
 }

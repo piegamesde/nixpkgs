@@ -14,7 +14,7 @@ let
     mkOption
     mdDoc
     types
-    ;
+  ;
 
   cfg = config.services.esphome;
 
@@ -25,7 +25,7 @@ let
       "--socket /run/esphome/esphome.sock"
     else
       "--address ${cfg.address} --port ${toString cfg.port}"
-    ;
+  ;
 in
 {
   meta.maintainers = with maintainers; [ oddlama ];
@@ -46,7 +46,7 @@ in
       description =
         lib.mdDoc
           "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port."
-        ;
+      ;
     };
 
     address = mkOption {
@@ -67,7 +67,7 @@ in
       description =
         mdDoc
           "Whether to open the firewall for the specified port."
-        ;
+      ;
     };
 
     allowedDevices = mkOption {
@@ -92,7 +92,7 @@ in
     networking.firewall.allowedTCPPorts =
       mkIf (cfg.openFirewall && !cfg.enableUnixSocket)
         [ cfg.port ]
-      ;
+    ;
 
     systemd.services.esphome = {
       description = "ESPHome dashboard";

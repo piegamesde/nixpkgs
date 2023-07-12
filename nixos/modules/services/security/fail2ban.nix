@@ -70,7 +70,7 @@ in
         description =
           lib.mdDoc
             "The fail2ban package to use for running the fail2ban service."
-          ;
+        ;
       };
 
       packageFirewall = mkOption {
@@ -80,7 +80,7 @@ in
         description =
           lib.mdDoc
             "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables)."
-          ;
+        ;
       };
 
       extraPackages = mkOption {
@@ -112,10 +112,10 @@ in
             "nftables-multiport"
           else
             "iptables-multiport"
-          ;
+        ;
         defaultText = literalExpression ''
           if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"''
-          ;
+        ;
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -131,10 +131,10 @@ in
             "nftables-allport"
           else
             "iptables-allport"
-          ;
+        ;
         defaultText = literalExpression ''
           if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"''
-          ;
+        ;
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -332,7 +332,7 @@ in
           && !config.networking.nftables.enable
         )
         [ "fail2ban can not be used without a firewall" ]
-      ;
+    ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -369,7 +369,7 @@ in
           pkgs.iproute2
         ]
         ++ cfg.extraPackages
-        ;
+      ;
 
       serviceConfig = {
         # Capabilities

@@ -35,7 +35,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -66,7 +66,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [
         python3Packages.pyyaml
       ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -100,7 +100,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (buildTests || buildBenchmarks) [
         "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"
       ]
-      ;
+    ;
 
     # Tensile REALLY wants to write to the nix directory if we include it normally
     postPatch = lib.optionalString buildTensile ''
@@ -130,7 +130,7 @@ stdenv.mkDerivation (
       + lib.optionalString (buildTests || buildBenchmarks) ''
         rm -rf $out/bin
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

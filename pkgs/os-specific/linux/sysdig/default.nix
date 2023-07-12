@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optionals (kernel != null) kernel.moduleBuildDependencies
-    ;
+  ;
 
   hardeningDisable = [ "pic" ];
 
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       "-DCREATE_TEST_TARGETS=OFF"
     ]
     ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF"
-    ;
+  ;
 
   # needed since luajit-2.1.0-beta3
   env.NIX_CFLAGS_COMPILE =
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
       export INSTALL_MOD_PATH="$out"
       export KERNELDIR="${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ''
-    ;
+  ;
 
   postInstall =
     ''
@@ -158,7 +158,7 @@ stdenv.mkDerivation rec {
           xz $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
       fi
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

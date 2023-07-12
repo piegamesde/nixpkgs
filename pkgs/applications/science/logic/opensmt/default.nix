@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       gmpxx
     ]
     ++ lib.optional enableReadline readline
-    ;
+  ;
 
   preConfigure = ''
     substituteInPlace test/CMakeLists.txt \

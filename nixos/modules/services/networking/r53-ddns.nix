@@ -70,7 +70,7 @@ in
           +
             lib.optionalString (cfg.hostname != null)
               " -hostname ${cfg.hostname}"
-          ;
+        ;
         EnvironmentFile = "${cfg.environmentFile}";
         DynamicUser = true;
       };

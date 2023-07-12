@@ -31,7 +31,7 @@ buildGoModule rec {
       "-X ${t}.BuildUser=nix@nixpkgs"
       "-X ${t}.BuildDate=unknown"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

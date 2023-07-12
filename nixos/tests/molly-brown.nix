@@ -73,7 +73,7 @@ import ./make-test-python.nix (
             echo "${testString}" > "${cfg.settings.DocBase}/test.gmi"
           '';
         }
-        ;
+      ;
     };
     testScript = ''
       geminiServer.wait_for_unit("molly-brown")

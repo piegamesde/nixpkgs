@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       python
       swig
     ]
-    ;
+  ;
 
   buildInputs = [ libyaml ];
 

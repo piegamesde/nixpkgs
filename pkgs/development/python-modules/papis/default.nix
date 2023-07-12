@@ -99,7 +99,7 @@ buildPythonPackage rec {
       "test_yaml"
     ]
     ++ lib.optionals stdenv.isDarwin [ "test_default_opener" ]
-    ;
+  ;
 
   pythonImportsCheck = [ "papis" ];
 

@@ -63,7 +63,7 @@ let
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
       "${stdenv.targetPlatform.config}-"
-    ;
+  ;
 
   crossConfigureFlags =
     # Ensure that -print-prog-name is able to find the correct programs.
@@ -147,7 +147,7 @@ let
             "--with-newlib"
         ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc"
     )
-    ;
+  ;
 
   configureFlags =
     # Basic dependencies
@@ -323,6 +323,6 @@ let
         ]
     ++ lib.optionals langJit [ "--enable-host-shared" ]
     ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ]
-    ;
+  ;
 in
 configureFlags

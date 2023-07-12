@@ -42,7 +42,7 @@ let
               })
             else
               ""
-            ;
+          ;
 
           fetchMetadata = (if authenticated then requireFile else fetchurl) {
             inherit (metadata) url sha1;
@@ -109,7 +109,7 @@ in
           && (toString path) != (toString (src + "/.git"))
         )
         src
-      ;
+    ;
 
     buildInputs = [ maven ];
 

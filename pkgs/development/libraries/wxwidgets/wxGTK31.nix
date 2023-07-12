@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       AVKit
       WebKit
     ]
-    ;
+  ;
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin AGL;
 
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       "--enable-webview"
       "--enable-webviewwebkit"
     ]
-    ;
+  ;
 
   SEARCH_LIB = "${libGLU.out}/lib ${libGL.out}/lib ";
 
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
       substituteInPlace configure --replace \
         "-framework System" "-lSystem"
     ''
-    ;
+  ;
 
   postInstall = "\n    pushd $out/include\n    ln -s wx-*/* .\n    popd\n  ";
 

@@ -25,7 +25,7 @@ stdenv.mkDerivation {
   src =
     fetch "compiler-rt"
       "0xwh79g3zggdabxgnd0bphry75asm1qz7mv3hcqihqwqr6aspgy2"
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -73,7 +73,7 @@ stdenv.mkDerivation {
       # when it tries to use libc++ and libc++api for i386.
       "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
     ]
-    ;
+  ;
 
   outputs = [
     "out"
@@ -93,7 +93,7 @@ stdenv.mkDerivation {
       ../../common/compiler-rt/armv6-no-ldrexd-strexd.patch
     ]
     ++ lib.optional stdenv.hostPlatform.isAarch32 ./armv7l.patch
-    ;
+  ;
 
   # TSAN requires XPC on Darwin, which we have no public/free source files for. We can depend on the Apple frameworks
   # to get it, but they're unfree. Since LLVM is rather central to the stdenv, we patch out TSAN support so that Hydra
@@ -117,7 +117,7 @@ stdenv.mkDerivation {
       substituteInPlace lib/builtins/cpu_model.c \
         --replace "#include <assert.h>" ""
     ''
-    ;
+  ;
 
   # Hack around weird upsream RPATH bug
   postInstall =
@@ -135,7 +135,7 @@ stdenv.mkDerivation {
     + lib.optionalString doFakeLibgcc ''
       ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/libgcc.a
     ''
-    ;
+  ;
 
   meta = llvm_meta // {
     homepage = "https://compiler-rt.llvm.org/";

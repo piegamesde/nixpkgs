@@ -16,7 +16,7 @@ let
         } // env
       )
       buildCommand
-    ;
+  ;
 in
 
 recurseIntoAttrs {
@@ -63,7 +63,7 @@ recurseIntoAttrs {
 
         touch $out
       ''
-    ;
+  ;
 
   # installShellCompletion
 
@@ -102,7 +102,7 @@ recurseIntoAttrs {
 
         touch $out
       ''
-    ;
+  ;
   install-completion-name = runTest "install-completion-name" { } ''
     echo foo > foo
     echo bar > bar

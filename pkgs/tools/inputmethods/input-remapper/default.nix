@@ -56,7 +56,7 @@ in
       # if debugging
       substituteInPlace inputremapper/logger.py --replace "logger.setLevel(logging.INFO)"  "logger.setLevel(logging.DEBUG)"
     ''
-    ;
+  ;
 
   doCheck = withDoCheck;
   nativeCheckInputs = [ psutil ];
@@ -118,7 +118,7 @@ in
       pygobject3
     ]
     ++ maybeXmodmap
-    ;
+  ;
 
   propagatedBuildInputs = [
     setuptools # needs pkg_resources
@@ -173,6 +173,6 @@ in
           # set revision for --version output
           echo "COMMIT_HASH = '${final.src.rev}'" > inputremapper/commit_hash.py
         ''
-        ;
+      ;
     }
   )

@@ -22,7 +22,7 @@ import ./make-test-python.nix (
           dataDir = "/srv/freshrss";
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

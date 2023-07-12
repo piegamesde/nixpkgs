@@ -144,7 +144,7 @@ pkgs.mkShell rec {
 
           touch "$out"
         ''
-      ;
+    ;
 
     shell-with-emulator-avdmanager-create-avd-test =
       pkgs.runCommand "shell-with-emulator-avdmanager-create-avd-test"
@@ -168,6 +168,6 @@ pkgs.mkShell rec {
           avdmanager delete avd -n testAVD || true
           touch "$out"
         ''
-      ;
+    ;
   };
 }

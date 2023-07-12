@@ -16,7 +16,7 @@ import ./make-test-python.nix (
           }
         );
       }
-      ;
+    ;
 
     # Only allow the demo data to be used (only if it's unfreeRedistributable).
     unfreePredicate =
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
       in
       elem pkg.pname allowPackageNames
       && elem (pkg.meta.license or null) allowLicenses
-      ;
+    ;
 
     client =
       {
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
         nixpkgs.config.packageOverrides = overrides;
         nixpkgs.config.allowUnfreePredicate = unfreePredicate;
       }
-      ;
+    ;
   in
 
   rec {
@@ -74,13 +74,13 @@ import ./make-test-python.nix (
             script =
               "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
               + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log"
-              ;
+            ;
           };
           nixpkgs.config.packageOverrides = overrides;
           nixpkgs.config.allowUnfreePredicate = unfreePredicate;
           networking.firewall.allowedUDPPorts = [ 27960 ];
         }
-        ;
+      ;
 
       client1 = client;
       client2 = client;

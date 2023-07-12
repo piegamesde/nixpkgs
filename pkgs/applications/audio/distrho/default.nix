@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       libXext
       libXrender
     ]
-    ;
+  ;
 
   postFixup = ''
     for file in \

@@ -49,7 +49,7 @@ in
       description =
         lib.mdDoc
           "Whether to automatically allocate CIDR ranges for cluster nodes."
-        ;
+      ;
       default = true;
       type = bool;
     };
@@ -58,7 +58,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes controller manager listening address."
-        ;
+      ;
       default = "127.0.0.1";
       type = str;
     };
@@ -76,7 +76,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes controller manager extra command line options."
-        ;
+      ;
       default = "";
       type = separatedString " ";
     };
@@ -94,7 +94,7 @@ in
       description =
         lib.mdDoc
           "Whether to start leader election before executing main loop."
-        ;
+      ;
       type = bool;
       default = true;
     };
@@ -113,7 +113,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes controller manager secure listening port."
-        ;
+      ;
       default = 10252;
       type = int;
     };
@@ -234,7 +234,7 @@ in
     services.kubernetes.controllerManager.kubeconfig.server =
       mkDefault
         top.apiserverAddress
-      ;
+    ;
   };
 
   meta.buildDocsInSandbox = false;

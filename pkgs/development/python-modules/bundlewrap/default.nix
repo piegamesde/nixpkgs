@@ -45,7 +45,7 @@ buildPythonPackage rec {
       librouteros
     ]
     ++ lib.optionals (pythonOlder "3.11") [ rtoml ]
-    ;
+  ;
 
   pythonImportsCheck = [ "bundlewrap" ];
 

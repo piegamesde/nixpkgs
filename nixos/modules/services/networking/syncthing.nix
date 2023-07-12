@@ -21,7 +21,7 @@ let
         inherit (device) name addresses introducer autoAcceptFolders;
       })
       cfg.devices
-    ;
+  ;
 
   folders =
     mapAttrsToList
@@ -30,7 +30,7 @@ let
         devices =
           map (device: { deviceId = cfg.devices.${device}.id; })
             folder.devices
-          ;
+        ;
         rescanIntervalS = folder.rescanInterval;
         fsWatcherEnabled = folder.watch;
         fsWatcherDelayS = folder.watchDelay;
@@ -39,7 +39,7 @@ let
         versioning = folder.versioning;
       })
       (filterAttrs (_: folder: folder.enable) cfg.folders)
-    ;
+  ;
 
   updateConfig = pkgs.writers.writeDash "merge-syncthing-config" ''
     set -efu
@@ -254,7 +254,7 @@ in
                       x:
                       types.str.check x
                       && (substring 0 1 x == "/" || substring 0 2 x == "~/")
-                      ;
+                    ;
                     description =
                       types.str.description + " starting with / or ~/";
                   };
@@ -546,7 +546,7 @@ in
                   config.${opt.dataDir}
           '';
         }
-        ;
+      ;
 
       extraFlags = mkOption {
         type = types.listOf types.str;
@@ -624,7 +624,7 @@ in
           "overrideFolders"
           "extraOptions"
         ]
-    ;
+  ;
 
   ###### implementation
 
@@ -734,7 +734,7 @@ in
               ExecStart = updateConfig;
             };
           }
-        ;
+      ;
 
       syncthing-resume = { wantedBy = [ "suspend.target" ]; };
     };

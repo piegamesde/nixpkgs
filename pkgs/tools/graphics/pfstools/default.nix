@@ -90,7 +90,7 @@ mkDerivation rec {
         ]
     )
     ++ lib.optional enableUnfree (opencv2.override { enableUnfree = true; })
-    ;
+  ;
 
   patches = [
     ./glut.patch

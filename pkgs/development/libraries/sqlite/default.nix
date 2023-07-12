@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       readline
       ncurses
     ]
-    ;
+  ;
 
   # required for aarch64 but applied for all arches for simplicity
   preConfigure = ''

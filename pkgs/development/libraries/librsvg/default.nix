@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals withIntrospection [ "devdoc" ]
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
       gi-docgen
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       Foundation
       libobjc
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     glib
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
         "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}"
-    ;
+  ;
 
   doCheck =
     false; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
           substituteInPlace gdk-pixbuf-loader/Makefile \
             --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
         ''
-    ;
+  ;
 
   # Not generated when cross compiling.
   postInstall =
@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
         }/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache $GDK_PIXBUF/loaders.cache > $GDK_PIXBUF/loaders.cache.tmp
         mv $GDK_PIXBUF/loaders.cache.tmp $GDK_PIXBUF/loaders.cache
       ''
-    ;
+  ;
 
   postFixup = lib.optionalString withIntrospection ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
@@ -219,7 +219,7 @@ stdenv.mkDerivation rec {
         updateSource
         updateLockfile
       ]
-      ;
+    ;
   };
 
   meta = with lib; {

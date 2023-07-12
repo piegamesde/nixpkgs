@@ -23,7 +23,7 @@ rec {
           --replace "$(grep '^PACKAGE_VERSION=.*$' configure)" 'PACKAGE_VERSION="v${git-version}"' \
           --replace "$(grep '^PACKAGE_STRING=.*$' configure)" 'PACKAGE_STRING="Gambit v${git-version}"' ;
       ''
-      ;
+    ;
     targets =
       "arm,java,js,php,python,riscv-32,riscv-64,ruby,x86,x86-64"; # eats 100% cpu on _digest
     modules = false;

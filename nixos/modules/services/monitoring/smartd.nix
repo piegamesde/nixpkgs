@@ -92,11 +92,11 @@ let
           description =
             lib.mdDoc
               "Options that determine how smartd monitors the device."
-            ;
+          ;
         };
       };
     }
-    ;
+  ;
 in
 
 {
@@ -145,7 +145,7 @@ in
             defaultText =
               literalExpression
                 "config.services.mail.sendmailSetuidWrapper != null"
-              ;
+            ;
             type = types.bool;
             description = lib.mdDoc "Whenever to send e-mail notifications.";
           };
@@ -186,7 +186,7 @@ in
             description =
               lib.mdDoc
                 "Whenever to send wall notifications to all users."
-              ;
+            ;
           };
         };
 
@@ -198,7 +198,7 @@ in
             description =
               lib.mdDoc
                 "Whenever to send X11 xmessage notifications."
-              ;
+            ;
           };
 
           display = mkOption {
@@ -216,7 +216,7 @@ in
           description =
             lib.mdDoc
               "Whenever to send a test notification on startup."
-            ;
+          ;
         };
       };
 

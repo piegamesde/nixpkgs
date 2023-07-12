@@ -56,7 +56,7 @@ buildPythonPackage rec {
       xxhash
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   # Tests require pervasive internet access.
   doCheck = false;

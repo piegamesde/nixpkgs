@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
         ounit2
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     bash-completion

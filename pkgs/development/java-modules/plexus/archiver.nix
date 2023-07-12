@@ -27,7 +27,7 @@
             "05gnm321rx3zi5bnkgl64nbx6j8f3pz6y0v6nb3xfw44kgv7rxaq8b1v716wpr2p0bdrmarxmzidc92hps2w5src0ramg6xv35zfw6w";
         }
       ]
-    ;
+  ;
 
   plexusArchiver_2_1 =
     map
@@ -53,5 +53,5 @@
             "3rrwjlrwsl9ba7dyf5vp5r1pfvfmk4vwwpyq52yrmrv22djlh4dmbh1r97aizmrf17qbs7995vmcxs83ybpc62263dgxx1qa7c85hy1";
         }
       ]
-    ;
+  ;
 }

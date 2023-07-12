@@ -44,7 +44,7 @@ buildPythonPackage rec {
       importlib-metadata
     ]
     ++ typer.optional-dependencies.all
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

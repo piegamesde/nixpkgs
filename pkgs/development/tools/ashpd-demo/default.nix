@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       };
     in
     "${share}/ashpd-demo"
-    ;
+  ;
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

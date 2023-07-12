@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       fontconfig
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   preConfigure = ''
     mkdir res/fonts

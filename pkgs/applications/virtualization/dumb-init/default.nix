@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional (stdenv.hostPlatform.isGnu && stdenv.hostPlatform.isStatic)
       glibc.static
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

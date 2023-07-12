@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     [ "install" ]
     ++ lib.optionals enableShared [ "install_shared" ]
     ++ lib.optionals enableStatic [ "install_static" ]
-    ;
+  ;
 
   # Fix lib extension so that fixDarwinDylibNames detects it, see
   # <https://github.com/kristapsdz/lowdown/issues/87#issuecomment-1532243650>.
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       test -L "$lib/lib/liblowdown.so"
       ln -s "$darwinDylib" "$lib/lib/liblowdown.dylib"
     ''
-    ;
+  ;
 
   doInstallCheck = true;
   installCheckPhase = ''

@@ -44,7 +44,7 @@ let
         description = lib.mdDoc "Bind port for ${name} endpoint.";
       };
     }
-    ;
+  ;
 
   i2cpOpts =
     name: {
@@ -59,7 +59,7 @@ let
         default = 5;
       };
     }
-    ;
+  ;
 
   mkKeyedEndpointOpt =
     name: addr: port: keyloc:
@@ -84,7 +84,7 @@ let
         default = null;
       };
     }
-    ;
+  ;
 
   commonTunOpts =
     name:
@@ -101,7 +101,7 @@ let
         description =
           lib.mdDoc
             "Remote endpoint, I2P hostname or b32.i2p address."
-          ;
+        ;
       };
       keys = mkOption {
         type = types.str;
@@ -109,7 +109,7 @@ let
         description = lib.mdDoc "Keyset used for tunnel identity.";
       };
     } // mkEndpointOpt name "127.0.0.1" 0
-    ;
+  ;
 
   sec =
     name:
@@ -118,7 +118,7 @@ let
       [''
     + name
     + "]"
-    ;
+  ;
   notice = "# DO NOT EDIT -- this file has been generated automatically.";
   i2pdConf =
     let
@@ -260,15 +260,15 @@ let
                     else
                       [ ]
                   )
-                  ;
+                ;
               in
               (concatStringsSep "\n" protoOpts)
             )
         )
-        ;
+      ;
     in
     pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
-    ;
+  ;
 
   tunnelConf =
     let
@@ -335,7 +335,7 @@ let
                     else
                       [ ]
                   )
-                  ;
+                ;
               in
               concatStringsSep "\n" outTunOpts
             )
@@ -371,14 +371,14 @@ let
                 else
                   [ ]
               )
-              ;
+            ;
           in
           concatStringsSep "\n" inTunOpts
         ))
       ];
     in
     pkgs.writeText "i2pd-tunnels.conf" opts
-    ;
+  ;
 
   i2pdFlags = concatStringsSep " " (
     optional (cfg.address != null) ("--host=" + cfg.address)
@@ -820,7 +820,7 @@ in
                     description =
                       lib.mdDoc
                         "Connect to particular port at destination."
-                      ;
+                    ;
                   };
                 } // commonTunOpts name;
                 config = { name = mkDefault name; };
@@ -848,7 +848,7 @@ in
                     description =
                       lib.mdDoc
                         "Service port. Default to the tunnel's listen port."
-                      ;
+                    ;
                   };
                   accessList = mkOption {
                     type = with types; listOf str;
@@ -856,7 +856,7 @@ in
                     description =
                       lib.mdDoc
                         "I2P nodes that are allowed to connect to this service."
-                      ;
+                    ;
                   };
                 } // commonTunOpts name;
                 config = { name = mkDefault name; };

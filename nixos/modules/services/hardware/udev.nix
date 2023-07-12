@@ -160,7 +160,7 @@ let
           ln -s /dev/null $out/80-drivers.rules
         ''}
       ''
-    ;
+  ;
 
   hwdbBin =
     pkgs.runCommand "hwdb.bin"
@@ -185,7 +185,7 @@ let
         [ -z "$(echo "$res" | egrep '^Error')" ]
         mv etc/udev/hwdb.bin $out
       ''
-    ;
+  ;
 
   compressFirmware =
     firmware:
@@ -198,7 +198,7 @@ let
       pkgs.compressFirmwareXz firmware
     else
       id firmware
-    ;
+  ;
 
   # Udev has a 512-character limit for ENV{PATH}, so create a symlink
   # tree to work around this.
@@ -303,7 +303,7 @@ in
           pathsToLink = [ "/lib/firmware" ];
           ignoreCollisions = true;
         }
-        ;
+      ;
     };
 
     networking.usePredictableInterfaceNames = mkOption {
@@ -402,7 +402,7 @@ in
           ${config.boot.initrd.services.udev.rules}
           EOF
         ''
-      ;
+    ;
 
     boot.initrd.services.udev.rules = nixosInitrdRules;
 
@@ -423,7 +423,7 @@ in
         "${config.boot.initrd.systemd.package}/lib/udev/rules.d"
       ]
       ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages
-      ;
+    ;
 
     # Generate the udev rules for the initrd
     boot.initrd.systemd.contents = {
@@ -437,7 +437,7 @@ in
         binPackages =
           config.boot.initrd.services.udev.binPackages
           ++ [ config.boot.initrd.systemd.contents."/bin".source ]
-          ;
+        ;
       };
     };
     # Insert initrd rules

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
         "sha256-Kre+F1AE4bC5hAODYjo+S6TUCpKk8KMnYumQWHz+epY="
       else
         "sha256-LIsep7KsNhsw3zlmgltu6/4qZEWjGQbUmLqHCabSTfg="
-      ;
+    ;
   };
 
   preferLocalBuild = true;
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       stdenv.cc.cc.lib
     ]
     ++ lib.optionals withGTK3 [ gtk3 ]
-    ;
+  ;
 
   desktopItems = [
     (makeDesktopItem rec {

@@ -31,7 +31,7 @@ buildPythonPackage rec {
       pkgs.gitMinimal
     ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace git/cmd.py \

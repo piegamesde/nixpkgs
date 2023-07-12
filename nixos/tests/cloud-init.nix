@@ -79,7 +79,7 @@ makeTest {
       networking.hostName = "";
       networking.useDHCP = false;
     }
-    ;
+  ;
   testScript = ''
     # To wait until cloud-init terminates its run
     unnamed.wait_for_unit("cloud-final.service")

@@ -32,7 +32,7 @@ callPackage ../nginx/generic.nix args rec {
         --replace "a/" "a/bundle/nginx-${nginxVersion}/" \
         --replace "b/" "b/bundle/nginx-${nginxVersion}/"
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ perl ];
 

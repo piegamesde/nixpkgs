@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
         findlib
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
         num
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     for f in callbacks*/Makefile src/Makefile; do

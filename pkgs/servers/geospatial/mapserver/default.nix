@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       swig
       python3.pkgs.setuptools
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional withPython python3
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_SKIP_BUILD_RPATH=ON"
     ]
     ++ lib.optional withPython "-DWITH_PYTHON=ON"
-    ;
+  ;
 
   meta = with lib; {
     description =

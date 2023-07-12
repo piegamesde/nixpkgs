@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       # avoid git dependency
       cp ${printVersion} build-aux/git-version-gen
     ''
-    ;
+  ;
 
   preConfigure = lib.optionalString (stdenv.isDarwin && enablePython) ''
     # prevent configure picking up stack_size from distutils.sysconfig
@@ -52,14 +52,14 @@ stdenv.mkDerivation rec {
       texinfo
     ]
     ++ lib.optional enablePython swig
-    ;
+  ;
 
   buildInputs =
     [ pcre2 ]
     ++ lib.optionals enablePython [ python ]
     # configurePhase fails with python 3 when ncurses is missing
     ++ lib.optional isPython3 ncurses
-    ;
+  ;
 
   # prevent python tests from running when not building with python
   configureFlags = lib.optional (!enablePython) "--disable-python";

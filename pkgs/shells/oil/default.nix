@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       "--with-readline"
       "--readline=${readline-all}"
     ]
-    ;
+  ;
 
   # Stripping breaks the bundles by removing the zip file from the end.
   dontStrip = true;

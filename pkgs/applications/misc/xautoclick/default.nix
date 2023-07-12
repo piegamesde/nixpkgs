@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       qt5.qtbase
       qt5.wrapQtAppsHook
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

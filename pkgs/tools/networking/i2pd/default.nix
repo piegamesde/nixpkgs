@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optional upnpSupport miniupnpc
-    ;
+  ;
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       (ynf "USE_AVX" avxSupport)
       (ynf "USE_UPNP" upnpSupport)
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

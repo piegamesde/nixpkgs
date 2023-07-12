@@ -81,7 +81,7 @@ let
         ${replaceStrings [ "\n" ] [ "\n  " ] extraConfig}
       }
     ''
-    ;
+  ;
 
   # The test script boots a NixOS VM, installs NixOS on an empty hard
   # disk, and then reboot from the hard disk.  It's parameterized with
@@ -164,7 +164,7 @@ let
                       grubIdentifier
                       grubUseEfi
                       extraConfig
-                      ;
+                    ;
                   }
                 }",
                 "/mnt/etc/nixos/configuration.nix",
@@ -246,7 +246,7 @@ let
                       grubIdentifier
                       grubUseEfi
                       extraConfig
-                      ;
+                    ;
                     forceGrubReinstallCount = 1;
                   }
                 }",
@@ -282,7 +282,7 @@ let
                   grubIdentifier
                   grubUseEfi
                   extraConfig
-                  ;
+                ;
                 forceGrubReinstallCount = 2;
               }
             }",
@@ -337,7 +337,7 @@ let
         ${postBootCommands}
         machine.shutdown()
       ''
-    ;
+  ;
 
   makeInstallerTest =
     name:
@@ -394,7 +394,7 @@ let
                 "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2"
               else
                 "/dev/vdb"
-              ;
+            ;
             virtualisation.bootLoaderDevice = "/dev/vda";
             virtualisation.qemu.diskInterface =
               if grubVersion == 1 then "scsi" else "virtio";
@@ -409,7 +409,7 @@ let
             boot.loader.systemd-boot.enable =
               mkIf (bootLoader == "systemd-boot")
                 true
-              ;
+            ;
 
             hardware.enableAllFirmware = mkForce false;
 
@@ -474,7 +474,7 @@ let
               connect-timeout = 1;
             };
           }
-          ;
+        ;
       };
 
       testScript = testScriptFun {
@@ -489,10 +489,10 @@ let
           grubUseEfi
           extraConfig
           testSpecialisationConfig
-          ;
+        ;
       };
     }
-    ;
+  ;
 
   makeLuksRootTest =
     name: luksFormatOpts:
@@ -526,7 +526,7 @@ let
         machine.send_chars("supersecret\n")
       '';
     }
-    ;
+  ;
 
   # The (almost) simplest partitioning scheme: a swap partition and
   # one big filesystem partition.
@@ -634,7 +634,7 @@ in
   simpleUefiGrubSpecialisation =
     makeInstallerTest "simpleUefiGrubSpecialisation"
       (simple-uefi-grub-config // specialisation-test-extraconfig)
-    ;
+  ;
 
   # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {

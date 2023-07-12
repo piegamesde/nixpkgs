@@ -21,7 +21,7 @@ let
       toString value
     else
       throw "Unrecognized type ${typeOf value} in htop settings"
-    ;
+  ;
 in
 
 {
@@ -79,6 +79,6 @@ in
       + concatStringsSep "\n" (
         mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings
       )
-      ;
+    ;
   };
 }

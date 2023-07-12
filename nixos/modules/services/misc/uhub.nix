@@ -26,7 +26,7 @@ let
             attrs
         )
       )
-      ;
+    ;
   };
 in
 {
@@ -75,14 +75,14 @@ in
                         example =
                           literalExpression
                             "$\${pkgs.uhub}/plugins/mod_auth_sqlite.so"
-                          ;
+                        ;
                         description = lib.mdDoc "Path to plugin file.";
                       };
                       settings = mkOption {
                         description =
                           lib.mdDoc
                             "Settings specific to this plugin."
-                          ;
+                        ;
                         type = with types; attrsOf str;
                         example = { file = "/etc/uhub/users.db"; };
                       };
@@ -137,11 +137,11 @@ in
               value.source =
                 settingsFormat.generate "uhub-${name}.conf"
                   settings'
-                ;
+              ;
             }
           )
           hubs
-        ;
+      ;
 
       systemd.services =
         lib.attrsets.mapAttrs'
@@ -167,10 +167,10 @@ in
                   CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
                 };
               }
-              ;
+            ;
           })
           hubs
-        ;
+      ;
     }
-    ;
+  ;
 }

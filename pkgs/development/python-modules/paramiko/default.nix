@@ -49,7 +49,7 @@ buildPythonPackage rec {
       six
     ]
     ++ passthru.optional-dependencies.ed25519
-    ; # remove on 3.0 update
+  ; # remove on 3.0 update
 
   passthru.optional-dependencies = {
     gssapi = [
@@ -69,7 +69,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   disabledTestPaths = [
     # disable tests that require pytest-relaxed, which is broken

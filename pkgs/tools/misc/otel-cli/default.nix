@@ -31,7 +31,7 @@ buildGoModule rec {
           lib.makeBinPath [ getent ]
         }`'
     ''
-    ;
+  ;
 
   passthru.updateScript = nix-update-script { };
 

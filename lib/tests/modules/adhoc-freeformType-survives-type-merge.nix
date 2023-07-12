@@ -18,6 +18,6 @@
     a // {
       merge = loc: defs: { freeformItems = a.merge loc defs; };
     }
-    ;
+  ;
   config.foo.bar = "ok";
 }

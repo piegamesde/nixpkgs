@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       docbook_xsl
       libxslt.bin
     ]
-    ;
+  ;
 
   patches = lib.optionals stdenv.is32bit [
     # Otherwise ninja may fail on some files in a larger FS.
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
 
       runHook postBuild
     ''
-    ;
+  ;
 
   installPhase =
     ''
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   setupHook = ./setup-hook.sh;
 

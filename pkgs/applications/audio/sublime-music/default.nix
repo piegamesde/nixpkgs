@@ -33,7 +33,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -59,7 +59,7 @@ python.pkgs.buildPythonApplication rec {
         pythonRelaxDepsHook
       ]
     )
-    ;
+  ;
 
   # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [
@@ -83,7 +83,7 @@ python.pkgs.buildPythonApplication rec {
     ]
     ++ lib.optional notifySupport libnotify
     ++ lib.optional networkSupport networkmanager
-    ;
+  ;
 
   propagatedBuildInputs = with python.pkgs;
     [

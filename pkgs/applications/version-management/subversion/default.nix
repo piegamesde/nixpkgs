@@ -44,7 +44,7 @@ let
   needsAutogen =
     stdenv.hostPlatform.isDarwin
     && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-    ;
+  ;
 
   common =
     {
@@ -100,7 +100,7 @@ let
             CoreServices
             Security
           ]
-          ;
+        ;
 
         patches = [ ./apr-1.patch ] ++ extraPatches;
 
@@ -129,7 +129,7 @@ let
             "--enable-javahl"
             "--with-jdk=${jdk}"
           ]
-          ;
+        ;
 
         preBuild = ''
           makeFlagsArray=(APACHE_LIBEXECDIR=$out/modules)
@@ -191,7 +191,7 @@ let
         CXXCPP = "clang++ -E";
       }
     )
-    ;
+  ;
 in
 {
   subversion = common {

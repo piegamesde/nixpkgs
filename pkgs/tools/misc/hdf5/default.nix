@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString fortranSupport "-fortran"
     + lib.optionalString mpiSupport "-mpi"
     + lib.optionalString threadsafe "-threadsafe"
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       szip
       mpiSupport
       mpi
-      ;
+    ;
   };
 
   outputs = [
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     optional fortranSupport fortran
     ++ optional szipSupport szip
     ++ optional javaSupport jdk
-    ;
+  ;
 
   propagatedBuildInputs = optional zlibSupport zlib ++ optional mpiSupport mpi;
 
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       "--enable-threadsafe"
       "--disable-hl"
     ]
-    ;
+  ;
 
   patches =
     [

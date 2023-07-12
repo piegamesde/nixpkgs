@@ -36,7 +36,7 @@ let
       helvetic
       wasy
       courier
-      ;
+    ;
   };
 in
 stdenv.mkDerivation (
@@ -64,7 +64,7 @@ stdenv.mkDerivation (
         doxygen
         graphviz
       ]
-      ;
+    ;
 
     buildInputs = [
       rocm-comgr
@@ -89,7 +89,7 @@ stdenv.mkDerivation (
         mv $out/share/html/amd-dbgapi $doc/share/doc/amd-dbgapi/html
         rmdir $out/share/html
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

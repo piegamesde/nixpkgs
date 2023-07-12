@@ -32,7 +32,7 @@ buildGoModule rec {
       xcbuild.xcrun
       sigtool
     ]
-    ;
+  ;
 
   # clean fails with read only vendor dir
   postPatch = ''

@@ -27,7 +27,7 @@
             "1fwfw7smywavmafbdma7xla07vaaihkg9md1v16ckp6xpbdxpsknb7s07dnx5jx757gd0gp5ak7mawg0a5sfrvjh955ynikhzjq13lz";
         }
       ]
-    ;
+  ;
 
   mavenPluginApi_2_0_6 =
     map
@@ -53,7 +53,7 @@
             "34fb0yw3z7bxlxxs8wmv59g351jkfp16ljq5zmyksq54kz2wvkv39w7bcnvlkbdwaggm7cd2jr9s4y4lynkblp8ydf9jbq8awwr7c00";
         }
       ]
-    ;
+  ;
 
   mavenPluginApi_2_0_9 =
     map
@@ -79,7 +79,7 @@
             "0hvl32k09wr34b6v0wl27y6353mx3afsgwyfw0vpx5aa5b8wiw86vlbknh3kjl43zp2ffxq6b4c7n07jq3y2wczz08gscs5apszhj9q";
         }
       ]
-    ;
+  ;
 
   mavenPluginApi_2_2_1 =
     map
@@ -105,7 +105,7 @@
             "18wx59j3k2pgy6i5abxpl6x2glp51jnf2w2dcx9yxfh0qx809gbkad2ikkdaihhzzvipf2ly3xhhnpj0vbkyycnahn4lvl5ahj76g4q";
         }
       ]
-    ;
+  ;
 
   mavenPluginApi_3_0_3 =
     map
@@ -131,5 +131,5 @@
             "0rk2nzkwcrkfy3vs0zl0l2lxp3w4hkwxrypisbivv5al7sc8lbzls6jgpp3h5gx9kk4scjj24qf5vyimnbadj63rvqffg581fs2zgl9";
         }
       ]
-    ;
+  ;
 }

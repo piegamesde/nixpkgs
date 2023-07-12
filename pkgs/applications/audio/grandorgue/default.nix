@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optional jackaudioSupport libjack2
-    ;
+  ;
 
   cmakeFlags =
     lib.optionals (!jackaudioSupport) [
@@ -69,12 +69,12 @@ stdenv.mkDerivation rec {
       "-DINSTALL_DEPEND=OFF"
     ]
     ++ lib.optional (!includeDemo) "-DINSTALL_DEMO=OFF"
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-DTARGET_OS_IPHONE=0"
-    ;
+  ;
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/{Applications,bin,lib}

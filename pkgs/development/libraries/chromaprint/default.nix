@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
         zlib
       ]
     )
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_EXAMPLES=ON"

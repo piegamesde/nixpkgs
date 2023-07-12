@@ -38,7 +38,7 @@ let
     lib.concatMapStringsSep ":"
       (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
       cfg.libpurple_plugins
-    ;
+  ;
 in
 
 {

@@ -37,7 +37,7 @@ let
         Enabled = c.enabled;
       }
     )
-    ;
+  ;
 in
 {
   options.services.archisteamfarm = {
@@ -58,7 +58,7 @@ in
             description =
               lib.mdDoc
                 "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token."
-              ;
+            ;
           };
 
           package = mkOption {
@@ -68,7 +68,7 @@ in
             description =
               lib.mdDoc
                 "Web-UI package to use. Contents must be in lib/dist."
-              ;
+            ;
           };
         };
       };
@@ -84,7 +84,7 @@ in
       description =
         lib.mdDoc
           "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API."
-        ;
+      ;
     };
 
     dataDir = mkOption {
@@ -93,7 +93,7 @@ in
       description = lib.mdDoc ''
         The ASF home directory used to store all data.
         If left as the default value this directory will automatically be created before the ASF server starts, otherwise the sysadmin is responsible for ensuring the directory exists with appropriate ownership and permissions.''
-        ;
+      ;
     };
 
     settings = mkOption {
@@ -114,7 +114,7 @@ in
       description =
         lib.mdDoc
           "Path to a file containing the password. The file must be readable by the `asf` user/group."
-        ;
+      ;
     };
 
     ipcSettings = mkOption {
@@ -138,7 +138,7 @@ in
               description =
                 lib.mdDoc
                   "Name of the user to log in. Default is attribute name."
-                ;
+              ;
               default = "";
             };
             passwordFile = mkOption {
@@ -146,7 +146,7 @@ in
               description =
                 lib.mdDoc
                   "Path to a file containing the password. The file must be readable by the `asf` user/group."
-                ;
+              ;
             };
             enabled = mkOption {
               type = types.bool;
@@ -273,7 +273,7 @@ in
               ln -s ${cfg.web-ui.package}/lib/dist www
             ''}
           ''
-          ;
+        ;
       };
     };
   };

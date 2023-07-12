@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DOpenGL_GL_PREFERENCE=GLVND" ]
     ++ lib.optional (!withGui) "-DENABLE_GUI=OFF"
-    ;
+  ;
 
   buildInputs =
     [
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       mesa_glu
       wxGTK32
     ]
-    ;
+  ;
 
   postInstall = ''
     install -Dm444 -t $out/lib/udev/rules.d ../udev-rules/64-limesuite.rules

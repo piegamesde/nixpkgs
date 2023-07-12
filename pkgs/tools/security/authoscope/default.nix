@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   postInstall = ''
     installManPage docs/${pname}.1

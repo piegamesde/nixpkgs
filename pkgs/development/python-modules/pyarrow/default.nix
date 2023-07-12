@@ -137,7 +137,7 @@ buildPythonPackage rec {
       # this test requires local networking
       "--deselect=pyarrow/tests/test_fs.py::test_filesystem_from_uri_gcs"
     ]
-    ;
+  ;
 
   disabledTests = [ "GcsFileSystem" ];
 
@@ -154,7 +154,7 @@ buildPythonPackage rec {
       # OSError: [Errno 24] Too many open files
       ulimit -n 1024
     ''
-    ;
+  ;
 
   pythonImportsCheck =
     [ "pyarrow" ]
@@ -169,7 +169,7 @@ buildPythonPackage rec {
       "json"
       "parquet"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A cross-language development platform for in-memory data";

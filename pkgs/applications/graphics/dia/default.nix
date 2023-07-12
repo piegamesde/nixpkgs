@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals withDocs [ libxslt ]
     ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration-gtk2 ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -64,7 +64,7 @@ stdenv.mkDerivation {
       pkg-config
     ]
     ++ lib.optionals withDocs [ dblatex ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Gnome Diagram drawing software";

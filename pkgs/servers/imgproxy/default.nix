@@ -30,7 +30,7 @@ buildGoModule rec {
       vips
     ]
     ++ lib.optionals stdenv.isDarwin [ libunwind ]
-    ;
+  ;
 
   preBuild = ''
     export CGO_LDFLAGS_ALLOW='-(s|w)'

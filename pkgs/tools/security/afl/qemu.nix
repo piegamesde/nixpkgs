@@ -24,7 +24,7 @@ let
       "i386-linux-user"
     else
       throw "afl: no support for ${stdenv.hostPlatform.system}!"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "afl-qemu";

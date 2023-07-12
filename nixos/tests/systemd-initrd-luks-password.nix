@@ -40,7 +40,7 @@ import ./make-test-python.nix (
             "/dev/mapper/cryptroot2";
         };
       }
-      ;
+    ;
 
     testScript = ''
       # Create encrypted volume

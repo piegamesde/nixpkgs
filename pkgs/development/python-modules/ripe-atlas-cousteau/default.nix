@@ -38,7 +38,7 @@ buildPythonPackage rec {
       websocket-client
     ]
     ++ python-socketio.optional-dependencies.client
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

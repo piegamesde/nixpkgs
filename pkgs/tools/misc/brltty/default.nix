@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     [ bluez ]
     ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional systemdSupport systemd
-    ;
+  ;
 
   meta = {
     description = "Access software for a blind person using a braille display";

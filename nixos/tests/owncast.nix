@@ -25,7 +25,7 @@ import ./make-test-python.nix (
             } ];
           };
         }
-        ;
+      ;
       server =
         {
           pkgs,
@@ -53,7 +53,7 @@ import ./make-test-python.nix (
             listen = "0.0.0.0";
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

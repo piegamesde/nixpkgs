@@ -85,7 +85,7 @@ in
       RSTUDIO_VERSION_MINOR
       RSTUDIO_VERSION_PATCH
       RSTUDIO_VERSION_SUFFIX
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -98,7 +98,7 @@ in
         nodejs
       ]
       ++ lib.optionals (!server) [ copyDesktopItems ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -126,7 +126,7 @@ in
             qtwebchannel
           ]
       )
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -140,7 +140,7 @@ in
         "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/lib/rstudio"
       ]
       ++ lib.optionals (!server) [ "-DQT_QMAKE_EXECUTABLE=${qmake}/bin/qmake" ]
-      ;
+    ;
 
     # Hack RStudio to only use the input R and provided libclang.
     patches = [

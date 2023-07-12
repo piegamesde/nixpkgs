@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       libxslt # manpage
     ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) html-tidy
-    ;
+  ;
 
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "-DHOST_TIDY=tidy"

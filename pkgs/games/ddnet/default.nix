@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       OpenGL
       Security
     ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace src/engine/shared/storage.cpp \

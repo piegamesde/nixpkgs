@@ -34,7 +34,7 @@ stdenv.mkDerivation (
         postfix = if monoSupport then "sharp" else "gtk${gtkVersion}";
       in
       "libappindicator-${postfix}"
-      ;
+    ;
     version = "12.10.1+20.10.20200706.1";
 
     outputs = [
@@ -87,7 +87,7 @@ stdenv.mkDerivation (
         }
         .${gtkVersion} or throwBadGtkVersion
       ]
-      ;
+    ;
 
     preAutoreconf = ''
       gtkdocize
@@ -110,7 +110,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description =

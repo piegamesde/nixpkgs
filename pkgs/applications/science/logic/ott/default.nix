@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
         ocaml
       ]
     )
-    ;
+  ;
   buildInputs = with ocamlPackages; [ ocamlgraph ];
 
   installTargets = "ott.install";
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     + ''
       rm -r $out/share/emacs
     ''
-    ;
+  ;
 
   meta = {
     description = "A tool for the working semanticist";

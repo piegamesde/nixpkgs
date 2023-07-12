@@ -18,7 +18,7 @@ import ./make-test-python.nix (
           pkgs.etesync-dav
         ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

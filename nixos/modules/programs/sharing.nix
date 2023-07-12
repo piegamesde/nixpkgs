@@ -22,5 +22,5 @@ with lib; {
       environment.systemPackages = [ pkgs.sharing ];
       networking.firewall.allowedTCPPorts = [ 7478 ];
     }
-    ;
+  ;
 }

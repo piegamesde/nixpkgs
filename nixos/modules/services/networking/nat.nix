@@ -114,7 +114,7 @@ in
                 example = 8080;
                 description = lib.mdDoc ''
                   Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")''
-                  ;
+                ;
               };
 
               destination = mkOption {
@@ -123,7 +123,7 @@ in
                 description =
                   lib.mdDoc
                     "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end"
-                  ;
+                ;
               };
 
               proto = mkOption {
@@ -140,7 +140,7 @@ in
                 description =
                   lib.mdDoc
                     "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT"
-                  ;
+                ;
               };
             };
           }

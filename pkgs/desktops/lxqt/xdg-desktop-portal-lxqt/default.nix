@@ -32,7 +32,7 @@ mkDerivation rec {
       qtx11extras
     ]
     ++ extraQtStyles
-    ;
+  ;
 
   passthru.updateScript = gitUpdater { };
 

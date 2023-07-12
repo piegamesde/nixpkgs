@@ -30,7 +30,7 @@ buildPythonPackage rec {
       arpeggio
     ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

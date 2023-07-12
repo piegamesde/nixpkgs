@@ -26,7 +26,7 @@ in
       description =
         lib.mdDoc
           "The environment the ECS agent should run with. See the ECS agent documentation for keys that work here."
-        ;
+      ;
       default = { };
     };
   };

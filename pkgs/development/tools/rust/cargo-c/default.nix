@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   # Ensure that we are avoiding build of the curl vendored in curl-sys
   doInstallCheck = stdenv.hostPlatform.libc == "glibc";

@@ -26,7 +26,7 @@ import ./make-test-python.nix (
           services.dockerRegistry.enableGarbageCollect = true;
           networking.firewall.allowedTCPPorts = [ 8080 ];
         }
-        ;
+      ;
 
       client1 =
         {
@@ -36,7 +36,7 @@ import ./make-test-python.nix (
           virtualisation.docker.extraOptions =
             "--insecure-registry registry:8080";
         }
-        ;
+      ;
 
       client2 =
         {
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
           virtualisation.docker.extraOptions =
             "--insecure-registry registry:8080";
         }
-        ;
+      ;
     };
 
     testScript = ''

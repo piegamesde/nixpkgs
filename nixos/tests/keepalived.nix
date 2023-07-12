@@ -23,7 +23,7 @@ import ./make-test-python.nix (
           };
           environment.systemPackages = [ pkgs.tcpdump ];
         }
-        ;
+      ;
       node2 =
         {
           pkgs,
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
           };
           environment.systemPackages = [ pkgs.tcpdump ];
         }
-        ;
+      ;
     };
 
     testScript = ''

@@ -20,7 +20,7 @@ in
     services.xserver.windowManager.twm.enable =
       mkEnableOption
         (lib.mdDoc "twm")
-      ;
+    ;
   };
 
   ###### implementation

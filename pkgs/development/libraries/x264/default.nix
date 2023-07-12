@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isAarch ''
       export AS=$CC
     ''
-    ;
+  ;
 
   configureFlags =
     lib.optional enableShared "--enable-shared"
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
         "--cross-prefix=${stdenv.cc.targetPrefix}"
-    ;
+  ;
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isx86 nasm;
 

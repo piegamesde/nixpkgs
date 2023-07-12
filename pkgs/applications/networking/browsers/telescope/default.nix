@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       ncurses
     ]
     ++ lib.optional stdenv.isDarwin memstreamHook
-    ;
+  ;
 
   configureFlags = [
     "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"

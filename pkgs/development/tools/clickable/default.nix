@@ -76,7 +76,7 @@ buildPythonPackage rec {
         "test_arch"
         "test_restricted_arch"
       ]
-    ;
+  ;
 
   meta = {
     description = "A build system for Ubuntu Touch apps";

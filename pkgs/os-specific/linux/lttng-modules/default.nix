@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
       "INSTALL_MOD_PATH=${placeholder "out"}"
     ]
-    ;
+  ;
 
   installTargets = [ "modules_install" ];
 
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     broken =
       (lib.versions.majorMinor kernel.modDirVersion) == "5.10"
       || (lib.versions.majorMinor kernel.modDirVersion) == "5.4"
-      ;
+    ;
   };
 }

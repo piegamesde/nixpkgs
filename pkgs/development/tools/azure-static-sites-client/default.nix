@@ -22,7 +22,7 @@ let
       url = flavor.files.${runtimeId}.url;
       sha256 = flavor.files.${runtimeId}.sha;
     }
-    ;
+  ;
   sources = {
     "x86_64-linux" = fetchBinary "linux-x64";
     "x86_64-darwin" = fetchBinary "macOS";

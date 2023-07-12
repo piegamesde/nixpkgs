@@ -15,7 +15,7 @@ import ./make-test-python.nix (
         }: {
           services.victoriametrics.enable = true;
         }
-        ;
+      ;
     };
 
     testScript = ''

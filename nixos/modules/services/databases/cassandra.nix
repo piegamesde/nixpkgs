@@ -20,7 +20,7 @@ let
     mkOption
     types
     versionAtLeast
-    ;
+  ;
 
   cfg = config.services.cassandra;
 
@@ -112,7 +112,7 @@ let
       # expect this. We override those by providing our own -Xlog:gc flag.
       "-Xlog:gc=warning,heap*=warning,age*=warning,safepoint=warning,promotion*=warning"
     ]
-    ;
+  ;
 
   commonEnv = {
     # Sufficient for cassandra 2.x, 3.x
@@ -464,11 +464,11 @@ in
           pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
         else
           null
-        ;
+      ;
       defaultText =
         literalMD
           "generated configuration file if version is at least 3.11, otherwise `null`"
-        ;
+      ;
       example = "/var/lib/cassandra/jmx.password";
       description = lib.mdDoc ''
         Specify your own jmx roles file.
@@ -565,7 +565,7 @@ in
             Persistent = true;
           };
         }
-      ;
+    ;
 
     systemd.services.cassandra-incremental-repair = {
       description = "Perform an incremental repair on this cassandra node.";
@@ -596,7 +596,7 @@ in
             Persistent = true;
           };
         }
-      ;
+    ;
   };
 
   meta.maintainers = with lib.maintainers; [ roberth ];

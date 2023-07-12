@@ -27,7 +27,7 @@ makeSetupHook
 
         librsvg
       ]
-      ;
+    ;
 
     # depsTargetTargetPropagated will essentially be buildInputs when wrapGAppsHook is placed into nativeBuildInputs
     # the librsvg and gtk3 above should be removed but kept to not break anything that implicitly depended on its binaries
@@ -56,7 +56,7 @@ makeSetupHook
         # D-Bus service enabled globally (e.g. through a NixOS module).
         dconf.lib
       ]
-      ;
+    ;
     passthru = {
       tests =
         let
@@ -97,7 +97,7 @@ makeSetupHook
                   "${dconf.lib}/lib/gio/modules"}
               ''
             )
-            ;
+          ;
 
           basic-contains-gdk-pixbuf =
             let
@@ -118,7 +118,7 @@ makeSetupHook
                   }/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
               ''
             )
-            ;
+          ;
 
           # Simple derivation containing a gobject-introspection typelib.
           typelib-Mahjong = stdenv.mkDerivation {
@@ -168,7 +168,7 @@ makeSetupHook
                 "GI_TYPELIB_PATH"
                 "${typelib-Mahjong}/lib/girepository-1.0"}
             ''
-            ;
+          ;
 
           # Simple derivation containing a gobject-introspection typelib in lib output.
           typelib-Bechamel = stdenv.mkDerivation {
@@ -226,7 +226,7 @@ makeSetupHook
                 "GI_TYPELIB_PATH"
                 "${typelib-Bechamel.lib}/lib/girepository-1.0"}
             ''
-            ;
+          ;
 
           # Simple derivation that contains a typelib as well as a program using it.
           typelib-self-user = stdenv.mkDerivation {
@@ -265,9 +265,9 @@ makeSetupHook
                 "GI_TYPELIB_PATH"
                 "${typelib-self-user}/lib/girepository-1.0"}
             ''
-            ;
+          ;
         }
-        ;
+      ;
     };
   }
   ./wrap-gapps-hook.sh

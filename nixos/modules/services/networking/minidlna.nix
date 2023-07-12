@@ -73,7 +73,7 @@ in
         description =
           lib.mdDoc
             "Port number for HTTP traffic (descriptions, SOAP, media transfer)."
-          ;
+        ;
       };
       options.db_dir = mkOption {
         type = types.path;
@@ -82,7 +82,7 @@ in
         description =
           lib.mdDoc
             "Specify the directory where you want MiniDLNA to store its database and album art cache."
-          ;
+        ;
       };
       options.friendly_name = mkOption {
         type = types.str;
@@ -92,7 +92,7 @@ in
         description =
           lib.mdDoc
             "Name that the DLNA server presents to clients."
-          ;
+        ;
       };
       options.root_container = mkOption {
         type = types.str;
@@ -101,7 +101,7 @@ in
         description =
           lib.mdDoc
             "Use a different container as the root of the directory tree presented to clients."
-          ;
+        ;
       };
       options.log_level = mkOption {
         type = types.str;
@@ -111,7 +111,7 @@ in
         description =
           lib.mdDoc
             "Defines the type of messages that should be logged and down to which level of importance."
-          ;
+        ;
       };
       options.inotify = mkOption {
         type = types.enum [
@@ -122,7 +122,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable inotify monitoring to automatically discover new files."
-          ;
+        ;
       };
       options.enable_tivo = mkOption {
         type = types.enum [
@@ -133,7 +133,7 @@ in
         description =
           lib.mdDoc
             "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO."
-          ;
+        ;
       };
       options.wide_links = mkOption {
         type = types.enum [
@@ -144,7 +144,7 @@ in
         description =
           lib.mdDoc
             "Set this to yes to allow symlinks that point outside user-defined `media_dir`."
-          ;
+        ;
       };
     };
   };

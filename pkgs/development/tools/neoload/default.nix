@@ -34,7 +34,7 @@ else
           JRE_INFO	${path}	94
         '';
       }
-      ;
+    ;
 
     responseVarfile = writeTextFile {
       name = "response.varfile";

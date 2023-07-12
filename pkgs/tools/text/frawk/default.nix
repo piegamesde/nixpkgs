@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
         ''
           export RUSTC_BOOTSTRAP=1
         ''
-    ;
+  ;
 
   # depends on cpu instructions that may not be available on builders
   doCheck = false;

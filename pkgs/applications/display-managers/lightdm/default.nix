@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       polkit
     ]
     ++ lib.optional withQt5 qtbase
-    ;
+  ;
 
   patches = [
     # Adds option to disable writing dmrc files
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       "--disable-dmrc"
     ]
     ++ lib.optional withQt5 "--enable-liblightdm-qt5"
-    ;
+  ;
 
   installFlags = [
     "sysconfdir=${placeholder "out"}/etc"

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       tbb
     ]
     ++ lib.optional (!stdenv.isDarwin) ipopt
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       "-DPAGMO_WITH_IPOPT=no"
       "-DLLVM_USE_LINKER=gold"
     ]
-    ;
+  ;
 
   doCheck = runTests;
 

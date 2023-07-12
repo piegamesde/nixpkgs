@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
         lib.concatStringsSep " " (
           map (path: lib.getOutput output path + "/" + subDir) buildInputs
         )
-        ;
+      ;
     in
     ''
       substituteInPlace configure \
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
         --replace "libcurses.so" "libncurses.so" \
         --replace "-lcurses" "-lncurses"
     ''
-    ;
+  ;
 
   nativeBuildInputs = lib.optionals withGUI [
     pkg-config
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       postgresql
     ]
     ++ lib.optional withGUI gtk2
-    ;
+  ;
 
   enableParallelBuilding = true;
 

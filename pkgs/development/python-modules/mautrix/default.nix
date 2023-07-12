@@ -59,7 +59,7 @@ buildPythonPackage rec {
       asyncpg
     ]
     ++ passthru.optional-dependencies.encryption
-    ;
+  ;
 
   SQLALCHEMY_SILENCE_UBER_WARNING = 1;
 

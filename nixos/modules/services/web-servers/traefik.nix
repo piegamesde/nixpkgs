@@ -26,7 +26,7 @@ let
       };
     in
     valueType
-    ;
+  ;
   dynamicConfigFile =
     if cfg.dynamicConfigFile == null then
       pkgs.runCommand "config.toml"
@@ -45,7 +45,7 @@ let
         ''
     else
       cfg.dynamicConfigFile
-    ;
+  ;
   staticConfigFile =
     if cfg.staticConfigFile == null then
       pkgs.runCommand "config.toml"
@@ -68,7 +68,7 @@ let
         ''
     else
       cfg.staticConfigFile
-    ;
+  ;
 in
 {
   options.services.traefik = {

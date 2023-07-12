@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       Cocoa
       Foundation
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DWITH_DESKTOP_INTEGRATION=ON"

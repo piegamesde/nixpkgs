@@ -29,7 +29,7 @@ in
       description =
         lib.mdDoc
           "Kubernetes scheduler extra command line options."
-        ;
+      ;
       default = "";
       type = separatedString " ";
     };
@@ -47,7 +47,7 @@ in
       description =
         lib.mdDoc
           "Whether to start leader election before executing main loop."
-        ;
+      ;
       type = bool;
       default = true;
     };
@@ -118,7 +118,7 @@ in
     services.kubernetes.scheduler.kubeconfig.server =
       mkDefault
         top.apiserverAddress
-      ;
+    ;
   };
 
   meta.buildDocsInSandbox = false;

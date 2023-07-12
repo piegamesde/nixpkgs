@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace configure.ac --replace '${ac_str}' '${ac_str_sub}'
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     autoreconfHook

@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ''
       ${lib.optionalString mediaSupport wrapVifmMedia}
     ''
-    ;
+  ;
 
   passthru.updateScript = gitUpdater {
     url = "https://github.com/vifm/vifm.git";

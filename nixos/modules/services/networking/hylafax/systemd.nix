@@ -28,7 +28,7 @@ let
     pkgs.writeText "hylafax-config${name}" (
       concatStringsSep "\n" (include ++ other)
     )
-    ;
+  ;
 
   globalConfigPath = mkConfigFile "" cfg.faxqConfig;
 
@@ -41,7 +41,7 @@ let
           ...
         }:
         mkConfigFile ".${name}" (cfg.commonModemConfig // config)
-        ;
+      ;
       mkLine =
         {
           name,
@@ -56,11 +56,11 @@ let
             "${mkModemConfigFile modem}" \
             "$out/config.${name}"
         ''
-        ;
+      ;
     in
     pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; } ''
       mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}''
-    ;
+  ;
 
   setupSpoolScript = pkgs.substituteAll {
     name = "hylafax-setup-spool.sh";
@@ -140,13 +140,13 @@ let
       apply =
         service:
         lib.filterAttrs filter (hardening // (service.serviceConfig or { }))
-        ;
+      ;
     in
     service:
     service // {
       serviceConfig = apply service;
     }
-    ;
+  ;
 
   services.hylafax-spool = {
     description = "HylaFAX spool area preparation";
@@ -223,7 +223,7 @@ let
     startAt =
       mkIf (cfg.faxcron.enable.frequency != null)
         cfg.faxcron.enable.frequency
-      ;
+    ;
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxcron"
       ''-q "${cfg.spoolAreaPath}"''
@@ -242,7 +242,7 @@ let
     startAt =
       mkIf (cfg.faxqclean.enable.frequency != null)
         cfg.faxqclean.enable.frequency
-      ;
+    ;
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxqclean"
       ''-q "${cfg.spoolAreaPath}"''
@@ -287,7 +287,7 @@ let
       serviceConfig.PrivateDevices = null;
       serviceConfig.RestrictRealtime = null;
     }
-    ;
+  ;
 
   modemServices = lib.listToAttrs (mapModems mkFaxgettyService);
 in

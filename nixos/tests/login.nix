@@ -19,7 +19,7 @@ import ./make-test-python.nix (
         sound.enable =
           true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
       }
-      ;
+    ;
 
     testScript = ''
       machine.start(allow_reboot = True)

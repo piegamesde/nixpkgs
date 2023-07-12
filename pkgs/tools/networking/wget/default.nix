@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
         sed -i "$i" -e's/localhost/127.0.0.1/g'
       done
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     gettext
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withOpenssl openssl
     ++ lib.optional withLibpsl libpsl
     ++ lib.optional stdenv.isDarwin perlPackages.perl
-    ;
+  ;
 
   configureFlags =
     [ (lib.withFeatureAs withOpenssl "ssl" "openssl") ]
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       # https://lists.gnu.org/archive/html/bug-wget/2021-01/msg00076.html
       "--without-included-regex"
     ]
-    ;
+  ;
 
   doCheck = false;
 

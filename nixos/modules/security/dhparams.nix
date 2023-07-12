@@ -49,12 +49,12 @@ let
             pkgs.runCommand "dhparams-${name}.pem"
               { nativeBuildInputs = [ pkgs.openssl ]; }
               ''openssl dhparam -out "$out" ${toString config.bits}''
-            ;
+          ;
         in
         if cfg.stateful then "${cfg.path}/${name}.pem" else generated
-        ;
+      ;
     }
-    ;
+  ;
 in
 {
   options = {
@@ -73,7 +73,7 @@ in
             coerce = bits: { inherit bits; };
           in
           attrsOf (coercedTo int coerce (submodule paramsSubmodule))
-          ;
+        ;
         default = { };
         example = lib.literalExpression "{ nginx.bits = 3072; }";
         description = lib.mdDoc ''

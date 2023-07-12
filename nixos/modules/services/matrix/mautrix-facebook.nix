@@ -13,7 +13,7 @@ let
   settingsFile =
     settingsFormat.generate "mautrix-facebook-config.json"
       cfg.settings
-    ;
+  ;
 
   puppetRegex = concatStringsSep ".*" (
     map escapeRegex (
@@ -158,7 +158,7 @@ in
           optional config.services.matrix-synapse.enable
             "matrix-synapse.service"
         ++ optional cfg.configurePostgresql "postgresql.service"
-        ;
+      ;
       after = wants;
 
       serviceConfig = {
@@ -193,7 +193,7 @@ in
               regex =
                 escapeRegex
                   "@${cfg.settings.appservice.bot_username}:${cfg.settings.homeserver.domain}"
-                ;
+              ;
             }
             {
               exclusive = true;

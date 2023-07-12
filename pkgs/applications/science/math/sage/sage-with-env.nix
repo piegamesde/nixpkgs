@@ -60,13 +60,13 @@ let
           builtins.tail parts
         else
           parts
-        ;
+      ;
       version = lib.last stripped_parts;
       orig_pkgname = lib.init stripped_parts;
       pkgname = patch_names (lib.concatStringsSep "_" orig_pkgname);
     in
     pkgname + "-" + version
-    ;
+  ;
 
   # return the names of all dependencies in the transitive closure
   transitiveClosure =
@@ -87,7 +87,7 @@ let
         else
           [ ]
       )
-    ;
+  ;
 
   allInputs = lib.remove null (
     nativeBuildInputs ++ buildInputs ++ pythonEnv.extraLibs ++ [ makeWrapper ]
@@ -107,7 +107,7 @@ let
         "zope_interface"
         "threejs"
       ]
-    ;
+  ;
   # spkg names (this_is_a_package-version) of all transitive deps
   input_names = map (dep: pkg_to_spkg_name dep patch_names) transitiveDeps;
 in

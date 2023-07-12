@@ -20,7 +20,7 @@ let
       "LD_LIBRARY_PATH"
     else
       throw "unsupported platform"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "sagittarius-scheme";
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional odbcSupport libiodbc
-    ;
+  ;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

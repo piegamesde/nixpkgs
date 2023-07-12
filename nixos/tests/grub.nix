@@ -22,7 +22,7 @@ import ./make-test-python.nix (
           extraConfig = "serial; terminal_output serial";
         };
       }
-      ;
+    ;
 
     testScript = ''
       def grub_login_as(user, password):

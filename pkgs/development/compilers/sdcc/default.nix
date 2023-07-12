@@ -20,7 +20,7 @@ let
       "pic14"
       "pic16"
     ])
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {

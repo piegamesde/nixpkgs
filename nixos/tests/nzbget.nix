@@ -30,7 +30,7 @@ import ./make-test-python.nix (
           # so we can run this test in CI
           systemd.services.nzbget.path = pkgs.lib.mkForce [ pkgs.p7zip ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -58,6 +58,6 @@ import ./make-test-python.nix (
         assert 'DiskSpace = "0"' in config
         assert 'Server1.Name = "this is a test"' in config
       ''
-      ;
+    ;
   }
 )

@@ -59,7 +59,7 @@ python3.pkgs.buildPythonApplication rec {
       libxslt
     ]
     ++ lib.optionals withDblatex [ dblatex ]
-    ;
+  ;
 
   pythonPath = with python3.pkgs; [
     pygments # Needed for https://gitlab.gnome.org/GNOME/gtk-doc/blob/GTK_DOC_1_32/meson.build#L42

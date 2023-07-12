@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ (if stdenv.isDarwin then [ libossp_uuid ] else [ libuuid ])
-    ;
+  ;
 
   postPatch = ''
     # fix libdir=''${exec_prefix}/@CMAKE_INSTALL_LIBDIR@

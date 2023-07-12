@@ -77,7 +77,7 @@ stdenv.mkDerivation (
         })
       ]
       ++ nativeCheckInputs
-      ;
+    ;
 
     checkPhase = ''
       export HOME=$(mktemp -d)  # fish wants a writable home

@@ -42,7 +42,7 @@ in
             done
           '';
         }
-      ;
+    ;
 
     environment.systemPackages = [ wmii ];
   };

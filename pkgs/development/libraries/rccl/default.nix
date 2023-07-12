@@ -38,7 +38,7 @@ stdenv.mkDerivation (
         gtest
       ]
       ++ lib.optionals buildTests [ chrpath ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -51,7 +51,7 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
       ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ]
-      ;
+    ;
 
     # Replace the manually set parallel jobs to NIX_BUILD_CORES
     postPatch = ''

@@ -76,5 +76,5 @@ stdenv.mkDerivation {
       maintainers = with maintainers; [ hexa ];
       platforms = [ "x86_64-linux" ];
     }
-    ;
+  ;
 }

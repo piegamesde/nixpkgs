@@ -70,7 +70,7 @@ stdenvNoCC.mkDerivation {
           done
         ''
     )
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://fonts.google.com";

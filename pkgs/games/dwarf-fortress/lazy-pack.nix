@@ -36,7 +36,7 @@ let
       getAttr dfGame df-games
     else
       throw "Unknown Dwarf Fortress version: ${dfVersion}"
-    ;
+  ;
   dwarf-therapist = dwarf-fortress.dwarf-therapist;
 in
 buildEnv {
@@ -55,12 +55,12 @@ buildEnv {
           enableFPS
           enableTextMode
           enableSound
-          ;
+        ;
       })
     ]
     ++ lib.optional enableDwarfTherapist dwarf-therapist
     ++ lib.optional enableLegendsBrowser legends-browser
-    ;
+  ;
 
   meta = with lib; {
     description = "An opinionated wrapper for Dwarf Fortress";

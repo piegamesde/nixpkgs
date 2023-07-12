@@ -170,7 +170,7 @@ let
     getLib
     optionals
     optionalString
-    ;
+  ;
 
   jre' = jre17_minimal.override {
     modules = [
@@ -213,7 +213,7 @@ let
             md5name = "${md5}-${name}";
           }) ]
         )
-      ;
+    ;
 
     translations = primary-src.translations;
     help = primary-src.help;
@@ -274,7 +274,7 @@ in
       tar -xf ${srcs.help}
       tar -xf ${srcs.translations}
     ''
-    ;
+  ;
 
   ### QT/KDE
   #
@@ -313,7 +313,7 @@ in
         --replace '$KF5INC ' '$KF5INC ${kdeDeps}/include ${kdeDeps}/include/KF5 '\
         --replace '$KF5LIB ' '$KF5LIB ${kdeDeps}/lib '
     ''
-    ;
+  ;
 
   dontUseCmakeConfigure = true;
   dontUseCmakeBuildDir = true;
@@ -431,7 +431,7 @@ in
 
       find -name "*.cmd" -exec sed -i s,/lib:/usr/lib,, {} \;
     ''
-    ;
+  ;
 
   makeFlags = [ "SHELL=${bash}/bin/bash" ];
 
@@ -558,7 +558,7 @@ in
       "--enable-qt5"
       "--enable-gtk3-kde5"
     ]
-    ;
+  ;
 
   checkTarget = concatStringsSep " " [
     "unitcheck"

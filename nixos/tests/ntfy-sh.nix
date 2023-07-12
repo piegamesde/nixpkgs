@@ -7,7 +7,7 @@ import ./make-test-python.nix {
     }: {
       services.ntfy-sh.enable = true;
     }
-    ;
+  ;
 
   testScript = ''
     import json

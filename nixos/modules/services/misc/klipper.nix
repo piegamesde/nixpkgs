@@ -16,7 +16,7 @@ let
       else
         lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
           l
-      ;
+    ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
 in
@@ -39,7 +39,7 @@ in
         description =
           lib.mdDoc
             "Path of the virtual printer symlink to create."
-          ;
+        ;
       };
 
       apiSocket = mkOption {
@@ -125,14 +125,14 @@ in
                   description =
                     lib.mdDoc
                       "Path to serial port this printer is connected to. Leave `null` to derive it from `service.klipper.settings`."
-                    ;
+                  ;
                 };
                 configFile = mkOption {
                   type = path;
                   description =
                     lib.mdDoc
                       "Path to firmware config which is generated using `klipper-genconf`"
-                    ;
+                  ;
                 };
               };
             }
@@ -174,7 +174,7 @@ in
               )
               cfg.firmwares
           )
-          ;
+        ;
         message =
           "Option services.klipper.settings.$mcu.serial must be set when settings.klipper.firmware.$mcu is specified";
       }
@@ -191,7 +191,7 @@ in
           format.generate "klipper.cfg" cfg.settings
         else
           cfg.configFile
-        ;
+      ;
     };
 
     services.klipper = mkIf cfg.octoprintIntegration {
@@ -206,19 +206,19 @@ in
           +
             optionalString (cfg.apiSocket != null)
               " --api-server=${cfg.apiSocket}"
-          ;
+        ;
         printerConfigPath =
           if cfg.mutableConfig then
             cfg.mutableConfigFolder + "/printer.cfg"
           else
             "/etc/klipper.cfg"
-          ;
+        ;
         printerConfigFile =
           if cfg.settings != null then
             format.generate "klipper.cfg" cfg.settings
           else
             cfg.configFile
-          ;
+        ;
       in
       {
         description = "Klipper 3D Printer Firmware";
@@ -261,7 +261,7 @@ in
             }
         );
       }
-      ;
+    ;
 
     environment.systemPackages = with pkgs;
       let
@@ -295,15 +295,15 @@ in
                 flashDevice =
                   default cfg.firmwares."${mcu}".serial
                     cfg.settings."${mcu}".serial
-                  ;
+                ;
                 firmwareConfig = cfg.firmwares."${mcu}".configFile;
               }
             )
             firmwares
-          ;
+        ;
       in
       [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares
-      ;
+    ;
   };
   meta.maintainers = [ maintainers.cab404 ];
 }

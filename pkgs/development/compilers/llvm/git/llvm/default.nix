@@ -69,7 +69,7 @@ let
       python3.withPackages checkDeps
     else
       python3
-    ;
+  ;
 in
 stdenv.mkDerivation (
   rec {
@@ -108,7 +108,7 @@ stdenv.mkDerivation (
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
       ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -116,7 +116,7 @@ stdenv.mkDerivation (
         libffi
       ]
       ++ optional enablePFM libpfm
-      ; # exegesis
+    ; # exegesis
 
     propagatedBuildInputs = [
       ncurses
@@ -176,7 +176,7 @@ stdenv.mkDerivation (
         # Just like the `llvm-lit-cfg` patch, but for `polly`.
         ./polly-lit-cfg-add-libs-to-dylib-path.patch
       ]
-      ;
+    ;
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -279,7 +279,7 @@ stdenv.mkDerivation (
       + ''
         patchShebangs test/BugPoint/compile-custom.ll.py
       ''
-      ;
+    ;
 
     preConfigure = ''
       # Workaround for configure flags that need to have spaces
@@ -321,13 +321,13 @@ stdenv.mkDerivation (
         check_version minor ${minor}
         check_version patch ${patch}
       ''
-      ;
+    ;
 
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
     LDFLAGS =
       optionalString (enableSharedLibraries && !stdenv.isDarwin)
         "-Wl,--build-id=sha1"
-      ;
+    ;
 
     cmakeFlags = with stdenv;
       let
@@ -344,7 +344,7 @@ stdenv.mkDerivation (
             "-DLLVM_ENABLE_RTTI=ON"
           ]
           ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
-          ;
+        ;
       in
       flagsForLlvmConfig
       ++ [
@@ -414,7 +414,7 @@ stdenv.mkDerivation (
           )
         )
       ]
-      ;
+    ;
 
     postInstall =
       ''
@@ -436,7 +436,7 @@ stdenv.mkDerivation (
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
       ''
-      ;
+    ;
 
     inherit doCheck;
 

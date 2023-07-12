@@ -106,7 +106,7 @@ stdenv.mkDerivation (
         lib.optional stdenv.hostPlatform.isMusl
           ./fix-rpc-types-musl-conflicts.patch
       ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch
-      ;
+    ;
 
     postPatch =
       ''
@@ -135,7 +135,7 @@ stdenv.mkDerivation (
         +#define LIBIDN2_SONAME "${lib.getLib libidn2}/lib/libidn2.so.0"
         EOF
       ''
-      ;
+    ;
 
     configureFlags =
       [
@@ -187,7 +187,7 @@ stdenv.mkDerivation (
           ]
       ++ lib.optional withGd "--with-gd"
       ++ lib.optional (!withLibcrypt) "--disable-crypt"
-      ;
+    ;
 
     makeFlags = [ "OBJCOPY=${stdenv.cc.targetPrefix}objcopy" ];
 
@@ -209,7 +209,7 @@ stdenv.mkDerivation (
         python3Minimal
       ]
       ++ extraNativeBuildInputs
-      ;
+    ;
     buildInputs =
       [ linuxHeaders ]
       ++ lib.optionals withGd [
@@ -217,7 +217,7 @@ stdenv.mkDerivation (
         libpng
       ]
       ++ extraBuildInputs
-      ;
+    ;
 
     env = {
       linuxHeaders = lib.optionalString withLinuxHeaders linuxHeaders;
@@ -297,7 +297,7 @@ stdenv.mkDerivation (
           -e '/^OBJDUMP=/d' \
           $configureScript
       ''
-      ;
+    ;
 
     preBuild = lib.optionalString withGd "unset NIX_DONT_SET_RPATH";
 

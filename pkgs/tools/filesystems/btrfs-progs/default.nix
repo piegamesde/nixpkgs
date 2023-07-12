@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-backtrace" ]
     ++ lib.optionals (!udevSupport) [ "--disable-libudev" ]
-    ;
+  ;
 
   makeFlags = [ "udevruledir=$(out)/lib/udev/rules.d" ];
 

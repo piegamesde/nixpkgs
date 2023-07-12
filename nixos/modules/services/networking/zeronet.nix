@@ -14,7 +14,7 @@ let
     mkOption
     recursiveUpdate
     types
-    ;
+  ;
   cfg = config.services.zeronet;
   dataDir = "/var/lib/zeronet";
   configFile = pkgs.writeText "zeronet.conf" (
@@ -34,7 +34,7 @@ let
           "always"
         else
           "enable"
-        ;
+      ;
     };
   };
 in

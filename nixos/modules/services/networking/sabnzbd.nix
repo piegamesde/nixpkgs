@@ -28,7 +28,7 @@ in
         description =
           lib.mdDoc
             "The sabnzbd executable package run by the service."
-          ;
+        ;
       };
 
       configFile = mkOption {

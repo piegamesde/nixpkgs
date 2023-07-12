@@ -15,7 +15,7 @@ import ./make-test-python.nix (
 
         boot.supportedFilesystems = [ "apfs" ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("basic.target")

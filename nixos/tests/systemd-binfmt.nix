@@ -33,7 +33,7 @@ let
       ''
         $CC -o $out $src
       ''
-    ;
+  ;
 in
 {
   basic = makeTest {
@@ -61,7 +61,7 @@ in
             "${helloAarch64}/bin/hello"
         )
       ''
-      ;
+    ;
   };
 
   preserveArgvZero = makeTest {
@@ -75,7 +75,7 @@ in
         machine.start()
         machine.succeed("exec -a meow ${testAarch64} meow")
       ''
-      ;
+    ;
   };
 
   ldPreload = makeTest {
@@ -93,6 +93,6 @@ in
             "LD_PRELOAD='${libredirectAarch64}/lib/libredirect.so' ${helloAarch64}/bin/hello 2>&1"
         ).lower()
       ''
-      ;
+    ;
   };
 }

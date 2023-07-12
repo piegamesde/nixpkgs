@@ -62,7 +62,7 @@ buildPythonPackage rec {
       xmlschema
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pyasn1

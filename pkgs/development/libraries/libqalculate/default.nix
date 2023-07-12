@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/qalc.cc \
         --replace 'printf(_("aborted"))' 'printf("%s", _("aborted"))'
     ''
-    ;
+  ;
 
   preBuild = ''
     pushd docs/reference

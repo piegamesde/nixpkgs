@@ -51,7 +51,7 @@ buildPythonPackage rec {
         maturinBuildHook
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [ nettle ]
@@ -60,7 +60,7 @@ buildPythonPackage rec {
       PCSC
       libiconv
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

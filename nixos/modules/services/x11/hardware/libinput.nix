@@ -50,7 +50,7 @@ let
         description =
           lib.mdDoc
             "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
-          ;
+        ;
       };
 
       buttonMapping = mkOption {
@@ -101,7 +101,7 @@ let
         description =
           lib.mdDoc
             "Enables left-handed button orientation, i.e. swapping left and right buttons."
-          ;
+        ;
       };
 
       middleEmulation = mkOption {
@@ -119,7 +119,7 @@ let
         description =
           lib.mdDoc
             "Enables or disables natural scrolling behavior."
-          ;
+        ;
       };
 
       scrollButton = mkOption {
@@ -233,7 +233,7 @@ let
         '';
       };
     }
-    ;
+  ;
 
   mkX11ConfigForDevice =
     deviceType: matchIs: ''
@@ -274,7 +274,7 @@ let
       }"
       ${cfg.${deviceType}.additionalOptions}
     ''
-    ;
+  ;
 in
 {
 
@@ -344,7 +344,7 @@ in
           source = pkgs.xorg.xf86inputlibinput.out + "/share/" + cfgPath;
         };
       }
-      ;
+    ;
 
     services.udev.packages = [ pkgs.libinput.out ];
 

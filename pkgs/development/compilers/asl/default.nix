@@ -21,7 +21,7 @@ stdenv.mkDerivation (
           "http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-${version}.tar.bz2";
         hash = "sha256-Q50GzXBxFMhbt5s9OgHPNH4bdqz2hhEmTnMmKowVn2E=";
       }
-      ;
+    ;
 
     outputs = [
       "out"
@@ -38,7 +38,7 @@ stdenv.mkDerivation (
       + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
         substituteInPlace sysdefs.h --replace "x86_64" "aarch64"
       ''
-      ;
+    ;
 
     dontConfigure = true;
 

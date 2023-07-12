@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals x11Support [ "devdoc" ]
-    ;
+  ;
   outputBin = "dev";
 
   setupHooks = [
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals waylandSupport [ wayland-scanner ]
     ++ setupHooks
-    ;
+  ;
 
   buildInputs =
     [
@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals cupsSupport [ cups ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ libexecinfo ]
-    ;
+  ;
   #TODO: colord?
 
   propagatedBuildInputs =
@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
       # Will be picked up by wrapGAppsHook.
       gsettings-desktop-schemas
     ]
-    ;
+  ;
 
   mesonFlags =
     [
@@ -186,7 +186,7 @@ stdenv.mkDerivation rec {
       "-Dmedia-gstreamer=disabled" # requires gstreamer-gl
     ]
     ++ lib.optionals (!x11Support) [ "-Dx11-backend=false" ]
-    ;
+  ;
 
   doCheck = false; # needs X11
 
@@ -239,7 +239,7 @@ stdenv.mkDerivation rec {
       # Broadway daemon
       moveToOutput bin/gtk4-broadwayd "$out"
     ''
-    ;
+  ;
 
   # Wrap demos
   postFixup =
@@ -255,7 +255,7 @@ stdenv.mkDerivation rec {
       # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
       moveToOutput "share/doc" "$devdoc"
     ''
-    ;
+  ;
 
   passthru = {
     updateScript = gnome.updateScript {

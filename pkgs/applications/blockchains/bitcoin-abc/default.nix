@@ -58,7 +58,7 @@ mkDerivation rec {
       qttools
       qrencode
     ]
-    ;
+  ;
 
   cmakeFlags = lib.optionals (!withGui) [ "-DBUILD_BITCOIN_QT=OFF" ];
 

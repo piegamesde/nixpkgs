@@ -44,7 +44,7 @@ let
       "all"
     else
       "x11"
-    ;
+  ;
 
   windowSystems = {
     all = windowSystems.x11 ++ windowSystems.wayland;
@@ -72,7 +72,7 @@ let
           "-D${b}=disabled"
       )
       (builtins.attrNames backends)
-    ;
+  ;
 in
 
 # check that given window system is valid
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       "-Dman=enabled"
     ]
     ++ backendFlags
-    ;
+  ;
 
   nativeBuildInputs = [
     asciidoc
@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
     ]
     ++ windowSystems."${withWindowSystem'}"
     ++ builtins.map (b: backends."${b}") withBackends
-    ;
+  ;
 
   postInstall = ''
     # fix the executable path and install the desktop item

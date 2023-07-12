@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       coreutils
       minc_tools
     ]
-    ;
+  ;
 
   postFixup = ''
     for p in $out/bin/*; do

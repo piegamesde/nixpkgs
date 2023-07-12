@@ -83,10 +83,10 @@ in
                   ''
                 )
                 config.system.build.etc.passthru.targets
-            ;
+          ;
         })
         + "/*"
-        ;
+      ;
     };
 
     systemd.tmpfiles.packages = [

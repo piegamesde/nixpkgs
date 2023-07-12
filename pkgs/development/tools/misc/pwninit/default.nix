@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
       xz
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
   nativeBuildInputs = [ pkg-config ];
   doCheck = false; # there are no tests to run
 

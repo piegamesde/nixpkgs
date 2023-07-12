@@ -75,7 +75,7 @@ let
           "--with-systemduserunitdir=${placeholder "out"}/share/systemd/user/"
           "--enable-apparmor"
         ]
-        ;
+      ;
 
       buildInputs =
         [
@@ -98,7 +98,7 @@ let
           else
             libayatana-appindicator
         )
-        ;
+      ;
 
       pythonPath = [
         pygobject3
@@ -135,11 +135,11 @@ let
             substituteInPlace $out/share/applications/redshift-gtk.desktop \
               --replace 'Exec=redshift-gtk' "Exec=$out/bin/redshift-gtk"
           ''
-        ;
+      ;
 
       enableParallelBuilding = true;
     }
-    ;
+  ;
 in
 rec {
   redshift = mkRedshift rec {

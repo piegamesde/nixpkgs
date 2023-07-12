@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           boot.loader.systemd-boot.enable = true;
           boot.loader.efi.canTouchEfiVariables = true;
         }
-        ;
+      ;
 
       node2 =
         {
@@ -35,7 +35,7 @@ import ./make-test-python.nix (
           environment.systemPackages = [ pkgs.hello ];
           imports = [ "${modulesPath}/installer/netboot/netboot-minimal.nix" ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -65,6 +65,6 @@ import ./make-test-python.nix (
 
         node1.shutdown()
       ''
-      ;
+    ;
   }
 )

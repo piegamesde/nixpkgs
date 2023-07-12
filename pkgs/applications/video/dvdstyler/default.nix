@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     ++ optionals udevSupport [ udev ]
     ++ optionals dbusSupport [ dbus ]
     ++ optionals thumbnailSupport [ libgnomeui ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
         --prefix PATH : "${binPath}"
       )
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.dvdstyler.org/";

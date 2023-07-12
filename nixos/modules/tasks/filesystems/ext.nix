@@ -10,11 +10,11 @@ let
   inInitrd =
     lib.any (fs: fs == "ext2" || fs == "ext3" || fs == "ext4")
       config.boot.initrd.supportedFilesystems
-    ;
+  ;
   inSystem =
     lib.any (fs: fs == "ext2" || fs == "ext3" || fs == "ext4")
       config.boot.supportedFilesystems
-    ;
+  ;
 in
 
 {
@@ -23,7 +23,7 @@ in
     system.fsPackages =
       lib.mkIf (config.boot.initrd.systemd.enable -> (inInitrd || inSystem))
         [ pkgs.e2fsprogs ]
-      ;
+    ;
 
     # As of kernel 4.3, there is no separate ext3 driver (they're also handled by ext4.ko)
     boot.initrd.availableKernelModules =
@@ -32,7 +32,7 @@ in
           "ext2"
           "ext4"
         ]
-      ;
+    ;
 
     boot.initrd.extraUtilsCommands =
       lib.mkIf (!config.boot.initrd.systemd.enable)
@@ -44,6 +44,6 @@ in
           ln -sv e2fsck $out/bin/fsck.ext3
           ln -sv e2fsck $out/bin/fsck.ext4
         ''
-      ;
+    ;
   };
 }

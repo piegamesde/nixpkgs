@@ -22,7 +22,7 @@ in
       description =
         lib.mdDoc
           "Open ports in the firewall for the n8n web interface."
-        ;
+      ;
     };
 
     settings = mkOption {

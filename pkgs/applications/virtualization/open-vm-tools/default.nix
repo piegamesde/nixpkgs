@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       libXrandr
       libXtst
     ]
-    ;
+  ;
 
   postPatch = ''
     sed -i Makefile.am \
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
       "--with-fuse=fuse3"
     ]
     ++ lib.optional (!withX) "--without-x"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

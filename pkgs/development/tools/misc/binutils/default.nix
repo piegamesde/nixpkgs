@@ -4,7 +4,7 @@ let
     platform.parsed.kernel.execFormat.name == "elf"
     && !platform.isRiscV
     && !platform.isLoongArch64
-    ;
+  ;
 in
 
 {
@@ -58,7 +58,7 @@ let
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-"
-    ;
+  ;
 in
 
 stdenv.mkDerivation (
@@ -126,7 +126,7 @@ stdenv.mkDerivation (
       # This patch fixes a bug in 2.40 on MinGW, which breaks DXVK when cross-building from Darwin.
       # See https://sourceware.org/bugzilla/show_bug.cgi?id=30079
       ++ lib.optional stdenv.targetPlatform.isMinGW ./mingw-abort-fix.patch
-      ;
+    ;
 
     outputs =
       [
@@ -143,7 +143,7 @@ stdenv.mkDerivation (
       # life slightly simpler by installing everything into $out for
       # cross-binutils.
       ++ lib.optionals (targetPlatform == hostPlatform) [ "lib" ]
-      ;
+    ;
 
     strictDeps = true;
     depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -163,7 +163,7 @@ stdenv.mkDerivation (
         libtool
       ]
       ++ lib.optionals targetPlatform.isVc4 [ flex ]
-      ;
+    ;
 
     buildInputs = [
       zlib
@@ -199,7 +199,7 @@ stdenv.mkDerivation (
         # Call it here explicitly as well.
         ${finalAttrs.postAutoreconf}
       ''
-      ;
+    ;
 
     postAutoreconf = ''
       # As we regenerated configure build system tries hard to use
@@ -218,7 +218,7 @@ stdenv.mkDerivation (
         "-Wno-string-plus-int -Wno-deprecated-declarations"
       else
         "-static-libgcc"
-      ;
+    ;
 
     hardeningDisable = [
       "format"
@@ -280,7 +280,7 @@ stdenv.mkDerivation (
             "--enable-static"
           ]
       )
-      ;
+    ;
 
     # Fails
     doCheck = false;
@@ -291,7 +291,7 @@ stdenv.mkDerivation (
         "bin lib ${stdenv.hostPlatform.config}"
       else
         null
-      ;
+    ;
 
     # INFO: Otherwise it fails with:
     # `./sanity.sh: line 36: $out/bin/size: not found`
@@ -312,7 +312,7 @@ stdenv.mkDerivation (
           ln -s $out/${hostPlatform.config}/${targetPlatform.config}/lib/*     $out/lib/
           ln -s $out/${hostPlatform.config}/${targetPlatform.config}/include/* $dev/include/
         ''
-      ;
+    ;
 
     passthru = {
       inherit targetPrefix;

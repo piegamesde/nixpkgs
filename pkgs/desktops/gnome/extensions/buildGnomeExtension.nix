@@ -64,6 +64,6 @@ let
         extensionUuid = uuid;
       };
     }
-    ;
+  ;
 in
 lib.makeOverridable buildGnomeExtension

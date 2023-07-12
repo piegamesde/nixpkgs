@@ -64,7 +64,7 @@ in
       enable =
         mkEnableOption
           (lib.mdDoc "installing proxychains configuration")
-        ;
+      ;
 
       package = mkPackageOptionMD pkgs "proxychains" {
         example = "pkgs.proxychains-ng";
@@ -143,7 +143,7 @@ in
         description =
           lib.mdDoc
             "By default enable localnet for loopback address ranges."
-          ;
+        ;
       };
 
       proxies = mkOption {

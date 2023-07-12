@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
         ]
       )
     )
-    ;
+  ;
 
   makeFlags = [
     "PREFIX=/"
@@ -112,16 +112,16 @@ stdenv.mkDerivation rec {
         +
           lib.optionalString (builtins.length runtimeDeps > 0)
             " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
-        ;
+      ;
       wrapMonkeysphere =
         runtimeDeps: program: ''
           wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}
         ''
-        ;
+      ;
       wrapPrograms =
         runtimeDeps: programs:
         lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs
-        ;
+      ;
     in
     wrapPrograms [ gnupg ] [
       "monkeysphere-authentication"
@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
           ${wrapperArgs [ ]}
       done
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://web.monkeysphere.info/";

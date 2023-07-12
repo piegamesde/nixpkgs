@@ -16,7 +16,7 @@ rec {
       auto = builtins.intersectAttrs (lib.functionArgs f) autoArgs;
     in
     f (auto // args)
-    ;
+  ;
 
   callPackage = callPackageWith pkgs;
 
@@ -40,10 +40,10 @@ rec {
       builder =
         callPackage ../../development/interpreters/erlang/generic-builder.nix
           args
-        ;
+      ;
     in
     callPackage drv { mkDerivation = pkgs.makeOverridable builder; }
-    ;
+  ;
 
   /* Uses generic-builder to evaluate provided drv containing Elixir version
      specific data.
@@ -64,7 +64,7 @@ rec {
       builder = callPackage ../interpreters/elixir/generic-builder.nix args;
     in
     callPackage drv { mkDerivation = pkgs.makeOverridable builder; }
-    ;
+  ;
 
   /* Uses generic-builder to evaluate provided drv containing Elixir version
      specific data.
@@ -85,5 +85,5 @@ rec {
       builder = callPackage ../interpreters/lfe/generic-builder.nix args;
     in
     callPackage drv { mkDerivation = pkgs.makeOverridable builder; }
-    ;
+  ;
 }

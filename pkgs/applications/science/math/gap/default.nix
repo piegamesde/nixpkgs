@@ -55,7 +55,7 @@ let
   packagesToKeep =
     requiredPackages
     ++ lib.optionals (packageSet == "standard") autoloadedPackages
-    ;
+  ;
 
   # Generate bash script that removes all packages from the `pkg` subdirectory
   # that are not on the whitelist. The whitelist consists of strings expected by
@@ -73,7 +73,7 @@ let
       -exec echo "Removing package {}" \; \
       -exec rm -r '{}' \;
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "gap";
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     + ''
       patchShebangs .
     ''
-    ;
+  ;
 
   buildInputs = [
     readline

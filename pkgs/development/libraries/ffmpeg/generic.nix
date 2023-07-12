@@ -465,7 +465,7 @@ stdenv.mkDerivation (
         substituteInPlace libavutil/hwcontext_vulkan.c \
           --replace VK_EXT_VIDEO_DECODE VK_KHR_VIDEO_DECODE
       ''
-      ;
+    ;
 
     patches = map (patch: fetchpatch patch) (
       extraPatches
@@ -663,7 +663,7 @@ stdenv.mkDerivation (
         "--cc=clang"
         "--cxx=clang++"
       ]
-      ;
+    ;
 
     # ffmpeg embeds the configureFlags verbatim in its binaries and because we
     # configure binary, include, library dir etc., this causes references in
@@ -674,12 +674,12 @@ stdenv.mkDerivation (
         toStrip =
           lib.remove "data"
             finalAttrs.outputs
-          ; # We want to keep references to the data dir.
+        ; # We want to keep references to the data dir.
       in
       "remove-references-to ${
         lib.concatStringsSep " " (map (o: "-t ${placeholder o}") toStrip)
       } config.h"
-      ;
+    ;
 
     nativeBuildInputs = [
       removeReferencesTo
@@ -805,11 +805,11 @@ stdenv.mkDerivation (
         VideoDecodeAcceleration
         VideoToolbox
       ]
-      ;
+    ;
 
     buildFlags =
       [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"
-      ; # Build qt-faststart executable
+    ; # Build qt-faststart executable
 
     doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
@@ -829,14 +829,14 @@ stdenv.mkDerivation (
           ++ optional buildPostproc "libpostproc"
           ++ optional buildSwresample "libswresample"
           ++ optional buildSwscale "libswscale"
-          ;
+        ;
       in
       ''
         ${ldLibraryPathEnv}="${
           lib.concatStringsSep ":" libsToLink
         }" make check -j$NIX_BUILD_CORES
       ''
-      ;
+    ;
 
     outputs =
       optionals withBin [
@@ -852,7 +852,7 @@ stdenv.mkDerivation (
         "data"
         "out"
       ] # We need an "out" output because we get an error otherwise. It's just an empty dir.
-      ;
+    ;
 
     postInstall = optionalString buildQtFaststart ''
       install -D tools/qt-faststart -t $bin/bin
@@ -870,7 +870,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description =

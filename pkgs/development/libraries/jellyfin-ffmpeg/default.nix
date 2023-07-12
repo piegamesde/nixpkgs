@@ -29,7 +29,7 @@
           "--disable-ptx-compression" # https://github.com/jellyfin/jellyfin/issues/7944#issuecomment-1156880067
           "--enable-chromaprint"
         ]
-        ;
+      ;
 
       postPatch = ''
         for file in $(cat debian/patches/series); do

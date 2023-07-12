@@ -115,7 +115,7 @@ let
     CoreAudio
     MediaPlayer
     Accelerate
-    ;
+  ;
   luaEnv = lua.withPackages (ps: with ps; [ luasocket ]);
 in
 stdenv.mkDerivation (
@@ -186,7 +186,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [ xcbuild.xcrun ]
       ++ lib.optionals swiftSupport [ swift ]
       ++ lib.optionals waylandSupport [ wayland-scanner ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -266,7 +266,7 @@ stdenv.mkDerivation (
         AVFoundation
         CoreMedia
       ]
-      ;
+    ;
 
     postBuild = lib.optionalString stdenv.isDarwin ''
       pushd .. # Must be run from the source dir because it uses relative paths
@@ -289,7 +289,7 @@ stdenv.mkDerivation (
         mkdir -p $out/Applications
         cp -r mpv.app $out/Applications
       ''
-      ;
+    ;
 
     # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
     # See the explanation in addOpenGLRunpath.
@@ -308,7 +308,7 @@ stdenv.mkDerivation (
         # build vapoursynth.
         vapoursynthSupport
         vapoursynth
-        ;
+      ;
     };
 
     meta = with lib; {

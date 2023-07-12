@@ -36,14 +36,14 @@ let
       local reset="$(printf '\033[0m')"
       echo $echo_args $start_escape"$@"$reset
     ''
-    ;
+  ;
   echo_conditional_colored_body =
     colors: start_escape:
     if colors == "always" then
       (echo_colored_body start_escape)
     else
       ''echo "$@"''
-    ;
+  ;
 in
 {
   echo_colored =
@@ -56,7 +56,7 @@ in
         ${echo_conditional_colored_body colors "\\033[0;1;31m"}
       }
     ''
-    ;
+  ;
 
   noisily =
     colors: verbose: ''
@@ -70,5 +70,5 @@ in
       	  $@
         }
     ''
-    ;
+  ;
 }

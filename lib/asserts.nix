@@ -24,7 +24,7 @@ rec {
     # Message to throw in case `pred` fails
     msg:
     pred || builtins.throw msg
-    ;
+  ;
 
   /* Specialized `assertMsg` for checking if `val` is one of the elements
      of the list `xs`. Useful for checking enums.
@@ -50,5 +50,5 @@ rec {
     assertMsg (lib.elem val xs) "${name} must be one of ${
         lib.generators.toPretty { } xs
       }, but is: ${lib.generators.toPretty { } val}"
-    ;
+  ;
 }

@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
         OpenGL
       ]
     )
-    ;
+  ;
 
   patches = [
     # Includes cmath header
@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
             "\\$HOME/Library/Application Support/higan"
           else
             "\\$HOME/higan"
-          ;
+        ;
       in
       ''
         mkdir -p ${placeholder "out"}/bin
@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/higan-emu/higan";

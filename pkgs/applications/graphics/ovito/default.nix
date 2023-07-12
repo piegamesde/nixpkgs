@@ -50,7 +50,7 @@ mkDerivation rec {
       qttools
     ]
     ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ]
-    ;
+  ;
 
   meta = with lib; {
     description =

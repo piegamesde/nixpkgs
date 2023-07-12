@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       libftdi1
     ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ;
+  ;
 
   buildFeatures = [ "ftdi" ];
 

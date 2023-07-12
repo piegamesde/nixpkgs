@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       ]
     else
       [ openssl ]
-    ;
+  ;
 
   # requires network
   checkFlags = [ "--skip=tools::tests::download_and_install_binaries" ];

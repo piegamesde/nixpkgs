@@ -51,7 +51,7 @@ let
           EventKit
           GSS
           MetalKit
-          ;
+        ;
         patches = [
           ./patches/0001-qtbase-qmake-always-use-libname-instead-of-absolute-.patch
           ./patches/0002-qtbase-qmake-fix-mkspecs-for-darwin.patch
@@ -129,7 +129,7 @@ let
           gst-plugins-good
           gst-libav
           gst-vaapi
-          ;
+        ;
         inherit (darwin.apple_sdk_11_0.frameworks) VideoToolbox;
       };
       qtmqtt = callPackage ./modules/qtmqtt.nix { };
@@ -178,7 +178,7 @@ let
           ReplayKit
           SecurityInterface
           Vision
-          ;
+        ;
         xcbuild = buildPackages.xcbuild.override {
           productBuildVer = "20A2408";
         };
@@ -195,7 +195,7 @@ let
             propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
           }
           ./hooks/wrap-qt-apps-hook.sh
-        ;
+      ;
 
       qmake =
         makeSetupHook
@@ -208,9 +208,9 @@ let
             };
           }
           ./hooks/qmake-hook.sh
-        ;
+      ;
     }
-    ;
+  ;
 
   # TODO(@Artturin): convert to makeScopeWithSplicing
   # simple example of how to do that in 5568a4d25ca406809530420996d57e0876ca1a01

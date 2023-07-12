@@ -45,7 +45,7 @@ import ./make-test-python.nix {
               serviceConfig.ExecStop = "${pkgs.coreutils}/bin/true";
             };
           }
-          ;
+        ;
         gen2.configuration = { security.dhparams.params.foo.bits = 1026; };
         gen3.configuration = { };
         gen4.configuration = {
@@ -60,7 +60,7 @@ import ./make-test-python.nix {
         };
       };
     }
-    ;
+  ;
 
   testScript =
     {
@@ -74,7 +74,7 @@ import ./make-test-python.nix {
           node = "gen${toString gen}";
         in
         nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path
-        ;
+      ;
 
       switchToGeneration =
         gen:
@@ -88,7 +88,7 @@ import ./make-test-python.nix {
           with machine.nested("switch to generation ${toString gen}"):
             machine.succeed("${switchCmd}")
         ''
-        ;
+      ;
     in
     ''
       import re
@@ -149,5 +149,5 @@ import ./make-test-python.nix {
           assert_param_bits("${getParamPath 5 "foo3"}", 1029)
           assert_param_bits("${getParamPath 5 "bar3"}", 1029)
     ''
-    ;
+  ;
 }

@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       protobuf
       python3
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       "-DRandomX_ROOT_DIR=${randomx}"
     ]
     ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
-    ;
+  ;
 
   outputs = [
     "out"

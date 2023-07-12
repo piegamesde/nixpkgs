@@ -13,7 +13,7 @@ let
         lib.escapeShellArgs files
       } | sed '{ /^\s*$/d; s/^\s\+//; s/\s\+$// }' | sort | uniq > $out
     ''
-    ;
+  ;
 in
 {
   options = {
@@ -64,6 +64,6 @@ in
     environment.variables =
       lib.mapAttrs (name: value: "${concatAndSort "wordlist-${name}" value}")
         config.environment.wordlist.lists
-      ;
+    ;
   };
 }

@@ -54,7 +54,7 @@ buildDunePackage rec {
       result
     ]
     ++ param.extraBuildInputs
-    ;
+  ;
 
   meta = {
     description = "Parser for Ocaml documentation comments";

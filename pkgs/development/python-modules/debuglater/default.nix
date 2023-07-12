@@ -35,7 +35,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.all
-    ;
+  ;
 
   pythonImportsCheck = [ "debuglater" ];
 

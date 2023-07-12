@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals usePython [ "py" ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       else
         [ boost ]
     )
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

@@ -36,7 +36,7 @@ stdenv.mkDerivation {
       Cocoa
       OpenGL
     ]
-    ;
+  ;
 
   patches = [ ./gwen-narrowing.patch ];
 
@@ -60,7 +60,7 @@ stdenv.mkDerivation {
       "-DBUILD_BULLET2_DEMOS=OFF"
       "-DBUILD_UNIT_TESTS=OFF"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A professional free 3D Game Multiphysics Library";

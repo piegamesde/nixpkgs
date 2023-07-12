@@ -19,7 +19,7 @@ let
       else
         lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
           l
-      ;
+    ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
 
@@ -45,7 +45,7 @@ in
         description =
           lib.mdDoc
             "The directory containing the Moonraker databases."
-          ;
+        ;
       };
 
       configDir = mkOption {
@@ -129,7 +129,7 @@ in
             "Move files from `${cfg.configDir}` to `${unifiedConfigDir}` then remove services.moonraker.configDir from your config."
         }
       ''
-      ;
+    ;
 
     assertions = [ {
       assertion = cfg.allowSystemControl -> config.security.polkit.enable;
@@ -163,14 +163,14 @@ in
         fullConfig = recursiveUpdate cfg.settings forcedConfig;
       in
       format.generate "moonraker.cfg" fullConfig
-      ;
+    ;
 
     systemd.tmpfiles.rules =
       [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ]
       ++
         lib.optional (cfg.configDir != null)
           "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -"
-      ;
+    ;
 
     systemd.services.moonraker = {
       description = "Moonraker, an API web server for Klipper";
@@ -178,7 +178,7 @@ in
       after =
         [ "network.target" ]
         ++ optional config.services.klipper.enable "klipper.service"
-        ;
+      ;
 
       # Moonraker really wants its own config to be writable...
       script = ''

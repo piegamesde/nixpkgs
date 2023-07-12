@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       "--sbindir=$(out)/bin"
     ]
     ++ (lib.optionals (_kernel != null) [ "--with-linux" ])
-    ;
+  ;
 
   # Leave /var out of this!
   installFlags = [
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
         pytest
       ]
     )
-    ;
+  ;
 
   meta = with lib; {
     changelog = "https://www.openvswitch.org/releases/NEWS-${version}.txt";

@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       SystemConfiguration
       libiconv
     ]
-    ;
+  ;
 
   cargoHash = "sha256-AAZYY9CbLbbvWWMhkHOc8OhzmwSFXSL9jSga3qMbkDU=";
 

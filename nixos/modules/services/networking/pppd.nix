@@ -55,7 +55,7 @@ in
                   description =
                     lib.mdDoc
                       "Whether the PPP session is automatically started at boot time."
-                    ;
+                  ;
                 };
 
                 config = mkOption {
@@ -64,7 +64,7 @@ in
                   description =
                     lib.mdDoc
                       "pppd configuration for this peer, see the pppd(8) man page."
-                    ;
+                  ;
                 };
               };
             }
@@ -83,7 +83,7 @@ in
           name = "ppp/peers/${peerCfg.name}";
           value.text = peerCfg.config;
         }
-        ;
+      ;
 
       mkSystemd =
         peerCfg: {
@@ -164,11 +164,11 @@ in
                 RuntimeDirectory = "pppd";
                 RuntimeDirectoryPreserve = true;
               }
-              ;
+            ;
             wantedBy = mkIf peerCfg.autostart [ "multi-user.target" ];
           };
         }
-        ;
+      ;
 
       etcFiles = listToAttrs (map mkEtc enabledConfigs);
       systemdConfigs = listToAttrs (map mkSystemd enabledConfigs);
@@ -177,5 +177,5 @@ in
       environment.etc = etcFiles;
       systemd.services = systemdConfigs;
     }
-    ;
+  ;
 }

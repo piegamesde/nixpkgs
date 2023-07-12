@@ -38,7 +38,7 @@ let
   platforms =
     callPackage ./platforms.nix
       { inherit sdks xcodePlatform stdenv; }
-    ;
+  ;
 
   xcconfig = writeText "nix.xcconfig" ''
     SDKROOT=${sdkName}

@@ -55,7 +55,7 @@ rec {
       };
       render = single toString;
     }
-    ;
+  ;
 
   documentDefault =
     description: strongswanDefault:
@@ -70,7 +70,7 @@ rec {
           StrongSwan default: ````${builtins.toJSON strongswanDefault}````
         ''
       )
-    ;
+  ;
 
   single = f: name: value: { ${name} = f value; };
 
@@ -103,7 +103,7 @@ rec {
       };
       render = single (b: if b then "yes" else "no");
     }
-    ;
+  ;
   yes = true;
   no = false;
 
@@ -120,12 +120,12 @@ rec {
       };
       render = single (value: concatStringsSep sep value);
     }
-    ;
+  ;
 
   mkAttrsOfParams =
     params:
     mkAttrsOf params (types.submodule { options = paramsToOptions params; })
-    ;
+  ;
 
   mkAttrsOfParam = param: mkAttrsOf param param.option.type;
 
@@ -141,14 +141,14 @@ rec {
         attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs))
       );
     }
-    ;
+  ;
 
   mkPrefixedAttrsOfParams =
     params:
     mkPrefixedAttrsOf params (
       types.submodule { options = paramsToOptions params; }
     )
-    ;
+  ;
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
 
@@ -166,14 +166,14 @@ rec {
           prefixedAttrs =
             mapAttrs' (name: nameValuePair "${prefix}-${name}")
               attrs
-            ;
+          ;
         in
         paramsToRenderedStrings prefixedAttrs (
           mapAttrs (_n: _v: p) prefixedAttrs
         )
-        ;
+      ;
     }
-    ;
+  ;
 
   mkPostfixedAttrsOfParams =
     params: description: {
@@ -191,12 +191,12 @@ rec {
           postfixedAttrs =
             mapAttrs' (name: nameValuePair "${name}-${postfix}")
               attrs
-            ;
+          ;
         in
         paramsToRenderedStrings postfixedAttrs (
           mapAttrs (_n: _v: params) postfixedAttrs
         )
-        ;
+      ;
     }
-    ;
+  ;
 }

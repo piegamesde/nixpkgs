@@ -9,6 +9,6 @@ let
       );
       broken = (pkg.meta.hydraPlatforms or [ null ]) == [ ];
     }
-    ;
+  ;
 in
 lib.mapAttrs getDeps pkgs.haskellPackages

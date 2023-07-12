@@ -27,7 +27,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable cachefilesd network filesystems caching daemon."
-          ;
+        ;
       };
 
       cacheDir = mkOption {
@@ -43,7 +43,7 @@ in
         description =
           lib.mdDoc
             "Additional configuration file entries. See cachefilesd.conf(5) for more information."
-          ;
+        ;
       };
     };
   };

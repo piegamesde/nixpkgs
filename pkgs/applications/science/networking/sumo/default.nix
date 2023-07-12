@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
         libXrender
       ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description = "The SUMO traffic simulator";

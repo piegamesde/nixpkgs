@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       "-DOPI_SUPPORT=ON"
     ]
     ++ lib.optional (!enablePrinting) "-DXPDFWIDGET_PRINTING=OFF"
-    ;
+  ;
 
   buildInputs =
     [
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableGUI qtbase
     ++ lib.optional enablePrinting cups
     ++ lib.optional enablePDFtoPPM freetype
-    ;
+  ;
 
   desktopItem = makeDesktopItem {
     name = "xpdf";

@@ -106,7 +106,7 @@ let
       "9"
     else
       "8"
-    ;
+  ;
 
   kernel =
     # Build system doesn't understand BSD, so pretend to be Linux.
@@ -116,7 +116,7 @@ let
       "darwin${darwinVersion}"
     else
       stdenv.hostPlatform.parsed.kernel.name
-    ;
+  ;
 in
 
 assert vp8DecoderSupport
@@ -257,7 +257,7 @@ stdenv.mkDerivation rec {
     ++ optional experimentalSpatialSvcSupport "--enable-spatial-svc"
     ++ optional experimentalFpMbStatsSupport "--enable-fp-mb-stats"
     ++ optional experimentalEmulateHardwareSupport "--enable-emulate-hardware"
-    ;
+  ;
 
   nativeBuildInputs = [
     perl
@@ -270,7 +270,7 @@ stdenv.mkDerivation rec {
       coreutils
       curl
     ]
-    ;
+  ;
 
   NIX_LDFLAGS = [
     "-lpthread" # fixes linker errors

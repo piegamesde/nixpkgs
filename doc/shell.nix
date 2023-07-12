@@ -9,6 +9,6 @@
         pkgs.xmloscopy
         pkgs.ruby
       ]
-      ;
+    ;
   }
 )

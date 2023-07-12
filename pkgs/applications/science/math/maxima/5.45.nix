@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     + (lib.optionalString (lisp-compiler.pname == "ecl") ''
       cp src/binary-ecl/maxima.fas* "$out/lib/maxima/${version}/binary-ecl/"
     '')
-    ;
+  ;
 
   patches =
     [
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
         sha256 = "18zafig8vflhkr80jq2ivk46k92dkszqlyq8cfmj0b2vcfjwwbar";
       })
     ]
-    ;
+  ;
 
   # The test suite is disabled since 5.42.2 because of the following issues:
   #

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     ++ (lib.optionals stdenv.isLinux [
       "-DUSE_ALSA_SOUND" # Don't use OSS for beeps.
     ])
-    ;
+  ;
   makeFlags = [
     "PREFIX=$(out)"
     "RELEASE=1"
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       SDL2
     ]
     ++ (lib.optional stdenv.isLinux alsa-lib)
-    ;
+  ;
   runtimeDependencies = [
     ncurses
     SDL2

@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
         # Force use of old memcpy so that installwatch works on Glibc <
         # 2.14.
         ./use-old-memcpy.patch
-    ;
+  ;
 
   buildInputs = [ gettext ];
 

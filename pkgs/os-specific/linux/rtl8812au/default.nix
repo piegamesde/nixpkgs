@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       nukeReferences
     ]
     ++ kernel.moduleBuildDependencies
-    ;
+  ;
   hardeningDisable = [
     "pic"
     "format"
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
     ]
-    ;
+  ;
 
   preInstall = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"

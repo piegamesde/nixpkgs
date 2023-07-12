@@ -74,13 +74,13 @@ import ./make-test-python.nix (
                         mkdir -p $out
                         cp key.pem cert.pem $out
                       ''
-                    ;
+                  ;
                 in
                 [ {
                   certFile = "${certDir}/cert.pem";
                   keyFile = "${certDir}/key.pem";
                 } ]
-                ;
+              ;
               http.middlewares.authelia.forwardAuth = {
                 address =
                   "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
@@ -153,9 +153,9 @@ import ./make-test-python.nix (
               serviceConfig.Type = "simple";
               wantedBy = [ "multi-user.target" ];
             }
-            ;
+          ;
         }
-        ;
+      ;
     };
 
     testScript = ''

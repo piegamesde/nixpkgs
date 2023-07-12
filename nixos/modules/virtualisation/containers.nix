@@ -123,7 +123,7 @@ in
       network.cni_plugin_dirs =
         map (p: "${lib.getBin p}/bin")
           cfg.containersConf.cniPlugins
-        ;
+      ;
       engine = {
         init_path = "${pkgs.catatonit}/bin/catatonit";
       } // lib.optionalAttrs cfg.ociSeccompBpfHook.enable {
@@ -134,25 +134,25 @@ in
     environment.etc."containers/containers.conf".source =
       toml.generate "containers.conf"
         cfg.containersConf.settings
-      ;
+    ;
 
     environment.etc."containers/storage.conf".source =
       toml.generate "storage.conf"
         cfg.storage.settings
-      ;
+    ;
 
     environment.etc."containers/registries.conf".source =
       toml.generate "registries.conf"
         {
           registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
         }
-      ;
+    ;
 
     environment.etc."containers/policy.json".source =
       if cfg.policy != { } then
         pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
       else
         "${pkgs.skopeo.policy}/default-policy.json"
-      ;
+    ;
   };
 }

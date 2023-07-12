@@ -28,7 +28,7 @@ let
             environment.systemPackages = [ pkgs."${packageSet}"."${variant}" ];
             virtualisation.diskSize = 800;
           }
-          ;
+        ;
 
         testScript = ''
           machine.wait_for_unit("multi-user.target")
@@ -52,7 +52,7 @@ let
         '';
       };
     }
-    ;
+  ;
 
   variants = [
     "base"

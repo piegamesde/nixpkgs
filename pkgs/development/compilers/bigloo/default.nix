@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       ''
         export CXXCPP="$CXX -E"
       ''
-    ;
+  ;
 
   patchPhase = ''
     # Fix absolute paths.

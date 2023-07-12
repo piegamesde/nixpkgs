@@ -44,7 +44,7 @@ import ./make-test-python.nix (
         heapNewSize = "100M";
         inherit jmxPort;
       }
-      ;
+    ;
     nodeCfg =
       ipAddress: extra:
       {
@@ -67,7 +67,7 @@ import ./make-test-python.nix (
         };
         services.cassandra = cassandraCfg ipAddress // extra;
       }
-      ;
+    ;
   in
   {
     name = "cassandra-${testPackage.version}";
@@ -159,7 +159,7 @@ import ./make-test-python.nix (
                 "nodetool status -p ${jmxPortStr} --resolve-ip | egrep '^UN[[:space:]]+cass2'"
             )
       ''
-      ;
+    ;
 
     passthru = { inherit testPackage; };
   }

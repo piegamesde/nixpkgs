@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!stdenv.isDarwin) jemalloc
     ++ lib.optional stdenv.isDarwin libtool
-    ;
+  ;
 
   nativeBuildInputs = [
     which

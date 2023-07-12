@@ -28,7 +28,7 @@ let
       password = {{${secname}_PASSWORD}}
       journal  = /var/lib/mpdscribble/${secname}.journal
     ''
-    ;
+  ;
 
   endpoints = concatStringsSep "\n" (mapAttrsToList mkSection cfg.endpoints);
   cfgTemplate = pkgs.writeText "mpdscribble.conf" ''
@@ -72,7 +72,7 @@ let
     secretFile: placeholder: targetFile:
     optionalString (secretFile != null)
       "${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' "
-    ;
+  ;
 
   preStart = pkgs.writeShellScript "mpdscribble-pre-start" ''
     cp -f "${cfgTemplate}" "${cfgFile}"
@@ -150,7 +150,7 @@ in
           ).passwordFile
         else
           null
-        ;
+      ;
       defaultText = literalMD ''
         The first password file with read access configured for MPD when using a local instance,
         otherwise `null`.
@@ -188,7 +188,7 @@ in
                     description =
                       lib.mdDoc
                         "The url endpoint where the scrobble API is listening."
-                      ;
+                    ;
                   };
                   username = mkOption {
                     type = types.str;
@@ -201,11 +201,11 @@ in
                     description =
                       lib.mdDoc
                         "File containing the password, either as MD5SUM or cleartext."
-                      ;
+                    ;
                   };
                 };
               }
-              ;
+            ;
           in
           types.attrsOf (types.submodule endpoint)
         );

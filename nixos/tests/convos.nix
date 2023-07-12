@@ -24,7 +24,7 @@ import ./make-test-python.nix (
             listenPort = port;
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

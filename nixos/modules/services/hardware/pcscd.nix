@@ -15,7 +15,7 @@ let
       pkgs.pcscliteWithPolkit
     else
       pkgs.pcsclite
-    ;
+  ;
 
   pluginEnv = pkgs.buildEnv {
     name = "pcscd-plugins";

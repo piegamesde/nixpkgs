@@ -47,13 +47,13 @@ stdenv.mkDerivation rec {
     ++
       lib.optional stdenv.isDarwin
         darwin.apple_sdk.frameworks.SystemConfiguration
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString
       (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
       "-std=c++11"
-    ;
+  ;
 
   dontWrapQtApps = true;
 

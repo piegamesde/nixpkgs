@@ -52,7 +52,7 @@ buildPythonApplication rec {
         rustc
       ]
     )
-    ;
+  ;
 
   buildInputs = [ openssl ];
 
@@ -98,7 +98,7 @@ buildPythonApplication rec {
       hiredis
       txredisapi
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     mock

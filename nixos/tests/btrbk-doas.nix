@@ -59,7 +59,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       main =
         {
@@ -99,7 +99,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

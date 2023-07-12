@@ -111,7 +111,7 @@ in
             } ];
           };
         }
-      ;
+    ;
   };
 
   meta.buildDocsInSandbox = false;

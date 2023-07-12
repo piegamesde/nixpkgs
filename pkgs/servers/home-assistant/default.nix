@@ -139,7 +139,7 @@ let
               doCheck = false; # no tests
             }
           )
-        ;
+      ;
 
       # Pinned due to API changes in 1.3.0
       ovoenergy = super.ovoenergy.overridePythonAttrs (
@@ -364,7 +364,7 @@ let
   componentBuildInputs =
     lib.concatMap (component: getPackages component python.pkgs)
       extraComponents
-    ;
+  ;
 
   # Ensure that we are using a consistent package set
   extraBuildInputs = extraPackages python.pkgs;
@@ -446,7 +446,7 @@ python.pkgs.buildPythonApplication rec {
         pyproject.toml
       substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
     ''
-    ;
+  ;
 
   propagatedBuildInputs = with python.pkgs; [
     # Only packages required in pyproject.toml
@@ -559,7 +559,7 @@ python.pkgs.buildPythonApplication rec {
       getPackages
       python
       supportedComponentsWithTests
-      ;
+    ;
     pythonPath = python3.pkgs.makePythonPath (
       componentBuildInputs ++ extraBuildInputs
     );

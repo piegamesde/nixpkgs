@@ -47,7 +47,7 @@ let
   useSharedHttpParser =
     !stdenv.isDarwin
     && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4"
-    ;
+  ;
 
   sharedLibDeps = {
     inherit openssl zlib libuv;
@@ -64,7 +64,7 @@ let
       ])
       (builtins.attrNames sharedLibDeps)
     ++ [ "--with-intl=system-icu" ]
-    ;
+  ;
 
   copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*") (
     builtins.attrNames sharedLibDeps
@@ -100,7 +100,7 @@ let
         http-parser
         icu
       ]
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -109,7 +109,7 @@ let
         python
       ]
       ++ lib.optionals stdenv.isDarwin [ xcbuild ]
-      ;
+    ;
 
     outputs = [
       "out"
@@ -166,7 +166,7 @@ let
         "--with-arm-float-abi=${gcc.float-abi}"
       ])
       ++ extraConfigFlags
-      ;
+    ;
 
     configurePlatforms = [ ];
 
@@ -212,7 +212,7 @@ let
         sed -i -e "s|tr1/type_traits|type_traits|g" \
                -e "s|std::tr1|std|" src/util.h
       ''
-      ;
+    ;
 
     nativeCheckInputs = [ procps ];
     doCheck = false; # fails 4 out of 1453 tests
@@ -280,7 +280,7 @@ let
         gnupg
         nix
         runtimeShell
-        ;
+      ;
       inherit lib;
       inherit majorVersion;
     };
@@ -301,7 +301,7 @@ let
       knownVulnerabilities =
         optional (versionOlder version "14")
           "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/."
-        ;
+      ;
     };
 
     passthru.python = python; # to ensure nodeEnv uses the same version

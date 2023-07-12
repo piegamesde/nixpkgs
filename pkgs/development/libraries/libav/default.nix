@@ -75,7 +75,7 @@ let
         ++
           optional (vpxSupport && hasPrefix "12." version)
             ./vpx-12.3-libvpx-1.8.patch
-        ;
+      ;
 
       postPatch = ''
         patchShebangs .
@@ -115,7 +115,7 @@ let
           "--cross-prefix=${stdenv.cc.targetPrefix}"
           "--enable-cross-compile"
         ]
-        ;
+      ;
 
       nativeBuildInputs = [
         pkg-config
@@ -142,7 +142,7 @@ let
         ++ optional vaapiSupport libva
         ++ optional vdpauSupport libvdpau
         ++ optional freetypeSupport freetype
-        ;
+      ;
 
       enableParallelBuilding = true;
 
@@ -196,9 +196,9 @@ let
             "CVE-2019-9717"
             "CVE-2019-9720"
           ]
-          ;
+        ;
       };
     }
-    ; # libavFun
+  ; # libavFun
 in
 result

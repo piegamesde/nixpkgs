@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
       Security
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A knowledge management meta-framework for geeks";

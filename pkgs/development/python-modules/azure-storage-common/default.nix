@@ -27,7 +27,7 @@ buildPythonPackage rec {
       requests
     ]
     ++ lib.optional (!isPy3k) azure-storage-nspkg
-    ;
+  ;
 
   # has no tests
   doCheck = false;

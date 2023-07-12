@@ -24,7 +24,7 @@ in
         description =
           lib.mdDoc
             "Whether to regularly log uptime to detect bad shutdowns."
-          ;
+        ;
       };
 
       period = mkOption {

@@ -28,7 +28,7 @@ assert lib.getVersion wineUnstable == patch.version;
           "gitMinimal"
         ]
         self.buildInputs
-      ;
+    ;
     nativeBuildInputs =
       [
         autoconf
@@ -37,7 +37,7 @@ assert lib.getVersion wineUnstable == patch.version;
         python3
       ]
       ++ self.nativeBuildInputs
-      ;
+    ;
 
     name = "${self.name}-staging";
 
@@ -52,7 +52,7 @@ assert lib.getVersion wineUnstable == patch.version;
           lib.concatMapStringsSep " " (ps: "-W ${ps}") patch.disabledPatchsets
         }
       ''
-      ;
+    ;
   }
 )) // {
   meta = wineUnstable.meta // {

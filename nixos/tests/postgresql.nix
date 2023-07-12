@@ -42,7 +42,7 @@ let
             databases = optional (!backup-all) "postgres";
           };
         }
-        ;
+      ;
 
       testScript =
         let
@@ -52,7 +52,7 @@ let
               "postgresqlBackup"
             else
               "postgresqlBackup-postgres"
-            ;
+          ;
           backupFileBase = "/var/backup/postgresql/${backupName}";
         in
         ''
@@ -139,9 +139,9 @@ let
 
           machine.shutdown()
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   mk-ensure-clauses-test =
     postgresql-name: postgresql-package:
@@ -173,7 +173,7 @@ let
             ];
           };
         }
-        ;
+      ;
 
       testScript =
         let
@@ -194,7 +194,7 @@ let
               "WHERE rolname = '${user}'"
               ") row;"
             ]
-            ;
+          ;
         in
         ''
           import json
@@ -236,9 +236,9 @@ let
 
           machine.shutdown()
         ''
-        ;
+      ;
     }
-    ;
+  ;
 in
 concatMapAttrs
   (name: package: {
@@ -250,5 +250,5 @@ concatMapAttrs
     make-postgresql-test "postgresql_11-backup-all"
       postgresql-versions.postgresql_11
       true
-    ;
+  ;
 }

@@ -15,12 +15,12 @@ let
         platform.isLinux || platform.isWindows
       )
       lib.systems.examples
-    ;
+  ;
 
   getExecutable =
     pkgs: pkgFun: exec:
     "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}"
-    ;
+  ;
 
   compareTest =
     {
@@ -74,7 +74,7 @@ let
           cat $out/actual
         fi
       ''
-    ;
+  ;
 
   mapMultiPlatformTest =
     crossSystemFun: test:
@@ -101,11 +101,11 @@ let
               }
             else
               pkg
-            ;
+          ;
         }
       )
       testedSystems
-    ;
+  ;
 
   tests = {
 
@@ -125,7 +125,7 @@ let
         ];
         pkgFun = pkgs: platformFun pkgs.file;
       }
-      ;
+    ;
 
     hello =
       {
@@ -139,7 +139,7 @@ let
         exec = "/bin/hello";
         pkgFun = pkgs: pkgs.hello;
       }
-      ;
+    ;
 
     pkg-config =
       {
@@ -164,7 +164,7 @@ let
           ${crossPkgs.pkgsBuildHost.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-host"
           ! diff "$out/for-build" "$out/for-host"
         ''
-      ;
+    ;
   };
 in
 {

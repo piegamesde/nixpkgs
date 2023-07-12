@@ -59,7 +59,7 @@ let
               environment.variables.TESTED_PACKAGE_INSTALLED_TESTS =
                 "${tested.installedTests}/share";
             }
-            ;
+          ;
 
           testScript =
             optionalString withX11 ''
@@ -75,7 +75,7 @@ let
                   } -d '${tested.installedTests}/share'"
               )
             ''
-            ;
+          ;
         }
 
         (
@@ -88,7 +88,7 @@ let
           ]
         )
     )
-    ;
+  ;
 in
 
 {

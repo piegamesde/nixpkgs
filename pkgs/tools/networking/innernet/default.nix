@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
     ]
-    ;
+  ;
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
       find . -regex '.*\.\(target\|service\)' | xargs install -Dt $out/lib/systemd/system
       find $out/lib/systemd/system -type f | xargs sed -i "s|/usr/bin/innernet|$out/bin/innernet|"
     '')
-    ;
+  ;
 
   passthru.tests = {
     serverVersion = testers.testVersion {

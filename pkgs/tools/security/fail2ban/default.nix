@@ -72,7 +72,7 @@ python3.pkgs.buildPythonApplication rec {
       # see https://github.com/NixOS/nixpkgs/issues/4968
       rm -r "${sitePackages}/usr"
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.fail2ban.org/";

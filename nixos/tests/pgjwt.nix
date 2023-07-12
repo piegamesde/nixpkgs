@@ -27,7 +27,7 @@ import ./make-test-python.nix (
             ];
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -49,6 +49,6 @@ import ./make-test-python.nix (
             "${pkgs.sudo}/bin/sudo -u ${sqlSU} PGOPTIONS=--search_path=tap,public ${pgProve}/bin/pg_prove -d postgres -v -f /tmp/test.sql"
         )
       ''
-      ;
+    ;
   }
 )

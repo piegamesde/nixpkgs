@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       json_c
     ]
     ++ (lib.optional xenSupport xen)
-    ;
+  ;
   nativeBuildInputs = [
     autoreconfHook
     bison

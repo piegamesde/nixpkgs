@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       ln -s $out/lib/libqpdf.so* $out/lib/libqpdf.so
       ln -s $out/lib/libqpdf.so $out/lib/libqpdf.so.21
     ''
-    ;
+  ;
 
   meta = {
     description = "Pantum universal driver";

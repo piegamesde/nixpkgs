@@ -18,7 +18,7 @@ stdenv.mkDerivation (
         which
       ]
       ++ nativeBuildInputs
-      ;
+    ;
 
     builder = ./builder.sh;
     setupHook = ./setup-hook.sh;

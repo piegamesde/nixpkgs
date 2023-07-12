@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals freeipmiSupport [ freeipmi ]
     ++ lib.optionals gssapiSupport [ libkrb5 ]
     ++ lib.optionals opensslSupport [ openssl ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals opensslSupport [ "--with-openssl=${openssl.dev}/include" ]
     ++ lib.optionals trustUdsCredSupport [ "--with-trust-uds-cred" ]
     ++ lib.optionals udsSupport [ "--with-uds" ]
-    ;
+  ;
 
   # Disabled due to exist upstream cases failing 8/15 tests
   doCheck = false;

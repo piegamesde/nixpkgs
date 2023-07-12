@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional withIntrospection "devdoc"
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
       vala
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       libnghttp2
     ]
     ++ lib.optionals stdenv.isLinux [ libsysprof-capture ]
-    ;
+  ;
 
   propagatedBuildInputs = [ glib ];
 

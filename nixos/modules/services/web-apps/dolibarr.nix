@@ -19,7 +19,7 @@ let
     mkOption
     optionalAttrs
     types
-    ;
+  ;
 
   package = pkgs.dolibarr.override { inherit (cfg) stateDir; };
 
@@ -27,7 +27,7 @@ let
   vhostCfg =
     lib.optionalAttrs (cfg.nginx != null)
       config.services.nginx.virtualHosts."${cfg.domain}"
-    ;
+  ;
 
   mkConfigFile =
     filename: settings:
@@ -51,7 +51,7 @@ let
           "null"
         else
           toString v
-        ;
+      ;
     in
     pkgs.writeText filename ''
       <?php
@@ -59,7 +59,7 @@ let
         mapAttrsToList (k: v: "\$${k} = ${toStr k v};") settings
       )}
     ''
-    ;
+  ;
 
   # see https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/install/install.forced.sample.php for all possible values
   install = {
@@ -164,7 +164,7 @@ in
         description =
           lib.mdDoc
             "Create the database and database user locally."
-          ;
+        ;
       };
     };
 
@@ -181,7 +181,7 @@ in
       description =
         lib.mdDoc
           "Dolibarr settings, see <https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/conf/conf.php.example> for details."
-        ;
+      ;
     };
 
     nginx = mkOption {
@@ -329,7 +329,7 @@ in
         systemd.services."phpfpm-dolibarr".after =
           mkIf cfg.database.createLocally
             [ "mysql.service" ]
-          ;
+        ;
         services.phpfpm.pools.dolibarr = {
           inherit (cfg) user group;
           phpPackage = pkgs.php.buildEnv {
@@ -339,7 +339,7 @@ in
                 all,
               }:
               enabled ++ [ all.calendar ]
-              ;
+            ;
             # recommended by dolibarr web application
             extraConfig = ''
               session.use_strict_mode = 1
@@ -398,7 +398,7 @@ in
         users.users."${config.services.nginx.group}".extraGroups =
           mkIf (cfg.nginx != null)
             [ cfg.group ]
-          ;
+        ;
       })
     ]
   );

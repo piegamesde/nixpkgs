@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
         python
       ]
     )
-    ;
+  ;
 
   # compile CUDA code for all extant GPUs so the binary will work with any GPU
   # and driver combination. to be ultimately solved upstream:
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableOpenMP "-DZFP_WITH_OPENMP=ON"
     ++ lib.optional enablePython "-DBUILD_ZFPY=ON"
     ++ ([ "-DBUILD_UTILITIES=${if enableUtilities then "ON" else "OFF"}" ])
-    ;
+  ;
 
   doCheck = true;
 

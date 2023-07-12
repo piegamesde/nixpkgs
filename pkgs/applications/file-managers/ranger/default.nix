@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     ++ lib.optionals neoVimSupport [ python3Packages.pynvim ]
     ++ lib.optionals improvedEncodingDetection [ python3Packages.chardet ]
     ++ lib.optionals rightToLeftTextSupport [ python3Packages.python-bidi ]
-    ;
+  ;
 
   preConfigure =
     ''
@@ -62,7 +62,7 @@ python3Packages.buildPythonApplication rec {
       substituteInPlace ranger/config/rc.conf \
         --replace "set preview_images false" "set preview_images true"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "File manager with minimalistic curses interface";

@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       makeWrapper
     ]
     ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
       libappindicator
     ]
     ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ]
-    ;
+  ;
 
   runtimeDependencies = [
     avahi

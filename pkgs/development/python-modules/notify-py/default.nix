@@ -47,7 +47,7 @@ buildPythonPackage rec {
         which = "${which}/bin/which";
       })
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     poetry-core
@@ -79,7 +79,7 @@ buildPythonPackage rec {
       ''
         pytest
       ''
-    ;
+  ;
 
   # GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name
   # org.freedesktop.Notifications was not provided by any .service files

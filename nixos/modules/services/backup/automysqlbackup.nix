@@ -13,7 +13,7 @@ let
     isInt
     isList
     literalExpression
-    ;
+  ;
   inherit (lib)
     mapAttrs
     mapAttrsToList
@@ -23,7 +23,7 @@ let
     mkOption
     optional
     types
-    ;
+  ;
 
   cfg = config.services.automysqlbackup;
   pkg = pkgs.automysqlbackup;
@@ -42,7 +42,7 @@ let
       "'no'"
     else
       "'${toString val}'"
-    ;
+  ;
 
   configFile = pkgs.writeText "automysqlbackup.conf" ''
     #version=${pkg.version}
@@ -160,6 +160,6 @@ in
             "*.*" = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES, EVENT";
           };
         }
-      ;
+    ;
   };
 }

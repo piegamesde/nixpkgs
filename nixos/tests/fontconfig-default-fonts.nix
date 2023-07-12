@@ -28,7 +28,7 @@ import ./make-test-python.nix (
           emoji = [ "Twitter Color Emoji" ];
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("fc-match serif | grep '\"Gentium Plus\"'")

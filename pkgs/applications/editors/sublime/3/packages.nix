@@ -15,7 +15,7 @@ in
         x64sha256 = "0j65a4ylgga1qzc74wf3k5craghahma8hwqg3zs1rgzz601nl693";
       }
       { }
-    ;
+  ;
 
   sublime3 =
     common
@@ -25,5 +25,5 @@ in
         x64sha256 = "1vkldmimyjhbgplcd6r27gvk64rr7cparfd44hy6qdyzwsjqqg0b";
       }
       { }
-    ;
+  ;
 }

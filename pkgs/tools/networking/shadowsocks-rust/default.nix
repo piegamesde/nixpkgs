@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       Security
       CoreServices
     ]
-    ;
+  ;
 
   buildFeatures = [
     "trust-dns"

@@ -23,7 +23,7 @@ let
       (lib.removeSuffix ".json" (builtins.baseNameOf "${target}"))
     else
       target
-    ;
+  ;
   ccForBuild =
     "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
   cxxForBuild =
@@ -52,13 +52,13 @@ in
                 rustBuildPlatform
                 rustTargetPlatform
                 rustTargetPlatformSpec
-                ;
+              ;
             };
           }
           ./cargo-build-hook.sh
       )
       { }
-    ;
+  ;
 
   cargoCheckHook =
     callPackage
@@ -73,7 +73,7 @@ in
           ./cargo-check-hook.sh
       )
       { }
-    ;
+  ;
 
   cargoInstallHook =
     callPackage
@@ -88,7 +88,7 @@ in
           ./cargo-install-hook.sh
       )
       { }
-    ;
+  ;
 
   cargoNextestHook =
     callPackage
@@ -106,7 +106,7 @@ in
           ./cargo-nextest-hook.sh
       )
       { }
-    ;
+  ;
 
   cargoSetupHook =
     callPackage
@@ -141,7 +141,7 @@ in
           ./cargo-setup-hook.sh
       )
       { }
-    ;
+  ;
 
   maturinBuildHook =
     callPackage
@@ -164,13 +164,13 @@ in
                 rustBuildPlatform
                 rustTargetPlatform
                 rustTargetPlatformSpec
-                ;
+              ;
             };
           }
           ./maturin-build-hook.sh
       )
       { }
-    ;
+  ;
 
   bindgenHook =
     callPackage
@@ -187,5 +187,5 @@ in
           ./rust-bindgen-hook.sh
       )
       { }
-    ;
+  ;
 }

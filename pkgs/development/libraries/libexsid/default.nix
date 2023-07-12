@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional docSupport doxygen
-    ;
+  ;
 
   buildInputs = [ libftdi1 ];
 

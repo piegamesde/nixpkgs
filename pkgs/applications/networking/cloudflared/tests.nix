@@ -31,7 +31,7 @@ in
         fi
         mkdir $out
       ''
-    ;
+  ;
 } // lib.optionalAttrs
   (buildPlatform.isLinux && (buildPlatform.isi686 || buildPlatform.isx86_64))
   {
@@ -46,7 +46,7 @@ in
           wine $exe help
           mkdir $out
         ''
-      ;
+    ;
   } // lib.optionalAttrs (buildPlatform.isLinux && buildPlatform.isx86_64) {
     runs-through-wine64 =
       runCommand "cloudflared-${version}-runs-through-wine64"
@@ -59,5 +59,5 @@ in
           wine64 $exe help
           mkdir $out
         ''
-      ;
+    ;
   }

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       qtsvg
     ]
     ++ lib.optionals stdenv.isLinux [ qtwayland ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace qalculate-qt.pro\

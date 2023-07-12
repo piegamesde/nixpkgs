@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         "BUILD_CC=$(CC_FOR_BUILD)"
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = builtins.toString [
     "-Wno-error=pointer-compare"
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!withRelay) ''
       rm $out/sbin/dhcrelay
     ''
-    ;
+  ;
 
   preConfigure = ''
     substituteInPlace configure --replace "/usr/bin/file" "${file}/bin/file"
@@ -125,6 +125,6 @@ stdenv.mkDerivation rec {
     knownVulnerabilities =
       lib.optional (withClient || withRelay)
         "The client and relay component of the dhcp package have reached their end of life"
-      ;
+    ;
   };
 }

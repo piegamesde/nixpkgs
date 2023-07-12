@@ -48,7 +48,7 @@ buildPythonPackage rec {
       sniffio
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
@@ -65,7 +65,7 @@ buildPythonPackage rec {
       uvloop
     ]
     ++ lib.optionals (pythonOlder "3.8") [ mock ]
-    ;
+  ;
 
   pytestFlagsArray = [
     "-W"
@@ -94,7 +94,7 @@ buildPythonPackage rec {
       # darwin sandboxing limitations
       "tests/streams/test_tls.py"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "anyio" ];
 

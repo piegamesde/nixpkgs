@@ -34,7 +34,7 @@ let
       os' = oses.${os} or (throw "unsupported OS '${os}'");
     in
     "${arch'}-${os'}"
-    ;
+  ;
 
   # All architectures that are supported by GCS
   allArches = builtins.attrNames arches;
@@ -58,7 +58,7 @@ let
       components = [ component ];
       inherit revision schema_version version;
     }
-    ;
+  ;
 
   # Generate a set of components from a JSON file describing these components
   componentsFromSnapshot =
@@ -82,7 +82,7 @@ let
           components
       )
     )
-    ;
+  ;
 
   # Generate a single component from its snapshot, along with a set of
   # available dependencies to choose from.
@@ -111,12 +111,12 @@ let
               allArches
               component
           )
-        ;
+      ;
       # Operating systems supported by this component
       operating_systems =
         builtins.filter (os: builtins.elem os (builtins.attrNames oses))
           component.platform.operating_systems
-        ;
+      ;
     in
     mkComponent {
       pname = component.id;
@@ -132,7 +132,7 @@ let
               component
           )
           "${baseUrl}/${component.data.source}"
-        ;
+      ;
       sha256 =
         lib.attrByPath
           [
@@ -141,11 +141,11 @@ let
           ]
           ""
           component
-        ;
+      ;
       dependencies =
         builtins.map (dep: builtins.getAttr dep components)
           component.dependencies
-        ;
+      ;
       platforms =
         if component.platform == { } then
           lib.platforms.all
@@ -153,10 +153,10 @@ let
           builtins.concatMap
             (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
             architectures
-        ;
+      ;
       snapshot = snapshotFromComponent attrs;
     }
-    ;
+  ;
 
   # Filter out dependencies not supported by current system
   filterForSystem = builtins.filter (
@@ -213,12 +213,12 @@ let
           stdenv.cc.cc
         ]
         ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-        ;
+      ;
       buildInputs = [ libxcrypt-legacy ];
       passthru = { dependencies = filterForSystem dependencies; };
       passAsFile = [ "snapshot" ];
       meta = { inherit description platforms; };
     }
-    ;
+  ;
 in
 componentsFromSnapshot snapshot

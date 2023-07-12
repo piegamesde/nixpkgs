@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     [ "--enable-doc" ]
     ++ lib.optional enableTest "--enable-test"
     ++ lib.optional enableTool "--enable-tool"
-    ;
+  ;
 
   doCheck = true;
 

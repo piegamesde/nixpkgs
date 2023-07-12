@@ -23,7 +23,7 @@ import ./make-test-python.nix (
             domain = "localhost";
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -35,6 +35,6 @@ import ./make-test-python.nix (
         server.wait_until_succeeds("curl -s http://localhost:8069/web/database/selector | grep '<title>Odoo</title>'")
         server.succeed("curl -s http://localhost/web/database/selector | grep '<title>Odoo</title>'")
       ''
-      ;
+    ;
   }
 )

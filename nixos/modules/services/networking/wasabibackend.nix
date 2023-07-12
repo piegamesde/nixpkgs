@@ -18,7 +18,7 @@ let
     optionalAttrs
     optionalString
     types
-    ;
+  ;
 
   confOptions = {
     BitcoinRpcConnectionString = "${cfg.rpc.user}:${cfg.rpc.password}";
@@ -42,7 +42,7 @@ let
   configFile =
     pkgs.writeText "wasabibackend.conf"
       (builtins.toJSON confOptions)
-    ;
+  ;
 in
 {
 
@@ -57,7 +57,7 @@ in
         description =
           lib.mdDoc
             "The data directory for the Wasabi backend node."
-          ;
+        ;
       };
 
       customConfigFile = mkOption {
@@ -66,7 +66,7 @@ in
         description =
           lib.mdDoc
             "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options."
-          ;
+        ;
       };
 
       network = mkOption {
@@ -79,7 +79,7 @@ in
         description =
           lib.mdDoc
             "The network to use for the Wasabi backend service."
-          ;
+        ;
       };
 
       endpoint = {
@@ -121,7 +121,7 @@ in
           description =
             lib.mdDoc
               "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed."
-            ;
+          ;
         };
 
         passwordFile = mkOption {
@@ -130,7 +130,7 @@ in
           description =
             lib.mdDoc
               "File that contains the password of the RPC user."
-            ;
+          ;
         };
       };
 
@@ -140,7 +140,7 @@ in
         description =
           lib.mdDoc
             "The user as which to run the wasabibackend node."
-          ;
+        ;
       };
 
       group = mkOption {
@@ -150,7 +150,7 @@ in
         description =
           lib.mdDoc
             "The group as which to run the wasabibackend node."
-          ;
+        ;
       };
     };
   };

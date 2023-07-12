@@ -29,7 +29,7 @@ let
           "DEVEL_PREFIX" = "/";
         }
       )
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "klee-uclibc";

@@ -48,7 +48,7 @@ stdenv.mkDerivation {
     ++ lib.optionals withQcsxcad [ qcsxcad ]
     ++ lib.optionals withMPI [ mpi ]
     ++ lib.optionals withHyp2mat [ hyp2mat ]
-    ;
+  ;
 
   postFixup = ''
     substituteInPlace $out/share/openEMS/matlab/setup.m \

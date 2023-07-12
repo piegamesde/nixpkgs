@@ -26,7 +26,7 @@ let
       nativeBuildInputs =
         builtins.filter (x: x.name != "python-output-dist-hook")
           (drv.nativeBuildInputs ++ nativeBuildInputs)
-        ;
+      ;
 
       dontConfigure = true;
       dontBuild = true;
@@ -56,7 +56,7 @@ let
 
       inherit postInstall;
     }
-    ;
+  ;
 in
 {
 
@@ -80,9 +80,9 @@ in
               inherit self postInstall nativeBuildInputs buildInputs;
               drv = finalDrv;
             }
-            ;
+          ;
         };
       }
     )
-    ;
+  ;
 }

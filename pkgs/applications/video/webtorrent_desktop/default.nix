@@ -28,7 +28,7 @@ runCommand "${pname}-${version}"
       else
         throw
           "Webtorrent is not currently supported on ${stdenv.hostPlatform.system}"
-      ;
+    ;
 
     fhs = buildFHSEnv rec {
       name = "fhsEnterWebTorrent";
@@ -74,7 +74,7 @@ runCommand "${pname}-${version}"
           stdenv.cc.cc
           udev
         ]
-        ;
+      ;
       # extraBwrapArgs = [
       #   "--ro-bind /run/user/$(id -u)/pulse /run/user/$(id -u)/pulse"
       # ];

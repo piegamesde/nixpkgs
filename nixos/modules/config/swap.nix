@@ -67,7 +67,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   swapCfg =
     {
@@ -182,7 +182,7 @@ let
         device =
           mkIf options.label.isDefined
             "/dev/disk/by-label/${config.label}"
-          ;
+        ;
         deviceName = lib.replaceStrings [ "\\" ] [ "" ] (
           escapeSystemdPath config.device
         );
@@ -191,10 +191,10 @@ let
             "/dev/mapper/${deviceName}"
           else
             config.device
-          ;
+        ;
       };
     }
-    ;
+  ;
 in
 
 {
@@ -231,7 +231,7 @@ in
           assertion =
             sw.randomEncryption.enable
             -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null
-            ;
+          ;
           message = ''
             You cannot use swap device "${sw.device}" with randomEncryption enabled.
             The UUIDs and labels will get erased on every boot when the partition is encrypted.
@@ -239,7 +239,7 @@ in
           '';
         })
         config.swapDevices
-      ;
+    ;
 
     warnings =
       concatMap
@@ -253,7 +253,7 @@ in
             [ ]
         )
         config.swapDevices
-      ;
+    ;
 
     system.requiredKernelConfig =
       with config.lib.kernelConfig; [ (isYes "SWAP") ];
@@ -276,7 +276,7 @@ in
                 pkgs.e2fsprogs
               ]
               ++ optional sw.randomEncryption.enable pkgs.cryptsetup
-              ;
+            ;
 
             environment.DEVICE = sw.device;
 
@@ -315,10 +315,10 @@ in
             serviceConfig.ExecStop =
               optionalString sw.randomEncryption.enable
                 "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}"
-              ;
+            ;
             restartIfChanged = false;
           }
-          ;
+        ;
       in
       listToAttrs (
         map createSwapDevice (
@@ -326,6 +326,6 @@ in
             config.swapDevices
         )
       )
-      ;
+    ;
   };
 }

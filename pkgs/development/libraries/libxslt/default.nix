@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       "devdoc"
     ]
     ++ lib.optional pythonSupport "py"
-    ;
+  ;
   outputMan = "bin";
 
   src = fetchurl {
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       ncurses
     ]
     ++ lib.optionals cryptoSupport [ libgcrypt ]
-    ;
+  ;
 
   propagatedBuildInputs = [ findXMLCatalogs ];
 
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       )
     ]
     ++ lib.optionals (!cryptoSupport) [ "--without-crypto" ]
-    ;
+  ;
 
   postFixup =
     ''
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       echo ${libxml2.py} >> $py/nix-support/propagated-build-inputs
       moveToOutput ${python.sitePackages} "$py"
     ''
-    ;
+  ;
 
   passthru = {
     inherit pythonSupport;
@@ -109,6 +109,6 @@ stdenv.mkDerivation rec {
     ];
     broken =
       pythonSupport && !libxml2.pythonSupport
-      ; # see #73102 for why this is not an assert
+    ; # see #73102 for why this is not an assert
   };
 }

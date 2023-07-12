@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     + ''
       sed "s|\(PNGPP := .\)|PREFIX := ''${out}\n\\1|" -i Makefile
     ''
-    ;
+  ;
 
   makeFlags = lib.optional docSupport "docs";
 

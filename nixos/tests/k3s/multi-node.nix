@@ -108,7 +108,7 @@ import ../make-test-python.nix (
             prefixLength = 24;
           } ];
         }
-        ;
+      ;
 
       server2 =
         {
@@ -158,7 +158,7 @@ import ../make-test-python.nix (
             prefixLength = 24;
           } ];
         }
-        ;
+      ;
 
       agent =
         {
@@ -189,7 +189,7 @@ import ../make-test-python.nix (
             prefixLength = 24;
           } ];
         }
-        ;
+      ;
     };
 
     meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };

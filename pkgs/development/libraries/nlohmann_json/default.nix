@@ -33,7 +33,7 @@ stdenv.mkDerivation (
         "-DJSON_MultipleHeaders=ON"
       ]
       ++ lib.optional finalAttrs.doCheck "-DJSON_TestDataDirectory=${testData}"
-      ;
+    ;
 
     doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 

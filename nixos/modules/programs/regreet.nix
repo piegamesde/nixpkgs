@@ -32,7 +32,7 @@ in
           "regreet"
         ]
         { }
-      ;
+    ;
 
     settings = lib.mkOption {
       type = lib.types.either lib.types.path settingsFormat.type;
@@ -63,7 +63,7 @@ in
           "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -- ${
             lib.getExe cfg.package
           }"
-        ;
+      ;
     };
 
     environment.etc = {
@@ -72,14 +72,14 @@ in
           { source = cfg.extraCss; }
         else
           { text = cfg.extraCss; }
-        ;
+      ;
 
       "greetd/regreet.toml".source =
         if lib.isPath cfg.settings then
           cfg.settings
         else
           settingsFormat.generate "regreet.toml" cfg.settings
-        ;
+      ;
     };
 
     systemd.tmpfiles.rules =
@@ -90,6 +90,6 @@ in
         "d /var/log/regreet 0755 greeter ${user} - -"
         "d /var/cache/regreet 0755 greeter ${user} - -"
       ]
-      ;
+    ;
   };
 }

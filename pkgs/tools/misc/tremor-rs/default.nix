@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
     ]
-    ;
+  ;
 
   # TODO export TREMOR_PATH($out/lib) variable
   postInstall = ''

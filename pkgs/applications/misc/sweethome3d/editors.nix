@@ -102,7 +102,7 @@ let
         platforms = lib.platforms.linux;
       };
     }
-    ;
+  ;
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
 in

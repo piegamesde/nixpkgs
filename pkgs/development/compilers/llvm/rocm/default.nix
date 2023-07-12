@@ -162,7 +162,7 @@ let
         ln -s ${llvm}/bin/llvm-strip $out/bin/strip
         ln -s ${lld}/bin/lld $out/bin/ld
       ''
-    ;
+  ;
 in
 rec {
   inherit llvm clang-unwrapped lld bintools bintools-unwrapped;
@@ -457,7 +457,7 @@ rec {
 
       checkTargets = [ ];
     }
-    ;
+  ;
 
   lldb = callPackage ./llvm.nix rec {
     stdenv = rocmClangStdenv;

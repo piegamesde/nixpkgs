@@ -35,7 +35,7 @@ let
             )
           )
           supportedVersions
-        ;
+      ;
       # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
       defaultBuild = {
         "tensorrt" =
@@ -44,13 +44,13 @@ let
           else
             throw
               "tensorrt-${tensorRTDefaultVersion} does not support your cuda version ${cudaVersion}"
-          ;
+        ;
       };
     in
     {
       inherit buildTensorRTPackage;
     } // allBuilds // defaultBuild
-    ;
+  ;
 
   tarballURL =
     {
@@ -61,7 +61,7 @@ let
     "TensorRT-${fullVersion}.Linux.x86_64-gnu.cuda-${fileVersionCuda}"
     + lib.optionalString (fileVersionCudnn != null) ".cudnn${fileVersionCudnn}"
     + ".tar.gz"
-    ;
+  ;
 
   tensorRTVersions = {
     "8.6.0" = [ rec {

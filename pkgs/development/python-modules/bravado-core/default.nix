@@ -48,7 +48,7 @@ buildPythonPackage rec {
       msgpack
     ]
     ++ jsonschema.optional-dependencies.format
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

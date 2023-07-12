@@ -89,7 +89,7 @@ let
           libogg
         ]
         ++ lib.optionals ldapSupport [ openldap ]
-        ;
+      ;
       nativeBuildInputs = [
         util-linux
         pkg-config
@@ -107,7 +107,7 @@ let
           ./runtime-vardirs.patch
         ]
         ++ lib.optional withOpus "${asterisk-opus}/asterisk.patch"
-        ;
+      ;
 
       postPatch = ''
         echo "PJPROJECT_CONFIG_OPTS += --prefix=$out" >> third-party/pjproject/Makefile.rules
@@ -190,7 +190,7 @@ let
         ];
       };
     }
-    ;
+  ;
 
   pjproject_2_13 = fetchurl {
     url =
@@ -236,7 +236,7 @@ let
         }
       )
       (lib.importJSON ./versions.json)
-    ;
+  ;
 
   updateScript_python = python39.withPackages (
     p:

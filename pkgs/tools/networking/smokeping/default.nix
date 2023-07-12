@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
         perlldap
       ]
     )
-    ;
+  ;
 
   nativeBuildInputs = [ autoreconfHook ];
 

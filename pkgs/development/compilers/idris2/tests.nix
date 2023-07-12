@@ -50,7 +50,7 @@ let
         touch $out
       '';
     }
-    ;
+  ;
 in
 {
   # Simple hello world compiles, runs and outputs as expected

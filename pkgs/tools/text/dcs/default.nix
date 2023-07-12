@@ -44,6 +44,6 @@ buildGoModule {
     maintainers = [ ];
     broken =
       stdenv.isAarch64 || stdenv.isDarwin
-      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dcs.x86_64-darwin
+    ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dcs.x86_64-darwin
   };
 }

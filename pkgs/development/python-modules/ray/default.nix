@@ -81,7 +81,7 @@ buildPythonPackage rec {
         platform = "manylinux2014_x86_64";
       } // binary-hash
     )
-    ;
+  ;
 
   passthru.optional-dependencies = rec {
     data-deps = [
@@ -114,7 +114,7 @@ buildPythonPackage rec {
         pyyaml
         scipy
       ]
-      ;
+    ;
 
     air-deps = data-deps ++ serve-deps ++ tune-deps ++ rllib-deps;
   };

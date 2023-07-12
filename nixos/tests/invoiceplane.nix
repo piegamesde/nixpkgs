@@ -33,7 +33,7 @@ import ./make-test-python.nix (
             "site2.local"
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

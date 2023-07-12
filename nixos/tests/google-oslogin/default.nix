@@ -7,7 +7,7 @@ import ../make-test-python.nix (
     inherit (import ./../ssh-keys.nix pkgs)
       snakeOilPrivateKey
       snakeOilPublicKey
-      ;
+    ;
 
     # don't check host keys or known hosts, use the snakeoil ssh key
     ssh-config = builtins.toFile "ssh.conf" ''
@@ -34,7 +34,7 @@ import ../make-test-python.nix (
           ...
         }:
         { }
-        ;
+      ;
     };
     testScript = ''
       MOCKUSER = "mockuser_nixos_org"

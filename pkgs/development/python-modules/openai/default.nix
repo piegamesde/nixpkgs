@@ -48,7 +48,7 @@ buildPythonPackage rec {
         inherit (passthru.optional-dependencies) embeddings wandb;
       }
     )
-    ;
+  ;
 
   passthru.optional-dependencies = {
     datalib = [
@@ -65,7 +65,7 @@ buildPythonPackage rec {
         tenacity
       ]
       ++ passthru.optional-dependencies.datalib
-      ;
+    ;
     wandb = [ wandb ] ++ passthru.optional-dependencies.datalib;
   };
 

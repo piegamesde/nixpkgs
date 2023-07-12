@@ -12,7 +12,7 @@ import ./make-test-python.nix (
       }: {
         environment.systemPackages = [ pkgs.upterm ];
       }
-      ;
+    ;
   in
   {
     name = "uptermd";
@@ -30,7 +30,7 @@ import ./make-test-python.nix (
             port = 1337;
           };
         }
-        ;
+      ;
       client1 = client;
       client2 = client;
     };

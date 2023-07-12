@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     broken =
       versionAtLeast kernel.version
         "4.12"
-      ; # Now in kernel staging drivers
+    ; # Now in kernel staging drivers
     maintainers = with maintainers; [ elitak ];
   };
 }

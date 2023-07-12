@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       bc
     ]
     ++ kernel.moduleBuildDependencies
-    ;
+  ;
 
   preBuild = "cd src";
   buildFlags = [ "module" ];
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
     ]
-    ;
+  ;
 
   INSTALL_MOD_PATH = placeholder "out";
   installFlags = [ "DEPMOD=true" ];

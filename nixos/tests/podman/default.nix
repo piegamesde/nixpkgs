@@ -19,7 +19,7 @@ import ../make-test-python.nix (
           boot.supportedFilesystems = [ "zfs" ];
           networking.hostId = "00000000";
         }
-        ;
+      ;
       rootless =
         {
           pkgs,
@@ -29,7 +29,7 @@ import ../make-test-python.nix (
 
           users.users.alice = { isNormalUser = true; };
         }
-        ;
+      ;
       dns =
         {
           pkgs,
@@ -41,7 +41,7 @@ import ../make-test-python.nix (
 
           networking.firewall.allowedUDPPorts = [ 53 ];
         }
-        ;
+      ;
       docker =
         {
           pkgs,
@@ -60,7 +60,7 @@ import ../make-test-python.nix (
 
           users.users.mallory = { isNormalUser = true; };
         }
-        ;
+      ;
     };
 
     testScript = ''

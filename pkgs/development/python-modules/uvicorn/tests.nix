@@ -40,7 +40,7 @@ buildPythonPackage rec {
       wsproto
     ]
     ++ uvicorn.optional-dependencies.standard
-    ;
+  ;
 
   doCheck = !stdenv.isDarwin;
 

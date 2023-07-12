@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional stdenv.isDarwin utmp
     ++ lib.optional stdenv.hostPlatform.isMusl musl-fts
-    ;
+  ;
 
   NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isMusl "-lfts";
 

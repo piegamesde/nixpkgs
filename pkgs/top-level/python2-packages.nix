@@ -31,7 +31,7 @@ with super; {
   importlib-metadata =
     callPackage ../development/python2-modules/importlib-metadata
       { }
-    ;
+  ;
 
   jinja2 = callPackage ../development/python2-modules/jinja2 { };
 
@@ -42,7 +42,7 @@ with super; {
   more-itertools =
     callPackage ../development/python2-modules/more-itertools
       { }
-    ;
+  ;
 
   packaging = callPackage ../development/python2-modules/packaging { };
 
@@ -84,7 +84,7 @@ with super; {
   setuptools-scm =
     callPackage ../development/python2-modules/setuptools-scm
       { }
-    ;
+  ;
 
   typing = callPackage ../development/python2-modules/typing { };
 

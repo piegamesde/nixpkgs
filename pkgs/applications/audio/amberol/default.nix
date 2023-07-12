@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     glib

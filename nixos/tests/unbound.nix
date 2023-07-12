@@ -41,7 +41,7 @@ import ./make-test-python.nix (
           services.unbound.package = pkgs.unbound-full;
         };
       }
-      ;
+    ;
 
     cert =
       pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; }
@@ -50,7 +50,7 @@ import ./make-test-python.nix (
           mkdir -p $out
           cp key.pem cert.pem $out
         ''
-      ;
+    ;
   in
   {
     name = "unbound";
@@ -102,7 +102,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       # The resolver that knows that fowards (only) to the authoritative server
       # and listens on UDP/53, TCP/53 & TCP/853.
@@ -171,7 +171,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       # machine that runs a local unbound that will be reconfigured during test execution
       local_resolver =
@@ -261,7 +261,7 @@ import ./make-test-python.nix (
             '';
           };
         }
-        ;
+      ;
 
       # plain node that only has network access and doesn't run any part of the
       # resolver software locally
@@ -291,7 +291,7 @@ import ./make-test-python.nix (
             prefixLength = 64;
           } ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -431,6 +431,6 @@ import ./make-test-python.nix (
             r = [("A", "3.4.5.6")]
             test(local_resolver, ["::1", "127.0.0.1"], zone="something.local.", records=r)
       ''
-      ;
+    ;
   }
 )

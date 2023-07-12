@@ -69,7 +69,7 @@ mkDerivation rec {
           buildInputs
       )
     ))
-    ;
+  ;
 
   meta = with lib; {
     inherit (qtbase.meta) platforms;

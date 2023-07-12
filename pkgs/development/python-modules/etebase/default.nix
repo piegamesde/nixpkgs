@@ -44,7 +44,7 @@ buildPythonPackage rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 

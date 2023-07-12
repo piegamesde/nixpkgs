@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
             "${debian-src}/libe/libexplain/${debian-ver}/debian/patches/${fname}";
           hash = hash;
         }
-        ;
+      ;
     in
     [
       (
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
           "sha256-YNcYGyOOqPUuwpUpXGcR7zsWbepVg8SAqcVKlxENSQk="
       )
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     libtool

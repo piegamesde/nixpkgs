@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       lib.optionalString (configOpts != null)
         "ln -sf ${configOpts} ./config/config.opts"
     )
-    ;
+  ;
 
   makeFlags = [ "LEX=flex" ];
   installFlags = [
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
         done;
       '')
       firmware
-    ;
+  ;
 
   meta = {
     homepage = "https://www.kernel.org/pub/linux/utils/kernel/pcmcia/";

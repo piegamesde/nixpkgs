@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.isAarch64 && !stdenv.cc.isGNU)
         "--disable-arm-a64-neon"
-    ;
+  ;
 
   preConfigure = ''
     # https://gitlab.freedesktop.org/pixman/pixman/-/issues/62

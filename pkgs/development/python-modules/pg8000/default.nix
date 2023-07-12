@@ -31,7 +31,7 @@ buildPythonPackage rec {
       scramp
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   postPatch = ''
     sed '/^\[metadata\]/a version = ${version}' setup.cfg

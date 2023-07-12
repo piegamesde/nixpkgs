@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     + lib.optionalString withMysql ''
       cp -v ${mysql_jdbc}/share/java/*jar atlassian-bamboo/lib/
     ''
-    ;
+  ;
 
   installPhase = ''
     cp -rva . $out

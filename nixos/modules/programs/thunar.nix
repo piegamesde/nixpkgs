@@ -24,7 +24,7 @@ in
         example =
           literalExpression
             "with pkgs.xfce; [ thunar-archive-plugin thunar-volman ]"
-          ;
+        ;
       };
     };
   };

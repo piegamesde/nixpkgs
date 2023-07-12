@@ -20,7 +20,7 @@ let
     mkOption
     trivial
     types
-    ;
+  ;
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
   escapeIfNeccessary =
@@ -39,14 +39,14 @@ let
             ]
             s
         }"''
-    ;
+  ;
   attrsToText =
     attrs:
     concatStringsSep "\n" (
       mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs
     )
     + "\n"
-    ;
+  ;
 
   osReleaseContents = {
     NAME = "${cfg.distroName}";
@@ -60,19 +60,19 @@ let
     HOME_URL =
       lib.optionalString (cfg.distroId == "nixos")
         "https://nixos.org/"
-      ;
+    ;
     DOCUMENTATION_URL =
       lib.optionalString (cfg.distroId == "nixos")
         "https://nixos.org/learn.html"
-      ;
+    ;
     SUPPORT_URL =
       lib.optionalString (cfg.distroId == "nixos")
         "https://nixos.org/community.html"
-      ;
+    ;
     BUG_REPORT_URL =
       lib.optionalString (cfg.distroId == "nixos")
         "https://github.com/NixOS/nixpkgs/issues"
-      ;
+    ;
   } // lib.optionalAttrs (cfg.variant_id != null) {
     VARIANT_ID = cfg.variant_id;
   };
@@ -151,7 +151,7 @@ in
       description =
         lib.mdDoc
           "The full NixOS version (e.g. `16.03.1160.f2d4ee1`)."
-        ;
+      ;
     };
 
     nixos.release = mkOption {
@@ -175,7 +175,7 @@ in
       description =
         lib.mdDoc
           "The Git revision from which this NixOS configuration was built."
-        ;
+      ;
     };
 
     nixos.codeName = mkOption {
@@ -205,7 +205,7 @@ in
       description =
         lib.mdDoc
           "A lower-case string identifying a specific variant or edition of the operating system"
-        ;
+      ;
       example = "installer";
     };
 
@@ -222,7 +222,7 @@ in
           )
           "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
           v
-        ;
+      ;
       default = cfg.release;
       defaultText = literalExpression "config.${opt.release}";
       description = lib.mdDoc ''
@@ -252,7 +252,7 @@ in
       description =
         lib.mdDoc
           "Default NixOS channel to which the root user is subscribed."
-        ;
+      ;
     };
 
     configurationRevision = mkOption {
@@ -261,7 +261,7 @@ in
       description =
         lib.mdDoc
           "The Git revision of the top-level flake from which this configuration was built."
-        ;
+      ;
     };
   };
 

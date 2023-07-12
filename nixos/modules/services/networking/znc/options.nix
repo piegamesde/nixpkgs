@@ -283,12 +283,12 @@ in
                   if net.extraConf == "" then mkDefault null else net.extraConf;
               })
               c.networks
-            ;
+          ;
           extraConfig = [ c.passBlock ];
         };
         extraConfig = optional (c.extraZncConf != "") c.extraZncConf;
       }
-      ;
+    ;
   };
 
   imports = [

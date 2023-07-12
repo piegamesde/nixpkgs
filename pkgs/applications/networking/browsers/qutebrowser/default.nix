@@ -40,7 +40,7 @@ let
       hash = "sha256-E7t+0AUndrgi4zfJth0w28RmWLqLyXMUCnueNf/gNi4=";
       stripRoot = false;
     }
-    ;
+  ;
 
   backendPackage =
     if backend == "webengine" then
@@ -55,14 +55,14 @@ let
         Unknown qutebrowser backend "${backend}".
         Valid choices are qtwebengine (recommended) or qtwebkit.
       ''
-    ;
+  ;
 
   buildPythonApplication =
     if isQt6 then
       python3Packages.buildPythonApplication
     else
       mkDerivationWith python3Packages.buildPythonApplication
-    ;
+  ;
 
   pname = "qutebrowser";
   version = if isQt6 then "unstable-2023-04-18" else "2.5.3";
@@ -92,7 +92,7 @@ buildPythonApplication {
           "https://github.com/qutebrowser/qutebrowser/releases/download/v${version}/${pname}-${version}.tar.gz";
         hash = "sha256-hF7yJDTQIztUcZJae20HVhfGlLprvz6GWrgpSwLJ14E=";
       }
-    ;
+  ;
 
   # Needs tox
   doCheck = false;
@@ -111,7 +111,7 @@ buildPythonApplication {
         gst-libav
       ]
     )
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -124,7 +124,7 @@ buildPythonApplication {
       libxslt
     ]
     ++ lib.optional isQt6 python3Packages.pygments
-    ;
+  ;
 
   propagatedBuildInputs = with python3Packages;
     (
@@ -165,7 +165,7 @@ buildPythonApplication {
     + lib.optionalString withPdfReader ''
       sed -i "s,/usr/share/pdf.js,${pdfjs},g" qutebrowser/browser/pdfjs.py
     ''
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall
@@ -210,7 +210,7 @@ buildPythonApplication {
         }
       )
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/qutebrowser/qutebrowser";
@@ -221,7 +221,7 @@ buildPythonApplication {
         [ "x86_64-linux" ]
       else
         backendPackage.meta.platforms
-      ;
+    ;
     maintainers = with maintainers; [
       jagajaga
       rnhmjoj

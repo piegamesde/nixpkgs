@@ -97,7 +97,7 @@ stdenv.mkDerivation {
           systemd
         ]
         + ":${stdenv.cc.cc.lib}/lib64"
-        ;
+      ;
     in
     ''
       runHook preInstall
@@ -130,7 +130,7 @@ stdenv.mkDerivation {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   preFixup = ''
     # makeWrapper defaults to makeBinaryWrapper due to wrapGAppsHook

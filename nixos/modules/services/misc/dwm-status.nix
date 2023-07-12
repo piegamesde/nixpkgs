@@ -36,7 +36,7 @@ in
         example =
           literalExpression
             "pkgs.dwm-status.override { enableAlsaUtils = false; }"
-          ;
+        ;
         description = lib.mdDoc ''
           Which dwm-status package to use.
         '';

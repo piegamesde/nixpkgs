@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
       sqlite
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $out/etc/profile.d

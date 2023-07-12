@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optional (stdenv.isLinux) lksctp-tools
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://sipp.sf.net";

@@ -73,7 +73,7 @@ in
       description =
         lib.mdDoc
           "Elasticsearch index to use for saving kibana config."
-        ;
+      ;
       default = ".kibana";
       type = types.str;
     };
@@ -155,7 +155,7 @@ in
         description =
           lib.mdDoc
             "Certificate file to auth against elasticsearch."
-          ;
+        ;
         default = null;
         type = types.nullOr types.path;
       };
@@ -194,7 +194,7 @@ in
         message =
           "The option services.kibana.elasticsearch.url has been removed when using kibana >= 7.0.0. "
           + "Please use option services.kibana.elasticsearch.hosts instead."
-          ;
+        ;
       }
       {
         assertion = lt6_6 -> cfg.elasticsearch.hosts == null;
@@ -215,7 +215,7 @@ in
           "${cfg.package}/bin/kibana"
           + " --config ${cfgFile}"
           + " --path.data ${cfg.dataDir}"
-          ;
+        ;
         User = "kibana";
         WorkingDirectory = cfg.dataDir;
       };

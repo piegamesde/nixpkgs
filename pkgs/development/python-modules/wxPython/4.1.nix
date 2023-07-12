@@ -78,7 +78,7 @@ buildPythonPackage rec {
       setuptools
     ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -114,7 +114,7 @@ buildPythonPackage rec {
       Security
       WebKit
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     pillow

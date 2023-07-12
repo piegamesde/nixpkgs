@@ -38,7 +38,7 @@ buildPythonPackage rec {
       setuptools
     ]
     ++ urllib3.optional-dependencies.secure
-    ;
+  ;
 
   nativeCheckInputs = [
     mock

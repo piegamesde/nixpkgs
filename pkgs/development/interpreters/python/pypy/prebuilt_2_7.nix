@@ -43,12 +43,12 @@ let
     pythonOnBuildForTarget =
       throw
         "${pname} does not support cross compilation"
-      ;
+    ;
     pythonOnHostForHost = throw "${pname} does not support cross compilation";
     pythonOnTargetForTarget =
       throw
         "${pname} does not support cross compilation"
-      ;
+    ;
   };
   pname = "${passthru.executable}_prebuilt";
   version = with sourceVersion; "${major}.${minor}.${patch}";
@@ -95,7 +95,7 @@ stdenv.mkDerivation {
       tcl-8_6
       tk-8_6
     ]
-    ;
+  ;
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
@@ -148,7 +148,7 @@ stdenv.mkDerivation {
           ${tk-8_6}/lib/libtk8.6.dylib \
           $out/lib_pypy/_tkinter/*.so
     ''
-    ;
+  ;
 
   doInstallCheck = true;
 
@@ -163,14 +163,14 @@ stdenv.mkDerivation {
         ]
         ++ lib.optionals (!isPy3k) [ "Tkinter" ]
         ++ lib.optionals isPy3k [ "tkinter" ]
-        ;
+      ;
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
     in
     ''
       echo "Testing whether we can import modules"
       $out/bin/${executable} -c '${imports}'
     ''
-    ;
+  ;
 
   setupHook = python-setup-hook sitePackages;
 

@@ -70,7 +70,7 @@ let
       "ppc64le"
     else
       null
-    ;
+  ;
 in
 
 stdenv.mkDerivation (
@@ -111,7 +111,7 @@ stdenv.mkDerivation (
         "--enable-static"
         "--disable-shared"
       ]
-      ;
+    ;
 
     nativeBuildInputs = [
       pkg-config
@@ -137,7 +137,7 @@ stdenv.mkDerivation (
         ApplicationServices
         Foundation
       ]
-      ;
+    ;
 
     propagatedBuildInputs =
       [ fftw ]
@@ -148,7 +148,7 @@ stdenv.mkDerivation (
       ++ lib.optional libX11Support libX11
       ++ lib.optional libXtSupport libXt
       ++ lib.optional libwebpSupport libwebp
-      ;
+    ;
 
     doCheck = false; # fails 2 out of 76 tests
 
@@ -169,12 +169,12 @@ stdenv.mkDerivation (
           sed 's|-lgs|-L${lib.getLib ghostscript}/lib -lgs|' -i $la
         done
       ''
-      ;
+    ;
 
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://legacy.imagemagick.org/";

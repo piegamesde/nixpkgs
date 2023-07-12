@@ -31,7 +31,7 @@ let
         description =
           lib.mdDoc
             "Whether the indexation must take place recursively or not."
-          ;
+        ;
       };
       hidden-files = mkOption {
         type = types.bool;
@@ -46,7 +46,7 @@ let
         optionYesNo d.recursive
       }" hidden-files="${optionYesNo d.hidden-files}" />
     ''
-    ;
+  ;
 
   transcodingConfig =
     if cfg.transcoding then
@@ -84,7 +84,7 @@ let
         <transcoding enabled="no">
         </transcoding>
       ''
-    ;
+  ;
 
   configText = optionalString (!cfg.customCfg) ''
     <?xml version="1.0" encoding="UTF-8"?>
@@ -400,7 +400,7 @@ in
       interfaceFlag =
         optionalString (cfg.interface != "")
           "--interface ${cfg.interface}"
-        ;
+      ;
       configFlag = optionalString (!cfg.customCfg) "--config ${
             pkgs.writeText "config.xml" configText
           }";
@@ -445,5 +445,5 @@ in
         (mkIf (cfg.openFirewall && cfg.interface == "") defaultFirewallRules)
       ];
     }
-    ;
+  ;
 }

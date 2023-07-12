@@ -87,7 +87,7 @@ rustPlatform.buildRustPackage rec {
       hidapi
     ]
     ++ (lib.optionals stdenv.isLinux [ udev ])
-    ;
+  ;
   strictDeps = true;
 
   doCheck = false;

@@ -18,7 +18,7 @@ import ./make-test-python.nix (
         };
         environment.systemPackages = [ pkgs.openldap ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("lldap.service")

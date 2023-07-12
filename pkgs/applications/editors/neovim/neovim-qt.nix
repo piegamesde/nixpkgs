@@ -40,7 +40,7 @@ mkDerivation rec {
         msgpack
       ]
     )
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

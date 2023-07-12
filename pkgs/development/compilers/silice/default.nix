@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
             done
           '';
         }
-        ;
+      ;
     in
     {
       # a selection of test projects that build with the FPGA tools in
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       blinky = testProject "blinky";
       pipeline_sort = testProject "pipeline_sort";
     }
-    ;
+  ;
 
   meta = with lib; {
     description =

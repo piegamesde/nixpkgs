@@ -49,6 +49,6 @@ pkgs.stdenv.mkDerivation (
         pkgs.git
         pkgs.nodePackages.bower
       ]
-      ;
+    ;
   }
 )

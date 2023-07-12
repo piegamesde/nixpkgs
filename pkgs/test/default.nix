@@ -71,7 +71,7 @@ with pkgs;
   fetchFirefoxAddon =
     callPackages ../build-support/fetchfirefoxaddon/tests.nix
       { }
-    ;
+  ;
 
   install-shell-files = callPackage ./install-shell-files { };
 
@@ -94,7 +94,7 @@ with pkgs;
   importCargoLock =
     callPackage ../build-support/rust/test/import-cargo-lock
       { }
-    ;
+  ;
 
   vim = callPackage ./vim { };
 
@@ -111,31 +111,31 @@ with pkgs;
       callPackage
         ../build-support/trivial-builders/test/writeStringReferencesToFile.nix
         { }
-      ;
+    ;
     writeTextFile =
       callPackage ../build-support/trivial-builders/test/write-text-file.nix
         { }
-      ;
+    ;
     writeShellScript =
       callPackage ../build-support/trivial-builders/test/write-shell-script.nix
         { }
-      ;
+    ;
     references =
       callPackage ../build-support/trivial-builders/test/references.nix
         { }
-      ;
+    ;
     overriding =
       callPackage ../build-support/trivial-builders/test-overriding.nix
         { }
-      ;
+    ;
     concat =
       callPackage ../build-support/trivial-builders/test/concat-test.nix
         { }
-      ;
+    ;
     linkFarm =
       callPackage ../build-support/trivial-builders/test/link-farm.nix
         { }
-      ;
+    ;
   };
 
   writers = callPackage ../build-support/writers/test.nix { };
@@ -161,7 +161,7 @@ with pkgs;
             "undefined"
             "address"
           ]
-        ;
+      ;
     };
   };
 

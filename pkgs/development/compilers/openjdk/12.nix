@@ -104,7 +104,7 @@ let
         GConf
         glib
       ]
-      ;
+    ;
 
     patches =
       [
@@ -131,7 +131,7 @@ let
       ++ lib.optionals (!headless && enableGnome2) [
         ./swing-use-gtk-jdk10.patch
       ]
-      ;
+    ;
 
     prePatch = ''
       chmod +x configure
@@ -158,7 +158,7 @@ let
       ++
         lib.optional (!headless && enableJavaFX)
           "--with-import-modules=${openjfx}"
-      ;
+    ;
 
     separateDebugInfo = true;
 
@@ -178,7 +178,7 @@ let
         "-lgnomevfs-2"
         "-lgconf-2"
       ]
-      ;
+    ;
 
     # -j flag is explicitly rejected by the build system:
     #     Error: 'make -jN' is not supported, use 'make JOBS=N'

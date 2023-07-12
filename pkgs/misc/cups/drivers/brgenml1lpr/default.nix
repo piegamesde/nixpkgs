@@ -45,7 +45,7 @@ let
         }.so.2 \
         ${file}
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "brgenml1lpr";

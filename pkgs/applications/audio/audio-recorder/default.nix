@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ;
+  ;
 
   meta = with lib; {
     description = "Audio recorder for GNOME and Unity Desktops";

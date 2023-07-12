@@ -66,7 +66,7 @@ mkDerivation rec {
       fmt
     ]
     ++ lib.optional luaSupport fcitx5-lua
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -17,7 +17,7 @@ let
     + "addons/3dovideo/spins/ship${padded}.duk:"
     + "addons/3dovideo/spins/spin.aif:"
     + "addons/3dovideo/spins/ship${padded}.aif:89"
-    ;
+  ;
 
   videoRMP = writeText "3dovideo.rmp" (
     ''

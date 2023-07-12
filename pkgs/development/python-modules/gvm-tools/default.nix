@@ -35,7 +35,7 @@ buildPythonPackage rec {
       "SendTargetTestCase"
     ]
     ++ lib.optionals (pythonAtLeast "3.10") [ "HelpFormattingParserTestCase" ]
-    ;
+  ;
 
   pythonImportsCheck = [ "gvmtools" ];
 

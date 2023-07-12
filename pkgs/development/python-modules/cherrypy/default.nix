@@ -84,7 +84,7 @@ buildPythonPackage rec {
       "test_4_File_deletion"
     ]
     ++ lib.optionals stdenv.isDarwin [ "test_block" ]
-    ;
+  ;
 
   disabledTestPaths = lib.optionals stdenv.isDarwin [
     "cherrypy/test/test_config_server.py"

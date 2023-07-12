@@ -50,7 +50,7 @@ buildPythonPackage rec {
       text-unidecode
     ]
     ++ lib.optionals (pythonOlder "3.7") [ typing ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -72,7 +72,7 @@ buildPythonPackage rec {
       # CI environment on darwin
       "test_searchable_paths"
     ]
-    ;
+  ;
 
   disabledTestPaths = lib.optionals (pythonAtLeast "3.10") [
     # https://github.com/nexB/commoncode/issues/36

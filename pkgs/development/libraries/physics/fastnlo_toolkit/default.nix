@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withPython python
     ++ lib.optional (withPython && python.isPy3k) ncurses
-    ;
+  ;
 
   propagatedBuildInputs = [ zlib ] ++ lib.optional withPython swig;
 

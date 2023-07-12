@@ -32,7 +32,7 @@ let
           description =
             mdDoc
               "The command that should be executed when the hook is triggered."
-            ;
+          ;
         };
       };
     }
@@ -46,7 +46,7 @@ let
       mapAttrsToList
         (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
         cfg.hooksTemplated
-    ;
+  ;
 in
 {
   options = {
@@ -202,7 +202,7 @@ in
             }";
         }
       ]
-      ;
+    ;
 
     users.users = mkIf (cfg.user == defaultUser) {
       ${defaultUser} = {
@@ -244,12 +244,12 @@ in
             ++ optional cfg.enableTemplates "-template"
             ++ optional cfg.verbose "-verbose"
             ++ cfg.extraArgs
-            ;
+          ;
         in
         ''
           ${cfg.package}/bin/webhook ${escapeShellArgs args}
         ''
-        ;
+      ;
       serviceConfig = {
         Restart = "on-failure";
         User = cfg.user;

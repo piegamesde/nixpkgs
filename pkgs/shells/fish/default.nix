@@ -142,7 +142,7 @@ let
         test $fenv_status -eq 0
       end # fenv
     ''
-    ;
+  ;
 
   fish = stdenv.mkDerivation rec {
     pname = "fish";
@@ -205,7 +205,7 @@ let
         # See https://github.com/fish-shell/fish-shell/issues/8789
         rm tests/pexpects/exit_handlers.py
       ''
-      ;
+    ;
 
     outputs = [
       "out"
@@ -226,7 +226,7 @@ let
     cmakeFlags =
       [ "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish" ]
       ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ]
-      ;
+    ;
 
     # The optional string is kind of an inelegant way to get fish to cross compile.
     # Fish needs coreutils as a runtime dependency, and it gets put into
@@ -239,7 +239,7 @@ let
       + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
         export CMAKE_PREFIX_PATH=
       ''
-      ;
+    ;
 
     # Required binaries during execution
     propagatedBuildInputs =
@@ -251,7 +251,7 @@ let
         gettext
       ]
       ++ lib.optional (!stdenv.isDarwin) man-db
-      ;
+    ;
 
     doCheck = true;
 
@@ -365,7 +365,7 @@ let
             HOME=$(mktemp -d)
             ${fish}/bin/fish ${fishScript} && touch $out
           ''
-          ;
+        ;
       };
       updateScript = nix-update-script { };
     };

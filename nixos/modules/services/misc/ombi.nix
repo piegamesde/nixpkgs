@@ -27,7 +27,7 @@ in
         description =
           lib.mdDoc
             "The directory where Ombi stores its data files."
-          ;
+        ;
       };
 
       port = mkOption {
@@ -42,7 +42,7 @@ in
         description =
           lib.mdDoc
             "Open ports in the firewall for the Ombi web interface."
-          ;
+        ;
       };
 
       user = mkOption {

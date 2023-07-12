@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
-    ;
+  ;
 
   preBuild = ''
     cd build

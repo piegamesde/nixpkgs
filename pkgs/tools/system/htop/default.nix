@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional sensorsSupport lm_sensors
     ++ lib.optional systemdSupport systemd
-    ;
+  ;
 
   configureFlags =
     [
@@ -52,20 +52,20 @@ stdenv.mkDerivation rec {
       "--enable-delayacct"
     ]
     ++ lib.optional sensorsSupport "--with-sensors"
-    ;
+  ;
 
   postFixup =
     let
       optionalPatch =
         pred: so:
         lib.optionalString pred "patchelf --add-needed ${so} $out/bin/htop"
-        ;
+      ;
     in
     lib.optionalString (!stdenv.hostPlatform.isStatic) ''
       ${optionalPatch sensorsSupport "${lm_sensors}/lib/libsensors.so"}
       ${optionalPatch systemdSupport "${systemd}/lib/libsystemd.so"}
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "An interactive process viewer";

@@ -33,7 +33,7 @@ stdenv.mkDerivation {
       pkg-config
     ]
     ++ lib.optionals withPython [ cmake ]
-    ;
+  ;
   buildInputs =
     [
       libdrm
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
         pybind11
       ]
     )
-    ;
+  ;
 
   dontUseCmakeConfigure = true;
 

@@ -32,7 +32,7 @@ stdenv.mkDerivation (
       ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ]
       ++ lib.optionals buildSamples [ "sample" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -58,7 +58,7 @@ stdenv.mkDerivation (
         openmpi
       ]
       ++ lib.optionals buildTests [ gtest ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -80,7 +80,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-      ;
+    ;
 
     postInstall =
       lib.optionalString buildTests ''
@@ -104,7 +104,7 @@ stdenv.mkDerivation (
       + lib.optionalString (buildTests || buildBenchmarks) ''
         rmdir $out/bin
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

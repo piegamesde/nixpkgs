@@ -41,7 +41,7 @@ let
         # pkgs.inetutils brings an undesired ifconfig into PATH see #43105
         ln -s ${pkgs.inetutils}/bin/telnet $out/bin/telnet
       ''
-    ;
+  ;
 in
 {
   options.programs.mininet.enable = mkEnableOption (lib.mdDoc "Mininet");

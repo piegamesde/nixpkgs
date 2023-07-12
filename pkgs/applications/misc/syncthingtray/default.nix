@@ -55,7 +55,7 @@ mkDerivation rec {
     ++ lib.optionals jsSupport [ qtdeclarative ]
     ++ lib.optionals kioPluginSupport [ kio ]
     ++ lib.optionals plasmoidSupport [ plasma-framework ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -63,7 +63,7 @@ mkDerivation rec {
       qttools
     ]
     ++ lib.optionals plasmoidSupport [ extra-cmake-modules ]
-    ;
+  ;
 
   # No tests are available by upstream, but we test --help anyway
   # Don't test on Darwin because output is .app
@@ -82,7 +82,7 @@ mkDerivation rec {
     ++ lib.optionals (!kioPluginSupport) [ "-DNO_FILE_ITEM_ACTION_PLUGIN=ON" ]
     ++ lib.optionals systemdSupport [ "-DSYSTEMD_SUPPORT=ON" ]
     ++ lib.optionals (!webviewSupport) [ "-DWEBVIEW_PROVIDER:STRING=none" ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/syncthingtray";

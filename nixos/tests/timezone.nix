@@ -14,7 +14,7 @@ import ./make-test-python.nix (
         }: {
           time.timeZone = "Europe/Amsterdam";
         }
-        ;
+      ;
 
       node_nulltz =
         {
@@ -23,7 +23,7 @@ import ./make-test-python.nix (
         }: {
           time.timeZone = null;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -65,6 +65,6 @@ import ./make-test-python.nix (
                 date_result == "1970-01-01 09:00:00\n"
             ), "Timezone adjustment was not persisted"
       ''
-      ;
+    ;
   }
 )

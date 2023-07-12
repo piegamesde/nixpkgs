@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         ];
         services.pict-rs.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

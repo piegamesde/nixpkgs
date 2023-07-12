@@ -151,7 +151,7 @@ python3.pkgs.buildPythonApplication {
       rsync
     ]
     ++ lib.optional stdenv.isDarwin swift
-    ;
+  ;
   nativeCheckInputs = with python3.pkgs; [
     pytest
     mock

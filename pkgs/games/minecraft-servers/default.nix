@@ -26,13 +26,13 @@ let
         };
       })
       versions
-    ;
+  ;
 in
 lib.recurseIntoAttrs (
   packages // {
     vanilla =
       builtins.getAttr "vanilla-${escapeVersion latestVersion}"
         packages
-      ;
+    ;
   }
 )

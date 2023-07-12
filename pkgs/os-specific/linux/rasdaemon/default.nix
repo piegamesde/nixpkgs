@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       ))
     ]
     ++ lib.optionals (!stdenv.isAarch64) [ dmidecode ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       "--enable-amp-ns-decode"
     ]
     ++ lib.optionals (stdenv.isAarch64) [ "--enable-arm" ]
-    ;
+  ;
 
   # The installation attempts to create the following directories:
   # /var/lib/rasdaemon
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $out/bin/ras-mc-ctl \
         --replace 'find_prog ("dmidecode")' '"${dmidecode}/bin/dmidecode"'
     ''
-    ;
+  ;
 
   passthru.tests = nixosTests.rasdaemon;
 

@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       libxcrypt
     ]
     ++ lib.optional stdenv.buildPlatform.isLinux audit
-    ;
+  ;
 
   enableParallelBuilding = true;
 

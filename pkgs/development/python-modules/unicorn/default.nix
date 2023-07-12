@@ -31,7 +31,7 @@ buildPythonPackage rec {
       "--plat-name"
       "macosx_11_0"
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ setuptools ];
 

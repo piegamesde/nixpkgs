@@ -147,7 +147,7 @@ stdenv.mkDerivation {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   desktopItems = builtins.attrValues desktopItems;
 

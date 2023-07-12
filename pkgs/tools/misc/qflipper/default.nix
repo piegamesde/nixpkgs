@@ -65,7 +65,7 @@ mkDerivation {
       qtgraphicaleffects
     ]
     ++ lib.optionals (stdenv.isLinux) [ qtwayland ]
-    ;
+  ;
 
   qmakeFlags = [
     "DEFINES+=DISABLE_APPLICATION_UPDATES"

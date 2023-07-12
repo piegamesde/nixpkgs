@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       makeWrapper
     ]
     ++ lib.optional withGui qt5.wrapQtAppsHook
-    ;
+  ;
 
   buildInputs =
     [
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       qt5.qtbase
       qt5.qtsvg
     ]
-    ;
+  ;
 
   nativeInstallCheckInputs = [ bc ];
 

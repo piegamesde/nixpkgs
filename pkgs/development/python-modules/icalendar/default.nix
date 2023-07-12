@@ -28,7 +28,7 @@ buildPythonPackage rec {
       pytz
     ]
     ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-    ;
+  ;
 
   nativeCheckInputs = [
     hypothesis

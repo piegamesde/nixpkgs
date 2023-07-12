@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       libnotify
     ]
     ++ gst_plugins
-    ;
+  ;
 
   nativeCheckInputs = [ check ];
 

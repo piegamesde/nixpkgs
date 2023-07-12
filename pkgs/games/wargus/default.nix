@@ -47,7 +47,7 @@ let
         rm WC2BTDP*.{iso,cdr}
         cp -r DATA $out
       ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "wargus";

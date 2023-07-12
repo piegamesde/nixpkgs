@@ -21,7 +21,7 @@ runCommand (radian.name + "-wrapper")
       ]
       ++ recommendedPackages
       ++ packages
-      ;
+    ;
 
     nativeBuildInputs = [ makeWrapper ];
 

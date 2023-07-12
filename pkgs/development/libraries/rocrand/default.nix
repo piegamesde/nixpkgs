@@ -21,7 +21,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
     buildInputs =
       lib.optionals buildTests [ gtest ]
       ++ lib.optionals buildBenchmarks [ gbenchmark ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ]
-      ;
+    ;
 
     postInstall =
       lib.optionalString buildTests ''
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
       + lib.optionalString (buildTests || buildBenchmarks) ''
         rmdir $out/bin
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

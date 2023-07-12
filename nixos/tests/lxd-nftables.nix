@@ -44,7 +44,7 @@ import ./make-test-python.nix (
           '';
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("network.target")

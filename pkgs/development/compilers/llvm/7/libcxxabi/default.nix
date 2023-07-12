@@ -22,7 +22,7 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi"
       "1zcqxsdjhawgz1cvpk07y3jl6fg9p3ay4nl69zsirqb2ghgyhhb2"
-    ;
+  ;
 
   outputs = [
     "out"
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
       }
       popd
     ''
-    ;
+  ;
 
   patches = [ ./gnu-install-dirs.patch ];
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation {
       "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
     ]
     ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF"
-    ;
+  ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

@@ -25,7 +25,7 @@ let
         arch = "x86_64";
         sha256 = "sha256-mj5wVQlY2xFzdulvMdb5Qb5HGwr7RElzIkpOLjaAfGA=";
       }
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   version = "1.5.5";

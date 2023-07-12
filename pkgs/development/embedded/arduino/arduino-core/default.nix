@@ -60,7 +60,7 @@ let
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_x86.so";
     }
-    ;
+  ;
   # abiVersion 6 is default, but we need 5 for `avrdude_bin` executable
   ncurses5 = ncurses.override { abiVersion = "5"; };
   teensy_libpath = lib.makeLibraryPath [
@@ -96,13 +96,13 @@ let
       "linuxarm"
     else
       throw "${stdenv.hostPlatform.system} is not supported in teensy"
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname =
     (if withTeensyduino then "teensyduino" else "arduino")
     + lib.optionalString (!withGui) "-core"
-    ;
+  ;
   version = "1.8.19";
 
   src = fetchFromGitHub {
@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
       readline
     ]
     ++ lib.optionals withTeensyduino [ upx ]
-    ;
+  ;
   downloadSrcList = builtins.attrValues externalDownloads;
   downloadDstList = builtins.attrNames externalDownloads;
 

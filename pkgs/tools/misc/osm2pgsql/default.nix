@@ -52,7 +52,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional withLuaJIT luajit
       ++ lib.optional (!withLuaJIT) lua
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -61,7 +61,7 @@ stdenv.mkDerivation (
         "-DEXTERNAL_FMT=ON"
       ]
       ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON"
-      ;
+    ;
 
     passthru.tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;

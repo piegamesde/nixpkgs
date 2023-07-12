@@ -104,7 +104,7 @@ let
         GConf
         glib
       ]
-      ;
+    ;
 
     patches =
       [
@@ -131,7 +131,7 @@ let
       ++ lib.optionals (!headless && enableGnome2) [
         ./swing-use-gtk-jdk13.patch
       ]
-      ;
+    ;
 
     prePatch = ''
       chmod +x configure
@@ -166,7 +166,7 @@ let
       ++
         lib.optional (!headless && enableJavaFX)
           "--with-import-modules=${openjfx}"
-      ;
+    ;
 
     separateDebugInfo = true;
 

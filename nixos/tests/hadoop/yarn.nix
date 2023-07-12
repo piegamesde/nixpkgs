@@ -19,7 +19,7 @@ import ../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
       nodemanager =
         {
           options,
@@ -38,7 +38,7 @@ import ../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

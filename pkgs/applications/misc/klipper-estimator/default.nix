@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       libgit2
       Security
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
 

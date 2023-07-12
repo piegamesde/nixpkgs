@@ -57,7 +57,7 @@ lib.makeOverridable (
         lib.boolToString value
       else
         throw "makeDesktopItem: value must be a boolean or null!"
-      ;
+    ;
 
     # Multiple values are represented as one string, joined by semicolons.
     # Technically, it's possible to escape semicolons in values with \;, but this is currently not implemented.
@@ -72,7 +72,7 @@ lib.makeOverridable (
         null
       else
         builtins.concatStringsSep ";" value
-      ;
+    ;
 
     # The [Desktop Entry] section of the desktop file, as an attribute set.
     # Please keep in spec order.
@@ -122,7 +122,7 @@ lib.makeOverridable (
           ${section}
         '')
       ]
-      ;
+    ;
 
     mainSectionRendered = renderSection "Desktop Entry" mainSection;
 
@@ -137,11 +137,11 @@ lib.makeOverridable (
         "Icon" = icon;
         "Exec" = exec;
       }
-      ;
+    ;
     renderAction =
       name: attrs:
       renderSection "Desktop Action ${name}" (preprocessAction attrs)
-      ;
+    ;
     actionsRendered = lib.mapAttrsToList renderAction actions;
 
     content = [ mainSectionRendered ] ++ actionsRendered;

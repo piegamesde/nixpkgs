@@ -64,7 +64,7 @@ mkDerivation {
       attr # both are needed for ACL support
       util-linux # provides libmount
     ]
-    ;
+  ;
   propagatedBuildInputs =
     [
       kbookmarks
@@ -80,7 +80,7 @@ mkDerivation {
       solid
     ]
     ++ lib.optionals stdenv.isLinux [ kded ]
-    ;
+  ;
   outputs = [
     "out"
     "dev"

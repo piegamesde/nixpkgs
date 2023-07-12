@@ -50,7 +50,7 @@ let
   runtimeLibs =
     lib.optional withVulkan vulkan-loader
     ++ lib.optional withGamemode (lib.getLib gamemode)
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "retroarch-bare";
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withWayland wayland
     ++ lib.optional (runtimeLibs != [ ]) makeWrapper
-    ;
+  ;
 
   buildInputs =
     [
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       mesa
       udev
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
       "--enable-egl"
       "--enable-kms"
     ]
-    ;
+  ;
 
   postInstall =
     lib.optionalString (runtimeLibs != [ ]) ''
@@ -144,7 +144,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/retroarch-cg2glsl \
         --prefix PATH ':' ${lib.makeBinPath [ nvidia_cg_toolkit ]}
     ''
-    ;
+  ;
 
   preFixup = lib.optionalString (!enableNvidiaCgToolkit) ''
     rm $out/bin/retroarch-cg2glsl

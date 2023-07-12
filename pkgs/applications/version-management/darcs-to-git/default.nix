@@ -34,7 +34,7 @@ stdenv.mkDerivation {
         -e 's!%w\(darcs init\)!%w(${darcs}/bin/darcs init)!' \
         darcs-to-git
     ''
-    ;
+  ;
 
   installPhase = ''
     install -vD darcs-to-git "$out/bin/darcs-to-git"

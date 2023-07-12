@@ -32,7 +32,7 @@ in
       description =
         lib.mdDoc
           "Etcd list of this member's client URLs to advertise to the rest of the cluster."
-        ;
+      ;
       default = cfg.listenClientUrls;
       defaultText = literalExpression "config.${opt.listenClientUrls}";
       type = types.listOf types.str;
@@ -42,7 +42,7 @@ in
       description =
         lib.mdDoc
           "Etcd list of URLs to listen on for client traffic."
-        ;
+      ;
       default = [ "http://127.0.0.1:2379" ];
       type = types.listOf types.str;
     };
@@ -51,7 +51,7 @@ in
       description =
         lib.mdDoc
           "Etcd list of URLs to listen on for peer traffic."
-        ;
+      ;
       default = [ "http://127.0.0.1:2380" ];
       type = types.listOf types.str;
     };
@@ -60,7 +60,7 @@ in
       description =
         lib.mdDoc
           "Etcd list of this member's peer URLs to advertise to rest of the cluster."
-        ;
+      ;
       default = cfg.listenPeerUrls;
       defaultText = literalExpression "config.${opt.listenPeerUrls}";
       type = types.listOf types.str;
@@ -70,7 +70,7 @@ in
       description =
         lib.mdDoc
           "Etcd initial cluster configuration for bootstrapping."
-        ;
+      ;
       default = [ "${cfg.name}=http://127.0.0.1:2380" ];
       defaultText = literalExpression ''
         ["''${config.${opt.name}}=http://127.0.0.1:2380"]'';
@@ -81,7 +81,7 @@ in
       description =
         lib.mdDoc
           "Etcd initial cluster configuration for bootstrapping."
-        ;
+      ;
       default = "new";
       type = types.enum [
         "new"
@@ -93,7 +93,7 @@ in
       description =
         lib.mdDoc
           "Etcd initial cluster token for etcd cluster during bootstrap."
-        ;
+      ;
       default = "etcd-cluster";
       type = types.str;
     };
@@ -146,7 +146,7 @@ in
       description =
         lib.mdDoc
           "Certificate authority file to use for peer to peer communication"
-        ;
+      ;
       default = cfg.trustedCaFile;
       defaultText = literalExpression "config.${opt.trustedCaFile}";
       type = types.nullOr types.path;
@@ -156,7 +156,7 @@ in
       description =
         lib.mdDoc
           "Whether to check all incoming peer requests from the cluster for valid client certificates signed by the supplied CA"
-        ;
+      ;
       default = false;
       type = types.bool;
     };
@@ -201,13 +201,13 @@ in
         ETCD_ADVERTISE_CLIENT_URLS =
           concatStringsSep ","
             cfg.advertiseClientUrls
-          ;
+        ;
         ETCD_LISTEN_CLIENT_URLS = concatStringsSep "," cfg.listenClientUrls;
         ETCD_LISTEN_PEER_URLS = concatStringsSep "," cfg.listenPeerUrls;
         ETCD_INITIAL_ADVERTISE_PEER_URLS =
           concatStringsSep ","
             cfg.initialAdvertisePeerUrls
-          ;
+        ;
         ETCD_PEER_TRUSTED_CA_FILE = cfg.peerTrustedCaFile;
         ETCD_PEER_CERT_FILE = cfg.peerCertFile;
         ETCD_PEER_KEY_FILE = cfg.peerKeyFile;

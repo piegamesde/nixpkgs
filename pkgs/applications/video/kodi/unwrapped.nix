@@ -179,7 +179,7 @@ let
         libva
       ]
       ++ lib.optional vdpauSupport libvdpau
-      ;
+    ;
     nativeBuildInputs = [
       cmake
       nasm
@@ -215,7 +215,7 @@ let
     lib.optional gbmSupport "gbm"
     ++ lib.optional waylandSupport "wayland"
     ++ lib.optional x11Support "x11"
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "kodi";
@@ -336,7 +336,7 @@ stdenv.mkDerivation {
       mesa.dev
       libinput.dev
     ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -365,7 +365,7 @@ stdenv.mkDerivation {
       wayland-protocols
       waylandpp.bin
     ]
-    ;
+  ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -394,7 +394,7 @@ stdenv.mkDerivation {
     ++ lib.optionals waylandSupport [
       "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
     ]
-    ;
+  ;
 
   # 14 tests fail but the biggest issue is that every test takes 30 seconds -
   # I'm guessing there is a thing waiting to time out
@@ -415,7 +415,7 @@ stdenv.mkDerivation {
       CXX=$CXX_FOR_BUILD LD=ld make EXTRA_CONFIGURE= -C tools/depends/native/TexturePacker
       cmakeFlags+=" -DWITH_TEXTUREPACKER=$PWD/tools/depends/native/TexturePacker/bin"
     ''
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace xbmc/platform/posix/PosixTimezone.cpp \

@@ -70,7 +70,7 @@ let
       "$out/bin/python"
     else
       pythonForBuild.interpreter
-    ;
+  ;
 
   passthru = passthruFun rec {
     inherit self sourceVersion packageOverrides;
@@ -180,7 +180,7 @@ let
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       ./cross-compile.patch
     ]
-    ;
+  ;
 
   preConfigure =
     ''
@@ -199,7 +199,7 @@ let
       substituteInPlace Lib/multiprocessing/__init__.py \
         --replace 'os.popen(comm)' 'os.popen("${coreutils}/bin/nproc")'
     ''
-    ;
+  ;
 
   configureFlags =
     lib.optionals enableOptimizations [ "--enable-optimizations" ]
@@ -241,7 +241,7 @@ let
     # don't rely on detecting glibc-isms.
     ++ lib.optional stdenv.hostPlatform.isLinux "ac_cv_func_lchmod=no"
     ++ lib.optional static "LDFLAGS=-static"
-    ;
+  ;
 
   strictDeps = true;
   buildInputs =
@@ -264,27 +264,27 @@ let
       libX11
     ]
     ++ lib.optional (stdenv.isDarwin && configd != null) configd
-    ;
+  ;
   nativeBuildInputs =
     [ autoreconfHook ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       buildPackages.stdenv.cc
       buildPackages.python
     ]
-    ;
+  ;
 
   mkPaths =
     paths: {
       C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" paths;
       LIBRARY_PATH = lib.makeLibraryPath paths;
     }
-    ;
+  ;
 
   # Python 2.7 needs this
   crossCompileEnv =
     lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform)
       { _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config; }
-    ;
+  ;
 in
 # Build the basic Python interpreter without modules that have
 # external dependencies.
@@ -301,7 +301,7 @@ stdenv.mkDerivation (
       nativeBuildInputs
       preConfigure
       configureFlags
-      ;
+    ;
 
     LDFLAGS = lib.optionalString (!stdenv.isDarwin) "-lgcc_s";
     inherit (mkPaths buildInputs) C_INCLUDE_PATH LIBRARY_PATH;
@@ -312,7 +312,7 @@ stdenv.mkDerivation (
       +
         lib.optionalString stdenv.hostPlatform.isMusl
           " -DTHREAD_STACK_SIZE=0x100000"
-      ;
+    ;
     DETERMINISTIC_BUILD = 1;
 
     setupHook = python-setup-hook sitePackages;
@@ -361,7 +361,7 @@ stdenv.mkDerivation (
       + lib.optionalString stdenv.hostPlatform.isCygwin ''
         cp libpython2.7.dll.a $out/lib
       ''
-      ;
+    ;
 
     inherit passthru;
 
@@ -384,7 +384,7 @@ stdenv.mkDerivation (
         # Strip tests
         rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
       ''
-      ;
+    ;
 
     enableParallelBuilding = true;
 

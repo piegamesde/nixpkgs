@@ -20,7 +20,7 @@ in
       description =
         lib.mdDoc
           "Port the chatgpt-retrieval-plugin service listens on."
-        ;
+      ;
     };
 
     host = mkOption {
@@ -30,7 +30,7 @@ in
       description =
         lib.mdDoc
           "The hostname or IP address for chatgpt-retrieval-plugin to bind to."
-        ;
+      ;
     };
 
     bearerTokenPath = mkOption {
@@ -65,7 +65,7 @@ in
       description =
         lib.mdDoc
           "This specifies the vector database provider you want to use to store and query embeddings."
-        ;
+      ;
     };
 
     qdrantCollection = mkOption {
@@ -123,7 +123,7 @@ in
         QDRANT_COLLECTION =
           mkIf (cfg.datastore == "qdrant")
             cfg.qdrantCollection
-          ;
+        ;
       };
     };
 

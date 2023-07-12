@@ -13,7 +13,7 @@ in
         x64sha256 = "bWHbP8j228jUDr1XDLRciq7hcET6o6Udr/lLODXRudc=";
       }
       { }
-    ;
+  ;
 
   sublime-merge-dev =
     common
@@ -23,5 +23,5 @@ in
         dev = true;
       }
       { }
-    ;
+  ;
 }

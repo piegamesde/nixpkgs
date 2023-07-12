@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   passthru.tests.version = testers.testVersion { package = git-workspace; };
 

@@ -87,7 +87,7 @@ in
         '';
       };
     }
-    ;
+  ;
 
   config =
     let
@@ -98,7 +98,7 @@ in
         optionalString
         concatMapStringsSep
         escapeShellArgs
-        ;
+      ;
     in
     mkIf (cfg.servers != { }) {
       systemd.services =
@@ -122,7 +122,7 @@ in
                       " --model_name ${options.model}"
                   + optionalString (options.useCuda) " --use_cuda"
                   + (concatMapStringsSep " " escapeShellArgs options.extraArgs)
-                  ;
+                ;
                 CapabilityBoundingSet = "";
                 DeviceAllow =
                   if options.useCuda then
@@ -141,7 +141,7 @@ in
                     ]
                   else
                     ""
-                  ;
+                ;
                 DevicePolicy = "closed";
                 LockPersonality = true;
                 # jit via numba->llvmpipe
@@ -172,7 +172,7 @@ in
             }
           )
           cfg.servers
-        ;
+      ;
     }
-    ;
+  ;
 }

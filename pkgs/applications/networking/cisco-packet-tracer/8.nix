@@ -86,7 +86,7 @@ let
           xcbutilwm
         ]
       )
-      ;
+    ;
 
     installPhase = ''
       dpkg-deb -x $src $out

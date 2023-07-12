@@ -13,7 +13,7 @@ let
     (genList (i: if i == idx then value else (builtins.elemAt list i)) (
       length list
     ))
-    ;
+  ;
 
   # Normalize package names as per PEP 503
   normalizePackageName =
@@ -23,10 +23,10 @@ let
       partsWithoutSeparator =
         builtins.filter (x: builtins.typeOf x == "string")
           parts
-        ;
+      ;
     in
     lib.strings.toLower (lib.strings.concatStringsSep "-" partsWithoutSeparator)
-    ;
+  ;
 
   # Normalize an entire attrset of packages
   normalizePackageSet = lib.attrsets.mapAttrs' (
@@ -49,7 +49,7 @@ let
       else
         pyVer
     )
-    ;
+  ;
 
   # Compare a semver expression with a version
   isCompatible =
@@ -68,7 +68,7 @@ let
           )
         ))
         + ")"
-        ;
+      ;
     in
     expr:
     let
@@ -88,14 +88,14 @@ let
               satisfiesSemver version v
             );
           }
-        ;
+      ;
       initial = {
         operator = "&&";
         state = true;
       };
     in
     if expr == "" then true else (builtins.foldl' combine initial tokens).state
-    ;
+  ;
   fromTOML =
     builtins.fromTOML or (
       toml:
@@ -152,7 +152,7 @@ let
         pkg = [ ];
         str = null;
       }
-    ;
+  ;
 
   # Predict URL from the PyPI index.
   # Args:
@@ -267,7 +267,7 @@ let
       missingBuildBackendError =
         "No build-system.build-backend section in pyproject.toml. "
         + "Add such a section as described in https://python-poetry.org/docs/pyproject/#poetry-and-pep-517"
-        ;
+      ;
       requires =
         lib.attrByPath
           [
@@ -276,11 +276,11 @@ let
           ]
           (throw missingBuildBackendError)
           pyProject
-        ;
+      ;
       requiredPkgs =
         builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
           requires
-        ;
+      ;
     in
     builtins.map
       (
@@ -289,7 +289,7 @@ let
           or (throw "unsupported build system requirement ${drvAttr}")
       )
       requiredPkgs
-    ;
+  ;
 
   # Find gitignore files recursively in parent directory stopping with .git
   findGitIgnores =
@@ -305,7 +305,7 @@ let
       (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
       (findGitIgnores parent)
     ++ gitIgnores
-    ;
+  ;
 
   /* Provides a source filtering mechanism that:
 
@@ -323,7 +323,7 @@ let
         name: type:
         (type == "directory" && !lib.strings.hasInfix "__pycache__" name)
         || (type == "regular" && !lib.strings.hasSuffix ".pyc" name)
-        ;
+      ;
     in
     lib.cleanSourceWith {
       filter = lib.cleanSourceFilter;
@@ -331,11 +331,11 @@ let
         filter =
           pkgs.nix-gitignore.gitignoreFilterPure pycacheFilter gitIgnores
             src
-          ;
+        ;
         inherit src;
       };
     }
-    ;
+  ;
 
   # Maps Nixpkgs CPU values to target machines known to be supported for manylinux* wheels.
   # (a.k.a. `uname -m` output from CentOS 7)
@@ -355,7 +355,7 @@ let
   getTargetMachine =
     stdenv:
     manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null
-    ;
+  ;
 in
 {
   inherit
@@ -371,5 +371,5 @@ in
     normalizePackageSet
     getPythonVersion
     getTargetMachine
-    ;
+  ;
 }

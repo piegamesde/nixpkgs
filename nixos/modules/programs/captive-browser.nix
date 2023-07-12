@@ -18,7 +18,7 @@ let
     mkOption
     mkOptionDefault
     types
-    ;
+  ;
 
   browserDefault =
     chromium:
@@ -34,7 +34,7 @@ let
       "-no-default-browser-check"
       "http://cache.nixos.org/"
     ]
-    ;
+  ;
 
   desktopItem = pkgs.makeDesktopItem {
     name = "captive-browser";
@@ -63,7 +63,7 @@ in
         description =
           lib.mdDoc
             "your public network interface (wlp3s0, wlan0, eth0, ...)"
-          ;
+        ;
       };
 
       # the options below are the same as in "captive-browser.toml"
@@ -100,7 +100,7 @@ in
         description =
           lib.mdDoc
             "the listen address for the SOCKS5 proxy server"
-          ;
+        ;
       };
 
       bindInterface = mkOption {
@@ -131,7 +131,7 @@ in
           optionalString cfg.bindInterface (
             escapeShellArgs (prefixes ++ [ cfg.interface ])
           )
-          ;
+        ;
       in
       mkOptionDefault (
         if config.networking.networkmanager.enable then
@@ -155,7 +155,7 @@ in
             ''
           }"
       )
-      ;
+    ;
 
     security.wrappers.udhcpc = {
       owner = "root";

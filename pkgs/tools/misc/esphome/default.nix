@@ -14,7 +14,7 @@ let
       self: super: {
         esphome-dashboard = self.callPackage ./dashboard.nix { };
       }
-      ;
+    ;
   };
 in
 python.pkgs.buildPythonApplication rec {

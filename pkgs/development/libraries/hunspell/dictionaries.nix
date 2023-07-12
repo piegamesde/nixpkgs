@@ -44,7 +44,7 @@ let
         '';
       } // args
     )
-    ;
+  ;
 
   mkDictFromRla =
     {
@@ -96,7 +96,7 @@ let
           ${dictFileName}.dic ${dictFileName}.aff ${readmeFile}
       '';
     }
-    ;
+  ;
 
   mkDictFromDSSO =
     {
@@ -148,7 +148,7 @@ let
         install -m644 ${readmeFile} $out/share/doc/${pname}.txt
       '';
     }
-    ;
+  ;
 
   mkDictFromDicollecte =
     {
@@ -189,7 +189,7 @@ let
         done
       '';
     }
-    ;
+  ;
 
   mkDictFromWordlist =
     {
@@ -224,7 +224,7 @@ let
         mv ${srcReadmeFile} ${readmeFile}         || true
       '';
     }
-    ;
+  ;
 
   mkDictFromLinguistico =
     {
@@ -255,7 +255,7 @@ let
         unzip $src ${dictFileName}.dic ${dictFileName}.aff ${readmeFile}
       '';
     }
-    ;
+  ;
 
   mkDictFromXuxen =
     {
@@ -294,7 +294,7 @@ let
         platforms = platforms.all;
       };
     }
-    ;
+  ;
 
   mkDictFromJ3e =
     {
@@ -344,7 +344,7 @@ let
         platforms = platforms.all;
       };
     }
-    ;
+  ;
 
   mkDictFromLibreOffice =
     {
@@ -378,7 +378,7 @@ let
         platforms = platforms.all;
       };
     }
-    ;
+  ;
 in
 rec {
 

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       mpi
       scalapack
     ]
-    ;
+  ;
 
   enableParallelBuilding = false; # Started making trouble with gcc-11
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
           );
         ''
     )
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/bin

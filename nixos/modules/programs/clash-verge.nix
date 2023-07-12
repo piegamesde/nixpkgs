@@ -49,7 +49,7 @@
         source = "${lib.getExe pkgs.clash-verge}";
       };
     }
-    ;
+  ;
 
   meta.maintainers = with lib.maintainers; [ zendo ];
 }

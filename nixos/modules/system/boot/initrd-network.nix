@@ -22,7 +22,7 @@ let
       "$(ls /sys/class/net/ | grep -v ^lo$)"
     else
       lib.concatMapStringsSep " " lib.escapeShellArg dhcpInterfaces
-    ;
+  ;
 
   udhcpcScript = pkgs.writeScript "udhcp-script" ''
     #! /bin/sh

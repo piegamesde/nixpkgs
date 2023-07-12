@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   dontStrip =
     stdenv.hostPlatform != stdenv.buildPlatform
-    ; # Don't run the native `strip' when cross-compiling.
+  ; # Don't run the native `strip' when cross-compiling.
 
   inherit doCheck;
 

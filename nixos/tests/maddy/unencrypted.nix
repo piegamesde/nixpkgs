@@ -25,7 +25,7 @@ import ../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -59,7 +59,7 @@ import ../make-test-python.nix (
             '')
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

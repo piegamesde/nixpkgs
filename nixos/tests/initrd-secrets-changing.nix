@@ -36,7 +36,7 @@ testing.makeTest {
         };
       };
     }
-    ;
+  ;
 
   testScript = ''
     start_all()

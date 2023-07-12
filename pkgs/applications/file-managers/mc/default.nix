@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       lib.optionals
         (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
         [ autoSignDarwinBinariesHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       fsprogs
       gpm
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

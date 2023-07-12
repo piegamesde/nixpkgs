@@ -60,7 +60,7 @@ buildPythonPackage rec {
   nativeCheckInputs =
     [ pytestCheckHook ]
     ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   # Disable tests that require network
   disabledTestPaths = [ "tests/test_convert.py" ];

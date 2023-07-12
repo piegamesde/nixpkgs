@@ -19,10 +19,10 @@ let
       appendShort =
         lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null)
           "-${short}"
-        ;
+      ;
     in
     "${if matched == null then base else builtins.head matched}${appendShort}"
-    ;
+  ;
 in
 {
   url,
@@ -100,7 +100,7 @@ else
           sha256
         else
           lib.fakeSha256
-        ;
+      ;
 
       # git-sparse-checkout(1) says:
       # > When the --stdin option is provided, the directories or patterns are read
@@ -110,7 +110,7 @@ else
           sparseCheckout
         else
           builtins.concatStringsSep "\n" sparseCheckout
-        ;
+      ;
 
       inherit
         url
@@ -122,7 +122,7 @@ else
         branchName
         nonConeMode
         postFetch
-        ;
+      ;
 
       postHook =
         if netrcPhase == null then
@@ -134,7 +134,7 @@ else
             mv {,.}netrc
             export HOME=$PWD
           ''
-        ;
+      ;
 
       GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
@@ -146,7 +146,7 @@ else
           "NIX_GIT_SSL_CAINFO"
           "SOCKS_SERVER"
         ]
-        ;
+      ;
 
       inherit preferLocalBuild meta allowedRequisites;
 

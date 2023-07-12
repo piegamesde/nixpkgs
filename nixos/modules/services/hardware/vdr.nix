@@ -29,7 +29,7 @@ in
         example =
           literalExpression
             "pkgs.wrapVdr.override { plugins = with pkgs.vdrPlugins; [ hello ]; }"
-          ;
+        ;
         description = lib.mdDoc "Package to use.";
       };
 
@@ -45,7 +45,7 @@ in
         description =
           lib.mdDoc
             "Additional command line arguments to pass to VDR."
-          ;
+        ;
       };
 
       enableLirc = mkEnableOption (lib.mdDoc "LIRC");

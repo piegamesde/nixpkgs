@@ -55,7 +55,7 @@ buildDotnetModule rec {
   LOCALE_ARCHIVE =
     lib.optionalString (!DOTNET_SYSTEM_GLOBALIZATION_INVARIANT)
       "${glibcLocales}/lib/locale/locale-archive"
-    ;
+  ;
 
   postConfigure = ''
     # Generate src/Runner.Sdk/BuildConstants.cs
@@ -79,7 +79,7 @@ buildDotnetModule rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ;
+  ;
 
   buildInputs = [ stdenv.cc.cc.lib ];
 
@@ -176,7 +176,7 @@ buildDotnetModule rec {
       "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchCancellation"
       "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchRunNewJob"
     ]
-    ;
+  ;
 
   testProjectFile = [ "src/Test/Test.csproj" ];
 
@@ -247,7 +247,7 @@ buildDotnetModule rec {
         --chdir "$out"
       )
     ''
-    ;
+  ;
 
   # List of files to wrap
   executables = [

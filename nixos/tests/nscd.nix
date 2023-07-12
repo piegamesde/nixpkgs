@@ -54,7 +54,7 @@ import ./make-test-python.nix (
             }: {
               services.nscd.enableNsncd = false;
             }
-            ;
+          ;
           withUnscd.configuration =
             {
               ...
@@ -62,10 +62,10 @@ import ./make-test-python.nix (
               services.nscd.enableNsncd = false;
               services.nscd.package = pkgs.unscd;
             }
-            ;
+          ;
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -161,6 +161,6 @@ import ./make-test-python.nix (
             # known to fail, unscd doesn't load external NSS modules
             # test_nss_myhostname()
       ''
-      ;
+    ;
   }
 )

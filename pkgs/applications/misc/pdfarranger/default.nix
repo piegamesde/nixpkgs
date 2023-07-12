@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
         distutils_extra
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     gtk3

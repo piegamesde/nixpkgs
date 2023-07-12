@@ -85,7 +85,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.data
-    ;
+  ;
 
   disabledTestPaths = [
     # Requires network access

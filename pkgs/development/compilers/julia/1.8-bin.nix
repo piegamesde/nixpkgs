@@ -25,7 +25,7 @@ let
       # Test Failed at $out/share/julia/test/misc.jl:724
       "misc"
     ]
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "julia-bin";

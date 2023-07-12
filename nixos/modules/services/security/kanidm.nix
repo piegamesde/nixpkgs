@@ -32,7 +32,7 @@ let
     lib.any
       (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
       list
-    ;
+  ;
   mergePaths =
     lib.foldl'
       (
@@ -46,7 +46,7 @@ let
                 !lib.hasPrefix (builtins.toString newPath) (builtins.toString p)
               )
               merged
-            ;
+          ;
           # If a prefix of the new path is already in the list, do not add it
           filteredNew =
             if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
@@ -54,7 +54,7 @@ let
         filteredPaths ++ filteredNew
       )
       [ ]
-    ;
+  ;
 
   defaultServiceConfig = {
     BindReadOnlyPaths = [
@@ -118,7 +118,7 @@ in
             description =
               lib.mdDoc
                 "Address/port combination the webserver binds to."
-              ;
+            ;
             example = "[::1]:8443";
             type = lib.types.str;
           };
@@ -135,7 +135,7 @@ in
             description =
               lib.mdDoc
                 "The origin of your Kanidm instance. Must have https as protocol."
-              ;
+            ;
             example = "https://idm.example.org";
             type = lib.types.strMatching "^https://.*";
           };
@@ -180,7 +180,7 @@ in
             description =
               lib.mdDoc
                 "The role of this server. This affects the replication relationship and thereby available features."
-              ;
+            ;
             default = "WriteReplica";
             type = lib.types.enum [
               "WriteReplica"
@@ -225,7 +225,7 @@ in
           description =
             lib.mdDoc
               "Kanidm groups that are allowed to login using PAM."
-            ;
+          ;
           example = "my_pam_group";
           type = lib.types.listOf lib.types.str;
         };
@@ -246,7 +246,7 @@ in
           !cfg.enableServer
           || ((cfg.serverSettings.tls_chain or null) == null)
           || (!lib.isStorePath cfg.serverSettings.tls_chain)
-          ;
+        ;
         message = ''
           <option>services.kanidm.serverSettings.tls_chain</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -258,7 +258,7 @@ in
           !cfg.enableServer
           || ((cfg.serverSettings.tls_key or null) == null)
           || (!lib.isStorePath cfg.serverSettings.tls_key)
-          ;
+        ;
         message = ''
           <option>services.kanidm.serverSettings.tls_key</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -290,7 +290,7 @@ in
               cfg.serverSettings.role == "WriteReplica"
               || cfg.serverSettings.role == "WriteReplicaNoUI"
           )
-          ;
+        ;
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
           is not a ReadOnlyReplica. Otherwise the db would inherit it from

@@ -31,7 +31,7 @@ in
         description =
           lib.mdDoc
             "Address to listen on (use 0.0.0.0 to allow access from any address)."
-          ;
+        ;
       };
 
       port = mkOption {

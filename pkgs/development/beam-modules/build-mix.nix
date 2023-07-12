@@ -30,7 +30,7 @@ let
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
     }
-    ;
+  ;
 
   pkg =
     self:
@@ -57,7 +57,7 @@ let
             elixir
             hex
           ]
-          ;
+        ;
         propagatedBuildInputs = propagatedBuildInputs ++ beamDeps;
 
         configurePhase =
@@ -111,6 +111,6 @@ let
         };
       }
     )
-    ;
+  ;
 in
 lib.fix pkg

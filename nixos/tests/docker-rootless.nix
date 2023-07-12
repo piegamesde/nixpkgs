@@ -22,7 +22,7 @@ import ./make-test-python.nix (
             isNormalUser = true;
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -54,6 +54,6 @@ import ./make-test-python.nix (
         machine.succeed("${sudo} docker ps | grep sleeping")
         machine.succeed("${sudo} docker stop sleeping")
       ''
-      ;
+    ;
   }
 )

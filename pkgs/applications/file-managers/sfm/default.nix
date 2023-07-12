@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   configFile =
     lib.optionalString (conf != null)
       (writeText "config.def.h" conf)
-    ;
+  ;
 
   postPatch = lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 

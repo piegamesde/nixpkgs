@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       itpp
     ]
     ++ lib.optionals portaudioSupport [ portaudio ]
-    ;
+  ;
 
   doCheck = true;
 

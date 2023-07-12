@@ -47,7 +47,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.isDarwin ''
       makeFlagsArray+=(OUTNAME="-install_name ")
     ''
-    ;
+  ;
 
   installPhase = ''
     install -Dm0755 -t $out/lib $libName
@@ -62,7 +62,7 @@ stdenv.mkDerivation {
       pugixml
     ]
     ++ lib.optional stdenv.isLinux libusb1
-    ;
+  ;
 
   meta = with lib; {
     description = "TI MSP430 FET debug driver";

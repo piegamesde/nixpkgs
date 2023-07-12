@@ -72,7 +72,7 @@ let
       url =
         "https://wire-app.wire.com/linux/debian/pool/main/"
         + "Wire-${version}_amd64.deb"
-        ;
+      ;
       inherit hash;
     };
 
@@ -147,7 +147,7 @@ let
       url =
         "https://github.com/wireapp/wire-desktop/releases/download/"
         + "macos%2F${version}/Wire.pkg"
-        ;
+      ;
       inherit hash;
     };
 

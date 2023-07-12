@@ -30,7 +30,7 @@ let
       tabulary
       varwidth
       titlesec
-      ;
+    ;
   };
 in
 stdenv.mkDerivation (
@@ -43,7 +43,7 @@ stdenv.mkDerivation (
       ++ lib.optionals buildDocs [ "doc" ]
       ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -67,7 +67,7 @@ stdenv.mkDerivation (
         python3Packages.breathe
       ]
       ++ lib.optionals buildTests [ openblas ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -85,7 +85,7 @@ stdenv.mkDerivation (
         # Needs https://github.com/openai/triton
         # "-DAPI_BENCH_ISAAC=ON"
       ]
-      ;
+    ;
 
     # Unfortunately, it seems like we have to call make on these manually
     postBuild =
@@ -99,7 +99,7 @@ stdenv.mkDerivation (
       + lib.optionalString buildBenchmarks ''
         make examples
       ''
-      ;
+    ;
 
     postInstall =
       lib.optionalString buildDocs ''
@@ -120,7 +120,7 @@ stdenv.mkDerivation (
           lib.makeLibraryPath finalAttrs.buildInputs
         }:$out/lib $benchmark/bin/*
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

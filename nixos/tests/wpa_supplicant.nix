@@ -67,7 +67,7 @@ import ./make-test-python.nix (
           '';
         };
       }
-      ;
+    ;
 
     testScript = ''
       config_file = "/run/wpa_supplicant/wpa_supplicant.conf"

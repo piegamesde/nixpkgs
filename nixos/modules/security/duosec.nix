@@ -30,7 +30,7 @@ let
       motd=${boolToStr cfg.motd}
       accept_env_factor=${boolToStr cfg.acceptEnvFactor}
     ''
-    ;
+  ;
 in
 {
   imports = [
@@ -79,7 +79,7 @@ in
         description =
           lib.mdDoc
             "If enabled, protect SSH logins with Duo Security."
-          ;
+        ;
       };
 
       pam.enable = mkOption {
@@ -88,7 +88,7 @@ in
         description =
           lib.mdDoc
             "If enabled, protect logins with Duo Security using PAM support."
-          ;
+        ;
       };
 
       integrationKey = mkOption {

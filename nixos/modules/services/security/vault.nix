@@ -74,7 +74,7 @@ in
         description =
           lib.mdDoc
             "This option specifies the vault package to use."
-          ;
+        ;
       };
 
       dev = mkOption {
@@ -106,7 +106,7 @@ in
         description =
           lib.mdDoc
             "TLS certificate file. TLS will be disabled unless this option is set"
-          ;
+        ;
       };
 
       tlsKeyFile = mkOption {
@@ -116,7 +116,7 @@ in
         description =
           lib.mdDoc
             "TLS private key file. TLS will be disabled unless this option is set"
-          ;
+        ;
       };
 
       listenerExtraConfig = mkOption {
@@ -155,7 +155,7 @@ in
             "/var/lib/vault"
           else
             null
-          ;
+        ;
         defaultText = literalExpression ''
           if config.${opt.storageBackend} == "file" || cfg.storageBackend == "raft"
           then "/var/lib/vault"
@@ -227,7 +227,7 @@ in
         assertion =
           cfg.storageBackend == "inmem"
           -> (cfg.storagePath == null && cfg.storageConfig == null)
-          ;
+        ;
         message =
           ''
             The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
@@ -261,7 +261,7 @@ in
     systemd.tmpfiles.rules =
       optional (cfg.storagePath != null)
         "d '${cfg.storagePath}' 0700 vault vault - -"
-      ;
+    ;
 
     systemd.services.vault = {
       description = "Vault server daemon";
@@ -273,7 +273,7 @@ in
           optional
             (config.services.consul.enable && cfg.storageBackend == "consul")
             "consul.service"
-        ;
+      ;
 
       restartIfChanged =
         false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
@@ -302,7 +302,7 @@ in
       unitConfig.RequiresMountsFor =
         optional (cfg.storagePath != null)
           cfg.storagePath
-        ;
+      ;
     };
   };
 }

@@ -37,7 +37,7 @@ stdenv.mkDerivation (
       + lib.optionalString stdenv.isDarwin ''
         substituteInPlace config.mk --replace "-lrt" ""
       ''
-      ;
+    ;
 
     strictDeps = true;
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
         libXft
       ]
       ++ extraLibs
-      ;
+    ;
 
     preInstall = ''
       export TERMINFO=$out/share/terminfo

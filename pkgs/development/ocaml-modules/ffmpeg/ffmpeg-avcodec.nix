@@ -27,7 +27,7 @@ buildDunePackage {
       AudioToolbox
       VideoToolbox
     ]
-    ;
+  ;
   propagatedBuildInputs = [
     ffmpeg-avutil
     ffmpeg.dev

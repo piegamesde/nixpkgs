@@ -47,7 +47,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ;
+  ;
 
   disabledTests = [
     # access network

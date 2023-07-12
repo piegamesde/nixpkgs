@@ -24,7 +24,7 @@ let
       type = "Application";
       categories = [ "Network" ];
     }
-    ;
+  ;
 in
 python3.pkgs.buildPythonApplication rec {
   pname = "trackma";
@@ -45,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
       gobject-introspection
     ]
     ++ lib.optionals withQT [ qt5.wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs = lib.optionals withGTK [
     glib
@@ -72,7 +72,7 @@ python3.pkgs.buildPythonApplication rec {
   preFixup =
     lib.optional withQT "wrapQtApp $out/bin/trackma-qt"
     ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk"
-    ;
+  ;
 
   desktopItems =
     lib.optional withQT (
@@ -89,7 +89,7 @@ python3.pkgs.buildPythonApplication rec {
         "Trackma Updater (ncurses frontend)"
         true
     )
-    ;
+  ;
 
   postInstall = ''
     install -Dvm444 $src/trackma/data/icon.png $out/share/pixmaps/trackma.png
@@ -103,7 +103,7 @@ python3.pkgs.buildPythonApplication rec {
     lib.optional (!withQT) "rm $out/bin/trackma-qt"
     ++ lib.optional (!withGTK) "rm $out/bin/trackma-gtk"
     ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses"
-    ;
+  ;
 
   passthru.updateScript = ./update.sh;
 

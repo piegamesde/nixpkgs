@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ lib.optional withUtempter libutempter
-    ;
+  ;
 
   strictDeps = true;
 

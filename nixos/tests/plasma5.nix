@@ -29,7 +29,7 @@ import ./make-test-python.nix (
         hardware.pulseaudio.enable =
           true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
       }
-      ;
+    ;
 
     testScript =
       {
@@ -77,6 +77,6 @@ import ./make-test-python.nix (
             )
             machine.screenshot("screen")
       ''
-      ;
+    ;
   }
 )

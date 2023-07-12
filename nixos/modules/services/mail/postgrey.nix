@@ -122,7 +122,7 @@ in
         description =
           lib.mdDoc
             "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient"
-          ;
+        ;
       };
       greylistAction = mkOption {
         type = str;
@@ -130,7 +130,7 @@ in
         description =
           lib.mdDoc
             "Response status for greylisted messages (see access(5))"
-          ;
+        ;
       };
       greylistHeader = mkOption {
         type = str;
@@ -138,7 +138,7 @@ in
         description =
           lib.mdDoc
             "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host"
-          ;
+        ;
       };
       delay = mkOption {
         type = natural;
@@ -151,7 +151,7 @@ in
         description =
           lib.mdDoc
             "Delete entries from whitelist if they haven't been seen for N days"
-          ;
+        ;
       };
       retryWindow = mkOption {
         type = either str natural;
@@ -160,7 +160,7 @@ in
         description =
           lib.mdDoc
             "Allow N days for the first retry. Use string with appended 'h' to specify time in hours"
-          ;
+        ;
       };
       lookupBySubnet = mkOption {
         type = bool;
@@ -168,7 +168,7 @@ in
         description =
           lib.mdDoc
             "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR"
-          ;
+        ;
       };
       IPv4CIDR = mkOption {
         type = natural;
@@ -176,7 +176,7 @@ in
         description =
           lib.mdDoc
             "Strip N bits from IPv4 addresses if lookupBySubnet is true"
-          ;
+        ;
       };
       IPv6CIDR = mkOption {
         type = natural;
@@ -184,7 +184,7 @@ in
         description =
           lib.mdDoc
             "Strip N bits from IPv6 addresses if lookupBySubnet is true"
-          ;
+        ;
       };
       privacy = mkOption {
         type = bool;
@@ -192,7 +192,7 @@ in
         description =
           lib.mdDoc
             "Store data using one-way hash functions (SHA1)"
-          ;
+        ;
       };
       autoWhitelist = mkOption {
         type = nullOr natural';
@@ -200,7 +200,7 @@ in
         description =
           lib.mdDoc
             "Whitelist clients after successful delivery of N messages"
-          ;
+        ;
       };
       whitelistClients = mkOption {
         type = listOf path;
@@ -208,7 +208,7 @@ in
         description =
           lib.mdDoc
             "Client address whitelist files (see postgrey(8))"
-          ;
+        ;
       };
       whitelistRecipients = mkOption {
         type = listOf path;
@@ -216,7 +216,7 @@ in
         description =
           lib.mdDoc
             "Recipient address whitelist files (see postgrey(8))"
-          ;
+        ;
       };
     };
   };
@@ -245,7 +245,7 @@ in
             "--inet=${
               optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")
             }${toString cfg.socket.port}"
-          ;
+        ;
       in
       {
         description = "Postfix Greylisting Service";
@@ -302,6 +302,6 @@ in
           TimeoutSec = 10;
         };
       }
-      ;
+    ;
   };
 }

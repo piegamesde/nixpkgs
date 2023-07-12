@@ -45,7 +45,7 @@ python3Packages.buildPythonApplication rec {
         zodb
       ]
     )
-    ;
+  ;
 
   postBuild = "make -C doc";
 

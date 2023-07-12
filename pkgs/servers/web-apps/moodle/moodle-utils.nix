@@ -35,7 +35,7 @@ let
         '';
       }
     )
-    ;
+  ;
 in
 {
   inherit buildMoodlePlugin;

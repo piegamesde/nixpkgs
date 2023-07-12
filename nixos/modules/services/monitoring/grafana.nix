@@ -40,16 +40,16 @@ let
             ${attr} = [ ];
           }
       )
-    ;
+  ;
 
   datasourceFileOrDir =
     mkProvisionCfg "datasource" "datasources"
       cfg.provision.datasources
-    ;
+  ;
   dashboardFileOrDir =
     mkProvisionCfg "dashboard" "providers"
       cfg.provision.dashboards
-    ;
+  ;
 
   notifierConfiguration = {
     apiVersion = 1;
@@ -67,7 +67,7 @@ let
         cfg.provision.alerting."${x}".settings
     else
       cfg.provision.alerting."${x}".path
-    ;
+  ;
   rulesFileOrDir = generateAlertingProvisioningYaml "rules";
   contactPointsFileOrDir = generateAlertingProvisioningYaml "contactPoints";
   policiesFileOrDir = generateAlertingProvisioningYaml "policies";
@@ -88,7 +88,7 @@ let
         ln -sf ${src} $out/${dir}/${filename}.yaml
       fi
     ''
-    ;
+  ;
   provisionConfDir =
     pkgs.runCommand "grafana-provisioning"
       { nativeBuildInputs = [ pkgs.xorg.lndir ]; }
@@ -135,7 +135,7 @@ let
           filename = "muteTimings";
         }}
       ''
-    ;
+  ;
 
   # Get a submodule without any embedded metadata:
   _filter = x: filterAttrs (k: v: k != "_module") x;
@@ -161,11 +161,11 @@ let
             ''
           else
             isAttrs x || isFunction x
-          ;
+        ;
       })
       id
       (types.submodule module)
-    ;
+  ;
 
   # http://docs.grafana.org/administration/provisioning/#datasources
   grafanaTypes.datasourceConfig = types.submodule {
@@ -189,7 +189,7 @@ let
         description =
           lib.mdDoc
             "Access mode. proxy or direct (Server or Browser in the UI). Required."
-          ;
+        ;
       };
       uid = mkOption {
         type = types.nullOr types.str;
@@ -197,7 +197,7 @@ let
         description =
           lib.mdDoc
             "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically."
-          ;
+        ;
       };
       url = mkOption {
         type = types.str;
@@ -243,7 +243,7 @@ let
         description =
           lib.mdDoc
             "Path grafana will watch for dashboards. Required when using the 'file' type."
-          ;
+        ;
       };
     };
   };
@@ -304,7 +304,7 @@ let
         description =
           lib.mdDoc
             "Should the notifier be sent reminder notifications while alerts continue to fire."
-          ;
+        ;
       };
       frequency = mkOption {
         type = types.str;
@@ -312,7 +312,7 @@ let
         description =
           lib.mdDoc
             "How frequently should the notifier be sent reminders."
-          ;
+        ;
       };
       disable_resolve_message = mkOption {
         type = types.bool;
@@ -320,7 +320,7 @@ let
         description =
           lib.mdDoc
             "Turn off the message that sends when an alert returns to OK."
-          ;
+        ;
       };
       settings = mkOption {
         type = types.nullOr types.attrs;
@@ -1112,11 +1112,11 @@ in
       description =
         lib.mdDoc
           "If non-null, then a list of packages containing Grafana plugins to install. If set, plugins cannot be manually installed."
-        ;
+      ;
       example =
         literalExpression
           "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]"
-        ;
+      ;
       # Make sure each plugin is added only once; otherwise building
       # the link farm fails, since the same path is added multiple
       # times.
@@ -1150,16 +1150,16 @@ in
               description =
                 lib.mdDoc
                   "Directory where grafana will automatically scan and look for plugins"
-                ;
+              ;
               default =
                 if (cfg.declarativePlugins == null) then
                   "${cfg.dataDir}/plugins"
                 else
                   declarativePlugins
-                ;
+              ;
               defaultText = literalExpression ''
                 if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins''
-                ;
+              ;
               type = types.path;
             };
 
@@ -1209,7 +1209,7 @@ in
               description =
                 lib.mdDoc
                   "The public facing domain name used to access grafana from a browser."
-                ;
+              ;
               default = "localhost";
               type = types.str;
             };
@@ -1253,7 +1253,7 @@ in
               description =
                 lib.mdDoc
                   "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting."
-                ;
+              ;
               default = "/run/grafana/grafana.sock";
               type = types.str;
             };
@@ -1304,7 +1304,7 @@ in
               description =
                 lib.mdDoc
                   "Only applicable to sqlite3 database. The file path where the database will be stored."
-                ;
+              ;
               default = "${cfg.dataDir}/data/grafana.db";
               defaultText = literalExpression ''
                 "''${config.${opt.dataDir}}/data/grafana.db"'';
@@ -1389,7 +1389,7 @@ in
               description =
                 lib.mdDoc
                   "Whether user is allowed to create organizations."
-                ;
+              ;
               default = false;
               type = types.bool;
             };
@@ -1398,7 +1398,7 @@ in
               description =
                 lib.mdDoc
                   "Whether to automatically assign new users to default org."
-                ;
+              ;
               default = true;
               type = types.bool;
             };
@@ -1407,7 +1407,7 @@ in
               description =
                 lib.mdDoc
                   "Default role new users will be auto assigned."
-                ;
+              ;
               default = "Viewer";
               type = types.enum [
                 "Viewer"
@@ -1421,7 +1421,7 @@ in
             description =
               lib.mdDoc
                 "Whether to allow anonymous usage reporting to stats.grafana.net."
-              ;
+            ;
             default = true;
             type = types.bool;
           };
@@ -1459,7 +1459,7 @@ in
                     description =
                       lib.mdDoc
                         "List of datasources to insert/update."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf grafanaTypes.datasourceConfig;
                   };
@@ -1468,7 +1468,7 @@ in
                     description =
                       lib.mdDoc
                         "List of datasources that should be deleted from the database."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1476,7 +1476,7 @@ in
                           description =
                             lib.mdDoc
                               "Name of the datasource to delete."
-                            ;
+                          ;
                           type = types.str;
                         };
 
@@ -1484,7 +1484,7 @@ in
                           description =
                             lib.mdDoc
                               "Organization ID of the datasource to delete."
-                            ;
+                          ;
                           type = types.int;
                         };
                       }
@@ -1548,7 +1548,7 @@ in
                   description =
                     lib.mdDoc
                       "List of dashboards to insert/update."
-                    ;
+                  ;
                   default = [ ];
                   type = types.listOf grafanaTypes.dashboardConfig;
                 };
@@ -1618,7 +1618,7 @@ in
                     description =
                       lib.mdDoc
                         "List of rule groups to import or update."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1628,7 +1628,7 @@ in
                           description =
                             lib.mdDoc
                               "Name of the rule group. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
 
@@ -1636,7 +1636,7 @@ in
                           description =
                             lib.mdDoc
                               "Name of the folder the rule group will be stored in. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
 
@@ -1644,7 +1644,7 @@ in
                           description =
                             lib.mdDoc
                               "Interval that the rule group should be evaluated at. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
                       }
@@ -1655,7 +1655,7 @@ in
                     description =
                       lib.mdDoc
                         "List of alert rule UIDs that should be deleted."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1663,7 +1663,7 @@ in
                           description =
                             lib.mdDoc
                               "Organization ID, default = 1"
-                            ;
+                          ;
                           default = 1;
                           type = types.int;
                         };
@@ -1672,7 +1672,7 @@ in
                           description =
                             lib.mdDoc
                               "Unique identifier for the rule. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
                       }
@@ -1769,7 +1769,7 @@ in
                     description =
                       lib.mdDoc
                         "List of contact points to import or update."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1779,7 +1779,7 @@ in
                           description =
                             lib.mdDoc
                               "Name of the contact point. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
                       }
@@ -1790,7 +1790,7 @@ in
                     description =
                       lib.mdDoc
                         "List of receivers that should be deleted."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1798,7 +1798,7 @@ in
                           description =
                             lib.mdDoc
                               "Organization ID, default = 1."
-                            ;
+                          ;
                           default = 1;
                           type = types.int;
                         };
@@ -1807,7 +1807,7 @@ in
                           description =
                             lib.mdDoc
                               "Unique identifier for the receiver. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
                       }
@@ -1871,7 +1871,7 @@ in
                     description =
                       lib.mdDoc
                         "List of contact points to import or update."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1884,7 +1884,7 @@ in
                     description =
                       lib.mdDoc
                         "List of orgIds that should be reset to the default policy."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf types.int;
                   };
@@ -1951,7 +1951,7 @@ in
                     description =
                       lib.mdDoc
                         "List of templates to import or update."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1961,7 +1961,7 @@ in
                           description =
                             lib.mdDoc
                               "Name of the template, must be unique. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
 
@@ -1969,7 +1969,7 @@ in
                           description =
                             lib.mdDoc
                               "Alerting with a custom text template"
-                            ;
+                          ;
                           type = types.str;
                         };
                       }
@@ -1980,7 +1980,7 @@ in
                     description =
                       lib.mdDoc
                         "List of alert rule UIDs that should be deleted."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1988,7 +1988,7 @@ in
                           description =
                             lib.mdDoc
                               "Organization ID, default = 1."
-                            ;
+                          ;
                           default = 1;
                           type = types.int;
                         };
@@ -1997,7 +1997,7 @@ in
                           description =
                             lib.mdDoc
                               "Name of the template, must be unique. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
                       }
@@ -2057,7 +2057,7 @@ in
                     description =
                       lib.mdDoc
                         "List of mute time intervals to import or update."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -2067,7 +2067,7 @@ in
                           description =
                             lib.mdDoc
                               "Name of the mute time interval, must be unique. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
                       }
@@ -2078,7 +2078,7 @@ in
                     description =
                       lib.mdDoc
                         "List of mute time intervals that should be deleted."
-                      ;
+                    ;
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -2086,7 +2086,7 @@ in
                           description =
                             lib.mdDoc
                               "Organization ID, default = 1."
-                            ;
+                          ;
                           default = 1;
                           type = types.int;
                         };
@@ -2095,7 +2095,7 @@ in
                           description =
                             lib.mdDoc
                               "Name of the mute time interval, must be unique. Required."
-                            ;
+                          ;
                           type = types.str;
                         };
                       }
@@ -2161,7 +2161,7 @@ in
               }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
           in
           builtins.match regex opt == null
-          ;
+        ;
       in
       # Ensure that no custom credentials are leaked into the Nix store. Unless the default value
       # is specified, this can be achieved by using the file/env provider:
@@ -2193,7 +2193,7 @@ in
               datasourcesToCheck =
                 optionals (cfg.provision.datasources.settings != null)
                   cfg.provision.datasources.settings.datasources
-                ;
+              ;
               declarationUnsafe =
                 {
                   secureJsonData,
@@ -2203,7 +2203,7 @@ in
                 && any (flip doesntUseFileProvider null) (
                   attrValues secureJsonData
                 )
-                ;
+              ;
             in
             any declarationUnsafe datasourcesToCheck
           )
@@ -2216,7 +2216,7 @@ in
         optional (any (x: x.secure_settings != null) cfg.provision.notifiers)
           "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead."
       )
-      ;
+    ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -2225,7 +2225,7 @@ in
         assertion =
           cfg.provision.datasources.settings == null
           || cfg.provision.datasources.path == null
-          ;
+        ;
         message = "Cannot set both datasources settings and datasources path";
       }
       {
@@ -2243,13 +2243,13 @@ in
                   type == "prometheus" -> access != "direct"
                 )
                 opt
-              ;
+            ;
           in
           cfg.provision.datasources.settings == null
           ||
             prometheusIsNotDirect
               cfg.provision.datasources.settings.datasources
-          ;
+        ;
         message =
           "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
@@ -2257,21 +2257,21 @@ in
         assertion =
           cfg.provision.dashboards.settings == null
           || cfg.provision.dashboards.path == null
-          ;
+        ;
         message = "Cannot set both dashboards settings and dashboards path";
       }
       {
         assertion =
           cfg.provision.alerting.rules.settings == null
           || cfg.provision.alerting.rules.path == null
-          ;
+        ;
         message = "Cannot set both rules settings and rules path";
       }
       {
         assertion =
           cfg.provision.alerting.contactPoints.settings == null
           || cfg.provision.alerting.contactPoints.path == null
-          ;
+        ;
         message =
           "Cannot set both contact points settings and contact points path";
       }
@@ -2279,21 +2279,21 @@ in
         assertion =
           cfg.provision.alerting.policies.settings == null
           || cfg.provision.alerting.policies.path == null
-          ;
+        ;
         message = "Cannot set both policies settings and policies path";
       }
       {
         assertion =
           cfg.provision.alerting.templates.settings == null
           || cfg.provision.alerting.templates.path == null
-          ;
+        ;
         message = "Cannot set both templates settings and templates path";
       }
       {
         assertion =
           cfg.provision.alerting.muteTimings.settings == null
           || cfg.provision.alerting.muteTimings.path == null
-          ;
+        ;
         message = "Cannot set both mute timings settings and mute timings path";
       }
     ];
@@ -2305,7 +2305,7 @@ in
         [ "networking.target" ]
         ++ lib.optional usePostgresql "postgresql.service"
         ++ lib.optional useMysql "mysql.service"
-        ;
+      ;
       script = ''
         set -o errexit -o pipefail -o nounset -o errtrace
         shopt -s inherit_errexit
@@ -2326,7 +2326,7 @@ in
             [ "CAP_NET_BIND_SERVICE" ]
           else
             [ "" ]
-          ;
+        ;
         DeviceAllow = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -2361,7 +2361,7 @@ in
           ++ lib.optionals (cfg.settings.server.protocol == "socket") [
             "@chown"
           ]
-          ;
+        ;
         UMask = "0027";
       };
       preStart = ''

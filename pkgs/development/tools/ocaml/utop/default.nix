@@ -36,7 +36,7 @@ let
         duneVersion = "2";
         propagatedBuildInputs = [ lambda-term ];
       }
-    ;
+  ;
 in
 
 buildDunePackage rec {
@@ -97,7 +97,7 @@ buildDunePackage rec {
          --add-flags "-I ${findlib}/lib/ocaml/${lib.getVersion ocaml}/site-lib"
       done
     ''
-    ;
+  ;
 
   meta = {
     description = "Universal toplevel for OCaml";

@@ -25,7 +25,7 @@ import ./make-test-python.nix (
           screen
         ];
       }
-      ;
+    ;
   in
   {
     name = "rxe";

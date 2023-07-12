@@ -36,7 +36,7 @@ let
       )
     else
       null
-    ;
+  ;
 
   markBroken =
     pkg:
@@ -48,12 +48,12 @@ let
             args.melpaBuild (
               drv // { meta = (drv.meta or { }) // { broken = true; }; }
             )
-            ;
+          ;
         }
       )
     else
       null
-    ;
+  ;
 
   externalSrc =
     pkg: epkg:
@@ -69,12 +69,12 @@ let
                 propagatedUserEnvPkgs = [ epkg ];
               }
             )
-            ;
+          ;
         }
       )
     else
       null
-    ;
+  ;
 
   buildWithGit =
     pkg:
@@ -83,12 +83,12 @@ let
         nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
       }
     )
-    ;
+  ;
 
   fix-rtags =
     pkg:
     if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null
-    ;
+  ;
 
   generateMelpa = lib.makeOverridable (
     {
@@ -111,7 +111,7 @@ let
             markBroken super.abridge-diff
           else
             super.abridge-diff
-          ;
+        ;
 
         # upstream issue: missing file header
         bufshow = markBroken super.bufshow;
@@ -149,7 +149,7 @@ let
             markBroken super.fold-dwim
           else
             super.fold-dwim
-          ;
+        ;
 
         # upstream issue: missing file header
         gl-conf-mode =
@@ -157,7 +157,7 @@ let
             markBroken super.gl-conf-mode
           else
             super.gl-conf-mode
-          ;
+        ;
 
         # upstream issue: missing file header
         ligo-mode =
@@ -165,7 +165,7 @@ let
             markBroken super.ligo-mode
           else
             null
-          ; # auto-updater is failing; use manual one
+        ; # auto-updater is failing; use manual one
 
         # upstream issue: missing file header
         link = markBroken super.link;
@@ -176,7 +176,7 @@ let
             markBroken super.org-dp
           else
             super.org-dp
-          ;
+        ;
 
         # upstream issue: missing file header
         revbufs =
@@ -184,7 +184,7 @@ let
             markBroken super.revbufs
           else
             super.revbufs
-          ;
+        ;
 
         # upstream issue: missing file header
         elmine = markBroken super.elmine;
@@ -193,7 +193,7 @@ let
         ido-complete-space-or-hyphen =
           markBroken
             super.ido-complete-space-or-hyphen
-          ;
+        ;
       } // {
         # Expects bash to be at /bin/bash
         ac-rtags = fix-rtags super.ac-rtags;
@@ -211,7 +211,7 @@ let
                 LDFLAGS = "-L${pkgs.llvmPackages.libclang.lib}/lib";
               }
             )
-          ;
+        ;
 
         # part of a larger package
         caml = dontConfigure super.caml;
@@ -245,7 +245,7 @@ let
                 install -m=755 -D source/sqlite/emacsql-sqlite \
                   $out/share/emacs/site-lisp/elpa/emacsql-${old.version}/sqlite/emacsql-sqlite
               ''
-              ;
+            ;
 
             stripDebugList = [ "share" ];
           }
@@ -268,7 +268,7 @@ let
                 install -m=755 -D source/sqlite/emacsql-sqlite \
                   $out/share/emacs/site-lisp/elpa/emacsql-sqlite-${old.version}/sqlite/emacsql-sqlite
               ''
-              ;
+            ;
 
             stripDebugList = [ "share" ];
           }
@@ -291,7 +291,7 @@ let
                 pkgs.perl
                 pkgs.ncurses
               ]
-              ;
+            ;
           }
         );
 
@@ -333,7 +333,7 @@ let
                 pkgs.zlib
                 pkgs.poppler
               ]
-              ;
+            ;
             preBuild = ''
               make server/epdfinfo
               remove-references-to ${
@@ -363,7 +363,7 @@ let
         hindent =
           (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs
             (attrs: { packageRequires = [ self.haskell-mode ]; })
-          ;
+        ;
 
         irony = super.irony.overrideAttrs (
           old: {
@@ -435,7 +435,7 @@ let
                 rm $outd/jinx-mod.c $outd/emacs-module.h
                 popd
               ''
-              ;
+            ;
 
             meta =
               old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
@@ -462,7 +462,7 @@ let
                 rm $outd/*.c $outd/*.h
                 popd
               ''
-              ;
+            ;
 
             meta =
               old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
@@ -492,7 +492,7 @@ let
                 install -m444 -t $outd/build ./source/src/libegit2.so
                 rm -r $outd/src $outd/Makefile $outd/CMakeLists.txt
               ''
-              ;
+            ;
           }
         );
 
@@ -597,13 +597,13 @@ let
                 mkdir -p /build/rime-lib
                 cp *.so /build/rime-lib
               ''
-              ;
+            ;
             postInstall =
               (old.postInstall or "")
               + ''
                 install -m444 -t $out/share/emacs/site-lisp/elpa/rime-* /build/rime-lib/*.so
               ''
-              ;
+            ;
           }
         );
 
@@ -645,7 +645,7 @@ let
                 mkdir -p $out/bin
                 install -m755 -Dt $out/bin ./source/server/telega-server
               ''
-              ;
+            ;
           }
         );
 
@@ -686,7 +686,7 @@ let
                 rm -r $out/share/emacs/site-lisp/elpa/zmq-*/src
                 rm $out/share/emacs/site-lisp/elpa/zmq-*/Makefile
               ''
-              ;
+            ;
           }
         );
 
@@ -739,7 +739,7 @@ let
                 ];
               }
             )
-          ;
+        ;
 
         hamlet-mode = super.hamlet-mode.overrideAttrs (
           attrs: {
@@ -770,7 +770,7 @@ let
                 substituteInPlace racer.el \
                   --replace /usr/local/src/rust/src ${pkgs.rustPlatform.rustcSrc}
               ''
-              ;
+            ;
           }
         );
 
@@ -787,7 +787,7 @@ let
                 self.emacs
                 pkgs.libvterm-neovim
               ]
-              ;
+            ;
             cmakeFlags = [
               "-DEMACS_SOURCE=${self.emacs.src}"
               "-DUSE_SYSTEM_LIBVTERM=ON"
@@ -804,7 +804,7 @@ let
                 popd > /dev/null
                 rm -rf $out/share/emacs/site-lisp/elpa/vterm-**/{CMake*,build,*.c,*.h}
               ''
-              ;
+            ;
           }
         );
 
@@ -823,10 +823,10 @@ let
                       --replace 'defcustom w3m-command nil' \
                       'defcustom w3m-command "${w3m}"'
                     ''
-                    ;
+                  ;
                 }
               )
-              ;
+            ;
           }
         );
 
@@ -840,7 +840,7 @@ let
                     lib.getExe pkgs.wordnet
                   }"'
               ''
-              ;
+            ;
           }
         );
 
@@ -852,7 +852,7 @@ let
                 substituteInPlace src/unix/emacs/mozc.el \
                   --replace '"mozc_emacs_helper"' '"${pkgs.ibus-engines.mozc}/lib/mozc/mozc_emacs_helper"'
               ''
-              ;
+            ;
           }
         );
       };

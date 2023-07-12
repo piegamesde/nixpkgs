@@ -69,7 +69,7 @@ let
 
       startAt = cfg.startAt;
     }
-    ;
+  ;
 in
 {
 
@@ -107,7 +107,7 @@ in
         defaultText =
           literalExpression
             "services.postgresqlBackup.databases == []"
-          ;
+        ;
         type = lib.types.bool;
         description = lib.mdDoc ''
           Backup all databases using pg_dumpall.
@@ -189,7 +189,7 @@ in
               && cfg.compressionLevel >= 1
               && cfg.compressionLevel <= 19
             )
-            ;
+          ;
           message =
             "config.services.postgresqlBackup.compressionLevel must be set between 1 and 9 for gzip and 1 and 19 for zstd";
         }
@@ -202,7 +202,7 @@ in
       systemd.services.postgresqlBackup =
         postgresqlBackupService "all"
           "pg_dumpall"
-        ;
+      ;
     })
     (mkIf (cfg.enable && !cfg.backupAll) {
       systemd.services = listToAttrs (

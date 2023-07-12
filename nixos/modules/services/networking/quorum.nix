@@ -14,7 +14,7 @@ let
     literalExpression
     types
     optionalString
-    ;
+  ;
 
   cfg = config.services.quorum;
   opt = options.services.quorum;
@@ -49,7 +49,7 @@ in
         description =
           lib.mdDoc
             "Override the default port on which to listen for connections."
-          ;
+        ;
       };
 
       nodekeyFile = mkOption {
@@ -89,7 +89,7 @@ in
         description =
           lib.mdDoc
             "Default minimum difference between two consecutive block's timestamps in seconds."
-          ;
+        ;
       };
 
       permissioned = mkOption {
@@ -98,7 +98,7 @@ in
         description =
           lib.mdDoc
             "Allow only a defined list of nodes to connect."
-          ;
+        ;
       };
 
       rpc = {
@@ -120,7 +120,7 @@ in
           description =
             lib.mdDoc
               "Override the default port on which to listen for RPC connections."
-            ;
+          ;
         };
 
         api = mkOption {
@@ -150,7 +150,7 @@ in
           description =
             lib.mdDoc
               "Override the default port on which to listen for WS-RPC connections."
-            ;
+          ;
         };
 
         api = mkOption {
@@ -166,7 +166,7 @@ in
           description =
             lib.mdDoc
               "Origins from which to accept websockets requests"
-            ;
+          ;
         };
       };
 

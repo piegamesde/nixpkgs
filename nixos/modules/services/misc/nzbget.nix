@@ -26,7 +26,7 @@ let
       toString v
     else
       v
-    ;
+  ;
 in
 {
   imports = [

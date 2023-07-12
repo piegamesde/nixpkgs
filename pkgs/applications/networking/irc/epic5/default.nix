@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       libiconv
       tcl
     ]
-    ;
+  ;
 
   patches = [
     (fetchpatch {

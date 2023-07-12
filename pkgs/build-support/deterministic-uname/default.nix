@@ -23,7 +23,7 @@ substituteAll {
       stdenv.buildPlatform.uname.system
     else
       "unknown"
-    ;
+  ;
   inherit (stdenv.buildPlatform.uname) processor;
 
   # uname -o
@@ -38,7 +38,7 @@ substituteAll {
       "Darwin" # darwin isn't in host-os.m4 so where does this come from?
     else
       "unknown"
-    ;
+  ;
 
   # in os-specific/linux module packages
   # --replace '$(shell uname -r)' "${kernel.modDirVersion}" \

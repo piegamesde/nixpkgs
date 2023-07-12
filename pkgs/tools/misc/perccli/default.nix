@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation rec {
       };
     in
     platforms.${system} or (throw "unsupported system: ${system}")
-    ;
+  ;
 
   # Not needed because the binary is statically linked
   dontFixup = true;

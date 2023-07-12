@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pcapSupport libpcap
-    ;
+  ;
   nativeBuildInputs = [
     cmake
     pkg-config

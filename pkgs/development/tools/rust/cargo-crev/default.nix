@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       curl
     ]
-    ;
+  ;
 
   nativeCheckInputs = [ git ];
 

@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       })
     ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ ./musl-error_h.patch ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       # > dwfl_thread_getframes: No DWARF information found
       sed -i s/run-backtrace-dwarf.sh//g tests/Makefile.in
     ''
-    ;
+  ;
 
   outputs = [
     "bin"
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
       bzip2
     ]
     ++ lib.optional enableDebuginfod pkg-config
-    ;
+  ;
   buildInputs =
     [
       zlib
@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
       libmicrohttpd
       libarchive
     ]
-    ;
+  ;
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 

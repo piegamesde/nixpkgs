@@ -53,7 +53,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ markdown-it-py.optional-dependencies.linkify
-    ;
+  ;
 
   pythonImportsCheck = [ "myst_parser" ];
 

@@ -122,7 +122,7 @@ in
           description =
             lib.mdDoc
               "Exact name of this Confluence instance in Crowd"
-            ;
+          ;
         };
 
         applicationPassword = mkOption {
@@ -131,7 +131,7 @@ in
           description =
             lib.mdDoc
               "Application password of this Confluence instance in Crowd"
-            ;
+          ;
         };
 
         applicationPasswordFile = mkOption {
@@ -140,7 +140,7 @@ in
           description =
             lib.mdDoc
               "Path to the application password for Crowd of Confluence."
-            ;
+          ;
         };
 
         validationInterval = mkOption {
@@ -171,7 +171,7 @@ in
         description =
           lib.mdDoc
             "Note that Atlassian only support the Oracle JRE (JRASERVER-46152)."
-          ;
+        ;
       };
     };
   };
@@ -189,7 +189,7 @@ in
           (cfg.sso.applicationPassword == null)
           != (cfg.sso.applicationPasswordFile)
         )
-        ;
+      ;
       message =
         "Please set either applicationPassword or applicationPasswordFile";
     } ];
@@ -230,7 +230,7 @@ in
         JAVA_OPTS =
           mkIf cfg.sso.enable
             "-Dcrowd.properties=${cfg.home}/crowd.properties"
-          ;
+        ;
       };
 
       preStart =
@@ -259,7 +259,7 @@ in
             ''}
           ''}
         ''
-        ;
+      ;
 
       serviceConfig = {
         User = cfg.user;

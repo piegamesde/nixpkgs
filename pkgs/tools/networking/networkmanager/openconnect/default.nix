@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       gcr
       libsecret
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     intltool

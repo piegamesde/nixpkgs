@@ -97,7 +97,7 @@ mkDerivation rec {
             "claudia-launcher" = "claudia_launcher.py";
             "cadence-session-start" = "cadence_session_start.py";
           }
-        ;
+      ;
     in
     lib.mapAttrsToList
       (script: source: ''
@@ -111,7 +111,7 @@ mkDerivation rec {
           }"
       '')
       scriptAndSource
-    ;
+  ;
 
   meta = {
     homepage = "https://github.com/falkTX/Cadence/";

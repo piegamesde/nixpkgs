@@ -39,7 +39,7 @@ in
         description =
           lib.mdDoc
             "Hop limit for multicast packets (default = 1)."
-          ;
+        ;
       };
       workgroup = mkOption {
         type = types.nullOr types.str;
@@ -54,7 +54,7 @@ in
         description =
           lib.mdDoc
             "Override (NetBIOS) hostname to be used (default hostname)."
-          ;
+        ;
       };
       domain = mkOption {
         type = types.nullOr types.str;
@@ -72,7 +72,7 @@ in
         description =
           lib.mdDoc
             "Listen on path or localhost port in discovery mode."
-          ;
+        ;
       };
       extraOptions = mkOption {
         type = types.listOf types.str;

@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     ++ optional withRuby_3_0 ruby_3_0
     ++ optional withRuby_3_1 ruby_3_1
     ++ optional withSSL openssl
-    ;
+  ;
 
   configureFlags =
     [
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     ++ optional withSSL "--openssl"
     ++ optional (!withIPv6) "--no-ipv6"
     ++ optional withDebug "--debug"
-    ;
+  ;
 
   # Optionally add the PHP derivations used so they can be addressed in the configs
   usedPhp81 = optionals withPHP81 php81-unit;

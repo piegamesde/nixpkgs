@@ -64,7 +64,7 @@ in
           cp -pv ${pkgs.glibc}/lib/libresolv.so.2 $out/lib
           cp -pv ${pkgs.glibc}/lib/libnss_dns.so.2 $out/lib
         ''
-      ;
+    ;
 
     boot.initrd.systemd.storePaths = [
       "${pkgs.openvpn}/bin/openvpn"
@@ -81,14 +81,14 @@ in
         ''
           $out/bin/openvpn --show-gateway
         ''
-      ;
+    ;
 
     boot.initrd.network.postCommands =
       mkIf (!config.boot.initrd.systemd.enable)
         ''
           openvpn /etc/initrd.ovpn &
         ''
-      ;
+    ;
 
     boot.initrd.systemd.services.openvpn = {
       wantedBy = [ "initrd.target" ];

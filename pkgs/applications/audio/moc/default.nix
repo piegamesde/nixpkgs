@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     [ ]
     ++ lib.optional ffmpegSupport ./moc-ffmpeg4.patch
     ++ lib.optional pulseSupport ./pulseaudio.patch
-    ;
+  ;
 
   nativeBuildInputs =
     [ pkg-config ] ++ lib.optional pulseSupport autoreconfHook;
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       libiconv
       CoreServices
     ]
-    ;
+  ;
 
   configureFlags = [
     # Sound sub-systems

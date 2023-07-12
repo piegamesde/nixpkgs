@@ -21,6 +21,6 @@ in
       }:
       # this should be an attrset, so this fails
       true
-      ;
+    ;
   };
 }

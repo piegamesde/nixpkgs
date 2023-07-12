@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       libgudev
       libxkbcommon
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       "--enable-x11-backend=no"
       "--enable-quartz-backend=yes"
     ]
-    ;
+  ;
 
   #doCheck = true; # no tests possible without a display
 

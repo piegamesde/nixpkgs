@@ -60,7 +60,7 @@ buildGoModule rec {
           ]
         }
     ''
-    ;
+  ;
 
   installCheckPhase = ''
     runHook preCheck

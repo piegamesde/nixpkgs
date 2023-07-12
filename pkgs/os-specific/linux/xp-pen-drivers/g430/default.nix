@@ -22,7 +22,7 @@ mkDerivation rec {
       sha256 = "1r423hcpi26v82pzl59br1zw5vablikclqsy6mcqi0v5p84hfrdd";
     }
     + /Linux_Pentablet_V1.2.13.1.tar.gz
-    ;
+  ;
 
   nativeBuildInputs = [ autoPatchelfHook ];
 

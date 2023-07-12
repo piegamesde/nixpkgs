@@ -14,7 +14,7 @@ let
   loggerConfigFile =
     loggerSettingsFormat.generate "logger.yaml"
       cfg.loggerSettings
-    ;
+  ;
 in
 {
 
@@ -36,7 +36,7 @@ in
         description =
           lib.mdDoc
             "Directory where to find /lib containing tremor script files"
-          ;
+        ;
       };
 
       host = mkOption {

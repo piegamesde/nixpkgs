@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       procps
     ]
     ++ optional stdenv.isLinux inetutils
-    ;
+  ;
 
   buildPhase = ''
     cd doc

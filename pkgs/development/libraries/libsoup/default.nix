@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
       vala
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       brotli
     ]
     ++ lib.optionals stdenv.isLinux [ libsysprof-capture ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     glib
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       "-Dntlm=disabled"
     ]
     ++ lib.optionals (!stdenv.isLinux) [ "-Dsysprof=disabled" ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = "-lpthread";
 

@@ -57,7 +57,7 @@ let
         mkDerivation
       )
       { }
-    ;
+  ;
 
   packages =
     self:
@@ -83,10 +83,10 @@ let
                   fi
               fi
             ''
-            ;
+          ;
         in
         callPackage setupHook { }
-        ;
+      ;
 
       propagateBin = propagate "bin";
 
@@ -122,12 +122,12 @@ let
                 maintainers = (meta.maintainers or [ ]) ++ maintainers;
                 platforms = meta.platforms or lib.platforms.linux;
               }
-              ;
+            ;
           in
           mkDerivation (
             args // { inherit pname meta outputs setupHook src version; }
           )
-          ;
+        ;
       };
     in
     {
@@ -224,6 +224,6 @@ let
       kross = callPackage ./kross.nix { };
       kxmlrpcclient = callPackage ./kxmlrpcclient.nix { };
     }
-    ;
+  ;
 in
 lib.makeScope libsForQt5.newScope packages

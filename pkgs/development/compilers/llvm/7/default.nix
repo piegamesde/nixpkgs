@@ -38,12 +38,12 @@ let
         "https://releases.llvm.org/${release_version}/${name}-${version}.src.tar.xz";
       inherit sha256;
     }
-    ;
+  ;
 
   clang-tools-extra_src =
     fetch "clang-tools-extra"
       "0lb4kdh7j2fhfz8kd6iv5df7m3pikiryk1vvwsf87spc90n09q0w"
-    ;
+  ;
 
   llvm_meta = {
     license = lib.licenses.ncsa;
@@ -59,7 +59,7 @@ let
       ++ lib.platforms.s390x
       ++ lib.platforms.wasi
       ++ lib.platforms.x86
-      ;
+    ;
   };
 
   tools = lib.makeExtensible (
@@ -77,7 +77,7 @@ let
             version
             fetch
             buildLlvmTools
-            ;
+          ;
         }
       );
       mkExtraBuildCommands0 =
@@ -87,7 +87,7 @@ let
           ln -s "${cc.lib}/lib/clang/${release_version}/include" "$rsrc"
           echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
         ''
-        ;
+      ;
       mkExtraBuildCommands =
         cc:
         mkExtraBuildCommands0 cc
@@ -95,14 +95,14 @@ let
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         ''
-        ;
+      ;
 
       bintoolsNoLibc' =
         if bootBintoolsNoLibc == null then
           tools.bintoolsNoLibc
         else
           bootBintoolsNoLibc
-        ;
+      ;
       bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
@@ -155,7 +155,7 @@ let
           tools.libstdcxxClang
         else
           tools.libcxxClang
-        ;
+      ;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
@@ -207,7 +207,7 @@ let
           ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
             targetLlvmLibraries.libunwind
           ]
-          ;
+        ;
         extraBuildCommands =
           ''
             echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags
@@ -229,7 +229,7 @@ let
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''
           + mkExtraBuildCommands cc
-          ;
+        ;
       };
 
       clangNoLibcxx = wrapCCWith rec {
@@ -244,7 +244,7 @@ let
             echo "-nostdlib++" >> $out/nix-support/cc-cflags
           ''
           + mkExtraBuildCommands cc
-          ;
+        ;
       };
 
       clangNoLibc = wrapCCWith rec {
@@ -258,7 +258,7 @@ let
             echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
           ''
           + mkExtraBuildCommands cc
-          ;
+        ;
       };
 
       clangNoCompilerRt = wrapCCWith rec {
@@ -271,7 +271,7 @@ let
             echo "-nostartfiles" >> $out/nix-support/cc-cflags
           ''
           + mkExtraBuildCommands0 cc
-          ;
+        ;
       };
 
       clangNoCompilerRtWithLibc = wrapCCWith rec {
@@ -298,7 +298,7 @@ let
             release_version
             version
             fetch
-            ;
+          ;
         }
       );
     in
@@ -311,7 +311,7 @@ let
             overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
           else
             stdenv
-          ;
+        ;
       };
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
@@ -321,7 +321,7 @@ let
             overrideCC stdenv buildLlvmTools.clangNoCompilerRt
           else
             stdenv
-          ;
+        ;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
@@ -336,7 +336,7 @@ let
           libraries.compiler-rt-libc
         else
           libraries.compiler-rt-no-libc
-        ;
+      ;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 
@@ -349,7 +349,7 @@ let
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else
             stdenv
-          ;
+        ;
       };
 
       libcxxabi = callPackage ./libcxxabi {
@@ -359,7 +359,7 @@ let
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else
             stdenv
-          ;
+        ;
       };
 
       libunwind = callPackage ./libunwind {
@@ -370,7 +370,7 @@ let
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else
             stdenv
-          ;
+        ;
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };

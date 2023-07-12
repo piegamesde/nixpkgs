@@ -8,7 +8,7 @@ let
       shortName = tname;
       isSource = false;
     }
-    ;
+  ;
 in
 lib.mapAttrs (tname: tset: defaultSourceType tname // tset) {
 

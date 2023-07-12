@@ -63,7 +63,7 @@ import ./make-test-python.nix (
                 pruneOpts
                 backupPrepareCommand
                 backupCleanupCommand
-                ;
+              ;
               repository = remoteRepository;
               initialize = true;
             };
@@ -73,7 +73,7 @@ import ./make-test-python.nix (
               repositoryFile =
                 pkgs.writeText "repositoryFile"
                   remoteFromFileRepository
-                ;
+              ;
             };
             rclonebackup = {
               inherit passwordFile paths exclude pruneOpts;
@@ -109,7 +109,7 @@ import ./make-test-python.nix (
 
           environment.sessionVariables.RCLONE_CONFIG_LOCAL_TYPE = "local";
         }
-        ;
+      ;
     };
 
     testScript = ''

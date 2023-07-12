@@ -33,7 +33,7 @@ import ./make-test-python.nix (
             flags = [ "--server-address=127.0.0.1:53" ];
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -51,6 +51,6 @@ import ./make-test-python.nix (
         machine.wait_for_open_port(3000)
         machine.succeed(f"curl --fail -H 'Accept: application/dns-message' '{url}?dns={query}' | grep -F {bin_ip}")
       ''
-      ;
+    ;
   }
 )

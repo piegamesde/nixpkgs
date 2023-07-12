@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       rocm-device-libs
       hip
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableCuda "--with-cuda=${cudatoolkit'}"
     ++ lib.optional enableRocm "--with-rocm=${rocm}"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

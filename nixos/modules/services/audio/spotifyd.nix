@@ -16,13 +16,13 @@ let
         "Using the stringly typed .config attribute is discouraged. Use the TOML typed .settings attribute instead."
     else
       id
-    ;
+  ;
   spotifydConf =
     if cfg.settings != { } then
       toml.generate "spotify.conf" cfg.settings
     else
       warnConfig (pkgs.writeText "spotifyd.conf" cfg.config)
-    ;
+  ;
 in
 {
   options = {

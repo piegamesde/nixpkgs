@@ -18,7 +18,7 @@ let
     types
     literalExpression
     optionalString
-    ;
+  ;
 
   cfg = config.services.strongswan;
 
@@ -27,7 +27,7 @@ let
     toFile "ipsec.secrets" (
       concatMapStringsSep "\n" (f: "include ${f}") secrets
     )
-    ;
+  ;
 
   ipsecConf =
     {
@@ -52,7 +52,7 @@ let
             )
             sections
         )
-        ;
+      ;
       setupConf = makeSections "config" { inherit setup; };
       connectionsConf = makeSections "conn" connections;
       caConf = makeSections "ca" ca;
@@ -62,7 +62,7 @@ let
       ${connectionsConf}
       ${caConf}
     ''
-    ;
+  ;
 
   strongswanConf =
     {
@@ -92,7 +92,7 @@ let
         config_file = ${ipsecConf { inherit setup connections ca; }}
       }
     ''
-    ;
+  ;
 in
 {
   options.services.strongswan = {
@@ -214,7 +214,7 @@ in
               secretsFile
               managePlugins
               enabledPlugins
-              ;
+            ;
           };
         };
         serviceConfig = {
@@ -226,5 +226,5 @@ in
         '';
       };
     }
-    ;
+  ;
 }

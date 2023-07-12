@@ -38,7 +38,7 @@ let
         "_"
       ]
       targetPlatform.config
-    ;
+  ;
 in
 
 stdenv.mkDerivation {
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
   outputs =
     [ "out" ]
     ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc")
-    ;
+  ;
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -94,7 +94,7 @@ stdenv.mkDerivation {
     + ''
       ln -s ${pkg-config}/share $out/share
     ''
-    ;
+  ;
 
   setupHooks = [
     ../setup-hooks/role.bash
@@ -133,7 +133,7 @@ stdenv.mkDerivation {
     ## Extra custom steps
     ##
     + extraBuildCommands
-    ;
+  ;
 
   env = {
     shell = getBin stdenvNoCC.shell + stdenvNoCC.shell.shellPath or "";
@@ -160,8 +160,8 @@ stdenv.mkDerivation {
           "pkg-config"
           pkg-config_
         + " (wrapper script)"
-        ;
+      ;
       priority = 10;
     }
-    ;
+  ;
 }

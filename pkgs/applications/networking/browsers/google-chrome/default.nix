@@ -164,7 +164,7 @@ let
       gtk3
       gtk4
     ]
-    ;
+  ;
 
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
@@ -173,7 +173,7 @@ let
       "chrome_crashpad_handler"
     else
       "crashpad_handler"
-    ;
+  ;
 in
 stdenv.mkDerivation {
   inherit version;
@@ -203,7 +203,7 @@ stdenv.mkDerivation {
 
   rpath =
     lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps
-    ;
+  ;
   binpath = lib.makeBinPath deps;
 
   installPhase = ''
@@ -278,6 +278,6 @@ stdenv.mkDerivation {
         "google-chrome-unstable"
       else
         "google-chrome-${channel}"
-      ;
+    ;
   };
 }

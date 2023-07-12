@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
-    ;
+  ;
 
   doCheck = true;
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ (with perlPackages; [ ListMoreUtils ])
-    ;
+  ;
 
   checkPhase = ''
     export LANG="en_US.UTF-8"

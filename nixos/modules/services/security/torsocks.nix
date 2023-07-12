@@ -25,7 +25,7 @@ let
 
       AllowInbound ${if cfg.allowInbound then "1" else "0"}
     ''
-    ;
+  ;
 
   wrapTorsocks =
     name: server:
@@ -40,7 +40,7 @@ let
       executable = true;
       destination = "/bin/${name}";
     }
-    ;
+  ;
 in
 {
   options = {
@@ -52,7 +52,7 @@ in
         defaultText =
           literalExpression
             "config.services.tor.enable && config.services.tor.client.enable"
-          ;
+        ;
         description = lib.mdDoc ''
           Whether to build `/etc/tor/torsocks.conf`
           containing the specified global torsocks configuration.

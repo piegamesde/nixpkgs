@@ -51,7 +51,7 @@ let
     npmConfigHook
     npmBuildHook
     npmInstallHook
-    ;
+  ;
 in
 stdenv.mkDerivation (
   args // {
@@ -65,7 +65,7 @@ stdenv.mkDerivation (
         npmBuildHook
         npmInstallHook
       ]
-      ;
+    ;
     buildInputs = buildInputs ++ [ nodejs ];
 
     strictDeps = true;

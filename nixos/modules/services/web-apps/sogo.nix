@@ -60,7 +60,7 @@ in
       description =
         lib.mdDoc
           "Optional path to a credentials file for email alarms"
-        ;
+      ;
       type = nullOr str;
       default = null;
     };

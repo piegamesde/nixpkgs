@@ -78,7 +78,7 @@ let
               --replace 'ENGINESDIR=$(libdir)/engines-{- $sover_dirname -}' \
                         'ENGINESDIR=$(OPENSSLDIR)/engines-{- $sover_dirname -}'
           ''
-          ;
+        ;
 
         outputs =
           [
@@ -94,19 +94,19 @@ let
           # any package that statically links openssl, so we want to keep that
           # output minimal.
           ++ lib.optional static "etc"
-          ;
+        ;
         setOutputFlags = false;
         separateDebugInfo =
           !stdenv.hostPlatform.isDarwin
           && !(stdenv.hostPlatform.useLLVM or false)
           && stdenv.cc.isGNU
-          ;
+        ;
 
         nativeBuildInputs =
           lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper
           ++ [ perl ]
           ++ lib.optionals static [ removeReferencesTo ]
-          ;
+        ;
         buildInputs =
           lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib;
 
@@ -214,7 +214,7 @@ let
           # trying to build binaries statically.
           ++ lib.optional static "no-ct"
           ++ lib.optional withZlib "zlib"
-          ;
+        ;
 
         makeFlags = [
           "MANDIR=$(man)/share/man"
@@ -275,7 +275,7 @@ let
             ${lib.optionalString (conf != null)
               "cat ${conf} > $etc/etc/ssl/openssl.cnf"}
           ''
-          ;
+        ;
 
         postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
           # Check to make sure the main output and the static runtime dependencies
@@ -289,7 +289,7 @@ let
         passthru.tests.pkg-config =
           testers.testMetaPkgConfig
             finalAttrs.finalPackage
-          ;
+        ;
 
         meta = with lib;
           {
@@ -306,7 +306,7 @@ let
           } // extraMeta;
       }
     )
-    ;
+  ;
 in
 {
 

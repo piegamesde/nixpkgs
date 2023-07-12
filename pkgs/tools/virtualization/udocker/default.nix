@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
         pycurl
       ]
     )
-    ;
+  ;
 
   patches = [
     (fetchpatch {

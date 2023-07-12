@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       libp11
     ]
     ++ lib.optionals stdenv.isDarwin [ libintl ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/OpenSC/pam_p11";

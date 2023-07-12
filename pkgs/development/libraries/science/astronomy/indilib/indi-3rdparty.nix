@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       fftw
     ]
     ++ lib.optionals withFirmware [ firmware ]
-    ;
+  ;
 
   postPatch = ''
     for f in indi-qsi/CMakeLists.txt \
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       "-DWITH_FISHCAMP=off"
       "-DWITH_SBIG=off"
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.indilib.org/";

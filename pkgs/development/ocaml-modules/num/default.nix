@@ -28,7 +28,7 @@ stdenv.mkDerivation (
         })
       ]
       ++ lib.optional withStatic ./enable-static.patch
-      ;
+    ;
 
     nativeBuildInputs = [
       ocaml

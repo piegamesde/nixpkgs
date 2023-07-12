@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       acl
       libselinux
     ]
-    ;
+  ;
 
   postPatch = ''
     patchShebangs ./configure

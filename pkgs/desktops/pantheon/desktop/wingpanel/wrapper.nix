@@ -18,7 +18,7 @@ let
       wingpanelIndicators
     else
       indicators ++ (lib.optionals useDefaultIndicators wingpanelIndicators)
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "${wingpanel.pname}-with-indicators";

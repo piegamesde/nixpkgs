@@ -13,7 +13,7 @@ let
     mapAttrsToList
     optional
     optionalString
-    ;
+  ;
 
   cfg = config.services.moodle;
   fpm = config.services.phpfpm.pools.moodle;
@@ -122,7 +122,7 @@ let
         exif
         sodium
       ]
-      ;
+    ;
     extraConfig = "max_input_vars = 5000";
   };
 in
@@ -206,12 +206,12 @@ in
             "/run/postgresql"
           else
             null
-          ;
+        ;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
           lib.mdDoc
             "Path to the unix socket file to use for authentication."
-          ;
+        ;
       };
 
       createLocally = mkOption {
@@ -220,7 +220,7 @@ in
         description =
           lib.mdDoc
             "Create the database and database user locally."
-          ;
+        ;
       };
     };
 
@@ -366,7 +366,7 @@ in
       after =
         optional mysqlLocal "mysql.service"
         ++ optional pgsqlLocal "postgresql.service"
-        ;
+      ;
       environment.MOODLE_CONFIG = moodleConfig;
       script = ''
         ${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/check_database_schema.php && rc=$? || rc=$?
@@ -409,7 +409,7 @@ in
     systemd.services.httpd.after =
       optional mysqlLocal "mysql.service"
       ++ optional pgsqlLocal "postgresql.service"
-      ;
+    ;
 
     users.users.${user} = {
       group = group;

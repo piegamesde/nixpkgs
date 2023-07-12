@@ -140,7 +140,7 @@ let
           "${src}/contrib/ffmpeg/A28-avcodec-amfenc-HDR-metadata.patch"
           "${src}/contrib/ffmpeg/A30-svt-av1-backports.patch"
         ]
-        ;
+      ;
     }
   );
 
@@ -192,7 +192,7 @@ let
         substituteInPlace libhb/module.defs \
           --replace /usr/include/libxml2 ${libxml2.dev}/include/libxml2
       ''
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -207,7 +207,7 @@ let
         intltool
         wrapGAppsHook
       ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -264,7 +264,7 @@ let
       # NOTE: 2018-12-27: Handbrake supports nv-codec-headers for Linux only,
       # look at ./make/configure.py search "enable_nvenc"
       ++ optional stdenv.isLinux nv-codec-headers
-      ;
+    ;
 
     configureFlags =
       [
@@ -276,7 +276,7 @@ let
       ++ optional useFdk "--enable-fdk-aac"
       ++ optional stdenv.isDarwin "--disable-xcode"
       ++ optional stdenv.hostPlatform.isx86 "--harden"
-      ;
+    ;
 
     # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
     NIX_LDFLAGS = [ "-lx265" ];
@@ -303,7 +303,7 @@ let
             HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
             test -e test.mkv
           ''
-        ;
+      ;
       version = testers.testVersion {
         package = self;
         command = "HandBrakeCLI --version";
@@ -330,7 +330,7 @@ let
       broken =
         stdenv.isDarwin
         && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
-        ;
+      ;
     };
   };
 in

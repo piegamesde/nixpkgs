@@ -77,7 +77,7 @@ rustPlatform.buildRustPackage.override
             target-applies-to-host = true
             EOF
           ''
-        ;
+      ;
 
       # changes hash of vendor directory otherwise
       dontUpdateAutotoolsGnuConfigScripts = true;
@@ -102,7 +102,7 @@ rustPlatform.buildRustPackage.override
           CoreFoundation
           Security
         ]
-        ;
+      ;
 
       # cargo uses git-rs which is made for a version of libgit2 from recent master that
       # is not compatible with the current version in nixpkgs.
@@ -136,7 +136,7 @@ rustPlatform.buildRustPackage.override
         &&
           stdenv.hostPlatform.parsed.kernel.execFormat
           == lib.systems.parse.execFormats.elf
-        ;
+      ;
       installCheckPhase = ''
         runHook preInstallCheck
         readelf -a $out/bin/.cargo-wrapped | grep -F 'Shared library: [libcurl.so'

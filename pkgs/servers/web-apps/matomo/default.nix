@@ -129,6 +129,6 @@ let
         ];
       };
     }
-    ;
+  ;
 in
 lib.mapAttrs common versions

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       "VERSION=${version}"
       "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]
-    ;
+  ;
 
   postPatch = ''
     sed -i ./Makefile -e '/depmod/d'

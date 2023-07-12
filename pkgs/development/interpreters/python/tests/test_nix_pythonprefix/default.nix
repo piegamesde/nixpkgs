@@ -15,7 +15,7 @@ let
       inherit packageOverrides;
       self = python;
     }
-    ;
+  ;
 
   pythonEnv = python.withPackages (
     ps: [

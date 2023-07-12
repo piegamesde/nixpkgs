@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       (if stdenv.isDarwin then "osx" else "lnp") # Linux with PAM modules;
     ]
     ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"
-    ; # -fPIC is required to compile php with imap on x86_64 systems
+  ; # -fPIC is required to compile php with imap on x86_64 systems
 
   hardeningDisable = [ "format" ];
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
       "-I${openssl.dev}/include/openssl"
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/include/c-client

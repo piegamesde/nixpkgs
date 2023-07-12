@@ -68,14 +68,14 @@ assert xarSupport -> libxml2 != null;
             substituteInPlace Makefile.am --replace "${testPath}" ""
             rm "${testPath}"
           ''
-          ;
+        ;
       in
       ''
         substituteInPlace Makefile.am --replace '/bin/pwd' "$(type -P pwd)"
 
         ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}
       ''
-      ;
+    ;
 
     nativeBuildInputs = [
       autoreconfHook
@@ -99,7 +99,7 @@ assert xarSupport -> libxml2 != null;
         fsprogs
       ]
       ++ lib.optional xarSupport libxml2
-      ;
+    ;
 
     # Without this, pkg-config-based dependencies are unhappy
     propagatedBuildInputs = lib.optionals stdenv.isLinux [

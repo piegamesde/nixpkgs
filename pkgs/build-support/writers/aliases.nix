@@ -10,7 +10,7 @@ let
       removeAttrs alias [ "recurseForDerivations" ]
     else
       alias
-    ;
+  ;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
@@ -25,7 +25,7 @@ let
       throw "Alias ${n} is still in writers"
     else
       alias
-    ;
+  ;
 
   mapAliases =
     aliases:
@@ -35,7 +35,7 @@ let
         removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
       )
       aliases
-    ;
+  ;
 in
 mapAliases ({
   # Cleanup before 22.05, Added 2021-12-11

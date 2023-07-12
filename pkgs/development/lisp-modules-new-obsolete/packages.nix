@@ -21,7 +21,7 @@ let
     remove
     optionalString
     stringLength
-    ;
+  ;
 
   # Used by builds that would otherwise attempt to write into storeDir.
   #
@@ -57,7 +57,7 @@ let
               '';
             }
           )
-        ;
+      ;
     in
     build-asdf-system (
       args // {
@@ -69,10 +69,10 @@ let
           build.LD_LIBRARY_PATH
           + (optionalString (stringLength build.LD_LIBRARY_PATH != 0) ":")
           + "${build}"
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   # A little hacky
   isJVM = hasSuffix "abcl" (head (splitString " " lisp));
@@ -126,7 +126,7 @@ let
         ];
         javaLibs = optionals isJVM [ jna ];
       }
-      ;
+    ;
 
     cffi-libffi = ql.cffi-libffi.overrideLispAttrs (
       o: {
@@ -205,7 +205,7 @@ let
             rev = "0c10bc82f14702c97a26dc25ce075b5d3a2347d1";
           in
           "https://gitlab.common-lisp.net/cl-tar/cl-tar-file/-/archive/${rev}/cl-tar-file-${rev}.tar.gz"
-          ;
+        ;
         sha256 = "0i8j05fkgdqy4c4pqj0c68sh4s3klpx9kc5wp73qwzrl3xqd2svy";
       };
       lispLibs = with ql; [
@@ -233,7 +233,7 @@ let
             rev = "7c6e07a10c93d9e311f087b5f6328cddd481669a";
           in
           "https://gitlab.common-lisp.net/cl-tar/cl-tar/-/archive/${rev}/cl-tar-${rev}.tar.gz"
-          ;
+        ;
         sha256 = "0wp23cs3i6a89dibifiz6559la5nk58d1n17xvbxq4nrl8cqsllf";
       };
       lispLibs = with ql;
@@ -295,7 +295,7 @@ let
           rollback
         ]
         ++ [ ql.local-time ]
-        ;
+      ;
     };
 
     cl-fuse = build-with-compile-into-pwd {
@@ -362,7 +362,7 @@ let
             mk-string-metrics
           ]
         )
-        ;
+      ;
 
       src = pkgs.fetchzip {
         url = "https://github.com/atlas-engineer/nyxt/archive/2.2.4.tar.gz";
@@ -403,7 +403,7 @@ let
             --prefix GIO_EXTRA_MODULES ":" ${pkgs.dconf.lib}/lib/gio/modules/ \
             --prefix GIO_EXTRA_MODULES ":" ${pkgs.glib-networking}/lib/gio/modules/
         ''
-        ;
+      ;
     };
 
     nyxt = nyxt-gtk;
@@ -458,7 +458,7 @@ let
           bordeaux-threads
         ];
       }
-      ;
+    ;
 
     qt-libs = build-with-compile-into-pwd {
       inherit (ql.qt-libs) pname version src;

@@ -37,7 +37,7 @@ let
         };
       }
     )
-    ;
+  ;
 in
 {
 
@@ -53,7 +53,7 @@ in
           "a4e881d86694ae70ab6b18f72ea700415971200145d33d438e57c0374d9fc16f"
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
     };
     meta = with lib; {
       homepage =
@@ -75,7 +75,7 @@ in
           "sha256-O6GCTwuxRrFFht9pQGg8G0O8wrFP2YnSaG02yy7NZ6I="
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
     };
     meta = with lib; {
       homepage =
@@ -97,7 +97,7 @@ in
           "sha256-5tg4Lts++kL3QEnP+TM7NGR3EQH17H3KmhGHuhIGVqU="
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
     };
     meta = with lib; {
       homepage = "https://github.com/vhyza/elasticsearch-analysis-lemmagen";
@@ -118,7 +118,7 @@ in
           "1c8175b2dac54277c1f41981fb4a784829e74e6e74268381fe0c27bc6652704b"
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
     };
     meta = with lib; {
       homepage =
@@ -140,7 +140,7 @@ in
           "702e446997bde5cb38af120a1cb4271d976fdd23444be49e53b6be3801d845a9"
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
     };
     meta = with lib; {
       homepage =
@@ -162,7 +162,7 @@ in
           "7d1574a585a9db0988ee248159d51f62cce5578a8c082096ef3e26efdb24aee7"
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
     };
     meta = with lib; {
       homepage =
@@ -184,7 +184,7 @@ in
           "cad923a662db705d40ca29698aa118e9e4cc50ae564c426a76d5acb777a4f57c"
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
     };
     meta = with lib; {
       homepage =
@@ -206,7 +206,7 @@ in
           "a50be4cea5c68ad7615f87d672ba160d027fdfde2be0578bb2dabd6384cc8108"
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
     };
     meta = with lib; {
       homepage =
@@ -229,7 +229,7 @@ in
           "${esVersion}-53.4.0"
         else
           throw "unsupported version ${esVersion} for plugin ${pluginName}"
-        ;
+      ;
       src =
         if esVersion == "7.17.4" then
           fetchurl {
@@ -239,7 +239,7 @@ in
           }
         else
           throw "unsupported version ${version} for plugin ${pluginName}"
-        ;
+      ;
       meta = with lib; {
         homepage = "https://search-guard.com";
         description =
@@ -247,5 +247,5 @@ in
         license = licenses.asl20;
       };
     }
-    ;
+  ;
 }

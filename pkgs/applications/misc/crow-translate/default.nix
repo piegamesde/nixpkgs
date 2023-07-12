@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
       ]
     )
-    ;
+  ;
 
   preFixup = ''
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")

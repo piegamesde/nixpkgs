@@ -30,7 +30,7 @@ stdenv.mkDerivation (
         "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
         "M=$(sourceRoot)"
       ]
-      ;
+    ;
 
     buildFlags = [ "modules" ];
     installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];

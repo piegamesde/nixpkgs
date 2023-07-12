@@ -20,7 +20,7 @@ let
       z = cfg.zeroconf;
     in
     z.publish.enable || z.discovery.enable
-    ;
+  ;
 
   overriddenPackage = cfg.package.override (
     optionalAttrs hasZeroconf { zeroconfSupport = true; }
@@ -37,7 +37,7 @@ let
       pkgs.pkgsi686Linux.alsa-lib != null
       && pkgs.pkgsi686Linux.libpulseaudio != null
     )
-    ;
+  ;
 
   myConfigFile =
     let
@@ -48,7 +48,7 @@ let
           a = cfg.tcp.anonymousClients.allowedIpRanges;
         in
         optional (a != [ ]) "auth-ip-acl=${concatStringsSep ";" a}"
-        ;
+      ;
     in
     writeTextFile {
       name = "default.pa";
@@ -66,7 +66,7 @@ let
         ${cfg.extraConfig}
       '';
     }
-    ;
+  ;
 
   ids = config.ids;
 
@@ -181,7 +181,7 @@ in
             pkgs.pulseaudioFull
           else
             pkgs.pulseaudio
-          ;
+        ;
         defaultText = literalExpression "pkgs.pulseaudio";
         example = literalExpression "pkgs.pulseaudioFull";
         description = lib.mdDoc ''
@@ -219,7 +219,7 @@ in
           description =
             lib.mdDoc
               "Config of the pulse daemon. See `man pulse-daemon.conf`."
-            ;
+          ;
           example = literalExpression ''{ realtime-scheduling = "yes"; }'';
         };
       };
@@ -287,7 +287,7 @@ in
       hardware.pulseaudio.daemon.config.resample-method =
         mkDefault
           "speex-float-5"
-        ;
+      ;
 
       # Allow PulseAudio to get realtime priority using rtkit.
       security.rtkit.enable = true;
@@ -304,17 +304,17 @@ in
           overriddenModules =
             builtins.map (drv: drv.override { pulseaudio = overriddenPackage; })
               cfg.extraModules
-            ;
+          ;
           modulePaths =
             builtins.map (drv: "${drv}/lib/pulseaudio/modules")
               # User-provided extra modules take precedence
               (
                 overriddenModules ++ [ overriddenPackage ]
               )
-            ;
+          ;
         in
         lib.concatStringsSep ":" modulePaths
-        ;
+      ;
     })
 
     (mkIf hasZeroconf { services.avahi.enable = true; })

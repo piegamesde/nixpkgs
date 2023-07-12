@@ -34,7 +34,7 @@ let
     && isFunction f
     && instance ? options
     && instance.meta.buildDocsInSandbox or true
-    ;
+  ;
 
   docModules =
     let
@@ -45,9 +45,9 @@ let
       eager =
         p.wrong
         ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules)
-        ;
+      ;
     }
-    ;
+  ;
 
   manual = import ../../doc/manual rec {
     inherit pkgs config;
@@ -76,7 +76,7 @@ let
                 guard =
                   lib.warn
                     "Attempt to evaluate package ${wholeName} in option documentation; this is not supported and will eventually be an error. Use `mkPackageOption{,MD}` or `literalExpression` instead."
-                  ;
+                ;
               in
               if isAttrs value then
                 scrubDerivations wholeName value
@@ -88,10 +88,10 @@ let
                 value
             )
             pkgSet
-          ;
+        ;
       in
       scrubbedEval.options
-      ;
+    ;
 
     baseOptionsJSON =
       let
@@ -110,7 +110,7 @@ let
           modules =
             map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
               docModules.lazy
-            ;
+          ;
         }
         ''
           export NIX_STORE_DIR=$TMPDIR/store
@@ -140,7 +140,7 @@ let
               exit 1
             } >&2
         ''
-      ;
+    ;
 
     inherit (cfg.nixos.options) warningsAreErrors allowDocBook;
   };
@@ -181,7 +181,7 @@ let
         desktopItem
       ];
     }
-    ;
+  ;
 in
 
 {
@@ -448,7 +448,7 @@ in
             manual.manualHTML
             nixos-help
           ]
-          ;
+        ;
       })
     ]
   );

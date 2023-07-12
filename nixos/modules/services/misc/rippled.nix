@@ -29,7 +29,7 @@ let
       )}
       ${db.extraOpts}
     ''
-    ;
+  ;
 
   rippledCfg =
     ''
@@ -100,7 +100,7 @@ let
       { "command": "log_level", "severity": "${cfg.logLevel}" }
     ''
     + cfg.extraConfig
-    ;
+  ;
 
   portOptions =
     {
@@ -141,7 +141,7 @@ let
           description =
             lib.mdDoc
               "When set, these credentials will be required on HTTP/S requests."
-            ;
+          ;
           type = types.str;
           default = "";
         };
@@ -150,7 +150,7 @@ let
           description =
             lib.mdDoc
               "When set, these credentials will be required on HTTP/S requests."
-            ;
+          ;
           type = types.str;
           default = "";
         };
@@ -159,7 +159,7 @@ let
           description =
             lib.mdDoc
               "A comma-separated list of admin IP addresses."
-            ;
+          ;
           type = types.listOf types.str;
           default = [ "127.0.0.1" ];
         };
@@ -193,7 +193,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   dbOptions = {
     options = {
@@ -223,7 +223,7 @@ let
         description =
           lib.mdDoc
             "Enable automatic purging of older ledger information."
-          ;
+        ;
         type = types.nullOr (types.addCheck types.int (v: v > 256));
         default = cfg.ledgerHistory;
         defaultText = literalExpression "config.${opt.ledgerHistory}";
@@ -440,7 +440,7 @@ in
           description =
             lib.mdDoc
               "The UDP address and port of the listening StatsD server."
-            ;
+          ;
           default = "127.0.0.1:8125";
           type = types.str;
         };
@@ -449,7 +449,7 @@ in
           description =
             lib.mdDoc
               "A string prepended to each collected metric."
-            ;
+          ;
           default = "";
           type = types.str;
         };

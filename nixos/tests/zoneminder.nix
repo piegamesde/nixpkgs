@@ -19,7 +19,7 @@ import ./make-test-python.nix (
         };
         time.timeZone = "America/New_York";
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("zoneminder.service")

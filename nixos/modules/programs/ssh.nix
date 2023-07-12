@@ -34,12 +34,12 @@ let
       + (if h.publicKey != null then h.publicKey else readFile h.publicKeyFile)
     ))
     + "\n"
-    ;
+  ;
 
   knownHostsFiles =
     [ "/etc/ssh/ssh_known_hosts" ]
     ++ map pkgs.copyPathToStore cfg.knownHostsFiles
-    ;
+  ;
 in
 {
   ###### interface
@@ -55,7 +55,7 @@ in
         description =
           lib.mdDoc
             "Whether to configure SSH_ASKPASS in the environment."
-          ;
+        ;
       };
 
       askPassword = mkOption {
@@ -187,7 +187,7 @@ in
                   defaultText =
                     literalExpression
                       "[ ${name} ] ++ config.${options.extraHostNames}"
-                    ;
+                  ;
                   description = lib.mdDoc ''
                     A list of host names and/or IP numbers used for accessing
                     the host's ssh service. This list includes the name of the
@@ -337,12 +337,12 @@ in
           assertion =
             (data.publicKey == null && data.publicKeyFile != null)
             || (data.publicKey != null && data.publicKeyFile == null)
-            ;
+          ;
           message =
             "knownHost ${name} must contain either a publicKey or publicKeyFile";
         }
       )
-      ;
+    ;
 
     # SSH configuration. Slight duplication of the sshd_config
     # generation in the sshd service.
@@ -397,7 +397,7 @@ in
             "-P ${cfg.agentPKCS11Whitelist} "
           )
           + "-a %t/ssh-agent"
-          ;
+        ;
         StandardOutput = "null";
         Type = "forking";
         Restart = "on-failure";
@@ -409,7 +409,7 @@ in
       environment.SSH_ASKPASS =
         optionalString cfg.enableAskPassword
           askPasswordWrapper
-        ;
+      ;
       environment.DISPLAY =
         "fake"; # required to make ssh-agent start $SSH_ASKPASS
     };
@@ -423,6 +423,6 @@ in
     environment.variables.SSH_ASKPASS =
       optionalString cfg.enableAskPassword
         askPassword
-      ;
+    ;
   };
 }

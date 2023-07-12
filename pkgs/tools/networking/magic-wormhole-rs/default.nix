@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       Security
       AppKit
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ installShellFiles ];
 

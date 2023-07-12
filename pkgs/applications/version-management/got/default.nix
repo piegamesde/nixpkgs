@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       bison
     ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       ncurses
     ]
     ++ lib.optionals stdenv.isDarwin [ libossp_uuid ]
-    ;
+  ;
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     # The configure script assumes dependencies on Darwin are install via

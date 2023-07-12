@@ -32,7 +32,7 @@ let
       substring (head nonchars).ind
         (add 1 (sub (last nonchars).ind (head nonchars).ind))
         str
-    ;
+  ;
   indent =
     str:
     concatStrings (
@@ -51,7 +51,7 @@ let
         ])
         (splitString "\n" str)
     )
-    ;
+  ;
   configText = indent (toString cfg.configSetup);
   connectionText = concatStrings (
     mapAttrsToList
@@ -76,7 +76,7 @@ let
         value.source = pkgs.writeText "ipsec-policy-${name}" text;
       })
       cfg.policies
-    ;
+  ;
 in
 
 {
@@ -103,7 +103,7 @@ in
         description =
           lib.mdDoc
             "Options to go in the 'config setup' section of the Libreswan IPsec configuration"
-          ;
+        ;
       };
 
       connections = mkOption {
@@ -125,7 +125,7 @@ in
         description =
           lib.mdDoc
             "A set of connections to define for the Libreswan IPsec service"
-          ;
+        ;
       };
 
       policies = mkOption {

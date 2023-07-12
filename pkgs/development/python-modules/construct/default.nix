@@ -41,7 +41,7 @@ buildPythonPackage rec {
   disabledTests =
     [ "test_benchmarks" ]
     ++ lib.optionals stdenv.isDarwin [ "test_multiprocessing" ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Powerful declarative parser (and builder) for binary data";

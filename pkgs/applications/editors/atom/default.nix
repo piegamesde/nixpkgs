@@ -116,6 +116,6 @@ let
         inherit broken;
       };
     }
-    ;
+  ;
 in
 lib.mapAttrs common versions

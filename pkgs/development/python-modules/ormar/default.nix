@@ -63,7 +63,7 @@ buildPythonPackage rec {
       typing-extensions
       importlib-metadata
     ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     postgresql = [ asyncpg ];
@@ -95,7 +95,7 @@ buildPythonPackage rec {
       pytest-asyncio
     ]
     ++ passthru.optional-dependencies.all
-    ;
+  ;
 
   disabledTestPaths = [ "benchmarks/test_benchmark_*.py" ];
 

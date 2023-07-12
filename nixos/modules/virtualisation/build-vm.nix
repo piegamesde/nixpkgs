@@ -22,7 +22,7 @@ let
           virtualisation.useEFIBoot =
             config.boot.loader.systemd-boot.enable
             || config.boot.loader.efi.canTouchEfiVariables
-            ;
+          ;
         }
       )
     ];
@@ -57,7 +57,7 @@ in
       vmWithBootLoader =
         lib.mkDefault
           config.virtualisation.vmVariantWithBootLoader.system.build.vm
-        ;
+      ;
     };
   };
 

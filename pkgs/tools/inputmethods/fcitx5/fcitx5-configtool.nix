@@ -56,7 +56,7 @@ mkDerivation rec {
       plasma5Packages.kiconthemes
       plasma-framework
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Configuration Tool for Fcitx5";

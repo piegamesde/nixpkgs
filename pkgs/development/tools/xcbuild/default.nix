@@ -62,7 +62,7 @@ stdenv.mkDerivation {
       substituteInPlace Libraries/libcar/Sources/Rendition.cpp \
         --replace "#if HAVE_LIBCOMPRESSION" "#if 0"
     ''
-    ;
+  ;
 
   # TODO: instruct cmake not to put it in /usr, rather than cleaning up
   postInstall = ''
@@ -90,7 +90,7 @@ stdenv.mkDerivation {
       CoreGraphics
       ImageIO
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Xcode-compatible build tool";

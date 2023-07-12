@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       sqlite
     ]
     ++ lib.optional emacsSupport emacs
-    ;
+  ;
 
   configureFlags = lib.optional (!emacsSupport) "--without-emacs";
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
   installFlags =
     lib.optional emacsSupport
       "lispdir=$(out)/share/emacs/site-lisp"
-    ;
+  ;
 
   # For some reason the tests fail if executated with nix-build, but pass if
   # executed within nix-shell --pure.

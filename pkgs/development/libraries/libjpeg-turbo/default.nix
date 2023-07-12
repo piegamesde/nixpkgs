@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.hostPlatform.libc or null == "msvcrt")
         ./mingw-boolean.patch
-    ;
+  ;
 
   outputs = [
     "bin"
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       nasm
     ]
     ++ lib.optionals enableJava [ openjdk ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
       # https://github.com/libjpeg-turbo/libjpeg-turbo/commit/88bf1d16786c74f76f2e4f6ec2873d092f577c75
       "-DFLOATTEST=fp-contract"
     ]
-    ;
+  ;
 
   doInstallCheck = true;
   installCheckTarget = "test";
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
       mjpegtools
       opencv
       vips
-      ;
+    ;
     inherit (python3.pkgs) pillow imread pyturbojpeg;
   };
 

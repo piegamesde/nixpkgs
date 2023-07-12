@@ -33,7 +33,7 @@ let
       patch = lib.toInt (lib.versions.patch version);
     in
     isOdd patch
-    ;
+  ;
 
   makeFdb =
     {
@@ -64,7 +64,7 @@ let
           msgpack
           toml11
         ]
-        ;
+      ;
 
       nativeBuildInputs =
         [
@@ -76,7 +76,7 @@ let
           mono
         ]
         ++ lib.optionals useClang [ llvmPackages.lld ]
-        ;
+      ;
 
       separateDebugInfo = true;
       dontFixCmake = true;
@@ -126,7 +126,7 @@ let
               "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
               "-DOPENSSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
             ]
-        ;
+      ;
 
       hardeningDisable = [ "fortify" ];
 
@@ -182,7 +182,7 @@ let
           mkdir -p $lib/share/java
           mv lib/fdb-java-*.jar $lib/share/java/fdb-java.jar
         ''
-        ;
+      ;
 
       outputs = [
         "out"
@@ -201,13 +201,13 @@ let
             lib.optionals
               (lib.versionAtLeast version "7.1.0" && !(avxEnabled version))
               [ "aarch64-linux" ]
-          ;
+        ;
         maintainers = with maintainers; [
           thoughtpolice
           lostnet
         ];
       };
     }
-    ;
+  ;
 in
 makeFdb

@@ -22,7 +22,7 @@ import ../make-test-python.nix (
             })
           ];
         }
-        ;
+      ;
       server =
         {
           config,
@@ -270,7 +270,7 @@ import ../make-test-python.nix (
 
           networking.firewall.enable = false;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -295,6 +295,6 @@ import ../make-test-python.nix (
             ejabberd_prefix + "unregister azurediamond example.com",
         )
       ''
-      ;
+    ;
   }
 )

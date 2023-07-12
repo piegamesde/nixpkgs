@@ -13,7 +13,7 @@ import ./make-test-python.nix (
         }: {
           services.metabase.enable = true;
         }
-        ;
+      ;
     };
 
     testScript = ''

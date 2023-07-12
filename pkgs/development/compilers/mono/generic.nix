@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       Foundation
       libobjc
     ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       "--enable-llvm"
       "--with-llvm=${llvm}"
     ]
-    ;
+  ;
 
   configurePhase = ''
     patchShebangs autogen.sh mcs/build/start-compiler-server.sh
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString withLLVM ''
       substituteInPlace mono/mini/aot-compiler.c --replace "llvm_path = g_strdup (\"\")" "llvm_path = g_strdup (\"${llvm}/bin/\")"
     ''
-    ;
+  ;
 
   # Fix mono DLLMap so it can find libX11 to run winforms apps
   # libgdiplus is correctly handled by the --with-libgdiplus configure flag
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
     + ''
       ln -s $out/bin/mcs $out/bin/gmcs
     ''
-    ;
+  ;
 
   inherit enableParallelBuilding;
 
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
       stdenv.isDarwin
       && stdenv.isAarch64
       && lib.versionOlder version "6.12.0.129"
-      ;
+    ;
     homepage = "https://mono-project.com/";
     description = "Cross platform, open source .NET development framework";
     platforms = with platforms; darwin ++ linux;

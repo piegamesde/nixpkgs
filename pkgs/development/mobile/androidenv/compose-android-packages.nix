@@ -45,7 +45,7 @@ let
     else
       throw
         "No Android SDK tarballs are available for system architecture: ${stdenv.system}"
-    ;
+  ;
 
   # Uses mkrepo.rb to create a repo spec.
   mkRepoJson =
@@ -104,7 +104,7 @@ let
         mv repo.json $out
       '';
     }
-    ;
+  ;
 
   # Reads the repo JSON. If repoXmls is provided, will build a repo JSON into the Nix store.
   repo =
@@ -119,7 +119,7 @@ let
       lib.importJSON "${mkRepoJson repoXmlSpec}"
     else
       lib.importJSON repoJson
-    ;
+  ;
 
   # Converts all 'archives' keys in a repo spec to fetchurl calls.
   fetchArchives =
@@ -144,7 +144,7 @@ let
           value
       )
       attrSet
-    ;
+  ;
 
   # Converts the repo attrset into fetch calls
   packages = fetchArchives repo.packages;
@@ -173,7 +173,7 @@ let
         )
         licenseNames
     )
-    ;
+  ;
 
   # Converts a license name to a list of license hashes.
   mkLicenseHashes =
@@ -181,7 +181,7 @@ let
     builtins.map (licenseText: builtins.hashString "sha1" licenseText) (
       mkLicenses licenseName
     )
-    ;
+  ;
 
   # The list of all license names we're accepting. Put android-sdk-license there
   # by default.
@@ -222,7 +222,7 @@ rec {
     inherit deployAndroidPackage;
     os =
       if stdenv.system == "aarch64-darwin" then "macosx" else os
-      ; # "macosx" is a universal binary here
+    ; # "macosx" is a universal binary here
     package = packages.platform-tools.${platformToolsVersion};
   };
 
@@ -269,7 +269,7 @@ rec {
         }
       )
       buildToolsVersions
-    ;
+  ;
 
   emulator = callPackage ./emulator.nix {
     inherit deployAndroidPackage os;
@@ -293,7 +293,7 @@ rec {
         }
       )
       platformVersions
-    ;
+  ;
 
   sources =
     map
@@ -305,7 +305,7 @@ rec {
         }
       )
       platformVersions
-    ;
+  ;
 
   system-images = lib.flatten (
     map
@@ -343,7 +343,7 @@ rec {
                       )
                       abiVersions
                   )
-                ;
+              ;
 
               instructions = builtins.listToAttrs (
                 map
@@ -357,7 +357,7 @@ rec {
                           # of 'Tag/ABIs : google_apis*/*' and the emulator fails with an ABI-related error.
                           sed -i '/^Addon.Vendor/d' source.properties
                         ''
-                      ;
+                    ;
                   })
                   availablePackages
               );
@@ -385,7 +385,7 @@ rec {
         }
       )
       cmakeVersions
-    ;
+  ;
 
   # Creates a NDK bundle.
   makeNdkBundle =
@@ -394,7 +394,7 @@ rec {
       inherit deployAndroidPackage os platform-tools;
       package = packages.ndk-bundle.${ndkVersion} or packages.ndk.${ndkVersion};
     }
-    ;
+  ;
 
   # All NDK bundles.
   ndk-bundles = lib.optionals includeNDK (map makeNdkBundle ndkVersions);
@@ -416,7 +416,7 @@ rec {
         builtins.filter (platformVersion: platformVersion < "26")
           platformVersions
       )
-    ; # API level 26 and higher include Google APIs by default
+  ; # API level 26 and higher include Google APIs by default
 
   google-tv-addons =
     map
@@ -428,7 +428,7 @@ rec {
         }
       )
       platformVersions
-    ;
+  ;
 
   # Function that automatically links all plugins for which multiple versions can coexist
   linkPlugins =
@@ -444,7 +444,7 @@ rec {
         '')
         plugins}
     ''
-    ;
+  ;
 
   # Function that automatically links all NDK plugins.
   linkNdkPlugins =
@@ -461,7 +461,7 @@ rec {
         '')
         plugins}
     ''
-    ;
+  ;
 
   # Function that automatically links the default NDK plugin.
   linkNdkPlugin =
@@ -473,7 +473,7 @@ rec {
     lib.optionalString check ''
       ln -s ${plugin}/libexec/android-sdk/${name} ${name}
     ''
-    ;
+  ;
 
   # Function that automatically links a plugin for which only one version exists
   linkPlugin =
@@ -485,7 +485,7 @@ rec {
     lib.optionalString check ''
       ln -s ${plugin}/libexec/android-sdk/${name} ${name}
     ''
-    ;
+  ;
 
   linkSystemImages =
     {
@@ -503,7 +503,7 @@ rec {
         '')
         images}
     ''
-    ;
+  ;
 
   # Links all plugins related to a requested platform
   linkPlatformPlugins =
@@ -520,7 +520,7 @@ rec {
         '')
         plugins}
     ''
-    ; # */
+  ; # */
 
   # This derivation deploys the tools package and symlinks all the desired
   # plugins that we want to use. If the license isn't accepted, prints all the licenses
@@ -653,7 +653,7 @@ rec {
                 licenseHashFile =
                   writeText "androidenv-${licenseName}"
                     licenseHashes
-                  ;
+                ;
               in
               ''
                 ln -s ${licenseHashFile} licenses/${licenseName}
@@ -662,5 +662,5 @@ rec {
             licenseNames}
         '';
       }
-    ;
+  ;
 }

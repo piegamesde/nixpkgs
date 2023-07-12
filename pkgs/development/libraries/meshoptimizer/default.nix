@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     ++
       lib.optional (!stdenv.hostPlatform.isStatic)
         "-DMESHOPT_BUILD_SHARED_LIBS:BOOL=ON"
-    ;
+  ;
 
   meta = with lib; {
     description =

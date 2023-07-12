@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       "-DBOOTSTRAP_DAEMON=ON"
     ]
     ++ lib.optional buildToxAV "-DMUST_BUILD_TOXAV=ON"
-    ;
+  ;
 
   buildInputs =
     [
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       libopus
       libvpx
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

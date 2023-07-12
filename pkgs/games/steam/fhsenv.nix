@@ -53,7 +53,7 @@ let
       sqlite
     ]
     ++ extraPkgs pkgs
-    ;
+  ;
 
   ldPath =
     lib.optionals stdenv.is64bit [ "/lib64" ]
@@ -65,7 +65,7 @@ let
       map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
         steam-runtime-wrapped-i686.libs
     )
-    ;
+  ;
 
   # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
   exportLDPath = ''
@@ -97,7 +97,7 @@ buildFHSEnv rec {
       gnome.zenity
     ]
     ++ commonTargetPkgs pkgs
-    ;
+  ;
 
   multiPkgs =
     pkgs:
@@ -246,7 +246,7 @@ buildFHSEnv rec {
     ]
     ++ steamPackages.steam-runtime-wrapped.overridePkgs
     ++ extraLibraries pkgs
-    ;
+  ;
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications
@@ -275,7 +275,7 @@ buildFHSEnv rec {
       export SDL_JOYSTICK_DISABLE_UDEV=1
     ''
     + extraProfile
-    ;
+  ;
 
   runScript = writeShellScript "steam-wrapper.sh" ''
     if [ -f /host/etc/NIXOS ]; then   # Check only useful on NixOS

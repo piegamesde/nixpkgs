@@ -72,7 +72,7 @@ buildGoModule rec {
       "sqlite"
       "sqlite_unlock_notify"
     ]
-    ;
+  ;
 
   ldflags = [
     "-s"
@@ -126,7 +126,7 @@ buildGoModule rec {
             -exec gzip --best --keep --force {} ';' \
             -exec brotli --best --keep --no-copy-stat {} ';'
         ''
-      ;
+    ;
 
     tests = nixosTests.forgejo;
   };

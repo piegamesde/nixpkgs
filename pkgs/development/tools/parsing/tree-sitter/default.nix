@@ -73,7 +73,7 @@ let
           src = grammar.src or (fetchGrammar grammar);
           location = grammar.location or null;
         }
-        ;
+      ;
       grammars' = import ./grammars { inherit lib; } // extraGrammars;
       grammars = grammars' // {
         tree-sitter-ocaml =
@@ -102,7 +102,7 @@ let
       };
     in
     lib.mapAttrs build (grammars)
-    ;
+  ;
 
   # Usage:
   # pkgs.tree-sitter.withPlugins (p: [ p.tree-sitter-c p.tree-sitter-java ... ])
@@ -131,13 +131,13 @@ let
                 )
               ))
               + ".so"
-              ;
+            ;
             path = "${drv}/parser";
           }
         )
         grammars
     )
-    ;
+  ;
 
   allGrammars = builtins.attrValues builtGrammars;
 in

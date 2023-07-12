@@ -168,7 +168,7 @@ in
       "analogix-dp"
       "analogix-anx6345" # For DP or eDP (e.g. integrated display)
     ]
-    ;
+  ;
 
   # Include lots of firmware.
   hardware.enableRedistributableFirmware = true;

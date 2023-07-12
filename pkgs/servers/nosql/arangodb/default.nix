@@ -27,7 +27,7 @@ let
       defaultTargetArchitecture
     else
       targetArchitecture
-    ;
+  ;
 in
 
 gcc10Stdenv.mkDerivation rec {
@@ -88,7 +88,7 @@ gcc10Stdenv.mkDerivation rec {
         if gcc10Stdenv.targetPlatform.sse4_2Support then "ON" else "OFF"
       }"
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://www.arangodb.com";

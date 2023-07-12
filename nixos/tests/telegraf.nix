@@ -28,7 +28,7 @@ import ./make-test-python.nix (
           outputs.file.data_format = "influx";
         };
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

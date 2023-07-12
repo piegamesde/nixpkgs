@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
         "sha256:0hjai1bd4mq3g2dlyi0zkn8s4zlgxd38skw77mb78nc4di5gvgpg"
       else
         "sha256:1y1c65nap91nv9xkvd96fagqbfl56p9n0rl6iac0i29bkysdmija"
-      ;
+    ;
   };
 
   # grab the plugin sdk for the desktop icon
@@ -152,7 +152,7 @@ stdenv.mkDerivation rec {
       --set QT_QPA_PLATFORM xcb \
       --set NIX_REDIRECTS /usr/share/X11/xkb=${xkeyboard_config}/share/X11/xkb
     ''
-    ;
+  ;
 
   dontStrip = true;
   dontPatchELF = true;

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     lib.optional mbrolaSupport mbrola
     ++ lib.optional pcaudiolibSupport pcaudiolib
     ++ lib.optional sonicSupport sonic
-    ;
+  ;
 
   preConfigure = "./autogen.sh";
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
             lib.getExe buildPackages.espeak-ng
           } --compile"
       ''
-    ;
+  ;
 
   postInstall = lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/bin/espeak-ng)" $out/bin/speak-ng

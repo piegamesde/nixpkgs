@@ -21,7 +21,7 @@ let
       redshift_jdbc
       liquibase_redshift_extension
     ]
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
             CP="\$CP":"\$jar"
           done
         ''
-        ;
+      ;
     in
     ''
       mkdir -p $out
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       EOF
       chmod +x $out/bin/liquibase
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Version Control for your database";

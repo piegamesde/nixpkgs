@@ -15,7 +15,7 @@ collectd.overrideAttrs (
         "--disable-daemon"
         "--disable-all-plugins"
       ]
-      ;
+    ;
 
     postInstall = "rm -rf $out/{bin,etc,sbin,share}";
 

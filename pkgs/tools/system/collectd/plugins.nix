@@ -82,7 +82,7 @@ let
     disk.buildInputs =
       lib.optionals stdenv.isLinux [ udev ]
       ++ lib.optionals stdenv.isDarwin [ IOKit ]
-      ;
+    ;
     dns.buildInputs = [ libpcap ];
     ipmi.buildInputs = [ openipmi ];
     iptables.buildInputs =
@@ -91,7 +91,7 @@ let
         iptables
         libmnl
       ]
-      ;
+    ;
     java.buildInputs = [
       jdk
       libgcrypt
@@ -159,7 +159,7 @@ let
         lvm2
         udev
       ]
-      ;
+    ;
     write_http.buildInputs = [
       curl
       yajl
@@ -191,7 +191,7 @@ let
     plugin:
     lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs)
       plugins.${plugin}.buildInputs
-    ;
+  ;
 
   buildInputs =
     if enabledPlugins == null then
@@ -200,7 +200,7 @@ let
       )
     else
       builtins.concatMap pluginBuildInputs enabledPlugins
-    ;
+  ;
 in
 {
   inherit configureFlags buildInputs;

@@ -50,7 +50,7 @@ let
       "i386"
     else
       null
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "musl";
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
   CFLAGS =
     [ "-fstack-protector-strong" ]
     ++ lib.optional stdenv.hostPlatform.isPower "-mlong-double-64"
-    ;
+  ;
 
   configureFlags = [
     "--enable-shared"
@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
       install -D ${cdefs_h} $dev/include/sys/cdefs.h
       install -D ${tree_h} $dev/include/sys/tree.h
     ''
-    ;
+  ;
 
   passthru.linuxHeaders = linuxHeaders;
 

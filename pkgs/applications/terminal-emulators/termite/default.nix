@@ -42,7 +42,7 @@ let
           # Derived from "https://github.com/thestinger/vte-ng/commit/dd74ae7c06e8888af2fc090ac6f8920a9d8227fb.patch";
           ./vte-ng-modified-patches/vte-0005-expose-function-for-getting-the-selected-text.patch
         ]
-        ;
+      ;
     }
   );
 in
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       })
     ]
     ++ lib.optional stdenv.isDarwin ./remove_ldflags_macos.patch
-    ;
+  ;
 
   makeFlags = [
     "VERSION=v${version}"

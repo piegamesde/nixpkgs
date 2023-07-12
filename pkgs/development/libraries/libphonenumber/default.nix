@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       gtest
     ]
     ++ lib.optional stdenv.isDarwin Foundation
-    ;
+  ;
 
   cmakeDir = "../cpp";
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

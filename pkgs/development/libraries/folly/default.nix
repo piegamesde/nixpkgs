@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optional stdenv.isLinux jemalloc
-    ;
+  ;
 
   # jemalloc headers are required in include/folly/portability/Malloc.h
   propagatedBuildInputs = lib.optional stdenv.isLinux jemalloc;

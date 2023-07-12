@@ -14,7 +14,7 @@ let
       "32bit"
     else
       throw "Unsupported system: ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   libPath = lib.makeLibraryPath [ cups ];
 in

@@ -40,7 +40,7 @@ import ./make-test-python.nix (
           dirmngr.enable = true;
         };
       }
-      ;
+    ;
 
     # Some of the commands are run via a virtual console because they need to be
     # run under a real login session, with D-Bus running in the environment.
@@ -81,6 +81,6 @@ import ./make-test-python.nix (
             _, output = machine.systemctl("status dbus-org.freedesktop.secrets --no-pager", "alice")
             assert "Active: active (running)" in output
       ''
-      ;
+    ;
   }
 )

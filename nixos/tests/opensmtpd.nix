@@ -31,7 +31,7 @@ import ./make-test-python.nix {
           '';
         };
       }
-      ;
+    ;
 
     smtp2 =
       {
@@ -68,7 +68,7 @@ import ./make-test-python.nix {
           protocols = [ "imap" ];
         };
       }
-      ;
+    ;
 
     client =
       {
@@ -123,9 +123,9 @@ import ./make-test-python.nix {
             sendTestMail
             checkMailLanded
           ]
-          ;
+        ;
       }
-      ;
+    ;
   };
 
   testScript = ''

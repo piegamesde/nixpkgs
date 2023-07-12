@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
 
       substituteInPlace doc/Makefile.am --replace 'flex.1: $(top_srcdir)/configure.ac' 'flex.1: '
     ''
-    ;
+  ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         export ac_cv_func_malloc_0_nonnull=yes
         export ac_cv_func_realloc_0_nonnull=yes
       ''
-    ;
+  ;
 
   postConfigure = lib.optionalString (stdenv.isDarwin || stdenv.isCygwin) ''
     sed -i Makefile -e 's/-no-undefined//;'

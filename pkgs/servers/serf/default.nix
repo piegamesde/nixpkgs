@@ -29,7 +29,7 @@ buildGoModule rec {
         Version = version;
         VersionPrerelease = "";
       }
-    ;
+  ;
 
   # There are no tests for cmd/serf.
   doCheck = false;

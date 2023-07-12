@@ -34,7 +34,7 @@ buildGoModule rec {
       "-X github.com/yoheimuta/protolint/internal/cmd/protocgenprotolint.version=${version}"
       "-X github.com/yoheimuta/protolint/internal/cmd/protocgenprotolint.revision=${rev}"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

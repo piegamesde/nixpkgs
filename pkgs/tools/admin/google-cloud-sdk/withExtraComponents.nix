@@ -24,7 +24,7 @@ let
       ];
     in
     builtins.filter (drv: !(builtins.elem drv preInstalledComponents))
-    ;
+  ;
 
   # Recursively build a list of components with their dependencies
   # TODO this could be made faster, it checks the dependencies too many times
@@ -41,7 +41,7 @@ let
   comps =
     [ google-cloud-sdk ]
     ++ filterPreInstalled (findDepsRecursive (defaultComponents ++ comps_))
-    ;
+  ;
 in
 # Components are installed by copying the `google-cloud-sdk` package, along
 # with each component, over to a new location, and then patching that location
@@ -68,7 +68,7 @@ runCommand "google-cloud-sdk-${google-cloud-sdk.version}"
           fi
         done
       ''
-      ;
+    ;
   }
   ''
     mkdir -p $out

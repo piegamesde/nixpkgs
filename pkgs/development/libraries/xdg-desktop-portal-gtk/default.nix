@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         "--disable-settings"
         "--disable-appchooser"
       ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Desktop integration portals for sandboxed apps";

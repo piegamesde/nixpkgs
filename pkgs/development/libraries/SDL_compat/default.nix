@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [ SDL2 ]
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       libGL
       libGLU
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

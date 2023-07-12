@@ -25,7 +25,7 @@ let
       glibcCross
     else
       assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     [ libxcrypt ]
     ++ lib.optional (pam != null && stdenv.isLinux) pam
     ++ lib.optional withTcb tcb
-    ;
+  ;
 
   patches = [
     ./keep-path.patch
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (stdenv.hostPlatform.libc != "glibc") "--disable-nscd"
     ++ lib.optional withTcb "--with-tcb"
-    ;
+  ;
 
   preBuild = lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
     substituteInPlace lib/nscd.c --replace /usr/sbin/nscd ${glibc.bin}/bin/nscd
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
   disallowedReferences =
     lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
       stdenv.shellPackage
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/shadow-maint";

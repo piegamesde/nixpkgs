@@ -50,7 +50,7 @@ let
           vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
         }
       )
-      ;
+    ;
   };
 
   # replaces esbuild's download script with a binary from nixpkgs
@@ -61,7 +61,7 @@ let
       sed -i 's/${version}/${esbuild'.version}/g' ${path}/node_modules/esbuild/lib/main.js
       ln -s -f ${esbuild'}/bin/esbuild ${path}/node_modules/esbuild/bin/esbuild
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "code-server";
@@ -154,7 +154,7 @@ stdenv.mkDerivation rec {
       cctools
       xcbuild
     ]
-    ;
+  ;
 
   patches =
     [
@@ -282,7 +282,7 @@ stdenv.mkDerivation rec {
       # create release
       yarn release
     ''
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/libexec/code-server $out/bin

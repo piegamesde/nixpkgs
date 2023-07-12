@@ -42,7 +42,7 @@ buildPythonPackage rec {
         maturinBuildHook
       ]
     )
-    ;
+  ;
 
   buildInputs = [ openssl ];
 

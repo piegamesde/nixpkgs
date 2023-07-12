@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
             sha256 = "1kbmxpg15wci33f2h6pxxvf3qm0kpyzx9wj5a3l67sk34hvza3z6";
           }
         ]
-    ;
+  ;
 
   nativeBuildInputs = [ m4 ];
   buildInputs = [ cdrtools ] ++ lib.optionals stdenv.isDarwin [ IOKit ];

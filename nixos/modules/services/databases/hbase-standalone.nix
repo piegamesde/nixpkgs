@@ -24,7 +24,7 @@ let
         '')
         configAttr
     ))
-    ;
+  ;
 
   configFile = pkgs.writeText "hbase-site.xml" ''
     <configuration>

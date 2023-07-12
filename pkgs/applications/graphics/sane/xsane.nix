@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       gtk2
     ]
     ++ lib.optional gimpSupport gimp
-    ;
+  ;
 
   passthru.updateScript = nix-update-script { };
 

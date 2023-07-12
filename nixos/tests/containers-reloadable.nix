@@ -26,7 +26,7 @@ import ./make-test-python.nix (
         }: {
           imports = [ client_base ];
         }
-        ;
+      ;
 
       client_c1 =
         {
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
             services.httpd.adminAddr = "nixos@example.com";
           };
         }
-        ;
+      ;
       client_c2 =
         {
           lib,
@@ -54,7 +54,7 @@ import ./make-test-python.nix (
             services.nginx.enable = true;
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -87,6 +87,6 @@ import ./make-test-python.nix (
             )
             client.fail("systemctl status httpd -M test1 >&2")
       ''
-      ;
+    ;
   }
 )

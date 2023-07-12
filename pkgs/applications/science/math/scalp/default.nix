@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     lib.optionals withGurobi [ gurobi ]
     ++ lib.optionals withCplex [ cplex ]
     ++ lib.optionals withLpsolve [ lp_solve ]
-    ;
+  ;
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     [ "-DBUILD_TESTS=${lib.boolToString doCheck}" ]
     ++ lib.optionals withGurobi [ "-DGUROBI_DIR=${gurobi}" ]
     ++ lib.optionals withCplex [ "-DCPLEX_DIR=${cplex}" ]
-    ;
+  ;
 
   doCheck = true;
 

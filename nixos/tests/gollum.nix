@@ -14,7 +14,7 @@ import ./make-test-python.nix (
         }: {
           services.gollum.enable = true;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -27,6 +27,6 @@ import ./make-test-python.nix (
           toString nodes.webserver.services.gollum.port
         })
       ''
-      ;
+    ;
   }
 )

@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withFontconfig fontconfig
     ++ lib.optional withFontconfig fontconfig.lib
     ++ lib.optional withUdev udev
-    ;
+  ;
 
   enableParallelBuilding = true;
 

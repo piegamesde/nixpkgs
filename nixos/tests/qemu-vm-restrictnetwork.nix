@@ -10,7 +10,7 @@ import ./make-test-python.nix ({
       }: {
         virtualisation.restrictNetwork = false;
       }
-      ;
+    ;
 
     restricted =
       {
@@ -20,7 +20,7 @@ import ./make-test-python.nix ({
       }: {
         virtualisation.restrictNetwork = true;
       }
-      ;
+    ;
   };
 
   testScript = ''

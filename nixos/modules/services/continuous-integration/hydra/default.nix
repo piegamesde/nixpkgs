@@ -74,7 +74,7 @@ let
         done
       '';
     }
-    ;
+  ;
 in
 
 {
@@ -208,7 +208,7 @@ in
         description =
           lib.mdDoc
             "Directory that holds Hydra garbage collector roots."
-          ;
+        ;
       };
 
       buildMachinesFiles = mkOption {
@@ -216,7 +216,7 @@ in
         default =
           optional (config.nix.buildMachines != [ ])
             "/etc/nix/machines"
-          ;
+        ;
         defaultText = literalExpression ''
           optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
         example = [
@@ -376,7 +376,7 @@ in
           "@${hydra-package}/bin/hydra-server hydra-server -f -h '${cfg.listenHost}' "
           + "-p ${toString cfg.port} --max_spare_servers 5 --max_servers 25 "
           + "--max_requests 100 ${optionalString cfg.debugServer "-d"}"
-          ;
+        ;
         User = "hydra-www";
         PermissionsStartOnly = true;
         Restart = "always";

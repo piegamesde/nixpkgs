@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       substituteInPlace ./tools/dbus-launch.c \
         --replace 'DBUS_DAEMONDIR"/dbus-daemon"' '"/run/current-system/sw/bin/dbus-daemon"'
     ''
-    ;
+  ;
 
   outputs = [
     "out"
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       audit
       libapparmor
     ]
-    ;
+  ;
   # ToDo: optional selinux?
 
   configureFlags =
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableSystemd [
       "SYSTEMCTL=${systemdMinimal}/bin/systemctl"
     ]
-    ;
+  ;
 
   NIX_CFLAGS_LINK = lib.optionalString (!stdenv.isDarwin) "-Wl,--as-needed";
 

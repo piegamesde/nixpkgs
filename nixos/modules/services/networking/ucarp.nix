@@ -54,7 +54,7 @@ in
       description =
         lib.mdDoc
           "Virtual IP identifier shared between CARP hosts."
-        ;
+      ;
       example = 1;
     };
 
@@ -63,7 +63,7 @@ in
       description =
         lib.mdDoc
           "File containing shared password between CARP hosts."
-        ;
+      ;
       example = "/run/keys/ucarp-password";
     };
 
@@ -81,7 +81,7 @@ in
       description =
         lib.mdDoc
           "Do not run downscript at start if the host is the backup."
-        ;
+      ;
       default = false;
     };
 
@@ -147,7 +147,7 @@ in
       description =
         lib.mdDoc
           "Ignore interface state, e.g., down or no carrier."
-        ;
+      ;
       default = false;
     };
 
@@ -156,7 +156,7 @@ in
       description =
         lib.mdDoc
           "Use broadcast instead of multicast advertisements."
-        ;
+      ;
       default = false;
     };
 

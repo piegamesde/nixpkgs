@@ -39,14 +39,14 @@ let
       SETUP_COMPLETED=false
       REMOVE_INDEXPHP=true
     ''
-    ;
+  ;
 
   extraConfig =
     hostName: cfg:
     pkgs.writeText "extraConfig.php" ''
       ${toString cfg.extraConfig}
     ''
-    ;
+  ;
 
   pkg =
     hostName: cfg:
@@ -86,7 +86,7 @@ let
           cfg.invoiceTemplates}
       '';
     }
-    ;
+  ;
 
   siteOpts =
     {
@@ -149,7 +149,7 @@ let
             description =
               lib.mdDoc
                 "Create the database and database user locally."
-              ;
+            ;
           };
         };
 
@@ -241,12 +241,12 @@ let
             description =
               lib.mdDoc
                 "Cron key taken from the administration page."
-              ;
+            ;
           };
         };
       };
     }
-    ;
+  ;
 in
 {
   # interface
@@ -260,7 +260,7 @@ in
           description =
             lib.mdDoc
               "Specification of one or more WordPress sites to serve"
-            ;
+          ;
         };
 
         options.webserver = mkOption {
@@ -296,7 +296,7 @@ in
                 assertion =
                   cfg.database.createLocally
                   -> cfg.database.passwordFile == null
-                  ;
+                ;
                 message =
                   ''
                     services.invoiceplane.sites."${hostName}".database.passwordFile cannot be specified if services.invoiceplane.sites."${hostName}".database.createLocally is set to true.'';
@@ -319,7 +319,7 @@ in
               ensureDatabases =
                 mapAttrsToList (hostName: cfg: cfg.database.name)
                   eachSite
-                ;
+              ;
               ensureUsers =
                 mapAttrsToList
                   (hostName: cfg: {
@@ -329,9 +329,9 @@ in
                     };
                   })
                   eachSite
-                ;
+              ;
             }
-          ;
+        ;
 
         services.phpfpm = {
           phpPackage = pkgs.php81;
@@ -349,7 +349,7 @@ in
                 })
               )
               eachSite
-            ;
+          ;
         };
       }
 
@@ -414,7 +414,7 @@ in
               ))
             )
             eachSite
-          ;
+        ;
 
         systemd.services =
           mapAttrs'
@@ -432,7 +432,7 @@ in
               ))
             )
             eachSite
-          ;
+        ;
       }
 
       (mkIf (cfg.webserver == "caddy") {
@@ -453,7 +453,7 @@ in
                 })
               )
               eachSite
-            ;
+          ;
         };
       })
     ]

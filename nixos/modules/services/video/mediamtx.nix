@@ -56,7 +56,7 @@ in
     environment.etc."mediamtx.yaml".source =
       format.generate "mediamtx.yaml"
         cfg.settings
-      ;
+    ;
 
     systemd.services.mediamtx = {
       environment = cfg.env;

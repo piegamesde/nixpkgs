@@ -44,7 +44,7 @@ buildGraalvmNativeImage rec {
     + ''
       runHook postCheck
     ''
-    ;
+  ;
 
   passthru.updateScript = writeScript "update-clojure-lsp" ''
     #!/usr/bin/env nix-shell

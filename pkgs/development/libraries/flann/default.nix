@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
         sha256 = "qt8h576Gn8uR7+T9u9bEBIRz6e6AoTKpa1JfdZVvW9s=";
       })
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_EXAMPLES:BOOL=OFF"

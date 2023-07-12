@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withXtables iptables
     ++ lib.optional withPython python3
-    ;
+  ;
 
   configureFlags =
     [
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!withPython) "--disable-python"
     ++ lib.optional withPython "--enable-python"
     ++ lib.optional withXtables "--with-xtables"
-    ;
+  ;
 
   meta = with lib; {
     description =

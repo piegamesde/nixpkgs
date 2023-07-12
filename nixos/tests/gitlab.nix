@@ -57,7 +57,7 @@ import ./make-test-python.nix (
           systemd.services.gitlab-workhorse.serviceConfig.Restart =
             mkForce
               "no"
-            ;
+          ;
           systemd.services.gitaly.serviceConfig.Restart = mkForce "no";
           systemd.services.gitlab-sidekiq.serviceConfig.Restart = mkForce "no";
 
@@ -87,7 +87,7 @@ import ./make-test-python.nix (
             initialRootPasswordFile =
               pkgs.writeText "rootPassword"
                 initialRootPassword
-              ;
+            ;
             smtp.enable = true;
             pages = {
               enable = true;
@@ -111,11 +111,11 @@ import ./make-test-python.nix (
               jwsFile =
                 pkgs.runCommand "oidcKeyBase" { }
                   "${pkgs.openssl}/bin/openssl genrsa 2048 > $out"
-                ;
+              ;
             };
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -462,7 +462,7 @@ import ./make-test-python.nix (
                 )
                 gitlab.succeed("test -s /tmp/archive.tar.bz2")
           ''
-          ;
+        ;
       in
       ''
         gitlab.start()
@@ -488,6 +488,6 @@ import ./make-test-python.nix (
       ''
       + waitForServices
       + test false
-      ;
+    ;
   }
 )

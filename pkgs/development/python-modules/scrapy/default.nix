@@ -125,7 +125,7 @@ buildPythonPackage rec {
       "test_fixed_delay"
       "test_start_requests_laziness"
     ]
-    ;
+  ;
 
   postInstall = ''
     installManPage extras/scrapy.1

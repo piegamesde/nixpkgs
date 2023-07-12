@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage (
       [ pkg-config ]
       ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ]
       ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage (
         nghttp2
         libgit2
       ]
-      ;
+    ;
 
     buildFeatures = additionalFeatures [
       (lib.optional withDefaultFeatures "default")

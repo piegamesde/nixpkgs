@@ -122,12 +122,12 @@ stdenv.mkDerivation rec {
       Foundation
     ]
     ++ lib.optional (restSupport || colladaSupport) boost
-    ;
+  ;
 
   cmakeFlags =
     lib.optional (!withApps) "-DBUILD_OSG_APPLICATIONS=OFF"
     ++ lib.optional withExamples "-DBUILD_OSG_EXAMPLES=ON"
-    ;
+  ;
 
   meta = with lib; {
     description = "A 3D graphics toolkit";

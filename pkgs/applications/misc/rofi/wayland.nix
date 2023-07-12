@@ -28,7 +28,7 @@ rofi-unwrapped.overrideAttrs (
         wayland
         wayland-protocols
       ]
-      ;
+    ;
 
     meta = with lib; {
       description =

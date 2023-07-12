@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
           AndersonTorres
         ]
       )
-      ;
+    ;
     platforms = platforms.unix;
   };
 }

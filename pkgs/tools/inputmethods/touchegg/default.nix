@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
         libxcb
       ]
     )
-    ;
+  ;
 
   PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
     "${placeholder "out"}/lib/systemd/system";

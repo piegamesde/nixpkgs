@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       libssh2
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   outputs = [
     "bin"

@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://www.brother.com/";

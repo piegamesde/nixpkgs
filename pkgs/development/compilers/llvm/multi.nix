@@ -16,7 +16,7 @@ let
       chmod u+rw -R $out/lib
       cp -r ${basegcc.libc}/lib/* $(ls -d $out/lib/gcc/*/*)
     ''
-    ;
+  ;
   gcc_multi_sysroot =
     runCommand "gcc-multi-sysroot"
       {
@@ -42,7 +42,7 @@ let
         ln -s ${glibc_multi.out}/lib/ld-linux* $out/lib
         ln -s ${glibc_multi.out}/lib/32/ld-linux* $out/lib/32/
       ''
-    ;
+  ;
 
   clangMulti = clang.override {
     # Only used for providing expected structure re:dynamic linkers, AFAIK Most

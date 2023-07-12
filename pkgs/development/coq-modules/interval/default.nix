@@ -78,7 +78,7 @@ mkCoqDerivation rec {
       mathcomp-fingroup
     ]
     ++ lib.optionals (lib.versions.isGe "4.2.0" defaultVersion) [ gnuplot_qt ]
-    ;
+  ;
   useMelquiondRemake.logpath = "Interval";
   mlPlugin = true;
   enableParallelBuilding = true;

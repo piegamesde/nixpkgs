@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       libreswan
     ]
     ++ pythonPath
-    ;
+  ;
 
   propagatedUserEnvPkgs = [
     unbound

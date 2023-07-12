@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isAarch64
       "-Wno-error=narrowing"
-    ;
+  ;
 
   meta = with lib; {
     description =

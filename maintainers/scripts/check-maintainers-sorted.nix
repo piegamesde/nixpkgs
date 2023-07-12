@@ -11,7 +11,7 @@ let
     sort
     toLower
     trace
-    ;
+  ;
 
   maintainers = import ../maintainer-list.nix;
   simplify =
@@ -24,7 +24,7 @@ let
         ""
         ""
       ]
-    ;
+  ;
   compare = a: b: simplify (toLower a) < simplify (toLower b);
   namesSorted = sort (a: b: a.key < b.key) (
     map
@@ -54,7 +54,7 @@ let
       )
       null
       namesSorted
-    ;
+  ;
   errors = foldl' add 0 (
     map
       (
@@ -67,7 +67,7 @@ let
               t = before a;
             in
             if t == null then "the initial {" else t.name
-            ;
+          ;
         in
         if a.line >= b.line then
           trace

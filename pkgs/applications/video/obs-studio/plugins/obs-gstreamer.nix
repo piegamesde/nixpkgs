@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
         "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${
           lib.getLib package
         }/lib/gstreamer-1.0"
-        ;
+      ;
     in
     with gst_all_1;
     builtins.map gstreamerHook [
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       gst-plugins-bad
       gst-plugins-ugly
     ]
-    ;
+  ;
 
   # Fix output directory
   postInstall = ''

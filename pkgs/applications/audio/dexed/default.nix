@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       DiscRecording
       CoreAudioKit
     ]
-    ;
+  ;
 
   # JUCE insists on only dlopen'ing these
   NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux (
@@ -83,14 +83,14 @@ stdenv.mkDerivation rec {
           "$out/Library/Audio/Plug-Ins/VST3"
         else
           "$out/lib/vst3"
-        ;
+      ;
       # this one's a guess, don't know where ppl have agreed to put them yet
       clapDir =
         if stdenv.hostPlatform.isDarwin then
           "$out/Library/Audio/Plug-Ins/CLAP"
         else
           "$out/lib/clap"
-        ;
+      ;
       auDir = "$out/Library/Audio/Plug-Ins/Components";
     in
     ''
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "DX7 FM multi platform/multi format plugin";

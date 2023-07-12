@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!withLibui) libX11
     ++ lib.optional withLibui gtk3
-    ;
+  ;
   # libui is bundled with the source of usbimager as a compiled static libary
 
   postPatch = ''
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     [ "PREFIX=$(out)" ]
     ++ lib.optional withLibui "USE_LIBUI=yes"
     ++ lib.optional withUdisks "USE_UDISKS2=yes"
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -46,7 +46,7 @@ let
         flavour = "vdo";
       };
     }
-    ;
+  ;
 in
 lib.listToAttrs (
   lib.filter (x: x.value != { }) (

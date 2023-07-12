@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableDocs [ "--enable-doc-build" ]
     ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ]
-    ;
+  ;
 
   prePatch = ''
     # don't let the tests depend on `hostname`
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       gfan
     ]
     ++ lib.optionals enableGfanlib [ cddlib ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       texlive.combined.scheme-small
     ]
     ++ lib.optionals stdenv.isDarwin [ getconf ]
-    ;
+  ;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   preAutoreconf = ''
@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
       # Make sure patchelf picks up the right libraries
       rm -rf libpolys factory resources omalloc Singular
     ''
-    ;
+  ;
 
   # singular tests are a bit complicated, see
   # https://github.com/Singular/Singular/tree/spielwiese/Tst
@@ -146,7 +146,7 @@ stdenv.mkDerivation rec {
       # tests that require gfanlib
       "Short/ok_s.lst"
     ]
-    ;
+  ;
 
   # simple test to make sure singular starts and finds its libraries
   doInstallCheck = true;

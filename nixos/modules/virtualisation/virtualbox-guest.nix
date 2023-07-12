@@ -26,7 +26,7 @@ in
       description =
         lib.mdDoc
           "Whether to enable the VirtualBox service and other guest additions."
-        ;
+      ;
     };
 
     x11 = mkOption {

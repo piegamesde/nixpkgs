@@ -54,16 +54,16 @@ in
       boot.initrd.services.udev.packages =
         lib.mkIf config.boot.initrd.services.lvm.enable
           [ cfg.package ]
-        ;
+      ;
       # The device-mapper rules want to call tools from lvm2
       boot.initrd.systemd.initrdBin =
         lib.mkIf config.boot.initrd.services.lvm.enable
           [ cfg.package ]
-        ;
+      ;
       boot.initrd.services.udev.binPackages =
         lib.mkIf config.boot.initrd.services.lvm.enable
           [ cfg.package ]
-        ;
+      ;
     })
     (mkIf cfg.dmeventd.enable {
       systemd.sockets."dm-event".wantedBy = [ "sockets.target" ];
@@ -112,7 +112,7 @@ in
             "cache_dump"
             "cache_repair"
           ]
-        ;
+      ;
 
       environment.systemPackages = [ pkgs.thin-provisioning-tools ];
     })
@@ -145,7 +145,7 @@ in
       services.lvm.package =
         mkOverride 999
           pkgs.lvm2_vdo
-        ; # this overrides mkDefault
+      ; # this overrides mkDefault
 
       environment.systemPackages = [ pkgs.vdo ];
     })
@@ -170,7 +170,7 @@ in
           dmeventd/executable = /bin/false
           activation/monitoring = 0
         ''
-        ;
+      ;
 
       boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) ''
         mkdir -p /etc/lvm

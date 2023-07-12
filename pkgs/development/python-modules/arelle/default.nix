@@ -47,7 +47,7 @@ buildPythonPackage rec {
       openpyxl
     ]
     ++ lib.optionals gui [ tkinter ]
-    ;
+  ;
 
   # arelle-gui is useless without gui dependencies, so delete it when !gui.
   postInstall =
@@ -61,7 +61,7 @@ buildPythonPackage rec {
         targetDir=$out/${python.sitePackages}
         cp -vr $src/arelle $targetDir
       ''
-    ;
+  ;
 
   # Documentation
   postBuild = ''
@@ -81,7 +81,7 @@ buildPythonPackage rec {
         Language supporting various standards, exposed through a Python or
         REST API''
       + lib.optionalString gui " and a graphical user interface"
-      ;
+    ;
     homepage = "http://arelle.org/";
     license = licenses.asl20;
     platforms = platforms.all;

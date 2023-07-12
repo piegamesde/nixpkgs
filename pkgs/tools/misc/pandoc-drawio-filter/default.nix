@@ -46,7 +46,7 @@ let
         cp -r ${src}/example/* .
         pandoc -F pandoc-drawio example.md -T pdf -o $out
       ''
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://github.com/tfc/pandoc-drawio-filter";

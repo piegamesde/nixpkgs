@@ -61,7 +61,7 @@ in
         description =
           lib.mdDoc
             "Set the global minimum timeout, in seconds, until directories are unmounted"
-          ;
+        ;
       };
 
       debug = mkOption {

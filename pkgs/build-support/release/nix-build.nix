@@ -84,7 +84,7 @@ stdenv.mkDerivation (
             fi
         fi
       ''
-      ;
+    ;
   }
 
   // removeAttrs args [
@@ -146,7 +146,7 @@ stdenv.mkDerivation (
       ++ (lib.optional doClangAnalysis args.clang-analyzer)
       ++ (lib.optional doCoverityAnalysis args.cov-build)
       ++ (lib.optional doCoverityAnalysis args.xz)
-      ;
+    ;
 
     lcovFilter = [ "${builtins.storeDir}/*" ] ++ lcovFilter;
 
@@ -160,7 +160,7 @@ stdenv.mkDerivation (
           "Coverage analysis"
         else
           "Nix package for ${stdenv.hostPlatform.system}"
-        ;
+      ;
     };
   }
 

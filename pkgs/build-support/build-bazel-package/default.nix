@@ -86,7 +86,7 @@ let
         ${lib.strings.concatStringsSep " " additionalFlags} \
         ${lib.strings.concatStringsSep " " targets}
     ''
-    ;
+  ;
   # we need this to chmod dangling symlinks on darwin, gnu coreutils refuses to do so:
   # chmod: cannot operate on dangling symlink '$symlink'
   chmodder = writeCBin "chmodder" ''
@@ -135,7 +135,7 @@ stdenv.mkDerivation (
             # rules_go using the go toolchain)
             export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
           ''
-          ;
+        ;
 
         buildPhase =
           fFetchAttrs.buildPhase or ''
@@ -221,7 +221,7 @@ stdenv.mkDerivation (
     nativeBuildInputs =
       fBuildAttrs.nativeBuildInputs or [ ]
       ++ [ (bazel.override { enableNixHacks = true; }) ]
-      ;
+    ;
 
     preHook =
       fBuildAttrs.preHook or ""
@@ -230,7 +230,7 @@ stdenv.mkDerivation (
         export bazelUserRoot="$NIX_BUILD_TOP/tmp"
         export HOME="$NIX_BUILD_TOP"
       ''
-      ;
+    ;
 
     preConfigure =
       ''
@@ -253,7 +253,7 @@ stdenv.mkDerivation (
         done
       ''
       + fBuildAttrs.preConfigure or ""
-      ;
+    ;
 
     buildPhase =
       fBuildAttrs.buildPhase or ''

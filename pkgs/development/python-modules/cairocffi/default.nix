@@ -67,7 +67,7 @@ buildPythonPackage rec {
       cffi
     ]
     ++ lib.optional withXcffib xcffib
-    ;
+  ;
 
   # pytestCheckHook does not work
   nativeCheckInputs = [

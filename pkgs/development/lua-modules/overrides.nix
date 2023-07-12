@@ -85,7 +85,7 @@ with prev; {
           rev = last (splitString "-" (last rel));
         in
         "${date}-${rev}"
-        ;
+      ;
 
       meta.broken = luaOlder "5.1" || luaAtLeast "5.4";
 
@@ -119,7 +119,7 @@ with prev; {
           cp ''${rockspecFilename} "$specDir/${pname}-${version}.rockspec"
           rockspecFilename="$specDir/${pname}-${version}.rockspec"
         ''
-        ;
+      ;
     }
   );
 
@@ -336,7 +336,7 @@ with prev; {
           mariadb.client
           libmysqlclient
         ]
-        ;
+      ;
     }
   );
 
@@ -521,7 +521,7 @@ with prev; {
         cmake
       ]
       ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-      ;
+    ;
   };
 
   luv = prev.luv.overrideAttrs (

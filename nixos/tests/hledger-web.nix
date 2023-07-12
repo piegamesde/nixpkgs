@@ -38,7 +38,7 @@ import ./make-test-python.nix (
             ln -s ${journal} /var/lib/hledger-web/.hledger.journal
           '';
         }
-        ;
+      ;
       apiserver =
         {
           ...
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
           imports = [ server ];
           services.hledger-web.serveApi = true;
         }
-        ;
+      ;
     };
 
     testScript = ''

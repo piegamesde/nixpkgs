@@ -78,7 +78,7 @@ in
       description =
         lib.mdDoc
           "Elasticsearch port for the node to node communication."
-        ;
+      ;
       default = 9300;
       type = types.int;
     };
@@ -87,7 +87,7 @@ in
       description =
         lib.mdDoc
           "Elasticsearch name that identifies your cluster for auto-discovery."
-        ;
+      ;
       default = "elasticsearch";
       type = types.str;
     };
@@ -138,7 +138,7 @@ in
       description =
         lib.mdDoc
           "Extra command line options for the elasticsearch launcher."
-        ;
+      ;
       default = [ ];
       type = types.listOf types.str;
     };
@@ -157,7 +157,7 @@ in
       example =
         lib.literalExpression
           "[ pkgs.elasticsearchPlugins.discovery-ec2 ]"
-        ;
+      ;
     };
 
     restartIfChanged = mkOption {

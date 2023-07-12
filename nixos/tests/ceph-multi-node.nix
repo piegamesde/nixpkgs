@@ -43,7 +43,7 @@ import ./make-test-python.nix (
           monInitialMembers = cfg.monA.name;
         };
       } // daemonConfig
-      ;
+    ;
 
     generateHost =
       {
@@ -71,7 +71,7 @@ import ./make-test-python.nix (
 
         services.ceph = cephConfig;
       }
-      ;
+    ;
 
     networkMonA = {
       dhcpcd.enable = false;
@@ -117,7 +117,7 @@ import ./make-test-python.nix (
           } ];
         };
       }
-      ;
+    ;
 
     cephConfigOsd =
       osd:
@@ -129,7 +129,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     # Following deployment is based on the manual deployment described here:
     # https://docs.ceph.com/docs/master/install/manual-deployment/
@@ -256,7 +256,7 @@ import ./make-test-python.nix (
         monA.wait_until_succeeds("ceph -s | grep 'mgr: ${cfg.monA.name}(active,'")
         monA.wait_until_succeeds("ceph -s | grep 'HEALTH_OK'")
       ''
-      ;
+    ;
   in
   {
     name = "basic-multi-node-ceph-cluster";

@@ -57,7 +57,7 @@ let
       )
       { }
       buildDrvInheritArgNames
-    ;
+  ;
 
   drvArgs = buildDrvInheritArgs // (removeAttrs args [ "buildDrvArgs" ]);
   name =
@@ -150,7 +150,7 @@ let
           "NIX_GIT_SSL_CAINFO"
           "SOCKS_SERVER"
         ]
-        ;
+      ;
 
       # Patching shebangs introduces input references to this fixed-output derivation.
       # This triggers a bug in Nix, causing the output path to change unexpectedly.
@@ -213,6 +213,6 @@ let
       };
     })
       ./setup-hook.sh
-    ;
+  ;
 in
 hook

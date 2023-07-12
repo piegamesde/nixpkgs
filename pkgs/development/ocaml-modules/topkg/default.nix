@@ -34,7 +34,7 @@ let
         sha256 = "1df61vw6v5bg2mys045682ggv058yqkqb67w7r2gz85crs04d5fw";
         propagatedBuildInputs = [ result ];
       }
-    ;
+  ;
 
   # This command allows to run the “topkg” build system.
   # It is usually called with `build` or `test` as argument.

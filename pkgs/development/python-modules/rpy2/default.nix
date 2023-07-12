@@ -71,7 +71,7 @@ buildPythonPackage rec {
     )
     ++ extraRPackages
     ++ rWrapper.recommendedPackages
-    ;
+  ;
 
   nativeBuildInputs = [
     R # needed at setup time to detect R_HOME (alternatively set R_HOME explicitly)

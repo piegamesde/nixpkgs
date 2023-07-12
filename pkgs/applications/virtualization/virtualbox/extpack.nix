@@ -22,7 +22,7 @@ fetchurl rec {
     in
     assert (builtins.stringLength value) == 64;
     value
-    ;
+  ;
 
   meta = {
     description = "Oracle Extension pack for VirtualBox";

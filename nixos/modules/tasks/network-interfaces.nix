@@ -22,7 +22,7 @@ let
   hasFous =
     cfg.fooOverUDP != { }
     || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { }
-    ;
+  ;
 
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
@@ -41,7 +41,7 @@ let
           )
         )
         (attrValues cfg.vswitches)
-    ;
+  ;
 
   slaveIfs = map (i: cfg.interfaces.${i}) (
     filter (i: cfg.interfaces ? ${i}) slaves
@@ -89,7 +89,7 @@ let
   subsystemDevice =
     interface:
     "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
-    ;
+  ;
 
   addrOpts =
     v:
@@ -116,7 +116,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   routeOpts =
     v: {
@@ -182,7 +182,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   gatewayCoerce = address: { inherit address; };
 
@@ -213,7 +213,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   interfaceOpts =
     {
@@ -491,9 +491,9 @@ let
             options.assertions = options.assertions;
           })
         ]
-        ;
+      ;
     }
-    ;
+  ;
 
   vswitchInterfaceOpts =
     {
@@ -524,7 +524,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   hexChars = stringToCharacters "0123456789abcdef";
 
@@ -588,7 +588,7 @@ in
       type =
         types.strMatching
           "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$"
-        ;
+      ;
       description = lib.mdDoc ''
         The name of the machine. Leave it empty if you want to obtain it from a
         DHCP server (if using DHCP). The hostname must be a valid DNS label (see
@@ -620,7 +620,7 @@ in
             The FQDN is required but cannot be determined. Please make sure that
             both networking.hostName and networking.domain are set properly.
           ''
-        ;
+      ;
       defaultText = literalExpression ''
         "''${networking.hostName}.''${networking.domain}"'';
       description = lib.mdDoc ''
@@ -827,7 +827,7 @@ in
                 description =
                   lib.mdDoc
                     "The physical network interfaces connected by the vSwitch."
-                  ;
+                ;
                 type = with types; attrsOf (submodule vswitchInterfaceOpts);
               };
 
@@ -928,7 +928,7 @@ in
                 description =
                   lib.mdDoc
                     "The physical network interfaces connected by the bridge."
-                  ;
+                ;
               };
 
               rstp = mkOption {
@@ -937,7 +937,7 @@ in
                 description =
                   lib.mdDoc
                     "Whether the bridge interface should enable rstp."
-                  ;
+                ;
               };
             };
           }
@@ -1049,7 +1049,7 @@ in
             }
           );
       }
-      ;
+    ;
 
     networking.macvlans = mkOption {
       default = { };
@@ -1076,7 +1076,7 @@ in
                 description =
                   lib.mdDoc
                     "The interface the macvlan will transmit packets through."
-                  ;
+                ;
               };
 
               mode = mkOption {
@@ -1359,7 +1359,7 @@ in
                     tap6 = "ip6gretap";
                   }
                   .${v}
-                  ;
+                ;
                 description = lib.mdDoc ''
                   Whether the tunnel routes layer 2 (tap) or layer 3 (tun) traffic.
                 '';
@@ -1408,7 +1408,7 @@ in
                 description =
                   lib.mdDoc
                     "The interface the vlan will transmit packets through."
-                  ;
+                ;
               };
             };
           }
@@ -1463,7 +1463,7 @@ in
                 description =
                   lib.mdDoc
                     "The name of the underlying hardware WLAN device as assigned by `udev`."
-                  ;
+                ;
               };
 
               type = mkOption {
@@ -1513,7 +1513,7 @@ in
                 description =
                   lib.mdDoc
                     "Whether to enable `4-address mode` with type `managed`."
-                  ;
+                ;
               };
 
               mac = mkOption {
@@ -1622,10 +1622,10 @@ in
         assertion =
           cfg.hostId == null
           || (stringLength cfg.hostId == 8 && isHexString cfg.hostId)
-          ;
+        ;
         message = "Invalid value given to the networking.hostId option.";
       } ]
-      ;
+    ;
 
     boot.kernelModules =
       [ ]
@@ -1634,7 +1634,7 @@ in
       ++ optional hasGres "gre"
       ++ optional hasBonds "bonding"
       ++ optional hasFous "fou"
-      ;
+    ;
 
     boot.extraModprobeConfig =
       # This setting is intentional as it prevents default bond devices
@@ -1697,7 +1697,7 @@ in
             }
           ''
         )
-      ;
+    ;
 
     # Set the host and domain names in the activation script.  Don't
     # clear it if it's not configured in the NixOS configuration,
@@ -1710,7 +1710,7 @@ in
       optionalString (effectiveHostname != "") ''
         hostname "${effectiveHostname}"
       ''
-      ;
+    ;
     system.activationScripts.domain = optionalString (cfg.domain != null) ''
       domainname "${cfg.domain}"
     '';
@@ -1738,7 +1738,7 @@ in
         pkgs.iw
       ]
       ++ bridgeStp
-      ;
+    ;
 
     # The network-interfaces target is kept for backwards compatibility.
     # New modules must NOT use it.
@@ -1783,7 +1783,7 @@ in
               # enable and prefer IPv6 privacy addresses by default
               ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.bash}/bin/sh -c 'echo ${sysctl-value} > /proc/sys/net/ipv6/conf/$name/use_tempaddr'"
             ''
-            ;
+          ;
         })
         (pkgs.writeTextFile rec {
           name = "ipv6-privacy-extensions.rules";
@@ -1805,7 +1805,7 @@ in
                 ''
               )
               (filter (i: i.tempAddress != cfg.tempAddresses) interfaces)
-            ;
+          ;
         })
       ]
       ++ lib.optional (cfg.wlanInterfaces != { }) (
@@ -1825,7 +1825,7 @@ in
                     d: filterAttrs (_: v: v.device == d) cfg.wlanInterfaces;
                 in
                 genAttrs allDevices (d: interfacesOfDevice d)
-                ;
+              ;
 
               # Convert device:interface key:value pairs into a list, and if it exists,
               # place the interface which is named after the device at the beginning.
@@ -1840,7 +1840,7 @@ in
                   )
                 else
                   mapAttrsToList (n: v: v // { _iName = n; }) interfaces
-                ;
+              ;
 
               # Udev script to execute for the default WLAN interface with the persistend udev name.
               # The script creates the required, new WLAN interfaces interfaces and configures the
@@ -1876,7 +1876,7 @@ in
                     ${optionalString (current.mac != null)
                       "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
                   ''
-                ;
+              ;
 
               # Udev script to execute for a new WLAN interface. The script configures the new WLAN interface.
               newInterfaceScript =
@@ -1900,14 +1900,14 @@ in
                     ${optionalString (new.mac != null)
                       "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
                   ''
-                ;
+              ;
 
               # Udev attributes for systemd to name the device and to create a .device target.
               systemdAttrs =
                 n:
                 ''
                   NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"''
-                ;
+              ;
             in
             flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces) (
               device:
@@ -1915,7 +1915,7 @@ in
                 interfaces =
                   wlanListDeviceFirst device
                     wlanDeviceInterfaces.${device}
-                  ;
+                ;
                 curInterface = elemAt interfaces 0;
                 newInterfaces = drop 1 interfaces;
               in
@@ -1945,9 +1945,9 @@ in
                 }
               ''
             )
-            ;
+          ;
         }
       )
-      ;
+    ;
   };
 }

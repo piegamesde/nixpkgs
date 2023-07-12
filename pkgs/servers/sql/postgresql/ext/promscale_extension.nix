@@ -59,6 +59,6 @@ buildPgxExtension rec {
     broken =
       versionOlder postgresql.version "12"
       || versionAtLeast postgresql.version "15"
-      ;
+    ;
   };
 }

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (withPAM && stdenv.hostPlatform.isStatic) ''
       sed -i 's/-lpam/-lpam -laudit/' configure
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ bison ];
   buildInputs =

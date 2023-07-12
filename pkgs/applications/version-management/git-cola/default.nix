@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
       "contrib/win32"
     ]
     ++ lib.optionals stdenv.isDarwin [ "cola/inotify.py" ]
-    ;
+  ;
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")

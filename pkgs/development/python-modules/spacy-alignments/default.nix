@@ -36,7 +36,7 @@ buildPythonPackage rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 

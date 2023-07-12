@@ -13,5 +13,5 @@
         lib.versions.majorMinor pkg.version
       )
     }"
-    ;
+  ;
 }

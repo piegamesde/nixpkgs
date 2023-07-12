@@ -52,7 +52,7 @@ let
         description = lib.mdDoc "Port to bind to for ${descr}";
       };
     }
-    ;
+  ;
 in
 
 {
@@ -92,7 +92,7 @@ in
         description =
           lib.mdDoc
             "The addresses for connecting the node to a cluster."
-          ;
+        ;
       };
 
       insecure = mkOption {
@@ -125,7 +125,7 @@ in
         description =
           lib.mdDoc
             "Open firewall ports for cluster communication by default"
-          ;
+        ;
       };
 
       cache = mkOption {

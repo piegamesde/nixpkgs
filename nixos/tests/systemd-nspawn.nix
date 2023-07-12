@@ -70,7 +70,7 @@ import ./make-test-python.nix (
             virtualHosts."server".root = nspawnImages;
           };
         }
-        ;
+      ;
       client =
         {
           pkgs,
@@ -79,7 +79,7 @@ import ./make-test-python.nix (
           environment.etc."systemd/import-pubring.gpg".source =
             "${gpgKeyring}/pubkey.gpg";
         }
-        ;
+      ;
     };
 
     testScript = ''

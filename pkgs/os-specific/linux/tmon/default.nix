@@ -23,7 +23,7 @@ stdenv.mkDerivation {
       ''INSTALL_ROOT="$(out)"''
       "BINDIR=bin"
     ]
-    ;
+  ;
   NIX_CFLAGS_LINK = "-lgcc_s";
 
   enableParallelBuilding = true;

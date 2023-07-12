@@ -48,7 +48,7 @@ buildPythonPackage rec {
       pycparser
     ]
     ++ lib.optionals (withGui) passthru.optional-dependencies.gui
-    ;
+  ;
 
   passthru.optional-dependencies.gui = [
     pyqt5

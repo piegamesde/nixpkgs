@@ -12,7 +12,7 @@ rec {
     import ./source-tarball.nix (
       { inherit stdenv autoconf automake libtool; } // args
     )
-    ;
+  ;
 
   makeSourceTarball = sourceTarball; # compatibility
 
@@ -31,7 +31,7 @@ rec {
         doCoverageAnalysis = true;
       } // args
     )
-    ;
+  ;
 
   clangAnalysis =
     args:
@@ -41,7 +41,7 @@ rec {
         doClangAnalysis = true;
       } // args
     )
-    ;
+  ;
 
   coverityAnalysis =
     args:
@@ -51,7 +51,7 @@ rec {
         doCoverityAnalysis = true;
       } // args
     )
-    ;
+  ;
 
   rpmBuild = args: import ./rpm-build.nix ({ inherit lib vmTools; } // args);
 
@@ -60,7 +60,7 @@ rec {
     import ./debian-build.nix (
       { inherit lib stdenv vmTools checkinstall; } // args
     )
-    ;
+  ;
 
   aggregate =
     {
@@ -86,7 +86,7 @@ rec {
           fi
         done
       ''
-    ;
+  ;
 
   /* Create a channel job which success depends on the success of all of
      its contituents. Channel jobs are a special type of jobs that are
@@ -149,5 +149,5 @@ rec {
         meta = meta // { isHydraChannel = true; };
       } // removeAttrs args [ "meta" ]
     )
-    ;
+  ;
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-6SxZObOMkQDxuKJuJY+mQ/VuJJxSeGbf97J8ZZddCV0=";
       }
     )
-    ;
+  ;
 
   outputs = [
     "out"
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   LDFLAGS =
     lib.optionalString stdenv.isSunOS
       "-lm -lmd -lmp -luutil -lnvpair -lnsl -lidmap -lavl -lsec"
-    ;
+  ;
 
   configureFlags =
     [
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       # wchar.h and stddef.h (gcc-4.3 - glibc-2.9)
       "gl_cv_func_wcwidth_works=yes"
     ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
         patch -p2 -d gettext-tools/gnulib-lib/ < ${gnulib.passthru.longdouble-redirect-patch}
         patch -p2 -d gettext-tools/libgrep/    < ${gnulib.passthru.longdouble-redirect-patch}
       ''
-    ;
+  ;
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [
       libiconv
     ]
-    ;
+  ;
 
   setupHooks = [
     ../../../build-support/setup-hooks/role.bash

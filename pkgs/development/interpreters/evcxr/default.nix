@@ -52,14 +52,14 @@ rustPlatform.buildRustPackage rec {
             } \
             --set-default RUST_SRC_PATH "$RUST_SRC_PATH"
         ''
-        ;
+      ;
     in
     ''
       ${wrap "evcxr"}
       ${wrap "evcxr_jupyter"}
       rm $out/bin/testing_runtime
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "An evaluation context for Rust";

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       AudioToolbox
       CoreAudio
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "SDL2 sound library";

@@ -22,6 +22,6 @@ in
         ''
           copy_bin_and_libs ${pkgs.jfsutils}/sbin/fsck.jfs
         ''
-      ;
+    ;
   };
 }

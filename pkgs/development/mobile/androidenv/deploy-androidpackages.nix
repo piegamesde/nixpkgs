@@ -25,14 +25,14 @@ let
   sortedPackages =
     builtins.sort (x: y: builtins.lessThan x.name y.name)
       packages
-    ;
+  ;
 
   mkXmlAttrs =
     attrs:
     lib.concatStrings (
       lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs
     )
-    ;
+  ;
   mkXmlValues =
     attrs:
     lib.concatStrings (
@@ -49,7 +49,7 @@ let
         )
         attrs
     )
-    ;
+  ;
   mkXmlDoc =
     name: doc:
     let
@@ -68,7 +68,7 @@ let
       "<${tag}>${mkXmlValues xmlValues}</${tag}>"
     else
       "<${tag}/>"
-    ;
+  ;
   mkXmlPackage =
     package: ''
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -110,7 +110,7 @@ let
         </localPackage>
       </ns2:repository>
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation (
   {
@@ -119,7 +119,7 @@ stdenv.mkDerivation (
     version =
       lib.concatMapStringsSep "-" (package: package.revision)
         sortedPackages
-      ;
+    ;
     src =
       map
         (
@@ -130,7 +130,7 @@ stdenv.mkDerivation (
             package.archives.all
         )
         packages
-      ;
+    ;
     nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
     preferLocalBuild = true;
 
@@ -184,7 +184,7 @@ stdenv.mkDerivation (
       description =
         lib.concatMapStringsSep "\n" (package: package.displayName)
           packages
-        ;
+      ;
     } // meta;
   } // extraParams
 )

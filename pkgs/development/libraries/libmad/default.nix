@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
         sha256 = "0hcxzz9ql1fizyqbsgdchdwi7bvchfr72172j43hpyj53p0yabc6";
       })
     ]
-    ;
+  ;
 
   # The -fforce-mem flag has been removed in GCC 4.3.
   postPatch = ''

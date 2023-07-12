@@ -55,7 +55,7 @@ perlPackages.buildPerlPackage rec {
     # `foomatic-configure` can be used to access printers that are
     # shared via the SMB protocol, but it needs the `smbclient` binary
     ++ lib.optional withSMBAccess samba
-    ;
+  ;
 
   nativeBuildInputs = [
     autoconf

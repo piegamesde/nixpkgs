@@ -46,7 +46,7 @@ import ./make-test-python.nix (
           ripgrep
         ];
       }
-      ;
+    ;
 
     nodes.client =
       {
@@ -71,7 +71,7 @@ import ./make-test-python.nix (
 
         security.pki.certificateFiles = [ certs.ca.cert ];
       }
-      ;
+    ;
 
     testScript =
       {
@@ -87,11 +87,11 @@ import ./make-test-python.nix (
         filteredConfig =
           pkgs.lib.converge (pkgs.lib.filterAttrsRecursive (_: v: v != null))
             nodes.server.services.kanidm.serverSettings
-          ;
+        ;
         serverConfigFile =
           (pkgs.formats.toml { }).generate "server.toml"
             filteredConfig
-          ;
+        ;
       in
       ''
         start_all()
@@ -104,6 +104,6 @@ import ./make-test-python.nix (
         client.wait_for_unit("kanidm-unixd.service")
         client.succeed("kanidm_unixd_status | grep working!")
       ''
-      ;
+    ;
   }
 )

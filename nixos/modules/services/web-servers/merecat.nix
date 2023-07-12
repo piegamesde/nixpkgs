@@ -20,10 +20,10 @@ let
               if v then "true" else "false"
             else
               generators.mkValueStringDefault { } v
-            ;
+          ;
         }
         "="
-      ;
+    ;
   };
   configFile = format.generate "merecat.conf" cfg.settings;
 in

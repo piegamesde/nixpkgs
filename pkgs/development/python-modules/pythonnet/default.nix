@@ -67,7 +67,7 @@ buildPythonPackage rec {
       mono
     ]
     ++ dotnetPkgs
-    ;
+  ;
 
   buildInputs = [
     glib

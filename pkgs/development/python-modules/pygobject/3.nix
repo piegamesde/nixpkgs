@@ -52,7 +52,7 @@ buildPythonPackage rec {
       glib
     ]
     ++ lib.optionals stdenv.isDarwin [ ncurses ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     pycairo

@@ -27,7 +27,7 @@ let
       "AArch64"
     else
       throw "Unsupported ROCm LLVM platform"
-    ;
+  ;
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -49,7 +49,7 @@ stdenv.mkDerivation (
         ninja
       ]
       ++ lib.optionals (!buildRockCompiler) [ hip ]
-      ;
+    ;
 
     buildInputs = [
       git
@@ -74,7 +74,7 @@ stdenv.mkDerivation (
         "-DROCM_PATH=${rocminfo}"
         "-DROCM_TEST_CHIPSET=gfx000"
       ]
-      ;
+    ;
 
     dontBuild = true;
     doCheck = true;
@@ -85,7 +85,7 @@ stdenv.mkDerivation (
         "librockCompiler"
       else
         "check-mlir-miopen-build-only"
-      ;
+    ;
 
     postInstall =
       let
@@ -102,7 +102,7 @@ stdenv.mkDerivation (
         patchelf --set-rpath $external/lib:$out/lib:${libPath} $external/lib/*.so*
         patchelf --set-rpath $out/lib:$external/lib:${libPath} $out/{bin/*,lib/*.so*}
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional enableJemalloc jemalloc
     ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64_pthreads
-    ;
+  ;
 
   outputs = [
     "out"
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       }"
     ]
     ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0"
-    ;
+  ;
 
   # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
   hardeningDisable = lib.optional stdenv.hostPlatform.isWindows "format";
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (stdenv.isLinux && enableShared) ''
       ls -1 $tools/bin/* | xargs -I{} patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib {}
     ''
-    ;
+  ;
 
   # Old version doesn't ship the .pc file, new version puts wrong paths in there.
   postFixup = ''

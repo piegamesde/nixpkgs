@@ -71,7 +71,7 @@ rec {
       "/usr/lib/libxslt.1.dylib"
     ]
     ++ Foundation
-    ;
+  ;
   IOSurface = [ "/System/Library/Frameworks/IOSurface.framework" ];
   CoreGraphics = [
     "/System/Library/Frameworks/CoreGraphics.framework"
@@ -88,7 +88,7 @@ rec {
       "/usr/lib/libresolv.9.dylib"
     ]
     ++ AudioToolbox
-    ;
+  ;
   OpenGL = [ "/System/Library/Frameworks/OpenGL.framework" ];
   CoreVideo = [ "/System/Library/Frameworks/CoreVideo.framework" ];
   QuartzCore = [
@@ -199,7 +199,7 @@ rec {
     [ "/System/Library/Frameworks/IOBluetooth.framework" ]
     ++ AudioUnit
     ++ CoreBluetooth
-    ;
+  ;
   CoreBluetooth = [ "/System/Library/Frameworks/CoreBluetooth.framework" ];
   SecurityFoundation = [
     "/System/Library/Frameworks/SecurityFoundation.framework"

@@ -113,7 +113,7 @@ buildPythonPackage rec {
       "test_modified"
       "test_touch"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "fsspec" ];
 

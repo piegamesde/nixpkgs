@@ -86,29 +86,29 @@ rec {
                 } ]
               )
               ([ predefined.${entry} ] ++ tail todo)
-        ;
+      ;
     in
     (f { } arg).result
-    ;
+  ;
 
   textClosureMap =
     f: predefined: names:
     concatStringsSep "\n" (map f (textClosureList predefined names))
-    ;
+  ;
 
   noDepEntry =
     text: {
       inherit text;
       deps = [ ];
     }
-    ;
+  ;
   fullDepEntry = text: deps: { inherit text deps; };
   packEntry =
     deps: {
       inherit deps;
       text = "";
     }
-    ;
+  ;
 
   stringAfter = deps: text: { inherit text deps; };
 }

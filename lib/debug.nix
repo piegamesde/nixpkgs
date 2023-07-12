@@ -35,7 +35,7 @@ let
     isFunction
     mapAttrs
     trace
-    ;
+  ;
 in
 
 rec {
@@ -59,7 +59,7 @@ rec {
     # Value to return
     x:
     if pred then trace msg x else x
-    ;
+  ;
 
   /* Trace the supplied value after applying a function to it, and
      return the original value.
@@ -77,7 +77,7 @@ rec {
     # Value to trace and return
     x:
     trace (f x) x
-    ;
+  ;
 
   /* Trace the supplied value and return it.
 
@@ -108,7 +108,7 @@ rec {
     # The value to return
     y:
     trace (builtins.deepSeq x x) y
-    ;
+  ;
 
   /* Like `traceSeq`, but only evaluate down to depth n.
      This is very useful because lots of `traceSeq` usages
@@ -132,13 +132,13 @@ rec {
           noQuotes "{…}" v
         else
           v
-        ;
+      ;
       noQuotes =
         str: v: {
           __pretty = const str;
           val = v;
         }
-        ;
+      ;
       modify =
         n: fn: v:
         if (n == 0) then
@@ -149,12 +149,12 @@ rec {
           mapAttrs (const (modify (n - 1) fn)) v
         else
           v
-        ;
+      ;
     in
     trace
       (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
       y
-    ;
+  ;
 
   /* A combination of `traceVal` and `traceSeq` that applies a
      provided function to the value to be traced after `deepSeq`ing
@@ -166,7 +166,7 @@ rec {
     # Value to trace
     v:
     traceValFn f (builtins.deepSeq v v)
-    ;
+  ;
 
   # A combination of `traceVal` and `traceSeq`.
   traceValSeq = traceValSeqFn id;
@@ -180,7 +180,7 @@ rec {
     # Value to trace
     v:
     traceSeqN depth (f v) v
-    ;
+  ;
 
   # A combination of `traceVal` and `traceSeqN`.
   traceValSeqN = traceValSeqNFn id;
@@ -208,7 +208,7 @@ rec {
         to = res;
       }
       res
-    ;
+  ;
 
   # -- TESTING --
 
@@ -298,7 +298,7 @@ rec {
           tests
       )
     )
-    ;
+  ;
 
   /* Create a test assuming that list elements are `true`.
 
@@ -310,5 +310,5 @@ rec {
       inherit expr;
       expected = map (x: true) expr;
     }
-    ;
+  ;
 }

@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals enableDocumentation [ hotdoc ]
-    ;
+  ;
 
   buildInputs = [
     gstreamer

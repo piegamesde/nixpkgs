@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       pkg-config
       swig
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       zeromq
     ]
     ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
-    ;
+  ;
 
   dontWrapQtApps = true;
 

@@ -21,7 +21,7 @@ let
       url =
         "https://salsa.debian.org/multimedia-team/audiofile/raw/debian/0.3.6-4/debian/patches/${debname}";
     }
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       CoreServices
       AudioUnit
     ]
-    ;
+  ;
 
   src = fetchurl {
     url = "https://audiofile.68k.org/audiofile-${version}.tar.gz";

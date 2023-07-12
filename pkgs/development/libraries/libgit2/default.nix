@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       http-parser
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   propagatedBuildInputs = lib.optional (!stdenv.isLinux) libiconv;
 

@@ -34,7 +34,7 @@ in
       assertion =
         versionAtLeast (getVersion config.boot.kernelPackages.kernel)
           "4.18"
-        ;
+      ;
       message = "Waydroid needs user namespace support to work properly";
     };
 

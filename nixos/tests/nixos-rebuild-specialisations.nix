@@ -46,7 +46,7 @@ import ./make-test-python.nix (
             memorySize = 2048;
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -137,6 +137,6 @@ import ./make-test-python.nix (
             machine.fail("nixos-rebuild boot --specialisation foo")
             machine.fail("nixos-rebuild boot -c foo")
       ''
-      ;
+    ;
   }
 )

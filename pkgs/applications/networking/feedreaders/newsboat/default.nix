@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
       makeWrapper
       ncurses
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -66,7 +66,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       gettext
     ]
-    ;
+  ;
 
   postBuild = ''
     make -j $NIX_BUILD_CORES prefix="$out"
@@ -94,7 +94,7 @@ rustPlatform.buildRustPackage rec {
         wrapProgram "$prog" --prefix DYLD_LIBRARY_PATH : "${stfl}/lib"
       done
     ''
-    ;
+  ;
 
   passthru = { updateScript = nix-update-script { }; };
 

@@ -16,7 +16,7 @@ let
         server.gid = config.users.groups."${cfg.group}".gid;
       }
       cfg.settings
-    ;
+  ;
 in
 {
   options = {
@@ -35,7 +35,7 @@ in
         description =
           lib.mdDoc
             "Group to run under when setuid is not enabled."
-          ;
+        ;
       };
 
       settings = mkOption {
@@ -99,7 +99,7 @@ in
         assertion =
           hasAttr cfg.user config.users.users
           && config.users.users."${cfg.user}".uid != null
-          ;
+        ;
         message =
           "users.users.${cfg.user} and users.users.${cfg.user}.uid must be defined.";
       }
@@ -107,7 +107,7 @@ in
         assertion =
           hasAttr cfg.group config.users.groups
           && config.users.groups."${cfg.group}".gid != null
-          ;
+        ;
         message =
           "users.groups.${cfg.group} and users.groups.${cfg.group}.gid must be defined.";
       }

@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       # applications-menu needs a version of switchboard with all
       # its plugins for search.
       switchboard-with-plugs.buildInputs
-    ;
+  ;
 
   mesonFlags = [ "--sysconfdir=${placeholder "out"}/etc" ];
 

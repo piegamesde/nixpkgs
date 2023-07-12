@@ -20,7 +20,7 @@ vmTools.buildRPM (
       + "-"
       + diskImage.name
       + (lib.optionalString (src ? version) "-${src.version}")
-      ;
+    ;
 
     preBuild = ''
       . ${./functions.sh}

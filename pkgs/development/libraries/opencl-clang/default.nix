@@ -24,10 +24,10 @@ let
               patch -p1 -i "$p"
             done
           ''
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   passthru = rec {
     spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override {
@@ -65,7 +65,7 @@ let
       inherit (if buildWithPatches then passthru else llvmPkgs)
         libclang
         spirv-llvm-translator
-        ;
+      ;
     in
     stdenv.mkDerivation {
       pname = "opencl-clang";
@@ -125,6 +125,6 @@ let
         maintainers = with maintainers; [ SuperSandro2000 ];
       };
     }
-    ;
+  ;
 in
 library

@@ -46,7 +46,7 @@ let
       import gemFiles.gemset
     else
       gemFiles.gemset
-    ;
+  ;
 
   filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
 
@@ -67,7 +67,7 @@ let
       gems.bundler
     else
       defs.bundler.override (attrs: { inherit ruby; })
-    ;
+  ;
 
   gems = lib.flip lib.mapAttrs configuredGemset (
     name: attrs: buildGem name attrs
@@ -82,7 +82,7 @@ let
         version = gem.version;
       in
       "${pname}-${version}"
-    ;
+  ;
 
   pname' = if pname != null then pname else name;
 
@@ -95,7 +95,7 @@ let
       assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/"
     ) # */
     )
-    ;
+  ;
 
   maybeCopyAll =
     pkgname:
@@ -107,7 +107,7 @@ let
           gems.${pkgname} or (throw "bundlerEnv: gem ${pkgname} not found");
       in
       copyIfBundledByPath mainGem
-    ;
+  ;
 
   # We have to normalize the Gemfile.lock, otherwise bundler tries to be
   # helpful by doing so at run time, causing executables to immediately bail
@@ -133,7 +133,7 @@ let
       else
         buildRubyGem gemAttrs
     )
-    ;
+  ;
 
   envPaths = lib.attrValues gems ++ lib.optional (!hasBundler) bundler;
 
@@ -153,7 +153,7 @@ let
         }
       )
       + lib.optionalString (postBuild != null) postBuild
-      ;
+    ;
 
     meta = { platforms = ruby.meta.platforms; } // meta;
 
@@ -216,7 +216,7 @@ let
             exit 1
           '';
         }
-        ;
+      ;
     };
   };
 
@@ -231,6 +231,6 @@ let
       ''
     else
       buildEnv basicEnvArgs
-    ;
+  ;
 in
 basicEnv

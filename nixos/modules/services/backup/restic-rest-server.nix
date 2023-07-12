@@ -29,7 +29,7 @@ in
       description =
         lib.mdDoc
           "The directory for storing the restic repository."
-        ;
+      ;
     };
 
     appendOnly = mkOption {

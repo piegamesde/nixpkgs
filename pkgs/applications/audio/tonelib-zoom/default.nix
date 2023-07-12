@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       webkitgtk
     ]
     ++ runtimeDependencies
-    ;
+  ;
 
   runtimeDependencies = map lib.getLib [
     curl

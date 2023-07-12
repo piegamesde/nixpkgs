@@ -36,7 +36,7 @@ stdenv.mkDerivation (
       optional glibSupport glib
       ++ optional libevSupport libev
       ++ optional libeventSupport libevent
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://github.com/latchset/libverto";

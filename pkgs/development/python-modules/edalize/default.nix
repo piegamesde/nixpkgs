@@ -48,7 +48,7 @@ buildPythonPackage rec {
       yosys
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   pythonImportsCheck = [ "edalize" ];
 

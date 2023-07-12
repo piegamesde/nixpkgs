@@ -43,7 +43,7 @@ import ./make-test-python.nix (
           config = { };
         };
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

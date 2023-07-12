@@ -63,7 +63,7 @@ import ./versions.nix (
       ++ optional sshSupport libssh2
       ++ optional mysqlSupport libmysqlclient
       ++ optional postgresqlSupport postgresql
-      ;
+    ;
 
     configureFlags =
       [
@@ -81,7 +81,7 @@ import ./versions.nix (
       ++ optional sshSupport "--with-ssh2=${libssh2.dev}"
       ++ optional mysqlSupport "--with-mysql"
       ++ optional postgresqlSupport "--with-postgresql"
-      ;
+    ;
 
     prePatch = ''
       find database -name data.sql -exec sed -i 's|/usr/bin/||g' {} +
@@ -108,7 +108,7 @@ import ./versions.nix (
         mkdir -p $out/share/zabbix/database/postgresql
         cp -prvd database/postgresql/schema.sql $out/share/zabbix/database/postgresql/
       ''
-      ;
+    ;
 
     meta = with lib; {
       description =

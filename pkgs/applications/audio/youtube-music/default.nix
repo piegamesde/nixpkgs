@@ -21,7 +21,7 @@ appimageTools.wrapType2 rec {
   extraPkgs =
     pkgs:
     (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libappindicator ]
-    ;
+  ;
 
   extraInstallCommands = ''
     mv $out/bin/{${pname}-${version},${pname}}

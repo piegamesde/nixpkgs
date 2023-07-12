@@ -91,7 +91,7 @@ let
         perl
       ]
       ++ lib.optional stdenv.isDarwin xcbuild
-      ;
+    ;
     buildPhase = ''
       export HOME="$NIX_BUILD_TOP/home"
       mkdir -p "$HOME"
@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
       icoutils
     ]
     ++ lib.optional stdenv.isDarwin xcbuild
-    ;
+  ;
 
   dontStrip = true;
 

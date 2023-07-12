@@ -21,7 +21,7 @@ symlinkJoin {
       pluginArguments =
         lists.concatMap (plugin: plugin.obsWrapperArguments or [ ])
           plugins
-        ;
+      ;
 
       pluginsJoined = symlinkJoin {
         name = "obs-studio-plugins";
@@ -37,7 +37,7 @@ symlinkJoin {
             --set OBS_PLUGINS_DATA_PATH "${pluginsJoined}/share/obs/obs-plugins"''
         ]
         ++ lists.unique pluginArguments
-        ;
+      ;
     in
     ''
       ${concatStringsSep " " wrapCommandLine}
@@ -47,7 +47,7 @@ symlinkJoin {
       # Leave some breadcrumbs
       echo 'Plugins are at ${pluginsJoined}/share/obs/obs-plugins' > $out/share/obs/obs-plugins-README
     ''
-    ;
+  ;
 
   inherit (obs-studio) meta;
   passthru = obs-studio.passthru // { passthru.unwrapped = obs-studio; };

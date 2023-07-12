@@ -69,7 +69,7 @@ let
         '';
       }
     )
-    ;
+  ;
 
   allPlugins = {
     bluespec = yosys-bluespec;
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
         exit 1
       fi
     ''
-    ;
+  ;
 
   checkTarget = "test";
   doCheck = true;

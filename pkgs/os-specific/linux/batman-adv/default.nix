@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   makeFlags =
     kernel.makeFlags
     ++ [ "KERNELPATH=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ]
-    ;
+  ;
 
   hardeningDisable = [ "pic" ];
 

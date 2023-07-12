@@ -60,14 +60,14 @@ let
       cfg.serverProperties."rcon.port" or 25575
     else
       null
-    ;
+  ;
 
   queryPort =
     if cfg.serverProperties.enable-query or false then
       cfg.serverProperties."query.port" or 25565
     else
       null
-    ;
+  ;
 in
 {
   options = {
@@ -132,7 +132,7 @@ in
               };
           in
           types.attrsOf minecraftUUID
-          ;
+        ;
         default = { };
         description = lib.mdDoc ''
           Whitelisted players, only has an effect when
@@ -199,7 +199,7 @@ in
           "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+CMSIncrementalPacing "
           + "-XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 "
           + "-XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10"
-          ;
+        ;
         description = lib.mdDoc "JVM options for the Minecraft server.";
       };
     };
@@ -309,7 +309,7 @@ in
               fi
             ''
         )
-        ;
+      ;
     };
 
     networking.firewall = mkIf cfg.openFirewall (
@@ -320,7 +320,7 @@ in
             [ serverPort ]
             ++ optional (queryPort != null) queryPort
             ++ optional (rconPort != null) rconPort
-            ;
+          ;
         }
       else
         {
@@ -335,7 +335,7 @@ in
         "You must agree to Mojangs EULA to run minecraft-server."
         + " Read https://account.mojang.com/documents/minecraft_eula and"
         + " set `services.minecraft-server.eula` to `true` if you agree."
-        ;
+      ;
     } ];
   };
 }

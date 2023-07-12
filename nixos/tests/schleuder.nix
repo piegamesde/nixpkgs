@@ -130,12 +130,12 @@ import ./make-test-python.nix {
                 api_key: fnord
                 EOF
               ''
-            ;
+          ;
         in
         [ "L+ /root/.schleuder-cli/schleuder-cli.yml - - - - ${cliconfig}" ]
-        ;
+      ;
     }
-    ;
+  ;
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")

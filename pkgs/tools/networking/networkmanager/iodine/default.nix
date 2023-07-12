@@ -56,7 +56,7 @@ stdenv.mkDerivation {
       libsecret
       libnma
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     intltool

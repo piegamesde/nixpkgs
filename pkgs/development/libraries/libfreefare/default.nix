@@ -35,7 +35,7 @@ stdenv.mkDerivation {
       IOKit
       Security
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

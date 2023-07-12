@@ -198,7 +198,7 @@
         }
       )
       { }
-    ;
+  ;
 
   ghcjs-th =
     callPackage
@@ -232,7 +232,7 @@
         }
       )
       { }
-    ;
+  ;
 
   ghcjs-prim =
     callPackage
@@ -256,5 +256,5 @@
         }
       )
       { }
-    ;
+  ;
 }

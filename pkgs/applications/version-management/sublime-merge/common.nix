@@ -40,7 +40,7 @@ let
   downloadUrl =
     arch:
     "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz"
-    ;
+  ;
   versionUrl =
     "https://www.sublimemerge.com/${if dev then "dev" else "download"}";
   versionFile = builtins.toString ./default.nix;
@@ -165,7 +165,7 @@ stdenv.mkDerivation (rec {
         ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
       done
     ''
-    ;
+  ;
 
   passthru = {
     updateScript =
@@ -200,7 +200,7 @@ stdenv.mkDerivation (rec {
         script
         versionFile
       ]
-      ;
+    ;
   };
 
   meta = with lib; {

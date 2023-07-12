@@ -25,7 +25,7 @@
         [[ -e $out/share/man/small-man.1.gz ]]
       '';
     }
-    ;
+  ;
   make-symlinks-relative = stdenv.mkDerivation {
     name = "test-make-symlinks-relative";
     outputs = [
@@ -119,7 +119,7 @@
         grep "^old_library='''" $out/lib/libFoo.la
       '';
     }
-    ;
+  ;
   reproducible-builds = stdenv.mkDerivation {
     name = "test-reproducible-builds";
     buildCommand = ''

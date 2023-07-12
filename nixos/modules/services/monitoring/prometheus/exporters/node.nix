@@ -69,7 +69,7 @@ in
               # needs netlink sockets for wireless collector
               "AF_NETLINK"
             ]
-        ;
+      ;
       # The timex collector needs to access clock APIs
       ProtectClock = collectorIsDisabled "timex";
       # Allow space monitoring under /home

@@ -17,7 +17,7 @@ import ./make-test-python.nix (
       }: {
         services.fluidd = { enable = true; };
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

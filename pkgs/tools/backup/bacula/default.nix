@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     ]
     # acl relies on attr, which I can't get to build on darwin
     ++ lib.optional (!stdenv.isDarwin) acl
-    ;
+  ;
 
   configureFlags =
     [
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
         "ac_cv_func_setpgrp_void=yes"
-    ;
+  ;
 
   installFlags = [
     "logdir=\${out}/logdir"

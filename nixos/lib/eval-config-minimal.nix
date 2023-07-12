@@ -41,7 +41,7 @@ let
       specialArgs =
         { modulesPath = builtins.toString ../modules; } // specialArgs;
     }
-    ;
+  ;
 in
 {
   inherit evalModules;

@@ -40,7 +40,7 @@ in
               description =
                 lib.mdDoc
                   "Hostname of the mumble server to connect to."
-                ;
+              ;
             };
 
             server.port = mkOption {
@@ -49,7 +49,7 @@ in
               description =
                 lib.mdDoc
                   "Port of the mumble server to connect to."
-                ;
+              ;
             };
 
             bot.username = mkOption {

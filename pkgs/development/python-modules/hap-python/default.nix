@@ -49,7 +49,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.QRCode
-    ;
+  ;
 
   disabledTestPaths = [
     # Disable tests requiring network access

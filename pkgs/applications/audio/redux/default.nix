@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
           }_Demo_Linux_x86_64.tar.gz";
         sha256 = "sha256-wafOeNvVIHc8pOHoNQcCwV8+OwnuevJo1EcRQKRX4YA=";
       }
-    ;
+  ;
 
   nativeBuildInputs = [ autoPatchelfHook ];
 

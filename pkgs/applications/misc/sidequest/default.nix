@@ -95,7 +95,7 @@ buildFHSEnv {
       libxkbcommon
       libxshmfence
     ]
-    ;
+  ;
 
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"

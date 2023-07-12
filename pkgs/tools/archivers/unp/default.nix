@@ -19,7 +19,7 @@ let
       gzip
     ]
     ++ extraBackends
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "unp";

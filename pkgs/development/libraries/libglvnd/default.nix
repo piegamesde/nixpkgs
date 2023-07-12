@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       lib.optional
         (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
         "--disable-asm"
-    ;
+  ;
 
   outputs = [
     "out"

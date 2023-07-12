@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       # advanced certificate chooser
       gcr_4
     ]
-    ;
+  ;
 
   mesonFlags = [
     "-Dgcr=${lib.boolToString withGnome}"
@@ -115,13 +115,13 @@ stdenv.mkDerivation rec {
           _experimental-update-script-combinators.copyAttrOutputToFile
             "libnma.hardcodeGsettingsPatch"
             ./hardcode-gsettings.patch
-          ;
+        ;
       in
       _experimental-update-script-combinators.sequence [
         updateSource
         updateGsettingsPatch
       ]
-      ;
+    ;
   };
 
   meta = with lib; {

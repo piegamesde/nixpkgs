@@ -26,7 +26,7 @@
         }
       )
       { }
-    ;
+  ;
   alect-themes =
     callPackage
       (
@@ -52,7 +52,7 @@
         }
       )
       { }
-    ;
+  ;
   ample-theme =
     callPackage
       (
@@ -77,7 +77,7 @@
         }
       )
       { }
-    ;
+  ;
   annotate =
     callPackage
       (
@@ -102,7 +102,7 @@
         }
       )
       { }
-    ;
+  ;
   anti-zenburn-theme =
     callPackage
       (
@@ -127,7 +127,7 @@
         }
       )
       { }
-    ;
+  ;
   anzu =
     callPackage
       (
@@ -153,7 +153,7 @@
         }
       )
       { }
-    ;
+  ;
   apache-mode =
     callPackage
       (
@@ -178,7 +178,7 @@
         }
       )
       { }
-    ;
+  ;
   apropospriate-theme =
     callPackage
       (
@@ -204,7 +204,7 @@
         }
       )
       { }
-    ;
+  ;
   arduino-mode =
     callPackage
       (
@@ -234,7 +234,7 @@
         }
       )
       { }
-    ;
+  ;
   auto-dim-other-buffers =
     callPackage
       (
@@ -261,7 +261,7 @@
         }
       )
       { }
-    ;
+  ;
   autothemer =
     callPackage
       (
@@ -291,7 +291,7 @@
         }
       )
       { }
-    ;
+  ;
   bash-completion =
     callPackage
       (
@@ -317,7 +317,7 @@
         }
       )
       { }
-    ;
+  ;
   better-jumper =
     callPackage
       (
@@ -343,7 +343,7 @@
         }
       )
       { }
-    ;
+  ;
   bind-map =
     callPackage
       (
@@ -369,7 +369,7 @@
         }
       )
       { }
-    ;
+  ;
   bison-mode =
     callPackage
       (
@@ -394,7 +394,7 @@
         }
       )
       { }
-    ;
+  ;
   blow =
     callPackage
       (
@@ -420,7 +420,7 @@
         }
       )
       { }
-    ;
+  ;
   boxquote =
     callPackage
       (
@@ -446,7 +446,7 @@
         }
       )
       { }
-    ;
+  ;
   buttercup =
     callPackage
       (
@@ -472,7 +472,7 @@
         }
       )
       { }
-    ;
+  ;
   camera =
     callPackage
       (
@@ -498,7 +498,7 @@
         }
       )
       { }
-    ;
+  ;
   caml =
     callPackage
       (
@@ -524,7 +524,7 @@
         }
       )
       { }
-    ;
+  ;
   cdlatex =
     callPackage
       (
@@ -549,7 +549,7 @@
         }
       )
       { }
-    ;
+  ;
   cider =
     callPackage
       (
@@ -589,7 +589,7 @@
         }
       )
       { }
-    ;
+  ;
   clojure-mode =
     callPackage
       (
@@ -615,7 +615,7 @@
         }
       )
       { }
-    ;
+  ;
   coffee-mode =
     callPackage
       (
@@ -641,7 +641,7 @@
         }
       )
       { }
-    ;
+  ;
   color-theme-tangotango =
     callPackage
       (
@@ -669,7 +669,7 @@
         }
       )
       { }
-    ;
+  ;
   corfu-terminal =
     callPackage
       (
@@ -701,7 +701,7 @@
         }
       )
       { }
-    ;
+  ;
   crux =
     callPackage
       (
@@ -727,7 +727,7 @@
         }
       )
       { }
-    ;
+  ;
   cyberpunk-theme =
     callPackage
       (
@@ -752,7 +752,7 @@
         }
       )
       { }
-    ;
+  ;
   cycle-at-point =
     callPackage
       (
@@ -782,7 +782,7 @@
         }
       )
       { }
-    ;
+  ;
   d-mode =
     callPackage
       (
@@ -808,7 +808,7 @@
         }
       )
       { }
-    ;
+  ;
   dart-mode =
     callPackage
       (
@@ -834,7 +834,7 @@
         }
       )
       { }
-    ;
+  ;
   denote-refs =
     callPackage
       (
@@ -864,7 +864,7 @@
         }
       )
       { }
-    ;
+  ;
   devhelp =
     callPackage
       (
@@ -890,7 +890,7 @@
         }
       )
       { }
-    ;
+  ;
   diff-ansi =
     callPackage
       (
@@ -916,7 +916,7 @@
         }
       )
       { }
-    ;
+  ;
   doc-show-inline =
     callPackage
       (
@@ -942,7 +942,7 @@
         }
       )
       { }
-    ;
+  ;
   dockerfile-mode =
     callPackage
       (
@@ -968,7 +968,7 @@
         }
       )
       { }
-    ;
+  ;
   dracula-theme =
     callPackage
       (
@@ -994,7 +994,7 @@
         }
       )
       { }
-    ;
+  ;
   drupal-mode =
     callPackage
       (
@@ -1020,7 +1020,7 @@
         }
       )
       { }
-    ;
+  ;
   eat =
     callPackage
       (
@@ -1046,7 +1046,7 @@
         }
       )
       { }
-    ;
+  ;
   edit-indirect =
     callPackage
       (
@@ -1072,7 +1072,7 @@
         }
       )
       { }
-    ;
+  ;
   editorconfig =
     callPackage
       (
@@ -1104,7 +1104,7 @@
         }
       )
       { }
-    ;
+  ;
   elixir-mode =
     callPackage
       (
@@ -1130,7 +1130,7 @@
         }
       )
       { }
-    ;
+  ;
   elpher =
     callPackage
       (
@@ -1156,7 +1156,7 @@
         }
       )
       { }
-    ;
+  ;
   engine-mode =
     callPackage
       (
@@ -1182,7 +1182,7 @@
         }
       )
       { }
-    ;
+  ;
   evil =
     callPackage
       (
@@ -1207,7 +1207,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-anzu =
     callPackage
       (
@@ -1237,7 +1237,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-args =
     callPackage
       (
@@ -1263,7 +1263,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-exchange =
     callPackage
       (
@@ -1293,7 +1293,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-goggles =
     callPackage
       (
@@ -1323,7 +1323,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-iedit-state =
     callPackage
       (
@@ -1353,7 +1353,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-indent-plus =
     callPackage
       (
@@ -1383,7 +1383,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-lisp-state =
     callPackage
       (
@@ -1415,7 +1415,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-matchit =
     callPackage
       (
@@ -1441,7 +1441,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-nerd-commenter =
     callPackage
       (
@@ -1468,7 +1468,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-numbers =
     callPackage
       (
@@ -1498,7 +1498,7 @@
         }
       )
       { }
-    ;
+  ;
   evil-visualstar =
     callPackage
       (
@@ -1524,7 +1524,7 @@
         }
       )
       { }
-    ;
+  ;
   flx =
     callPackage
       (
@@ -1550,7 +1550,7 @@
         }
       )
       { }
-    ;
+  ;
   flx-ido =
     callPackage
       (
@@ -1580,7 +1580,7 @@
         }
       )
       { }
-    ;
+  ;
   flymake-kondor =
     callPackage
       (
@@ -1606,7 +1606,7 @@
         }
       )
       { }
-    ;
+  ;
   flymake-popon =
     callPackage
       (
@@ -1640,7 +1640,7 @@
         }
       )
       { }
-    ;
+  ;
   focus =
     callPackage
       (
@@ -1670,7 +1670,7 @@
         }
       )
       { }
-    ;
+  ;
   forth-mode =
     callPackage
       (
@@ -1695,7 +1695,7 @@
         }
       )
       { }
-    ;
+  ;
   free-keys =
     callPackage
       (
@@ -1721,7 +1721,7 @@
         }
       )
       { }
-    ;
+  ;
   gc-buffers =
     callPackage
       (
@@ -1747,7 +1747,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser =
     callPackage
       (
@@ -1777,7 +1777,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-chez =
     callPackage
       (
@@ -1807,7 +1807,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-chibi =
     callPackage
       (
@@ -1837,7 +1837,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-chicken =
     callPackage
       (
@@ -1867,7 +1867,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-gambit =
     callPackage
       (
@@ -1897,7 +1897,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-gauche =
     callPackage
       (
@@ -1927,7 +1927,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-guile =
     callPackage
       (
@@ -1959,7 +1959,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-kawa =
     callPackage
       (
@@ -1989,7 +1989,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-mit =
     callPackage
       (
@@ -2019,7 +2019,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-racket =
     callPackage
       (
@@ -2049,7 +2049,7 @@
         }
       )
       { }
-    ;
+  ;
   geiser-stklos =
     callPackage
       (
@@ -2079,7 +2079,7 @@
         }
       )
       { }
-    ;
+  ;
   git-commit =
     callPackage
       (
@@ -2113,7 +2113,7 @@
         }
       )
       { }
-    ;
+  ;
   git-modes =
     callPackage
       (
@@ -2139,7 +2139,7 @@
         }
       )
       { }
-    ;
+  ;
   gnu-apl-mode =
     callPackage
       (
@@ -2164,7 +2164,7 @@
         }
       )
       { }
-    ;
+  ;
   gnu-indent =
     callPackage
       (
@@ -2190,7 +2190,7 @@
         }
       )
       { }
-    ;
+  ;
   gnuplot =
     callPackage
       (
@@ -2216,7 +2216,7 @@
         }
       )
       { }
-    ;
+  ;
   go-mode =
     callPackage
       (
@@ -2242,7 +2242,7 @@
         }
       )
       { }
-    ;
+  ;
   gotham-theme =
     callPackage
       (
@@ -2268,7 +2268,7 @@
         }
       )
       { }
-    ;
+  ;
   goto-chg =
     callPackage
       (
@@ -2294,7 +2294,7 @@
         }
       )
       { }
-    ;
+  ;
   graphql-mode =
     callPackage
       (
@@ -2320,7 +2320,7 @@
         }
       )
       { }
-    ;
+  ;
   gruber-darker-theme =
     callPackage
       (
@@ -2345,7 +2345,7 @@
         }
       )
       { }
-    ;
+  ;
   gruvbox-theme =
     callPackage
       (
@@ -2371,7 +2371,7 @@
         }
       )
       { }
-    ;
+  ;
   guru-mode =
     callPackage
       (
@@ -2396,7 +2396,7 @@
         }
       )
       { }
-    ;
+  ;
   haml-mode =
     callPackage
       (
@@ -2426,7 +2426,7 @@
         }
       )
       { }
-    ;
+  ;
   haskell-mode =
     callPackage
       (
@@ -2451,7 +2451,7 @@
         }
       )
       { }
-    ;
+  ;
   haskell-tng-mode =
     callPackage
       (
@@ -2481,7 +2481,7 @@
         }
       )
       { }
-    ;
+  ;
   helm =
     callPackage
       (
@@ -2511,7 +2511,7 @@
         }
       )
       { }
-    ;
+  ;
   helm-core =
     callPackage
       (
@@ -2541,7 +2541,7 @@
         }
       )
       { }
-    ;
+  ;
   highlight-parentheses =
     callPackage
       (
@@ -2569,7 +2569,7 @@
         }
       )
       { }
-    ;
+  ;
   hl-block-mode =
     callPackage
       (
@@ -2595,7 +2595,7 @@
         }
       )
       { }
-    ;
+  ;
   hl-column =
     callPackage
       (
@@ -2621,7 +2621,7 @@
         }
       )
       { }
-    ;
+  ;
   htmlize =
     callPackage
       (
@@ -2646,7 +2646,7 @@
         }
       )
       { }
-    ;
+  ;
   idle-highlight-mode =
     callPackage
       (
@@ -2673,7 +2673,7 @@
         }
       )
       { }
-    ;
+  ;
   idris-mode =
     callPackage
       (
@@ -2705,7 +2705,7 @@
         }
       )
       { }
-    ;
+  ;
   iedit =
     callPackage
       (
@@ -2730,7 +2730,7 @@
         }
       )
       { }
-    ;
+  ;
   inf-clojure =
     callPackage
       (
@@ -2760,7 +2760,7 @@
         }
       )
       { }
-    ;
+  ;
   inf-ruby =
     callPackage
       (
@@ -2786,7 +2786,7 @@
         }
       )
       { }
-    ;
+  ;
   inkpot-theme =
     callPackage
       (
@@ -2812,7 +2812,7 @@
         }
       )
       { }
-    ;
+  ;
   iwindow =
     callPackage
       (
@@ -2844,7 +2844,7 @@
         }
       )
       { }
-    ;
+  ;
   j-mode =
     callPackage
       (
@@ -2869,7 +2869,7 @@
         }
       )
       { }
-    ;
+  ;
   jade-mode =
     callPackage
       (
@@ -2894,7 +2894,7 @@
         }
       )
       { }
-    ;
+  ;
   jinja2-mode =
     callPackage
       (
@@ -2919,7 +2919,7 @@
         }
       )
       { }
-    ;
+  ;
   julia-mode =
     callPackage
       (
@@ -2945,7 +2945,7 @@
         }
       )
       { }
-    ;
+  ;
   keycast =
     callPackage
       (
@@ -2971,7 +2971,7 @@
         }
       )
       { }
-    ;
+  ;
   kotlin-mode =
     callPackage
       (
@@ -2997,7 +2997,7 @@
         }
       )
       { }
-    ;
+  ;
   lorem-ipsum =
     callPackage
       (
@@ -3022,7 +3022,7 @@
         }
       )
       { }
-    ;
+  ;
   lua-mode =
     callPackage
       (
@@ -3048,7 +3048,7 @@
         }
       )
       { }
-    ;
+  ;
   macrostep =
     callPackage
       (
@@ -3074,7 +3074,7 @@
         }
       )
       { }
-    ;
+  ;
   magit =
     callPackage
       (
@@ -3112,7 +3112,7 @@
         }
       )
       { }
-    ;
+  ;
   magit-section =
     callPackage
       (
@@ -3142,7 +3142,7 @@
         }
       )
       { }
-    ;
+  ;
   markdown-mode =
     callPackage
       (
@@ -3168,7 +3168,7 @@
         }
       )
       { }
-    ;
+  ;
   material-theme =
     callPackage
       (
@@ -3194,7 +3194,7 @@
         }
       )
       { }
-    ;
+  ;
   mentor =
     callPackage
       (
@@ -3230,7 +3230,7 @@
         }
       )
       { }
-    ;
+  ;
   meow =
     callPackage
       (
@@ -3256,7 +3256,7 @@
         }
       )
       { }
-    ;
+  ;
   minibar =
     callPackage
       (
@@ -3282,7 +3282,7 @@
         }
       )
       { }
-    ;
+  ;
   moe-theme =
     callPackage
       (
@@ -3307,7 +3307,7 @@
         }
       )
       { }
-    ;
+  ;
   monokai-theme =
     callPackage
       (
@@ -3332,7 +3332,7 @@
         }
       )
       { }
-    ;
+  ;
   mpv =
     callPackage
       (
@@ -3366,7 +3366,7 @@
         }
       )
       { }
-    ;
+  ;
   multiple-cursors =
     callPackage
       (
@@ -3391,7 +3391,7 @@
         }
       )
       { }
-    ;
+  ;
   nasm-mode =
     callPackage
       (
@@ -3417,7 +3417,7 @@
         }
       )
       { }
-    ;
+  ;
   nginx-mode =
     callPackage
       (
@@ -3442,7 +3442,7 @@
         }
       )
       { }
-    ;
+  ;
   nix-mode =
     callPackage
       (
@@ -3474,7 +3474,7 @@
         }
       )
       { }
-    ;
+  ;
   oblivion-theme =
     callPackage
       (
@@ -3500,7 +3500,7 @@
         }
       )
       { }
-    ;
+  ;
   org-auto-tangle =
     callPackage
       (
@@ -3530,7 +3530,7 @@
         }
       )
       { }
-    ;
+  ;
   org-contrib =
     callPackage
       (
@@ -3560,7 +3560,7 @@
         }
       )
       { }
-    ;
+  ;
   org-drill =
     callPackage
       (
@@ -3594,7 +3594,7 @@
         }
       )
       { }
-    ;
+  ;
   org-journal =
     callPackage
       (
@@ -3624,7 +3624,7 @@
         }
       )
       { }
-    ;
+  ;
   org-mime =
     callPackage
       (
@@ -3650,7 +3650,7 @@
         }
       )
       { }
-    ;
+  ;
   org-present =
     callPackage
       (
@@ -3676,7 +3676,7 @@
         }
       )
       { }
-    ;
+  ;
   org-superstar =
     callPackage
       (
@@ -3706,7 +3706,7 @@
         }
       )
       { }
-    ;
+  ;
   org-tree-slide =
     callPackage
       (
@@ -3732,7 +3732,7 @@
         }
       )
       { }
-    ;
+  ;
   orgit =
     callPackage
       (
@@ -3764,7 +3764,7 @@
         }
       )
       { }
-    ;
+  ;
   pacmacs =
     callPackage
       (
@@ -3794,7 +3794,7 @@
         }
       )
       { }
-    ;
+  ;
   paredit =
     callPackage
       (
@@ -3819,7 +3819,7 @@
         }
       )
       { }
-    ;
+  ;
   parseclj =
     callPackage
       (
@@ -3845,7 +3845,7 @@
         }
       )
       { }
-    ;
+  ;
   parseedn =
     callPackage
       (
@@ -3877,7 +3877,7 @@
         }
       )
       { }
-    ;
+  ;
   pcmpl-args =
     callPackage
       (
@@ -3903,7 +3903,7 @@
         }
       )
       { }
-    ;
+  ;
   pcre2el =
     callPackage
       (
@@ -3929,7 +3929,7 @@
         }
       )
       { }
-    ;
+  ;
   pdf-tools =
     callPackage
       (
@@ -3961,7 +3961,7 @@
         }
       )
       { }
-    ;
+  ;
   php-mode =
     callPackage
       (
@@ -3987,7 +3987,7 @@
         }
       )
       { }
-    ;
+  ;
   popon =
     callPackage
       (
@@ -4013,7 +4013,7 @@
         }
       )
       { }
-    ;
+  ;
   popup =
     callPackage
       (
@@ -4039,7 +4039,7 @@
         }
       )
       { }
-    ;
+  ;
   projectile =
     callPackage
       (
@@ -4065,7 +4065,7 @@
         }
       )
       { }
-    ;
+  ;
   proof-general =
     callPackage
       (
@@ -4091,7 +4091,7 @@
         }
       )
       { }
-    ;
+  ;
   prop-menu =
     callPackage
       (
@@ -4121,7 +4121,7 @@
         }
       )
       { }
-    ;
+  ;
   racket-mode =
     callPackage
       (
@@ -4148,7 +4148,7 @@
         }
       )
       { }
-    ;
+  ;
   rainbow-delimiters =
     callPackage
       (
@@ -4173,7 +4173,7 @@
         }
       )
       { }
-    ;
+  ;
   raku-mode =
     callPackage
       (
@@ -4199,7 +4199,7 @@
         }
       )
       { }
-    ;
+  ;
   recomplete =
     callPackage
       (
@@ -4225,7 +4225,7 @@
         }
       )
       { }
-    ;
+  ;
   request =
     callPackage
       (
@@ -4251,7 +4251,7 @@
         }
       )
       { }
-    ;
+  ;
   rfc-mode =
     callPackage
       (
@@ -4277,7 +4277,7 @@
         }
       )
       { }
-    ;
+  ;
   rubocop =
     callPackage
       (
@@ -4303,7 +4303,7 @@
         }
       )
       { }
-    ;
+  ;
   rust-mode =
     callPackage
       (
@@ -4329,7 +4329,7 @@
         }
       )
       { }
-    ;
+  ;
   sass-mode =
     callPackage
       (
@@ -4359,7 +4359,7 @@
         }
       )
       { }
-    ;
+  ;
   scad-mode =
     callPackage
       (
@@ -4385,7 +4385,7 @@
         }
       )
       { }
-    ;
+  ;
   scala-mode =
     callPackage
       (
@@ -4410,7 +4410,7 @@
         }
       )
       { }
-    ;
+  ;
   scroll-on-drag =
     callPackage
       (
@@ -4436,7 +4436,7 @@
         }
       )
       { }
-    ;
+  ;
   scroll-on-jump =
     callPackage
       (
@@ -4462,7 +4462,7 @@
         }
       )
       { }
-    ;
+  ;
   sesman =
     callPackage
       (
@@ -4488,7 +4488,7 @@
         }
       )
       { }
-    ;
+  ;
   shellcop =
     callPackage
       (
@@ -4514,7 +4514,7 @@
         }
       )
       { }
-    ;
+  ;
   slime =
     callPackage
       (
@@ -4544,7 +4544,7 @@
         }
       )
       { }
-    ;
+  ;
   sly =
     callPackage
       (
@@ -4570,7 +4570,7 @@
         }
       )
       { }
-    ;
+  ;
   smartparens =
     callPackage
       (
@@ -4595,7 +4595,7 @@
         }
       )
       { }
-    ;
+  ;
   solarized-theme =
     callPackage
       (
@@ -4621,7 +4621,7 @@
         }
       )
       { }
-    ;
+  ;
   spacemacs-theme =
     callPackage
       (
@@ -4647,7 +4647,7 @@
         }
       )
       { }
-    ;
+  ;
   spell-fu =
     callPackage
       (
@@ -4673,7 +4673,7 @@
         }
       )
       { }
-    ;
+  ;
   sqlite3 =
     callPackage
       (
@@ -4699,7 +4699,7 @@
         }
       )
       { }
-    ;
+  ;
   stylus-mode =
     callPackage
       (
@@ -4724,7 +4724,7 @@
         }
       )
       { }
-    ;
+  ;
   subatomic-theme =
     callPackage
       (
@@ -4749,7 +4749,7 @@
         }
       )
       { }
-    ;
+  ;
   subed =
     callPackage
       (
@@ -4775,7 +4775,7 @@
         }
       )
       { }
-    ;
+  ;
   sweeprolog =
     callPackage
       (
@@ -4801,7 +4801,7 @@
         }
       )
       { }
-    ;
+  ;
   swift-mode =
     callPackage
       (
@@ -4831,7 +4831,7 @@
         }
       )
       { }
-    ;
+  ;
   swsw =
     callPackage
       (
@@ -4857,7 +4857,7 @@
         }
       )
       { }
-    ;
+  ;
   symbol-overlay =
     callPackage
       (
@@ -4887,7 +4887,7 @@
         }
       )
       { }
-    ;
+  ;
   systemd =
     callPackage
       (
@@ -4913,7 +4913,7 @@
         }
       )
       { }
-    ;
+  ;
   tablist =
     callPackage
       (
@@ -4939,7 +4939,7 @@
         }
       )
       { }
-    ;
+  ;
   tangotango-theme =
     callPackage
       (
@@ -4964,7 +4964,7 @@
         }
       )
       { }
-    ;
+  ;
   telephone-line =
     callPackage
       (
@@ -4998,7 +4998,7 @@
         }
       )
       { }
-    ;
+  ;
   testcover-mark-line =
     callPackage
       (
@@ -5024,7 +5024,7 @@
         }
       )
       { }
-    ;
+  ;
   textile-mode =
     callPackage
       (
@@ -5049,7 +5049,7 @@
         }
       )
       { }
-    ;
+  ;
   toc-org =
     callPackage
       (
@@ -5074,7 +5074,7 @@
         }
       )
       { }
-    ;
+  ;
   treeview =
     callPackage
       (
@@ -5100,7 +5100,7 @@
         }
       )
       { }
-    ;
+  ;
   tuareg =
     callPackage
       (
@@ -5130,7 +5130,7 @@
         }
       )
       { }
-    ;
+  ;
   typescript-mode =
     callPackage
       (
@@ -5156,7 +5156,7 @@
         }
       )
       { }
-    ;
+  ;
   ujelly-theme =
     callPackage
       (
@@ -5181,7 +5181,7 @@
         }
       )
       { }
-    ;
+  ;
   undo-fu =
     callPackage
       (
@@ -5207,7 +5207,7 @@
         }
       )
       { }
-    ;
+  ;
   undo-fu-session =
     callPackage
       (
@@ -5233,7 +5233,7 @@
         }
       )
       { }
-    ;
+  ;
   vc-fossil =
     callPackage
       (
@@ -5258,7 +5258,7 @@
         }
       )
       { }
-    ;
+  ;
   vcomplete =
     callPackage
       (
@@ -5284,7 +5284,7 @@
         }
       )
       { }
-    ;
+  ;
   visual-fill-column =
     callPackage
       (
@@ -5310,7 +5310,7 @@
         }
       )
       { }
-    ;
+  ;
   web-mode =
     callPackage
       (
@@ -5336,7 +5336,7 @@
         }
       )
       { }
-    ;
+  ;
   webpaste =
     callPackage
       (
@@ -5368,7 +5368,7 @@
         }
       )
       { }
-    ;
+  ;
   wgrep =
     callPackage
       (
@@ -5394,7 +5394,7 @@
         }
       )
       { }
-    ;
+  ;
   why-this =
     callPackage
       (
@@ -5420,7 +5420,7 @@
         }
       )
       { }
-    ;
+  ;
   with-editor =
     callPackage
       (
@@ -5446,7 +5446,7 @@
         }
       )
       { }
-    ;
+  ;
   with-simulated-input =
     callPackage
       (
@@ -5473,7 +5473,7 @@
         }
       )
       { }
-    ;
+  ;
   workroom =
     callPackage
       (
@@ -5505,7 +5505,7 @@
         }
       )
       { }
-    ;
+  ;
   writegood-mode =
     callPackage
       (
@@ -5530,7 +5530,7 @@
         }
       )
       { }
-    ;
+  ;
   ws-butler =
     callPackage
       (
@@ -5555,7 +5555,7 @@
         }
       )
       { }
-    ;
+  ;
   xah-fly-keys =
     callPackage
       (
@@ -5582,7 +5582,7 @@
         }
       )
       { }
-    ;
+  ;
   xkcd =
     callPackage
       (
@@ -5608,7 +5608,7 @@
         }
       )
       { }
-    ;
+  ;
   xml-rpc =
     callPackage
       (
@@ -5633,7 +5633,7 @@
         }
       )
       { }
-    ;
+  ;
   yaml-mode =
     callPackage
       (
@@ -5659,7 +5659,7 @@
         }
       )
       { }
-    ;
+  ;
   yasnippet-snippets =
     callPackage
       (
@@ -5685,7 +5685,7 @@
         }
       )
       { }
-    ;
+  ;
   zenburn-theme =
     callPackage
       (
@@ -5710,7 +5710,7 @@
         }
       )
       { }
-    ;
+  ;
   zig-mode =
     callPackage
       (
@@ -5736,5 +5736,5 @@
         }
       )
       { }
-    ;
+  ;
 }

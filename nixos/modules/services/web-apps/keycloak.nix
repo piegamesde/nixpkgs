@@ -32,7 +32,7 @@ let
     collect
     splitString
     hasPrefix
-    ;
+  ;
 
   inherit (builtins) elem typeOf isInt isString hashString isPath;
 
@@ -138,7 +138,7 @@ in
           ''
         else
           value
-        ;
+      ;
     in
     {
       enable = mkOption {
@@ -221,7 +221,7 @@ in
               Port of the database to connect to.
             '';
           }
-          ;
+        ;
 
         useSSL = mkOption {
           type = bool;
@@ -479,7 +479,7 @@ in
         '';
       };
     }
-    ;
+  ;
 
   config =
     let
@@ -495,7 +495,7 @@ in
           "mysql"
           "mariadb"
         ]
-        ;
+      ;
 
       mySqlCaKeystore = pkgs.runCommand "mysql-ca-keystore" { } ''
         ${pkgs.jre}/bin/keytool -importcert -trustcacerts -alias MySQLCACert -file ${cfg.database.caCert} -keystore $out -storepass notsosecretpassword -noprompt
@@ -553,7 +553,7 @@ in
               throw "unsupported type ${typeOf v}: ${
                   (lib.generators.toPretty { }) v
                 }"
-            ;
+          ;
         };
       };
 
@@ -568,7 +568,7 @@ in
             ]
           ))
           cfg.settings
-        ;
+      ;
       confFile = pkgs.writeText "keycloak.conf" (keycloakConfig filteredConfig);
       keycloakBuild = cfg.package.override {
         inherit confFile;
@@ -581,7 +581,7 @@ in
           assertion =
             (cfg.database.useSSL && cfg.database.type == "postgresql")
             -> (cfg.database.caCert != null)
-            ;
+          ;
           message =
             "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
         }
@@ -590,7 +590,7 @@ in
             createLocalPostgreSQL
             -> config.services.postgresql.settings.standard_conforming_strings
               or true
-            ;
+          ;
           message =
             "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";
         }
@@ -624,7 +624,7 @@ in
               postgresParams
             else
               mariadbParams
-            ;
+          ;
         in
         mkMerge [
           {
@@ -633,13 +633,13 @@ in
                 "postgres"
               else
                 cfg.database.type
-              ;
+            ;
             db-username =
               if databaseActuallyCreateLocally then
                 "keycloak"
               else
                 cfg.database.username
-              ;
+            ;
             db-password._secret = cfg.database.passwordFile;
             db-url-host = cfg.database.host;
             db-url-port = toString cfg.database.port;
@@ -648,7 +648,7 @@ in
                 "keycloak"
               else
                 cfg.database.name
-              ;
+            ;
             db-url-properties = prefixUnlessEmpty "?" dbProps;
             db-url = null;
           }
@@ -657,7 +657,7 @@ in
             https-certificate-key-file = "/run/keycloak/ssl/ssl_key";
           })
         ]
-        ;
+      ;
 
       systemd.services.keycloakPostgreSQLInit = mkIf createLocalPostgreSQL {
         after = [ "postgresql.service" ];
@@ -737,7 +737,7 @@ in
               ]
             else
               [ ]
-            ;
+          ;
           secretPaths = catAttrs "_secret" (collect isSecret cfg.settings);
           mkSecretReplacement =
             file: ''
@@ -747,11 +747,11 @@ in
                 baseNameOf file
               } /run/keycloak/conf/keycloak.conf
             ''
-            ;
+          ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement
               secretPaths
-            ;
+          ;
         in
         {
           after = databaseServices;
@@ -776,7 +776,7 @@ in
                     "ssl_cert:${cfg.sslCertificate}"
                     "ssl_key:${cfg.sslCertificateKey}"
                   ]
-              ;
+            ;
             User = "keycloak";
             Group = "keycloak";
             DynamicUser = true;
@@ -818,9 +818,9 @@ in
               }
               kc.sh start --optimized
             ''
-            ;
+          ;
         }
-        ;
+      ;
 
       services.postgresql.enable = mkDefault createLocalPostgreSQL;
       services.mysql.enable = mkDefault createLocalMySQL;
@@ -831,12 +831,12 @@ in
               pkgs.mariadb
             else
               pkgs.mysql80
-            ;
+          ;
         in
         mkIf createLocalMySQL (mkDefault dbPkg)
-        ;
+      ;
     }
-    ;
+  ;
 
   meta.doc = ./keycloak.md;
   meta.maintainers = [ maintainers.talyz ];

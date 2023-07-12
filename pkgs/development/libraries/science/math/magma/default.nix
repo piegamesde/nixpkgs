@@ -23,7 +23,7 @@ let
     callPackage ./generic.nix (
       (builtins.removeAttrs args [ "callPackage" ]) // { inherit magmaRelease; }
     )
-    ;
+  ;
 
   # Reverse the list to have the latest release first
   # magmaReleases :: List Release
@@ -40,7 +40,7 @@ let
       name = computeName release.version;
       value = buildMagmaPackage release;
     }
-    ;
+  ;
 
   # Add all supported builds as attributes
   # allBuilds :: AttrSet String Derivation

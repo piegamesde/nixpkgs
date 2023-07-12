@@ -14,7 +14,7 @@ let
       inherit pkgs nodejs;
       inherit (stdenv.hostPlatform) system;
     }
-    ;
+  ;
 
   mainProgramOverrides =
     final: prev:
@@ -26,7 +26,7 @@ let
         )
       )
       (import ./main-programs.nix)
-    ;
+  ;
 
   extensions = composeManyExtensions [
     mainProgramOverrides

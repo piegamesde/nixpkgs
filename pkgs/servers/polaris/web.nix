@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
               CYPRESS_INSTALL_BINARY = "0";
             }
           )
-        ;
+      ;
     in
     ''
       runHook preBuild
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
       runHook postBuild
     ''
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

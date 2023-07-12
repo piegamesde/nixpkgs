@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ (lib.optionals withTeXLive [ texlive ])
-    ;
+  ;
 
   makeFlags = [
     "-C src"

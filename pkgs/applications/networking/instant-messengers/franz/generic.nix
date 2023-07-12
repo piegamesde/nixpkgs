@@ -96,7 +96,7 @@ stdenv.mkDerivation (
         expat
         stdenv.cc.cc
       ]
-      ;
+    ;
     runtimeDependencies = [
       stdenv.cc.cc.lib
       (lib.getLib udev)

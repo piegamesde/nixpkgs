@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage {
   buildInputs =
     [ rustPlatform.rust.rustc.llvm ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   # fixes: error: the option `Z` is only accepted on the nightly compiler
   RUSTC_BOOTSTRAP = 1;

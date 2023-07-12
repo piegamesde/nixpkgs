@@ -132,7 +132,7 @@ rec {
     LOCALE_ARCHIVE =
       lib.optionalString (stdenv.buildPlatform.libc == "glibc")
         "${glibcLocales}/lib/locale/locale-archive"
-      ;
+    ;
 
     # not exhaustive; sample what resholve uses as a sanity check
     pythonImportsCheck = [

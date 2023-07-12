@@ -17,7 +17,7 @@ in
       description =
         lib.mdDoc
           "Enable unclutter-xfixes to hide your mouse cursor when inactive."
-        ;
+      ;
       type = types.bool;
       default = false;
     };
@@ -33,7 +33,7 @@ in
       description =
         lib.mdDoc
           "Number of seconds before the cursor is marked inactive."
-        ;
+      ;
       type = types.int;
       default = 1;
     };
@@ -42,7 +42,7 @@ in
       description =
         lib.mdDoc
           "Minimum number of pixels considered cursor movement."
-        ;
+      ;
       type = types.int;
       default = 1;
     };
@@ -51,7 +51,7 @@ in
       description =
         lib.mdDoc
           "More arguments to pass to the unclutter-xfixes command."
-        ;
+      ;
       type = types.listOf types.str;
       default = [ ];
       example = [

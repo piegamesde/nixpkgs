@@ -20,7 +20,7 @@ let
       plain
     else
       haskell.lib.compose.disableCabalFlag "plugins" plain
-    ;
+  ;
   static = haskell.lib.compose.justStaticExecutables plugins;
 in
 (

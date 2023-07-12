@@ -41,7 +41,7 @@ rec {
           "generators.mkValueStringDefault: "
           + "${t} not supported: ${toPretty { } v}"
         )
-        ;
+      ;
     in
     if isInt v then
       toString v
@@ -75,7 +75,7 @@ rec {
       libStr.floatToString v
     else
       err "this value is" (toString v)
-    ;
+  ;
 
   # Generate a line of key k and value v, separated by
   # character sep. If sep appears in k, it is escaped.
@@ -91,7 +91,7 @@ rec {
     }:
     sep: k: v:
     "${libStr.escape [ sep ] k}${sep}${mkValueString v}"
-    ;
+  ;
 
   ## -- FILE FORMAT GENERATORS --
 
@@ -110,13 +110,13 @@ rec {
           k: v: map (mkLine k) (if lib.isList v then v else [ v ])
         else
           k: v: [ (mkLine k v) ]
-        ;
+      ;
     in
     attrs:
     libStr.concatStrings (
       lib.concatLists (libAttr.mapAttrsToList mkLines attrs)
     )
-    ;
+  ;
 
   # Generate an INI-style config file from an
   # attrset of sections to an attrset of key-value pairs.
@@ -160,18 +160,18 @@ rec {
       mapAttrsToStringsSep =
         sep: mapFn: attrs:
         libStr.concatStringsSep sep (libAttr.mapAttrsToList mapFn attrs)
-        ;
+      ;
       mkSection =
         sectName: sectValues:
         ''
           [${mkSectionName sectName}]
         ''
         + toKeyValue { inherit mkKeyValue listsAsDuplicateKeys; } sectValues
-        ;
+      ;
     in
     # map input to ini sections
     mapAttrsToStringsSep "\n" mkSection attrsOfAttrs
-    ;
+  ;
 
   # Generate an INI-style config file from an attrset
   # specifying the global section (no header), and an
@@ -235,7 +235,7 @@ rec {
       toINI { inherit mkSectionName mkKeyValue listsAsDuplicateKeys; }
         sections
     )
-    ;
+  ;
 
   # Generate a git-config file from an attrset.
   #
@@ -271,7 +271,7 @@ rec {
           name
         else
           ''${section} "${subsection}"''
-        ;
+      ;
 
       # generation for multiple ini values
       mkKeyValue =
@@ -280,7 +280,7 @@ rec {
           mkKeyValue = mkKeyValueDefault { } " = " k;
         in
         concatStringsSep "\n" (map (kv: "	" + mkKeyValue kv) (lib.toList v))
-        ;
+      ;
 
       # converts { a.b.c = 5; } to { "a.b".c = 5; } for toINI
       gitFlattenAttrs =
@@ -298,16 +298,16 @@ rec {
               }
             else
               { ${head path} = value; }
-            ;
+          ;
         in
         attrs:
         lib.foldl lib.recursiveUpdate { } (lib.flatten (recurse [ ] attrs))
-        ;
+      ;
 
       toINI_ = toINI { inherit mkKeyValue mkSectionName; };
     in
     toINI_ (gitFlattenAttrs attrs)
-    ;
+  ;
 
   # Generates JSON from an arbitrary (non-function) value.
   # For more information see the documentation of the builtin.
@@ -337,7 +337,7 @@ rec {
       stepIntoAttr =
         evalNext: name:
         if builtins.elem name specialAttrs then id else evalNext
-        ;
+      ;
       transform =
         depth:
         if depthLimit != null && depth > depthLimit then
@@ -349,7 +349,7 @@ rec {
             const "<unevaluated>"
         else
           id
-        ;
+      ;
       mapAny = with builtins;
         depth: v:
         let
@@ -361,10 +361,10 @@ rec {
           map evalNext v
         else
           transform (depth + 1) v
-        ;
+      ;
     in
     mapAny 0
-    ;
+  ;
 
   # Pretty print a value, akin to `builtins.trace`.
   # Should probably be a builtin as well.
@@ -396,7 +396,7 @@ rec {
                 ${indent}  ''
             else
               " "
-            ;
+          ;
           outroSpace =
             if multiline then
               ''
@@ -404,7 +404,7 @@ rec {
                 ${indent}''
             else
               " "
-            ;
+          ;
         in
         if isInt v then
           toString v
@@ -431,12 +431,12 @@ rec {
                   "''\${"
                   "'''"
                 ]
-              ;
+            ;
             singlelineResult =
               ''"''
               + concatStringsSep "\\n" (map escapeSingleline lines)
               + ''"''
-              ;
+            ;
             multilineResult =
               let
                 escapedLines = map escapeMultiline lines;
@@ -449,7 +449,7 @@ rec {
               + concatStringsSep introSpace (lib.init escapedLines)
               + (if lastLine == "" then outroSpace else introSpace + lastLine)
               + "''"
-              ;
+            ;
           in
           if multiline && length lines > 1 then
             multilineResult
@@ -509,10 +509,10 @@ rec {
             + "}"
         else
           abort "generators.toPretty: should never happen (v = ${v})"
-        ;
+      ;
     in
     go indent
-    ;
+  ;
 
   # PLIST handling
   toPlist =
@@ -539,7 +539,7 @@ rec {
           float ind x
         else
           abort "generators.toPlist: should never happen (v = ${v})"
-        ;
+      ;
 
       literal = ind: x: ind + x;
 
@@ -560,7 +560,7 @@ rec {
           (item ind x)
           (literal ind "</array>")
         ]
-        ;
+      ;
 
       attrs =
         ind: x:
@@ -569,7 +569,7 @@ rec {
           (attr ind x)
           (literal ind "</dict>")
         ]
-        ;
+      ;
 
       attr =
         let
@@ -589,7 +589,7 @@ rec {
               x
           )
         )
-        ;
+      ;
     in
     ''
       <?xml version="1.0" encoding="UTF-8"?>
@@ -597,7 +597,7 @@ rec {
       <plist version="1.0">
       ${expr "" v}
       </plist>''
-    ;
+  ;
 
   # Translate a simple Nix expression to Dhall notation.
   # Note that integers are translated to Integer and never
@@ -629,7 +629,7 @@ rec {
       abort "generators.toDhall: cannot convert a null to Dhall"
     else
       builtins.toJSON v
-    ;
+  ;
 
   /* Translate a simple Nix expression to Lua representation with occasional
      Lua-inlines that can be construted by mkLuaInline function.
@@ -684,7 +684,7 @@ rec {
             ${innerIndent}''
         else
           " "
-        ;
+      ;
       outroSpace =
         if multiline then
           ''
@@ -692,7 +692,7 @@ rec {
             ${indent}''
         else
           " "
-        ;
+      ;
       innerArgs = args // {
         indent = if asBindings then indent else innerIndent;
         asBindings = false;
@@ -704,7 +704,7 @@ rec {
           ...
         }:
         _type == "lua-inline"
-        ;
+      ;
 
       generatedBindings =
         assert lib.assertMsg (badVarNames == [ ]) "Bad Lua var names: ${
@@ -717,13 +717,13 @@ rec {
             '')
             v
         )
-        ;
+      ;
 
       # https://en.wikibooks.org/wiki/Lua_Programming/variable#Variable_names
       matchVarName =
         match
           "[[:alpha:]_][[:alnum:]_]*(\\.[[:alpha:]_][[:alnum:]_]*)*"
-        ;
+      ;
       badVarNames = filter (name: matchVarName name == null) (attrNames v);
     in
     if asBindings then
@@ -761,7 +761,7 @@ rec {
       )
     else
       abort "generators.toLua: type ${typeOf v} is unsupported"
-    ;
+  ;
 
   /* Mark string as Lua expression to be inlined when processed by toLua.
 
@@ -773,5 +773,5 @@ rec {
       _type = "lua-inline";
       inherit expr;
     }
-    ;
+  ;
 }

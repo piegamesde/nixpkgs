@@ -16,7 +16,7 @@ import ./make-test-python.nix (
           maxMemory = 800;
         };
       }
-      ;
+    ;
 
     testScript = ''
       def airsonic_is_up(_) -> bool:

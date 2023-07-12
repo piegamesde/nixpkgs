@@ -34,7 +34,7 @@ let
             cfg.envVariables
         )}
       ''
-    ;
+  ;
 
   lessKey = pkgs.writeText "lessconfig" configText;
 in
@@ -135,7 +135,7 @@ in
           config.programs.less.clearDefaultCommands clears all default commands of less but there is no alternative binding for exiting.
           Consider adding a binding for 'quit'.
         ''
-      ;
+    ;
   };
 
   meta.maintainers = with maintainers; [ johnazoidberg ];

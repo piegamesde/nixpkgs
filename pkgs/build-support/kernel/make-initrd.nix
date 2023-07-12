@@ -19,7 +19,7 @@ let
   compressorName =
     fullCommand:
     builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1
-    ;
+  ;
 in
 {
   stdenvNoCC,
@@ -98,7 +98,7 @@ let
     lib.concatStringsSep "-" (
       filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x)
     )
-    ;
+  ;
 in
 stdenvNoCC.mkDerivation rec {
   inherit name makeUInitrd extension uInitrdArch prepend;
@@ -113,7 +113,7 @@ stdenvNoCC.mkDerivation rec {
       libarchive
     ]
     ++ lib.optional makeUInitrd ubootTools
-    ;
+  ;
 
   compress =
     "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
@@ -143,6 +143,6 @@ stdenvNoCC.mkDerivation rec {
       ])
       contents
       (lib.range 0 (lib.length contents - 1))
-    ;
+  ;
   pathsFromGraph = ./paths-from-graph.pl;
 }

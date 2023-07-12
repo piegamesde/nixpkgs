@@ -107,7 +107,7 @@ stdenv.mkDerivation (
               --fish <($out/bin/luarocks completion fish) \
               --zsh <($out/bin/luarocks completion zsh)
           ''
-      ;
+    ;
 
     propagatedBuildInputs = [
       zip
@@ -129,7 +129,7 @@ stdenv.mkDerivation (
     disallowedReferences =
       lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
         [ lua.luaOnBuild ]
-      ;
+    ;
 
     passthru = { updateScript = nix-update-script { }; };
 

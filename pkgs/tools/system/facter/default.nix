@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   CXXFLAGS =
     lib.optionalString stdenv.cc.isGNU
       "-fpermissive -Wno-error=catch-value"
-    ;
+  ;
   NIX_LDFLAGS = lib.optionalString stdenv.isLinux "-lblkid";
 
   cmakeFlags = [

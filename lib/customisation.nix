@@ -56,7 +56,7 @@ rec {
           // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
       }
     )
-    ;
+  ;
 
   /* `makeOverridable` takes a function from attribute set to attribute set and
      injects `override` attribute which can be used to override arguments of
@@ -88,7 +88,7 @@ rec {
         newArgs:
         origArgs
         // (if lib.isFunction newArgs then newArgs origArgs else newArgs)
-        ;
+      ;
 
       # Re-call the function but with different arguments
       overrideArgs = copyArgs (
@@ -113,7 +113,7 @@ rec {
       }
     else
       result
-    ;
+  ;
 
   /* Call the package function in the file `fn` with the required
      arguments automatically.  The function is called with the
@@ -158,7 +158,7 @@ rec {
                 removeAttrs fargs (lib.attrNames allArgs)
               )
           )
-        ;
+      ;
 
       # Get a list of suggested argument names for a given missing one
       getSuggestions =
@@ -177,7 +177,7 @@ rec {
           # Quote all entries
           (map (x: ''"'' + x + ''"''))
         ]
-        ;
+      ;
 
       prettySuggestions =
         suggestions:
@@ -189,7 +189,7 @@ rec {
           ", did you mean ${
             lib.concatStringsSep ", " (lib.init suggestions)
           } or ${lib.last suggestions}?"
-        ;
+      ;
 
       errorForArg =
         arg:
@@ -207,17 +207,17 @@ rec {
                   "/default.nix"
             else
               "<unknown location>"
-            ;
+          ;
         in
         ''Function called without required argument "${arg}" at ''
         + "${loc'}${prettySuggestions (getSuggestions arg)}"
-        ;
+      ;
 
       # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
     in
     if missingArgs == [ ] then makeOverridable f allArgs else abort error
-    ;
+  ;
 
   /* Like callPackage, but for a function that returns an attribute
      set of derivations. The override function is added to the
@@ -241,7 +241,7 @@ rec {
       )
     else
       lib.mapAttrs mkAttrOverridable pkgs
-    ;
+  ;
 
   /* Add attributes to each output of a derivation without changing
      the derivation itself and check a given condition when evaluating.
@@ -271,7 +271,7 @@ rec {
               overrideAttrs = f: (passthru.overrideAttrs f).${outputName};
             };
         }
-        ;
+      ;
 
       outputsList = map outputToAttrListElement outputs;
     in
@@ -279,7 +279,7 @@ rec {
       drvPath = assert condition; drv.drvPath;
       outPath = assert condition; drv.outPath;
     }
-    ;
+  ;
 
   /* Strip a derivation of all non-essential attributes, returning
      only those needed by hydra-eval-jobs. Also strictly evaluate the
@@ -313,14 +313,14 @@ rec {
             inherit outputName;
           };
         }
-        ;
+      ;
 
       outputsList = map makeOutput outputs;
 
       drv' = (lib.head outputsList).value;
     in
     if drv == null then null else lib.deepSeq drv' drv'
-    ;
+  ;
 
   /* Make a set of packages with a common scope. All packages called
      with the provided `callPackage` will be evaluated with the same
@@ -343,13 +343,13 @@ rec {
           lib.warn
             "`overrideScope` (from `lib.makeScope`) is deprecated. Do `overrideScope' (self: super: { … })` instead of `overrideScope (super: self: { … })`. All other overrides have the parameters in that order, including other definitions of `overrideScope`. This was the only definition violating the pattern."
             (makeScope newScope (lib.fixedPoints.extends (lib.flip g) f))
-          ;
+        ;
         overrideScope' = g: makeScope newScope (lib.fixedPoints.extends g f);
         packages = f;
       };
     in
     self
-    ;
+  ;
 
   /* Like the above, but aims to support cross compilation. It's still ugly, but
      hopefully it helps a little bit.
@@ -375,10 +375,10 @@ rec {
           g:
           makeScopeWithSplicing splicePackages newScope otherSplices keep extra
             (lib.fixedPoints.extends g f)
-          ;
+        ;
         packages = f;
       };
     in
     self
-    ;
+  ;
 }

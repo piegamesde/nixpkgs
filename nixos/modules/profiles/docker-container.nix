@@ -47,7 +47,7 @@ in
         '';
       in
       script
-      ;
+    ;
   };
 
   boot.isContainer = true;

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional (stdenv.isDarwin && stdenv.isx86_64)
       "--build=x86_64"
-    ;
+  ;
 
   # fixes a cast in inline asm: easier than patching
   buildFlags = lib.optional stdenv.isDarwin "CFLAGS=-fheinous-gnu-extensions";

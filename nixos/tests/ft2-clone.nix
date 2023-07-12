@@ -18,7 +18,7 @@ import ./make-test-python.nix (
         sound.enable = true;
         environment.systemPackages = [ pkgs.ft2-clone ];
       }
-      ;
+    ;
 
     enableOCR = true;
 

@@ -85,7 +85,7 @@ in
         dsn =
           lib.mkDefault
             "database=hockeypuck host=/var/run/postgresql sslmode=disable"
-          ;
+        ;
       };
     };
 

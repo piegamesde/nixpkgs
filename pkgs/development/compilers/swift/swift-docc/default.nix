@@ -36,7 +36,7 @@ stdenv.mkDerivation {
       CryptoKit
       LocalAuthentication
     ]
-    ;
+  ;
 
   configurePhase = generated.configure;
 

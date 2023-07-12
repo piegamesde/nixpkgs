@@ -35,7 +35,7 @@ let
           }
         );
       }
-      ;
+    ;
   };
 
   plugins = with python.pkgs; {
@@ -68,6 +68,6 @@ let
         }
       )
     )
-    ;
+  ;
 in
 withPlugins (ps: [ ])

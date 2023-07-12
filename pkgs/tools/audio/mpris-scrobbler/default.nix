@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
         --replace "-Werror=format-truncation=0" "" \
         --replace "-Wno-stringop-overflow" ""
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     m4

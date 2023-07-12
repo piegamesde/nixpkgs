@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     # <https://lists.gnu.org/archive/html/hydra-users/2012-08/msg00000.html>
     # for details.
     ++ lib.optional stdenv.isSunOS "--with-include-path=${gmp.dev}/include"
-    ;
+  ;
 
   doCheck = (stdenv.hostPlatform.system != "i686-cygwin" && !stdenv.isDarwin);
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
   patches =
     lib.optional (stdenv.hostPlatform.system == "i686-cygwin")
       ./cygwin.patch
-    ;
+  ;
 
   meta = with lib; {
     description = "Cryptographic library";

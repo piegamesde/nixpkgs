@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
               }/lib/gstreamer-1.0");''
           )
           (gstPlugins gst_all_1)
-        ;
+      ;
     })
   ];
 
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       ffmpeg_4
       libmpeg2
     ]
-    ;
+  ;
 
   configureFlags = [
     "--disable-ltdl-install"

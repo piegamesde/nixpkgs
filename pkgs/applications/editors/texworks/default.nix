@@ -43,13 +43,13 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withLua lua
     ++ lib.optional withPython python3
-    ;
+  ;
 
   cmakeFlags =
     [ "-DQT_DEFAULT_MAJOR_VERSION=6" ]
     ++ lib.optional withLua "-DWITH_LUA=ON"
     ++ lib.optional withPython "-DWITH_PYTHON=ON"
-    ;
+  ;
 
   meta = with lib; {
     changelog = "https://github.com/TeXworks/texworks/blob/${src.rev}/NEWS";

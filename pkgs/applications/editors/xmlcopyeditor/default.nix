@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       xercesc
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

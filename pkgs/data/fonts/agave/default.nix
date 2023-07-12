@@ -16,7 +16,7 @@ let
       sha256 = hash;
       name = "Agave-${name}.ttf";
     }
-    ;
+  ;
   # There are slashed variants, but with same name so only bundle the default versions for now:
   fonts = [
     (mkAg "Regular" "sha256-vX1VhEgqy9rQ7hPmAgBGxKyIs2QSAYqZC/mL/2BIOrA=")

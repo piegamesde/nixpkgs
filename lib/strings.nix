@@ -37,7 +37,7 @@ rec {
     toJSON
     typeOf
     unsafeDiscardStringContext
-    ;
+  ;
 
   /* Concatenate a list of strings.
 
@@ -94,7 +94,7 @@ rec {
           ])
           list
       )
-    ;
+  ;
 
   /* Concatenate a list of strings with a separator between each element
 
@@ -127,7 +127,7 @@ rec {
     # List of input strings
     list:
     concatStringsSep sep (map f list)
-    ;
+  ;
 
   /* Same as `concatMapStringsSep`, but the mapping function
      additionally receives the position of its argument.
@@ -146,7 +146,7 @@ rec {
     # List of input strings
     list:
     concatStringsSep sep (lib.imap1 f list)
-    ;
+  ;
 
   /* Concatenate a list of strings, adding a newline at the end of each one.
      Defined as `concatMapStrings (s: s + "\n")`.
@@ -178,7 +178,7 @@ rec {
     concatStringsSep ":" (
       map (path: path + "/" + subDir) (filter (x: x != null) paths)
     )
-    ;
+  ;
 
   /* Construct a Unix-style search path by appending the given
      `subDir` to the specified `output` of each of the packages. If no
@@ -199,7 +199,7 @@ rec {
     # List of packages
     pkgs:
     makeSearchPath subDir (map (lib.getOutput output) pkgs)
-    ;
+  ;
 
   /* Construct a library search path (such as RPATH) containing the
      libraries for a set of packages
@@ -245,7 +245,7 @@ rec {
           ""
           (stringToCharacters s)
       )
-    ;
+  ;
 
   /* Depending on the boolean `cond', return either the given string
      or the empty string. Useful to concatenate against a bigger string.
@@ -264,7 +264,7 @@ rec {
     # String to return if condition is true
     string:
     if cond then string else ""
-    ;
+  ;
 
   /* Determine whether a string has given prefix.
 
@@ -292,7 +292,7 @@ rec {
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
       (substring 0 (stringLength pref) str == pref)
-    ;
+  ;
 
   /* Determine whether a string has given suffix.
 
@@ -327,7 +327,7 @@ rec {
         lenContent >= lenSuffix
         && substring (lenContent - lenSuffix) lenContent content == suffix
       )
-    ;
+  ;
 
   /* Determine whether a string contains the given infix
 
@@ -356,7 +356,7 @@ rec {
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
       (builtins.match ".*${escapeRegex infix}.*" "${content}" != null)
-    ;
+  ;
 
   /* Convert a string to a list of characters (i.e. singleton strings).
      This allows you to, e.g., map a function over each character.  However,
@@ -394,7 +394,7 @@ rec {
     # Input string
     s:
     concatStrings (map f (stringToCharacters s))
-    ;
+  ;
 
   /* Convert char to ascii value, must be in printable range
 
@@ -434,7 +434,7 @@ rec {
     replaceStrings list (
       map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list
     )
-    ;
+  ;
 
   /* Escape the string so it can be safely placed inside a URL
      query.
@@ -522,7 +522,7 @@ rec {
         (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
         toEscape
     )
-    ;
+  ;
 
   /* Quote string to be used safely within the Bourne shell.
 
@@ -593,7 +593,7 @@ rec {
         else
           "${name}=${escapeShellArg value}"
       )
-    ;
+  ;
 
   /* Translate an attribute set into corresponding shell variable declarations
      using `toShellVar`.
@@ -649,7 +649,7 @@ rec {
       s
     else
       escapeNixString s
-    ;
+  ;
 
   /* Escapes a string such that it is safe to include verbatim in an XML
      document.
@@ -676,14 +676,14 @@ rec {
         "&gt;"
         "&amp;"
       ]
-    ;
+  ;
 
   # warning added 12-12-2022
   replaceChars =
     lib.warn
       "replaceChars is a deprecated alias of replaceStrings, replace usages of it with replaceStrings."
       builtins.replaceStrings
-    ;
+  ;
 
   # Case conversion utilities.
   lowerChars = stringToCharacters "abcdefghijklmnopqrstuvwxyz";
@@ -741,7 +741,7 @@ rec {
       );
     in
     map (addContextFrom s) splits
-    ;
+  ;
 
   /* Return a string without the specified prefix, if the prefix matches.
 
@@ -778,7 +778,7 @@ rec {
         else
           str
       )
-    ;
+  ;
 
   /* Return a string without the specified suffix, if the suffix matches.
 
@@ -815,7 +815,7 @@ rec {
         else
           str
       )
-    ;
+  ;
 
   /* Return true if string v1 denotes a version older than v2.
 
@@ -855,7 +855,7 @@ rec {
       parse = drv: (parseDrvName drv).name;
     in
     if isString x then parse x else x.pname or (parse x.name)
-    ;
+  ;
 
   /* This function takes an argument that's either a derivation or a
      derivation's "name" attribute and extracts the version part from that
@@ -873,7 +873,7 @@ rec {
       parse = drv: (parseDrvName drv).version;
     in
     if isString x then parse x else x.version or (parse x.name)
-    ;
+  ;
 
   /* Extract name with version from URL. Ask for separator which is
      supposed to start extension.
@@ -893,7 +893,7 @@ rec {
     in
     assert name != filename;
     name
-    ;
+  ;
 
   /* Create a -D<feature>=<value> string that can be passed to typical Meson
       invocations.
@@ -912,7 +912,7 @@ rec {
     assert (lib.isString feature);
     assert (lib.isString value);
     "-D${feature}=${value}"
-    ;
+  ;
 
   /* Create a -D<condition>={true,false} string that can be passed to typical
       Meson invocations.
@@ -933,7 +933,7 @@ rec {
     assert (lib.isString condition);
     assert (lib.isBool flag);
     mesonOption condition (lib.boolToString flag)
-    ;
+  ;
 
   /* Create a -D<feature>={enabled,disabled} string that can be passed to
       typical Meson invocations.
@@ -954,7 +954,7 @@ rec {
     assert (lib.isString feature);
     assert (lib.isBool flag);
     mesonOption feature (if flag then "enabled" else "disabled")
-    ;
+  ;
 
   /* Create an --{enable,disable}-<feat> string that can be passed to
      standard GNU Autoconf scripts.
@@ -969,7 +969,7 @@ rec {
     enable: feat:
     assert isString feat; # e.g. passing openssl instead of "openssl"
     "--${if enable then "enable" else "disable"}-${feat}"
-    ;
+  ;
 
   /* Create an --{enable-<feat>=<value>,disable-<feat>} string that can be passed to
      standard GNU Autoconf scripts.
@@ -983,7 +983,7 @@ rec {
   enableFeatureAs =
     enable: feat: value:
     enableFeature enable feat + optionalString enable "=${value}"
-    ;
+  ;
 
   /* Create an --{with,without}-<feat> string that can be passed to
      standard GNU Autoconf scripts.
@@ -998,7 +998,7 @@ rec {
     with_: feat:
     assert isString feat; # e.g. passing openssl instead of "openssl"
     "--${if with_ then "with" else "without"}-${feat}"
-    ;
+  ;
 
   /* Create an --{with-<feat>=<value>,without-<feat>} string that can be passed to
      standard GNU Autoconf scripts.
@@ -1012,7 +1012,7 @@ rec {
   withFeatureAs =
     with_: feat: value:
     withFeature with_ feat + optionalString with_ "=${value}"
-    ;
+  ;
 
   /* Create a fixed width string with additional prefix to match
      required width.
@@ -1037,7 +1037,7 @@ rec {
           toString width
         }) must not be shorter than actual length (${toString strw})";
     if strw == width then str else filler + fixedWidthString reqWidth filler str
-    ;
+  ;
 
   /* Format a number adding leading zeroes up to fixed width.
 
@@ -1065,7 +1065,7 @@ rec {
     in
     lib.warnIf (!precise) "Imprecise conversion from float to string ${result}"
       result
-    ;
+  ;
 
   /* Soft-deprecated function. While the original implementation is available as
      isConvertibleWithToString, consider using isStringLike instead, if suitable.
@@ -1074,7 +1074,7 @@ rec {
     lib.warnIf (lib.isInOldestRelease 2305)
       "lib.strings.isCoercibleToString is deprecated in favor of either isStringLike or isConvertibleWithToString. Only use the latter if it needs to return true for null, numbers, booleans and list of similarly coercibles."
       isConvertibleWithToString
-    ;
+  ;
 
   /* Check whether a list or other value can be passed to toString.
 
@@ -1091,7 +1091,7 @@ rec {
       "bool"
     ]
     || (isList x && lib.all isConvertibleWithToString x)
-    ;
+  ;
 
   /* Check whether a value can be coerced to a string.
      The value must be a string, path, or attribute set.
@@ -1122,7 +1122,7 @@ rec {
       substring 0 1 str == "/" && dirOf str == storeDir
     else
       false
-    ;
+  ;
 
   /* Parse a string as an int. Does not support parsing of integers with preceding zero due to
      ambiguity between zero-padded and octal numbers. See toIntBase10.
@@ -1164,7 +1164,7 @@ rec {
       octalAmbigError =
         "toInt: Ambiguity in interpretation of ${escapeNixString str}"
         + " between octal and zero padded integer."
-        ;
+      ;
     in
     # Error on presence of non digit characters.
     if strippedInput == null then
@@ -1178,7 +1178,7 @@ rec {
     # Return result.
     else
       parsedInput
-    ;
+  ;
 
   /* Parse a string as a base 10 int. This supports parsing of zero-padded integers.
 
@@ -1229,7 +1229,7 @@ rec {
     # Return result.
     else
       parsedInput
-    ;
+  ;
 
   /* Read a list of paths from `file`, relative to the `rootPath`.
      Lines beginning with `#` are treated as comments and ignored.
@@ -1260,7 +1260,7 @@ rec {
         in
         absolutePaths
       )
-    ;
+  ;
 
   /* Read the contents of a file removing the trailing \n
 
@@ -1312,7 +1312,7 @@ rec {
         # If the result is empty, replace it with "unknown"
         (x: if stringLength x == 0 then "unknown" else x)
       ]
-    ;
+  ;
 
   /* Computes the Levenshtein distance between two strings.
      Complexity O(n*m) where n and m are the lengths of the strings.
@@ -1349,10 +1349,10 @@ rec {
           lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1)) (
             d (i - 1) (j - 1) + c
           )
-        ;
+      ;
     in
     d (stringLength a) (stringLength b)
-    ;
+  ;
 
   # Returns the length of the prefix common to both strings.
   commonPrefixLength =
@@ -1367,10 +1367,10 @@ rec {
           go (i + 1)
         else
           i
-        ;
+      ;
     in
     go 0
-    ;
+  ;
 
   # Returns the length of the suffix common to both strings.
   commonSuffixLength =
@@ -1388,10 +1388,10 @@ rec {
           go (i + 1)
         else
           i
-        ;
+      ;
     in
     go 0
-    ;
+  ;
 
   /* Returns whether the levenshtein distance between two strings is at most some value
      Complexity is O(min(n,m)) for k <= 2 and O(n*m) otherwise
@@ -1455,7 +1455,7 @@ rec {
         # Example: "abcdef" -> "zbcdez" or "bcdefz" or "zabcde"
         else
           xinfix == yinfix || xdelr == ydell || xdell == ydelr
-        ;
+      ;
     in
     k:
     if k <= 0 then
@@ -1485,8 +1485,8 @@ rec {
             infixDifferAtMost2 ainfix binfix
           else
             levenshtein ainfix binfix <= k
-          ;
+        ;
       in
       f
-    ;
+  ;
 }

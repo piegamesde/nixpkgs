@@ -34,7 +34,7 @@ let
           attr
       )
     }}"
-    ;
+  ;
 
   formatPyValue =
     value:
@@ -52,14 +52,14 @@ let
       "[${concatStringsSep "\n" (map (v: "${formatPyValue v},") value)}]"
     else
       throw "Unrecognized type"
-    ;
+  ;
 
   formatPy =
     attrs:
     concatStringsSep "\n" (
       mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs
     )
-    ;
+  ;
 
   pyType = with types;
     attrsOf (
@@ -228,7 +228,7 @@ in
           MAIL_PASSWORD = pw
         ''
         + formatPy cfg.settings
-        ;
+      ;
       mode = "0600";
       user = "pgadmin";
       group = "pgadmin";

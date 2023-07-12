@@ -56,7 +56,7 @@ clangStdenv.mkDerivation rec {
         cargoSetupHook
       ]
     )
-    ;
+  ;
 
   buildInputs = [
     glib

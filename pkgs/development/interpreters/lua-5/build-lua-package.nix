@@ -105,7 +105,7 @@ let
           knownRockspec
           externalDeps
           nativeCheckInputs
-          ;
+        ;
 
         buildInputs =
           let
@@ -113,7 +113,7 @@ let
             externalDeps' =
               lib.filter (dep: !lib.isDerivation dep)
                 self.externalDeps
-              ;
+            ;
           in
           [ lua.pkgs.luarocks ]
           ++ buildInputs
@@ -121,7 +121,7 @@ let
             [ luarocksCheckHook ] ++ self.nativeCheckInputs
           )
           ++ (map (d: d.dep) externalDeps')
-          ;
+        ;
 
         # propagate lua to active setup-hook in nix-shell
         propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
@@ -156,7 +156,7 @@ let
             ${generatedConfig}
             ${extraConfig}
           ''
-          ;
+        ;
 
         configurePhase =
           ''
@@ -180,7 +180,7 @@ let
           + ''
             runHook postConfigure
           ''
-          ;
+        ;
 
         buildPhase = ''
           runHook preBuild
@@ -200,7 +200,7 @@ let
             wrapLuaPrograms
           ''
           + attrs.postFixup or ""
-          ;
+        ;
 
         installPhase = ''
           runHook preInstall

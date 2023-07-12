@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       networkmanager
       glib
     ]
-    ;
+  ;
 
   patches = [
     ./ext_auth-path.patch
@@ -179,7 +179,7 @@ stdenv.mkDerivation rec {
       "--enable-osx-attr"
       "--disable-scripts"
     ]
-    ;
+  ;
 
   postInstall = ''
     # this is needed for l2tp

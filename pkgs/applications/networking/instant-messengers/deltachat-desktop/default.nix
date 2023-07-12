@@ -60,7 +60,7 @@ let
           vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
         }
       )
-      ;
+    ;
   };
 in
 buildNpmPackage rec {
@@ -83,7 +83,7 @@ buildNpmPackage rec {
       python3
     ]
     ++ lib.optionals stdenv.isLinux [ copyDesktopItems ]
-    ;
+  ;
 
   buildInputs =
     [ libdeltachat' ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];

@@ -47,7 +47,7 @@ buildPythonPackage rec {
       # https://github.com/NixOS/nixpkgs/issues/19098
       substituteInPlace cocotb_build_libs.py --replace "-flto" ""
     ''
-    ;
+  ;
 
   patches =
     [

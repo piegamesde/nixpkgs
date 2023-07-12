@@ -16,7 +16,7 @@ let
       removePrefix "file://" cfg.targetUrl
     else
       null
-    ;
+  ;
 in
 {
   options.services.duplicity = {
@@ -213,7 +213,7 @@ in
               )
             } ${extra}
           ''
-          ;
+        ;
         serviceConfig = {
           PrivateTmp = true;
           ProtectSystem = "strict";
@@ -229,7 +229,7 @@ in
       tmpfiles.rules =
         optional (localTarget != null)
           "d ${localTarget} 0700 root root -"
-        ;
+      ;
     };
 
     assertions = singleton {

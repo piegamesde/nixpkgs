@@ -54,7 +54,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals stdenv.isLinux [ trezor-udev-rules ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

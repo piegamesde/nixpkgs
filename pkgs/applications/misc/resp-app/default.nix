@@ -65,7 +65,7 @@ mkDerivation rec {
       zstd
     ]
     ++ pythonPath
-    ;
+  ;
 
   pythonPath = with python3Packages; [
     bitstring

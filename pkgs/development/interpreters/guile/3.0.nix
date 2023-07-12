@@ -44,7 +44,7 @@ builder rec {
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         pkgsBuildBuild.guile_3_0
-    ;
+  ;
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -83,7 +83,7 @@ builder rec {
         sha256 = "12wvwdna9j8795x59ldryv9d84c1j3qdk2iskw09306idfsis207";
       }
     )
-    ;
+  ;
 
   # Explicitly link against libgcc_s, to work around the infamous
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
@@ -92,7 +92,7 @@ builder rec {
   LDFLAGS =
     lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
       "-lgcc_s"
-    ;
+  ;
 
   configureFlags =
     [ "--with-libreadline-prefix=${lib.getDev readline}" ]
@@ -115,7 +115,7 @@ builder rec {
     # At least on x86_64-darwin '-flto' autodetection is not correct:
     #  https://github.com/NixOS/nixpkgs/pull/160051#issuecomment-1046193028
     ++ lib.optional (stdenv.isDarwin) "--disable-lto"
-    ;
+  ;
 
   postInstall =
     ''
@@ -132,7 +132,7 @@ builder rec {
               s|includedir=$out|includedir=$dev|g
               "
     ''
-    ;
+  ;
 
   # make check doesn't work on darwin
   # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.

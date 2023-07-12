@@ -71,7 +71,7 @@ buildPythonPackage rec {
       wxGTK
     ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -92,7 +92,7 @@ buildPythonPackage rec {
       webkitgtk
       xorgproto
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     numpy

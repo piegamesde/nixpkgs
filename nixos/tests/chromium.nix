@@ -71,7 +71,7 @@ mapAttrs
             variables."XAUTHORITY" = "/home/alice/.Xauthority";
           };
         }
-        ;
+      ;
 
       testScript =
         let
@@ -81,7 +81,7 @@ mapAttrs
               xdoScript = pkgs.writeText "${name}.xdo" text;
             in
             "${pkgs.xdotool}/bin/xdotool ${xdoScript}"
-            ;
+          ;
         in
         ''
           import shlex
@@ -304,7 +304,7 @@ mapAttrs
 
           machine.shutdown()
         ''
-        ;
+      ;
     }
   )
   channelMap

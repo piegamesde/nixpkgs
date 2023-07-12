@@ -49,7 +49,7 @@ python3Packages.buildPythonApplication rec {
         pyyaml
       ]
     )
-    ;
+  ;
 
   nativeCheckInputs = with python3Packages; [
     unittestCheckHook

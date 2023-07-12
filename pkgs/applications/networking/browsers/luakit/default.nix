@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
         gst-libav
       ]
     )
-    ;
+  ;
 
   # build-utils/docgen/gen.lua:2: module 'lib.lousy.util' not found
   # TODO: why is not this the default? The test runner adds
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
         --prefix LUA_CPATH ';' "$LUA_CPATH"
       )
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://luakit.github.io/";

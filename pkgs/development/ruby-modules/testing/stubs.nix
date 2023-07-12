@@ -33,7 +33,7 @@ let
       system = stdenv.hostPlatform.system;
       passAsFile = [ "text" ];
     }
-    ;
+  ;
   fetchurl =
     {
       url ? "",
@@ -41,7 +41,7 @@ let
       ...
     }:
     "fetchurl:${if urls == [ ] then url else builtins.head urls}"
-    ;
+  ;
 
   stdenv' = stdenv // {
     inherit mkDerivation;

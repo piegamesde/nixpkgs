@@ -33,7 +33,7 @@ buildPythonPackage rec {
       pyopenssl
     ]
     ++ twisted.optional-dependencies.tls
-    ;
+  ;
 
   passthru.optional-dependencies = {
     i2p = [ txi2p-tahoe ];
@@ -46,7 +46,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   pythonImportsCheck = [ "foolscap" ];
 

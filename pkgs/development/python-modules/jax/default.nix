@@ -54,7 +54,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ etils.optional-dependencies.epath
-    ;
+  ;
 
   nativeCheckInputs = [
     jaxlib'
@@ -102,7 +102,7 @@ buildPythonPackage rec {
       "testQdwhWithRandomMatrix3"
       "testScanGrad_jit_scan"
     ]
-    ;
+  ;
 
   # See https://github.com/google/jax/issues/11722. This is a temporary fix in
   # order to unblock etils, and upgrading jax/jaxlib to the latest version. See

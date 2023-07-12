@@ -22,7 +22,7 @@ let
         ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'"}' http://${dnsAddress}:8055/clear-txt
       fi
     ''
-    ;
+  ;
 
   dnsConfig =
     nodes: {
@@ -35,7 +35,7 @@ let
         EXEC_SEQUENCE_INTERVAL=1
       '';
     }
-    ;
+  ;
 
   documentRoot = pkgs.runCommand "docroot" { } ''
     mkdir -p "$out"
@@ -130,7 +130,7 @@ let
           specialConfig
           extraConfig
         ]
-        ;
+      ;
     in
     {
       "${server}".configuration =
@@ -140,7 +140,7 @@ let
           ...
         }:
         baseConfig { inherit nodes config; }
-        ;
+      ;
 
       # Test that server reloads when an alias is removed (and subsequently test removal works in acme)
       "${server}-remove-alias".configuration =
@@ -159,7 +159,7 @@ let
               virtualHosts."${server}-http.example.test".serverAliases =
                 lib.mkForce
                   [ ]
-                ;
+              ;
               virtualHosts."${server}-http-alias.example.test" = vhostBaseData
                 // {
                   useACMEHost = "${server}-http.example.test";
@@ -167,7 +167,7 @@ let
             };
           };
         }
-        ;
+      ;
 
       # Test that the server reloads when only the acme configuration is changed.
       "${server}-change-acme-conf".configuration =
@@ -186,9 +186,9 @@ let
             };
           };
         }
-        ;
+      ;
     }
-    ;
+  ;
 in
 {
   name = "acme";
@@ -208,7 +208,7 @@ in
         imports = [ ./common/acme/server ];
         networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
       }
-      ;
+    ;
 
     # A fake DNS server which can be configured with records as desired
     # Used to test DNS-01 challenge
@@ -234,7 +234,7 @@ in
           };
         };
       }
-      ;
+    ;
 
     # A web server which will be the node requesting certs
     webserver =
@@ -307,7 +307,7 @@ in
                   vhostBase // { enableACME = true; };
               }
             ]
-            ;
+          ;
 
           # Test OCSP Stapling
           ocsp-stapling.configuration =
@@ -326,7 +326,7 @@ in
                 };
               }
             ]
-            ;
+          ;
 
           # Validate service relationships by adding a slow start service to nginx' wants.
           # Reproducer for https://github.com/NixOS/nixpkgs/issues/81842
@@ -354,7 +354,7 @@ in
                 };
               }
             ]
-            ;
+          ;
 
           # Test lego internal server (listenHTTP option)
           # Also tests useRoot option
@@ -373,7 +373,7 @@ in
                 onlySSL = true;
               };
             }
-            ;
+          ;
 
           # Test compatibility with Caddy
           # It only supports useACMEHost, hence not using mkServerConfigs
@@ -405,7 +405,7 @@ in
                   };
                 };
               }
-              ;
+            ;
           in
           {
             caddy.configuration = baseCaddyConfig;
@@ -421,7 +421,7 @@ in
                 (baseCaddyConfig { inherit nodes config; })
                 { security.acme.certs."example.test" = { keyType = "ec384"; }; }
               ]
-              ;
+            ;
 
             # Test compatibility with Nginx
           }
@@ -441,7 +441,7 @@ in
             };
           });
       }
-      ;
+    ;
 
     # The client will be used to curl the webserver to validate configuration
     client =
@@ -455,7 +455,7 @@ in
         # OpenSSL will be used for more thorough certificate validation
         environment.systemPackages = [ pkgs.openssl ];
       }
-      ;
+    ;
   };
 
   testScript =
@@ -788,5 +788,5 @@ in
               wait_for_server()
               check_connection_key_bits(client, test_domain, "384")
     ''
-    ;
+  ;
 }

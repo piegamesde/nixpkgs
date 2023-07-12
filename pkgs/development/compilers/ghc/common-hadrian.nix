@@ -108,7 +108,7 @@
       # they seem to lead to `too many sections` errors when building base for
       # profiling.
       ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ]
-      ;
+    ;
   in
   baseFlavour + lib.concatMapStrings (t: "+${t}") transformers
 
@@ -183,7 +183,7 @@ let
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-"
-    ;
+  ;
 
   hadrianSettings =
     # -fexternal-dynamic-refs apparently (because it's not clear from the
@@ -196,7 +196,7 @@ let
     ++ lib.optionals targetPlatform.useAndroidPrebuilt [
       "*.*.ghc.c.opts += -optc-std=gnu99"
     ]
-    ;
+  ;
 
   # GHC's build system hadrian built from the GHC-to-build's source tree
   # using our bootstrap GHC.
@@ -223,7 +223,7 @@ let
           && !targetPlatform.isGhcjs
         )
         libiconv
-    ;
+  ;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
@@ -237,7 +237,7 @@ let
       )
     ]
     ++ lib.optional useLLVM buildTargetLlvmPackages.llvm
-    ;
+  ;
 
   targetCC = builtins.head toolsForTarget;
 
@@ -252,7 +252,7 @@ let
         targetCC.bintools
       else
         targetCC.bintools.bintools
-      ;
+    ;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
@@ -260,7 +260,7 @@ let
         targetCC.bintools
       else
         targetCC.bintools.bintools
-      ;
+    ;
   };
 
   # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
@@ -273,7 +273,7 @@ let
       && (targetCC.bintools.bintools.hasGold or false)
       && !targetPlatform.isMusl
     )
-    ;
+  ;
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
@@ -399,7 +399,7 @@ stdenv.mkDerivation (
           ${lib.escapeShellArgs hadrianSettings}
         )
       ''
-      ;
+    ;
 
     ${if targetPlatform.isGhcjs then "configureScript" else null} =
       "emconfigure ./configure";
@@ -418,7 +418,7 @@ stdenv.mkDerivation (
         "host"
       ]
       ++ lib.optional (targetPlatform != hostPlatform) "target"
-      ;
+    ;
 
     # `--with` flags for libraries needed for RTS linker
     configureFlags =
@@ -463,7 +463,7 @@ stdenv.mkDerivation (
         "--with-libdw-includes=${lib.getDev elfutils}/include"
         "--with-libdw-libraries=${lib.getLib elfutils}/lib"
       ]
-      ;
+    ;
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
     strictDeps = true;
@@ -490,7 +490,7 @@ stdenv.mkDerivation (
         autoSignDarwinBinariesHook
       ]
       ++ lib.optionals enableDocs [ sphinx ]
-      ;
+    ;
 
     # For building runtime libs
     depsBuildTarget = toolsForTarget;
@@ -501,7 +501,7 @@ stdenv.mkDerivation (
         bash
       ]
       ++ (libDeps hostPlatform)
-      ;
+    ;
 
     depsTargetTarget = map lib.getDev (libDeps targetPlatform);
     depsTargetTargetPropagated = map (lib.getOutput "out") (
@@ -543,7 +543,7 @@ stdenv.mkDerivation (
       # * https://github.com/NixOS/nixpkgs/issues/129247
       # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
       ++ lib.optional stdenv.targetPlatform.isMusl "pie"
-      ;
+    ;
 
     # big-parallel allows us to build with more than 2 cores on
     # Hydra which already warrants a significant speedup

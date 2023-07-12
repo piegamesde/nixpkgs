@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
-    ;
+  ;
 
   src = fetchurl {
     url =

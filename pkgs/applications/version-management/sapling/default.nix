@@ -151,7 +151,7 @@ python3Packages.buildPythonApplication {
       substituteInPlace $sitepackages/edenscm-isl/run-isl \
         --replace 'NODE=node' 'NODE=${nodejs}/bin/node'
     ''
-    ;
+  ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/sl \
@@ -170,7 +170,7 @@ python3Packages.buildPythonApplication {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [ openssl ]
@@ -181,7 +181,7 @@ python3Packages.buildPythonApplication {
       CoreServices
       Security
     ]
-    ;
+  ;
 
   HGNAME = "sl";
   SAPLING_OSS_BUILD = "true";

@@ -14,7 +14,7 @@ let
     unique (
       [ lua ] ++ modules ++ concatLists (catAttrs "requiredLuaModules" modules)
     )
-    ;
+  ;
   # Check whether a derivation provides a lua module.
   hasLuaModule = drv: drv ? luaModule;
 
@@ -29,7 +29,7 @@ let
     )) // {
       overrideScope = scope: overrideLuarocks (drv.overrideScope scope) f;
     }
-    ;
+  ;
 in
 rec {
   inherit overrideLuarocks;
@@ -86,7 +86,7 @@ rec {
         };
       }
     )
-    ;
+  ;
 
   /* generate luarocks config
 
@@ -112,7 +112,7 @@ rec {
             rocks_dir = "${dep}/${dep.rocksSubdir}";
           })
           requiredLuaRocks
-        ;
+      ;
 
       # Explicitly point luarocks to the relevant locations for multiple-output
       # derivations that are external dependencies, to work around an issue it has
@@ -174,5 +174,5 @@ rec {
         variables = (depVariables // extraVariables);
       }
     )
-    ;
+  ;
 }

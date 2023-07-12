@@ -68,7 +68,7 @@ let
       getAttr dfVersion dfhack-releases
     else
       throw "[DFHack] Unsupported Dwarf Fortress version: ${dfVersion}"
-    ;
+  ;
 
   version = release.dfHackRelease;
 
@@ -82,7 +82,7 @@ let
       "32"
     else
       throw "Unsupported architecture"
-    ;
+  ;
 
   fakegit = writeScriptBin "git" ''
     #! ${stdenv.shell}
@@ -137,13 +137,13 @@ stdenv.mkDerivation {
         hash = "sha256-p+mKhmYbnhWKNiGPMjbYO505Gcg634n0nudqH0NX3KY=";
       }
     )
-    ;
+  ;
 
   # gcc 11 fix
   CXXFLAGS =
     lib.optionalString (lib.versionOlder version "0.47.05-r3")
       "-fpermissive"
-    ;
+  ;
 
   # As of
   # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,
@@ -175,7 +175,7 @@ stdenv.mkDerivation {
       libGLU
       libGL
     ]
-    ;
+  ;
 
   preConfigure = ''
     # Trick build system into believing we have .git
@@ -192,7 +192,7 @@ stdenv.mkDerivation {
       "-DBUILD_STONESENSE=ON"
       "-DSTONESENSE_INTERNAL_SO=OFF"
     ]
-    ;
+  ;
 
   # dfhack expects an unversioned libruby.so to be present in the hack
   # subdirectory for ruby plugins to function.

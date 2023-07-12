@@ -77,7 +77,7 @@ let
         libuuid
         at-spi2-atk
       ]
-      ;
+    ;
 
     runtimeDependencies = [
       (lib.getLib systemd)

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       libidn
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   configureFlags = lib.optionals stdenv.isDarwin [ "--with-macosx-keyring" ];
 

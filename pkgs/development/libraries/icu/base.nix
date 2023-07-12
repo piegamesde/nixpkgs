@@ -44,7 +44,7 @@ let
         "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
       else
         null
-      ; # won't find locale_t on darwin
+    ; # won't find locale_t on darwin
 
     inherit patchFlags patches;
 
@@ -59,7 +59,7 @@ let
         # From https://archlinuxarm.org/packages/armv7h/icu/files/icudata-stdlibs.patch
         sed -e 's/LDFLAGSICUDT=-nodefaultlibs -nostdlib/LDFLAGSICUDT=/' -i config/mh-linux
       ''
-      ;
+    ;
 
     configureFlags =
       [ "--disable-debug" ]
@@ -67,7 +67,7 @@ let
       ++
         lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
           "--with-cross-build=${nativeBuildRoot}"
-      ;
+    ;
 
     enableParallelBuilding = true;
 
@@ -98,7 +98,7 @@ let
     nativeBuildInputs =
       lib.optional stdenv.hostPlatform.isDarwin
         fixDarwinDylibNames
-      ;
+    ;
 
     # remove dependency on bootstrap-tools in early stdenv build
     postInstall =
@@ -130,7 +130,7 @@ let
             }
         ''
       )
-      ;
+    ;
 
     postFixup = ''moveToOutput lib/icu "$dev" '';
   };
@@ -145,7 +145,7 @@ let
         cd build
         configureScript=../configure
       ''
-      ;
+    ;
 
     postBuild = ''
       cd ..
@@ -163,6 +163,6 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
   }
 )

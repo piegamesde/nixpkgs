@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       # This benchmark times out on Hydra.nixos.org
       sed -i '/memcpy_speed/d' testsuite/meson.build
     ''
-    ;
+  ;
 
   outputs =
     [
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ optional buildDevDoc "devdoc"
-    ;
+  ;
   outputBin = "dev"; # compilation tools
 
   mesonFlags = optionals (!buildDevDoc) [ "-Dgtk_doc=disabled" ];
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       file
       docbook_xsl
     ]
-    ;
+  ;
 
   # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/41
   doCheck =
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       && stdenv.cc.isGNU
       && lib.versionAtLeast stdenv.cc.version "12"
     )
-    ;
+  ;
 
   passthru.tests = {
     inherit (gst_all_1) gst-plugins-good gst-plugins-bad gst-plugins-ugly;

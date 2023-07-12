@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       ''
-    ;
+  ;
 
   # libevent_openssl is moved into its own output, so that openssl isn't present
   # in the default closure.
@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional sslSupport "openssl"
-    ;
+  ;
   outputBin = "dev";
   propagatedBuildOutputs = [ "out" ] ++ lib.optional sslSupport "openssl";
 
   nativeBuildInputs =
     lib.optional stdenv.hostPlatform.isDarwin
       fixDarwinDylibNames
-    ;
+  ;
 
   buildInputs =
     lib.optional sslSupport openssl ++ lib.optional stdenv.isCygwin findutils;

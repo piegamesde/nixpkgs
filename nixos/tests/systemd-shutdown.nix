@@ -18,7 +18,7 @@ import ./make-test-python.nix (
           ''
             echo "${msg}"
           ''
-        ;
+      ;
       boot.initrd.systemd.enable = systemdStage1;
     };
 

@@ -27,7 +27,7 @@ let
         [ "out" ]
         ++ lib.optionals buildTests [ "test" ]
         ++ lib.optionals buildExamples [ "example" ]
-        ;
+      ;
 
       # ROCm 5.6 should release composable_kernel as stable with a tag in the future
       src = fetchFromGitHub {
@@ -58,7 +58,7 @@ let
         ++ lib.optionals buildTests [
           "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
         ]
-        ;
+      ;
 
       # No flags to build selectively it seems...
       postPatch =
@@ -70,7 +70,7 @@ let
           substituteInPlace CMakeLists.txt \
             --replace "add_subdirectory(example)" ""
         ''
-        ;
+      ;
 
       postInstall =
         lib.optionalString buildTests ''
@@ -81,7 +81,7 @@ let
           mkdir -p $example/bin
           mv $out/bin/example_* $example/bin
         ''
-        ;
+      ;
 
       passthru.updateScript = unstableGitUpdater { };
 
@@ -125,7 +125,7 @@ stdenv.mkDerivation {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   # Fix paths
   preFixup = ''

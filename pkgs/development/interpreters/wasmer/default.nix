@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
       SystemConfiguration
       Security
     ]
-    ;
+  ;
 
   LLVM_SYS_120_PREFIX = lib.optionalString withLLVM llvmPackages.llvm.dev;
 
@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ++ lib.optional withLLVM "llvm"
     ++ lib.optional withSinglepass "singlepass"
-    ;
+  ;
 
   cargoBuildFlags = [
     "--manifest-path"

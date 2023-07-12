@@ -101,5 +101,5 @@ mkDerivation {
         --prefix PATH : "${binPath}" \
         --prefix LD_LIBRARY_PATH : ${libraryPath}
     ''
-    ;
+  ;
 }

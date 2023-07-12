@@ -91,7 +91,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the Buildbot continuous integration server."
-          ;
+        ;
       };
 
       extraConfig = mkOption {
@@ -105,7 +105,7 @@ in
         description =
           lib.mdDoc
             "Optionally pass master.cfg path. Other options in this configuration will be ignored."
-          ;
+        ;
         default = defaultMasterCfg;
         defaultText = literalMD "generated configuration file";
         example = "/etc/nixos/buildbot/master.cfg";
@@ -140,7 +140,7 @@ in
         description =
           lib.mdDoc
             "List of reporter objects used to present build status to various users."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -149,7 +149,7 @@ in
         description =
           lib.mdDoc
             "User the buildbot server should execute under."
-          ;
+        ;
       };
 
       group = mkOption {
@@ -164,7 +164,7 @@ in
         description =
           lib.mdDoc
             "List of extra groups that the buildbot user should be a part of."
-          ;
+        ;
       };
 
       home = mkOption {
@@ -202,7 +202,7 @@ in
         description =
           lib.mdDoc
             "Specifies the bind address on which the buildbot HTTP interface listens."
-          ;
+        ;
       };
 
       buildbotUrl = mkOption {
@@ -235,7 +235,7 @@ in
         description =
           lib.mdDoc
             "Specifies port number on which the buildbot HTTP interface listens."
-          ;
+        ;
       };
 
       package = mkOption {
@@ -253,7 +253,7 @@ in
         description =
           lib.mdDoc
             "Packages to add to PATH for the buildbot process."
-          ;
+        ;
       };
 
       pythonPackages = mkOption {
@@ -262,15 +262,15 @@ in
         defaultText =
           literalExpression
             "pythonPackages: with pythonPackages; [ ]"
-          ;
+        ;
         description =
           lib.mdDoc
             "Packages to add the to the PYTHONPATH of the buildbot process."
-          ;
+        ;
         example =
           literalExpression
             "pythonPackages: with pythonPackages; [ requests ]"
-          ;
+        ;
       };
     };
   };

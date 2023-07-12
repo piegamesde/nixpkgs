@@ -166,12 +166,12 @@ let
           "systemd"
           "syslog"
         ]
-        ;
+      ;
 
       knownFeatures =
         builtins.attrNames featureDependencies
         ++ builtins.attrNames nativeFeatureDependencies
-        ;
+      ;
       platformFeatures = lib.subtractLists platformMask knownFeatures;
 
       features_ =
@@ -193,7 +193,7 @@ let
                 } are not supported on ${stdenv.hostPlatform.system}"
             else
               features
-        ;
+      ;
     in
     stdenv.mkDerivation rec {
       pname = "mpd";
@@ -222,7 +222,7 @@ let
           AudioToolbox
           AudioUnit
         ]
-        ;
+      ;
 
       nativeBuildInputs =
         [
@@ -231,7 +231,7 @@ let
           pkg-config
         ]
         ++ concatAttrVals features_ nativeFeatureDependencies
-        ;
+      ;
 
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -246,7 +246,7 @@ let
               --replace kAudioObjectPropertyElement{Main,Master} \
               --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
           ''
-        ;
+      ;
 
       # Otherwise, the meson log says:
       #
@@ -263,7 +263,7 @@ let
           "doc"
         ]
         ++ lib.optional (builtins.elem "documentation" features_) "man"
-        ;
+      ;
 
       CXXFLAGS = lib.optionals stdenv.isDarwin [
         "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0"
@@ -283,7 +283,7 @@ let
         ++
           lib.optional (builtins.elem "systemd" features_)
             "-Dsystemd_system_unit_dir=etc/systemd/system"
-        ;
+      ;
 
       passthru.tests.nixos = nixosTests.mpd;
 
@@ -305,7 +305,7 @@ let
         '';
       };
     }
-    ;
+  ;
 in
 {
   mpd = run { };
@@ -348,7 +348,7 @@ in
         "mad"
         "jack"
       ]
-      ;
+    ;
   };
   mpdWithFeatures = run;
 }

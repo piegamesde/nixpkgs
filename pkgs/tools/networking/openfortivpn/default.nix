@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
           placeholder "out"
         }/lib/systemd/system"
     ++ lib.optional withPpp "--with-pppd=${ppp}/bin/pppd"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

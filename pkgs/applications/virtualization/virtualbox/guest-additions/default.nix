@@ -194,7 +194,7 @@ stdenv.mkDerivation rec {
         done
       '')
       dlopenLibs
-    ;
+  ;
 
   meta = {
     description = "Guest additions for VirtualBox";

@@ -36,7 +36,7 @@ buildPythonPackage rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   nativeCheckInputs = [ unittestCheckHook ];
 

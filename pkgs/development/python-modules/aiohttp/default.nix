@@ -77,7 +77,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ]
-    ;
+  ;
 
   nativeCheckInputs =
     [
@@ -94,7 +94,7 @@ buildPythonPackage rec {
       # broken on aarch64-darwin.
       trustme
     ]
-    ;
+  ;
 
   disabledTests =
     [
@@ -112,7 +112,7 @@ buildPythonPackage rec {
       "test_addresses" # https://github.com/aio-libs/aiohttp/issues/3572, remove >= v4.0.0
       "test_close"
     ]
-    ;
+  ;
 
   disabledTestPaths = [
     "test_proxy_functional.py" # FIXME package proxy.py
@@ -130,7 +130,7 @@ buildPythonPackage rec {
       # Work around "OSError: AF_UNIX path too long"
       export TMPDIR="/tmp"
     ''
-    ;
+  ;
 
   meta = with lib; {
     changelog =

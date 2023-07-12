@@ -146,7 +146,7 @@ let
       BPF_JIT_ALWAYS_ON =
         whenPlatformHasEBPFJit
           no
-        ; # whenPlatformHasEBPFJit yes; # see https://github.com/NixOS/nixpkgs/issues/79304
+      ; # whenPlatformHasEBPFJit yes; # see https://github.com/NixOS/nixpkgs/issues/79304
       HAVE_EBPF_JIT = whenPlatformHasEBPFJit yes;
       BPF_STREAM_PARSER = whenAtLeast "4.19" yes;
       XDP_SOCKETS = whenAtLeast "4.19" yes;
@@ -267,7 +267,7 @@ let
       HOSTAP_FIRMWARE =
         option
           yes
-        ; # Support downloading firmware images with Host AP driver
+      ; # Support downloading firmware images with Host AP driver
       HOSTAP_FIRMWARE_NVRAM = option yes;
       ATH9K_PCI = option yes; # Detect Atheros AR9xxx cards on PCI(e) bus
       ATH9K_AHB = option yes; # Ditto, AHB bus
@@ -361,7 +361,7 @@ let
       SND_HDA_CODEC_CA0132_DSP =
         whenOlder "5.7"
           yes
-        ; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
+      ; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
       SND_OSSEMUL = yes;
       SND_USB_CAIAQ_INPUT = yes;
       # Enable Sound Open Firmware support
@@ -375,11 +375,11 @@ let
           SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES =
             whenAtLeast "5.10"
               yes
-            ; # dep of SOF_MACH
+          ; # dep of SOF_MACH
           SND_SOC_SOF_INTEL_SOUNDWIRE_LINK =
             whenBetween "5.10" "5.11"
               yes
-            ; # dep of SOF_MACH
+          ; # dep of SOF_MACH
           SND_SOC_SOF_TOPLEVEL = yes;
           SND_SOC_SOF_ACPI = module;
           SND_SOC_SOF_PCI = module;
@@ -551,7 +551,7 @@ let
       SECURITY_SELINUX_BOOTPARAM_VALUE =
         whenOlder "5.1"
           (freeform "0")
-        ; # Disable SELinux by default
+      ; # Disable SELinux by default
       # Prevent processes from ptracing non-children processes
       SECURITY_YAMA = option yes;
       # The goal of Landlock is to enable to restrict ambient rights (e.g. global filesystem access) for a set of processes.
@@ -567,11 +567,11 @@ let
       RANDOM_TRUST_CPU =
         whenOlder "6.2"
           (whenAtLeast "4.19" yes)
-        ; # allow RDRAND to seed the RNG
+      ; # allow RDRAND to seed the RNG
       RANDOM_TRUST_BOOTLOADER =
         whenOlder "6.2"
           (whenAtLeast "5.4" yes)
-        ; # allow the bootloader to seed the RNG
+      ; # allow the bootloader to seed the RNG
 
       MODULE_SIG =
         no; # r13y, generates a random key during build and bakes it in
@@ -831,7 +831,7 @@ let
             DEBUG_MEMORY_INIT = option yes;
           }
         )
-      ;
+    ;
 
     misc =
       let
@@ -949,7 +949,7 @@ let
         JOYSTICK_XPAD_LEDS =
           option
             yes
-          ; # LED Support for Xbox360 controller 'BigX' LED
+        ; # LED Support for Xbox360 controller 'BigX' LED
 
         KEYBOARD_APPLESPI = whenAtLeast "5.3" module;
 
@@ -1053,7 +1053,7 @@ let
         FSL_MC_UAPI_SUPPORT =
           mkIf (stdenv.hostPlatform.system == "aarch64-linux")
             (whenAtLeast "5.12" yes)
-          ;
+        ;
 
         ASHMEM = {
           optional = true;
@@ -1154,7 +1154,7 @@ let
           CHROMEOS_LAPTOP = module;
           CHROMEOS_PSTORE = module;
         }
-      ;
+    ;
   };
 in
 flattenKConf options

@@ -68,7 +68,7 @@ let
       ''"${x}"''
     else
       x
-    ;
+  ;
 
   ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (
     generators.toINI { } (
@@ -86,7 +86,7 @@ let
           env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
           ${penv}/bin/privacyidea-token-janitor $@
       ''
-    ;
+  ;
 in
 
 {
@@ -155,7 +155,7 @@ in
         defaultText =
           literalExpression
             ''"''${config.${opt.stateDir}}/enckey"''
-          ;
+        ;
         description = lib.mdDoc ''
           This is used to encrypt the token data and token passwords
         '';
@@ -272,7 +272,7 @@ in
           description =
             lib.mdDoc
               "User account under which PrivacyIDEA LDAP proxy runs."
-            ;
+          ;
         };
 
         group = mkOption {
@@ -281,7 +281,7 @@ in
           description =
             lib.mdDoc
               "Group account under which PrivacyIDEA LDAP proxy runs."
-            ;
+          ;
         };
 
         settings = mkOption {
@@ -325,7 +325,7 @@ in
         assertion =
           cfg.tokenjanitor.enable
           -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned)
-          ;
+        ;
         message = ''
           privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
           are to be searched.
@@ -444,7 +444,7 @@ in
               fi
               ${pi-manage} db upgrade -d ${penv}/lib/privacyidea/migrations
             ''
-            ;
+          ;
           serviceConfig = {
             Type = "notify";
             ExecStart = "${uwsgi}/bin/uwsgi --json ${piuwsgi}";
@@ -452,13 +452,13 @@ in
             EnvironmentFile =
               lib.mkIf (cfg.environmentFile != null)
                 cfg.environmentFile
-              ;
+            ;
             ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
             NotifyAccess = "main";
             KillSignal = "SIGQUIT";
           };
         }
-        ;
+      ;
 
       users.users.privacyidea = mkIf (cfg.user == "privacyidea") {
         group = cfg.group;
@@ -478,7 +478,7 @@ in
           xor (cfg.ldap-proxy.settings == { }) (
             cfg.ldap-proxy.configFile == null
           )
-          ;
+        ;
         message =
           "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
       } ];
@@ -517,7 +517,7 @@ in
                     "%S/privacyidea-ldap-proxy/ldap-proxy.ini"
                   else
                     cfg.ldap-proxy.configFile
-                  ;
+                ;
               in
               ''
                 ${ldap-proxy-env}/bin/twistd \
@@ -528,11 +528,11 @@ in
                   ldap-proxy \
                   -c ${configPath}
               ''
-              ;
+            ;
             Restart = "always";
           };
         }
-        ;
+      ;
 
       users.users.pi-ldap-proxy =
         mkIf (cfg.ldap-proxy.user == "pi-ldap-proxy")
@@ -540,12 +540,12 @@ in
             group = cfg.ldap-proxy.group;
             isSystemUser = true;
           }
-        ;
+      ;
 
       users.groups.pi-ldap-proxy =
         mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy")
           { }
-        ;
+      ;
     })
   ];
 }

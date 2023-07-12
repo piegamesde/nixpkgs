@@ -48,7 +48,7 @@ import ./make-test-python.nix (
         };
         users.users.foo.isNormalUser = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("nginx")

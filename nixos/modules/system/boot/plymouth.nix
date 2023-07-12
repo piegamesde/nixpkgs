@@ -52,7 +52,7 @@ let
         plymouthLogos
       ]
       ++ cfg.themePackages
-      ;
+    ;
   };
 
   configFile = pkgs.writeText "plymouthd.conf" ''
@@ -77,7 +77,7 @@ in
           "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
         defaultText = literalExpression ''
           "''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"''
-          ;
+        ;
         type = types.path;
         description = lib.mdDoc ''
           Font file made available for displaying text on the splash screen.
@@ -199,7 +199,7 @@ in
               cp ${themesEnv}/lib/plymouth/{text,details,label,$moduleName}.so $out
               cp ${plymouth}/lib/plymouth/renderers/{drm,frame-buffer}.so $out/renderers
             ''
-          ;
+        ;
         "/etc/plymouth/themes".source =
           pkgs.runCommand "plymouth-initrd-themes" { }
             ''
@@ -223,7 +223,7 @@ in
                   fi
               done
             ''
-          ;
+        ;
 
         # Fonts
         "/etc/plymouth/fonts".source =
@@ -232,7 +232,7 @@ in
               mkdir -p $out
               cp ${cfg.font} $out
             ''
-          ;
+        ;
         "/etc/fonts/fonts.conf".text = ''
           <?xml version="1.0"?>
           <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
@@ -331,7 +331,7 @@ in
           </fontconfig>
           EOF
         ''
-      ;
+    ;
 
     boot.initrd.extraUtilsCommandsTest =
       mkIf (!config.boot.initrd.systemd.enable)
@@ -339,7 +339,7 @@ in
           $out/bin/plymouthd --help >/dev/null
           $out/bin/plymouth --help >/dev/null
         ''
-      ;
+    ;
 
     boot.initrd.extraUdevRulesCommands =
       mkIf (!config.boot.initrd.systemd.enable)
@@ -347,7 +347,7 @@ in
           cp ${config.systemd.package}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out
           sed -i '/loginctl/d' $out/71-seat.rules
         ''
-      ;
+    ;
 
     # We use `mkAfter` to ensure that LUKS password prompt would be shown earlier than the splash screen.
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (

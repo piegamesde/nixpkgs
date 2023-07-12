@@ -31,7 +31,7 @@ let
       }
     else
       { inherit stripLen extraPrefix; }
-    ;
+  ;
 in
 let
   inherit (args') stripLen extraPrefix;
@@ -118,7 +118,7 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
           mv "$tmpfile" "$out"
         ''
         + postFetch
-        ;
+      ;
     } // builtins.removeAttrs args [
       "relative"
       "stripLen"

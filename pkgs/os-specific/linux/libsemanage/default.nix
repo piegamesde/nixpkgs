@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       "man"
     ]
     ++ optional enablePython "py"
-    ;
+  ;
 
   strictDeps = true;
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ optional enablePython swig
-    ;
+  ;
   buildInputs =
     [
       libsepol
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       audit
     ]
     ++ optional enablePython python
-    ;
+  ;
 
   makeFlags = [
     "PREFIX=$(out)"

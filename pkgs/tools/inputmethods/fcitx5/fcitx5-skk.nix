@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional enableQt wrapQtAppsHook
-    ;
+  ;
 
   buildInputs =
     [
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       fcitx5-qt
       qtbase
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DENABLE_QT=${toString enableQt}"

@@ -21,7 +21,7 @@ in
       extraPatches
       extraPostPatch
       extraPassthru
-      ;
+    ;
 
     meta = {
       description =

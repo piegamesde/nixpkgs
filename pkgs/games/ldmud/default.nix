@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional tlsSupport openssl
     ++ lib.optional pythonSupport python310
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
-    ;
+  ;
 
   # To support systems without autoconf LD puts its configure.ac in a non-default
   # location and uses a helper script. We skip that script and symlink the .ac

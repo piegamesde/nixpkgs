@@ -105,10 +105,10 @@ let
               }
             ''
           )
-          ;
+        ;
       };
     }
-    ;
+  ;
 
   testCases = {
     loopback = {
@@ -122,7 +122,7 @@ let
           networking.useDHCP = false;
           networking.useNetworkd = networkd;
         }
-        ;
+      ;
       testScript = ''
         start_all()
         client.wait_for_unit("network.target")
@@ -169,7 +169,7 @@ let
             } ];
           };
         }
-        ;
+      ;
       testScript =
         {
           ...
@@ -206,7 +206,7 @@ let
               router.wait_until_succeeds("ping -c 1 fd00:1234:5678:3::1")
               client.wait_until_succeeds("ping -c 1 fd00:1234:5678:3::1")
         ''
-        ;
+      ;
     };
     routeType = {
       name = "RouteType";
@@ -226,7 +226,7 @@ let
             } ];
           };
         }
-        ;
+      ;
       testScript = ''
         start_all()
         client.wait_for_unit("network.target")
@@ -246,7 +246,7 @@ let
           networking.useNetworkd = networkd;
           virtualisation.vlans = [ 1 ];
         }
-        ;
+      ;
       testScript = ''
         start_all()
         client.wait_for_unit("multi-user.target")
@@ -286,7 +286,7 @@ let
             };
           };
         }
-        ;
+      ;
       testScript =
         {
           ...
@@ -324,7 +324,7 @@ let
               router.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::1")
               router.wait_until_succeeds("ping -c 1 fd00:1234:5678:2::2")
         ''
-        ;
+      ;
     };
     dhcpOneIf = {
       name = "OneInterfaceDHCP";
@@ -350,7 +350,7 @@ let
             interfaces.eth2.ipv4.addresses = mkOverride 0 [ ];
           };
         }
-        ;
+      ;
       testScript =
         {
           ...
@@ -381,7 +381,7 @@ let
               router.wait_until_succeeds("ping -c 1 192.168.2.1")
               router.fail("ping -c 1 192.168.2.2")
         ''
-        ;
+      ;
     };
     bond =
       let
@@ -414,7 +414,7 @@ let
               } ];
             };
           }
-          ;
+        ;
       in
       {
         name = "Bond";
@@ -441,9 +441,9 @@ let
                 for client in client1, client2:
                     client.succeed('grep -q "Bonding Mode: IEEE 802.3ad Dynamic link aggregation" /proc/net/bonding/bond0')
           ''
-          ;
+        ;
       }
-      ;
+    ;
     bridge =
       let
         node =
@@ -466,7 +466,7 @@ let
               } ];
             };
           }
-          ;
+        ;
       in
       {
         name = "Bridge";
@@ -503,7 +503,7 @@ let
               } ];
             };
           }
-          ;
+        ;
         testScript =
           {
             ...
@@ -527,9 +527,9 @@ let
                 router.wait_until_succeeds("ping -c 1 192.168.1.2")
                 router.wait_until_succeeds("ping -c 1 192.168.1.3")
           ''
-          ;
+        ;
       }
-      ;
+    ;
     macvlan = {
       name = "MACVLAN";
       nodes.router = router;
@@ -558,7 +558,7 @@ let
             interfaces.macvlan = { useDHCP = true; };
           };
         }
-        ;
+      ;
       testScript =
         {
           ...
@@ -593,7 +593,7 @@ let
               router.wait_until_succeeds("ping -c 1 192.168.1.2")
               router.wait_until_succeeds("ping -c 1 192.168.1.3")
         ''
-        ;
+      ;
     };
     fou = {
       name = "foo-over-udp";
@@ -632,10 +632,10 @@ let
             fou3-fou-encap.after =
               optional (!networkd)
                 "network-addresses-eth1.service"
-              ;
+            ;
           };
         }
-        ;
+      ;
       testScript =
         {
           ...
@@ -663,7 +663,7 @@ let
               "dev": "eth1",
           } in fous, "fou4 exists"
         ''
-        ;
+      ;
     };
     sit =
       let
@@ -697,7 +697,7 @@ let
               } ];
             };
           }
-          ;
+        ;
       in
       {
         name = "Sit";
@@ -730,7 +730,7 @@ let
               };
             }
           ]
-          ;
+        ;
         nodes.client2 =
           args@{
             pkgs,
@@ -756,7 +756,7 @@ let
               };
             }
           ]
-          ;
+        ;
         testScript =
           {
             ...
@@ -778,9 +778,9 @@ let
                 client2.wait_until_succeeds("ping -c 1 fc00::1")
                 client2.wait_until_succeeds("ping -c 1 fc00::2")
           ''
-          ;
+        ;
       }
-      ;
+    ;
     gre =
       let
         node =
@@ -796,7 +796,7 @@ let
                 "ip6tables -A nixos-fw -p gre -j nixos-fw-accept";
             };
           }
-          ;
+        ;
       in
       {
         name = "GRE";
@@ -850,7 +850,7 @@ let
               };
             }
           ]
-          ;
+        ;
         nodes.client2 =
           args@{
             pkgs,
@@ -901,7 +901,7 @@ let
               };
             }
           ]
-          ;
+        ;
         testScript =
           {
             ...
@@ -933,9 +933,9 @@ let
                 links = json.loads(client2.succeed("ip -details -json link show gre6Tunnel"))
                 assert links[0]['linkinfo']['info_data']['ttl'] == 255, "ttl not set for gre6Tunnel"
           ''
-          ;
+        ;
       }
-      ;
+    ;
     vlan =
       let
         node =
@@ -961,7 +961,7 @@ let
               } ];
             };
           }
-          ;
+        ;
       in
       {
         name = "vlan";
@@ -981,9 +981,9 @@ let
                 client1.succeed("ip addr show dev vlan >&2")
                 client2.succeed("ip addr show dev vlan >&2")
           ''
-          ;
+        ;
       }
-      ;
+    ;
     vlan-ping =
       let
         baseIP = number: "10.10.10.${number}";
@@ -1015,7 +1015,7 @@ let
               } ];
             };
           }
-          ;
+        ;
 
         serverNodeNum = "1";
         clientNodeNum = "2";
@@ -1050,9 +1050,9 @@ let
                   vlanIP clientNodeNum
                 }")
           ''
-          ;
+        ;
       }
-      ;
+    ;
     virtual = {
       name = "Virtual";
       nodes.machine = {
@@ -1125,7 +1125,7 @@ let
                   residue == ""
               ), "Some virtual interface has not been properly cleaned:\n{}".format(residue)
         ''
-        ;
+      ;
     };
     privacy = {
       name = "Privacy";
@@ -1159,7 +1159,7 @@ let
             '';
           };
         }
-        ;
+      ;
       nodes.client_with_privacy =
         {
           pkgs,
@@ -1178,7 +1178,7 @@ let
             };
           };
         }
-        ;
+      ;
       nodes.client =
         {
           pkgs,
@@ -1197,7 +1197,7 @@ let
             };
           };
         }
-        ;
+      ;
       testScript =
         {
           ...
@@ -1228,7 +1228,7 @@ let
                   "ip route get fd00:1234:5678:1::1 | grep -q ':[a-f0-9]*ff:fe[a-f0-9]*:'"
               )
         ''
-        ;
+      ;
     };
     routes = {
       name = "routes";
@@ -1333,7 +1333,7 @@ let
                   ipv6Residue == ""
               ), "The IPv6 routing table has not been properly cleaned:\n{}".format(ipv6Residue)
         ''
-        ;
+      ;
     };
     rename = {
       name = "RenameInterface";
@@ -1363,7 +1363,7 @@ let
               '';
             }
         )
-        ;
+      ;
       testScript = ''
         machine.succeed("udevadm settle")
         print(machine.succeed("ip link show dev custom_name"))
@@ -1392,7 +1392,7 @@ let
             linkConfig.MTUBytes = "1442";
           };
         }
-        ;
+      ;
       testScript = ''
         print(client.succeed("ip l add name foo type dummy"))
         print(client.succeed("stat /etc/systemd/network/50-foo.link"))
@@ -1420,7 +1420,7 @@ let
               };
             };
           }
-          ;
+        ;
         testScript = ''
           machine.start()
           machine.wait_for_unit("network.target")
@@ -1428,7 +1428,7 @@ let
           machine.fail("ip address show wlan0 | grep -q ${testMac}")
         '';
       }
-      ;
+    ;
   };
 in
 mapAttrs

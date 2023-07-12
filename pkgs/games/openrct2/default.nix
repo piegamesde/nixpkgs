@@ -138,7 +138,7 @@ stdenv.mkDerivation {
             grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
               || (echo "${cmakeKey} differs from expected version!"; exit 1)
           ''
-          ;
+        ;
       in
       (versionCheck "OBJECTS" objects-version)
       + (versionCheck "OPENMSX" openmsx-version)
@@ -151,7 +151,7 @@ stdenv.mkDerivation {
       ''
         chmod -R +w ./data/assetpack/openrct2.music.alternative.parkap/musictools
       ''
-    ;
+  ;
 
   preFixup = "ln -s $out/share/openrct2 $out/bin/data";
 

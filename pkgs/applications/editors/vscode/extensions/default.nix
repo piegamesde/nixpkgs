@@ -256,7 +256,7 @@ let
               maintainers = [ lib.maintainers.imgabe ];
             };
           }
-        ;
+      ;
 
       arjun.swagger-viewer = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -667,7 +667,7 @@ let
       contextmapper.context-mapper-vscode-extension =
         callPackage ./contextmapper.context-mapper-vscode-extension
           { }
-        ;
+      ;
 
       coolbear.systemd-unit-file = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -854,7 +854,7 @@ let
             publisher = "devsense";
             version = "1.33.13032";
           } // sources.${stdenv.system}
-          ;
+        ;
 
         nativeBuildInputs = [ autoPatchelfHook ];
 
@@ -957,7 +957,7 @@ let
               maintainers = [ lib.maintainers.arcticlimer ];
             };
           }
-        ;
+      ;
 
       donjayamanne.githistory = buildVscodeMarketplaceExtension {
         meta = {
@@ -1357,7 +1357,7 @@ let
               maintainers = [ ];
             };
           }
-        ;
+      ;
 
       genieai.chatgpt-vscode = buildVscodeMarketplaceExtension {
         meta = {
@@ -1855,7 +1855,7 @@ let
             maintainers = [ lib.maintainers.wolfangaukang ];
           };
         }
-        ;
+      ;
 
       kubukoz.nickel-syntax = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -2073,7 +2073,7 @@ let
       ms-ceintl =
         callPackage ./language-packs.nix
           { }
-        ; # non-English language packs
+      ; # non-English language packs
 
       ms-dotnettools.csharp = callPackage ./ms-dotnettools.csharp { };
 
@@ -2088,7 +2088,7 @@ let
             };
             meta = { license = lib.licenses.mit; };
           }
-        ;
+      ;
 
       ms-pyright.pyright = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -2256,7 +2256,7 @@ let
       ms-vscode-remote.remote-ssh =
         callPackage ./ms-vscode-remote.remote-ssh
           { }
-        ;
+      ;
 
       ms-vsliveshare.vsliveshare = callPackage ./ms-vsliveshare.vsliveshare { };
 
@@ -2859,7 +2859,7 @@ let
               license = lib.licenses.mit;
             };
           }
-        ;
+      ;
 
       sumneko.lua = callPackage ./sumneko.lua { };
 
@@ -2959,7 +2959,7 @@ let
             };
             meta.license = lib.licenses.mit;
           }
-        ;
+      ;
 
       tiehuis.zig = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -3120,7 +3120,7 @@ let
               maintainers = [ lib.maintainers.wolfangaukang ];
             };
           }
-        ;
+      ;
 
       vincaslt.highlight-matching-tag = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -3390,7 +3390,7 @@ let
         meta = { license = lib.licenses.mit; };
       };
     }
-    ;
+  ;
 
   aliases =
     super: {
@@ -3408,7 +3408,7 @@ let
       rioj7.commandOnAllFiles = super.rioj7.commandonallfiles;
       WakaTime.vscode-wakatime = super.wakatime.vscode-wakatime;
     }
-    ;
+  ;
 
   # TODO: add overrides overlay, so that we can have a generated.nix
   # then apply extension specific modifcations to packages.

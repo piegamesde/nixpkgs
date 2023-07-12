@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
         --set-rpath "${libPath.liboneauth}" \
         opt/microsoft/${shortName}/liboneauth.so
     ''
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out

@@ -64,7 +64,7 @@ let
       python3.withPackages checkDeps
     else
       python3
-    ;
+  ;
 in
 stdenv.mkDerivation (
   rec {
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
     polly_src =
       fetch "polly"
         "031r23ijhx7v93a5n33m2nc0x9xyqmx0d8xg80z7q971p6qd63sq"
-      ;
+    ;
 
     unpackPhase =
       ''
@@ -87,7 +87,7 @@ stdenv.mkDerivation (
         unpackFile $polly_src
         mv polly-* $sourceRoot/tools/polly
       ''
-      ;
+    ;
 
     outputs = [
       "out"
@@ -105,7 +105,7 @@ stdenv.mkDerivation (
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
       ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -113,7 +113,7 @@ stdenv.mkDerivation (
         libffi
       ]
       ++ optional enablePFM libpfm
-      ; # exegesis
+    ; # exegesis
 
     propagatedBuildInputs = [
       ncurses
@@ -163,7 +163,7 @@ stdenv.mkDerivation (
         })
       ]
       ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
-      ;
+    ;
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -228,7 +228,7 @@ stdenv.mkDerivation (
             --replace 'Finished llvm::' 'Finished {{.*}}'
         done
       ''
-      ;
+    ;
 
     preConfigure = ''
       # Workaround for configure flags that need to have spaces
@@ -247,7 +247,7 @@ stdenv.mkDerivation (
     LDFLAGS =
       optionalString (enableSharedLibraries && !stdenv.isDarwin)
         "-Wl,--build-id=sha1"
-      ;
+    ;
 
     cmakeFlags = with stdenv;
       let
@@ -264,7 +264,7 @@ stdenv.mkDerivation (
             "-DLLVM_ENABLE_RTTI=ON"
           ]
           ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
-          ;
+        ;
       in
       flagsForLlvmConfig
       ++ [
@@ -335,7 +335,7 @@ stdenv.mkDerivation (
           )
         )
       ]
-      ;
+    ;
 
     postBuild = ''
       rm -fR $out
@@ -365,7 +365,7 @@ stdenv.mkDerivation (
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
       ''
-      ;
+    ;
 
     inherit doCheck;
 

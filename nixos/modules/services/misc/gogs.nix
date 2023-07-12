@@ -63,7 +63,7 @@ in
         description =
           lib.mdDoc
             "Do not generate a configuration and use Gogs' installation wizard instead. The first registered user will be administrator."
-          ;
+        ;
       };
 
       stateDir = mkOption {
@@ -202,7 +202,7 @@ in
         description =
           lib.mdDoc
             "Configuration lines appended to the generated Gogs configuration file."
-          ;
+        ;
       };
     };
   };
@@ -251,7 +251,7 @@ in
             sed -ri 's,/nix/store/[a-z0-9.-]+/bin/perl,${pkgs.perl}/bin/perl,g' $HOOKS
           fi
         ''
-        ;
+      ;
 
       serviceConfig = {
         Type = "simple";

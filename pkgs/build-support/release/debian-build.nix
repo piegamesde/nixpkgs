@@ -37,7 +37,7 @@ vmTools.runInLinuxImage (
         + "-"
         + diskImage.name
         + (lib.optionalString (src ? version) "-${src.version}")
-        ;
+      ;
 
       # !!! cut&paste from rpm-build.nix
       postHook = ''

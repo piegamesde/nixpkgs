@@ -33,7 +33,7 @@ let
           imports = [ baseConfig ];
           services.hydra = { inherit package; };
         }
-        ;
+      ;
 
       testScript = ''
         # let the system boot up

@@ -17,7 +17,7 @@ let
         chmod u+w $out
         rm -r $out/logcheck.*
       ''
-    ;
+  ;
 
   rulesDir = pkgs.symlinkJoin {
     name = "logcheck-rules-dir";
@@ -56,7 +56,7 @@ let
         ^\w{3} [ :[:digit:]]{11} [._[:alnum:]-]+ ${regex}
       '';
     }
-    ;
+  ;
 
   writeIgnoreCronRule =
     name:
@@ -77,7 +77,7 @@ let
           ".*"
         else
           escapeRegex cmdline_
-        ;
+      ;
     in
     writeIgnoreRule "cron-${name}" {
       inherit level;
@@ -85,7 +85,7 @@ let
         (/usr/bin/)?cron\[[0-9]+\]: \(${user}\) CMD \(${re}\)$
       '';
     }
-    ;
+  ;
 
   levelOption = mkOption {
     default = "server";
@@ -248,7 +248,7 @@ in
     services.logcheck.extraRulesDirs =
       mapAttrsToList writeIgnoreRule cfg.ignore
       ++ mapAttrsToList writeIgnoreCronRule cfg.ignoreCron
-      ;
+    ;
 
     users.users = optionalAttrs (cfg.user == "logcheck") {
       logcheck = {
@@ -275,7 +275,7 @@ in
             ...
           }:
           timeArgs != null
-          ;
+        ;
         mkCron =
           name:
           {
@@ -286,9 +286,9 @@ in
           }: ''
             ${timeArgs} ${user} ${cmdline}
           ''
-          ;
+        ;
       in
       mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron) ++ [ cronJob ]
-      ;
+    ;
   };
 }

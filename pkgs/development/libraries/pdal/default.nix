@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     ++ lib.optionals enableE57 [ libe57format ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_PLUGIN_E57=${if enableE57 then "ON" else "OFF"}"

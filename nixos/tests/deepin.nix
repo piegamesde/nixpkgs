@@ -26,7 +26,7 @@ import ./make-test-python.nix (
 
         services.xserver.desktopManager.deepin.enable = true;
       }
-      ;
+    ;
 
     testScript =
       {
@@ -63,6 +63,6 @@ import ./make-test-python.nix (
             machine.sleep(20)
             machine.screenshot("screen")
       ''
-      ;
+    ;
   }
 )

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     lib.optional stdenv.hostPlatform.isStatic
       "-DCMAKE_SKIP_RPATH=ON"
-    ;
+  ;
 
   nativeBuildInputs = [ cmake ];
   propagatedBuildInputs = [
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isi686
       "-msse2 -mfpmath=sse"
-    ;
+  ;
 
   doCheck = true;
 

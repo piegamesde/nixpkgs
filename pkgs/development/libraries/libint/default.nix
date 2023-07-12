@@ -193,7 +193,7 @@ let
         gmpxx
       ]
       ++ lib.optional enableFortran gfortran
-      ;
+    ;
 
     buildInputs = [
       boost
@@ -268,7 +268,7 @@ let
         cmake
       ]
       ++ lib.optional enableFortran gfortran
-      ;
+    ;
 
     buildInputs = [
       boost
@@ -284,7 +284,7 @@ let
       ++
         lib.optional enableSSE
           "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble"
-      ;
+    ;
 
     # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
     dontUseCmakeBuildDir = true;

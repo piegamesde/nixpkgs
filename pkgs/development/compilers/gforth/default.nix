@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       "--build=x86_64-apple-darwin"
     ]
-    ;
+  ;
 
   preConfigure = ''
     mkdir -p ${lispDir}

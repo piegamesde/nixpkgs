@@ -37,7 +37,7 @@ import ./make-test-python.nix (
           virtualisation.rootDevice = "/dev/mapper/cryptroot";
         };
       }
-      ;
+    ;
 
     testScript = ''
       import subprocess

@@ -43,7 +43,7 @@ in
         description =
           lib.mdDoc
             "Configuration to use for Cyrus SASL authentication daemon."
-          ;
+        ;
       };
     };
   };

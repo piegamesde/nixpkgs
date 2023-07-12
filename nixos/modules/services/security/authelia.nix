@@ -42,7 +42,7 @@ let
           description =
             mdDoc
               "The name of the user for this authelia instance."
-            ;
+          ;
         };
 
         group = mkOption {
@@ -51,7 +51,7 @@ let
           description =
             mdDoc
               "The name of the group for this authelia instance."
-            ;
+          ;
         };
 
         secrets = mkOption {
@@ -208,7 +208,7 @@ let
                   description =
                     mdDoc
                       "Level of verbosity for logs: info, debug, trace."
-                    ;
+                  ;
                 };
 
                 format = mkOption {
@@ -228,7 +228,7 @@ let
                   description =
                     mdDoc
                       "File path where the logs will be written. If not set logs are written to stdout."
-                    ;
+                  ;
                 };
 
                 keep_stdout = mkOption {
@@ -238,7 +238,7 @@ let
                   description =
                     mdDoc
                       "Whether to also log to stdout when a `file_path` is defined."
-                    ;
+                  ;
                 };
               };
 
@@ -258,7 +258,7 @@ let
                     description =
                       mdDoc
                         "The address to listen on for metrics. This should be on a different port to the main `server.port` value."
-                      ;
+                    ;
                   };
                 };
               };
@@ -414,13 +414,13 @@ in
             ];
           };
         }
-        ;
+      ;
       mkInstanceUsersConfig =
         instance: {
           groups."authelia-${instance.name}" =
             lib.mkIf (instance.group == "authelia-${instance.name}")
               { name = "authelia-${instance.name}"; }
-            ;
+          ;
           users."authelia-${instance.name}" =
             lib.mkIf (instance.user == "authelia-${instance.name}")
               {
@@ -428,9 +428,9 @@ in
                 isSystemUser = true;
                 group = instance.group;
               }
-            ;
+          ;
         }
-        ;
+      ;
       instances = lib.attrValues cfg.instances;
     in
     {
@@ -443,7 +443,7 @@ in
                 instance.secrets.jwtSecretFile != null
                 && instance.secrets.storageEncryptionKeyFile != null
               )
-              ;
+            ;
             message = ''
               Authelia requires a JWT Secret and a Storage Encryption Key to work.
               Either set them like so:
@@ -473,5 +473,5 @@ in
           instances
       );
     }
-    ;
+  ;
 }

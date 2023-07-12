@@ -36,7 +36,7 @@ let
         description =
           lib.mdDoc
             "Extra command line flags to pass to ${serviceName}"
-          ;
+        ;
         example = [
           "-Dcom.sun.management.jmxremote"
           "-Dcom.sun.management.jmxremote.port=8010"
@@ -48,7 +48,7 @@ let
         description =
           lib.mdDoc
             "Extra environment variables for ${serviceName}"
-          ;
+        ;
       };
     } // (optionalAttrs firewallOption {
       openFirewall = mkOption {
@@ -57,7 +57,7 @@ let
         description = lib.mdDoc "Open firewall ports for ${serviceName}.";
       };
     }) // (optionalAttrs (extraOpts != null) extraOpts)
-    ;
+  ;
 
   # Generator for HDFS service configs
   hadoopServiceConfig =
@@ -101,13 +101,13 @@ let
                   && serviceOptions.openFirewall
                 )
                 allowedTCPPorts
-              ;
+            ;
           }
           extraConfig
         ]
       )
     )
-    ;
+  ;
 in
 {
   options.services.hadoop.hdfs = {
@@ -132,7 +132,7 @@ in
         description =
           lib.mdDoc
             "Tier and path definitions for datanode storage."
-          ;
+        ;
         type = with types;
           nullOr (
             listOf (
@@ -155,7 +155,7 @@ in
                     description =
                       lib.mdDoc
                         "Determines where on the local filesystem a data node should store its blocks."
-                      ;
+                    ;
                   };
                 };
               }
@@ -212,14 +212,14 @@ in
             50010 # datanode.address
             50020 # datanode.ipc.address
           ]
-        ;
+      ;
       extraConfig.services.hadoop.hdfsSiteInternal."dfs.datanode.data.dir" =
         mkIf (cfg.hdfs.datanode.dataDirs != null)
           (
             concatMapStringsSep "," (x: "[" + x.type + "]file://" + x.path)
               cfg.hdfs.datanode.dataDirs
           )
-        ;
+      ;
     })
 
     (hadoopServiceConfig {

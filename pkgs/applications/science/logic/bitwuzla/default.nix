@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional withLingeling lingeling
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       }/lib/libbtor2parser${stdenv.hostPlatform.extensions.sharedLibrary}"
     ]
     ++ lib.optional doCheck "-DTESTING=YES"
-    ;
+  ;
 
   nativeCheckInputs = [
     python3
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       export ${var}=$(readlink -f lib)
       patchShebangs ..
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

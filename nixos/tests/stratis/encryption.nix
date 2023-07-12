@@ -15,7 +15,7 @@ import ../make-test-python.nix (
         services.stratis.enable = true;
         virtualisation.emptyDiskImages = [ 2048 ];
       }
-      ;
+    ;
 
     testScript =
       let
@@ -35,6 +35,6 @@ import ../make-test-python.nix (
         machine.succeed("stratis pool stop   testpool")
         machine.succeed("stratis pool start  --name testpool --unlock-method keyring")
       ''
-      ;
+    ;
   }
 )

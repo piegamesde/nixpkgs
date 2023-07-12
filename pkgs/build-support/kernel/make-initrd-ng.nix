@@ -9,7 +9,7 @@ let
   compressorName =
     fullCommand:
     builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1
-    ;
+  ;
 in
 {
   stdenvNoCC,
@@ -111,7 +111,7 @@ runCommand name
         )
         contents
       + "\n"
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -120,7 +120,7 @@ runCommand name
       ]
       ++ lib.optional makeUInitrd ubootTools
       ++ lib.optional strip binutils
-      ;
+    ;
 
     STRIP =
       if strip then "${pkgsBuildHost.binutils.targetPrefix}strip" else null;

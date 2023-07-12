@@ -227,7 +227,7 @@ let
                 }
                 setup.py
             ''
-            ;
+          ;
 
           dontUseSetuptoolsCheck = true;
 
@@ -243,7 +243,7 @@ let
             ++ lib.optionals stdenv.isDarwin [
               "test_set_external_modification"
             ]
-            ;
+          ;
 
           passthru = {
             inherit (self) python;

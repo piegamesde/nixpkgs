@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     [ openssl ]
     ++ lib.optional stdenv.isLinux libuuid
     ++ lib.optional stdenv.isDarwin libossp_uuid
-    ;
+  ;
 
   meta = with lib; {
     description = "Foundational support for signalwire C products";

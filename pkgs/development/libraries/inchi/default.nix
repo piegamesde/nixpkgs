@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
         --replace "-soname" "-install_name" \
         --replace "gcc" $CC
     ''
-    ;
+  ;
   installPhase =
     let
       versionOneDot = versionMajor + "." + removeDots versionMinor;
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   preFixup = lib.optionalString stdenv.isDarwin ''
     fixDarwinDylibNames $(find "$out" -name "*.so.*")

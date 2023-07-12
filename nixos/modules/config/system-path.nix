@@ -62,7 +62,7 @@ let
         setPrio ((pkg.meta.priority or 5) + 3) pkg
       )
       defaultPackageNames
-    ;
+  ;
   defaultPackagesText =
     "[ ${concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames} ]";
 in
@@ -125,7 +125,7 @@ in
         description =
           lib.mdDoc
             "List of directories to be symlinked in {file}`/run/current-system/sw`."
-          ;
+        ;
       };
 
       extraOutputsToInstall = mkOption {
@@ -139,7 +139,7 @@ in
         description =
           lib.mdDoc
             "List of additional package outputs to be symlinked into {file}`/run/current-system/sw`."
-          ;
+        ;
       };
 
       extraSetup = mkOption {
@@ -148,7 +148,7 @@ in
         description =
           lib.mdDoc
             "Shell fragments to be run after the system environment has been created. This should only be used for things that need to modify the internals of the environment, e.g. generating MIME caches. The environment being built can be accessed at $out."
-          ;
+        ;
       };
     };
 

@@ -13,7 +13,7 @@ let
   configYml =
     pkgs.writeText "nginx-sso.yml"
       (builtins.toJSON cfg.configuration)
-    ;
+  ;
 in
 {
   options.services.nginx.sso = {

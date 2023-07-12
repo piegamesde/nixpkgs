@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       libevent
       elfutils
     ]
-    ;
+  ;
 
   outputs = [ "out" ] ++ optionals buildPythonBindings [ "python" ];
 
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
         lib.versions.majorMinor python3.version
       }/site-packages/
     ''
-    ;
+  ;
 
   # improve debuggability if requested
   hardeningDisable = lib.optionals debug [ "fortify" ];

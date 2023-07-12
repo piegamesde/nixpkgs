@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       darwin.apple_sdk_11_0.frameworks.Foundation
     ]
-    ;
+  ;
 
   # tests are broken
   doCheck = false;

@@ -25,7 +25,7 @@ buildPythonPackage rec {
       substituteInPlace cxxfilt/__init__.py \
         --replace "find_any_library('stdc++', 'c++')" '"${libstdcpp}"'
     ''
-    ;
+  ;
 
   # no tests
   doCheck = false;

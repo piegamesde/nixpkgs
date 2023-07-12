@@ -53,7 +53,7 @@ let
   wrapNeovim2 =
     suffix: config:
     wrapNeovimUnstable neovim-unwrapped (config // { extraName = suffix; })
-    ;
+  ;
 
   nmt = fetchFromGitLab {
     owner = "rycee";
@@ -91,7 +91,7 @@ let
         ''
         + buildCommand
       )
-    ;
+  ;
 in
 pkgs.recurseIntoAttrs (rec {
   vim_empty_config = vimUtils.vimrcFile {
@@ -110,7 +110,7 @@ pkgs.recurseIntoAttrs (rec {
           "$vimrcGeneric" \
           "${./init-single-lines.vim}"
       ''
-    ;
+  ;
 
   nvim_via_override = neovim.override {
     extraName = "-via-override";

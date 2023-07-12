@@ -38,7 +38,7 @@ buildPythonPackage rec {
       requests-oauthlib
     ]
     ++ pyjwt.optional-dependencies.crypto
-    ;
+  ;
 
   checkPhase = ''
     # test is out of date

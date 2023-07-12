@@ -16,7 +16,7 @@ let
       "darwin"
     else
       throw "Unsupported platform"
-    ;
+  ;
   analysisDir = "server/analysis_binaries/${arch}";
 in
 vscode-utils.buildVscodeMarketplaceExtension rec {

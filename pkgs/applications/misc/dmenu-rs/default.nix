@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       };
     in
     [ fix-broken-make-install-patch ]
-    ;
+  ;
 
   # Copy the Cargo.lock stored here in nixpkgs into the build directory.
   postPatch = ''

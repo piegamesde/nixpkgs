@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isLinux) [
       "--enable-sctp=${lksctp-tools.out}/lib"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     autoreconfHook

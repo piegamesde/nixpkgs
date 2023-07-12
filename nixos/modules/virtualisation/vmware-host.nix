@@ -15,14 +15,14 @@ let
         program: ''
           ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
         ''
-        ;
+      ;
     in
     [
       (mkVmwareSymlink "pkexec")
       (mkVmwareSymlink "mount")
       (mkVmwareSymlink "umount")
     ]
-    ;
+  ;
 in
 {
   options = with lib; {
@@ -135,7 +135,7 @@ in
             ln --symbolic "$wrapperDir" "${wrapperDir}"
           fi
         ''
-      ;
+    ;
 
     # Services
 

@@ -110,14 +110,14 @@ let
       inputs' =
         lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
           inputs
-        ;
+      ;
       override =
         attr:
         let
           python = attr.override (inputs' // { self = python; });
         in
         python
-        ;
+      ;
     in
     passthruFun rec {
       inherit self sourceVersion packageOverrides;
@@ -136,9 +136,9 @@ let
           (override pkgsTargetTarget.${pythonAttr})
         else
           { }
-        ;
+      ;
     }
-    ;
+  ;
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
@@ -161,7 +161,7 @@ let
           && (enableLTO || enableOptimizations)
         )
         [ stdenv.cc.cc.libllvm.out ]
-    ;
+  ;
 
   buildInputs =
     filter (p: p != null) (
@@ -190,7 +190,7 @@ let
 
     ++ optionals enableFramework [ Cocoa ]
     ++ optionals tzdataSupport [ tzdata ]
-    ; # `zoneinfo` module
+  ; # `zoneinfo` module
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
 
@@ -199,7 +199,7 @@ let
       "$out/bin/python"
     else
       pythonForBuild.interpreter
-    ;
+  ;
 
   # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
   # module that is imported by the sysconfig and distutils.sysconfig modules.
@@ -237,7 +237,7 @@ let
             .${parsed.cpu.name} or parsed.cpu.name;
         in
         "${parsed.kernel.name}-${cpu}"
-        ;
+      ;
 
       # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
       multiarchCpu =
@@ -250,7 +250,7 @@ let
           "i386"
         else
           parsed.cpu.name
-        ;
+      ;
       pythonAbiName =
         # python's build doesn't support every gnu<extension>, and doesn't
         # differentiate between musl and glibc, so we list those supported in
@@ -271,13 +271,13 @@ let
           parsed.abi.name
         else
           "gnu"
-        ;
+      ;
       multiarch =
         if isDarwin then
           "darwin"
         else
           "${multiarchCpu}-${parsed.kernel.name}-${pythonAbiName}"
-        ;
+      ;
 
       abiFlags = optionalString isPy37 "m";
 
@@ -295,7 +295,7 @@ let
 
       addEnvHooks "$hostOffset" sysconfigdataHook
     ''
-    ;
+  ;
 in
 with passthru;
 stdenv.mkDerivation {
@@ -308,7 +308,7 @@ stdenv.mkDerivation {
   src = fetchurl {
     url = with sourceVersion;
       "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz"
-      ;
+    ;
     inherit hash;
   };
 
@@ -320,7 +320,7 @@ stdenv.mkDerivation {
       # Broken on >= 3.9; replaced with ./3.9/darwin-tcl-tk.patch
       substituteInPlace setup.py --replace /Library/Frameworks /no-such-path
     ''
-    ;
+  ;
 
   patches =
     optionals (version == "3.10.9") [
@@ -393,7 +393,7 @@ stdenv.mkDerivation {
       # https://github.com/python/cpython/issues/90656
       ./loongarch-support.patch
     ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -407,7 +407,7 @@ stdenv.mkDerivation {
     + optionalString (x11Support && (tix != null)) ''
       substituteInPlace "Lib/tkinter/tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
     ''
-    ;
+  ;
 
   env = {
     CPPFLAGS = concatStringsSep " " (
@@ -424,7 +424,7 @@ stdenv.mkDerivation {
           }
           ."${stdenv.hostPlatform.libc}" or ""
         )
-      ;
+    ;
     # Determinism: We fix the hashes of str, bytes and datetime objects.
     PYTHONHASHSEED = 0;
   };
@@ -486,7 +486,7 @@ stdenv.mkDerivation {
     ]
     ++ optionals tzdataSupport [ "--with-tzpath=${tzdata}/share/zoneinfo" ]
     ++ optional static "LDFLAGS=-static"
-    ;
+  ;
 
   preConfigure =
     optionalString (pythonOlder "3.12") ''
@@ -520,7 +520,7 @@ stdenv.mkDerivation {
       optionalString enableNoSemanticInterposition ''
         export CFLAGS_NODIST="-fno-semantic-interposition"
       ''
-    ;
+  ;
 
   setupHook = python-setup-hook sitePackages;
 
@@ -628,7 +628,7 @@ stdenv.mkDerivation {
       mkdir -p $out/share/gdb
       sed '/^#!/d' Tools/gdb/libpython.py > $out/share/gdb/libpython.py
     ''
-    ;
+  ;
 
   preFixup = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     # Ensure patch-shebangs uses shebangs of host interpreter.
@@ -655,7 +655,7 @@ stdenv.mkDerivation {
       pythonForBuild
       buildPackages.bash
     ]
-    ;
+  ;
 
   separateDebugInfo = true;
 
@@ -679,13 +679,13 @@ stdenv.mkDerivation {
               "-alpha-"
             ]
             version
-          ;
+        ;
       in
       if sourceVersion.suffix == "" then
         "https://docs.python.org/release/${version}/whatsnew/changelog.html"
       else
         "https://docs.python.org/${majorMinor}/whatsnew/changelog.html#python-${dashedVersion}"
-      ;
+    ;
     description = "A high-level dynamically-typed programming language";
     longDescription = ''
       Python is a remarkably powerful dynamic programming language that

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ gettext ]
-    ;
+  ;
 
   postPatch = ''
     patchShebangs ./auxil/spicy/spicy/scripts

@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       # the building of os-wrappers-test
       sed -i '/os-wrappers-test/d' tests/meson.build
     ''
-    ;
+  ;
 
   outputs =
     [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       "doc"
       "man"
     ]
-    ;
+  ;
   separateDebugInfo = true;
 
   mesonFlags = [
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_45
       docbook_xsl
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_45
       docbook_xml_dtd_42
     ]
-    ;
+  ;
 
   postFixup = ''
     # The pkg-config file is required for cross-compilation:

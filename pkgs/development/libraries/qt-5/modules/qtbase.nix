@@ -166,7 +166,7 @@ stdenv.mkDerivation (
           ]
           ++ lib.optional libGLSupported libGL
       )
-      ;
+    ;
 
     buildInputs =
       [
@@ -180,7 +180,7 @@ stdenv.mkDerivation (
       ++ lib.optional (cups != null) cups
       ++ lib.optional (mysqlSupport) libmysqlclient
       ++ lib.optional (postgresql != null) postgresql
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -193,7 +193,7 @@ stdenv.mkDerivation (
         which
       ]
       ++ lib.optionals stdenv.isDarwin [ xcbuild ]
-      ;
+    ;
 
     propagatedNativeBuildInputs = [ lndir ];
 
@@ -265,7 +265,7 @@ stdenv.mkDerivation (
                     -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
               ''
       )
-      ;
+    ;
 
     qtPluginPrefix = "lib/qt-${qtCompatVersion}/plugins";
     qtQmlPrefix = "lib/qt-${qtCompatVersion}/qml";
@@ -335,7 +335,7 @@ stdenv.mkDerivation (
     PSQL_LIBS =
       lib.optionalString (postgresql != null)
         "-L${postgresql.lib}/lib -lpq"
-      ;
+    ;
 
     # TODO Remove obsolete and useless flags once the build will be totally mastered
     configureFlags =
@@ -479,7 +479,7 @@ stdenv.mkDerivation (
             "${libmysqlclient}/include"
           ]
       )
-      ;
+    ;
 
     # Move selected outputs.
     postInstall = ''
@@ -520,7 +520,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://www.qt.io/";

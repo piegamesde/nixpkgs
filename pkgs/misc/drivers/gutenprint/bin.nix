@@ -43,7 +43,7 @@ stdenv.mkDerivation {
       }
     else
       throw "TODO"
-    ; # get from openprint.com -> drivers -> gutenprint
+  ; # get from openprint.com -> drivers -> gutenprint
 
   buildInputs = [
     rpm

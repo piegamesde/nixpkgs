@@ -20,7 +20,7 @@ let
       pkg
     else
       null
-    ;
+  ;
 
   optPam = shouldUsePkg pam;
   optLibidn = shouldUsePkg libidn;
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       -e 's,\(-lgpg-error\),-L${libgpg-error.out}/lib \1,' \
       -e 's,\(-ltasn1\),-L${libtasn1.out}/lib \1,'
     ''
-    ;
+  ;
 
   meta = {
     homepage = "https://www.gnu.org/software/shishi/";

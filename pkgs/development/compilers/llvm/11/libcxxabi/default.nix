@@ -20,7 +20,7 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi"
       "1azcf31mxw59hb1x17xncnm3dyw90ylh8rqx462lvypqh3nr6c8l"
-    ;
+  ;
 
   outputs = [
     "out"
@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d llvm -i ${./wasm.patch}
     ''
-    ;
+  ;
 
   patches = [
     ./no-threads.patch
@@ -63,7 +63,7 @@ stdenv.mkDerivation {
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
-    ;
+  ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

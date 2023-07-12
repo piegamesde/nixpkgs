@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/sqitch
     ''
-    ;
+  ;
   dontStrip = true;
   postFixup = ''
     wrapProgram $out/bin/sqitch --prefix PERL5LIB : ${

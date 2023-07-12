@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       "man"
     ]
     ++ lib.optional pythonSupport "py"
-    ;
+  ;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";

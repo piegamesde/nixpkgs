@@ -26,7 +26,7 @@ let
         )
       )
       src
-    ;
+  ;
 
   buildZipPackage =
     {
@@ -45,7 +45,7 @@ let
         mv * $out
       '';
     }
-    ;
+  ;
 
   buildPackage =
     {
@@ -176,7 +176,7 @@ let
             ''
           )
           (builtins.attrNames dependencies)
-        ;
+      ;
 
       extraArgs = removeAttrs args [
         "packages"
@@ -192,7 +192,7 @@ let
             composer
           ]
           ++ buildInputs
-          ;
+        ;
 
         inherit unpackPhase buildPhase;
 
@@ -294,7 +294,7 @@ let
         '';
       } // extraArgs
     )
-    ;
+  ;
 in
 {
   inherit filterSrc;

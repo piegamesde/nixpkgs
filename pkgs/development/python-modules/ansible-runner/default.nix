@@ -76,7 +76,7 @@ buildPythonPackage rec {
       # https://github.com/ansible/ansible-runner/issues/413
       "process_isolation_settings"
     ]
-    ;
+  ;
 
   disabledTestPaths =
     [
@@ -90,7 +90,7 @@ buildPythonPackage rec {
       # These tests write to `/tmp` which is not writable on Darwin
       "test/unit/config/test__base.py"
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "ansible_runner" ];
 

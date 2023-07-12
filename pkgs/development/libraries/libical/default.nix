@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       # gtk-doc docbook_xsl docbook_xml_dtd_43 # for docs
     ]
     ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-    ;
+  ;
   nativeInstallCheckInputs =
     [
       # running libical-glib tests
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
         lib.getDev pkgsBuildBuild.libical
       }/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
     ]
-    ;
+  ;
 
   patches =
     [
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
   installCheckPhase = ''
     runHook preInstallCheck
 

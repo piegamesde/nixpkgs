@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       libxcrypt
     ]
     ++ optional (luaSupport) lua
-    ;
+  ;
   nativeBuildInputs = [
     bmake
     groff
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     ++ optional (!sslSupport) "-DNO_SSL_SUPPORT"
     ++ optional (!cgiSupport) "-DNO_CGIBIN_SUPPORT"
     ++ optional (htpasswdSupport) "-DDO_HTPASSWD"
-    ;
+  ;
 
   _LDADD =
     [ "-lm" ]
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       "-lssl"
       "-lcrypto"
     ]
-    ;
+  ;
   makeFlags = [ "LDADD=$(_LDADD)" ];
 
   doCheck = true;

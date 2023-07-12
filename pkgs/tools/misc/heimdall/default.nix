@@ -27,7 +27,7 @@ mkDerivation rec {
       libusb1
     ]
     ++ lib.optional enableGUI qtbase
-    ;
+  ;
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
@@ -43,7 +43,7 @@ mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace libpit/CMakeLists.txt --replace "-std=gnu++11" ""
     ''
-    ;
+  ;
 
   installPhase =
     lib.optionalString (stdenv.isDarwin && enableGUI) ''
@@ -58,7 +58,7 @@ mkDerivation rec {
       install -m644 ../Linux/README   $out/share/doc/heimdall/README.linux
       install -m644 ../OSX/README.txt $out/share/doc/heimdall/README.osx
     ''
-    ;
+  ;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

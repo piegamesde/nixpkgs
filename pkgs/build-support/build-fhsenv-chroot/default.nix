@@ -49,7 +49,7 @@ let
       source /etc/profile
       exec ${run} "$@"
     ''
-    ;
+  ;
 
   versionStr = lib.optionalString (version != null) ("-" + version);
 
@@ -73,7 +73,7 @@ runCommandLocal nameAndVersion
             echo >&2 ""
             exit 1
           ''
-        ;
+      ;
     };
   }
   ''

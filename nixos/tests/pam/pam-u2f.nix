@@ -19,7 +19,7 @@ import ../make-test-python.nix (
           origin = "nixos-test";
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

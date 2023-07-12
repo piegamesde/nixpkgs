@@ -15,7 +15,7 @@ let
     lib.mapAttrs
       (childName: childConfig: childConfig.configuration.system.build.toplevel)
       config.specialisation
-    ;
+  ;
   schemas = {
     v1 = rec {
       filename = "boot.json";
@@ -65,7 +65,7 @@ let
               "${placeholder "out"}/init"
             ]
             + " < ${json}"
-            ;
+          ;
 
           # We slurp all specialisations and inject them as values, such that
           # `.specialisations.${name}` embeds the specialisation's bootspec
@@ -93,10 +93,10 @@ let
                 ."org.nixos.specialisation.v1" = ($ARGS.named | map_values(. | first))''
             ]
             + " ${lib.concatStringsSep " " specialisationLoader}"
-            ;
+          ;
         in
         "${toplevelInjector} | ${specialisationInjector} > $out/${filename}"
-        ;
+      ;
 
       validator = pkgs.writeCueValidator ./bootspec.cue {
         document =
@@ -127,7 +127,7 @@ in
       type =
         lib.types.attrsOf
           lib.types.anything
-        ; # <namespace>: { ...namespace-specific fields }
+      ; # <namespace>: { ...namespace-specific fields }
       default = { };
       description = lib.mdDoc ''
         User-defined data that extends the bootspec document.

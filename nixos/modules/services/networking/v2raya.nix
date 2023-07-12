@@ -23,7 +23,7 @@ with lib;
         iptablesServices =
           [ "iptables.service" ]
           ++ optional config.networking.enableIPv6 "ip6tables.service"
-          ;
+        ;
         tableServices =
           if nftablesEnabled then [ "nftables.service" ] else iptablesServices;
       in
@@ -37,7 +37,7 @@ with lib;
               "nss-lookup.target"
             ]
             ++ tableServices
-            ;
+          ;
           Wants = [ "network.target" ];
         };
 
@@ -58,7 +58,7 @@ with lib;
           iproute2
         ]; # required by v2rayA TProxy functionality
       }
-      ;
+    ;
   };
 
   meta.maintainers = with maintainers; [ elliot ];

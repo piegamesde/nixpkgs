@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
         "https://www.digicert.com/StaticFiles/SAC_${versionWithUnderscores}_GA_Build.zip";
       hash = "sha256-7XWj3T9/KnmgQ05urOJV6dqgkAS/A2G7efnqjQO2ing=";
     }
-    ;
+  ;
 
   dontBuild = true;
   dontConfigure = true;

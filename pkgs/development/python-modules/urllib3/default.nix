@@ -33,7 +33,7 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     passthru.optional-dependencies.brotli
     ++ passthru.optional-dependencies.socks
-    ;
+  ;
 
   nativeCheckInputs = [
     python-dateutil

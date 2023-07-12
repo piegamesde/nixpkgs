@@ -38,6 +38,6 @@ let
         )
       )
       supportedVersions
-    ;
+  ;
 in
 supported // unsupported

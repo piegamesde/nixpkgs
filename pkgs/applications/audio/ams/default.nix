@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
         qttools
       ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description = "Realtime modular synthesizer for ALSA";

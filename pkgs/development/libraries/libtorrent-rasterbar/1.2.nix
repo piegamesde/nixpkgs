@@ -55,7 +55,7 @@ stdenv.mkDerivation {
       ncurses
     ]
     ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
-    ;
+  ;
 
   preConfigure = "./autotool.sh";
 

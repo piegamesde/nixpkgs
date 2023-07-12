@@ -41,7 +41,7 @@ makePythonHook
               :${label}; n; /^${quote}/{n;br}; /${endQuote}/{n;br}; b${label}
             }
           ''
-          ;
+        ;
 
         # This preamble does two things:
         # * Sets argv[0] to the original application's name; otherwise it would be .foo-wrapped.
@@ -64,6 +64,6 @@ makePythonHook
           /^[^# ]/i ${lib.replaceStrings [ "\n" ] [ ";" ] preamble}
         }
       ''
-      ;
+    ;
   }
   ./wrap.sh

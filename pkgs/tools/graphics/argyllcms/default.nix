@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
         substituteInPlace Jambase \
           --replace "-m64" ""
       ''
-    ;
+  ;
 
   preConfigure =
     let
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
 
       export AR="$AR rusc"
     ''
-    ;
+  ;
 
   buildInputs = [
     libtiff

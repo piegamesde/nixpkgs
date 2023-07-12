@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
             configureFlags = [ "--enable-amd64-64-24k" ];
           }
         ]
-        ;
+      ;
     in
     lib.concatMapStrings
       (
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
         ''
       )
       variants
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       "doc"
     ]
     ++ lib.optional usePam "pam"
-    ;
+  ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
     ]
     ++ lib.optional isStatic "SHARED=no"
-    ;
+  ;
 
   postPatch = ''
     patchShebangs ./progs/mkcapshdoc.sh
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       mkdir -p "$pam/lib/security"
       mv "$lib"/lib/security "$pam/lib"
     ''
-    ;
+  ;
 
   meta = {
     description = "Library for working with POSIX capabilities";

@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
       Security
     ]
-    ;
+  ;
 
   cargoBuildFlags = [ "--all" ];
 

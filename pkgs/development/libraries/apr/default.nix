@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       # Based on ftp://sourceware.org/pub/cygwin/release/libapr1/libapr1-1.3.8-2-src.tar.bz2
       "ac_cv_header_windows_h=no"
     ]
-    ;
+  ;
 
   # - Update libtool for macOS 11 support
   # - Regenerate for cross fix patch

@@ -60,7 +60,7 @@ stdenv.mkDerivation (
         })
       ]
       ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch
-      ;
+    ;
 
     prePatch = ''
       sed -i "s@\[tool.sip.project\]@[tool.sip.project]\nsip-include-dirs = [\"${python3Packages.pyqt6}/${python3Packages.python.sitePackages}/PyQt6/bindings\"]@g" \
@@ -151,7 +151,7 @@ stdenv.mkDerivation (
             ]
         ++ lib.optional (unrarSupport) unrardll
       )
-      ;
+    ;
 
     installPhase = ''
       runHook preInstall
@@ -226,7 +226,7 @@ stdenv.mkDerivation (
           lib.licenses.unfreeRedistributable
         else
           lib.licenses.gpl3Plus
-        ;
+      ;
       maintainers = with lib.maintainers; [
         pSub
         AndersonTorres

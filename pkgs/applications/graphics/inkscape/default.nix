@@ -118,7 +118,7 @@ stdenv.mkDerivation rec {
         XMLParser
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
       cairo
       gtk-mac-integration
     ]
-    ;
+  ;
 
   # Make sure PyXML modules can be found at run-time.
   postInstall = lib.optionalString stdenv.isDarwin ''

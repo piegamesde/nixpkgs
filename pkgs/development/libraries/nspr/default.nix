@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       substituteInPlace configure --replace '@executable_path/' "$out/lib/"
       substituteInPlace configure.in --replace '@executable_path/' "$out/lib/"
     ''
-    ;
+  ;
 
   HOST_CC = "cc";
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       "--disable-debug"
     ]
     ++ lib.optional stdenv.is64bit "--enable-64bit"
-    ;
+  ;
 
   postInstall = ''
     find $out -name "*.a" -delete

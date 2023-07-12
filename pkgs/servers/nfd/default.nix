@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       websocketpp
     ]
     ++ lib.optional withSystemd systemd
-    ;
+  ;
 
   wafConfigureFlags =
     [
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       "--with-tests"
     ]
     ++ lib.optional (!withWebSocket) "--without-websocket"
-    ;
+  ;
 
   doCheck = true;
   checkPhase = ''

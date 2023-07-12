@@ -20,7 +20,7 @@ libgit2.overrideAttrs (
         "-DUSE_SSH=OFF"
         "-DZERO_NSEC=ON"
       ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "romkatv";

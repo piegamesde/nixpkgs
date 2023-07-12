@@ -23,7 +23,7 @@ let
           services.xserver.displayManager.defaultSession = "none+icewm";
           services.xserver.windowManager.icewm.enable = true;
         }
-        ;
+      ;
 
       enableOCR = true;
 
@@ -44,7 +44,7 @@ let
           machine.succeed("xauth merge ${user.home}/.Xauthority")
           machine.wait_for_window("^IceWM ")
         ''
-        ;
+      ;
     };
 
     autoLogin = {
@@ -67,7 +67,7 @@ let
           services.xserver.displayManager.defaultSession = "none+icewm";
           services.xserver.windowManager.icewm.enable = true;
         }
-        ;
+      ;
 
       testScript =
         {
@@ -83,7 +83,7 @@ let
           machine.succeed("xauth merge ${user.home}/.Xauthority")
           machine.wait_for_window("^IceWM ")
         ''
-        ;
+      ;
     };
   };
 in

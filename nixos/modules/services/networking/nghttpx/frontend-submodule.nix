@@ -7,7 +7,7 @@
       type =
         lib.types.either (lib.types.submodule (import ./server-options.nix))
           (lib.types.path)
-        ;
+      ;
       example = {
         host = "127.0.0.1";
         port = 8888;

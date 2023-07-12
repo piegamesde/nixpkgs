@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ DiskArbitration ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       mtools
       dosfstools
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     which

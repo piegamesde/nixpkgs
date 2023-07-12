@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
           )
         )
         emacs
-    ;
+  ;
 
   doCheck = true;
 

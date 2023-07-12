@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [ glib ]
     # gstreamer plugin discovery requires wrapping
     ++ lib.optional (bluetoothSupport && advancedBluetoothCodecs) wrapGAppsHook
-    ;
+  ;
 
   propagatedBuildInputs = lib.optionals stdenv.isLinux [ libcap ];
 
@@ -164,13 +164,13 @@ stdenv.mkDerivation rec {
             gst-plugins-good
             gst-plugins-base
             gstreamer
-            ;
+          ;
         }
       )
       ++ lib.optional remoteControlSupport lirc
       ++ lib.optional zeroconfSupport avahi
     )
-    ;
+  ;
 
   mesonFlags =
     [
@@ -228,7 +228,7 @@ stdenv.mkDerivation rec {
       "-Dglib=disabled"
       "-Doss-output=disabled"
     ]
-    ;
+  ;
 
   # tests fail on Darwin because of timeouts
   doCheck = !stdenv.isDarwin;
@@ -246,7 +246,7 @@ stdenv.mkDerivation rec {
       moveToOutput lib/cmake "$dev"
       rm -f $out/.bin-unwrapped/qpaeq # this is packaged by the "qpaeq" package now, because of missing deps
     ''
-    ;
+  ;
 
   preFixup =
     lib.optionalString
@@ -277,7 +277,7 @@ stdenv.mkDerivation rec {
           substituteInPlace "$f" --replace "$out/.bin-unwrapped/" "$out/bin/"
       done
     ''
-    ;
+  ;
 
   meta = {
     description = "Sound server for POSIX and Win32 systems";

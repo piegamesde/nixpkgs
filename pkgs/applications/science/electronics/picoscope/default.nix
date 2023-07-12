@@ -40,7 +40,7 @@ let
       platforms = [ "x86_64-linux" ];
       license = licenses.unfree;
     }
-    ;
+  ;
 
   libpicoipp =
     callPackage
@@ -78,7 +78,7 @@ let
         }
       )
       { }
-    ;
+  ;
 
   # If we don't have a platform available, put a dummy version here, so at
   # least evaluation succeeds.
@@ -113,7 +113,7 @@ let
           description = "library for picotech oscilloscope ${name} series";
         };
     }
-    ;
+  ;
 
   scopePkgs = lib.mapAttrs scopePkg sources;
 in
@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
       ]
       ++ scopeLibs
     ))
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

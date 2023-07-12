@@ -110,7 +110,7 @@ in
         default =
           pkgs.writeText "unpoller-influxdb-default.password"
             "unifipoller"
-          ;
+        ;
         defaultText = literalExpression "unpoller-influxdb-default.password";
         description = lib.mdDoc ''
           Path of a file containing the password for influxdb.
@@ -321,7 +321,7 @@ in
           apply = map (flip removeAttrs [ "_module" ]);
         };
       }
-      ;
+    ;
   };
 
   config = mkIf cfg.enable {

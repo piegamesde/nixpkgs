@@ -55,7 +55,7 @@ let
             optionalString options.${option}.isDefined " ${option}=${
                  config.${option}
                }"
-            ;
+          ;
         in
         if (!(hasPrefix "/" config.socket)) then
           "${config.socket}"
@@ -63,9 +63,9 @@ let
           "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
             maybeOption "group"
           }"
-        ;
+      ;
     }
-    ;
+  ;
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
 
@@ -113,7 +113,7 @@ let
             in
             x:
             if x == "proxy" then traceWarning warning "rspamd_proxy" else x
-            ;
+          ;
         };
         bindSockets = mkOption {
           type = types.listOf (
@@ -154,7 +154,7 @@ let
                   each
               )
               value
-            ;
+          ;
         };
         count = mkOption {
           type = types.nullOr types.int;
@@ -176,7 +176,7 @@ let
           description =
             lib.mdDoc
               "Additional entries to put verbatim into worker section of rspamd config file."
-            ;
+          ;
         };
       };
       config =
@@ -203,7 +203,7 @@ let
                     owner = cfg.user;
                     group = cfg.group;
                   }
-                  ;
+                ;
               in
               mkDefault (
                 if name == "normal" then
@@ -215,11 +215,11 @@ let
                 else
                   [ ]
               )
-              ;
+            ;
           }
-        ;
+      ;
     }
-    ;
+  ;
 
   isUnixSocket =
     socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
@@ -229,7 +229,7 @@ let
     concatStringsSep "\n  " (
       flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks)
     )
-    ;
+  ;
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
     .include "$CONFDIR/common.conf"
@@ -353,7 +353,7 @@ let
         );
       };
     }
-    ;
+  ;
 
   configOverrides = (
     mapAttrs'
@@ -388,7 +388,7 @@ in
         description =
           lib.mdDoc
             "Whether to run the rspamd daemon in debug mode."
-          ;
+        ;
       };
 
       locals = mkOption {

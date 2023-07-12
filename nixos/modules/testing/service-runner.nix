@@ -112,7 +112,7 @@ let
 
       exit($mainRes & 127 ? 255 : $mainRes << 8);
     ''
-    ;
+  ;
 
   opts =
     {
@@ -130,7 +130,7 @@ let
       };
       config.runner = makeScript name config;
     }
-    ;
+  ;
 in
 
 {
@@ -138,6 +138,6 @@ in
     systemd.services =
       mkOption
         { type = with types; attrsOf (submodule opts); }
-      ;
+    ;
   };
 }

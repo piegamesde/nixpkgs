@@ -37,7 +37,7 @@ import ../make-test-python.nix (
                 index = "index.php index.html index.htm";
               };
             }
-            ;
+          ;
         };
 
         services.phpfpm.pools."foobar" = {
@@ -56,7 +56,7 @@ import ../make-test-python.nix (
           };
         };
       }
-      ;
+    ;
     testScript =
       {
         ...
@@ -73,6 +73,6 @@ import ../make-test-python.nix (
             assert ext in response, f"Missing {ext} extension"
             machine.succeed(f'test -n "$(php -m | grep -i {ext})"')
       ''
-      ;
+    ;
   }
 )

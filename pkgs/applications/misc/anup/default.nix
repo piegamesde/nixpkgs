@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
       xdg-utils
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   cargoLock = {
     lockFile = ./Cargo.lock;

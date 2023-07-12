@@ -17,7 +17,7 @@ let
     sipbuild
     pyqt5
     pyqt-builder
-    ;
+  ;
 in
 buildPythonPackage rec {
   pname = "qscintilla-qt5";
@@ -60,7 +60,7 @@ buildPythonPackage rec {
 
                   if self.qsci_features_dir is not None:"
     ''
-    ;
+  ;
 
   dontConfigure = true;
 

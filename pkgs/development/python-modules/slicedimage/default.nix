@@ -42,7 +42,7 @@ buildPythonPackage rec {
       pathlib
       enum34
     ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

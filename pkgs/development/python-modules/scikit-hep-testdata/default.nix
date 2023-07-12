@@ -34,7 +34,7 @@ buildPythonPackage rec {
       requests
     ]
     ++ lib.optionals (!pythonAtLeast "3.9") [ importlib-resources ]
-    ;
+  ;
 
   SKHEP_DATA = 1; # install the actual root files
 

@@ -77,7 +77,7 @@ let
   hasAnyVendorHash =
     (vendorSha256 != null && vendorSha256 != "_unset")
     || (vendorHash != null && vendorHash != "_unset")
-    ;
+  ;
   vendorHashType =
     if hasAnyVendorHash then
       if vendorSha256 != null && vendorSha256 != "_unset" then
@@ -86,7 +86,7 @@ let
         "sri"
     else
       null
-    ;
+  ;
 
   args = removeAttrs args' [
     "overrideModAttrs"
@@ -109,7 +109,7 @@ let
                 git
                 cacert
               ]
-              ;
+            ;
 
             inherit (args) src;
             inherit (go) GOOS GOARCH;
@@ -135,7 +135,7 @@ let
                 "SOCKS_SERVER"
                 "GOPROXY"
               ]
-              ;
+            ;
 
             configurePhase =
               args.modConfigurePhase or ''
@@ -228,7 +228,7 @@ let
       )
     else
       ""
-    ;
+  ;
 
   package = stdenv.mkDerivation (
     args // {
@@ -240,7 +240,7 @@ let
       GOFLAGS =
         lib.optionals (!proxyVendor) [ "-mod=vendor" ]
         ++ lib.optionals (!allowGoReference) [ "-trimpath" ]
-        ;
+      ;
       inherit CGO_ENABLED enableParallelBuilding;
 
       configurePhase =

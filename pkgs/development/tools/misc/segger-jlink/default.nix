@@ -75,7 +75,7 @@ stdenv.mkDerivation {
       inherit (platform) sha256;
       curlOpts = "--data accept_license_agreement=accepted";
     }
-    ;
+  ;
 
   # Currently blocked by patchelf bug
   # https://github.com/NixOS/patchelf/pull/275

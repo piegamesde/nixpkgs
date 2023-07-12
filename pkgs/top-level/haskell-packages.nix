@@ -79,9 +79,9 @@ let
             enableSharedLibraries = false;
           }
         )
-        ;
+      ;
     }
-    ;
+  ;
 
   # Use this rather than `rec { ... }` below for sake of overlays.
   inherit (pkgs.haskell) compiler packages;
@@ -92,7 +92,7 @@ in
   package-list =
     callPackage ../development/haskell-modules/package-list.nix
       { }
-    ;
+  ;
 
   compiler = rec {
 
@@ -110,7 +110,7 @@ in
           llvmPackages = pkgs.llvmPackages_9;
           minimal = true;
         }
-      ;
+    ;
 
     ghc8107Binary = callPackage ../development/compilers/ghc/8.10.7-binary.nix {
       llvmPackages = pkgs.llvmPackages_12;
@@ -122,7 +122,7 @@ in
           llvmPackages = pkgs.llvmPackages_12;
           minimal = true;
         }
-      ;
+    ;
 
     ghc924Binary = callPackage ../development/compilers/ghc/9.2.4-binary.nix {
       llvmPackages = pkgs.llvmPackages_12;
@@ -133,7 +133,7 @@ in
           llvmPackages = pkgs.llvmPackages_12;
           minimal = true;
         }
-      ;
+    ;
 
     ghc884 = callPackage ../development/compilers/ghc/8.8.4.nix {
       bootPkgs =
@@ -146,7 +146,7 @@ in
           packages.ghc8102Binary
         else
           packages.ghc865Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_7;
       llvmPackages = pkgs.llvmPackages_7;
@@ -166,7 +166,7 @@ in
           packages.ghc865Binary
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -188,7 +188,7 @@ in
           packages.ghc810
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       inherit (buildPackages.darwin) autoSignDarwinBinariesHook xattr;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
@@ -206,7 +206,7 @@ in
           packages.ghc810
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -226,7 +226,7 @@ in
           packages.ghc810
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -246,7 +246,7 @@ in
           packages.ghc810
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -266,7 +266,7 @@ in
           packages.ghc810
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -293,7 +293,7 @@ in
           packages.ghc902
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -320,7 +320,7 @@ in
           packages.ghc902
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -347,7 +347,7 @@ in
           packages.ghc902
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -374,7 +374,7 @@ in
           packages.ghc902
         else
           packages.ghc8107Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -398,7 +398,7 @@ in
           packages.ghc924BinaryMinimal
         else
           packages.ghc924Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -422,7 +422,7 @@ in
           packages.ghc924BinaryMinimal
         else
           packages.ghc924Binary
-        ;
+      ;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -447,14 +447,14 @@ in
         integerSimpleGhcNames =
           pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes)
             (pkgs.lib.attrNames compiler)
-          ;
+        ;
       in
       pkgs.recurseIntoAttrs (
         pkgs.lib.genAttrs integerSimpleGhcNames (
           name: compiler.${name}.override { enableIntegerSimple = true; }
         )
       )
-      ;
+    ;
 
     # Starting from GHC 9, integer-{simple,gmp} is replaced by ghc-bignum
     # with "native" and "gmp" backends.
@@ -463,14 +463,14 @@ in
         nativeBignumGhcNames =
           pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes)
             (pkgs.lib.attrNames compiler)
-          ;
+        ;
       in
       pkgs.recurseIntoAttrs (
         pkgs.lib.genAttrs nativeBignumGhcNames (
           name: compiler.${name}.override { enableNativeBignum = true; }
         )
       )
-      ;
+    ;
   };
 
   # Default overrides that are applied to all package sets.
@@ -489,7 +489,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-8.6.x.nix
             { }
-          ;
+        ;
         packageSetConfig = bootstrapPackageSet;
       };
       ghc8102Binary = callPackage ../development/haskell-modules {
@@ -499,7 +499,7 @@ in
           callPackage
             ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
-          ;
+        ;
         packageSetConfig = bootstrapPackageSet;
       };
       ghc8102BinaryMinimal = callPackage ../development/haskell-modules {
@@ -509,7 +509,7 @@ in
           callPackage
             ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
-          ;
+        ;
         packageSetConfig = bootstrapPackageSet;
       };
       ghc8107Binary = callPackage ../development/haskell-modules {
@@ -519,7 +519,7 @@ in
           callPackage
             ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
-          ;
+        ;
         packageSetConfig = bootstrapPackageSet;
       };
       ghc8107BinaryMinimal = callPackage ../development/haskell-modules {
@@ -529,7 +529,7 @@ in
           callPackage
             ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
-          ;
+        ;
         packageSetConfig = bootstrapPackageSet;
       };
       ghc924Binary = callPackage ../development/haskell-modules {
@@ -538,7 +538,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.2.x.nix
             { }
-          ;
+        ;
         packageSetConfig = bootstrapPackageSet;
       };
       ghc924BinaryMinimal = callPackage ../development/haskell-modules {
@@ -547,7 +547,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.2.x.nix
             { }
-          ;
+        ;
         packageSetConfig = bootstrapPackageSet;
       };
       ghc884 = callPackage ../development/haskell-modules {
@@ -556,7 +556,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-8.8.x.nix
             { }
-          ;
+        ;
       };
       ghc88 = ghc884;
       ghc8107 = callPackage ../development/haskell-modules {
@@ -566,7 +566,7 @@ in
           callPackage
             ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
-          ;
+        ;
       };
       ghc810 = ghc8107;
       ghc902 = callPackage ../development/haskell-modules {
@@ -575,7 +575,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.0.x.nix
             { }
-          ;
+        ;
       };
       ghc90 = ghc902;
       ghc924 = callPackage ../development/haskell-modules {
@@ -584,7 +584,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.2.x.nix
             { }
-          ;
+        ;
       };
       ghc925 = callPackage ../development/haskell-modules {
         buildHaskellPackages = bh.packages.ghc925;
@@ -592,7 +592,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.2.x.nix
             { }
-          ;
+        ;
       };
       ghc926 = callPackage ../development/haskell-modules {
         buildHaskellPackages = bh.packages.ghc926;
@@ -600,7 +600,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.2.x.nix
             { }
-          ;
+        ;
       };
       ghc927 = callPackage ../development/haskell-modules {
         buildHaskellPackages = bh.packages.ghc927;
@@ -608,7 +608,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.2.x.nix
             { }
-          ;
+        ;
       };
       ghc92 = ghc927;
       ghc942 = callPackage ../development/haskell-modules {
@@ -617,7 +617,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.4.x.nix
             { }
-          ;
+        ;
       };
       ghc943 = callPackage ../development/haskell-modules {
         buildHaskellPackages = bh.packages.ghc943;
@@ -625,7 +625,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.4.x.nix
             { }
-          ;
+        ;
       };
       ghc944 = callPackage ../development/haskell-modules {
         buildHaskellPackages = bh.packages.ghc944;
@@ -633,7 +633,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.4.x.nix
             { }
-          ;
+        ;
       };
       ghc945 = callPackage ../development/haskell-modules {
         buildHaskellPackages = bh.packages.ghc945;
@@ -641,7 +641,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.4.x.nix
             { }
-          ;
+        ;
       };
       ghc94 = ghc945;
       ghc961 = callPackage ../development/haskell-modules {
@@ -650,7 +650,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.6.x.nix
             { }
-          ;
+        ;
       };
       ghc96 = ghc961;
       ghcHEAD = callPackage ../development/haskell-modules {
@@ -659,7 +659,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-9.8.x.nix
             { }
-          ;
+        ;
       };
 
       ghcjs = packages.ghcjs810;
@@ -670,11 +670,11 @@ in
           callPackage
             ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { }
-          ;
+        ;
         packageSetConfig =
           callPackage ../development/haskell-modules/configuration-ghcjs.nix
             { }
-          ;
+        ;
       };
 
       # The integer-simple attribute set contains package sets for all the GHC compilers
@@ -684,7 +684,7 @@ in
           integerSimpleGhcNames =
             pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes)
               (pkgs.lib.attrNames packages)
-            ;
+          ;
         in
         pkgs.lib.genAttrs integerSimpleGhcNames (
           name:
@@ -695,18 +695,18 @@ in
               overrides =
                 pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { }))
                   (_: _: { integer-simple = null; })
-                ;
+              ;
             }
           )
         )
-        ;
+      ;
 
       native-bignum =
         let
           nativeBignumGhcNames =
             pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes)
               (pkgs.lib.attrNames compiler)
-            ;
+          ;
         in
         pkgs.lib.genAttrs nativeBignumGhcNames (
           name:
@@ -715,7 +715,7 @@ in
             buildHaskellPackages = bh.packages.native-bignum.${name};
           }
         )
-        ;
+      ;
     }
-    ;
+  ;
 }

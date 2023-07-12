@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     lib.optional stdenv.isDarwin
       darwin.apple_sdk.frameworks.Security
-    ;
+  ;
 
   # Testing this project requires sudo, Docker and network access, etc.
   doCheck = false;

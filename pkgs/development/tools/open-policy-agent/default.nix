@@ -59,7 +59,7 @@ buildGoModule rec {
       # remove tests that have "too many open files"/"no space left on device" issues on darwin in hydra
       rm server/server_test.go
     ''
-    ;
+  ;
 
   postInstall = ''
     installShellCompletion --cmd opa \

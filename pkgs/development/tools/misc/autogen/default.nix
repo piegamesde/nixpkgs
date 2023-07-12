@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
           url =
             "https://salsa.debian.org/debian/autogen/-/raw/debian/${ver}"
             + "/debian/patches/${pname}.diff?inline=false"
-            ;
+          ;
           inherit name sha256;
         }
-        ;
+      ;
     in
     [
       (dp {
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
         sha256 = "18d7y1f6164dm1wlh7rzbacfygiwrmbc35a7qqsbdawpkhydm5lr";
       })
     ]
-    ;
+  ;
 
   outputs = [
     "bin"
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       buildPackages.buildPackages.autogen
       buildPackages.texinfo
     ]
-    ;
+  ;
   buildInputs = [
     guile
     libxml2
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
     ]
     # See: https://sourceforge.net/p/autogen/bugs/187/
     ++ lib.optionals stdenv.isDarwin [ "ac_cv_func_utimensat=no" ]
-    ;
+  ;
 
   #doCheck = true; # not reliable
 
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
         patchelf --set-rpath "$nrp" "$f"
       done
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Automated text and program generation tool";

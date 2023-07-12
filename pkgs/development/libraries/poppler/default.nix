@@ -82,7 +82,7 @@ stdenv.mkDerivation (
         libintl
       ]
       ++ lib.optionals withData [ poppler_data ]
-      ;
+    ;
 
     # TODO: reduce propagation to necessary libs
     propagatedBuildInputs =
@@ -101,7 +101,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (qt5Support || qt6Support) [ qtbase ]
       ++ lib.optionals introspectionSupport [ gobject-introspection ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -114,7 +114,7 @@ stdenv.mkDerivation (
         (mkFlag qt6Support "QT6")
       ]
       ++ lib.optionals finalAttrs.doCheck [ "-DTESTDATADIR=${testData}" ]
-      ;
+    ;
     disallowedReferences = lib.optional finalAttrs.doCheck testData;
 
     dontWrapQtApps = true;

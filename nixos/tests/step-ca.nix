@@ -46,7 +46,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       caclient =
         {
@@ -78,7 +78,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       catester =
         {
@@ -90,7 +90,7 @@ import ./make-test-python.nix (
             "${test-certificates}/root_ca.crt"
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

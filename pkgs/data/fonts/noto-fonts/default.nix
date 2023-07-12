@@ -49,7 +49,7 @@ rec {
       _variants =
         map (variant: builtins.replaceStrings [ " " ] [ "" ] variant)
           variants
-        ;
+      ;
 
       installPhase =
         ''
@@ -86,7 +86,7 @@ rec {
               done
             ''
         )
-        ;
+      ;
 
       passthru.updateScript = gitUpdater {
         rev-prefix = "noto-monthly-release-";
@@ -105,7 +105,7 @@ rec {
         ];
       };
     }
-    ;
+  ;
 
   mkNotoCJK =
     {
@@ -154,7 +154,7 @@ rec {
         ];
       };
     }
-    ;
+  ;
 
   noto-fonts = mkNoto { pname = "noto-fonts"; };
 
@@ -262,7 +262,7 @@ rec {
         ];
       };
     }
-    ;
+  ;
 
   noto-fonts-emoji-blob-bin =
     let
@@ -302,5 +302,5 @@ rec {
         ];
       };
     }
-    ;
+  ;
 }

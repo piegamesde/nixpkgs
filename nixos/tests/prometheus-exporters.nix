@@ -15,7 +15,7 @@ let
     replaceStrings
     singleton
     splitString
-    ;
+  ;
 
   # The attrset `exporterTests` contains one attribute
   # for each exporter test. Each of these attributes
@@ -212,7 +212,7 @@ let
               "curl -sSf localhost:9103/metrics | grep 'collectd_testplugin_gauge{instance=\"testhost\"} 23'"
           )
         ''
-        ;
+      ;
     };
 
     dnsmasq = {
@@ -423,7 +423,7 @@ let
           )
         '';
       }
-      ;
+    ;
 
     knot = {
       exporterConfig = { enable = true; };
@@ -695,7 +695,7 @@ let
               ${pkgs.coreutils}/bin/install -o nextcloud-exporter -m 0400 ${passfile} /var/nextcloud-pwfile
             '';
           }
-          ;
+        ;
         services.nginx = {
           enable = true;
           virtualHosts."localhost" = {
@@ -982,7 +982,7 @@ let
           wait_until_succeeds("curl localhost:9221")
         '';
       }
-      ;
+    ;
 
     py-air-control = {
       nodeName = "py_air_control";
@@ -1421,7 +1421,7 @@ let
           )
         '';
       }
-      ;
+    ;
 
     zfs = {
       exporterConfig = { enable = true; };

@@ -122,7 +122,7 @@ stdenv.mkDerivation (
           # CMAKE_PREFIX_PATH.
           cmakeFlags+=" -DCMAKE_IGNORE_PATH=${lib.getBin gettext}/bin"
         ''
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -144,7 +144,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isLinux [
         wayland # for wayland-scanner
       ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -216,7 +216,7 @@ stdenv.mkDerivation (
         xorg.libXcomposite
         wayland-protocols
       ]
-      ;
+    ;
 
     propagatedBuildInputs = [
       gtk3
@@ -248,7 +248,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (!systemdSupport) [ "-DENABLE_JOURNALD_LOG=OFF" ]
       ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ]
-      ;
+    ;
 
     postPatch = ''
       patchShebangs .
@@ -264,7 +264,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "Web content rendering engine, GTK port";

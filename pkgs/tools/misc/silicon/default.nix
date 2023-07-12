@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
       CoreText
       Security
     ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -62,7 +62,7 @@ rustPlatform.buildRustPackage rec {
       pkg-config
     ]
     ++ lib.optionals stdenv.isLinux [ python3 ]
-    ;
+  ;
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 

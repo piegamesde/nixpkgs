@@ -39,7 +39,7 @@ buildPythonPackage rec {
       substituteInPlace src/cpp/skia-builder/skia/src/core/SkOpts.cpp \
         --replace "defined(SK_CPU_ARM64)" "0"
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -48,7 +48,7 @@ buildPythonPackage rec {
       setuptools-scm
     ]
     ++ lib.optionals stdenv.isDarwin [ xcodebuild ]
-    ;
+  ;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     ApplicationServices

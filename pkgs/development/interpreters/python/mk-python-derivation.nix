@@ -126,7 +126,7 @@ let
         (drv ? "pythonModule")
         # Some pythonModules are turned in to a pythonApplication by setting the field to false
         && (!builtins.isBool drv.pythonModule)
-        ;
+      ;
       isMismatchedPython = drv: drv.pythonModule != python;
 
       optionalLocation =
@@ -135,13 +135,13 @@ let
             builtins.unsafeGetAttrPos
               (if attrs ? "pname" then "pname" else "name")
               attrs
-            ;
+          ;
         in
         if pos == null then
           ""
         else
           " at ${pos.file}:${toString pos.line}:${toString pos.column}"
-        ;
+      ;
 
       leftPadName =
         name: against:
@@ -149,7 +149,7 @@ let
           len = lib.max (lib.stringLength name) (lib.stringLength against);
         in
         lib.strings.fixedWidthString len " " name
-        ;
+      ;
 
       throwMismatch =
         drv:
@@ -185,7 +185,7 @@ let
 
           ${optionalLocation}
         ''
-        ;
+      ;
 
       checkDrv =
         drv:
@@ -193,11 +193,11 @@ let
           throwMismatch drv
         else
           drv
-        ;
+      ;
     in
     inputs:
     builtins.map (checkDrv) inputs
-    ;
+  ;
 
   # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
   self = toPythonModule (
@@ -252,7 +252,7 @@ let
           ]
           ++ lib.optionals withDistOutput [ pythonOutputDistHook ]
           ++ nativeBuildInputs
-          ;
+        ;
 
         buildInputs = validatePythonMatches "buildInputs" (
           buildInputs ++ pythonPath
@@ -284,7 +284,7 @@ let
             setuptoolsCheckHook
           ]
           ++ nativeCheckInputs
-          ;
+        ;
         installCheckInputs = checkInputs;
 
         postFixup =
@@ -292,14 +292,14 @@ let
             wrapPythonPrograms
           ''
           + attrs.postFixup or ""
-          ;
+        ;
 
         # Python packages built through cross-compilation are always for the host platform.
         disallowedReferences =
           lib.optionals
             (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
             [ python.pythonForBuild ]
-          ;
+        ;
 
         outputs = outputs ++ lib.optional withDistOutput "dist";
 
@@ -326,7 +326,7 @@ let
       update-python-libraries
       filename
     ]
-    ;
+  ;
 in
 lib.extendDerivation
   (

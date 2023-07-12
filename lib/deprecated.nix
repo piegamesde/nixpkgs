@@ -18,7 +18,7 @@ rec {
       value = builtins.getEnv name;
     in
     if value == "" then default else value
-    ;
+  ;
 
   defaultMergeArg = x: y: if builtins.isAttrs y then y else (y x);
   defaultMerge = x: y: x // (defaultMergeArg x y);
@@ -46,7 +46,7 @@ rec {
       withStdOverrides = base // { override = base.passthru.function; };
     in
     withStdOverrides
-    ;
+  ;
 
   # shortcut for attrByPath ["name"] default attrs
   maybeAttrNullable = maybeAttr;
@@ -69,7 +69,7 @@ rec {
       false
     else
       null
-    ;
+  ;
 
   # Return true only if there is an attribute and it is true.
   checkFlag =
@@ -82,7 +82,7 @@ rec {
       true
     else
       attrByPath [ name ] false attrSet
-    ;
+  ;
 
   # Input : attrSet, [ [name default] ... ], name
   # Output : its value or default.
@@ -106,7 +106,7 @@ rec {
         )
         attrSet
     )
-    ;
+  ;
 
   # Input : attrSet, [[name default] ...], [ [flagname reqs..] ... ]
   # Output : are reqs satisfied? It's asserted.
@@ -137,7 +137,7 @@ rec {
         )
         condList
     ))
-    ;
+  ;
 
   # This function has O(n^2) performance.
   uniqList =
@@ -156,10 +156,10 @@ rec {
             y = if elem x acc then [ ] else [ x ];
           in
           y ++ go (tail xs) (y ++ acc)
-        ;
+      ;
     in
     go inputList acc
-    ;
+  ;
 
   uniqListExt =
     {
@@ -182,7 +182,7 @@ rec {
         inputList = (tail inputList);
         inherit getter compare;
       }
-    ;
+  ;
 
   condConcat =
     name: list: checker:
@@ -192,7 +192,7 @@ rec {
       condConcat (name + (head (tail list))) (tail (tail list)) checker
     else
       condConcat name (tail (tail list)) checker
-    ;
+  ;
 
   lazyGenericClosure =
     {
@@ -215,15 +215,15 @@ rec {
             work (tail list ++ operator x) ([ key ] ++ doneKeys) (
               [ x ] ++ result
             )
-        ;
+      ;
     in
     work startSet [ ] [ ]
-    ;
+  ;
 
   innerModifySumArgs =
     f: x: a: b:
     if b == null then (f a b) // x else innerModifySumArgs f x (a // b)
-    ;
+  ;
   modifySumArgs = f: x: innerModifySumArgs f x { };
 
   innerClosePropagation =
@@ -247,11 +247,11 @@ rec {
               (maybeAttrNullable "propagatedBuildInputs" [ ] y)
               ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
               ++ ys
-              ;
+            ;
             acc = acc';
           }
         )
-    ;
+  ;
 
   closePropagationSlow =
     list: (uniqList { inputList = (innerClosePropagation [ ] list); });
@@ -273,7 +273,7 @@ rec {
               val = x;
             })
             (builtins.filter (x: x != null) list)
-          ;
+        ;
         operator =
           item:
           if !builtins.isAttrs item.val then
@@ -294,17 +294,17 @@ rec {
                 (item.val.propagatedBuildInputs or [ ])
                 ++ (item.val.propagatedNativeBuildInputs or [ ])
               )
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   closePropagation =
     if builtins ? genericClosure then
       closePropagationFast
     else
       closePropagationSlow
-    ;
+  ;
 
   # calls a function (f attr value ) for each record item. returns a list
   mapAttrsFlatten = f: r: map (attr: f attr r.${attr}) (attrNames r);
@@ -320,7 +320,7 @@ rec {
   setAttrMerge =
     name: default: attrs: f:
     setAttr attrs name (f (maybeAttr name default attrs))
-    ;
+  ;
 
   # Using f = a: b = b the result is similar to //
   # merge attributes with custom function handling the case that the attribute
@@ -331,7 +331,7 @@ rec {
       (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set)
       (set2 // set1)
       (attrNames set2)
-    ;
+  ;
 
   # merging two attribute set concatenating the values of same attribute names
   # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }
@@ -376,7 +376,7 @@ rec {
       )
       attrs1
       (attrNames attrs2)
-    ;
+  ;
 
   # example usage:
   # mergeAttrByFunc  {
@@ -420,7 +420,7 @@ rec {
           )
       )
     ]
-    ;
+  ;
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
   mergeAttrsByFuncDefaultsClean =
     list: removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];
@@ -478,7 +478,7 @@ rec {
       "int"
     else
       "string"
-    ;
+  ;
 
   /* deprecated:
 

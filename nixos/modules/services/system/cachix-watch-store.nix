@@ -38,7 +38,7 @@ in
       description =
         lib.mdDoc
           "The compression level for ZSTD compression (between 0 and 16)"
-        ;
+      ;
       default = null;
     };
 
@@ -106,13 +106,13 @@ in
               (toString cfg.jobs)
             ])
             ++ [ cfg.cacheName ]
-            ;
+          ;
         in
         ''
           export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
           ${lib.escapeShellArgs command}
         ''
-        ;
+      ;
     };
   };
 }

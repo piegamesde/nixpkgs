@@ -37,7 +37,7 @@ buildGoModule rec {
       "-X ${prefix}.BuildUser=nix"
       "-X ${prefix}.BuildDate=1980-01-01T00:00:00Z"
     ]
-    ;
+  ;
 
   tags = [
     "nonetwork"

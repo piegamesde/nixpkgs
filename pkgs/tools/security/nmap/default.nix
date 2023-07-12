@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
         }
       )
     ]
-    ;
+  ;
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace libz/configure \

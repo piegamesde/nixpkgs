@@ -50,7 +50,7 @@ buildGoModule rec {
       buildFlagsArray+=("-tags=${lib.concatStringsSep " " tags}")
       buildFlagsArray+=("-ldflags=${buildVarsFlags}")
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Lightning Network Daemon";

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     [ libusb1 ]
     ++ lib.optional stdenv.isLinux libraw1394
     ++ lib.optional stdenv.isDarwin CoreServices
-    ;
+  ;
 
   meta = with lib; {
     description = "Capture and control API for IIDC compliant cameras";

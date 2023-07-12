@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
         name = "${pname}-${version}";
         sha256 = "sha256-OYQi4rQjc+FOTg+W2j2Vy1dEJHuj9z6pmBX7aTwnFKs=";
       }
-    ;
+  ;
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
       libiconv
       CoreFoundation
     ]
-    ;
+  ;
 
   patches = [
     # Hardcode variant detection because we wrap the Racket binary making it
@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       gappsWrapperArgs+=("--prefix" "DYLD_LIBRARY_PATH" ":" ${libPath})
     ''
-    ;
+  ;
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # Cannot set DYLD_LIBRARY_PATH as an attr of this drv, becasue dynamic
@@ -175,7 +175,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals disableDocs [ "--disable-docs" ]
     ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ]
-    ;
+  ;
 
   configureScript = "../configure";
 

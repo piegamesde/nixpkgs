@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${
           lib.getDev stdenv.cc.libc
         }"
-    ;
+  ;
   enableParallelBuilding = true;
   meta = {
     description = "A library for real-time audio and video processing";

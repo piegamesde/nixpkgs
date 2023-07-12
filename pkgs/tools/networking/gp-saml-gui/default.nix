@@ -37,7 +37,7 @@ buildPythonPackage rec {
       openconnect
     ]
     ++ lib.optional stdenv.isLinux webkitgtk
-    ;
+  ;
 
   preFixup = ''
     gappsWrapperArgs+=(

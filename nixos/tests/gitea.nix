@@ -63,7 +63,7 @@ let
               ];
               services.openssh.enable = true;
             }
-            ;
+          ;
           client1 =
             {
               config,
@@ -72,7 +72,7 @@ let
             }: {
               environment.systemPackages = [ pkgs.git ];
             }
-            ;
+          ;
           client2 =
             {
               config,
@@ -81,7 +81,7 @@ let
             }: {
               environment.systemPackages = [ pkgs.git ];
             }
-            ;
+          ;
         };
 
         testScript =
@@ -89,7 +89,7 @@ let
             inherit (import ./ssh-keys.nix pkgs)
               snakeOilPrivateKey
               snakeOilPublicKey
-              ;
+            ;
           in
           ''
             GIT_SSH_COMMAND = "ssh -i $HOME/.ssh/privk -o StrictHostKeyChecking=no"
@@ -172,10 +172,10 @@ let
             client2.shutdown()
             server.shutdown()
           ''
-          ;
+        ;
       }
     )
-    ;
+  ;
 in
 
 listToAttrs (map makeGiteaTest supportedDbTypes)

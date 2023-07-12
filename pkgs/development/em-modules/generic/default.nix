@@ -11,7 +11,7 @@ let
   wrapDerivation =
     f:
     pkgs.stdenv.mkDerivation (finalAttrs: f (lib.toFunction argsFun finalAttrs))
-    ;
+  ;
 in
 wrapDerivation (
   {
@@ -34,14 +34,14 @@ wrapDerivation (
         python3
       ]
       ++ buildInputs
-      ;
+    ;
     nativeBuildInputs =
       [
         emscripten
         python3
       ]
       ++ nativeBuildInputs
-      ;
+    ;
 
     # fake conftest results with emscripten's python magic
     EMCONFIGURE_JS = 2;

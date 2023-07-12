@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
         sed -i 's|DISTSUBDIRS = lib po|DISTSUBDIRS = lib|g' Makefile.in
         sed -i 's|SUBDIRS = lib @POSUB@|SUBDIRS = lib|g' Makefile.in
       ''
-    ;
+  ;
 
   configureFlags =
     [ ]
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     # Libelf's custom NLS macros fail to determine the catalog file extension
     # on Darwin, so disable NLS for now.
     ++ lib.optional stdenv.hostPlatform.isDarwin "--disable-nls"
-    ;
+  ;
 
   strictDeps = true;
   nativeBuildInputs =
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     # doesn't work with the bootstrapTools bash, so can only do this for
     # cross builds when `stdenv.shell` is a newer bash.
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) autoreconfHook
-    ;
+  ;
 
   meta = {
     description = "ELF object file access library";

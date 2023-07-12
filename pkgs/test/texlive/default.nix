@@ -19,7 +19,7 @@
         mkdir -p "$out"
         diff -u "''${nixpkgsTlpdbNix}" "''${tlpdbNix}" | tee "$out/tlpdb.nix.patch"
       ''
-    ;
+  ;
 
   opentype-fonts =
     runCommand "texlive-test-opentype"
@@ -47,7 +47,7 @@
         xelatex -halt-on-error "$input"
         echo success > $out
       ''
-    ;
+  ;
 
   chktex =
     runCommand "texlive-test-chktex"
@@ -66,7 +66,7 @@
         chktex -v -nall -w1 "$input" 2>&1 | tee "$out"
         grep "One warning printed" "$out"
       ''
-    ;
+  ;
 
   dvipng = lib.recurseIntoAttrs {
     # https://github.com/NixOS/nixpkgs/issues/75605
@@ -97,7 +97,7 @@
           mkdir "$out"
           mv document*.png "$out"/
         ''
-      ;
+    ;
 
     # test dvipng's limited capability to render postscript specials via GS
     ghostscript =
@@ -144,7 +144,7 @@
           mkdir "$out"
           mv document*.png "$out"/
         ''
-      ;
+    ;
   };
 
   # https://github.com/NixOS/nixpkgs/issues/75070
@@ -178,7 +178,7 @@
         mkdir "$out"
         mv document*.svg "$out"/
       ''
-    ;
+  ;
 
   texdoc =
     runCommand "texlive-test-texdoc"
@@ -195,7 +195,7 @@
                   "bin"
                   "doc"
                 ]
-                ;
+              ;
             }
           )
         ];
@@ -206,7 +206,7 @@
         texdoc --debug --list texdoc | tee "$out"
         grep texdoc.pdf "$out"
       ''
-    ;
+  ;
 
   # test that language files are generated as expected
   hyphen-base =
@@ -243,7 +243,7 @@
             | tee "$out/scheme-infraonly/$fname.patch"
         done
       ''
-    ;
+  ;
 
   # test that fmtutil.cnf is fully regenerated on scheme-full
   fmtutilCnf =
@@ -259,5 +259,5 @@
           {"$kpathsea","$schemeFull"/share/texmf-var}/web2c/fmtutil.cnf \
           | tee "$out/fmtutil.cnf.patch"
       ''
-    ;
+  ;
 }

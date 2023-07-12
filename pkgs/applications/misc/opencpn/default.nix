@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       DarwinTools
       makeWrapper
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
       xorg.libXdmcp
       xorg.libXtst
     ]
-    ;
+  ;
 
   cmakeFlags = [ "-DOCPN_BUNDLE_DOCS=true" ];
 

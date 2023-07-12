@@ -13,7 +13,7 @@ let
         mod
       ];
     }
-    ;
+  ;
   withHost = eval { nixpkgs.hostPlatform = "aarch64-linux"; };
   withHostAndBuild = eval {
     nixpkgs.hostPlatform = "aarch64-linux";
@@ -44,7 +44,7 @@ let
     map (ass: ass.message) (
       lib.filter (ass: !ass.assertion) uncheckedEval.config.assertions
     )
-    ;
+  ;
 in
 lib.recurseIntoAttrs {
   invokeNixpkgsSimple =
@@ -86,5 +86,5 @@ lib.recurseIntoAttrs {
     } == [ ];
 
     pkgs.emptyFile
-    ;
+  ;
 }

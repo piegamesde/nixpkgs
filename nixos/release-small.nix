@@ -40,7 +40,7 @@ let
         nixpkgs = nixpkgsSrc;
       })
       [ "unstable" ]
-    ;
+  ;
 in
 rec {
 
@@ -62,7 +62,7 @@ rec {
         predictable-interface-names
         proxy
         simple
-        ;
+      ;
       installer = { inherit (nixos'.tests.installer) lvm separateBoot simple; };
       boot = { inherit (nixos'.tests.boot) biosCdrom uefiCdrom; };
     };
@@ -92,7 +92,7 @@ rec {
       tarball
       vim
       tests-stdenv-gcc-stageCompare
-      ;
+    ;
   };
 
   tested =
@@ -103,7 +103,7 @@ rec {
         map (system: "${x}.${system}") (
           pkgs.lib.intersectLists systems supportedSystems
         )
-        ;
+      ;
     in
     pkgs.releaseTools.aggregate {
       name = "nixos-${nixos.channel.version}";
@@ -152,5 +152,5 @@ rec {
         ])
       ];
     }
-    ;
+  ;
 }

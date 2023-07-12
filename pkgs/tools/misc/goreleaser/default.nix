@@ -43,7 +43,7 @@ buildGoModule rec {
         --fish <(${emulator} $out/bin/goreleaser completion fish) \
         --zsh  <(${emulator} $out/bin/goreleaser completion zsh)
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Deliver Go binaries as fast and easily as possible";

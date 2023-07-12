@@ -158,7 +158,7 @@ let
           optionalString dev.bypassWorkqueues
             " --perf-no_read_workqueue --perf-no_write_workqueue"
         + optionalString (dev.header != null) " --header=${dev.header}"
-        ;
+      ;
       cschange =
         "cryptsetup luksChangeKey ${dev.device} ${
           optionalString (dev.header != null) "--header=${dev.header}"
@@ -166,7 +166,7 @@ let
       fido2luksCredentials =
         dev.fido2.credentials
         ++ optional (dev.fido2.credential != null) dev.fido2.credential
-        ;
+      ;
     in
     ''
       # Wait for luksRoot (and optionally keyFile and/or header) to appear, e.g.
@@ -591,7 +591,7 @@ let
       # commands to run right after we mounted our device
       ${dev.postOpenCommands}
     ''
-    ;
+  ;
 
   askPass = pkgs.writeScriptBin "cryptsetup-askpass" ''
     #!/bin/sh
@@ -638,7 +638,7 @@ let
                     builtins.toString v.keyFileTimeout
                   }s"
               ++ optional (v.tryEmptyPassphrase) "try-empty-password=true"
-              ;
+            ;
           in
           "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${
             lib.concatStringsSep "," opts
@@ -756,7 +756,7 @@ in
                   description =
                     lib.mdDoc
                       "Name of the unencrypted device in {file}`/dev/mapper`."
-                    ;
+                  ;
                 };
 
                 device = mkOption {
@@ -766,7 +766,7 @@ in
                   description =
                     lib.mdDoc
                       "Path of the underlying encrypted block device."
-                    ;
+                  ;
                 };
 
                 header = mkOption {
@@ -842,7 +842,7 @@ in
                   description =
                     lib.mdDoc
                       "Whether the luksOpen will be attempted before LVM scan or after it."
-                    ;
+                  ;
                 };
 
                 allowDiscards = mkOption {
@@ -895,7 +895,7 @@ in
                             description =
                               lib.mdDoc
                                 "Time in seconds to wait for the GPG Smartcard."
-                              ;
+                            ;
                           };
 
                           encryptedPass = mkOption {
@@ -903,7 +903,7 @@ in
                             description =
                               lib.mdDoc
                                 "Path to the GPG encrypted passphrase."
-                              ;
+                            ;
                           };
 
                           publicKey = mkOption {
@@ -943,7 +943,7 @@ in
                     description =
                       lib.mdDoc
                         "Time in seconds to wait for the FIDO2 key."
-                      ;
+                    ;
                   };
 
                   passwordLess = mkOption {
@@ -974,7 +974,7 @@ in
                             description =
                               lib.mdDoc
                                 "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false)."
-                              ;
+                            ;
                           };
 
                           slot = mkOption {
@@ -983,7 +983,7 @@ in
                             description =
                               lib.mdDoc
                                 "Which slot on the YubiKey to challenge."
-                              ;
+                            ;
                           };
 
                           saltLength = mkOption {
@@ -992,7 +992,7 @@ in
                             description =
                               lib.mdDoc
                                 "Length of the new salt in byte (64 is the effective maximum)."
-                              ;
+                            ;
                           };
 
                           keyLength = mkOption {
@@ -1001,7 +1001,7 @@ in
                             description =
                               lib.mdDoc
                                 "Length of the LUKS slot key derived with PBKDF2 in byte."
-                              ;
+                            ;
                           };
 
                           iterationStep = mkOption {
@@ -1010,7 +1010,7 @@ in
                             description =
                               lib.mdDoc
                                 "How much the iteration count for PBKDF2 is increased at each successful authentication."
-                              ;
+                            ;
                           };
 
                           gracePeriod = mkOption {
@@ -1019,7 +1019,7 @@ in
                             description =
                               lib.mdDoc
                                 "Time in seconds to wait for the YubiKey."
-                              ;
+                            ;
                           };
 
                           /* TODO: Add to the documentation of the current module:
@@ -1042,7 +1042,7 @@ in
                               description =
                                 lib.mdDoc
                                   "The filesystem of the unencrypted device."
-                                ;
+                              ;
                             };
 
                             path = mkOption {
@@ -1149,7 +1149,7 @@ in
         assertion =
           any (dev: dev.bypassWorkqueues) (attrValues luks.devices)
           -> versionAtLeast kernelPackages.kernel.version "5.9"
-          ;
+        ;
         message =
           "boot.initrd.luks.devices.<name>.bypassWorkqueues is not supported for kernels older than 5.9";
       }
@@ -1158,7 +1158,7 @@ in
         assertion =
           !config.boot.initrd.systemd.enable
           -> all (x: x.keyFileTimeout == null) (attrValues luks.devices)
-          ;
+        ;
         message =
           "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd";
       }
@@ -1167,7 +1167,7 @@ in
         assertion =
           config.boot.initrd.systemd.enable
           -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices)
-          ;
+        ;
         message =
           "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1.";
       }
@@ -1175,7 +1175,7 @@ in
         assertion =
           config.boot.initrd.systemd.enable
           -> all (dev: dev.preLVM) (attrValues luks.devices)
-          ;
+        ;
         message =
           "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
       }
@@ -1184,7 +1184,7 @@ in
           config.boot.initrd.systemd.enable
           ->
             options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio
-          ;
+        ;
         message =
           "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
       }
@@ -1194,7 +1194,7 @@ in
           ->
             all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "")
               (attrValues luks.devices)
-          ;
+        ;
         message =
           "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
       }
@@ -1236,7 +1236,7 @@ in
       # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
       # remove once 'modprobe --show-depends xts' shows ecb as a dependency
       ++ (if builtins.elem "xts" luks.cryptoModules then [ "ecb" ] else [ ])
-      ;
+    ;
 
     # copy the cryptsetup binary and it's dependencies
     boot.initrd.extraUtilsCommands =
@@ -1248,7 +1248,7 @@ in
               cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
               strip -s "$out/bin/pbkdf2-sha512"
             ''
-          ;
+        ;
       in
       mkIf (!config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup
@@ -1295,7 +1295,7 @@ in
             (attrValues luks.devices)}
         ''}
       ''
-      ;
+    ;
 
     boot.initrd.extraUtilsCommandsTest =
       mkIf (!config.boot.initrd.systemd.enable)
@@ -1315,7 +1315,7 @@ in
             $out/bin/fido2luks --version
           ''}
         ''
-      ;
+    ;
 
     boot.initrd.systemd = {
       contents."/etc/crypttab".source = stage1Crypttab;
@@ -1339,7 +1339,7 @@ in
     boot.initrd.preFailCommands =
       mkIf (!config.boot.initrd.systemd.enable)
         postCommands
-      ;
+    ;
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
       commonFunctions
       + preCommands

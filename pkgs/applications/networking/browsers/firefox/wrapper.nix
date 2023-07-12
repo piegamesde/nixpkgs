@@ -106,7 +106,7 @@ let
             plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
         ++ extraNativeMessagingHosts
-        ;
+      ;
       libs =
         lib.optionals stdenv.isLinux [
           udev
@@ -140,7 +140,7 @@ let
         ++ lib.optional smartcardSupport opensc
         ++ lib.optional (cfg.speechSynthesisSupport or false) speechd
         ++ pkcs11Modules
-        ;
+      ;
       gtk_modules = [ libcanberra-gtk3 ];
 
       launcherName = "${applicationName}${nameSuffix}";
@@ -163,7 +163,7 @@ let
       requiresSigning =
         browser ? MOZ_REQUIRE_SIGNING
         -> toString browser.MOZ_REQUIRE_SIGNING != ""
-        ;
+      ;
 
       # Check that every extension has a unqiue .name attribute
       # and an extid attribute
@@ -184,7 +184,7 @@ let
                 a
             )
             (lib.optionals usesNixExtensions nixExtensions)
-        ;
+      ;
 
       enterprisePolicies = {
         policies = {
@@ -210,7 +210,7 @@ let
             Install =
               lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ]
                 extensions
-              ;
+            ;
           };
         } // lib.optionalAttrs smartcardSupport {
           SecurityDevices = { "OpenSC PKCS#11 Module" = "opensc-pkcs11.so"; };
@@ -494,7 +494,7 @@ let
         lib.makeLibraryPath libs
         + ":"
         + lib.makeSearchPathOutput "lib" "lib64" libs
-        ;
+      ;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;
 
       passthru = { unwrapped = browser; };
@@ -508,6 +508,6 @@ let
           (browser.meta.priority or 0) - 1; # prefer wrapper over the package
       };
     }
-    ;
+  ;
 in
 lib.makeOverridable wrapper

@@ -70,7 +70,7 @@ stdenv.mkDerivation (
           "https://github.com/ventoy/Ventoy/releases/download/v${version}/ventoy-${version}-linux.tar.gz";
         hash = "sha256-9vsFdOxsW1Cs06gVPvQusju2+wp4PpBwbHZUugwb3co=";
       }
-      ;
+    ;
 
     patches = [ ./000-nixos-sanitization.patch ];
 
@@ -90,7 +90,7 @@ stdenv.mkDerivation (
       ]
       ++ optional (withQt5 || withGtk3) copyDesktopItems
       ++ optional withQt5 wrapQtAppsHook
-      ;
+    ;
 
     buildInputs =
       [
@@ -114,7 +114,7 @@ stdenv.mkDerivation (
       ++ optional withNtfs ntfs3g
       ++ optional withXfs xfsprogs
       ++ optional withQt5 qtbase
-      ;
+    ;
 
     desktopItems = [
       (makeDesktopItem {
@@ -203,7 +203,7 @@ stdenv.mkDerivation (
 
         runHook postInstall
       ''
-      ;
+    ;
 
     meta = {
       homepage = "https://www.ventoy.net";

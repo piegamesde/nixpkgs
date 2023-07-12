@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
         --set LADSPA_PATH "${lib.makeSearchPath "lib/ladspa" ladspaPlugins}"
       )
     ''
-    ;
+  ;
 
   separateDebugInfo = true;
 

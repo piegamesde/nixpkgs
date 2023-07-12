@@ -24,7 +24,7 @@ in
         description =
           lib.mdDoc
             "Automatically run the nix store optimiser at a specific time."
-          ;
+        ;
       };
 
       dates = mkOption {

@@ -99,7 +99,7 @@ let
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-"
-    ;
+  ;
 
   buildMK =
     ''
@@ -149,7 +149,7 @@ let
     + lib.optionalString targetPlatform.useAndroidPrebuilt ''
       EXTRA_CC_OPTS += -std=gnu99
     ''
-    ;
+  ;
 
   # Splicer will pull out correct variations
   libDeps =
@@ -160,14 +160,14 @@ let
     ++
       lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
         libiconv
-    ;
+  ;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget =
     [ pkgsBuildTarget.targetPackages.stdenv.cc ]
     ++ lib.optional useLLVM buildTargetLlvmPackages.llvm
-    ;
+  ;
 
   targetCC = builtins.head toolsForTarget;
 
@@ -182,7 +182,7 @@ let
         targetCC.bintools
       else
         targetCC.bintools.bintools
-      ;
+    ;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
@@ -190,7 +190,7 @@ let
         targetCC.bintools
       else
         targetCC.bintools.bintools
-      ;
+    ;
   };
 
   # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
@@ -203,7 +203,7 @@ let
       && (targetCC.bintools.bintools.hasGold or false)
       && !targetPlatform.isMusl
     )
-    ;
+  ;
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
@@ -279,7 +279,7 @@ stdenv.mkDerivation (
             # https://github.com/NixOS/nixpkgs/issues/140774 for details).
             ./Cabal-3.6-paths-fix-cycle-aarch64-darwin.patch
           ]
-      ;
+    ;
 
     postPatch = "patchShebangs .";
 
@@ -355,7 +355,7 @@ stdenv.mkDerivation (
                       '*-android*|*-gnueabi*|*-musleabi*)'
         done
       ''
-      ;
+    ;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
     configurePlatforms =
@@ -364,7 +364,7 @@ stdenv.mkDerivation (
         "host"
       ]
       ++ lib.optional (targetPlatform != hostPlatform) "target"
-      ;
+    ;
 
     # `--with` flags for libraries needed for RTS linker
     configureFlags =
@@ -404,7 +404,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (disableLargeAddressSpace) [
         "--disable-large-address-space"
       ]
-      ;
+    ;
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
     strictDeps = true;
@@ -428,7 +428,7 @@ stdenv.mkDerivation (
         autoSignDarwinBinariesHook
       ]
       ++ lib.optionals enableDocs [ sphinx ]
-      ;
+    ;
 
     # For building runtime libs
     depsBuildTarget = toolsForTarget;
@@ -439,7 +439,7 @@ stdenv.mkDerivation (
         bash
       ]
       ++ (libDeps hostPlatform)
-      ;
+    ;
 
     depsTargetTarget = map lib.getDev (libDeps targetPlatform);
     depsTargetTargetPropagated = map (lib.getOutput "out") (
@@ -463,7 +463,7 @@ stdenv.mkDerivation (
       # * https://github.com/NixOS/nixpkgs/issues/129247
       # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
       ++ lib.optional stdenv.targetPlatform.isMusl "pie"
-      ;
+    ;
 
     # big-parallel allows us to build with more than 2 cores on
     # Hydra which already warrants a significant speedup

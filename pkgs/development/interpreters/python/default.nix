@@ -47,13 +47,13 @@
                       "setupHook"
                     ]
                     false
-                  ;
+                ;
                 valid =
                   value:
                   pythonPackages.hasPythonModule value
                   || providesSetupHook value
                   || lib.elem value exceptions
-                  ;
+                ;
                 func =
                   name: value:
                   if lib.isDerivation value then
@@ -68,10 +68,10 @@
                       value
                   else
                     value
-                  ;
+                ;
               in
               lib.mapAttrs func items
-              ;
+            ;
           in
           ensurePythonModules (
             callPackage
@@ -107,11 +107,11 @@
                   pythonExtension =
                     import
                       ../../../top-level/python-packages.nix
-                    ;
+                  ;
                   python2Extension =
                     import
                       ../../../top-level/python2-packages.nix
-                    ;
+                  ;
                   extensions = lib.composeManyExtensions (
                     [ pythonExtension ]
                     ++ (optionalExtensions (!self.isPy3k) [ python2Extension ])
@@ -124,7 +124,7 @@
                       import ../../../top-level/python-aliases.nix lib self
                         super
                     )
-                    ;
+                  ;
                 in
                 makeScopeWithSplicing otherSplices keep extra (
                   lib.extends (lib.composeExtensions aliases extensions) keep
@@ -135,7 +135,7 @@
                 python = self;
               }
           )
-          ;
+        ;
       in
       rec {
         isPy27 = pythonVersion == "2.7";
@@ -175,7 +175,7 @@
 
         inherit pythonAttr;
       }
-      ;
+    ;
 
     sources = {
       python310 = {
@@ -304,7 +304,7 @@
             pname = "python3-minimal";
           }
         )
-      ;
+    ;
 
     pypy27 = callPackage ./pypy {
       self = __splicedPackages.pypy27;
@@ -349,7 +349,7 @@
     pypy37 =
       throw
         "pypy37 has been removed from nixpkgs since it is no longer supported upstream"
-      ; # Added 2023-01-04
+    ; # Added 2023-01-04
 
     pypy27_prebuilt = callPackage ./pypy/prebuilt_2_7.nix {
       # Not included at top-level

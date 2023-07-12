@@ -15,5 +15,5 @@ rec {
           ./write-required-octave-packages-hook.sh
       )
       { }
-    ;
+  ;
 }

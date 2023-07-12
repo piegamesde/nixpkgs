@@ -16,7 +16,7 @@ let
     }: {
       outputs = lib.filter (x: x != "doc") outputs;
     }
-    ;
+  ;
 
   python3' = python310.override {
     packageOverrides =
@@ -174,14 +174,14 @@ let
                 };
               }
             )
-          ;
+        ;
         psycopg2 =
           (super.psycopg2.override {
             sphinxHook = null;
             sphinx-better-theme = null;
           }).overridePythonAttrs
             dropDevOutput
-          ;
+        ;
         hypothesis = super.hypothesis.override { enableDocumentation = false; };
         pyjwt =
           (super.pyjwt.override {
@@ -189,12 +189,12 @@ let
             sphinx-rtd-theme = null;
           }).overridePythonAttrs
             (old: (dropDevOutput old) // { format = "setuptools"; })
-          ;
+        ;
         beautifulsoup4 =
           (super.beautifulsoup4.override { sphinxHook = null; })
           .overridePythonAttrs
             dropDevOutput
-          ;
+        ;
         pydash =
           (super.pydash.override { sphinx-rtd-theme = null; })
           .overridePythonAttrs
@@ -210,9 +210,9 @@ let
                 doCheck = false;
               }
             )
-          ;
+        ;
       }
-      ;
+    ;
   };
 in
 python3'.pkgs.buildPythonPackage rec {

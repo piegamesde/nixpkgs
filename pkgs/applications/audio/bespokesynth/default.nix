@@ -118,7 +118,7 @@ stdenv.mkDerivation rec {
       CoreServices
       CoreAudioKit
     ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (
     toString [
@@ -158,7 +158,7 @@ stdenv.mkDerivation rec {
             ]
           }'
       ''
-    ;
+  ;
 
   meta = with lib; {
     description =

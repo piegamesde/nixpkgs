@@ -39,7 +39,7 @@ let
       color,
     }:
     (lib.strings.toLower palette) + color
-    ;
+  ;
   variants = map variantName product;
 in
 stdenvNoCC.mkDerivation rec {

@@ -56,7 +56,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   passthru.optional-dependencies = {
     server = [
@@ -121,7 +121,7 @@ buildPythonPackage rec {
           # Flaky with older low-res mtime on darwin < 10.13 (#143987)
           "test_second_load_timestamp"
         ]
-    ;
+  ;
 
   pythonImportsCheck = [ "intake" ];
 

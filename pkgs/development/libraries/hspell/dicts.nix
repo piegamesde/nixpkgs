@@ -17,7 +17,7 @@ let
         } // (if a ? meta then a.meta else { });
       } // (removeAttrs a [ "meta" ])
     )
-    ;
+  ;
 in
 {
   recurseForDerivations = true;

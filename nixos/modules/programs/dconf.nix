@@ -27,7 +27,7 @@ let
       + ''
         ${pkgs.dconf}/bin/dconf update $out/db
       ''
-      ;
+    ;
   };
 in
 {
@@ -43,7 +43,7 @@ in
         description =
           lib.mdDoc
             "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`."
-          ;
+        ;
         internal = true;
       };
 
@@ -53,7 +53,7 @@ in
         description =
           lib.mdDoc
             "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`."
-          ;
+        ;
       };
     };
   };

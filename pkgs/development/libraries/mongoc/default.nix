@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       cyrus_sasl
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
   propagatedBuildInputs = [
     libbson
     snappy

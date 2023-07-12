@@ -57,7 +57,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ;
+  ;
 
   passthru.optional-dependencies = {
     format = [

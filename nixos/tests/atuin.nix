@@ -28,14 +28,14 @@ import ./make-test-python.nix (
             openRegistration = true;
           };
         }
-        ;
+      ;
 
       client =
         {
           ...
         }:
         { }
-        ;
+      ;
     };
 
     testScript = with pkgs; ''

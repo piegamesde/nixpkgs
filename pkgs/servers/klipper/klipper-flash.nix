@@ -34,7 +34,7 @@ writeShellApplication {
     ]
     ++ lib.optionals (boardArch == "avr") [ avrdude ]
     ++ lib.optionals (boardArch == "stm32") [ stm32flash ]
-    ;
+  ;
   text = ''
     if ${lib.boolToString (!builtins.elem boardArch supportedArches)}; then
       printf "Flashing Klipper firmware to your board is not supported yet.\n"

@@ -19,6 +19,6 @@ linkFarmFromDrvs "${name}-nuget-deps" (
         name = "${pname}.${version}.nupkg";
         inherit url sha256;
       }
-      ;
+    ;
   }
 )

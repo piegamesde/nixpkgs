@@ -39,7 +39,7 @@ let
         "ln -sf configfsf.guess config.guess"
       else
         ''echo "Darwin host is `./config.guess`."''
-      ;
+    ;
 
     configureFlags =
       [ (lib.enableFeature cxx "cxx") ]
@@ -47,7 +47,7 @@ let
         "ac_cv_build=x86_64-apple-darwin13.4.0"
         "ac_cv_host=x86_64-apple-darwin13.4.0"
       ]
-      ;
+    ;
 
     # The test t-lucnum_ui fails (on Linux/x86_64) when built with GCC 4.8.
     # Newer versions of GMP don't have that issue anymore.
@@ -89,7 +89,7 @@ let
       broken =
         (stdenv.isDarwin && stdenv.isAarch64)
         || (stdenv.isLinux && stdenv.isAarch64)
-        ;
+      ;
     };
   };
 in

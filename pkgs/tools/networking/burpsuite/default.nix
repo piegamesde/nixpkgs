@@ -65,7 +65,7 @@ buildFHSEnv {
       xorg.libXfixes
       xorg.libXrandr
     ]
-    ;
+  ;
 
   extraInstallCommands = ''
     mv "$out/bin/${name}" "$out/bin/burpsuite" # name includes the version number

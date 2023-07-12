@@ -27,7 +27,7 @@ let
       "tools"
     ]
     ++ optional odbcSupport "odbc"
-    ;
+  ;
 
   # determine the version number, there might be different ones per architecture
   version =
@@ -99,7 +99,7 @@ let
     "instantclient-${component}-${arch}-${version}"
     + (optionalString (rel != "") "-${rel}")
     + "dbru.zip"
-    ; # ¯\_(ツ)_/¯
+  ; # ¯\_(ツ)_/¯
 
   # fetcher for the non clickthrough artifacts
   fetcher =
@@ -109,7 +109,7 @@ let
         "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}";
       sha256 = hash;
     }
-    ;
+  ;
 
   # assemble srcs
   srcs =
@@ -122,7 +122,7 @@ let
         )
       )
       components
-    ;
+  ;
 
   pname = "oracle-instantclient";
   extLib = stdenv.hostPlatform.extensions.sharedLibrary;
@@ -134,7 +134,7 @@ stdenv.mkDerivation {
     [ stdenv.cc.cc.lib ]
     ++ optional stdenv.isLinux libaio
     ++ optional odbcSupport unixODBC
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -143,7 +143,7 @@ stdenv.mkDerivation {
     ]
     ++ optional stdenv.isLinux autoPatchelfHook
     ++ optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   outputs = [
     "out"

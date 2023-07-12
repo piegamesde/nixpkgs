@@ -73,7 +73,7 @@ let
         zsh
       ]
       ++ (lib.optionals stdenv.isDarwin [ getconf ])
-      ;
+    ;
     checkPhase = ''
       runHook preCheck
       # test list repeats suites. Unique them
@@ -141,7 +141,7 @@ let
           zsh
         ]
         ++ (lib.optionals stdenv.isDarwin [ getconf ])
-        ;
+      ;
       checkPhase = ''
         runHook preCheck
         bash ./test.sh --compiled --suite ${name}
@@ -161,14 +161,14 @@ let
         + ''
           runHook postInstall
         ''
-        ;
+      ;
 
       # We already patched
       dontPatchShebangs = true;
 
       inherit (core) meta;
     }
-    ;
+  ;
   optionalDep = cond: dep: assert cond -> dep != null; lib.optional cond dep;
 in
 {

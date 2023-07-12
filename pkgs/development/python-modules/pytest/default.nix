@@ -47,7 +47,7 @@ buildPythonPackage rec {
       tomli
     ]
     ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
-    ;
+  ;
 
   postInstall = ''
     mkdir $testout

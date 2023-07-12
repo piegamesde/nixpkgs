@@ -27,7 +27,7 @@ buildPythonPackage rec {
       ]
     else
       null
-    ;
+  ;
 
   pythonImportsCheck = [ "six" ];
 

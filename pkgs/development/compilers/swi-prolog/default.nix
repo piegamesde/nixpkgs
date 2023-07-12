@@ -72,7 +72,7 @@ let
     swiplPath: pack: ''
       ${swiplPath}/bin/swipl -g "pack_install(${pack}, [package_directory(\"${swiplPath}/lib/swipl/pack\"), silent(true), interactive(false)])." -t "halt."
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "swi-prolog";
@@ -120,7 +120,7 @@ stdenv.mkDerivation {
     ]
     ++ extraLibraries
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
 

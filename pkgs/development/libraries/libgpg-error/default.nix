@@ -70,7 +70,7 @@ stdenv.mkDerivation (
         sed '/USE_POSIX_THREADS_WEAK/ d' config.h
         echo '#undef USE_POSIX_THREADS_WEAK' >> config.h
       ''
-      ;
+    ;
 
     doCheck = true; # not cross
 

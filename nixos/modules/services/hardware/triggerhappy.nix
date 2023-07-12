@@ -46,7 +46,7 @@ let
           description =
             lib.mdDoc
               "List of keys to match.  Key names as defined in linux/input-event-codes.h"
-            ;
+          ;
         };
 
         event = mkOption {
@@ -65,7 +65,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 
 {

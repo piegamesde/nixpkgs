@@ -42,7 +42,7 @@ import ./make-test-python.nix ({
           };
         };
       }
-      ;
+    ;
     client =
       {
         config,
@@ -56,7 +56,7 @@ import ./make-test-python.nix ({
           environment.systemPackages = with pkgs; [ ndisc6 ];
         };
       }
-      ;
+    ;
   };
 
   testScript = ''

@@ -88,7 +88,7 @@ python3.pkgs.buildPythonApplication rec {
       AppKit
       Cocoa
     ]
-    ;
+  ;
   checkPhase = ''
     runHook preCheck
 

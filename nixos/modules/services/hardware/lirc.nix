@@ -28,7 +28,7 @@ in
         description =
           lib.mdDoc
             "LIRC default options described in man:lircd(8) ({file}`lirc_options.conf`)"
-          ;
+        ;
       };
 
       configs = mkOption {
@@ -36,7 +36,7 @@ in
         description =
           lib.mdDoc
             "Configurations for lircd to load, see man:lircd.conf(5) for details ({file}`lircd.conf`)"
-          ;
+        ;
       };
 
       extraArguments = mkOption {
@@ -105,7 +105,7 @@ in
           User = "lirc";
         };
       }
-      ;
+    ;
 
     users.users.lirc = {
       uid = config.ids.uids.lirc;

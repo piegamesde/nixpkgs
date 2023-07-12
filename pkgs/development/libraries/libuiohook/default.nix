@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
           libxkbfile
         ]
       )
-    ;
+  ;
 
   outputs = [
     "out"

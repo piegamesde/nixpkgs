@@ -110,7 +110,7 @@ in
           <?php
           return json_decode(file_get_contents("/var/lib/engelsystem/config.json"), true);
         ''
-      ;
+    ;
 
     services.phpfpm.pools.engelsystem = {
       user = "engelsystem";
@@ -170,7 +170,7 @@ in
           chmod 400 config.json
           chown -R engelsystem .
         ''
-        ;
+      ;
     };
     systemd.services."engelsystem-migrate" = {
       wantedBy = [ "multi-user.target" ];

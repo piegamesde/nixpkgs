@@ -33,7 +33,7 @@ let
           };
           services.nginx.enable = true;
         }
-        ;
+      ;
 
       testScript = ''
         start_all()
@@ -48,7 +48,7 @@ let
             )
       '';
     }
-    ;
+  ;
 in
 {
   matomo = matomoTest pkgs.matomo // {

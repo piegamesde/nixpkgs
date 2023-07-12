@@ -194,7 +194,7 @@ let
         --cxxopt=-x --cxxopt=c++ --host_cxxopt=-x --host_cxxopt=c++ \
         --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
       ''
-      ;
+    ;
   };
 in
 testBazel

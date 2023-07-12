@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
         gst-plugins-good
       ]
     )
-    ;
+  ;
 
   cmakeFlags = [
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
     ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${stdenv.cc.libc}"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

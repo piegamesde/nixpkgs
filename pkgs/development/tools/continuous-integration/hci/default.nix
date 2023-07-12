@@ -11,7 +11,7 @@ let
     overrideCabal
     addBuildTools
     justStaticExecutables
-    ;
+  ;
   inherit (lib) makeBinPath;
   bundledBins = lib.optional stdenv.isLinux runc;
 
@@ -33,7 +33,7 @@ let
           justStaticExecutables haskellPackages.hercules-ci-cli
         )
       )
-    ;
+  ;
 in
 pkg // {
   meta = pkg.meta // { position = toString ./default.nix + ":1"; };

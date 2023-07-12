@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       libpciaccess
     ]
     ++ lib.optional withValgrind valgrind-light
-    ;
+  ;
 
   mesonFlags =
     [
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
     ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ "-Detnaviv=disabled" ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/mesa/drm";

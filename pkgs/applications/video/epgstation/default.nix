@@ -107,7 +107,7 @@ let
 
           popd
         ''
-        ;
+      ;
 
       # NOTE: this may take a while since it has to update all packages in
       # nixpkgs.nodePackages

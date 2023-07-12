@@ -57,7 +57,7 @@ in
       defaultText =
         literalMD
           "Hosts from {option}`networking.hosts` and {option}`networking.extraHosts`"
-        ;
+      ;
       example = literalExpression ''
         [ "''${pkgs.my-blocklist-package}/share/my-blocklist/hosts" ]'';
       description = lib.mdDoc ''
@@ -190,12 +190,12 @@ in
           optional (cfg.hostName != "" && cfg.domain != null)
             "${cfg.hostName}.${cfg.domain}"
           ++ optional (cfg.hostName != "") cfg.hostName
-          ; # Then the hostname (without the domain)
+        ; # Then the hostname (without the domain)
       in
       {
         "127.0.0.2" = hostnames;
       } // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; }
-      ;
+    ;
 
     networking.hostFiles =
       let
@@ -217,7 +217,7 @@ in
           pkgs.writeText "string-hosts" (
             allToString (filterAttrs (_: v: v != [ ]) cfg.hosts)
           )
-          ;
+        ;
         extraHosts = pkgs.writeText "extra-hosts" cfg.extraHosts;
       in
       mkBefore [
@@ -225,7 +225,7 @@ in
         stringHosts
         extraHosts
       ]
-      ;
+    ;
 
     environment.etc = { # /etc/services: TCP/UDP port assignments.
       services.source = pkgs.iana-etc + "/etc/services";

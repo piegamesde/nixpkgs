@@ -47,7 +47,7 @@ let
               mutableExtensions
         } -exec rm -rf {} \;
       ''
-    ;
+  ;
   #copy mutable extension out of the nix store
   cpExtensions = ''
     ${lib.concatMapStringsSep "\n"

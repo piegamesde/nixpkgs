@@ -73,7 +73,7 @@ in
       description =
         lib.mdDoc
           "Log partial client IP addresses in the connection log."
-        ;
+      ;
     };
 
     requestTimeout = lib.mkOption {
@@ -227,7 +227,7 @@ in
           mkdir -p /var/lib/gemini/certs
           chown -R ${cfg.user}:${cfg.group} /var/lib/gemini/certs
         ''
-      ;
+    ;
 
     users.users = lib.optionalAttrs (cfg.user == "stargazer") {
       stargazer = {

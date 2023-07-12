@@ -83,7 +83,7 @@ stdenv.mkDerivation {
       icu
     ]
     ++ lib.optionals stdenv.isDarwin [ Accelerate ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

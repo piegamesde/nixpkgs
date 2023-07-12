@@ -50,7 +50,7 @@ stdenv.mkDerivation (
         graalvmDrv
         glibcLocales
       ]
-      ;
+    ;
 
     nativeImageBuildArgs =
       nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [ graalvmXmx ];
@@ -88,7 +88,7 @@ stdenv.mkDerivation (
           builtins.any (p: (p.product or "") == "native-image-installable-svm")
             graalvmDrv.products
         )
-        ;
+      ;
     } // meta;
   } // extraArgs
 )

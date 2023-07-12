@@ -50,7 +50,7 @@ let
           # Do not propagate Python
           rm $out/nix-support/propagated-build-inputs
         ''
-        ;
+      ;
     }
   );
   boost_python = boost.override {

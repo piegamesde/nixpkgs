@@ -51,7 +51,7 @@ let
           inherit fontconfig;
           fontDirectories = config.fonts.fonts;
         }
-        ;
+      ;
       cache = makeCache pkgs.fontconfig;
       cache32 = makeCache pkgs.pkgsi686Linux.fontconfig;
     in
@@ -77,7 +77,7 @@ let
         }
       </fontconfig>
     ''
-    ;
+  ;
 
   # rendering settings configuration file
   # priority 10
@@ -136,7 +136,7 @@ let
             </prefer>
           </alias>
         ''
-        ;
+      ;
     in
     pkgs.writeText "fc-52-nixos-default-fonts.conf" ''
       <?xml version='1.0'?>
@@ -154,7 +154,7 @@ let
 
       </fontconfig>
     ''
-    ;
+  ;
 
   # bitmap font options
   # priority 53
@@ -402,7 +402,7 @@ in
               module is already used by default.
             ''
         )
-    ;
+  ;
 
   options = {
 

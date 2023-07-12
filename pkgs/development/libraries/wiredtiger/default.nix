@@ -23,7 +23,7 @@ let
       pkg
     else
       null
-    ;
+  ;
 
   optLz4 = shouldUsePkg lz4;
   optSnappy = shouldUsePkg snappy;

@@ -66,7 +66,7 @@ mkDerivation rec {
       qttools
     ]
     ++ lib.optionals enablePsiMedia [ pkg-config ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -92,7 +92,7 @@ mkDerivation rec {
     ]
     ++ lib.optionals (chatType == "webkit") [ qtwebkit ]
     ++ lib.optionals (chatType == "webengine") [ qtwebengine ]
-    ;
+  ;
 
   preFixup = lib.optionalString voiceMessagesSupport ''
     qtWrapperArgs+=(

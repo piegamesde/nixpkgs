@@ -68,7 +68,7 @@ in
         description =
           lib.mdDoc
             "Extra configuration files to pull into the tomcat conf directory"
-          ;
+        ;
       };
 
       extraEnvironment = mkOption {
@@ -78,7 +78,7 @@ in
         description =
           lib.mdDoc
             "Environment Variables to pass to the tomcat service"
-          ;
+        ;
       };
 
       extraGroups = mkOption {
@@ -88,7 +88,7 @@ in
         description =
           lib.mdDoc
             "Defines extra groups to which the tomcat user belongs."
-          ;
+        ;
       };
 
       user = mkOption {
@@ -109,7 +109,7 @@ in
         description =
           lib.mdDoc
             "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat"
-          ;
+        ;
       };
 
       catalinaOpts = mkOption {
@@ -118,7 +118,7 @@ in
         description =
           lib.mdDoc
             "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container"
-          ;
+        ;
       };
 
       sharedLibs = mkOption {
@@ -127,7 +127,7 @@ in
         description =
           lib.mdDoc
             "List containing JAR files or directories with JAR files which are libraries shared by the web applications"
-          ;
+        ;
       };
 
       serverXml = mkOption {
@@ -145,7 +145,7 @@ in
         description =
           lib.mdDoc
             "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container"
-          ;
+        ;
       };
 
       webapps = mkOption {
@@ -154,11 +154,11 @@ in
         defaultText =
           literalExpression
             "[ config.services.tomcat.package.webapps ]"
-          ;
+        ;
         description =
           lib.mdDoc
             "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat"
-          ;
+        ;
       };
 
       virtualHosts = mkOption {
@@ -189,7 +189,7 @@ in
         description =
           lib.mdDoc
             "List consisting of a virtual host name and a list of web applications to deploy on each virtual host"
-          ;
+        ;
       };
 
       logPerVirtualHost = mkOption {
@@ -219,7 +219,7 @@ in
           description =
             lib.mdDoc
               "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2"
-            ;
+          ;
         };
       };
     };
@@ -298,7 +298,7 @@ in
               + ''
                 </Host>
               ''
-              ;
+            ;
             innerElementsForVirtualHost =
               virtualHost:
               (
@@ -312,18 +312,18 @@ in
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
               '')
-              ;
+            ;
             hostElementsString =
               concatMapStringsSep "\n" hostElementForVirtualHost
                 cfg.virtualHosts
-              ;
+            ;
             hostElementsSedString =
               replaceStrings [ "\n" ]
                 [ ''
                   \
                 '' ]
                 hostElementsString
-              ;
+            ;
           in
           ''
             # Create a modified server.xml which also includes all virtual hosts
@@ -492,7 +492,7 @@ in
             "CATALINA_OPTS='${builtins.toString cfg.catalinaOpts}'"
           ]
           ++ cfg.extraEnvironment
-          ;
+        ;
         ExecStart = "${tomcat}/bin/startup.sh";
         ExecStop = "${tomcat}/bin/shutdown.sh";
       };

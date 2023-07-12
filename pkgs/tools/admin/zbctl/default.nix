@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
       }
     else
       throw "Unsupported platform ${stdenvNoCC.hostPlatform.system}"
-    ;
+  ;
 
   dontUnpack = true;
   dontConfigure = true;

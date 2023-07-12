@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       );
     in
     [ "--with-python=${pythonEnv}/bin/python3" ]
-    ;
+  ;
 
   preConfigure = ''
     patchShebangs test/

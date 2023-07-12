@@ -28,21 +28,21 @@ let
       result = "pass";
       description = desc;
     }
-    ;
+  ;
 
   failed =
     desc: {
       result = "failed";
       description = desc;
     }
-    ;
+  ;
 
   prefixName =
     name: res: {
       inherit (res) result;
       description = "${name}: ${res.description}";
     }
-    ;
+  ;
 
   run =
     name: under: tests:
@@ -81,7 +81,7 @@ let
         failed
         (name ": not a function, list or set")
       ]
-    ;
+  ;
 in
 {
   inherit run passed failed;

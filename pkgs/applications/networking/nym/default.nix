@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
     ]
-    ;
+  ;
 
   checkType = "debug";
 

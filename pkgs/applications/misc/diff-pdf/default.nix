@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       wxGTK
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   preConfigure = "./bootstrap";
 

@@ -41,7 +41,7 @@ let
         (import "${nixosPath}/lib/make-options-doc") (
           { inherit pkgs lib; } // attrs
         )
-        ;
+      ;
     };
     config = config.config;
     options = eval.options;

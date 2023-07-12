@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Cargo subcommand to show crates info from crates.io";

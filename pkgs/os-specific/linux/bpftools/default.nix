@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       zlib
       readline
     ]
-    ;
+  ;
 
   preConfigure = ''
     patchShebangs scripts/bpf_doc.py

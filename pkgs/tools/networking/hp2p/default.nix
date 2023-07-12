@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
         mpldatacursor
       ]
     )
-    ;
+  ;
   pythonPath =
     (
       with python3Packages; [

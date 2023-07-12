@@ -25,7 +25,7 @@ import ./make-test-python.nix (
             openFirewall = true;
           };
         }
-        ;
+      ;
 
       esphomeUnix =
         {
@@ -36,7 +36,7 @@ import ./make-test-python.nix (
             enableUnixSocket = true;
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

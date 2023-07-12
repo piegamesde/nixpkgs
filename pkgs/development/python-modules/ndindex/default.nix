@@ -45,7 +45,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.arrays
-    ;
+  ;
 
   pytestFlagsArray =
     [

@@ -90,7 +90,7 @@ in
                 outputHashAlgo = "sha256";
                 outputHash = lib.fakeSha256;
               }
-            ;
+          ;
         in
         stdenv.mkDerivation (
           {
@@ -120,10 +120,10 @@ in
             "sha256"
           ])
         )
-        ;
+      ;
     in
     lib.setFunctionArgs f (lib.functionArgs f) // {
       tests = callPackage ./tests { };
     }
-    ;
+  ;
 }

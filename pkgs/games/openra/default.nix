@@ -33,7 +33,7 @@ let
         inherit (pkgs.gnome) zenity;
       }
     )
-    ;
+  ;
 
   /* Building a set of engines or mods requires some dependencies as well,
       so the sets will actually be defined as a function instead,
@@ -63,7 +63,7 @@ let
         )
       )
     )
-    ;
+  ;
 in
 pkgs.recurseIntoAttrs rec {
   # The whole attribute set is destructered to ensure those (and only those) attributes are given
@@ -84,10 +84,10 @@ pkgs.recurseIntoAttrs rec {
         pkgs.callPackage ./engine.nix (
           common // { engine = engine // { inherit name; }; }
         )
-        ;
+      ;
     in
     if name == null then builder else builder name
-    ;
+  ;
 
   # See `buildOpenRAEngine`.
   buildOpenRAMod =
@@ -116,17 +116,17 @@ pkgs.recurseIntoAttrs rec {
               engine = engine // { inherit mods; };
             }
           )
-          ;
+        ;
       in
       if name == null then builder else builder name
     )
       engine
-    ;
+  ;
 
   # See `buildOpenRASet`.
   engines =
     buildOpenRASet (import ./engines.nix)
       { inherit buildOpenRAEngine; }
-    ;
+  ;
   mods = buildOpenRASet (import ./mods.nix) { inherit buildOpenRAMod; };
 }

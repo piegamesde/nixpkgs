@@ -38,7 +38,7 @@ in
           mkdir -p $out/share/bash-completion/completions
           $out/bin/pandoc --bash-completion > $out/share/bash-completion/completions/pandoc
         ''
-        ;
+      ;
     })
     static
 ).overrideAttrs

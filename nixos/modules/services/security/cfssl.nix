@@ -48,7 +48,7 @@ in
       description =
         lib.mdDoc
           "CA used to sign the new certificate -- accepts '[file:]fname' or 'env:varname'."
-        ;
+      ;
     };
 
     caKey = mkOption {
@@ -57,7 +57,7 @@ in
       description =
         lib.mdDoc
           "CA private key -- accepts '[file:]fname' or 'env:varname'."
-        ;
+      ;
     };
 
     caBundle = mkOption {
@@ -101,7 +101,7 @@ in
       description =
         lib.mdDoc
           "Path to configuration file. Do not put this in nix-store as it might contain secrets."
-        ;
+      ;
     };
 
     responder = mkOption {
@@ -116,7 +116,7 @@ in
       description =
         lib.mdDoc
           "Private key for OCSP responder certificate. Do not put this in nix-store."
-        ;
+      ;
     };
 
     tlsKey = mkOption {
@@ -125,7 +125,7 @@ in
       description =
         lib.mdDoc
           "Other endpoint's CA private key. Do not put this in nix-store."
-        ;
+      ;
     };
 
     tlsCert = mkOption {
@@ -140,7 +140,7 @@ in
       description =
         lib.mdDoc
           "Mutual TLS - require clients be signed by this CA."
-        ;
+      ;
     };
 
     mutualTlsCn = mkOption {
@@ -149,7 +149,7 @@ in
       description =
         lib.mdDoc
           "Mutual TLS - regex for whitelist of allowed client CNs."
-        ;
+      ;
     };
 
     tlsRemoteCa = mkOption {
@@ -164,7 +164,7 @@ in
       description =
         lib.mdDoc
           "Mutual TLS - client certificate to call remote instance requiring client certs."
-        ;
+      ;
     };
 
     mutualTlsClientKey = mkOption {
@@ -173,7 +173,7 @@ in
       description =
         lib.mdDoc
           "Mutual TLS - client key to call remote instance requiring client certs. Do not put this in nix-store."
-        ;
+      ;
     };
 
     dbConfig = mkOption {
@@ -182,7 +182,7 @@ in
       description =
         lib.mdDoc
           "Certificate db configuration file. Path must be writeable."
-        ;
+      ;
     };
 
     logLevel = mkOption {
@@ -249,7 +249,7 @@ in
               (opt "db-config" dbConfig)
               (opt "loglevel" (toString logLevel))
             ]
-            ;
+          ;
         }
         (mkIf (cfg.dataDir == options.services.cfssl.dataDir.default) {
           StateDirectory = baseNameOf cfg.dataDir;

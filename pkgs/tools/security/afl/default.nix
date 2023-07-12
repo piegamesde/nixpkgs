@@ -19,7 +19,7 @@ let
       "qemu-i386"
     else
       throw "afl: no support for ${stdenv.hostPlatform.system}!"
-    ;
+  ;
   afl = stdenv.mkDerivation rec {
     pname = "afl";
     version = "2.57b";

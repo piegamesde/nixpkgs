@@ -66,7 +66,7 @@ stdenv.mkDerivation {
       valgrind
     ]
     ++ lib.optional fuseSupport fuse3
-    ;
+  ;
 
   doCheck = false; # needs bcachefs module loaded on builder
   checkFlags = [ "BCACHEFS_TEST_USE_VALGRIND=no" ];
@@ -96,7 +96,7 @@ stdenv.mkDerivation {
       bcachefsSimple
       bcachefsEncrypted
       bcachefsMulti
-      ;
+    ;
   };
 
   enableParallelBuilding = true;

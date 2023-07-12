@@ -12,7 +12,7 @@ let
     filterAttrs
     getAttrs
     intersectLists
-    ;
+  ;
 in
 rec {
   bundlerFiles =
@@ -30,23 +30,23 @@ rec {
           assert gemdir != null; gemdir + "/Gemfile"
         else
           gemfile
-        ;
+      ;
 
       lockfile =
         if lockfile == null then
           assert gemdir != null; gemdir + "/Gemfile.lock"
         else
           lockfile
-        ;
+      ;
 
       gemset =
         if gemset == null then
           assert gemdir != null; gemdir + "/gemset.nix"
         else
           gemset
-        ;
+      ;
     }
-    ;
+  ;
 
   filterGemset =
     {
@@ -66,10 +66,10 @@ rec {
           deps = getAttrs depNames platformGems;
         in
         gems // deps
-        ;
+      ;
     in
     converge expandDependencies directlyMatchingGems
-    ;
+  ;
 
   platformMatches =
     {
@@ -90,14 +90,14 @@ rec {
           )
           attrs.platforms
     )
-    ;
+  ;
 
   groupMatches =
     groups: attrs:
     groups == null
     || !(attrs ? groups)
     || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ]
-    ;
+  ;
 
   applyGemConfigs =
     attrs:
@@ -107,7 +107,7 @@ rec {
       else
         attrs
     )
-    ;
+  ;
 
   genStubsScript =
     {
@@ -127,7 +127,7 @@ rec {
         ${lib.escapeShellArg binPaths} \
         ${lib.escapeShellArg groups}
     ''
-    ;
+  ;
 
   pathDerivation =
     {
@@ -149,7 +149,7 @@ rec {
       };
     in
     res
-    ;
+  ;
 
   composeGemAttrs =
     ruby: gems: name: attrs:
@@ -162,5 +162,5 @@ rec {
         gemPath = map (gemName: gems.${gemName}) (attrs.dependencies or [ ]);
       }
     )
-    ;
+  ;
 }

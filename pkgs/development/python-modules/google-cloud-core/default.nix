@@ -35,7 +35,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.grpc
-    ;
+  ;
 
   # prevent google directory from shadowing google imports
   preCheck = ''

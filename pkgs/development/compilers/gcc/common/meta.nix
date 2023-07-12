@@ -22,5 +22,5 @@ with lib; {
       [ maintainers.veprbl ]
     else
       teams.gcc.members
-    ;
+  ;
 }

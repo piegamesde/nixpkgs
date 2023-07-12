@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       ghostscript
       texlive.combined.scheme-medium
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ pythonEnv ];
 
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
     "build"
     + lib.optionalString enableDoxygen " doxygen"
     + lib.optionalString withManual "sphinx"
-    ;
+  ;
 
   # to prevent fatal error: 'backward_warning.h' file not found
   CXXFLAGS = "-D_GLIBCXX_PERMIT_BACKWARD_HASH";
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
       );
     in
     "${flags}"
-    ;
+  ;
 
   postInstall = ''
     moveToOutput "${pythonEnv.libPrefix}" "$py"
@@ -160,6 +160,6 @@ stdenv.mkDerivation rec {
     broken =
       (stdenv.isDarwin && stdenv.isAarch64)
       || (stdenv.isLinux && stdenv.isAarch64)
-      ;
+    ;
   };
 }

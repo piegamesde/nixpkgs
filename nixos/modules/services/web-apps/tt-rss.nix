@@ -16,7 +16,7 @@ let
       (if cfg.database.type == "pgsql" then 5432 else 3306)
     else
       cfg.database.port
-    ;
+  ;
 
   poolName = "tt-rss";
 
@@ -41,7 +41,7 @@ let
           "file_get_contents('${cfg.database.passwordFile}')"
         else
           null
-        ;
+      ;
     in
     pkgs.writeText "config.php" ''
       <?php
@@ -162,7 +162,7 @@ let
 
         ${cfg.extraConfig}
     ''
-    ;
+  ;
 
   # tt-rss and plugins and themes and config.php
   servedRoot = pkgs.runCommand "tt-rss-served-root" { } ''
@@ -292,7 +292,7 @@ in
           description =
             lib.mdDoc
               "Create the database and database user locally."
-            ;
+          ;
         };
       };
 
@@ -726,7 +726,7 @@ in
 
               else
                 ""
-              ;
+            ;
           in
           (optionalString (cfg.database.type == "pgsql") ''
             exists=$(${
@@ -761,7 +761,7 @@ in
               echo 'The database contains some data. Leaving it as it is.'
             fi;
           '')
-          ;
+        ;
 
         serviceConfig = {
           User = "${cfg.user}";
@@ -777,12 +777,12 @@ in
         requires =
           optional mysqlLocal "mysql.service"
           ++ optional pgsqlLocal "postgresql.service"
-          ;
+        ;
         after =
           [ "network.target" ]
           ++ optional mysqlLocal "mysql.service"
           ++ optional pgsqlLocal "postgresql.service"
-          ;
+        ;
       };
     };
 

@@ -33,7 +33,7 @@ let
   getPath =
     drv: pathListForVersion:
     lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion
-    ;
+  ;
 in
 rec {
 
@@ -50,7 +50,7 @@ rec {
     luarocksMoveDataFolder
     luarocksCheckHook
     lua-setup-hook
-    ;
+  ;
 
   inherit lua;
   inherit buildLuaPackage buildLuarocksPackage buildLuaApplication;
@@ -64,7 +64,7 @@ rec {
     requiredLuaModules
     toLuaModule
     hasLuaModule
-    ;
+  ;
 
   # wraps programs in $out/bin with valid LUA_PATH/LUA_CPATH
   wrapLua = callPackage ../development/interpreters/lua-5/wrap-lua.nix {
@@ -77,7 +77,7 @@ rec {
   luarocks-nix =
     callPackage ../development/tools/misc/luarocks/luarocks-nix.nix
       { }
-    ;
+  ;
 
   lua-resty-core =
     callPackage
@@ -107,7 +107,7 @@ rec {
         }
       )
       { }
-    ;
+  ;
 
   lua-resty-lrucache =
     callPackage
@@ -135,7 +135,7 @@ rec {
         }
       )
       { }
-    ;
+  ;
 
   luxio =
     callPackage
@@ -184,7 +184,7 @@ rec {
         }
       )
       { }
-    ;
+  ;
 
   nfd = callPackage ../development/lua-modules/nfd {
     inherit (pkgs.gnome) zenity;
@@ -232,5 +232,5 @@ rec {
         }
       )
       { }
-    ;
+  ;
 }

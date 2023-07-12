@@ -30,7 +30,7 @@ in
         description =
           lib.mdDoc
             "Configuration for ulogd. See {file}`/share/doc/ulogd/` in `pkgs.ulogd.doc`."
-          ;
+        ;
       };
 
       logLevel = mkOption {
@@ -45,7 +45,7 @@ in
         description =
           lib.mdDoc
             "Log level (1 = debug, 3 = info, 5 = notice, 7 = error, 8 = fatal)"
-          ;
+        ;
       };
     };
   };

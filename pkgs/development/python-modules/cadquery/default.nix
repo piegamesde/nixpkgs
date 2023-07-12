@@ -53,7 +53,7 @@ let
           libX11
         ]
         ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-        ;
+      ;
 
       propagatedBuildInputs = [ six ];
 

@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
       libsepol
       util-linux
     ]
-    ;
+  ;
 
   cmakeFlags =
     [

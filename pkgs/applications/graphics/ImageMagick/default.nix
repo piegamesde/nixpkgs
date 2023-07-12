@@ -78,7 +78,7 @@ let
       "ppc64le"
     else
       null
-    ;
+  ;
 in
 
 stdenv.mkDerivation (
@@ -121,7 +121,7 @@ stdenv.mkDerivation (
         "--enable-static"
         "--disable-shared"
       ]
-      ;
+    ;
 
     nativeBuildInputs = [
       pkg-config
@@ -151,7 +151,7 @@ stdenv.mkDerivation (
         ApplicationServices
         Foundation
       ]
-      ;
+    ;
 
     propagatedBuildInputs =
       [ curl ]
@@ -162,7 +162,7 @@ stdenv.mkDerivation (
       ++ lib.optional libX11Support libX11
       ++ lib.optional libXtSupport libXt
       ++ lib.optional libwebpSupport libwebp
-      ;
+    ;
 
     postInstall =
       ''
@@ -179,7 +179,7 @@ stdenv.mkDerivation (
           sed 's|-lgs|-L${lib.getLib ghostscript}/lib -lgs|' -i $la
         done
       ''
-      ;
+    ;
 
     passthru.tests = {
       version = testers.testVersion { package = imagemagick; };

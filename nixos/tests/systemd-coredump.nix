@@ -29,7 +29,7 @@ import ./make-test-python.nix (
         ...
       }:
       commonConfig
-      ;
+    ;
     nodes.machine2 =
       {
         pkgs,
@@ -40,7 +40,7 @@ import ./make-test-python.nix (
         systemd.coredump.enable = false;
         systemd.package = pkgs.systemd.override { withCoredump = false; };
       }
-      ;
+    ;
 
     testScript = ''
       with subtest("systemd-coredump enabled"):

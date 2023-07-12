@@ -31,7 +31,7 @@ import ./make-test-python.nix (
             -keyout "$out/key.pem" -newkey ed25519 \
             -out "$out/cert.pem" -noenc
         ''
-      ;
+    ;
 
     sendToot = pkgs.writers.writeBashBin "sendToot" ''
       set -eu -o errtrace -o pipefail
@@ -64,7 +64,7 @@ import ./make-test-python.nix (
         ${nodes.akkoma.networking.primaryIPAddress} akkoma.nixos.test
         ${nodes.client.networking.primaryIPAddress} client.nixos.test
       ''
-      ;
+    ;
   in
   {
     name = "akkoma";
@@ -79,7 +79,7 @@ import ./make-test-python.nix (
           security.pki.certificateFiles = [ "${tlsCert}/cert.pem" ];
           networking.extraHosts = hosts nodes;
         }
-        ;
+      ;
 
       akkoma =
         {
@@ -122,7 +122,7 @@ import ./make-test-python.nix (
           services.nginx.enable = true;
           services.postgresql.enable = true;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -140,6 +140,6 @@ import ./make-test-python.nix (
         client.succeed('${sendToot}/bin/sendToot')
         client.succeed('${checkFe}/bin/checkFe')
       ''
-      ;
+    ;
   }
 )

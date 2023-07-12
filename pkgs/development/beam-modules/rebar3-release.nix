@@ -31,7 +31,7 @@ let
       name = "interactive-shell-${drv.pname}";
       buildInputs = [ drv ];
     }
-    ;
+  ;
 
   customPhases = lib.filterAttrs (_: v: v != null) {
     inherit setupHook configurePhase buildPhase installPhase;
@@ -61,7 +61,7 @@ let
             openssl
           ]
           ++ beamDeps
-          ;
+        ;
 
         # ensure we strip any native binaries (eg. NIFs, ports)
         stripDebugList = lib.optional (releaseType == "release") "rel";
@@ -115,6 +115,6 @@ let
           );
       } // customPhases
     )
-    ;
+  ;
 in
 lib.fix pkg

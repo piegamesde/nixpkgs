@@ -72,7 +72,7 @@ let
           url =
             "mirror://sourceforge/simutrans/PAK128.german/"
             + "pak128.german_1.2_for_ST_121.0/PAK128.german_1.2_for_ST_121-0.zip"
-            ;
+          ;
           sha256 = "1cv1rzl1a3i5dvk476zq094wawk9hhdh2f0y4xrdny5gn17mb2xi";
         };
 
@@ -83,7 +83,7 @@ let
            };
         */
       }
-    ;
+  ;
 
   mkPak =
     {
@@ -113,9 +113,9 @@ let
           rm -f "$toStrip/.directory" #pak128.german had this
           rmdir -p "$toStrip"
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   /* The binaries need all data in one directory; the default is directory
       of the executable, and another option is the current directory :-/
@@ -138,7 +138,7 @@ let
       passthru.meta = binaries.meta // { hydraPlatforms = [ ]; };
       passthru.binaries = binaries;
     }
-    ;
+  ;
 
   binaries = stdenv.mkDerivation {
     pname = "simutrans";
@@ -170,7 +170,7 @@ let
             "mac"
           else
             throw "add your platform"
-          ;
+        ;
         config = ''
           BACKEND = mixer_sdl
           COLOUR_DEPTH = 16
@@ -190,7 +190,7 @@ let
         sed -i -e '/CFLAGS += -O/d' Makefile
         export CFLAGS+=-O2
       ''
-      ;
+    ;
 
     enableParallelBuilding = true;
 

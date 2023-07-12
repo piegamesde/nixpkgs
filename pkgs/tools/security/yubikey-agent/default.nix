@@ -23,7 +23,7 @@ buildGoModule rec {
   buildInputs =
     lib.optional stdenv.isLinux (lib.getDev pcsclite)
     ++ lib.optional stdenv.isDarwin (darwin.apple_sdk.frameworks.PCSC)
-    ;
+  ;
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 

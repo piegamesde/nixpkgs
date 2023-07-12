@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       xz
       libgcrypt
     ]
-    ;
+  ;
 
   configureFlags = [ "--disable-shared" ];
 

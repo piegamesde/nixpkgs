@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       curl
     ]
     ++ lib.optionals stdenv.isDarwin [ Foundation ]
-    ;
+  ;
 
   cmakeFlags = [ "-DWITH_LTO=OFF" ];
 

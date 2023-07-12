@@ -143,7 +143,7 @@ in
           location ${cfg.nginxStatusUrl}
           EOF
         '')
-        ;
+      ;
     };
 
     warnings =
@@ -152,13 +152,13 @@ in
           k:
           optional (cfg.${k} != "")
             "config.services.longview.${k} is insecure. Use ${k}File instead."
-          ;
+        ;
       in
       concatMap warn [
         "apiKey"
         "mysqlPassword"
       ]
-      ;
+    ;
 
     assertions = [ {
       assertion = cfg.apiKeyFile != null;

@@ -25,7 +25,7 @@ let
         null
         ex
     ) == "Swoosh.Adapters.SMTP"
-    ;
+  ;
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
   isSecret = v: isAttrs v && v ? _secret && isAbsolutePath v._secret;
@@ -73,7 +73,7 @@ let
         };
     in
     elixirValue'
-    ;
+  ;
 
   frontend = {
     options = {
@@ -116,10 +116,10 @@ let
           map (replaceSec' args) v
         else
           v
-        ;
+      ;
     in
     replaceSec' { }
-    ;
+  ;
 
   # Erlang/Elixir uses a somewhat special format for IP addresses
   erlAddr =
@@ -138,7 +138,7 @@ let
         }
         ''elixir "$codePath" >"$out"''
     )
-    ;
+  ;
 
   format = pkgs.formats.elixirConf { };
   configFile = format.generate "config.exs" (
@@ -160,7 +160,7 @@ let
               ]
             else
               format.lib.mkRaw (erlAddr addr)
-            ;
+          ;
         } ]
         cfg.config
     )
@@ -174,7 +174,7 @@ let
     }:
     pkgs.writeShellApplication { inherit name text runtimeInputs; }
     + "/bin/${name}"
-    ;
+  ;
 
   genScript = writeShell {
     name = "akkoma-gen-cookie";
@@ -254,7 +254,7 @@ let
               }
         ''}
       ''
-      ;
+    ;
   };
 
   configScript = writeShell {
@@ -301,7 +301,7 @@ let
       ''
     else
       null
-    ;
+  ;
 
   escapeSqlId = x: ''"${replaceStrings [ ''"'' ] [ ''""'' ] x}"'';
   escapeSqlStr = x: "'${replaceStrings [ "'" ] [ "''" ] x}'";
@@ -335,7 +335,7 @@ let
       db.hostname
     else
       null
-    ;
+  ;
 
   initDbScript = writeShell {
     name = "akkoma-initdb";
@@ -426,7 +426,7 @@ let
       ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
       ln -r -s ${escapeShellArg script} "$out/bin/pleroma_ctl"
     ''
-    ;
+  ;
 
   userWrapper = pkgs.writeShellApplication {
     name = "pleroma_ctl";
@@ -465,7 +465,7 @@ let
       }
     else
       null
-    ;
+  ;
 
   staticDir = ex.":pleroma".":instance".static_dir;
   uploadDir = ex.":pleroma".":instance".upload_dir;
@@ -557,7 +557,7 @@ in
           defaultText =
             literalExpression
               "config.services.postgresql.superUser"
-            ;
+          ;
           description = mdDoc ''
             Name of the database user to initialise the database with.
 
@@ -615,11 +615,11 @@ in
         defaultText =
           literalExpression
             "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]"
-          ;
+        ;
         example =
           literalExpression
             "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]"
-          ;
+        ;
         description = mdDoc ''
           List of extra packages to include in the executable search path of the service unit.
           These are needed by various configurable components such as:
@@ -719,7 +719,7 @@ in
           description =
             mdDoc
               "Lower bound for Erlang distribution protocol TCP port."
-            ;
+          ;
         };
 
         portMax = mkOption {
@@ -728,7 +728,7 @@ in
           description =
             mdDoc
               "Upper bound for Erlang distribution protocol TCP port."
-            ;
+          ;
         };
 
         cookie = mkOption {
@@ -944,7 +944,7 @@ in
                       }
                     )
                     cfg.frontends
-                  ;
+                ;
                 defaultText = literalExpression ''
                   lib.mapAttrs (key: val:
                     (pkgs.formats.elixirConf { }).lib.mkMap { name = val.name; ref = val.ref; })
@@ -983,7 +983,7 @@ in
                       description =
                         mdDoc
                           "mailto URI for administrative contact."
-                        ;
+                      ;
                     };
 
                     public_key = mkOption {
@@ -1236,7 +1236,7 @@ in
           ExecStopPost =
             mkIf (isAbsolutePath web.http.ip)
               "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'"
-            ;
+          ;
 
           ProtectProc = "noaccess";
           ProcSubset = "pid";
@@ -1271,7 +1271,7 @@ in
                 cfg.dist.portMin
               ])
               [ "CAP_NET_BIND_SERVICE" ]
-            ;
+          ;
 
           NoNewPrivileges = true;
           SystemCallFilter = [
@@ -1297,7 +1297,7 @@ in
           SocketBindDeny = mkIf (!hasSmtp) "any";
         };
       }
-      ;
+    ;
 
     systemd.tmpfiles.rules = [
       "d ${uploadDir}  0700 ${cfg.user} ${cfg.group} - -"
@@ -1318,7 +1318,7 @@ in
                 "http://[${web.http.ip}]:${toString web.http.port}"
               else
                 "http://${web.http.ip}:${toString web.http.port}"
-              ;
+            ;
 
             proxyWebsockets = true;
             recommendedProxySettings = true;

@@ -271,7 +271,7 @@ stdenv.mkDerivation (
           )
         ]
       )
-      ;
+    ;
 
     postPatch =
       ''
@@ -424,7 +424,7 @@ stdenv.mkDerivation (
                 pkg = opt (withHomed || withCryptsetup) p11-kit;
               }
             ]
-            ;
+          ;
 
           patchDlOpen =
             dl:
@@ -457,7 +457,7 @@ stdenv.mkDerivation (
                 done
 
               ''
-            ;
+          ;
         in
         # patch all the dlopen calls to contain absolute paths to the libraries
         lib.concatMapStringsSep "\n" patchDlOpen dlopenLibs
@@ -477,7 +477,7 @@ stdenv.mkDerivation (
         shopt -s extglob
         patchShebangs tools test src/!(rpm|kernel-install|ukify) src/kernel-install/test-kernel-install.sh
       ''
-      ;
+    ;
 
     outputs = [
       "out"
@@ -517,7 +517,7 @@ stdenv.mkDerivation (
         buildPackages.llvmPackages.clang
         buildPackages.llvmPackages.libllvm
       ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -562,7 +562,7 @@ stdenv.mkDerivation (
       ++ lib.optional withUkify (
         python3Packages.python.withPackages (ps: with ps; [ pefile ])
       )
-      ;
+    ;
 
     #dontAddPrefix = true;
 
@@ -690,7 +690,7 @@ stdenv.mkDerivation (
         "-Dkmod=true"
         "-Dkmod-path=${kmod}/bin/kmod"
       ]
-      ;
+    ;
     preConfigure =
       let
         # A list of all the runtime binaries that the systemd executables, tests and libraries are referencing in their source code, scripts and unit files.
@@ -780,7 +780,7 @@ stdenv.mkDerivation (
             replacement = "${lib.getBin kmod}/sbin/modprobe";
             where = [ "units/modprobe@.service" ];
           } ]
-          ;
+        ;
 
         # { replacement, search, where } -> List[str]
         mkSubstitute =
@@ -797,7 +797,7 @@ stdenv.mkDerivation (
                 substituteInPlace ${path} --replace '${search}' "${replacement}"''
             )
             where
-          ;
+        ;
         mkEnsureSubstituted =
           {
             replacement,
@@ -824,7 +824,7 @@ stdenv.mkDerivation (
               exit 1
             fi
           ''
-          ;
+        ;
       in
       ''
         mesonFlagsArray+=(-Dntp-servers="0.nixos.pool.ntp.org 1.nixos.pool.ntp.org 2.nixos.pool.ntp.org 3.nixos.pool.ntp.org")
@@ -841,7 +841,7 @@ stdenv.mkDerivation (
         substituteInPlace src/import/pull-tar.c \
           --replace 'wait_for_terminate_and_check("tar"' 'wait_for_terminate_and_check("${gnutar}/bin/tar"'
       ''
-      ;
+    ;
 
     # These defines are overridden by CFLAGS and would trigger annoying
     # warning messages
@@ -904,7 +904,7 @@ stdenv.mkDerivation (
       + lib.optionalString withKmod ''
         mv $out/lib/modules-load.d $out/example
       ''
-      ;
+    ;
 
     # Avoid *.EFI binary stripping. At least on aarch64-linux strip
     # removes too much from PE32+ files:
@@ -928,7 +928,7 @@ stdenv.mkDerivation (
       + lib.optionalString withEfi ''
         mv $out/dont-strip-me $out/lib/systemd/boot/efi
       ''
-      ;
+    ;
 
     disallowedReferences =
       lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
@@ -937,7 +937,7 @@ stdenv.mkDerivation (
           builtins.map (p: p.__spliced.buildHost or p)
             finalAttrs.nativeBuildInputs
         )
-      ;
+    ;
 
     passthru = {
       # The interface version prevents NixOS from switching to an
@@ -961,7 +961,7 @@ stdenv.mkDerivation (
         util-linux
         kmod
         kbd
-        ;
+      ;
 
       tests = {
         inherit (nixosTests) switchTest;

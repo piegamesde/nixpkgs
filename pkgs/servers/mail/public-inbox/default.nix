@@ -139,7 +139,7 @@ buildPerlPackage rec {
       xapian
     ]
     ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ]
-    ;
+  ;
   preCheck = ''
     perl certs/create-certs.perl
     export TEST_LEI_ERR_LOUD=1

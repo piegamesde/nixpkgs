@@ -30,7 +30,7 @@ stdenv.mkDerivation {
       # TODO: send upstream
       ./native-clang-tblgen.patch
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -69,7 +69,7 @@ stdenv.mkDerivation {
         }"
       )
     ]
-    ;
+  ;
 
   # fixes: fatal error: 'clang/Basic/Diagnostic.h' file not found
   # adapted from upstream

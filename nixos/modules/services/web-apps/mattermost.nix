@@ -44,7 +44,7 @@ let
         touch ${escapeShellArg "${statePath}/.db-created"}
       fi
     ''
-    ;
+  ;
 
   mattermostPluginDerivations = with pkgs;
     map
@@ -110,7 +110,7 @@ let
         PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
       }
       cfg.extraConfig
-    ;
+  ;
 
   mattermostConf = recursiveUpdate mattermostConfWithoutPlugins (
     if mattermostPlugins == null then
@@ -372,7 +372,7 @@ in
             chown "${cfg.user}:${cfg.group}" "${cfg.statePath}/data" .
             chmod u+rw,g+r,o-rwx "${cfg.statePath}/data" .
           ''
-          ;
+        ;
 
         serviceConfig = {
           PermissionsStartOnly = true;
@@ -388,7 +388,7 @@ in
         unitConfig.JoinsNamespaceOf =
           mkIf cfg.localDatabaseCreate
             "postgresql.service"
-          ;
+        ;
       };
     })
     (mkIf cfg.matterircd.enable {

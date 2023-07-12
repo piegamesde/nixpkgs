@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   # Using OPENSSL_NO_VENDOR is not an option on darwin
   # As of version 0.10.35 rust-openssl looks for openssl on darwin

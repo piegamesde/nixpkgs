@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
       libobjc
       libresolv
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Terminal user interface for GnuPG";

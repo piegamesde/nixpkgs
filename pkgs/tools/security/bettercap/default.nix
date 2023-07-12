@@ -35,7 +35,7 @@ buildGoModule rec {
       libnfnetlink
       libnetfilter_queue
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A man in the middle tool";

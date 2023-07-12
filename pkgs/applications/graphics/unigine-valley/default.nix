@@ -32,7 +32,7 @@ let
       "x86"
     else
       throw "Unsupported platform ${stdenv.hostPlatform.system}"
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {

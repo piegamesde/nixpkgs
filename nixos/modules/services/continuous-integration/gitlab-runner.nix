@@ -25,13 +25,13 @@ let
       "${hash} ${service.description}"
     else
       "${name}_${config.networking.hostName}_${hash}"
-    ;
+  ;
 
   hashedServices =
     mapAttrs'
       (name: service: nameValuePair (genRunnerName name service) service)
       cfg.services
-    ;
+  ;
   configPath = ''"$HOME"/.gitlab-runner/config.toml'';
   configureScript = pkgs.writeShellApplication {
     name = "gitlab-runner-configure";
@@ -205,7 +205,7 @@ let
           # make config file readable by service
           chown -R --reference="$HOME" "$(dirname ${configPath})"
         ''
-      ;
+    ;
   };
   startScript = pkgs.writeShellScriptBin "gitlab-runner-start" ''
     export CONFIG_FILE=${configPath}
@@ -604,7 +604,7 @@ in
         description =
           lib.mdDoc
             "Docker package to use for clearing up docker cache."
-          ;
+        ;
       };
     };
   };
@@ -616,7 +616,7 @@ in
           "services.gitlab-runner.services.${n}.`registrationConfigFile` points to a file in Nix Store. You should use quoted absolute path to prevent this."
         )
         (filterAttrs (n: v: isStorePath v.registrationConfigFile) cfg.services)
-      ;
+    ;
 
     environment.systemPackages = [ cfg.package ];
     systemd.services.gitlab-runner = {
@@ -683,12 +683,12 @@ in
 
           startAt = cfg.clear-docker-cache.dates;
         }
-      ;
+    ;
     # Enable docker if `docker` executor is used in any service
     virtualisation.docker.enable =
       mkIf (any (s: s.executor == "docker") (attrValues cfg.services))
         (mkDefault true)
-      ;
+    ;
   };
   imports = [
     (

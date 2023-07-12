@@ -16,7 +16,7 @@ import ../make-test-python.nix (
           library = "/tmp";
         };
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

@@ -43,7 +43,7 @@ stdenv.mkDerivation {
       optipng
     ]
     ++ optionals withCrashReporter [ wrapQtAppsHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -61,7 +61,7 @@ stdenv.mkDerivation {
       curl
     ]
     ++ optionals stdenv.isLinux [ gdb ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DDATA_DIR_PREFIXES=$out/share"
@@ -80,7 +80,7 @@ stdenv.mkDerivation {
     + optionalString withCrashReporter ''
       wrapQtApp "$out/libexec/arxcrashreporter"
     ''
-    ;
+  ;
 
   meta = {
     description = ''

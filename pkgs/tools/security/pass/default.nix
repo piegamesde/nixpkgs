@@ -53,7 +53,7 @@ let
         [ pass ]
         ++ extensions passExtensions
         ++ lib.optional tombPluginSupport passExtensions.tomb
-        ;
+      ;
     in
     buildEnv {
       # lib.getExe looks for name, so we keep it the same as mainProgram
@@ -79,7 +79,7 @@ let
           --set SYSTEM_EXTENSION_DIR "$out/lib/password-store/extensions"
       '';
     }
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       ./extension-dir.patch
     ]
     ++ lib.optional stdenv.isDarwin ./no-darwin-getopt.patch
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString dmenuSupport ''
       cp "contrib/dmenu/passmenu" "$out/bin/"
     ''
-    ;
+  ;
 
   wrapperPath = with lib;
     makeBinPath (
@@ -164,7 +164,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/passmenu \
         --prefix PATH : "$out/bin:${wrapperPath}"
     ''
-    ;
+  ;
 
   # Turn "check" into "installcheck", since we want to test our pass,
   # not the one before the fixup.
@@ -191,7 +191,7 @@ stdenv.mkDerivation rec {
       rm -f tests/t0300-reencryption.sh
       rm -f tests/t0400-grep.sh
     ''
-    ;
+  ;
 
   doCheck = false;
 

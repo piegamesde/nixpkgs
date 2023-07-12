@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     ]
     ++ (lib.optional buggyBiosCDSupport ./buggybios.patch)
     ++ map fetchurl (import ./grub1.patches.nix)
-    ;
+  ;
 
   preConfigure = ''
     substituteInPlace ./configure.ac --replace 'AC_PREREQ(2.61)' 'AC_PREREQ(2.64)'

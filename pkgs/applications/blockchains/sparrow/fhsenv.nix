@@ -15,7 +15,7 @@ buildFHSEnv {
       sparrow-unwrapped
       pcsclite
     ]
-    ;
+  ;
 
   multiPkgs = pkgs: with pkgs; [ pcsclite ];
 

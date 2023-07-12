@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withConnPrometheus [ snappy ]
     ++ lib.optionals (withCloud || withConnPrometheus) [ protobuf ]
     ++ lib.optionals withSsl [ openssl ]
-    ;
+  ;
 
   patches = [
     # required to prevent plugins from relying on /etc
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString withDebug
       "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1"
-    ;
+  ;
 
   postInstall =
     ''
@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
            $out/libexec/netdata/plugins.d/freeipmi.plugin.org
       ''}
     ''
-    ;
+  ;
 
   preConfigure = lib.optionalString (!stdenv.isDarwin) ''
     substituteInPlace collectors/python.d.plugin/python_modules/third_party/lm_sensors.py \
@@ -161,7 +161,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ]
     ++ lib.optionals (!withCloud) [ "--disable-cloud" ]
-    ;
+  ;
 
   postFixup = ''
     wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${

@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
         --replace "/usr/bin/env perl" "${perl}/bin/perl"
 
     ''
-    ;
+  ;
 
   inherit doCheck;
 

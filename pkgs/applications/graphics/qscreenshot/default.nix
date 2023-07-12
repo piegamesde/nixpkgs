@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       qt
     ]
     ++ lib.optional stdenv.isDarwin Carbon
-    ;
+  ;
 
   # Remove carriage returns that cause /bin/sh to abort
   preConfigure = ''

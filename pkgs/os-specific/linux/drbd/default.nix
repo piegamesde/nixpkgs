@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       "WANT_DRBD_REPRODUCIBLE_BUILD=1"
     ]
     ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}"
-    ;
+  ;
 
   installFlags = [
     "prefix="

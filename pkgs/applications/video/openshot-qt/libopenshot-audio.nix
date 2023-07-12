@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
           libXrandr
         ]
     )
-    ;
+  ;
 
   doCheck = false;
 

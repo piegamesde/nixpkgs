@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optionals (python != null && lib.versionAtLeast python.version "3.10")
         [ python.pkgs.cython ]
-    ;
+  ;
   buildInputs = [ python ];
 
   configureFlags = lib.optionals (python == null) [ "--disable-python" ];
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       ''
         rm wrappers/python/lhapdf.cpp
       ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

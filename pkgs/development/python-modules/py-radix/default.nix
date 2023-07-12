@@ -14,7 +14,7 @@ buildPythonPackage rec {
   disabled =
     pythonAtLeast
       "3.10"
-    ; # abandoned, remove when we move to py310/py311
+  ; # abandoned, remove when we move to py310/py311
 
   src = fetchFromGitHub {
     owner = "mjschultz";

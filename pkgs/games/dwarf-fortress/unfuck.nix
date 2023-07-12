@@ -71,7 +71,7 @@ let
       getAttr dfVersion unfuck-releases
     else
       throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}"
-    ;
+  ;
 in
 
 stdenv.mkDerivation {
@@ -119,7 +119,7 @@ stdenv.mkDerivation {
       else
         [ gtk3 ]
     )
-    ;
+  ;
 
   # Don't strip unused symbols; dfhack hooks into some of them.
   dontStrip = true;

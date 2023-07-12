@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals stdenv.isDarwin [ getconf ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/sionescu/libfixposix";

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       gpgme.dev
     ]
     ++ lib.optionals wgetSupport [ wget ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       "--with-gpgme-prefix=${gpgme.dev}"
       "--with-gpg=${gnupg}"
     ]
-    ;
+  ;
 
   # Temporary hack to copy the example configuration files into the nix-store,
   # this'll probably be helpful until there's a NixOS module for that (feel free

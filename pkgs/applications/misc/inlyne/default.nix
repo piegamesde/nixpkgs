@@ -60,7 +60,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libobjc
     ]
-    ;
+  ;
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/inlyne \

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       wayland-protocols
     ]
     ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace style.css \

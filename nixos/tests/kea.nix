@@ -92,7 +92,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       nameserver =
         {
@@ -166,9 +166,9 @@ import ./make-test-python.nix (
                     acl: [dhcp_ddns]
               '';
             }
-            ;
+          ;
         }
-        ;
+      ;
 
       client =
         {
@@ -186,7 +186,7 @@ import ./make-test-python.nix (
             interfaces.eth1.useDHCP = true;
           };
         }
-        ;
+      ;
     };
     testScript =
       {
@@ -199,6 +199,6 @@ import ./make-test-python.nix (
         router.wait_until_succeeds("ping -c 5 10.0.0.3")
         nameserver.wait_until_succeeds("kdig +short client.lan.nixos.test @10.0.0.2 | grep -q 10.0.0.3")
       ''
-      ;
+    ;
   }
 )

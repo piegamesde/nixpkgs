@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       substituteInPlace source/Irrlicht/Makefile \
         --replace "-DIRRLICHT_EXPORTS=1" "-DIRRLICHT_EXPORTS=1 -DPNG_ARM_NEON_OPT=0"
     ''
-    ;
+  ;
 
   preConfigure = ''
     cd source/Irrlicht
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       libXxf86vm
     ]
     ++ lib.optional stdenv.isAarch64 zlib
-    ;
+  ;
 
   meta = {
     homepage = "http://irrlicht.sourceforge.net/";

@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       libllvm
       libbpf
     ]
-    ;
+  ;
 
   buildInputs = [
     protobuf

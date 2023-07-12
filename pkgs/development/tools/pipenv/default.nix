@@ -20,7 +20,7 @@ let
       virtualenv-clone
     ]
     ++ lib.optionals stdenv.hostPlatform.isAndroid [ pyjnius ]
-    ;
+  ;
 
   pythonEnv = python3.withPackages runtimeDeps;
 in

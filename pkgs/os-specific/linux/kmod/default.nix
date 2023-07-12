@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       "lib"
     ]
     ++ lib.optional withDevdoc "devdoc"
-    ;
+  ;
 
   strictDeps = true;
   nativeBuildInputs =
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_43
       gtk-doc
     ]
-    ;
+  ;
   buildInputs =
     [
       xz
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     ]
     # gtk-doc is looked for with pkg-config
     ++ lib.optionals withDevdoc [ gtk-doc ]
-    ;
+  ;
 
   preConfigure = ''
     ./autogen.sh
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       (lib.enableFeature withDevdoc "gtk-doc")
     ]
     ++ lib.optional withStatic "--enable-static"
-    ;
+  ;
 
   patches =
     [ ./module-dir.patch ] ++ lib.optional withStatic ./enable-static.patch;

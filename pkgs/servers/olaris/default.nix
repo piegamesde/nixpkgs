@@ -33,7 +33,7 @@ buildGoModule rec {
       cp -r ${olaris-react} react/build
       make generate
     ''
-    ;
+  ;
 
   ldflags = [
     "-s"

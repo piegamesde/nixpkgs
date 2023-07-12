@@ -109,7 +109,7 @@ in
         description =
           lib.mdDoc
             "SSID to be used in IEEE 802.11 management frames."
-          ;
+        ;
       };
 
       hwMode = mkOption {
@@ -206,7 +206,7 @@ in
         description =
           lib.mdDoc
             "Extra configuration options to put in hostapd.conf."
-          ;
+        ;
       };
     };
   };

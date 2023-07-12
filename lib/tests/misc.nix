@@ -12,7 +12,7 @@ let
         value = false;
       };
     }
-    ;
+  ;
   testingDeepThrow = expr: testingThrow (builtins.deepSeq expr expr);
 
   testSanitizeDerivationName =
@@ -32,7 +32,7 @@ let
       expr = builtins.seq drv.drvPath drv.name;
       inherit expected;
     }
-    ;
+  ;
 in
 
 runTests {
@@ -74,7 +74,7 @@ runTests {
           (map (s: s + "\n"))
           concatStrings
         ]
-      ;
+    ;
     expected = ''
       3
       4
@@ -106,13 +106,13 @@ runTests {
             bar = false;
             baz = true;
           }
-          ;
+        ;
         g = self: super: { bar = super.baz or false; };
         f_o_g = composeExtensions f g;
         composed = obj.extend f_o_g;
       in
       composed.foo
-      ;
+    ;
     expected = true;
   };
 
@@ -124,7 +124,7 @@ runTests {
         composed = obj.extend emptyComposition;
       in
       composed.foo
-      ;
+    ;
     expected = true;
   };
 
@@ -135,7 +135,7 @@ runTests {
           bar = false;
           baz = true;
         }
-        ;
+      ;
       g = self: super: { bar = super.baz or false; };
       h = self: super: { qux = super.bar or false; };
       obj = makeExtensible (self: { foo = self.qux; });
@@ -151,10 +151,10 @@ runTests {
           composed = obj.extend composition;
         in
         composed.foo
-        ;
+      ;
       expected = (obj.extend (composeExtensions f (composeExtensions g h))).foo;
     }
-    ;
+  ;
 
   testBitAnd = {
     expr = (bitAnd 3 10);
@@ -194,7 +194,7 @@ runTests {
           b,
         }:
         null
-        ;
+      ;
     };
     expected = {
       a = false;
@@ -378,7 +378,7 @@ runTests {
           int = isStorePath 42;
         };
       }
-      ;
+    ;
     expected = {
       storePath = true;
       storePathDerivation = true;
@@ -725,7 +725,7 @@ runTests {
         foldIsRight = true;
       };
     }
-    ;
+  ;
 
   testTake = testAllTrue [
     (
@@ -842,7 +842,7 @@ runTests {
           "b"
         ]
         { a = { b = "yey"; }; }
-      ;
+    ;
     expected = true;
   };
 
@@ -854,7 +854,7 @@ runTests {
           "b"
         ]
         { a = { c = "yey"; }; }
-      ;
+    ;
     expected = false;
   };
 
@@ -871,7 +871,7 @@ runTests {
           foo = "bar";
           foobar = "baz";
         }
-      ;
+    ;
     expected = {
       foo = "bar";
       foobar = "baz";
@@ -896,7 +896,7 @@ runTests {
             foo = 1;
             bar = 10;
           }
-        ;
+      ;
       # should just return the initial value
       emptySet = foldlAttrs (throw "function not needed") 123 { };
       # should just evaluate to the last value
@@ -906,7 +906,7 @@ runTests {
             z = 3;
             a = 2;
           }
-        ;
+      ;
       # the accumulator doesnt have to be an attrset it can be as trivial as being just a number or string
       trivialAcc = foldlAttrs (acc: _name: v: acc * 10 + v) 1 {
         z = 1;
@@ -943,7 +943,7 @@ runTests {
           foo.quz = 2;
           baz = 4;
         }
-      ;
+    ;
     expected = {
       foo.bar = 1; # 'foo.*' from the second set
       foo.quz = 2;
@@ -970,7 +970,7 @@ runTests {
           b = 2;
         }
         { a = 1; }
-      ;
+    ;
     expected = {
       a = 1;
       b = 2;
@@ -999,7 +999,7 @@ runTests {
         };
       in
       mapAttrs (const (generators.mkValueStringDefault { })) vals
-      ;
+    ;
     expected = {
       int = "42";
       string = ''fo"o'';
@@ -1112,7 +1112,7 @@ runTests {
       };
       expected = generators.toINI { } sections;
     }
-    ;
+  ;
 
   testToINIWithGlobalSectionFull = {
     expr = generators.toINIWithGlobalSection { } {
@@ -1158,7 +1158,7 @@ runTests {
       # trivial implementation
       expected = builtins.toJSON val;
     }
-    ;
+  ;
 
   # right now only invocation check
   testToYAMLSimple =
@@ -1176,7 +1176,7 @@ runTests {
       # trivial implementation
       expected = builtins.toJSON val;
     }
-    ;
+  ;
 
   testToPretty =
     let
@@ -1203,7 +1203,7 @@ runTests {
             foo,
           }:
           arg
-          ;
+        ;
         list = [
           3
           4
@@ -1236,7 +1236,7 @@ runTests {
         drv = "<derivation ${deriv.name}>";
       };
     }
-    ;
+  ;
 
   testToPrettyLimit =
     let
@@ -1264,7 +1264,7 @@ runTests {
           };
         }'';
     }
-    ;
+  ;
 
   testToPrettyLimitThrow =
     let
@@ -1280,7 +1280,7 @@ runTests {
         )).success;
       expected = false;
     }
-    ;
+  ;
 
   testWithRecursionDealsWithFunctors =
     let
@@ -1292,7 +1292,7 @@ runTests {
             b,
           }:
           null
-          ;
+        ;
       };
       a = {
         value = "1234";
@@ -1318,7 +1318,7 @@ runTests {
           value = "<unevaluated>";
         }'';
     }
-    ;
+  ;
 
   testToPrettyMultiline = {
     expr = mapAttrs (const (generators.toPretty { })) rec {
@@ -1474,7 +1474,7 @@ runTests {
           indent = "  ";
         }
         { x = { y = 42; }; }
-      ;
+    ;
     expected = "  x = {\n    [\"y\"] = 42\n  }\n";
   };
 
@@ -1607,7 +1607,7 @@ runTests {
             );
             options.bar = lib.mkOption { };
           }
-          ;
+        ;
 
         module =
           {
@@ -1617,16 +1617,16 @@ runTests {
             options.foo =
               lib.mkOption
                 { type = lib.types.submodule submodule; }
-              ;
+            ;
           }
-          ;
+        ;
 
         options = (evalModules { modules = [ module ]; }).options;
 
         locs = filter (o: !o.internal) (optionAttrSetToDocList options);
       in
       map (o: o.loc) locs
-      ;
+    ;
     expected = [
       [
         "_module"
@@ -1963,7 +1963,7 @@ runTests {
           }
         ]
         { a.b.c = 0; }
-      ;
+    ;
     expected = {
       a = { b = { d = 1; }; };
       x = { y = "xy"; };
@@ -1985,7 +1985,7 @@ runTests {
           update = old: old + 1;
         } ]
         0
-      ;
+    ;
     expected = 1;
   };
 
@@ -2008,7 +2008,7 @@ runTests {
           }
         ]
         ""
-      ;
+    ;
     expected = "abc";
   };
 
@@ -2027,7 +2027,7 @@ runTests {
           }
         ]
         (throw "start")
-      ;
+    ;
     expected = "untainted";
   };
 
@@ -2050,7 +2050,7 @@ runTests {
           a.y.z = 0;
           x.y.z = 0;
         }
-      ;
+    ;
     expected = {
       a.b.c = 1;
 
@@ -2078,7 +2078,7 @@ runTests {
           }
         ]
         { a.b = 0; }
-      ;
+    ;
     expected = {
       a.b = 1;
       a.x = 1;
@@ -2303,7 +2303,7 @@ runTests {
       expr = lazyDerivation { inherit derivation; };
       expected = derivation;
     }
-    ;
+  ;
 
   testTypeDescriptionInt = {
     expr = (with types; int).description;

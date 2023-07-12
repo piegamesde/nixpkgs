@@ -15,7 +15,7 @@ import ./make-test-python.nix (
         }: {
           users.mutableUsers = false;
         }
-        ;
+      ;
       mutable =
         {
           ...
@@ -23,7 +23,7 @@ import ./make-test-python.nix (
           users.mutableUsers = true;
           users.users.dry-test.isNormalUser = true;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -86,6 +86,6 @@ import ./make-test-python.nix (
                 assert machine.succeed(f"sha256sum {file}") == expected_hashes[file]
                 assert machine.succeed(f"stat {file}") == expected_stats[file]
       ''
-      ;
+    ;
   }
 )

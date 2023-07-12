@@ -36,7 +36,7 @@ let
       attrs' = attrs // { inherit backendStdenv; };
     in
     buildCudaToolkitPackage attrs'
-    ;
+  ;
 
   cudaFlags = final.callPackage ./flags.nix { };
 in

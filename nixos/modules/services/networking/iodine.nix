@@ -126,7 +126,7 @@ in
                 description =
                   lib.mdDoc
                     "DNS server to use as an intermediate relay to the iodined server"
-                  ;
+                ;
                 example = "8.8.8.8";
               };
 
@@ -143,7 +143,7 @@ in
                 description =
                   lib.mdDoc
                     "Path to a file containing the password."
-                  ;
+                ;
               };
             };
           })
@@ -170,7 +170,7 @@ in
           description =
             lib.mdDoc
               "Domain or subdomain of which nameservers point to us"
-            ;
+          ;
           example = "tunnel.mydomain.com";
         };
 
@@ -232,7 +232,7 @@ in
               MemoryDenyWriteExecute = true;
             };
           }
-          ;
+        ;
       in
       listToAttrs (
         mapAttrsToList
@@ -261,7 +261,7 @@ in
                 "read-only"
               else
                 "true"
-              ;
+            ;
             PrivateTmp = true;
             ReadWritePaths = "/dev/net/tun";
             PrivateDevices = false;
@@ -278,7 +278,7 @@ in
           };
         };
       }
-      ;
+    ;
 
     users.users.${iodinedUser} = {
       uid = config.ids.uids.iodined;

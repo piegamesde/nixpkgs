@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstallCheck
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A RISC-V ISA Simulator";

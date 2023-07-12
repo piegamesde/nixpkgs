@@ -32,7 +32,7 @@ in
         defaultText =
           literalExpression
             "if config.services.fprintd.tod.enable then pkgs.fprintd-tod else pkgs.fprintd"
-          ;
+        ;
         description = lib.mdDoc ''
           fprintd package to use.
         '';

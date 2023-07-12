@@ -19,7 +19,7 @@ let
     isStorePath
     toDerivation
     toList
-    ;
+  ;
   inherit (lib.lists)
     all
     concatLists
@@ -32,7 +32,7 @@ let
     last
     length
     tail
-    ;
+  ;
   inherit (lib.attrsets)
     attrNames
     filterAttrs
@@ -40,7 +40,7 @@ let
     mapAttrs
     optionalAttrs
     zipAttrsWith
-    ;
+  ;
   inherit (lib.options)
     getFiles
     getValues
@@ -50,14 +50,14 @@ let
     mergeUniqueOption
     showFiles
     showOption
-    ;
+  ;
   inherit (lib.strings)
     concatMapStringsSep
     concatStringsSep
     escapeNixString
     hasInfix
     isStringLike
-    ;
+  ;
   inherit (lib.trivial) boolToString;
 
   inherit (lib.modules) mergeDefinitions fixupOptionType mergeOptionDecls;
@@ -95,7 +95,7 @@ let
         f.type payload
       else
         null
-      ;
+    ;
 
     # Default type functor
     defaultFunctor =
@@ -106,7 +106,7 @@ let
         payload = null;
         binOp = a: b: null;
       }
-      ;
+    ;
 
     isOptionType = isType "option-type";
     mkOptionType =
@@ -190,10 +190,10 @@ let
           deprecationMessage
           nestedTypes
           descriptionClass
-          ;
+        ;
         description = if description == null then name else description;
       }
-      ;
+    ;
 
     # optionDescriptionPhrase :: (str -> bool) -> optionType -> str
     #
@@ -221,7 +221,7 @@ let
         t.description
       else
         "(${t.description})"
-      ;
+    ;
 
     # When adding new types don't forget to document them in
     # nixos/doc/manual/development/option-types.xml!
@@ -249,7 +249,7 @@ let
                 "stringCoercibleSet"
               else
                 builtins.typeOf value
-              ;
+            ;
 
             # Returns the common type of all definitions, throws an error if they
             # don't have the same type
@@ -268,7 +268,7 @@ let
                 )
                 (getType (head defs).value)
                 defs
-              ;
+            ;
 
             mergeFunction =
               {
@@ -285,7 +285,7 @@ let
                       }."
                   else
                     (listOf anything).merge
-                  ;
+                ;
                 # This is the type of packages, only accept a single definition
                 stringCoercibleSet = mergeOneOption;
                 lambda =
@@ -298,13 +298,13 @@ let
                       })
                       defs
                   )
-                  ;
+                ;
                 # Otherwise fall back to only allowing all equal definitions
               }
               .${commonType} or mergeEqualOption;
           in
           mergeFunction loc defs
-          ;
+        ;
       };
 
       unspecified = mkOptionType {
@@ -335,7 +335,7 @@ let
           betweenDesc =
             lowest: highest:
             "${toString lowest} and ${toString highest} (both inclusive)"
-            ;
+          ;
           between =
             lowest: highest:
             assert lib.assertMsg (lowest <= highest)
@@ -344,7 +344,7 @@ let
               name = "intBetween";
               description = "integer between ${betweenDesc lowest highest}";
             }
-            ;
+          ;
           ign =
             lowest: highest: name: docStart:
             between lowest highest // {
@@ -352,19 +352,19 @@ let
               description =
                 docStart + "; between ${betweenDesc lowest highest}";
             }
-            ;
+          ;
           unsign =
             bit: range:
             ign 0 (range - 1) "unsignedInt${toString bit}" "${
                 toString bit
               } bit unsigned integer"
-            ;
+          ;
           sign =
             bit: range:
             ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}" "${
                 toString bit
               } bit signed integer"
-            ;
+          ;
         in
         {
           # An int with a fixed range.
@@ -397,7 +397,7 @@ let
           s16 = sign 16 65536;
           s32 = sign 32 4294967296;
         }
-        ;
+      ;
 
       # Alias of u16 for a port number
       port = ints.u16;
@@ -419,7 +419,7 @@ let
             "${builtins.toJSON lowest} and ${
               builtins.toJSON highest
             } (both inclusive)"
-            ;
+          ;
         in
         {
           between =
@@ -433,7 +433,7 @@ let
                   betweenDesc lowest highest
                 }";
             }
-            ;
+          ;
 
           nonnegative = addCheck number (x: x >= 0) // {
             name = "numberNonnegative";
@@ -446,7 +446,7 @@ let
               "positive integer or floating point number, meaning >0";
           };
         }
-        ;
+      ;
 
       str = mkOptionType {
         name = "str";
@@ -469,7 +469,7 @@ let
                 [ 	
                 ]*''
               x == null
-          ;
+        ;
         inherit (str) merge;
       };
 
@@ -483,7 +483,7 @@ let
               ?'')
             check
             merge
-            ;
+          ;
         in
         mkOptionType {
           name = "singleLineStr";
@@ -492,7 +492,7 @@ let
           inherit check;
           merge = loc: defs: lib.removeSuffix "\n" (merge loc defs);
         }
-        ;
+      ;
 
       strMatching =
         pattern:
@@ -503,7 +503,7 @@ let
           check = x: str.check x && builtins.match pattern x != null;
           inherit (str) merge;
         }
-        ;
+      ;
 
       # Merge multiple definitions by concatenating them (with the given
       # separator between the values).
@@ -516,7 +516,7 @@ let
               "Concatenated string" # for types.string.
             else
               "strings concatenated with ${builtins.toJSON sep}"
-            ;
+          ;
           descriptionClass = "noun";
           check = isString;
           merge = loc: defs: concatStringsSep sep (getValues defs);
@@ -525,7 +525,7 @@ let
             binOp = sepLhs: sepRhs: if sepLhs == sepRhs then sepLhs else null;
           };
         }
-        ;
+      ;
 
       lines = separatedString "\n";
       commas = separatedString ",";
@@ -548,7 +548,7 @@ let
               optionDescriptionPhrase (class: class == "noun") entryType
             }, not containing newlines or colons";
         }
-        ;
+      ;
 
       attrs = mkOptionType {
         name = "attrs";
@@ -581,7 +581,7 @@ let
             toDerivation res
           else
             res
-          ;
+        ;
       };
 
       shellPackage =
@@ -640,7 +640,7 @@ let
                 )
               )
             )
-            ;
+          ;
           emptyValue = { value = [ ]; };
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" ]);
           getSubModules = elemType.getSubModules;
@@ -648,7 +648,7 @@ let
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
         }
-        ;
+      ;
 
       nonEmptyListOf =
         elemType:
@@ -662,7 +662,7 @@ let
             }";
           emptyValue = { }; # no .value attr, meaning unset
         }
-        ;
+      ;
 
       attrsOf =
         elemType:
@@ -702,7 +702,7 @@ let
                   )
               )
             )
-            ;
+          ;
           emptyValue = { value = { }; };
           getSubOptions =
             prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
@@ -711,7 +711,7 @@ let
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
         }
-        ;
+      ;
 
       # A version of attrsOf that's lazy in its values at the expense of
       # conditional definitions not working properly. E.g. defining a value with
@@ -756,7 +756,7 @@ let
                   )
                   defs
               )
-            ;
+          ;
           emptyValue = { value = { }; };
           getSubOptions =
             prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
@@ -765,7 +765,7 @@ let
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
         }
-        ;
+      ;
 
       # TODO: deprecate this in the future:
       loaOf =
@@ -776,10 +776,10 @@ let
             "Mixing lists with attribute values is no longer"
             + " possible; please use `types.attrsOf` instead. See"
             + " https://github.com/NixOS/nixpkgs/issues/1800 for the motivation."
-            ;
+          ;
           nestedTypes.elemType = elemType;
         }
-        ;
+      ;
 
       # Value of given type but with no merging (i.e. `uniq list`s are not concatenated).
       uniq =
@@ -795,7 +795,7 @@ let
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
         }
-        ;
+      ;
 
       unique =
         {
@@ -813,7 +813,7 @@ let
           functor = (defaultFunctor name) // { wrapped = type; };
           nestedTypes.elemType = type;
         }
-        ;
+      ;
 
       # Null or value of ...
       nullOr =
@@ -843,7 +843,7 @@ let
                 }."
             else
               elemType.merge loc defs
-            ;
+          ;
           emptyValue = { value = null; };
           getSubOptions = elemType.getSubOptions;
           getSubModules = elemType.getSubModules;
@@ -851,7 +851,7 @@ let
           functor = (defaultFunctor name) // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
         }
-        ;
+      ;
 
       functionTo =
         elemType:
@@ -875,7 +875,7 @@ let
                 })
                 defs
             )).mergedValue
-            ;
+          ;
           getSubOptions =
             prefix: elemType.getSubOptions (prefix ++ [ "<function body>" ]);
           getSubModules = elemType.getSubModules;
@@ -883,7 +883,7 @@ let
           functor = (defaultFunctor "functionTo") // { wrapped = elemType; };
           nestedTypes.elemType = elemType;
         }
-        ;
+      ;
 
       # A submodule (like typed attribute set). See NixOS manual.
       submodule =
@@ -892,7 +892,7 @@ let
           shorthandOnlyDefinesConfig = true;
           modules = toList modules;
         }
-        ;
+      ;
 
       # A module to be imported in some other part of the configuration.
       deferredModule = deferredModuleWith { };
@@ -922,13 +922,13 @@ let
                         def.value
                     )
                     defs
-                ;
+              ;
             }
-            ;
+          ;
           inherit (submoduleWith { modules = staticModules; })
             getSubOptions
             getSubModules
-            ;
+          ;
           substSubModules =
             m: deferredModuleWith (attrs // { staticModules = m; });
           functor = defaultFunctor "deferredModuleWith" // {
@@ -938,10 +938,10 @@ let
               lhs: rhs: {
                 staticModules = lhs.staticModules ++ rhs.staticModules;
               }
-              ;
+            ;
           };
         }
-        ;
+      ;
 
       # The type of a type!
       optionType = mkOptionType {
@@ -971,7 +971,7 @@ let
                     }
                   )
                   defs
-                ;
+              ;
               # Merges all the types into a single one, including submodule merging.
               # This also propagates file information to all submodules
               mergedOption = fixupOptionType loc (
@@ -979,7 +979,7 @@ let
               );
             in
             mergedOption.type
-          ;
+        ;
       };
 
       submoduleWith =
@@ -1012,7 +1012,7 @@ let
                   }
               )
               defs
-            ;
+          ;
 
           base = evalModules {
             inherit specialArgs;
@@ -1036,7 +1036,7 @@ let
                 _module.args.name = lib.mkOptionDefault "‹name›";
               } ]
               ++ modules
-              ;
+            ;
           };
 
           freeformType = base._module.freeformType;
@@ -1050,7 +1050,7 @@ let
               description
             else
               freeformType.description or name
-            ;
+          ;
           check = x: isAttrs x || isFunction x || path.check x;
           merge =
             loc: defs:
@@ -1059,7 +1059,7 @@ let
                 [ { _module.args.name = last loc; } ] ++ allModules defs;
               prefix = loc;
             }).config
-            ;
+          ;
           emptyValue = { value = { }; };
           getSubOptions =
             prefix:
@@ -1070,7 +1070,7 @@ let
               # is just to avoid conflicts with potential options from the submodule
               _freeformOptions = freeformType.getSubOptions prefix;
             }
-            ;
+          ;
           getSubModules = modules;
           substSubModules = m: submoduleWith (attrs // { modules = m; });
           nestedTypes = lib.optionalAttrs (freeformType != null) {
@@ -1084,7 +1084,7 @@ let
                 specialArgs
                 shorthandOnlyDefinesConfig
                 description
-                ;
+              ;
             };
             binOp =
               lhs: rhs: {
@@ -1094,7 +1094,7 @@ let
                     intersecting =
                       builtins.intersectAttrs lhs.specialArgs
                         rhs.specialArgs
-                      ;
+                    ;
                   in
                   if intersecting == { } then
                     lhs.specialArgs // rhs.specialArgs
@@ -1103,7 +1103,7 @@ let
                       A submoduleWith option is declared multiple times with the same specialArgs "${
                         toString (attrNames intersecting)
                       }"''
-                  ;
+                ;
                 shorthandOnlyDefinesConfig =
                   if lhs.shorthandOnlyDefinesConfig == null then
                     rhs.shorthandOnlyDefinesConfig
@@ -1117,7 +1117,7 @@ let
                   else
                     throw
                       "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values"
-                  ;
+                ;
                 description =
                   if lhs.description == null then
                     rhs.description
@@ -1128,12 +1128,12 @@ let
                   else
                     throw
                       "A submoduleWith option is declared multiple times with conflicting descriptions"
-                  ;
+                ;
               }
-              ;
+            ;
           };
         }
-        ;
+      ;
 
       # A value from a set of allowed ones.
       enum =
@@ -1150,7 +1150,7 @@ let
               boolToString v
             else
               "<${builtins.typeOf v}>"
-            ;
+          ;
         in
         mkOptionType rec {
           name = "enum";
@@ -1165,7 +1165,7 @@ let
               "value ${show (builtins.head values)} (singular enum)"
             else
               "one of ${concatMapStringsSep ", " show values}"
-            ;
+          ;
           descriptionClass =
             if builtins.length values < 2 then "noun" else "conjunction";
           check = flip elem values;
@@ -1175,7 +1175,7 @@ let
             binOp = a: b: unique (a ++ b);
           };
         }
-        ;
+      ;
 
       # Either value of type `t1` or `t2`.
       either =
@@ -1210,7 +1210,7 @@ let
               t2.merge loc defs
             else
               mergeOneOption loc defs
-            ;
+          ;
           typeMerge =
             f':
             let
@@ -1221,7 +1221,7 @@ let
               functor.type mt1 mt2
             else
               null
-            ;
+          ;
           functor = (defaultFunctor name) // {
             wrapped = [
               t1
@@ -1231,7 +1231,7 @@ let
           nestedTypes.left = t1;
           nestedTypes.right = t2;
         }
-        ;
+      ;
 
       # Any of the types in the given list
       oneOf =
@@ -1242,11 +1242,11 @@ let
               throw "types.oneOf needs to get at least one type in its argument"
             else
               head ts
-            ;
+          ;
           tail' = tail ts;
         in
         foldl' either head' tail'
-        ;
+      ;
 
       # Either value of type `coercedType` or `finalType`, the former is
       # converted to `finalType` using `coerceFunc`.
@@ -1264,7 +1264,7 @@ let
             x:
             (coercedType.check x && finalType.check (coerceFunc x))
             || finalType.check x
-            ;
+          ;
           merge =
             loc: defs:
             let
@@ -1274,7 +1274,7 @@ let
             finalType.merge loc (
               map (def: def // { value = coerceVal def.value; }) defs
             )
-            ;
+          ;
           emptyValue = finalType.emptyValue;
           getSubOptions = finalType.getSubOptions;
           getSubModules = finalType.getSubModules;
@@ -1285,7 +1285,7 @@ let
           nestedTypes.coercedType = coercedType;
           nestedTypes.finalType = finalType;
         }
-        ;
+      ;
 
       # Augment the given type with an additional type check function.
       addCheck =
@@ -1293,7 +1293,7 @@ let
         elemType // {
           check = x: elemType.check x && check x;
         }
-        ;
+      ;
     };
   };
 in

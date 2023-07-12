@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       alsa-lib
       udev
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

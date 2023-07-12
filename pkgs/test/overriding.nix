@@ -29,7 +29,7 @@ let
         expected = true;
       })
     ]
-    ;
+  ;
 
   addEntangled =
     origOverrideAttrs: f:
@@ -43,7 +43,7 @@ let
         }
       )
     )
-    ;
+  ;
 
   entangle =
     pkg1: pkg2:
@@ -55,7 +55,7 @@ let
         };
       }
     )
-    ;
+  ;
 
   example = entangle pkgs.hello pkgs.figlet;
 
@@ -84,5 +84,5 @@ stdenvNoCC.mkDerivation {
           } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)"
         )
         tests
-    ;
+  ;
 }

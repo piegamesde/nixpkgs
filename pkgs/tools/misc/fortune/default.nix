@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DLOCALDIR=${placeholder "out"}/share/fortunes" ]
     ++ lib.optional (!withOffensive) "-DNO_OFFENSIVE=true"
-    ;
+  ;
 
   patches = [
     (builtins.toFile "not-a-game.patch" ''

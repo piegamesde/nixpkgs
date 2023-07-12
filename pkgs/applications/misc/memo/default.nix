@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
           "pandoc_cmd=${pandoc}/bin/pandoc"
         else
           "#pandoc_cmd=pandoc"
-        ;
+      ;
     in
     ''
       mkdir -p $out/{bin,share/man/man1,share/bash-completion/completions,share/zsh/site-functions}
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       mv completion/bash/memo.sh $out/share/bash-completion/completions/memo.sh
       mv completion/zsh/_memo    $out/share/zsh/site-functions/_memo
     ''
-    ;
+  ;
 
   meta = {
     description = "A simple tool written in bash to memorize stuff";

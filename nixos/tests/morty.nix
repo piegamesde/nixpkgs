@@ -20,7 +20,7 @@ import ./make-test-python.nix (
             port = 3001;
           };
         }
-        ;
+      ;
     };
 
     testScript =
@@ -31,6 +31,6 @@ import ./make-test-python.nix (
         mortyProxyWithKey.wait_for_open_port(3001)
         mortyProxyWithKey.succeed("curl -fL 127.0.0.1:3001 | grep MortyProxy")
       ''
-      ;
+    ;
   }
 )

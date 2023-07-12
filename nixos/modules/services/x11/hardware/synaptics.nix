@@ -41,7 +41,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable."
-          ;
+        ;
       };
 
       dev = mkOption {
@@ -60,7 +60,7 @@ in
         description =
           lib.mdDoc
             "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
-          ;
+        ;
       };
 
       minSpeed = mkOption {
@@ -69,7 +69,7 @@ in
         description =
           lib.mdDoc
             "Cursor speed factor for precision finger motion."
-          ;
+        ;
       };
 
       maxSpeed = mkOption {
@@ -78,7 +78,7 @@ in
         description =
           lib.mdDoc
             "Cursor speed factor for highest-speed finger motion."
-          ;
+        ;
       };
 
       scrollDelta = mkOption {
@@ -88,7 +88,7 @@ in
         description =
           lib.mdDoc
             "Move distance of the finger for a scroll event."
-          ;
+        ;
       };
 
       twoFingerScroll = mkOption {
@@ -97,7 +97,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll."
-          ;
+        ;
       };
 
       horizTwoFingerScroll = mkOption {
@@ -107,7 +107,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable horizontal two-finger drag-scrolling."
-          ;
+        ;
       };
 
       vertTwoFingerScroll = mkOption {
@@ -117,7 +117,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable vertical two-finger drag-scrolling."
-          ;
+        ;
       };
 
       horizEdgeScroll = mkOption {
@@ -127,7 +127,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable horizontal edge drag-scrolling."
-          ;
+        ;
       };
 
       vertEdgeScroll = mkOption {
@@ -137,7 +137,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable vertical edge drag-scrolling."
-          ;
+        ;
       };
 
       tapButtons = mkOption {
@@ -184,7 +184,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable palm detection (hardware support required)"
-          ;
+        ;
       };
 
       palmMinWidth = mkOption {
@@ -194,7 +194,7 @@ in
         description =
           lib.mdDoc
             "Minimum finger width at which touch is considered a palm"
-          ;
+        ;
       };
 
       palmMinZ = mkOption {
@@ -204,7 +204,7 @@ in
         description =
           lib.mdDoc
             "Minimum finger pressure at which touch is considered a palm"
-          ;
+        ;
       };
 
       horizontalScroll = mkOption {
@@ -213,7 +213,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable horizontal scrolling (on touchpad)"
-          ;
+        ;
       };
 
       additionalOptions = mkOption {

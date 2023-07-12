@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [ OpenCL ]
     ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-    ;
+  ;
 
   # for gegl-4.0.pc
   propagatedBuildInputs = [

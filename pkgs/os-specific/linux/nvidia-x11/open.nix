@@ -34,7 +34,7 @@ stdenv.mkDerivation (
         }
         .${stdenv.hostPlatform.system}
       ]
-      ;
+    ;
 
     installTargets = [ "modules_install" ];
     enableParallelBuilding = true;

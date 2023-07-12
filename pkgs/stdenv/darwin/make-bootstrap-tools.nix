@@ -17,11 +17,11 @@ let
             args' = args // { bootstrapFiles = bootstrapFiles; };
           in
           (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin
-          ;
+        ;
       }
     else
       { }
-    ;
+  ;
 in
 with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
 
@@ -346,6 +346,6 @@ rec {
         args' = args // { inherit bootstrapLlvmVersion bootstrapFiles; };
       in
       (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin
-      ;
+    ;
   };
 }

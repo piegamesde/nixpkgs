@@ -23,7 +23,7 @@ let
     else
       throw
         "You must either specify contents of the config file or the config file itself for GVPE"
-    ;
+  ;
 
   ifupScript =
     if cfg.ipAddress == null || cfg.subnet == null then
@@ -46,7 +46,7 @@ let
         '';
         executable = true;
       })
-    ;
+  ;
 in
 
 {
@@ -134,7 +134,7 @@ in
         + " ${cfg.nodename}.pid-file=/var/gvpe/gvpe.pid"
         + " ${cfg.nodename}.if-up=if-up"
         + " &> /var/log/gvpe"
-        ;
+      ;
 
       serviceConfig.Restart = "always";
     };

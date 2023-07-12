@@ -36,7 +36,7 @@
                       }.${self.shortRev or "dirty"}";
                     system.nixos.revision = final.mkIf (self ? rev) self.rev;
                   } ]
-                  ;
+                ;
               } // lib.optionalAttrs (!args ? system) {
                 # Allow system to be set modularly in nixpkgs.system.
                 # We set it to null, to remove the "legacy" entrypoint's
@@ -44,7 +44,7 @@
                 system = null;
               }
             )
-            ;
+          ;
         }
       );
 
@@ -72,5 +72,5 @@
         notDetected = ./nixos/modules/installer/scan/not-detected.nix;
       };
     }
-    ;
+  ;
 }

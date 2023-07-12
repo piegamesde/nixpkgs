@@ -122,7 +122,7 @@ buildFHSEnv {
       libXrender
       openal
     ]
-    ;
+  ;
   runScript = "superposition";
 
   extraInstallCommands = ''

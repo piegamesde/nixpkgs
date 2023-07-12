@@ -77,7 +77,7 @@ mkDerivation rec {
         cp $f po/trojita_common_$(echo $f | cut -d/ -f5).po
       done
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A Qt IMAP e-mail client";

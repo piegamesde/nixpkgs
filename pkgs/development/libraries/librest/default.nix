@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       docbook-xsl-nons
       docbook_xml_dtd_412
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     glib

@@ -24,7 +24,7 @@ let
       src =
         fetch "clang"
           "091bvcny2lh32zy8f3m9viayyhb2zannrndni7325rl85cwgr6pr"
-        ;
+      ;
 
       unpackPhase = ''
         unpackFile $src
@@ -41,7 +41,7 @@ let
         ]
         ++ lib.optional enableManpages python3.pkgs.sphinx
         ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-        ;
+      ;
 
       buildInputs = [
         libxml2
@@ -64,7 +64,7 @@ let
           "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
           "-DCLANG_TABLEGEN=${buildLlvmTools.libclang.dev}/bin/clang-tblgen"
         ]
-        ;
+      ;
 
       patches = [
         ./purity.patch
@@ -90,7 +90,7 @@ let
           substituteInPlace tools/extra/clangd/CMakeLists.txt \
             --replace "NOT HAVE_CXX_ATOMICS64_WITHOUT_LIB" FALSE
         ''
-        ;
+      ;
 
       outputs = [
         "out"

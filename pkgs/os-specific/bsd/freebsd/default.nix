@@ -44,7 +44,7 @@ let
   freebsdSetupHook =
     makeSetupHook { name = "freebsd-setup-hook"; }
       ./setup-hook.sh
-    ;
+  ;
 
   mkBsdArch =
     stdenv':
@@ -57,7 +57,7 @@ let
     }
     .${stdenv'.hostPlatform.parsed.cpu.name}
       or stdenv'.hostPlatform.parsed.cpu.name
-    ;
+  ;
 
   install-wrapper = ''
     set -eu
@@ -112,7 +112,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
     compatIfNeeded =
       lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD)
         self.compat
-      ;
+    ;
 
     mkDerivation = lib.makeOverridable (
       attrs:
@@ -141,7 +141,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
                   set +x
                 done
               ''
-            ;
+          ;
 
           extraPaths = [ ];
 
@@ -167,7 +167,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
               "STRIP=-s" # flag to install, not command
             ]
             ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no"
-            ;
+          ;
 
           # amd64 not x86_64 for this on unlike NetBSD
           MACHINE_ARCH = mkBsdArch stdenv';
@@ -347,7 +347,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "lib/libcapsicum"
           "lib/libcasper"
         ]
-        ;
+      ;
 
       patches = [
         ./compat-install-dirs.patch
@@ -366,7 +366,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         + lib.optionalString stdenv.hostPlatform.isx86 ''
           cp ../../sys/x86/include/elf.h ../../sys/x86
         ''
-        ;
+      ;
 
       setupHooks = [
         ../../../build-support/setup-hooks/role.bash
@@ -409,7 +409,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         + lib.optionalString stdenv.hostPlatform.isDarwin ''
           cp --no-preserve=mode -r cross-build/include/darwin/* $out/1-include
         ''
-        ;
+      ;
     };
 
     libnetbsd = mkDerivation {
@@ -439,7 +439,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         ++
           lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
             "INSTALL=boot-install"
-        ;
+      ;
       buildInputs = with self; compatIfNeeded;
     };
 
@@ -487,7 +487,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           ++
             lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
               "INSTALL=boot-install"
-          ;
+        ;
         postInstall = ''
           install -D -m 0550 ${binstall} $out/bin/binstall
           substituteInPlace $out/bin/binstall --subst-var out
@@ -500,7 +500,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "test"
         ];
       }
-      ;
+    ;
 
     sed = mkDerivation {
       path = "usr.bin/sed";
@@ -586,14 +586,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             --replace '-Wl,--fatal-warnings' "" \
             --replace '-Wl,--warn-shared-textrel' ""
         ''
-        ;
+      ;
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
       extraPaths =
         [ "share/mk" ]
         ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk"
-        ;
+      ;
     };
     mtree = mkDerivation {
       path = "contrib/mtree";

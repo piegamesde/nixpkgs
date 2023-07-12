@@ -75,7 +75,7 @@ let
           [ ]
         else
           map metacoq_ (head (splitList (lib.pred.equal package) packages))
-        ;
+      ;
       pkgpath = if package == "single" then "./" else "./${package}";
       pname = if package == "all" then "metacoq" else "metacoq-${package}";
       pkgallMake = ''
@@ -95,7 +95,7 @@ let
                 coq.ocamlPackages.zarith
               ]
               ++ metacoq-deps
-              ;
+            ;
 
             patchPhase = ''
               patchShebangs ./configure.sh
@@ -125,7 +125,7 @@ let
               + optionalString (package == "single") ''
                 ./configure.sh local
               ''
-              ;
+            ;
 
             preBuild = ''
               cd ${pkgpath}
@@ -152,7 +152,7 @@ let
                     || coq.coq-version == "dev"
                   )
                 )
-                ;
+              ;
             in
             {
               propagatedBuildInputs =
@@ -160,12 +160,12 @@ let
                 ++
                   optional requiresOcamlStdlibShims
                     coq.ocamlPackages.stdlib-shims
-                ;
+              ;
             }
           )
-        ;
+      ;
     in
     derivation
-    ;
+  ;
 in
 metacoq_ (if single then "single" else "all")

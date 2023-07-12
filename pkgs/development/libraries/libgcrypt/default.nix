@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
           hash = "sha256-CgQjNtC1qLe5LicIc8rESc6Z1u4fk7ErMUVcG/2G9gM=";
         })
       ]
-    ;
+  ;
 
   outputs = [
     "out"
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     [ libgpg-error ]
     ++ lib.optional stdenv.isDarwin gettext
     ++ lib.optional enableCapabilities libcap
-    ;
+  ;
 
   strictDeps = true;
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
           || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
         )
         "--disable-asm"
-    ; # for darwin see https://dev.gnupg.org/T5157
+  ; # for darwin see https://dev.gnupg.org/T5157
 
   # Necessary to generate correct assembly when compiling for aarch32 on
   # aarch64
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString enableCapabilities ''
       sed -i 's,\(-lcap\),-L${libcap.lib}/lib \1,' $out/lib/libgcrypt.la
     ''
-    ;
+  ;
 
   # TODO: figure out why this is even necessary and why the missing dylib only crashes
   # random instead of every test

@@ -43,7 +43,7 @@ stdenv.mkDerivation {
       zlib
     ]
     ++ lib.optional stdenv.isDarwin Foundation
-    ;
+  ;
 
   configureFlags =
     [
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
       # Don't use native macOS frameworks
       "--disable-imageio"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

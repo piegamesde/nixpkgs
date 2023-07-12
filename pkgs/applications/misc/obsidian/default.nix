@@ -34,7 +34,7 @@ let
       "Obsidian-${version}-universal.dmg"
     else
       "obsidian-${version}.tar.gz"
-    ;
+  ;
   src = fetchurl {
     url =
       "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}";
@@ -43,7 +43,7 @@ let
         "sha256-E+1B+KgdvOuDyJP4W5tnkDe8sC4NdplRqY24Yu/DlEA="
       else
         "sha256-TDgi0jwNRL0zXJSIBap0Q8WX29ab2HhY0ylb/sxgapE="
-      ;
+    ;
   };
 
   icon = fetchurl {

@@ -44,7 +44,7 @@ with lib; {
                 description =
                   lib.mdDoc
                     "Address to bind to for handling DNS requests."
-                  ;
+                ;
               };
 
               upstream = mkOption {

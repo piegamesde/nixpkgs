@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       Cocoa
       Foundation
     ]
-    ;
+  ;
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AppKit";
 

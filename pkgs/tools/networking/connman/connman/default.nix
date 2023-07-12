@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
       pptp
       ppp
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config
@@ -173,7 +173,7 @@ stdenv.mkDerivation rec {
     ++ optionals (enableL2tp) [ "--enable-l2tp" ]
     ++ optionals (enableIospm) [ "--enable-iospm" ]
     ++ optionals (enableTist) [ "--enable-tist" ]
-    ;
+  ;
 
   doCheck = true;
 

@@ -30,7 +30,7 @@ qtModule {
       alsa-lib
       wayland
     ]
-    ;
+  ;
   outputs = [
     "bin"
     "dev"

@@ -59,7 +59,7 @@ let
         )
       )
       modules
-    ;
+  ;
 
   mapModules =
     attrPath:
@@ -75,7 +75,7 @@ let
             toString mod.src
           } does not support nginx version ${nginxVersion}!"
     )
-    ;
+  ;
 in
 
 assert lib.assertMsg (lib.unique moduleNames == moduleNames)
@@ -99,7 +99,7 @@ stdenv.mkDerivation {
         url = "https://nginx.org/download/nginx-${version}.tar.gz";
         inherit hash;
       }
-    ;
+  ;
 
   nativeBuildInputs = [ removeReferencesTo ] ++ nativeBuildInputs;
 
@@ -116,7 +116,7 @@ stdenv.mkDerivation {
     ]
     ++ buildInputs
     ++ mapModules "inputs"
-    ;
+  ;
 
   configureFlags =
     [
@@ -173,7 +173,7 @@ stdenv.mkDerivation {
         "--with-file-aio"
     ++ configureFlags
     ++ map (mod: "--add-module=${mod.src}") modules
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -200,7 +200,7 @@ stdenv.mkDerivation {
     ''
     + preConfigure
     + lib.concatMapStringsSep "\n" (mod: mod.preConfigure or "") modules
-    ;
+  ;
 
   patches =
     map fixPatch (
@@ -233,7 +233,7 @@ stdenv.mkDerivation {
       ++ mapModules "patches"
     )
     ++ extraPatches
-    ;
+  ;
 
   inherit postPatch;
 
@@ -256,10 +256,10 @@ stdenv.mkDerivation {
             remove-references-to -t ${m.src} $out/sbin/nginx
           '')
           modules
-        ;
+      ;
     in
     noSourceRefs + postInstall
-    ;
+  ;
 
   passthru = {
     inherit modules;
@@ -273,7 +273,7 @@ stdenv.mkDerivation {
         nginx-pubhtml
         nginx-sandbox
         nginx-sso
-        ;
+      ;
       variants = lib.recurseIntoAttrs nixosTests.nginx-variants;
       acme-integration = nixosTests.acme;
     } // passthru.tests;
@@ -296,5 +296,5 @@ stdenv.mkDerivation {
           ajs124
         ];
       }
-    ;
+  ;
 }

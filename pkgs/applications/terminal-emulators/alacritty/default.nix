@@ -49,7 +49,7 @@ let
       libxkbcommon
       wayland
     ]
-    ;
+  ;
 in
 rustPlatform.buildRustPackage rec {
   pname = "alacritty";
@@ -84,7 +84,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       OpenGL
     ]
-    ;
+  ;
 
   outputs = [
     "out"
@@ -139,7 +139,7 @@ rustPlatform.buildRustPackage rec {
       mkdir -p $out/nix-support
       echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
     ''
-    ;
+  ;
 
   dontPatchELF = true;
 

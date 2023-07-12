@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isLinux ''
       patchelf --replace-needed libunbound.so.8 $out/${python.sitePackages}/libunbound.so.8 $out/${python.sitePackages}/_unbound.so
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

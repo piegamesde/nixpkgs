@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       "installedTests"
     ]
     ++ lib.optional withIntrospection "devdoc"
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
       gi-docgen
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ glib ];
 

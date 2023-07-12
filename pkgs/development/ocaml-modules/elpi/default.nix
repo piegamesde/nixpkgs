@@ -55,7 +55,7 @@ let
         };
       })
       version
-    ;
+  ;
 in
 buildDunePackage rec {
   pname = "elpi";
@@ -64,7 +64,7 @@ buildDunePackage rec {
   patches =
     lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
       ./atd_2_10.patch
-    ;
+  ;
 
   minimalOCamlVersion = "4.04";
   duneVersion = "3";
@@ -83,13 +83,13 @@ buildDunePackage rec {
     ++
       lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
         atdgen
-    ;
+  ;
   buildInputs =
     [ ncurses ]
     ++
       lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
         atdgen
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -114,7 +114,7 @@ buildDunePackage rec {
           ppx_deriving_0_15
         ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description = "Embeddable λProlog Interpreter";

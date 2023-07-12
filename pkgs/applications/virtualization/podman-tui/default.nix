@@ -28,7 +28,7 @@ buildGoModule rec {
       "remote"
     ]
     ++ lib.optional stdenv.isDarwin "darwin"
-    ;
+  ;
 
   ldflags = [
     "-s"
@@ -48,7 +48,7 @@ buildGoModule rec {
         builtins.concatStringsSep "|" skippedTests
       })]")
     ''
-    ;
+  ;
 
   passthru.tests.version = testers.testVersion {
     package = podman-tui;

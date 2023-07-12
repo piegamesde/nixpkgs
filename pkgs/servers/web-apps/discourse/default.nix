@@ -135,10 +135,10 @@ let
                 runHook postInstall
               ''
           )
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   rake = runCommand "discourse-rake" { nativeBuildInputs = [ makeWrapper ]; } ''
     mkdir -p $out/bin
@@ -193,7 +193,7 @@ let
               cp ${linkFiles} libexec/inject-libv8
             '';
           }
-          ;
+        ;
         mini_suffix = gems.mini_suffix // {
           propagatedBuildInputs = [ libpsl ];
           dontBuild = false;
@@ -217,7 +217,7 @@ let
           '';
         };
       }
-      ;
+    ;
 
     groups = [
       "default"
@@ -247,7 +247,7 @@ let
         yarn
         nodejs_16
       ]
-      ;
+    ;
 
     outputs = [
       "out"

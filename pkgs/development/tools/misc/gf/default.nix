@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       gdb
     ]
     ++ lib.optional freetypeSupport freetype
-    ;
+  ;
 
   patches = [ ./build-use-optional-freetype-with-pkg-config.patch ];
 

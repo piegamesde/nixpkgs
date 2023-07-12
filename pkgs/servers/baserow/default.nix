@@ -32,7 +32,7 @@ let
           doCheck = false;
         };
       }
-      ;
+    ;
   };
 in
 
@@ -101,7 +101,7 @@ buildPythonApplication rec {
       zipp
     ]
     ++ uvicorn.optional-dependencies.standard
-    ;
+  ;
 
   postInstall = ''
     wrapProgram $out/bin/baserow \

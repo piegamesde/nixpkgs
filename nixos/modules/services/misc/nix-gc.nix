@@ -24,7 +24,7 @@ in
         description =
           lib.mdDoc
             "Automatically run the garbage collector at a specific time."
-          ;
+        ;
       };
 
       dates = mkOption {

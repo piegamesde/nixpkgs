@@ -48,7 +48,7 @@ let
     makeLibraryPath
     makeSearchPath
     recurseIntoAttrs
-    ;
+  ;
 
   inherit (builtins) head tail elem split storeDir;
 
@@ -64,7 +64,7 @@ let
         newArgs:
         origArgs
         // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs)
-        ;
+      ;
     in
     if builtins.isAttrs ff then
       (
@@ -81,7 +81,7 @@ let
       }
     else
       ff
-    ;
+  ;
 
   buildAsdf =
     {
@@ -105,7 +105,7 @@ let
         cp -v asdf.${faslExt} $out
       '';
     }
-    ;
+  ;
 
   #
   # Wrapper around stdenv.mkDerivation for building ASDF systems.
@@ -180,7 +180,7 @@ let
           program
           flags
           faslExt
-          ;
+        ;
 
         # When src is null, we are building a lispWithPackages and only
         # want to make use of the dependency environment variables
@@ -242,7 +242,7 @@ let
                     ]
                 )
                 systems
-              ;
+            ;
           in
           ''
             mkdir -pv $out
@@ -253,7 +253,7 @@ let
             | grep -v "/\(${mkSystemsRegex systems}\)\.asd$" \
             | xargs rm -fv || true
           ''
-          ;
+        ;
 
         dontPatchShebangs = true;
 
@@ -267,14 +267,14 @@ let
               pkgs.applyPatches { inherit (args) src patches; }
             else
               args.src
-            ;
+          ;
           patches = [ ];
           propagatedBuildInputs =
             args.propagatedBuildInputs or [ ]
             ++ lispLibs
             ++ javaLibs
             ++ nativeLibs
-            ;
+          ;
           meta = (args.meta or { }) // {
             maintainers = args.meta.maintainers or lib.teams.lisp.members;
           };
@@ -303,7 +303,7 @@ let
       inherit spec quicklispPackagesFor;
       build-asdf-system = build-asdf-system';
     }
-    ;
+  ;
 
   # Build the set of packages imported from quicklisp using `lisp`
   quicklispPackagesFor =
@@ -312,7 +312,7 @@ let
       build-asdf-system' = body: build-asdf-system (body // spec);
     in
     pkgs.callPackage ./ql.nix { build-asdf-system = build-asdf-system'; }
-    ;
+  ;
 
   # Creates a lisp wrapper with `packages` installed
   #
@@ -354,7 +354,7 @@ let
           '';
         }
       )
-    ;
+  ;
 
   wrapLisp =
     {
@@ -375,12 +375,12 @@ let
           inherit pkg faslExt program flags asdf;
           inherit packageOverrides;
         }
-        ;
+      ;
       buildASDFSystem = args: build-asdf-system (args // spec);
     in
     pkg // {
       inherit pkgs withPackages withOverrides buildASDFSystem;
     }
-    ;
+  ;
 in
 wrapLisp

@@ -83,7 +83,7 @@ in
       description =
         lib.mdDoc
           "Address to bind to. The default is to bind to all addresses"
-        ;
+      ;
     };
 
     extraConfig = mkOption {
@@ -109,7 +109,7 @@ in
       description =
         lib.mdDoc
           "Specifies how often to snapshot the task state  (in InfluxDB time units)"
-        ;
+      ;
       default = "1m0s";
     };
 
@@ -118,7 +118,7 @@ in
       description =
         lib.mdDoc
           "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)"
-        ;
+      ;
       default = null;
     };
 
@@ -129,7 +129,7 @@ in
         description =
           lib.mdDoc
             "The URL to an InfluxDB server that serves as the default database"
-          ;
+        ;
         example = "http://localhost:8086";
         type = types.str;
       };
@@ -138,7 +138,7 @@ in
         description =
           lib.mdDoc
             "The username to connect to the remote InfluxDB server"
-          ;
+        ;
         type = types.str;
       };
 
@@ -146,7 +146,7 @@ in
         description =
           lib.mdDoc
             "The password to connect to the remote InfluxDB server"
-          ;
+        ;
         type = types.str;
       };
     };

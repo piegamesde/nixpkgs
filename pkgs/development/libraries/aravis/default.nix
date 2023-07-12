@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       gi-docgen
     ]
     ++ lib.optional enableViewer wrapGAppsHook
-    ;
+  ;
 
   buildInputs =
     [
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals (enableViewer) [ gtk3 ]
-    ;
+  ;
 
   mesonFlags =
     [ ]
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!enableViewer) "-Dviewer=disabled"
     ++ lib.optional (!enableUsb) "-Dviewer=disabled"
     ++ lib.optional (!enablePacketSocket) "-Dpacket-socket=disabled"
-    ;
+  ;
 
   doCheck = true;
 

@@ -54,7 +54,7 @@ buildPythonPackage rec {
       rich
     ]
     ++ requests.optional-dependencies.socks
-    ;
+  ;
 
   nativeCheckInputs = [
     pytest-httpbin
@@ -110,7 +110,7 @@ buildPythonPackage rec {
       # flaky
       "test_daemon_runner"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

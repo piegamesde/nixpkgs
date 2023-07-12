@@ -43,7 +43,7 @@ stdenv.mkDerivation {
       CryptoKit
       LocalAuthentication
     ]
-    ;
+  ;
 
   configurePhase =
     generated.configure
@@ -61,7 +61,7 @@ stdenv.mkDerivation {
       # Required to link with swift-corelibs-xctest on Darwin.
       export SWIFTTSC_MACOS_DEPLOYMENT_TARGET=10.12
     ''
-    ;
+  ;
 
   # TODO: BuildServerBuildSystemTests fails
   #doCheck = true;

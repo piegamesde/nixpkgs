@@ -9,7 +9,7 @@ let
   inherit (import ./common.nix { inherit pkgs lib; })
     mkTestName
     mariadbPackages
-    ;
+  ;
 
   makeTest = import ./../make-test-python.nix;
 
@@ -57,7 +57,7 @@ let
             )
       '';
     }
-    ;
+  ;
 in
 lib.mapAttrs (_: package: makeAutobackupTest { inherit package; })
   mariadbPackages

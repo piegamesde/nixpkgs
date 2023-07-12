@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       "--disable-update-ipsets"
     ]
     ++ lib.optionals onlyQOS [ "--disable-firehol" ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A firewall for humans";

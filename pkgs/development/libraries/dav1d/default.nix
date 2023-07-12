@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       vulkan-loader
       vulkan-headers
     ]
-    ;
+  ;
 
   mesonFlags = [
     "-Denable_tools=${lib.boolToString withTools}"

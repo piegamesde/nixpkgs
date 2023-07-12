@@ -27,7 +27,7 @@ let
       "ArmVirtPkg/ArmVirtQemu.dsc"
     else
       throw "Unsupported architecture"
-    ;
+  ;
 
   version = lib.getVersion edk2;
 
@@ -58,7 +58,7 @@ edk2.mkDerivation projectDscPath (
         llvmPackages.bintools
         llvmPackages.llvm
       ]
-      ;
+    ;
     strictDeps = true;
 
     hardeningDisable = [
@@ -83,12 +83,12 @@ edk2.mkDerivation projectDscPath (
         "-D TPM2_ENABLE"
         "-D TPM2_CONFIG_ENABLE"
       ]
-      ;
+    ;
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang
         "-Qunused-arguments"
-      ;
+    ;
 
     env.PYTHON_COMMAND = "python3";
 
@@ -117,7 +117,7 @@ edk2.mkDerivation projectDscPath (
           mkdir -vp $fd/FV
           mv -v $out/FV/OVMF{,_CODE,_VARS}.fd $fd/FV
         ''
-      ;
+    ;
 
     dontPatchELF = true;
 
@@ -137,7 +137,7 @@ edk2.mkDerivation projectDscPath (
         # This will test the EFI firmware for the host platform as part of the NixOS Tests setup.
         tests.basic-systemd-boot = nixosTests.systemd-boot.basic;
       }
-      ;
+    ;
 
     meta = {
       description = "Sample UEFI firmware for QEMU and KVM";

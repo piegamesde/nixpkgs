@@ -25,7 +25,7 @@ let
             sha256 = "sha256-vSnHhuOIXf/1X+bUkUmGND5b30ES0O8EDArwb4p2/w4=";
           })
         ]
-        ;
+      ;
     }
   );
 in

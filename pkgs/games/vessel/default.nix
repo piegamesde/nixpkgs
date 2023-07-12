@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     else
       throw
         "unsupported platform ${stdenv.hostPlatform.system} only i686-linux supported for now."
-    ;
+  ;
 
   phases = "installPhase";
   ld_preload = ./isatty.c;
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       libpulseaudio
       alsa-lib
     ]
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/libexec/strangeloop/vessel/

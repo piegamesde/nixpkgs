@@ -40,7 +40,7 @@ let
         [ "-C codegen-units=${toString codegenUnits}" ]
         ++ extraRustcOptsForBuildRs
       )
-    ;
+  ;
   buildDeps = mkRustcDepArgs buildDependencies crateRenames;
   authors = lib.concatStringsSep ":" crateAuthors;
   optLevel = if release then 3 else 0;

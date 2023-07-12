@@ -62,7 +62,7 @@ let
       libGL
     ]
     + ":${stdenv.cc.cc.lib}/lib64"
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "hipchat";

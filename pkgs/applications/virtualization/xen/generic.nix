@@ -99,7 +99,7 @@ let
         ( __do )
       ''
     )
-    ;
+  ;
 
   # We don't want to use the wrapped version, because this version of ld is
   # only used for linking the Xen EFI binary, and the build process really
@@ -177,7 +177,7 @@ stdenv.mkDerivation (
       ]
       ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
       ++ (config.buildInputs or [ ])
-      ;
+    ;
 
     prePatch = ''
       ### Generic fixes
@@ -298,7 +298,7 @@ stdenv.mkDerivation (
         "XEN_SCRIPT_DIR=/etc/xen/scripts"
       ]
       ++ (config.makeFlags or [ ])
-      ;
+    ;
 
     preBuild = ''
       ${config.preBuild or ""}
@@ -348,7 +348,7 @@ stdenv.mkDerivation (
         +
           optionalString (args ? meta && args.meta ? description)
             " (${args.meta.description})"
-        ;
+      ;
       longDescription =
         (args.meta.longDescription or "")
         + ''
@@ -358,7 +358,7 @@ stdenv.mkDerivation (
         + withXenfiles (
           name: x: "* ${name}: ${x.meta.description or "(No description)"}."
         )
-        ;
+      ;
       platforms = [ "x86_64-linux" ];
       maintainers = [ ];
       license = lib.licenses.gpl2;
@@ -379,7 +379,7 @@ stdenv.mkDerivation (
         ++ lib.optionals (lib.versionOlder version "4.15") [
           "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
         ]
-        ;
+      ;
     } // (config.meta or { });
   } // removeAttrs config [
     "xenfiles"

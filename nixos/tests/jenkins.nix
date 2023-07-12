@@ -73,7 +73,7 @@ import ./make-test-python.nix (
 
           systemd.services.jenkins.serviceConfig.TimeoutStartSec = "6min";
         }
-        ;
+      ;
 
       slave =
         {
@@ -83,7 +83,7 @@ import ./make-test-python.nix (
 
           users.users.jenkins.extraGroups = [ "users" ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -141,6 +141,6 @@ import ./make-test-python.nix (
             jobs = [x.strip() for x in out.splitlines()]
             assert jobs == [], f"jobs != []: {jobs}"
       ''
-      ;
+    ;
   }
 )

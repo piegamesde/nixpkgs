@@ -97,7 +97,7 @@ buildPythonApplication rec {
       pandoc
     ]
     ++ lib.optional withNvenc cudatoolkit
-    ;
+  ;
 
   buildInputs = with xorg;
     [
@@ -186,7 +186,7 @@ buildPythonApplication rec {
       "--with-vsock"
     ]
     ++ lib.optional withNvenc "--with-nvenc"
-    ;
+  ;
 
   dontWrapGApps = true;
 
@@ -216,7 +216,7 @@ buildPythonApplication rec {
     + ''
       )
     ''
-    ;
+  ;
 
   postInstall = ''
     # append module paths to xorg.conf

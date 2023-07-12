@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional withLua lua
-    ;
+  ;
 
   buildFlags = [ "translations" ];
 

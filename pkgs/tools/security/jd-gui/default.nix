@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   desktopItems = [ desktopItem ];
 

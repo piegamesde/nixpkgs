@@ -41,7 +41,7 @@ stdenv.mkDerivation {
       "--disable-sysinstall"
     ]
     ++ lib.optional dedicatedServer "--enable-dedicated"
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
       libGLU
       libGL
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://armagetronad.org";

@@ -9,7 +9,7 @@ let
   inherit (import ./common.nix { inherit pkgs lib; })
     mkTestName
     mariadbPackages
-    ;
+  ;
 
   makeTest = import ./../make-test-python.nix;
 
@@ -63,7 +63,7 @@ let
                   lib.concatMapStringsSep "\n"
                     (i: "192.168.1.${toString i} galera_0${toString i}")
                     (lib.range 1 6)
-                  ;
+                ;
                 firewall.allowedTCPPorts = [
                   3306
                   4444
@@ -119,7 +119,7 @@ let
                       +
                         lib.optionalString (id == 5 || id == 6)
                           "galera_04,galera_05,galera_06"
-                      ;
+                    ;
                     wsrep_cluster_name = "galera";
                     wsrep_node_address = address;
                     wsrep_node_name = "galera_0${toString id}";
@@ -132,7 +132,7 @@ let
                 };
               };
             }
-            ;
+          ;
         in
         {
           galera_01 = mkGaleraNode {
@@ -165,7 +165,7 @@ let
             method = "rsync";
           };
         }
-        ;
+      ;
 
       testScript = ''
         galera_01.start()
@@ -276,7 +276,7 @@ let
         galera_06.succeed("sudo -u testuser mysql -u testuser -e 'use testdb; drop table db1;'")
       '';
     }
-    ;
+  ;
 in
 lib.mapAttrs (_: mariadbPackage: makeGaleraTest { inherit mariadbPackage; })
   mariadbPackages

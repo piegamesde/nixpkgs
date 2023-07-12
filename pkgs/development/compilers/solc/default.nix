@@ -99,7 +99,7 @@ let
               [ "-DUSE_Z3=OFF" ]
           )
           ++ lib.optionals (!cvc4Support) [ "-DUSE_CVC4=OFF" ]
-          ;
+        ;
 
         nativeBuildInputs = [ cmake ];
         buildInputs =
@@ -110,7 +110,7 @@ let
             cln
             gmp
           ]
-          ;
+        ;
         nativeCheckInputs = [
           jq
           ncurses
@@ -177,6 +177,6 @@ let
           runHook postInstall
         '';
       }
-    ;
+  ;
 in
 solc

@@ -14,7 +14,7 @@ let
   pyEnv =
     pkgs.python3.withPackages
       (p: [ p.limnoria ] ++ (cfg.extraPackages p))
-    ;
+  ;
 in
 {
   options = {
@@ -27,7 +27,7 @@ in
         description =
           lib.mdDoc
             "Enable Supybot, an IRC bot (also known as Limnoria)."
-          ;
+        ;
       };
 
       stateDir = mkOption {
@@ -37,12 +37,12 @@ in
             "/var/lib/supybot"
           else
             "/home/supybot"
-          ;
+        ;
         defaultText = literalExpression "/var/lib/supybot";
         description =
           lib.mdDoc
             "The root directory, logs and plugins are stored here"
-          ;
+        ;
       };
 
       configFile = mkOption {
@@ -171,6 +171,6 @@ in
       ++ (flip mapAttrsToList cfg.plugins (
         name: dest: "L+ '${cfg.stateDir}/plugins/${name}' - - - - ${dest}"
       ))
-      ;
+    ;
   };
 }

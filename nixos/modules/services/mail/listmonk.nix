@@ -16,7 +16,7 @@ let
     "UPDATE settings SET value = '${
       lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)
     }' WHERE key = '${key}';"
-    ;
+  ;
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql" (
     concatStringsSep "\n" (
       mapAttrsToList setDatabaseOption (
@@ -37,7 +37,7 @@ let
         else
           "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
       ''
-    ;
+  ;
 
   databaseSettingsOpts = with types; {
     freeformType = oneOf [
@@ -66,7 +66,7 @@ let
         description =
           lib.mdDoc
             "List of fields which can be exported through an automatic export request"
-          ;
+        ;
       };
 
       "privacy.domain_blocklist" = mkOption {
@@ -75,7 +75,7 @@ let
         description =
           lib.mdDoc
             "E-mail addresses with these domains are disallowed from subscribing."
-          ;
+        ;
       };
 
       smtp = mkOption {
@@ -107,7 +107,7 @@ let
                 description =
                   lib.mdDoc
                     "Maximum number of simultaneous connections, defaults to 1"
-                  ;
+                ;
                 default = 1;
               };
               tls_type = mkOption {
@@ -119,7 +119,7 @@ let
                 description =
                   lib.mdDoc
                     "Type of TLS authentication with the SMTP server"
-                  ;
+                ;
               };
             };
           }
@@ -150,7 +150,7 @@ let
         description =
           lib.mdDoc
             "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options."
-          ;
+        ;
       };
     };
   };
@@ -169,7 +169,7 @@ in
           description =
             lib.mdDoc
               "Create the PostgreSQL database and database user locally."
-            ;
+          ;
         };
 
         settings = mkOption {
@@ -178,7 +178,7 @@ in
           description =
             lib.mdDoc
               "Dynamic settings in the PostgreSQL database, set by a SQL script, see <https://github.com/knadh/listmonk/blob/master/schema.sql#L177-L230> for details."
-            ;
+          ;
         };
         mutableSettings = mkOption {
           type = types.bool;
@@ -203,7 +203,7 @@ in
         description =
           lib.mdDoc
             "A file containing secrets as environment variables. See <https://listmonk.app/docs/configuration/#environment-variables> for details on supported values."
-          ;
+        ;
       };
     };
   };
@@ -242,7 +242,7 @@ in
       after =
         [ "network.target" ]
         ++ optional cfg.database.createLocally "postgresql.service"
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "exec";

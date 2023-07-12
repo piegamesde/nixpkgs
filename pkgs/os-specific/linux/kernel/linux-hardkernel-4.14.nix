@@ -37,7 +37,7 @@ buildLinux (
           hash = "sha256-1CXYCV5zMLA4YdbCr8cO2N4CHEDzQChS9qbKYHPm3U4=";
         };
       } ]
-      ;
+    ;
 
     defconfig = "odroidxu4_defconfig";
 
@@ -52,7 +52,7 @@ buildLinux (
 
       ''
       + (args.extraConfig or "")
-      ;
+    ;
 
     extraMeta.platforms = [ "armv7l-linux" ];
   } // (args.argsOverride or { })

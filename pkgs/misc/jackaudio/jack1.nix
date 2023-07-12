@@ -21,7 +21,7 @@ let
       pkg
     else
       null
-    ;
+  ;
 
   optAlsaLib = shouldUsePkg alsa-lib;
   optDb = shouldUsePkg db;
@@ -54,7 +54,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       broken = stdenv.isDarwin;

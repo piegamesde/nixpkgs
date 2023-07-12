@@ -14,7 +14,7 @@ import ./make-test-python.nix (
         "x86_64-linux"
       else
         "aarch64-linux"
-      ;
+    ;
 
     remoteCrossPkgs =
       import ../.. # nixpkgs
@@ -27,7 +27,7 @@ import ./make-test-python.nix (
           #       cross-compile _to_ a different system but _from_ a different system
           crossSystem = pkgs.stdenv.hostPlatform.system;
         }
-      ;
+    ;
 
     hello1 = remoteCrossPkgs.dockerTools.buildImage {
       name = "hello1";
@@ -59,7 +59,7 @@ import ./make-test-python.nix (
             docker.enable = true;
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

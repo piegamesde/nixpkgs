@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "platform ${stdenv.hostPlatform.system} not supported."
-    ;
+  ;
 
   nativeBuildInputs = [
     patchelf

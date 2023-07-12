@@ -33,7 +33,7 @@ let
         --set NIX_GHC ${wrappedGhc}/bin/ghc \
         --set NIX_GHC_LIBDIR ${wrappedGhc}/lib/ghc-${ghcVersion}
     ''
-    ;
+  ;
 
   backends = [
     "svg"

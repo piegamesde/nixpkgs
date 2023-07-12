@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       flac
     ]
     ++ lib.optional usePulseAudio libpulseaudio
-    ;
+  ;
 
   configureFlags = lib.optional (!usePulseAudio) "--without-pulseaudio";
 

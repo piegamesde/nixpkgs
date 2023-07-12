@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
           }
       done
     ''
-    ;
+  ;
 
   passthru = {
     updateScript = ./update.sh;

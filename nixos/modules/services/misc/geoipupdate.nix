@@ -74,7 +74,7 @@ in
               ];
             in
             attrsOf (either type (listOf type))
-            ;
+          ;
 
           options = {
 
@@ -181,7 +181,7 @@ in
                     throw "unsupported type ${typeOf v}: ${
                         (lib.generators.toPretty { }) v
                       }"
-                  ;
+                ;
               };
             };
             secretPaths = lib.catAttrs "_secret" (
@@ -197,11 +197,11 @@ in
                   ]
                 }
               ''
-              ;
+            ;
             secretReplacements =
               lib.concatMapStrings mkSecretReplacement
                 secretPaths
-              ;
+            ;
 
             geoipupdateConf = pkgs.writeText "geoipupdate.conf" (
               geoipupdateKeyValue cfg.settings
@@ -218,7 +218,7 @@ in
             '';
           in
           "+${pkgs.writeShellScript "start-pre-full-privileges" script}"
-          ;
+        ;
         ExecStart =
           "${pkgs.geoipupdate}/bin/geoipupdate -f /run/geoipupdate/GeoIP.conf";
         User = "geoip";

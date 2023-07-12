@@ -22,7 +22,7 @@ let
   buildCudaToolkitRedistPackage =
     callPackage ./build-cuda-redist-package.nix
       { }
-    ;
+  ;
 
   # Function that builds all cudatoolkit redist packages given a cuda version and manifest file
   buildCudaToolkitRedistPackages =
@@ -36,7 +36,7 @@ let
       );
     in
     lib.mapAttrs buildCudaToolkitRedistPackage attrs
-    ;
+  ;
 
   # All cudatoolkit redist packages for the current cuda version
   cudaToolkitRedistPackages =
@@ -47,6 +47,6 @@ let
       }
     else
       { }
-    ;
+  ;
 in
 cudaToolkitRedistPackages

@@ -44,7 +44,7 @@ stdenv.mkDerivation (
           }/${pname}-${version}.tar.xz";
         sha256 = "fsnRj7KD0fhKOj7/O3pysJoQycAGWXs/uru1lYQgqH0=";
       }
-      ;
+    ;
 
     patches =
       [
@@ -119,7 +119,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "Source code editing widget for GTK";

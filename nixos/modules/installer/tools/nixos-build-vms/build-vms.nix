@@ -12,7 +12,7 @@ let
         imports = [ module ];
       })
       (import networkExpr)
-    ;
+  ;
 
   pkgs = import ../../../../.. { inherit system config; };
 

@@ -31,7 +31,7 @@ with lib;
         description =
           lib.mdDoc
             "Adds extra lines to the xl2tpd configuration file."
-          ;
+        ;
         default = "";
       };
 
@@ -152,6 +152,6 @@ with lib;
           PIDFile = "/run/xl2tpd/pid";
         };
       }
-      ;
+    ;
   };
 }

@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       Security
       SystemConfiguration
     ]
-    ;
+  ;
 
   doCheck = false;
 

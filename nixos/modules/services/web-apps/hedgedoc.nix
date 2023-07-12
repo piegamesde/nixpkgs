@@ -19,7 +19,7 @@ let
       "hedgedoc"
     else
       "codimd"
-    ;
+  ;
 
   settingsFormat = pkgs.formats.json { };
 
@@ -32,7 +32,7 @@ let
           < ${settingsFormat.generate "hedgedoc-ugly.json" cfg.settings} \
           > $out
       ''
-    ;
+  ;
 in
 {
   imports = [
@@ -527,7 +527,7 @@ in
             description =
               lib.mdDoc
                 "Configure the minio third-party integration."
-              ;
+            ;
           };
           s3 = mkOption {
             type = types.nullOr (
@@ -602,7 +602,7 @@ in
             description =
               lib.mdDoc
                 "Configure the azure third-party integration."
-              ;
+            ;
           };
           oauth2 = mkOption {
             type = types.nullOr (
@@ -724,7 +724,7 @@ in
             description =
               lib.mdDoc
                 "Configure the facebook third-party integration"
-              ;
+            ;
           };
           twitter = mkOption {
             type = types.nullOr (
@@ -749,7 +749,7 @@ in
             description =
               lib.mdDoc
                 "Configure the Twitter third-party integration."
-              ;
+            ;
           };
           github = mkOption {
             type = types.nullOr (
@@ -774,7 +774,7 @@ in
             description =
               lib.mdDoc
                 "Configure the GitHub third-party integration."
-              ;
+            ;
           };
           gitlab = mkOption {
             type = types.nullOr (
@@ -818,7 +818,7 @@ in
             description =
               lib.mdDoc
                 "Configure the GitLab third-party integration."
-              ;
+            ;
           };
           mattermost = mkOption {
             type = types.nullOr (
@@ -849,7 +849,7 @@ in
             description =
               lib.mdDoc
                 "Configure the Mattermost third-party integration."
-              ;
+            ;
           };
           dropbox = mkOption {
             type = types.nullOr (
@@ -880,7 +880,7 @@ in
             description =
               lib.mdDoc
                 "Configure the Dropbox third-party integration."
-              ;
+            ;
           };
           google = mkOption {
             type = types.nullOr (
@@ -905,7 +905,7 @@ in
             description =
               lib.mdDoc
                 "Configure the Google third-party integration."
-              ;
+            ;
           };
           ldap = mkOption {
             type = types.nullOr (
@@ -1107,7 +1107,7 @@ in
           for documentation.
         '';
       }
-      ;
+    ;
 
     environmentFile = mkOption {
       type = with types; nullOr path;
@@ -1152,7 +1152,7 @@ in
       assertion =
         cfg.settings.db == { }
         -> (cfg.settings.dbURL != "" && cfg.settings.dbURL != null)
-        ;
+      ;
       message = "Database configuration for HedgeDoc missing.";
     } ];
     users.groups.${name} = { };

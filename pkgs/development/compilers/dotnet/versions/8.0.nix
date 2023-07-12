@@ -630,6 +630,6 @@
           sha256 = "1pgwp4r2g209lri7fkv94jpgkxddh900pjb39808q7j4s59pn8xk";
         })
       ]
-      ;
+    ;
   };
 }

@@ -14,7 +14,7 @@ let
   modDrv =
     factorio-utils.modDrv
       { inherit allRecommendedMods allOptionalMods; }
-    ;
+  ;
 in
 rec {
 

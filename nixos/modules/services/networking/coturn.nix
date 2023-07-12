@@ -327,7 +327,7 @@ in
           assertion =
             cfg.static-auth-secret != null
             -> cfg.static-auth-secret-file == null
-            ;
+          ;
           message =
             "static-auth-secret and static-auth-secret-file cannot be set at the same time";
         } ];
@@ -385,11 +385,11 @@ in
                     || cfg.min-port < 1024
                   )
                   "cap_net_bind_service"
-                ;
+              ;
               Restart = "on-abort";
             };
           }
-          ;
+        ;
         systemd.tmpfiles.rules = [
           "d  /run/coturn 0700 turnserver turnserver - -"
         ];

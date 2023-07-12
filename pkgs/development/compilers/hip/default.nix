@@ -48,7 +48,7 @@ let
       "--set ROCM_PATH $out"
     ]
     ++ lib.optionals useNVIDIA [ "--set CUDA_PATH ${cudatoolkit}" ]
-    ;
+  ;
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -93,7 +93,7 @@ stdenv.mkDerivation (
         graphviz
         fontconfig
       ]
-      ;
+    ;
 
     buildInputs = [
       numactl
@@ -114,7 +114,7 @@ stdenv.mkDerivation (
         rocm-opencl-runtime
       ]
       ++ lib.optionals useNVIDIA [ cudatoolkit ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -133,7 +133,7 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
       ]
       ++ lib.optionals buildTests [ "-DHIP_CATCH_TEST=1" ]
-      ;
+    ;
 
     postPatch =
       ''
@@ -144,7 +144,7 @@ stdenv.mkDerivation (
         export HOME=$(mktemp -d)
         export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
       ''
-      ;
+    ;
 
     doCheck = buildTests;
     checkTarget = "build_tests";
@@ -186,7 +186,7 @@ stdenv.mkDerivation (
             "1030"
           ]
           (target: "gfx${target}")
-        ;
+      ;
 
       updateScript = rocmUpdateScript {
         name = finalAttrs.pname;
@@ -207,7 +207,7 @@ stdenv.mkDerivation (
         versions.minor finalAttrs.version != versions.minor hip-common.version
         || versions.minor finalAttrs.version != versions.minor hipcc.version
         || buildTests
-        ;
+      ;
     };
   }
 )

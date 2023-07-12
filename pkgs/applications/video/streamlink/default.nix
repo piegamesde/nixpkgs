@@ -40,7 +40,7 @@ python3Packages.buildPythonApplication rec {
       ]
     )
     ++ [ ffmpeg ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://streamlink.github.io/";

@@ -40,7 +40,7 @@ let
         );
       })
       entries
-    ;
+  ;
 
   defaultChecks = {
     disk = cfg.diskCheck;
@@ -124,7 +124,7 @@ in
       description =
         lib.mdDoc
           "The hostname to show in the Datadog dashboard (optional)"
-        ;
+      ;
       default = null;
       example = "mymachine.mydomain";
       type = types.nullOr types.str;
@@ -294,7 +294,7 @@ in
                 [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
             }
             attrs
-          ;
+        ;
       in
       {
         datadog-agent = makeService {
@@ -346,7 +346,7 @@ in
           }
         );
       }
-      ;
+    ;
 
     environment.etc = etcfiles;
   };

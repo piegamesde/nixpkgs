@@ -39,7 +39,7 @@ lib.init bootStages
       assert vanillaPackages.stdenv.hostPlatform == localSystem;
       assert vanillaPackages.stdenv.targetPlatform == localSystem;
       vanillaPackages.stdenv.override { targetPlatform = crossSystem; }
-      ;
+    ;
     # It's OK to change the built-time dependencies
     allowCustomOverrides = true;
   })
@@ -53,7 +53,7 @@ lib.init bootStages
           buildPackages.stdenvAdapters.makeStatic
         else
           lib.id
-        ;
+      ;
     in
     {
       inherit config;
@@ -74,7 +74,7 @@ lib.init bootStages
               ++ lib.optionals hostPlatform.isDarwin [
                 buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
               ]
-              ;
+            ;
             allowedRequisites = null;
 
             hasCC = !targetPlatform.isGhcjs;
@@ -98,7 +98,7 @@ lib.init bootStages
                 buildPackages.llvmPackages.clangUseLLVM
               else
                 buildPackages.gcc
-              ;
+            ;
 
             extraNativeBuildInputs =
               old.extraNativeBuildInputs
@@ -119,12 +119,12 @@ lib.init bootStages
                         ]
                         || p.isiOS
                         || p.isGenode
-                        ;
+                      ;
                     in
                     f hostPlatform && !(f buildPlatform)
                   )
                   buildPackages.updateAutotoolsGnuConfigScriptsHook
-              ;
+            ;
           }
         )
       );

@@ -116,7 +116,7 @@ rec {
         ExposedPorts = { "${nginxPort}/tcp" = { }; };
       };
     }
-    ;
+  ;
 
   # 4. example of pulling an image. could be used as a base for other images
   nixFromDockerHub = pullImage {
@@ -328,7 +328,7 @@ rec {
         echo layer3 > tmp/layer3
       '';
     }
-    ;
+  ;
 
   # 15. Environment variable inheritance.
   # Child image should inherit parents environment variables,
@@ -502,7 +502,7 @@ rec {
             echo -n "${layerName}" >> /layer-order
           '';
         }
-        ;
+      ;
       # When executing the runAsRoot script when building layer C, if layer B is
       # not unpacked on top of layer A, the contents of /layer-order will not be
       # "ABC".
@@ -511,7 +511,7 @@ rec {
       layerC = layerOnTopOf layerB "c";
     in
     layerC
-    ;
+  ;
 
   # buildImage without explicit tag
   bashNoTag = pkgs.dockerTools.buildImage {
@@ -559,7 +559,7 @@ rec {
             ${user}:x::
           '')
         ]
-        ;
+      ;
     in
     pkgs.dockerTools.buildLayeredImage {
       name = "bash-layered-with-user";
@@ -573,9 +573,9 @@ rec {
           uid = 999;
           user = "somebody";
         }
-        ;
+      ;
     }
-    ;
+  ;
 
   # basic example, with cross compilation
   cross =
@@ -586,7 +586,7 @@ rec {
           pkgsCross.gnu64
         else
           pkgsCross.aarch64-multiplatform
-        ;
+      ;
     in
     crossPkgs.dockerTools.buildImage {
       name = "hello-cross";
@@ -597,7 +597,7 @@ rec {
         paths = [ crossPkgs.hello ];
       };
     }
-    ;
+  ;
 
   # layered image where a store path is itself a symlink
   layeredStoreSymlink =
@@ -615,7 +615,7 @@ rec {
     } // {
       passthru = { inherit symlink; };
     }
-    ;
+  ;
 
   # image with registry/ prefix
   prefixedImage = pkgs.dockerTools.buildImage {
@@ -646,7 +646,7 @@ rec {
             configureFlags =
               o.configureFlags or [ ]
               ++ [ " --program-prefix=layeredImageWithFakeRootCommands-" ]
-              ;
+            ;
             doCheck = false;
           }
         )
@@ -735,7 +735,7 @@ rec {
         ${pkgs.busybox}/bin/cat /etc/some-config-file
       '';
     }
-    ;
+  ;
 
   # Example export of the bash image
   exportBash = pkgs.dockerTools.exportImage { fromImage = bash; };

@@ -69,7 +69,7 @@ let
           attrs' = attrs // fApplied;
         in
         fApplied // g attrs'
-        ;
+      ;
 
       # buildEnv wraps php to provide additional extensions and
       # configuration. Its usage is documented in
@@ -106,7 +106,7 @@ let
                 phpPackage = phpWithExtensions;
               }).overrideScope'
                 packageOverrides
-              ;
+            ;
 
             allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
             enabledExtensions =
@@ -120,7 +120,7 @@ let
                 )
                 [ ]
                 allExtensionFunctions
-              ;
+            ;
 
             getExtName = ext: ext.extensionName;
 
@@ -133,10 +133,10 @@ let
                   lib.concatMap
                     (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
                     extensions
-                  ;
+                ;
               in
               if !(deps == [ ]) then deps ++ (getDepsRecursively deps) else deps
-              ;
+            ;
 
             # Generate extension load configuration snippets from the
             # extension parameter. This is an attrset suitable for use
@@ -187,7 +187,7 @@ let
                       composeOverrides
                         (filteredArgs.phpAttrsOverrides or (attrs: { }))
                         f
-                      ;
+                    ;
                     php = generic (
                       filteredArgs // {
                         phpAttrsOverrides = newPhpAttrsOverrides;
@@ -195,7 +195,7 @@ let
                     );
                   in
                   php.buildEnv { inherit extensions extraConfig; }
-                  ;
+                ;
                 phpIni = "${phpWithExtensions}/lib/php.ini";
                 unwrapped = php;
                 # Select the right php tests for the php version
@@ -235,12 +235,12 @@ let
           in
           phpWithExtensions
         )
-        ;
+      ;
 
       mkWithExtensions =
         prevArgs: prevExtensionFunctions: extensions:
         mkBuildEnv prevArgs prevExtensionFunctions { inherit extensions; }
-        ;
+      ;
     in
     stdenv.mkDerivation (
       let
@@ -262,7 +262,7 @@ let
               re2c
             ]
             ++ lib.optional stdenv.isDarwin xcbuild
-            ;
+          ;
 
           buildInputs =
             # PCRE extension
@@ -276,7 +276,7 @@ let
             ++ lib.optional argon2Support libargon2
             ++ lib.optional systemdSupport systemd
             ++ lib.optional valgrindSupport valgrind
-            ;
+          ;
 
           CXXFLAGS = lib.optionalString stdenv.cc.isClang "-std=c++11";
           SKIP_PERF_SENSITIVE = 1;
@@ -319,7 +319,7 @@ let
 
             # Sendmail
             ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
-            ;
+          ;
 
           hardeningDisable = [ "bindnow" ];
 
@@ -345,7 +345,7 @@ let
             + lib.optionalString stdenv.isDarwin ''
               substituteInPlace configure --replace "-lstdc++" "-lc++"
             ''
-            ;
+          ;
 
           postInstall = ''
             test -d $out/etc || mkdir $out/etc
@@ -396,14 +396,14 @@ let
                       }"."${lib.versions.majorMinor version}".version')
                       update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
                     ''
-                  ;
+                ;
               in
               [
                 script
                 # Passed as an argument so that update.nix can ensure it does not become a store path.
                 (./. + "/${lib.versions.majorMinor version}.nix")
               ]
-              ;
+            ;
             buildEnv = mkBuildEnv { } [ ];
             withExtensions = mkWithExtensions { } [ ];
             overrideAttrs =
@@ -415,7 +415,7 @@ let
                 );
               in
               php
-              ;
+            ;
             inherit ztsSupport;
           };
 
@@ -435,6 +435,6 @@ let
       in
       attrs // phpAttrsOverrides attrs
     )
-    ;
+  ;
 in
 generic

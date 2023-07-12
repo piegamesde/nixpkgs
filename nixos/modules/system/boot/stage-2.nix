@@ -20,7 +20,7 @@ let
       readOnlyNixStore
       systemdExecutable
       extraSystemdUnitPaths
-      ;
+    ;
     inherit (config.system.nixos) distroName;
     isExecutable = true;
     inherit useHostResolvConf;

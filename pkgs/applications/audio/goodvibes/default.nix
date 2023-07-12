@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
         gst-plugins-ugly
       ]
     )
-    ;
+  ;
 
   postPatch = ''
     patchShebangs scripts

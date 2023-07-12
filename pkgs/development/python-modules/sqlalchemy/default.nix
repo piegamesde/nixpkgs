@@ -91,7 +91,7 @@ buildPythonPackage rec {
           typing-extensions
         ]
         ++ self.asyncio
-        ;
+      ;
       sqlcipher =
         [
           # TODO: sqlcipher3

@@ -49,7 +49,7 @@ stdenv.mkDerivation (
         url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
         sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
       }
-      ;
+    ;
 
     propagatedBuildInputs = [
       zlib
@@ -67,12 +67,12 @@ stdenv.mkDerivation (
       ]
       # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
       ++ lib.optional (!stdenv.isLinux) gnumake
-      ;
+    ;
 
     patches =
       [ ./enable-table-validation.patch ]
       ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch
-      ;
+    ;
 
     outputs = [
       "out"
@@ -103,7 +103,7 @@ stdenv.mkDerivation (
         wrapProgram "$dev/bin/freetype-config" \
           --set PKG_CONFIG_PATH "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
       ''
-      ;
+    ;
 
     passthru.tests = {
       inherit
@@ -118,7 +118,7 @@ stdenv.mkDerivation (
         poppler
         texmacs
         ttfautohint
-        ;
+      ;
       inherit (python3.pkgs) freetype-py;
       inherit (qt5) qtbase;
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;

@@ -43,7 +43,7 @@ let
       "NIX_CONNECT_TIMEOUT"
     ]
     ++ (map (site: "NIX_MIRRORS_${site}") sites)
-    ;
+  ;
 in
 
 { # URL to fetch.
@@ -126,7 +126,7 @@ let
       (if lib.isString url then [ url ] else throw "`url` is not a string")
     else
       throw "fetchurl requires either `url` or `urls` to be set"
-    ;
+  ;
 
   hash_ =
     # Many other combinations don't make sense, but this is the most common one:
@@ -167,7 +167,7 @@ let
       throw "fetchurl requires a hash for fixed-output derivation: ${
           lib.concatStringsSep ", " urls_
         }"
-    ;
+  ;
 in
 
 stdenvNoCC.mkDerivation (
@@ -183,7 +183,7 @@ stdenvNoCC.mkDerivation (
             name
           else
             baseNameOf (toString (builtins.head urls_))
-          ;
+        ;
       }
   ) // {
     builder = ./builder.sh;
@@ -211,7 +211,7 @@ stdenvNoCC.mkDerivation (
         "${cacert}/etc/ssl/certs/ca-bundle.crt"
       else
         "/no-cert-file.crt"
-      ;
+    ;
 
     outputHashMode =
       if (recursiveHash || executable) then "recursive" else "flat";
@@ -229,7 +229,7 @@ stdenvNoCC.mkDerivation (
               lib.concatMapStringsSep " " lib.strings.escapeNixString curlOpts
             } ];''
         curlOpts
-      ;
+    ;
     curlOptsList = lib.escapeShellArgs curlOptsList;
     inherit showURLs mirrorsFile postFetch downloadToTemp executable;
 
@@ -247,7 +247,7 @@ stdenvNoCC.mkDerivation (
           ${netrcPhase}
           curlOpts="$curlOpts --netrc-file $PWD/netrc"
         ''
-      ;
+    ;
 
     inherit meta;
     passthru = { inherit url; } // passthru;

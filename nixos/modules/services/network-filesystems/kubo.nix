@@ -65,7 +65,7 @@ let
       unfilteredResult = map multiaddrToListenStream addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult
-    ;
+  ;
 
   multiaddrsToListenDatagrams =
     addrIn:
@@ -74,7 +74,7 @@ let
       unfilteredResult = map multiaddrToListenDatagram addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult
-    ;
+  ;
 
   multiaddrToListenStream =
     addrRaw:
@@ -90,7 +90,7 @@ let
       "/${lib.concatStringsSep "/" (lib.tail addr)}"
     else
       null
-    ; # not valid for listen stream, skip
+  ; # not valid for listen stream, skip
 
   multiaddrToListenDatagram =
     addrRaw:
@@ -104,7 +104,7 @@ let
       "[${s 1}]:${s 3}"
     else
       null
-    ; # not valid for listen datagram, skip
+  ; # not valid for listen datagram, skip
 in
 {
 
@@ -145,7 +145,7 @@ in
             "/var/lib/ipfs"
           else
             "/var/lib/ipfs/.ipfs"
-          ;
+        ;
         defaultText = literalExpression ''
           if versionAtLeast config.system.stateVersion "17.09"
           then "/var/lib/ipfs"
@@ -170,7 +170,7 @@ in
         description =
           lib.mdDoc
             "Whether Kubo should try to mount /ipfs and /ipns at startup."
-          ;
+        ;
       };
 
       autoMigrate = mkOption {
@@ -179,7 +179,7 @@ in
         description =
           lib.mdDoc
             "Whether Kubo should try to run the fs-repo-migration at startup."
-          ;
+        ;
       };
 
       ipfsMountDir = mkOption {
@@ -200,7 +200,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable automatic garbage collection"
-          ;
+        ;
       };
 
       emptyRepo = mkOption {
@@ -209,7 +209,7 @@ in
         description =
           lib.mdDoc
             "If set to true, the repo won't be initialized with help files"
-          ;
+        ;
       };
 
       settings = mkOption {
@@ -255,7 +255,7 @@ in
               description =
                 lib.mdDoc
                   "Where Kubo listens for incoming p2p connections"
-                ;
+              ;
             };
           };
         };
@@ -297,7 +297,7 @@ in
         description =
           lib.mdDoc
             "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it"
-          ;
+        ;
         example = 64 * 1024;
       };
 
@@ -307,7 +307,7 @@ in
         description =
           lib.mdDoc
             "Whether to use socket activation to start Kubo when needed."
-          ;
+        ;
       };
     };
   };
@@ -328,7 +328,7 @@ in
             (builtins.hasAttr "Pinning" cfg.settings)
             && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning)
           )
-          ;
+        ;
         message = ''
           You can't set services.kubo.settings.Pinning.RemoteServices because the ``config replace`` subcommand used at startup does not work with it.
         '';
@@ -364,7 +364,7 @@ in
         "d '${cfg.ipfsMountDir}' - ${cfg.user} ${cfg.group} - -"
         "d '${cfg.ipnsMountDir}' - ${cfg.user} ${cfg.group} - -"
       ]
-      ;
+    ;
 
     # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
     systemd.packages =
@@ -372,7 +372,7 @@ in
         [ cfg.package.systemd_unit ]
       else
         [ cfg.package.systemd_unit_hardened ]
-      ;
+    ;
 
     services.kubo.settings = mkIf cfg.autoMount {
       Mounts.FuseAllowOther = lib.mkDefault true;
@@ -413,7 +413,7 @@ in
             # change when the changes are applied. Whyyyyyy.....
             ipfs --offline config replace -
         ''
-        ;
+      ;
       postStop = mkIf cfg.autoMount ''
         # After an unclean shutdown the fuse mounts at cfg.ipnsMountDir and cfg.ipfsMountDir are locked
         umount --quiet '${cfg.ipnsMountDir}' '${cfg.ipfsMountDir}' || true
@@ -444,7 +444,7 @@ in
           [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
         ListenDatagram =
           [ "" ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway)
-          ;
+        ;
       };
     };
 
@@ -459,7 +459,7 @@ in
             "%t/ipfs.sock"
           ]
           ++ (multiaddrsToListenStreams cfg.settings.Addresses.API)
-          ;
+        ;
         SocketMode = "0660";
         SocketUser = cfg.user;
         SocketGroup = cfg.group;

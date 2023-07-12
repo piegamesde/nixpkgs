@@ -187,7 +187,7 @@ appleDerivation' stdenv {
         $out/lib/libresolv.9.dylib
       ln -s libresolv.9.dylib $out/lib/libresolv.dylib
     ''
-    ;
+  ;
 
   appleHeaders = builtins.readFile ./headers.txt;
 

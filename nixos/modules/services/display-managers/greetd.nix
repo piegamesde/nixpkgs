@@ -51,7 +51,7 @@ in
       defaultText =
         literalExpression
           "!(config.services.greetd.settings ? initial_session)"
-        ;
+      ;
       description = lib.mdDoc ''
         Whether to restart greetd when it terminates (e.g. on failure).
         This is usually desirable so a user can always log in, but should be disabled when using 'settings.initial_session' (autologin),

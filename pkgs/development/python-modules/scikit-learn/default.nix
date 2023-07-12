@@ -34,7 +34,7 @@ buildPythonPackage rec {
       glibcLocales
     ]
     ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cython
@@ -73,7 +73,7 @@ buildPythonPackage rec {
       "xfail_ignored_in_check_estimator"
     ]
     ++ lib.optionals (stdenv.isDarwin) [ "test_graphical_lasso" ]
-    ;
+  ;
 
   pytestFlagsArray = [
     # verbose build outputs needed to debug hard-to-reproduce hydra failures
@@ -110,7 +110,7 @@ buildPythonPackage rec {
         dashVer = replaceStrings [ "." ] [ "-" ] version;
       in
       "https://scikit-learn.org/stable/whats_new/v${major}.${minor}.html#version-${dashVer}"
-      ;
+    ;
     homepage = "https://scikit-learn.org";
     license = licenses.bsd3;
     maintainers = with maintainers; [ davhau ];

@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       AudioToolbox
       OpenGL
     ]
-    ;
+  ;
 
   postPatch =
     ''
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
       substituteInPlace WinPort/src/Backend/WX/CMakeLists.txt \
         --replace "-framework System" -lSystem
     ''
-    ;
+  ;
 
   cmakeFlags =
     lib.mapAttrsToList (k: v: "-D${k}=${if v then "yes" else "no"}")
@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
         NETROCKS = withNetRocks;
         PYTHON = withPython;
       }
-    ;
+  ;
 
   runtimeDeps = [
     unzip

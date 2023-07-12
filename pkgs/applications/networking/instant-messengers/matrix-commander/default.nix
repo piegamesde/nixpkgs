@@ -53,7 +53,7 @@ buildPythonApplication rec {
       python-olm
     ]
     ++ matrix-nio.optional-dependencies.e2e
-    ;
+  ;
 
   meta = with lib; {
     description =

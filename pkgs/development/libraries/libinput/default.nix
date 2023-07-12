@@ -45,7 +45,7 @@ let
       mkdir -p "$out/bin"
       ln -s "${env}/bin/sphinx-build" "$out/bin"
     ''
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       graphviz
       sphinx-build
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       glib
       gtk3
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ udev ];
 

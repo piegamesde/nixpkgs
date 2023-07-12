@@ -44,7 +44,7 @@ buildPythonPackage rec {
       substituteInPlace OpenGL/platform/ctypesloader.py \
         --replace "filenames_to_try = []" "filenames_to_try = [name]"
     ''
-    ;
+  ;
 
   # Need to fix test runner
   # Tests have many dependencies

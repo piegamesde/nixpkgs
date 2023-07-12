@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         XMLParser
       ]
     )
-    ;
+  ;
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

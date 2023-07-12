@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       coreutils
     ]
     ++ lib.optionals withLatex [ texlive.combined.scheme-medium ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Toolset for processing LinuxDoc DTD SGML files";

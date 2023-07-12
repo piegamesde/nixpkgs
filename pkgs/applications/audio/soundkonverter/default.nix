@@ -90,7 +90,7 @@ let
       faad2
       aacgain
     ]
-    ;
+  ;
 in
 mkDerivation rec {
   pname = "soundkonverter";

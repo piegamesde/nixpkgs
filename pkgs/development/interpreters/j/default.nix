@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       "linux"
     else
       "unsupported"
-    ;
+  ;
 
   j64x =
     if stdenv.is32bit then
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       if stdenv.isDarwin then "j64arm" else "j64"
     else
       "unsupported"
-    ;
+  ;
 
   buildPhase = ''
     runHook preBuild

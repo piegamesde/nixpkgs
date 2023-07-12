@@ -45,7 +45,7 @@ stdenv.mkDerivation (
         "ICONC=icont"
       ]
       ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
-      ;
+    ;
 
     preInstall = ''
       mkdir -p "$tex/tex/latex/noweb"

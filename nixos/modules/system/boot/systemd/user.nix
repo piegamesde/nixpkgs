@@ -23,7 +23,7 @@ let
     socketToUnit
     timerToUnit
     pathToUnit
-    ;
+  ;
 
   upstreamUserUnits =
     [
@@ -47,7 +47,7 @@ let
       "xdg-desktop-autostart.target"
     ]
     ++ config.systemd.additionalUpstreamUserUnits
-    ;
+  ;
 
   writeTmpfiles =
     {
@@ -66,7 +66,7 @@ let
         ${concatStringsSep "\n" rules}
       '';
     }
-    ;
+  ;
 in
 {
   options = {
@@ -210,7 +210,7 @@ in
           timerConfig.OnCalendar = service.startAt;
         })
         (filterAttrs (name: service: service.startAt != [ ]) cfg.services)
-      ;
+    ;
 
     # Provide the systemd-user PAM service, required to run systemd
     # user instances.
@@ -236,7 +236,7 @@ in
           || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
         )
         "basic.target"
-      ;
+    ;
 
     # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can
     # write the tmpfiles.d rules for everyone there
@@ -257,6 +257,6 @@ in
           );
         })
         cfg.tmpfiles.users
-      ;
+    ;
   };
 }

@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
           && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
         )
         [ mesonEmulatorHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
       # On Linux, fall back to elogind when systemd support is off.
       (if useSystemd then systemdMinimal else elogind)
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     glib # in .pc Requires
@@ -148,7 +148,7 @@ stdenv.mkDerivation rec {
         if useSystemd then "libsystemd-login" else "libelogind"
       }"
     ]
-    ;
+  ;
 
   # HACK: We want to install policy files files to $out/share but polkit
   # should read them from /run/current-system/sw/share on a NixOS system.

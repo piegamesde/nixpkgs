@@ -81,7 +81,7 @@ let
         find . -type f -name '${cfg.filter}' -print0 \
           | xargs -0 cp -v --no-preserve=mode --target-directory $out --parents
       ''
-    ;
+  ;
 
   filteredDTBs = filterDTBs cfg.kernelPackage;
 
@@ -109,7 +109,7 @@ let
         }
       )
       { }
-    ;
+  ;
 
   # Fill in `dtboFile` for each overlay if not set already.
   # Existence of one of these is guarded by assertion below
@@ -126,10 +126,10 @@ let
               compileDTS o.name (pkgs.writeText "dts" o.dtsText)
           else
             o.dtboFile
-          ;
+        ;
       }
     )
-    ;
+  ;
 in
 {
   imports = [
@@ -239,13 +239,13 @@ in
           )}
         '';
       }
-      ;
+    ;
 
     hardware.deviceTree.package =
       if (cfg.overlays != [ ]) then
         pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
       else
         filteredDTBs
-      ;
+    ;
   };
 }

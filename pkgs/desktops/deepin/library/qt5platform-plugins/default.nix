@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       xorg.libSM
     ]
     ++ lib.optionals waylandSupport [ wayland ]
-    ;
+  ;
 
   qmakeFlags =
     [
@@ -48,12 +48,12 @@ stdenv.mkDerivation rec {
       "QT_XCB_PRIVATE_INCLUDE=${qtbase.src}/src/plugins/platforms/xcb"
     ]
     ++ lib.optionals (!waylandSupport) [ "CONFIG+=DISABLE_WAYLAND" ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString waylandSupport
       "-I${wayland.dev}/include"
-    ;
+  ;
 
   meta = with lib; {
     description = "Qt platform plugins for DDE";

@@ -9,7 +9,7 @@ import ../make-test-python.nix {
       imports = [ ../../modules/profiles/minimal.nix ];
       environment.systemPackages = [ pkgs.lorri ];
     }
-    ;
+  ;
 
   testScript = ''
     # Copy files over

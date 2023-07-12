@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       flex
     ]
     ++ lib.optionals enableDocumentation [ hotdoc ]
-    ;
+  ;
 
   buildInputs = [
     bash-completion

@@ -187,7 +187,7 @@ in
 
           pkill -9 iscsid
         ''
-        ;
+      ;
     };
 
     services.openiscsi = {

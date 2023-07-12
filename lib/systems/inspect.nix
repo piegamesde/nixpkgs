@@ -78,7 +78,7 @@ rec {
             lib.attrValues cpuTypes
           )
         )
-      ;
+    ;
     isAarch64 = {
       cpu = {
         family = "arm";
@@ -257,7 +257,7 @@ rec {
       attrs: any (pattern: matchAttrs pattern attrs) patterns
     else
       matchAttrs patterns
-    ;
+  ;
 
   predicates = mapAttrs (_: matchAnyAttrs) patterns;
 

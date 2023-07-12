@@ -62,7 +62,7 @@ in
       description =
         lib.mdDoc
           "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`."
-        ;
+      ;
       type = bool;
     };
     sync.interval = mkOption {
@@ -84,7 +84,7 @@ in
         description =
           lib.mdDoc
             "Percent of the array that should be checked by {command}`snapraid scrub`."
-          ;
+        ;
         type = int;
       };
       olderThan = mkOption {
@@ -93,7 +93,7 @@ in
         description =
           lib.mdDoc
             "Number of days since data was last scrubbed before it can be scrubbed again."
-          ;
+        ;
         type = int;
       };
     };
@@ -155,7 +155,7 @@ in
             )
             + "\n"
             + extraConfig
-            ;
+          ;
         };
       };
 
@@ -202,7 +202,7 @@ in
                 contentDirs = map dirOf contentFiles;
               in
               unique (attrValues dataDisks ++ contentDirs)
-              ;
+            ;
           };
           unitConfig.After = "snapraid-sync.service";
         };
@@ -236,7 +236,7 @@ in
             CapabilityBoundingSet =
               "CAP_DAC_OVERRIDE"
               + lib.optionalString cfg.touchBeforeSync " CAP_FOWNER"
-              ;
+            ;
 
             ProtectSystem = "strict";
             ProtectHome = "read-only";
@@ -247,12 +247,12 @@ in
                 contentDirs = map dirOf contentFiles;
               in
               unique (attrValues dataDisks ++ parityFiles ++ contentDirs)
-              ;
+            ;
           } // optionalAttrs touchBeforeSync {
             ExecStartPre = "${pkgs.snapraid}/bin/snapraid touch";
           };
         };
       };
     }
-    ;
+  ;
 }

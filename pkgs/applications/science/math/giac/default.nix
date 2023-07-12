@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-nAl5q3ufLjK3X9s0qMlGNowdRRf3EaC24eVtJABzdXY=";
       })
     ]
-    ;
+  ;
 
   # 1.9.0-5's tarball contains a binary (src/mkjs) which is executed
   # at build time. we will delete and rebuild it.
@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
       xorg.libX11
     ]
     ++ lib.optional enableMicroPy python3
-    ;
+  ;
 
   # xcas Phys and Turtle menus are broken with split outputs
   # and interactive use is likely to need docs
@@ -174,7 +174,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!enableGUI) [ "--disable-fltk" ]
     ++ lib.optionals (!enableMicroPy) [ "--disable-micropy" ]
-    ;
+  ;
 
   postInstall =
     ''
@@ -199,7 +199,7 @@ stdenv.mkDerivation rec {
         rm -r "$out/share/$i";
       done;
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A free computer algebra system (CAS)";

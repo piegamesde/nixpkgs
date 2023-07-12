@@ -88,10 +88,10 @@ in
             pkgs.nftables
           else
             pkgs.iptables
-          ;
+        ;
         defaultText = literalExpression ''
           if config.networking.nftables.enable then "pkgs.nftables" else "pkgs.iptables"''
-          ;
+        ;
         example = literalExpression "pkgs.iptables-legacy";
         description = lib.mdDoc ''
           The package to use for running the firewall service.
@@ -191,7 +191,7 @@ in
         defaultText =
           literalMD
             "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support"
-          ;
+        ;
         example = "loose";
         description = lib.mdDoc ''
           Performs a reverse path filter test on a packet.  If a reply
@@ -312,7 +312,7 @@ in
         assertion =
           cfg.autoLoadConntrackHelpers
           -> lib.versionOlder config.boot.kernelPackages.kernel.version "6"
-          ;
+        ;
         message =
           "conntrack helper autoloading has been removed from kernel 6.0 and newer";
       }
@@ -325,7 +325,7 @@ in
     boot.kernelModules =
       (optional cfg.autoLoadConntrackHelpers "nf_conntrack")
       ++ map (x: "nf_conntrack_${x}") cfg.connectionTrackingModules
-      ;
+    ;
     boot.extraModprobeConfig = optionalString cfg.autoLoadConntrackHelpers ''
       options nf_conntrack nf_conntrack_helper=1
     '';

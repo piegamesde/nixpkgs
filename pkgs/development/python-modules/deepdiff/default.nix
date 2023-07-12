@@ -56,7 +56,7 @@ buildPythonPackage rec {
       python-dateutil
     ]
     ++ passthru.optional-dependencies.cli
-    ;
+  ;
 
   pythonImportsCheck = [ "deepdiff" ];
 

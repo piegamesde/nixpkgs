@@ -28,7 +28,7 @@ let
       preConfigure = "cd PLUGINS/src/${name}";
       installFlags = [ "DESTDIR=$(out)" ];
     }
-    ;
+  ;
 in
 {
 
@@ -56,7 +56,7 @@ in
         ]
         mkPlugin
     )
-    ;
+  ;
 
   femon = stdenv.mkDerivation rec {
     pname = "vdr-femon";

@@ -66,7 +66,7 @@ stdenv.mkDerivation {
       qttools
     ]
     ++ lib.optional stdenv.isDarwin CoreFoundation
-    ;
+  ;
 
   meta = with lib; {
     description = "Professional open-source NLE video editor";

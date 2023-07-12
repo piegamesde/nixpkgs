@@ -20,7 +20,7 @@ let
     mapAttrs
       (childName: childConfig: childConfig.configuration.system.build.toplevel)
       config.specialisation
-    ;
+  ;
 in
 {
   options = {
@@ -30,7 +30,7 @@ in
       example =
         lib.literalExpression
           "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }"
-        ;
+      ;
       description = lib.mdDoc ''
         Additional configurations to build. If
         `inheritParentConfig` is true, the system
@@ -54,7 +54,7 @@ in
                 extendModules
               else
                 noUserModules.extendModules
-              ;
+            ;
           in
           {
             options.inheritParentConfig = mkOption {
@@ -63,7 +63,7 @@ in
               description =
                 lib.mdDoc
                   "Include the entire system's configuration. Set to false to make a completely differently configured system."
-                ;
+              ;
             };
 
             options.configuration = mkOption {

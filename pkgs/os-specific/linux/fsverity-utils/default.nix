@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional enableManpages "man"
-    ;
+  ;
 
   src = fetchgit {
     url =
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "PREFIX="
     ]
     ++ lib.optional enableShared "USE_SHARED_LIB=1"
-    ;
+  ;
 
   doCheck = true;
 

@@ -112,7 +112,7 @@ let
         GConf
         glib
       ]
-      ;
+    ;
 
     patches =
       [
@@ -124,7 +124,7 @@ let
       ++ lib.optionals (!headless && enableGnome2) [
         ./swing-use-gtk-jdk8.patch
       ]
-      ;
+    ;
 
     # Hotspot cares about the host(!) version otherwise
     DISABLE_HOTSPOT_OS_VERSION_CHECK = "ok";
@@ -150,7 +150,7 @@ let
         "--with-stdc++lib=dynamic"
       ]
       ++ lib.optional headless "--disable-headful"
-      ;
+    ;
 
     separateDebugInfo = true;
 

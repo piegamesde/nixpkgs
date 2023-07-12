@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {

@@ -23,7 +23,7 @@ let
       runCommand
       writeTextFile
       writeShellScript
-      ;
+    ;
     inherit pkgs;
     libtool = if stdenv.isDarwin then pkgs.darwin.cctools else null;
   };

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   installPhase = ''
     install -Dm 755 powder $out/bin/powder

@@ -46,7 +46,7 @@ in
       description =
         mdDoc
           "Additional environment variables to pass to the AESM service."
-        ;
+      ;
       # Example environment variable for `sgx-azure-dcap-client` provider library
       example = {
         AZDCAP_COLLATERAL_VERSION = "v2";
@@ -71,7 +71,7 @@ in
           description =
             lib.mdDoc
               "URL to retrieve authorized Intel SGX enclave signers."
-            ;
+          ;
         };
         options.proxy = mkOption {
           type = with types; nullOr str;
@@ -283,6 +283,6 @@ in
           UMask = "0066";
         };
       }
-      ;
+    ;
   };
 }

@@ -59,7 +59,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ++ eth-hash.optional-dependencies.pycryptodome
-    ;
+  ;
 
   pythonRelaxDeps = true;
 

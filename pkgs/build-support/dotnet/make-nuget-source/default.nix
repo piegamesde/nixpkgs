@@ -50,7 +50,7 @@ let
             spdx: lib.optionals (spdx != "") (lib.getLicenseFromSpdxId spdx)
           )
         ))
-        ;
+      ;
     };
 in
 nuget-source

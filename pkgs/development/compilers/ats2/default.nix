@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     builtins.toFile "setupHook.sh" (
       concatMapStringsSep "\n" builtins.readFile hookFiles
     )
-    ;
+  ;
 
   postInstall = postInstallContrib + postInstallEmacs;
 

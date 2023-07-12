@@ -145,7 +145,7 @@ in
             '';
           in
           "!${preStartScript}"
-          ;
+        ;
 
         ExecStart = "${cfg.package}/bin/plexmediaserver";
         KillSignal = "SIGQUIT";
@@ -159,11 +159,11 @@ in
         PLEX_PLUGINS =
           concatMapStringsSep ":" builtins.toString
             cfg.extraPlugins
-          ;
+        ;
         PLEX_SCANNERS =
           concatMapStringsSep ":" builtins.toString
             cfg.extraScanners
-          ;
+        ;
 
         # The following variables should be set by the FHS userenv script:
         #   PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR

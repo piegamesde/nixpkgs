@@ -33,7 +33,7 @@ import ./make-test-python.nix (
           inherit listenAddress listenPort;
         };
       }
-      ;
+    ;
 
     testScript = ''
       import json

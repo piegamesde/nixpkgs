@@ -35,7 +35,7 @@ in
         description =
           lib.mdDoc
             "The directory where Tautulli stores its data files."
-          ;
+        ;
       };
 
       configFile = mkOption {

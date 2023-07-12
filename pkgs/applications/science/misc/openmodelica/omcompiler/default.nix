@@ -38,7 +38,7 @@ mkOpenModelicaDerivation (
         pkg-config
       ]
       ++ lib.optional isCross nativeOMCompiler
-      ;
+    ;
 
     buildInputs = [
       targetPackages.stdenv.cc.cc

@@ -145,7 +145,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       wayland # for wayland-scanner
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -257,7 +257,7 @@ stdenv.mkDerivation rec {
       Foundation
       MediaToolbox
     ]
-    ;
+  ;
 
   mesonFlags =
     [
@@ -350,7 +350,7 @@ stdenv.mkDerivation rec {
           "-Dx265=disabled"
         ]
     )
-    ;
+  ;
 
   # Argument list too long
   strictDeps = true;

@@ -62,7 +62,7 @@ stdenv.mkDerivation (
       ]
       ++ packageRequires
       ++ buildInputs
-      ;
+    ;
     propagatedBuildInputs = packageRequires;
     propagatedUserEnvPkgs = packageRequires;
 

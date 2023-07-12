@@ -12,7 +12,7 @@ let
         <value>${builtins.toString value}</value>
       </property>
     ''
-    ;
+  ;
   siteXml =
     fileName: properties:
     pkgs.writeTextDir fileName ''
@@ -26,12 +26,12 @@ let
         }
       </configuration>
     ''
-    ;
+  ;
   cfgLine =
     name: value: ''
       ${name}=${builtins.toString value}
     ''
-    ;
+  ;
   cfgFile =
     fileName: properties:
     pkgs.writeTextDir fileName ''
@@ -40,7 +40,7 @@ let
         pkgs.lib.mapAttrsToList cfgLine properties
       )}
     ''
-    ;
+  ;
   userFunctions = ''
     hadoop_verify_logdir() {
       echo Skipping verification of log directory

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
           "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-linux.tar.gz";
         hash = "sha256-vrZpYFoQw1hxgZ7lAoejIqnjIOFFMahAI9SjFN/Cnms=";
       }
-    ;
+  ;
 
   # The tarball is just the prebuilt binary, in the archive root.
   sourceRoot = ".";

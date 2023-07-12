@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
         "--disable-libcurl"
         "--disable-plugins"
       ]
-    ;
+  ;
 
   # In the case of static builds, we need to replace the build and install phases
   buildPhase = lib.optional stdenv.hostPlatform.isStatic ''

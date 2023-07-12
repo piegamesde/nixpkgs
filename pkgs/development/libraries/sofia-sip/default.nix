@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optional stdenv.isDarwin SystemConfiguration
-    ;
+  ;
   nativeBuildInputs = [
     autoreconfHook
     pkg-config

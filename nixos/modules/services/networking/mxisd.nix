@@ -28,7 +28,7 @@ let
           "${cfg.dataDir}/ma1sd.db"
         else
           "${cfg.dataDir}/mxisd.db"
-        ;
+      ;
     };
   } // optionalAttrs (server != { }) { inherit server; };
 
@@ -40,7 +40,7 @@ let
       pkgs.writeText "ma1sd-config.yaml" (builtins.toJSON fullConfig)
     else
       pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig)
-    ;
+  ;
 in
 {
   options = {
@@ -75,7 +75,7 @@ in
         description =
           lib.mdDoc
             "Extra options merged into the mxisd/ma1sd configuration"
-          ;
+        ;
       };
 
       matrix = {
@@ -147,7 +147,7 @@ in
           WorkingDirectory = cfg.dataDir;
           Restart = "on-failure";
         }
-        ;
+      ;
     };
   };
 }

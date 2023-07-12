@@ -59,11 +59,11 @@ let
           description =
             lib.mdDoc
               "A name for the drive. Must be unique in the drives list. Not passed to qemu."
-            ;
+          ;
         };
       };
     }
-    ;
+  ;
 
   selectPartitionTableLayout =
     {
@@ -74,7 +74,7 @@ let
       if useEFIBoot then "efi" else "legacy"
     else
       "none"
-    ;
+  ;
 
   driveCmdline =
     idx:
@@ -102,10 +102,10 @@ let
           "-device lsi53c895a -device scsi-hd,${deviceOpts}"
         else
           "-device virtio-blk-pci,${deviceOpts}"
-        ;
+      ;
     in
     "-drive ${driveOpts} ${device}"
-    ;
+  ;
 
   drivesCmdLine =
     drives: concatStringsSep "\\\n    " (imap1 driveCmdline drives);
@@ -122,7 +122,7 @@ let
       "/dev/sd${letter}"
     else
       "/dev/vd${letter}"
-    ;
+  ;
 
   lookupDriveDeviceName =
     driveName: driveList:
@@ -132,7 +132,7 @@ let
         (throw "Multiple drives named ${driveName}")
         driveList
     ).device
-    ;
+  ;
 
   addDeviceNames = imap1 (
     idx: drive: drive // { device = driveDeviceName idx; }
@@ -331,7 +331,7 @@ let
         "direct_boot_with_default_fs"
     else
       "custom"
-    ;
+  ;
   suggestedRootDevice =
     {
       "efi_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}2";
@@ -519,14 +519,14 @@ in
             description =
               lib.mdDoc
                 "The path of the directory to share, can be a shell variable"
-              ;
+            ;
           };
           options.target = mkOption {
             type = types.path;
             description =
               lib.mdDoc
                 "The mount point of the directory inside the virtual machine"
-              ;
+            ;
           };
         }
       );
@@ -716,7 +716,7 @@ in
         defaultText =
           literalExpression
             "config.virtualisation.host.pkgs.qemu_kvm"
-          ;
+        ;
         example = literalExpression "pkgs.qemu_test";
         description = lib.mdDoc "QEMU package to use.";
       };
@@ -738,7 +738,7 @@ in
             ];
           in
           if cfg.graphics then consoles else reverseList consoles
-          ;
+        ;
         example = [ "console=tty1" ];
         description = lib.mdDoc ''
           The output console devices to pass to the kernel command line via the
@@ -785,7 +785,7 @@ in
         description =
           lib.mdDoc
             "The interface used for the virtual hard disks."
-          ;
+        ;
       };
 
       guestAgent.enable = mkOption {
@@ -829,7 +829,7 @@ in
       defaultText =
         literalExpression
           "!cfg.useNixStoreImage && !cfg.useBootLoader"
-        ;
+      ;
       description = lib.mdDoc ''
         Mount the host Nix store as a 9p mount.
       '';
@@ -869,7 +869,7 @@ in
         description =
           lib.mdDoc
             "OVMF firmware package, defaults to OVMF configured with secure boot if needed."
-          ;
+        ;
       };
 
       firmware = mkOption {
@@ -939,7 +939,7 @@ in
           {
             assertion =
               rule.from == "guest" -> lib.hasPrefix "10.0.2." rule.guest.address
-              ;
+            ;
             message = ''
               Invalid virtualisation.forwardPorts.<entry ${
                 toString i
@@ -972,7 +972,7 @@ in
 
             ${opt.writableStore} = false;
         ''
-      ;
+    ;
 
     # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
     # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
@@ -988,7 +988,7 @@ in
     boot.initrd.kernelModules =
       optionals (cfg.useNixStoreImage && !cfg.writableStore)
         [ "erofs" ]
-      ;
+    ;
 
     boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (
       mkVMOverride false
@@ -1000,7 +1000,7 @@ in
           # We need mke2fs in the initrd.
           copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
         ''
-      ;
+    ;
 
     boot.initrd.postDeviceCommands =
       lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
@@ -1013,7 +1013,7 @@ in
               mke2fs -t ext4 ${cfg.rootDevice}
           fi
         ''
-      ;
+    ;
 
     boot.initrd.postMountCommands =
       lib.mkIf (!config.boot.initrd.systemd.enable)
@@ -1034,7 +1034,7 @@ in
               -o lowerdir=$targetRoot/nix/.ro-store,upperdir=$targetRoot/nix/.rw-store/store,workdir=$targetRoot/nix/.rw-store/work || fail
           ''}
         ''
-      ;
+    ;
 
     systemd.tmpfiles.rules = lib.mkIf config.boot.initrd.systemd.enable [
       "f /etc/NIXOS 0644 root root -"
@@ -1057,7 +1057,7 @@ in
     boot.initrd.availableKernelModules =
       optional cfg.writableStore "overlay"
       ++ optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx"
-      ;
+    ;
 
     virtualisation.additionalPaths = [ config.system.build.toplevel ];
 
@@ -1097,14 +1097,14 @@ in
         restrictNetworkOption =
           lib.optionalString cfg.restrictNetwork
             "restrict=on,"
-          ;
+        ;
       in
       [
         "-net nic,netdev=user.0,model=virtio"
         ''
           -netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''
       ]
-      ;
+    ;
 
     # FIXME: Consolidate this one day.
     virtualisation.qemu.options = mkMerge [
@@ -1129,7 +1129,7 @@ in
             concatMapStrings
               (c: if builtins.elem c alphaNumericChars then c else "_")
               (stringToCharacters s)
-            ;
+          ;
         in
         mkIf (!cfg.useBootLoader) [
           "-kernel \${NIXPKGS_QEMU_KERNEL_${
@@ -1189,7 +1189,7 @@ in
                 "/nix/.ro-store"
               else
                 share.target
-              ;
+            ;
             value.device = tag;
             value.fsType = "9p";
             value.neededForBoot = true;
@@ -1200,9 +1200,9 @@ in
                 "msize=${toString cfg.msize}"
               ]
               ++ lib.optional (tag == "nix-store") "cache=loose"
-              ;
+            ;
           }
-          ;
+        ;
       in
       lib.mkMerge [
         (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)
@@ -1240,7 +1240,7 @@ in
                 neededForBoot = true;
                 options = [ "ro" ];
               }
-            ;
+          ;
           "/nix/.rw-store" =
             lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs)
               {
@@ -1248,7 +1248,7 @@ in
                 options = [ "mode=0755" ];
                 neededForBoot = true;
               }
-            ;
+          ;
           "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
             device =
               cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
@@ -1257,7 +1257,7 @@ in
           };
         }
       ]
-      ;
+    ;
 
     boot.initrd.systemd =
       lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore)
@@ -1286,16 +1286,16 @@ in
             };
           };
         }
-      ;
+    ;
 
     swapDevices =
       (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
         [ ]
-      ;
+    ;
     boot.initrd.luks.devices =
       (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
         { }
-      ;
+    ;
 
     # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;
@@ -1315,7 +1315,7 @@ in
             cfg.host.pkgs.writeScript "run-nixos-vm" startVM
           } $out/bin/run-${config.system.name}-vm
         ''
-      ;
+    ;
 
     # When building a regular system configuration, override whatever
     # video driver the host uses.

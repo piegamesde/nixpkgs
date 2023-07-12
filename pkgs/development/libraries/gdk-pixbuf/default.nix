@@ -39,7 +39,7 @@ stdenv.mkDerivation (
       ++
         lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
           "installedTests"
-      ;
+    ;
 
     src =
       let
@@ -52,7 +52,7 @@ stdenv.mkDerivation (
           }/${pname}-${version}.tar.xz";
         sha256 = "7ptsddE7oJaQei48aye2G80X9cfr6rWltDnS8uOf5Es=";
       }
-      ;
+    ;
 
     patches =
       [
@@ -83,7 +83,7 @@ stdenv.mkDerivation (
         gi-docgen
         gobject-introspection
       ]
-      ;
+    ;
 
     propagatedBuildInputs = [
       glib
@@ -133,7 +133,7 @@ stdenv.mkDerivation (
           stdenv.hostPlatform.emulator buildPackages
         } $dev/bin/gdk-pixbuf-query-loaders --update-cache
       ''
-      ;
+    ;
 
     # The fixDarwinDylibNames hook doesn't patch binaries.
     preFixup = lib.optionalString stdenv.isDarwin ''

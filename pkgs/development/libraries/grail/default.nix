@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       xorg.libXi
       xorg.libXfixes
     ]
-    ;
+  ;
 
   configureFlags = lib.optional enableX11 "--with-x11";
 

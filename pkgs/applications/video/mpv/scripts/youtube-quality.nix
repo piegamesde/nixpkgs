@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   passthru.scriptName = "youtube-quality.lua";
 

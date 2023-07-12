@@ -31,7 +31,7 @@ let
       ))
     else
       throw (traceSeq v "services.unbound.settings: unexpected type")
-    ;
+  ;
 
   confNoServer = concatStringsSep "\n" (
     (
@@ -91,7 +91,7 @@ in
         description =
           lib.mdDoc
             "Directory holding all state for unbound to run."
-          ;
+        ;
       };
 
       resolveLocalQueries = mkOption {
@@ -109,7 +109,7 @@ in
         description =
           lib.mdDoc
             "Use and update root trust anchor for DNSSEC validation."
-          ;
+        ;
       };
 
       localControlSocketPath = mkOption {
@@ -169,7 +169,7 @@ in
                   strings, booleans or floats.
                 '';
               }
-              ;
+            ;
 
             options = {
               remote-control.control-enable = mkOption {
@@ -231,7 +231,7 @@ in
         auto-trust-anchor-file =
           mkIf cfg.enableRootTrustAnchor
             rootTrustAnchorFile
-          ;
+        ;
         tls-cert-bundle = mkDefault "/etc/ssl/certs/ca-certificates.crt";
         # prevent race conditions on system startup when interfaces are not yet
         # configured

@@ -53,7 +53,7 @@ symlinkJoin {
           lib.concatStringsSep ", " (map (c: c.core) cores)
         }
       ''
-      ;
+    ;
     mainProgram = "retroarch";
   };
 }

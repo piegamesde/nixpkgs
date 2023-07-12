@@ -31,7 +31,7 @@ let
       url =
         "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=e6cc6bc80c672aaa1a2260abfe8823da299a192c";
     }
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "bombono";
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-vKEbvbjYVRzEaVYC8XOJBPmk6FDXI/WA0X/dldRRO8c=";
       }
     ])
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace src/mbase/SConscript \

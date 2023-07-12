@@ -40,7 +40,7 @@ stdenvNoCC.mkDerivation rec {
         inherit (haskellPackages) ghc;
       }
       src
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
         sed -e 's,$(RANLIB) $(LIBGSM),,' -i Makefile
       ''
     )
-    ;
+  ;
 
   makeFlags =
     [
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       "INSTALL_ROOT=$(out)"
     ]
     ++ optional stdenv.cc.isClang "CC=clang"
-    ;
+  ;
 
   preInstall = "mkdir -p $out/{bin,lib,man/man1,man/man3,include/gsm}";
 

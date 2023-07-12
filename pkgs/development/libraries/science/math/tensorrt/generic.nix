@@ -81,7 +81,7 @@ backendStdenv.mkDerivation rec {
         "$out/lib/libnvinfer_plugin.so.${mostOfVersion}" \
         "$out/lib/libnvinfer_builder_resource.so.${mostOfVersion}"
     ''
-    ;
+  ;
 
   passthru.stdenv = backendStdenv;
 

@@ -21,7 +21,7 @@ import ./make-test-python.nix (
           users.alice.rules = [ "d %h/only_alice" ];
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -37,6 +37,6 @@ import ./make-test-python.nix (
         machine.succeed("[ -d ~bob/user_tmpfiles_created ]")
         machine.succeed("[ ! -e ~bob/only_alice ]")
       ''
-      ;
+    ;
   }
 )

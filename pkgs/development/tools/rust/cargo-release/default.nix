@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       curl
       darwin.apple_sdk.frameworks.Security
     ]
-    ;
+  ;
 
   nativeCheckInputs = [ git ];
 

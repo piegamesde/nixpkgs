@@ -49,7 +49,7 @@ buildPythonPackage rec {
       traitlets
     ]
     ++ fsspec.optional-dependencies.http
-    ;
+  ;
 
   nativeCheckInputs = [
     psutil

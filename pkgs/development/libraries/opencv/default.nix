@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
       QTKit
       Accelerate
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR
       "-I${ilmbase.dev}/include/OpenEXR"
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       (opencvFlag "GSTREAMER" enableGStreamer)
     ]
     ++ lib.optional (!enableUnfree) "-DBUILD_opencv_nonfree=OFF"
-    ;
+  ;
 
   hardeningDisable = [
     "bindnow"

@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
         gst-plugins-good
       ]
     )
-    ;
+  ;
 
   strictDeps = true;
 

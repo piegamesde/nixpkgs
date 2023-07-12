@@ -111,7 +111,7 @@ import ./make-test-python.nix (
                 any: info
           '';
         }
-        ;
+      ;
 
       secondary =
         {
@@ -168,7 +168,7 @@ import ./make-test-python.nix (
                 any: info
           '';
         }
-        ;
+      ;
       client =
         {
           lib,
@@ -188,7 +188,7 @@ import ./make-test-python.nix (
           };
           environment.systemPackages = [ pkgs.knot-dns ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -253,6 +253,6 @@ import ./make-test-python.nix (
 
         primary.log(primary.succeed("systemd-analyze security knot.service | grep -v '✓'"))
       ''
-      ;
+    ;
   }
 )

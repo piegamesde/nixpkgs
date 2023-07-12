@@ -63,9 +63,9 @@ import ./make-test-python.nix (
             ''
               ${pkgs.apacheHttpd}/bin/htpasswd -bcB "$out" ${user} ${password}
             ''
-          ;
+        ;
       }
-      ;
+    ;
     testScript = ''
       machine.wait_for_unit("radicale.service")
       machine.wait_for_open_port(${port})

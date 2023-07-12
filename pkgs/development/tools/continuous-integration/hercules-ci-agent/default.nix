@@ -15,7 +15,7 @@ let
     overrideCabal
     addBuildTools
     justStaticExecutables
-    ;
+  ;
   inherit (lib) makeBinPath;
   bundledBins =
     [
@@ -24,7 +24,7 @@ let
       git
     ]
     ++ lib.optional stdenv.isLinux runc
-    ;
+  ;
 
   pkg =
     # justStaticExecutables is needed due to https://github.com/NixOS/nix/issues/2990
@@ -44,7 +44,7 @@ let
           justStaticExecutables haskellPackages.hercules-ci-agent
         )
       )
-    ;
+  ;
 in
 pkg.overrideAttrs (
   o: {

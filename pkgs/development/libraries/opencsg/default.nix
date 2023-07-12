@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       libX11
     ]
     ++ lib.optional stdenv.isDarwin GLUT
-    ;
+  ;
 
   doCheck = false;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       mv $out/bin/*.app $out/Applications
       rmdir $out/bin || true
     ''
-    ;
+  ;
 
   dontWrapQtApps = true;
 

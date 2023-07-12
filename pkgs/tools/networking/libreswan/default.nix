@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       bash
     ]
     ++ lib.optional stdenv.isLinux libselinux
-    ;
+  ;
 
   prePatch = ''
     # Correct iproute2 and iptables path

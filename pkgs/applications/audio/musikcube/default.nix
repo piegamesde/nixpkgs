@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals coreaudioSupport [ CoreAudio ]
     ++ lib.optionals sndioSupport [ sndio ]
     ++ lib.optionals pipewireSupport [ pipewire ]
-    ;
+  ;
 
   cmakeFlags = [ "-DDISABLE_STRIP=true" ];
 

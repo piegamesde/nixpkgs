@@ -77,7 +77,7 @@ stdenv.mkDerivation {
       makeWrapper
     ]
     ++ lib.optional cudaSupport addOpenGLRunpath
-    ;
+  ;
 
   buildInputs =
     [
@@ -132,7 +132,7 @@ stdenv.mkDerivation {
       ]
     )
     ++ lib.optional cudaSupport cudaEnv
-    ;
+  ;
 
   wrapProgramFlags =
     [
@@ -155,7 +155,7 @@ stdenv.mkDerivation {
       "--set NVIDIA_DRIVER_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libnvidia-tls.so"
       "--set CUDA_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libcuda.so"
     ]
-    ;
+  ;
 
   unpackPhase = ''
     runHook preUnpack

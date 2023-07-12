@@ -70,7 +70,7 @@ in
       description =
         lib.mdDoc
           "List of public key files that will be imported by gpg."
-        ;
+      ;
     };
 
     rotateLogs = mkOption {
@@ -108,7 +108,7 @@ in
     environment.etc."zeyple.conf".source =
       ini.generate "zeyple.conf"
         cfg.settings
-      ;
+    ;
 
     systemd.tmpfiles.rules = [
       "f '${cfg.settings.zeyple.log_file}' 0600 ${cfg.user} ${cfg.group} - -"

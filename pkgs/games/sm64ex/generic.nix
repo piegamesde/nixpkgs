@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       hexdump
     ]
     ++ extraNativeBuildInputs
-    ;
+  ;
 
   buildInputs =
     [
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       SDL2
     ]
     ++ extraBuildInputs
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     [ "VERSION=${region}" ]
     ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ]
     ++ compileFlags
-    ;
+  ;
 
   preBuild = ''
     patchShebangs extract_assets.py
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
           If you are not using an US baserom, you must overwrite the "region" attribute with either "eu" or "jp".
           If you would like to use patches sm64ex distributes as makeflags, add them to the "compileFlags" attribute.
         ''
-        ;
+      ;
       mainProgram = "sm64ex";
       license = licenses.unfree;
       maintainers = with maintainers; [ ivar ];

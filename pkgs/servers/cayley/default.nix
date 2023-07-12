@@ -30,7 +30,7 @@ buildGoModule rec {
       "-X ${basename}.Version=${src.rev}"
       "-X ${basename}.GitHash=${rev}"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

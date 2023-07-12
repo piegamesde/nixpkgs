@@ -24,7 +24,7 @@ let
         );
       in
       "${key} = ${value'}"
-      ;
+    ;
   };
 
   cfg = config.services.writefreely;
@@ -57,7 +57,7 @@ let
           port = cfg.database.port;
           tls = cfg.database.tls;
         }
-      ;
+    ;
 
     server = cfg.settings.server or { } // {
       bind = cfg.settings.server.bind or "localhost";
@@ -111,7 +111,7 @@ let
 
       ${text}
     ''
-    ;
+  ;
 
   withMysql =
     text:
@@ -132,7 +132,7 @@ let
 
       ${text}
     ''
-    ;
+  ;
 
   withSqlite =
     text:
@@ -148,7 +148,7 @@ let
 
       ${text}
     ''
-    ;
+  ;
 in
 {
   options.services.writefreely = {
@@ -169,7 +169,7 @@ in
       description =
         lib.mdDoc
           "The state directory where keys and data are stored."
-        ;
+      ;
     };
 
     user = mkOption {
@@ -264,7 +264,7 @@ in
         description =
           lib.mdDoc
             "The port used when connecting to the database host."
-          ;
+        ;
       };
 
       tls = mkOption {
@@ -273,7 +273,7 @@ in
         description =
           lib.mdDoc
             "Whether or not TLS should be used for the database connection."
-          ;
+        ;
       };
 
       migrate = mkOption {
@@ -282,7 +282,7 @@ in
         description =
           lib.mdDoc
             "Whether or not to automatically run migrations on startup."
-          ;
+        ;
       };
 
       createLocally = mkOption {
@@ -320,7 +320,7 @@ in
         description =
           lib.mdDoc
             "Whether or not to enable and configure nginx as a proxy for WriteFreely."
-          ;
+        ;
       };
 
       forceSSL = mkOption {
@@ -337,7 +337,7 @@ in
         description =
           lib.mdDoc
             "Whether or not to automatically fetch and configure SSL certs."
-          ;
+        ;
       };
     };
   };
@@ -372,7 +372,7 @@ in
       groups =
         optionalAttrs (cfg.group == "writefreely")
           { writefreely = { }; }
-        ;
+      ;
     };
 
     systemd.tmpfiles.rules = [
@@ -385,7 +385,7 @@ in
         ++ optional isSqlite "writefreely-sqlite-init.service"
         ++ optional isMysql "writefreely-mysql-init.service"
         ++ optional isMysqlLocal "mysql.service"
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
@@ -400,7 +400,7 @@ in
         AmbientCapabilities =
           optionalString (settings.server.port < 1024)
             "cap_net_bind_service"
-          ;
+        ;
       };
 
       preStart = ''
@@ -427,7 +427,7 @@ in
         ReadOnlyPaths =
           optional (cfg.admin.initialPasswordFile != null)
             cfg.admin.initialPasswordFile
-          ;
+        ;
       };
 
       script =
@@ -453,7 +453,7 @@ in
 
           ${createAdmin}
         ''
-        ;
+      ;
     };
 
     systemd.services.writefreely-mysql-init = mkIf isMysql {
@@ -470,7 +470,7 @@ in
           ++
             optional (cfg.admin.initialPasswordFile != null)
               cfg.admin.initialPasswordFile
-          ;
+        ;
       };
 
       script =
@@ -505,7 +505,7 @@ in
 
           ${createAdmin}
         ''
-        ;
+      ;
     };
 
     services.mysql = mkIf isMysqlLocal {

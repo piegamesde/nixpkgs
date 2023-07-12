@@ -24,7 +24,7 @@ import ./make-test-python.nix (
             port = port;
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -62,7 +62,7 @@ import ./make-test-python.nix (
             )
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

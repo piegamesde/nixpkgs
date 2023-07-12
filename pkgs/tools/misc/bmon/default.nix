@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       libconfuse
     ]
     ++ lib.optional stdenv.isLinux libnl
-    ;
+  ;
 
   preConfigure = ''
     # Must be an absolute path

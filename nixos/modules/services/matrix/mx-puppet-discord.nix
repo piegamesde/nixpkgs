@@ -15,7 +15,7 @@ let
   settingsFile =
     settingsFormat.generate "mx-puppet-discord-config.json"
       cfg.settings
-    ;
+  ;
 in
 {
   options = {
@@ -79,7 +79,7 @@ in
         default =
           optional config.services.matrix-synapse.enable
             "matrix-synapse.service"
-          ;
+        ;
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"
         '';

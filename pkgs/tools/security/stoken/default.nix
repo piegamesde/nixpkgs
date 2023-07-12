@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       nettle
     ]
     ++ lib.optional withGTK3 gtk3
-    ;
+  ;
 
   meta = with lib; {
     description = "Software Token for Linux/UNIX";

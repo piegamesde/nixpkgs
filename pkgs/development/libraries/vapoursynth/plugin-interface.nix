@@ -25,14 +25,14 @@ let
             cleanPropagatedBuildInputs =
               lib.filter lib.isDerivation
                 pkg.propagatedBuildInputs
-              ;
+            ;
           in
           cleanPropagatedBuildInputs
           ++ (getRecursivePropagatedBuildInputs cleanPropagatedBuildInputs)
         )
         pkgs
     )
-    ;
+  ;
 
   deepPlugins = lib.unique (
     plugins ++ (getRecursivePropagatedBuildInputs plugins)
@@ -64,7 +64,7 @@ let
         mkdir -p $out/lib
         $CC -shared -fPIC ${source} -o "$out/lib/libvapoursynth-nix-plugins${ext}"
       ''
-    ;
+  ;
 
   ext = stdenv.targetPlatform.extensions.sharedLibrary;
 in

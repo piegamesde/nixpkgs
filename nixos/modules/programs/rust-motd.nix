@@ -101,7 +101,7 @@ in
         ''
           PrintLastLog no
         ''
-      ;
+    ;
   };
   meta.maintainers = with maintainers; [ ma27 ];
 }

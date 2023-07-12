@@ -31,7 +31,7 @@ buildGoModule rec {
       "-s"
       "-w"
     ]
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "SuperQ";

@@ -49,7 +49,7 @@ with rec {
         "native"
       ]
       (builtins.head isas)
-    ;
+  ;
 };
 
 stdenv.mkDerivation rec {

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       man
     ]
     ++ lib.optional enableCgiScripts gd
-    ;
+  ;
 
   prePatch = ''
     sed -e "s,\$(INSTALL_PROGRAM) \$(STRIP),\$(INSTALL_PROGRAM)," \

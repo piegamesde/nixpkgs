@@ -132,13 +132,13 @@ in
             builtins.toString (
               lib.getAttrFromPath path (pkgsForCross crossSystem system)
             )
-            ;
+          ;
         in
         assertTrue (
           f path null system
           == f ([ "buildPackages" ] ++ path) crossSystem system
         )
-        ;
+      ;
 
       testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
 
@@ -154,7 +154,7 @@ in
       libxml2 = nativePlatforms;
       guile = nativePlatforms;
     }
-    ;
+  ;
 
   crossIphone64 = mapTestOnCross lib.systems.examples.iphone64 darwinCommon;
 
@@ -194,7 +194,7 @@ in
   armv7l-hf =
     mapTestOnCross lib.systems.examples.armv7l-hf-multiplatform
       linuxCommon
-    ;
+  ;
 
   pogoplug4 = mapTestOnCross lib.systems.examples.pogoplug4 linuxCommon;
 
@@ -202,11 +202,11 @@ in
   aarch64 =
     mapTestOnCross lib.systems.examples.aarch64-multiplatform
       linuxCommon
-    ;
+  ;
   aarch64-musl =
     mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl
       linuxCommon
-    ;
+  ;
 
   # Linux on RISCV
   riscv64 = mapTestOnCross lib.systems.examples.riscv64 linuxCommon;
@@ -216,7 +216,7 @@ in
   loongarch64-linux =
     mapTestOnCross lib.systems.examples.loongarch64-linux
       linuxCommon
-    ;
+  ;
 
   m68k = mapTestOnCross lib.systems.examples.m68k linuxCommon;
   s390x = mapTestOnCross lib.systems.examples.s390x linuxCommon;
@@ -233,11 +233,11 @@ in
   android64 =
     mapTestOnCross lib.systems.examples.aarch64-android-prebuilt
       linuxCommon
-    ;
+  ;
   android32 =
     mapTestOnCross lib.systems.examples.armv7a-android-prebuilt
       linuxCommon
-    ;
+  ;
 
   wasi32 = mapTestOnCross lib.systems.examples.wasi32 wasiCommon;
 
@@ -251,29 +251,29 @@ in
   aarch64-embedded =
     mapTestOnCross lib.systems.examples.aarch64-embedded
       embedded
-    ;
+  ;
   aarch64be-embedded =
     mapTestOnCross lib.systems.examples.aarch64be-embedded
       embedded
-    ;
+  ;
   powerpc-embedded = mapTestOnCross lib.systems.examples.ppc-embedded embedded;
   powerpcle-embedded =
     mapTestOnCross lib.systems.examples.ppcle-embedded
       embedded
-    ;
+  ;
   i686-embedded = mapTestOnCross lib.systems.examples.i686-embedded embedded;
   x86_64-embedded =
     mapTestOnCross lib.systems.examples.x86_64-embedded
       embedded
-    ;
+  ;
   riscv64-embedded =
     mapTestOnCross lib.systems.examples.riscv64-embedded
       embedded
-    ;
+  ;
   riscv32-embedded =
     mapTestOnCross lib.systems.examples.riscv32-embedded
       embedded
-    ;
+  ;
   rx-embedded = mapTestOnCross lib.systems.examples.rx-embedded embedded;
 
   x86_64-netbsd = mapTestOnCross lib.systems.examples.x86_64-netbsd common;
@@ -283,7 +283,7 @@ in
   x86_64-redox =
     mapTestOnCross lib.systems.examples.x86_64-unknown-redox
       embedded
-    ;
+  ;
 
   # Cross-built bootstrap tools for every supported platform
   bootstrapTools =
@@ -296,7 +296,7 @@ in
         drv:
         assert lib.elem drv.system supportedSystems;
         hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv)
-        ;
+      ;
     in
     lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
       (name: mkBootstrapToolsJob)
@@ -309,15 +309,15 @@ in
       (
         builtins.removeAttrs tools [ "bootstrapTools" ]
       )
-    ;
+  ;
 
   # Cross-built nixStatic for platforms for enabled-but-unsupported platforms
   mips64el-nixCrossStatic =
     mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64
       nixCrossStatic
-    ;
+  ;
   powerpc64le-nixCrossStatic =
     mapTestOnCross lib.systems.examples.powernv
       nixCrossStatic
-    ;
+  ;
 }

@@ -77,7 +77,7 @@ let
       ''
         cp ${mesonPatch}/meson.build .
       ''
-      ;
+    ;
   };
   # This is the statically-linked, pre-built binary of mosflm. Compiling it ourselves turns out to be very difficult
   # since the build process is very hard-coded for a specific machine, architecture, and libraries.
@@ -101,7 +101,7 @@ let
               }/pre-built/mosflm-linux-64-noX11.zip";
             sha256 = "1rqh3nprxfmnyihllw31nb8i3wfhybmsic6y7z6wn4rafyv3w4fk";
           }
-        ;
+      ;
       mosflmBinary =
         if stdenv.isDarwin then "bin/mosflm" else "mosflm-linux-64-noX11";
     in
@@ -127,7 +127,7 @@ let
         makeWrapper $out/bin/mosflm-raw $out/bin/mosflm --set SYMINFO ${libccp4}/share/syminfo.lib --add-flags -n
       '';
     }
-    ;
+  ;
 
   xgandalf = stdenv.mkDerivation rec {
     pname = "xgandalf";
@@ -231,7 +231,7 @@ stdenv.mkDerivation rec {
       makeWrapper
     ]
     ++ lib.optionals withGui [ wrapGAppsHook ]
-    ;
+  ;
   buildInputs =
     [
       hdf5
@@ -256,7 +256,7 @@ stdenv.mkDerivation rec {
       memorymappingHook
     ]
     ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ]
-    ;
+  ;
 
   patches = [
     ./link-to-argp-standalone-if-needed.patch

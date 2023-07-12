@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   meta = with lib; {
     description = "ePub XHTML Visual Editor";

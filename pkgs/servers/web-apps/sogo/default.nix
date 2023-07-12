@@ -53,7 +53,7 @@ gnustep.stdenv.mkDerivation rec {
       libxcrypt
     ]
     ++ lib.optional enableActiveSync libwbxml
-    ;
+  ;
 
   patches = lib.optional enableActiveSync ./enable-activesync.patch;
 

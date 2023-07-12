@@ -39,10 +39,10 @@ let
           extraGSettingsOverrides
           extraGSettingsOverridePackages
           favoriteAppsOverride
-          ;
+        ;
         inherit flashbackEnabled nixos-background-dark nixos-background-light;
       }
-    ;
+  ;
 
   nixos-background-info = pkgs.writeTextFile rec {
     name = "nixos-background-info";
@@ -74,7 +74,7 @@ let
       enableGnomePanel = true;
     }
     ++ cfg.flashback.customSessions
-    ;
+  ;
 
   notExcluded =
     pkg: mkDefault (!(lib.elem pkg config.environment.gnome.excludePackages));
@@ -369,7 +369,7 @@ in
         description =
           lib.mdDoc
             "List of desktop files to put as favorite apps into gnome-shell. These need to be installed somehow globally."
-          ;
+        ;
       };
 
       extraGSettingsOverrides = mkOption {
@@ -384,7 +384,7 @@ in
         description =
           lib.mdDoc
             "List of packages for which gsettings are overridden."
-          ;
+        ;
       };
 
       debug = mkEnableOption (lib.mdDoc "gnome-session debug messages");
@@ -403,7 +403,7 @@ in
                   description =
                     lib.mdDoc
                       "A unique identifier for the window manager."
-                    ;
+                  ;
                   example = "xmonad";
                 };
 
@@ -412,7 +412,7 @@ in
                   description =
                     lib.mdDoc
                       "The name of the window manager to show in the session chooser."
-                    ;
+                  ;
                   example = "XMonad";
                 };
 
@@ -421,7 +421,7 @@ in
                   description =
                     lib.mdDoc
                       "The executable of the window manager to use."
-                    ;
+                  ;
                   example = literalExpression ''
                     "''${pkgs.haskellPackages.xmonad}/bin/xmonad"'';
                 };
@@ -433,7 +433,7 @@ in
                   description =
                     lib.mdDoc
                       "Whether to enable the GNOME panel in this session."
-                    ;
+                  ;
                 };
               };
             }
@@ -462,7 +462,7 @@ in
       description =
         lib.mdDoc
           "Which packages gnome should exclude from the default environment"
-        ;
+      ;
     };
   };
 
@@ -526,7 +526,7 @@ in
             }
           )
           flashbackWms
-        ;
+      ;
 
       security.pam.services.gnome-flashback = { enableGnomeKeyring = true; };
 
@@ -568,7 +568,7 @@ in
       services.xserver.libinput.enable =
         mkDefault
           true
-        ; # for controlling touchpad settings via gnome control center
+      ; # for controlling touchpad settings via gnome control center
 
       # Explicitly enabled since GNOME will be severely broken without these.
       xdg.mime.enable = true;
@@ -614,7 +614,7 @@ in
         ++
           utils.removePackagesByName optionalPackages
             config.environment.gnome.excludePackages
-        ;
+      ;
 
       services.colord.enable = mkDefault true;
       services.gnome.glib-networking.enable = true;
@@ -694,7 +694,7 @@ in
         ++
           utils.removePackagesByName optionalPackages
             config.environment.gnome.excludePackages
-        ;
+      ;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst

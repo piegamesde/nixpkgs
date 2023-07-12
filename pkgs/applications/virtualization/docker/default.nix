@@ -151,7 +151,7 @@ rec {
             ++ lib.optional withBtrfs btrfs-progs
             ++ lib.optional withSystemd systemd
             ++ lib.optional withSeccomp libseccomp
-            ;
+          ;
 
           extraPath = lib.optionals stdenv.isLinux (
             lib.makeBinPath [
@@ -230,14 +230,14 @@ rec {
             ++ lib.optional (!withBtrfs) "exclude_graphdriver_btrfs"
             ++ lib.optional (!withLvm) "exclude_graphdriver_devicemapper"
             ++ lib.optional withSeccomp "seccomp"
-            ;
+          ;
         }
       );
 
       plugins =
         lib.optional buildxSupport docker-buildx
         ++ lib.optional composeSupport docker-compose
-        ;
+      ;
       pluginsRef = symlinkJoin {
         name = "docker-plugins";
         paths = plugins;
@@ -276,7 +276,7 @@ rec {
           ++ lib.optional withSystemd systemd
           ++ lib.optional withSeccomp libseccomp
           ++ plugins
-          ;
+        ;
 
         postPatch =
           ''
@@ -287,7 +287,7 @@ rec {
             substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
                 "${pluginsRef}/libexec/docker/cli-plugins"
           ''
-          ;
+        ;
 
         # Keep eyes on BUILDTIME format - https://github.com/docker/cli/blob/${version}/scripts/build/.variables
         buildPhase = ''
@@ -350,7 +350,7 @@ rec {
 
             installManPage man/*/*.[1-9]
           ''
-          ;
+        ;
 
         passthru = {
           # Exposed for tarsum build on non-linux systems (build-support/docker/default.nix)
@@ -379,7 +379,7 @@ rec {
         };
       }
     )
-    ;
+  ;
 
   # Get revisions from
   # https://github.com/moby/moby/tree/${version}/hack/dockerfile/install/*

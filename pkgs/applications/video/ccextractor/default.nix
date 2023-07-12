@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/CMakeLists.txt \
       --replace 'add_definitions(-DGPAC_CONFIG_LINUX)' 'add_definitions(-DGPAC_CONFIG_DARWIN)'
     ''
-    ;
+  ;
 
   cmakeDir = "../src";
 
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       tesseract4
       ffmpeg_4
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       "-DWITH_OCR=on"
       "-DWITH_HARDSUBX=on"
     ]
-    ;
+  ;
 
   postInstall = lib.optionalString enableOcr ''
     wrapProgram "$out/bin/ccextractor" \

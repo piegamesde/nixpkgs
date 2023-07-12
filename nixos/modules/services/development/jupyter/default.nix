@@ -17,7 +17,7 @@ let
     (pkgs.jupyter-kernel.create {
       definitions =
         if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default
-        ;
+      ;
     });
 
   notebookConfig = pkgs.writeText "jupyter_config.py" ''

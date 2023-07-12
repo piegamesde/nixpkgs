@@ -24,7 +24,7 @@ buildLinux (
         version
       else
         lib.replaceStrings [ "-" ] [ ".0-" ] version
-      ;
+    ;
 
     src = fetchurl {
       url = "mirror://kernel/linux/kernel/v5.x/linux-${kversion}.tar.xz";
@@ -43,7 +43,7 @@ buildLinux (
         };
       in
       [ rt-patch ] ++ kernelPatches
-      ;
+    ;
 
     structuredExtraConfig = with lib.kernel;
       {
@@ -56,7 +56,7 @@ buildLinux (
         RT_GROUP_SCHED =
           lib.mkForce
             (option no)
-          ; # Removed by sched-disable-rt-group-sched-on-rt.patch.
+        ; # Removed by sched-disable-rt-group-sched-on-rt.patch.
       } // structuredExtraConfig;
 
     extraMeta = extraMeta // { inherit branch; };

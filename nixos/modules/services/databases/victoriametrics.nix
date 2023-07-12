@@ -79,7 +79,7 @@ in
                 "127.0.0.1"
             )
             + cfg.listenAddress
-            ;
+          ;
         in
         lib.mkBefore ''
           until ${
@@ -88,7 +88,7 @@ in
             sleep 1;
           done
         ''
-        ;
+      ;
     };
   };
 }

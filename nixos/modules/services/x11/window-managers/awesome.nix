@@ -37,7 +37,7 @@ in
         description =
           lib.mdDoc
             "List of lua packages available for being used in the Awesome configuration."
-          ;
+        ;
         example = literalExpression "[ pkgs.luaPackages.vicious ]";
       };
 
@@ -54,7 +54,7 @@ in
         description =
           lib.mdDoc
             "Disable client transparency support, which can be greatly detrimental to performance in some setups"
-          ;
+        ;
       };
     };
   };

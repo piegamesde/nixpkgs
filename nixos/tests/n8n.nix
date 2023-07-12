@@ -23,7 +23,7 @@ import ./make-test-python.nix (
       }: {
         services.n8n = { enable = true; };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("n8n.service")

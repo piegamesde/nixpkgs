@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       CoreAudio
       CoreServices
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DRTMIDI_API_ALSA=${if alsaSupport then "ON" else "OFF"}"

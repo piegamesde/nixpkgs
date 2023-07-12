@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     broken =
       (stdenv.isDarwin && stdenv.isAarch64)
       || (stdenv.isLinux && stdenv.isAarch64)
-      ;
+    ;
   };
 }

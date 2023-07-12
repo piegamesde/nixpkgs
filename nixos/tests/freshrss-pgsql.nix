@@ -45,7 +45,7 @@ import ./make-test-python.nix (
           after = [ "postgresql.service" ];
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

@@ -99,12 +99,12 @@ let
       xml_int.scgi
     ]
     ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ]
-    ;
+  ;
 
   enabledModules =
     (if modules != null then modules else defaultModules)
       availableModules
-    ;
+  ;
 
   modulesConf =
     let
@@ -112,7 +112,7 @@ let
       str = lib.strings.concatStringsSep "\n" lst;
     in
     builtins.toFile "modules.conf" str
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -166,7 +166,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
     ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

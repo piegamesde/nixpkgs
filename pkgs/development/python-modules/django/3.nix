@@ -41,7 +41,7 @@ buildPythonPackage rec {
         extension = stdenv.hostPlatform.extensions.sharedLibrary;
       }
     )
-    ;
+  ;
 
   propagatedBuildInputs = [
     asgiref

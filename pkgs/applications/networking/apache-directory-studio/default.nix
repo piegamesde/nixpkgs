@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "Unsupported system: ${stdenv.hostPlatform.system}"
-    ;
+  ;
 
   desktopItem = makeDesktopItem {
     name = "apache-directory-studio";

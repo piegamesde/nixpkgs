@@ -58,7 +58,7 @@ in
       description =
         lib.mdDoc
           "List of certificate specs to feed to cert generator."
-        ;
+      ;
       default = { };
       type = attrs;
     };
@@ -103,7 +103,7 @@ in
       description =
         lib.mdDoc
           "Whether to always trust remote cfssl server upon initial PKI bootstrap."
-        ;
+      ;
       default = true;
       type = bool;
     };
@@ -124,7 +124,7 @@ in
       description =
         lib.mdDoc
           "Certificate specification for the auto-generated CAcert."
-        ;
+      ;
       default = {
         CN = "kubernetes-cluster-ca";
         O = "NixOS";
@@ -269,10 +269,10 @@ in
                   names = [ cert.fields ];
                 };
               }
-              ;
+            ;
           in
           mapAttrs mkSpec cfg.certs
-          ;
+        ;
       };
 
       #TODO: Get rid of kube-addon-manager in the future for the following reasons
@@ -299,7 +299,7 @@ in
                   mapAttrsToList
                     (n: v: writeText "${n}.json" (builtins.toJSON v))
                     top.addonManager.bootstrapAddons
-                  ;
+                ;
               in
               ''
                 export KUBECONFIG=${clusterAdminKubeconfig}
@@ -307,7 +307,7 @@ in
                   concatStringsSep " \\\n -f " files
                 }
               ''
-              ;
+            ;
           })
         ]
       );
@@ -315,7 +315,7 @@ in
       environment.etc.${cfg.etcClusterAdminKubeconfig}.source =
         mkIf (cfg.etcClusterAdminKubeconfig != null)
           clusterAdminKubeconfig
-        ;
+      ;
 
       environment.systemPackages =
         mkIf (top.kubelet.enable || top.proxy.enable)
@@ -372,7 +372,7 @@ in
               echo "Node joined successfully"
             '')
           ]
-        ;
+      ;
 
       # isolate etcd on loopback at the master node
       # easyCerts doesn't support multimaster clusters anyway atm.
@@ -415,16 +415,16 @@ in
             serviceAccountSigningKeyFile =
               mkDefault
                 cfg.certs.serviceAccount.key
-              ;
+            ;
             kubeletClientCaFile = mkDefault caCert;
             kubeletClientCertFile =
               mkDefault
                 cfg.certs.apiserverKubeletClient.cert
-              ;
+            ;
             kubeletClientKeyFile =
               mkDefault
                 cfg.certs.apiserverKubeletClient.key
-              ;
+            ;
             proxyClientCertFile = mkDefault cfg.certs.apiserverProxyClient.cert;
             proxyClientKeyFile = mkDefault cfg.certs.apiserverProxyClient.key;
           }

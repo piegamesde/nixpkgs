@@ -65,7 +65,7 @@ in
             configFile
           else
             "/var/run/telegraf/config.toml"
-          ;
+        ;
       in
       {
         description = "Telegraf Agent";
@@ -81,7 +81,7 @@ in
                   ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /var/run/telegraf/config.toml
                 ''
               )
-            ;
+          ;
           ExecStart = "${cfg.package}/bin/telegraf -config ${finalConfigFile}";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           RuntimeDirectory = "telegraf";
@@ -92,7 +92,7 @@ in
           AmbientCapabilities = [ "CAP_NET_RAW" ];
         };
       }
-      ;
+    ;
 
     users.users.telegraf = {
       uid = config.ids.uids.telegraf;

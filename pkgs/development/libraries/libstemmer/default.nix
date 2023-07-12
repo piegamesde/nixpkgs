@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
               lib.getBin buildPackages.libstemmer
             }/bin/snowball'
         ''
-    ;
+  ;
 
   makeTarget = "libstemmer.a";
 

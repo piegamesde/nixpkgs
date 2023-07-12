@@ -29,7 +29,7 @@ dconf2nix.overrideAttrs (
           ''
             dconf2nix > $out
           ''
-        ;
+      ;
     };
   }
 )

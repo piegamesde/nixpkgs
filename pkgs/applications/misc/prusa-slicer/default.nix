@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withSystemd [ systemd ]
     ++ nativeCheckInputs
-    ;
+  ;
 
   patches = [
     # Fix detection of TBB, see https://github.com/prusa3d/PrusaSlicer/issues/6355
@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
       # Disable segfault tests
       sed -i '/libslic3r/d' tests/CMakeLists.txt
     ''
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "prusa3d";

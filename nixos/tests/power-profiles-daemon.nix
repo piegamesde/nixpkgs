@@ -16,7 +16,7 @@ import ./make-test-python.nix (
         services.power-profiles-daemon.enable = true;
         environment.systemPackages = [ pkgs.glib ];
       }
-      ;
+    ;
 
     testScript = ''
       def get_profile():

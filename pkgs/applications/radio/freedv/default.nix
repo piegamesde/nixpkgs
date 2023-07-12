@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       makeWrapper
       darwin.autoSignDarwinBinariesHook
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       Cocoa
       CoreMedia
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       "-DUNITTEST=ON"
     ]
     ++ lib.optionals pulseSupport [ "-DUSE_PULSEAUDIO:BOOL=TRUE" ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ "-DAPPLE_OLD_XCODE" ]

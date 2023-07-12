@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       GLUT
       Cocoa
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
         "examples/CMakeLists.txt"
         "wrappers/cpp/CMakeLists.txt"
       ]
-    ;
+  ;
 
   meta = {
     description =

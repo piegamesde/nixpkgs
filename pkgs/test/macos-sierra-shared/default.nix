@@ -36,7 +36,7 @@ let
             }
           )
           count
-        ;
+      ;
 
       finalExe = stdenv.mkDerivation {
         name = "${prefix}-final-asdf";
@@ -83,7 +83,7 @@ let
         meta.platforms = lib.platforms.darwin;
       };
     }
-    ;
+  ;
 
   good = makeBigExe clang-sierraHack-stdenv "good";
 

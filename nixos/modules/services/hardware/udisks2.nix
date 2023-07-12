@@ -97,7 +97,7 @@ in
     systemd.tmpfiles.rules =
       [ "d /var/lib/udisks2 0755 root root -" ]
       ++ optional cfg.mountOnMedia "D! /media 0755 root root -"
-      ;
+    ;
 
     services.udev.packages = [ pkgs.udisks2 ];
 

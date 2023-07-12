@@ -20,7 +20,7 @@ let
       + lib.optionalString (tssUser != null) '', OWNER="${tssUser}"''
       + lib.optionalString (tssGroup != null) '', GROUP="${tssGroup}"''}
     ''
-    ;
+  ;
 in
 {
   options.security.tpm2 = {

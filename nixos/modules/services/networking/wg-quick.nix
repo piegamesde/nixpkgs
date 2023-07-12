@@ -41,7 +41,7 @@ let
           description =
             lib.mdDoc
               "Whether to bring up this interface automatically during boot."
-            ;
+          ;
           default = true;
           example = false;
           type = types.bool;
@@ -54,7 +54,7 @@ let
           description =
             lib.mdDoc
               "The IP addresses of DNS servers to configure."
-            ;
+          ;
         };
 
         privateKey = mkOption {
@@ -164,7 +164,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   # peer options
 
@@ -239,7 +239,7 @@ let
                   but it might at anytime receive traffic from a peer, and it is behind
                   NAT, the interface might benefit from having a persistent keepalive
                   interval of 25 seconds; however, most users will not need this.''
-          ;
+        ;
       };
     };
   };
@@ -261,7 +261,7 @@ let
           writeScriptFile "preUp.sh" values.preUp
         else
           null
-        ;
+      ;
       postUp =
         optional (values.privateKeyFile != null)
           "wg set ${name} private-key <(cat ${values.privateKeyFile})"
@@ -275,7 +275,7 @@ let
             values.peers
         )
         ++ optional (values.postUp != "") values.postUp
-        ;
+      ;
       postUpFile =
         if postUp != [ ] then
           writeScriptFile "postUp.sh" (
@@ -283,19 +283,19 @@ let
           )
         else
           null
-        ;
+      ;
       preDownFile =
         if values.preDown != "" then
           writeScriptFile "preDown.sh" values.preDown
         else
           null
-        ;
+      ;
       postDownFile =
         if values.postDown != "" then
           writeScriptFile "postDown.sh" values.postDown
         else
           null
-        ;
+      ;
       configDir = pkgs.writeTextFile {
         name = "config-${name}";
         executable = false;
@@ -363,7 +363,7 @@ let
                 ''
               )
               values.peers
-          ;
+        ;
       };
       configPath =
         if values.configFile != null then
@@ -371,7 +371,7 @@ let
           "/tmp/${name}.conf"
         else
           "${configDir}/${name}.conf"
-        ;
+      ;
     in
     nameValuePair "wg-quick-${name}" {
       description = "wg-quick WireGuard Tunnel - ${name}";
@@ -411,7 +411,7 @@ let
         wg-quick down ${configPath}
       '';
     }
-    ;
+  ;
 in
 {
 
@@ -444,7 +444,7 @@ in
     boot.extraModulePackages =
       optional (versionOlder kernel.kernel.version "5.6")
         kernel.wireguard
-      ;
+    ;
     environment.systemPackages = [ pkgs.wireguard-tools ];
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 
@@ -452,12 +452,12 @@ in
     systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules =
       mkDefault
         false
-      ;
+    ;
 
     # WireGuard interfaces should be ignored in determining whether the network is online.
     systemd.network.wait-online.ignoredInterfaces =
       builtins.attrNames
         cfg.interfaces
-      ;
+    ;
   };
 }

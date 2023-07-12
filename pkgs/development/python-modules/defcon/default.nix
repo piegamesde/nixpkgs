@@ -28,7 +28,7 @@ buildPythonPackage rec {
     [ fonttools ]
     ++ fonttools.optional-dependencies.ufo
     ++ fonttools.optional-dependencies.unicode
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

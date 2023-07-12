@@ -17,7 +17,7 @@ let
           "recurseForDerivations"
         ]
       )
-    ;
+  ;
 
   # nix-build rejects attribute names with periods
   # This will build those regardless.
@@ -26,7 +26,7 @@ let
       ''
         touch $out
       ''
-    ;
+  ;
 
   makePkgConfigTestMaybe =
     moduleName: pkg:
@@ -67,7 +67,7 @@ let
         inherit moduleName;
         package = pkg;
       }
-    ;
+  ;
 in
 lib.recurseIntoAttrs allTests // {
   inherit tests-combined;

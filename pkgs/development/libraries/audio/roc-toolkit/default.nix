@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional opensslSupport openssl
     ++ lib.optional soxSupport sox
-    ;
+  ;
 
   sconsFlags =
     [
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
           "--with-openfec-includes=${openfec.dev}/include"
         ]
     )
-    ;
+  ;
 
   meta = with lib; {
     description =

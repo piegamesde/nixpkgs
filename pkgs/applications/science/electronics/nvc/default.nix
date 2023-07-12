@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [ elfutils ]
     ++ lib.optionals (!stdenv.isLinux) [ libelf ]
-    ;
+  ;
 
   preConfigure = ''
     mkdir build

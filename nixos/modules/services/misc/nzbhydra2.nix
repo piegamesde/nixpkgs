@@ -21,7 +21,7 @@ in
         description =
           lib.mdDoc
             "The directory where NZBHydra2 stores its data files."
-          ;
+        ;
       };
 
       openFirewall = mkOption {
@@ -30,7 +30,7 @@ in
         description =
           lib.mdDoc
             "Open ports in the firewall for the NZBHydra2 web interface."
-          ;
+        ;
       };
 
       package = mkOption {

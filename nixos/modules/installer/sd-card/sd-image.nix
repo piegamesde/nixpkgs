@@ -132,7 +132,7 @@ in
       example =
         literalExpression
           "'' cp \${pkgs.myBootLoader}/u-boot.bin firmware/ ''"
-        ;
+      ;
       description = lib.mdDoc ''
         Shell commands to populate the ./firmware directory.
         All files in that directory are copied to the
@@ -144,7 +144,7 @@ in
       example =
         literalExpression
           "''\${config.boot.loader.generic-extlinux-compatible.populateCmd} -c \${config.system.build.toplevel} -d ./files/boot''"
-        ;
+      ;
       description = lib.mdDoc ''
         Shell commands to populate the ./files directory.
         All files in that directory are copied to the
@@ -157,7 +157,7 @@ in
       example =
         literalExpression
           "'' dd if=\${pkgs.myBootLoader}/SPL of=$img bs=1024 seek=1 conv=notrunc ''"
-        ;
+      ;
       default = "";
       description = lib.mdDoc ''
         Shell commands to run after the image is built.
@@ -229,7 +229,7 @@ in
                 util-linux
               ]
               ++ lib.optional config.sdImage.compressImage zstd
-              ;
+            ;
 
             inherit (config.sdImage) imageName compressImage;
 
@@ -314,7 +314,7 @@ in
           }
         )
         { }
-      ;
+    ;
 
     boot.postBootCommands = lib.mkIf config.sdImage.expandOnBoot ''
       # On the first boot do some maintenance tasks

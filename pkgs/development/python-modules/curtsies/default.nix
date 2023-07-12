@@ -29,7 +29,7 @@ buildPythonPackage rec {
       cwcwidth
     ]
     ++ lib.optionals (pythonOlder "3.8") [ backports-cached-property ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pyte

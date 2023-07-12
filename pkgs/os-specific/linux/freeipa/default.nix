@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
       jansson
     ]
     ++ pythonInputs
-    ;
+  ;
 
   postPatch = ''
     patchShebangs makeapi makeaci install/ui/util

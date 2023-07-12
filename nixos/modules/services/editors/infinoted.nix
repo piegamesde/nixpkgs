@@ -136,7 +136,7 @@ in
     users.groups =
       optionalAttrs (cfg.group == "infinoted")
         { infinoted = { }; }
-      ;
+    ;
 
     systemd.services.infinoted = {
       description = "Gobby Dedicated Server";

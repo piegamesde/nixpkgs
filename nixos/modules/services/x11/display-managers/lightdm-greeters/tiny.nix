@@ -72,7 +72,7 @@ in
         '';
       in
       optionalString (cfg.extraConfig != "") (configHeader + cfg.extraConfig)
-      ;
+    ;
 
     services.xserver.displayManager.lightdm.greeter = mkDefault {
       package = pkgs.lightdm-tiny-greeter.xgreeters;

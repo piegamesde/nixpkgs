@@ -26,7 +26,7 @@ stdenv.mkDerivation (
     pname =
       "alice-tools"
       + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}"
-      ;
+    ;
     version = "0.13.0";
 
     src = fetchFromGitHub {
@@ -47,7 +47,7 @@ stdenv.mkDerivation (
           # For some reason Meson uses QMake instead of pkg-config detection method for Qt6 on Darwin, which gives wrong search paths for tools
           export PATH=${qtbase.dev}/libexec:$PATH
         ''
-      ;
+    ;
 
     mesonFlags =
       lib.optionals (withGUI && lib.versionAtLeast qtbase.version "6.0")
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
           # Qt6 requires at least C++17, project uses compiler's default, default too old on Darwin & aarch64-linux
           "-Dcpp_std=c++17"
         ]
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -66,7 +66,7 @@ stdenv.mkDerivation (
         flex
       ]
       ++ lib.optionals withGUI [ wrapQtAppsHook ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -77,7 +77,7 @@ stdenv.mkDerivation (
         zlib
       ]
       ++ lib.optionals withGUI [ qtbase ]
-      ;
+    ;
 
     dontWrapQtApps = true;
 
@@ -96,7 +96,7 @@ stdenv.mkDerivation (
 
         runHook postInstall
       ''
-      ;
+    ;
 
     passthru = {
       updateScript = gitUpdater { };
@@ -105,7 +105,7 @@ stdenv.mkDerivation (
         command =
           lib.optionalString withGUI "env QT_QPA_PLATFORM=minimal "
           + "${lib.getExe finalAttrs.finalPackage} --version"
-          ;
+        ;
       };
     };
 

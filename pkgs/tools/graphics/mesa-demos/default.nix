@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       glslang
     ]
     ++ lib.optional (mesa ? osmesa) mesa.osmesa
-    ;
+  ;
   nativeBuildInputs = [
     meson
     ninja

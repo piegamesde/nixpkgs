@@ -35,7 +35,7 @@ let
           rockspecVersion = drv.rockspecVersion;
         }
       )
-    ;
+  ;
 
   finalDrv = toVimPlugin (
     luaDrv.overrideAttrs (

@@ -22,7 +22,7 @@ let
         attrs.version or "«version-missing»"
       }"
     )
-    ;
+  ;
 
   allowUnfree =
     config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1";
@@ -32,7 +32,7 @@ let
       envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
     in
     if envVar != "" then envVar != "0" else config.allowNonSource or true
-    ;
+  ;
 
   allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [ ];
   blocklist = config.blocklistedLicenses or config.blacklistedLicenses or [ ];
@@ -43,7 +43,7 @@ let
     else
       throw
         "allowlistedLicenses and blocklistedLicenses are not mutually exclusive."
-    ;
+  ;
 
   hasLicense = attrs: attrs ? meta.license;
 
@@ -54,7 +54,7 @@ let
     && lib.lists.any (l: builtins.elem l allowlist) (
       lib.lists.toList attrs.meta.license
     )
-    ;
+  ;
 
   hasBlocklistedLicense =
     assert areLicenseListsValid;
@@ -63,7 +63,7 @@ let
     && lib.lists.any (l: builtins.elem l blocklist) (
       lib.lists.toList attrs.meta.license
     )
-    ;
+  ;
 
   allowBroken =
     config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
@@ -71,7 +71,7 @@ let
   allowUnsupportedSystem =
     config.allowUnsupportedSystem
     || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"
-    ;
+  ;
 
   isUnfree = licenses: lib.lists.any (l: !l.free or true) licenses;
 
@@ -102,7 +102,7 @@ let
   hasDeniedUnfreeLicense =
     attrs:
     hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs
-    ;
+  ;
 
   allowInsecureDefaultPredicate =
     x: builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
@@ -114,14 +114,14 @@ let
     !(isMarkedInsecure attrs)
     || allowInsecurePredicate attrs
     || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1"
-    ;
+  ;
 
   isNonSource = sourceTypes: lib.lists.any (t: !t.isSource) sourceTypes;
 
   hasNonSourceProvenance =
     attrs:
     (attrs ? meta.sourceProvenance) && isNonSource attrs.meta.sourceProvenance
-    ;
+  ;
 
   # Allow granular checks to allow only some non-source-built packages
   # Example:
@@ -140,12 +140,12 @@ let
     hasNonSourceProvenance attrs
     && !allowNonSource
     && !allowNonSourcePredicate attrs
-    ;
+  ;
 
   showLicenseOrSourceType =
     value:
     toString (map (v: v.shortName or "unknown") (lib.lists.toList value))
-    ;
+  ;
   showLicense = showLicenseOrSourceType;
   showSourceType = showLicenseOrSourceType;
 
@@ -175,7 +175,7 @@ let
       NonSource = "NIXPKGS_ALLOW_NONSOURCE";
     }
     .${allow_attr}
-    ;
+  ;
   remediation_phrase =
     allow_attr:
     {
@@ -185,7 +185,7 @@ let
       NonSource = "packages not built from source";
     }
     .${allow_attr}
-    ;
+  ;
   remediate_predicate =
     predicateConfigAttr: attrs: ''
 
@@ -195,7 +195,7 @@ let
           ];
         }
     ''
-    ;
+  ;
 
   # flakeNote will be printed in the remediation messages below.
   flakeNote =
@@ -218,7 +218,7 @@ let
         { allow${allow_attr} = true; }
       to ~/.config/nixpkgs/config.nix.
     ''
-    ;
+  ;
 
   remediate_insecure =
     attrs:
@@ -260,7 +260,7 @@ let
            }
 
     ''
-    ;
+  ;
 
   remediateOutputsToInstall =
     attrs:
@@ -270,7 +270,7 @@ let
       missingOutputs =
         builtins.filter (output: !builtins.elem output actualOutputs)
           expectedOutputs
-        ;
+      ;
     in
     ''
       The package ${getName attrs} has set meta.outputsToInstall to: ${
@@ -287,7 +287,7 @@ let
         builtins.map (output: "  - ${output}\n") missingOutputs
       )}
     ''
-    ;
+  ;
 
   handleEvalIssue =
     {
@@ -310,17 +310,17 @@ let
 
           ''
           + (builtins.getAttr reason remediation) attrs
-        ;
+      ;
 
       handler =
         if config ? handleEvalIssue then
           config.handleEvalIssue reason
         else
           throw
-        ;
+      ;
     in
     handler msg
-    ;
+  ;
 
   handleEvalWarning =
     {
@@ -343,11 +343,11 @@ let
           + (lib.optionalString (remediationMsg != "") ''
 
             ${remediationMsg}'')
-        ;
+      ;
       isEnabled = lib.findFirst (x: x == reason) null showWarnings;
     in
     if isEnabled != null then builtins.trace msg true else true
-    ;
+  ;
 
   # Deep type-checking. Note that calling `type.check` is not enough: see `lib.mkOptionType`'s documentation.
   # We don't include this in lib for now because this function is flawed: it accepts things like `mkIf true 42`.
@@ -361,7 +361,7 @@ let
       eval = builtins.tryEval (builtins.deepSeq merged.mergedValue null);
     in
     eval.success
-    ;
+  ;
 
   # TODO make this into a proper module and use the generic option documentation generation?
   metaTypes = with lib.types; rec {
@@ -378,21 +378,21 @@ let
         licenseType =
           either (attrsOf anything)
             str
-          ; # TODO disallow `str` licenses, use a module
+        ; # TODO disallow `str` licenses, use a module
       in
       either licenseType (listOf licenseType)
-      ;
+    ;
     sourceProvenance = listOf lib.types.attrs;
     maintainers =
       listOf
         (attrsOf anything)
-      ; # TODO use the maintainer type from lib/tests/maintainer-module.nix
+    ; # TODO use the maintainer type from lib/tests/maintainer-module.nix
     priority = int;
     pkgConfigModules = listOf str;
     platforms =
       listOf
         (either str (attrsOf anything))
-      ; # see lib.meta.platformMatch
+    ; # see lib.meta.platformMatch
     hydraPlatforms = listOf str;
     broken = bool;
     unfree = bool;
@@ -409,7 +409,7 @@ let
           || ( # Accept {} for tests that are unsupported
             isDerivation x && x ? meta.timeout
           )
-          ;
+        ;
         merge = lib.options.mergeOneOption;
       }
     );
@@ -454,13 +454,13 @@ let
           [${
             lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)
           }]''
-    ;
+  ;
   checkMeta =
     meta:
     lib.optionals config.checkMeta (
       lib.remove null (lib.mapAttrsToList checkMetaAttr meta)
     )
-    ;
+  ;
 
   checkOutputsToInstall =
     attrs:
@@ -470,10 +470,10 @@ let
       missingOutputs =
         builtins.filter (output: !builtins.elem output actualOutputs)
           expectedOutputs
-        ;
+      ;
     in
     if config.checkMeta then builtins.length missingOutputs > 0 else false
-    ;
+  ;
 
   # Check if a derivation is valid, that is whether it passes checks for
   # e.g brokenness or license.
@@ -593,7 +593,7 @@ let
         else
           { valid = "yes"; }
       )
-    ;
+  ;
 
   # The meta attribute is passed in the resulting attribute set,
   # but it's not part of the actual derivation, i.e., it's not
@@ -642,7 +642,7 @@ let
           ))
         ]
         ++ lib.optional (hasOutput "man") "man"
-        ;
+      ;
     } // attrs.meta or { }
     # Fill `meta.position` to identify the source location of the package.
     // lib.optionalAttrs (pos != null) {
@@ -659,9 +659,9 @@ let
           else
             true
         )
-        ;
+      ;
     }
-    ;
+  ;
 
   assertValidity =
     {
@@ -686,7 +686,7 @@ let
         }
         .${validity.valid};
     }
-    ;
+  ;
 in
 {
   inherit assertValidity commonMeta;

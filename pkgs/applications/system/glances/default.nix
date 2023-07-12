@@ -60,7 +60,7 @@ buildPythonApplication rec {
       py-cpuinfo
     ]
     ++ lib.optional stdenv.isLinux hddtemp
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://nicolargo.github.io/glances/";

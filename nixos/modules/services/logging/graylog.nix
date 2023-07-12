@@ -58,7 +58,7 @@ in
         description =
           lib.mdDoc
             "Whether this is the master instance of your Graylog cluster"
-          ;
+        ;
       };
 
       nodeIdFile = mkOption {
@@ -67,7 +67,7 @@ in
         description =
           lib.mdDoc
             "Path of the file containing the graylog node-id"
-          ;
+        ;
       };
 
       passwordSecret = mkOption {
@@ -105,7 +105,7 @@ in
         description =
           lib.mdDoc
             "List of valid URIs of the http ports of your elastic nodes. If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that requires authentication"
-          ;
+        ;
       };
 
       messageJournalDir = mkOption {
@@ -114,7 +114,7 @@ in
         description =
           lib.mdDoc
             "The directory which will be used to store the message journal. The directory must be exclusively used by Graylog and must not contain any other files than the ones created by Graylog itself"
-          ;
+        ;
       };
 
       mongodbUri = mkOption {
@@ -123,7 +123,7 @@ in
         description =
           lib.mdDoc
             "MongoDB connection string. See http://docs.mongodb.org/manual/reference/connection-string/ for details"
-          ;
+        ;
       };
 
       extraConfig = mkOption {
@@ -132,7 +132,7 @@ in
         description =
           lib.mdDoc
             "Any other configuration options you might want to add"
-          ;
+        ;
       };
 
       plugins = mkOption {

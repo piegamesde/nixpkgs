@@ -110,7 +110,7 @@ in
             "~@privileged"
           ];
         }
-        ;
+      ;
     };
 
     networking.firewall.allowedTCPPorts =

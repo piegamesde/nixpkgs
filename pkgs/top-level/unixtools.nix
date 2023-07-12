@@ -55,7 +55,7 @@ let
           ln -s ${manpage} $out/share/man/man1/${cmd}.1.gz
         fi
       ''
-    ;
+  ;
 
   # more is unavailable in darwin
   # so we just use less
@@ -85,7 +85,7 @@ let
           pkgs.stdenv.cc.libc
         else
           pkgs.netbsd.getconf
-        ;
+      ;
       darwin = pkgs.darwin.system_cmds;
     };
     getent = {
@@ -94,7 +94,7 @@ let
           pkgs.stdenv.cc.libc
         else
           pkgs.netbsd.getent
-        ;
+      ;
       darwin = pkgs.netbsd.getent;
     };
     getopt = {
@@ -202,7 +202,7 @@ let
       name = "${pname}-${version}";
       inherit paths;
     }
-    ;
+  ;
 
   # Compatibility derivations
   # Provided for old usage of these commands.

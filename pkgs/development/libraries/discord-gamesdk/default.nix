@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://discord.com/developers/docs/game-sdk/sdk-starter-guide";

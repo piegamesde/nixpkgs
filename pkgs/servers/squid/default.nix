@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       pam
       systemd
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
         "--enable-linux-netfilter"
-    ;
+  ;
 
   doCheck = true;
   nativeCheckInputs = [ cppunit ];

@@ -23,11 +23,11 @@ let
                 "test/aaa_profiling"
                 "test/ext/mypy"
               ]
-              ;
+            ;
           }
         );
       }
-      ;
+    ;
   };
 in
 python.pkgs.buildPythonApplication rec {

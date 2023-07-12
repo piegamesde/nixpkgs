@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
       ant
       copyDesktopItems
     ]
-    ;
+  ;
 
   desktopItems = lib.optional enableClient desktopItem;
 

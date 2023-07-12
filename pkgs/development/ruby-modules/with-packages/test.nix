@@ -27,7 +27,7 @@ let
         touch $out
       '';
     }
-    ;
+  ;
 
   tests =
     ruby:
@@ -45,7 +45,7 @@ let
               ''
             else
               pkgs.writeText "${name}.rb" gemTests.${name}
-            ;
+          ;
 
           deps = ruby.withPackages (g: [ g.${name} ]);
         in
@@ -59,7 +59,7 @@ let
         }
       )
       ruby.gems
-    ;
+  ;
 in
 stdenv.mkDerivation {
   name = "test-all-ruby-gems";
@@ -71,7 +71,7 @@ stdenv.mkDerivation {
       )
       [ ]
       rubyVersions
-    ;
+  ;
   buildCommand = ''
     touch $out
   '';

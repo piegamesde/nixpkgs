@@ -23,7 +23,7 @@ buildPythonPackage rec {
       djangorestframework
     ]
     ++ pyjwt.optional-dependencies.crypto
-    ;
+  ;
 
   # requires setting up a django instance
   doCheck = false;

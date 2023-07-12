@@ -105,7 +105,7 @@
         )
         null
         (lib.attrNames archLookupTable)
-      ;
+    ;
 
     archLookupTable =
       table.${localSystem.libc}
@@ -248,24 +248,24 @@ let
                           lib.getDev (getLibc prevStage)
                         }" >> $out/nix-support/cc-cflags
                       ''
-                      ;
+                    ;
                   }
               )
-          ;
+        ;
 
         overrides =
           self: super:
           (overrides self super) // {
             fetchurl = thisStdenv.fetchurlBoot;
           }
-          ;
+        ;
       };
     in
     {
       inherit config overlays;
       stdenv = thisStdenv;
     }
-    ;
+  ;
 in
 assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 [
@@ -316,7 +316,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               + lib.optionalString (localSystem.libc == "musl") ''
                 ln -s ${bootstrapTools}/include-libc $out/include
               ''
-              ;
+            ;
             passthru.isFromBootstrapFiles = true;
           };
           gcc-unwrapped = bootstrapTools;
@@ -333,7 +333,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           coreutils = bootstrapTools;
           gnugrep = bootstrapTools;
         }
-        ;
+      ;
     }
   )
 
@@ -370,7 +370,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             coreutils
             gnugrep
             binutils
-            ;
+          ;
 
           ${localSystem.libc} = getLibc prevStage;
 
@@ -384,13 +384,13 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             enableCrypt = false;
           };
         }
-        ;
+      ;
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       extraNativeBuildInputs =
         lib.optional (localSystem.isLoongArch64)
           prevStage.updateAutotoolsGnuConfigScriptsHook
-        ;
+      ;
     }
   )
 
@@ -421,7 +421,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             gnum4
             perl
             patchelf
-            ;
+          ;
           ${localSystem.libc} = getLibc prevStage;
           gmp = prev.gmp.override { cxx = false; };
           gcc-unwrapped =
@@ -476,7 +476,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                       "--with-native-system-header-dir=/include"
                       "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
                     ]
-                    ;
+                  ;
 
                   # This is a separate phase because gcc assembles its phase scripts
                   # in bash instead of nix (we should fix that).
@@ -490,15 +490,15 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                   '';
                 }
               )
-            ;
+          ;
         }
-        ;
+      ;
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       extraNativeBuildInputs =
         lib.optional (localSystem.isLoongArch64)
           prevStage.updateAutotoolsGnuConfigScriptsHook
-        ;
+      ;
     }
   )
 
@@ -530,7 +530,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             bison
             texinfo
             which
-            ;
+          ;
           dejagnu = super.dejagnu.overrideAttrs (a: { doCheck = false; });
 
           # We need libidn2 and its dependency libunistring as glibc dependency.
@@ -544,7 +544,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                 + ''
                   ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
                 ''
-                ;
+              ;
               # Apparently iconv won't work with bootstrap glibc, but it will be used
               # with glibc built later where we keep *this* build of libunistring,
               # so we need to trick it into supporting libiconv.
@@ -561,7 +561,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                   }' \
                     "$out"/lib/lib*.so.*.*
                 ''
-                ;
+              ;
             }
           );
 
@@ -609,14 +609,14 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             }
           );
         }
-        ;
+      ;
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       # `libtool` comes with obsolete config.sub/config.guess that don't recognize Risc-V.
       extraNativeBuildInputs =
         lib.optional (localSystem.isLoongArch64 || localSystem.isRiscV)
           prevStage.updateAutotoolsGnuConfigScriptsHook
-        ;
+      ;
     }
   )
 
@@ -660,7 +660,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             libidn2
             libunistring
             libxcrypt
-            ;
+          ;
           # We build a special copy of libgmp which doesn't use libstdc++, because
           # xgcc++'s libstdc++ references the bootstrap-files (which is what
           # compiles xgcc++).
@@ -678,16 +678,16 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                     a.passthru // { inherit (self) gmp mpfr libmpc isl; };
                 }
               )
-            ;
+          ;
         }
-        ;
+      ;
       extraNativeBuildInputs =
         [ prevStage.patchelf ]
         ++
           # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
           lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
             prevStage.updateAutotoolsGnuConfigScriptsHook
-        ;
+      ;
     }
   )
 
@@ -722,7 +722,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             linuxHeaders
             libidn2
             libunistring
-            ;
+          ;
           ${localSystem.libc} = getLibc prevStage;
           binutils = super.binutils.override {
             # Don't use stdenv's shell but our own
@@ -748,7 +748,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             shell = self.bash + "/bin/bash";
           };
         }
-        ;
+      ;
       extraNativeBuildInputs =
         [
           prevStage.patchelf
@@ -758,7 +758,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
           lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
             prevStage.updateAutotoolsGnuConfigScriptsHook
-        ;
+      ;
     }
   )
 
@@ -800,7 +800,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
             lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
               prevStage.updateAutotoolsGnuConfigScriptsHook
-          ;
+        ;
 
         cc = prevStage.gcc;
 
@@ -907,7 +907,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               zlib
               pcre
               libunistring
-              ;
+            ;
             ${localSystem.libc} = getLibc prevStage;
 
             # Hack: avoid libidn2.{bin,dev} referencing bootstrap tools.  There's a logical cycle.
@@ -919,7 +919,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                   inherit (prevStage) libidn2;
                   inherit (self) stdenv runCommandLocal patchelf libunistring;
                 }
-              ;
+            ;
 
             gnumake = super.gnumake.override { inBootstrap = false; };
           } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
@@ -927,7 +927,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             inherit (prevStage) binutils binutils-unwrapped;
             gcc = cc;
           }
-          ;
+        ;
       };
     }
   )

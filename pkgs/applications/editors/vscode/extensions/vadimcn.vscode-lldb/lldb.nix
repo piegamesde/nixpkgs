@@ -24,7 +24,7 @@ in
         # remove when https://github.com/NixOS/nixpkgs/issues/166604 fixed
         ./fix-python-installation.patch
       ]
-      ;
+    ;
 
     doInstallCheck = true;
 

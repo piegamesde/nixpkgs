@@ -65,7 +65,7 @@ let
             ]
           else
             [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ]
-          ;
+        ;
       } // builtins.removeAttrs args [
         "rev"
         "base"
@@ -74,7 +74,7 @@ let
         "excludes"
       ]
     ))
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   version = "9.8";

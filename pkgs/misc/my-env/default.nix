@@ -165,5 +165,5 @@ mkDerivation {
         -e 's,@name@,${name},' ${./loadenv.sh} > $out/bin/load-env-${name}
       chmod +x $out/bin/load-env-${name}
     ''
-    ;
+  ;
 }

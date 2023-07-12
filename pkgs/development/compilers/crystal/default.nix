@@ -67,7 +67,7 @@ let
       "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${
         toString rel
       }-${arch}.tar.gz"
-    ;
+  ;
 
   genericBinary =
     {
@@ -92,7 +92,7 @@ let
 
       meta.platforms = lib.attrNames sha256s;
     }
-    ;
+  ;
 
   generic =
     (
@@ -140,7 +140,7 @@ let
                     "sha256-CjNpkQQ2UREADmlyLUt7zbhjXf0rTjFhNbFYLwJKkc8=";
                 })
               ]
-              ;
+            ;
 
             outputs = [
               "out"
@@ -196,7 +196,7 @@ let
                     substituteInPlace spec/compiler/loader/unix_spec.cr \
                       --replace 'it "parses file paths"' 'pending "parses file paths"'
                   ''
-              ;
+            ;
 
             # Defaults are 4
             preBuild = ''
@@ -226,7 +226,7 @@ let
               ]
               ++ extraBuildInputs
               ++ lib.optionals stdenv.isDarwin [ libiconv ]
-              ;
+            ;
 
             makeFlags = [
               "CRYSTAL_CONFIG_VERSION=${version}"
@@ -249,7 +249,7 @@ let
                     # ffi is only used by the interpreter and its spec are broken on < 1.6.1
                     "-Dwithout_ffi"
                   ]
-              ;
+            ;
 
             # This makes sure we don't keep depending on the previous version of
             # crystal used to build this one.

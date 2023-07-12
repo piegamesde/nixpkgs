@@ -35,7 +35,7 @@ import ./make-test-python.nix (
             inherit adminCredentialsFile;
           };
         }
-        ;
+      ;
 
       withoutSudo =
         {
@@ -47,7 +47,7 @@ import ./make-test-python.nix (
           };
           security.sudo.enable = false;
         }
-        ;
+      ;
 
       customized =
         {
@@ -62,7 +62,7 @@ import ./make-test-python.nix (
             adminCredentialsFile = customAdminCredentialsFile;
           };
         }
-        ;
+      ;
     };
     testScript = ''
       start_all()

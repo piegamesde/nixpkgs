@@ -40,7 +40,7 @@ stdenv.mkDerivation (
         qtbase
       ]
       ++ lib.optionals stdenv.isDarwin [ freetype ]
-      ;
+    ;
 
     nativeBuildInputs = [
       installShellFiles
@@ -79,7 +79,7 @@ stdenv.mkDerivation (
           install -Dm644 -t $out/etc/ pdf_viewer/{keys,prefs}.config
           installManPage resources/sioyek.1
         ''
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://sioyek.info/";

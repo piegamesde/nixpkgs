@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ]
     ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ]
-    ;
+  ;
   nativeCheckInputs = [ check ];
 
   mesonBuildType = "release";
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     builtins.map
       (t: lib.mesonEnable "${t}-shaping" (lib.elem t withShapingTypes))
       availableShapingTypes
-    ;
+  ;
 
   doCheck = true;
 

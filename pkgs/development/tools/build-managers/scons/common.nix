@@ -19,7 +19,7 @@ python.pkgs.buildPythonApplication rec {
         "mirror://sourceforge/project/scons/scons/${version}/SCons-${version}.tar.gz"
       else
         "mirror://sourceforge/scons/scons-${version}.tar.gz"
-      ;
+    ;
     inherit sha256;
   };
 
@@ -36,7 +36,7 @@ python.pkgs.buildPythonApplication rec {
       substituteInPlace setup.cfg \
         --replace "build/doc/man/" ""
     ''
-    ;
+  ;
 
   # The release tarballs don't contain any tests (runtest.py and test/*):
   doCheck = lib.versionOlder version "4.0.0";

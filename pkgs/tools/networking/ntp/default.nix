@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       "--with-yielding-select=yes"
     ]
     ++ lib.optional stdenv.isLinux "--enable-linuxcaps"
-    ;
+  ;
 
   buildInputs =
     [
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       pps-tools
       libcap
     ]
-    ;
+  ;
 
   hardeningEnable = [ "pie" ];
 

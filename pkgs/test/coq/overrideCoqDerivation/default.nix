@@ -27,7 +27,7 @@ let
         release."9999".sha256 = lib.fakeSha256;
       }
       coqPackages.QuickChick
-    ;
+  ;
 in
 
 runCommand "coq-overrideCoqDerivation-test-0.1"

@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       icu
     ]
     ++ lib.optionals systemdSupport [ systemd ]
-    ;
+  ;
 
   propagatedBuildInputs =
     assert (gtkVersion == "3" || gtkVersion == "4"); [
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
       glib
       pango
     ]
-    ;
+  ;
 
   mesonFlags =
     [ "-Ddocs=true" ]
@@ -104,13 +104,13 @@ stdenv.mkDerivation rec {
       # -Bsymbolic-functions is not supported on darwin
       "-D_b_symbolic_functions=false"
     ]
-    ;
+  ;
 
   # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isMusl
       "-Wno-unused-command-line-argument"
-    ;
+  ;
 
   postPatch = ''
     patchShebangs perf/*
@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
         terminator
         termite
         xfce4-terminal
-        ;
+      ;
     };
   };
 

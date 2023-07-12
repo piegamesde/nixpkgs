@@ -31,7 +31,7 @@ let
         prePatch = "";
         extraBuildInputs = [ ];
       }
-    ;
+  ;
 in
 
 buildPythonPackage rec {
@@ -55,7 +55,7 @@ buildPythonPackage rec {
       sanic
     ]
     ++ opts.extraBuildInputs
-    ;
+  ;
 
   prePatch = opts.prePatch;
 

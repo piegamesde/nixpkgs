@@ -34,7 +34,7 @@ buildPythonPackage rec {
       sed -i -r -e '/class *UnitGetSizeTestCase/,/^$/{/[0-9]{11}/d}' \
         tests/test__ped_ped.py
     ''
-    ;
+  ;
 
   patches = [
     ./fix-test-pythonpath.patch

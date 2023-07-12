@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     [ texinfo ]
     ++ optional stdenv.isLinux alsa-lib
     ++ optional stdenv.isDarwin CoreAudio
-    ;
+  ;
   propagatedBuildInputs = optional stdenv.isLinux libpulseaudio;
 
   outputs = [

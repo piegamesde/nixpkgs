@@ -22,7 +22,7 @@ import ./make-test-python.nix (
 
           services.nexus.enable = true;
         }
-        ;
+      ;
     };
 
     testScript = ''

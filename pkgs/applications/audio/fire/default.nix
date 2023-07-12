@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       MetalKit
       simd
     ]
-    ;
+  ;
 
   installPhase =
     let
@@ -113,13 +113,13 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   # Fails to find fp.h on its own
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isDarwin
       "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Versions/Current/Headers/"
-    ;
+  ;
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 

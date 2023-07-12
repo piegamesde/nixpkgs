@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
-    ;
+  ;
 
   configureFlags = [
     "--with-svn-include=${subversion.dev}/include"

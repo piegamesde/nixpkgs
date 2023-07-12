@@ -54,7 +54,7 @@ buildPythonPackage rec {
       jinja2
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   makeWrapperArgs = [
     "--set"

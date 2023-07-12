@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
       runHook postBuild
     ''
-    ;
+  ;
 
   desktopItem = makeDesktopItem rec {
     name = "HDFView";
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = {
     description = "A visual tool for browsing and editing HDF4 and HDF5 files";

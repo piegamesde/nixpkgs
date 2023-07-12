@@ -23,7 +23,7 @@ tcl.mkTclDerivation rec {
     ''
       ln -s $prefix/lib/tclx${majorMinorVersion} $prefix/lib/tclx${majorMinorVersion}/tclx${majorMinorVersion}
     ''
-    ;
+  ;
 
   meta = {
     homepage = "https://github.com/flightaware/tclx";

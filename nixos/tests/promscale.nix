@@ -40,7 +40,7 @@ let
           };
           environment.systemPackages = with pkgs; [ promscale ];
         }
-        ;
+      ;
 
       testScript = ''
         machine.start()
@@ -55,7 +55,7 @@ let
         machine.shutdown()
       '';
     }
-    ;
+  ;
   #version 15 is not supported yet
   applicablePostgresqlVersions =
     filterAttrs
@@ -65,7 +65,7 @@ let
         && !(versionAtLeast value.version "15")
       )
       postgresql-versions
-    ;
+  ;
 in
 mapAttrs'
   (name: package: {

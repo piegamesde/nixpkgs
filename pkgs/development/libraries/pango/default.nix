@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional withIntrospection "devdoc"
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       gi-docgen
       gobject-introspection
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
         CoreText
       ]
     )
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       harfbuzz
     ]
     ++ lib.optionals x11Support [ libXft ]
-    ;
+  ;
 
   mesonFlags = [
     (lib.mesonBool "gtk_doc" withIntrospection)

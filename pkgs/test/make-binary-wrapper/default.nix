@@ -42,7 +42,7 @@ let
 
       cp wrapper.c $out
     ''
-    ;
+  ;
   tests = lib.genAttrs
       [
         "add-flags"
@@ -67,7 +67,7 @@ let
         }.callPackage
           ./cross.nix
           { }
-        ;
+      ;
     };
 in
 

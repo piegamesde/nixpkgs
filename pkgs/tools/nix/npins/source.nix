@@ -31,12 +31,12 @@ let
           mkChannelSource spec
         else
           throw "Unknown source type ${spec.type}"
-        ;
+      ;
     in
     spec // {
       outPath = path;
     }
-    ;
+  ;
 
   mkGitSource =
     {
@@ -61,7 +61,7 @@ let
         url = repository.url;
         rev = revision;
       }
-    ;
+  ;
 
   mkPyPiSource =
     {
@@ -73,7 +73,7 @@ let
       inherit url;
       sha256 = hash;
     }
-    ;
+  ;
 
   mkChannelSource =
     {
@@ -86,6 +86,6 @@ let
       sha256 = hash;
       extension = "tar";
     }
-    ;
+  ;
 in
 mkSource

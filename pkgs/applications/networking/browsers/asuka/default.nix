@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optional stdenv.isDarwin Security
-    ;
+  ;
 
   meta = with lib; {
     description = "Gemini Project client written in Rust with NCurses";

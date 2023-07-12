@@ -19,7 +19,7 @@ let
         "https://sources.debian.org/data/main/r/rrootage/${version}-${debianRevision}/debian/patches/${patchname}.patch";
       sha256 = hash;
     }
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "rrootage";

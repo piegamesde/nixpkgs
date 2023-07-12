@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optionals stdenv.isDarwin
       [ "--enable-SIGCHLD-fallback" ]
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
-    ;
+  ;
 
   patchPhase = ''
     sed 's|\<gs\>|${ghostscriptX}/bin/gs|g' -i "src/"*.in

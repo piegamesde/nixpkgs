@@ -92,7 +92,7 @@ in
           description =
             lib.mdDoc
               "Protocol which will be used to talk to the phone"
-            ;
+          ;
         };
 
         synchronizeTime = mkOption {
@@ -101,7 +101,7 @@ in
           description =
             lib.mdDoc
               "Whether to set time from computer to the phone during starting connection"
-            ;
+          ;
         };
 
         pin = mkOption {
@@ -118,7 +118,7 @@ in
           description =
             lib.mdDoc
               "Path to file where information about communication will be stored"
-            ;
+          ;
         };
 
         format = mkOption {
@@ -135,7 +135,7 @@ in
           description =
             lib.mdDoc
               "Determines what will be logged to the LogFile"
-            ;
+          ;
         };
       };
 
@@ -146,7 +146,7 @@ in
           description =
             lib.mdDoc
               "Extra config lines to be added into [gammu] section"
-            ;
+          ;
         };
 
         smsd = mkOption {
@@ -155,7 +155,7 @@ in
           description =
             lib.mdDoc
               "Extra config lines to be added into [smsd] section"
-            ;
+          ;
         };
       };
 
@@ -195,7 +195,7 @@ in
             description =
               lib.mdDoc
                 "Where SMSes with error in transmission is placed"
-              ;
+            ;
           };
         };
 
@@ -234,7 +234,7 @@ in
             description =
               lib.mdDoc
                 "User name used for connection to the database"
-              ;
+            ;
           };
 
           password = mkOption {
@@ -243,7 +243,7 @@ in
             description =
               lib.mdDoc
                 "User password used for connection to the database"
-              ;
+            ;
           };
         };
       };
@@ -302,7 +302,7 @@ in
                 "$extraArgs"
                 "${sql.database}"
               ]
-              ;
+            ;
           in
           optionalString (service == "sql" && sql.driver == "native_pgsql") ''
             echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}

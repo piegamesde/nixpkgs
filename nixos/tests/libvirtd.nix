@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           security.polkit.enable = true;
           environment.systemPackages = with pkgs; [ virt-manager ];
         }
-        ;
+      ;
     };
 
     testScript =
@@ -70,6 +70,6 @@ import ./make-test-python.nix (
           virthost.wait_for_unit("multi-user.target")
           virthost.wait_until_succeeds("ping -c 1 nixos")
       ''
-      ;
+    ;
   }
 )

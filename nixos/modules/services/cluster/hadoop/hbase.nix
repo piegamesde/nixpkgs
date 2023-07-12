@@ -46,7 +46,7 @@ let
         description = mdDoc "Environment variables passed to ${name}.";
       };
     } // extraOpts
-    ;
+  ;
   # generic hbase role configs
   hbaseRoleConfig =
     name: ports:
@@ -105,7 +105,7 @@ let
         };
       };
     })
-    ;
+  ;
 in
 {
   options.services.hadoop = {
@@ -196,7 +196,7 @@ in
               description = mdDoc "web UI port";
             };
           }
-          ;
+        ;
       in
       mapAttrs hbaseRoleOption {
         master.initHDFS = mkEnableOption (

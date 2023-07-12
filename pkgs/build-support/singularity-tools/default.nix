@@ -20,7 +20,7 @@
       set -e
       ${text}
     ''
-    ;
+  ;
 
   mkLayer =
     {
@@ -35,7 +35,7 @@
         cp -ra $f $out/
       done
     ''
-    ;
+  ;
 
   buildImage =
     let
@@ -62,7 +62,7 @@
             bash
             runScriptFile
           ]
-          ;
+        ;
         inherit projectName;
       };
       runAsRootFile = shellScript "run-as-root.sh" runAsRoot;
@@ -135,5 +135,5 @@
       );
     in
     result
-    ;
+  ;
 }

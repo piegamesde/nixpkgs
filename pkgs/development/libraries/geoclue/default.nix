@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
       gdk-pixbuf
     ]
     ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     glib
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       "-Dmodem-gps-source=false"
       "-Dnmea-source=false"
     ]
-    ;
+  ;
 
   postPatch = ''
     chmod +x demo/install-file.py

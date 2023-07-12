@@ -38,7 +38,7 @@ perl.pkgs.toPerlModule (
         tcl-8_5
         darwin.apple_sdk.frameworks.ApplicationServices
       ]
-      ;
+    ;
 
     postInstall = ''
       # for munin and rrdtool support

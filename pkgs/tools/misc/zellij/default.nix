@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
       DiskArbitration
       Foundation
     ]
-    ;
+  ;
 
   preCheck = ''
     HOME=$TMPDIR

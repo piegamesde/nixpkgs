@@ -26,7 +26,7 @@
         }
       )
       { }
-    ;
+  ;
   ack =
     callPackage
       (
@@ -51,7 +51,7 @@
         }
       )
       { }
-    ;
+  ;
   ada-mode =
     callPackage
       (
@@ -85,7 +85,7 @@
         }
       )
       { }
-    ;
+  ;
   ada-ref-man =
     callPackage
       (
@@ -110,7 +110,7 @@
         }
       )
       { }
-    ;
+  ;
   adaptive-wrap =
     callPackage
       (
@@ -135,7 +135,7 @@
         }
       )
       { }
-    ;
+  ;
   adjust-parens =
     callPackage
       (
@@ -160,7 +160,7 @@
         }
       )
       { }
-    ;
+  ;
   advice-patch =
     callPackage
       (
@@ -186,7 +186,7 @@
         }
       )
       { }
-    ;
+  ;
   aggressive-completion =
     callPackage
       (
@@ -213,7 +213,7 @@
         }
       )
       { }
-    ;
+  ;
   aggressive-indent =
     callPackage
       (
@@ -239,7 +239,7 @@
         }
       )
       { }
-    ;
+  ;
   ahungry-theme =
     callPackage
       (
@@ -265,7 +265,7 @@
         }
       )
       { }
-    ;
+  ;
   aircon-theme =
     callPackage
       (
@@ -291,7 +291,7 @@
         }
       )
       { }
-    ;
+  ;
   all =
     callPackage
       (
@@ -316,7 +316,7 @@
         }
       )
       { }
-    ;
+  ;
   altcaps =
     callPackage
       (
@@ -342,7 +342,7 @@
         }
       )
       { }
-    ;
+  ;
   ampc =
     callPackage
       (
@@ -367,7 +367,7 @@
         }
       )
       { }
-    ;
+  ;
   arbitools =
     callPackage
       (
@@ -393,7 +393,7 @@
         }
       )
       { }
-    ;
+  ;
   ascii-art-to-unicode =
     callPackage
       (
@@ -419,7 +419,7 @@
         }
       )
       { }
-    ;
+  ;
   async =
     callPackage
       (
@@ -445,7 +445,7 @@
         }
       )
       { }
-    ;
+  ;
   auctex =
     callPackage
       (
@@ -471,7 +471,7 @@
         }
       )
       { }
-    ;
+  ;
   aumix-mode =
     callPackage
       (
@@ -496,7 +496,7 @@
         }
       )
       { }
-    ;
+  ;
   auto-correct =
     callPackage
       (
@@ -521,7 +521,7 @@
         }
       )
       { }
-    ;
+  ;
   auto-header =
     callPackage
       (
@@ -546,7 +546,7 @@
         }
       )
       { }
-    ;
+  ;
   auto-overlays =
     callPackage
       (
@@ -572,7 +572,7 @@
         }
       )
       { }
-    ;
+  ;
   autocrypt =
     callPackage
       (
@@ -598,7 +598,7 @@
         }
       )
       { }
-    ;
+  ;
   avy =
     callPackage
       (
@@ -628,7 +628,7 @@
         }
       )
       { }
-    ;
+  ;
   bbdb =
     callPackage
       (
@@ -658,7 +658,7 @@
         }
       )
       { }
-    ;
+  ;
   beacon =
     callPackage
       (
@@ -684,7 +684,7 @@
         }
       )
       { }
-    ;
+  ;
   beframe =
     callPackage
       (
@@ -710,7 +710,7 @@
         }
       )
       { }
-    ;
+  ;
   bind-key =
     callPackage
       (
@@ -735,7 +735,7 @@
         }
       )
       { }
-    ;
+  ;
   blist =
     callPackage
       (
@@ -760,7 +760,7 @@
         }
       )
       { }
-    ;
+  ;
   bluetooth =
     callPackage
       (
@@ -790,7 +790,7 @@
         }
       )
       { }
-    ;
+  ;
   bnf-mode =
     callPackage
       (
@@ -820,7 +820,7 @@
         }
       )
       { }
-    ;
+  ;
   boxy =
     callPackage
       (
@@ -846,7 +846,7 @@
         }
       )
       { }
-    ;
+  ;
   boxy-headings =
     callPackage
       (
@@ -878,7 +878,7 @@
         }
       )
       { }
-    ;
+  ;
   brief =
     callPackage
       (
@@ -908,7 +908,7 @@
         }
       )
       { }
-    ;
+  ;
   buffer-env =
     callPackage
       (
@@ -938,7 +938,7 @@
         }
       )
       { }
-    ;
+  ;
   buffer-expose =
     callPackage
       (
@@ -968,7 +968,7 @@
         }
       )
       { }
-    ;
+  ;
   bug-hunter =
     callPackage
       (
@@ -998,7 +998,7 @@
         }
       )
       { }
-    ;
+  ;
   cape =
     callPackage
       (
@@ -1028,7 +1028,7 @@
         }
       )
       { }
-    ;
+  ;
   capf-autosuggest =
     callPackage
       (
@@ -1054,7 +1054,7 @@
         }
       )
       { }
-    ;
+  ;
   caps-lock =
     callPackage
       (
@@ -1079,7 +1079,7 @@
         }
       )
       { }
-    ;
+  ;
   captain =
     callPackage
       (
@@ -1104,7 +1104,7 @@
         }
       )
       { }
-    ;
+  ;
   chess =
     callPackage
       (
@@ -1130,7 +1130,7 @@
         }
       )
       { }
-    ;
+  ;
   cl-generic =
     callPackage
       (
@@ -1155,7 +1155,7 @@
         }
       )
       { }
-    ;
+  ;
   cl-lib =
     callPackage
       (
@@ -1180,7 +1180,7 @@
         }
       )
       { }
-    ;
+  ;
   clipboard-collector =
     callPackage
       (
@@ -1206,7 +1206,7 @@
         }
       )
       { }
-    ;
+  ;
   cobol-mode =
     callPackage
       (
@@ -1232,7 +1232,7 @@
         }
       )
       { }
-    ;
+  ;
   code-cells =
     callPackage
       (
@@ -1258,7 +1258,7 @@
         }
       )
       { }
-    ;
+  ;
   comint-mime =
     callPackage
       (
@@ -1284,7 +1284,7 @@
         }
       )
       { }
-    ;
+  ;
   compact-docstrings =
     callPackage
       (
@@ -1309,7 +1309,7 @@
         }
       )
       { }
-    ;
+  ;
   company =
     callPackage
       (
@@ -1335,7 +1335,7 @@
         }
       )
       { }
-    ;
+  ;
   company-ebdb =
     callPackage
       (
@@ -1365,7 +1365,7 @@
         }
       )
       { }
-    ;
+  ;
   company-math =
     callPackage
       (
@@ -1395,7 +1395,7 @@
         }
       )
       { }
-    ;
+  ;
   company-statistics =
     callPackage
       (
@@ -1425,7 +1425,7 @@
         }
       )
       { }
-    ;
+  ;
   compat =
     callPackage
       (
@@ -1455,7 +1455,7 @@
         }
       )
       { }
-    ;
+  ;
   consult =
     callPackage
       (
@@ -1485,7 +1485,7 @@
         }
       )
       { }
-    ;
+  ;
   consult-recoll =
     callPackage
       (
@@ -1515,7 +1515,7 @@
         }
       )
       { }
-    ;
+  ;
   context-coloring =
     callPackage
       (
@@ -1541,7 +1541,7 @@
         }
       )
       { }
-    ;
+  ;
   corfu =
     callPackage
       (
@@ -1571,7 +1571,7 @@
         }
       )
       { }
-    ;
+  ;
   coterm =
     callPackage
       (
@@ -1601,7 +1601,7 @@
         }
       )
       { }
-    ;
+  ;
   counsel =
     callPackage
       (
@@ -1633,7 +1633,7 @@
         }
       )
       { }
-    ;
+  ;
   cpio-mode =
     callPackage
       (
@@ -1659,7 +1659,7 @@
         }
       )
       { }
-    ;
+  ;
   cpupower =
     callPackage
       (
@@ -1684,7 +1684,7 @@
         }
       )
       { }
-    ;
+  ;
   crdt =
     callPackage
       (
@@ -1709,7 +1709,7 @@
         }
       )
       { }
-    ;
+  ;
   crisp =
     callPackage
       (
@@ -1734,7 +1734,7 @@
         }
       )
       { }
-    ;
+  ;
   csharp-mode =
     callPackage
       (
@@ -1760,7 +1760,7 @@
         }
       )
       { }
-    ;
+  ;
   csv-mode =
     callPackage
       (
@@ -1790,7 +1790,7 @@
         }
       )
       { }
-    ;
+  ;
   cursory =
     callPackage
       (
@@ -1816,7 +1816,7 @@
         }
       )
       { }
-    ;
+  ;
   cycle-quotes =
     callPackage
       (
@@ -1841,7 +1841,7 @@
         }
       )
       { }
-    ;
+  ;
   darkroom =
     callPackage
       (
@@ -1867,7 +1867,7 @@
         }
       )
       { }
-    ;
+  ;
   dash =
     callPackage
       (
@@ -1893,7 +1893,7 @@
         }
       )
       { }
-    ;
+  ;
   dbus-codegen =
     callPackage
       (
@@ -1919,7 +1919,7 @@
         }
       )
       { }
-    ;
+  ;
   debbugs =
     callPackage
       (
@@ -1949,7 +1949,7 @@
         }
       )
       { }
-    ;
+  ;
   delight =
     callPackage
       (
@@ -1979,7 +1979,7 @@
         }
       )
       { }
-    ;
+  ;
   denote =
     callPackage
       (
@@ -2005,7 +2005,7 @@
         }
       )
       { }
-    ;
+  ;
   denote-menu =
     callPackage
       (
@@ -2035,7 +2035,7 @@
         }
       )
       { }
-    ;
+  ;
   detached =
     callPackage
       (
@@ -2061,7 +2061,7 @@
         }
       )
       { }
-    ;
+  ;
   devdocs =
     callPackage
       (
@@ -2087,7 +2087,7 @@
         }
       )
       { }
-    ;
+  ;
   dict-tree =
     callPackage
       (
@@ -2119,7 +2119,7 @@
         }
       )
       { }
-    ;
+  ;
   diff-hl =
     callPackage
       (
@@ -2149,7 +2149,7 @@
         }
       )
       { }
-    ;
+  ;
   diffview =
     callPackage
       (
@@ -2174,7 +2174,7 @@
         }
       )
       { }
-    ;
+  ;
   diminish =
     callPackage
       (
@@ -2200,7 +2200,7 @@
         }
       )
       { }
-    ;
+  ;
   dired-du =
     callPackage
       (
@@ -2230,7 +2230,7 @@
         }
       )
       { }
-    ;
+  ;
   dired-git-info =
     callPackage
       (
@@ -2256,7 +2256,7 @@
         }
       )
       { }
-    ;
+  ;
   disk-usage =
     callPackage
       (
@@ -2282,7 +2282,7 @@
         }
       )
       { }
-    ;
+  ;
   dismal =
     callPackage
       (
@@ -2312,7 +2312,7 @@
         }
       )
       { }
-    ;
+  ;
   djvu =
     callPackage
       (
@@ -2337,7 +2337,7 @@
         }
       )
       { }
-    ;
+  ;
   doc-toc =
     callPackage
       (
@@ -2363,7 +2363,7 @@
         }
       )
       { }
-    ;
+  ;
   docbook =
     callPackage
       (
@@ -2388,7 +2388,7 @@
         }
       )
       { }
-    ;
+  ;
   dts-mode =
     callPackage
       (
@@ -2414,7 +2414,7 @@
         }
       )
       { }
-    ;
+  ;
   easy-escape =
     callPackage
       (
@@ -2439,7 +2439,7 @@
         }
       )
       { }
-    ;
+  ;
   easy-kill =
     callPackage
       (
@@ -2469,7 +2469,7 @@
         }
       )
       { }
-    ;
+  ;
   ebdb =
     callPackage
       (
@@ -2499,7 +2499,7 @@
         }
       )
       { }
-    ;
+  ;
   ebdb-gnorb =
     callPackage
       (
@@ -2529,7 +2529,7 @@
         }
       )
       { }
-    ;
+  ;
   ebdb-i18n-chn =
     callPackage
       (
@@ -2559,7 +2559,7 @@
         }
       )
       { }
-    ;
+  ;
   ediprolog =
     callPackage
       (
@@ -2584,7 +2584,7 @@
         }
       )
       { }
-    ;
+  ;
   eev =
     callPackage
       (
@@ -2610,7 +2610,7 @@
         }
       )
       { }
-    ;
+  ;
   ef-themes =
     callPackage
       (
@@ -2636,7 +2636,7 @@
         }
       )
       { }
-    ;
+  ;
   eglot =
     callPackage
       (
@@ -2678,7 +2678,7 @@
         }
       )
       { }
-    ;
+  ;
   el-search =
     callPackage
       (
@@ -2710,7 +2710,7 @@
         }
       )
       { }
-    ;
+  ;
   eldoc =
     callPackage
       (
@@ -2736,7 +2736,7 @@
         }
       )
       { }
-    ;
+  ;
   eldoc-eval =
     callPackage
       (
@@ -2761,7 +2761,7 @@
         }
       )
       { }
-    ;
+  ;
   electric-spacing =
     callPackage
       (
@@ -2786,7 +2786,7 @@
         }
       )
       { }
-    ;
+  ;
   elisp-benchmarks =
     callPackage
       (
@@ -2811,7 +2811,7 @@
         }
       )
       { }
-    ;
+  ;
   embark =
     callPackage
       (
@@ -2841,7 +2841,7 @@
         }
       )
       { }
-    ;
+  ;
   embark-consult =
     callPackage
       (
@@ -2873,7 +2873,7 @@
         }
       )
       { }
-    ;
+  ;
   ement =
     callPackage
       (
@@ -2915,7 +2915,7 @@
         }
       )
       { }
-    ;
+  ;
   emms =
     callPackage
       (
@@ -2947,7 +2947,7 @@
         }
       )
       { }
-    ;
+  ;
   engrave-faces =
     callPackage
       (
@@ -2973,7 +2973,7 @@
         }
       )
       { }
-    ;
+  ;
   enwc =
     callPackage
       (
@@ -2999,7 +2999,7 @@
         }
       )
       { }
-    ;
+  ;
   epoch-view =
     callPackage
       (
@@ -3024,7 +3024,7 @@
         }
       )
       { }
-    ;
+  ;
   erc =
     callPackage
       (
@@ -3054,7 +3054,7 @@
         }
       )
       { }
-    ;
+  ;
   ergoemacs-mode =
     callPackage
       (
@@ -3086,7 +3086,7 @@
         }
       )
       { }
-    ;
+  ;
   excorporate =
     callPackage
       (
@@ -3124,7 +3124,7 @@
         }
       )
       { }
-    ;
+  ;
   expand-region =
     callPackage
       (
@@ -3149,7 +3149,7 @@
         }
       )
       { }
-    ;
+  ;
   external-completion =
     callPackage
       (
@@ -3174,7 +3174,7 @@
         }
       )
       { }
-    ;
+  ;
   exwm =
     callPackage
       (
@@ -3200,7 +3200,7 @@
         }
       )
       { }
-    ;
+  ;
   f90-interface-browser =
     callPackage
       (
@@ -3226,7 +3226,7 @@
         }
       )
       { }
-    ;
+  ;
   filladapt =
     callPackage
       (
@@ -3252,7 +3252,7 @@
         }
       )
       { }
-    ;
+  ;
   flylisp =
     callPackage
       (
@@ -3282,7 +3282,7 @@
         }
       )
       { }
-    ;
+  ;
   flymake =
     callPackage
       (
@@ -3314,7 +3314,7 @@
         }
       )
       { }
-    ;
+  ;
   flymake-proselint =
     callPackage
       (
@@ -3340,7 +3340,7 @@
         }
       )
       { }
-    ;
+  ;
   fontaine =
     callPackage
       (
@@ -3366,7 +3366,7 @@
         }
       )
       { }
-    ;
+  ;
   frame-tabs =
     callPackage
       (
@@ -3391,7 +3391,7 @@
         }
       )
       { }
-    ;
+  ;
   frog-menu =
     callPackage
       (
@@ -3423,7 +3423,7 @@
         }
       )
       { }
-    ;
+  ;
   fsm =
     callPackage
       (
@@ -3453,7 +3453,7 @@
         }
       )
       { }
-    ;
+  ;
   ftable =
     callPackage
       (
@@ -3479,7 +3479,7 @@
         }
       )
       { }
-    ;
+  ;
   gcmh =
     callPackage
       (
@@ -3505,7 +3505,7 @@
         }
       )
       { }
-    ;
+  ;
   ggtags =
     callPackage
       (
@@ -3531,7 +3531,7 @@
         }
       )
       { }
-    ;
+  ;
   gited =
     callPackage
       (
@@ -3561,7 +3561,7 @@
         }
       )
       { }
-    ;
+  ;
   gle-mode =
     callPackage
       (
@@ -3587,7 +3587,7 @@
         }
       )
       { }
-    ;
+  ;
   gnat-compiler =
     callPackage
       (
@@ -3617,7 +3617,7 @@
         }
       )
       { }
-    ;
+  ;
   gnome-c-style =
     callPackage
       (
@@ -3642,7 +3642,7 @@
         }
       )
       { }
-    ;
+  ;
   gnorb =
     callPackage
       (
@@ -3668,7 +3668,7 @@
         }
       )
       { }
-    ;
+  ;
   gnu-elpa =
     callPackage
       (
@@ -3693,7 +3693,7 @@
         }
       )
       { }
-    ;
+  ;
   gnu-elpa-keyring-update =
     callPackage
       (
@@ -3720,7 +3720,7 @@
         }
       )
       { }
-    ;
+  ;
   gnugo =
     callPackage
       (
@@ -3752,7 +3752,7 @@
         }
       )
       { }
-    ;
+  ;
   gnus-mock =
     callPackage
       (
@@ -3777,7 +3777,7 @@
         }
       )
       { }
-    ;
+  ;
   gpastel =
     callPackage
       (
@@ -3803,7 +3803,7 @@
         }
       )
       { }
-    ;
+  ;
   gpr-mode =
     callPackage
       (
@@ -3835,7 +3835,7 @@
         }
       )
       { }
-    ;
+  ;
   gpr-query =
     callPackage
       (
@@ -3867,7 +3867,7 @@
         }
       )
       { }
-    ;
+  ;
   graphql =
     callPackage
       (
@@ -3893,7 +3893,7 @@
         }
       )
       { }
-    ;
+  ;
   greader =
     callPackage
       (
@@ -3919,7 +3919,7 @@
         }
       )
       { }
-    ;
+  ;
   greenbar =
     callPackage
       (
@@ -3944,7 +3944,7 @@
         }
       )
       { }
-    ;
+  ;
   gtags-mode =
     callPackage
       (
@@ -3970,7 +3970,7 @@
         }
       )
       { }
-    ;
+  ;
   guess-language =
     callPackage
       (
@@ -4002,7 +4002,7 @@
         }
       )
       { }
-    ;
+  ;
   hcel =
     callPackage
       (
@@ -4028,7 +4028,7 @@
         }
       )
       { }
-    ;
+  ;
   heap =
     callPackage
       (
@@ -4053,7 +4053,7 @@
         }
       )
       { }
-    ;
+  ;
   hiddenquote =
     callPackage
       (
@@ -4079,7 +4079,7 @@
         }
       )
       { }
-    ;
+  ;
   highlight-escape-sequences =
     callPackage
       (
@@ -4106,7 +4106,7 @@
         }
       )
       { }
-    ;
+  ;
   hook-helpers =
     callPackage
       (
@@ -4132,7 +4132,7 @@
         }
       )
       { }
-    ;
+  ;
   html5-schema =
     callPackage
       (
@@ -4157,7 +4157,7 @@
         }
       )
       { }
-    ;
+  ;
   hydra =
     callPackage
       (
@@ -4187,7 +4187,7 @@
         }
       )
       { }
-    ;
+  ;
   hyperbole =
     callPackage
       (
@@ -4213,7 +4213,7 @@
         }
       )
       { }
-    ;
+  ;
   ilist =
     callPackage
       (
@@ -4238,7 +4238,7 @@
         }
       )
       { }
-    ;
+  ;
   inspector =
     callPackage
       (
@@ -4264,7 +4264,7 @@
         }
       )
       { }
-    ;
+  ;
   ioccur =
     callPackage
       (
@@ -4294,7 +4294,7 @@
         }
       )
       { }
-    ;
+  ;
   isearch-mb =
     callPackage
       (
@@ -4320,7 +4320,7 @@
         }
       )
       { }
-    ;
+  ;
   iterators =
     callPackage
       (
@@ -4346,7 +4346,7 @@
         }
       )
       { }
-    ;
+  ;
   ivy =
     callPackage
       (
@@ -4372,7 +4372,7 @@
         }
       )
       { }
-    ;
+  ;
   ivy-avy =
     callPackage
       (
@@ -4404,7 +4404,7 @@
         }
       )
       { }
-    ;
+  ;
   ivy-explorer =
     callPackage
       (
@@ -4434,7 +4434,7 @@
         }
       )
       { }
-    ;
+  ;
   ivy-hydra =
     callPackage
       (
@@ -4466,7 +4466,7 @@
         }
       )
       { }
-    ;
+  ;
   ivy-posframe =
     callPackage
       (
@@ -4498,7 +4498,7 @@
         }
       )
       { }
-    ;
+  ;
   jarchive =
     callPackage
       (
@@ -4524,7 +4524,7 @@
         }
       )
       { }
-    ;
+  ;
   javaimp =
     callPackage
       (
@@ -4549,7 +4549,7 @@
         }
       )
       { }
-    ;
+  ;
   jgraph-mode =
     callPackage
       (
@@ -4575,7 +4575,7 @@
         }
       )
       { }
-    ;
+  ;
   jinx =
     callPackage
       (
@@ -4605,7 +4605,7 @@
         }
       )
       { }
-    ;
+  ;
   jit-spell =
     callPackage
       (
@@ -4635,7 +4635,7 @@
         }
       )
       { }
-    ;
+  ;
   js2-mode =
     callPackage
       (
@@ -4665,7 +4665,7 @@
         }
       )
       { }
-    ;
+  ;
   json-mode =
     callPackage
       (
@@ -4691,7 +4691,7 @@
         }
       )
       { }
-    ;
+  ;
   jsonrpc =
     callPackage
       (
@@ -4717,7 +4717,7 @@
         }
       )
       { }
-    ;
+  ;
   jumpc =
     callPackage
       (
@@ -4742,7 +4742,7 @@
         }
       )
       { }
-    ;
+  ;
   kind-icon =
     callPackage
       (
@@ -4772,7 +4772,7 @@
         }
       )
       { }
-    ;
+  ;
   kiwix =
     callPackage
       (
@@ -4802,7 +4802,7 @@
         }
       )
       { }
-    ;
+  ;
   kmb =
     callPackage
       (
@@ -4828,7 +4828,7 @@
         }
       )
       { }
-    ;
+  ;
   landmark =
     callPackage
       (
@@ -4853,7 +4853,7 @@
         }
       )
       { }
-    ;
+  ;
   leaf =
     callPackage
       (
@@ -4879,7 +4879,7 @@
         }
       )
       { }
-    ;
+  ;
   let-alist =
     callPackage
       (
@@ -4905,7 +4905,7 @@
         }
       )
       { }
-    ;
+  ;
   lex =
     callPackage
       (
@@ -4930,7 +4930,7 @@
         }
       )
       { }
-    ;
+  ;
   lin =
     callPackage
       (
@@ -4956,7 +4956,7 @@
         }
       )
       { }
-    ;
+  ;
   lmc =
     callPackage
       (
@@ -4986,7 +4986,7 @@
         }
       )
       { }
-    ;
+  ;
   load-dir =
     callPackage
       (
@@ -5012,7 +5012,7 @@
         }
       )
       { }
-    ;
+  ;
   load-relative =
     callPackage
       (
@@ -5037,7 +5037,7 @@
         }
       )
       { }
-    ;
+  ;
   loc-changes =
     callPackage
       (
@@ -5062,7 +5062,7 @@
         }
       )
       { }
-    ;
+  ;
   loccur =
     callPackage
       (
@@ -5088,7 +5088,7 @@
         }
       )
       { }
-    ;
+  ;
   logos =
     callPackage
       (
@@ -5114,7 +5114,7 @@
         }
       )
       { }
-    ;
+  ;
   luwak =
     callPackage
       (
@@ -5140,7 +5140,7 @@
         }
       )
       { }
-    ;
+  ;
   lv =
     callPackage
       (
@@ -5165,7 +5165,7 @@
         }
       )
       { }
-    ;
+  ;
   map =
     callPackage
       (
@@ -5191,7 +5191,7 @@
         }
       )
       { }
-    ;
+  ;
   marginalia =
     callPackage
       (
@@ -5221,7 +5221,7 @@
         }
       )
       { }
-    ;
+  ;
   markchars =
     callPackage
       (
@@ -5246,7 +5246,7 @@
         }
       )
       { }
-    ;
+  ;
   math-symbol-lists =
     callPackage
       (
@@ -5271,7 +5271,7 @@
         }
       )
       { }
-    ;
+  ;
   mct =
     callPackage
       (
@@ -5297,7 +5297,7 @@
         }
       )
       { }
-    ;
+  ;
   memory-usage =
     callPackage
       (
@@ -5322,7 +5322,7 @@
         }
       )
       { }
-    ;
+  ;
   metar =
     callPackage
       (
@@ -5348,7 +5348,7 @@
         }
       )
       { }
-    ;
+  ;
   midi-kbd =
     callPackage
       (
@@ -5374,7 +5374,7 @@
         }
       )
       { }
-    ;
+  ;
   mines =
     callPackage
       (
@@ -5404,7 +5404,7 @@
         }
       )
       { }
-    ;
+  ;
   minibuffer-header =
     callPackage
       (
@@ -5430,7 +5430,7 @@
         }
       )
       { }
-    ;
+  ;
   minibuffer-line =
     callPackage
       (
@@ -5455,7 +5455,7 @@
         }
       )
       { }
-    ;
+  ;
   minimap =
     callPackage
       (
@@ -5480,7 +5480,7 @@
         }
       )
       { }
-    ;
+  ;
   mmm-mode =
     callPackage
       (
@@ -5510,7 +5510,7 @@
         }
       )
       { }
-    ;
+  ;
   modus-themes =
     callPackage
       (
@@ -5536,7 +5536,7 @@
         }
       )
       { }
-    ;
+  ;
   multi-mode =
     callPackage
       (
@@ -5561,7 +5561,7 @@
         }
       )
       { }
-    ;
+  ;
   multishell =
     callPackage
       (
@@ -5587,7 +5587,7 @@
         }
       )
       { }
-    ;
+  ;
   muse =
     callPackage
       (
@@ -5612,7 +5612,7 @@
         }
       )
       { }
-    ;
+  ;
   myers =
     callPackage
       (
@@ -5638,7 +5638,7 @@
         }
       )
       { }
-    ;
+  ;
   nadvice =
     callPackage
       (
@@ -5663,7 +5663,7 @@
         }
       )
       { }
-    ;
+  ;
   nameless =
     callPackage
       (
@@ -5689,7 +5689,7 @@
         }
       )
       { }
-    ;
+  ;
   names =
     callPackage
       (
@@ -5721,7 +5721,7 @@
         }
       )
       { }
-    ;
+  ;
   nano-agenda =
     callPackage
       (
@@ -5747,7 +5747,7 @@
         }
       )
       { }
-    ;
+  ;
   nano-modeline =
     callPackage
       (
@@ -5773,7 +5773,7 @@
         }
       )
       { }
-    ;
+  ;
   nano-theme =
     callPackage
       (
@@ -5799,7 +5799,7 @@
         }
       )
       { }
-    ;
+  ;
   nftables-mode =
     callPackage
       (
@@ -5825,7 +5825,7 @@
         }
       )
       { }
-    ;
+  ;
   nhexl-mode =
     callPackage
       (
@@ -5855,7 +5855,7 @@
         }
       )
       { }
-    ;
+  ;
   nlinum =
     callPackage
       (
@@ -5880,7 +5880,7 @@
         }
       )
       { }
-    ;
+  ;
   notes-mode =
     callPackage
       (
@@ -5905,7 +5905,7 @@
         }
       )
       { }
-    ;
+  ;
   notmuch-indicator =
     callPackage
       (
@@ -5931,7 +5931,7 @@
         }
       )
       { }
-    ;
+  ;
   ntlm =
     callPackage
       (
@@ -5956,7 +5956,7 @@
         }
       )
       { }
-    ;
+  ;
   num3-mode =
     callPackage
       (
@@ -5981,7 +5981,7 @@
         }
       )
       { }
-    ;
+  ;
   oauth2 =
     callPackage
       (
@@ -6011,7 +6011,7 @@
         }
       )
       { }
-    ;
+  ;
   ob-haxe =
     callPackage
       (
@@ -6036,7 +6036,7 @@
         }
       )
       { }
-    ;
+  ;
   objed =
     callPackage
       (
@@ -6066,7 +6066,7 @@
         }
       )
       { }
-    ;
+  ;
   omn-mode =
     callPackage
       (
@@ -6091,7 +6091,7 @@
         }
       )
       { }
-    ;
+  ;
   on-screen =
     callPackage
       (
@@ -6117,7 +6117,7 @@
         }
       )
       { }
-    ;
+  ;
   openpgp =
     callPackage
       (
@@ -6143,7 +6143,7 @@
         }
       )
       { }
-    ;
+  ;
   orderless =
     callPackage
       (
@@ -6169,7 +6169,7 @@
         }
       )
       { }
-    ;
+  ;
   org =
     callPackage
       (
@@ -6195,7 +6195,7 @@
         }
       )
       { }
-    ;
+  ;
   org-contacts =
     callPackage
       (
@@ -6225,7 +6225,7 @@
         }
       )
       { }
-    ;
+  ;
   org-edna =
     callPackage
       (
@@ -6257,7 +6257,7 @@
         }
       )
       { }
-    ;
+  ;
   org-modern =
     callPackage
       (
@@ -6287,7 +6287,7 @@
         }
       )
       { }
-    ;
+  ;
   org-notify =
     callPackage
       (
@@ -6313,7 +6313,7 @@
         }
       )
       { }
-    ;
+  ;
   org-real =
     callPackage
       (
@@ -6345,7 +6345,7 @@
         }
       )
       { }
-    ;
+  ;
   org-remark =
     callPackage
       (
@@ -6375,7 +6375,7 @@
         }
       )
       { }
-    ;
+  ;
   org-transclusion =
     callPackage
       (
@@ -6405,7 +6405,7 @@
         }
       )
       { }
-    ;
+  ;
   org-translate =
     callPackage
       (
@@ -6435,7 +6435,7 @@
         }
       )
       { }
-    ;
+  ;
   orgalist =
     callPackage
       (
@@ -6461,7 +6461,7 @@
         }
       )
       { }
-    ;
+  ;
   osc =
     callPackage
       (
@@ -6486,7 +6486,7 @@
         }
       )
       { }
-    ;
+  ;
   osm =
     callPackage
       (
@@ -6516,7 +6516,7 @@
         }
       )
       { }
-    ;
+  ;
   other-frame-window =
     callPackage
       (
@@ -6542,7 +6542,7 @@
         }
       )
       { }
-    ;
+  ;
   pabbrev =
     callPackage
       (
@@ -6567,7 +6567,7 @@
         }
       )
       { }
-    ;
+  ;
   paced =
     callPackage
       (
@@ -6597,7 +6597,7 @@
         }
       )
       { }
-    ;
+  ;
   parsec =
     callPackage
       (
@@ -6627,7 +6627,7 @@
         }
       )
       { }
-    ;
+  ;
   parser-generator =
     callPackage
       (
@@ -6653,7 +6653,7 @@
         }
       )
       { }
-    ;
+  ;
   path-iterator =
     callPackage
       (
@@ -6679,7 +6679,7 @@
         }
       )
       { }
-    ;
+  ;
   peg =
     callPackage
       (
@@ -6705,7 +6705,7 @@
         }
       )
       { }
-    ;
+  ;
   perl-doc =
     callPackage
       (
@@ -6731,7 +6731,7 @@
         }
       )
       { }
-    ;
+  ;
   persist =
     callPackage
       (
@@ -6756,7 +6756,7 @@
         }
       )
       { }
-    ;
+  ;
   phps-mode =
     callPackage
       (
@@ -6782,7 +6782,7 @@
         }
       )
       { }
-    ;
+  ;
   pinentry =
     callPackage
       (
@@ -6807,7 +6807,7 @@
         }
       )
       { }
-    ;
+  ;
   plz =
     callPackage
       (
@@ -6833,7 +6833,7 @@
         }
       )
       { }
-    ;
+  ;
   poke =
     callPackage
       (
@@ -6859,7 +6859,7 @@
         }
       )
       { }
-    ;
+  ;
   poke-mode =
     callPackage
       (
@@ -6884,7 +6884,7 @@
         }
       )
       { }
-    ;
+  ;
   poker =
     callPackage
       (
@@ -6909,7 +6909,7 @@
         }
       )
       { }
-    ;
+  ;
   posframe =
     callPackage
       (
@@ -6935,7 +6935,7 @@
         }
       )
       { }
-    ;
+  ;
   project =
     callPackage
       (
@@ -6965,7 +6965,7 @@
         }
       )
       { }
-    ;
+  ;
   psgml =
     callPackage
       (
@@ -6990,7 +6990,7 @@
         }
       )
       { }
-    ;
+  ;
   pspp-mode =
     callPackage
       (
@@ -7015,7 +7015,7 @@
         }
       )
       { }
-    ;
+  ;
   pulsar =
     callPackage
       (
@@ -7041,7 +7041,7 @@
         }
       )
       { }
-    ;
+  ;
   pyim =
     callPackage
       (
@@ -7073,7 +7073,7 @@
         }
       )
       { }
-    ;
+  ;
   pyim-basedict =
     callPackage
       (
@@ -7098,7 +7098,7 @@
         }
       )
       { }
-    ;
+  ;
   python =
     callPackage
       (
@@ -7128,7 +7128,7 @@
         }
       )
       { }
-    ;
+  ;
   quarter-plane =
     callPackage
       (
@@ -7153,7 +7153,7 @@
         }
       )
       { }
-    ;
+  ;
   queue =
     callPackage
       (
@@ -7178,7 +7178,7 @@
         }
       )
       { }
-    ;
+  ;
   rainbow-mode =
     callPackage
       (
@@ -7203,7 +7203,7 @@
         }
       )
       { }
-    ;
+  ;
   rbit =
     callPackage
       (
@@ -7228,7 +7228,7 @@
         }
       )
       { }
-    ;
+  ;
   rcirc-color =
     callPackage
       (
@@ -7254,7 +7254,7 @@
         }
       )
       { }
-    ;
+  ;
   rcirc-menu =
     callPackage
       (
@@ -7279,7 +7279,7 @@
         }
       )
       { }
-    ;
+  ;
   realgud =
     callPackage
       (
@@ -7313,7 +7313,7 @@
         }
       )
       { }
-    ;
+  ;
   realgud-ipdb =
     callPackage
       (
@@ -7345,7 +7345,7 @@
         }
       )
       { }
-    ;
+  ;
   realgud-jdb =
     callPackage
       (
@@ -7379,7 +7379,7 @@
         }
       )
       { }
-    ;
+  ;
   realgud-lldb =
     callPackage
       (
@@ -7411,7 +7411,7 @@
         }
       )
       { }
-    ;
+  ;
   realgud-node-debug =
     callPackage
       (
@@ -7445,7 +7445,7 @@
         }
       )
       { }
-    ;
+  ;
   realgud-node-inspect =
     callPackage
       (
@@ -7481,7 +7481,7 @@
         }
       )
       { }
-    ;
+  ;
   realgud-trepan-ni =
     callPackage
       (
@@ -7515,7 +7515,7 @@
         }
       )
       { }
-    ;
+  ;
   realgud-trepan-xpy =
     callPackage
       (
@@ -7547,7 +7547,7 @@
         }
       )
       { }
-    ;
+  ;
   rec-mode =
     callPackage
       (
@@ -7573,7 +7573,7 @@
         }
       )
       { }
-    ;
+  ;
   register-list =
     callPackage
       (
@@ -7598,7 +7598,7 @@
         }
       )
       { }
-    ;
+  ;
   relint =
     callPackage
       (
@@ -7628,7 +7628,7 @@
         }
       )
       { }
-    ;
+  ;
   repology =
     callPackage
       (
@@ -7654,7 +7654,7 @@
         }
       )
       { }
-    ;
+  ;
   rich-minority =
     callPackage
       (
@@ -7680,7 +7680,7 @@
         }
       )
       { }
-    ;
+  ;
   rnc-mode =
     callPackage
       (
@@ -7705,7 +7705,7 @@
         }
       )
       { }
-    ;
+  ;
   rt-liberation =
     callPackage
       (
@@ -7730,7 +7730,7 @@
         }
       )
       { }
-    ;
+  ;
   ruby-end =
     callPackage
       (
@@ -7755,7 +7755,7 @@
         }
       )
       { }
-    ;
+  ;
   rudel =
     callPackage
       (
@@ -7789,7 +7789,7 @@
         }
       )
       { }
-    ;
+  ;
   satchel =
     callPackage
       (
@@ -7819,7 +7819,7 @@
         }
       )
       { }
-    ;
+  ;
   scanner =
     callPackage
       (
@@ -7849,7 +7849,7 @@
         }
       )
       { }
-    ;
+  ;
   scroll-restore =
     callPackage
       (
@@ -7874,7 +7874,7 @@
         }
       )
       { }
-    ;
+  ;
   sed-mode =
     callPackage
       (
@@ -7899,7 +7899,7 @@
         }
       )
       { }
-    ;
+  ;
   seq =
     callPackage
       (
@@ -7924,7 +7924,7 @@
         }
       )
       { }
-    ;
+  ;
   setup =
     callPackage
       (
@@ -7950,7 +7950,7 @@
         }
       )
       { }
-    ;
+  ;
   shelisp =
     callPackage
       (
@@ -7975,7 +7975,7 @@
         }
       )
       { }
-    ;
+  ;
   shell-command-plus =
     callPackage
       (
@@ -8001,7 +8001,7 @@
         }
       )
       { }
-    ;
+  ;
   shen-mode =
     callPackage
       (
@@ -8026,7 +8026,7 @@
         }
       )
       { }
-    ;
+  ;
   sisu-mode =
     callPackage
       (
@@ -8051,7 +8051,7 @@
         }
       )
       { }
-    ;
+  ;
   site-lisp =
     callPackage
       (
@@ -8077,7 +8077,7 @@
         }
       )
       { }
-    ;
+  ;
   sketch-mode =
     callPackage
       (
@@ -8102,7 +8102,7 @@
         }
       )
       { }
-    ;
+  ;
   slime-volleyball =
     callPackage
       (
@@ -8128,7 +8128,7 @@
         }
       )
       { }
-    ;
+  ;
   sm-c-mode =
     callPackage
       (
@@ -8153,7 +8153,7 @@
         }
       )
       { }
-    ;
+  ;
   smalltalk-mode =
     callPackage
       (
@@ -8178,7 +8178,7 @@
         }
       )
       { }
-    ;
+  ;
   smart-yank =
     callPackage
       (
@@ -8204,7 +8204,7 @@
         }
       )
       { }
-    ;
+  ;
   sml-mode =
     callPackage
       (
@@ -8234,7 +8234,7 @@
         }
       )
       { }
-    ;
+  ;
   so-long =
     callPackage
       (
@@ -8260,7 +8260,7 @@
         }
       )
       { }
-    ;
+  ;
   soap-client =
     callPackage
       (
@@ -8290,7 +8290,7 @@
         }
       )
       { }
-    ;
+  ;
   sokoban =
     callPackage
       (
@@ -8320,7 +8320,7 @@
         }
       )
       { }
-    ;
+  ;
   sotlisp =
     callPackage
       (
@@ -8346,7 +8346,7 @@
         }
       )
       { }
-    ;
+  ;
   spinner =
     callPackage
       (
@@ -8372,7 +8372,7 @@
         }
       )
       { }
-    ;
+  ;
   sql-beeline =
     callPackage
       (
@@ -8397,7 +8397,7 @@
         }
       )
       { }
-    ;
+  ;
   sql-cassandra =
     callPackage
       (
@@ -8423,7 +8423,7 @@
         }
       )
       { }
-    ;
+  ;
   sql-indent =
     callPackage
       (
@@ -8449,7 +8449,7 @@
         }
       )
       { }
-    ;
+  ;
   srht =
     callPackage
       (
@@ -8479,7 +8479,7 @@
         }
       )
       { }
-    ;
+  ;
   ssh-deploy =
     callPackage
       (
@@ -8505,7 +8505,7 @@
         }
       )
       { }
-    ;
+  ;
   standard-themes =
     callPackage
       (
@@ -8531,7 +8531,7 @@
         }
       )
       { }
-    ;
+  ;
   stream =
     callPackage
       (
@@ -8557,7 +8557,7 @@
         }
       )
       { }
-    ;
+  ;
   substitute =
     callPackage
       (
@@ -8583,7 +8583,7 @@
         }
       )
       { }
-    ;
+  ;
   svg =
     callPackage
       (
@@ -8609,7 +8609,7 @@
         }
       )
       { }
-    ;
+  ;
   svg-clock =
     callPackage
       (
@@ -8639,7 +8639,7 @@
         }
       )
       { }
-    ;
+  ;
   svg-lib =
     callPackage
       (
@@ -8665,7 +8665,7 @@
         }
       )
       { }
-    ;
+  ;
   svg-tag-mode =
     callPackage
       (
@@ -8695,7 +8695,7 @@
         }
       )
       { }
-    ;
+  ;
   swiper =
     callPackage
       (
@@ -8725,7 +8725,7 @@
         }
       )
       { }
-    ;
+  ;
   switchy-window =
     callPackage
       (
@@ -8755,7 +8755,7 @@
         }
       )
       { }
-    ;
+  ;
   sxhkdrc-mode =
     callPackage
       (
@@ -8781,7 +8781,7 @@
         }
       )
       { }
-    ;
+  ;
   system-packages =
     callPackage
       (
@@ -8807,7 +8807,7 @@
         }
       )
       { }
-    ;
+  ;
   tNFA =
     callPackage
       (
@@ -8833,7 +8833,7 @@
         }
       )
       { }
-    ;
+  ;
   taxy =
     callPackage
       (
@@ -8859,7 +8859,7 @@
         }
       )
       { }
-    ;
+  ;
   taxy-magit-section =
     callPackage
       (
@@ -8891,7 +8891,7 @@
         }
       )
       { }
-    ;
+  ;
   temp-buffer-browse =
     callPackage
       (
@@ -8917,7 +8917,7 @@
         }
       )
       { }
-    ;
+  ;
   tempel =
     callPackage
       (
@@ -8947,7 +8947,7 @@
         }
       )
       { }
-    ;
+  ;
   test-simple =
     callPackage
       (
@@ -8973,7 +8973,7 @@
         }
       )
       { }
-    ;
+  ;
   timerfunctions =
     callPackage
       (
@@ -9003,7 +9003,7 @@
         }
       )
       { }
-    ;
+  ;
   tiny =
     callPackage
       (
@@ -9028,7 +9028,7 @@
         }
       )
       { }
-    ;
+  ;
   tmr =
     callPackage
       (
@@ -9054,7 +9054,7 @@
         }
       )
       { }
-    ;
+  ;
   tomelr =
     callPackage
       (
@@ -9086,7 +9086,7 @@
         }
       )
       { }
-    ;
+  ;
   topspace =
     callPackage
       (
@@ -9112,7 +9112,7 @@
         }
       )
       { }
-    ;
+  ;
   tramp =
     callPackage
       (
@@ -9138,7 +9138,7 @@
         }
       )
       { }
-    ;
+  ;
   tramp-nspawn =
     callPackage
       (
@@ -9164,7 +9164,7 @@
         }
       )
       { }
-    ;
+  ;
   tramp-theme =
     callPackage
       (
@@ -9190,7 +9190,7 @@
         }
       )
       { }
-    ;
+  ;
   transcribe =
     callPackage
       (
@@ -9215,7 +9215,7 @@
         }
       )
       { }
-    ;
+  ;
   transient =
     callPackage
       (
@@ -9241,7 +9241,7 @@
         }
       )
       { }
-    ;
+  ;
   transient-cycles =
     callPackage
       (
@@ -9267,7 +9267,7 @@
         }
       )
       { }
-    ;
+  ;
   trie =
     callPackage
       (
@@ -9297,7 +9297,7 @@
         }
       )
       { }
-    ;
+  ;
   triples =
     callPackage
       (
@@ -9327,7 +9327,7 @@
         }
       )
       { }
-    ;
+  ;
   typo =
     callPackage
       (
@@ -9353,7 +9353,7 @@
         }
       )
       { }
-    ;
+  ;
   undo-tree =
     callPackage
       (
@@ -9383,7 +9383,7 @@
         }
       )
       { }
-    ;
+  ;
   uni-confusables =
     callPackage
       (
@@ -9408,7 +9408,7 @@
         }
       )
       { }
-    ;
+  ;
   uniquify-files =
     callPackage
       (
@@ -9434,7 +9434,7 @@
         }
       )
       { }
-    ;
+  ;
   url-http-ntlm =
     callPackage
       (
@@ -9464,7 +9464,7 @@
         }
       )
       { }
-    ;
+  ;
   url-scgi =
     callPackage
       (
@@ -9490,7 +9490,7 @@
         }
       )
       { }
-    ;
+  ;
   use-package =
     callPackage
       (
@@ -9520,7 +9520,7 @@
         }
       )
       { }
-    ;
+  ;
   validate =
     callPackage
       (
@@ -9552,7 +9552,7 @@
         }
       )
       { }
-    ;
+  ;
   valign =
     callPackage
       (
@@ -9578,7 +9578,7 @@
         }
       )
       { }
-    ;
+  ;
   vc-backup =
     callPackage
       (
@@ -9603,7 +9603,7 @@
         }
       )
       { }
-    ;
+  ;
   vc-got =
     callPackage
       (
@@ -9629,7 +9629,7 @@
         }
       )
       { }
-    ;
+  ;
   vc-hgcmd =
     callPackage
       (
@@ -9655,7 +9655,7 @@
         }
       )
       { }
-    ;
+  ;
   vcard =
     callPackage
       (
@@ -9681,7 +9681,7 @@
         }
       )
       { }
-    ;
+  ;
   vcl-mode =
     callPackage
       (
@@ -9706,7 +9706,7 @@
         }
       )
       { }
-    ;
+  ;
   vdiff =
     callPackage
       (
@@ -9736,7 +9736,7 @@
         }
       )
       { }
-    ;
+  ;
   verilog-mode =
     callPackage
       (
@@ -9762,7 +9762,7 @@
         }
       )
       { }
-    ;
+  ;
   vertico =
     callPackage
       (
@@ -9792,7 +9792,7 @@
         }
       )
       { }
-    ;
+  ;
   vertico-posframe =
     callPackage
       (
@@ -9824,7 +9824,7 @@
         }
       )
       { }
-    ;
+  ;
   vigenere =
     callPackage
       (
@@ -9850,7 +9850,7 @@
         }
       )
       { }
-    ;
+  ;
   visual-filename-abbrev =
     callPackage
       (
@@ -9878,7 +9878,7 @@
         }
       )
       { }
-    ;
+  ;
   visual-fill =
     callPackage
       (
@@ -9903,7 +9903,7 @@
         }
       )
       { }
-    ;
+  ;
   vlf =
     callPackage
       (
@@ -9928,7 +9928,7 @@
         }
       )
       { }
-    ;
+  ;
   vundo =
     callPackage
       (
@@ -9954,7 +9954,7 @@
         }
       )
       { }
-    ;
+  ;
   wcheck-mode =
     callPackage
       (
@@ -9979,7 +9979,7 @@
         }
       )
       { }
-    ;
+  ;
   wconf =
     callPackage
       (
@@ -10005,7 +10005,7 @@
         }
       )
       { }
-    ;
+  ;
   web-server =
     callPackage
       (
@@ -10031,7 +10031,7 @@
         }
       )
       { }
-    ;
+  ;
   webfeeder =
     callPackage
       (
@@ -10057,7 +10057,7 @@
         }
       )
       { }
-    ;
+  ;
   websocket =
     callPackage
       (
@@ -10083,7 +10083,7 @@
         }
       )
       { }
-    ;
+  ;
   which-key =
     callPackage
       (
@@ -10109,7 +10109,7 @@
         }
       )
       { }
-    ;
+  ;
   windower =
     callPackage
       (
@@ -10135,7 +10135,7 @@
         }
       )
       { }
-    ;
+  ;
   windresize =
     callPackage
       (
@@ -10160,7 +10160,7 @@
         }
       )
       { }
-    ;
+  ;
   wisi =
     callPackage
       (
@@ -10190,7 +10190,7 @@
         }
       )
       { }
-    ;
+  ;
   wisitoken-grammar-mode =
     callPackage
       (
@@ -10224,7 +10224,7 @@
         }
       )
       { }
-    ;
+  ;
   wpuzzle =
     callPackage
       (
@@ -10249,7 +10249,7 @@
         }
       )
       { }
-    ;
+  ;
   xclip =
     callPackage
       (
@@ -10274,7 +10274,7 @@
         }
       )
       { }
-    ;
+  ;
   xeft =
     callPackage
       (
@@ -10300,7 +10300,7 @@
         }
       )
       { }
-    ;
+  ;
   xelb =
     callPackage
       (
@@ -10330,7 +10330,7 @@
         }
       )
       { }
-    ;
+  ;
   xpm =
     callPackage
       (
@@ -10360,7 +10360,7 @@
         }
       )
       { }
-    ;
+  ;
   xr =
     callPackage
       (
@@ -10386,7 +10386,7 @@
         }
       )
       { }
-    ;
+  ;
   xref =
     callPackage
       (
@@ -10412,7 +10412,7 @@
         }
       )
       { }
-    ;
+  ;
   xref-union =
     callPackage
       (
@@ -10438,7 +10438,7 @@
         }
       )
       { }
-    ;
+  ;
   yasnippet =
     callPackage
       (
@@ -10464,7 +10464,7 @@
         }
       )
       { }
-    ;
+  ;
   yasnippet-classic-snippets =
     callPackage
       (
@@ -10492,7 +10492,7 @@
         }
       )
       { }
-    ;
+  ;
   zones =
     callPackage
       (
@@ -10517,7 +10517,7 @@
         }
       )
       { }
-    ;
+  ;
   ztree =
     callPackage
       (
@@ -10543,7 +10543,7 @@
         }
       )
       { }
-    ;
+  ;
   zuul =
     callPackage
       (
@@ -10573,5 +10573,5 @@
         }
       )
       { }
-    ;
+  ;
 }

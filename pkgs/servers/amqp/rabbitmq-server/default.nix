@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       Carbon
       Cocoa
     ]
-    ;
+  ;
 
   outputs = [
     "out"

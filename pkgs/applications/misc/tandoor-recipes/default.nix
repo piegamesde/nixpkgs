@@ -29,7 +29,7 @@ let
           _: { doCheck = false; }
         );
       }
-      ;
+    ;
   };
 
   common = callPackage ./common.nix { };

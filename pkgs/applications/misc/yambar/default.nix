@@ -80,7 +80,7 @@ stdenv.mkDerivation (
         xcbutilerrors
         xcbutilwm
       ]
-      ;
+    ;
 
     mesonBuildType = "release";
 

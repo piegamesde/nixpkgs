@@ -41,7 +41,7 @@ let
       env.NIX_CFLAGS_COMPILE =
         lib.optionalString stdenv.cc.isGNU
           "-std=gnu++98"
-        ;
+      ;
 
       doCheck = true;
 
@@ -53,7 +53,7 @@ let
         maintainers = with maintainers; [ pSub ];
       };
     }
-    ;
+  ;
 in
 
 {

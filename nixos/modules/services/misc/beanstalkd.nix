@@ -25,7 +25,7 @@ in
           description =
             lib.mdDoc
               "TCP port that will be used to accept client connections."
-            ;
+          ;
           default = 11300;
         };
 
@@ -43,7 +43,7 @@ in
         description =
           lib.mdDoc
             "Whether to open ports in the firewall for the server."
-          ;
+        ;
       };
     };
   };

@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
       harvid
       xjadeo
     ]
-    ;
+  ;
 
   wafConfigureFlags = [
     "--cxx11"
@@ -203,7 +203,7 @@ stdenv.mkDerivation rec {
           ]
         }"
     ''
-    ;
+  ;
 
   LINKFLAGS = "-lpthread";
 

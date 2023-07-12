@@ -34,7 +34,7 @@ stdenv.mkDerivation (
         "M=$(sourceRoot)"
         "VERSION=${finalAttrs.version}"
       ]
-      ;
+    ;
 
     buildFlags = [ "modules" ];
     installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];

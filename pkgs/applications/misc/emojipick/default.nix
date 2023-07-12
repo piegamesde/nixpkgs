@@ -62,7 +62,7 @@ stdenvNoCC.mkDerivation {
       libnotify
     ]
     ++ (if emojipick-use-rofi then [ rofi ] else [ dmenu ])
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

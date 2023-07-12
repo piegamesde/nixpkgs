@@ -86,7 +86,7 @@ in
         description =
           lib.mdDoc
             "Cadvisor storage driver, enable secure communication."
-          ;
+        ;
       };
 
       extraOptions = mkOption {
@@ -115,7 +115,7 @@ in
               )
             )
           )
-        ;
+      ;
     }
 
     (mkIf cfg.enable {

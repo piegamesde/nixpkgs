@@ -80,7 +80,7 @@ buildGoPackage rec {
       substituteInPlace agent/appconfig/constants_unix.go \
         --replace '"/etc/amazon/ssm/"' '"${placeholder "out"}/etc/amazon/ssm/"'
     ''
-    ;
+  ;
 
   preBuild = ''
     cp -r go/src/${goPackagePath}/vendor/src go

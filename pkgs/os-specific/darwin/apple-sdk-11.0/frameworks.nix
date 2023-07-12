@@ -26,7 +26,7 @@ with frameworks; {
       QuartzCore
       UniformTypeIdentifiers
       simd
-      ;
+    ;
   };
   AVKit = { inherit AVFoundation AppKit Cocoa Foundation; };
   Accelerate = {
@@ -51,7 +51,7 @@ with frameworks; {
       Metal
       OpenGL
       QuartzCore
-      ;
+    ;
   };
   AppTrackingTransparency = { inherit Foundation; };
   AppleScriptKit = { };
@@ -96,7 +96,7 @@ with frameworks; {
       CoreLocation
       Foundation
       IOKit
-      ;
+    ;
   };
   CoreDisplay = { };
   CoreFoundation = { };
@@ -114,7 +114,7 @@ with frameworks; {
       ImageIO
       Metal
       OpenGL
-      ;
+    ;
   };
   CoreLocation = { inherit CoreFoundation CoreGraphics Foundation IOKit; };
   CoreMIDI = { inherit CoreFoundation CoreGraphics Foundation IOKit; };
@@ -128,7 +128,7 @@ with frameworks; {
       IOKit
       ImageIO
       Metal
-      ;
+    ;
   };
   CoreMedia = {
     inherit
@@ -140,7 +140,7 @@ with frameworks; {
       Foundation
       IOKit
       Metal
-      ;
+    ;
   };
   CoreMediaIO = { inherit CoreFoundation CoreMedia; };
   CoreMotion = { inherit Foundation; };
@@ -156,7 +156,7 @@ with frameworks; {
       IOSurface
       Metal
       OpenGL
-      ;
+    ;
   };
   CoreWLAN = { inherit Foundation IOKit; };
   CryptoKit = {
@@ -167,7 +167,7 @@ with frameworks; {
       IOKit
       LocalAuthentication
       Security
-      ;
+    ;
   };
   CryptoTokenKit = {
     inherit CoreFoundation CoreGraphics Foundation IOKit Security;
@@ -198,7 +198,7 @@ with frameworks; {
       CoreServices
       IOKit
       Security
-      ;
+    ;
   };
   GLKit = {
     inherit
@@ -216,7 +216,7 @@ with frameworks; {
       OpenGL
       QuartzCore
       simd
-      ;
+    ;
   };
   GLUT = { inherit OpenGL; };
   GSS = { inherit CoreFoundation; };
@@ -236,7 +236,7 @@ with frameworks; {
       SceneKit
       SpriteKit
       simd
-      ;
+    ;
   };
   GameplayKit = {
     inherit
@@ -256,7 +256,7 @@ with frameworks; {
       SceneKit
       SpriteKit
       simd
-      ;
+    ;
   };
   HIDDriverKit = { inherit IOKit USBDriverKit; };
   Hypervisor = { };
@@ -306,7 +306,7 @@ with frameworks; {
       IOKit
       Metal
       QuartzCore
-      ;
+    ;
   };
   MediaAccessibility = {
     inherit CoreFoundation CoreGraphics CoreText QuartzCore;
@@ -331,7 +331,7 @@ with frameworks; {
       ModelIO
       QuartzCore
       simd
-      ;
+    ;
   };
   MetalPerformanceShaders = { inherit CoreGraphics Foundation Metal simd; };
   MetalPerformanceShadersGraph = {
@@ -376,7 +376,7 @@ with frameworks; {
       IOKit
       Metal
       QuartzCore
-      ;
+    ;
   };
   Photos = {
     inherit
@@ -395,7 +395,7 @@ with frameworks; {
       QuartzCore
       UniformTypeIdentifiers
       simd
-      ;
+    ;
   };
   PhotosUI = { inherit AppKit Foundation MapKit Photos; };
   PreferencePanes = { inherit Cocoa; };
@@ -413,7 +413,7 @@ with frameworks; {
       PDFKit
       QuartzCore
       QuickLook
-      ;
+    ;
   };
   QuartzCore = {
     inherit
@@ -425,7 +425,7 @@ with frameworks; {
       IOKit
       Metal
       OpenGL
-      ;
+    ;
   };
   QuickLook = { inherit ApplicationServices CoreFoundation; };
   QuickLookThumbnailing = {
@@ -452,7 +452,7 @@ with frameworks; {
       MultipeerConnectivity
       QuartzCore
       simd
-      ;
+    ;
   };
   ReplayKit = { inherit AVFoundation AppKit Foundation; };
   Ruby = { };
@@ -469,7 +469,7 @@ with frameworks; {
       IOKit
       Metal
       QuartzCore
-      ;
+    ;
   };
   SceneKit = {
     inherit
@@ -487,7 +487,7 @@ with frameworks; {
       ModelIO
       QuartzCore
       simd
-      ;
+    ;
   };
   ScreenSaver = { inherit AppKit Foundation; };
   ScreenTime = { inherit AppKit Foundation; };
@@ -514,7 +514,7 @@ with frameworks; {
       QuartzCore
       UniformTypeIdentifiers
       simd
-      ;
+    ;
   };
   SpriteKit = {
     inherit
@@ -533,7 +533,7 @@ with frameworks; {
       ModelIO
       QuartzCore
       simd
-      ;
+    ;
   };
   StoreKit = { inherit AppKit CoreGraphics Foundation; };
   SwiftUI = {
@@ -552,7 +552,7 @@ with frameworks; {
       Metal
       QuartzCore
       UniformTypeIdentifiers
-      ;
+    ;
   };
   SyncServices = { };
   System = { };
@@ -584,7 +584,7 @@ with frameworks; {
       ImageIO
       Metal
       simd
-      ;
+    ;
   };
   WebKit = {
     inherit
@@ -601,7 +601,7 @@ with frameworks; {
       Metal
       OpenGL
       QuartzCore
-      ;
+    ;
   };
   WidgetKit = {
     inherit
@@ -614,7 +614,7 @@ with frameworks; {
       Intents
       Metal
       SwiftUI
-      ;
+    ;
   };
   iTunesLibrary = { inherit Foundation; };
   vmnet = { };

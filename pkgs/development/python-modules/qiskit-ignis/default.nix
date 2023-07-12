@@ -46,7 +46,7 @@ buildPythonPackage rec {
     ++ lib.optionals (withCvx) [ cvxpy ]
     ++ lib.optionals (withVisualization) [ matplotlib ]
     ++ lib.optionals (withJit) [ numba ]
-    ;
+  ;
 
   # Tests
   pythonImportsCheck = [ "qiskit.ignis" ];
@@ -67,7 +67,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isAarch64 [
       "test_fitters" # Fails check that arrays are close. Might be due to aarch64 math issues.
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

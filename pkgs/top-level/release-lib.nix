@@ -80,7 +80,7 @@ rec {
       pkgs_x86_64_cygwin
     else
       abort "unsupported system type: ${system}"
-    ;
+  ;
 
   pkgsFor = pkgsForCross null;
 
@@ -108,7 +108,7 @@ rec {
       candidate.pkgsFor
     else
       mkPkgsFor crossSystem
-    ; # uncached fallback
+  ; # uncached fallback
 
   # Given a list of 'meta.platforms'-style patterns, return the sublist of
   # `supportedSystems` containing systems that matches at least one of the given
@@ -120,7 +120,7 @@ rec {
       supportedPlatforms =
         map (system: lib.systems.elaborate { inherit system; })
           supportedSystems
-        ;
+      ;
     in
     metaPatterns:
     let
@@ -137,7 +137,7 @@ rec {
         system
       )
       matchingPlatforms
-    ;
+  ;
 
   assertTrue =
     bool:
@@ -145,7 +145,7 @@ rec {
       pkgs.runCommand "evaluated-to-true" { } "touch $out"
     else
       pkgs.runCommand "evaluated-to-false" { } "false"
-    ;
+  ;
 
   /* The working or failing mails for cross builds will be sent only to
      the following maintainers, as most package maintainers will not be
@@ -177,7 +177,7 @@ rec {
     forMatchingSystems metaPatterns (
       system: hydraJob' (f (pkgsForCross crossSystem system))
     )
-    ;
+  ;
 
   /* Given a nested set where the leaf nodes are lists of platforms,
      map each leaf node to `testOn [platforms...] (pkgs:
@@ -191,7 +191,7 @@ rec {
       path: metaPatterns:
       testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs))
     )
-    ;
+  ;
 
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,

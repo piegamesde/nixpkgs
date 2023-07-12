@@ -254,14 +254,14 @@ in
               "-u ${cfg.unixSocket}"
             else
               "-b 0.0.0.0 -p ${toString cfg.port}"
-            ;
+          ;
         in
         ''
           cd "${pythonEnv}/lib/etebase-server";
           daphne ${networking} \
             etebase_server.asgi:application
         ''
-        ;
+      ;
     };
 
     users = optionalAttrs (cfg.user == defaultUser) {

@@ -21,7 +21,7 @@ let
         }.so.2 \
         ${file}
     ''
-    ;
+  ;
   system = stdenv.hostPlatform.system;
 in
 stdenv.mkDerivation rec {
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
           77396
         else
           throw "Unsupported system: ${system}"
-        ;
+      ;
     in
     ''
       ${myPatchElf "opt/brother/scanner/brscan5/brsaneconfig5"}
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
         toString patchOffsetBytes
       } conv=notrunc
     ''
-    ;
+  ;
 
   installPhase = with lib; ''
     runHook preInstall

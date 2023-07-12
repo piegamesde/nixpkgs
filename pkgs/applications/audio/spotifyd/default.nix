@@ -36,7 +36,7 @@ rustPackages.rustPlatform.buildRustPackage rec {
     ++ lib.optional withPulseAudio libpulseaudio
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional (withMpris || withKeyring) dbus
-    ;
+  ;
 
   buildNoDefaultFeatures = true;
   buildFeatures =
@@ -45,7 +45,7 @@ rustPackages.rustPlatform.buildRustPackage rec {
     ++ lib.optional withPortAudio "portaudio_backend"
     ++ lib.optional withMpris "dbus_mpris"
     ++ lib.optional withKeyring "dbus_keyring"
-    ;
+  ;
 
   doCheck = false;
 

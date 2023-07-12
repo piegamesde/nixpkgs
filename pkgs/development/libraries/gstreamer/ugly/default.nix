@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals enableDocumentation [ hotdoc ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       DiskArbitration
     ]
-    ;
+  ;
 
   mesonFlags =
     [
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
           "-Dx264=disabled"
         ]
     )
-    ;
+  ;
 
   postPatch = ''
     patchShebangs \

@@ -31,7 +31,7 @@ buildPythonPackage rec {
       CoreMIDI
       CoreServices
     ]
-    ;
+  ;
 
   setupPyBuildFlags = [ "--from-cython" ];
 

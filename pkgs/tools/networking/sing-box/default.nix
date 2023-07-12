@@ -52,7 +52,7 @@ buildGoModule rec {
         --fish <(${emulator} $out/bin/sing-box completion fish) \
         --zsh  <(${emulator} $out/bin/sing-box completion zsh )
     ''
-    ;
+  ;
 
   passthru.updateScript = nix-update-script { };
 

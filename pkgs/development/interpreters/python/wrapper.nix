@@ -62,7 +62,7 @@ let
           done
         ''
         + postBuild
-        ;
+      ;
 
       inherit (python) meta;
 
@@ -82,6 +82,6 @@ let
         };
       };
     }
-    ;
+  ;
 in
 env

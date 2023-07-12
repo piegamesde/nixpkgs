@@ -75,7 +75,7 @@ let
         szipSupport = enableSzip;
         inherit szip;
       }
-    ;
+  ;
   hdf5-custom =
     if hdf5-forced != null then
       hdf5-forced
@@ -87,20 +87,20 @@ let
         szipSupport = enableSzip;
         inherit szip;
       }
-    ;
+  ;
   netcdf-custom =
     if netcdf-forced != null then
       netcdf-forced
     else
       netcdf.override { hdf5 = hdf5-custom; }
-    ;
+  ;
   enablePlplotDrivers = enableWX || enableXWin;
   plplot-with-drivers =
     if plplot-forced != null then
       plplot-forced
     else
       plplot.override { inherit enableWX enableXWin; }
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "gnudatalanguage";
@@ -148,7 +148,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableMPI mpi
     ++ lib.optional enableLibtirpc hdf4-custom.libtirpc
     ++ lib.optional enableSzip szip
-    ;
+  ;
 
   propagatedBuildInputs = [ (python3.withPackages (ps: with ps; [ numpy ])) ];
 
@@ -171,7 +171,7 @@ stdenv.mkDerivation rec {
       "-DMPI=ON"
       "-DMPIDIR=${mpi}"
     ]
-    ;
+  ;
 
   # Tests are failing on Hydra:
   # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object

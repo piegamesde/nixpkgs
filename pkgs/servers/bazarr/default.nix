@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       ))
     ]
     ++ runtimeProgDeps
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

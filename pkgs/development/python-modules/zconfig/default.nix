@@ -21,7 +21,7 @@ buildPythonPackage rec {
   patches =
     lib.optional stdenv.hostPlatform.isMusl
       ./remove-setlocale-test.patch
-    ;
+  ;
 
   buildInputs = [
     manuel

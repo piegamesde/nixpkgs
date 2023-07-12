@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
         Foundation
       ]
     )
-    ;
+  ;
 
   # Tectonic runs biber when it detects it needs to run it, see:
   # https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.7.0
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage rec {
 
       ln -s $out/bin/tectonic $out/bin/nextonic
     ''
-    ;
+  ;
 
   doCheck = true;
 

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       imagemagick
     ]
     ++ lib.optional stdenv.isDarwin Foundation
-    ;
+  ;
 
   meta = {
     description = "Data matrix command-line utilities";

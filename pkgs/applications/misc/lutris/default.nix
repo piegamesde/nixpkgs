@@ -108,7 +108,7 @@ buildPythonApplication rec {
         gstreamer
       ]
     )
-    ;
+  ;
 
   # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
   propagatedBuildInputs = [
@@ -136,7 +136,7 @@ buildPythonApplication rec {
       flake8
     ]
     ++ requiredTools
-    ;
+  ;
   checkPhase = ''
     runHook preCheck
 

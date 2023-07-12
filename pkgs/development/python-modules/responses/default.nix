@@ -37,7 +37,7 @@ buildPythonPackage rec {
       urllib3
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytest-asyncio

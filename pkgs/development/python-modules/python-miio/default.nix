@@ -66,7 +66,7 @@ buildPythonPackage rec {
       zeroconf
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytest-asyncio

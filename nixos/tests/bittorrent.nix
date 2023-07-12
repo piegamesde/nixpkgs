@@ -38,7 +38,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
   in
 
   {
@@ -79,7 +79,7 @@ import ./make-test-python.nix (
           };
           services.opentracker.enable = true;
         }
-        ;
+      ;
 
       router =
         {
@@ -114,7 +114,7 @@ import ./make-test-python.nix (
             '';
           };
         }
-        ;
+      ;
 
       client1 =
         {
@@ -134,7 +134,7 @@ import ./make-test-python.nix (
           networking.defaultGateway = internalRouterAddress;
           networking.firewall.enable = false;
         }
-        ;
+      ;
 
       client2 =
         {
@@ -151,7 +151,7 @@ import ./make-test-python.nix (
           } ];
           networking.firewall.enable = false;
         }
-        ;
+      ;
     };
 
     testScript =
@@ -208,6 +208,6 @@ import ./make-test-python.nix (
             "cmp ${download-dir}/test.tar.bz2 ${file}"
         )
       ''
-      ;
+    ;
   }
 )

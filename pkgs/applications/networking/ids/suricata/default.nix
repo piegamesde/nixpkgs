@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       rustc
       cargo
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
       redis
       hiredis
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
       "--enable-rust"
       "--enable-rust-experimental"
     ]
-    ;
+  ;
 
   postConfigure = ''
     # Avoid unintended clousure growth.

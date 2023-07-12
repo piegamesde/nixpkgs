@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation rec {
       sparseCheckout = [ sparseCheckout ];
     }
     + sparseCheckout
-    ;
+  ;
 
   nativeBuildInputs = [
     copyDesktopItems

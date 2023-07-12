@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableLZ4 lz4
     ++ lib.optional enableOpenSSL openssl
     ++ lib.optional enableXXHash xxHash
-    ;
+  ;
 
   configureFlags =
     [
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
           # fix `multiversioning needs 'ifunc' which is not supported on this target` error
           "--disable-roll-simd"
         ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

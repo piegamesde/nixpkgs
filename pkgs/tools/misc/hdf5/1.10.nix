@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     optional enableShared "--enable-shared"
     ++ optional javaSupport "--enable-java"
-    ;
+  ;
 
   patches = [ ];
 

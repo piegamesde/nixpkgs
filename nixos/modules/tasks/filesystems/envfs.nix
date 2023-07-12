@@ -57,7 +57,7 @@ in
         description =
           lib.mdDoc
             "Extra commands to run in the package that contains fallback executables in case not other executable is found"
-          ;
+        ;
       };
     };
   };

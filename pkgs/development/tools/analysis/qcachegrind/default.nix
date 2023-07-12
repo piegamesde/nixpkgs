@@ -52,7 +52,7 @@ stdenv.mkDerivation {
           install -Dm644 kcachegrind/48-apps-kcachegrind.png "$out/share/icons/hicolor/48x48/apps/kcachegrind.png"
         ''
     )
-    ;
+  ;
 
   preFixup = ''
     wrapQtApp "$out/bin/qcachegrind"

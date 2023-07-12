@@ -82,7 +82,7 @@ let
         lib.optionalString
           (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
           ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")''
-        ;
+      ;
 
       outputs = [
         "out"
@@ -104,7 +104,7 @@ let
             autoreconfHook # if we changed our ./configure script, need to reconfigure
         ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ vala ]
         ++ extraNativeBuildInputs
-        ;
+      ;
 
       buildInputs =
         [
@@ -116,7 +116,7 @@ let
           lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
             graphviz
         ++ extraBuildInputs
-        ;
+      ;
 
       enableParallelBuilding = true;
 
@@ -133,7 +133,7 @@ let
                 roundUpToEven (lib.toInt (lib.versions.minor version))
               )
             }"
-            ;
+          ;
           packageName = pname;
           freeze = true;
         };

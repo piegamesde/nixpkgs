@@ -40,7 +40,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.optionals (pythonOlder "3.10") [ tornado_4 ]
-    ;
+  ;
 
   disabledTests = [
     # Makes HTTP requests

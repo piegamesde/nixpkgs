@@ -49,7 +49,7 @@ import ../make-test-python.nix (
                   "submission tls://0.0.0.0:465 tcp://0.0.0.0:587"
                 ]
                 options.services.maddy.config.default
-              ;
+            ;
           };
           # Not covered by openFirewall yet
           networking.firewall.allowedTCPPorts = [
@@ -57,7 +57,7 @@ import ../make-test-python.nix (
             465
           ];
         }
-        ;
+      ;
 
       client =
         {
@@ -100,7 +100,7 @@ import ../make-test-python.nix (
             '')
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

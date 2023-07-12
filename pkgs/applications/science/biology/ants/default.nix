@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       vtk
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DANTS_SUPERBUILD=FALSE"

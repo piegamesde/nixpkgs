@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           mkdir /test
         '';
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

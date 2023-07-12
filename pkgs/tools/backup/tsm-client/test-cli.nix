@@ -32,7 +32,7 @@ let
       fixup = lib.lists.elemAt (lib.versions.splitVersion version) 3;
     in
     "Client Version ${major}, Release ${minor}, Level ${patch}.${fixup}"
-    ;
+  ;
 in
 
 runCommand "${tsm-client.name}-test-cli" env ''

@@ -48,7 +48,7 @@ let
       buildInputs
       hardeningDisable
       NIX_LDFLAGS
-      ;
+    ;
     pname = "${name}-engine";
     enableParallelBuilding = true;
     preBuild = "cd zod_src";
@@ -67,7 +67,7 @@ let
       buildInputs
       hardeningDisable
       NIX_LDFLAGS
-      ;
+    ;
     pname = "${name}-map_editor";
     enableParallelBuilding = true;
     preBuild = "cd zod_src";

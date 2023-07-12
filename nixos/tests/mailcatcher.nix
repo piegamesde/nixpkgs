@@ -25,7 +25,7 @@ import ./make-test-python.nix (
 
         environment.systemPackages = [ pkgs.mailutils ];
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

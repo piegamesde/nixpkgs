@@ -48,7 +48,7 @@ buildNpmPackage rec {
       pango
     ]
     ++ lib.optionals stdenv.isDarwin [ CoreText ]
-    ;
+  ;
 
   postInstall = ''
     makeWrapper ${nodePackages.ts-node}/bin/ts-node $out/bin/lv_img_conv --add-flags $out/lib/node_modules/lv_img_conv/lib/cli.ts

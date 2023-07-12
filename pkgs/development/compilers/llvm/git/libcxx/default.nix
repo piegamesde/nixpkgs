@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       ../../libcxx-0001-musl-hacks.patch
     ]
-    ;
+  ;
 
   postPatch = ''
     cd ../runtimes
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+  ;
 
   buildInputs = lib.optionals (!headersOnly) [ cxxabi ];
 
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
     ]
-    ;
+  ;
 
   ninjaFlags = lib.optional headersOnly "generate-cxx-headers";
   installTargets = lib.optional headersOnly "install-cxx-headers";

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional fontconfigSupport fontconfig
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   meta = with lib; {
     description = "Portable ASS/SSA subtitle renderer";

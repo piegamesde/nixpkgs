@@ -19,7 +19,7 @@ let
         extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
         extraGSettingsOverrides = cfg.extraGSettingsOverrides;
       }
-    ;
+  ;
 in
 
 {
@@ -86,7 +86,7 @@ in
         description =
           lib.mdDoc
             "List of packages for which gsettings are overridden."
-          ;
+        ;
       };
 
       debug = mkEnableOption (lib.mdDoc "gnome-session debug messages");
@@ -99,7 +99,7 @@ in
       description =
         lib.mdDoc
           "Which packages pantheon should exclude from the default environment"
-        ;
+      ;
     };
   };
 
@@ -108,7 +108,7 @@ in
       services.xserver.desktopManager.pantheon.sessionPath =
         utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ]
           config.environment.pantheon.excludePackages
-        ;
+      ;
 
       services.xserver.displayManager.sessionPackages = [
         pkgs.pantheon.elementary-session-settings
@@ -121,12 +121,12 @@ in
           ''
             Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
           ''
-        ;
+      ;
 
       services.xserver.displayManager.lightdm.greeters.pantheon.enable =
         mkDefault
           true
-        ;
+      ;
 
       # Without this, elementary LightDM greeter will pre-select non-existent `default` session
       # https://github.com/elementary/greeter/issues/368
@@ -261,7 +261,7 @@ in
               )
             )
             config.environment.pantheon.excludePackages
-        ;
+      ;
 
       # Settings from elementary-default-settings
       environment.etc."gtk-3.0/settings.ini".source =
@@ -352,7 +352,7 @@ in
             )
           )
           config.environment.pantheon.excludePackages
-        ;
+      ;
 
       # needed by screenshot
       fonts.fonts = [ pkgs.pantheon.elementary-redacted-script ];

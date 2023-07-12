@@ -35,7 +35,7 @@ buildPythonPackage rec {
       click-option-group
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ;
+  ;
 
   passthru.optional-dependencies = { click = [ click ]; };
 
@@ -45,7 +45,7 @@ buildPythonPackage rec {
       typing-extensions
     ]
     ++ passthru.optional-dependencies.click
-    ;
+  ;
 
   pytestFlagsArray = [ "tests" ];
 

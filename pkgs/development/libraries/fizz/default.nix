@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
     ]
-    ;
+  ;
 
   NIX_LDFLAGS = "-lz";
 

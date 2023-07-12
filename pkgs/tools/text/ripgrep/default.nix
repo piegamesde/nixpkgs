@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       installShellFiles
     ]
     ++ lib.optional withPCRE2 pkg-config
-    ;
+  ;
   buildInputs =
     lib.optional withPCRE2 pcre2 ++ lib.optional stdenv.isDarwin Security;
 
@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
     + lib.optionalString withPCRE2 ''
       echo '(a(aa)aa)' | $out/bin/rg -P '\((a*|(?R))*\)'
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

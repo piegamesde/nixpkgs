@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       gnutls
     ]
     ++ lib.optionals withPAMSupport [ pam ]
-    ;
+  ;
 
   # testing requires some networking
   # doCheck = true;

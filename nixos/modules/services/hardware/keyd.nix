@@ -65,7 +65,7 @@ in
             settingsFormat.generate "keyd-main.conf" cfg.settings
           } >$out
         ''
-      ;
+    ;
 
     hardware.uinput.enable = lib.mkDefault true;
 

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       libieee1284
       bluez
     ]
-    ;
+  ;
 
   strictDeps = true;
 

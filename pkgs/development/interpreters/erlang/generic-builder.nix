@@ -113,7 +113,7 @@ stdenv.mkDerivation (
       + optionalString javacSupport "_javac"
       + optionalString odbcSupport "_odbc"
       + "-${version}"
-      ;
+    ;
 
     inherit src version;
 
@@ -143,7 +143,7 @@ stdenv.mkDerivation (
           WebKit
         ]
       )
-      ;
+    ;
 
     debugInfo = enableDebugInfo;
 
@@ -177,7 +177,7 @@ stdenv.mkDerivation (
       # make[3]: *** [yecc.beam] Segmentation fault: 11
       ++ optional (stdenv.isDarwin && stdenv.isx86_64) "--disable-jit"
       ++ configureFlags
-      ;
+    ;
 
     # install-docs will generate and install manpages and html docs
     # (PDFs are generated only when fop is available).
@@ -224,7 +224,7 @@ stdenv.mkDerivation (
             echo "${baseName}R${major} is already up-to-date"
           fi
         ''
-        ;
+      ;
     };
 
     meta = with lib;

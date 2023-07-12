@@ -53,7 +53,7 @@ python3Packages.buildPythonApplication rec {
       "--deselect=tests/client_test/aiotransmission_test/api_torrent_test.py"
       "--deselect=tests/client_test/aiotransmission_test/rpc_test.py"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "TUI and CLI for the BitTorrent client Transmission";

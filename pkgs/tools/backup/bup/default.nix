@@ -58,7 +58,7 @@ stdenv.mkDerivation {
     + lib.optionalString par2Support ''
       substituteInPlace cmd/fsck-cmd.py --replace "'par2'" "'${par2cmdline}/bin/par2'"
     ''
-    ;
+  ;
 
   dontAddPrefix = true;
 

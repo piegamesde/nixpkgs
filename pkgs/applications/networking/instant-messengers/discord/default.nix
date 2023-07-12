@@ -19,7 +19,7 @@ let
         ptb = "0.0.59";
         canary = "0.0.283";
       }
-    ;
+  ;
   version = versions.${branch};
   srcs = rec {
     x86_64-linux = {

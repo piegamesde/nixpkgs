@@ -65,7 +65,7 @@ let
     Carbon
     IOKit
     Cocoa
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "aegisub";
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
     ++ optional portaudioSupport portaudio
     ++ optional pulseaudioSupport libpulseaudio
     ++ optional spellcheckSupport hunspell
-    ;
+  ;
 
   enableParallelBuilding = true;
 

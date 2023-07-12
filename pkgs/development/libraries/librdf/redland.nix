@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withSqlite sqlite
     ++ lib.optional withPostgresql postgresql
     ++ lib.optional withBdb db
-    ;
+  ;
 
   propagatedBuildInputs = [ librdf_rasqal ];
 
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       "--with-bdb-include=${db.dev}/include"
       "--with-bdb-lib=${db.out}/lib"
     ]
-    ;
+  ;
 
   # Fix broken DT_NEEDED in lib/redland/librdf_storage_sqlite.so.
   NIX_CFLAGS_LINK = "-lraptor2";

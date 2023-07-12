@@ -15,7 +15,7 @@ let
       name = "errbot-plugins";
       paths = plugins;
     }
-    ;
+  ;
   mkConfigDir =
     instanceCfg: dataDir:
     pkgs.writeTextDir "config.py" ''
@@ -35,7 +35,7 @@ let
 
       ${instanceCfg.extraConfig}
     ''
-    ;
+  ;
 in
 {
   options = {
@@ -86,7 +86,7 @@ in
               description =
                 lib.mdDoc
                   "String to be appended to the config verbatim"
-                ;
+              ;
             };
           };
         }
@@ -112,7 +112,7 @@ in
                   instanceCfg.dataDir
                 else
                   "/var/lib/errbot/${name}"
-                ;
+              ;
             in
             {
               after = [ "network-online.target" ];
@@ -134,6 +134,6 @@ in
           )
         )
         cfg.instances
-      ;
+    ;
   };
 }

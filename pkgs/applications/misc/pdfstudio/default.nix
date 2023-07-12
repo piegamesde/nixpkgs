@@ -28,7 +28,7 @@ let
       "PDF Studio ${year}"
     else
       "PDF Studio Viewer"
-    ;
+  ;
   dot2dash = str: builtins.replaceStrings [ "." ] [ "_" ] str;
 in
 {

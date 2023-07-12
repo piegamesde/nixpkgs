@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage {
   buildInputs =
     lib.optionals stdenv.isDarwin [ Security ]
     ++ lib.optionals stdenv.isLinux [ openssl ]
-    ;
+  ;
 
   passthru = { updateScript = nix-update-script { }; };
 

@@ -61,7 +61,7 @@ let
       }
     else
       ""
-    ;
+  ;
 
   rSubPaths = [
     "lib/${architecture}/jli"
@@ -78,7 +78,7 @@ let
         "oraclejdk"
       else
         "oraclejre" + lib.optionalString pluginSupport "-with-plugin"
-      ;
+    ;
     version = "${productVersion}u${patchVersion}";
 
     src =
@@ -99,7 +99,7 @@ let
           "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html";
         sha256 = sha256.${stdenv.hostPlatform.system};
       }
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -107,7 +107,7 @@ let
         makeWrapper
       ]
       ++ lib.optional installjce unzip
-      ;
+    ;
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
@@ -219,7 +219,7 @@ let
         xorg.libXrender
         stdenv.cc.cc
       ]
-      ;
+    ;
 
     rpath = lib.strings.makeLibraryPath libraries;
 
@@ -228,7 +228,7 @@ let
         "/jre/lib/${architecture}/plugins"
       else
         "/lib/${architecture}/plugins"
-      ;
+    ;
 
     passthru.jre =
       result; # FIXME: use multiple outputs or return actual JRE package

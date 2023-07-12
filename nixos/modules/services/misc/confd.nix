@@ -51,7 +51,7 @@ in
       description =
         lib.mdDoc
           "Confd, whether to watch etcd config for changes."
-        ;
+      ;
       default = true;
       type = types.bool;
     };

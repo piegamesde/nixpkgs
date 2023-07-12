@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals withPythonModule [ swig ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withSystemd [ systemd ]
     ++ lib.optionals withDoH [ libnghttp2 ]
     ++ lib.optionals withPythonModule [ python ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
       "--enable-cachedb"
       "--with-libhiredis=${hiredis}"
     ]
-    ;
+  ;
 
   PROTOC_C = lib.optionalString withDNSTAP "${protobufc}/bin/protoc-c";
 
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
     ''
       sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
     ''
-    ;
+  ;
 
   nativeCheckInputs = [ bison ];
 
@@ -161,7 +161,7 @@ stdenv.mkDerivation rec {
         --prefix PYTHONPATH : "$out/${python.sitePackages}" \
         --argv0 $out/bin/unbound
     ''
-    ;
+  ;
 
   preFixup =
     lib.optionalString withSlimLib
@@ -186,7 +186,7 @@ stdenv.mkDerivation rec {
             " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'"
         )
         (builtins.filter (p: p != null) buildInputs)
-    ;
+  ;
 
   passthru.tests = {
     inherit gnutls;

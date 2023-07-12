@@ -43,7 +43,7 @@ builder rec {
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         pkgsBuildBuild.guile_2_2
-    ;
+  ;
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -87,7 +87,7 @@ builder rec {
         sha256 = "12wvwdna9j8795x59ldryv9d84c1j3qdk2iskw09306idfsis207";
       }
     )
-    ;
+  ;
 
   # Explicitly link against libgcc_s, to work around the infamous
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
@@ -96,7 +96,7 @@ builder rec {
   LDFLAGS =
     lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
       "-lgcc_s"
-    ;
+  ;
 
   configureFlags =
     [ "--with-libreadline-prefix=${lib.getDev readline}" ]
@@ -113,7 +113,7 @@ builder rec {
       # See below.
       "--without-threads"
     ]
-    ;
+  ;
 
   postInstall =
     ''
@@ -130,7 +130,7 @@ builder rec {
               s|includedir=$out|includedir=$dev|g
               "
     ''
-    ;
+  ;
 
   # make check doesn't work on darwin
   # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.

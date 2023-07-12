@@ -35,7 +35,7 @@ with pkgs.lib;
           };
         };
       }
-      ;
+    ;
 
     # ensure vector is forwarding the messages appropriately
     testScript = ''

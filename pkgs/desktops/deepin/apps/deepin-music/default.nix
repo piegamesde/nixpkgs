@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
         gst-plugins-good
       ]
     )
-    ;
+  ;
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 

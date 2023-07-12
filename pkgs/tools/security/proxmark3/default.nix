@@ -66,7 +66,7 @@ let
         maintainers = with maintainers; [ fpletz ];
       };
     }
-    ;
+  ;
 in
 
 {

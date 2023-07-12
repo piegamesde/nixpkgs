@@ -24,7 +24,7 @@ import ./make-test-python.nix (
           MINSTOP=hwmon1/device/pwm1=0
         '';
       }
-      ;
+    ;
 
     # This configuration cannot be valid for the test VM, so it's expected to get an 'outdated' error.
     testScript = ''

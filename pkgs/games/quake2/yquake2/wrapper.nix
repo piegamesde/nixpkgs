@@ -36,7 +36,7 @@ stdenv.mkDerivation {
             --add-flags "+set game ${game.id}"
         '')
         games
-    ;
+  ;
 
   meta = { inherit description; };
 }

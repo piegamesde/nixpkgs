@@ -17,7 +17,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable websockify to forward websocket connections to TCP connections."
-          ;
+        ;
 
         default = false;
 
@@ -35,7 +35,7 @@ in
         defaultText =
           literalExpression
             "config.services.networking.websockify.sslCert"
-          ;
+        ;
         type = types.path;
       };
 
@@ -66,7 +66,7 @@ in
         mapAttrsToList
           (name: value: "websockify@${name}:${toString value}.service")
           cfg.portMap
-        ;
+      ;
       wantedBy = [ "multi-user.target" ];
     };
   };

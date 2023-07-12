@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       makeWrapper ${env}/bin/reckon $out/bin/reckon
       runHook postInstall
     ''
-    ;
+  ;
 
   passthru.updateScript = bundlerUpdateScript "reckon";
 

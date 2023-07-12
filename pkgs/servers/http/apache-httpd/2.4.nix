@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional libxml2Support libxml2
     ++ lib.optional http2Support nghttp2
     ++ lib.optional stdenv.isDarwin libiconv
-    ;
+  ;
 
   postPatch = ''
     sed -i config.layout -e "s|installbuilddir:.*|installbuilddir: $dev/share/build|"

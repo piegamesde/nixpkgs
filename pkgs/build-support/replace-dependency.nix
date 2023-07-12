@@ -75,7 +75,7 @@ let
         value =
           elem oldStorepath (referencesOf drv)
           || any dependsOnOld (referencesOf drv)
-          ;
+        ;
       })
       (builtins.attrNames references)
   );
@@ -89,7 +89,7 @@ let
         builtins.baseNameOf drv
       )
     )
-    ;
+  ;
 
   rewriteHashes =
     drv: hashes:
@@ -104,7 +104,7 @@ let
         )
       } | $nixStore --restore $out
     ''
-    ;
+  ;
 
   rewrittenDeps = listToAttrs [ {
     name = discard (toString oldDependency);

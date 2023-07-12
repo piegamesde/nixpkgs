@@ -45,7 +45,7 @@ stdenv.mkDerivation (
       ++ lib.optionals withBzip2 [ bzip2 ]
       ++ lib.optionals withOpenssl [ openssl ]
       ++ lib.optionals withZstd [ zstd ]
-      ;
+    ;
 
     # Don't build the regression tests because they don't build with
     # pkgsStatic and are not executed anyway.
@@ -59,7 +59,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://libzip.org/";

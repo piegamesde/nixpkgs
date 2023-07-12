@@ -91,7 +91,7 @@ in
         AccessLog = "${logDir}/access.log";
         ErrorLog = "${logDir}/error.log";
       }
-      ;
+    ;
 
     systemd.services.molly-brown = {
       description = "Molly Brown gemini server";

@@ -33,7 +33,7 @@ import ./make-test-python.nix (
         };
         environment.systemPackages = with pkgs; [ jq ];
       }
-      ;
+    ;
 
     testScript =
       let
@@ -167,6 +167,6 @@ import ./make-test-python.nix (
 
         machine.shutdown()
       ''
-      ;
+    ;
   }
 )

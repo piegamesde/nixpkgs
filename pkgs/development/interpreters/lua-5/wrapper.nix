@@ -63,7 +63,7 @@ let
           done
         ''
         + postBuild
-        ;
+      ;
 
       inherit (lua) meta;
 
@@ -85,6 +85,6 @@ let
         };
       };
     }
-    ;
+  ;
 in
 env

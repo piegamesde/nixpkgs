@@ -25,7 +25,7 @@ buildPythonPackage rec {
     [ pytest ]
     ++ passthru.optional-dependencies.pycryptodome
     ++ passthru.optional-dependencies.pysha3
-    ;
+  ;
 
   checkPhase = ''
     pytest tests/backends/pycryptodome/

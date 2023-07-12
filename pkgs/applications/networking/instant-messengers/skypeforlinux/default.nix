@@ -95,7 +95,7 @@ let
       xorg.libxcb
     ]
     + ":${stdenv.cc.cc.lib}/lib64"
-    ;
+  ;
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -109,7 +109,7 @@ let
       }
     else
       throw "Skype for linux is not supported on ${stdenv.hostPlatform.system}"
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "skypeforlinux";

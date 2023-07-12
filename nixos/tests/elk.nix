@@ -170,7 +170,7 @@ let
                 };
               };
             }
-            ;
+          ;
         };
 
         passthru.elkPackages = elk;
@@ -180,7 +180,7 @@ let
               lib.optionalString
                 (lib.versionAtLeast elk.elasticsearch.version "7")
                 ".value"
-              ;
+            ;
           in
           ''
             import json
@@ -292,10 +292,10 @@ let
                     '! curl --silent --show-error --fail-with-body "${esUrl}/_cat/indices" | grep logstash | grep ^'
                 )
           ''
-          ;
+        ;
       })
       { inherit pkgs system; }
-    ;
+  ;
 in
 {
   # We currently only package upstream binaries.

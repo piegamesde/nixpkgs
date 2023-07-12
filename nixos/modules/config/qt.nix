@@ -17,14 +17,14 @@ let
       "adwaita"
       "adwaita-dark"
     ]
-    ;
+  ;
   isQtStyle =
     cfg.platformTheme == "gtk2"
     && !(builtins.elem cfg.style [
       "adwaita"
       "adwaita-dark"
     ])
-    ;
+  ;
   isQt5ct = cfg.platformTheme == "qt5ct";
   isLxqt = cfg.platformTheme == "lxqt";
   isKde = cfg.platformTheme == "kde";
@@ -54,7 +54,7 @@ let
     else
       throw
         "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible."
-    ;
+  ;
 in
 
 {
@@ -193,7 +193,7 @@ in
         QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
         QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
       }
-      ;
+    ;
 
     environment.systemPackages = packages;
   };

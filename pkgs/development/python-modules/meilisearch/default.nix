@@ -30,7 +30,7 @@ buildPythonPackage rec {
       requests
     ]
     ++ camel-converter.optional-dependencies.pydantic
-    ;
+  ;
 
   pythonImportsCheck = [ "meilisearch" ];
 

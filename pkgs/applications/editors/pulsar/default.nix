@@ -49,14 +49,14 @@ let
   hunspellDirs =
     builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell")
       languages
-    ;
+  ;
   hunspellTargetDirs =
     "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
   hunspellCopyCommands =
     lib.concatMapStringsSep "\n"
       (lang: "cp -r ${lang}/* ${hunspellTargetDirs};")
       hunspellDirs
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   inherit pname version;
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       # On all platforms, we must inject our dictionnaries
       ${hunspellCopyCommands}
     ''
-    ;
+  ;
 
   postFixup =
     ''
@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/share/nemo/actions
       cp ${./pulsar.nemo_action} $out/share/nemo/actions/pulsar.nemo_action
     ''
-    ;
+  ;
 
   desktopItems = [
     (makeDesktopItem {

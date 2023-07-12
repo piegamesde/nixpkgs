@@ -39,7 +39,7 @@ let
         maintainers = with maintainers; [ sudosubin ];
       };
     }
-    ;
+  ;
 in
 {
   pretendard = mkPretendard {

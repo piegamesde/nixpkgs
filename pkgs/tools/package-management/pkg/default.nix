@@ -44,7 +44,7 @@ stdenv.mkDerivation (
         zlib
       ]
       ++ lib.optional stdenv.isLinux libbsd
-      ;
+    ;
 
     enableParallelBuilding = true;
 

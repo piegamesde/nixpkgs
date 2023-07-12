@@ -24,7 +24,7 @@ let
     drv' // {
       meta = meta' // overrideFn meta';
     }
-    ;
+  ;
 
   bin = haskell.lib.compose.justStaticExecutables ShellCheck;
 

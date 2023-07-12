@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "-config"
       "qt_framework"
     ]
-    ;
+  ;
 
   dontWrapQtApps = true;
 

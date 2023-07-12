@@ -117,7 +117,7 @@ let
       EOT
       chmod +x $out/bin/${wrappername}
     ''
-    ;
+  ;
 
   unvanquished-assets = stdenv.mkDerivation {
     pname = "unvanquished-assets";

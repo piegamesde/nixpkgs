@@ -74,7 +74,7 @@ let
       )
       (r: r)
       crossOverlays
-    ;
+  ;
 
   localSystem = lib.systems.elaborate args.localSystem;
 
@@ -84,7 +84,7 @@ let
       localSystem
     else
       lib.systems.elaborate crossSystem0
-    ;
+  ;
 
   # Allow both:
   # { /* the config */ } and

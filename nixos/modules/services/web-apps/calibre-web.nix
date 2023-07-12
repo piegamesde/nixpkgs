@@ -16,7 +16,7 @@ let
     optional
     optionalString
     types
-    ;
+  ;
 in
 {
   options = {
@@ -169,7 +169,7 @@ in
           Restart = "on-failure";
         };
       }
-      ;
+    ;
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [ cfg.listen.port ];

@@ -42,7 +42,7 @@ let
               splitBin.wrong
           )
           (lib.getBin ghostscript)
-      ;
+    ;
     nonbin = splitBin.wrong;
 
     # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
@@ -56,12 +56,12 @@ let
         "dviasm"
         "texliveonfly"
       ]
-      ;
+    ;
     pkgNeedsRuby = pkg: pkg.tlType == "run" && pkg.pname == "match-parens";
     extraInputs =
       lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3
       ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby
-      ;
+    ;
   };
 
   name = "texlive-${extraName}-${bin.texliveYear}${extraVersion}";
@@ -88,7 +88,7 @@ let
         '';
     }).overrideAttrs
       (_: { allowSubstitutes = true; })
-    ;
+  ;
 
   # expose info and man pages in usual /share/{info,man} location
   doc = buildEnv {
@@ -183,19 +183,19 @@ in
           hyphens =
             lib.filter (p: p.hasHyphens or false && p.tlType == "run")
               pkgList.splitBin.wrong
-            ;
+          ;
           hyphenPNames = map (p: p.pname) hyphens;
           formats =
             lib.filter (p: p.hasFormats or false && p.tlType == "run")
               pkgList.splitBin.wrong
-            ;
+          ;
           formatPNames = map (p: p.pname) formats;
           # sed expression that prints the lines in /start/,/end/ except for /end/
           section =
             start: end: ''
               /${start}/,/${end}/{ /${start}/p; /${end}/!p; };
             ''
-            ;
+          ;
           script = writeText "hyphens.sed" (
             # document how the file was generated (for language.dat)
             ''
@@ -240,7 +240,7 @@ in
             pname: ''
               /^# from ${pname}:$/,/^# from/{ s/^#! //; };
             ''
-            ;
+          ;
           fmtutilSed = writeText "fmtutil.sed" (
             # document how file was generated
             ''
@@ -415,6 +415,6 @@ in
       ''
         find "$TEXMFSYSVAR"/web2c -name '*.log' -delete
       ''
-    ;
+  ;
 }).overrideAttrs
   (_: { allowSubstitutes = true; })

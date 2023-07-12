@@ -42,7 +42,7 @@ with lib;
   security.unprivilegedUsernsClone =
     mkDefault
       config.virtualisation.containers.enable
-    ;
+  ;
 
   security.virtualisation.flushL1DataCache = mkDefault "always";
 

@@ -18,7 +18,7 @@ import ./make-test-python.nix (
         sound.enable = true;
         environment.systemPackages = [ pkgs.shattered-pixel-dungeon ];
       }
-      ;
+    ;
 
     enableOCR = true;
 

@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       CoreServices
       OpenCL
     ]
-    ;
+  ;
 
   inherit donateLevel;
 

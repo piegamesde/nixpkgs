@@ -52,12 +52,12 @@ import ./make-test-python.nix (
               };
             in
             "${osrm-data}/${filename}.osrm"
-            ;
+          ;
         };
 
         environment.systemPackages = [ pkgs.jq ];
       }
-      ;
+    ;
 
     testScript =
       let
@@ -76,6 +76,6 @@ import ./make-test-python.nix (
             "curl --fail --silent '${query}' | jq .waypoints[1].name"
         )
       ''
-      ;
+    ;
   }
 )

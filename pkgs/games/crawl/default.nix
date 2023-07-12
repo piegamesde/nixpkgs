@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
         OpenGL
       ]
     ))
-    ;
+  ;
 
   preBuild = ''
     cd crawl-ref/source
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional tileMode "TILES=y"
     ++ lib.optional enableSound "SOUND=y"
-    ;
+  ;
 
   postInstall = ''
     ${lib.optionalString tileMode "mv $out/bin/crawl $out/bin/crawl-tiles"}

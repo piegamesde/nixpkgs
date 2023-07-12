@@ -38,7 +38,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.loguru
-    ;
+  ;
 
   pythonImportsCheck = [ "python_utils" ];
 

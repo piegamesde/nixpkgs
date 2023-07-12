@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       protobuf
       python3
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       "-DLIBZMQ_TARBALL_URL=${lbzmqsrc}"
     ]
     ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
-    ;
+  ;
 
   meta = with lib; {
     description = "Private cryptocurrency based on Monero";

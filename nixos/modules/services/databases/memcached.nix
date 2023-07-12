@@ -51,7 +51,7 @@ in
         description =
           lib.mdDoc
             "The maximum amount of memory to use for storage, in megabytes."
-          ;
+        ;
       };
 
       maxConnections = mkOption {
@@ -60,7 +60,7 @@ in
         description =
           lib.mdDoc
             "The maximum number of simultaneous connections."
-          ;
+        ;
       };
 
       extraOptions = mkOption {
@@ -69,7 +69,7 @@ in
         description =
           lib.mdDoc
             "A list of extra options that will be added as a suffix when running memcached."
-          ;
+        ;
       };
     };
   };
@@ -101,14 +101,14 @@ in
                 "-s /run/memcached/memcached.sock"
               else
                 "-l ${cfg.listen} -p ${toString cfg.port}"
-              ;
+            ;
           in
           "${memcached}/bin/memcached ${networking} -m ${
             toString cfg.maxMemory
           } -c ${toString cfg.maxConnections} ${
             concatStringsSep " " cfg.extraOptions
           }"
-          ;
+        ;
 
         User = cfg.user;
 

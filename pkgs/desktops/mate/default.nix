@@ -20,9 +20,9 @@ let
           inherit odd-unstable rev-prefix;
           url =
             if url == null then "https://git.mate-desktop.org/${pname}" else url
-            ;
+          ;
         }
-        ;
+      ;
 
       atril = callPackage ./atril { };
       caja = callPackage ./caja { };
@@ -57,7 +57,7 @@ let
       mate-settings-daemon-wrapped =
         callPackage ./mate-settings-daemon/wrapped.nix
           { }
-        ;
+      ;
       mate-screensaver = callPackage ./mate-screensaver { };
       mate-system-monitor = callPackage ./mate-system-monitor { };
       mate-terminal = callPackage ./mate-terminal { };
@@ -113,6 +113,6 @@ let
         pluma
       ];
     }
-    ;
+  ;
 in
 lib.makeScope pkgs.newScope packages

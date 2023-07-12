@@ -32,7 +32,7 @@ else
           unwrapped
           unwrapped.volk
         ]
-        ;
+      ;
     };
   in
   mkDerivation (args // args_)

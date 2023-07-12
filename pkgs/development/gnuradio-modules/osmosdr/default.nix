@@ -85,7 +85,7 @@ mkDerivation {
       darwin.apple_sdk.frameworks.IOKit
       darwin.apple_sdk.frameworks.Security
     ]
-    ;
+  ;
   cmakeFlags = [
     (
       if (gnuradio.hasFeature "python-support") then
@@ -109,7 +109,7 @@ mkDerivation {
       )
       python
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Gnuradio block for OsmoSDR and rtl-sdr";

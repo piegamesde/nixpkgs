@@ -80,7 +80,7 @@ python3.pkgs.buildPythonApplication rec {
       xorg.libxkbfile
     ]
     ++ lib.optional atspiSupport at-spi2-core
-    ;
+  ;
 
   pythonPath = with python3.pkgs; [
     dbus-python

@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     + glibc.dev
     + "/include"
     + e
-    ;
+  ;
 
   preConfigure = ''
     sed -i 's|liblldb LIBLLDB_LIBRARIES|liblldb LIBNOTHING|g' CMakeLists.txt

@@ -60,7 +60,7 @@ buildPythonPackage rec {
     extras // {
       all = lib.concatLists (lib.attrValues extras);
     }
-    ;
+  ;
 
   nativeCheckInputs =
     [ pytestCheckHook ]
@@ -78,7 +78,7 @@ buildPythonPackage rec {
         )
         passthru.optional-dependencies
     )
-    ;
+  ;
 
   pythonImportsCheck = [ "fontTools" ];
 

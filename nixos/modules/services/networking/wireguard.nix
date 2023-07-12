@@ -92,7 +92,7 @@ let
           description =
             lib.mdDoc
               "Commands called at the end of the interface setup."
-            ;
+          ;
         };
 
         postShutdown = mkOption {
@@ -104,7 +104,7 @@ let
           description =
             lib.mdDoc
               "Commands called after shutting down the interface."
-            ;
+          ;
         };
 
         table = mkOption {
@@ -188,7 +188,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   # peer options
 
@@ -305,7 +305,7 @@ let
                   but it might at anytime receive traffic from a peer, and it is behind
                   NAT, the interface might benefit from having a persistent keepalive
                   interval of 25 seconds; however, most users will not need this.''
-          ;
+        ;
       };
     };
   };
@@ -338,7 +338,7 @@ let
         fi
       '';
     }
-    ;
+  ;
 
   peerUnitServiceName =
     interfaceName: publicKey: dynamicRefreshEnabled:
@@ -359,12 +359,12 @@ let
             "\\x2b"
             "\\x3d"
           ]
-        ;
+      ;
       unitName = keyToUnitName publicKey;
       refreshSuffix = optionalString dynamicRefreshEnabled "-refresh";
     in
     "wireguard-${interfaceName}-peer-${unitName}${refreshSuffix}"
-    ;
+  ;
 
   generatePeerUnit =
     {
@@ -378,7 +378,7 @@ let
           pkgs.writeText "wg-psk" peer.presharedKey
         else
           peer.presharedKeyFile
-        ;
+      ;
       src = interfaceCfg.socketNamespace;
       dst = interfaceCfg.interfaceNamespace;
       ip = nsWrap "ip" src dst;
@@ -390,7 +390,7 @@ let
       serviceName =
         peerUnitServiceName interfaceName peer.publicKey
           dynamicRefreshEnabled
-        ;
+      ;
     in
     nameValuePair serviceName {
       description = "WireGuard Peer - ${interfaceName} - ${peer.publicKey}";
@@ -429,9 +429,9 @@ let
                 peer.dynamicEndpointRefreshRestartSeconds
               else
                 peer.dynamicEndpointRefreshSeconds
-              ;
+            ;
           }
-        ;
+      ;
       unitConfig = lib.optionalAttrs dynamicRefreshEnabled {
         StartLimitIntervalSec = 0;
       };
@@ -471,7 +471,7 @@ let
             done
           ''}
         ''
-        ;
+      ;
 
       postStop =
         let
@@ -489,9 +489,9 @@ let
           ${wg} set "${interfaceName}" peer "${peer.publicKey}" remove
           ${route_destroy}
         ''
-        ;
+      ;
     }
-    ;
+  ;
 
   # the target is required to start new peer units when they are added
   generateInterfaceTarget =
@@ -503,7 +503,7 @@ let
           peer.dynamicEndpointRefreshSeconds != 0
         ))
         + ".service"
-        ;
+      ;
     in
     nameValuePair "wireguard-${name}" rec {
       description = "WireGuard Tunnel - ${name}";
@@ -511,7 +511,7 @@ let
       wants = [ "wireguard-${name}.service" ] ++ map mkPeerUnit values.peers;
       after = wants;
     }
-    ;
+  ;
 
   generateInterfaceUnit =
     name: values:
@@ -523,7 +523,7 @@ let
           values.privateKeyFile
         else
           pkgs.writeText "wg-key" values.privateKey
-        ;
+      ;
       src = values.socketNamespace;
       dst = values.interfaceNamespace;
       ipPreMove = nsWrap "ip" src null;
@@ -585,7 +585,7 @@ let
         ${values.postShutdown}
       '';
     }
-    ;
+  ;
 
   nsWrap =
     cmd: src: dst:
@@ -600,7 +600,7 @@ let
       ''ip netns exec "${ns}" "${cmd}"''
     else
       cmd
-    ;
+  ;
 in
 
 {
@@ -698,18 +698,18 @@ in
               }: {
                 assertion =
                   (peer.presharedKey == null) || (peer.presharedKeyFile == null)
-                  ;
+                ;
                 message =
                   "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
               }
             )
             all_peers
-        ;
+      ;
 
       boot.extraModulePackages =
         optional (versionOlder kernel.kernel.version "5.6")
           kernel.wireguard
-        ;
+      ;
       environment.systemPackages = [ pkgs.wireguard-tools ];
 
       systemd.services = (mapAttrs' generateInterfaceUnit cfg.interfaces)

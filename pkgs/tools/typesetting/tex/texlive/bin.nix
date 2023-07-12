@@ -80,7 +80,7 @@ let
           ''
             sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
           ''
-      ;
+    ;
 
     configureFlags =
       [
@@ -104,7 +104,7 @@ let
         "libpaper"
         "zlib"
       ]
-      ;
+    ;
 
     # clean broken links to stuff not built
     cleanBrokenLinks = ''
@@ -118,7 +118,7 @@ let
   withLuaJIT =
     !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
     && !stdenv.hostPlatform.isRiscV
-    ;
+  ;
 in
 rec { # un-indented
 
@@ -145,7 +145,7 @@ rec { # un-indented
         texlive.bin.core
         texlive.bin.core.dev
       ]
-      ;
+    ;
 
     buildInputs = [
       # teckit
@@ -199,7 +199,7 @@ rec { # un-indented
         "bibtex-x"
         "upmendex" # ICU isn't small
       ]
-      ;
+    ;
 
     enableParallelBuilding = true;
 
@@ -266,7 +266,7 @@ rec { # un-indented
         cp texk/web2c/.libs/himktables $dev/bin/himktables
       ''
       + cleanBrokenLinks
-      ;
+    ;
 
     setupHook =
       ./setup-hook.sh; # TODO: maybe texmf-nix -> texmf (and all references)
@@ -320,7 +320,7 @@ rec { # un-indented
         graphite2
         libX11
       ]
-      ;
+    ;
 
     configureFlags =
       common.configureFlags
@@ -352,7 +352,7 @@ rec { # un-indented
               "mfluajit"
             ]
           )
-      ;
+    ;
 
     configureScript = ":";
 
@@ -401,7 +401,7 @@ rec { # un-indented
           )
         done
       ''
-      ;
+    ;
 
     preBuild = "cd texk/web2c";
     enableParallelBuilding = true;
@@ -437,7 +437,7 @@ rec { # un-indented
         mv "$out/bin"/mfluajit{,-nowin} "$mflua/bin/"
         mv "$out/bin"/{luajittex,luajithbtex,texluajit,texluajitc} "$luajittex/bin/"
       ''
-      ;
+    ;
   };
 
   chktex = stdenv.mkDerivation {
@@ -515,7 +515,7 @@ rec { # un-indented
         "--with-gs=yes"
         "--disable-debug"
       ]
-      ;
+    ;
 
     GS = "${ghostscript}/bin/gs";
 
@@ -560,7 +560,7 @@ rec { # un-indented
       + lib.optionalString stdenv.isDarwin ''
         shortenPerlShebang "$out"/bin/latexindent
       ''
-      ;
+    ;
   };
 
   pygmentex = python3Packages.buildPythonApplication rec {
@@ -652,7 +652,7 @@ rec { # un-indented
         "--with-system-kpathsea"
         "--with-system-icu"
       ]
-      ;
+    ;
 
     enableParallelBuilding = true;
   };
@@ -682,7 +682,7 @@ rec { # un-indented
           libXfixes
         ]
       )
-      ;
+    ;
 
     preConfigure = "cd texk/xdvik";
 
@@ -692,7 +692,7 @@ rec { # un-indented
         "--with-system-kpathsea"
         "--with-system-libgs"
       ]
-      ;
+    ;
 
     enableParallelBuilding = true;
 

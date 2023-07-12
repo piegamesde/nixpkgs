@@ -32,7 +32,7 @@ let
   allFiles =
     optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile
     ++ config.services.cron.cronFiles
-    ;
+  ;
 in
 
 {
@@ -55,7 +55,7 @@ in
         description =
           lib.mdDoc
             "Email address to which job output will be mailed."
-          ;
+        ;
       };
 
       systemCronJobs = mkOption {
@@ -119,7 +119,7 @@ in
                 cat "$i" >> $out
               done
             ''
-          ;
+        ;
         mode = "0600"; # Cron requires this.
       };
 

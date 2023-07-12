@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         services.xserver.enable = true;
         environment.systemPackages = with pkgs; [ sgtpuzzles ];
       }
-      ;
+    ;
 
     enableOCR = true;
 
@@ -35,6 +35,6 @@ import ./make-test-python.nix (
         machine.wait_for_text("Marked")
         machine.screenshot("mines")
       ''
-      ;
+    ;
   }
 )

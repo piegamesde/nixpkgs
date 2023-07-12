@@ -28,7 +28,7 @@ with lib;
           inherit list;
           path = makeLibraryPath list;
         }
-        ;
+      ;
     };
 
     system.nssDatabases = {

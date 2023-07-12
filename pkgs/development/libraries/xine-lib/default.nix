@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
         libxcb
       ]
     )
-    ;
+  ;
 
   enableParallelBuilding = true;
 

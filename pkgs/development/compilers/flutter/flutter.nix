@@ -71,7 +71,7 @@ let
             mkdir -p $out/common
             ${lndir}/bin/lndir -silent ${artifact} $out/common
           ''
-          ;
+        ;
         mkPlatformArtifactLinkCommand =
           {
             artifact,
@@ -89,7 +89,7 @@ let
             mkdir -p $out/${artifactDirectory}
               ${lndir}/bin/lndir -silent ${artifact} $out/${artifactDirectory}
           ''
-          ;
+        ;
       in
       ''
         ${builtins.concatStringsSep "\n" (
@@ -164,7 +164,7 @@ let
         )}
       ''
     )
-    ;
+  ;
 
   unwrapped = stdenv.mkDerivation {
     name = "flutter-${version}-unwrapped";

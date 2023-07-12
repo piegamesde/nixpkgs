@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       fontconfig
     ]
     ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     cairo

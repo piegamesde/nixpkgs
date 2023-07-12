@@ -32,7 +32,7 @@ let
     versionAtLeast
     versionOlder
     versions
-    ;
+  ;
 
   mainVersion = versions.major (getVersion erlang);
 
@@ -63,7 +63,7 @@ buildRebar3 {
       ./dedup-ebins.patch
     ]
     ++ patches
-    ;
+  ;
   doCheck = true;
   checkTarget = "travis";
 

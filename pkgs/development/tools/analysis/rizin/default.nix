@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       substituteInPlace binrz/rizin/macos_sign.sh \
         --replace 'codesign' '# codesign'
     ''
-    ;
+  ;
 
   buildInputs = [
     file

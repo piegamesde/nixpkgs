@@ -52,7 +52,7 @@ let
         twbt.art
       ]
       ++ [ dwarf-fortress ]
-      ;
+    ;
 
     ignoreCollisions = true;
   };
@@ -70,7 +70,7 @@ let
               "STANDARD" # https://www.bay12games.com/dwarves/mantisbt/view.php?id=11680
             else
               null
-            ;
+          ;
           INTRO = enableIntro;
           TRUETYPE = enableTruetype;
           FPS = enableFPS;
@@ -78,7 +78,7 @@ let
         };
       }
       settings
-    ;
+  ;
 
   forEach = attrs: f: lib.concatStrings (lib.mapAttrsToList f attrs);
 
@@ -92,7 +92,7 @@ let
       v
     else
       throw "dwarf-fortress: unsupported configuration value ${toString v}"
-    ;
+  ;
 
   config =
     runCommand "dwarf-fortress-config" { nativeBuildInputs = [ gawk ]; }
@@ -143,7 +143,7 @@ let
           substitute "$input_file" "$output_file" --replace "$orig_md5" "$patched_md5"
         ''
       )
-    ;
+  ;
 
   # This is a separate environment because the config files to modify may come
   # from any of the paths in baseEnv.
@@ -215,7 +215,7 @@ lib.throwIf (enableTWBT && !enableDFHack)
           --subst-var dfInit
         chmod 755 $out/bin/soundsense
       ''
-      ;
+    ;
 
     preferLocalBuild = true;
 

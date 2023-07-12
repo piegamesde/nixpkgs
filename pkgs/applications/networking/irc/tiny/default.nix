@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     lib.optionals dbusSupport [ dbus ]
     ++ lib.optionals useOpenSSL [ openssl ]
     ++ lib.optional stdenv.isDarwin Foundation
-    ;
+  ;
 
   buildFeatures = lib.optional notificationSupport "desktop-notifications";
 

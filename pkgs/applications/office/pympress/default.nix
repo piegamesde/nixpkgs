@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
       poppler_gi
     ]
     ++ lib.optional withGstreamer libcanberra-gtk3
-    ;
+  ;
 
   propagatedBuildInputs = with python3Packages;
     [

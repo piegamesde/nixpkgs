@@ -21,7 +21,7 @@ in
         description =
           lib.mdDoc
             "The directory where Lidarr stores its data files."
-          ;
+        ;
       };
 
       package = mkOption {

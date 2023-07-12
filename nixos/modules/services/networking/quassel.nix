@@ -123,7 +123,7 @@ in
         [ "network.target" ]
         ++ optional config.services.postgresql.enable "postgresql.service"
         ++ optional config.services.mysql.enable "mysql.service"
-        ;
+      ;
 
       serviceConfig = {
         ExecStart = concatStringsSep " " (

@@ -46,7 +46,7 @@ let
       DefaultSession =
         optionalString (dmcfg.defaultSession != null)
           "${dmcfg.defaultSession}.desktop"
-        ;
+      ;
     };
 
     Theme = {

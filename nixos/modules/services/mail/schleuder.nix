@@ -12,7 +12,7 @@ let
     lib.concatStringsSep "\n" (
       lib.mapAttrsToList (name: value: "${name} ${value}") entries
     )
-    ;
+  ;
   writePostfixMap = name: entries: pkgs.writeText name (postfixMap entries);
   configScript = pkgs.writeScript "schleuder-cfg" ''
     #!${pkgs.runtimeShell}
@@ -83,7 +83,7 @@ in
       description =
         lib.mdDoc
           "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys."
-        ;
+      ;
       type = lib.types.nullOr lib.types.path;
       default = null;
     };
@@ -110,7 +110,7 @@ in
           !(lib.any (db: db ? password) (
             lib.attrValues cfg.settings.database or { }
           ))
-          ;
+        ;
         message = ''
           A password is defined for at least one database in services.schleuder.settings.database. Defining passwords via NixOS config results in them being copied to the world-readable Nix store. Please use the extraSettingsFile option to store database passwords in a non-public location.
         '';
@@ -182,16 +182,16 @@ in
           };
         };
       }
-      ;
+    ;
 
     environment.etc."schleuder/schleuder.yml" =
       lib.mkIf (cfg.extraSettingsFile == null)
         { source = settingsFormat.generate "schleuder.yml" cfg.settings; }
-      ;
+    ;
     environment.etc."schleuder/list-defaults.yml".source =
       settingsFormat.generate "list-defaults.yml"
         cfg.listDefaults
-      ;
+    ;
 
     services.schleuder = {
       #lists_dir = "/var/lib/schleuder.lists";
@@ -199,7 +199,7 @@ in
       settings.keyword_handlers_dir =
         lib.mkDefault
           "/var/lib/schleuder/keyword_handlers"
-        ;
+      ;
     };
   };
 }

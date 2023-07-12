@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       sed -z -i "s/TEST(CommandStansummary, check_console_output).*TEST(CommandStansummary, check_csv_output)/TEST(CommandStansummary, check_csv_output)/" \
         src/test/interface/stansummary_test.cpp
     ''
-    ;
+  ;
 
   preConfigure = ''
     mkdir -p bin
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   makeFlags =
     lib.optional stdenv.isDarwin
       "arch=${stdenv.hostPlatform.darwinArch}"
-    ;
+  ;
 
   checkPhase = ''
     ./runCmdStanTests.py -j$NIX_BUILD_CORES src/test/interface

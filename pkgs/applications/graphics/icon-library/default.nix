@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       libadwaita
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/design/icon-library";

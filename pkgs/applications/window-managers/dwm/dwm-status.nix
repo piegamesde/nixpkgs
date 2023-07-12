@@ -28,7 +28,7 @@ let
       iproute2
       wirelesstools
     ]
-    ;
+  ;
 in
 
 rustPlatform.buildRustPackage rec {

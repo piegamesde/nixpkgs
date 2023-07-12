@@ -66,7 +66,7 @@ let
             }_RTM/src/nss-${version}.tar.gz";
           sha256 = "sha256-PzhfxoZHa7uoEQNfpoIbVCR11VdHsYwgwiHU1mVzuXU=";
         }
-      ;
+    ;
 
     dontBuild = true;
 
@@ -161,7 +161,7 @@ stdenv.mkDerivation rec {
               lib.concatStringsSep "\n" (
                 lib.mapAttrsToList f blacklistCAToFingerprint
               )
-              ;
+            ;
           in
           runCommand "verify-the-cacert-filter-output"
             {
@@ -198,7 +198,7 @@ stdenv.mkDerivation rec {
 
               touch "$out"
             ''
-          ;
+        ;
 
         # Test that we can add additional certificates to the store, and have them be trusted.
         extra-certificates =
@@ -233,7 +233,7 @@ stdenv.mkDerivation rec {
               lib.concatStringsSep "\n" (
                 lib.mapAttrsToList f extraCertificatesToFingerprint
               )
-              ;
+            ;
           in
           runCommand "verify-the-cacert-extra-output"
             {
@@ -271,9 +271,9 @@ stdenv.mkDerivation rec {
 
               touch "$out"
             ''
-          ;
+        ;
       }
-      ;
+    ;
   };
 
   inherit meta;

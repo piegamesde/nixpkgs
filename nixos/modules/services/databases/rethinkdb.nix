@@ -42,7 +42,7 @@ in
         description =
           lib.mdDoc
             "Location where RethinkDB stores its data, 1 data directory per instance."
-          ;
+        ;
       };
 
       pidpath = mkOption {
@@ -50,7 +50,7 @@ in
         description =
           lib.mdDoc
             "Location where each instance's pid file is located."
-          ;
+        ;
       };
 
       #cfgpath = mkOption {

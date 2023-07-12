@@ -43,7 +43,7 @@ buildPythonPackage rec {
   nativeCheckInputs =
     [ pytestCheckHook ]
     ++ (lib.flatten (lib.attrValues passthru.optional-dependencies))
-    ;
+  ;
 
   pythonImportsCheck = [ "jwt" ];
 

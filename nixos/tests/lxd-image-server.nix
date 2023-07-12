@@ -63,7 +63,7 @@ import ./make-test-python.nix (
 
         networking.hosts = { "::1" = [ "acme.test" ]; };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("sockets.target")

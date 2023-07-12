@@ -26,7 +26,7 @@ import ./make-test-python.nix (
           devRootTokenID = config.environment.variables.VAULT_TOKEN;
         };
       }
-      ;
+    ;
 
     testScript = ''
       import json

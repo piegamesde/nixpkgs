@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       cp sshlatex $out/bin
       wrapProgram $out/bin/sshlatex --prefix PATH : "${binPath}"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A collection of hacks to efficiently run LaTeX via ssh";

@@ -43,7 +43,7 @@ let
       (optionalString useArchive "--archive")
     ]
     ++ extraRepoInitFlags
-    ;
+  ;
 
   local_manifests = copyPathsToStore localManifests;
 in
@@ -65,7 +65,7 @@ stdenvNoCC.mkDerivation {
       "GIT_PROXY_COMMAND"
       "SOCKS_SERVER"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [
     gitRepo

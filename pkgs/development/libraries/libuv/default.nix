@@ -121,13 +121,13 @@ stdenv.mkDerivation rec {
           # https://github.com/libuv/libuv/issues/1871
           "shutdown_close_pipe"
         ]
-        ;
+      ;
       tdRegexp = lib.concatStringsSep "\\|" toDisable;
     in
     lib.optionalString doCheck ''
       sed '/${tdRegexp}/d' -i test/test-list.h
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     automake

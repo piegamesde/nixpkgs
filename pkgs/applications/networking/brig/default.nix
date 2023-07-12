@@ -40,7 +40,7 @@ buildGoModule rec {
         }
       )
     )
-    ;
+  ;
 
   postInstall = ''
     installShellCompletion --cmd brig \

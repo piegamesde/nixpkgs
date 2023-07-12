@@ -49,7 +49,7 @@ let
             18871 -> putStrLn $ id "success"
             _ -> print "fail"
         ''
-      ;
+    ;
 
     js =
       writeJSBin "test-writers-js-bin" { libraries = [ nodePackages.semver ]; }
@@ -62,7 +62,7 @@ let
             console.log('fail')
           }
         ''
-      ;
+    ;
 
     perl =
       writePerlBin "test-writers-perl-bin"
@@ -71,7 +71,7 @@ let
           use boolean;
           print "success\n" if true;
         ''
-      ;
+    ;
 
     pypy2 =
       writePyPy2Bin "test-writers-pypy2-bin"
@@ -86,7 +86,7 @@ let
 
           print Test.a
         ''
-      ;
+    ;
 
     python3 =
       writePython3Bin "test-writers-python3-bin"
@@ -99,7 +99,7 @@ let
           """)
           print(y[0]['test'])
         ''
-      ;
+    ;
 
     pypy3 =
       writePyPy3Bin "test-writers-pypy3-bin"
@@ -112,7 +112,7 @@ let
           """)
           print(y[0]['test'])
         ''
-      ;
+    ;
   };
 
   simple = {
@@ -144,7 +144,7 @@ let
             18871 -> putStrLn $ id "success"
             _ -> print "fail"
         ''
-      ;
+    ;
 
     js = writeJS "test-writers-js" { libraries = [ nodePackages.semver ]; } ''
       var semver = require('semver');
@@ -162,7 +162,7 @@ let
           use boolean;
           print "success\n" if true;
         ''
-      ;
+    ;
 
     pypy2 =
       writePyPy2 "test-writers-pypy2" { libraries = [ pypy2Packages.enum ]; }
@@ -176,7 +176,7 @@ let
 
           print Test.a
         ''
-      ;
+    ;
 
     python3 =
       writePython3 "test-writers-python3"
@@ -189,7 +189,7 @@ let
           """)
           print(y[0]['test'])
         ''
-      ;
+    ;
 
     pypy3 =
       writePyPy3 "test-writers-pypy3" { libraries = [ pypy3Packages.pyyaml ]; }
@@ -201,7 +201,7 @@ let
           """)
           print(y[0]['test'])
         ''
-      ;
+    ;
 
     fsharp =
       makeFSharpWriter
@@ -216,7 +216,7 @@ let
                 sha256 = "1bplzc9ybdqspii4q28l8gmfvzpkmgq5l1hlsiyg2h46w881lwg2";
               })
             ]
-            ;
+          ;
         }
         "test-writers-fsharp"
         ''
@@ -237,7 +237,7 @@ let
           else "failed"
           |> printfn "%s"
         ''
-      ;
+    ;
 
     pypy2NoLibs = writePyPy2 "test-writers-pypy2-no-libs" { } ''
       print("success")
@@ -278,7 +278,7 @@ let
               _ -> print "fail"
           ''
         )
-      ;
+    ;
   };
 
   writeTest =
@@ -289,7 +289,7 @@ let
         exit 1
       fi
     ''
-    ;
+  ;
 in
 runCommand "test-writers"
   {

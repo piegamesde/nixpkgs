@@ -28,10 +28,10 @@ in
           "4294967295"
         else
           "255"
-        ;
+      ;
     in
     [ "nvme_core.io_timeout=${timeout}" ]
-    ;
+  ;
 
   options.amazonImage = {
     name = mkOption {
@@ -98,7 +98,7 @@ in
         pkgs =
           import ../../../..
             { inherit (pkgs) system; }
-          ; # ensure we use the regular qemu-kvm package
+        ; # ensure we use the regular qemu-kvm package
 
         includeChannel = true;
 
@@ -151,7 +151,7 @@ in
         pkgs =
           import ../../../..
             { inherit (pkgs) system; }
-          ; # ensure we use the regular qemu-kvm package
+        ; # ensure we use the regular qemu-kvm package
 
         fsType = "ext4";
         partitionTableType = if config.ec2.efi then "efi" else "legacy+gpt";
@@ -186,5 +186,5 @@ in
       };
     in
     if config.ec2.zfs.enable then zfsBuilder else extBuilder
-    ;
+  ;
 }

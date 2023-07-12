@@ -73,7 +73,7 @@ stdenv.mkDerivation (
         export TMP=$TMPDIR
         export ${libPathEnvVar}=$PWD/lib
       ''
-      ;
+    ;
 
     doCheck = true;
 

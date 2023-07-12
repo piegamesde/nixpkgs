@@ -14,7 +14,7 @@ let
     mkMerge
     types
     optional
-    ;
+  ;
 
   cfg = config.services.uptime;
   opt = options.services.uptime;
@@ -66,7 +66,7 @@ in
       description =
         lib.mdDoc
           "Whether the configuration file specifies a remote mongo instance"
-        ;
+      ;
 
       default = false;
 
@@ -87,7 +87,7 @@ in
       description =
         lib.mdDoc
           "The node environment to run in (development, production, etc.)"
-        ;
+      ;
 
       type = types.str;
 
@@ -131,7 +131,7 @@ in
             "sleep 1s"
           else
             "mkdir -p /var/lib/uptime"
-          ;
+        ;
         serviceConfig.ExecStart =
           "${pkgs.nodejs}/bin/node ${pkgs.nodePackages.node-uptime}/lib/node_modules/node-uptime/monitor.js";
       };

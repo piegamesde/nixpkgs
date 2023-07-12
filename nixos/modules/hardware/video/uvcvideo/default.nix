@@ -17,7 +17,7 @@ let
       drivers = packages;
       udevDebug = false;
     }
-    ;
+  ;
 in
 
 {

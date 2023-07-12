@@ -36,7 +36,7 @@ let
           )
         )
       )
-    ;
+  ;
 
   userUnitConfig =
     name: cfg': {
@@ -51,7 +51,7 @@ let
           StateDirectoryMode = "0700";
         });
     }
-    ;
+  ;
 
   commonUnitConfig = {
     after = [ "network.target" ];
@@ -112,7 +112,7 @@ in
                 description =
                   mdDoc
                     "additional groups to add the dynamic user to"
-                  ;
+                ;
               };
 
               forceDiscover = mkOption {
@@ -145,7 +145,7 @@ in
                   defaultText =
                     literalExpression
                       "/var/lib/vdirsyncer/\${attrName}"
-                    ;
+                  ;
                   description = mdDoc "vdirsyncer's status path";
                 };
 
@@ -222,13 +222,13 @@ in
                     ''
                   ))
                   ++ [ "${cfg.package}/bin/vdirsyncer sync" ]
-                  ;
+                ;
               }
             ]
           )
         )
         (filterAttrs (name: cfg': cfg'.enable) cfg.jobs)
-      ;
+    ;
 
     systemd.timers =
       mapAttrs'
@@ -241,6 +241,6 @@ in
           }
         )
         cfg.jobs
-      ;
+    ;
   };
 }

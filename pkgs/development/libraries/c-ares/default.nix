@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       "-DCARES_SHARED=OFF"
       "-DCARES_STATIC=ON"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

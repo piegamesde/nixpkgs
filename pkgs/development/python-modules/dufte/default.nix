@@ -31,7 +31,7 @@ buildPythonPackage rec {
       numpy
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   preCheck = ''
     export HOME=$(mktemp -d)

@@ -83,7 +83,7 @@ buildGoModule rec {
       );
     in
     [ "${varFlags}" ]
-    ;
+  ;
 
   preBuild = ''
     # Replace embedded envoy with nothing.

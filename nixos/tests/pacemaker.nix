@@ -32,14 +32,14 @@ import ./make-test-python.nix (
                     ];
                   })
                   (builtins.attrNames nodes)
-                ;
+              ;
             };
             environment.etc."corosync/authkey" = {
               source =
                 builtins.toFile "authkey"
                   # minimum length: 128 bytes
                   "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
-                ;
+              ;
               mode = "0400";
             };
 
@@ -51,14 +51,14 @@ import ./make-test-python.nix (
               serviceConfig.ExecStart = "${pkgs.netcat}/bin/nc -l discard";
             };
           }
-          ;
+        ;
       in
       {
         node1 = node 1;
         node2 = node 2;
         node3 = node 3;
       }
-      ;
+    ;
 
     # sets up pacemaker with resources configuration, then crashes a
     # node and waits for service restart on another node
@@ -126,6 +126,6 @@ import ./make-test-python.nix (
 
         next_node.log("Service migrated here!")
       ''
-      ;
+    ;
   }
 )

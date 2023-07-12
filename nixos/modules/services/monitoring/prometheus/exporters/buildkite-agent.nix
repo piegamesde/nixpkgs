@@ -63,7 +63,7 @@ in
             concatStringsSep " " cfg.extraFlags
           }
       ''
-      ;
+    ;
     serviceConfig = {
       DynamicUser = false;
       RuntimeDirectory = "buildkite-agent-metrics";

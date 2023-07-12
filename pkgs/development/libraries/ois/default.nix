@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       IOKit
       Kernel
     ]
-    ;
+  ;
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 

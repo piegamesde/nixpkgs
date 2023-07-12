@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       })
     ]
     ++ lib.optional stdenv.isAarch64 ./narrowing.patch
-    ;
+  ;
 
   meta = with lib; {
     description = "MIME handling library";

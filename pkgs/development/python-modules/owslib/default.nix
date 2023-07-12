@@ -64,7 +64,7 @@ buildPythonPackage rec {
       "test_ogcapi_records_pygeoapi"
       "test_wms_getfeatureinfo_130"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

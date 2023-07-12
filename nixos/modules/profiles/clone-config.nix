@@ -20,7 +20,7 @@ let
       s = toString path;
     in
     removePrefix nixosPath s != s
-    ;
+  ;
 
   # Copy modules given as extra configuration files.  Unfortunately, we
   # cannot serialized attribute set given in the list of modules (that's why
@@ -39,7 +39,7 @@ let
       nixos = p.right;
       others = p.wrong;
     }
-    ;
+  ;
 
   # Path transformed to be valid on the installation device.  Thus the
   # device configuration could be rebuild.
@@ -52,7 +52,7 @@ let
       nixos = map relocateNixOS partitionedModuleFiles.nixos;
       others = [ ]; # TODO: copy the modules to the install-device repository.
     }
-    ;
+  ;
 
   # A dummy /etc/nixos/configuration.nix in the booted CD that
   # rebuilds the CD's configuration (and allows the configuration to

@@ -93,7 +93,7 @@ let
       ''
         exec python3 -c "$buildCommandPython"
       ''
-    ;
+  ;
 
   test-firmware =
     let
@@ -120,10 +120,10 @@ let
             pos = builtins.unsafeGetAttrPos "updateScript" test-firmware;
           in
           pos.file + ":" + toString pos.line
-          ;
+        ;
       };
     }
-    ;
+  ;
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -217,7 +217,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals haveDell [ libsmbios ]
       ++ lib.optionals haveFlashrom [ flashrom ]
-      ;
+    ;
 
     mesonFlags =
       [
@@ -247,7 +247,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (!haveRedfish) [ "-Dplugin_redfish=disabled" ]
       ++ lib.optionals (!haveFlashrom) [ "-Dplugin_flashrom=disabled" ]
       ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ]
-      ;
+    ;
 
     # TODO: wrapGAppsHook wraps efi capsule even though it is not ELF
     dontWrapGApps = true;
@@ -262,7 +262,7 @@ stdenv.mkDerivation (
         fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
       in
       fontsConf
-      ;
+    ;
 
     # error: “PolicyKit files are missing”
     # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
@@ -330,7 +330,7 @@ stdenv.mkDerivation (
           --prefix PATH : "${lib.makeBinPath binPath}"
         )
       ''
-      ;
+    ;
 
     postFixup = ''
       # Since we had to disable wrapGAppsHook, we need to wrap the executables manually.
@@ -370,7 +370,7 @@ stdenv.mkDerivation (
         ++ lib.optionals haveRedfish [ "fwupd/redfish.conf" ]
         ++ lib.optionals haveMSR [ "fwupd/msr.conf" ]
         ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ]
-        ;
+      ;
 
       # DisabledPlugins key in fwupd/daemon.conf
       defaultDisabledPlugins = [
@@ -417,7 +417,7 @@ stdenv.mkDerivation (
             pathlib.Path(os.getenv('out')).touch()
           '';
         }
-        ;
+      ;
     };
 
     meta = with lib; {

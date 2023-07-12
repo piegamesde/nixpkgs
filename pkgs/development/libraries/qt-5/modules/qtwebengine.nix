@@ -112,7 +112,7 @@ qtModule {
       nodejs
     ]
     ++ lib.optional stdenv.isDarwin xcbuild
-    ;
+  ;
   doCheck = true;
   outputs = [
     "bin"
@@ -189,7 +189,7 @@ qtModule {
         --replace "-Wl,-fatal_warnings" ""
     '')
     + postPatch
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU [
@@ -219,7 +219,7 @@ qtModule {
     ]
     ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
     ++ lib.optional enableProprietaryCodecs "-proprietary-codecs"
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -310,7 +310,7 @@ qtModule {
       openbsm
       libunwind
     ]
-    ;
+  ;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     cups
@@ -350,7 +350,7 @@ qtModule {
         lib.head (lib.splitString "-" version)
       } /${qtCompatVersion} /' -i "$out"/lib/cmake/*/*Config.cmake
     ''
-    ;
+  ;
 
   requiredSystemFeatures = [ "big-parallel" ];
 

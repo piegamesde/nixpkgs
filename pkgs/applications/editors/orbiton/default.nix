@@ -52,7 +52,7 @@ buildGoModule rec {
       make install-gui PREFIX=$out
       wrapProgram $out/bin/og --prefix PATH : $out/bin
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Config-free text editor and IDE limited to VT100";

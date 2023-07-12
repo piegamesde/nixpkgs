@@ -72,7 +72,7 @@ buildGo118Module rec {
     ]
     ++ lib.optionals withSystemd [ "systemd" ]
     ++ extraTags
-    ;
+  ;
 
   ldflags = [
     "-X ${goPackagePath}/pkg/version.Commit=${src.rev}"
@@ -116,7 +116,7 @@ buildGo118Module rec {
       (lib.getLib systemd)
       rtloader
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = ''

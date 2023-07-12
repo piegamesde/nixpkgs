@@ -13,7 +13,7 @@ rec {
         "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${name}-${version}.tar.xz";
       sha256 = hash;
     }
-    ;
+  ;
 
   major = "7";
   minor = "5";

@@ -21,5 +21,5 @@ qtModule {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
       "-Dstat64=stat"
-    ;
+  ;
 }

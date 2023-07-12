@@ -29,7 +29,7 @@ in
         description =
           lib.mdDoc
             "configuration options for influxdb2, see <https://docs.influxdata.com/influxdb/v2.0/reference/config-options> for details."
-          ;
+        ;
         type = format.type;
       };
     };
@@ -40,7 +40,7 @@ in
       assertion =
         !(builtins.hasAttr "bolt-path" cfg.settings)
         && !(builtins.hasAttr "engine-path" cfg.settings)
-        ;
+      ;
       message =
         "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
     } ];

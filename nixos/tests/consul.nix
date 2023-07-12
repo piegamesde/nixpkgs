@@ -71,7 +71,7 @@ import ./make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     server =
       index:
@@ -113,13 +113,13 @@ import ./make-test-python.nix (
                   else
                     builtins.filter (h: h != thisConsensusServerHost)
                       allConsensusServerHosts
-                  ;
+                ;
                 bind_addr = ip;
               };
             }
-          ;
+        ;
       }
-      ;
+    ;
   in
   {
     name = "consul";

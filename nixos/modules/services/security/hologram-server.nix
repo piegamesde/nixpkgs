@@ -44,7 +44,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the Hologram server for AWS instance credentials"
-          ;
+        ;
       };
 
       listenAddress = mkOption {
@@ -85,7 +85,7 @@ in
         description =
           lib.mdDoc
             "Password of account to use to query the LDAP server"
-          ;
+        ;
       };
 
       enableLdapRoles = mkOption {
@@ -94,7 +94,7 @@ in
         description =
           lib.mdDoc
             "Whether to assign user roles based on the user's LDAP group memberships"
-          ;
+        ;
       };
 
       groupClassAttr = mkOption {
@@ -103,7 +103,7 @@ in
         description =
           lib.mdDoc
             "The objectclass attribute to search for groups when enableLdapRoles is true"
-          ;
+        ;
       };
 
       roleAttr = mkOption {
@@ -112,7 +112,7 @@ in
         description =
           lib.mdDoc
             "Which LDAP group attribute to search for authorized role ARNs"
-          ;
+        ;
       };
 
       awsAccount = mkOption {
@@ -137,7 +137,7 @@ in
         description =
           lib.mdDoc
             "How often (in seconds) to refresh the LDAP cache"
-          ;
+        ;
       };
     };
   };

@@ -38,7 +38,7 @@ let
       parts = splitVersion release_version;
     in
     imap (i: _: concatStringsSep "." (take i parts)) parts
-    ;
+  ;
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -65,7 +65,7 @@ let
       python3.withPackages checkDeps
     else
       python3
-    ;
+  ;
 in
 stdenv.mkDerivation (
   rec {
@@ -76,7 +76,7 @@ stdenv.mkDerivation (
     polly_src =
       fetch "polly"
         "16qkns4ab4x0azrvhy4j7cncbyb2rrbdrqj87zphvqxm5pvm8m1h"
-      ;
+    ;
 
     unpackPhase =
       ''
@@ -88,7 +88,7 @@ stdenv.mkDerivation (
         unpackFile $polly_src
         mv polly-* $sourceRoot/tools/polly
       ''
-      ;
+    ;
 
     outputs = [
       "out"
@@ -103,7 +103,7 @@ stdenv.mkDerivation (
         python
       ]
       ++ optional enableManpages python3.pkgs.sphinx
-      ;
+    ;
 
     buildInputs =
       [
@@ -111,7 +111,7 @@ stdenv.mkDerivation (
         libffi
       ]
       ++ optional enablePFM libpfm
-      ; # exegesis
+    ; # exegesis
 
     propagatedBuildInputs = [
       ncurses
@@ -150,7 +150,7 @@ stdenv.mkDerivation (
         })
       ]
       ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
-      ;
+    ;
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -212,7 +212,7 @@ stdenv.mkDerivation (
             --replace 'Finished llvm::' 'Finished {{.*}}'
         done
       ''
-      ;
+    ;
 
     preConfigure = ''
       # Workaround for configure flags that need to have spaces
@@ -242,7 +242,7 @@ stdenv.mkDerivation (
             "-DLLVM_ENABLE_RTTI=ON"
           ]
           ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
-          ;
+        ;
       in
       flagsForLlvmConfig
       ++ [
@@ -303,7 +303,7 @@ stdenv.mkDerivation (
           )
         )
       ]
-      ;
+    ;
 
     postBuild = ''
       rm -fR $out
@@ -336,7 +336,7 @@ stdenv.mkDerivation (
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
       ''
-      ;
+    ;
 
     inherit doCheck;
 

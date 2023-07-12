@@ -27,7 +27,7 @@ appimageTools.wrapType2 {
       zlib
       libusb-compat-0_1
     ]
-    ;
+  ;
 
   extraInstallCommands = ''
     mv $out/bin/${pname}-${version} $out/bin/GoldenCheetah

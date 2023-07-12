@@ -51,7 +51,7 @@ buildPythonPackage rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   propagatedBuildInputs = [ anyio ];
 

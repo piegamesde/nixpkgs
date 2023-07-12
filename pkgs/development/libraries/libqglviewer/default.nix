@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       libGLU
     ]
     ++ lib.optional stdenv.isDarwin AGL
-    ;
+  ;
 
   dontWrapQtApps = true;
 

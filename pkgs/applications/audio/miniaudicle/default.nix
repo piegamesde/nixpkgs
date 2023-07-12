@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (audioBackend == "pulse") libpulseaudio
     ++ lib.optional (audioBackend == "jack") libjack2
-    ;
+  ;
 
   buildFlags = [ "linux-${audioBackend}" ];
 

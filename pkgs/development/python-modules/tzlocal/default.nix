@@ -34,7 +34,7 @@ buildPythonPackage rec {
       "test_symlink_localtime"
     ]
     ++ lib.optional stdenv.isDarwin "test_assert_tz_offset"
-    ;
+  ;
 
   pythonImportsCheck = [ "tzlocal" ];
 

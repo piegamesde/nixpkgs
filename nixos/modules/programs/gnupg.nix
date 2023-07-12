@@ -25,7 +25,7 @@ let
       "gnome3"
     else
       "curses"
-    ;
+  ;
 in
 
 {
@@ -126,7 +126,7 @@ in
     systemd.user.sockets.gpg-agent-browser =
       mkIf cfg.agent.enableBrowserSocket
         { wantedBy = [ "sockets.target" ]; }
-      ;
+    ;
 
     systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable {
       wantedBy = [ "sockets.target" ];

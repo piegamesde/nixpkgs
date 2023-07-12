@@ -47,7 +47,7 @@ stdenv.mkDerivation {
         ''
           patchShebangs --build src/engine/build.sh
         ''
-    ;
+  ;
 
   nativeBuildInputs = [ bison ];
 

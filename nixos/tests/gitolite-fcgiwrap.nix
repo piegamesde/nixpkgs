@@ -73,9 +73,9 @@ import ./make-test-python.nix (
               ''
                 ${pkgs.apacheHttpd}/bin/htpasswd -bc "$out" ${user} ${password}
               ''
-            ;
+          ;
         }
-        ;
+      ;
 
       client =
         {
@@ -84,7 +84,7 @@ import ./make-test-python.nix (
         }: {
           environment.systemPackages = [ pkgs.git ];
         }
-        ;
+      ;
     };
 
     testScript = ''

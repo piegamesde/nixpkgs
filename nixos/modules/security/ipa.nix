@@ -24,7 +24,7 @@ let
         certutil -d $out -N --empty-password
         certutil -d $out -A --empty-password -n "${cfg.realm} IPA CA" -t CT,C,C -i ${cfg.certificate}
       ''
-    ;
+  ;
 in
 {
   options = {
@@ -71,7 +71,7 @@ in
         description =
           lib.mdDoc
             "Base DN to use when performing LDAP operations."
-          ;
+        ;
       };
 
       offlinePasswords = mkOption {
@@ -80,7 +80,7 @@ in
         description =
           lib.mdDoc
             "Whether to store offline passwords when the server is down."
-          ;
+        ;
       };
 
       cacheCredentials = mkOption {
@@ -95,7 +95,7 @@ in
         description =
           lib.mdDoc
             "A list of users allowed to access the ifp dbus interface."
-          ;
+        ;
       };
 
       dyndns = {
@@ -105,7 +105,7 @@ in
           description =
             lib.mdDoc
               "Whether to enable FreeIPA automatic hostname updates."
-            ;
+          ;
         };
 
         interface = mkOption {
@@ -115,7 +115,7 @@ in
           description =
             lib.mdDoc
               "Network interface to perform hostname updates through."
-            ;
+          ;
         };
       };
 
@@ -125,7 +125,7 @@ in
         description =
           lib.mdDoc
             "Whether to whitelist the FreeIPA domain in Chromium."
-          ;
+        ;
       };
     };
   };
@@ -203,7 +203,7 @@ in
             { "AuthServerWhitelist": "*.${cfg.domain}" }
           '';
         }
-      ;
+    ;
 
     system.activationScripts.ipa = stringAfter [ "etc" ] ''
       # libcurl requires a hard copy of the certificate

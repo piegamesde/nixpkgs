@@ -39,7 +39,7 @@ import ./make-test-python.nix (
               } ];
             };
           }
-          ;
+        ;
       in
       {
         pomerium =
@@ -84,7 +84,7 @@ import ./make-test-python.nix (
               '';
             };
           }
-          ;
+        ;
         backend =
           {
             pkgs,
@@ -116,9 +116,9 @@ import ./make-test-python.nix (
               '';
             };
           }
-          ;
+        ;
       }
-      ;
+    ;
 
     testScript =
       {
@@ -149,6 +149,6 @@ import ./make-test-python.nix (
                 "chromium --no-sandbox --headless --disable-gpu --dump-dom --host-resolver-rules='MAP login.required 127.0.0.1:80' http://login.required/.pomerium | grep 'contact your administrator'"
             )
       ''
-      ;
+    ;
   }
 )

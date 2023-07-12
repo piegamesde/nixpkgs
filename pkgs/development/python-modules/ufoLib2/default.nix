@@ -32,7 +32,7 @@ buildPythonPackage rec {
       fonttools
     ]
     ++ fonttools.optional-dependencies.ufo
-    ;
+  ;
 
   passthru.optional-dependencies = {
     lxml = [ lxml ];
@@ -50,7 +50,7 @@ buildPythonPackage rec {
   nativeCheckInputs =
     [ pytestCheckHook ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   pythonImportsCheck = [ "ufoLib2" ];
 

@@ -41,7 +41,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

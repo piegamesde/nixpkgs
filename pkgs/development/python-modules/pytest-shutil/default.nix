@@ -58,7 +58,7 @@ buildPythonPackage rec {
       "test_run"
       "test_run_integration"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -37,7 +37,7 @@ in
         description =
           lib.mdDoc
             "Start a desktop environment instead of seamless mode"
-          ;
+        ;
       };
 
       auth = mkOption {

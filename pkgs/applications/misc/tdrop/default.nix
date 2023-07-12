@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ''
       wrapProgram $out/bin/tdrop --prefix PATH : ${binPath}
     ''
-    ;
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
 

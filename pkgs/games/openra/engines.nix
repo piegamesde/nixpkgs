@@ -43,7 +43,7 @@ let
           '';
         }
       )
-    ;
+  ;
 in
 {
   release =
@@ -57,7 +57,7 @@ in
         }
         name
     )
-    ;
+  ;
 
   playtest =
     name:
@@ -70,7 +70,7 @@ in
         }
         name
     )
-    ;
+  ;
 
   bleed = buildUpstreamOpenRAEngine {
     version = "8ee1102";

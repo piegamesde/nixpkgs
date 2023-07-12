@@ -46,7 +46,7 @@ let
             mkDerivation
           )
           { }
-        ;
+      ;
     in
     mkDerivation (
       args // {
@@ -62,10 +62,10 @@ let
             homepage = meta.homepage or "http://www.kde.org";
             platforms = meta.platforms or lib.platforms.linux;
           }
-          ;
+        ;
       }
     )
-    ;
+  ;
 
   packages =
     self:
@@ -278,6 +278,6 @@ let
       telly-skout = callPackage ./telly-skout.nix { };
       tokodon = callPackage ./tokodon.nix { };
     }
-    ;
+  ;
 in
 lib.makeScope libsForQt5.newScope packages

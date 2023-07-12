@@ -31,7 +31,7 @@ buildPythonApplication rec {
       networkx
     ]
     ++ optionals withGraphics [ pyqt5 ]
-    ;
+  ;
 
   nativeCheckInputs = [
     tox

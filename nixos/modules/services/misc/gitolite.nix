@@ -13,7 +13,7 @@ let
   pubkeyFile =
     (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey)
     + "/gitolite-admin.pub"
-    ;
+  ;
   hooks = lib.concatMapStrings (hook: "${hook} ") cfg.commonHooks;
 in
 {
@@ -133,7 +133,7 @@ in
       rcDir =
         pkgs.runCommand "gitolite-rc" { preferLocalBuild = true; }
           rcDirScript
-        ;
+      ;
       rcDirScript =
         ''
           mkdir "$out"
@@ -159,7 +159,7 @@ in
             ''
           } >>"$out/gitolite.rc"
         ''
-        ;
+      ;
     in
     {
       services.gitolite.extraGitoliteRc = optionalString cfg.enableGitAnnex ''
@@ -231,7 +231,7 @@ in
                 ''
                   :
                 ''
-              ;
+            ;
             rcSetupScriptIfDefaultFileOrStoreSymlink =
               if manageGitoliteRc then
                 ''
@@ -241,7 +241,7 @@ in
                 ''
                   [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"
                 ''
-              ;
+            ;
           in
           ''
             if ( [[ ! -e "$GITOLITE_RC" ]] && [[ ! -L "$GITOLITE_RC" ]] ) ||
@@ -266,7 +266,7 @@ in
             fi
             gitolite setup # Upgrade if needed
           ''
-          ;
+        ;
       };
 
       environment.systemPackages =
@@ -275,7 +275,7 @@ in
           pkgs.git
         ]
         ++ optional cfg.enableGitAnnex pkgs.git-annex
-        ;
+      ;
     }
   );
 }

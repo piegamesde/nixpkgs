@@ -36,7 +36,7 @@ import ../make-test-python.nix (
             prefixLength = 24;
           } ];
         }
-        ;
+      ;
 
       client =
         {
@@ -56,7 +56,7 @@ import ../make-test-python.nix (
             prefixLength = 24;
           } ];
         }
-        ;
+      ;
     };
 
     testScript = ''

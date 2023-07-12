@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       xxd
     ]
     ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook
-    ;
+  ;
 
   buildInputs =
     [
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     ]
     ++ optional (uilib == "gtk2") gtk2
     ++ optional (uilib == "gtk3") gtk3
-    ;
+  ;
 
   preConfigure = ''
     cat <<EOF > Makefile.conf

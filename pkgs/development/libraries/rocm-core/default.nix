@@ -46,7 +46,7 @@ stdenv.mkDerivation (
           ln -s ${version_c} $out/rocm_version.c
           ln -s ${version_h} $out/rocm-core/rocm_version.h
         ''
-      ;
+    ;
 
     nativeBuildInputs = [ cmake ];
 

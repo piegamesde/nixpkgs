@@ -53,7 +53,7 @@ in
           };
         in
         attrsOf elemType
-        ;
+      ;
 
       generate =
         name: value:
@@ -126,7 +126,7 @@ in
                 '';
               in
               main
-              ;
+            ;
 
             inputEncoding = "UTF-8";
 
@@ -140,7 +140,7 @@ in
                 | iconv --from-code "$inputEncoding" --to-code JAVA \
             ) > "$out"
           ''
-        ;
+      ;
     }
-    ;
+  ;
 }

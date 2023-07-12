@@ -61,7 +61,7 @@ buildPythonApplication rec {
     ]
     ++ lib.optional (pythonOlder "3.4") enum34
     ++ lib.optional (pythonOlder "3.2") functools32
-    ;
+  ;
 
   postPatch = ''
     # Remove upper bound on requires, see also

@@ -31,7 +31,7 @@ in
         description =
           lib.mdDoc
             "Whether to include the shibauthorizer and shibresponder FastCGI processes"
-          ;
+        ;
       };
 
       fastcgi.shibAuthorizerPort = mkOption {
@@ -40,7 +40,7 @@ in
         description =
           lib.mdDoc
             "Port for shibauthorizer FastCGI process to bind to"
-          ;
+        ;
       };
 
       fastcgi.shibResponderPort = mkOption {
@@ -49,7 +49,7 @@ in
         description =
           lib.mdDoc
             "Port for shibauthorizer FastCGI process to bind to"
-          ;
+        ;
       };
     };
   };

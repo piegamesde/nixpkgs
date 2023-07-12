@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       autoSignDarwinBinariesHook
       fixDarwinDylibNames
     ]
-    ;
+  ;
 
   meta = {
     homepage = "https://liquidsdr.org/";

@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       protobuf
       qrencode
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

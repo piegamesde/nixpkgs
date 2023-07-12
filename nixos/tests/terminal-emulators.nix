@@ -181,9 +181,9 @@ mapAttrs
               [ "The package for ${name} doesn't have a passthru.tests" ]
             else
               [ ]
-            ;
+          ;
         }
-        ;
+      ;
 
       # We need imagemagick, though not tesseract
       enableOCR = true;
@@ -242,7 +242,7 @@ mapAttrs
                 with machine.nested("Waiting for the screen to have pink on it:"):
                     retry(check_for_pink)
           ''}''
-        ;
+      ;
     }
 
   )

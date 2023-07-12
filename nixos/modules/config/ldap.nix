@@ -55,7 +55,7 @@ let
           --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
           --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
       ''
-    ;
+  ;
 in
 
 {
@@ -76,7 +76,7 @@ in
         description =
           lib.mdDoc
             "Whether to include authentication against LDAP in login PAM."
-          ;
+        ;
       };
 
       nsswitch = mkOption {
@@ -85,7 +85,7 @@ in
         description =
           lib.mdDoc
             "Whether to include lookup against LDAP in NSS."
-          ;
+        ;
       };
 
       server = mkOption {
@@ -260,7 +260,7 @@ in
               mv -fT "$conf" /etc/ldap.conf
             fi
           ''
-        ;
+      ;
     };
 
     system.nssModules = mkIf cfg.nsswitch (

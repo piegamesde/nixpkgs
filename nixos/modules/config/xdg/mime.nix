@@ -99,7 +99,7 @@ in
             "Removed Associations" = cfg.removedAssociations;
           };
         }
-      ;
+    ;
 
     environment.pathsToLink = [ "/share/mime" ];
 

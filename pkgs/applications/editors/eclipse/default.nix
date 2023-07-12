@@ -45,7 +45,7 @@ let
     else
       throw
         "don't know what platform suffix for ${stdenv.hostPlatform.system} will be"
-    ;
+  ;
 in
 rec {
 
@@ -66,14 +66,14 @@ rec {
       gsettings-desktop-schemas
       webkitgtk
       makeWrapper
-      ;
+    ;
   };
   buildEclipse =
     eclipseData:
     buildEclipseUnversioned (
       eclipseData // { productVersion = "${platform_major}.${platform_minor}"; }
     )
-    ;
+  ;
 
   ### Eclipse CPP
 
@@ -152,7 +152,7 @@ rec {
           meta.platforms = [ "x86_64-linux" ];
         }
       )
-    ;
+  ;
 
   ### Eclipse SDK
 
@@ -281,7 +281,7 @@ rec {
 
       ln -s ${eclipse}/share $out/
     ''
-    ;
+  ;
 
   ### Plugins
 

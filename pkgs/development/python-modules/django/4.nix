@@ -71,7 +71,7 @@ buildPythonPackage rec {
         extension = stdenv.hostPlatform.extensions.sharedLibrary;
       })
     ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace tests/utils_tests/test_autoreload.py \
@@ -110,7 +110,7 @@ buildPythonPackage rec {
       tzdata
     ]
     ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   doCheck = !stdenv.isDarwin;
 

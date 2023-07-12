@@ -31,7 +31,7 @@ buildPythonPackage {
     ''
       echo 'find_lib_path = lambda: ["${libPath}"]' > python-package/xgboost/libpath.py
     ''
-    ;
+  ;
 
   dontUseCmakeConfigure = true;
 

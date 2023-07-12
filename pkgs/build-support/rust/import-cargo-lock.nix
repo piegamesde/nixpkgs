@@ -42,7 +42,7 @@ let
       parts =
         builtins.match "git\\+([^?]+)(\\?(rev|tag|branch)=(.*))?#(.*)"
           src
-        ;
+      ;
       type = builtins.elemAt parts 2; # rev, tag or branch
       value = builtins.elemAt parts 3;
     in
@@ -53,7 +53,7 @@ let
         url = builtins.elemAt parts 0;
         sha = builtins.elemAt parts 4;
       } // lib.optionalAttrs (type != null) { inherit type value; }
-    ;
+  ;
 
   # shadows args.lockFileContents
   lockFileContents =
@@ -61,7 +61,7 @@ let
       builtins.readFile lockFile
     else
       args.lockFileContents
-    ;
+  ;
 
   parsedLockFile = builtins.fromTOML lockFileContents;
 
@@ -97,7 +97,7 @@ let
       name = "${pkg.name}-${pkg.version}";
       value = gitParts.sha;
     }
-    ;
+  ;
 
   # Convert the attrset provided through the `outputHashes` argument to a
   # a mapping from git commit SHA -> output hash.
@@ -115,7 +115,7 @@ let
           unusedHash =
             throw
               "A hash was specified for ${nameVer}, but there is no corresponding git dependency."
-            ;
+          ;
           rev = namesGitShas.${nameVer} or unusedHash;
         in
         {
@@ -124,7 +124,7 @@ let
         }
       )
       outputHashes
-    ;
+  ;
 
   # We can't use the existing fetchCrate function, since it uses a
   # recursive hash of the unpacked crate.
@@ -143,7 +143,7 @@ let
       url = "${downloadUrl}/${pkg.name}/${pkg.version}/download";
       sha256 = checksum;
     }
-    ;
+  ;
 
   registries = {
     "https://github.com/rust-lang/crates.io-index" =
@@ -161,7 +161,7 @@ let
         flakeIgnore = [ "E501" ];
       }
       (builtins.readFile ./replace-workspace-values.py)
-    ;
+  ;
 
   # Fetch and unpack a crate.
   mkCrate =
@@ -213,7 +213,7 @@ let
             }
           else
             missingHash
-          ;
+        ;
       in
       runCommand "${pkg.name}-${pkg.version}" { } ''
         tree=${tree}
@@ -269,7 +269,7 @@ let
       ''
     else
       throw "Cannot handle crate source: ${pkg.source}"
-    ;
+  ;
 
   vendorDir =
     runCommand "cargo-vendor-dir"
@@ -324,6 +324,6 @@ let
               fi
             done
       ''
-    ;
+  ;
 in
 vendorDir

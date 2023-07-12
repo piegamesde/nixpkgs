@@ -23,10 +23,10 @@ import ./make-test-python.nix (
               config = subConf;
             };
           }
-          ;
+        ;
       in
       makeNested (makeNested { })
-      ;
+    ;
 
     testScript = ''
       machine.start()

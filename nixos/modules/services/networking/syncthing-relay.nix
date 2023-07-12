@@ -29,7 +29,7 @@ let
           toString cfg.perSessionRateBps
         }"
     ++ cfg.extraOptions
-    ;
+  ;
 in
 {
   ###### interface

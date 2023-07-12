@@ -55,7 +55,7 @@ buildPythonPackage rec {
         rustc
       ]
     )
-    ;
+  ;
 
   propagatedBuildInputs =
     [
@@ -73,7 +73,7 @@ buildPythonPackage rec {
       winsspi
     ]
     ++ lib.optionals (stdenv.isDarwin) [ iconv ]
-    ;
+  ;
 
   # Module doesn't have tests
   doCheck = false;

@@ -17,7 +17,7 @@ let
       "no"
     else
       generators.mkValueStringDefault { } value
-    ;
+  ;
 
   toTincConf = generators.toKeyValue {
     listsAsDuplicateKeys = true;
@@ -33,7 +33,7 @@ let
       ];
     in
     attrsOf (either valueType (listOf valueType))
-    ;
+  ;
 
   addressSubmodule = {
     options = {
@@ -42,7 +42,7 @@ let
         description =
           lib.mdDoc
             "The external IP address or hostname where the host can be reached."
-          ;
+        ;
       };
 
       port = mkOption {
@@ -180,7 +180,7 @@ let
         );
       };
     }
-    ;
+  ;
 in
 {
 
@@ -366,7 +366,7 @@ in
                         ${host.rsaPublicKey}
                       '')
                       config.hostSettings
-                    ;
+                  ;
 
                   settings = {
                     DeviceType = mkDefault config.interfaceType;
@@ -376,7 +376,7 @@ in
                     Ed25519PrivateKeyFile =
                       mkIf (config.ed25519PrivateKeyFile != null)
                         (mkDefault config.ed25519PrivateKeyFile)
-                      ;
+                    ;
                     PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null) (
                       mkDefault config.rsaPrivateKeyFile
                     );
@@ -454,7 +454,7 @@ in
               ExecReload =
                 mkIf (versionAtLeast version "1.1pre")
                   "${data.package}/bin/tinc -n ${network} reload"
-                ;
+              ;
               ExecStart =
                 "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
                   optionalString (data.chroot) "-R"
@@ -520,7 +520,7 @@ in
           };
         in
         [ cli-wrappers ]
-        ;
+      ;
 
       users.users = flip mapAttrs' cfg.networks (
         network: _:

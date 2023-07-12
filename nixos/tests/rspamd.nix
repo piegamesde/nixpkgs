@@ -22,7 +22,7 @@ let
           '[[ "$(stat -c %a ${socket})" == "${mode}" ]]',
       )
     ''
-    ;
+  ;
   simple =
     name: enableIPv6:
     makeTest {
@@ -52,7 +52,7 @@ let
         # would not reformat
       '';
     }
-    ;
+  ;
 in
 {
   simple = simple "simple" true;

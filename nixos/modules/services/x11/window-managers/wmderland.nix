@@ -65,6 +65,6 @@ in
         pkgs.wmderlandc
       ]
       ++ cfg.extraPackages
-      ;
+    ;
   };
 }

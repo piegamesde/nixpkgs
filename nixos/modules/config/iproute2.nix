@@ -63,7 +63,7 @@ in
 
 
           ${cfg.rttablesExtraConfig}'')
-        ;
+      ;
     };
   };
 }

@@ -188,7 +188,7 @@ let
           buildPackages.rustc.llvmPackages.bintools
         else
           stdenv.cc.bintools
-        ;
+      ;
     }
   );
 
@@ -286,7 +286,7 @@ buildStdenv.mkDerivation ({
       lib.optional (lib.versionAtLeast version "96")
         ./no-buildconfig-ffx96.patch
     ++ extraPatches
-    ;
+  ;
 
   postPatch =
     ''
@@ -294,7 +294,7 @@ buildStdenv.mkDerivation ({
       patchShebangs mach build
     ''
     + extraPostPatch
-    ;
+  ;
 
   # Ignore trivial whitespace changes in patches, this fixes compatibility of
   # ./env_var_for_system_dir.patch with Firefox >=65 without having to track
@@ -332,7 +332,7 @@ buildStdenv.mkDerivation ({
     ]
     ++ lib.optionals pgoSupport [ xvfb-run ]
     ++ extraNativeBuildInputs
-    ;
+  ;
 
   setOutputFlags =
     false; # `./mach configure` doesn't understand `--*dir=` flags.
@@ -425,7 +425,7 @@ buildStdenv.mkDerivation ({
       # linking firefox hits the vm.max_map_count kernel limit with the default musl allocator
       export LD_PRELOAD=${mimalloc}/lib/libmimalloc.so
     ''
-    ;
+  ;
 
   # firefox has a different definition of configurePlatforms from nixpkgs, see configureFlags
   configurePlatforms = [ ];
@@ -498,7 +498,7 @@ buildStdenv.mkDerivation ({
     ++ lib.optional enableOfficialBranding "--enable-official-branding"
     ++ lib.optional (branding != null) "--with-branding=${branding}"
     ++ extraConfigureFlags
-    ;
+  ;
 
   buildInputs =
     [
@@ -550,7 +550,7 @@ buildStdenv.mkDerivation ({
     ]
     ++ lib.optional jemallocSupport jemalloc
     ++ extraBuildInputs
-    ;
+  ;
 
   profilingPhase = lib.optionalString pgoSupport ''
     # Package up Firefox for profiling
@@ -605,7 +605,7 @@ buildStdenv.mkDerivation ({
     + ''
       cd mozobj
     ''
-    ;
+  ;
 
   postInstall =
     ''
@@ -621,7 +621,7 @@ buildStdenv.mkDerivation ({
       # Needed to find Mozilla runtime
       gappsWrapperArgs+=(--argv0 "$out/bin/.${binaryName}-wrapped")
     ''
-    ;
+  ;
 
   postFixup = lib.optionalString crashreporterSupport ''
     patchelf --add-rpath "${

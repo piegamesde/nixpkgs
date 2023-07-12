@@ -30,7 +30,7 @@ import ./make-test-python.nix (
         # ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
         hardware.pulseaudio.enable = true;
       }
-      ;
+    ;
 
     testScript =
       {
@@ -64,6 +64,6 @@ import ./make-test-python.nix (
             machine.sleep(20)
             machine.screenshot("screen")
       ''
-      ;
+    ;
   }
 )

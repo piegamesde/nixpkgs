@@ -102,7 +102,7 @@ rustPlatform.buildRustPackage rec {
       ln -s ${libvpx.out}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
       ln -s ${libyuv.out}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     pkg-config

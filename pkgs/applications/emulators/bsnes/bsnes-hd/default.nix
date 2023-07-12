@@ -55,7 +55,7 @@ stdenv.mkDerivation {
       libicns
       makeWrapper
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -76,7 +76,7 @@ stdenv.mkDerivation {
       Cocoa
       OpenAL
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -88,7 +88,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals stdenv.isLinux [ "hiro=gtk3" ]
     ++ lib.optionals stdenv.isDarwin [ "hiro=cocoa" ]
-    ;
+  ;
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/bin

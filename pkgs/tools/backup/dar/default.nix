@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       fsprogs
     ]
     ++ lib.optionals stdenv.isDarwin [ CoreFoundation ]
-    ;
+  ;
 
   configureFlags = [
     "--disable-birthtime"

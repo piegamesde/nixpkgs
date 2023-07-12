@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
       gtk4
     ]
     ++ lib.optionals proprietaryCodecs [ vivaldi-ffmpeg-codecs ]
-    ;
+  ;
 
   dontWrapQtApps = true;
 

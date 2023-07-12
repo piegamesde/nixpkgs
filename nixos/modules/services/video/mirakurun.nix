@@ -140,7 +140,7 @@ in
       "mirakurun/server.yml".source =
         settingsFmt.generate "server.yml"
           cfg.serverSettings
-        ;
+      ;
       "mirakurun/tuners.yml" = mkIf (cfg.tunerSettings != null) {
         source = settingsFmt.generate "tuners.yml" cfg.tunerSettings;
         mode = "0644";
@@ -208,10 +208,10 @@ in
             [ "server" ]
             ++ optional (cfg.tunerSettings != null) "tuners"
             ++ optional (cfg.channelSettings != null) "channels"
-            ;
+          ;
         in
         (map getconf targets)
-        ;
+      ;
     };
   };
 }

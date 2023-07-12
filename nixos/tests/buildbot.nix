@@ -38,7 +38,7 @@ import ./make-test-python.nix
             buildbot-full
           ];
         }
-        ;
+      ;
 
       bbworker =
         {
@@ -54,7 +54,7 @@ import ./make-test-python.nix
             buildbot-worker
           ];
         }
-        ;
+      ;
 
       gitrepo =
         {
@@ -105,7 +105,7 @@ import ./make-test-python.nix
             '';
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

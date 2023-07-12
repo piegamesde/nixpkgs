@@ -132,7 +132,7 @@ let
             source ${p}
           '')
           cfg.extraEnvFiles
-        ;
+      ;
     in
     pkgs.writeShellScriptBin "mastodon-tootctl" ''
       set -a
@@ -147,7 +147,7 @@ let
       fi
       $sudo ${cfg.package}/bin/tootctl "$@"
     ''
-    ;
+  ;
 
   sidekiqUnits =
     lib.attrsets.mapAttrs'
@@ -174,12 +174,12 @@ let
               ]
               ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
               ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-              ;
+            ;
             requires =
               [ "mastodon-init-dirs.service" ]
               ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
               ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-              ;
+            ;
             description = "Mastodon sidekiq${jobClassLabel}";
             wantedBy = [ "mastodon.target" ];
             environment = env // {
@@ -211,7 +211,7 @@ let
         )
       )
       cfg.sidekiqProcesses
-    ;
+  ;
 in
 {
 
@@ -269,7 +269,7 @@ in
         description =
           lib.mdDoc
             "TCP port used by the mastodon-streaming service."
-          ;
+        ;
         type = lib.types.port;
         default = 55000;
       };
@@ -296,7 +296,7 @@ in
         description =
           lib.mdDoc
             "Threads per process used by the mastodon-web service."
-          ;
+        ;
         type = lib.types.int;
         default = 5;
       };
@@ -305,7 +305,7 @@ in
         description =
           lib.mdDoc
             "TCP port used by the mastodon-sidekiq service."
-          ;
+        ;
         type = lib.types.port;
         default = 55002;
       };
@@ -314,7 +314,7 @@ in
         description =
           lib.mdDoc
             "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used."
-          ;
+        ;
         type = lib.types.int;
         default = 25;
       };
@@ -323,7 +323,7 @@ in
         description =
           lib.mdDoc
             "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*"
-          ;
+        ;
         type = with lib.types;
           attrsOf (
             submodule {
@@ -342,14 +342,14 @@ in
                   description =
                     lib.mdDoc
                       "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*"
-                    ;
+                  ;
                 };
                 threads = lib.mkOption {
                   type = nullOr int;
                   description =
                     lib.mdDoc
                       "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used."
-                    ;
+                  ;
                 };
               };
             }
@@ -490,7 +490,7 @@ in
           description =
             lib.mdDoc
               "Configure local PostgreSQL database server for Mastodon."
-            ;
+          ;
           type = lib.types.bool;
           default = true;
         };
@@ -541,7 +541,7 @@ in
           description =
             lib.mdDoc
               "Configure local Postfix SMTP server for Mastodon."
-            ;
+          ;
           type = lib.types.bool;
           default = true;
         };
@@ -550,7 +550,7 @@ in
           description =
             lib.mdDoc
               "Authenticate with the SMTP server using username and password."
-            ;
+          ;
           type = lib.types.bool;
           default = false;
         };
@@ -559,7 +559,7 @@ in
           description =
             lib.mdDoc
               "SMTP host used when sending emails to users."
-            ;
+          ;
           type = lib.types.str;
           default = "127.0.0.1";
         };
@@ -568,7 +568,7 @@ in
           description =
             lib.mdDoc
               "SMTP port used when sending emails to users."
-            ;
+          ;
           type = lib.types.port;
           default = 25;
         };
@@ -697,7 +697,7 @@ in
             assertion =
               !databaseActuallyCreateLocally
               -> (cfg.database.host != "/run/postgresql")
-              ;
+            ;
             message = ''
               <option>services.mastodon.database.host</option> needs to be set if
                 <option>services.mastodon.database.createLocally</option> is not enabled.
@@ -729,7 +729,7 @@ in
                   )
                   cfg.sidekiqProcesses
               )
-              ;
+            ;
             message =
               ''
                 There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
@@ -779,7 +779,7 @@ in
             + ''
               EOF
             ''
-            ;
+          ;
           environment = env;
           serviceConfig = {
             Type = "oneshot";
@@ -829,7 +829,7 @@ in
               rm $PGPASSFILE
               unset PGPASSFILE
             ''
-            ;
+          ;
           path = [
             cfg.package
             pkgs.postgresql
@@ -861,11 +861,11 @@ in
               "mastodon-init-dirs.service"
             ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ;
+          ;
           requires =
             [ "mastodon-init-dirs.service" ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ;
+          ;
         };
 
         systemd.services.mastodon-streaming = {
@@ -876,12 +876,12 @@ in
             ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
             ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-            ;
+          ;
           requires =
             [ "mastodon-init-dirs.service" ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
             ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-            ;
+          ;
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon streaming";
           environment = env // (
@@ -926,12 +926,12 @@ in
             ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
             ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-            ;
+          ;
           requires =
             [ "mastodon-init-dirs.service" ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
             ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-            ;
+          ;
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon web";
           environment = env // (
@@ -983,10 +983,10 @@ in
                   ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
                   ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
                 ''
-                ;
+              ;
               startAt = cfg.mediaAutoRemove.startAt;
             }
-          ;
+        ;
 
         services.nginx = lib.mkIf cfg.configureNginx {
           enable = true;
@@ -1031,7 +1031,7 @@ in
               enable = true;
               hostname = lib.mkDefault "${cfg.localDomain}";
             }
-          ;
+        ;
         services.redis.servers.mastodon =
           lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1")
             {
@@ -1039,7 +1039,7 @@ in
               port = cfg.redis.port;
               bind = "127.0.0.1";
             }
-          ;
+        ;
         services.postgresql = lib.mkIf databaseActuallyCreateLocally {
           enable = true;
           ensureUsers = [ {
@@ -1074,7 +1074,7 @@ in
         users.groups.${cfg.group}.members =
           lib.optional cfg.configureNginx
             config.services.nginx.user
-          ;
+        ;
       }
       { systemd.services = sidekiqUnits; }
     ]

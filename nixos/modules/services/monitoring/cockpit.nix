@@ -15,7 +15,7 @@ let
     mdDoc
     literalMD
     mkPackageOptionMD
-    ;
+  ;
   settingsFormat = pkgs.formats.ini { };
 in
 {
@@ -62,7 +62,7 @@ in
     environment.etc."cockpit/cockpit.conf".source =
       settingsFormat.generate "cockpit.conf"
         cfg.settings
-      ;
+    ;
 
     security.pam.services.cockpit = { };
 

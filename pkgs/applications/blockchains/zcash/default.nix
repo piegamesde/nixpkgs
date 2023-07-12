@@ -66,7 +66,7 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
       zeromq
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   # Use the stdenv default phases (./configure; make) instead of the
   # ones from buildRustPackage.

@@ -264,7 +264,7 @@ let
       raw = "img";
     }
       .${format} or format
-    ;
+  ;
 
   rootPartition =
     { # switch-case
@@ -388,7 +388,7 @@ let
   blockSize =
     toString
       (4 * 1024)
-    ; # ext4fs block size (not block device sector size)
+  ; # ext4fs block size (not block device sector size)
 
   prepareImage = ''
     export PATH=${binPath}

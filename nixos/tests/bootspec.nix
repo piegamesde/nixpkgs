@@ -156,7 +156,7 @@ in
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.start()

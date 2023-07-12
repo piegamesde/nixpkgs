@@ -58,7 +58,7 @@ buildPythonPackage rec {
       "test_create_environment_executable"
       "test_venv_and_pths"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

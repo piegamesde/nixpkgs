@@ -88,7 +88,7 @@ in
         }
       else
         { }
-      ;
+    ;
     users.groups.${cfg.group} = { };
 
     systemd.services.zerobin = {

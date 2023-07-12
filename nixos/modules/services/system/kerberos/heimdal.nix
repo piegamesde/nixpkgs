@@ -13,7 +13,7 @@ let
     toList
     mapAttrs
     mapAttrsToList
-    ;
+  ;
   cfg = config.services.kerberos_server;
   kerberos = config.krb5.kerberos;
   stateDir = "/var/heimdal";
@@ -43,7 +43,7 @@ let
         )
       )
       cfg.realms
-    ;
+  ;
 
   kdcConfigs =
     mapAttrsToList
@@ -54,7 +54,7 @@ let
         }
       '')
       aclFiles
-    ;
+  ;
   kdcConfFile = pkgs.writeText "kdc.conf" ''
     [kdc]
     ${concatStringsSep "\n" kdcConfigs}

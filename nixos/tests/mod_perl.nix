@@ -53,11 +53,11 @@ import ./make-test-python.nix (
                 '';
               };
             }
-            ;
+          ;
           enablePerl = true;
         };
       }
-      ;
+    ;
     testScript =
       {
         ...
@@ -66,6 +66,6 @@ import ./make-test-python.nix (
         response = machine.succeed("curl -fvvv -s http://127.0.0.1:80/modperl")
         assert "Hello mod_perl!" in response, "/modperl handler did not respond"
       ''
-      ;
+    ;
   }
 )

@@ -70,7 +70,7 @@ in
         description =
           lib.mdDoc
             "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket."
-          ;
+        ;
       };
 
       extraConfig = mkOption {
@@ -85,7 +85,7 @@ in
         description =
           lib.mdDoc
             "If set, maintenance script will be run at specified (in systemd.timer format) interval"
-          ;
+        ;
       };
     };
   };
@@ -123,11 +123,11 @@ in
             RuntimeDirectory =
               optional (cfg.domainSocket == defaultSock)
                 "dspam"
-              ;
+            ;
             RuntimeDirectoryMode =
               optional (cfg.domainSocket == defaultSock)
                 "0750"
-              ;
+            ;
             StateDirectory = "dspam";
             StateDirectoryMode = "0750";
             LogsDirectory = "dspam";

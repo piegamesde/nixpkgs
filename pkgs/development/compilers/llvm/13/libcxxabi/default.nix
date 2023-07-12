@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d llvm -i ${./wasm.patch}
     ''
-    ;
+  ;
 
   patches = [ ./gnu-install-dirs.patch ];
 
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
     ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
-    ;
+  ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

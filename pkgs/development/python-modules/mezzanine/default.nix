@@ -54,7 +54,7 @@ buildPythonPackage rec {
       tzlocal
     ]
     ++ bleach.optional-dependencies.css
-    ;
+  ;
 
   # Tests Fail Due to Syntax Warning, Fixed for v3.1.11+
   doCheck = false;

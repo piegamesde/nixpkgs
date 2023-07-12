@@ -53,7 +53,7 @@ buildPythonPackage rec {
       traitsui
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ;
+  ;
 
   nativeCheckInputs = [
     tables

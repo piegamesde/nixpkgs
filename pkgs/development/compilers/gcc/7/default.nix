@@ -125,7 +125,7 @@ let
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
-    ;
+  ;
 
   # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -134,7 +134,7 @@ let
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-${stageNameAddon}-"
-    ;
+  ;
 
   callFile = lib.callPackageWith {
     # lets
@@ -148,7 +148,7 @@ let
       crossMingw
       stageNameAddon
       crossNameAddon
-      ;
+    ;
     # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc7.cc.override)" | jq '.[]' --raw-output'
     inherit
       binutils
@@ -190,7 +190,7 @@ let
       which
       zip
       zlib
-      ;
+    ;
   };
 in
 
@@ -215,7 +215,7 @@ stdenv.mkDerivation (
         "info"
       ]
       ++ lib.optional (!langJit) "lib"
-      ;
+    ;
     setOutputFlags = false;
     NIX_NO_SELF_RPATH = true;
 
@@ -277,7 +277,7 @@ stdenv.mkDerivation (
            'LIMITS_H_TEST=false'
         )
       ''
-      ;
+    ;
 
     inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 
@@ -287,12 +287,12 @@ stdenv.mkDerivation (
       depsBuildTarget
       buildInputs
       depsTargetTarget
-      ;
+    ;
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString (stdenv.cc.isClang && langFortran)
         "-Wno-unused-command-line-argument"
-      ;
+    ;
     NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
     preConfigure = callFile ../common/pre-configure.nix { };
@@ -309,7 +309,7 @@ stdenv.mkDerivation (
       (callFile ../common/configure-flags.nix { })
       ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
       ++ optional targetPlatform.isNetBSD "--disable-libcilkrts"
-      ;
+    ;
 
     targetConfig =
       if targetPlatform != hostPlatform then targetPlatform.config else null;
@@ -317,13 +317,13 @@ stdenv.mkDerivation (
     buildFlags =
       optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
         (if profiledCompiler then "profiledbootstrap" else "bootstrap")
-      ;
+    ;
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
       stripDebugListTarget
       preFixup
-      ;
+    ;
 
     doCheck =
       false; # requires a lot of tools, causes a dependency cycle for stdenv
@@ -352,7 +352,7 @@ stdenv.mkDerivation (
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
       EXTRA_LDFLAGS_FOR_TARGET
-      ;
+    ;
 
     passthru = {
       inherit langC langCC langObjC langObjCpp langFortran langGo version;
@@ -371,7 +371,7 @@ stdenv.mkDerivation (
         longDescription
         platforms
         maintainers
-        ;
+      ;
       badPlatforms = [ "aarch64-darwin" ];
     };
   }

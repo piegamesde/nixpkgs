@@ -23,5 +23,5 @@ fetchdocker rec {
       };
     in
     [ layer0 ]
-    ;
+  ;
 }

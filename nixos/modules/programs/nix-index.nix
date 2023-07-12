@@ -12,7 +12,7 @@ in
     enable =
       mkEnableOption
         (lib.mdDoc "nix-index, a file database for nixpkgs")
-      ;
+    ;
 
     package = mkOption {
       type = types.package;
@@ -43,13 +43,13 @@ in
               with the 'programs.nix-index.${name}' option.
             '';
           }
-          ;
+        ;
       in
       [
         (checkOpt "enableBashIntegration")
         (checkOpt "enableZshIntegration")
       ]
-      ;
+    ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -75,6 +75,6 @@ in
             ${wrapper} $argv
         end
       ''
-      ;
+    ;
   };
 }

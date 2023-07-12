@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
         findlib
       ]
     )
-    ;
+  ;
 
   installPhase = ''
     mkdir -p $out/bin

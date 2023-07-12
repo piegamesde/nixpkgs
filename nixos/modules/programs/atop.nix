@@ -114,7 +114,7 @@ in
           (cfg.package.override { withAtopgpu = true; })
         else
           cfg.package
-        ;
+      ;
     in
     {
       environment.etc = mkIf (cfg.settings != { }) {
@@ -151,7 +151,7 @@ in
                 ];
               };
             }
-            ;
+          ;
           mkService = mkSystemd "services";
           mkTimer = mkSystemd "timers";
         in
@@ -183,13 +183,13 @@ in
                       fi
                     done
                   ''
-                ;
+              ;
             } // mkService cfg.atopacctService.enable "atopacct" [ atop ]
             // mkService cfg.netatop.enable "netatop" [ cfg.netatop.package ]
             // mkService cfg.atopgpu.enable "atopgpu" [ atop ];
           timers = mkTimer cfg.atopRotateTimer.enable "atop-rotate" [ atop ];
         }
-        ;
+      ;
 
       security.wrappers = lib.mkIf cfg.setuidWrapper.enable {
         atop = {

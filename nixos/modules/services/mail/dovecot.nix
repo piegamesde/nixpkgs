@@ -148,7 +148,7 @@ let
       special_use = \${toString mailbox.specialUse}
     ''
     + "}"
-    ;
+  ;
 
   mailboxes =
     {
@@ -174,7 +174,7 @@ let
           description =
             lib.mdDoc
               "Whether to automatically create or create and subscribe to the mailbox or not."
-            ;
+          ;
         };
         specialUse = mkOption {
           type = types.nullOr (
@@ -193,7 +193,7 @@ let
           description =
             lib.mdDoc
               "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid."
-            ;
+          ;
         };
         autoexpunge = mkOption {
           type = types.nullOr types.str;
@@ -206,7 +206,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 {
   imports = [
@@ -244,7 +244,7 @@ in
       description =
         lib.mdDoc
           "Additional listeners to start when Dovecot is enabled."
-        ;
+      ;
     };
 
     user = mkOption {
@@ -266,7 +266,7 @@ in
       description =
         lib.mdDoc
           "Additional entries to put verbatim into Dovecot's config file."
-        ;
+      ;
     };
 
     mailPlugins =
@@ -281,11 +281,11 @@ in
                 description =
                   lib.mdDoc
                     "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable"
-                  ;
+                ;
               };
             };
           }
-          ;
+        ;
       in
       mkOption {
         type = with types;
@@ -295,7 +295,7 @@ in
                 description =
                   lib.mdDoc
                     "Additional entries to add to the mail_plugins variable for all protocols"
-                  ;
+                ;
                 type = plugins "top-level";
                 example = { enable = [ "virtual" ]; };
                 default = { enable = [ ]; };
@@ -304,7 +304,7 @@ in
                 description =
                   lib.mdDoc
                     "Additional entries to add to the mail_plugins variable, per protocol"
-                  ;
+                ;
                 type = attrsOf (plugins "corresponding per-protocol");
                 default = { };
                 example = { imap = [ "imap_acl" ]; };
@@ -314,7 +314,7 @@ in
         description =
           lib.mdDoc
             "Additional entries to add to the mail_plugins variable, globally and per protocol"
-          ;
+        ;
         example = {
           globally.enable = [ "acl" ];
           perProtocol.imap.enable = [ "imap_acl" ];
@@ -324,7 +324,7 @@ in
           perProtocol = { };
         };
       }
-      ;
+    ;
 
     configFile = mkOption {
       type = types.nullOr types.path;
@@ -332,7 +332,7 @@ in
       description =
         lib.mdDoc
           "Config file used for the whole dovecot configuration."
-        ;
+      ;
       apply =
         v: if v != null then v else pkgs.writeText "dovecot.conf" dovecotConf;
     };
@@ -415,7 +415,7 @@ in
       description =
         lib.mdDoc
           "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc."
-        ;
+      ;
     };
 
     showPAMFailure = mkEnableOption (
@@ -447,7 +447,7 @@ in
       description =
         lib.mdDoc
           "Configure mailboxes and auto create or subscribe them."
-        ;
+      ;
     };
 
     enableQuota = mkEnableOption (lib.mdDoc "the dovecot quota service");
@@ -467,7 +467,7 @@ in
       description =
         lib.mdDoc
           "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %."
-        ;
+      ;
     };
   };
 
@@ -482,7 +482,7 @@ in
       optional cfg.enableImap "imap"
       ++ optional cfg.enablePop3 "pop3"
       ++ optional cfg.enableLmtp "lmtp"
-      ;
+    ;
 
     services.dovecot2.mailPlugins = mkIf cfg.enableQuota {
       globally.enable = [ "quota" ];
@@ -563,7 +563,7 @@ in
           )}
           chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
         ''
-        ;
+      ;
     };
 
     environment.systemPackages = [ dovecotPkg ];
@@ -573,7 +573,7 @@ in
         [
           "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration."
         ]
-      ;
+    ;
 
     assertions = [
       {
@@ -583,7 +583,7 @@ in
             cfg.sslCACert != null
             -> !(cfg.sslServerCert == null || cfg.sslServerKey == null)
           )
-          ;
+        ;
         message =
           "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
       }
@@ -596,7 +596,7 @@ in
         assertion =
           cfg.sieveScripts != { }
           -> (cfg.mailUser != null && cfg.mailGroup != null)
-          ;
+        ;
         message =
           "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";
       }

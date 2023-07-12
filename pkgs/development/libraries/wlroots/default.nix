@@ -67,7 +67,7 @@ let
           wayland-scanner
         ]
         ++ extraNativeBuildInputs
-        ;
+      ;
 
       buildInputs =
         [
@@ -91,7 +91,7 @@ let
         ]
         ++ lib.optional enableXWayland xwayland
         ++ extraBuildInputs
-        ;
+      ;
 
       mesonFlags = lib.optional (!enableXWayland) "-Dxwayland=disabled";
 
@@ -127,7 +127,7 @@ let
         ];
       };
     }
-    ;
+  ;
 in
 rec {
   wlroots_0_14 = generic {

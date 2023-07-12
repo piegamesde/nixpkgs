@@ -22,7 +22,7 @@ let
       "24"
       "23"
     ]
-    ;
+  ;
 
   interpretersAliases = versionLoop (
     version: {
@@ -62,7 +62,7 @@ in
           autoconf = buildPackages.autoconf269;
           inherit wxSupport systemdSupport;
         }
-      ;
+    ;
     erlang_25_odbc = self.interpreters.erlang_25.override {
       odbcSupport = true;
     };
@@ -83,7 +83,7 @@ in
           autoconf = buildPackages.autoconf269;
           inherit wxSupport systemdSupport;
         }
-      ;
+    ;
     erlang_24_odbc = self.interpreters.erlang_24.override {
       odbcSupport = true;
     };
@@ -105,7 +105,7 @@ in
           autoconf = buildPackages.autoconf269;
           inherit wxSupport systemdSupport;
         }
-      ;
+    ;
     erlang_23_odbc = self.interpreters.erlang_23.override {
       odbcSupport = true;
     };
@@ -130,7 +130,7 @@ in
       elixir-ls
       lfe
       lfe_2_1
-      ;
+    ;
   } // interpretersAliases;
 
   # Helper function to generate package set with a specific Erlang version.

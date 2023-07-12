@@ -51,10 +51,10 @@ let
             makeWrapper ${jre}/bin/java $out/bin/java \
               --add-flags ${lib.escapeShellArg includeFlag}
           ''
-        ;
+      ;
     in
     plantuml.override { jre = postFixedJre; }
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
         sed 's/!include ..\//!include /' ${sprites}/examples/complex-example.puml > sprites.puml
         plantuml sprites.puml -o $out
       ''
-    ;
+  ;
 
   meta = with lib; {
     description =

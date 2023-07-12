@@ -103,7 +103,7 @@ let
         ${pkgs.chrony}/bin/chronyc waitsync
       '';
     }
-    ;
+  ;
 in
 import ./make-test-python.nix (
   {
@@ -118,11 +118,11 @@ import ./make-test-python.nix (
       node2 =
         makeNode "country=us,region=west,dc=2b" "192.168.1.2"
           "192.168.1.1"
-        ;
+      ;
       node3 =
         makeNode "country=eu,region=west,dc=2" "192.168.1.3"
           "192.168.1.1"
-        ;
+      ;
     };
 
     # NOTE: All the nodes must start in order and you must NOT use startAll, because

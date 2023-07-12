@@ -54,7 +54,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.pydantic
     ++ passthru.optional-dependencies.yaml
     ++ passthru.optional-dependencies.flask
-    ;
+  ;
 
   pythonImportsCheck = [ "dependency_injector" ];
 

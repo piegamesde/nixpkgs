@@ -20,7 +20,7 @@ let
       echo $(pwd) > "$devrepo/${withCommas libname}/.dev"
       export HAXELIB_PATH="$HAXELIB_PATH:$devrepo"
     ''
-    ;
+  ;
 
   installLibHaxe =
     {
@@ -34,7 +34,7 @@ let
         withCommas version
       }/"
     ''
-    ;
+  ;
 
   buildHaxeLib =
     {
@@ -54,7 +54,7 @@ let
             haxe
             neko
           ]
-          ; # for setup-hook.sh to work
+        ; # for setup-hook.sh to work
         src = fetchzip rec {
           name = "${libname}-${version}";
           url = "http://lib.haxe.org/files/3.0/${withCommas name}.zip";
@@ -84,7 +84,7 @@ let
         } // attrs.meta;
       }
     )
-    ;
+  ;
 in
 {
   format = buildHaxeLib {
@@ -179,5 +179,5 @@ in
         description = "Extern definitions for node.js 6.9";
       };
     }
-    ;
+  ;
 }

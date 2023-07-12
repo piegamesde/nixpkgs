@@ -31,7 +31,7 @@ let
   debugInfoFlag =
     lib.optionalString (enableDebugInfo || erlang.debugInfo)
       "+debug_info"
-    ;
+  ;
 
   shell =
     drv:
@@ -39,7 +39,7 @@ let
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
     }
-    ;
+  ;
 
   pkg =
     self:
@@ -60,7 +60,7 @@ let
             ''
           else
             setupHook
-          ;
+        ;
 
         buildInputs =
           buildInputs
@@ -71,7 +71,7 @@ let
             gitMinimal
             wget
           ]
-          ;
+        ;
         propagatedBuildInputs = beamDeps;
 
         buildFlags =
@@ -79,7 +79,7 @@ let
           ++ lib.optional (enableDebugInfo || erlang.debugInfo) ''
             ERL_OPTS="$ERL_OPTS +debug_info"''
           ++ buildFlags
-          ;
+        ;
 
         configurePhase =
           if configurePhase == null then
@@ -94,7 +94,7 @@ let
             ''
           else
             configurePhase
-          ;
+        ;
 
         buildPhase =
           if buildPhase == null then
@@ -107,7 +107,7 @@ let
             ''
           else
             buildPhase
-          ;
+        ;
 
         installPhase =
           if installPhase == null then
@@ -134,7 +134,7 @@ let
             ''
           else
             installPhase
-          ;
+        ;
 
         passthru = {
           packageName = name;
@@ -143,6 +143,6 @@ let
         };
       }
     )
-    ;
+  ;
 in
 lib.fix pkg

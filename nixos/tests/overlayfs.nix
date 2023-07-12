@@ -15,7 +15,7 @@ import ./make-test-python.nix (
         networking.hostId = "deadbeef";
         environment.systemPackages = with pkgs; [ parted ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed("ls /dev")

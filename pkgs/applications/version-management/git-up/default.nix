@@ -26,7 +26,7 @@ pythonPackages.buildPythonApplication rec {
         termcolor
       ]
     )
-    ;
+  ;
 
   nativeCheckInputs = [
     git

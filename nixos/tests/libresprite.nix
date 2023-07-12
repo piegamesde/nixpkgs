@@ -20,7 +20,7 @@ import ./make-test-python.nix (
           pkgs.libresprite
         ];
       }
-      ;
+    ;
 
     enableOCR = true;
 

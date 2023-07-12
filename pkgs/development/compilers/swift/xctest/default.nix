@@ -27,7 +27,7 @@ stdenv.mkDerivation {
       swift
     ]
     ++ lib.optional stdenv.isDarwin DarwinTools
-    ; # sw_vers
+  ; # sw_vers
   buildInputs = [ Foundation ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''

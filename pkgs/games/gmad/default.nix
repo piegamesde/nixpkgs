@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       "gmad_osx"
     else
       "gmad"
-    ;
+  ;
 
   premakeFlags = [
     "--bootil_lib=${bootil}/lib"

@@ -72,7 +72,7 @@ let
         ];
       };
     }
-    ;
+  ;
 in
 {
   rekor-cli = generic {

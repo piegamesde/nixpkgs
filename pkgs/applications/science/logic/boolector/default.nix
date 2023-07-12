@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       "-DUSE_LINGELING=YES"
     ]
     ++ (lib.optional (gmp != null) "-DUSE_GMP=YES")
-    ;
+  ;
 
   nativeCheckInputs = [ python3 ];
   doCheck = true;
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       export ${var}=$(readlink -f lib)
       patchShebangs ..
     ''
-    ;
+  ;
 
   postCheck = lib.optionalString stdenv.isDarwin ''
     rm -rf bin

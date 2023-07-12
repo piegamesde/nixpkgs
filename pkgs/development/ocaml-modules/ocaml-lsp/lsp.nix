@@ -88,7 +88,7 @@ buildDunePackage rec {
         omd
         cmdliner
       ]
-    ;
+  ;
 
   nativeBuildInputs = lib.optional (lib.versionOlder version "1.7.0") cppo;
 
@@ -99,7 +99,7 @@ buildDunePackage rec {
       uutf
     ]
     ++ lib.optional (lib.versionOlder version "1.7.0") stdlib-shims
-    ;
+  ;
 
   meta =
     jsonrpc.meta // { description = "LSP protocol implementation in OCaml"; };

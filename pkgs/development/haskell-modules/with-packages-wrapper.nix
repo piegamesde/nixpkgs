@@ -51,7 +51,7 @@ let
   packages =
     selectPackages haskellPackages
     ++ lib.optional withHoogle (hoogleWithPackages selectPackages)
-    ;
+  ;
 
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
@@ -67,7 +67,7 @@ let
     else
       "$out/lib/${ghc.targetPrefix}${ghc.haskellCompilerName}"
       + lib.optionalString (ghc ? hadrian) "/lib"
-    ;
+  ;
   docDir = "$out/share/doc/ghc/html";
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (
@@ -102,7 +102,7 @@ else
       paths
       ++ [ ghc ]
       ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ]
-      ;
+    ;
     nativeBuildInputs = [ makeWrapper ];
     postBuild =
       ''
@@ -206,7 +206,7 @@ else
         $out/bin/${ghcCommand}-pkg check
       ''
       + postBuild
-      ;
+    ;
     preferLocalBuild = true;
     passthru = {
       inherit (ghc) version meta;
@@ -227,6 +227,6 @@ else
 
           Also note that withLLVM has been renamed to useLLVM for consistency with
           the GHC Nix expressions.''
-        ;
+      ;
     };
   }

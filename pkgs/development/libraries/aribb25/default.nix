@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional stdenv.isDarwin xcbuild
-    ;
+  ;
   buildInputs = if stdenv.isDarwin then [ PCSC ] else [ pcsclite ];
 
   patches =
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       url =
         commit:
         "https://code.videolan.org/videolan/${pname}/-/commit/${commit}.diff"
-        ;
+      ;
     in
     [
       (fetchpatch {
@@ -52,12 +52,12 @@ stdenv.mkDerivation rec {
         sha256 = "1283kqv1r4rbaba0sv2hphkhcxgjkmh8ndlcd24fhx43nn63hd28";
       })
     ]
-    ;
+  ;
 
   buildFlags =
     lib.optional stdenv.isDarwin
       "pcsclite_CFLAGS=-I${PCSC}/Library/Frameworks/PCSC.framework/Headers"
-    ;
+  ;
 
   meta = with lib; {
     description = "Sample implementation of the ARIB STD-B25 standard";

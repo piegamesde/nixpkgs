@@ -41,7 +41,7 @@ let
       cudaPackages.cudnn
     else
       cudaPackages.cudnn_7_6_5
-    ;
+  ;
 in
 
 assert leveldbSupport -> (leveldb != null && snappy != null);
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
     ++ [ "-DUSE_LEVELDB=${toggle leveldbSupport}" ]
     ++ [ "-DUSE_LMDB=${toggle lmdbSupport}" ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
       CoreGraphics
       CoreVideo
     ]
-    ;
+  ;
 
   propagatedBuildInputs = lib.optionals pythonSupport (
     # requirements.txt
@@ -171,10 +171,10 @@ stdenv.mkDerivation rec {
         inherit (python.sourceVersion)
           major
           minor
-          ; # Should be changed in case of PyPy
+        ; # Should be changed in case of PyPy
       }
     )
-    ;
+  ;
 
   postPatch =
     ''
@@ -189,7 +189,7 @@ stdenv.mkDerivation rec {
           # CUDA 9.0 doesn't support sm_20
           sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
         ''
-    ;
+  ;
 
   preConfigure = lib.optionalString pythonSupport ''
     # We need this when building with Python bindings
@@ -211,7 +211,7 @@ stdenv.mkDerivation rec {
       mv $out/python/caffe $out/${python.sitePackages}
       rm -rf $out/python
     ''
-    ;
+  ;
 
   doInstallCheck = false; # build takes more than 30 min otherwise
   installCheckPhase = ''

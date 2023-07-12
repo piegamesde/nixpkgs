@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableSse42 "--with-sse42"
     ++ lib.optional enableAvx "--with-avx"
     ++ lib.optional enableCuda "--with-cuda=${cudatoolkit}"
-    ;
+  ;
 
   meta = with lib; {
     description = "Collective communication operations API";

@@ -21,7 +21,7 @@ mkDerivation {
       flex
     ]
     ++ lib.optionals stdenv.isLinux [ media-player-info ]
-    ;
+  ;
   buildInputs = [
     qtdeclarative
     qttools

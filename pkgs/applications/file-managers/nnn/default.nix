@@ -38,7 +38,7 @@ stdenv.mkDerivation (
     preBuild =
       lib.optionalString (conf != null)
         "cp ${finalAttrs.configFile} src/nnn.h"
-      ;
+    ;
 
     nativeBuildInputs = [
       installShellFiles
@@ -51,19 +51,19 @@ stdenv.mkDerivation (
         ncurses
       ]
       ++ lib.optional stdenv.hostPlatform.isMusl musl-fts
-      ;
+    ;
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.hostPlatform.isMusl
         "-I${musl-fts}/include"
-      ;
+    ;
     NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isMusl "-lfts";
 
     makeFlags =
       [ "PREFIX=$(out)" ]
       ++ lib.optionals withIcons [ "O_ICONS=1" ]
       ++ lib.optionals withNerdIcons [ "O_NERD=1" ]
-      ;
+    ;
 
     binPath = lib.makeBinPath [
       file

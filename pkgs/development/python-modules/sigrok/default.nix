@@ -27,7 +27,7 @@ toPythonModule (
           # we expect) instead of making a version-specific *.egg subdirectory.
           ./python-install.patch
         ]
-        ;
+      ;
 
       nativeBuildInputs =
         orig.nativeBuildInputs or [ ]
@@ -41,14 +41,14 @@ toPythonModule (
           pythonImportsCheckHook
           pythonCatchConflictsHook
         ]
-        ;
+      ;
 
       buildInputs =
         orig.buildInputs or [ ]
         ++ [
           pygobject3 # makes headers available the configure script checks for
         ]
-        ;
+      ;
 
       propagatedBuildInputs =
         orig.propagatedBuildInputs or [ ]
@@ -56,7 +56,7 @@ toPythonModule (
           pygobject3
           numpy
         ]
-        ;
+      ;
 
       postInstall = ''
         ${orig.postInstall or ""}

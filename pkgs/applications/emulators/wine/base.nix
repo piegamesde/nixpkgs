@@ -42,7 +42,7 @@ let
         };
       }
       ./setup-hook-darwin.sh
-    ;
+  ;
 in
 stdenv.mkDerivation (
   (lib.optionalAttrs (buildScript != null) { builder = buildScript; }) // (
@@ -83,7 +83,7 @@ stdenv.mkDerivation (
         ++ lib.optionals supportFlags.mingwSupport (
           mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin
         )
-        ;
+      ;
 
       buildInputs = toBuildInputs pkgArches (
         with supportFlags;
@@ -204,7 +204,7 @@ stdenv.mkDerivation (
           ./darwin-qos.patch
         ]
         ++ patches'
-        ;
+      ;
 
       configureFlags =
         prevConfigFlags
@@ -213,7 +213,7 @@ stdenv.mkDerivation (
         ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [
           "--without-x"
         ]
-        ;
+      ;
 
       # Wine locates a lot of libraries dynamically through dlopen().  Add
       # them to the RPATH so that the user doesn't have to set them in
@@ -279,7 +279,7 @@ stdenv.mkDerivation (
             fi
           done
         ''
-        ;
+      ;
 
       enableParallelBuilding = true;
 
@@ -289,7 +289,7 @@ stdenv.mkDerivation (
         [ "bindnow" ]
         ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
         ++ lib.optional (supportFlags.mingwSupport) "format"
-        ;
+      ;
 
       passthru = {
         inherit pkgArches;
@@ -309,13 +309,13 @@ stdenv.mkDerivation (
             "An Open Source implementation of the Windows API on top of OpenGL and Unix (with experimental Wayland support)"
           else
             "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix"
-          ;
+        ;
         platforms =
           if supportFlags.waylandSupport then
             (lib.remove "x86_64-darwin" prevPlatforms)
           else
             prevPlatforms
-          ;
+        ;
         maintainers = with lib.maintainers; [
           avnik
           raskin

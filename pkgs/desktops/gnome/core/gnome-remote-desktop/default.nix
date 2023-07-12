@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       systemd
     ]
     ++ nativeCheckInputs
-    ;
+  ;
 
   nativeCheckInputs = [
     mesa # for gbm

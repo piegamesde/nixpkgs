@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
         gst-plugins-base
       ]
     )
-    ;
+  ;
 
   passthru.providedSessions = [ "budgie-desktop" ];
 

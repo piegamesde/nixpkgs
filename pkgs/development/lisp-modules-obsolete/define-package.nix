@@ -130,7 +130,7 @@ let
         clwrapper.asdf
       ]
       ++ (args.propagatedBuildInputs or [ ])
-      ;
+    ;
     buildInputs = buildInputs;
     dontStrip = true;
 

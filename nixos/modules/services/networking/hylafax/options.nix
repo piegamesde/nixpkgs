@@ -19,7 +19,7 @@ let
     path
     str
     submodule
-    ;
+  ;
   inherit (lib.modules) mkDefault mkIf mkMerge;
 
   commonDescr = ''
@@ -46,7 +46,7 @@ let
       );
     in
     attrsOf (coercedTo innerType lib.singleton (listOf innerType))
-    ;
+  ;
 
   cfg = config.services.hylafax;
 
@@ -93,7 +93,7 @@ let
       config.name = mkDefault name;
       config.config.Include = [ "config/${config.type}" ];
     }
-    ;
+  ;
 
   defaultConfig =
     let
@@ -114,13 +114,13 @@ let
         lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (
           import file { inherit pkgs; }
         )
-        ;
+      ;
       c.commonModemConfig = importDefaultConfig ./modem-default.nix;
       c.faxqConfig = importDefaultConfig ./faxq-default.nix;
       c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
     in
     c
-    ;
+  ;
 
   localConfig =
     let
@@ -133,11 +133,11 @@ let
             LongDistancePrefix = cfg.longDistancePrefix;
             InternationalPrefix = cfg.internationalPrefix;
           }
-        ;
+      ;
       c.commonModemConfig = c.faxqConfig;
     in
     c
-    ;
+  ;
 in
 
 {

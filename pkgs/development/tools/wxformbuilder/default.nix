@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     [ cmake ]
     ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
     ++ lib.optionals stdenv.isLinux [ shared-mime-info ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
       boost
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   preConfigure = ''
     sed -i 's/FATAL_ERROR/WARNING/' cmake/revision-git*.cmake

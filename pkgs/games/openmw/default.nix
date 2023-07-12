@@ -44,7 +44,7 @@ let
           ];
         }
       )
-    ;
+  ;
 
   bullet_openmw = bullet.overrideDerivation (
     old: rec {
@@ -62,7 +62,7 @@ let
           "-DUSE_DOUBLE_PRECISION=ON"
           "-DBULLET2_MULTITHREADING=ON"
         ]
-        ;
+      ;
     }
   );
 in
@@ -92,7 +92,7 @@ mkDerivation rec {
       # Don't fix Darwin app bundle
       sed -i '/fixup_bundle/d' CMakeLists.txt
     ''
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -118,7 +118,7 @@ mkDerivation rec {
       recastnavigation
     ]
     ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -127,7 +127,7 @@ mkDerivation rec {
       "-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=1"
     ]
     ++ lib.optionals stdenv.isDarwin [ "-DOPENMW_OSX_DEPLOYMENT=ON" ]
-    ;
+  ;
 
   meta = with lib; {
     description =

@@ -12,7 +12,7 @@ import ../make-test-python.nix (
           mkdir -p $out
           cp key.pem cert.pem $out
         ''
-      ;
+    ;
   in
   {
     name = "monica";
@@ -35,7 +35,7 @@ import ../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

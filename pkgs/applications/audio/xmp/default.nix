@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       AudioUnit
       CoreAudio
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Extended module player";

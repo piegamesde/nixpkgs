@@ -21,7 +21,7 @@ in
         description =
           lib.mdDoc
             "Whether rog-control-center should be started automatically."
-          ;
+        ;
       };
     };
   };

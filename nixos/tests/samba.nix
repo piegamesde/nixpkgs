@@ -23,7 +23,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       server =
         {
@@ -39,7 +39,7 @@ import ./make-test-python.nix (
             comment = "Public samba share.";
           };
         }
-        ;
+      ;
     };
 
     # client# [    4.542997] mount[777]: sh: systemd-ask-password: command not found

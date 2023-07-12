@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional withDocs "devdoc"
-    ;
+  ;
 
   src = fetchurl {
     url = "https://libvirt.org/sources/glib/${pname}-${version}.tar.xz";
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       gtk-doc
       docbook-xsl-nons
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       libxml2
     ]
     ++ lib.optionals stdenv.isLinux [ libcap_ng ]
-    ;
+  ;
 
   strictDeps = true;
 

@@ -163,7 +163,7 @@ in
           ExecReload = rulesScript;
           ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
         }
-        ;
+      ;
     };
   };
 }

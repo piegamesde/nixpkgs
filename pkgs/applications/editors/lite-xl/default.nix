@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       SDL2
     ]
     ++ lib.optionals stdenv.isDarwin [ Foundation ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A lightweight text editor written in Lua";

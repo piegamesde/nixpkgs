@@ -100,7 +100,7 @@ in
     networking.firewall =
       mkIf cfg.openPorts
         { allowedUDPPorts = [ cfg.port ]; }
-      ;
+    ;
 
     systemd.services.teeworlds = {
       description = "Teeworlds Server";

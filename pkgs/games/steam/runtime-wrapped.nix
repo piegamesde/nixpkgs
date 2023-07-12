@@ -34,7 +34,7 @@ let
       "i386-linux-gnu"
     else
       abort "Unsupported architecture"
-    ;
+  ;
 
   libs = [
     "lib/${gnuArch}"

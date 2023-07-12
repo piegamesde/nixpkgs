@@ -24,7 +24,7 @@ appimageTools.wrapType2 rec {
         --replace 'Exec=AppRun' 'Exec=${name}'
       cp -r ${appimageContents}/usr/share/icons $out/share
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "An app for managing ROMs in Steam";

@@ -126,7 +126,7 @@
                 }
               )
               sysMounts
-            ;
+          ;
         }
       );
     in
@@ -136,5 +136,5 @@
       cp ${config} $out/config.json
       xargs tar c < ${writeReferencesToFile args} | tar -xC $out/rootfs/
     ''
-    ;
+  ;
 }

@@ -39,7 +39,7 @@ let
       glib
       gtk3
     ]
-    ;
+  ;
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
   validCpuTypes = builtins.attrNames lib.systems.parse.cpuTypes;
   providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes) (
@@ -51,7 +51,7 @@ let
         "${name-prefix}-bin"
       else
         "${name-prefix}-${sourcePerArch.packageType}-bin"
-      ;
+    ;
 
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
@@ -72,7 +72,7 @@ let
         zlib
       ]
       ++ lib.optional stdenv.isAarch32 libffi
-      ;
+    ;
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -137,7 +137,7 @@ let
       platforms =
         builtins.map (arch: arch + "-linux")
           providedCpuTypes
-        ; # some inherit jre.meta.platforms
+      ; # some inherit jre.meta.platforms
       maintainers = with maintainers; [ taku0 ];
       inherit knownVulnerabilities;
       mainProgram = "java";

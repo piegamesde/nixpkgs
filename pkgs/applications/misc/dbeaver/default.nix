@@ -23,7 +23,7 @@
 (javaPackages.mavenfod.override {
   inherit
     maven
-    ; # use overridden maven version (see dbeaver's entry in all-packages.nix)
+  ; # use overridden maven version (see dbeaver's entry in all-packages.nix)
 })
   rec {
     pname = "dbeaver";
@@ -61,7 +61,7 @@
         webkitgtk_4_1
         glib-networking
       ]
-      ;
+    ;
 
     desktopItems = [
       (makeDesktopItem {
@@ -138,7 +138,7 @@
 
           runHook postInstall
         ''
-      ;
+    ;
 
     meta = with lib; {
       homepage = "https://dbeaver.io/";

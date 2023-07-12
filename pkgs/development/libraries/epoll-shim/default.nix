@@ -37,7 +37,7 @@ stdenv.mkDerivation (
         ++ platforms.freebsd
         ++ platforms.netbsd
         ++ platforms.openbsd
-        ;
+      ;
       maintainers = with maintainers; [ wegank ];
     };
   }

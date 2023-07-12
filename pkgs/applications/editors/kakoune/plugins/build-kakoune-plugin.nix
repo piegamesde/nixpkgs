@@ -34,7 +34,7 @@
         '';
       }
     )
-    ;
+  ;
 
   buildKakounePluginFrom2Nix =
     attrs:
@@ -44,5 +44,5 @@
         dontConfigure = true;
       } // attrs
     )
-    ;
+  ;
 }

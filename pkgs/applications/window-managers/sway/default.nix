@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       # references:
       ./sway-config-nixos-paths.patch
     ]
-    ;
+  ;
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
@@ -116,13 +116,13 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals dbusSupport [ dbus ]
     ++ lib.optionals enableXWayland [ xorg.xcbutilwm ]
-    ;
+  ;
 
   mesonFlags =
     [ "-Dsd-bus-provider=${sd-bus-provider}" ]
     ++ lib.optional (!enableXWayland) "-Dxwayland=disabled"
     ++ lib.optional (!trayEnabled) "-Dtray=disabled"
-    ;
+  ;
 
   passthru.tests.basic = nixosTests.sway;
 

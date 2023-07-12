@@ -24,7 +24,7 @@ import ./make-test-python.nix (
         };
         networking.hosts."127.0.0.1" = [ "api.github.com" ];
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

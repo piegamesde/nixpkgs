@@ -25,7 +25,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable the postsrsd SRS server for Postfix."
-          ;
+        ;
       };
 
       secretsFile = mkOption {
@@ -49,7 +49,7 @@ in
         description =
           lib.mdDoc
             "First separator character in generated addresses"
-          ;
+        ;
       };
 
       # bindAddress = mkOption { # uncomment once 1.5 is released
@@ -76,7 +76,7 @@ in
         description =
           lib.mdDoc
             "Timeout for idle client connections in seconds"
-          ;
+        ;
       };
 
       excludeDomains = mkOption {
@@ -85,7 +85,7 @@ in
         description =
           lib.mdDoc
             "Origin domains to exclude from rewriting in addition to primary domain"
-          ;
+        ;
       };
 
       user = mkOption {

@@ -24,7 +24,7 @@ let
     lib.attrByPath (lib.splitString "." attrPath)
       (throw "Cannot find attribute ‘${attrPath}’.")
       pkgs
-    ;
+  ;
   packageVersion = lib.getVersion package;
   upperBound =
     let
@@ -33,7 +33,7 @@ let
       minorAvailable =
         builtins.length versionComponents > 1
         && builtins.match "[0-9]+" minorVersion != null
-        ;
+      ;
       nextMinor = builtins.fromJSON minorVersion + 1;
       upperBound =
         "${lib.versions.major packageVersion}.${builtins.toString nextMinor}";
@@ -45,7 +45,7 @@ let
     else
       throw
         "“freeze” argument needs to be either a boolean, or a version string."
-    ;
+  ;
   updateScript = writeScript "gnome-update-script" ''
     #!${python}/bin/python
     import json
@@ -116,6 +116,6 @@ in
       versionPolicy
     ]
     ++ upperBound
-    ;
+  ;
   supportedFeatures = [ "commit" ];
 }

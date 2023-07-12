@@ -40,7 +40,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.filecache
-    ;
+  ;
 
   pythonImportsCheck = [ "cachecontrol" ];
 

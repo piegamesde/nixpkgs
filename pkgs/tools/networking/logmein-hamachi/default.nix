@@ -12,7 +12,7 @@ let
       "x86"
     else
       throwSystem
-    ;
+  ;
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
   sha256 =
     if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -21,7 +21,7 @@ let
       "03ml9xv19km99f0z7fpr21b1zkxvw7q39kjzd8wpb2pds51wnc62"
     else
       throwSystem
-    ;
+  ;
   libraries = lib.makeLibraryPath [ stdenv.cc.cc ];
 in
 stdenv.mkDerivation rec {

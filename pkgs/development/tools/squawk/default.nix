@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
         Security
       ]
     )
-    ;
+  ;
 
   OPENSSL_NO_VENDOR = 1;
 

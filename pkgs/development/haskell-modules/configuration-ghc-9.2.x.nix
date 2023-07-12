@@ -48,7 +48,7 @@ self: super: {
       null
     else
       self.terminfo_0_4_1_6
-    ;
+  ;
   text = null;
   time = null;
   transformers = null;
@@ -77,7 +77,7 @@ self: super: {
         sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
       })
       (doJailbreak super.language-haskell-extract)
-    ;
+  ;
 
   # Tests depend on `parseTime` which is no longer available
   hourglass = dontCheck super.hourglass;
@@ -107,5 +107,5 @@ self: super: {
         x: x
     )
       super.inline-c-cpp
-    ;
+  ;
 }

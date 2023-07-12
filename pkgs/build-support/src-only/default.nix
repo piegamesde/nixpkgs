@@ -17,7 +17,7 @@ let
       args.name
     else
       "${args.pname}-${args.version}"
-    ;
+  ;
 in
 stdenv.mkDerivation (
   args // {

@@ -22,7 +22,7 @@ let
     "${concatStringsSep ":" options}${
       optionalString (length options != 0) ":"
     } "
-    ;
+  ;
 
   toCommandsString =
     commands:
@@ -37,7 +37,7 @@ let
         )
         commands
     )
-    ;
+  ;
 in
 
 {
@@ -309,7 +309,7 @@ in
           inherit owner group setuid permissions;
         };
       }
-      ;
+    ;
 
     environment.systemPackages = [ sudo ];
 
@@ -328,7 +328,7 @@ in
           # Make sure that the sudoers file is syntactically valid.
           # (currently disabled - NIXOS-66)
           "${pkgs.buildPackages.sudo}/sbin/visudo -f $src -c && cp $src $out"
-        ;
+      ;
       mode = "0440";
     };
   };

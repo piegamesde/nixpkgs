@@ -205,7 +205,7 @@ writeTextFile rec {
             ]
           }''${DYLD_LIBRARY_PATH:+:}$DYLD_LIBRARY_PATH"
       ''
-    ;
+  ;
 } // { # equivalent of `passthru`, which `writeTextFile` doesn't support
   lib = sagelib;
   docbuild = sage-docbuild;

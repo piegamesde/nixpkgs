@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
-    ;
+  ;
 
   configureFlags =
     [
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       "--enable-audio=darwin,jack"
       "lib_cv_va_val_copy=no"
     ]
-    ;
+  ;
 
   makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
 

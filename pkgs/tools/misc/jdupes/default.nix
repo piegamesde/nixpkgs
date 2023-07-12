@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       "STATIC_DEDUPE_H=1"
     ]
     ++ lib.optionals stdenv.cc.isGNU [ "HARDEN=1" ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

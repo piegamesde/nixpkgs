@@ -17,7 +17,7 @@ let
     optionalString
     singleton
     types
-    ;
+  ;
 
   cfg = config.services.openafsClient;
 
@@ -175,7 +175,7 @@ in
           description =
             lib.mdDoc
               "OpenAFS kernel module package. MUST match the userland package!"
-            ;
+          ;
         };
         programs = mkOption {
           default = getBin pkgs.openafs;
@@ -184,7 +184,7 @@ in
           description =
             lib.mdDoc
               "OpenAFS programs package. MUST match the kernel module package!"
-            ;
+          ;
         };
       };
 

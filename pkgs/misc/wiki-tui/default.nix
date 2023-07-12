@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   cargoHash = "sha256-RWj1QCHYEtw+QzdX+YlFiMqMhvCfxYzj6SUzfhqrcM8=";
 

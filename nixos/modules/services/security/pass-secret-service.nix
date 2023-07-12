@@ -22,7 +22,7 @@ in
       example =
         literalExpression
           "pkgs.pass-secret-service.override { python3 = pkgs.python310 }"
-        ;
+      ;
     };
   };
 

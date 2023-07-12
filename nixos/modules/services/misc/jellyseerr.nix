@@ -23,7 +23,7 @@ in
       description =
         mdDoc
           "Open port in the firewall for the Jellyseerr web interface."
-        ;
+      ;
     };
 
     port = mkOption {
@@ -32,7 +32,7 @@ in
       description =
         mdDoc
           "The port which the Jellyseerr web UI should listen to."
-        ;
+      ;
     };
   };
 

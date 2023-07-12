@@ -49,7 +49,7 @@ import ./make-test-python.nix (
             defaultGateway = "192.168.0.3";
           };
         }
-        ;
+      ;
 
       moon =
         {
@@ -110,7 +110,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       carol =
         {
@@ -163,7 +163,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
     testScript = ''
       start_all()

@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional cupsSupport cups
-    ;
+  ;
 
   buildInputs =
     [
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
       xorg.libXt
     ]
     ++ lib.optional cupsSupport cups
-    ;
+  ;
 
   preConfigure = ''
     # https://ghostscript.com/doc/current/Make.htm
@@ -148,7 +148,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional x11Support [ "--with-x" ]
     ++ lib.optionals cupsSupport [ "--enable-cups" ]
-    ;
+  ;
 
   # make check does nothing useful
   doCheck = false;
@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
         install_name_tool -id "$file" $file
       done
     ''
-    ;
+  ;
 
   # dynamic library name only contains maj.min, eg. '9.53'
   dylib_version = lib.versions.majorMinor version;

@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
         libXtst
       ]
     )
-    ;
+  ;
 
   # Disable building of doc/reference since it requires network connection to render XML to HTML
   # Patch build script shebangs

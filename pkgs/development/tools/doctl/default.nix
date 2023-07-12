@@ -27,7 +27,7 @@ buildGoModule rec {
       "-X ${t}.Patch=${lib.versions.patch version}"
       "-X ${t}.Label=release"
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ installShellFiles ];
 

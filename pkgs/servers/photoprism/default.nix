@@ -40,7 +40,7 @@ let
       url = "https://dl.photoprism.org/tensorflow/${name}.zip";
       stripRoot = false;
     }
-    ;
+  ;
 
   facenet = fetchModel {
     name = "facenet";

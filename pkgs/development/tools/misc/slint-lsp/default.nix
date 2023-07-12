@@ -35,7 +35,7 @@ let
       libxkbcommon
       wayland
     ]
-    ;
+  ;
 in
 rustPlatform.buildRustPackage rec {
   pname = "slint-lsp";
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       OpenGL
     ]
-    ;
+  ;
 
   postInstall = lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath ${lib.makeLibraryPath rpathLibs} $out/bin/slint-lsp

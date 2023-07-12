@@ -64,7 +64,7 @@ let
   rustfmtInNativeBuildInputs =
     lib.lists.any (dep: lib.getName dep == "rustfmt")
       (args.nativeBuildInputs or [ ])
-    ;
+  ;
 in
 
 assert lib.asserts.assertMsg ((args.installPhase or "") == "")
@@ -87,11 +87,11 @@ let
         export CARGO_TARGET_DIR="$(pwd)/target"
         pushd "${buildAndTestSubdir}"
       ''
-    ;
+  ;
   maybeLeaveBuildAndTestSubdir =
     lib.optionalString (buildAndTestSubdir != null)
       "popd"
-    ;
+  ;
 
   pgxPostgresMajor = lib.versions.major postgresql.version;
   preBuildAndTest = ''
@@ -127,7 +127,7 @@ let
         rustPlatform.bindgenHook
       ]
       ++ lib.optionals useFakeRustfmt [ fakeRustfmt ]
-      ;
+    ;
 
     buildPhase = ''
       runHook preBuild

@@ -40,7 +40,7 @@ let
         python -m jsonschema config.schema.json -i $configPath
         cp "$configPath" "$out"
       ''
-    ;
+  ;
   registrationFile = "/var/lib/matrix-appservice-irc/registration.yml";
 in
 {
@@ -58,7 +58,7 @@ in
       description =
         lib.mdDoc
           "Whether the daemon needs to bind to ports below 1024 (e.g. for the ident service)"
-        ;
+      ;
       default = false;
     };
 
@@ -83,7 +83,7 @@ in
       description =
         lib.mdDoc
           "The user_id localpart to assign to the appservice"
-        ;
+      ;
       default = "appservice-irc";
     };
 
@@ -110,7 +110,7 @@ in
                   description =
                     lib.mdDoc
                       "The URL to the home server for client-server API calls"
-                    ;
+                  ;
                 };
 
                 domain = mkOption {
@@ -247,7 +247,7 @@ in
         CapabilityBoundingSet =
           [ "CAP_CHOWN" ]
           ++ optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE"
-          ;
+        ;
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
 

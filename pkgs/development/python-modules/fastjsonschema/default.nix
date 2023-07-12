@@ -36,7 +36,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       "test_compile_to_code_custom_format" # cannot import temporary module created during test
     ]
-    ;
+  ;
 
   pythonImportsCheck = [ "fastjsonschema" ];
 

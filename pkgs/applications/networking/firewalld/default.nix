@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/firewall-applet.in \
         --replace "/usr/bin/nm-connection-editor" "${networkmanagerapplet}/bin/nm-conenction-editor"
     ''
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
       wrapGAppsNoGuiHook
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
       libnotify
       pythonPath
     ]
-    ;
+  ;
 
   dontWrapGApps = true;
 

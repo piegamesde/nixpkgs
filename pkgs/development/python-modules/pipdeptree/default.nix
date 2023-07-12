@@ -46,7 +46,7 @@ buildPythonPackage rec {
       virtualenv
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   pythonImportsCheck = [ "pipdeptree" ];
 

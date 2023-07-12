@@ -25,7 +25,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildSamples [ "sample" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -48,7 +48,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals buildTests [ gtest ]
       ++ lib.optionals (buildTests || buildSamples) [ openmp ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -62,7 +62,7 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
-      ;
+    ;
 
     # We have to manually generate the matrices
     # CMAKE_MATRICES_DIR seems to be reset in clients/tests/CMakeLists.txt
@@ -109,7 +109,7 @@ stdenv.mkDerivation (
         substituteInPlace clients/tests/CMakeLists.txt \
           --replace "\''${PROJECT_BINARY_DIR}/matrices" "/build/source/matrices"
       ''
-      ;
+    ;
 
     postInstall =
       lib.optionalString buildTests ''
@@ -131,7 +131,7 @@ stdenv.mkDerivation (
           )
         } $sample/bin/example_*
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

@@ -43,12 +43,12 @@ let
       ]
       ++ optionals (versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
       ++ optionals (versionOlder version "19.0.0") [ "i686-linux" ]
-      ;
+    ;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     knownVulnerabilities =
       optional (versionOlder version "22.0.0")
         "Electron version ${version} is EOL"
-      ;
+    ;
   };
 
   fetcher =
@@ -58,7 +58,7 @@ let
         "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip";
       sha256 = hash;
     }
-    ;
+  ;
 
   headersFetcher =
     vers: hash:
@@ -67,7 +67,7 @@ let
         "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz";
       sha256 = hash;
     }
-    ;
+  ;
 
   tags = {
     x86_64-linux = "linux-x64";
@@ -83,7 +83,7 @@ let
   get =
     as: platform:
     as.${platform.system} or (throw "Unsupported system: ${platform.system}")
-    ;
+  ;
 
   common =
     platform: {
@@ -91,7 +91,7 @@ let
       src = fetcher version (get tags platform) (get hashes platform);
       passthru.headers = headersFetcher version hashes.headers;
     }
-    ;
+  ;
 
   electronLibPath = with lib;
     makeLibraryPath (

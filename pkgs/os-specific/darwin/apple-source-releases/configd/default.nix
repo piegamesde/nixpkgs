@@ -231,5 +231,5 @@ appleDerivation' stdenv {
       mkdir -p $out/Library/Frameworks/
       mv SystemConfiguration.fproj/SystemConfiguration.framework $out/Library/Frameworks
     ''
-    ;
+  ;
 }

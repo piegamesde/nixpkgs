@@ -91,7 +91,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ++ cachecontrol.optional-dependencies.filecache
-    ;
+  ;
 
   postInstall = ''
     installShellCompletion --cmd poetry \
@@ -150,7 +150,7 @@ buildPythonPackage rec {
       # RuntimeError: 'auto_spec' might be a typo; use unsafe=True if this is intended
       "test_info_setup_complex_pep517_error"
     ]
-    ;
+  ;
 
   # Allow for package to use pep420's native namespaces
   pythonNamespaces = [ "poetry" ];

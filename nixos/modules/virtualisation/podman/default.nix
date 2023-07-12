@@ -19,7 +19,7 @@ let
         ++
           lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
             config.boot.zfs.package
-        ;
+      ;
     });
 
   # Provides a fake "docker" binary mapping to podman
@@ -43,7 +43,7 @@ let
           ln -s $f $man/share/man/man1/$basename
         done
       ''
-    ;
+  ;
 in
 {
   imports = [
@@ -204,7 +204,7 @@ in
             } // cfg.defaultNetwork.settings
           );
         }
-      ;
+    ;
 
     virtualisation.containers = {
       enable = true; # Enable common /etc/containers configuration

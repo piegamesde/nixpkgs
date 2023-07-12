@@ -40,7 +40,7 @@ mkCoqDerivation {
         ocamlbuild
       ]
     )
-    ;
+  ;
 
   doCheck = true;
   checkTarget = "test";

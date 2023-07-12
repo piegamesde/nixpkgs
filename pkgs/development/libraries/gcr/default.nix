@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       openssh
     ]
     ++ lib.optionals stdenv.isLinux [ systemd ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     glib
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
       "-Dssh_agent=false"
     ]
     ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ]
-    ;
+  ;
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
 

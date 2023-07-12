@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       jansson
     ]
     ++ lib.optional postgresqlSupport postgresql
-    ;
+  ;
 
   preConfigure = ''
     # Brute force: since nix-worker chroots don't provide

@@ -41,7 +41,7 @@ mkDerivation {
         gstreamer
       ]
     )
-    ;
+  ;
 
   preFixup = ''
     qtWrapperArgs+=(

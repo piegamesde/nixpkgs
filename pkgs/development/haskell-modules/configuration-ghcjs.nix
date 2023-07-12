@@ -11,7 +11,7 @@ let
   removeLibraryHaskellDepends =
     pnames: depends:
     builtins.filter (e: !(builtins.elem (e.pname or "") pnames)) depends
-    ;
+  ;
 in
 
 with haskellLib;
@@ -27,7 +27,7 @@ self: super:
     gtk2hs-buildtools
     rehoo
     hoogle
-    ;
+  ;
 
   # Test suite fails; https://github.com/ghcjs/ghcjs-base/issues/133
   ghcjs-base = dontCheck (
@@ -71,7 +71,7 @@ self: super:
         ];
       })
       super.ghcjs-dom
-    ;
+  ;
 
   ghcjs-dom-jsffi =
     overrideCabal
@@ -82,11 +82,11 @@ self: super:
             self.ghcjs-base
             self.text
           ]
-          ;
+        ;
         broken = false;
       })
       super.ghcjs-dom-jsffi
-    ;
+  ;
 
   # https://github.com/Deewiant/glob/issues/39
   Glob = dontCheck super.Glob;
@@ -104,7 +104,7 @@ self: super:
           (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ];
       })
       super.jsaddle
-    ;
+  ;
 
   # Tests hang, possibly some issue with tasty and race(async) usage in the nonTerminating tests
   logict = dontCheck super.logict;
@@ -124,7 +124,7 @@ self: super:
           (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ];
       })
       super.reflex
-    ;
+  ;
 
   reflex-dom =
     overrideCabal
@@ -132,10 +132,10 @@ self: super:
         libraryHaskellDepends =
           removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ]
             (drv.libraryHaskellDepends or [ ])
-          ;
+        ;
       })
       super.reflex-dom
-    ;
+  ;
 
   # https://github.com/dreixel/syb/issues/21
   syb = dontCheck super.syb;

@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       MWCIncludes=../test ./wibo ${gc}/GC/2.7/mwcceppc.exe -c ../test/test.c
       file test.o | grep "ELF 32-bit"
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Quick-and-dirty wrapper to run 32-bit windows EXEs on linux";

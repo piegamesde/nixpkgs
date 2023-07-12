@@ -52,7 +52,7 @@ import ./make-test-python.nix (
 
         environment.systemPackages = with pkgs; [ tcpdump ];
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

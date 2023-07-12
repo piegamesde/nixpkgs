@@ -34,7 +34,7 @@ let
         '')
         cfg.machines}
     ''
-    ;
+  ;
 
   dhcpdService =
     postfix: cfg:
@@ -44,7 +44,7 @@ let
           cfg.configFile
         else
           writeConfig postfix cfg
-        ;
+      ;
       leaseFile = "/var/lib/dhcpd${postfix}/dhcpd.leases";
       args =
         [
@@ -60,7 +60,7 @@ let
         ]
         ++ cfg.extraFlags
         ++ cfg.interfaces
-        ;
+      ;
     in
     optionalAttrs cfg.enable {
       "dhcpd${postfix}" = {
@@ -86,7 +86,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   machineOpts =
     {
@@ -120,7 +120,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   dhcpConfig =
     postfix: {
@@ -210,7 +210,7 @@ let
         '';
       };
     }
-    ;
+  ;
 in
 
 {
@@ -249,7 +249,7 @@ in
               /var/lib/private/ and symlinked to /var/lib/.
             ''
         )
-    ;
+  ;
 
   ###### interface
 

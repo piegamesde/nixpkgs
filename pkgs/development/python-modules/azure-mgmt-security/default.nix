@@ -31,7 +31,7 @@ buildPythonPackage rec {
       msrestazure
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   # no tests included
   doCheck = false;

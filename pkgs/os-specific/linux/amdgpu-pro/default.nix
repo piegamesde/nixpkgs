@@ -30,7 +30,7 @@ let
       "x86_64-linux-gnu"
     else
       throw "amdgpu-pro is Linux only. Sorry."
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
 
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       makeFlags =
         optionalString (kernel != null)
           "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build modules"
-        ;
+      ;
 
       installPhase = ''
         runHook preInstall
@@ -181,7 +181,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   preFixup =
     (
@@ -219,7 +219,7 @@ stdenv.mkDerivation rec {
 
       substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
     ''
-    ;
+  ;
 
   # doing this in post because shrinking breaks things that dynamically load
   postFixup = ''

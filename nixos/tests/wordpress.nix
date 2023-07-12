@@ -46,7 +46,7 @@ import ./make-test-python.nix (
                   "site2.local"
                 ];
               }
-              ;
+            ;
 
             "wp${version}_nginx" =
               _: {
@@ -68,7 +68,7 @@ import ./make-test-python.nix (
                   "site2.local"
                 ];
               }
-              ;
+            ;
 
             "wp${version}_caddy" =
               _: {
@@ -90,7 +90,7 @@ import ./make-test-python.nix (
                   "site2.local"
                 ];
               }
-              ;
+            ;
           }
         )
         { }
@@ -98,7 +98,7 @@ import ./make-test-python.nix (
           "6_1"
           "6_2"
         ]
-      ;
+    ;
 
     testScript = ''
       import re

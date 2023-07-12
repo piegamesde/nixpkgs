@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       find ${modDestDir} -name '*.ko' -exec xz -f '{}' \;
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

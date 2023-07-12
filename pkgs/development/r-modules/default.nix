@@ -59,7 +59,7 @@ let
         meta.maintainers = maintainers;
       }
     )
-    ;
+  ;
 
   # Templates for generating Bioconductor and CRAN packages
   # from the name, version, sha256, and optional per-package arguments above
@@ -72,7 +72,7 @@ let
         ...
       }:
       "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html"
-      ;
+    ;
     mkUrls =
       {
         name,
@@ -83,7 +83,7 @@ let
         "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}/${name}_${version}.tar.gz"
         "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}_${version}.tar.gz"
       ]
-      ;
+    ;
   };
   deriveBiocAnn = mkDerive {
     mkHomepage =
@@ -92,7 +92,7 @@ let
         ...
       }:
       "http://www.bioconductor.org/packages/${name}.html"
-      ;
+    ;
     mkUrls =
       {
         name,
@@ -101,7 +101,7 @@ let
       }: [
         "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz"
       ]
-      ;
+    ;
     hydraPlatforms = [ ];
   };
   deriveBiocExp = mkDerive {
@@ -111,7 +111,7 @@ let
         ...
       }:
       "http://www.bioconductor.org/packages/${name}.html"
-      ;
+    ;
     mkUrls =
       {
         name,
@@ -120,7 +120,7 @@ let
       }: [
         "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz"
       ]
-      ;
+    ;
     hydraPlatforms = [ ];
   };
   deriveCran = mkDerive {
@@ -130,7 +130,7 @@ let
         ...
       }:
       "https://cran.r-project.org/web/packages/${name}/"
-      ;
+    ;
     mkUrls =
       {
         name,
@@ -139,7 +139,7 @@ let
         "mirror://cran/${name}_${version}.tar.gz"
         "mirror://cran/Archive/${name}/${name}_${version}.tar.gz"
       ]
-      ;
+    ;
   };
 
   # Overrides package definitions with nativeBuildInputs.
@@ -166,7 +166,7 @@ let
         )
       )
       overrides
-    ;
+  ;
 
   # Overrides package definitions with buildInputs.
   # For example,
@@ -192,7 +192,7 @@ let
         )
       )
       overrides
-    ;
+  ;
 
   # Overrides package definitions with maintainers.
   # For example,
@@ -216,7 +216,7 @@ let
         (builtins.getAttr name old).override { maintainers = value; }
       )
       overrides
-    ;
+  ;
 
   # Overrides package definitions with new R dependencies.
   # For example,
@@ -247,7 +247,7 @@ let
         )
       )
       overrides
-    ;
+  ;
 
   # Overrides package definition requiring X running to install.
   # For example,
@@ -273,10 +273,10 @@ let
             value = (builtins.getAttr name old).override { requireX = true; };
           })
           packageNames
-        ;
+      ;
     in
     builtins.listToAttrs nameValuePairs
-    ;
+  ;
 
   # Overrides package definition requiring a home directory to install or to
   # run tests.
@@ -313,10 +313,10 @@ let
             );
           })
           packageNames
-        ;
+      ;
     in
     builtins.listToAttrs nameValuePairs
-    ;
+  ;
 
   # Overrides package definition to skip check.
   # For example,
@@ -342,10 +342,10 @@ let
             value = (builtins.getAttr name old).override { doCheck = false; };
           })
           packageNames
-        ;
+      ;
     in
     builtins.listToAttrs nameValuePairs
-    ;
+  ;
 
   # Overrides package definition to mark it broken.
   # For example,
@@ -371,10 +371,10 @@ let
             value = (builtins.getAttr name old).override { broken = true; };
           })
           packageNames
-        ;
+      ;
     in
     builtins.listToAttrs nameValuePairs
-    ;
+  ;
 
   defaultOverrides =
     old: new:
@@ -394,7 +394,7 @@ let
       old = old8;
     in
     old // (otherOverrides old new)
-    ;
+  ;
 
   # Recursive override pattern.
   # `_self` is a collection of packages;
@@ -470,7 +470,7 @@ let
     curl = [ pkgs.curl.dev ];
     data_table =
       [ pkgs.zlib.dev ] ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp
-      ;
+    ;
     devEMF = with pkgs; [ xorg.libXft.dev ];
     diversitree = with pkgs; [
       gsl
@@ -1301,7 +1301,7 @@ let
               pkgs.cargo
               pkgs.rustc
             ]
-            ;
+          ;
         }
       );
 
@@ -1320,7 +1320,7 @@ let
               ${attrs.postInstall or ""}
               cp ${icuSrc}/${icuName}.dat $out/library/stringi/libs
             ''
-            ;
+          ;
         }
       );
 
@@ -1344,7 +1344,7 @@ let
       Cairo =
         old.Cairo.overrideAttrs
           (attrs: { NIX_LDFLAGS = "-lfontconfig"; })
-        ;
+      ;
 
       curl = old.curl.overrideAttrs (
         attrs: { preConfigure = "patchShebangs configure"; }
@@ -1377,7 +1377,7 @@ let
             NIX_CFLAGS_COMPILE =
               attrs.env.NIX_CFLAGS_COMPILE
               + lib.optionalString stdenv.isDarwin " -fopenmp"
-              ;
+            ;
           };
         }
       );
@@ -1556,7 +1556,7 @@ let
                   CXX14PICFLAGS = -fPIC
                 ''
               )
-            ;
+          ;
         }
       );
 
@@ -1654,7 +1654,7 @@ let
             NIX_CFLAGS_COMPILE =
               attrs.env.NIX_CFLAGS_COMPILE
               + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION"
-              ;
+            ;
           };
         }
       );
@@ -1698,7 +1698,7 @@ let
               which
             ]
             ++ attrs.buildInputs
-            ;
+          ;
           postInstall = ''
             install -d $out/bin $out/share/man/man1
             ln -s ../library/littler/bin/r $out/bin/r
@@ -1842,12 +1842,12 @@ let
                 hdf5.dev
                 pkgs.libaec
               ]
-              ;
+            ;
             patches = [ ./patches/Rhdf5lib.patch ];
             passthru.hdf5 = hdf5;
           }
         )
-        ;
+      ;
 
       rhdf5filters = old.rhdf5filters.overrideAttrs (
         attrs: {
@@ -1866,6 +1866,6 @@ let
         attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; }
       );
     }
-    ;
+  ;
 in
 self

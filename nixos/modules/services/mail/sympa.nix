@@ -47,12 +47,12 @@ let
       # avoid duplicating log messageges in journal
       StandardError = "null";
     } // commonServiceConfig
-    ;
+  ;
 
   configVal =
     value:
     if isBool value then if value then "on" else "off" else toString value
-    ;
+  ;
   configGenerator =
     c:
     concatStrings (
@@ -62,13 +62,13 @@ let
         ''
       )
     )
-    ;
+  ;
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
   robotConfig =
     fqdn: domain:
     pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings)
-    ;
+  ;
 
   transport = pkgs.writeText "transport.sympa" (
     concatStringsSep "\n" (
@@ -254,10 +254,10 @@ in
             "${dataDir}/sympa.sqlite"
           else
             "sympa"
-          ;
+        ;
         defaultText = literalExpression ''
           if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"''
-          ;
+        ;
         description = lib.mdDoc ''
           Database name. When using SQLite this must be an absolute
           path to the database file.
@@ -270,7 +270,7 @@ in
         description =
           lib.mdDoc
             "Database user. The system user name is used as a default."
-          ;
+        ;
       };
 
       passwordFile = mkOption {
@@ -288,7 +288,7 @@ in
         description =
           lib.mdDoc
             "Whether to create a local database automatically."
-          ;
+        ;
       };
     };
 
@@ -382,7 +382,7 @@ in
                 description =
                   lib.mdDoc
                     "Whether this file should be generated. This option allows specific files to be disabled."
-                  ;
+                ;
               };
               text = mkOption {
                 default = null;
@@ -412,7 +412,7 @@ in
       description =
         lib.mdDoc
           "Set of files to be linked in {file}`${dataDir}`."
-        ;
+      ;
     };
   };
 
@@ -532,7 +532,7 @@ in
           ]
         )
       ))
-      ;
+    ;
 
     systemd.services.sympa = {
       description = "Sympa mailing list manager";
@@ -614,7 +614,7 @@ in
           map (v: v.webLocation) (
             filter (v: v.webHost == host) (attrValues cfg.domains)
           )
-          ;
+        ;
         httpsOpts = optionalAttrs cfg.web.https {
           forceSSL = mkDefault true;
           enableACME = mkDefault true;

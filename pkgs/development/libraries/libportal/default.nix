@@ -63,14 +63,14 @@ stdenv.mkDerivation rec {
       gobject-introspection
       vala
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [ glib ]
     ++ lib.optionals (variant == "gtk3") [ gtk3 ]
     ++ lib.optionals (variant == "gtk4") [ gtk4 ]
     ++ lib.optionals (variant == "qt5") [ libsForQt5.qtbase ]
-    ;
+  ;
 
   mesonFlags = [
     "-Dbackends=${lib.optionalString (variant != null) variant}"

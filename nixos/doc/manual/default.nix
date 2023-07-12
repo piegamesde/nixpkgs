@@ -21,7 +21,7 @@ let
   docbook_xsl_ns =
     pkgs.docbook-xsl-ns.override
       { withManOptDedupPatch = true; }
-    ;
+  ;
 
   manpageUrls = pkgs.path + "/doc/manpage-urls.json";
 
@@ -42,7 +42,7 @@ let
         # Clean up declaration sites to not refer to the NixOS source tree.
         declarations = map stripAnyPrefixes opt.declarations;
       }
-      ;
+    ;
   };
 
   nixos-lib = import ../../lib { };
@@ -81,14 +81,14 @@ let
                   decl
               )
               opt.declarations
-            ;
+          ;
         }
-        ;
+      ;
       documentType = "none";
       variablelistId = "test-options-list";
       optionIdPrefix = "test-opt-";
     }
-    ;
+  ;
 
   toc = builtins.toFile "toc.xml" ''
     <toc role="chunk-toc">
@@ -215,7 +215,7 @@ let
 
         lintrng $out/manual-combined.xml
       ''
-    ;
+  ;
 
   manpages-combined =
     runCommand "nixos-manpages-combined.xml"
@@ -237,7 +237,7 @@ let
 
         lintrng $out
       ''
-    ;
+  ;
 in
 rec {
   inherit (optionsDoc) optionsJSON optionsNix optionsDocBook optionsUsedDocbook;
@@ -254,7 +254,7 @@ rec {
             ]
           else
             [ buildPackages.nixos-render-docs ]
-          ;
+        ;
         inputs = lib.optionals (!allowDocBook) (
           lib.sourceFilesBySuffices ./. [ ".md" ]
         );
@@ -310,7 +310,7 @@ rec {
         echo "nix-build out $out" >> $out/nix-support/hydra-build-products
         echo "doc manual $dst" >> $out/nix-support/hydra-build-products
       ''
-    ; # */
+  ; # */
 
   # Alias for backward compatibility. TODO(@oxij): remove eventually.
   manual = manualHTML;
@@ -349,7 +349,7 @@ rec {
         mkdir -p $out/nix-support
         echo "doc-epub manual $manual" >> $out/nix-support/hydra-build-products
       ''
-    ;
+  ;
 
   # Generate the NixOS manpages.
   manpages =
@@ -362,7 +362,7 @@ rec {
             buildPackages.libxslt.bin
           ]
           ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ]
-          ;
+        ;
         allowedReferences = [ "out" ];
       }
       ''
@@ -389,5 +389,5 @@ rec {
               $out/share/man/man5/configuration.nix.5
           ''}
       ''
-    ;
+  ;
 }

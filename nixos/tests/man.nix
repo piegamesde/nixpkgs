@@ -40,7 +40,7 @@ import ./make-test-python.nix (
           );
         };
       }
-      ;
+    ;
 
     machineSafe = builtins.replaceStrings [ "-" ] [ "_" ];
   in
@@ -116,6 +116,6 @@ import ./make-test-python.nix (
                   raise Exception(f"{page}({section}) missing in matches: {matches}")
           '')
           machineNames
-      ;
+    ;
   }
 )

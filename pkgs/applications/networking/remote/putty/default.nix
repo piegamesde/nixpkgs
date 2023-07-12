@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isWindows ''
       cd windows
     ''
-    ;
+  ;
 
   TOOLPATH = stdenv.cc.targetPrefix;
   makefile = if stdenv.hostPlatform.isWindows then "Makefile.mgw" else null;
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       ''
     else
       null
-    ;
+  ;
 
   nativeBuildInputs = [
     autoconf
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       ncurses
     ]
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
-    ;
+  ;
   enableParallelBuilding = true;
 
   meta = with lib; {

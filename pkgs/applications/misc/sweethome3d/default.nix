@@ -24,7 +24,7 @@ let
     lib.concatStringsSep "." (
       lib.tail (lib.splitString "." (builtins.baseNameOf filePath))
     )
-    ;
+  ;
 
   installIcons =
     iconName: icons:
@@ -38,7 +38,7 @@ let
         '')
         icons
     )
-    ;
+  ;
 
   mkSweetHome3D =
     {
@@ -144,7 +144,7 @@ let
         platforms = lib.platforms.linux;
       };
     }
-    ;
+  ;
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
 in

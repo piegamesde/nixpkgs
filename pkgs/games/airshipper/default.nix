@@ -53,7 +53,7 @@ let
         --set-rpath "${lib.makeLibraryPath runtimeLibs}" \
         veloren-voxygen
     ''
-    ;
+  ;
 in
 rustPlatform.buildRustPackage {
   pname = "airshipper";
@@ -113,7 +113,7 @@ rustPlatform.buildRustPackage {
       patchelf --set-rpath "${libPath}" "$out/bin/airshipper"
       wrapProgram "$out/bin/airshipper" --set VELOREN_PATCHER "${patch}"
     ''
-    ;
+  ;
 
   doCheck = false;
   cargoBuildFlags = [

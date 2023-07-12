@@ -79,7 +79,7 @@ let
       )
     else
       targetPlatform.parsed.kernel.name
-    ;
+  ;
 
   # Apple Silicon uses a different CPU name in the target triple.
   swiftArch =
@@ -87,7 +87,7 @@ let
       "arm64"
     else
       targetPlatform.parsed.cpu.name
-    ;
+  ;
 
   # On Darwin, a `.swiftmodule` is a subdirectory in `lib/swift/<OS>`,
   # containing binaries for supported archs. On other platforms, binaries are
@@ -99,7 +99,7 @@ let
       "lib/swift/${swiftOs}"
     else
       "lib/swift/${swiftOs}/${swiftArch}"
-    ;
+  ;
 
   # And then there's also a separate subtree for statically linked  modules.
   toStaticSubdir = lib.replaceStrings [ "/swift/" ] [ "/swift_static/" ];
@@ -174,7 +174,7 @@ let
           "_"
         ]
         targetPlatform.config
-      ;
+    ;
     use_response_file_by_default = 1;
     swiftDriver = "";
     # NOTE: @prog@ needs to be filled elsewhere.
@@ -240,7 +240,7 @@ stdenv.mkDerivation {
       DarwinTools # sw_vers
       fixDarwinDylibNames
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -255,7 +255,7 @@ stdenv.mkDerivation {
       Foundation
       Combine
     ]
-    ;
+  ;
 
   # This is a partial reimplementation of our setup hook. Because we reuse
   # the Swift wrapper for the Swift build itself, we need to do some of the
@@ -298,7 +298,7 @@ stdenv.mkDerivation {
 
       chmod -R u+w .
     ''
-    ;
+  ;
 
   patchPhase = ''
     # Just patch all the things for now, we can focus this later.
@@ -631,7 +631,7 @@ stdenv.mkDerivation {
         unset ninjaFlags
       ''}
     ''
-    ;
+  ;
 
   # TODO: ~50 failing tests on x86_64-linux. Other platforms not checked.
   doCheck = false;
@@ -750,7 +750,7 @@ stdenv.mkDerivation {
       swiftLibSubdir
       swiftStaticModuleSubdir
       swiftStaticLibSubdir
-      ;
+    ;
 
     # Internal attr for the wrapper.
     _wrapperParams = wrapperParams;

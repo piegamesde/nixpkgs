@@ -24,7 +24,7 @@ in
         description =
           lib.mdDoc
             "Whether to run the SpamAssassin daemon in debug mode"
-          ;
+        ;
       };
 
       config = mkOption {
@@ -68,7 +68,7 @@ in
         apply =
           val:
           if builtins.isPath val then val else pkgs.writeText "init.pre" val
-          ;
+        ;
         default = ''
           #
           # to update this list, run this command in the rules directory:

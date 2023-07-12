@@ -61,7 +61,7 @@ in
             "/etc"
           ]
           ++ lib.optional (cfg.settings ? MusicFolder) cfg.settings.MusicFolder
-          ;
+        ;
         CapabilityBoundingSet = "";
         RestrictAddressFamilies = [
           "AF_UNIX"

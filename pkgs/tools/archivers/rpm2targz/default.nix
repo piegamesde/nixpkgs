@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       # this is more reliable than wrapProgram
       sed -i -e '2iexport PATH="${lib.makeBinPath shdeps}"' rpm2targz
     ''
-    ;
+  ;
 
   installFlags = [ "prefix=$(out)" ];
 

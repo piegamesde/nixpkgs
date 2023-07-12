@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       substituteInPlace RecastDemo/CMakeLists.txt \
         --replace 'include_directories(''${SDL2_LIBRARY}/Headers)' 'include_directories(${SDL2.dev}/include/SDL2)'
     ''
-    ;
+  ;
 
   doCheck = true;
 

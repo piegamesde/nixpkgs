@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       find .
       mv ezquake-${sys}-${arch} $out/bin/ezquake
     ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

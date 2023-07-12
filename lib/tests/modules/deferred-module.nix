@@ -45,7 +45,7 @@ in
           };
           options.bottom = lib.mkOption { type = enum [ ]; };
         }
-        ;
+      ;
     }
 
     {
@@ -72,7 +72,7 @@ in
         }: {
           settingsDict.c = config.settingsDict.a;
         }
-        ;
+      ;
     }
   ];
 }

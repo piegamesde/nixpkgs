@@ -18,7 +18,7 @@ let
       supersectionType = lazyAttrsOf (either multipleType sectionType);
     in
     lazyAttrsOf supersectionType
-    ;
+  ;
 
   gerritConfig = pkgs.writeText "gerrit.conf" (
     lib.generators.toGitINI cfg.settings
@@ -59,7 +59,7 @@ let
           ln -sf "$file" $out/$name
         done
       ''
-    ;
+  ;
 in
 {
   options = {

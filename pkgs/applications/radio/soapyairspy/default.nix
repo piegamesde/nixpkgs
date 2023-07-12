@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       IOKit
       Security
     ]
-    ;
+  ;
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 

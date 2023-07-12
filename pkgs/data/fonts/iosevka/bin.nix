@@ -13,7 +13,7 @@ let
       variant
     else
       "iosevka" + lib.optionalString (variant != "") "-" + variant
-    ;
+  ;
 
   variantHashes = import ./variants.nix;
   validVariants = map (lib.removePrefix "iosevka-") (

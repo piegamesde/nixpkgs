@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       mesonEmulatorHook
     ]
     ++ lib.optionals stdenv.isLinux [ wayland-scanner ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     gst_all_1.gst-plugins-base
@@ -134,7 +134,7 @@ stdenv.mkDerivation rec {
       libdrm
       wayland-protocols
     ]
-    ;
+  ;
 
   PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
     "${placeholder "out"}/share/polkit-1/actions";
@@ -152,7 +152,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isMusl [
       "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
     ]
-    ;
+  ;
 
   postPatch = ''
     # get rid of absolute path to helper in store so we can use a setuid wrapper

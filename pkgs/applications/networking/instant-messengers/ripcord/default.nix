@@ -36,7 +36,7 @@ mkDerivation rec {
       name = "${pname}-${version}";
       src = appimage;
     }
-    ;
+  ;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -65,7 +65,7 @@ mkDerivation rec {
         xkeyboardconfig
       ]
     )
-    ;
+  ;
 
   fontsConf = makeFontsConf { fontDirectories = [ twemoji-color-font ]; };
 

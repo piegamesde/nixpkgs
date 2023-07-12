@@ -16,7 +16,7 @@ import ./make-test-python.nix (
         }: {
           services.etcd.enable = true;
         }
-        ;
+      ;
     };
 
     testScript = ''

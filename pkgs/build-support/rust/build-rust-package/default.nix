@@ -87,14 +87,14 @@ let
             unpackPhase
             postUnpack
             cargoUpdateHook
-            ;
+          ;
           name = cargoDepsName;
           patches = cargoPatches;
         } // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
         // lib.optionalAttrs (args ? cargoSha256) { sha256 = args.cargoSha256; }
         // depsExtraArgs
       )
-    ;
+  ;
 
   target = rust.toRustTargetSpec stdenv.hostPlatform;
   targetIsJSON = lib.hasSuffix ".json" target;
@@ -107,7 +107,7 @@ let
       (lib.removeSuffix ".json" (builtins.baseNameOf "${target}"))
     else
       target
-    ;
+  ;
 
   sysroot = callPackage ./sysroot { } {
     inherit target shortTarget;
@@ -158,13 +158,13 @@ stdenv.mkDerivation (
         cargoSetupHook
         rustc
       ]
-      ;
+    ;
 
     buildInputs =
       buildInputs
       ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
       ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ]
-      ;
+    ;
 
     patches = cargoPatches ++ patches;
 
@@ -178,7 +178,7 @@ stdenv.mkDerivation (
         export RUST_LOG=${logLevel}
       ''
       + (args.postUnpack or "")
-      ;
+    ;
 
     configurePhase =
       args.configurePhase or ''
@@ -207,7 +207,7 @@ stdenv.mkDerivation (
           "x86_64-redox"
           "wasm32-wasi"
         ]
-        ;
+      ;
     } // meta;
   }
 )

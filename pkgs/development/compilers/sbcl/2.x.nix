@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
             src/code/run-program.lisp
         ''
     )
-    ;
+  ;
 
   preBuild = ''
     export INSTALL_ROOT=$out
@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
            ("SYS:CONTRIB;**;*.*.*" #P"$out/lib/sbcl/contrib/**/*.*")))
       EOF
     ''
-    ;
+  ;
 
   setupHook = lib.optional purgeNixReferences (
     writeText "setupHook.sh" ''

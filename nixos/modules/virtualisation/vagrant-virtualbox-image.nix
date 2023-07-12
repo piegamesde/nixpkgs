@@ -60,5 +60,5 @@
         # 6. compress everything back together
         tar --owner=0 --group=0 --sort=name --numeric-owner -czf $out .
       ''
-    ;
+  ;
 }

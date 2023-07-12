@@ -72,7 +72,7 @@ buildPythonPackage rec {
       orjson
       hypothesis
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [
     devtools
@@ -91,7 +91,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   pytestFlagsArray = [
     # https://github.com/pydantic/pydantic/issues/4817

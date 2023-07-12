@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       substituteInPlace test/testcpp.cc \
         --replace "M_PIl" "M_PI"
     ''
-    ;
+  ;
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     lib.optionals (withTools && datatype != "simd") [ libpng ]
     # TODO: This may mismatch the LLVM version in the stdenv, see #79818.
     ++ lib.optional (enableOpenmp && stdenv.cc.isClang) llvmPackages.openmp
-    ;
+  ;
 
   doCheck = true;
 

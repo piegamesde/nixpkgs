@@ -31,7 +31,7 @@ mkDerivation rec {
       qtwebengine
     ]
     ++ lib.optional preferQWebView qtwebkit
-    ;
+  ;
 
   nativeBuildInputs = [ cmake ];
 
@@ -39,7 +39,7 @@ mkDerivation rec {
     [ ]
     ++ lib.optional preferQWebView "-DQST_BUILD_WEBKIT=1"
     ++ lib.optional preferNative "-DQST_BUILD_NATIVEBROWSER=1"
-    ;
+  ;
 
   patches =
     [
@@ -53,7 +53,7 @@ mkDerivation rec {
     ++
       lib.optional (!preferQWebView && !preferNative)
         ./qsyncthingtray-0.5.8-qt-5.6.3.patch
-    ;
+  ;
 
   postPatch = ''
     ${lib.optionalString stdenv.isLinux ''
@@ -81,7 +81,7 @@ mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/sieren/QSyncthingTray/";

@@ -32,7 +32,7 @@ buildPythonPackage rec {
       # on py2 as well.
       ./skip-test.patch
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ flake8 ];
 

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://acme.sh/";

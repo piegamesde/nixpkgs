@@ -22,7 +22,7 @@ let
       patches =
         (drv.patches or [ ])
         ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ]
-        ;
+      ;
     }
   );
 
@@ -79,18 +79,18 @@ let
               # EPSILON is exceeded
               rm aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
             ''
-            ;
+          ;
 
           patches =
             (args.patches or [ ])
             ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ]
-            ;
+          ;
 
           # only a stripped down version is build which takes a lot less resources to build
           requiredSystemFeatures = [ ];
         }
       )
-    ;
+  ;
 
   aws-sdk-cpp-nix =
     (aws-sdk-cpp.override {
@@ -106,7 +106,7 @@ let
           requiredSystemFeatures = [ ];
         }
       )
-    ;
+  ;
 
   common =
     args:
@@ -119,9 +119,9 @@ let
             aws-sdk-cpp-nix
           else
             aws-sdk-cpp-old-nix
-          ;
+        ;
       }
-    ;
+  ;
 
   # https://github.com/NixOS/nix/pull/7585
   patch-monitorfdhup = fetchpatch2 {
@@ -160,7 +160,7 @@ lib.makeExtensible (
         patches = [ patch-monitorfdhup ];
       }).override
         { boehmgc = boehmgc-nix_2_3; }
-      ;
+    ;
 
     nix_2_4 = throw "nixVersions.nix_2_4 has been removed";
 

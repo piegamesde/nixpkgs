@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       substituteInPlace Makefile \
         --replace '-DENABLE_SSE2' ""
     ''
-    ;
+  ;
 
   fixupPhase = ''
     ln -s $out/lib/libzita-resampler.so.$version $out/lib/libzita-resampler.so.1

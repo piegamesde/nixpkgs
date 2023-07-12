@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/checksec \
         --prefix PATH : ${path}
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "Tool for checking security bits on executables";

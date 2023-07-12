@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       chmod +x ${path.bin}
       ./${path.bin} ${path.asm} fasmg
     ''
-    ;
+  ;
 
   outputs = [
     "out"

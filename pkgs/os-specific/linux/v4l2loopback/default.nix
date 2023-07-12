@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       "KERNELRELEASE=${kernel.modDirVersion}"
       "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "A kernel module to create V4L2 loopback devices";

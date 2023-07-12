@@ -45,7 +45,7 @@ import ./make-test-python.nix (
             (python3.withPackages (ps: with ps; [ fenics ]))
           ];
         }
-        ;
+      ;
     };
     testScript =
       {
@@ -55,6 +55,6 @@ import ./make-test-python.nix (
         start_all()
         fenicsnode.succeed("${fenicsScript}")
       ''
-      ;
+    ;
   }
 )

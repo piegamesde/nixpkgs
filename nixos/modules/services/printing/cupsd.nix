@@ -31,7 +31,7 @@ let
           ln -sv ${cups.out}/lib/cups/backend/ipp $out/lib/cups/backend/https
         fi
       ''
-    ;
+  ;
 
   # Here we can enable additional backends, filters, etc. that are not
   # part of CUPS itself, e.g. the SMB backend is part of Samba.  Since
@@ -48,7 +48,7 @@ let
         pkgs.ghostscript
       ]
       ++ cfg.drivers
-      ;
+    ;
     pathsToLink = [
       "/lib"
       "/share/cups"
@@ -64,7 +64,7 @@ let
       inherit name text;
       destination = "/etc/cups/${name}";
     }
-    ;
+  ;
 
   cupsFilesFile = writeConf "cups-files.conf" ''
     SystemGroup root wheel
@@ -123,7 +123,7 @@ let
       ]
       ++ optional avahiEnabled browsedFile
       ++ cfg.drivers
-      ;
+    ;
     pathsToLink = [ "/etc/cups" ];
     ignoreCollisions = true;
   };
@@ -159,7 +159,7 @@ in
                   "gutenprint"
                 ]
                 config
-              ;
+            ;
           in
           if enabled then [ pkgs.gutenprint ] else [ ]
         )
@@ -416,7 +416,7 @@ in
               )
             )
             cfg.listenAddresses
-        ;
+      ;
     };
 
     systemd.services.cups = {
@@ -472,7 +472,7 @@ in
             fi
           ''}
         ''
-        ;
+      ;
 
       serviceConfig.PrivateTmp = true;
     };
@@ -484,19 +484,19 @@ in
       wants =
         [ "avahi-daemon.service" ]
         ++ optional (!cfg.startWhenNeeded) "cups.service"
-        ;
+      ;
       bindsTo =
         [ "avahi-daemon.service" ]
         ++ optional (!cfg.startWhenNeeded) "cups.service"
-        ;
+      ;
       partOf =
         [ "avahi-daemon.service" ]
         ++ optional (!cfg.startWhenNeeded) "cups.service"
-        ;
+      ;
       after =
         [ "avahi-daemon.service" ]
         ++ optional (!cfg.startWhenNeeded) "cups.service"
-        ;
+      ;
 
       path = [ cups ];
 

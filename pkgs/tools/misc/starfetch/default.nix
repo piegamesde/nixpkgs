@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.cc.isClang ''
       substituteInPlace makefile --replace g++ clang++
     ''
-    ;
+  ;
 
   installPhase = ''
     runHook preInstall

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
         "16yn7y9xdc5jd50cq7bmsm320gv23pp71lr8hg2nmynzc8ibyda8"
       else
         "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di"
-      ;
+    ;
   };
 
   nativeBuildInputs =
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optionals unfree [ ninja ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
       skia
       libGL
     ]
-    ;
+  ;
 
   patches =
     if !unfree then
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
           sha256 = "1vwn8ivap1pzdh444sdvvkndp55iz146nhmd80xbm8cyzn3qmg91";
         })
       ]
-    ;
+  ;
 
   postPatch = ''
     sed -i src/config.h -e "s-\\(#define VERSION\\) .*-\\1 \"$version\"-"
@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
       "-DLAF_OS_BACKEND=skia"
       "-DSKIA_DIR=${skia}"
     ]
-    ;
+  ;
 
   postInstall = ''
     # Install desktop icons.
@@ -177,7 +177,7 @@ stdenv.mkDerivation rec {
         This version is not redistributable: https://dev.aseprite.org/2016/09/01/new-source-code-license/
         Consider supporting the developer: https://aseprite.org/#buy
       ''
-      ;
+    ;
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.linux;
   };

@@ -18,7 +18,7 @@ let
       cfg.user
     ]
     ++ cfg.extraArgs
-    ;
+  ;
 in
 {
   imports = [

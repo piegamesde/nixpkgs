@@ -17,7 +17,7 @@ import ./make-test-python.nix (
           services.xrdp.defaultWindowManager = "${pkgs.xterm}/bin/xterm";
           networking.firewall.allowedTCPPorts = [ 3389 ];
         }
-        ;
+      ;
 
       client =
         {
@@ -33,7 +33,7 @@ import ./make-test-python.nix (
           services.xrdp.enable = true;
           services.xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm";
         }
-        ;
+      ;
     };
 
     testScript =
@@ -65,6 +65,6 @@ import ./make-test-python.nix (
         client.sleep(5)
         client.screenshot("remoterdp")
       ''
-      ;
+    ;
   }
 )

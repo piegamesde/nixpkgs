@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw "Whalebird is not supported for ${stdenv.system}"
-    ;
+  ;
 
   nativeBuildInputs = [
     autoPatchelfHook

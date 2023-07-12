@@ -64,7 +64,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/dfinity/quill";

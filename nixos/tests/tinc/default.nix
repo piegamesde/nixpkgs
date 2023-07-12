@@ -15,7 +15,7 @@ import ../make-test-python.nix (
           config.services.tinc.networks.myNetwork.hostSettings.${name}.subnets;
       in
       (builtins.head subnets).address
-      ;
+    ;
 
     makeTincHost =
       name:
@@ -33,7 +33,7 @@ import ../make-test-python.nix (
         }
         extraConfig
       ]
-      ;
+    ;
 
     makeTincNode =
       {
@@ -48,11 +48,11 @@ import ../make-test-python.nix (
             rsaPrivateKeyFile =
               builtins.toFile "rsa.priv"
                 snakeoil-keys.${name}.rsaPrivate
-              ;
+            ;
             ed25519PrivateKeyFile =
               builtins.toFile "ed25519.priv"
                 snakeoil-keys.${name}.ed25519Private
-              ;
+            ;
 
             hostSettings = lib.mapAttrs makeTincHost {
               static = {
@@ -66,7 +66,7 @@ import ../make-test-python.nix (
                       port = 655;
                     })
                     config.virtualisation.vlans
-                  ;
+                ;
               };
               dynamic1 = { subnet = "10.0.0.21"; };
               dynamic2 = { subnet = "10.0.0.22"; };
@@ -97,7 +97,7 @@ import ../make-test-python.nix (
         }
         extraConfig
       ]
-      ;
+    ;
   in
   {
     name = "tinc";
@@ -125,21 +125,21 @@ import ../make-test-python.nix (
             prefixLength = 24;
           } ];
         }
-        ;
+      ;
 
       dynamic1 =
         {
           ...
         }@args:
         makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; }
-        ;
+      ;
 
       dynamic2 =
         {
           ...
         }@args:
         makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; }
-        ;
+      ;
     };
 
     testScript = ''

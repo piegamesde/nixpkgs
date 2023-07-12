@@ -36,7 +36,7 @@ stdenv.mkDerivation {
         substituteInPlace cmake_configure.cmake \
           --replace 'target_link_libraries(rw_interface INTERFACE "stdc++fs")' ""
       ''
-    ;
+  ;
 
   nativeBuildInputs = [ cmake ];
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
       OpenAL
       Cocoa
     ]
-    ;
+  ;
 
   meta = with lib; {
     description =

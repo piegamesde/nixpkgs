@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       makeWrapper
     ]
     ++ lib.optional withQT wrapQtAppsHook
-    ;
+  ;
   buildInputs =
     [
       zlib
@@ -104,14 +104,14 @@ stdenv.mkDerivation rec {
       qtbase
     ]
     ++ lib.optional withVPX libvpx
-    ;
+  ;
 
   buildCommand =
     let
       wrapWith =
         makeWrapper: filename:
         "${makeWrapper} ${filename} --set ADM_ROOT_DIR $out --prefix LD_LIBRARY_PATH : ${libXext}/lib"
-        ;
+      ;
       wrapQtApp = wrapWith "wrapQtApp";
       wrapProgram = wrapWith "wrapProgram";
     in
@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
 
       fixupPhase
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://fixounet.free.fr/avidemux/";

@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       rapidjson
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ;
+  ;
 
   cmakeFlags = [
     "-Wno-dev"

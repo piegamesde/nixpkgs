@@ -28,13 +28,13 @@ let
         (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans)
-    ;
+  ;
 
   # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
     interface:
     "sys-subsystem-net-devices-${escapeSystemdPath interface}.device"
-    ;
+  ;
 
   interfaceIps =
     i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
@@ -53,7 +53,7 @@ let
       ip link set "${i}" down 2>/dev/null || true
       ip link del "${i}" 2>/dev/null || true
     ''
-    ;
+  ;
 
   # warn that these attributes are deprecated (2017-2-2)
   # Should be removed in the release after next
@@ -70,7 +70,7 @@ let
         filterAttrs (attrName: attr: elem attrName deprecated && attr != null)
           bond
       )
-      ;
+    ;
   };
 
   bondWarnings =
@@ -80,16 +80,16 @@ let
         mapAttrsToList (bondText bondName) (
           bondDeprecation.filterDeprecated bond
         )
-        ;
+      ;
       bondText =
         bondName: optName: _:
         "${bondName}.${optName} is deprecated, use ${bondName}.driverOptions"
-        ;
+      ;
     in
     {
       warnings = flatten (mapAttrsToList oneBondWarnings cfg.bonds);
     }
-    ;
+  ;
 
   normalConfig = {
     systemd.network.links =
@@ -105,10 +105,10 @@ let
                 WakeOnLan = "magic";
               };
           }
-          ;
+        ;
       in
       listToAttrs (map createNetworkLink interfaces)
-      ;
+    ;
     systemd.services =
       let
 
@@ -130,7 +130,7 @@ let
             optional (dev != null && dev != "lo" && !config.boot.isContainer) (
               subsystemDevice dev
             )
-          ;
+        ;
 
         hasDefaultGatewaySet =
           (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
@@ -139,13 +139,13 @@ let
             && cfg.defaultGateway6 != null
             && cfg.defaultGateway6.address != ""
           )
-          ;
+        ;
 
         needNetworkSetup =
           cfg.resolvconf.enable
           || cfg.defaultGateway != null
           || cfg.defaultGateway6 != null
-          ;
+        ;
 
         networkLocalCommands = lib.mkIf needNetworkSetup {
           after = [ "network-setup.service" ];
@@ -173,7 +173,7 @@ let
           wantedBy =
             [ "multi-user.target" ]
             ++ optional hasDefaultGatewaySet "network-online.target"
-            ;
+          ;
 
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
@@ -349,7 +349,7 @@ let
               fi
             '';
           }
-          ;
+        ;
 
         createTunDevice =
           i:
@@ -359,7 +359,7 @@ let
             after =
               optional (!config.boot.isContainer) "dev-net-tun.device"
               ++ [ "network-pre.target" ]
-              ;
+            ;
             wantedBy = [
               "network-setup.service"
               (subsystemDevice i.name)
@@ -378,7 +378,7 @@ let
               ip link del ${i.name} || true
             '';
           }
-          ;
+        ;
 
         createBridgeDevice =
           n: v:
@@ -400,7 +400,7 @@ let
                 ++ deps
                 ++ optional v.rstp "mstpd.service"
                 ++ map (i: "network-addresses-${i}.service") v.interfaces
-                ;
+              ;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
@@ -488,7 +488,7 @@ let
               reloadIfChanged = true;
             }
           )
-          ;
+        ;
 
         createVswitchDevice =
           n: v:
@@ -511,7 +511,7 @@ let
               ofRules =
                 pkgs.writeText "vswitch-${n}-openFlowRules"
                   v.openFlowRules
-                ;
+              ;
             in
             {
               description = "Open vSwitch Interface ${n}";
@@ -521,7 +521,7 @@ let
                   (subsystemDevice n)
                 ]
                 ++ internalConfigs
-                ;
+              ;
               # before = [ "network-setup.service" ];
               # should work without internalConfigs dependencies because address/link configuration depends
               # on the device, which is created by ovs-vswitchd with type=internal, but it does not...
@@ -538,7 +538,7 @@ let
                   "ovs-vswitchd.service"
                 ]
                 ++ deps
-                ; # start switch after physical interfaces and vswitch daemon
+              ; # start switch after physical interfaces and vswitch daemon
               wants =
                 deps; # if one or more interface fails, the switch should continue to run
               serviceConfig.Type = "oneshot";
@@ -605,7 +605,7 @@ let
               '';
             }
           )
-          ;
+        ;
 
         createBondDevice =
           n: v:
@@ -625,7 +625,7 @@ let
                 [ "network-pre.target" ]
                 ++ deps
                 ++ map (i: "network-addresses-${i}.service") v.interfaces
-                ;
+              ;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
@@ -664,7 +664,7 @@ let
               postStop = destroyBond n;
             }
           )
-          ;
+        ;
 
         createMacvlanDevice =
           n: v:
@@ -697,7 +697,7 @@ let
               '';
             }
           )
-          ;
+        ;
 
         createFouEncapsulation =
           n: v:
@@ -748,7 +748,7 @@ let
               '';
             }
           )
-          ;
+        ;
 
         createSitDevice =
           n: v:
@@ -795,7 +795,7 @@ let
               '';
             }
           )
-          ;
+        ;
 
         createGreDevice =
           n: v:
@@ -836,7 +836,7 @@ let
               '';
             }
           )
-          ;
+        ;
 
         createVlanDevice =
           n: v:
@@ -875,7 +875,7 @@ let
               '';
             }
           )
-          ;
+        ;
       in
       listToAttrs (
         map configureAddrs interfaces
@@ -891,7 +891,7 @@ let
         network-setup = networkSetup;
         network-local-commands = networkLocalCommands;
       }
-      ;
+    ;
 
     services.udev.extraRules = ''
       KERNEL=="tun", TAG+="systemd"

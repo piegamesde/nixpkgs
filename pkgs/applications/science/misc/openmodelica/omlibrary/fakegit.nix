@@ -16,7 +16,7 @@ let
       sed -i "s@%out@$out@g" ${path}
       chmod +x ${path}
     ''
-    ;
+  ;
 
   hashname =
     r:
@@ -31,10 +31,10 @@ let
             "_"
             "_"
           ]
-        ;
+      ;
     in
     (rpl r.url) + "-" + (rpl r.rev)
-    ;
+  ;
 in
 stdenv.mkDerivation {
   name = "fakegit";

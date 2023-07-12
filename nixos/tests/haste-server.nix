@@ -19,7 +19,7 @@ import ./make-test-python.nix (
 
         services.haste-server = { enable = true; };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("haste-server")

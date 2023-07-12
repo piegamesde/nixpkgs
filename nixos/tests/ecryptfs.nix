@@ -14,7 +14,7 @@ import ./make-test-python.nix (
         security.pam.enableEcryptfs = true;
         environment.systemPackages = with pkgs; [ keyutils ];
       }
-      ;
+    ;
 
     testScript = ''
       def login_as_alice():

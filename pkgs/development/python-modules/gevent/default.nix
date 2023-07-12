@@ -34,7 +34,7 @@ buildPythonPackage rec {
       zope_interface
     ]
     ++ lib.optionals (!isPyPy) [ greenlet ]
-    ;
+  ;
 
   # Bunch of failures.
   doCheck = false;

@@ -26,7 +26,7 @@ let
           description =
             "tuple of" + concatMapStrings (t: " (${t.description})") ts;
         }
-        ;
+      ;
       level = ints.unsigned;
       special = enum [
         "level auto"
@@ -39,7 +39,7 @@ let
       level
       level
     ]
-    ;
+  ;
 
   # sensor or fan config
   sensorType =
@@ -101,7 +101,7 @@ let
         };
       };
     }
-    ;
+  ;
 
   # removes NixOS special and unused attributes
   sensorToConf =
@@ -124,7 +124,7 @@ let
     ) // {
         "${type}" = query;
       }
-    ;
+  ;
 
   syntaxNote =
     name: ''
@@ -141,7 +141,7 @@ let
       ```
       :::
     ''
-    ;
+  ;
 in
 {
 

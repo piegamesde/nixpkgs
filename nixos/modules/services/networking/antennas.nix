@@ -40,7 +40,7 @@ in
         description =
           lib.mdDoc
             "Device tuner UUID. Change this if you are running multiple instances."
-          ;
+        ;
       };
     };
   };

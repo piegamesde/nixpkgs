@@ -12,7 +12,7 @@ with lib.types; {
       description =
         lib.mdDoc
           "(Path of) Script command to execute followed by args, i.e. cmd [args]..."
-        ;
+      ;
     };
 
     interval = mkOption {
@@ -27,7 +27,7 @@ with lib.types; {
       description =
         lib.mdDoc
           "Seconds after which script is considered to have failed."
-        ;
+      ;
     };
 
     weight = mkOption {
@@ -36,7 +36,7 @@ with lib.types; {
       description =
         lib.mdDoc
           "Following a failure, adjust the priority by this weight."
-        ;
+      ;
     };
 
     rise = mkOption {
@@ -63,7 +63,7 @@ with lib.types; {
       description =
         lib.mdDoc
           "Name of group to run the script under. Defaults to user group."
-        ;
+      ;
     };
 
     extraConfig = mkOption {
@@ -72,7 +72,7 @@ with lib.types; {
       description =
         lib.mdDoc
           "Extra lines to be added verbatim to the vrrp_script section."
-        ;
+      ;
     };
   };
 }

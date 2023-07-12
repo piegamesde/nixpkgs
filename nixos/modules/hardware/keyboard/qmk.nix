@@ -19,5 +19,5 @@ in
   config =
     mkIf cfg.enable
       { services.udev.packages = [ pkgs.qmk-udev-rules ]; }
-    ;
+  ;
 }

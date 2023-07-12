@@ -148,7 +148,7 @@ rec {
       + builtins.head (
         builtins.match ".*/linux-node-(.*)" metadata.replay-node.url
       )
-      ;
+    ;
     src = fetchFromGitHub {
       owner = "RecordReplay";
       repo = "replay-node-cli";

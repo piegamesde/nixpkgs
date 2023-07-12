@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       libxml2
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Generate project icons and avatars from a symbolic icon";

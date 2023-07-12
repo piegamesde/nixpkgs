@@ -93,7 +93,7 @@ stdenv.mkDerivation (rec {
     ++ lib.optionals stdenv.isDarwin (
       [ "bits=64" ] ++ lib.optional (!lto) "lto=no"
     )
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=redundant-move"
@@ -120,7 +120,7 @@ stdenv.mkDerivation (rec {
              ]
            }"
     ''
-    ;
+  ;
 
   # Stripping breaks linking for ponyc
   dontStrip = true;

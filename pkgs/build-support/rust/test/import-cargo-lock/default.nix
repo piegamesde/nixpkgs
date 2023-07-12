@@ -14,7 +14,7 @@
   gitDependencyRevNonWorkspaceNestedCrate =
     callPackage ./git-dependency-rev-non-workspace-nested-crate
       { }
-    ;
+  ;
   gitDependencyTag = callPackage ./git-dependency-tag { };
   gitDependencyBranch = callPackage ./git-dependency-branch { };
   maturin = callPackage ./maturin { };
@@ -32,7 +32,7 @@
               flakeIgnore = [ "E501" ];
             }
             (builtins.readFile ../../replace-workspace-values.py)
-          ;
+        ;
       }
-    ;
+  ;
 }

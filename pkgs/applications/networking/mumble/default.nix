@@ -53,7 +53,7 @@ let
             qt5.qttools
           ]
           ++ (overrides.nativeBuildInputs or [ ])
-          ;
+        ;
 
         buildInputs =
           [
@@ -63,7 +63,7 @@ let
             protobuf
           ]
           ++ (overrides.buildInputs or [ ])
-          ;
+        ;
 
         cmakeFlags = [ "-D g15=OFF" ] ++ (overrides.configureFlags or [ ]);
 
@@ -85,7 +85,7 @@ let
         };
       }
     )
-    ;
+  ;
 
   client =
     source:
@@ -110,7 +110,7 @@ let
           ++ lib.optional speechdSupport speechd
           ++ lib.optional pulseSupport libpulseaudio
           ++ lib.optional pipewireSupport pipewire
-          ;
+        ;
 
         configureFlags =
           [
@@ -128,12 +128,12 @@ let
           ++ lib.optional (!pulseSupport) "-D pulseaudio=OFF"
           ++ lib.optional (!pipewireSupport) "-D pipewire=OFF"
           ++ lib.optional jackSupport "-D alsa=OFF -D jackaudio=ON"
-          ;
+        ;
 
         env.NIX_CFLAGS_COMPILE =
           lib.optionalString speechdSupport
             "-I${speechd}/include/speech-dispatcher"
-          ;
+        ;
 
         postFixup = ''
           wrapProgram $out/bin/mumble \
@@ -146,7 +146,7 @@ let
         '';
       }
       source
-    ;
+  ;
 
   server =
     source:
@@ -165,7 +165,7 @@ let
             "-D Ice_SLICE_DIR=${lib.getDev zeroc-ice}/share/ice/slice"
           ]
           ++ lib.optional grpcSupport "-D grpc=ON"
-          ;
+        ;
 
         buildInputs =
           [ libcap ]
@@ -174,10 +174,10 @@ let
             grpc
             which
           ]
-          ;
+        ;
       }
       source
-    ;
+  ;
 
   source = rec {
     version = "1.4.287";

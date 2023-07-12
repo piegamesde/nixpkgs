@@ -32,7 +32,7 @@ mkDerivation rec {
       sqlcipher
     ]
     ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake

@@ -25,7 +25,7 @@ let
     ]
     ++ lib.optionals flashbackEnabled [ gnome-flashback ]
     ++ extraGSettingsOverridePackages
-    ;
+  ;
 
   gsettingsOverrides = ''
     [org.gnome.desktop.background]

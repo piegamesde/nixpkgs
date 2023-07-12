@@ -70,7 +70,7 @@ let
             hash = "sha256-LH2RipJICEDWOr7JzX5s0QiUhEwXNMFEJihYKy9qWpo=";
           })
         ]
-        ;
+      ;
     }
   );
 in
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
       CoreSymbolication
       OpenGL
     ]
-    ;
+  ;
 
   patches = [ ./sw_vers.patch ];
 
@@ -181,7 +181,7 @@ stdenv.mkDerivation rec {
         ''
           MACOSX_DEPLOYMENT_TARGET=10.16
         ''
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -240,7 +240,7 @@ stdenv.mkDerivation rec {
       # fatal error: could not build module '_Builtin_intrinsics'
       "-Druntime_cxxmodules=OFF"
     ]
-    ;
+  ;
 
   # Workaround the xrootd runpath bug #169677 by prefixing [DY]LD_LIBRARY_PATH with ${lib.makeLibraryPath xrootd}.
   # TODO: Remove the [DY]LDLIBRARY_PATH prefix for xrootd when #200830 get merged.

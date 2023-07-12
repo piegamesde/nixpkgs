@@ -58,7 +58,7 @@ in
         description =
           lib.mdDoc
             "RFC 4646 Language code for text/gemini documents."
-          ;
+        ;
       };
 
       onlyTls_1_3 = mkOption {
@@ -67,7 +67,7 @@ in
         description =
           lib.mdDoc
             "Only use TLSv1.3 (default also allows TLSv1.2)."
-          ;
+        ;
       };
 
       extraArgs = mkOption {
@@ -102,7 +102,7 @@ in
                 v
               ])
               list
-            ;
+          ;
           addresses = prefixKeyList "--addr" cfg.addresses;
           hostnames = prefixKeyList "--hostname" cfg.hostnames;
         in
@@ -126,7 +126,7 @@ in
             )
           }
         ''
-        ;
+      ;
 
       serviceConfig = {
         Restart = "always";

@@ -21,7 +21,7 @@ let
           "i386"
         else
           throw "Unsupported platform: ${stdenv.hostPlatform.system}"
-        ;
+      ;
 
       steam-runtime = callPackage ./runtime.nix { };
       steam-runtime-wrapped = callPackage ./runtime-wrapped.nix { };
@@ -34,7 +34,7 @@ let
             pkgsi686Linux.steamPackages.steam-runtime-wrapped
           else
             null
-          ;
+        ;
         inherit buildFHSEnv;
       };
       steam-fhsenv-small = steam-fhsenv.override {
@@ -42,7 +42,7 @@ let
       };
       steamcmd = callPackage ./steamcmd.nix { };
     }
-    ;
+  ;
   keep = self: { };
   extra = spliced0: { };
 in

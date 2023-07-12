@@ -128,7 +128,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.9") [ zipp ]
     ++ lib.optionals (pythonOlder "3.7") [ typing ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

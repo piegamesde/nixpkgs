@@ -33,7 +33,7 @@ let
           inherit sage-src;
         };
       }
-      ;
+    ;
   };
 
   jupyter-kernel-definition = {
@@ -198,6 +198,6 @@ callPackage ./sage.nix {
     sagedoc
     jupyter-kernel-definition
     jupyter-kernel-specs
-    ;
+  ;
   inherit withDoc requireSageTests;
 }

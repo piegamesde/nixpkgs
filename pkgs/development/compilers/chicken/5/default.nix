@@ -21,7 +21,7 @@ let
         url =
           "https://code.call-cc.org/egg-tarballs/5/${pname}/${pname}-${version}.tar.gz";
       }
-      ;
+    ;
 
     eggDerivation = callPackage ./eggDerivation.nix { };
 

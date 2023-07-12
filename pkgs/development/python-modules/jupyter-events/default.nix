@@ -45,7 +45,7 @@ buildPythonPackage rec {
     ]
     ++ jsonschema.optional-dependencies.format
     ++ jsonschema.optional-dependencies.format-nongpl
-    ;
+  ;
 
   passthru.optional-dependencies = {
     cli = [
@@ -61,7 +61,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ;
+  ;
 
   preCheck = ''
     export PATH="$out/bin:$PATH"

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       makeWrapper ${env}/bin/pws $out/bin/pws \
         --set PATH '"${xsel}/bin/:$PATH"'
     ''
-    ;
+  ;
 
   passthru.updateScript = bundlerUpdateScript "pws";
 

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
       ''
         substituteInPlace configure --replace "./conftest" "echo"
       ''
-    ;
+  ;
 
   installPhase = ''
     install -m755 -Dt $out/bin ed

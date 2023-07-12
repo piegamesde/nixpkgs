@@ -37,7 +37,7 @@ in
                   "latitude"
                 ]
                 config
-              ;
+            ;
           in
           if value == null then
             throw
@@ -68,7 +68,7 @@ in
                   "longitude"
                 ]
                 config
-              ;
+            ;
           in
           if value == null then
             throw
@@ -187,7 +187,7 @@ in
             "${toString lcfg.latitude}:${toString lcfg.longitude}"
           else
             lcfg.provider
-          ;
+        ;
       in
       {
         description = "Redshift colour temperature adjuster";
@@ -209,6 +209,6 @@ in
           Restart = "always";
         };
       }
-      ;
+    ;
   };
 }

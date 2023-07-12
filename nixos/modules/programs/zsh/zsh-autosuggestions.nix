@@ -39,7 +39,7 @@ in
       description =
         lib.mdDoc
           "Highlight style for suggestions ({fore,back}ground color)"
-        ;
+      ;
       example = "fg=cyan";
     };
 
@@ -78,7 +78,7 @@ in
       description =
         lib.mdDoc
           "Attribute set with additional configuration values"
-        ;
+      ;
       example = literalExpression ''
         {
           "ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE" = "20";

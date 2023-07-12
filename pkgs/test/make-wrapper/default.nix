@@ -41,7 +41,7 @@ let
       mkdir -p $out/bin
       makeWrapper "${wrapped}" "$out/bin/${name}" ${lib.escapeShellArgs args}
     ''
-    ;
+  ;
 
   mkTest =
     cmd: toExpect: ''
@@ -57,7 +57,7 @@ let
         exit 1
       fi
     ''
-    ;
+  ;
 in
 runCommand "make-wrapper-test"
   {

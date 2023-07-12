@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       stdenv.cc.libc.static
     ]
     ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
-    ;
+  ;
 
   postPatch =
     ''
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!static) ''
       sed -i 's,-static,,g' src/Makefile
     ''
-    ;
+  ;
 
   preBuild = ''
     cd src

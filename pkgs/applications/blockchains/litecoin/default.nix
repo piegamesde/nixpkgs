@@ -58,7 +58,7 @@ mkDerivation rec {
       qttools
       qrencode
     ]
-    ;
+  ;
 
   configureFlags =
     [ "--with-boost-libdir=${boost.out}/lib" ]
@@ -66,7 +66,7 @@ mkDerivation rec {
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

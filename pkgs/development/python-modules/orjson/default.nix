@@ -43,7 +43,7 @@ buildPythonPackage rec {
         maturinBuildHook
       ]
     )
-    ;
+  ;
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 

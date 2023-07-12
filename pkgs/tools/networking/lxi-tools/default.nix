@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional withGui wrapGAppsHook
-    ;
+  ;
 
   buildInputs =
     [
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       appstream-glib
       gsettings-desktop-schemas
     ]
-    ;
+  ;
 
   postUnpack = "sed -i '/meson.add_install.*$/d' source/meson.build";
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
   postInstall =
     lib.optionalString withGui
       "glib-compile-schemas $out/share/glib-2.0/schemas"
-    ;
+  ;
 
   meta = with lib; {
     description = "Tool for communicating with LXI compatible instruments";

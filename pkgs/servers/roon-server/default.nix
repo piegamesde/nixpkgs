@@ -28,7 +28,7 @@ let
         "0"
       ]
       version
-    ;
+  ;
 in
 stdenv.mkDerivation {
   pname = "roon-server";
@@ -97,7 +97,7 @@ stdenv.mkDerivation {
               --set DOTNET_ROOT "$dotnetDir"
           )
         ''
-        ;
+      ;
     in
     ''
       runHook preInstall
@@ -117,7 +117,7 @@ stdenv.mkDerivation {
 
       runHook postInstall
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "The music player for music lovers";

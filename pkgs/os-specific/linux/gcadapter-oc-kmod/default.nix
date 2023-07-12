@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       "KERNEL_SOURCE_DIR=${kernel.dev}/${kerneldir}/build"
       "INSTALL_MOD_PATH=$(out)"
     ]
-    ;
+  ;
 
   installPhase = ''
     install -D {,$out/${kerneldir}/extra/}gcadapter_oc.ko

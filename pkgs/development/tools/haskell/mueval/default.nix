@@ -13,7 +13,7 @@ let
       pkgs.QuickCheck
       pkgs.mtl
     ]
-    ;
+  ;
   env = haskellPackages.ghcWithPackages (
     pkgs: defaultPkgs pkgs ++ packages pkgs
   );

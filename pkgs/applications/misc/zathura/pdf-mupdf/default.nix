@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       mujs
     ]
     ++ lib.optional stdenv.isDarwin gtk-mac-integration
-    ;
+  ;
 
   PKG_CONFIG_ZATHURA_PLUGINDIR = "lib/zathura";
 

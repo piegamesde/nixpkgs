@@ -47,7 +47,7 @@ mkDerivation rec {
       ]
     )
     ++ pythonPath
-    ;
+  ;
 
   pythonPath = with python3Packages; [
     yt-dlp

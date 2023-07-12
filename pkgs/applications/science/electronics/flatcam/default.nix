@@ -32,13 +32,13 @@ let
                   libc =
                     lib.optionalString (!stdenv.isDarwin)
                       "${stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6"
-                    ;
+                  ;
                 })
               ];
           }
         );
       }
-      ;
+    ;
   };
 in
 python.pkgs.buildPythonApplication rec {

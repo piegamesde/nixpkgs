@@ -18,7 +18,7 @@ let
     })
     mailmanEnv
     webEnv
-    ;
+  ;
 
   withPostgresql = config.services.postgresql.enable;
 
@@ -33,7 +33,7 @@ let
         "127.0.0.1"
       ]
       ++ cfg.webHosts
-      ;
+    ;
     COMPRESS_OFFLINE = true;
     STATIC_ROOT = "/var/lib/mailman-web-static";
     MEDIA_ROOT = "/var/lib/mailman-web/media";
@@ -55,7 +55,7 @@ let
   webSettingsJSON =
     pkgs.writeText "settings.json"
       (builtins.toJSON webSettings)
-    ;
+  ;
 
   # TODO: Should this be RFC42-ised so that users can set additional options without modifying the module?
   postfixMtaConfig = pkgs.writeText "mailman-postfix.cfg" ''
@@ -143,7 +143,7 @@ in
         description =
           lib.mdDoc
             "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix)."
-          ;
+        ;
       };
 
       ldap = {
@@ -216,7 +216,7 @@ in
               "${toUpper (substring 0 1 v)}${
                 substring 1 (stringLength v) v
               }Type"
-              ;
+            ;
             description = lib.mdDoc ''
               Type of group to perform a group search against.
             '';
@@ -347,7 +347,7 @@ in
         description =
           lib.mdDoc
             "Packages to add to the python environment used by mailman and mailman-web"
-          ;
+        ;
         type = types.listOf types.package;
         default = [ ];
       };
@@ -449,7 +449,7 @@ in
               See <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>.
             '';
           }
-          ;
+        ;
       in
       [ {
         assertion = cfg.webHosts != [ ];
@@ -489,7 +489,7 @@ in
             "postfix_lmtp"
         )
       ])
-      ;
+    ;
 
     users.users.mailman = {
       description = "GNU Mailman";
@@ -617,7 +617,7 @@ in
           [ "network.target" ]
           ++ lib.optional cfg.enablePostfix "postfix-setup.service"
           ++ lib.optional withPostgresql "postgresql.service"
-          ;
+        ;
         restartTriggers = [ mailmanCfgFile ];
         requires = optional withPostgresql "postgresql.service";
         wantedBy = [ "multi-user.target" ];
@@ -742,7 +742,7 @@ in
               "mailman-web-setup.service"
             ]
             ++ optional withPostgresql "postgresql.service"
-            ;
+          ;
           restartTriggers = [
             config.environment.etc."mailman3/settings.py".source
           ];

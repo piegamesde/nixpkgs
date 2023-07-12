@@ -47,7 +47,7 @@ let
   downloadUrl =
     arch:
     "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz"
-    ;
+  ;
   versionUrl =
     "https://download.sublimetext.com/latest/${
       if dev then "dev" else "stable"
@@ -67,7 +67,7 @@ let
       curl
     ]
     ++ lib.optionals (lib.versionAtLeast buildVersion "4145") [ sqlite ]
-    ;
+  ;
 in
 let
   binaryPackage = stdenv.mkDerivation rec {
@@ -199,7 +199,7 @@ stdenv.mkDerivation (rec {
         ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
       done
     ''
-    ;
+  ;
 
   passthru = {
     updateScript =
@@ -233,7 +233,7 @@ stdenv.mkDerivation (rec {
         script
         versionFile
       ]
-      ;
+    ;
   };
 
   meta = with lib; {

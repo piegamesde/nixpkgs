@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       libxklavier
     ]
     ++ lib.optional appindicatorSupport libayatana-appindicator
-    ;
+  ;
 
   configureFlags = lib.optional appindicatorSupport "--enable-appindicator=yes";
   outputs = [

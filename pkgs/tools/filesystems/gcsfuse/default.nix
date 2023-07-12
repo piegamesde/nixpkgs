@@ -41,7 +41,7 @@ buildGoModule rec {
         builtins.concatStringsSep "|" skippedTests
       })]")
     ''
-    ;
+  ;
 
   postInstall = ''
     ln -s $out/bin/mount_gcsfuse $out/bin/mount.gcsfuse

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optionals withDocs [ "man" ]
-    ;
+  ;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withDocs [ help2man ]
     ++ lib.optionals withIntrospection [ gobject-introspection ]
-    ;
+  ;
 
   buildInputs = [
     glib

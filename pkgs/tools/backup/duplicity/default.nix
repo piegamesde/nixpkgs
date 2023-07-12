@@ -44,7 +44,7 @@ pythonPackages.buildPythonApplication rec {
       # Broken on Linux in Nix' build environment
       ./linux-disable-timezone-test.patch
     ]
-    ;
+  ;
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -101,7 +101,7 @@ pythonPackages.buildPythonApplication rec {
         pytest-runner
       ]
     )
-    ;
+  ;
 
   postInstall = ''
     wrapProgram $out/bin/duplicity \
@@ -138,7 +138,7 @@ pythonPackages.buildPythonApplication rec {
       # > Use 'ulimit -n 1024' or higher to correct.
       ulimit -n 1024
     ''
-    ;
+  ;
 
   # TODO: Fix test failures on macOS 10.13:
   #

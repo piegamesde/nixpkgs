@@ -28,7 +28,7 @@ stdenv.mkDerivation {
       libtirpc
     ]
     ++ lib.optional useSystemd systemd
-    ;
+  ;
 
   configureFlags = [
     "--with-systemdsystemunitdir=${

@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
         gstreamer
       ]
     )
-    ;
+  ;
 
   mesonFlags = [ "-Dplugins=false" ];
 

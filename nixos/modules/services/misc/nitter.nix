@@ -22,10 +22,10 @@ let
                   ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
                 else
                   generators.mkValueStringDefault { } v
-                ;
+              ;
             }
             " = "
-          ;
+        ;
       }
       (
         lib.recursiveUpdate
@@ -96,7 +96,7 @@ in
           description =
             lib.mdDoc
               "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS."
-            ;
+          ;
         };
 
         httpMaxConnections = mkOption {
@@ -134,7 +134,7 @@ in
           description =
             lib.mdDoc
               "How long to cache list info (not the tweets, so keep it high)."
-            ;
+          ;
         };
 
         rssMinutes = mkOption {
@@ -204,7 +204,7 @@ in
           description =
             lib.mdDoc
               "Replace Twitter links with links to this instance (blank to disable)."
-            ;
+          ;
         };
 
         replaceYouTube = mkOption {
@@ -214,7 +214,7 @@ in
           description =
             lib.mdDoc
               "Replace YouTube links with links to this instance (blank to disable)."
-            ;
+          ;
         };
 
         replaceReddit = mkOption {
@@ -224,7 +224,7 @@ in
           description =
             lib.mdDoc
               "Replace Reddit links with links to this instance (blank to disable)."
-            ;
+          ;
         };
 
         replaceInstagram = mkOption {
@@ -233,7 +233,7 @@ in
           description =
             lib.mdDoc
               "Replace Instagram links with links to this instance (blank to disable)."
-            ;
+          ;
         };
 
         mp4Playback = mkOption {
@@ -248,7 +248,7 @@ in
           description =
             lib.mdDoc
               "Enable HLS video streaming (requires JavaScript)."
-            ;
+          ;
         };
 
         proxyVideos = mkOption {
@@ -257,7 +257,7 @@ in
           description =
             lib.mdDoc
               "Proxy video streaming through the server (might be slow)."
-            ;
+          ;
         };
 
         muteVideos = mkOption {
@@ -284,7 +284,7 @@ in
           description =
             lib.mdDoc
               "Infinite scrolling (requires JavaScript, experimental!)."
-            ;
+          ;
         };
 
         stickyProfile = mkOption {
@@ -299,7 +299,7 @@ in
           description =
             lib.mdDoc
               "Support bidirectional text (makes clicking on tweets harder)."
-            ;
+          ;
         };
 
         hideTweetStats = mkOption {
@@ -308,7 +308,7 @@ in
           description =
             lib.mdDoc
               "Hide tweet stats (replies, retweets, likes)."
-            ;
+          ;
         };
 
         hideBanner = mkOption {
@@ -353,7 +353,7 @@ in
         description =
           lib.mdDoc
             "Open ports in the firewall for Nitter web interface."
-          ;
+        ;
       };
     };
   };
@@ -363,7 +363,7 @@ in
       assertion =
         !cfg.redisCreateLocally
         || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379)
-        ;
+      ;
       message =
         "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
     } ];
@@ -392,7 +392,7 @@ in
             [ "CAP_NET_BIND_SERVICE" ]
           else
             [ "" ]
-          ;
+        ;
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

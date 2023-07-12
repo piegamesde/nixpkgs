@@ -33,7 +33,7 @@ let
         aarch64-linux =
           "235cf57afb619801808d5fe1bff7e01a4a9b29f77723566e5371b5f3b2bf8fad";
       }
-    ;
+  ;
   this = stdenv.mkDerivation rec {
     version = elk7Version;
     pname = "logstash${lib.optionalString (!enableUnfree) "-oss"}";

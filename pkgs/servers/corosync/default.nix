@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     ++ optional enableInfiniBandRdma rdma-core
     ++ optional enableMonitoring libstatgrab
     ++ optional enableSnmp net-snmp
-    ;
+  ;
 
   configureFlags =
     [
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ++ optional enableInfiniBandRdma "--enable-rdma"
     ++ optional enableMonitoring "--enable-monitoring"
     ++ optional enableSnmp "--enable-snmp"
-    ;
+  ;
 
   installFlags = [
     "sysconfdir=$(out)/etc"

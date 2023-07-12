@@ -26,7 +26,7 @@ appimageTools.wrapType2 rec {
         --replace 'Exec=AppRun' "Exec=$out/bin/zecwallet-lite"
       cp -r ${contents}/usr/share/icons $out/share
     ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A fully featured shielded wallet for Zcash";

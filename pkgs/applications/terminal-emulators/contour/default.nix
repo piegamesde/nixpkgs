@@ -69,7 +69,7 @@ mkDerivation rec {
       yaml-cpp
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.libs.utmp ]
-    ;
+  ;
 
   preConfigure = ''
     mkdir -p _deps/sources

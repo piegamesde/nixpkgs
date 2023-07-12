@@ -54,7 +54,7 @@ import ../make-test-python.nix (
             services.zookeeper.enable = true;
             networking.firewall.allowedTCPPorts = [ 2181 ];
           }
-          ;
+        ;
 
         # HDFS cluster
         nn1 =
@@ -70,7 +70,7 @@ import ../make-test-python.nix (
               hdfs.zkfc.enable = true;
             };
           }
-          ;
+        ;
         nn2 =
           {
             ...
@@ -84,7 +84,7 @@ import ../make-test-python.nix (
               hdfs.zkfc.enable = true;
             };
           }
-          ;
+        ;
 
         jn1 =
           {
@@ -98,7 +98,7 @@ import ../make-test-python.nix (
               };
             };
           }
-          ;
+        ;
         jn2 =
           {
             ...
@@ -111,7 +111,7 @@ import ../make-test-python.nix (
               };
             };
           }
-          ;
+        ;
         jn3 =
           {
             ...
@@ -124,7 +124,7 @@ import ../make-test-python.nix (
               };
             };
           }
-          ;
+        ;
 
         dn1 =
           {
@@ -138,7 +138,7 @@ import ../make-test-python.nix (
               };
             };
           }
-          ;
+        ;
 
         # YARN cluster
         rm1 =
@@ -154,7 +154,7 @@ import ../make-test-python.nix (
               };
             };
           }
-          ;
+        ;
         rm2 =
           {
             options,
@@ -168,7 +168,7 @@ import ../make-test-python.nix (
               };
             };
           }
-          ;
+        ;
         nm1 =
           {
             options,
@@ -183,7 +183,7 @@ import ../make-test-python.nix (
               };
             };
           }
-          ;
+        ;
         client =
           {
             options,
@@ -194,9 +194,9 @@ import ../make-test-python.nix (
               inherit package coreSite hdfsSite yarnSite;
             };
           }
-          ;
+        ;
       }
-      ;
+    ;
 
     testScript = ''
       start_all()

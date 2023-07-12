@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional withIntrospection "devdoc"
-    ;
+  ;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
           && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
         )
         [ mesonEmulatorHook ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       libmbim
     ]
     ++ lib.optionals withIntrospection [ libgudev ]
-    ;
+  ;
 
   propagatedBuildInputs =
     [ glib ] ++ lib.optionals withIntrospection [ libqrtr-glib ];

@@ -138,7 +138,7 @@ import ../make-test-python.nix (
                       smtp.sendmail('matrix@${mailerDomain}', '${testEmail}', 'Subject: Test STARTTLS\n\nTest data.')
                       smtp.quit()
                   ''
-                ;
+              ;
 
               obtainTokenAndRegisterEmail =
                 let
@@ -156,16 +156,16 @@ import ../make-test-python.nix (
                   su postgres -c "psql -d matrix-synapse -f ${insertEmailForAlice}"
                   curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
                 ''
-                ;
+              ;
             in
             [
               sendTestMailStarttls
               pkgs.matrix-synapse
               obtainTokenAndRegisterEmail
             ]
-            ;
+          ;
         }
-        ;
+      ;
 
       # test mail delivery
       mailserver =
@@ -209,7 +209,7 @@ import ../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       serversqlite =
         args: {
@@ -223,7 +223,7 @@ import ../make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

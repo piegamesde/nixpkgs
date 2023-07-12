@@ -21,7 +21,7 @@ let
       "armv6l" = "armhf";
     }
     .${cpuName} or cpuName
-    ;
+  ;
 in
 buildGoModule rec {
   pname = "faas-cli";

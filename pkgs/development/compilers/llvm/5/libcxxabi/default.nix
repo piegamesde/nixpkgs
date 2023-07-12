@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi"
       "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv"
-    ;
+  ;
 
   outputs = [
     "out"
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
     ''
-    ;
+  ;
 
   patches = [ ./gnu-install-dirs.patch ];
 

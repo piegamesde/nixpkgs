@@ -104,10 +104,10 @@ let
             builtins.mapAttrs (f (path ++ [ name ])) value
         else
           throw "expected attrset at ${toString path} - got ${toString value}"
-        ;
+      ;
     in
     builtins.mapAttrs (f [ ]) versions
-    ;
+  ;
   makeBinDist =
     {
       name,
@@ -149,7 +149,7 @@ let
                         # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
                         exit 1
                       ''
-                    ;
+                  ;
                   failureHook = ''
                     cat <<EOF
                     ${helpMsg}
@@ -158,9 +158,9 @@ let
                 }
               )
           )
-        ;
+      ;
     }
-    ;
+  ;
 
   configBaseCfg = ''
     use-system-read-write-data-directories=false
@@ -209,7 +209,7 @@ let
         ]
       else
         null
-      ;
+    ;
 
     meta = {
       description = "A game in which you build and maintain factories";
@@ -306,7 +306,7 @@ let
           cp -a data/core/graphics/factorio-icon@2x.png $out/share/icons/hicolor/128x128/apps/factorio.png
           ln -s ${desktopItem}/share/applications $out/share/
         ''
-        ;
+      ;
     };
     alpha = demo // {
 
@@ -315,7 +315,7 @@ let
         + ''
           cp -a doc-html $out/share/factorio
         ''
-        ;
+      ;
     };
   };
 in

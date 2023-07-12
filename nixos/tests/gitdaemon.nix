@@ -37,7 +37,7 @@ import ./make-test-python.nix (
             basePath = "/git";
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
         }: {
           environment.systemPackages = [ pkgs.git ];
         }
-        ;
+      ;
     };
 
     testScript = ''

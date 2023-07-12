@@ -86,7 +86,7 @@ let
          --set-rpath "$out/${gitterDirectorySuffix}/lib:${libPath}" \
          $out/${gitterDirectorySuffix}/${target}
     ''
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "gitter";

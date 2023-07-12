@@ -91,7 +91,7 @@ let
         "man"
         "doc"
       ]
-      ;
+    ;
 
     hardeningEnable = lib.optionals (!stdenv.isDarwin) [ "pie" ];
 
@@ -110,7 +110,7 @@ let
       ]
       ++ lib.optionals (atLeast213 && enableDocumentation) [ mdbook-linkcheck ]
       ++ lib.optionals stdenv.isLinux [ util-linuxMinimal ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -134,7 +134,7 @@ let
       ++ lib.optionals atLeast214 [ rapidcheck ]
       ++ lib.optionals withLibseccomp [ libseccomp ]
       ++ lib.optionals withAWS [ aws-sdk-cpp ]
-      ;
+    ;
 
     propagatedBuildInputs =
       [ boehmgc ] ++ lib.optionals (atLeast27) [ nlohmann_json ];
@@ -187,7 +187,7 @@ let
               --subst-var-by tr ${coreutils}/bin/tr
             mv tmp/config.nix.in corepkgs/config.nix.in
           ''
-      ;
+    ;
 
     configureFlags =
       [
@@ -226,7 +226,7 @@ let
       ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic) [
         "--enable-lto"
       ]
-      ;
+    ;
 
     makeFlags =
       [
@@ -240,7 +240,7 @@ let
         lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
           "PRECOMPILE_HEADERS=0"
       ++ lib.optional (stdenv.hostPlatform.isDarwin) "PRECOMPILE_HEADERS=1"
-      ;
+    ;
 
     installFlags = [ "sysconfdir=$(out)/etc" ];
 
@@ -256,7 +256,7 @@ let
       + lib.optionalString (atLeast25 && stdenv.isDarwin) ''
         echo "exit 99" > tests/gc-non-blocking.sh
       ''
-      ;
+    ;
 
     separateDebugInfo = stdenv.isLinux && (atLeast24 -> !enableStatic);
 

@@ -70,7 +70,7 @@ stdenv.mkDerivation (
         }"
       ]
       ++ (args.makeFlags or [ ])
-      ;
+    ;
 
     installPhase = ''
       runHook preInstall

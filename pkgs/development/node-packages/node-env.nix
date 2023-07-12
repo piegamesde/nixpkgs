@@ -54,7 +54,7 @@ let
         echo "file source-dist $out/tarballs/$tgzFile" >> $out/nix-support/hydra-build-products
       '';
     }
-    ;
+  ;
 
   # Common shell logic
   installPackage = writeShellScript "install-package" ''
@@ -128,7 +128,7 @@ let
         cd ..
       ''
     )
-    ;
+  ;
 
   # Recursively composes the dependencies of a package
   composePackage =
@@ -145,7 +145,7 @@ let
       cd ..
       ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
     ''
-    ;
+  ;
 
   pinpointDependencies =
     {
@@ -228,7 +228,7 @@ let
         fi
       ''}
     ''
-    ;
+  ;
 
   # Recursively traverses all dependencies of a package and pinpoints all
   # dependencies in the package.json file to the versions that are actually
@@ -252,7 +252,7 @@ let
           }
       fi
     ''
-    ;
+  ;
 
   # Extract the Node.js source code which is used to compile packages with
   # native bindings
@@ -474,7 +474,7 @@ let
     let
       forceOfflineFlag =
         if bypassCache then "--offline" else "--registry http://www.example.com"
-        ;
+      ;
     in
     ''
       # Pinpoint the versions of all dependencies to the ones that are actually being used
@@ -535,7 +535,7 @@ let
       # Link executables defined in package.json
       node ${linkBinsScript}
     ''
-    ;
+  ;
 
   # Builds and composes an NPM package including all its dependencies
   buildNodePackage =
@@ -583,13 +583,13 @@ let
           ++ lib.optional (stdenv.isLinux) utillinux
           ++ lib.optional (stdenv.isDarwin) libtool
           ++ buildInputs
-          ;
+        ;
 
         inherit nodejs;
 
         inherit
           dontStrip
-          ; # Stripping may fail a build for some package deployments
+        ; # Stripping may fail a build for some package deployments
         inherit dontNpmInstall preRebuild unpackPhase buildPhase;
 
         compositionScript = composePackage args;
@@ -655,7 +655,7 @@ let
         } // meta;
       } // extraArgs
     )
-    ;
+  ;
 
   # Builds a node environment (a node_modules folder and a set of binaries)
   buildNodeDependencies =
@@ -700,11 +700,11 @@ let
           ++ lib.optional (stdenv.isLinux) utillinux
           ++ lib.optional (stdenv.isDarwin) libtool
           ++ buildInputs
-          ;
+        ;
 
         inherit
           dontStrip
-          ; # Stripping may fail a build for some package deployments
+        ; # Stripping may fail a build for some package deployments
         inherit dontNpmInstall unpackPhase buildPhase;
 
         includeScript = includeDependencies { inherit dependencies; };
@@ -753,7 +753,7 @@ let
         '';
       } // extraArgs
     )
-    ;
+  ;
 
   # Builds a development shell
   buildNodeShell =
@@ -799,7 +799,7 @@ let
           ]
           ++ lib.optional (stdenv.isLinux) utillinux
           ++ buildInputs
-          ;
+        ;
         buildCommand = ''
           mkdir -p $out/bin
           cat > $out/bin/shell <<EOF
@@ -818,7 +818,7 @@ let
         '';
       } // extraArgs
     )
-    ;
+  ;
 in
 {
   buildNodeSourceDist = lib.makeOverridable buildNodeSourceDist;

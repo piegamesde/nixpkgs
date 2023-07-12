@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       swig2
       which
     ]
-    ;
+  ;
 
   buildInputs = lib.optionals pythonSupport [ python3 ];
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       pth
     ]
     ++ lib.optionals (qtbase != null) [ qtbase ]
-    ;
+  ;
 
   nativeCheckInputs = [ which ];
 
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     # that already has quite a long path and the resulting socket path doesn't
     # fit in the limit. https://github.com/NixOS/nix/pull/1085
     ++ lib.optionals stdenv.isDarwin [ "--disable-gpg-test" ]
-    ;
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     # qgpgme uses Q_ASSERT which retains build inputs at runtime unless

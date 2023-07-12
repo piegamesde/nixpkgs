@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       pulseaudio
       libsamplerate
     ]
-    ;
+  ;
 
   cmakeFlags =
     [ "-DOPTIMIZE_FOR_NATIVE=OFF" ]
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!waylandSupport) "-DENABLE_WAYLAND=no"
     ++ lib.optional (!pulseSupport) "-DENABLE_PULSEAUDIO=no"
     ++ lib.optional (!pipewireSupport) "-DENABLE_PIPEWIRE=no"
-    ;
+  ;
 
   postUnpack = ''
     echo ${src.rev} > source/VERSION

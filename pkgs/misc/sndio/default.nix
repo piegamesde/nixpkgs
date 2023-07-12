@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     lib.optional stdenv.hostPlatform.isDarwin
       fixDarwinDylibNames
-    ;
+  ;
   buildInputs = lib.optional stdenv.hostPlatform.isLinux alsa-lib;
   configurePlatforms = [ ];
 

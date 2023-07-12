@@ -78,7 +78,7 @@ let
                 type = "{.type}";
               }
               extraLabels
-            ;
+          ;
           values = {
             revision = "{.revision}";
             size = "{.size}";
@@ -88,9 +88,9 @@ let
             users = "{.users}";
           };
         } ]
-        ;
+      ;
     }
-    ;
+  ;
 in
 {
   port = 7980;

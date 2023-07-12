@@ -53,13 +53,13 @@ let
                     lib.warn
                       "use ${name}.__spliced.buildHost instead of ${name}.nativeDrv"
                       valueBuildHost
-                    ;
+                  ;
                 }) // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
                   crossDrv =
                     lib.warn
                       "use ${name}.__spliced.hostTarget instead of ${name}.crossDrv"
                       valueHostTarget
-                    ;
+                  ;
                 }) // {
                   __spliced = (lib.optionalAttrs (pkgsBuildBuild ? ${name}) {
                     buildBuild = valueBuildBuild;
@@ -84,13 +84,13 @@ let
                   inherit (builtins.tryEval value0) success value;
                 in
                 getOutputs (lib.optionalAttrs success value)
-                ;
+              ;
               getOutputs =
                 value:
                 lib.genAttrs
                   (value.outputs or (lib.optional (value ? out) "out"))
                   (output: value.${output})
-                ;
+              ;
             in
             # The derivation along with its outputs, which we recur
             # on to splice them together.
@@ -117,12 +117,12 @@ let
               }
             else
               defaultValue
-            ;
+          ;
         }
-        ;
+      ;
     in
     lib.listToAttrs (map merge (lib.attrNames mash))
-    ;
+  ;
 
   splicePackages =
     {
@@ -134,7 +134,7 @@ let
       pkgsTargetTarget,
     }@args:
     if actuallySplice then spliceReal args else pkgsHostTarget
-    ;
+  ;
 
   splicedPackages = splicePackages {
     inherit (pkgs)
@@ -144,7 +144,7 @@ let
       pkgsHostHost
       pkgsHostTarget
       pkgsTargetTarget
-      ;
+    ;
   } // {
     # These should never be spliced under any circumstances
     inherit (pkgs)
@@ -157,7 +157,7 @@ let
       buildPackages
       pkgs
       targetPackages
-      ;
+    ;
     inherit (pkgs.stdenv) buildPlatform targetPlatform hostPlatform;
   };
 
@@ -186,7 +186,7 @@ in
   makeScopeWithSplicing =
     lib.makeScopeWithSplicing splicePackages
       pkgs.newScope
-    ;
+  ;
 
   # generate 'otherSplices' for 'makeScopeWithSplicing'
   generateSplicesForMkScope =
@@ -203,7 +203,7 @@ in
       selfHostTarget = lib.attrByPath (split "pkgsHostTarget") null pkgs;
       selfTargetTarget = lib.attrByPath (split "pkgsTargetTarget") { } pkgs;
     }
-    ;
+  ;
 
   # Haskell package sets need this because they reimplement their own
   # `newScope`.

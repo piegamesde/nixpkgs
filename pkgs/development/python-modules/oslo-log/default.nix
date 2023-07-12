@@ -39,7 +39,7 @@ buildPythonPackage rec {
       python-dateutil
     ]
     ++ lib.optionals stdenv.isLinux [ pyinotify ]
-    ;
+  ;
 
   nativeCheckInputs = [
     eventlet

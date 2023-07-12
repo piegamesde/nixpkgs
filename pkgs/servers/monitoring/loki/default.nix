@@ -54,7 +54,7 @@ buildGoModule rec {
       "-X ${t}.Branch=unknown"
       "-X ${t}.Revision=unknown"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Like Prometheus, but for logs";

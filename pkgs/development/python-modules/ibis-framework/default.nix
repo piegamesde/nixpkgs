@@ -124,7 +124,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ pooch.optional-dependencies.progress
     ++ pooch.optional-dependencies.xxhash
-    ;
+  ;
 
   nativeCheckInputs =
     [
@@ -140,7 +140,7 @@ buildPythonPackage rec {
       rsync
     ]
     ++ lib.concatMap (name: passthru.optional-dependencies.${name}) testBackends
-    ;
+  ;
 
   pytestFlagsArray = [
     "--dist=loadgroup"

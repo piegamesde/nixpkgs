@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       libnl
     ]
     ++ (with python2Packages; [ python ])
-    ;
+  ;
 
   pythonPath = with python2Packages; [
     pygobject2

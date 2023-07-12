@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
       "out"
     ]
     ++ lib.optional enablePython "py"
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "libimobiledevice";

@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
       sqlite
     ]
     ++ lib.optional withNotmuch notmuch
-    ;
+  ;
 
   nativeCheckInputs = [ file ];
 
@@ -60,7 +60,7 @@ rustPlatform.buildRustPackage rec {
       # notmuch is not a valid mail backend
       wrapProgram $out/bin/meli --set LD_LIBRARY_PATH ${notmuch}/lib
     ''
-    ;
+  ;
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

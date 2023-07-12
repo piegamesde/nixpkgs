@@ -82,7 +82,7 @@ let
         ++ dropAttrs
       )
       keepAttrs
-    ;
+  ;
   fetch =
     import ../coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; }
       (
@@ -91,7 +91,7 @@ let
           location = { inherit domain owner repo; };
         } // optionalAttrs (args ? fetcher) { inherit fetcher; }
       )
-    ;
+  ;
   fetched = fetch (if version != null then version else defaultVersion);
   display-pkg =
     n: sep: v:
@@ -130,7 +130,7 @@ let
         ""
     )
     + optionalString (v == null) "-broken"
-    ;
+  ;
   append-version = p: n: p + display-pkg n "" coqPackages.${n}.version + "-";
   prefix-name = foldl append-version "" namePrefix;
   useDune = args.useDune or (useDuneifVersion fetched.version);
@@ -144,7 +144,7 @@ let
         "COQLIBINSTALL=$(out)/lib/coq/${coq.coq-version}/user-contrib"
         "COQPLUGININSTALL=$(OCAMLFIND_DESTDIR)"
       ]
-    ;
+  ;
   docdir-flags =
     switch coq.coq-version
       [ {
@@ -152,7 +152,7 @@ let
         out = [ "DOCDIR=$(out)/share/coq/${coq.coq-version}/" ];
       } ]
       [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ]
-    ;
+  ;
 in
 
 stdenv.mkDerivation (

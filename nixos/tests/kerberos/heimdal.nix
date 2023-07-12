@@ -35,7 +35,7 @@ import ../make-test-python.nix (
           };
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.succeed(

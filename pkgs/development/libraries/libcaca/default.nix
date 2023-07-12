@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       xorg.libX11
       xorg.libXext
     ]
-    ;
+  ;
 
   outputs = [
     "bin"
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (!x11Support)
       "-DX_DISPLAY_MISSING"
-    ;
+  ;
 
   postInstall = ''
     mkdir -p $dev/bin

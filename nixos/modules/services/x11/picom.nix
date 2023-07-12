@@ -19,7 +19,7 @@ let
     addCheck (listOf x) (y: length y == 2) // {
       description = "pair of ${x.description}";
     }
-    ;
+  ;
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
@@ -35,7 +35,7 @@ let
       in
       "${escape [ sep ] k}${sep}${mkValueString v};"
     )
-    ;
+  ;
 
   # This serializes a Nix expression to the libconfig format.
   mkValueString =
@@ -57,7 +57,7 @@ let
         invalid expression used in option services.picom.settings:
         ${v}
       ''
-    ;
+  ;
 
   toConf = attrs: concatStringsSep "\n" (mkAttrsString true cfg.settings);
 
@@ -294,10 +294,10 @@ in
           msg =
             "The type of services.picom.vSync has changed to bool:"
             + " interpreting ${x} as ${boolToString res}"
-            ;
+          ;
         in
         if isBool x then x else warn msg res
-        ;
+      ;
 
       description = lib.mdDoc ''
         Enable vertical synchronization. Chooses the best method
@@ -350,7 +350,7 @@ in
           CONFIGURATION FILES section at `picom(1)`.
         '';
       }
-      ;
+    ;
   };
 
   config = mkIf cfg.enable {

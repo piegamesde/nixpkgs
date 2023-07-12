@@ -247,7 +247,7 @@ stdenv.mkDerivation rec {
     ++ optional experimentalSpatialSvcSupport "--enable-spatial-svc"
     ++ optional experimentalFpMbStatsSupport "--enable-fp-mb-stats"
     ++ optional experimentalEmulateHardwareSupport "--enable-emulate-hardware"
-    ;
+  ;
 
   nativeBuildInputs = [
     perl
@@ -260,7 +260,7 @@ stdenv.mkDerivation rec {
       coreutils
       curl
     ]
-    ;
+  ;
 
   NIX_LDFLAGS = [
     "-lpthread" # fixes linker errors

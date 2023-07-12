@@ -40,7 +40,7 @@ import ./make-test-python.nix (
           '';
         };
       }
-      ;
+    ;
   in
   {
     name = "ucarp";

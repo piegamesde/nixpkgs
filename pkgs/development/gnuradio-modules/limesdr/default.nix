@@ -60,7 +60,7 @@ mkDerivation {
       thrift
       python.pkgs.thrift
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Gnuradio source and sink blocks for LimeSDR";

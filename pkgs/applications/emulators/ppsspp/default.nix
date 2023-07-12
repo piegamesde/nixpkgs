@@ -37,7 +37,7 @@ stdenv.mkDerivation (
       + lib.optionalString enableQt "-qt"
       + lib.optionalString (!enableQt) "-sdl"
       + lib.optionalString forceWayland "-wayland"
-      ;
+    ;
     version = "1.14.4";
 
     src = fetchFromGitHub {
@@ -62,7 +62,7 @@ stdenv.mkDerivation (
         python3
       ]
       ++ lib.optional enableQt wrapQtAppsHook
-      ;
+    ;
 
     buildInputs =
       [
@@ -82,7 +82,7 @@ stdenv.mkDerivation (
         wayland
         libffi
       ]
-      ;
+    ;
 
     cmakeFlags = [
       "-DHEADLESS=${if enableQt then "OFF" else "ON"}"
@@ -142,7 +142,7 @@ stdenv.mkDerivation (
 
         runHook postInstall
       ''
-      ;
+    ;
 
     meta = {
       homepage = "https://www.ppsspp.org/";
@@ -150,7 +150,7 @@ stdenv.mkDerivation (
         "A HLE Playstation Portable emulator, written in C++ ("
         + (if enableQt then "Qt" else "SDL + headless")
         + ")"
-        ;
+      ;
       license = lib.licenses.gpl2Plus;
       maintainers = [ lib.maintainers.AndersonTorres ];
       platforms = lib.platforms.linux;

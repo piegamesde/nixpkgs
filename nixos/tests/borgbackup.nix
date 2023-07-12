@@ -122,7 +122,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       server =
         {
@@ -148,7 +148,7 @@ import ./make-test-python.nix (
             quota = ".5G";
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

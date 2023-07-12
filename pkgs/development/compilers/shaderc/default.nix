@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ;
+  ;
 
   postInstall = ''
     moveToOutput "lib/*.a" $static

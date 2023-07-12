@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       suitesparse
       metis
     ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}"

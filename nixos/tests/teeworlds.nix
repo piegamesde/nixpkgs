@@ -15,7 +15,7 @@ import ./make-test-python.nix (
         imports = [ ./common/x11.nix ];
         environment.systemPackages = [ pkgs.teeworlds ];
       }
-      ;
+    ;
   in
   {
     name = "teeworlds";

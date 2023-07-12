@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-SooFnFK4uKNXvXQb/LEcH8GocnRtkryExI4b3BZTsAY=";
       })
     ]
-    ;
+  ;
 
   buildPhase = ''
     $CC -O3 -lbz2 bspatch.c -o bspatch

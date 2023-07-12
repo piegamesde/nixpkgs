@@ -18,7 +18,7 @@ import ./make-test-python.nix (
         };
         environment.systemPackages = [ pkgs.jq ];
       }
-      ;
+    ;
 
     testScript = ''
       from base64 import b64encode

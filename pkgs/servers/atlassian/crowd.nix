@@ -56,7 +56,7 @@ optionalWarning (openidPassword != "WILL_NEVER_BE_SET")
               toString port
             }/openidserver,${proxyUrl}/openidserver,'
         ''
-        ;
+      ;
 
       installPhase = ''
         cp -rva . $out

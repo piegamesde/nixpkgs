@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     ]
     ++ gstInputs
     ++ pythonInputs
-    ;
+  ;
 
   patches = [ ./no-dl-googletest.patch ];
 

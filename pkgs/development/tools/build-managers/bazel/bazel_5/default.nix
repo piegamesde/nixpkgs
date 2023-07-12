@@ -76,7 +76,7 @@ let
             sha256 = d.sha256;
           }
         )
-        ;
+      ;
     in
     builtins.listToAttrs (
       map toFetchurl [
@@ -103,7 +103,7 @@ let
         srcs.com_github_cares_cares
       ]
     )
-    ;
+  ;
 
   distDir = runCommand "bazel-deps" { } ''
     mkdir -p $out
@@ -221,7 +221,7 @@ stdenv.mkDerivation rec {
             "arm64"
           else
             "x86_64"
-          ;
+        ;
       })
 
       # --experimental_strict_action_env (which may one day become the default
@@ -252,7 +252,7 @@ stdenv.mkDerivation rec {
       ./bazel_darwin_sandbox.patch
     ]
     ++ lib.optional enableNixHacks ../nix-hacks.patch
-    ;
+  ;
 
   # Additional tests that check bazel’s functionality. Execute
   #
@@ -276,7 +276,7 @@ stdenv.mkDerivation rec {
             } // attrs'
           )
           script
-        ;
+      ;
 
       # bazel wants to extract itself into $install_dir/install every time it runs,
       # so let’s do that only once.
@@ -300,7 +300,7 @@ stdenv.mkDerivation rec {
             trying to copy ${install_dir} to $out instead!"; exit 1)
             cp -R ${install_dir} $out
           ''
-        ;
+      ;
 
       bazelTest =
         {
@@ -338,7 +338,7 @@ stdenv.mkDerivation rec {
             touch $out
           ''
         )
-        ;
+      ;
 
       bazelWithNixHacks = bazel_self.override { enableNixHacks = true; };
 
@@ -408,7 +408,7 @@ stdenv.mkDerivation rec {
       # fixed-output hashes of the fetch phase need to be spot-checked manually
       downstream = recurseIntoAttrs ({ inherit bazel-watcher; });
     }
-    ;
+  ;
 
   src_for_updater = stdenv.mkDerivation rec {
     name = "updater-sources";
@@ -620,7 +620,7 @@ stdenv.mkDerivation rec {
     in
     lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches
     + genericPatches
-    ;
+  ;
 
   buildInputs = [ buildJdk ] ++ defaultShellUtils;
 
@@ -643,7 +643,7 @@ stdenv.mkDerivation rec {
       CoreServices
       Foundation
     ]
-    ;
+  ;
 
   # Bazel makes extensive use of symlinks in the WORKSPACE.
   # This causes problems with infinite symlinks if the build output is in the same location as the
@@ -775,7 +775,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       echo "${cctools}" >> $out/nix-support/depends
     ''
-    ;
+  ;
 
   dontStrip = true;
   dontPatchELF = true;

@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Foundation
     ]
-    ;
+  ;
 
   postInstall = ''
     wrapProgram "$out/bin/t-rec" --prefix PATH : "${binPath}"

@@ -23,7 +23,7 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.5") [ typing ]
     ++ lib.optionals (pythonOlder "3.4") [ funcsigs ]
-    ;
+  ;
 
   nativeCheckInputs = [ pytest ];
   checkPhase = "pytest";

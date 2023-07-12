@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isDarwin "verscmp=0"
     ++ lib.optional enableAutoreload "inotify=1"
-    ;
+  ;
 
   installTargets = [ "install" ];
   postInstall = ''

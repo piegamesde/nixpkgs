@@ -28,7 +28,7 @@ buildPythonPackage rec {
       ruamel-yaml
     ]
     ++ lib.optional (!isPy3k) enum34
-    ;
+  ;
 
   # No tests
   doCheck = false;

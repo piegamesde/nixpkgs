@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
           substituteInPlace rpcsvc/Makefile.am \
             --replace '$(top_builddir)/rpcgen/rpcgen' '${buildPackages.rpcsvc-proto}/bin/rpcgen'
         ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/thkukuk/rpcsvc-proto";

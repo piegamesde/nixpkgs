@@ -63,7 +63,7 @@ buildPythonPackage rec {
       sortedcontainers
     ]
     ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
-    ;
+  ;
 
   nativeCheckInputs =
     [
@@ -72,7 +72,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ lib.optionals (isPyPy) [ tzdata ]
-    ;
+  ;
 
   inherit doCheck;
 

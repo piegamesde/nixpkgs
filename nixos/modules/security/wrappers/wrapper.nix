@@ -26,7 +26,7 @@ stdenv.mkDerivation {
           "-O2"
         ]
     )
-    ;
+  ;
   dontStrip = debug;
   installPhase = ''
     mkdir -p $out/bin

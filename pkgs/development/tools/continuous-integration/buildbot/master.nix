@@ -63,7 +63,7 @@ let
         withPlugins = morePlugins: withPlugins (morePlugins ++ plugins);
       };
     }
-    ;
+  ;
 
   package = buildPythonApplication rec {
     pname = "buildbot";
@@ -94,7 +94,7 @@ let
       ]
       # tls
       ++ twisted.optional-dependencies.tls
-      ;
+    ;
 
     nativeCheckInputs = [
       treq

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [ ApplicationServices ]
     )
-    ;
+  ;
 
   patchPhase =
     ''
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       substituteInPlace webrtc/base/checks.cc --replace 'defined(__UCLIBC__)' 1
     ''
-    ;
+  ;
 
   meta = with lib; {
     homepage =

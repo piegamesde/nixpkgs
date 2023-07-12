@@ -26,7 +26,7 @@ buildDunePackage {
       AudioToolbox
       VideoToolbox
     ]
-    ;
+  ;
   propagatedBuildInputs = [ ffmpeg.dev ];
 
   doCheck = true;

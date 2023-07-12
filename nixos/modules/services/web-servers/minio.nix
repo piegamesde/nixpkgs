@@ -16,7 +16,7 @@ let
       MINIO_ROOT_USER=${cfg.accessKey}
       MINIO_ROOT_PASSWORD=${cfg.secretKey}
     ''
-    ;
+  ;
 in
 {
   meta.maintainers = [ maintainers.bachp ];
@@ -42,7 +42,7 @@ in
       description =
         lib.mdDoc
           "The list of data directories for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode."
-        ;
+      ;
     };
 
     configDir = mkOption {
@@ -51,7 +51,7 @@ in
       description =
         lib.mdDoc
           "The config directory, for the access keys and other settings."
-        ;
+      ;
     };
 
     accessKey = mkOption {
@@ -111,14 +111,14 @@ in
     warnings =
       optional ((cfg.accessKey != "") || (cfg.secretKey != ""))
         "services.minio.`accessKey` and services.minio.`secretKey` are deprecated, please use services.minio.`rootCredentialsFile` instead."
-      ;
+    ;
 
     systemd = lib.mkMerge [
       {
         tmpfiles.rules =
           [ "d '${cfg.configDir}' - minio minio - -" ]
           ++ (map (x: "d '" + x + "' - minio minio - - ") cfg.dataDir)
-          ;
+        ;
 
         services.minio = {
           description = "Minio Object Storage";
@@ -140,7 +140,7 @@ in
                 (legacyCredentials cfg)
               else
                 null
-              ;
+            ;
           };
           environment = {
             MINIO_REGION = "${cfg.region}";

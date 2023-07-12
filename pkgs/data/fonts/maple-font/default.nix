@@ -42,7 +42,7 @@ let
         maintainers = with maintainers; [ oluceps ];
       };
     }
-    ;
+  ;
 in
 {
   Mono = maple-font {

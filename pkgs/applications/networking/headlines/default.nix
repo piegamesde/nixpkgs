@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
       ]
     )
-    ;
+  ;
 
   postFixup = ''
     wrapProgram "$out/bin/headlines" \

@@ -176,7 +176,7 @@ stdenv.mkDerivation (rec {
         libxkbfile
       ]
     )
-    ;
+  ;
 
   unpackPhase = ''
     cp -r ${source}/* ./

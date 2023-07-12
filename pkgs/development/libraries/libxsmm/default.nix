@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       "PREFIX=$(out)"
       "STATIC=${static}"
     ]
-    ;
+  ;
 
   prePatch = ''
     patchShebangs .

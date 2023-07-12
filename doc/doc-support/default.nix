@@ -91,7 +91,7 @@ let
     inherit
       (pkgs.lib.evalModules { modules = [ ../../pkgs/top-level/config.nix ]; })
       options
-      ;
+    ;
     documentType = "none";
     transformOptions =
       opt:
@@ -115,9 +115,9 @@ let
                 decl
             )
             opt.declarations
-          ;
+        ;
       }
-      ;
+    ;
   };
 in
 pkgs.runCommand "doc-support" { } ''

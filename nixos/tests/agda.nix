@@ -32,7 +32,7 @@ import ./make-test-python.nix (
         ];
         virtualisation.memorySize = 2000; # Agda uses a lot of memory
       }
-      ;
+    ;
 
     testScript = ''
       assert (

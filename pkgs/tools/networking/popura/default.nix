@@ -27,7 +27,7 @@ buildGoModule rec {
       "-X=${pkgSrc}.buildName=yggdrasil"
       "-X=${pkgSrc}.buildVersion=${version}"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "An alternative Yggdrasil network client";

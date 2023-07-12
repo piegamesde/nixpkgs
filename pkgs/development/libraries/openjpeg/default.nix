@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       fcgi
     ]
     ++ lib.optional (jpipLibSupport) jdk
-    ;
+  ;
 
   doCheck =
     (

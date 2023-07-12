@@ -176,7 +176,7 @@ in
       description =
         lib.mdDoc
           "Reflect incoming mDNS requests to all allowed network interfaces."
-        ;
+      ;
     };
 
     extraServiceFiles = mkOption {
@@ -217,7 +217,7 @@ in
         description =
           lib.mdDoc
             "Whether to publish user services. Will set `addresses=true`."
-          ;
+        ;
       };
 
       addresses = mkOption {
@@ -226,7 +226,7 @@ in
         description =
           lib.mdDoc
             "Whether to register mDNS address records for all local IP addresses."
-          ;
+        ;
       };
 
       hinfo = mkOption {
@@ -252,7 +252,7 @@ in
         description =
           lib.mdDoc
             "Whether to announce the locally used domain name for browsing by other hosts."
-          ;
+        ;
       };
     };
 

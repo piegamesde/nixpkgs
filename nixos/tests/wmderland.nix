@@ -19,7 +19,7 @@ import ./make-test-python.nix (
         services.xserver.displayManager.defaultSession =
           lib.mkForce
             "none+wmderland"
-          ;
+        ;
         services.xserver.windowManager.wmderland.enable = true;
 
         systemd.services.setupWmderlandConfig = {
@@ -42,10 +42,10 @@ import ./make-test-python.nix (
               mkdir -p $HOME/.config/wmderland
               cp ${config} $HOME/.config/wmderland/config
             ''
-            ;
+          ;
         };
       }
-      ;
+    ;
 
     testScript =
       {
@@ -68,6 +68,6 @@ import ./make-test-python.nix (
             machine.execute("DISPLAY=:0 wmderlandc kill")
             machine.fail("pgrep xterm")
       ''
-      ;
+    ;
   }
 )

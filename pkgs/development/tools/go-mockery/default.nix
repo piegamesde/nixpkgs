@@ -65,7 +65,7 @@ buildGoModule rec {
 
           touch $out
         ''
-      ;
+    ;
   };
 
   meta = with lib; {

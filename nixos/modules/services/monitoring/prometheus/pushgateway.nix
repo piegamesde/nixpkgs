@@ -21,7 +21,7 @@ let
     ++ opt "log.level" cfg.log.level
     ++ opt "log.format" cfg.log.format
     ++ cfg.extraFlags
-    ;
+  ;
 
   opt = k: v: optional (v != null) ''--${k}="${v}"'';
 in
@@ -162,7 +162,7 @@ in
         "The option services.prometheus.pushgateway.stateDir"
         + " shouldn't be an absolute directory."
         + " It should be a directory relative to /var/lib."
-        ;
+      ;
     } ];
     systemd.services.pushgateway = {
       wantedBy = [ "multi-user.target" ];
@@ -175,7 +175,7 @@ in
           + optionalString (length cmdlineArgs != 0) (
             " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
           )
-          ;
+        ;
         StateDirectory = if cfg.persistMetrics then cfg.stateDir else null;
       };
     };

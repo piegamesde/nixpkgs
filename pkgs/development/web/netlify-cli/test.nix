@@ -15,7 +15,7 @@ runCommand "netlify-cli-test"
         curl
       ]
       ++ lib.optionals stdenv.isDarwin [ darwin.ps ]
-      ;
+    ;
     meta.timeout = 600;
   }
   ''

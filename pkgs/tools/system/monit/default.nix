@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.apple_sdk.frameworks.DiskArbitration
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals useSSL [ openssl ]
     ++ lib.optionals usePAM [ pam ]
-    ;
+  ;
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace configure --replace "-framework System" "-lSystem"
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       "libmonit_cv_setjmp_available=yes"
       "libmonit_cv_vsnprintf_c99_conformant=yes"
     ]
-    ;
+  ;
 
   meta = {
     homepage = "https://mmonit.com/monit/";

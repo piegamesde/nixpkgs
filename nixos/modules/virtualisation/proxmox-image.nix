@@ -159,7 +159,7 @@ with lib;
         name: value: ''
           ${name}: ${builtins.toString value}
         ''
-        ;
+      ;
       virtio0Storage = builtins.head (builtins.split ":" cfg.qemuConf.virtio0);
       cfgFile =
         fileName: properties:
@@ -168,7 +168,7 @@ with lib;
           ${lib.concatStrings (lib.mapAttrsToList cfgLine properties)}
           #qmdump#map:virtio0:drive-virtio0:${virtio0Storage}:raw:
         ''
-        ;
+      ;
       inherit (cfg) partitionTableType;
       supportEfi =
         partitionTableType == "efi" || partitionTableType == "hybrid";
@@ -176,7 +176,7 @@ with lib;
         partitionTableType == "legacy"
         || partitionTableType == "hybrid"
         || partitionTableType == "legacy+gpt"
-        ;
+      ;
       hasBootPartition =
         partitionTableType == "efi" || partitionTableType == "hybrid";
       hasNoFsPartition =
@@ -188,28 +188,28 @@ with lib;
           assertion =
             config.boot.loader.systemd-boot.enable
             -> config.proxmox.qemuConf.bios == "ovmf"
-            ;
+          ;
           message = "systemd-boot requires 'ovmf' bios";
         }
         {
           assertion =
             partitionTableType == "efi"
             -> config.proxmox.qemuConf.bios == "ovmf"
-            ;
+          ;
           message = "'efi' disk partitioning requires 'ovmf' bios";
         }
         {
           assertion =
             partitionTableType == "legacy"
             -> config.proxmox.qemuConf.bios == "seabios"
-            ;
+          ;
           message = "'legacy' disk partitioning requires 'seabios' bios";
         }
         {
           assertion =
             partitionTableType == "legacy+gpt"
             -> config.proxmox.qemuConf.bios == "seabios"
-            ;
+          ;
           message = "'legacy+gpt' disk partitioning requires 'seabios' bios";
         }
       ];
@@ -254,7 +254,7 @@ with lib;
                               "debian/patches/pve/0026-PVE-Backup-add-vma-backup-format-code.patch";
                           in
                           "https://git.proxmox.com/?p=pve-qemu.git;a=blob_plain;hb=${rev};f=${path}"
-                          ;
+                        ;
                         hash =
                           "sha256-2Dz+ceTwrcyYYxi76RtyY3v15/2pwGcDhFuoZWlgbjc=";
                       })
@@ -263,7 +263,7 @@ with lib;
                     buildInputs = super.buildInputs ++ [ pkgs.libuuid ];
                   }
                 )
-              ;
+            ;
           in
           ''
             ${vma}/bin/vma create "vzdump-qemu-${cfg.filenameSuffix}.vma" \
@@ -277,7 +277,7 @@ with lib;
             mkdir -p $out/nix-support
             echo "file vma $out/vzdump-qemu-${cfg.filenameSuffix}.vma.zst" >> $out/nix-support/hydra-build-products
           ''
-          ;
+        ;
         format = "raw";
         inherit config lib pkgs;
       };
@@ -319,5 +319,5 @@ with lib;
 
       services.qemuGuest.enable = lib.mkDefault true;
     }
-    ;
+  ;
 }

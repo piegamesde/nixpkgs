@@ -64,7 +64,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       machine2 =
         {
@@ -72,7 +72,7 @@ import ./make-test-python.nix (
         }: {
           virtualisation.vlans = [ 1 ];
         }
-        ;
+      ;
     };
 
     testScript = ''

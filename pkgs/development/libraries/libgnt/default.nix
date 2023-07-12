@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       "dev"
     ]
     ++ lib.optional buildDocs "devdoc"
-    ;
+  ;
 
   src = fetchurl {
     url = "mirror://sourceforge/pidgin/${pname}-${version}.tar.xz";
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       gtk-doc
       docbook-xsl-nons
     ]
-    ;
+  ;
 
   buildInputs = [
     glib
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!buildDocs) ''
       sed "/^subdir('doc')$/d" -i meson.build
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

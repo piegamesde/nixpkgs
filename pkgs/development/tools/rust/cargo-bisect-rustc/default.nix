@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
               --subst-var dynamicLinker \
               --subst-var libPath
           ''
-        ;
+      ;
     in
     lib.optionals stdenv.isLinux [ patchelfPatch ]
     ++ [
@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
         hash = "sha256-IQlwQvaPUzPK5T4Mbsrdt7Ea3elaPCw2pBCCdBhjtzM=";
       })
     ]
-    ;
+  ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];

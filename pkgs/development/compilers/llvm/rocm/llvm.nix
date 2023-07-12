@@ -52,7 +52,7 @@ let
       "AArch64"
     else
       throw "Unsupported ROCm LLVM platform"
-    ;
+  ;
   inferNativeTarget = t: if t == "NATIVE" then llvmNativeTarget else t;
   llvmTargetsToBuild' =
     [ "AMDGPU" ] ++ builtins.map inferNativeTarget llvmTargetsToBuild;
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
         "man"
         "info" # Avoid `attribute 'info' missing` when using with wrapCC
       ]
-      ;
+    ;
 
     patches = extraPatches;
 
@@ -95,7 +95,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
       ++ extraNativeBuildInputs
-      ;
+    ;
 
     buildInputs =
       [
@@ -106,7 +106,7 @@ stdenv.mkDerivation (
         mpfr
       ]
       ++ extraBuildInputs
-      ;
+    ;
 
     propagatedBuildInputs = lib.optionals finalAttrs.passthru.isLLVM [
       zlib
@@ -158,7 +158,7 @@ stdenv.mkDerivation (
         "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
       ]
       ++ extraCMakeFlags
-      ;
+    ;
 
     postPatch =
       lib.optionalString finalAttrs.passthru.isLLVM ''
@@ -173,7 +173,7 @@ stdenv.mkDerivation (
           --replace "Path.cpp" ""
       ''
       + extraPostPatch
-      ;
+    ;
 
     doCheck = buildTests;
     checkTarget = lib.concatStringsSep " " checkTargets;
@@ -187,7 +187,7 @@ stdenv.mkDerivation (
         mkdir -p $info
       ''
       + extraPostInstall
-      ;
+    ;
 
     passthru = {
       isLLVM = targetDir == "llvm";

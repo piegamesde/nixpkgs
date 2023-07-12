@@ -35,7 +35,7 @@ let
       pp.mako
       pp.markdown
     ]
-    ;
+  ;
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -78,7 +78,7 @@ stdenv.mkDerivation (
           cairoLib = "${lib.getLib cairo}/lib";
         })
       ]
-      ;
+    ;
 
     strictDeps = true;
 
@@ -100,7 +100,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         gobject-introspection-unwrapped
       ]
-      ;
+    ;
 
     buildInputs = [ (python3.withPackages pythonModules) ];
 
@@ -139,7 +139,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         "-Dgi_cross_use_prebuilt_gi=true"
       ]
-      ;
+    ;
 
     doCheck = !stdenv.isAarch64;
 
@@ -158,7 +158,7 @@ stdenv.mkDerivation (
           # pygobject3 needs them
           cp -r ${buildPackages.gobject-introspection-unwrapped.dev}/share/gobject-introspection-1.0/tests $dev/share/gobject-introspection-1.0/tests
         ''
-      ;
+    ;
 
     preCheck = ''
       # Our gobject-introspection patches make the shared library paths absolute
@@ -195,7 +195,7 @@ stdenv.mkDerivation (
             artturin
           ]
         )
-        ;
+      ;
       pkgConfigModules = [ "gobject-introspection-1.0" ];
       platforms = platforms.unix;
       license = with licenses; [

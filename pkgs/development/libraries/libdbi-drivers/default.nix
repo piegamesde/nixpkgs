@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       postgresql
     ]
     ++ lib.optional (libmysqlclient != null) libmysqlclient
-    ;
+  ;
 
   postPatch = ''
     sed -i '/SQLITE3_LIBS/ s/-lsqlite/-lsqlite3/' configure;
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       "--with-pgsql_incdir=${postgresql}/include"
       "--with-pgsql_libdir=${postgresql.lib}/lib"
     ]
-    ;
+  ;
 
   installFlags = [ "DESTDIR=\${out}" ];
 

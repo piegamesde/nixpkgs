@@ -63,7 +63,7 @@ let
         maintainers = [ lib.maintainers.cfsmp3 ];
       };
     }
-    ;
+  ;
 in
 rec {
   libprom = build {

@@ -17,7 +17,7 @@ let
     cfg.alsa.support32Bit
     && pkgs.stdenv.isx86_64
     && pkgs.pkgsi686Linux.alsa-lib != null
-    ;
+  ;
 
   umaskNeeded = versionOlder cfg.jackd.package.version "1.9.12";
   bridgeNeeded = versionAtLeast cfg.jackd.package.version "1.9.12";
@@ -272,7 +272,7 @@ in
                 && !config.hardware.pulseaudio.systemWide
               )
               "users"
-            ;
+          ;
           ExecStart =
             "${cfg.jackd.package}/bin/jackd ${
               lib.escapeShellArgs cfg.jackd.extraOptions

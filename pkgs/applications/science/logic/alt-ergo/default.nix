@@ -57,7 +57,7 @@ let
           psmt2-frontend
         ]
       )
-      ;
+    ;
   };
 in
 

@@ -31,7 +31,7 @@ let
         chown stunnel /test-key.pem /test-key-and-cert.pem
       '';
     }
-    ;
+  ;
   serverCommon =
     {
       pkgs,
@@ -51,7 +51,7 @@ let
         '';
       };
     }
-    ;
+  ;
   copyCert =
     src: dest: filename: ''
       from shlex import quote
@@ -59,7 +59,7 @@ let
       server_cert = ${src}.succeed("cat /test-cert.pem")
       ${dest}.succeed("echo %s > ${filename}" % quote(server_cert))
     ''
-    ;
+  ;
 in
 {
   basicServer = makeTest {

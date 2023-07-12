@@ -41,7 +41,7 @@ let
       done
       exec ${bin} "$@"
     ''
-    ;
+  ;
 
   pmountBin = useSetUID pmount "/bin/pmount";
   pumountBin = useSetUID pmount "/bin/pumount";

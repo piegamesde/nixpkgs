@@ -33,7 +33,7 @@ stdenv.mkDerivation {
       subdir = if stdenv.isDarwin then "osx" else "linux";
     in
     "cd ${subdir}"
-    ;
+  ;
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

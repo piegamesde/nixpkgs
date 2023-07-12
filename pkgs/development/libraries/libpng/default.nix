@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description =
       "The official reference implementation for the PNG file format"
       + whenPatched " with animation patch"
-      ;
+    ;
     homepage = "http://www.libpng.org/pub/png/libpng.html";
     changelog = "https://github.com/glennrp/libpng/blob/v1.6.39/CHANGES";
     license = licenses.libpng2;

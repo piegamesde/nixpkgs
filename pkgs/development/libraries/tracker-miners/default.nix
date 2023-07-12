@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
       0.0
       fsprogs
     ]
-    ;
+  ;
 
   mesonFlags =
     [
@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
       "-Dnetwork_manager=disabled"
       "-Dsystemd_user_services=false"
     ]
-    ;
+  ;
 
   postInstall = ''
     glib-compile-schemas "$out/share/glib-2.0/schemas"

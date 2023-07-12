@@ -66,7 +66,7 @@ rustPlatform.buildRustPackage rec {
       python3
     ]
     ++ lib.optional stdenv.isDarwin perl
-    ;
+  ;
 
   buildInputs =
     [
@@ -91,7 +91,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       UserNotifications
     ]
-    ;
+  ;
 
   buildFeatures = [ "distro-defaults" ];
 
@@ -127,7 +127,7 @@ rustPlatform.buildRustPackage rec {
       cp -r assets/shell-integration/* "$OUT_APP"
       ln -s $out/bin/{wezterm,wezterm-mux-server,wezterm-gui,strip-ansi-escapes} "$OUT_APP"
     ''
-    ;
+  ;
 
   passthru = {
     tests = {
@@ -140,7 +140,7 @@ rustPlatform.buildRustPackage rec {
           mkdir -p $out/share/terminfo $out/nix-support
           tic -x -o $out/share/terminfo ${src}/termwiz/data/wezterm.terminfo
         ''
-      ;
+    ;
   };
 
   meta = with lib; {

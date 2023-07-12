@@ -90,7 +90,7 @@ let
         };
       }
       args.version
-    ;
+  ;
   version = fetched.version;
   coq-version =
     args.coq-version
@@ -100,7 +100,7 @@ let
   ideFlags =
     optionalString (buildIde && !coqAtLeast "8.10")
       "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt"
-    ;
+  ;
   csdpPatch = lib.optionalString (csdp != null) ''
     substituteInPlace plugins/micromega/sos.ml --replace "; csdp" "; ${csdp}/bin/csdp"
     substituteInPlace plugins/micromega/coq_micromega.ml --replace "System.is_in_system_path \"csdp\"" "true"
@@ -134,7 +134,7 @@ let
           }
         ]
         ocamlPackages_4_14
-    ;
+  ;
   ocamlNativeBuildInputs = with ocamlPackages;
     [
       ocaml
@@ -146,7 +146,7 @@ let
     ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5
     ++ optional (!coqAtLeast "8.13") ocamlPackages.num
     ++ optional (coqAtLeast "8.13") ocamlPackages.zarith
-    ;
+  ;
   self = stdenv.mkDerivation {
     pname = "coq";
     inherit (fetched) version src;
@@ -204,7 +204,7 @@ let
           (setq nixpkgs--is-nixpkgs-coq-buffer t)
           (inherit-local 'nixpkgs--is-nixpkgs-coq-buffer)
         ''
-        ;
+      ;
     };
 
     nativeBuildInputs =
@@ -213,7 +213,7 @@ let
       ++ optional buildIde copyDesktopItems
       ++ optional (buildIde && coqAtLeast "8.10") wrapGAppsHook
       ++ optional (!coqAtLeast "8.6") gnumake42
-      ;
+    ;
     buildInputs =
       [ ncurses ]
       ++ optionals buildIde (
@@ -226,7 +226,7 @@ let
         else
           [ ocamlPackages.lablgtk ]
       )
-      ;
+    ;
 
     propagatedBuildInputs = ocamlPropagatedBuildInputs;
 
@@ -260,7 +260,7 @@ let
             ${ideFlags}
           )
         ''
-      ;
+    ;
 
     prefixKey = "-prefix ";
 
@@ -271,7 +271,7 @@ let
       ]
       ++ optional buildIde "coqide"
       ++ optional (!coqAtLeast "8.14") "bin/votour"
-      ;
+    ;
     enableParallelBuilding = true;
 
     createFindlibDestdir = true;
@@ -310,7 +310,7 @@ let
         mkdir -p "$out/share/pixmaps"
         ln -s "$out/share/coq/coq.png" "$out/share/pixmaps/"
       ''
-      ;
+    ;
 
     meta = {
       description = "Coq proof assistant";

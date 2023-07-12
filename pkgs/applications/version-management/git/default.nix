@@ -88,7 +88,7 @@ stdenv.mkDerivation (
             && !withpcre2
           )
           "-minimal"
-      ;
+    ;
     inherit version;
 
     src = fetchurl {
@@ -111,7 +111,7 @@ stdenv.mkDerivation (
         ./installCheck-path.patch
       ]
       ++ lib.optionals withSsh [ ./ssh-path.patch ]
-      ;
+    ;
 
     postPatch =
       ''
@@ -128,7 +128,7 @@ stdenv.mkDerivation (
             --subst-var-by ssh "${openssh}/bin/ssh"
         done
       ''
-      ;
+    ;
 
     nativeBuildInputs =
       [
@@ -146,7 +146,7 @@ stdenv.mkDerivation (
         docbook_xml_dtd_45
         libxslt
       ]
-      ;
+    ;
     buildInputs =
       [
         curl
@@ -171,7 +171,7 @@ stdenv.mkDerivation (
         glib
         libsecret
       ]
-      ;
+    ;
 
     # required to support pthread_cancel()
     NIX_LDFLAGS =
@@ -179,7 +179,7 @@ stdenv.mkDerivation (
         (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
         "-lgcc_s"
       + lib.optionalString (stdenv.isFreeBSD) "-lthr"
-      ;
+    ;
 
     configureFlags =
       [ "ac_cv_prog_CURL_CONFIG=${lib.getDev curl}/bin/curl-config" ]
@@ -188,7 +188,7 @@ stdenv.mkDerivation (
         "ac_cv_snprintf_returns_bogus=no"
         "ac_cv_iconv_omits_bom=no"
       ]
-      ;
+    ;
 
     preBuild = ''
       makeFlagsArray+=( perllibdir=$out/$(perl -MConfig -wle 'print substr $Config{installsitelib}, 1 + length $Config{siteprefixexp}') )
@@ -238,12 +238,12 @@ stdenv.mkDerivation (
       #
       # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
       ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent"
-      ;
+    ;
 
     disallowedReferences =
       lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
         [ stdenv.shellPackage ]
-      ;
+    ;
 
     postBuild =
       ''
@@ -258,7 +258,7 @@ stdenv.mkDerivation (
       + (lib.optionalString withLibsecret ''
         make -C contrib/credential/libsecret
       '')
-      ;
+    ;
 
     ## Install
 
@@ -278,7 +278,7 @@ stdenv.mkDerivation (
         ln -s $out/share/git/contrib/credential/libsecret/git-credential-libsecret $out/bin/
         rm -f $PWD/contrib/credential/libsecret/git-credential-libsecret.o
       '')
-      ;
+    ;
 
     postInstall =
       ''
@@ -440,7 +440,7 @@ stdenv.mkDerivation (
           helper = osxkeychain
         EOF
       ''
-      ;
+    ;
 
     ## InstallCheck
 
@@ -536,7 +536,7 @@ stdenv.mkDerivation (
         # Tested to fail: 2.18.0
         disable_test t0028-working-tree-encoding
       ''
-      ;
+    ;
 
     stripDebugList = [
       "lib"

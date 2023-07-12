@@ -54,11 +54,11 @@ let
             +
               lib.optionalString isLqx
                 " (Same as linux_zen but less aggressive release schedule)"
-            ;
+          ;
         };
       } // (args.argsOverride or { })
     )
-    ;
+  ;
 in
 {
   zen = zenKernelsFor zenVariant;

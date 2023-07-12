@@ -36,7 +36,7 @@ let
                 mapAttrsToList (name: param: ''"${name}": "${param}"'') params
               )
             },\n    }\n"
-    ;
+  ;
 
   makeBootTest =
     name: extraConfig:
@@ -64,7 +64,7 @@ let
         machine.shutdown()
       '';
     }
-    ;
+  ;
 
   makeNetbootTest =
     name: extraConfig:
@@ -104,7 +104,7 @@ let
         machine.shutdown()
       '';
     }
-    ;
+  ;
   uefiBinary =
     {
       x86_64-linux = "${pkgs.OVMF.fd}/FV/OVMF.fd";
@@ -132,7 +132,7 @@ in
   biosCdrom =
     makeBootTest "bios-cdrom"
       { cdrom = "${iso}/iso/${iso.isoName}"; }
-    ;
+  ;
 
   biosUsb = makeBootTest "bios-usb" { usb = "${iso}/iso/${iso.isoName}"; };
 
@@ -166,5 +166,5 @@ in
         machine.shutdown()
       '';
     }
-    ;
+  ;
 }

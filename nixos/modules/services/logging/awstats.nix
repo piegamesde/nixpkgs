@@ -81,7 +81,7 @@ let
           description =
             lib.mdDoc
               "Extra configuration to be appended to awstats.\${name}.conf."
-            ;
+          ;
         };
 
         webService = {
@@ -93,7 +93,7 @@ let
             description =
               lib.mdDoc
                 "The hostname the web service appears under."
-              ;
+            ;
           };
 
           urlPrefix = mkOption {
@@ -102,12 +102,12 @@ let
             description =
               lib.mdDoc
                 "The URL prefix under which the awstats pages appear."
-              ;
+            ;
           };
         };
       };
     }
-    ;
+  ;
   webServices = filterAttrs (name: value: value.webService.enable) cfg.configs;
 in
 {
@@ -156,7 +156,7 @@ in
       description =
         lib.mdDoc
           "The directory where awstats data will be stored."
-        ;
+      ;
     };
 
     configs = mkOption {
@@ -257,11 +257,11 @@ in
                     < '${package.out}/wwwroot/cgi-bin/awstats.model.conf' > "$out"
                   ''
                 )
-              ;
+            ;
           }
         )
         cfg.configs
-      ;
+    ;
 
     # create data directory with the correct permissions
     systemd.tmpfiles.rules =
@@ -271,7 +271,7 @@ in
           (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -")
           cfg.configs
       ++ [ "Z '${cfg.dataDir}' 755 root root - -" ]
-      ;
+    ;
 
     # nginx options
     services.nginx.virtualHosts =
@@ -296,7 +296,7 @@ in
           };
         })
         webServices
-      ;
+    ;
 
     # update awstats
     systemd.services = mkIf (cfg.updateAt != null) (
@@ -326,7 +326,7 @@ in
                   -config=${name} -update -dir=${cfg.dataDir}/${name} \
                   -awstatsprog=${package.bin}/bin/awstats
               ''
-              ;
+            ;
             startAt = cfg.updateAt;
           }
         )

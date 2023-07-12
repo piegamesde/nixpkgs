@@ -22,7 +22,7 @@ let
         )
         v
     )
-    ;
+  ;
 
   listKeys = r: concatStringsSep "," (map (n: ''"${n}"'') (attrNames r));
 
@@ -55,13 +55,13 @@ let
             };
           '')
           cfg.bars
-        ;
+      ;
     in
     pkgs.writeText "yabar.conf" ''
       bar-list = [${listKeys cfg.bars}];
       ${concatStringsSep "\n" bars}
     ''
-    ;
+  ;
 in
 {
   options.programs.yabar = {
@@ -90,7 +90,7 @@ in
             Most of them don't occur on master anymore, until a new release is published, it's recommended
             to use `yabar-unstable'.
           ''
-        ;
+      ;
 
       description = lib.mdDoc ''
         The package which contains the `yabar` binary.

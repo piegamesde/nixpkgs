@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       python3Packages.dill
     ]
     ++ lib.optional stdenv.isDarwin Accelerate
-    ;
+  ;
 
   cmakeFlags = [
     "-DOPENTURNS_SYSCONFIG_PATH=$out/etc"

@@ -32,7 +32,7 @@ let
         "${addon}${kodiPackages.addonDir}/${addon.namespace}/${addon.pythonPath}"
       )
       addonsWithPythonPath
-    ;
+  ;
 in
 
 buildEnv {

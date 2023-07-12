@@ -50,7 +50,7 @@ buildPythonPackage rec {
     ++ lib.optionals (!pythonAtLeast "3.6") [ typing ]
     ++ lib.optionals (!pythonAtLeast "3.5") [ scandir ]
     ++ lib.optionals (!pythonAtLeast "3.5") [ enum34 ]
-    ;
+  ;
 
   LC_ALL = "en_US.utf-8";
 
@@ -72,7 +72,7 @@ buildPythonPackage rec {
       # merged into master, able to be removed after >2.4.1
       "test_copy_sendfile"
     ]
-    ;
+  ;
 
   __darwinAllowLocalNetworking = true;
 

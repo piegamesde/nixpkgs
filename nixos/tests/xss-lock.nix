@@ -41,7 +41,7 @@ import ./make-test-python.nix (
             lockerCommand = "${pkgs.xlockmore}/bin/xlock -mode ant";
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

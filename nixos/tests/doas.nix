@@ -83,7 +83,7 @@ import ./make-test-python.nix (
           ];
         };
       }
-      ;
+    ;
 
     testScript = ''
       with subtest("users in wheel group should have passwordless doas"):

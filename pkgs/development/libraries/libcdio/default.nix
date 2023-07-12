@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       Carbon
       IOKit
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

@@ -59,7 +59,7 @@ let
             echo "Colorless green ideas sleep furiously." | link-parser en | grep "Found .* linkages." || die "Grammaticaly valid sentence was not parsed."
             touch $out
           ''
-        ;
+      ;
     };
 
     meta = with lib; {

@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
         apple_sdk.frameworks.ApplicationServices
       ]
     )
-    ;
+  ;
 
   propagatedBuildInputs = [ gmp ];
 
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (gnutls != null) "--enable-ssl"
     ++ lib.optional (avahi != null) "--enable-avahi"
     ++ lib.optional (libpaper != null) "--enable-libpaper"
-    ;
+  ;
 
   # AR has to be an absolute path
   preConfigure = ''
@@ -174,7 +174,7 @@ stdenv.mkDerivation rec {
       substituteInPlace "$out"/share/applications/cups.desktop \
         --replace "Exec=htmlview" "Exec=xdg-open"
     ''
-    ;
+  ;
 
   passthru.tests.nixos = nixosTests.printing;
 

@@ -53,7 +53,7 @@ in
       example =
         literalExpression
           "pkgs.rstudioServerWrapper.override { packages = [ pkgs.rPackages.ggplot2 ]; }"
-        ;
+      ;
       description = lib.mdDoc ''
         Rstudio server package to use. Can be set to rstudioServerWrapper to provide packages.
       '';

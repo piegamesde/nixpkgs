@@ -39,7 +39,7 @@ import ../make-test-python.nix (
               inherit coreSite;
             };
           }
-          ;
+        ;
         datanode =
           {
             pkgs,
@@ -58,9 +58,9 @@ import ../make-test-python.nix (
               inherit coreSite;
             };
           }
-          ;
+        ;
       }
-      ;
+    ;
 
     testScript =
       ''
@@ -107,6 +107,6 @@ import ../make-test-python.nix (
         namenode.wait_for_open_port(14000)
         assert "testfilecontents" in datanode.succeed("curl -f \"http://namenode:14000/webhdfs/v1/testfile?user.name=hdfs&op=OPEN\" 2>&1")
       ''
-      ;
+    ;
   }
 )

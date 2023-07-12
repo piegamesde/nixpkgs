@@ -38,7 +38,7 @@ let
           export GARGLKINI="$out/etc/garglk.ini"
         ''
     )
-    ;
+  ;
 in
 
 stdenv.mkDerivation rec {
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ lib.optional stdenv.isDarwin cctools
-    ;
+  ;
 
   buildInputs =
     [
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       smpeg
       libvorbis
     ]
-    ;
+  ;
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: build/linux.release/alan3/Location.o:(.bss+0x0): multiple definition of
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
         mkdir -p "$out/share/icons/hicolor/32x32/apps"
         cp garglk/gargoyle-house.png "$out/share/icons/hicolor/32x32/apps"
       ''
-    ;
+  ;
 
   enableParallelBuilding = true;
 

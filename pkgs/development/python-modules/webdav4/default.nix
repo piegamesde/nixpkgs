@@ -50,7 +50,7 @@ buildPythonPackage rec {
       wsgidav
     ]
     ++ passthru.optional-dependencies.fsspec
-    ;
+  ;
 
   passthru.optional-dependencies = {
     fsspec = [ fsspec ];

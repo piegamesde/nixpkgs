@@ -30,5 +30,5 @@ stdenv.mkDerivation {
       cp Cargo.toml $out/Cargo.toml
       cp ${./Cargo.lock} $out/Cargo.lock
     ''
-    ;
+  ;
 }

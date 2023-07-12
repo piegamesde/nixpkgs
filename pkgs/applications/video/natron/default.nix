@@ -79,7 +79,7 @@ let
         ${preConfigure}
       '';
     }
-    ;
+  ;
   lodepngcpp = fetchurl {
     url =
       "https://raw.githubusercontent.com/lvandeve/lodepng/a70c086077c0eaecbae3845e4da4424de5f43361/lodepng.cpp";

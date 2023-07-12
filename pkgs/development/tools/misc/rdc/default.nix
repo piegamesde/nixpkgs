@@ -40,7 +40,7 @@ let
       helvetic
       wasy
       courier
-      ;
+    ;
   };
 in
 stdenv.mkDerivation (
@@ -52,7 +52,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildDocs [ "doc" ]
       ++ lib.optionals buildTests [ "test" ]
-      ;
+    ;
 
     src = fetchFromGitHub {
       owner = "RadeonOpenCompute";
@@ -71,7 +71,7 @@ stdenv.mkDerivation (
         graphviz
         latex
       ]
-      ;
+    ;
 
     buildInputs =
       [
@@ -82,7 +82,7 @@ stdenv.mkDerivation (
         openssl
       ]
       ++ lib.optionals buildTests [ gtest ]
-      ;
+    ;
 
     cmakeFlags =
       [
@@ -101,7 +101,7 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_DOCDIR=doc"
       ]
       ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ]
-      ;
+    ;
 
     postPatch = ''
       substituteInPlace CMakeLists.txt \
@@ -117,7 +117,7 @@ stdenv.mkDerivation (
         mkdir -p $test
         mv $out/bin/rdctst_tests $test/bin
       ''
-      ;
+    ;
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

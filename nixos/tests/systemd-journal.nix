@@ -16,7 +16,7 @@ import ./make-test-python.nix (
       }: {
         services.journald.enableHttpGateway = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

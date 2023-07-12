@@ -47,7 +47,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.async
     ++ passthru.optional-dependencies.usb
-    ;
+  ;
 
   pythonImportsCheck = [ "adb_shell" ];
 

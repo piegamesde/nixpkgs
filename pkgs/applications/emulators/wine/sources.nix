@@ -16,7 +16,7 @@ let
       ...
     }:
     pkgs.fetchurl { inherit url hash; } // args
-    ;
+  ;
   fetchFromGitHub =
     args@{
       owner,
@@ -26,7 +26,7 @@ let
       ...
     }:
     pkgs.fetchFromGitHub { inherit owner repo rev hash; } // args
-    ;
+  ;
   fetchFromGitLab =
     args@{
       domain,
@@ -37,7 +37,7 @@ let
       ...
     }:
     pkgs.fetchFromGitLab { inherit domain owner repo rev hash; } // args
-    ;
+  ;
 
   updateScriptPreamble = ''
     set -eou pipefail

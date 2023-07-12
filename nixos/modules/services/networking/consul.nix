@@ -23,7 +23,7 @@ let
       "/etc/consul-addrs.json"
     ]
     ++ cfg.extraConfigFiles
-    ;
+  ;
 
   devices = attrValues (filterAttrs (_: i: i != null) cfg.interface);
   systemdDevices = forEach devices (
@@ -211,7 +211,7 @@ in
             ++ mapAttrsToList (_: d: d.source) (
               filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc
             )
-            ;
+          ;
 
           serviceConfig = {
             ExecStart =
@@ -219,7 +219,7 @@ in
                 lib.getExe cfg.package
               } consul agent -config-dir /etc/consul.d"
               + concatMapStrings (n: " -config-file ${n}") configFiles
-              ;
+            ;
             ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
             PermissionsStartOnly = true;
             User = if cfg.dropPrivileges then "consul" else null;
@@ -243,7 +243,7 @@ in
                   "-4"
                 else
                   ""
-                ;
+              ;
             in
             ''
               mkdir -m 0700 -p ${dataDir}
@@ -283,7 +283,7 @@ in
             + ''
               echo "}" >> /etc/consul-addrs.json
             ''
-            ;
+          ;
         };
       }
 

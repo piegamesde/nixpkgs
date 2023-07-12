@@ -25,7 +25,7 @@ let
       wrapProgram "$out/bin/${binaryName}" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libPaths}"
     ''
-    ;
+  ;
   pkg = stdenv.mkDerivation (rec {
     inherit (attrs) version src;
 

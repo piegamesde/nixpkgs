@@ -113,7 +113,7 @@ let
         sha256 = "19w9f0r16072s59diqxsr5q6nmwyz9gnxjs49nglzhd66p3ddbkp";
       }
       + "/ippicv"
-      ;
+    ;
     files =
       let
         name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
@@ -127,7 +127,7 @@ let
       else
         throw
           "ICV is not available for this platform (or not yet supported by this package)"
-      ;
+    ;
     dst = ".cache/ippicv";
   };
 
@@ -194,7 +194,7 @@ let
         '')
         extra.files
     )
-    ;
+  ;
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";
 
@@ -231,7 +231,7 @@ stdenv.mkDerivation {
       ${installExtraFiles boostdesc}
       ${installExtraFiles face}
     '')
-    ;
+  ;
 
   postConfigure = ''
     [ -e modules/core/version_string.inc ]
@@ -297,12 +297,12 @@ stdenv.mkDerivation {
       doxygen
       graphviz-nox
     ]
-    ;
+  ;
 
   propagatedBuildInputs =
     lib.optional enablePython pythonPackages.numpy
     ++ lib.optional enableCuda cudatoolkit
-    ;
+  ;
 
   nativeBuildInputs = [
     cmake
@@ -313,7 +313,7 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR
       "-I${ilmbase.dev}/include/OpenEXR"
-    ;
+  ;
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString enableOpenblas openblas;
@@ -353,7 +353,7 @@ stdenv.mkDerivation {
       # Autodetection broken by https://github.com/opencv/opencv/pull/13337
       "-DEIGEN_INCLUDE_PATH=${eigen}/include/eigen3"
     ]
-    ;
+  ;
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen

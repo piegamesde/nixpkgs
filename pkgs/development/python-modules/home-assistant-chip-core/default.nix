@@ -54,7 +54,7 @@ buildPythonPackage rec {
       platform = "manylinux_2_31_${system.name}";
       hash = system.hash;
     }
-    ;
+  ;
 
   nativeBuildInputs = [ autoPatchelfHook ];
 

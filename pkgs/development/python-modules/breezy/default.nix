@@ -68,7 +68,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.launchpad
     ++ passthru.optional-dependencies.fastimport
-    ;
+  ;
 
   nativeCheckInputs = [ testtools ];
 

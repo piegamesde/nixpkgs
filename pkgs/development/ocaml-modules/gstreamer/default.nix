@@ -29,7 +29,7 @@ buildDunePackage rec {
       AppKit
       Foundation
     ]
-    ;
+  ;
   propagatedBuildInputs = [
     glib.dev
     gst_all_1.gstreamer.dev

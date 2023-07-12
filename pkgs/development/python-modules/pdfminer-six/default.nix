@@ -31,7 +31,7 @@ buildPythonPackage rec {
       cryptography
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   postInstall = ''
     for file in $out/bin/*.py; do

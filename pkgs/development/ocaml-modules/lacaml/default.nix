@@ -32,7 +32,7 @@ buildDunePackage rec {
       blas
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Accelerate ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://mmottl.github.io/lacaml";

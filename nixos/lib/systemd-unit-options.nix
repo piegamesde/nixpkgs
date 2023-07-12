@@ -54,7 +54,7 @@ rec {
 
       else
         mergeEqualOption loc defs'
-      ;
+    ;
   };
 
   sharedOptions = {
@@ -150,7 +150,7 @@ rec {
         description =
           lib.mdDoc
             "Description of this unit used in systemd messages and progress indicators."
-          ;
+        ;
       };
 
       documentation = mkOption {
@@ -159,7 +159,7 @@ rec {
         description =
           lib.mdDoc
             "A list of URIs referencing documentation for this unit or its configuration."
-          ;
+        ;
       };
 
       requires = mkOption {
@@ -337,7 +337,7 @@ rec {
           description =
             lib.mdDoc
               "Environment variables passed to the service's processes."
-            ;
+          ;
         };
 
         path = mkOption {
@@ -374,7 +374,7 @@ rec {
           description =
             lib.mdDoc
               "Shell commands executed as the service's main process."
-            ;
+          ;
         };
 
         scriptArgs = mkOption {
@@ -437,7 +437,7 @@ rec {
           description =
             lib.mdDoc
               "A list of all job script derivations of this unit."
-            ;
+          ;
           default = [ ];
         };
       };
@@ -469,7 +469,7 @@ rec {
         })
       ];
     }
-    ;
+  ;
 
   stage2ServiceOptions = {
     imports = [
@@ -673,7 +673,7 @@ rec {
         description =
           lib.mdDoc
             "Absolute path of device node, file or other resource. (Mandatory)"
-          ;
+        ;
       };
 
       where = mkOption {

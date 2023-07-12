@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
       "x86"
     else
       "no"
-    ; # debian patch 2 says ppc doesn't work
+  ; # debian patch 2 says ppc doesn't work
 
   configureFlags = [
     "--enable-opengl"

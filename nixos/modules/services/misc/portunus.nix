@@ -23,7 +23,7 @@ in
       description =
         lib.mdDoc
           "Subdomain which gets reverse proxied to Portunus webserver."
-        ;
+      ;
     };
 
     port = mkOption {
@@ -64,7 +64,7 @@ in
       description =
         lib.mdDoc
           "User account under which Portunus runs its webserver."
-        ;
+      ;
     };
 
     group = mkOption {
@@ -73,7 +73,7 @@ in
       description =
         lib.mdDoc
           "Group account under which Portunus runs its webserver."
-        ;
+      ;
     };
 
     dex = {
@@ -96,7 +96,7 @@ in
                 description =
                   lib.mdDoc
                     "URL where the OIDC client should redirect"
-                  ;
+                ;
               };
               id = mkOption {
                 type = types.str;
@@ -170,7 +170,7 @@ in
         description =
           lib.mdDoc
             "User account under which Portunus runs its LDAP server."
-          ;
+        ;
       };
 
       group = mkOption {
@@ -179,7 +179,7 @@ in
         description =
           lib.mdDoc
             "Group account under which Portunus runs its LDAP server."
-          ;
+        ;
       };
     };
   };

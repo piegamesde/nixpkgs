@@ -69,7 +69,7 @@ import ./make-test-python.nix (
                       --load-ca-certificate "$cacert" \
                       --outfile "$out/alice.cert"
         ''
-      ;
+    ;
   in
   {
     name = "taskserver";
@@ -112,10 +112,10 @@ import ./make-test-python.nix (
               hostName
               primaryIPAddress
               extraHosts
-              ;
+            ;
           };
         }
-        ;
+      ;
 
       client1 =
         {
@@ -131,7 +131,7 @@ import ./make-test-python.nix (
           users.users.foo.isNormalUser = true;
           users.users.bar.isNormalUser = true;
         }
-        ;
+      ;
 
       client2 = client1;
     };
@@ -323,6 +323,6 @@ import ./make-test-python.nix (
 
             test_sync("alice")
       ''
-      ;
+    ;
   }
 )

@@ -48,7 +48,7 @@ let
       echo '${commands}' >> "$out/${eventname}"
       chmod a+x "$out/${eventname}"
     ''
-    ;
+  ;
 
   eventToShellCmds =
     event:
@@ -56,7 +56,7 @@ let
       (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks))
     else
       ""
-    ;
+  ;
 
   scriptDir = pkgs.runCommand "apcupsd-scriptdir" { preferLocalBuild = true; } (
     ''
@@ -87,7 +87,7 @@ let
             makeWrapper "$p" "$out/bin/$bname" --add-flags "-f ${configFile}"
         done
       ''
-    ;
+  ;
 
   apcupsdWrapped = pkgs.symlinkJoin {
     name = "apcupsd-wrapped";
@@ -167,7 +167,7 @@ in
           hooknames = builtins.attrNames cfg.hooks;
         in
         all (x: elem x eventList) hooknames
-        ;
+      ;
       message = ''
         One (or more) attribute names in services.apcupsd.hooks are invalid.
         Current attribute names: ${toString (builtins.attrNames cfg.hooks)}

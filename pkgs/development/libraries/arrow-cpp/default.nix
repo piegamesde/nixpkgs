@@ -153,7 +153,7 @@ stdenv.mkDerivation rec {
       flatbuffers
     ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+  ;
   buildInputs =
     [
       boost
@@ -191,7 +191,7 @@ stdenv.mkDerivation rec {
       grpc
       nlohmann_json
     ]
-    ;
+  ;
 
   preConfigure = ''
     patchShebangs build-support/
@@ -248,14 +248,14 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableS3 [
       "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h"
     ]
-    ;
+  ;
 
   doInstallCheck = true;
   ARROW_TEST_DATA = lib.optionalString doInstallCheck "${arrow-testing}/data";
   PARQUET_TEST_DATA =
     lib.optionalString doInstallCheck
       "${parquet-testing}/data"
-    ;
+  ;
   GTEST_FILTER =
     let
       # Upstream Issue: https://issues.apache.org/jira/browse/ARROW-11398
@@ -281,12 +281,12 @@ stdenv.mkDerivation rec {
           # https://github.com/apache/arrow/pull/15288#discussion_r1071244661
           "ExecPlanExecution.StressSourceSinkStopped"
         ]
-        ;
+      ;
     in
     lib.optionalString doInstallCheck "-${
         lib.concatStringsSep ":" filteredTests
       }"
-    ;
+  ;
 
   __darwinAllowLocalNetworking = true;
 
@@ -298,7 +298,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableS3 [ minio ]
     ++ lib.optionals enableFlight [ python3 ]
-    ;
+  ;
 
   disabledTests = [
     # requires networking

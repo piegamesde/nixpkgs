@@ -17,7 +17,7 @@ in
       description =
         lib.mdDoc
           "Whether to enable irker, an IRC notification daemon."
-        ;
+      ;
       default = false;
       type = types.bool;
     };

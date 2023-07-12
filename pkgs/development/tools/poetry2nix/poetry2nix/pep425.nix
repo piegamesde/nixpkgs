@@ -14,7 +14,7 @@ let
     splitString
     removePrefix
     removeSuffix
-    ;
+  ;
   targetMachine = poetryLib.getTargetMachine stdenv;
 
   pythonVer =
@@ -30,7 +30,7 @@ let
     {
       inherit major minor tags;
     }
-    ;
+  ;
   abiTag = "cp${pythonVer.major}${pythonVer.minor}m";
 
   #
@@ -56,7 +56,7 @@ let
           ]
         else
           entries'
-        ;
+      ;
       p = removeSuffix ".whl" (builtins.elemAt entries 4);
     in
     {
@@ -66,7 +66,7 @@ let
       abi = builtins.elemAt entries 3;
       platform = p;
     }
-    ;
+  ;
 
   #
   # Builds list of acceptable osx wheel files
@@ -84,7 +84,7 @@ let
     else
       (builtins.filter (x: hasInfix v x.file) candidates)
       ++ (findBestMatches vs candidates)
-    ;
+  ;
 
   # x = "cpXX" | "py2" | "py3" | "py2.py3"
   isPyVersionCompatible =
@@ -100,7 +100,7 @@ let
         builtins.elem m.tag tags
         && m.major == major
         && builtins.compareVersions minor m.minor >= 0
-        ;
+      ;
       parseMarker =
         v:
         let
@@ -112,11 +112,11 @@ let
         {
           inherit major minor tag;
         }
-        ;
+      ;
       markers = splitString "." x;
     in
     lib.lists.any isCompat (map parseMarker markers)
-    ;
+  ;
 
   #
   # Selects the best matching wheel file from a list of files
@@ -137,11 +137,11 @@ let
           && builtins.elemAt (lib.splitString "." python.version) 0 == "3"
           && x == "abi3"
         )
-        ;
+      ;
       withPython =
         ver: abi: x:
         (isPyVersionCompatible ver x.pyVer) && (isPyAbiCompatible abi x.abi)
-        ;
+      ;
       withPlatform =
         if isLinux then
           if targetMachine != null then
@@ -173,7 +173,7 @@ let
             (p: p == "any" || (hasInfix "macosx" p && hasSuffix "x86_64" p))
         else
           (p: p == "any")
-        ;
+      ;
       withPlatforms =
         x: lib.lists.any withPlatform (splitString "." x.platform);
       filterWheel =
@@ -182,7 +182,7 @@ let
           f = toWheelAttrs x.file;
         in
         (withPython pythonVer abiTag f) && (withPlatforms f)
-        ;
+      ;
       filtered = builtins.filter filterWheel filesWithoutSources;
       choose =
         files:
@@ -211,10 +211,10 @@ let
           chooseOSX = x: lib.take 1 (findBestMatches osxMatches x);
         in
         if isLinux then chooseLinux files else chooseOSX files
-        ;
+      ;
     in
     if (builtins.length filtered == 0) then [ ] else choose (filtered)
-    ;
+  ;
 in
 {
   inherit selectWheel toWheelAttrs isPyVersionCompatible;

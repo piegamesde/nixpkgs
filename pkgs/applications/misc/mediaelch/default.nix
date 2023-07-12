@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       quazip
     ]
     ++ lib.optionals (qtVersion == "6") [ qt5compat ]
-    ;
+  ;
 
   cmakeFlags = [
     "-DDISABLE_UPDATER=ON"

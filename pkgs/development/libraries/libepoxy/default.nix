@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     + optionalString stdenv.isDarwin ''
       substituteInPlace src/dispatch_common.h --replace "PLATFORM_HAS_GLX 0" "PLATFORM_HAS_GLX 1"
     ''
-    ;
+  ;
 
   outputs = [
     "out"
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       Carbon
       OpenGL
     ]
-    ;
+  ;
 
   mesonFlags = [
     "-Degl=${if (x11Support && !stdenv.isDarwin) then "yes" else "no"}"
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       substituteInPlace ../test/meson.build \
         --replace "[ 'cgl_core', [ 'cgl_core.c' ] ]," ""
     ''
-    ;
+  ;
 
   doCheck = true;
 

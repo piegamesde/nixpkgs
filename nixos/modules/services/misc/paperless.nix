@@ -39,7 +39,7 @@ let
       ${setupEnv}
       exec ${pkg}/bin/paperless-ngx "$@"
     ''
-    ;
+  ;
 
   # Secure the services
   defaultServiceConfig = {
@@ -54,7 +54,7 @@ let
         "-/run/postgresql"
       ]
       ++ (optional enableRedis redisServer.unixSocket)
-      ;
+    ;
     BindPaths = [
       cfg.consumptionDir
       cfg.dataDir
@@ -162,7 +162,7 @@ in
       description =
         lib.mdDoc
           "Directory from which new documents are imported."
-        ;
+      ;
     };
 
     consumptionDirIsPublic = mkOption {
@@ -171,7 +171,7 @@ in
       description =
         lib.mdDoc
           "Whether all users can write to the consumption dir."
-        ;
+      ;
     };
 
     passwordFile = mkOption {
@@ -311,7 +311,7 @@ in
             echo "$superuserState" > "$superuserStateFile"
           fi
         ''
-        ;
+      ;
     } // optionalAttrs enableRedis { after = [ "redis-paperless.service" ]; };
 
     systemd.services.paperless-task-queue = {
@@ -370,7 +370,7 @@ in
           ''
             ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
           ''
-          ;
+        ;
       };
     };
 

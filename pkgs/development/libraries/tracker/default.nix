@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       gobject-introspection
       vala
     ]
-    ;
+  ;
 
   buildInputs =
     [
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       dbus
     ]
     ++ lib.optionals stdenv.isLinux [ systemd ]
-    ;
+  ;
 
   nativeCheckInputs = [ dbus ];
 
@@ -111,14 +111,14 @@ stdenv.mkDerivation rec {
       [ "--cross-file=${crossFile}" ]
     )
     ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ]
-    ;
+  ;
 
   doCheck =
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/397
     !stdenv.isAarch64
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/398
     && !stdenv.is32bit
-    ;
+  ;
 
   postPatch = ''
     chmod +x \
@@ -147,7 +147,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/lib
       ln -s $PWD/src/libtracker-sparql/libtracker-sparql-3.0${darwinDot0}${extension} $out/lib/libtracker-sparql-3.0${darwinDot0}${extension}${linuxDot0}
     ''
-    ;
+  ;
 
   checkPhase = ''
     runHook preCheck

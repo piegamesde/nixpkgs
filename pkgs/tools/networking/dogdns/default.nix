@@ -36,11 +36,11 @@ rustPlatform.buildRustPackage rec {
       pandoc
     ]
     ++ lib.optionals stdenv.isLinux [ pkg-config ]
-    ;
+  ;
   buildInputs =
     lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ Security ]
-    ;
+  ;
 
   outputs = [
     "out"

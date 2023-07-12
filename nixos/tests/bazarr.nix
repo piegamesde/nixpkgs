@@ -23,7 +23,7 @@ import ./make-test-python.nix (
           listenPort = port;
         };
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("bazarr.service")

@@ -41,7 +41,7 @@ let
         name = pkg.pname + "-omhome";
         paths = pkg.omdeps;
       }
-    ;
+  ;
 
   # Should we run ./configure for the target pkg?
   omautoconf = getAttrDef "omautoconf" false pkg;
@@ -58,7 +58,7 @@ let
       sed -i $(find -name omhome.m4) -e 's|if test ! -z "$USINGPRESETBUILDDIR"|if test ! -z "$USINGPRESETBUILDDIR" -a -z "$OMHOME"|'
     ''
     + appendByAttr "postPatch" "\n" pkg
-    ;
+  ;
 
   # Update shebangs in the scripts before running configuration.
   preAutoreconf =
@@ -68,7 +68,7 @@ let
   configureFlags =
     lib.optional ifDeps "--with-openmodelicahome=${joinedDeps}"
     ++ getAttrDef "configureFlags" [ ] pkg
-    ;
+  ;
 
   # Our own configurePhase that accounts for omautoconf
   configurePhase = ''
@@ -91,7 +91,7 @@ let
       done
     ''
     + appendByAttr "preBuild" "\n" pkg
-    ;
+  ;
 
   makeFlags = "${omtarget}" + appendByAttr "makeFlags" " " pkg;
 
@@ -108,7 +108,7 @@ stdenv.mkDerivation (
       preBuild
       makeFlags
       installFlags
-      ;
+    ;
 
     src = fetchgit (import ./src-main.nix);
     version = "1.18.0";
@@ -122,7 +122,7 @@ stdenv.mkDerivation (
         cmake
         autoreconfHook
       ]
-      ;
+    ;
 
     buildInputs =
       getAttrDef "buildInputs" [ ] pkg ++ lib.optional ifDeps joinedDeps;

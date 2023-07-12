@@ -24,7 +24,7 @@ let
       inherit name;
       path = "${env}/share/zsh/${dir}";
     }
-    ;
+  ;
 
   mkLinkFarmEntry' = name: mkLinkFarmEntry name name;
 
@@ -39,7 +39,7 @@ let
         (mkLinkFarmEntry "completions" "site-functions")
         (mkLinkFarmEntry' "plugins")
       ]
-    ;
+  ;
 in
 {
   imports = [

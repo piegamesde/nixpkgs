@@ -29,7 +29,7 @@ let
             sha256 = "sha256-RapY1QJ8U0HOqJ9TFDnCYB4tFLFuThESzdBZqjYuDUA=";
           })
         ]
-        ;
+      ;
     }
   );
   uri' = uri.override { angstrom = angstrom'; };

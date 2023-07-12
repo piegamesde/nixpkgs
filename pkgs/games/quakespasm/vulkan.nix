@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       vulkan-loader
     ]
     ++ lib.optional stdenv.isDarwin moltenvk
-    ;
+  ;
 
   buildFlags = [ "DO_USERDIRS=1" ];
 

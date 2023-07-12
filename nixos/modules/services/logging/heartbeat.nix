@@ -52,7 +52,7 @@ in
         description =
           lib.mdDoc
             "The state directory. heartbeat's own logs and other data are stored here."
-          ;
+        ;
       };
 
       extraConfig = mkOption {
@@ -66,7 +66,7 @@ in
         description =
           lib.mdDoc
             "Any other configuration options you want to add"
-          ;
+        ;
       };
     };
   };

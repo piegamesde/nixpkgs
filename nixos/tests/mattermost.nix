@@ -34,9 +34,9 @@ import ./make-test-python.nix (
               };
             }
             mattermostConfig
-          ;
+        ;
       }
-      ;
+    ;
   in
   {
     name = "mattermost";
@@ -58,7 +58,7 @@ import ./make-test-python.nix (
             };
           in
           [ mattermostDemoPlugin ]
-          ;
+        ;
       };
       immutable = makeMattermost {
         mutableConfig = false;
@@ -96,7 +96,7 @@ import ./make-test-python.nix (
               lib.escapeShellArg pkgs.mattermost.name
             } --arg sep '-')" = "true" ]]
           ''
-          ;
+        ;
 
         setConfig =
           jqExpression:
@@ -109,7 +109,7 @@ import ./make-test-python.nix (
             rm -f $mattermostConfig
             echo "$newConfig" > "$mattermostConfig"
           ''
-          ;
+        ;
       in
       ''
         start_all()
@@ -204,6 +204,6 @@ import ./make-test-python.nix (
           expectConfig ''.AboutLink == "https://nixos.org"''
         }")
       ''
-      ;
+    ;
   }
 )

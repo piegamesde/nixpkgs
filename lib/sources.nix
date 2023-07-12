@@ -53,7 +53,7 @@ let
         # Filter out sockets and other types of files we can't have in the store.
         (type == "unknown")
     )
-    ;
+  ;
 
   /* Filters a source tree removing version control files and directories using cleanSourceFilter.
 
@@ -66,7 +66,7 @@ let
       filter = cleanSourceFilter;
       inherit src;
     }
-    ;
+  ;
 
   /* Like `builtins.filterSource`, except it will compose with itself,
      allowing you to chain multiple calls together without any
@@ -109,7 +109,7 @@ let
       filter = path: type: filter path type && orig.filter path type;
       name = if name != null then name else orig.name;
     }
-    ;
+  ;
 
   /* Add logging to a source, for troubleshooting the filtering behavior.
      Type:
@@ -129,13 +129,13 @@ let
             r = attrs.filter path type;
           in
           builtins.trace "${attrs.name}.filter ${path} = ${boolToString r}" r
-          ;
+        ;
       }
     ) // {
       satisfiesSubpathInvariant =
         src ? satisfiesSubpathInvariant && src.satisfiesSubpathInvariant;
     }
-    ;
+  ;
 
   /* Filter sources by a list of regular expressions.
 
@@ -158,7 +158,7 @@ let
         );
       inherit src;
     }
-    ;
+  ;
 
   /* Get all files ending with the specified suffices from the given
      source directory or its descendants, omitting files that do not match
@@ -182,10 +182,10 @@ let
           base = baseNameOf (toString name);
         in
         type == "directory" || lib.any (ext: lib.hasSuffix ext base) exts
-        ;
+      ;
     in
     cleanSourceWith { inherit filter src; }
-    ;
+  ;
 
   pathIsGitRepo = path: (_commitIdFromGitRepoOrError path) ? value;
 
@@ -199,7 +199,7 @@ let
       commitIdOrError = _commitIdFromGitRepoOrError path;
     in
     commitIdOrError.value or (throw commitIdOrError.error)
-    ;
+  ;
 
   # Get the commit id of a git repo.
 
@@ -220,7 +220,7 @@ let
               path
             else
               toString (/. + "${base}/${path}")
-            ;
+          ;
         in
         if
           pathIsRegularFile path
@@ -239,7 +239,7 @@ let
                   lib.fileContents "${gitDir}/commondir"
                 else
                   gitDir
-                ;
+              ;
               commonDir' = lib.removeSuffix "/" commonDir'';
               commonDir = absolutePath gitDir commonDir';
               refFile = lib.removePrefix "${commonDir}/" "${gitDir}/${file}";
@@ -280,10 +280,10 @@ let
 
         else
           { error = "Not a .git directory: " + toString path; }
-        ;
+      ;
     in
     readCommitFromFile "HEAD"
-    ;
+  ;
 
   pathHasContext = builtins.hasContext or (lib.hasPrefix storeDir);
 
@@ -312,7 +312,7 @@ let
       filter = if isFiltered then src.filter else _: _: true;
       name = if isFiltered then src.name else "source";
     }
-    ;
+  ;
 
   # fromSourceAttributes : SourceAttrs -> Source
   #
@@ -330,7 +330,7 @@ let
         path = origSrc;
       };
     }
-    ;
+  ;
 in
 {
   inherit
@@ -351,5 +351,5 @@ in
     sourceFilesBySuffices
 
     trace
-    ;
+  ;
 }

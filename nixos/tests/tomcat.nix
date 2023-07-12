@@ -14,7 +14,7 @@ import ./make-test-python.nix (
       }: {
         services.tomcat.enable = true;
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("tomcat.service")

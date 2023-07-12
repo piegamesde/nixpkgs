@@ -52,5 +52,5 @@
         desktopDir + "org.kde.konsole.desktop"
       }
     ''
-    ;
+  ;
 }

@@ -22,7 +22,7 @@ edk2.mkDerivation "ShellPkg/ShellPkg.dsc" (
         llvmPackages.bintools
         llvmPackages.llvm
       ]
-      ;
+    ;
     strictDeps = true;
 
     env.NIX_CFLAGS_COMPILE = toString (

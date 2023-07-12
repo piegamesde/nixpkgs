@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       libICE
     ]
     ++ lib.optionals stdenv.isDarwin [ IOKit ]
-    ;
+  ;
 
   hardeningDisable = [ "format" ];
 

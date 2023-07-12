@@ -44,7 +44,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -62,7 +62,7 @@ import ./make-test-python.nix (
             interfaces.eth1.useDHCP = true;
           };
         }
-        ;
+      ;
     };
     testScript =
       {
@@ -74,6 +74,6 @@ import ./make-test-python.nix (
         client.wait_until_succeeds("ping -c 5 10.0.0.1")
         router.wait_until_succeeds("ping -c 5 10.0.0.100")
       ''
-      ;
+    ;
   }
 )

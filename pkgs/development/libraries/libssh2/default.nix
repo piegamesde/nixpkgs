@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64
-    ;
+  ;
 
   meta = with lib; {
     description = "A client-side C library implementing the SSH2 protocol";

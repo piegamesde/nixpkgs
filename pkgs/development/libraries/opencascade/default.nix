@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       OpenCL
       Cocoa
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       "-DOCE_OSX_USE_COCOA=ON"
       "-DOCE_WITH_OPENCL=ON"
     ]
-    ;
+  ;
 
   patches = [
     # Use fontconfig instead of hardcoded directory list

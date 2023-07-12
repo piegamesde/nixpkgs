@@ -179,7 +179,7 @@ beamPackages.mixRelease rec {
               mkdir config
               cp ${cfgFile} config/config.exs
             ''
-            ;
+          ;
         };
       });
   };

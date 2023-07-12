@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
           desktopName = gameName;
           genericName = gameName;
         }
-        ;
+      ;
     in
     map (x: makeDesktopItem (generateItem x)) [
       "canfield"
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       "taipei"
       "thornq"
     ]
-    ;
+  ;
 
   meta = with lib; {
     homepage = "http://www.delorie.com/store/ace/";

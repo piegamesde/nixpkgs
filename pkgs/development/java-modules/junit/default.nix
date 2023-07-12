@@ -44,7 +44,7 @@ rec {
         maintainers = with lib.maintainers; [ nequissimus ];
       };
     }
-    ;
+  ;
 
   junit_3_8_1 =
     map
@@ -70,7 +70,7 @@ rec {
             "25yk0lzwk46r867nhrw4hg7cvz28wb8ln9nw1dqrb6zarifl54p4h1mcz90vmih405bsk96g0qb6hn1h4df0fas3f5kma9vxfjryvwf";
         }
       ]
-    ;
+  ;
 
   junit_3_8_2 =
     map
@@ -96,7 +96,7 @@ rec {
             "2jcih102666lcm7b23rgs5cd59ww49m78c8mja52mrcm25630zw28rjqkj5lsws18k5jf75div9wkd1sxcvwvq5cvvphgyg7550i8r9";
         }
       ]
-    ;
+  ;
 
   junit_4_12 = junitGen {
     mavenDeps =
@@ -195,7 +195,7 @@ rec {
           surefire_2_17
         ]
       )
-      ;
+    ;
     sha512 =
       "0bbldnf37jl855s1pdx2a518ivfifv75189vsbpylnj8530vnf8z6b2dglkcbcjgr22lp1s4m1nnplz5dmka9sr7vj055p88k27kqw9";
     version = "4.12";

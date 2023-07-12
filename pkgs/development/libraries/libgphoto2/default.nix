@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
           "$out"
         else
           buildPackages.libgphoto2
-        ;
+      ;
     in
     ''
       mkdir -p $out/lib/udev/{rules.d,hwdb.d}
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
           hwdb version 201 group camera \
           >$out/lib/udev/hwdb.d/20-gphoto.hwdb
     ''
-    ;
+  ;
 
   meta = {
     homepage = "http://www.gphoto.org/proj/libgphoto2/";

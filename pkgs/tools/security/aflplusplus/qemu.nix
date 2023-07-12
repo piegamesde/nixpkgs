@@ -25,7 +25,7 @@ let
       "i386-linux-user"
     else
       throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!"
-    ;
+  ;
 in
 stdenv.mkDerivation {
   name = "aflplusplus-${qemuName}";

@@ -34,7 +34,7 @@ in
       description =
         lib.mdDoc
           "Which MATE packages to exclude from the default environment"
-        ;
+      ;
     };
   };
 
@@ -73,7 +73,7 @@ in
           ]
         )
         config.environment.mate.excludePackages
-      ;
+    ;
 
     programs.dconf.enable = true;
     # Shell integration for VTE terminals

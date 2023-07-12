@@ -32,7 +32,7 @@ buildPythonPackage rec {
       importlib-metadata
       zipp
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     pytestCheckHook

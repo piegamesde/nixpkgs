@@ -35,9 +35,9 @@ import ./make-test-python.nix {
           '';
         in
         [ checkConfig ]
-        ;
+      ;
     }
-    ;
+  ;
 
   testScript = ''
     machine.wait_for_unit("postfix.service")

@@ -58,7 +58,7 @@ let
         };
       } // attrs'
     )
-    ;
+  ;
 in
 rec {
   # Nomad never updates major go versions within a release series and is unsupported

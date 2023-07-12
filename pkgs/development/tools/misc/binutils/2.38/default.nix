@@ -54,7 +54,7 @@ let
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-"
-    ;
+  ;
 in
 
 stdenv.mkDerivation {
@@ -126,7 +126,7 @@ stdenv.mkDerivation {
     ++
       lib.optional stdenv.targetPlatform.isPower
         ./ppc-make-machine-less-strict.patch
-    ;
+  ;
 
   outputs = [
     "out"
@@ -150,7 +150,7 @@ stdenv.mkDerivation {
       libtool
     ]
     ++ lib.optionals targetPlatform.isVc4 [ flex ]
-    ;
+  ;
 
   buildInputs = [
     zlib
@@ -182,7 +182,7 @@ stdenv.mkDerivation {
           sed -i "$i" -e 's|ln |ln -s |'
       done
     ''
-    ;
+  ;
 
   # As binutils takes part in the stdenv building, we don't want references
   # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
@@ -191,7 +191,7 @@ stdenv.mkDerivation {
       "-Wno-string-plus-int -Wno-deprecated-declarations"
     else
       "-static-libgcc"
-    ;
+  ;
 
   hardeningDisable = [
     "format"
@@ -244,7 +244,7 @@ stdenv.mkDerivation {
           "--enable-static"
         ]
     )
-    ;
+  ;
 
   # Fails
   doCheck = false;
@@ -259,7 +259,7 @@ stdenv.mkDerivation {
       "bin lib ${stdenv.hostPlatform.config}"
     else
       null
-    ;
+  ;
 
   # INFO: Otherwise it fails with:
   # `./sanity.sh: line 36: $out/bin/size: not found`

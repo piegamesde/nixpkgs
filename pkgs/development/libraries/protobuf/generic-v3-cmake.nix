@@ -49,7 +49,7 @@ let
         substituteInPlace src/google/protobuf/testing/googletest.cc \
           --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
       ''
-      ;
+    ;
 
     patches =
       lib.optionals (lib.versionOlder version "3.22") [
@@ -64,7 +64,7 @@ let
       ++ lib.optionals stdenv.hostPlatform.isStatic [
         ./static-executables-have-no-rpath.patch
       ]
-      ;
+    ;
 
     nativeBuildInputs =
       let
@@ -77,7 +77,7 @@ let
         # re-use the executable generated as part of the build
         buildPackages."protobuf${protobufVersion}"
       ]
-      ;
+    ;
 
     buildInputs = [
       abseil-cpp
@@ -98,7 +98,7 @@ let
         lib.optional
           (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
           "-Dprotobuf_BUILD_TESTS=OFF"
-      ;
+    ;
 
     # unfortunately the shared libraries have yet to been patched by nix, thus tests will fail
     doCheck = false;

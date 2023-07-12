@@ -26,7 +26,7 @@ let
         mkdir -p $out
         ln -s $graphiteLocalSettings $out/graphite_local_settings.py
       ''
-    ;
+  ;
 
   graphiteLocalSettings = pkgs.writeText "graphite_local_settings.py" (
     ''
@@ -63,7 +63,7 @@ let
     with config.ids; ''
       --nodaemon --syslog --prefix=${name} --pidfile /run/${name}/${name}.pid ${name}
     ''
-    ;
+  ;
 
   carbonEnv = {
     PYTHONPATH =
@@ -73,7 +73,7 @@ let
         };
       in
       "${cenv}/${pkgs.python3.sitePackages}"
-      ;
+    ;
     GRAPHITE_ROOT = dataDir;
     GRAPHITE_CONF_DIR = configDir;
     GRAPHITE_STORAGE_DIR = dataDir;
@@ -172,7 +172,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable carbon cache, the graphite storage daemon."
-          ;
+        ;
         default = false;
         type = types.bool;
       };
@@ -181,7 +181,7 @@ in
         description =
           lib.mdDoc
             "Defines how to aggregate data to lower-precision retentions."
-          ;
+        ;
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -207,7 +207,7 @@ in
         description =
           lib.mdDoc
             "Any metrics received which match one of the expressions will be dropped."
-          ;
+        ;
         default = null;
         type = types.nullOr types.str;
         example = "^some\\.noisy\\.metric\\.prefix\\..*";
@@ -217,7 +217,7 @@ in
         description =
           lib.mdDoc
             "Only metrics received which match one of the expressions will be persisted."
-          ;
+        ;
         default = null;
         type = types.nullOr types.str;
         example = ".*";
@@ -241,7 +241,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable carbon relay, the carbon replication and sharding service."
-          ;
+        ;
         default = false;
         type = types.bool;
       };
@@ -250,7 +250,7 @@ in
         description =
           lib.mdDoc
             "Relay rules are used to send certain metrics to a certain backend."
-          ;
+        ;
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -264,7 +264,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable carbon aggregator, the carbon buffering service."
-          ;
+        ;
         default = false;
         type = types.bool;
       };
@@ -273,7 +273,7 @@ in
         description =
           lib.mdDoc
             "Defines if and how received metrics will be aggregated."
-          ;
+        ;
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -308,7 +308,7 @@ in
         default = "http://${cfg.web.listenAddress}:${toString cfg.web.port}";
         defaultText = literalExpression ''
           "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"''
-          ;
+        ;
         description = lib.mdDoc "Host where graphite service runs.";
         type = types.str;
       };
@@ -365,7 +365,7 @@ in
             install -dm0700 -o graphite -g graphite ${cfg.dataDir}/whisper
           '';
         }
-        ;
+      ;
     })
 
     (mkIf cfg.carbon.enableAggregator {
@@ -388,7 +388,7 @@ in
             PIDFile = "/run/${name}/${name}.pid";
           };
         }
-        ;
+      ;
     })
 
     (mkIf cfg.carbon.enableRelay {
@@ -410,7 +410,7 @@ in
             PIDFile = "/run/${name}/${name}.pid";
           };
         }
-        ;
+      ;
     })
 
     (
@@ -443,7 +443,7 @@ in
               # explicitly adding pycairo in path because it cannot be imported via buildEnv
               "${pkgs.python3Packages.pycairo}/${pkgs.python3.sitePackages}"
             ]
-            ;
+          ;
           DJANGO_SETTINGS_MODULE = "graphite.settings";
           GRAPHITE_SETTINGS_MODULE = "graphite_local_settings";
           GRAPHITE_CONF_DIR = configDir;

@@ -75,7 +75,7 @@ in
             lib.nameValuePair "shorewall6/${name}" { source = conf; }
           )
           cfg.configs
-        ;
+      ;
       systemPackages = [ cfg.package ];
     };
   };

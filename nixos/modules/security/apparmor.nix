@@ -18,7 +18,7 @@ let
       default = true;
       example = false;
     }
-    ;
+  ;
   enabledPolicies = filterAttrs (n: p: p.enable) cfg.policies;
 in
 
@@ -82,11 +82,11 @@ in
                 enable =
                   mkDisableOption
                     "loading of the profile into the kernel"
-                  ;
+                ;
                 enforce =
                   mkDisableOption
                     "enforcing of the policy or only complain in the logs"
-                  ;
+                ;
                 profile = mkOption {
                   description = lib.mdDoc "The policy of the profile.";
                   type = types.lines;
@@ -113,7 +113,7 @@ in
         description =
           lib.mdDoc
             "List of packages to be added to AppArmor's include path"
-          ;
+        ;
       };
       enableCache = mkEnableOption (
         lib.mdDoc ''
@@ -151,7 +151,7 @@ in
           # which does not recurse into sub-directories.
         })
         (attrNames cfg.policies)
-      ;
+    ;
 
     environment.systemPackages = [
       pkgs.apparmor-utils
@@ -180,7 +180,7 @@ in
             Include ${p}/etc/apparmor.d
           '')
           cfg.packages
-      ;
+    ;
     # For aa-logprof
     environment.etc."apparmor/apparmor.conf".text = "";
     # For aa-logprof
@@ -225,7 +225,7 @@ in
           cp $headerPath $out
           sed '1,/\[qualifiers\]/d' $footer >> $out
         ''
-      ;
+    ;
 
     boot.kernelParams = [
       "apparmor=1"
@@ -265,7 +265,7 @@ in
             "--verbose --show-cache ${
               optionalString (!p.enforce) "--complain "
             }${p.profile}"
-            ;
+          ;
         in
         {
           Type = "oneshot";
@@ -280,11 +280,11 @@ in
                 }"
               )
               enabledPolicies
-            ;
+          ;
           ExecStartPost =
             optional cfg.killUnconfinedConfinables
               killUnconfinedConfinables
-            ;
+          ;
           ExecReload =
             # Add or replace into the kernel profiles in enabledPolicies
             # (because AppArmor can do that without stopping the processes already confined).
@@ -308,7 +308,7 @@ in
               # Optionally kill the processes which are unconfined but now have a profile loaded
               # (because AppArmor can only start to confine new processes).
               optional cfg.killUnconfinedConfinables killUnconfinedConfinables
-            ;
+          ;
           ExecStop = "${pkgs.apparmor-utils}/bin/aa-teardown";
           CacheDirectory = [
             "apparmor"
@@ -316,7 +316,7 @@ in
           ];
           CacheDirectoryMode = "0700";
         }
-        ;
+      ;
     };
   };
 

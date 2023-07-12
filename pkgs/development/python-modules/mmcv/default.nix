@@ -72,7 +72,7 @@ buildPythonPackage rec {
       export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
       export FORCE_CUDA=1
     ''
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace setup.py --replace "cpu_use = 4" "cpu_use = $NIX_BUILD_CORES"
@@ -103,7 +103,7 @@ buildPythonPackage rec {
       which
     ]
     ++ lib.optionals cudaSupport [ cuda-native-redist ]
-    ;
+  ;
 
   buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];
 

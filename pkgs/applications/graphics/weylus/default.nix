@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage rec {
       pango
       libdrm
     ]
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -79,7 +79,7 @@ rustPlatform.buildRustPackage rec {
       autoconf
       libtool
     ]
-    ;
+  ;
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -101,7 +101,7 @@ rustPlatform.buildRustPackage rec {
     lib.optionalString stdenv.isLinux ''
       wrapProgram $out/bin/weylus --prefix GST_PLUGIN_PATH : ${GST_PLUGIN_PATH}
     ''
-    ;
+  ;
 
   postInstall = ''
     install -vDm755 weylus.desktop $out/share/applications/weylus.desktop

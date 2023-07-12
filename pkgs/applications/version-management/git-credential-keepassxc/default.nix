@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optional withYubikey "yubikey"
     ++ lib.optional withStrictCaller "strict-caller"
     ++ lib.optional withAll "all"
-    ;
+  ;
 
   meta = with lib; {
     description =

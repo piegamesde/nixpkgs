@@ -15,7 +15,7 @@ rec {
     # The value to return
     x:
     x
-    ;
+  ;
 
   /* The constant function
 
@@ -33,7 +33,7 @@ rec {
     # Value to ignore
     y:
     x
-    ;
+  ;
 
   /* Pipes a value through a list of functions, left to right.
 
@@ -70,7 +70,7 @@ rec {
       reverseApply = x: f: f x;
     in
     builtins.foldl' reverseApply val functions
-    ;
+  ;
 
   # note please don’t add a function like `compose = flip pipe`.
   # This would confuse users, because the order of the functions
@@ -137,7 +137,7 @@ rec {
     # Right attribute set (higher precedence for equal keys)
     y:
     x // y
-    ;
+  ;
 
   /* Flip the order of the arguments of a binary function.
 
@@ -163,7 +163,7 @@ rec {
     # Argument to check for null before passing it to `f`
     a:
     if a == null then a else f a
-    ;
+  ;
 
   # Pull in some builtins not included elsewhere.
   inherit (builtins)
@@ -178,7 +178,7 @@ rec {
     seq
     deepSeq
     genericClosure
-    ;
+  ;
 
   ## nixpkgs version strings
 
@@ -213,7 +213,7 @@ rec {
     */
     release:
     release <= lib.trivial.oldestSupportedRelease
-    ;
+  ;
 
   /* Returns the current nixpkgs release code name.
 
@@ -231,7 +231,7 @@ rec {
       lib.strings.fileContents suffixFile
     else
       "pre-git"
-    ;
+  ;
 
   /* Attempts to return the the current revision of nixpkgs and
      returns the supplied default value otherwise.
@@ -251,13 +251,13 @@ rec {
       lib.fileContents revisionFile
     else
       default
-    ;
+  ;
 
   nixpkgsVersion =
     builtins.trace
       "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!"
       version
-    ;
+  ;
 
   /* Determine whether the function is being called from inside a Nix
      shell.
@@ -308,7 +308,7 @@ rec {
       1
     else
       0
-    ;
+  ;
 
   /* Split type into two subtypes by predicate `p`, take all elements
      of the first subtype to be less than all the elements of the
@@ -345,7 +345,7 @@ rec {
       1
     else
       no a b
-    ;
+  ;
 
   /* Reads a JSON file.
 
@@ -398,7 +398,7 @@ rec {
       )
     else
       msg: builtins.trace "[1;31mwarning: ${msg}[0m"
-    ;
+  ;
 
   /* Like warn, but only warn when the first argument is `true`.
 
@@ -460,7 +460,7 @@ rec {
       } unexpected; valid ones: ${
         builtins.concatStringsSep ", " (builtins.map builtins.toString valid)
       }"
-    ;
+  ;
 
   info = msg: builtins.trace "INFO: ${msg}";
 
@@ -483,7 +483,7 @@ rec {
       __functor = self: f;
       __functionArgs = args;
     }
-    ;
+  ;
 
   /* Extract the expected function arguments from a function.
      This works both with nix-native { a, b ? foo, ... }: style
@@ -497,7 +497,7 @@ rec {
       f.__functionArgs or (lib.functionArgs (f.__functor f))
     else
       builtins.functionArgs f
-    ;
+  ;
 
   /* Check whether something is a function or something
      annotated with function args.
@@ -520,7 +520,7 @@ rec {
     # Any value
     v:
     if isFunction v then v else k: v
-    ;
+  ;
 
   /* Convert the given positive integer to a string of its hexadecimal
      representation. For example:
@@ -548,10 +548,10 @@ rec {
             "15" = "F";
           }
           .${toString d}
-        ;
+      ;
     in
     lib.concatMapStrings toHexDigit (toBaseDigits 16 i)
-    ;
+  ;
 
   /* `toBaseDigits base i` converts the positive integer i to a list of its
      digits in the given base. For example:
@@ -575,12 +575,12 @@ rec {
             q = (i - r) / base;
           in
           [ r ] ++ go q
-        ;
+      ;
     in
     assert (isInt base);
     assert (isInt i);
     assert (base >= 2);
     assert (i >= 0);
     lib.reverseList (go i)
-    ;
+  ;
 }

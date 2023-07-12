@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     [ sqlite ]
     ++ lib.optional httpSupport curl
     ++ lib.optional linenoiseSupport linenoise
-    ;
+  ;
 
   patches = [ ./0001-force-sqlite-to-be-found.patch ];
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
       "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
     ]
-    ;
+  ;
 
   doCheck = cliSupport;
 
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString cliSupport ''
       install -Dm755 /build/source/dictu $out/bin/dictu
     ''
-    ;
+  ;
 
   meta = with lib; {
     description =

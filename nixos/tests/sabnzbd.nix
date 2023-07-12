@@ -18,7 +18,7 @@ import ./make-test-python.nix (
         nixpkgs.config.allowUnfreePredicate =
           pkg: builtins.elem (lib.getName pkg) [ "unrar" ];
       }
-      ;
+    ;
 
     testScript = ''
       machine.wait_for_unit("sabnzbd.service")

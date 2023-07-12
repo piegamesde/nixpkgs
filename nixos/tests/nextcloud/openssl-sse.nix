@@ -54,7 +54,7 @@ args@{
             export RCLONE_CONFIG_NEXTCLOUD_PASS="$(${pkgs.rclone}/bin/rclone obscure ${adminpass})"
             "''${@}"
           ''
-          ;
+        ;
         withRcloneEnv1 = withRcloneEnv "nextcloudwithopenssl1";
         withRcloneEnv3 = withRcloneEnv "nextcloudwithopenssl3";
         copySharedFile1 = pkgs.writeScript "copy-shared-file" ''
@@ -125,7 +125,7 @@ args@{
 
         nextcloudwithopenssl1.shutdown()
       ''
-      ;
+    ;
   }
 ))
   args

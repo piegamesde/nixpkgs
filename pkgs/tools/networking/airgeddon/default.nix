@@ -116,7 +116,7 @@ let
       xorg.xset
       xorg.xdpyinfo
     ]
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "airgeddon";

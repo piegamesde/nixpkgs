@@ -113,7 +113,7 @@ rec {
         systemd
       ]
       ++ lib.optionals stdenv.isDarwin [ darwin.Security ]
-      ;
+    ;
 
     postInstall = ''
       rm -r $out/share/doc

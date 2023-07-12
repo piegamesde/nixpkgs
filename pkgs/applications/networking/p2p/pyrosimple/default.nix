@@ -50,7 +50,7 @@ let
       tomli-w
     ]
     ++ lib.optional withInotify inotify
-    ;
+  ;
 in
 buildPythonPackage {
   inherit pname version src propagatedBuildInputs;
@@ -76,5 +76,5 @@ buildPythonPackage {
       platforms = platforms.all;
       maintainers = builtins.attrValues { inherit (maintainers) ne9z; };
     }
-    ;
+  ;
 }

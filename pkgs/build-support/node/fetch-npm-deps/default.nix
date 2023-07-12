@@ -26,7 +26,7 @@
           name' = builtins.baseNameOf name;
         in
         name' != "default.nix" && name' != "target"
-        ;
+      ;
     };
 
     cargoLock.lockFile = ./Cargo.lock;
@@ -61,7 +61,7 @@
               cp $src $out/package-lock.json
             '';
           }
-          ;
+        ;
 
         makeTest =
           {
@@ -75,7 +75,7 @@
 
             src = makeTestSrc { inherit name src; };
           }
-          ;
+        ;
       in
       {
         lockfileV1 = makeTest {
@@ -153,7 +153,7 @@
           forceGitDeps = true;
         };
       }
-      ;
+    ;
 
     meta = with lib; {
       description =
@@ -179,7 +179,7 @@
             outputHash = "";
             outputHashAlgo = "sha256";
           }
-        ;
+      ;
 
       forceGitDeps_ = lib.optionalAttrs forceGitDeps { FORCE_GIT_DEPS = true; };
     in
@@ -215,5 +215,5 @@
         outputHashMode = "recursive";
       } // hash_ // forceGitDeps_
     )
-    ;
+  ;
 }

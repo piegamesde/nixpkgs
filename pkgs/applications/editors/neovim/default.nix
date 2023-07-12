@@ -67,7 +67,7 @@ let
       )
     else
       lua
-    ;
+  ;
 
   pyEnv = python3.withPackages (
     ps:
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
       glibcLocales
       procps
     ]
-    ;
+  ;
 
   inherit doCheck;
 
@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
       "-DUSE_BUNDLED=OFF"
     ]
     ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON"
-    ;
+  ;
 
   preConfigure =
     lib.optionalString lua.pkgs.isLuaJIT ''
@@ -194,7 +194,7 @@ stdenv.mkDerivation rec {
         '')
         treesitter-parsers
     )
-    ;
+  ;
 
   shellHook = ''
     export VIMRUNTIME=$PWD/runtime

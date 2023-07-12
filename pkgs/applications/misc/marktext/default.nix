@@ -31,7 +31,7 @@ appimageTools.wrapType2 rec {
       p.libsecret
       p.xorg.libxkbfile
     ]
-    ;
+  ;
 
   extraInstallCommands = ''
     # Strip version from binary name.

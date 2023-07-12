@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       "doc"
     ]
     ++ lib.optional installTests "installedTests"
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       perl
       which
     ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       "--libexecdir=${placeholder "installedTests"}/libexec"
     ]
     ++ lib.optional debugBuild "--enable-debug"
-    ;
+  ;
 
   makeFlags = [ "SYD_INCLUDEDIR=${stdenv.cc.libc.dev}/include" ];
 
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
         # Tests are installed despite --disable-installed-tests
         rm -r $out/bin/syd-test $out/libexec
       ''
-    ;
+  ;
 
   meta = with lib; {
     homepage = "https://sydbox.exherbo.org/";

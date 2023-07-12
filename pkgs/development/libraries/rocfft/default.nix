@@ -41,7 +41,7 @@ let
         ]
         ++ lib.optionals buildTests [ "test" ]
         ++ lib.optionals buildBenchmarks [ "benchmark" ]
-        ;
+      ;
 
       src = fetchFromGitHub {
         owner = "ROCmSoftwarePlatform";
@@ -69,7 +69,7 @@ let
           fftwFloat
           openmp
         ]
-        ;
+      ;
 
       propagatedBuildInputs = lib.optionals buildTests [
         fftw
@@ -93,7 +93,7 @@ let
           "-DBUILD_CLIENTS_RIDER=ON"
           "-DBUILD_CLIENTS_SAMPLES=ON"
         ]
-        ;
+      ;
 
       postInstall =
         ''
@@ -124,7 +124,7 @@ let
           rm -r $out/bin/*
           mv $out/rocfft_rtc_helper $out/bin
         ''
-        ;
+      ;
 
       passthru.updateScript = rocmUpdateScript {
         name = finalAttrs.pname;
@@ -167,7 +167,7 @@ stdenv.mkDerivation {
     [ "out" ]
     ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
-    ;
+  ;
 
   dontUnpack = true;
   dontPatch = true;
@@ -194,7 +194,7 @@ stdenv.mkDerivation {
     + ''
       runHook postInstall
     ''
-    ;
+  ;
 
   # Fix paths
   preFixup =
@@ -216,5 +216,5 @@ stdenv.mkDerivation {
         $(patchelf --print-rpath $benchmark/bin/rocfft-rider | sed 's,${rf}/lib,'"$out/lib"',') \
         $benchmark/bin/rocfft-rider
     ''
-    ;
+  ;
 }

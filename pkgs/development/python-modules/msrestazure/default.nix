@@ -37,7 +37,7 @@ buildPythonPackage rec {
       pytest
     ]
     ++ lib.optionals isPy3k [ pytest-asyncio ]
-    ;
+  ;
 
   checkPhase = ''
     pytest tests/

@@ -33,7 +33,7 @@ in
         description =
           lib.mdDoc
             "Whether to enable JBoss. WARNING : this package is outdated and is known to have vulnerabilities."
-          ;
+        ;
       };
 
       tempDir = mkOption {
@@ -65,7 +65,7 @@ in
         description =
           lib.mdDoc
             "Location where the shared library JARs are stored"
-          ;
+        ;
         type = types.str;
       };
 
@@ -81,7 +81,7 @@ in
         description =
           lib.mdDoc
             "Whether to use to connector to the Apache HTTP server"
-          ;
+        ;
       };
     };
   };

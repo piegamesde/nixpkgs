@@ -13,12 +13,12 @@ let
   vhostsConfigs =
     mapAttrsToList (vhostName: vhostConfig: vhostConfig)
       virtualHosts
-    ;
+  ;
   acmeEnabledVhosts =
     filter
       (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
       vhostsConfigs
-    ;
+  ;
   dependentCertNames = unique (
     map (hostOpts: hostOpts.certName) acmeEnabledVhosts
   );
@@ -32,13 +32,13 @@ let
               vhostConfig.serverName
             else
               vhostName
-            ;
+          ;
           certName =
             if vhostConfig.useACMEHost != null then
               vhostConfig.useACMEHost
             else
               serverName
-            ;
+          ;
         in
         vhostConfig // {
           inherit serverName certName;
@@ -53,12 +53,12 @@ let
                   vhostConfig.sslTrustedCertificate
                 else
                   "${certs.${certName}.directory}/chain.pem"
-                ;
+              ;
             }
         )
       )
       cfg.virtualHosts
-    ;
+  ;
   inherit (config.networking) enableIPv6;
 
   # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
@@ -135,7 +135,7 @@ let
         proxy_set_header        X-Forwarded-Host $host;
         proxy_set_header        X-Forwarded-Server $host;
       ''
-    ;
+  ;
 
   proxyCachePathConfig = concatStringsSep "\n" (
     mapAttrsToList
@@ -407,7 +407,7 @@ let
                     vhost.listenAddresses
                   else
                     cfg.defaultListenAddresses
-                  ;
+                ;
               in
               optionals (hasSSL || vhost.rejectSSL) (
                 map
@@ -427,14 +427,14 @@ let
                   })
                   addrs
               )
-            ;
+          ;
 
           hostListen =
             if vhost.forceSSL then
               filter (x: x.ssl) defaultListen
             else
               defaultListen
-            ;
+          ;
 
           listenString =
             {
@@ -474,7 +474,7 @@ let
               concatStringsSep " " extraParameters
             )
             + ";"
-            ;
+          ;
 
           redirectListen = filter (x: !x.ssl) defaultListen;
 
@@ -502,7 +502,7 @@ let
                   }
                 ''}
               ''
-            ;
+          ;
         in
         ''
           ${optionalString vhost.forceSSL ''
@@ -639,7 +639,7 @@ let
           )
         )
     )
-    ;
+  ;
 
   mkBasicAuth =
     name: zone:
@@ -650,14 +650,14 @@ let
             zone.basicAuthFile
           else
             mkHtpasswd name zone.basicAuth
-          ;
+        ;
       in
       ''
         auth_basic secured;
         auth_basic_user_file ${auth_file};
       ''
     )
-    ;
+  ;
   mkHtpasswd =
     name: authDef:
     pkgs.writeText "${name}.htpasswd" (
@@ -669,12 +669,12 @@ let
           authDef
       )
     )
-    ;
+  ;
 
   mkCertOwnershipAssertion =
     import
       ../../../security/acme/mk-cert-ownership-assertion.nix
-    ;
+  ;
 in
 
 {
@@ -789,7 +789,7 @@ in
         defaultText =
           literalExpression
             "$''{pkgs.mailcap}/etc/nginx/mime.types"
-          ;
+        ;
         example = literalExpression "$''{pkgs.nginx}/conf/mime.types";
         description = lib.mdDoc ''
           Default MIME types for NGINX, as MIME types definitions from NGINX are very incomplete,
@@ -807,7 +807,7 @@ in
           p.override {
             modules = lib.unique (p.modules ++ cfg.additionalModules);
           }
-          ;
+        ;
         description = lib.mdDoc ''
           Nginx package to use. This defaults to the stable version. Note
           that the nginx team recommends to use the mainline version which
@@ -969,7 +969,7 @@ in
         description =
           lib.mdDoc
             "Show nginx version in headers and error pages."
-          ;
+        ;
       };
 
       clientMaxBodySize = mkOption {
@@ -986,7 +986,7 @@ in
         description =
           lib.mdDoc
             "Ciphers to choose from when negotiating TLS handshakes."
-          ;
+        ;
       };
 
       sslProtocols = mkOption {
@@ -1355,10 +1355,10 @@ in
             config.services.nginx.virtualHosts.<name>.enableSSL is deprecated,
             use config.services.nginx.virtualHosts.<name>.onlySSL instead.
           ''
-          ;
+        ;
       in
       flatten (mapAttrsToList deprecatedSSL virtualHosts)
-      ;
+    ;
 
     assertions =
       let
@@ -1369,7 +1369,7 @@ in
           assertion =
             all (host: all hostOrAliasIsNull (attrValues host.locations))
               (attrValues virtualHosts)
-            ;
+          ;
           message =
             "Only one of nginx root or alias can be specified on a location.";
         }
@@ -1388,7 +1388,7 @@ in
                 ] <= 1
               )
               (attrValues virtualHosts)
-            ;
+          ;
           message = ''
             Options services.nginx.service.virtualHosts.<name>.addSSL,
             services.nginx.virtualHosts.<name>.onlySSL,
@@ -1401,7 +1401,7 @@ in
           assertion =
             any (host: host.rejectSSL) (attrValues virtualHosts)
             -> versionAtLeast cfg.package.version "1.19.4"
-            ;
+          ;
           message = ''
             services.nginx.virtualHosts.<name>.rejectSSL requires nginx version
             1.19.4 or above; see the documentation for services.nginx.package.
@@ -1412,7 +1412,7 @@ in
           assertion =
             any (host: host.kTLS) (attrValues virtualHosts)
             -> versionAtLeast cfg.package.version "1.21.4"
-            ;
+          ;
           message = ''
             services.nginx.virtualHosts.<name>.kTLS requires nginx version
             1.21.4 or above; see the documentation for services.nginx.package.
@@ -1423,7 +1423,7 @@ in
           assertion =
             all (host: !(host.enableACME && host.useACMEHost != null))
               (attrValues virtualHosts)
-            ;
+          ;
           message = ''
             Options services.nginx.service.virtualHosts.<name>.enableACME and
             services.nginx.virtualHosts.<name>.useACMEHost are mutually exclusive.
@@ -1434,7 +1434,7 @@ in
           assertion =
             cfg.package.pname != "nginxQuic"
             -> all (host: !host.quic) (attrValues virtualHosts)
-            ;
+          ;
           message = ''
             services.nginx.service.virtualHosts.<name>.quic requires using nginxQuic package,
             which can be achieved by setting `services.nginx.package = pkgs.nginxQuic;`.
@@ -1452,12 +1452,12 @@ in
             }
           )
           dependentCertNames
-      ;
+    ;
 
     services.nginx.additionalModules =
       optional cfg.recommendedBrotliSettings pkgs.nginxModules.brotli
       ++ lib.optional cfg.recommendedZstdSettings pkgs.nginxModules.zstd
-      ;
+    ;
 
     systemd.services.nginx = {
       description = "Nginx Web Server";
@@ -1471,7 +1471,7 @@ in
         ++
           map (certName: "acme-selfsigned-${certName}.service")
             dependentCertNames
-        ;
+      ;
       # Nginx needs to be started in order to be able to request certificates
       # (it's hosting the acme challenge after all)
       # This fixes https://github.com/NixOS/nixpkgs/issues/81842
@@ -1545,7 +1545,7 @@ in
             )
             || (cfg.package == pkgs.openresty)
           )
-          ;
+        ;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;
@@ -1566,7 +1566,7 @@ in
                 )
               )
               [ "~@ipc" ]
-          ;
+        ;
       };
     };
 
@@ -1584,11 +1584,11 @@ in
         sslServices =
           map (certName: "acme-${certName}.service")
             dependentCertNames
-          ;
+        ;
         sslTargets =
           map (certName: "acme-finished-${certName}.target")
             dependentCertNames
-          ;
+        ;
       in
       mkIf (cfg.enableReload || sslServices != [ ]) {
         wants = optionals cfg.enableReload [ "nginx.service" ];
@@ -1614,7 +1614,7 @@ in
             "/run/current-system/systemd/bin/systemctl reload nginx.service";
         };
       }
-      ;
+    ;
 
     security.acme.certs =
       let
@@ -1633,7 +1633,7 @@ in
                 webroot =
                   mkOverride (if hasRoot then 1000 else 2000)
                     vhostConfig.acmeRoot
-                  ;
+                ;
                 # Also nudge dnsProvider to null in case it is inherited
                 dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
                 extraDomainNames = vhostConfig.serverAliases;
@@ -1644,10 +1644,10 @@ in
               filter (vhostConfig: vhostConfig.useACMEHost == null)
                 acmeEnabledVhosts
             )
-          ;
+        ;
       in
       listToAttrs acmePairs
-      ;
+    ;
 
     users.users = optionalAttrs (cfg.user == "nginx") {
       nginx = {

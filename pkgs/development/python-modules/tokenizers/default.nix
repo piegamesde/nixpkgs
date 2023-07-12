@@ -98,7 +98,7 @@ buildPythonPackage rec {
         rust.rustc
       ]
     )
-    ;
+  ;
 
   buildInputs =
     [ openssl ]
@@ -106,7 +106,7 @@ buildPythonPackage rec {
       libiconv
       Security
     ]
-    ;
+  ;
 
   propagatedBuildInputs = [ numpy ];
 

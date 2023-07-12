@@ -17,7 +17,7 @@ in
         "sha256-01BrkHLye4KOdqCw3tv7AJzIF6578pl2fl270TJFTmw="
       else
         "sha256-PuYAqnJWAE+L9bsroOnnBGJhERW8LHrGSLtIEkKU9vg="
-      ;
+    ;
   };
 
   relative = testers.invalidateFetcherByDrvHash fetchpatch {
@@ -29,7 +29,7 @@ in
         "sha256-1TtmuKeNIl/Yp+sfzBMR8Ue78tPIgjqGgjasa5IN52o="
       else
         "sha256-KlmIbixcds6GyKYt1fx5BxDIrU7msrgDdYo9Va/KJR4="
-      ;
+    ;
   };
 
   full = testers.invalidateFetcherByDrvHash fetchpatch {
@@ -45,7 +45,7 @@ in
         "sha256-+UKmEbr2rIAweCav/hR/7d4ZrYV84ht/domTrHtm8sM="
       else
         "sha256-+UKmEbr2rIAweCav/hR/7d4ZrYV84ht/domTrHtm8sM="
-      ;
+    ;
   };
 
   decode = testers.invalidateFetcherByDrvHash fetchpatch {
@@ -58,6 +58,6 @@ in
         "sha256-oMvPlmzE51ArI+EvFxONXkqmNee39106/O1ikG0Bdso="
       else
         "sha256-SJHk8XrutqAyoIdORlhCpBCN626P+uzed7mjKz5eQYY="
-      ;
+    ;
   };
 }

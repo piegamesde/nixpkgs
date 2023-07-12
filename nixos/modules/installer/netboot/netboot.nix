@@ -39,7 +39,7 @@ with lib;
             pkgs.syslinux
           ]
       )
-      ;
+    ;
 
     fileSystems."/" = mkImageMediaOverride {
       fsType = "tmpfs";
@@ -95,7 +95,7 @@ with lib;
     system.build.squashfsStore =
       pkgs.callPackage ../../../lib/make-squashfs.nix
         { storeContents = config.netboot.storeContents; }
-      ;
+    ;
 
     # Create the initrd
     system.build.netbootRamdisk = pkgs.makeInitrdNG {

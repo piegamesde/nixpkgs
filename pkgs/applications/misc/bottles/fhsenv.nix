@@ -20,7 +20,7 @@ let
         vkbasalt
       ]
       ++ extraPkgs pkgs
-      ;
+    ;
 
     multiPkgs =
       let
@@ -44,7 +44,7 @@ let
             libXv
             libXxf86vm
           ]
-          ;
+        ;
       in
       pkgs:
       with pkgs;
@@ -103,7 +103,7 @@ let
       ]
       ++ xorgDeps pkgs
       ++ extraLibraries pkgs
-      ;
+    ;
 
     profile = ''
       export GST_PLUGIN_PATH=/usr/lib32/gstreamer-1.0:/usr/lib64/gstreamer-1.0

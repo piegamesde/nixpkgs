@@ -35,7 +35,7 @@ stdenv.mkDerivation {
       libffi
     ]
     ++ lib.optional stdenv.isLinux valgrind
-    ;
+  ;
 
   propagatedBuildInputs = [
     ncurses

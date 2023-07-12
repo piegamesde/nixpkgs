@@ -16,7 +16,7 @@ rec {
       ''
         cp ${filePath} $out
       ''
-    ;
+  ;
 
   # Check whenever fileSystem is needed for boot.  NOTE: Make sure
   # pathsNeededForBoot is closed under the parent relationship, i.e. if /a/b/c
@@ -58,7 +58,7 @@ rec {
           mountPoint = normalisePath mount.mountPoint;
           depends = map normalisePath mount.depends;
         }
-        ;
+      ;
 
       a' = normalise a;
       b' = normalise b;
@@ -66,7 +66,7 @@ rec {
     hasPrefix a'.mountPoint b'.device
     || hasPrefix a'.mountPoint b'.mountPoint
     || any (hasPrefix a'.mountPoint) b'.depends
-    ;
+  ;
 
   # Escape a path according to the systemd rules. FIXME: slow
   # The rules are described in systemd.unit(5) as follows:
@@ -87,7 +87,7 @@ rec {
         )
       )
     )
-    ;
+  ;
 
   # Quotes an argument for use in Exec* service lines.
   # systemd accepts "-quoted strings with escape sequences, toJSON produces
@@ -108,7 +108,7 @@ rec {
           toString arg
         else
           throw "escapeSystemdExecArg only allows strings, paths and numbers"
-        ;
+      ;
     in
     replaceStrings
       [
@@ -120,7 +120,7 @@ rec {
         "$$"
       ]
       (builtins.toJSON s)
-    ;
+  ;
 
   # Quotes a list of arguments into a single string for use in a Exec*
   # line.
@@ -135,7 +135,7 @@ rec {
       throw "${shell} is not a shell package"
     else
       shell
-    ;
+  ;
 
   /* Recurse into a list or an attrset, searching for attrs named like
      the value of the "attr" parameter, and return an attrset where the
@@ -194,10 +194,10 @@ rec {
             item
         else
           [ ]
-        ;
+      ;
     in
     listToAttrs (flatten (recurse "" item))
-    ;
+  ;
 
   /* Takes an attrset and a file path and generates a bash snippet that
      outputs a JSON file at the file path with all instances of
@@ -289,7 +289,7 @@ rec {
       EOF
       (( ! $inherit_errexit_enabled )) && shopt -u inherit_errexit
     ''
-    ;
+  ;
 
   /* Remove packages of packagesToRemove from packages, based on their names.
      Relies on package names and has quadratic complexity so use with caution!
@@ -307,7 +307,7 @@ rec {
       namesToRemove = map lib.getName packagesToRemove;
     in
     lib.filter (x: !(builtins.elem (lib.getName x) namesToRemove)) packages
-    ;
+  ;
 
   systemdUtils = {
     lib = import ./systemd-lib.nix { inherit lib config pkgs; };

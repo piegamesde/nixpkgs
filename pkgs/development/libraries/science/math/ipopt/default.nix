@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       lapack
     ]
     ++ lib.optionals enableAMPL [ libamplsolver ]
-    ;
+  ;
 
   enableParallelBuilding = true;
 

@@ -57,7 +57,7 @@ buildFishPlugin rec {
       else
         ''script -c 'fish -c "fishtape tests/*/*.fish"' ''
     )
-    ;
+  ;
 
   meta = with lib; {
     description = "Augment your fish command line with fzf key bindings";

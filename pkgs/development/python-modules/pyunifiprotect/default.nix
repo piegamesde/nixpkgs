@@ -71,7 +71,7 @@ buildPythonPackage rec {
       typer
     ]
     ++ typer.optional-dependencies.all
-    ;
+  ;
 
   passthru.optional-dependencies = {
     shell = [

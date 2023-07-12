@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       which
     ]
     ++ lib.optionals withGtk [ gtk2 ]
-    ;
+  ;
 
   RTE_SDK = dpdk;
   GUI = lib.optionalString withGtk "true";

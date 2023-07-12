@@ -66,7 +66,7 @@ gnuradioMinimal.pkgs.mkDerivation rec {
     ]
     ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
     ++ lib.optionals portaudioSupport [ portaudio ]
-    ;
+  ;
 
   cmakeFlags =
     let
@@ -77,10 +77,10 @@ gnuradioMinimal.pkgs.mkDerivation rec {
           "Portaudio"
         else
           "Gr-audio"
-        ;
+      ;
     in
     [ "-DLINUX_AUDIO_BACKEND=${audioBackend}" ]
-    ;
+  ;
 
   # Prevent double-wrapping, inject wrapper args manually instead.
   dontWrapGApps = true;

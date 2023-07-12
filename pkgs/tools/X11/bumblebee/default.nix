@@ -53,7 +53,7 @@ let
     ++ lib.optionals (nvidia_x11_i686 != null) (
       [ nvidia_x11_i686 ] ++ lib.optional nvidia_x11_i686.useGLVND libglvnd_i686
     )
-    ;
+  ;
 
   nvidiaLibs = lib.makeLibraryPath nvidia_x11s;
 
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
       Option "UseDisplayDevice" "none"
     ''
     + extraNvidiaDeviceOptions
-    ;
+  ;
 
   nouveauDeviceOptions = extraNouveauDeviceOptions;
 
@@ -166,7 +166,7 @@ stdenv.mkDerivation rec {
       "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
       "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
     ]
-    ;
+  ;
 
   CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
 

@@ -23,7 +23,7 @@ let
           description =
             lib.mdDoc
               "Authorized password to the opposite end of the tunnel."
-            ;
+          ;
         };
         login = mkOption {
           default = "";
@@ -40,7 +40,7 @@ let
           description =
             lib.mdDoc
               "Public key at the opposite end of the tunnel."
-            ;
+          ;
         };
         hostname = mkOption {
           default = "";
@@ -49,11 +49,11 @@ let
           description =
             lib.mdDoc
               "Optional hostname to add to /etc/hosts; prevents reverse lookup failures."
-            ;
+          ;
         };
       };
     }
-    ;
+  ;
 
   # Additional /etc/hosts entries for peers with an associated hostname
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
@@ -75,9 +75,9 @@ let
       connectTo =
         mapAttrs (name: value: { inherit (value) password publicKey; })
           x.connectTo
-        ;
+      ;
     }
-    ;
+  ;
 
   cjdrouteConf = builtins.toJSON (
     recursiveUpdate
@@ -89,20 +89,20 @@ let
         authorizedPasswords =
           map (p: { password = p; })
             cfg.authorizedPasswords
-          ;
+        ;
         interfaces = {
           ETHInterface =
             if (cfg.ETHInterface.bind != "") then
               [ (parseModules cfg.ETHInterface) ]
             else
               [ ]
-            ;
+          ;
           UDPInterface =
             if (cfg.UDPInterface.bind != "") then
               [ (parseModules cfg.UDPInterface) ]
             else
               [ ]
-            ;
+          ;
         };
 
         privateKey = "@CJDNS_PRIVATE_KEY@";
@@ -311,7 +311,7 @@ in
                     >> /etc/cjdns.keys
             fi
           ''
-        ;
+      ;
 
       script =
         (

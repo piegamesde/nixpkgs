@@ -15,7 +15,7 @@ let
   getManualUrl =
     name:
     "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html"
-    ;
+  ;
 
   yaml = pkgs.formats.yaml { };
 
@@ -27,7 +27,7 @@ let
       }
     else
       { "trafficserver/${name}.yaml".text = ""; }
-    ;
+  ;
 
   mkRecordLines =
     path: value:
@@ -39,7 +39,7 @@ let
       "CONFIG ${concatStringsSep "." path} FLOAT ${toString value}"
     else
       "CONFIG ${concatStringsSep "." path} STRING ${toString value}"
-    ;
+  ;
 
   mkRecordsConfig =
     cfg: concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
@@ -173,7 +173,7 @@ in
           };
         in
         valueType
-        ;
+      ;
       default = { };
       example = { proxy.config.proxy_name = "my_server"; };
       description = lib.mdDoc ''

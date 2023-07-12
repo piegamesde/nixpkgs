@@ -87,7 +87,7 @@ stdenv.mkDerivation {
       # in a path relative to nvcc...
       cudaJoined
     ]
-    ;
+  ;
 
   cmakeFlags =
     [
@@ -101,7 +101,7 @@ stdenv.mkDerivation {
       "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON"
     ]
     ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities
-    ;
+  ;
 
   passthru = { inherit cudaSupport cudaPackages cudaJoined; };
 

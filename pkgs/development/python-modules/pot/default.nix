@@ -46,7 +46,7 @@ buildPythonPackage rec {
       autograd
       pymanopt
     ]
-    ;
+  ;
 
   nativeCheckInputs = [
     cvxopt
@@ -114,7 +114,7 @@ buildPythonPackage rec {
       "test/test_unbalanced.py"
     ]
     ++ lib.optionals (!enableDimensionalityReduction) [ "test/test_dr.py" ]
-    ;
+  ;
 
   pythonImportsCheck = [
     "ot"

@@ -28,7 +28,7 @@ let
         sane-backends # for libsane.so.1
       ]
       ++ extraBuildInputs
-      ;
+    ;
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -78,7 +78,7 @@ buildFHSEnv {
       cups
       thisPackage
     ]
-    ;
+  ;
   runScript = "${program}${year}";
 
   # link desktop item and icon into FHS user environment

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional stdenv.hostPlatform.isDarwin
         ./0002-Prepend-libSDL.dylib-to-macOS-SDL-loader.patch
-    ;
+  ;
 
   nativeBuildInputs =
     [
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       ldc
     ]
     ++ lib.optional (!stdenv.hostPlatform.isDarwin) patchelf
-    ;
+  ;
 
   buildInputs = [ SDL ];
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         rpath=$(patchelf --print-rpath $out/bin/ccutter)
         patchelf --set-rpath "$rpath:${rpathSDL}" $out/bin/ccutter
       ''
-    ;
+  ;
 
   meta = with lib; {
     description = "A tracker program for composing music for the SID chip";

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withSqlite sqlite
     ++ lib.optional withPam pam
     ++ lib.optional withZlib zlib
-    ;
+  ;
 
   src = fetchurl {
     url =
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
       (lib.enableFeature withRedis "redis")
     ]
     ++ lib.optional withSqlite "--with-sqlite3=${sqlite.dev}"
-    ;
+  ;
 
   enableParallelBuilding = true;
 

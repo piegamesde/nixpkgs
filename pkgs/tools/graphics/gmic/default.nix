@@ -91,7 +91,7 @@ stdenv.mkDerivation (
         substituteInPlace CMakeLists.txt \
           --replace "LD_LIBRARY_PATH" "DYLD_LIBRARY_PATH"
       ''
-      ;
+    ;
 
     passthru = {
       tests = {

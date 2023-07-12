@@ -20,7 +20,7 @@ appimageTools.wrapType2 {
   extraPkgs =
     pkgs:
     (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ]
-    ;
+  ;
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications $out/share/pixmaps

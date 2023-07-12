@@ -63,7 +63,7 @@ let
       buildPackages.pkgsi686Linux.buildPackages.stdenv
     else
       buildPackages.stdenv
-    ;
+  ;
 in
 stdenv.mkDerivation rec {
   pname = "luajit";
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
       "HOST_CC=${buildStdenv.cc}/bin/cc"
     ]
     ++ lib.optional enableJITDebugModule "INSTALL_LJLIBD=$(INSTALL_LMOD)"
-    ;
+  ;
   enableParallelBuilding = true;
   env.NIX_CFLAGS_COMPILE = toString XCFLAGS;
 
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
   setupHook =
     luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList
       luaPackages.luaLib.luaCPathList
-    ;
+  ;
 
   # copied from python
   passthru =
@@ -131,14 +131,14 @@ stdenv.mkDerivation rec {
       inputs' =
         lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
           inputs
-        ;
+      ;
       override =
         attr:
         let
           lua = attr.override (inputs' // { self = lua; });
         in
         lua
-        ;
+      ;
     in
     passthruFun rec {
       inherit self luaversion packageOverrides luaAttr;
@@ -152,9 +152,9 @@ stdenv.mkDerivation rec {
           (override pkgsTargetTarget.${luaAttr})
         else
           { }
-        ;
+      ;
     }
-    ;
+  ;
 
   meta = with lib;
     {

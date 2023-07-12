@@ -85,7 +85,7 @@ with lib;
                   "domain"
                 ]
                 config
-              ;
+            ;
           in
           if value != "" then [ value ] else [ ]
         )
@@ -146,7 +146,7 @@ with lib;
         default =
           lib.optionalString (config.services.ddclient.protocol == "nsupdate")
             "${pkgs.bind.dnsutils}/bin/nsupdate"
-          ;
+        ;
         defaultText = "";
         type = str;
         description = lib.mdDoc ''

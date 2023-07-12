@@ -56,7 +56,7 @@ in
       texinfo
     ]
     ++ lib.optional withQt qttools
-    ;
+  ;
 
   buildInputs =
     [
@@ -84,7 +84,7 @@ in
     ]
     ++ lib.optional withWxGTK wxGTK32
     ++ lib.optional (withWxGTK && stdenv.isDarwin) Cocoa
-    ;
+  ;
 
   postPatch = ''
     # lrelease is in qttools, not in qtbase.
@@ -98,7 +98,7 @@ in
       (if aquaterm then "--with-aquaterm" else "--without-aquaterm")
     ]
     ++ lib.optional withCaca "--with-caca"
-    ;
+  ;
 
   CXXFLAGS = lib.optionalString (stdenv.isDarwin && withQt) "-std=c++11";
 

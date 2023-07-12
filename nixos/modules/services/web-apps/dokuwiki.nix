@@ -37,7 +37,7 @@ let
       #
       ${if isString acl then acl else acl_gen acl}
     ''
-    ;
+  ;
 
   mergeConfig =
     cfg:
@@ -45,7 +45,7 @@ let
       useacl = false; # Dokuwiki default
       savedir = cfg.stateDir;
     } // cfg.settings
-    ;
+  ;
 
   writePhpFile =
     name: text:
@@ -56,7 +56,7 @@ let
         ${text}'';
       checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
     }
-    ;
+  ;
 
   mkPhpValue =
     v:
@@ -80,7 +80,7 @@ let
       abort "The dokuwiki localConf value ${
           lib.generators.toPretty { } v
         } can not be encoded."
-    ;
+  ;
 
   mkPhpAttrVals = v: flatten (mapAttrsToList mkPhpKeyVal v);
   mkPhpKeyVal =
@@ -93,10 +93,10 @@ let
           [ " = ${mkPhpValue v};" ]
         else
           mkPhpAttrVals v
-        ;
+      ;
     in
     map (e: "[${escapeShellArg k}]${e}") (flatten values)
-    ;
+  ;
 
   dokuwikiLocalConfig =
     hostName: cfg:
@@ -106,7 +106,7 @@ let
     writePhpFile "local-${hostName}.php" ''
       ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
     ''
-    ;
+  ;
 
   dokuwikiPluginsLocalConfig =
     hostName: cfg:
@@ -117,12 +117,12 @@ let
         concatStringsSep "\n" (
           mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc
         )
-        ;
+      ;
     in
     writePhpFile "plugins.local-${hostName}.php" ''
       ${if isString pc then pc else pc_gen pc}
     ''
-    ;
+  ;
 
   pkg =
     hostName: cfg:
@@ -139,9 +139,9 @@ let
           dokuwikiAclAuthConfig hostName cfg
         else
           null
-        ;
+      ;
     }
-    ;
+  ;
 
   aclOpts =
     {
@@ -181,10 +181,10 @@ let
             '';
             example = "read";
           }
-          ;
+        ;
       };
     }
-    ;
+  ;
 
   # The current implementations of `doRename`,  `mkRenamedOptionModule` do not provide the full options path when used with submodules.
   # They would only show `settings.useacl' instead of `services.dokuwiki.sites."site1.local".settings.useacl'
@@ -221,7 +221,7 @@ let
                 showOption fromPath
               }' is used. It was renamed to ${showOption toPath}"
               toOp
-            ;
+          ;
         }
       );
       config = mkMerge [
@@ -235,7 +235,7 @@ let
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
     }
-    ;
+  ;
 
   siteOpts =
     {
@@ -276,7 +276,7 @@ let
                 ]
                 ++ suffix
               )
-              ;
+            ;
             replaceExtraConfig =
               "Please use `${
                 showPath [ "settings" ]
@@ -292,7 +292,7 @@ let
                 throw ''
                   The option ${ecPath} can no longer be used since it's been removed.
                   ${replaceExtraConfig}''
-                ;
+              ;
             };
             config.assertions = [
               {
@@ -307,7 +307,7 @@ let
                 assertion =
                   config.mergedConfig.useacl
                   -> (config.acl != null || config.aclFile != null)
-                  ;
+                ;
                 message =
                   "Either ${showPath [ "acl" ]} or ${
                     showPath [ "aclFile" ]
@@ -322,7 +322,7 @@ let
                 assertion =
                   config.usersFile != null
                   -> config.mergedConfig.useacl != false
-                  ;
+                ;
                 message =
                   "${
                     showPath [
@@ -390,7 +390,7 @@ let
               "/var/lib/dokuwiki/${name}/acl.auth.php"
             else
               null
-            ;
+          ;
           description = lib.mdDoc ''
             Location of the dokuwiki acl rules. Mutually exclusive with services.dokuwiki.acl
             Mutually exclusive with services.dokuwiki.acl which is preferred.
@@ -420,7 +420,7 @@ let
               "/var/lib/dokuwiki/${name}/users.auth.php"
             else
               null
-            ;
+          ;
           description = lib.mdDoc ''
             Location of the dokuwiki users file. List of users. Format:
 
@@ -600,7 +600,7 @@ let
         };
       };
     }
-    ;
+  ;
 in
 {
   options = {
@@ -612,7 +612,7 @@ in
         description =
           lib.mdDoc
             "Specification of one or more DokuWiki sites to serve"
-          ;
+        ;
       };
 
       webserver = mkOption {
@@ -660,7 +660,7 @@ in
                       "${dokuwikiAclAuthConfig hostName cfg}"
                     else
                       "${toString cfg.aclFile}"
-                    ;
+                  ;
                 };
 
                 settings = {
@@ -670,7 +670,7 @@ in
               })
             )
             eachSite
-          ;
+        ;
       }
 
       {
@@ -764,7 +764,7 @@ in
                 };
               })
               eachSite
-            ;
+          ;
         };
       })
 
@@ -812,7 +812,7 @@ in
                 })
               )
               eachSite
-            ;
+          ;
         };
       })
     ]

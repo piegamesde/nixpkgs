@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       darwin.apple_sdk.frameworks.ApplicationServices
     ]
     ++ plugins.buildInputs
-    ;
+  ;
 
   configureFlags =
     [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "--with-fp-layout=nothing"
     ]
-    ;
+  ;
 
   # do not create directories in /var during installPhase
   postConfigure = ''

@@ -132,7 +132,7 @@ let
       "cryptopp"
     else
       "none"
-    ;
+  ;
 
   cryptoLibsMap = {
     nss = [
@@ -166,7 +166,7 @@ let
         "aarch64-linux"
       ];
     }
-    ;
+  ;
 
   ceph-common = with python.pkgs;
     buildPythonPackage {
@@ -208,11 +208,11 @@ let
                 "test/aaa_profiling"
                 "test/ext/mypy"
               ]
-              ;
+            ;
           }
         );
       }
-      ;
+    ;
   };
 
   boost = boost179.override {
@@ -346,7 +346,7 @@ rec {
         optFuse
         optLibedit
       ]
-      ;
+    ;
 
     pythonPath = [
       ceph-python-env
@@ -391,7 +391,7 @@ rec {
         "-DWITH_XFS=${if optLibxfs != null then "ON" else "OFF"}"
       ]
       ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON"
-      ;
+    ;
 
     postFixup = ''
       wrapPythonPrograms
@@ -426,7 +426,7 @@ rec {
           ceph-multi-node
           ceph-single-node
           ceph-single-node-bluestore
-          ;
+        ;
       };
     };
   };
@@ -437,7 +437,7 @@ rec {
         meta =
           getMeta
             "Tools needed to mount Ceph's RADOS Block Devices/Cephfs"
-          ;
+        ;
       }
       ''
         mkdir -p $out/{bin,etc,${sitePackages},share/bash-completion/completions}
@@ -453,5 +453,5 @@ rec {
         substituteInPlace $out/bin/ceph          --replace ${ceph} $out
         substituteInPlace $out/bin/.ceph-wrapped --replace ${ceph} $out
       ''
-    ;
+  ;
 }

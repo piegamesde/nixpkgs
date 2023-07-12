@@ -84,7 +84,7 @@ let
           ../../build-support/setup-hooks/strip.sh
         ]
         ++ lib.optionals hasCC [ cc ]
-        ;
+      ;
 
       defaultBuildInputs = extraBuildInputs;
 
@@ -146,13 +146,13 @@ let
               ''
                 export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
               ''
-          # TODO this should be uncommented, but it causes stupid mass rebuilds. I
-          # think the best solution would just be to fixup linux RPATHs so we don't
-          # need to set `-rpath` anywhere.
-          # + lib.optionalString targetPlatform.isDarwin ''
-          #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
-          # ''
-          ;
+        # TODO this should be uncommented, but it causes stupid mass rebuilds. I
+        # think the best solution would just be to fixup linux RPATHs so we don't
+        # need to set `-rpath` anywhere.
+        # + lib.optionalString targetPlatform.isDarwin ''
+        #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
+        # ''
+        ;
 
         inherit initialPath shell defaultNativeBuildInputs defaultBuildInputs;
       } // lib.optionalAttrs buildPlatform.isDarwin {
@@ -176,7 +176,7 @@ let
         extraBuildInputs
         __extraImpureHostDeps
         extraSandboxProfile
-        ;
+      ;
 
       # Utility flags to test the type of platform.
       inherit (hostPlatform)
@@ -196,7 +196,7 @@ let
         isAarch64
         isMips
         isBigEndian
-        ;
+      ;
 
       # Override `system` so that packages can get the system of the host
       # platform through `stdenv.system`. `system` is originally set to the
@@ -226,7 +226,7 @@ let
         lib.warn
           "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail."
           stdenv.tests
-        ;
+      ;
     }
 
     # Propagate any extra attributes.  For instance, we use this to

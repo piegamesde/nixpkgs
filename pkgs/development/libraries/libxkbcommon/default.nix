@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       doxygen
     ]
     ++ lib.optional withWaylandTools wayland-scanner
-    ;
+  ;
   buildInputs =
     [
       xkeyboard_config
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       wayland
       wayland-protocols
     ]
-    ;
+  ;
   nativeCheckInputs = [ python3 ];
 
   mesonFlags = [

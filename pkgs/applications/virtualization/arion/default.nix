@@ -27,7 +27,7 @@ let
           pname = "arion";
         }
       )
-    ;
+  ;
 
   inherit (haskell.lib.compose) justStaticExecutables overrideCabal;
 
@@ -59,13 +59,13 @@ let
                 ;
       '';
     }
-    ;
+  ;
 
   # Unpacked sources for evaluation by `eval`
   srcUnpacked =
     runCommand "arion-src" { }
       "mkdir $out; tar -C $out --strip-components=1 -xf ${arion-compose.src}"
-    ;
+  ;
 
   /* Function for evaluating a composition
 
@@ -80,7 +80,7 @@ let
     import (srcUnpacked + "/src/nix/eval-composition.nix") (
       { inherit pkgs; } // args
     )
-    ;
+  ;
 
   /* Function to derivation of the docker compose yaml file
       NOTE: The output will change: https://github.com/hercules-ci/arion/issues/82
@@ -96,6 +96,6 @@ let
       composition = eval args;
     in
     composition.config.out.dockerComposeYaml
-    ;
+  ;
 in
 arion

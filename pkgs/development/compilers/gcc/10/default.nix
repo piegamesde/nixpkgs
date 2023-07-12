@@ -122,7 +122,7 @@ let
             sha256 = "sha256-XtykrPd5h/tsnjY1wGjzSOJ+AyyNLsfnjuOZ5Ryq9vA=";
           }
         )
-    ;
+  ;
 
   # Cross-gcc settings (build == host != target)
   crossMingw =
@@ -131,7 +131,7 @@ let
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
       "${targetPlatform.config}-${stageNameAddon}-"
-    ;
+  ;
 
   callFile = lib.callPackageWith {
     # lets
@@ -145,7 +145,7 @@ let
       crossMingw
       stageNameAddon
       crossNameAddon
-      ;
+    ;
     # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc10.cc.override)" | jq '.[]' --raw-output'
     inherit
       binutils
@@ -191,7 +191,7 @@ let
       which
       zip
       zlib
-      ;
+    ;
   };
 in
 
@@ -216,7 +216,7 @@ stdenv.mkDerivation (
         "info"
       ]
       ++ lib.optional (!langJit) "lib"
-      ;
+    ;
     setOutputFlags = false;
     NIX_NO_SELF_RPATH = true;
 
@@ -279,7 +279,7 @@ stdenv.mkDerivation (
            'LIMITS_H_TEST=false'
         )
       ''
-      ;
+    ;
 
     inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
 
@@ -289,7 +289,7 @@ stdenv.mkDerivation (
       depsBuildTarget
       buildInputs
       depsTargetTarget
-      ;
+    ;
 
     NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
@@ -298,7 +298,7 @@ stdenv.mkDerivation (
       + ''
         ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
       ''
-      ;
+    ;
 
     dontDisableStatic = true;
 
@@ -316,13 +316,13 @@ stdenv.mkDerivation (
     buildFlags =
       optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
         (if profiledCompiler then "profiledbootstrap" else "bootstrap")
-      ;
+    ;
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
       stripDebugListTarget
       preFixup
-      ;
+    ;
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
     ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} =
@@ -348,7 +348,7 @@ stdenv.mkDerivation (
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
       EXTRA_LDFLAGS_FOR_TARGET
-      ;
+    ;
 
     passthru = {
       inherit
@@ -361,7 +361,7 @@ stdenv.mkDerivation (
         langGo
         langD
         version
-        ;
+      ;
       isGNU = true;
       hardeningUnsupportedFlags = [ "fortify3" ];
     };
@@ -377,7 +377,7 @@ stdenv.mkDerivation (
         longDescription
         platforms
         maintainers
-        ;
+      ;
       badPlatforms = [ "aarch64-darwin" ];
     };
   }

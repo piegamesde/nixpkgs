@@ -56,13 +56,13 @@ let
       ''
         ${n} ${v}
       ''
-    ;
+  ;
   generateSection =
     indent: settings:
     concatStringsSep (fixedWidthString indent " " "") (
       filter (x: x != null) (mapAttrsToList generateLine settings)
     )
-    ;
+  ;
 
   # generateSection includes a final newline hence weird closing brace
   mkConf =
@@ -78,7 +78,7 @@ let
         } {
           ${generateSection 2 settings}}
       ''
-    ;
+  ;
 
   settings = sortProperties (
     attrValues (
@@ -149,7 +149,7 @@ let
         attrValues cfg.settings
       ))
       "--mail=${pkgs.mailutils}/bin/mail"
-    ;
+  ;
 in
 {
   imports = [

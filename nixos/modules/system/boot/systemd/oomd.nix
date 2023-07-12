@@ -58,7 +58,7 @@ in
     systemd.oomd.extraConfig.DefaultMemoryPressureDurationSec =
       lib.mkDefault
         "20s"
-      ; # Fedora default
+    ; # Fedora default
 
     users.users.systemd-oom = {
       description = "systemd-oomd service user";

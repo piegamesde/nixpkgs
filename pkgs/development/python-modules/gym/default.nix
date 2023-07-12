@@ -27,7 +27,7 @@ buildPythonPackage rec {
       gym-notices
     ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ;
+  ;
 
   # The test needs MuJoCo that is not free library.
   doCheck = false;

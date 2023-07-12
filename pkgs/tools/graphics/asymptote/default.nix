@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
         pyqt5
       ]
     )
-    ;
+  ;
 
   propagatedBuildInputs =
     [ glm ]
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
         Cocoa
       ]
     )
-    ;
+  ;
 
   preConfigure = ''
     HOME=$TMP

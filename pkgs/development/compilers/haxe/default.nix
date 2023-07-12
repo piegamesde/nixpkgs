@@ -40,7 +40,7 @@ let
         luv
         extlib-1-7-7
       ]
-    ;
+  ;
 
   defaultPatch = ''
     substituteInPlace extra/haxelib_src/src/haxelib/client/Main.hx \
@@ -68,7 +68,7 @@ let
           lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin)
             Security
         ++ ocamlDependencies version
-        ;
+      ;
 
       src = fetchFromGitHub {
         owner = "HaxeFoundation";
@@ -154,7 +154,7 @@ let
         platforms = platforms.linux ++ platforms.darwin;
       };
     }
-    ;
+  ;
 in
 {
   haxe_4_0 = generic {

@@ -59,7 +59,7 @@ let
         inherit lib stdenv core src version makeWrapper retroarch zlib;
       } // args
     )
-    ;
+  ;
 in
 {
   inherit mkLibretroCore;
@@ -266,7 +266,7 @@ in
         "target=libretro"
         "platform=${platform}"
       ]
-      ;
+    ;
     extraBuildInputs = [
       xorg.libX11
       xorg.libXext
@@ -343,7 +343,7 @@ in
     makeFlags =
       lib.optional stdenv.hostPlatform.isAarch32 "platform=armv-unix"
       ++ lib.optional (!stdenv.hostPlatform.isx86) "DESMUME_JIT=0"
-      ;
+    ;
     meta = {
       description = "Port of DeSmuME to libretro";
       license = lib.licenses.gpl2Plus;
@@ -361,7 +361,7 @@ in
     makeFlags =
       lib.optional stdenv.hostPlatform.isAarch32 "platform=armv-unix"
       ++ lib.optional (!stdenv.hostPlatform.isx86) "DESMUME_JIT=0"
-      ;
+    ;
     preBuild = "cd desmume";
     meta = {
       description = "Port of DeSmuME ~2015 to libretro";
@@ -401,7 +401,7 @@ in
           libXxf86vm
         ]
       )
-      ;
+    ;
     makefile = "Makefile";
     cmakeFlags = [
       "-DLIBRETRO=ON"

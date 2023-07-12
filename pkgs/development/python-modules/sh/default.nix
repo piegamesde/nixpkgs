@@ -50,7 +50,7 @@ buildPythonPackage rec {
       "test_cwd"
       "test_ok_code"
     ]
-    ;
+  ;
 
   meta = with lib; {
     description = "Python subprocess interface";

@@ -69,7 +69,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       chmod -R +w $out
       ln -s ${externals} $out/third_party/externals
     ''
-    ;
+  ;
 
   SKIA_GN_COMMAND = "${gn}/bin/gn";
   SKIA_NINJA_COMMAND = "${ninja}/bin/ninja";
@@ -82,7 +82,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       removeReferencesTo
     ]
     ++ lib.optionals stdenv.isDarwin [ xcbuild ]
-    ;
+  ;
 
   # All tests passes but at the end cargo prints for unknown reason:
   #   error: test failed, to rerun pass '--bin neovide'
@@ -97,7 +97,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       rustPlatform.bindgenHook
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
-    ;
+  ;
 
   postFixup =
     let
@@ -121,7 +121,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       wrapProgram $out/bin/neovide \
         --prefix LD_LIBRARY_PATH : ${libPath}
     ''
-    ;
+  ;
 
   postInstall = ''
     for n in 16x16 32x32 48x48 256x256; do

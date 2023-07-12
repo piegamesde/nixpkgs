@@ -93,7 +93,7 @@ import ../make-test-python.nix (
             '')
           ];
         }
-        ;
+      ;
 
       mjolnir =
         {
@@ -111,7 +111,7 @@ import ../make-test-python.nix (
             managementRoom = "#moderators:homeserver";
           };
         }
-        ;
+      ;
 
       client =
         {
@@ -154,7 +154,7 @@ import ../make-test-python.nix (
             )
           ];
         }
-        ;
+      ;
     };
 
     testScript = ''

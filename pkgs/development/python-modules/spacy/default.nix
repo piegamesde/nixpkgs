@@ -72,7 +72,7 @@ buildPythonPackage rec {
       wasabi
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ;
+  ;
 
   postPatch = ''
     substituteInPlace setup.cfg \

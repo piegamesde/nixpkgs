@@ -59,11 +59,11 @@ in
                   v
               )
               config.nodesCompat
-            ;
+          ;
         }
       else
         config.testScript
-      ;
+    ;
 
     defaults =
       {
@@ -99,8 +99,8 @@ in
               hostPkgs.writeStringReferencesToFile
                 testModuleArgs.config.testScriptString
             )
-          ;
+        ;
       }
-      ;
+    ;
   };
 }

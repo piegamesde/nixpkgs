@@ -12,7 +12,7 @@ let
       url = "https://www.mkgmap.org.uk/testinput/${res}";
       name = builtins.replaceStrings [ "/" ] [ "__" ] res;
     }
-    ;
+  ;
 in
 [
   (fetchTestInput {

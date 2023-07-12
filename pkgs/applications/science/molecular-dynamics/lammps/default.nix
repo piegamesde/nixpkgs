@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       gzip
     ]
     ++ (lib.optionals withMPI [ mpi ])
-    ;
+  ;
 
   configurePhase = ''
     cd src

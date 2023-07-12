@@ -61,11 +61,11 @@ let
           ++ darwinX86DebuggerBins
           ++ omniSharpBins
           ++ razorBins
-          ;
+        ;
       };
     }
     .${system} or (throw "Unsupported system: ${system}")
-    ;
+  ;
 in
 vscode-utils.buildVscodeMarketplaceExtension rec {
   mktplcRef = {
@@ -147,7 +147,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
           vsixInfo.binaries
       )
     )
-    ;
+  ;
 
   meta = {
     description = "C# for Visual Studio Code (powered by OmniSharp)";

@@ -52,7 +52,7 @@ buildGoModule rec {
           '"mpv"' \
           '"${lib.getBin mpv}/bin/mpv"'
     ''
-    ;
+  ;
 
   meta = {
     homepage = "https://github.com/sentriz/gonic";

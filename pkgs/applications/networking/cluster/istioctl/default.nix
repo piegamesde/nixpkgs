@@ -34,7 +34,7 @@ buildGoModule rec {
       "-w"
       "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"
     ]
-    ;
+  ;
 
   subPackages = [ "istioctl/cmd/istioctl" ];
 

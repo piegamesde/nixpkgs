@@ -20,7 +20,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
 
       hedgedocPostgres =
         {
@@ -48,7 +48,7 @@ import ./make-test-python.nix (
             };
           };
         }
-        ;
+      ;
     };
 
     testScript = ''

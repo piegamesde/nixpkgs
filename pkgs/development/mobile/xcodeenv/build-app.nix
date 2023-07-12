@@ -47,7 +47,7 @@ let
       if release then "Release" else "Debug"
     else
       configuration
-    ;
+  ;
 
   _sdk =
     if sdk == null then
@@ -57,7 +57,7 @@ let
         "iphonesimulator" + sdkVersion
     else
       sdk
-    ;
+  ;
 
   # The following is to prevent repetition
   deleteKeychain = ''
@@ -94,7 +94,7 @@ stdenv.mkDerivation (
     name =
       lib.replaceStrings [ " " ] [ "" ]
         name
-      ; # iOS app names can contain spaces, but in the Nix store this is not allowed
+    ; # iOS app names can contain spaces, but in the Nix store this is not allowed
     buildPhase = ''
       # Be sure that the Xcode wrapper has priority over everything else.
       # When using buildInputs this does not seem to be the case.

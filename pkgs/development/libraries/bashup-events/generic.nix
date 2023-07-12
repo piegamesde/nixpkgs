@@ -30,7 +30,7 @@ let
       exit 1 # fail if emitting event didn't exit clean
       EOF
     ''
-    ;
+  ;
 in
 resholve.mkDerivation rec {
   # bashup.events doesn't version yet but it has two variants with

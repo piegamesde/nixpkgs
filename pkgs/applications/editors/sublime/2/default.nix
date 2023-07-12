@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
         ];
         sha256 = "115b71nbv9mv8cz6bkjwpbdf2ywnjc1zy2d3080f6ck4sqqfvfh1";
       }
-    ;
+  ;
   buildCommand = ''
     tar xvf ${src}
     mkdir -p $out/bin

@@ -41,7 +41,7 @@ let
           )
           versions
       )
-    ;
+  ;
 
   found-version =
     if matching-versions == [ ] then
@@ -57,7 +57,7 @@ let
       )
     else
       lib.head matching-versions
-    ;
+  ;
 
   specific-drv = ./. + "/${lib.versions.major found-version.version}.nix";
 
@@ -73,14 +73,14 @@ let
       sublist = l: lib.sublist 0 n l;
     in
     lib.compareLists lib.compare (sublist as) (sublist bs) == 0
-    ;
+  ;
 
   matchesDoc =
     v:
     builtins.match
       (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh")
       v.src.name != null
-    ;
+  ;
 in
 
 callPackage real-drv {

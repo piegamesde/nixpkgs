@@ -35,7 +35,7 @@ stdenv.mkDerivation (
           }/${version}/+download/libdbusmenu-${version}.tar.gz";
         sha256 = "12l7z8dhl917iy9h02sxmpclnhkdjryn08r8i4sr8l3lrlm4mk5r";
       }
-      ;
+    ;
 
     nativeBuildInputs = [
       vala
@@ -55,7 +55,7 @@ stdenv.mkDerivation (
         "3" = gtk3;
       }
           .${gtkVersion} or (throw "unknown GTK version ${gtkVersion}")
-      ;
+    ;
 
     postPatch = ''
       for f in {configure,ltmain.sh,m4/libtool.m4}; do
@@ -85,7 +85,7 @@ stdenv.mkDerivation (
         "--disable-scrollkeeper"
       ]
       ++ lib.optional (gtkVersion != "2") "--disable-dumper"
-      ;
+    ;
 
     doCheck = false; # generates shebangs in check phase, too lazy to fix
 
@@ -98,7 +98,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config =
       testers.testMetaPkgConfig
         finalAttrs.finalPackage
-      ;
+    ;
 
     meta = with lib; {
       description = "Library for passing menu structures across DBus";
@@ -114,7 +114,7 @@ stdenv.mkDerivation (
           "dbusmenu-jsonloader-0.4"
         ]
         ++ lib.optional (gtkVersion == "3") "dbusmenu-gtk${gtkVersion}-0.4"
-        ;
+      ;
       platforms = platforms.linux;
       maintainers = [ maintainers.msteen ];
     };

@@ -17,7 +17,7 @@ buildPythonPackage rec {
   disabled =
     pythonAtLeast
       "3.9"
-    ; # See: https://github.com/rocky/python-uncompyle6/issues/331
+  ; # See: https://github.com/rocky/python-uncompyle6/issues/331
 
   src = fetchPypi {
     inherit pname version;

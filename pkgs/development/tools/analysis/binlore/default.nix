@@ -91,7 +91,7 @@ let
             ${yara}/bin/yara --scan-list --recursive ${lore.rules} <(printf '%s\n' ${drv}/{bin,lib,libexec}) | ${yallback}/bin/yallback ${lore.yallback} "$filter"
           fi
         ''
-      ;
+    ;
   };
   overrides = (src + "/overrides");
 in
@@ -117,7 +117,7 @@ rec {
         }
       done
     '')
-    ;
+  ;
   # TODO: echo for debug, can be removed at some point
   make =
     lore: drv:
@@ -134,5 +134,5 @@ rec {
 
         echo binlore for $drv written to $out
       '')
-    ;
+  ;
 }
