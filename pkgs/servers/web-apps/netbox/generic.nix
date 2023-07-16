@@ -59,7 +59,8 @@ py.pkgs.buildPythonApplication rec {
 
   patches = extraPatches;
 
-  propagatedBuildInputs = with py.pkgs;
+  propagatedBuildInputs =
+    with py.pkgs;
     [
       bleach
       boto3
@@ -98,7 +99,8 @@ py.pkgs.buildPythonApplication rec {
       tablib
       jsonschema
     ]
-    ++ extraBuildInputs;
+    ++ extraBuildInputs
+  ;
 
   buildInputs = with py.pkgs; [
     mkdocs-material

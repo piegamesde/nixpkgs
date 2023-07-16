@@ -431,11 +431,13 @@ in
     };
 
     services.grafana = {
-      declarativePlugins = with pkgs.grafanaPlugins;
+      declarativePlugins =
+        with pkgs.grafanaPlugins;
         lib.mkIf cfg.provision.grafana.dashboard [
           grafana-worldmap-panel
           grafana-piechart-panel
-        ];
+        ]
+      ;
 
       provision = {
         enable =

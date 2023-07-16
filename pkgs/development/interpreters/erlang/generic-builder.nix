@@ -227,7 +227,8 @@ stdenv.mkDerivation (
       ;
     };
 
-    meta = with lib;
+    meta =
+      with lib;
       (
         {
           homepage = "https://www.erlang.org/";
@@ -248,7 +249,8 @@ stdenv.mkDerivation (
           maintainers = teams.beam.members;
           license = licenses.asl20;
         } // meta
-      );
+      )
+    ;
   } // optionalAttrs (preUnpack != "") { inherit preUnpack; }
   // optionalAttrs (postUnpack != "") { inherit postUnpack; }
   // optionalAttrs (patches != [ ]) { inherit patches; }

@@ -20,7 +20,8 @@ mkCoqDerivation rec {
     "sha256-je+OlKM7x3vYB36sl406GREAWB4ePmC0ewHS6rCmWfk=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -32,7 +33,8 @@ mkCoqDerivation rec {
           out = "0.1.6.1+8.17";
         }
       ]
-      null;
+      null
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
 

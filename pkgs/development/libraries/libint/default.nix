@@ -200,7 +200,8 @@ let
       eigen
     ];
 
-    configureFlags = with lib;
+    configureFlags =
+      with lib;
       [
         "--with-max-am=${builtins.toString maxAm}"
         "--with-eri-max-am=${
@@ -239,7 +240,8 @@ let
       ++ optional enableGeneric "--enable-generic"
       ++ optional enableContracted "--enable-contracted-ints"
       ++ optional eri3PureSh "--enable-eri3-pure-sh"
-      ++ optional eri2PureSh "--enable-eri2-pure-sh";
+      ++ optional eri2PureSh "--enable-eri2-pure-sh"
+    ;
 
     preConfigure = ''
       ./autogen.sh

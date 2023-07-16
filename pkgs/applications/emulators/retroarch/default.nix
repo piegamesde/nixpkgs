@@ -160,12 +160,14 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     changelog =
       "https://github.com/libretro/RetroArch/blob/v${version}/CHANGES.md";
-    maintainers = with maintainers;
+    maintainers =
+      with maintainers;
       teams.libretro.members
       ++ [
         matthewbauer
         kolbycrouch
-      ];
+      ]
+    ;
     mainProgram = "retroarch";
     # If you want to (re)-add support for macOS, see:
     # https://docs.libretro.com/development/retroarch/compilation/osx/

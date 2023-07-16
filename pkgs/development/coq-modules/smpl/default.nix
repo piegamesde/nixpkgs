@@ -20,7 +20,8 @@ mkCoqDerivation {
   releaseRev = v: "v${v}";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.version
       [
         {
@@ -44,7 +45,8 @@ mkCoqDerivation {
           out = "8.10.2";
         }
       ]
-      null;
+      null
+  ;
 
   mlPlugin = true;
 

@@ -44,7 +44,8 @@ stdenv.mkDerivation (
 
     dontWrapQtApps = args.dontWrapQtApps or true;
 
-    meta = with lib;
+    meta =
+      with lib;
       {
         homepage = "https://www.qt.io/";
         description = "A cross-platform application framework for C++";
@@ -59,6 +60,7 @@ stdenv.mkDerivation (
           nickcao
         ];
         platforms = platforms.unix;
-      } // (args.meta or { });
+      } // (args.meta or { })
+    ;
   }
 )

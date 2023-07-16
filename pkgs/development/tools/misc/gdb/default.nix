@@ -138,7 +138,8 @@ stdenv.mkDerivation rec {
   '';
   configureScript = "../configure";
 
-  configureFlags = with lib;
+  configureFlags =
+    with lib;
     [
       # Set the program prefix to the current targetPrefix.
       # This ensures that the prefix always conforms to
@@ -170,7 +171,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!pythonSupport) "--without-python"
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-nls"
     ++ lib.optional stdenv.hostPlatform.isStatic "--disable-inprocess-agent"
-    ++ lib.optional enableDebuginfod "--with-debuginfod=yes";
+    ++ lib.optional enableDebuginfod "--with-debuginfod=yes"
+  ;
 
   postInstall = ''
     # Remove Info files already provided by Binutils and other packages.

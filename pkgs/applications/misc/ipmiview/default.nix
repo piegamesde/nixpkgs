@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     patchelf
     makeWrapper
   ];
-  buildPhase = with xorg;
+  buildPhase =
+    with xorg;
     let
       stunnelBinary =
         if stdenv.hostPlatform.system == "x86_64-linux" then

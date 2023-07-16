@@ -119,7 +119,8 @@ in
   options = {
 
     networking.supplicant = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
             options = {
@@ -235,7 +236,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
 
       default = { };
 

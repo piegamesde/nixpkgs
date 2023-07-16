@@ -183,7 +183,8 @@ callPackage
       "-Wno-error"
     ];
 
-    patches = with xsa;
+    patches =
+      with xsa;
       flatten [
         ./0000-fix-ipxe-src.4.15.patch
         ./0000-fix-install-python.4.15.patch
@@ -191,7 +192,8 @@ callPackage
         ./0005-makefile-fix-efi-mountdir-use.4.15.patch
 
         XSA_386
-      ];
+      ]
+    ;
 
     postPatch = ''
       # Avoid a glibc >= 2.25 deprecation warnings that get fatal via -Werror.

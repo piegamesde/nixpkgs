@@ -69,7 +69,8 @@ in
         A list of services provided by xinetd.
       '';
 
-      type = with types;
+      type =
+        with types;
         listOf (
           submodule ({
 
@@ -147,7 +148,8 @@ in
               };
             };
           })
-        );
+        )
+      ;
     };
   };
 

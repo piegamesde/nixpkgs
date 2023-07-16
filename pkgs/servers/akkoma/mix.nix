@@ -11,7 +11,8 @@ let
 
   self = packages // (overrides self packages);
 
-  packages = with beamPackages;
+  packages =
+    with beamPackages;
     with self; {
       argon2_elixir = buildMix rec {
         name = "argon2_elixir";
@@ -1759,6 +1760,7 @@ let
 
         beamDeps = [ ];
       };
-    };
+    }
+  ;
 in
 self

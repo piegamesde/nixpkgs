@@ -26,7 +26,8 @@ in
         configure a number of bepasty servers which will be started with
         gunicorn.
       '';
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule (
             {
@@ -130,7 +131,8 @@ in
               };
             }
           )
-        );
+        )
+      ;
     };
   };
 

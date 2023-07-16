@@ -73,7 +73,8 @@ buildPythonPackage rec {
 
   dontWrapQtApps = true;
 
-  nativeBuildInputs = with qt6Packages;
+  nativeBuildInputs =
+    with qt6Packages;
     [
       pkg-config
       lndir
@@ -92,7 +93,8 @@ buildPythonPackage rec {
   # ++ lib.optional withLocation qtlocation
   ;
 
-  buildInputs = with qt6Packages;
+  buildInputs =
+    with qt6Packages;
     [
       dbus
       qtbase

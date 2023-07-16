@@ -49,7 +49,8 @@ let
 
   manifestPath = "kubernetes/manifests";
 
-  taintOptions = with lib.types;
+  taintOptions =
+    with lib.types;
     {
       name,
       ...
@@ -76,7 +77,8 @@ let
           ];
         };
       };
-    };
+    }
+  ;
 
   taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}") (
     mapAttrsToList (n: v: v) cfg.taints
@@ -362,7 +364,8 @@ in
           "network.target"
           "kube-apiserver.service"
         ];
-        path = with pkgs;
+        path =
+          with pkgs;
           [
             gitMinimal
             openssh
@@ -374,7 +377,8 @@ in
             socat
           ]
           ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package
-          ++ top.path;
+          ++ top.path
+        ;
         preStart = ''
           ${concatMapStrings
             (img: ''

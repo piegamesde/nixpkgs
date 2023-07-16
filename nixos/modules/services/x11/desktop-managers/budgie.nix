@@ -141,7 +141,8 @@ in
         cfg.sessionPath}
     '';
 
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       [
         # Budgie Desktop.
         budgie.budgie-backgrounds
@@ -189,7 +190,8 @@ in
         ]
         config.environment.budgie.excludePackages
       )
-      ++ cfg.sessionPath;
+      ++ cfg.sessionPath
+    ;
 
     # Fonts.
     fonts.fonts = mkDefault [

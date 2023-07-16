@@ -109,7 +109,8 @@ let
   # is configurable on a per-cert basis.
   userMigrationService =
     let
-      script = with builtins;
+      script =
+        with builtins;
         ''
           chown -R ${user} .lego/accounts
         ''
@@ -126,7 +127,8 @@ let
               done
             '')
             certConfigs
-        ));
+        ))
+      ;
     in
     {
       description = "Fix owner and group of all ACME certificates";
@@ -893,13 +895,15 @@ in
 
       certs = mkOption {
         default = { };
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule [
               (inheritableModule false)
               certOpts
             ]
-          );
+          )
+        ;
         description = lib.mdDoc ''
           Attribute set of certificates to get signed and renewed. Creates
           `acme-''${cert}.{service,timer}` systemd units for

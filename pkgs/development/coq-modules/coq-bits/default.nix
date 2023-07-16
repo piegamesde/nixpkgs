@@ -10,7 +10,8 @@ mkCoqDerivation {
   pname = "coq-bits";
   repo = "bits";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -22,7 +23,8 @@ mkCoqDerivation {
           out = "1.0.0";
         }
       ]
-      null;
+      null
+  ;
 
   release."1.1.0".sha256 =
     "sha256-TCw1kSXeW0ysIdLeNr+EGmpGumEE9i8tinEMp57UXaE=";

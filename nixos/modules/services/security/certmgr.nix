@@ -137,7 +137,8 @@ in
           otherCert = "/var/certmgr/specs/other-cert.json";
         }
       '';
-      type = with types;
+      type =
+        with types;
         attrsOf (
           either path (
             submodule {
@@ -188,7 +189,8 @@ in
               };
             }
           )
-        );
+        )
+      ;
       description = lib.mdDoc ''
         Certificate specs as described by:
         <https://github.com/cloudflare/certmgr#certificate-specs>

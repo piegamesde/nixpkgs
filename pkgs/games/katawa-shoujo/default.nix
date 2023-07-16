@@ -107,7 +107,8 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      platformDetails = with stdenv.hostPlatform;
+      platformDetails =
+        with stdenv.hostPlatform;
         if isDarwin then
           rec {
             arch = "darwin-x86_64";
@@ -123,7 +124,8 @@ stdenv.mkDerivation rec {
             installDir = "$out/share/katawa-shoujo";
             dataDir = installDir;
             bin = "${installDir}/'Katawa Shoujo'.sh";
-          };
+          }
+      ;
       libDir = with platformDetails; "${dataDir}/lib/${arch}";
     in
     with platformDetails;

@@ -13,7 +13,8 @@ in
   options.services.tahoe = {
     introducers = mkOption {
       default = { };
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
             options = {
@@ -49,14 +50,16 @@ in
               };
             };
           }
-        );
+        )
+      ;
       description = lib.mdDoc ''
         The Tahoe introducers.
       '';
     };
     nodes = mkOption {
       default = { };
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
             options = {
@@ -196,7 +199,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
       description = lib.mdDoc ''
         The Tahoe nodes.
       '';

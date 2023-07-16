@@ -407,7 +407,8 @@ in
       );
 
       servers = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule (
               {
@@ -566,7 +567,8 @@ in
                   };
 
                   slaveOf = mkOption {
-                    type = with types;
+                    type =
+                      with types;
                       nullOr (
                         submodule (
                           {
@@ -594,7 +596,8 @@ in
                             };
                           }
                         )
-                      );
+                      )
+                    ;
 
                     default = null;
                     description =
@@ -677,7 +680,8 @@ in
 
                   settings = mkOption {
                     # TODO: this should be converted to freeformType
-                    type = with types;
+                    type =
+                      with types;
                       attrsOf (
                         oneOf [
                           bool
@@ -685,7 +689,8 @@ in
                           str
                           (listOf str)
                         ]
-                      );
+                      )
+                    ;
                     default = { };
                     description = lib.mdDoc ''
                       Redis configuration. Refer to
@@ -749,7 +754,8 @@ in
                 ];
               }
             )
-          );
+          )
+        ;
         description =
           lib.mdDoc
             "Configuration of multiple `redis-server` instances."

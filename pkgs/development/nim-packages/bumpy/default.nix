@@ -20,10 +20,12 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "2d collision library";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    };
+    }
+  ;
 }

@@ -31,7 +31,8 @@ mkCoqDerivation {
     "sha256-WWVMcR6z8rT4wzZPb8SlaVWGe7NC8gScPqawd7bltQA=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -67,7 +68,8 @@ mkCoqDerivation {
           out = "1.7.1";
         }
       ]
-      null;
+      null
+  ;
 
   mlPlugin = true;
 

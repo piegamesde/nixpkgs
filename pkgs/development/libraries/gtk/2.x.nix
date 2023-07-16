@@ -80,7 +80,8 @@ stdenv.mkDerivation (
       ]
     ;
 
-    propagatedBuildInputs = with xorg;
+    propagatedBuildInputs =
+      with xorg;
       [
         glib
         cairo
@@ -101,7 +102,8 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         AppKit
         Cocoa
-      ];
+      ]
+    ;
 
     preConfigure =
       if

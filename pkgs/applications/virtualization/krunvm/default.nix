@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-Y0FNi/+HuN5SqexHTKjcW6lEaeis7xZDYc2/FOAANIA=";
   };
 
-  nativeBuildInputs = with rustPlatform;
+  nativeBuildInputs =
+    with rustPlatform;
     [
       cargoSetupHook
       rust.cargo
@@ -36,7 +37,8 @@ stdenv.mkDerivation rec {
       asciidoctor
       makeWrapper
     ]
-    ++ lib.optionals stdenv.isDarwin [ sigtool ];
+    ++ lib.optionals stdenv.isDarwin [ sigtool ]
+  ;
 
   buildInputs = [ libkrun ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 

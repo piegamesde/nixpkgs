@@ -185,7 +185,8 @@ in
     };
   };
 
-  config = with cfg;
+  config =
+    with cfg;
     let
       secretsFile = ipsecSecrets cfg.secrets;
     in

@@ -12,7 +12,8 @@ mkCoqDerivation {
   owner = "Lysxia";
   repo = "coq-simple-io";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -24,7 +25,8 @@ mkCoqDerivation {
           out = "1.3.0";
         }
       ]
-      null;
+      null
+  ;
   release."1.7.0".sha256 =
     "sha256:1a1q9x2abx71hqvjdai3n12jxzd49mhf3nqqh3ya2ssl2lj609ci";
   release."1.3.0".sha256 =

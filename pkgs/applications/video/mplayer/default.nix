@@ -140,7 +140,8 @@ stdenv.mkDerivation rec {
     pkg-config
     yasm
   ];
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       freetype
       ffmpeg_4
@@ -184,10 +185,12 @@ stdenv.mkDerivation rec {
         Cocoa
         OpenGL
       ]
-    );
+    )
+  ;
 
   configurePlatforms = [ ];
-  configureFlags = with lib;
+  configureFlags =
+    with lib;
     [
       "--enable-freetype"
       (
@@ -260,7 +263,8 @@ stdenv.mkDerivation rec {
       "--enable-cross-compile"
       "--disable-vidix-pcidb"
       "--with-vidix-drivers=no"
-    ];
+    ]
+  ;
 
   preConfigure = ''
     configureFlagsArray+=(
@@ -278,7 +282,8 @@ stdenv.mkDerivation rec {
     echo CONFIG_MPEGAUDIODSP=yes >> config.mak
   '';
 
-  NIX_LDFLAGS = with lib;
+  NIX_LDFLAGS =
+    with lib;
     toString (
       optional fontconfigSupport "-lfontconfig"
       ++ optional fribidiSupport "-lfribidi"
@@ -288,7 +293,8 @@ stdenv.mkDerivation rec {
       ]
       ++ optional x264Support "-lx264"
       ++ [ "-lfreetype" ]
-    );
+    )
+  ;
 
   installTargets = [ "install" ] ++ lib.optional x11Support "install-gui";
 

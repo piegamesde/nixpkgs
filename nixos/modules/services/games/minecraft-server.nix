@@ -153,14 +153,16 @@ in
       };
 
       serverProperties = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               bool
               int
               str
             ]
-          );
+          )
+        ;
         default = { };
         example = literalExpression ''
           {

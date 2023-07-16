@@ -279,8 +279,10 @@ in
     };
 
     virtualHosts = mkOption {
-      type = with types;
-        attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
+      type =
+        with types;
+        attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }))
+      ;
       default = { };
       example = literalExpression ''
         {

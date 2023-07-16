@@ -237,7 +237,8 @@ in
     ''}
   '';
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       description = "Application containers for linux" + extraDescription;
       longDescription = ''
@@ -254,7 +255,8 @@ in
         ShamrockLee
       ];
       mainProgram = projectName;
-    } // extraMeta;
+    } // extraMeta
+  ;
 }).overrideAttrs
   (
     finalAttrs: prevAttrs: {

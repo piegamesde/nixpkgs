@@ -36,11 +36,13 @@ let
           )
           (attrNames machines)}
       '';
-      wrapKubectl = with pkgs;
+      wrapKubectl =
+        with pkgs;
         runCommand "wrap-kubectl" { nativeBuildInputs = [ makeWrapper ]; } ''
           mkdir -p $out/bin
           makeWrapper ${pkgs.kubernetes}/bin/kubectl $out/bin/kubectl --set KUBECONFIG "/etc/kubernetes/cluster-admin.kubeconfig"
-        '';
+        ''
+      ;
     in
     makeTest {
       inherit name;

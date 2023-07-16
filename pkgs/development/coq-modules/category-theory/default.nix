@@ -28,7 +28,8 @@ mkCoqDerivation {
     "0f2nr8dgn1ab7hr7jrdmr1zla9g9h8216q4yf4wnff9qkln8sbbs";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -48,7 +49,8 @@ mkCoqDerivation {
           out = "20180709";
         }
       ]
-      null;
+      null
+  ;
 
   mlPlugin = true;
   propagatedBuildInputs = [

@@ -33,7 +33,8 @@ let
         hash = "sha256-do3TGYAuQkN6s3lOvnW0lxQuCO1bD7JQO61izvRC3/c=";
       };
 
-      propagatedBuildInputs = with pypkgs;
+      propagatedBuildInputs =
+        with pypkgs;
         [
           twisted
           mako
@@ -57,7 +58,8 @@ let
           gtk3
           gobject-introspection
           pygobject3
-        ];
+        ]
+      ;
 
       nativeBuildInputs =
         [

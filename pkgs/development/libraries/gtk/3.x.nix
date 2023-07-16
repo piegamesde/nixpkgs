@@ -150,7 +150,8 @@ stdenv.mkDerivation (
     ;
     #TODO: colord?
 
-    propagatedBuildInputs = with xorg;
+    propagatedBuildInputs =
+      with xorg;
       [
         at-spi2-atk
         atk
@@ -182,7 +183,8 @@ stdenv.mkDerivation (
         wayland-protocols
       ]
       ++ lib.optionals xineramaSupport [ libXinerama ]
-      ++ lib.optionals cupsSupport [ cups ];
+      ++ lib.optionals cupsSupport [ cups ]
+    ;
 
     mesonFlags = [
       "-Dgtk_doc=${lib.boolToString withIntrospection}"

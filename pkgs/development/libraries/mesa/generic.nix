@@ -280,7 +280,8 @@ let
           }"
     ;
 
-    buildInputs = with xorg;
+    buildInputs =
+      with xorg;
       [
         expat
         llvmPackages.libllvm
@@ -321,7 +322,8 @@ let
       ]
       ++ lib.optional withValgrind valgrind-light
       ++ lib.optional haveZink vulkan-loader
-      ++ lib.optional haveDozen directx-headers;
+      ++ lib.optional haveDozen directx-headers
+    ;
 
     depsBuildBuild = [ pkg-config ];
 
@@ -343,7 +345,8 @@ let
       ++ lib.optional haveWayland wayland-scanner
     ;
 
-    propagatedBuildInputs = with xorg;
+    propagatedBuildInputs =
+      with xorg;
       [
         libXdamage
         libXxf86vm
@@ -352,7 +355,8 @@ let
       ++ lib.optionals stdenv.isDarwin [
         OpenGL
         Xplugin
-      ];
+      ]
+    ;
 
     doCheck = false;
 

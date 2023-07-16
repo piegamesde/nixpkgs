@@ -12,7 +12,8 @@ let
 
   # Use only for **internal** options.
   # This is not exactly user-friendly.
-  kdeConfigurationType = with types;
+  kdeConfigurationType =
+    with types;
     let
       valueTypes = (oneOf [
         bool
@@ -264,7 +265,8 @@ in
         };
       };
 
-      environment.systemPackages = with libsForQt5;
+      environment.systemPackages =
+        with libsForQt5;
         with plasma5;
         with kdeGear;
         with kdeFrameworks;
@@ -516,7 +518,8 @@ in
       # See: https://github.com/NixOS/nixpkgs/issues/143272
       services.xserver.displayManager.defaultSession = mkDefault "plasma";
 
-      environment.systemPackages = with libsForQt5;
+      environment.systemPackages =
+        with libsForQt5;
         with plasma5;
         with kdeGear;
         with kdeFrameworks;
@@ -595,7 +598,8 @@ in
         }
       ];
 
-      environment.systemPackages = with libsForQt5;
+      environment.systemPackages =
+        with libsForQt5;
         with plasma5;
         with kdeApplications;
         with kdeFrameworks;
@@ -626,7 +630,8 @@ in
             plasma-settings
             spacebar
           ]
-        );
+        )
+      ;
 
       # The following services are needed or the UI is broken.
       hardware.bluetooth.enable = true;

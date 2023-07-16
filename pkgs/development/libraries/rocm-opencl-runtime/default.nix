@@ -67,12 +67,14 @@ stdenv.mkDerivation (
         asl20
         mit
       ];
-      maintainers = with maintainers;
+      maintainers =
+        with maintainers;
         [
           acowley
           lovesegfault
         ]
-        ++ teams.rocm.members;
+        ++ teams.rocm.members
+      ;
       platforms = platforms.linux;
       broken =
         versions.minor finalAttrs.version != versions.minor stdenv.cc.version;

@@ -169,7 +169,8 @@ in
     };
 
     environmentFiles = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           nullOr (
             oneOf [
@@ -178,7 +179,8 @@ in
               package
             ]
           )
-        );
+        )
+      ;
       default = { };
       example = {
         PATRONI_REPLICATION_PASSWORD = "/secret/file";

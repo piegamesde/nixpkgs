@@ -32,7 +32,8 @@ with lib; {
     };
 
     settings = mkOption {
-      type = with types;
+      type =
+        with types;
         submodule {
           freeformType = settingsFormat.type;
 
@@ -97,7 +98,8 @@ with lib; {
               };
             };
           };
-        };
+        }
+      ;
       default = { };
       example = literalExpression ''
         {

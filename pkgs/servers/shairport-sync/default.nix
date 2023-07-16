@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       openssl_1_1
       avahi
@@ -72,7 +73,8 @@ stdenv.mkDerivation rec {
       ffmpeg
       unixtools.xxd
     ]
-    ++ optional stdenv.isLinux glib;
+    ++ optional stdenv.isLinux glib
+  ;
 
   postPatch = ''
     sed -i -e 's/G_BUS_TYPE_SYSTEM/G_BUS_TYPE_SESSION/g' dbus-service.c
@@ -81,7 +83,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = with lib;
+  configureFlags =
+    with lib;
     [
       "--without-configfiles"
       "--sysconfdir=/etc"
@@ -100,7 +103,8 @@ stdenv.mkDerivation rec {
     ++ optional enableMetadata "--with-metadata"
     ++ optional enableMpris "--with-mpris-interface"
     ++ optional enableLibdaemon "--with-libdaemon"
-    ++ optional enableAirplay2 "--with-airplay-2";
+    ++ optional enableAirplay2 "--with-airplay-2"
+  ;
 
   meta = with lib; {
     homepage = "https://github.com/mikebrady/shairport-sync";

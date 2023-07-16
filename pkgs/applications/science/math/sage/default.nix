@@ -103,7 +103,8 @@ let
 
   sage-src = callPackage ./sage-src.nix { };
 
-  pythonRuntimeDeps = with python3.pkgs;
+  pythonRuntimeDeps =
+    with python3.pkgs;
     [
       sagelib
       sage-docbuild
@@ -122,7 +123,8 @@ let
       sphinx
       pillow
     ]
-    ++ extraPythonPackages python3.pkgs;
+    ++ extraPythonPackages python3.pkgs
+  ;
 
   pythonEnv = python3.buildEnv.override {
     extraLibs = pythonRuntimeDeps;

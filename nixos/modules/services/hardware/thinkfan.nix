@@ -15,7 +15,8 @@ let
   thinkfan = pkgs.thinkfan.override { inherit (cfg) smartSupport; };
 
   # fan-speed and temperature levels
-  levelType = with types;
+  levelType =
+    with types;
     let
       tuple =
         ts:

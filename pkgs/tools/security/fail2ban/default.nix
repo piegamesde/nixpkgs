@@ -24,11 +24,13 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  pythonPath = with python3.pkgs;
+  pythonPath =
+    with python3.pkgs;
     lib.optionals stdenv.isLinux [
       systemd
       pyinotify
-    ];
+    ]
+  ;
 
   preConfigure = ''
     patchShebangs fail2ban-2to3

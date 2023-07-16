@@ -53,11 +53,13 @@ stdenv.mkDerivation rec {
     libconfig
   ];
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Reference CLI for Tox";
       license = licenses.gpl3Plus;
       maintainers = with maintainers; [ ehmry ];
       platforms = platforms.linux;
-    };
+    }
+  ;
 }

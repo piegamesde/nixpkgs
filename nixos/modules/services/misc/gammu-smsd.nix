@@ -54,11 +54,13 @@ let
 
   initDBDir = "share/doc/gammu/examples/sql";
 
-  gammuPackage = with cfg.backend;
+  gammuPackage =
+    with cfg.backend;
     (pkgs.gammu.override {
       dbiSupport = service == "sql" && sql.driver == "sqlite";
       postgresSupport = service == "sql" && sql.driver == "native_pgsql";
-    });
+    })
+  ;
 in
 {
   options = {
@@ -257,22 +259,27 @@ in
       group = cfg.device.group;
     };
 
-    environment.systemPackages = with cfg.backend;
+    environment.systemPackages =
+      with cfg.backend;
       [ gammuPackage ]
-      ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ];
+      ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ]
+    ;
 
     systemd.services.gammu-smsd = {
       description = "gammu-smsd daemon";
 
       wantedBy = [ "multi-user.target" ];
 
-      wants = with cfg.backend;
+      wants =
+        with cfg.backend;
         [ ]
         ++ optionals (service == "sql" && sql.driver == "native_pgsql") [
           "postgresql.service"
-        ];
+        ]
+      ;
 
-      preStart = with cfg.backend;
+      preStart =
+        with cfg.backend;
 
         optionalString (service == "files") (
           with files; ''
@@ -306,7 +313,8 @@ in
           optionalString (service == "sql" && sql.driver == "native_pgsql") ''
             echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
           ''
-        );
+        )
+      ;
 
       serviceConfig = {
         User = "${cfg.user}";

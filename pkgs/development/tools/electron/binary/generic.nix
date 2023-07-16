@@ -93,7 +93,8 @@ let
     }
   ;
 
-  electronLibPath = with lib;
+  electronLibPath =
+    with lib;
     makeLibraryPath (
       [
         libuuid
@@ -110,7 +111,8 @@ let
       ++ optionals (versionAtLeast version "11.0.0") [ libxkbcommon ]
       ++ optionals (versionAtLeast version "12.0.0") [ libxshmfence ]
       ++ optionals (versionAtLeast version "17.0.0") [ libglvnd ]
-    );
+    )
+  ;
 
   linux = {
     buildInputs = [

@@ -48,12 +48,14 @@ buildPythonPackage {
     patchelf
   ];
 
-  buildInputs = with cudaPackages;
+  buildInputs =
+    with cudaPackages;
     [
       # $out/${sitePackages}/nvfuser/_C*.so wants libnvToolsExt.so.1 but torch/lib only ships
       # libnvToolsExt-$hash.so.1
       cuda_nvtx
-    ];
+    ]
+  ;
 
   autoPatchelfIgnoreMissingDeps =
     [

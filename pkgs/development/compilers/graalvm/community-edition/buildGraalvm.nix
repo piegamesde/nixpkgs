@@ -188,7 +188,8 @@ let
         updateScript = ./update.sh;
       };
 
-      meta = with lib;
+      meta =
+        with lib;
         (
           {
             homepage = "https://www.graalvm.org/";
@@ -202,7 +203,8 @@ let
             mainProgram = "java";
             maintainers = with maintainers; teams.graalvm-ce.members ++ [ ];
           } // meta
-        );
+        )
+      ;
     } // extraArgs
   );
 in

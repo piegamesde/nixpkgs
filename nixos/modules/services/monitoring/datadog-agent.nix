@@ -49,13 +49,15 @@ let
 
   # Assemble all check configurations and the top-level agent
   # configuration.
-  etcfiles = with pkgs;
+  etcfiles =
+    with pkgs;
     with builtins;
     {
       "datadog-agent/datadog.yaml" = {
         source = writeText "datadog.yaml" (toJSON ddConf);
       };
-    } // makeCheckConfigs (cfg.checks // defaultChecks);
+    } // makeCheckConfigs (cfg.checks // defaultChecks)
+  ;
 
   # Apply the configured extraIntegrations to the provided agent
   # package. See the documentation of `dd-agent/integrations-core.nix`

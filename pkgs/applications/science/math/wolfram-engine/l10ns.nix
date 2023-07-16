@@ -6,7 +6,8 @@
 }:
 
 let
-  allVersions = with lib;
+  allVersions =
+    with lib;
     flip map
       # N.B. Versions in this list should be ordered from newest to oldest.
       [
@@ -57,12 +58,15 @@ let
             inherit sha256;
           };
         }
-      );
-  minVersion = with lib;
+      )
+  ;
+  minVersion =
+    with lib;
     if majorVersion == null then
       elemAt (builtins.splitVersion (elemAt allVersions 0).version) 0
     else
-      majorVersion;
+      majorVersion
+  ;
   maxVersion = toString (1 + builtins.fromJSON minVersion);
 in
 with lib;

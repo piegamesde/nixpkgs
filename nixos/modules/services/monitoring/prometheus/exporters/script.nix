@@ -17,7 +17,8 @@ in
   port = 9172;
   extraOpts = {
     settings.scripts = mkOption {
-      type = with types;
+      type =
+        with types;
         listOf (
           submodule {
             options = {
@@ -45,7 +46,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
       example = literalExpression ''
         {
           scripts = [

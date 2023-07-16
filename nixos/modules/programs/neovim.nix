@@ -114,7 +114,8 @@ in
         Set of files that have to be linked in {file}`runtime`.
       '';
 
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule (
             {
@@ -157,7 +158,8 @@ in
               config.target = mkDefault name;
             }
           )
-        );
+        )
+      ;
     };
   };
 

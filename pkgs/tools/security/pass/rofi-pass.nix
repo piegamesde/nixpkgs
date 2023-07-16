@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     cp -a config.example $out/share/doc/rofi-pass/config.example
   '';
 
-  wrapperPath = with lib;
+  wrapperPath =
+    with lib;
     makeBinPath [
       coreutils
       findutils
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
       util-linux
       xclip
       xdotool
-    ];
+    ]
+  ;
 
   fixupPhase = ''
     patchShebangs $out/bin

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.cloud-init;
-  path = with pkgs;
+  path =
+    with pkgs;
     [
       cloud-init
       iproute2
@@ -20,7 +21,8 @@ let
       busybox
     ]
     ++ optional cfg.btrfs.enable btrfs-progs
-    ++ optional cfg.ext4.enable 0.0 fsprogs;
+    ++ optional cfg.ext4.enable 0.0 fsprogs
+  ;
 in
 {
   options = {

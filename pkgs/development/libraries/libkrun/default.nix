@@ -39,13 +39,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-nbtp7FP+ObVGfDOEzTt4Z7TZwcNlREczTKIAXGSflZU=";
   };
 
-  nativeBuildInputs = with rustPlatform;
+  nativeBuildInputs =
+    with rustPlatform;
     [
       cargoSetupHook
       rust.cargo
       rust.rustc
     ]
-    ++ lib.optional sevVariant pkg-config;
+    ++ lib.optional sevVariant pkg-config
+  ;
 
   buildInputs =
     [ (libkrunfw.override { inherit sevVariant; }) ]

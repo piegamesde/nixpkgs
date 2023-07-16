@@ -36,13 +36,15 @@ mkCoqDerivation {
     "sha256-bF7ES+tXraaAJwVEwAMx3CUESpNlAUerQjr4d2eaGJQ=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.version
       [ {
         case = isEq "8.13";
         out = "2021-09-17";
       } ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs =
     [

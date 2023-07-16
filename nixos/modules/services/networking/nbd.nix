@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.nbd;
-  iniFields = with types;
+  iniFields =
+    with types;
     attrsOf (
       oneOf [
         bool
@@ -17,7 +18,8 @@ let
         float
         str
       ]
-    );
+    )
+  ;
   # The `[generic]` section must come before all the others in the
   # config file.  This means we can't just dump an attrset to INI
   # because that sorts the sections by name.  Instead, we serialize it
@@ -104,7 +106,8 @@ in
               "Files or block devices to make available over the network."
           ;
           default = { };
-          type = with types;
+          type =
+            with types;
             attrsOf (
               submodule {
                 options = {
@@ -140,7 +143,8 @@ in
                   };
                 };
               }
-            );
+            )
+          ;
         };
 
         listenAddress = mkOption {

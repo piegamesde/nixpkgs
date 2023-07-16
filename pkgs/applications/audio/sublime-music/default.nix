@@ -85,7 +85,8 @@ python.pkgs.buildPythonApplication rec {
     ++ lib.optional networkSupport networkmanager
   ;
 
-  propagatedBuildInputs = with python.pkgs;
+  propagatedBuildInputs =
+    with python.pkgs;
     [
       bleach
       dataclasses-json
@@ -101,7 +102,8 @@ python.pkgs.buildPythonApplication rec {
     ]
     ++ lib.optional chromecastSupport pychromecast
     ++ lib.optional keyringSupport keyring
-    ++ lib.optional serverSupport bottle;
+    ++ lib.optional serverSupport bottle
+  ;
 
   nativeCheckInputs = with python.pkgs; [ pytest ];
 

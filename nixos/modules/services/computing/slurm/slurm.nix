@@ -397,12 +397,14 @@ in
         users.groups.slurm.gid = config.ids.uids.slurm;
 
         systemd.services.slurmd = mkIf (cfg.client.enable) {
-          path = with pkgs;
+          path =
+            with pkgs;
             [
               wrappedSlurm
               coreutils
             ]
-            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
+            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11
+          ;
 
           wantedBy = [ "multi-user.target" ];
           after = [
@@ -433,13 +435,15 @@ in
         );
 
         systemd.services.slurmctld = mkIf (cfg.server.enable) {
-          path = with pkgs;
+          path =
+            with pkgs;
             [
               wrappedSlurm
               munge
               coreutils
             ]
-            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
+            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11
+          ;
 
           wantedBy = [ "multi-user.target" ];
           after = [

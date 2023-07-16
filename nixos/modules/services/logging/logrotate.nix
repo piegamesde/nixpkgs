@@ -220,7 +220,8 @@ in
               ...
             }:
             {
-              freeformType = with types;
+              freeformType =
+                with types;
                 attrsOf (
                   nullOr (
                     oneOf [
@@ -229,7 +230,8 @@ in
                       str
                     ]
                   )
-                );
+                )
+              ;
 
               options = {
                 enable =

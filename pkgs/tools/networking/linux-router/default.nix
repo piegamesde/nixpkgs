@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  installPhase = with lib;
+  installPhase =
+    with lib;
     let
       binPath = makeBinPath (
         [

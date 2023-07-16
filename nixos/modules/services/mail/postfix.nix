@@ -600,12 +600,14 @@ in
       };
 
       aliasMapType = mkOption {
-        type = with types;
+        type =
+          with types;
           enum [
             "hash"
             "regexp"
             "pcre"
-          ];
+          ]
+        ;
         default = "hash";
         example = "regexp";
         description =
@@ -615,14 +617,16 @@ in
       };
 
       config = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               bool
               str
               (listOf str)
             ]
-          );
+          )
+        ;
         description = lib.mdDoc ''
           The main.cf configuration file as key value set.
         '';

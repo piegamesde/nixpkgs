@@ -626,7 +626,8 @@ in
       wantedBy = [ "multi-user.target" ];
       environment =
         config.networking.proxy.envVars // { HOME = "/var/lib/gitlab-runner"; };
-      path = with pkgs;
+      path =
+        with pkgs;
         [
           bash
           gawk
@@ -636,7 +637,8 @@ in
           util-linux
           cfg.package
         ]
-        ++ cfg.extraPackages;
+        ++ cfg.extraPackages
+      ;
       reloadIfChanged = true;
       serviceConfig = {
         # Set `DynamicUser` under `systemd.services.gitlab-runner.serviceConfig`

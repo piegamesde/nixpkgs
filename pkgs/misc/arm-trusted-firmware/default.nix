@@ -96,7 +96,8 @@ let
         # Fatal error: can't create build/sun50iw1p1/release/bl31/sunxi_clocks.o: No such file or directory
         enableParallelBuilding = false;
 
-        meta = with lib;
+        meta =
+          with lib;
           {
             homepage = "https://github.com/ARM-software/arm-trusted-firmware";
             description =
@@ -108,7 +109,8 @@ let
               ]
             ;
             maintainers = with maintainers; [ lopsided98 ];
-          } // extraMeta;
+          } // extraMeta
+        ;
       } // builtins.removeAttrs args [ "extraMeta" ]
     )
   ;

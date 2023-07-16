@@ -154,13 +154,15 @@ in
         description = lib.mdDoc "Mail host port.";
       };
       encryption = mkOption {
-        type = with types;
+        type =
+          with types;
           nullOr (
             enum [
               "tls"
               "ssl"
             ]
-          );
+          )
+        ;
         default = null;
         description = lib.mdDoc "SMTP encryption mechanism to use.";
       };
@@ -221,14 +223,16 @@ in
     };
 
     poolConfig = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           oneOf [
             str
             int
             bool
           ]
-        );
+        )
+      ;
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -268,7 +272,8 @@ in
     };
 
     config = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           nullOr (
             either
@@ -299,7 +304,8 @@ in
                 }
               )
           )
-        );
+        )
+      ;
       default = { };
       example = literalExpression ''
         {

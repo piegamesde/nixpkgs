@@ -91,12 +91,14 @@ buildGoModule rec {
     description =
       "A command line utility for various operations on container images and image repositories";
     homepage = "https://github.com/containers/skopeo";
-    maintainers = with maintainers;
+    maintainers =
+      with maintainers;
       [
         lewo
         developer-guy
       ]
-      ++ teams.podman.members;
+      ++ teams.podman.members
+    ;
     license = licenses.asl20;
   };
 }

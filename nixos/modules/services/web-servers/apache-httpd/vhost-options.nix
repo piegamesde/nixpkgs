@@ -30,7 +30,8 @@ in
     };
 
     listen = mkOption {
-      type = with types;
+      type =
+        with types;
         listOf (
           submodule ({
             options = {
@@ -56,7 +57,8 @@ in
               };
             };
           })
-        );
+        )
+      ;
       default = [ ];
       example = [
         {

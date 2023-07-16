@@ -35,7 +35,8 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     [
       cairosvg
       natsort
@@ -55,7 +56,8 @@ python3Packages.buildPythonApplication rec {
       skytemple-ssb-debugger
       tilequant
     ]
-    ++ skytemple-files.optional-dependencies.spritecollab;
+    ++ skytemple-files.optional-dependencies.spritecollab
+  ;
 
   doCheck = false; # there are no tests
 

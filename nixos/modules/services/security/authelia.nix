@@ -11,7 +11,8 @@ let
   format = pkgs.formats.yaml { };
   configFile = format.generate "config.yml" cfg.settings;
 
-  autheliaOpts = with lib;
+  autheliaOpts =
+    with lib;
     {
       name,
       ...
@@ -282,10 +283,12 @@ let
           '';
         };
       };
-    };
+    }
+  ;
 in
 {
-  options.services.authelia.instances = with lib;
+  options.services.authelia.instances =
+    with lib;
     mkOption {
       default = { };
       type = types.attrsOf (types.submodule autheliaOpts);
@@ -326,7 +329,8 @@ in
           };
         }
       '';
-    };
+    }
+  ;
 
   config =
     let

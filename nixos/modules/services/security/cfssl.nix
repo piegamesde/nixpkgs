@@ -221,7 +221,8 @@ in
           User = "cfssl";
           Group = "cfssl";
 
-          ExecStart = with cfg;
+          ExecStart =
+            with cfg;
             let
               opt = n: v: optionalString (v != null) ''-${n}="${v}"'';
             in

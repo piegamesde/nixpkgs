@@ -38,7 +38,8 @@ let
       jsProdVendor = "./src/materialized/src/http/static/js/vendor";
       jsDevVendor = "./src/materialized/src/http/static-dev/js/vendor";
 
-      files = with args;
+      files =
+        with args;
         [
           {
             src = js_prod_file;
@@ -56,7 +57,8 @@ let
         ++ lib.optional (args ? extra_file) {
           src = extra_file.src;
           dst = "${static}/${extra_file.dst}";
-        };
+        }
+      ;
     in
     lib.concatStringsSep "\n" (
       lib.forEach files (

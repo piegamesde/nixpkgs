@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     cp -a rofi-systemd $out/bin/rofi-systemd
   '';
 
-  wrapperPath = with lib;
+  wrapperPath =
+    with lib;
     makeBinPath [
       coreutils
       gawk
@@ -39,7 +40,8 @@ stdenv.mkDerivation rec {
       rofi
       systemd
       util-linux
-    ];
+    ]
+  ;
 
   fixupPhase = ''
     patchShebangs $out/bin

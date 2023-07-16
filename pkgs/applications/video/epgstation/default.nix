@@ -126,11 +126,13 @@ in
 server // {
   name = "${pname}-${version}";
 
-  meta = with lib;
+  meta =
+    with lib;
     server.meta // {
       maintainers = with maintainers; [ midchildan ];
 
       # NOTE: updateScript relies on this being correct
       position = toString ./default.nix + ":1";
-    };
+    }
+  ;
 }

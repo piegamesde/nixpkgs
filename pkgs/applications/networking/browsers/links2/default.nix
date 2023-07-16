@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IqqWwLOOGm+PftnXpBZ6R/w3JGCXdZ72BZ7Pj56teZg=";
   };
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       libev
       librsvg
@@ -49,7 +50,8 @@ stdenv.mkDerivation rec {
       libXau
       libXt
     ]
-    ++ optionals enableDirectFB [ directfb ];
+    ++ optionals enableDirectFB [ directfb ]
+  ;
 
   nativeBuildInputs = [
     pkg-config

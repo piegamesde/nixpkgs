@@ -140,7 +140,8 @@ in
 
   config = mkMerge [
     {
-      console.keyMap = with config.services.xserver;
+      console.keyMap =
+        with config.services.xserver;
         mkIf cfg.useXkbConfig (
           pkgs.runCommand "xkb-console-keymap" { preferLocalBuild = true; } ''
             '${pkgs.buildPackages.ckbcomp}/bin/ckbcomp' \
@@ -152,7 +153,8 @@ in
               -model '${xkbModel}' -layout '${layout}' \
               -option '${xkbOptions}' -variant '${xkbVariant}' > "$out"
           ''
-        );
+        )
+      ;
     }
 
     (mkIf (!cfg.enable) {

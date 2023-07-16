@@ -192,7 +192,8 @@ in
       };
 
       connectionConfig = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             nullOr (
               oneOf [
@@ -201,7 +202,8 @@ in
                 str
               ]
             )
-          );
+          )
+        ;
         default = { };
         description = lib.mdDoc ''
           Configuration for the [connection] section of NetworkManager.conf.

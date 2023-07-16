@@ -3553,24 +3553,28 @@ let
       networks = mkOption {
         default = { };
         inherit visible;
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule [
               { options = networkOptions; }
               networkConfig
             ]
-          );
+          )
+        ;
         description = lib.mdDoc "Definition of systemd networks.";
       };
 
       config = mkOption {
         default = { };
         inherit visible;
-        type = with types;
+        type =
+          with types;
           submodule [
             { options = networkdOptions; }
             networkdConfig
-          ];
+          ]
+        ;
         description = lib.mdDoc "Definition of global systemd network config.";
       };
 
@@ -3578,7 +3582,8 @@ let
         description = lib.mdDoc "Definition of networkd units.";
         default = { };
         internal = true;
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule (
               {
@@ -3594,7 +3599,8 @@ let
                 config = { unit = mkDefault (makeUnit name config); };
               }
             )
-          );
+          )
+        ;
       };
 
       wait-online = {

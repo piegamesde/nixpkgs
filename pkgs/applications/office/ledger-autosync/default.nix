@@ -23,7 +23,8 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ poetry-core ];
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     [
       asn1crypto
       beautifulsoup4
@@ -46,7 +47,8 @@ python3Packages.buildPythonApplication rec {
       six
     ]
     ++ lib.optional useLedger ledger
-    ++ lib.optional useHledger hledger;
+    ++ lib.optional useHledger hledger
+  ;
 
   # Checks require ledger as a python package,
   # ledger does not support python3 while ledger-autosync requires it.

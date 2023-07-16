@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-vLvt2sankpQWAVZBPo3OePs4LDy7YfVnMkZLfN6ERAc=";
   };
 
-  cmakeFlags = with lib;
+  cmakeFlags =
+    with lib;
     [
       "-DCMAKE_BUILD_TYPE=Release"
       "-DBUILD_TESTING=ON"
@@ -60,7 +61,8 @@ stdenv.mkDerivation rec {
         "-DNVML_LIBRARIES=${cudatoolkit}/targets/x86_64-linux/lib/stubs/libnvidia-ml.so"
     ++ optional (!amd) "-DAMDGPU_SUPPORT=OFF"
     ++ optional (!nvidia) "-DNVIDIA_SUPPORT=OFF"
-    ++ optional amd "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2";
+    ++ optional amd "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2"
+  ;
   nativeBuildInputs =
     [
       cmake
@@ -68,13 +70,15 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional nvidia addOpenGLRunpath
   ;
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       ncurses
       udev
     ]
     ++ optional nvidia cudatoolkit
-    ++ optional amd libdrm;
+    ++ optional amd libdrm
+  ;
 
   # ordering of fixups is important
   postFixup =

@@ -168,7 +168,8 @@ let
     }
   ;
 
-  ceph-common = with python.pkgs;
+  ceph-common =
+    with python.pkgs;
     buildPythonPackage {
       pname = "ceph-common";
       inherit src version;
@@ -186,7 +187,8 @@ let
         ];
 
       meta = getMeta "Ceph common module for code shared by manager modules";
-    };
+    }
+  ;
 
   # Watch out for python <> boost compatibility
   python = python310.override {

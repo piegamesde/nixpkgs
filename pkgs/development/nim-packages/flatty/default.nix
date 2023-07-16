@@ -17,10 +17,12 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Tools and serializer for plain flat binary files";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    };
+    }
+  ;
 }

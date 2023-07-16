@@ -182,7 +182,8 @@ in
           receivers
       ;
 
-      systemd.services = with attrsets;
+      systemd.services =
+        with attrsets;
         mapAttrs'
           (
             name: config:
@@ -234,7 +235,8 @@ in
               ;
             }
           )
-          receivers;
+          receivers
+      ;
     }
   ;
 

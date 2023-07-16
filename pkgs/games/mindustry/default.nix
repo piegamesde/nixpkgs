@@ -161,7 +161,8 @@ stdenv.mkDerivation rec {
 
   desktopItems = lib.optional enableClient desktopItem;
 
-  buildPhase = with lib;
+  buildPhase =
+    with lib;
     ''
       export GRADLE_USER_HOME=$(mktemp -d)
 
@@ -194,9 +195,11 @@ stdenv.mkDerivation rec {
     ''
     + optionalString enableServer ''
       gradle --offline --no-daemon server:dist -Pbuildversion=${buildVersion}
-    '';
+    ''
+  ;
 
-  installPhase = with lib;
+  installPhase =
+    with lib;
     ''
       runHook preInstall
     ''
@@ -234,7 +237,8 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postInstall
-    '';
+    ''
+  ;
 
   passthru.tests = { nixosTest = nixosTests.mindustry; };
 

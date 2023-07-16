@@ -112,7 +112,8 @@ stdenv.mkDerivation (
       inherit graalvmPhases;
     } // passthru;
 
-    meta = with lib;
+    meta =
+      with lib;
       (
         {
           inherit (graalvm-ce.meta)
@@ -124,6 +125,7 @@ stdenv.mkDerivation (
           ;
           description = "High-Performance Polyglot VM (Product: ${product})";
         } // meta
-      );
+      )
+    ;
   } // extraArgs
 )

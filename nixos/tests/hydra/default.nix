@@ -13,7 +13,8 @@ let
 
   hydraPkgs = { inherit (pkgs) hydra_unstable; };
 
-  makeHydraTest = with pkgs.lib;
+  makeHydraTest =
+    with pkgs.lib;
     name: package:
     makeTest {
       name = "hydra-${name}";
@@ -63,7 +64,8 @@ let
             'journalctl -eu hydra-notify.service -o cat | grep -q "sending mail notification to hydra@localhost"'
         )
       '';
-    };
+    }
+  ;
 in
 
 mapAttrs makeHydraTest hydraPkgs

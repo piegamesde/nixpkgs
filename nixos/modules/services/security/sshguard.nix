@@ -131,7 +131,8 @@ in
 
       restartTriggers = [ configFile ];
 
-      path = with pkgs;
+      path =
+        with pkgs;
         if config.networking.nftables.enable then
           [
             nftables
@@ -144,7 +145,8 @@ in
             ipset
             iproute2
             systemd
-          ];
+          ]
+      ;
 
       # The sshguard ipsets must exist before we invoke
       # iptables. sshguard creates the ipsets after startup if

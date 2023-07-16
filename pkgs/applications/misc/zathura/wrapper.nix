@@ -9,13 +9,15 @@
 symlinkJoin {
   name = "zathura-with-plugins-${zathura_core.version}";
 
-  paths = with zathura_core;
+  paths =
+    with zathura_core;
     [
       man
       dev
       out
     ]
-    ++ plugins;
+    ++ plugins
+  ;
 
   nativeBuildInputs = [ makeWrapper ];
 

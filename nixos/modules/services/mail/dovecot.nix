@@ -288,7 +288,8 @@ in
         ;
       in
       mkOption {
-        type = with types;
+        type =
+          with types;
           submodule {
             options = {
               globally = mkOption {
@@ -310,7 +311,8 @@ in
                 example = { imap = [ "imap_acl" ]; };
               };
             };
-          };
+          }
+        ;
         description =
           lib.mdDoc
             "Additional entries to add to the mail_plugins variable, globally and per protocol"
@@ -424,7 +426,8 @@ in
     );
 
     mailboxes = mkOption {
-      type = with types;
+      type =
+        with types;
         coercedTo (listOf unspecified)
           (
             list:
@@ -437,7 +440,8 @@ in
                 list
             )
           )
-          (attrsOf (submodule mailboxes));
+          (attrsOf (submodule mailboxes))
+      ;
       default = { };
       example = literalExpression ''
         {

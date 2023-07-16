@@ -160,7 +160,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs.xfce // pkgs;
+    environment.systemPackages =
+      with pkgs.xfce // pkgs;
       [
         glib # for gsettings
         gtk3.out # gtk-update-icon-cache
@@ -213,7 +214,8 @@ in
         xfce4-panel
         xfdesktop
       ]
-      ++ optional cfg.enableScreensaver xfce4-screensaver;
+      ++ optional cfg.enableScreensaver xfce4-screensaver
+    ;
 
     programs.xfconf.enable = true;
     programs.thunar.enable = true;

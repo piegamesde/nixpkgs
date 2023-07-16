@@ -9,14 +9,16 @@ with lib;
 
 let
   settingsFormat = {
-    type = with lib.types;
+    type =
+      with lib.types;
       attrsOf (
         oneOf [
           bool
           int
           str
         ]
-      );
+      )
+    ;
     generate =
       name: attrs:
       pkgs.writeText name (
@@ -66,7 +68,8 @@ in
 
             plugins = mkOption {
               description = lib.mdDoc "Uhub plugin configuration.";
-              type = with types;
+              type =
+                with types;
                 listOf (
                   submodule {
                     options = {
@@ -88,7 +91,8 @@ in
                       };
                     };
                   }
-                );
+                )
+              ;
               default = [ ];
             };
           };

@@ -76,7 +76,8 @@ buildPythonPackage rec {
 
   dontWrapQtApps = true;
 
-  nativeBuildInputs = with libsForQt5;
+  nativeBuildInputs =
+    with libsForQt5;
     [
       pkg-config
       qmake
@@ -92,9 +93,11 @@ buildPythonPackage rec {
     ++ lib.optional withMultimedia qtmultimedia
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
-    ++ lib.optional withLocation qtlocation;
+    ++ lib.optional withLocation qtlocation
+  ;
 
-  buildInputs = with libsForQt5;
+  buildInputs =
+    with libsForQt5;
     [
       dbus
       qtbase
@@ -105,7 +108,8 @@ buildPythonPackage rec {
     ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
-    ++ lib.optional withLocation qtlocation;
+    ++ lib.optional withLocation qtlocation
+  ;
 
   propagatedBuildInputs = [
     dbus-python

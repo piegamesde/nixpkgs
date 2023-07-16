@@ -18,10 +18,12 @@ buildNimPackage rec {
   propagatedNativeBuildInputs = [ pkg-config ];
   propagatedBuildInputs = [ tkrzw ];
   doCheck = true;
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Nim wrappers over some of the Tkrzw C++ library";
       license = lib.licenses.apsl20;
       maintainers = with lib.maintainers; [ ehmry ];
-    };
+    }
+  ;
 }

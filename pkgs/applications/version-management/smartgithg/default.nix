@@ -78,7 +78,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItem = with lib;
+  desktopItem =
+    with lib;
     makeDesktopItem rec {
       name = "smartgit";
       exec = "smartgit";
@@ -98,7 +99,8 @@ stdenv.mkDerivation rec {
       startupNotify = true;
       startupWMClass = name;
       keywords = [ "git" ];
-    };
+    }
+  ;
 
   meta = with lib; {
     description = "GUI for Git, Mercurial, Subversion";

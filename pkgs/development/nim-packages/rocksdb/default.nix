@@ -22,9 +22,11 @@ buildNimPackage rec {
   ];
   propagatedBuildInputs = [ rocksdb ];
   doCheck = false;
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Nim wrapper for RocksDB";
       maintainers = [ maintainers.ehmry ];
-    };
+    }
+  ;
 }

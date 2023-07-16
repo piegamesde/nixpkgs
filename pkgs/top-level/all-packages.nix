@@ -4853,7 +4853,8 @@ with pkgs;
     '';
   };
 
-  stack2nix = with haskell.lib;
+  stack2nix =
+    with haskell.lib;
     overrideCabal (justStaticExecutables haskellPackages.stack2nix) (
       _: {
         executableToolDepends = [ makeWrapper ];
@@ -4862,7 +4863,8 @@ with pkgs;
             --prefix PATH ":" "${git}/bin:${cabal-install}/bin"
         '';
       }
-    );
+    )
+  ;
 
   caddy = callPackage ../servers/caddy { };
 
@@ -14458,7 +14460,8 @@ with pkgs;
 
   inherit (nodePackages) thelounge;
 
-  theLoungePlugins = with lib;
+  theLoungePlugins =
+    with lib;
     let
       pkgs = filterAttrs (name: _: hasPrefix "thelounge-" name) nodePackages;
       getPackagesWithPrefix =
@@ -21437,8 +21440,10 @@ with pkgs;
 
   openai = with python3Packages; toPythonApplication openai;
 
-  openai-full = with python3Packages;
-    toPythonApplication (openai.override { withOptionalDependencies = true; });
+  openai-full =
+    with python3Packages;
+    toPythonApplication (openai.override { withOptionalDependencies = true; })
+  ;
 
   openai-whisper = with python3.pkgs; toPythonApplication openai-whisper;
 
@@ -29238,7 +29243,8 @@ with pkgs;
 
   mycorrhiza = callPackage ../servers/mycorrhiza { };
 
-  napalm = with python3Packages;
+  napalm =
+    with python3Packages;
     toPythonApplication (
       napalm.overridePythonAttrs (
         attrs: {
@@ -29247,7 +29253,8 @@ with pkgs;
             attrs.propagatedBuildInputs ++ [ napalm-hp-procurve ];
         }
       )
-    );
+    )
+  ;
 
   nas = callPackage ../servers/nas { };
 
@@ -35357,10 +35364,12 @@ with pkgs;
 
   formatter = callPackage ../applications/misc/formatter { };
 
-  formiko = with python3Packages;
+  formiko =
+    with python3Packages;
     callPackage ../applications/editors/formiko {
       inherit buildPythonApplication;
-    };
+    }
+  ;
 
   foxotron = callPackage ../applications/graphics/foxotron {
     inherit (darwin.apple_sdk.frameworks)
@@ -46030,8 +46039,10 @@ with pkgs;
 
   vivid = callPackage ../tools/misc/vivid { };
 
-  vivisect = with python3Packages;
-    toPythonApplication (vivisect.override { withGui = true; });
+  vivisect =
+    with python3Packages;
+    toPythonApplication (vivisect.override { withGui = true; })
+  ;
 
   vokoscreen = libsForQt5.callPackage ../applications/video/vokoscreen { };
 

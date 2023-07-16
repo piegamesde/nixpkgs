@@ -12,7 +12,8 @@ mkCoqDerivation {
   pname = "verdi";
   owner = "uwplse";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -32,7 +33,8 @@ mkCoqDerivation {
           out = "20181102";
         }
       ]
-      null;
+      null
+  ;
   release."20211026".rev = "064cc4fb2347453bf695776ed820ffb5fbc1d804";
   release."20211026".sha256 =
     "sha256:13xrcyzay5sjszf5lg4s44wl9nrcz22n6gi4h95pkpj0ni5clinx";

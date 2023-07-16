@@ -28,7 +28,8 @@
     "sha256-mH/v02ObMjbVPYx2H+Jhz+Xp0XRKN67iMAdA1VNFzso=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -56,7 +57,8 @@
           out = "8.5.0";
         }
       ]
-      null;
+      null
+  ;
 
   useDuneifVersion = lib.versions.isGe "9.0";
 

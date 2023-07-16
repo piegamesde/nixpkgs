@@ -51,7 +51,8 @@ py.pkgs.buildPythonApplication rec {
 
   format = "other";
 
-  propagatedBuildInputs = with py.pkgs;
+  propagatedBuildInputs =
+    with py.pkgs;
     [
       django
       djangorestframework
@@ -74,7 +75,8 @@ py.pkgs.buildPythonApplication rec {
       requests
       tzdata
     ]
-    ++ plugins py.pkgs;
+    ++ plugins py.pkgs
+  ;
 
   buildPhase = ''
     runHook preBuild

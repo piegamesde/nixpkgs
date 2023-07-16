@@ -21,7 +21,8 @@ mkCoqDerivation {
   releaseRev = (v: "v${v}");
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch
       [
         coq.version
@@ -43,7 +44,8 @@ mkCoqDerivation {
           out = "1.11";
         }
       ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs = [
     mathcomp.ssreflect

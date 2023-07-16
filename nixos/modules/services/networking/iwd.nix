@@ -13,8 +13,10 @@ let
   defaults = {
     # without UseDefaultInterface, sometimes wlan0 simply goes AWOL with NetworkManager
     # https://iwd.wiki.kernel.org/interface_lifecycle#interface_management_in_iwd
-    General.UseDefaultInterface = with config.networking.networkmanager;
-      (enable && (wifi.backend == "iwd"));
+    General.UseDefaultInterface =
+      with config.networking.networkmanager;
+      (enable && (wifi.backend == "iwd"))
+    ;
   };
   configFile = ini.generate "main.conf" (recursiveUpdate defaults cfg.settings);
 in

@@ -133,7 +133,8 @@ in
           lib.mdDoc
             "Tier and path definitions for datanode storage."
         ;
-        type = with types;
+        type =
+          with types;
           nullOr (
             listOf (
               submodule {
@@ -160,7 +161,8 @@ in
                 };
               }
             )
-          );
+          )
+        ;
       };
     };
 

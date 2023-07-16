@@ -156,12 +156,14 @@ stdenv.mkDerivation rec {
       the system's terminfo database.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers;
+    maintainers =
+      with maintainers;
       [
         astsmtl
         antono
       ]
-      ++ teams.gnome.members;
+      ++ teams.gnome.members
+    ;
     platforms = platforms.unix;
   };
 }

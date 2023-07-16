@@ -125,7 +125,8 @@ let
             hash = "sha256-g4PYB9YbkX0almRPgMFlb8D633Y5fc3H+Boa541suqc=";
           };
 
-          propagatedBuildInputs = with self;
+          propagatedBuildInputs =
+            with self;
             [
               argon2-cffi
               blinker
@@ -176,7 +177,8 @@ let
               zeroconf
               zipstream-ng
             ]
-            ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ];
+            ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ]
+          ;
 
           nativeCheckInputs = with self; [
             ddt

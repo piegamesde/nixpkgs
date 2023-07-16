@@ -20,12 +20,14 @@ let
   cfg = config.networking.stevenblack;
 
   # needs to be in a specific order
-  activatedHosts = with cfg;
+  activatedHosts =
+    with cfg;
     [ ]
     ++ optionals (elem "fakenews" block) [ "fakenews" ]
     ++ optionals (elem "gambling" block) [ "gambling" ]
     ++ optionals (elem "porn" block) [ "porn" ]
-    ++ optionals (elem "social" block) [ "social" ];
+    ++ optionals (elem "social" block) [ "social" ]
+  ;
 
   hostsPath =
     "${pkgs.stevenblack-blocklist}/alternates/"

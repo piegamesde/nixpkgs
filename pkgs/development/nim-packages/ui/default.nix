@@ -21,10 +21,12 @@ buildNimPackage rec {
     echo {.passL: r\"$(pkg-config --libs libui)\".} >> ui/rawui.nim
   '';
   doCheck = true;
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Nim bindings to libui";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    };
+    }
+  ;
 }

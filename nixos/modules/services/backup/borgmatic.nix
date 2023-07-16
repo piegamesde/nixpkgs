@@ -11,7 +11,8 @@ let
   cfg = config.services.borgmatic;
   settingsFormat = pkgs.formats.yaml { };
 
-  cfgType = with types;
+  cfgType =
+    with types;
     submodule {
       freeformType = settingsFormat.type;
       options.location = {
@@ -45,7 +46,8 @@ let
           ];
         };
       };
-    };
+    }
+  ;
 
   cfgfile = settingsFormat.generate "config.yaml" cfg.settings;
 in

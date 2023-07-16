@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
     "CCOMP=${stdenv.cc.targetPrefix}cc"
   ];
 
-  setupHook = with lib;
+  setupHook =
+    with lib;
     let
       hookFiles =
         [ ./setup-hook.sh ] ++ optional withContrib ./setup-contrib-hook.sh;

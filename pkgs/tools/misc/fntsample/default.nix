@@ -59,13 +59,15 @@ stdenv.mkDerivation rec {
 
   postFixup =
     let
-      perlPath = with perlPackages;
+      perlPath =
+        with perlPackages;
         makePerlPath [
           ExporterTiny
           ListMoreUtils
           PDFAPI2
           libintl-perl
-        ];
+        ]
+      ;
     in
     ''
       for cmd in pdfoutline pdf-extract-outline; do

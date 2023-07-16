@@ -10,7 +10,8 @@ let
   cfg = config.services.gerrit;
 
   # NixOS option type for git-like configs
-  gitIniType = with types;
+  gitIniType =
+    with types;
     let
       primitiveType = either str (either bool int);
       multipleType = either primitiveType (listOf primitiveType);

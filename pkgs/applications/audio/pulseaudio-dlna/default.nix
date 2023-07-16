@@ -30,7 +30,8 @@ python3Packages.buildPythonApplication {
 
   patches = [ ./0001-setup.py-remove-dbus-python-from-list.patch ];
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     [
       dbus-python
       docopt
@@ -53,7 +54,8 @@ python3Packages.buildPythonApplication {
     ++ lib.optional faacSupport faac
     ++ lib.optional flacSupport flac
     ++ lib.optional soxSupport sox
-    ++ lib.optional vorbisSupport vorbis-tools;
+    ++ lib.optional vorbisSupport vorbis-tools
+  ;
 
   # pulseaudio-dlna shells out to pactl to configure sinks and sources.
   # As pactl might not be in $PATH, add --suffix it (so pactl configured by the

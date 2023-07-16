@@ -9,7 +9,8 @@
 
 let
   version = "4.13.0";
-  platform = with stdenv;
+  platform =
+    with stdenv;
     if isDarwin then
       "macosx"
     else if isCygwin then
@@ -19,7 +20,8 @@ let
     else if isSunOS then
       "solaris"
     else
-      "linux"; # Should be a sane default
+      "linux"
+  ; # Should be a sane default
 in
 stdenv.mkDerivation {
   pname = "chicken";

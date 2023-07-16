@@ -21,7 +21,8 @@ let
   ;
 
   # reports boolean as yes / no
-  mkValueStringSshd = with lib;
+  mkValueStringSshd =
+    with lib;
     v:
     if isInt v then
       toString v
@@ -36,7 +37,8 @@ let
     else
       throw "unsupported type ${builtins.typeOf v}: ${
           (lib.generators.toPretty { }) v
-        }";
+        }"
+  ;
 
   # dont use the "=" operator
   settingsFormat =
@@ -370,7 +372,8 @@ in
       };
 
       listenAddresses = mkOption {
-        type = with types;
+        type =
+          with types;
           listOf (
             submodule {
               options = {
@@ -390,7 +393,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
         default = [ ];
         example = [
           {

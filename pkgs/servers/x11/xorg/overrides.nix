@@ -606,13 +606,15 @@ self: super:
 
   libXpresent = super.libXpresent.overrideAttrs (
     attrs: {
-      buildInputs = with xorg;
+      buildInputs =
+        with xorg;
         attrs.buildInputs
         ++ [
           libXext
           libXfixes
           libXrandr
-        ];
+        ]
+      ;
     }
   );
 
@@ -1134,7 +1136,8 @@ self: super:
     }
   );
 
-  xorgserver = with xorg;
+  xorgserver =
+    with xorg;
     super.xorgserver.overrideAttrs (
       attrs_passed:
       # exchange attrs if abiCompat is set
@@ -1373,7 +1376,8 @@ self: super:
             passthru.version = version;
           }
       )
-    );
+    )
+  ;
 
   lndir = super.lndir.overrideAttrs (
     attrs: {

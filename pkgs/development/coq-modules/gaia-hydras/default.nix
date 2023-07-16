@@ -18,7 +18,8 @@ mkCoqDerivation rec {
   releaseRev = (v: "v${v}");
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch
       [
         coq.coq-version
@@ -40,7 +41,8 @@ mkCoqDerivation rec {
           out = "0.5";
         }
       ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs = [
     hydra-battles

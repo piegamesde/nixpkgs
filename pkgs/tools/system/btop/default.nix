@@ -18,10 +18,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-F/muCjhcnM+VqAn6FlD4lv23OLITrmtnHkFc5zv97yk=";
   };
 
-  ADDFLAGS = with darwin.apple_sdk.frameworks;
-    lib.optional stdenv.isDarwin "-F${IOKit}/Library/Frameworks/";
+  ADDFLAGS =
+    with darwin.apple_sdk.frameworks;
+    lib.optional stdenv.isDarwin "-F${IOKit}/Library/Frameworks/"
+  ;
 
-  buildInputs = with darwin.apple_sdk;
+  buildInputs =
+    with darwin.apple_sdk;
     lib.optionals stdenv.isDarwin [
       frameworks.CoreFoundation
       frameworks.IOKit
@@ -36,7 +39,8 @@ stdenv.mkDerivation rec {
           lib.getDev sdk
         }"/include/libproc.h "$out"/include/libproc.h
       ''
-    );
+    )
+  ;
 
   installFlags = [ "PREFIX=$(out)" ];
 

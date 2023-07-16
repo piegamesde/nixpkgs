@@ -153,7 +153,8 @@ in
       # Fix lockscreen
       security.pam.services = { cinnamon-screensaver = { }; };
 
-      environment.systemPackages = with pkgs.cinnamon // pkgs;
+      environment.systemPackages =
+        with pkgs.cinnamon // pkgs;
         (
           [
             desktop-file-utils
@@ -209,7 +210,8 @@ in
                 xapp # provides some xapp-* icons
               ]
               config.environment.cinnamon.excludePackages
-        );
+        )
+      ;
 
       xdg.mime.enable = true;
       xdg.icons.enable = true;
@@ -246,7 +248,8 @@ in
       programs.gnome-terminal.enable = mkDefault true;
       programs.file-roller.enable = mkDefault true;
 
-      environment.systemPackages = with pkgs // pkgs.gnome // pkgs.cinnamon;
+      environment.systemPackages =
+        with pkgs // pkgs.gnome // pkgs.cinnamon;
         utils.removePackagesByName
           [
             # cinnamon team apps
@@ -266,7 +269,8 @@ in
             gnome-calendar
             gnome-screenshot
           ]
-          config.environment.cinnamon.excludePackages;
+          config.environment.cinnamon.excludePackages
+      ;
     })
   ];
 }

@@ -123,7 +123,8 @@ in
       };
 
       instance = mkOption {
-        type = with types;
+        type =
+          with types;
           let
             valueType = nullOr (
               oneOf [

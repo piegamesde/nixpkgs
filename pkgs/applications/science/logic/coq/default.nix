@@ -135,12 +135,14 @@ let
         ]
         ocamlPackages_4_14
   ;
-  ocamlNativeBuildInputs = with ocamlPackages;
+  ocamlNativeBuildInputs =
+    with ocamlPackages;
     [
       ocaml
       findlib
     ]
-    ++ optional (coqAtLeast "8.14") dune_2;
+    ++ optional (coqAtLeast "8.14") dune_2
+  ;
   ocamlPropagatedBuildInputs =
     [ ]
     ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5

@@ -189,7 +189,8 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       description = "G-code generator for 3D printer";
       homepage = "https://github.com/prusa3d/PrusaSlicer";
@@ -198,5 +199,6 @@ stdenv.mkDerivation rec {
         moredread
         tweber
       ];
-    } // lib.optionalAttrs (stdenv.isDarwin) { mainProgram = "PrusaSlicer"; };
+    } // lib.optionalAttrs (stdenv.isDarwin) { mainProgram = "PrusaSlicer"; }
+  ;
 }

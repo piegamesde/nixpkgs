@@ -30,13 +30,15 @@ let
     sha256 = "15gw2nyrqmdsdin8gzxihpn77grhk9l97jp7s7pr7sl4n9ya2rpj";
   };
 
-  perlPath = with perlPackages;
+  perlPath =
+    with perlPackages;
     makePerlPath [
       NetDBus
       XMLTwig
       XMLParser
       X11Protocol
-    ];
+    ]
+  ;
 in
 
 stdenv.mkDerivation rec {

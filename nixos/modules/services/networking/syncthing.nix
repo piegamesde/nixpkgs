@@ -337,7 +337,8 @@ in
                       }
                     ]
                   '';
-                  type = with types;
+                  type =
+                    with types;
                     nullOr (
                       submodule {
                         options = {
@@ -371,7 +372,8 @@ in
                           };
                         };
                       }
-                    );
+                    )
+                  ;
                 };
 
                 rescanInterval = mkOption {

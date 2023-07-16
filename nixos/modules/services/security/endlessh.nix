@@ -62,14 +62,16 @@ in
         in
         {
           Restart = "always";
-          ExecStart = with cfg;
+          ExecStart =
+            with cfg;
             concatStringsSep " " (
               [
                 "${pkgs.endlessh}/bin/endlessh"
                 "-p ${toString port}"
               ]
               ++ extraOptions
-            );
+            )
+          ;
           DynamicUser = true;
           RootDirectory = rootDirectory;
           BindReadOnlyPaths = [ builtins.storeDir ];

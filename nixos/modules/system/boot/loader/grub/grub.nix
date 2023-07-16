@@ -126,7 +126,8 @@ let
           gfxpayloadEfi
           gfxpayloadBios
         ;
-        path = with pkgs;
+        path =
+          with pkgs;
           makeBinPath (
             [
               coreutils
@@ -143,7 +144,8 @@ let
               busybox
               os-prober
             ]
-          );
+          )
+        ;
         font =
           if cfg.font == null then
             ""
@@ -245,7 +247,8 @@ in
           (as opposed to external files) will be copied into the Nix store, and
           will be visible to all local users.
         '';
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule {
               options = {
@@ -293,7 +296,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
       };
 
       mirroredBoots = mkOption {
@@ -313,7 +317,8 @@ in
           to the respective devices corresponding to those partitions.
         '';
 
-        type = with types;
+        type =
+          with types;
           listOf (
             submodule {
               options = {
@@ -362,7 +367,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
       };
 
       configurationName = mkOption {

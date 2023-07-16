@@ -416,7 +416,8 @@ let
 
             # The test cannot access the network, so any packages we
             # need must be included in the VM.
-            system.extraDependencies = with pkgs;
+            system.extraDependencies =
+              with pkgs;
               [
                 brotli
                 brotli.dev
@@ -467,7 +468,8 @@ let
                   (pkgs.grub2.override { inherit zfsSupport; })
                   (pkgs.grub2_efi.override { inherit zfsSupport; })
                 ]
-              );
+              )
+            ;
 
             nix.settings = {
               substituters = mkForce [ ];

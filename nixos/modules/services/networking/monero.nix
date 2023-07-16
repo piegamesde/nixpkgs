@@ -21,7 +21,8 @@ let
 
   login = (cfg.rpc.user != null && cfg.rpc.password != null);
 
-  configFile = with cfg;
+  configFile =
+    with cfg;
     pkgs.writeText "monero.conf" ''
       log-file=/dev/stdout
       data-dir=${dataDir}
@@ -50,7 +51,8 @@ let
       ${listToConf "add-exclusive-node" exclusiveNodes}
 
       ${extraConfig}
-    '';
+    ''
+  ;
 in
 
 {

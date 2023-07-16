@@ -25,7 +25,8 @@ in
       };
 
       config = mkOption {
-        type = with types;
+        type =
+          with types;
           let
             gitini = attrsOf (attrsOf anything);
           in

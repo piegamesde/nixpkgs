@@ -17,7 +17,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-7iw4s06oYUCQE8gc8KqFKX1pzxB3O3PuegcQtclC3Mo=";
   };
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       distro
       jinja2
@@ -32,7 +33,8 @@ python3.pkgs.buildPythonApplication rec {
       pyzmq
       requests
     ]
-    ++ extraInputs;
+    ++ extraInputs
+  ;
 
   patches = [ ./fix-libcrypto-loading.patch ];
 

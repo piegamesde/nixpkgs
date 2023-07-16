@@ -156,7 +156,8 @@ in
         attribute name.
       '';
 
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
 
@@ -242,7 +243,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     services.openvpn.restartAfterSleep = mkOption {

@@ -33,7 +33,8 @@ in
     pname = "serapi";
     inherit version release;
 
-    defaultVersion = with versions;
+    defaultVersion =
+      with versions;
       lib.switch coq.version
         [
           {
@@ -69,7 +70,8 @@ in
             out = "8.10.0+0.7.2";
           }
         ]
-        null;
+        null
+    ;
 
     useDune = true;
 

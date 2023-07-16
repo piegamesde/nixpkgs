@@ -13,7 +13,8 @@
       "plover.stable was removed because it used Python 2. Use plover.dev instead."
   ; # added 2022-06-05
 
-  dev = with python3Packages;
+  dev =
+    with python3Packages;
     mkDerivationWith buildPythonPackage rec {
       pname = "plover";
       version = "4.0.0.dev10";
@@ -58,5 +59,6 @@
       preFixup = ''
         makeWrapperArgs+=("''${qtWrapperArgs[@]}")
       '';
-    };
+    }
+  ;
 }

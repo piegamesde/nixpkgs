@@ -16,14 +16,16 @@ let
     bool
     str
   ];
-  base = with types;
+  base =
+    with types;
     oneOf (
       [
         (listOf (oneOf _base))
         (attrsOf (oneOf _base))
       ]
       ++ _base
-    );
+    )
+  ;
 
   formatAttrset =
     attr:
@@ -61,14 +63,16 @@ let
     )
   ;
 
-  pyType = with types;
+  pyType =
+    with types;
     attrsOf (
       oneOf [
         (attrsOf base)
         (listOf base)
         base
       ]
-    );
+    )
+  ;
 in
 {
   options.services.pgadmin = {

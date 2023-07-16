@@ -37,10 +37,12 @@ nimPackages.buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Nim based tiling window manager";
       license = [ licenses.gpl2 ];
       maintainers = [ maintainers.marcusramberg ];
-    };
+    }
+  ;
 }

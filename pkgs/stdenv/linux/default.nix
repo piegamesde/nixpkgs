@@ -816,7 +816,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         disallowedRequisites = [ bootstrapTools.out ];
 
         # Mainly avoid reference to bootstrap tools
-        allowedRequisites = with prevStage;
+        allowedRequisites =
+          with prevStage;
           with lib;
           # Simple executable tools
           concatMap
@@ -883,7 +884,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               mpfr
               isl
             ]
-          );
+          )
+        ;
 
         overrides =
           self: super:

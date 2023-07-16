@@ -55,12 +55,14 @@ buildPythonPackage rec {
       gpl3
       lgpl3
     ];
-    maintainers = with maintainers;
+    maintainers =
+      with maintainers;
       [
         matejc
         ftrvxmtrx
       ]
-      ++ teams.enlightenment.members;
+      ++ teams.enlightenment.members
+    ;
     broken = true;
   };
 }

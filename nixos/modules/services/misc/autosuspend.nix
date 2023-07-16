@@ -68,7 +68,8 @@ let
 
     options.class = mkOption {
       default = null;
-      type = with types;
+      type =
+        with types;
         nullOr (
           enum [
             "ActiveCalendarEvent"
@@ -89,7 +90,8 @@ let
             "XIdleTime"
             "XPath"
           ]
-        );
+        )
+      ;
       description = mdDoc ''
         Name of the class implementing the check.  If this option is not specified, the check's
         name must represent a valid internal check class.
@@ -105,7 +107,8 @@ let
 
     options.class = mkOption {
       default = null;
-      type = with types;
+      type =
+        with types;
         nullOr (
           enum [
             "Calendar"
@@ -116,7 +119,8 @@ let
             "XPath"
             "XPathDelta"
           ]
-        );
+        )
+      ;
       description = mdDoc ''
         Name of the class implementing the check.  If this option is not specified, the check's
         name must represent a valid internal check class.

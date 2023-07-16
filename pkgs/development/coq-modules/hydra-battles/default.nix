@@ -17,7 +17,8 @@
   releaseRev = (v: "v${v}");
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -29,7 +30,8 @@
           out = "0.4";
         }
       ]
-      null;
+      null
+  ;
 
   useDune = true;
 

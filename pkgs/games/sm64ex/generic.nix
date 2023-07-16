@@ -81,7 +81,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       longDescription =
         extraMeta.description
@@ -97,5 +98,6 @@ stdenv.mkDerivation rec {
       license = licenses.unfree;
       maintainers = with maintainers; [ ivar ];
       platforms = platforms.unix;
-    } // extraMeta;
+    } // extraMeta
+  ;
 }

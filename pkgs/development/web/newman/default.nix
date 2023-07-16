@@ -8,7 +8,8 @@
 
 let
 
-  packageName = with lib;
+  packageName =
+    with lib;
     concatStrings (
       map
         (
@@ -16,7 +17,8 @@ let
           (concatStrings (mapAttrsToList (key: value: "${key}-${value}") entry))
         )
         (importJSON ./package.json)
-    );
+    )
+  ;
 
   nodePackages = import ./node-composition.nix {
     inherit pkgs nodejs;

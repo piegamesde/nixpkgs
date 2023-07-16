@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
     (python3.withPackages (ps: [ ps.pyyaml ]))
   ];
 
-  configureFlags = with lib;
+  configureFlags =
+    with lib;
     [
       "--with-yaml-prefix=${lib.getDev libyaml}"
       "--with-blas=-lblas"
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
     ++ optional enableFma "--enable-fma3"
     ++ optional enableFma4 "--enable-fma4"
     ++ optional enableAvx "--enable-avx"
-    ++ optional enableAvx512 "--enable-avx512";
+    ++ optional enableAvx512 "--enable-avx512"
+  ;
 
   doCheck = false;
   checkTarget = "check-short";

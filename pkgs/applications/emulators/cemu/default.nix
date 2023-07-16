@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
     "-DPORTABLE=OFF"
   ];
 
-  preConfigure = with lib;
+  preConfigure =
+    with lib;
     let
       tag = last (splitString "-" version);
     in

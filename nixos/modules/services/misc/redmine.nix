@@ -457,7 +457,8 @@ in
       environment.RAILS_CACHE = "${cfg.stateDir}/cache";
       environment.REDMINE_LANG = "en";
       environment.SCHEMA = "${cfg.stateDir}/cache/schema.db";
-      path = with pkgs;
+      path =
+        with pkgs;
         [ ]
         ++ optional cfg.components.subversion subversion
         ++ optional cfg.components.mercurial mercurial
@@ -465,7 +466,8 @@ in
         ++ optional cfg.components.cvs cvs
         ++ optional cfg.components.breezy breezy
         ++ optional cfg.components.imagemagick imagemagick
-        ++ optional cfg.components.ghostscript ghostscript;
+        ++ optional cfg.components.ghostscript ghostscript
+      ;
 
       preStart = ''
         rm -rf "${cfg.stateDir}/plugins/"*

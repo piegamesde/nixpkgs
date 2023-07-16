@@ -738,7 +738,8 @@ in
         {file}`/dev/mapper/«name»`.
       '';
 
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule (
             {
@@ -885,7 +886,8 @@ in
                     If null (the default), GPG-Smartcard will be disabled for this device.
                   '';
 
-                  type = with types;
+                  type =
+                    with types;
                     nullOr (
                       submodule {
                         options = {
@@ -912,7 +914,8 @@ in
                           };
                         };
                       }
-                    );
+                    )
+                  ;
                 };
 
                 fido2 = {
@@ -964,7 +967,8 @@ in
                     If null (the default), YubiKey-PBA will be disabled for this device.
                   '';
 
-                  type = with types;
+                  type =
+                    with types;
                     nullOr (
                       submodule {
                         options = {
@@ -1056,7 +1060,8 @@ in
                           };
                         };
                       }
-                    );
+                    )
+                  ;
                 };
 
                 preOpenCommands = mkOption {
@@ -1097,7 +1102,8 @@ in
               };
             }
           )
-        );
+        )
+      ;
     };
 
     boot.initrd.luks.gpgSupport = mkOption {

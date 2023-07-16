@@ -62,7 +62,8 @@ in
 
     boot.blacklistedKernelModules = cfg.blacklistedKernelModules;
 
-    systemd.user.services.opentabletdriver = with pkgs;
+    systemd.user.services.opentabletdriver =
+      with pkgs;
       mkIf cfg.daemon.enable {
         description = "Open source, cross-platform, user-mode tablet driver";
         wantedBy = [ "graphical-session.target" ];
@@ -73,6 +74,7 @@ in
           ExecStart = "${cfg.package}/bin/otd-daemon";
           Restart = "on-failure";
         };
-      };
+      }
+    ;
   };
 }

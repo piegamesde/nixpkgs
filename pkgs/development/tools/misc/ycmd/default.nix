@@ -41,7 +41,8 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
   ;
-  buildInputs = with python.pkgs;
+  buildInputs =
+    with python.pkgs;
     with llvmPackages;
     [
       abseil-cpp
@@ -54,7 +55,8 @@ stdenv.mkDerivation {
       jedi-language-server
       pybind11
     ]
-    ++ lib.optional stdenv.isDarwin Cocoa;
+    ++ lib.optional stdenv.isDarwin Cocoa
+  ;
 
   buildPhase = ''
     export EXTRA_CMAKE_ARGS="-DPATH_TO_LLVM_ROOT=${llvmPackages.libllvm} -DUSE_SYSTEM_ABSEIL=true"

@@ -204,7 +204,8 @@ rec {
       { abi = abis.android; }
       { abi = abis.androideabi; }
     ];
-    isGnu = with abis;
+    isGnu =
+      with abis;
       map (a: { abi = a; }) [
         gnuabi64
         gnu
@@ -212,21 +213,26 @@ rec {
         gnueabihf
         gnuabielfv1
         gnuabielfv2
-      ];
-    isMusl = with abis;
+      ]
+    ;
+    isMusl =
+      with abis;
       map (a: { abi = a; }) [
         musl
         musleabi
         musleabihf
         muslabin32
         muslabi64
-      ];
-    isUClibc = with abis;
+      ]
+    ;
+    isUClibc =
+      with abis;
       map (a: { abi = a; }) [
         uclibc
         uclibceabi
         uclibceabihf
-      ];
+      ]
+    ;
 
     isEfi = [
       {

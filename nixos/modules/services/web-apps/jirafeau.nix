@@ -116,14 +116,16 @@ in
     };
 
     poolConfig = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           oneOf [
             str
             int
             bool
           ]
-        );
+        )
+      ;
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;

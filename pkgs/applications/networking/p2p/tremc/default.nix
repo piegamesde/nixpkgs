@@ -11,8 +11,10 @@
   ,
 }:
 let
-  wrapperPath = with lib;
-    makeBinPath (optional x11Support xclip ++ optional stdenv.isDarwin pbcopy);
+  wrapperPath =
+    with lib;
+    makeBinPath (optional x11Support xclip ++ optional stdenv.isDarwin pbcopy)
+  ;
 in
 python3Packages.buildPythonApplication rec {
   pname = "tremc";
@@ -42,12 +44,14 @@ python3Packages.buildPythonApplication rec {
     wrapPython
   ];
 
-  pythonPath = with python3Packages;
+  pythonPath =
+    with python3Packages;
     [
       ipy
       pyperclip
     ]
-    ++ lib.optional useGeoIP geoip;
+    ++ lib.optional useGeoIP geoip
+  ;
 
   dontBuild = true;
   doCheck = false;

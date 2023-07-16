@@ -17,10 +17,12 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "safeset library for nim";
       license = [ licenses.gpl2 ];
       maintainers = [ maintainers.marcusramberg ];
-    };
+    }
+  ;
 }

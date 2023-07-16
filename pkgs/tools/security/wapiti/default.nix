@@ -16,7 +16,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-muAugc0BgVSER2LSRv7ATbCqpXID8/WH+hfhmtoS36o=";
   };
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       aiocache
       aiosqlite
@@ -40,7 +41,8 @@ python3.pkgs.buildPythonApplication rec {
       yaswfp
     ]
     ++ httpx.optional-dependencies.brotli
-    ++ httpx.optional-dependencies.socks;
+    ++ httpx.optional-dependencies.socks
+  ;
 
   nativeCheckInputs = with python3.pkgs; [
     respx

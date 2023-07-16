@@ -35,7 +35,8 @@ in
           target = "tcp://server:3334/orangefs";
         } ];
 
-        type = with types;
+        type =
+          with types;
           listOf (
             submodule (
               {
@@ -64,7 +65,8 @@ in
                 };
               }
             )
-          );
+          )
+        ;
       };
     };
   };

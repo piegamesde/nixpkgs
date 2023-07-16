@@ -143,7 +143,8 @@ in
   justThePackage = makeTest {
     name = "atop-justThePackage";
     nodes.machine = { environment.systemPackages = [ pkgs.atop ]; };
-    testScript = with assertions;
+    testScript =
+      with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -153,12 +154,14 @@ in
         (atopacctService false)
         (netatop false)
         (atopgpu false)
-      ];
+      ]
+    ;
   };
   defaults = makeTest {
     name = "atop-defaults";
     nodes.machine = { programs.atop = { enable = true; }; };
-    testScript = with assertions;
+    testScript =
+      with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -168,7 +171,8 @@ in
         (atopacctService true)
         (netatop false)
         (atopgpu false)
-      ];
+      ]
+    ;
   };
   minimal = makeTest {
     name = "atop-minimal";
@@ -180,7 +184,8 @@ in
         atopacctService.enable = false;
       };
     };
-    testScript = with assertions;
+    testScript =
+      with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -190,7 +195,8 @@ in
         (atopacctService false)
         (netatop false)
         (atopgpu false)
-      ];
+      ]
+    ;
   };
   netatop = makeTest {
     name = "atop-netatop";
@@ -200,7 +206,8 @@ in
         netatop.enable = true;
       };
     };
-    testScript = with assertions;
+    testScript =
+      with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -210,7 +217,8 @@ in
         (atopacctService true)
         (netatop true)
         (atopgpu false)
-      ];
+      ]
+    ;
   };
   atopgpu = makeTest {
     name = "atop-atopgpu";
@@ -220,7 +228,8 @@ in
         atopgpu.enable = true;
       };
     };
-    testScript = with assertions;
+    testScript =
+      with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -230,7 +239,8 @@ in
         (atopacctService true)
         (netatop false)
         (atopgpu true)
-      ];
+      ]
+    ;
   };
   everything = makeTest {
     name = "atop-everthing";
@@ -246,7 +256,8 @@ in
         atopgpu.enable = true;
       };
     };
-    testScript = with assertions;
+    testScript =
+      with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "flags faf1\\ninterval 2\\n")
@@ -256,6 +267,7 @@ in
         (atopacctService true)
         (netatop true)
         (atopgpu true)
-      ];
+      ]
+    ;
   };
 }

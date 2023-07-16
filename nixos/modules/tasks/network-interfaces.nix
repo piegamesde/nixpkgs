@@ -384,11 +384,13 @@ let
           default = if hasPrefix "tun" name then "tun" else "tap";
           defaultText = literalExpression ''
             if hasPrefix "tun" name then "tun" else "tap"'';
-          type = with types;
+          type =
+            with types;
             enum [
               "tun"
               "tap"
-            ];
+            ]
+          ;
           description = lib.mdDoc ''
             The type of interface to create.
             The default is TUN for an interface name starting
@@ -818,7 +820,8 @@ in
         interface.
       '';
 
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
 
@@ -891,7 +894,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     networking.bridges = mkOption {
@@ -914,7 +918,8 @@ in
         bridge's network interface.
       '';
 
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
 
@@ -942,7 +947,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     networking.bonds =
@@ -972,7 +978,8 @@ in
           name specifying the name of the bond's network interface
         '';
 
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule {
 
@@ -1048,7 +1055,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
       }
     ;
 
@@ -1066,7 +1074,8 @@ in
         This option allows you to define macvlan interfaces which should
         be automatically created.
       '';
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
             options = {
@@ -1088,7 +1097,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     networking.fooOverUDP = mkOption {
@@ -1107,7 +1117,8 @@ in
         This option allows you to configure Foo Over UDP and Generic UDP Encapsulation
         endpoints. See {manpage}`ip-fou(8)` for details.
       '';
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
             options = {
@@ -1162,7 +1173,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     networking.sits = mkOption {
@@ -1184,7 +1196,8 @@ in
       description = lib.mdDoc ''
         This option allows you to define 6-to-4 interfaces which should be automatically created.
       '';
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
             options = {
@@ -1226,7 +1239,8 @@ in
                 '';
               };
 
-              encapsulation = with types;
+              encapsulation =
+                with types;
                 mkOption {
                   type = nullOr (
                     submodule {
@@ -1270,10 +1284,12 @@ in
                   description = lib.mdDoc ''
                     Configures encapsulation in UDP packets.
                   '';
-                };
+                }
+              ;
             };
           }
-        );
+        )
+      ;
     };
 
     networking.greTunnels = mkOption {
@@ -1299,7 +1315,8 @@ in
       description = lib.mdDoc ''
         This option allows you to define Generic Routing Encapsulation (GRE) tunnels.
       '';
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
             options = {
@@ -1342,13 +1359,15 @@ in
               };
 
               type = mkOption {
-                type = with types;
+                type =
+                  with types;
                   enum [
                     "tun"
                     "tap"
                     "tun6"
                     "tap6"
-                  ];
+                  ]
+                ;
                 default = "tap";
                 example = "tap";
                 apply =
@@ -1367,7 +1386,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     networking.vlans = mkOption {
@@ -1391,7 +1411,8 @@ in
         specifying the name of the vlan interface.
       '';
 
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
 
@@ -1413,7 +1434,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     networking.wlanInterfaces = mkOption {
@@ -1452,7 +1474,8 @@ in
         would have to be created explicitly.
       '';
 
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule {
 
@@ -1490,7 +1513,8 @@ in
               };
 
               flags = mkOption {
-                type = with types;
+                type =
+                  with types;
                   nullOr (
                     enum [
                       "none"
@@ -1500,7 +1524,8 @@ in
                       "cook"
                       "active"
                     ]
-                  );
+                  )
+                ;
                 default = null;
                 example = "control";
                 description = lib.mdDoc ''
@@ -1534,7 +1559,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
 
     networking.useDHCP = mkOption {

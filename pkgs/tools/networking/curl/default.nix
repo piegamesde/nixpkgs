@@ -115,7 +115,8 @@ stdenv.mkDerivation (
     # Zlib and OpenSSL must be propagated because `libcurl.la' contains
     # "-lz -lssl", which aren't necessary direct build inputs of
     # applications that use Curl.
-    propagatedBuildInputs = with lib;
+    propagatedBuildInputs =
+      with lib;
       optional brotliSupport brotli
       ++ optional c-aresSupport c-aresMinimal
       ++ optional gnutlsSupport gnutls
@@ -135,7 +136,8 @@ stdenv.mkDerivation (
       ++ optional wolfsslSupport wolfssl
       ++ optional rustlsSupport rustls-ffi
       ++ optional zlibSupport zlib
-      ++ optional zstdSupport zstd;
+      ++ optional zstdSupport zstd
+    ;
 
     # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
     preConfigure = ''

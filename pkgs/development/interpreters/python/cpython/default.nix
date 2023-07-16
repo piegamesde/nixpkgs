@@ -213,7 +213,8 @@ let
   # platform suffix on extension modules. The correct values for these variables
   # are not documented, and must be derived from the configure script (see links
   # below).
-  sysconfigdataHook = with stdenv.hostPlatform;
+  sysconfigdataHook =
+    with stdenv.hostPlatform;
     with passthru;
     let
       # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L428
@@ -306,7 +307,8 @@ stdenv.mkDerivation {
   buildInputs = [ bash ] ++ buildInputs; # bash is only for patchShebangs
 
   src = fetchurl {
-    url = with sourceVersion;
+    url =
+      with sourceVersion;
       "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz"
     ;
     inherit hash;

@@ -50,7 +50,8 @@ with lib; {
     };
 
     settings = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           oneOf [
             str
@@ -58,7 +59,8 @@ with lib; {
             bool
             (listOf str)
           ]
-        );
+        )
+      ;
       default = { };
       example = literalExpression "{ global.tor = enable; }";
 

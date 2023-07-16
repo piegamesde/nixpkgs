@@ -34,10 +34,12 @@ in
     boot.extraModulePackages =
       with config.boot.kernelPackages; [ ipu6-drivers ];
 
-    hardware.firmware = with pkgs;
+    hardware.firmware =
+      with pkgs;
       [ ]
       ++ optional (cfg.platform == "ipu6") ipu6-camera-bin
-      ++ optional (cfg.platform == "ipu6ep") ipu6ep-camera-bin;
+      ++ optional (cfg.platform == "ipu6ep") ipu6ep-camera-bin
+    ;
 
     services.udev.extraRules = ''
       SUBSYSTEM=="intel-ipu6-psys", MODE="0660", GROUP="video"
@@ -48,10 +50,12 @@ in
 
       cardLabel = mkDefault "Intel MIPI Camera";
 
-      extraPackages = with pkgs.gst_all_1;
+      extraPackages =
+        with pkgs.gst_all_1;
         [ ]
         ++ optional (cfg.platform == "ipu6") icamerasrc-ipu6
-        ++ optional (cfg.platform == "ipu6ep") icamerasrc-ipu6ep;
+        ++ optional (cfg.platform == "ipu6ep") icamerasrc-ipu6ep
+      ;
 
       input = {
         pipeline = "icamerasrc";

@@ -12,7 +12,8 @@ mkCoqDerivation {
   pname = "coqprime";
   owner = "thery";
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -32,7 +33,8 @@ mkCoqDerivation {
           out = "8.7.2";
         }
       ]
-      null;
+      null
+  ;
 
   release."8.15".sha256 =
     "sha256:1zr2q52r08na8265019pj9spcz982ivixk6cnzk6l1srn2g328gv";

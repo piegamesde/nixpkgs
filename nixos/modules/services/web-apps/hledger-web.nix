@@ -110,13 +110,16 @@ in
 
     systemd.services.hledger-web =
       let
-        capabilityString = with cfg.capabilities;
+        capabilityString =
+          with cfg.capabilities;
           concatStringsSep "," (
             (optional view "view")
             ++ (optional add "add")
             ++ (optional manage "manage")
-          );
-        serverArgs = with cfg;
+          )
+        ;
+        serverArgs =
+          with cfg;
           escapeShellArgs (
             [
               "--serve"
@@ -128,7 +131,8 @@ in
             ]
             ++ (map (f: "--file=${stateDir}/${f}") cfg.journalFiles)
             ++ extraOptions
-          );
+          )
+        ;
       in
       {
         description = "hledger-web - web-app for the hledger accounting tool.";

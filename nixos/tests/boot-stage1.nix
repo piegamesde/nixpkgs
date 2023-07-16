@@ -140,7 +140,8 @@ import ./make-test-python.nix (
               }
             ;
 
-            copyCanaries = with lib;
+            copyCanaries =
+              with lib;
               concatMapStrings (
                 canary: ''
                   ${optionalString (canary ? child) ''
@@ -148,7 +149,8 @@ import ./make-test-python.nix (
                   ''}
                   copy_bin_and_libs "${canary}/bin/${canary.name}"
                 ''
-              );
+              )
+            ;
           in
           copyCanaries [
             # Simple canary process which just sleeps forever and should be killed by

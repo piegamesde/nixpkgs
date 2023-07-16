@@ -40,7 +40,8 @@ python3Packages.buildPythonPackage rec {
   nativeBuildInputs =
     [ installShellFiles ] ++ (with python3Packages; [ poetry-core ]);
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     (
       [
         click
@@ -56,7 +57,8 @@ python3Packages.buildPythonPackage rec {
       libu2f-host
       libusb1
       yubikey-personalization
-    ];
+    ]
+  ;
 
   makeWrapperArgs = [
     "--prefix"

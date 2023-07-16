@@ -33,14 +33,16 @@ python3Packages.buildPythonApplication rec {
     ++ lib.optional withGstreamer libcanberra-gtk3
   ;
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     [
       pycairo
       pygobject3
       setuptools
       watchdog
     ]
-    ++ lib.optional withVLC python-vlc;
+    ++ lib.optional withVLC python-vlc
+  ;
 
   doCheck = false; # there are no tests
 

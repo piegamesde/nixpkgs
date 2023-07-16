@@ -24,7 +24,8 @@ let
     mkKeyValue = generators.mkKeyValueDefault { inherit mkValueString; } "=";
   };
 
-  tincConfType = with types;
+  tincConfType =
+    with types;
     let
       valueType = oneOf [
         bool
@@ -193,7 +194,8 @@ in
 
       networks = mkOption {
         default = { };
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule (
               {
@@ -392,7 +394,8 @@ in
                 };
               }
             )
-          );
+          )
+        ;
 
         description = lib.mdDoc ''
           Defines the tinc networks which will be started.

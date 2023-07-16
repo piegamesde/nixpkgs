@@ -136,7 +136,8 @@ let
 
         dontStrip = true;
 
-        meta = with lib;
+        meta =
+          with lib;
           {
             homepage = "https://www.denx.de/wiki/U-Boot/";
             description = "Boot loader for embedded systems";
@@ -147,7 +148,8 @@ let
               samueldr
               lopsided98
             ];
-          } // extraMeta;
+          } // extraMeta
+        ;
       } // removeAttrs args [ "extraMeta" ]
     )
   );

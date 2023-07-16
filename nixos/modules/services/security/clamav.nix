@@ -63,7 +63,8 @@ in
         enable = mkEnableOption (lib.mdDoc "ClamAV clamd daemon");
 
         settings = mkOption {
-          type = with types;
+          type =
+            with types;
             attrsOf (
               oneOf [
                 bool
@@ -71,7 +72,8 @@ in
                 str
                 (listOf str)
               ]
-            );
+            )
+          ;
           default = { };
           description = lib.mdDoc ''
             ClamAV configuration. Refer to <https://linux.die.net/man/5/clamd.conf>,
@@ -100,7 +102,8 @@ in
         };
 
         settings = mkOption {
-          type = with types;
+          type =
+            with types;
             attrsOf (
               oneOf [
                 bool
@@ -108,7 +111,8 @@ in
                 str
                 (listOf str)
               ]
-            );
+            )
+          ;
           default = { };
           description = lib.mdDoc ''
             freshclam configuration. Refer to <https://linux.die.net/man/5/freshclam.conf>,

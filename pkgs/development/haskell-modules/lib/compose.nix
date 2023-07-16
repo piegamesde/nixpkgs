@@ -452,7 +452,8 @@ rec {
     drv:
     overrideCabal
       (_drv: {
-        postBuild = with lib;
+        postBuild =
+          with lib;
           let
             args = concatStringsSep " " (
               optional ignoreEmptyImports "--ignore-empty-imports"

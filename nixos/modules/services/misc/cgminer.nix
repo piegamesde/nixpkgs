@@ -16,7 +16,8 @@ let
       (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
       (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware)
   ;
-  mergedConfig = with builtins;
+  mergedConfig =
+    with builtins;
     mapAttrsToList
       (
         n: v:
@@ -25,7 +26,8 @@ let
             if isBool v then "" else ''"''
           }''
       )
-      cfg.config;
+      cfg.config
+  ;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {

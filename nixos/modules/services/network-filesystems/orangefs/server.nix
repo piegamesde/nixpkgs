@@ -102,11 +102,13 @@ in
       enable = mkEnableOption (lib.mdDoc "OrangeFS server");
 
       logType = mkOption {
-        type = with types;
+        type =
+          with types;
           enum [
             "file"
             "syslog"
-          ];
+          ]
+        ;
         default = "syslog";
         description = lib.mdDoc "Destination for log messages.";
       };
@@ -176,7 +178,8 @@ in
             };
           }
         '';
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule (
               {
@@ -231,7 +234,8 @@ in
                 };
               }
             )
-          );
+          )
+        ;
       };
     };
   };

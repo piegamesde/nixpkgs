@@ -1332,7 +1332,8 @@ in
 
     networking.usePredictableInterfaceNames = false;
 
-    system.requiredKernelConfig = with config.lib.kernelConfig;
+    system.requiredKernelConfig =
+      with config.lib.kernelConfig;
       [
         (isEnabled "VIRTIO_BLK")
         (isEnabled "VIRTIO_PCI")
@@ -1351,7 +1352,8 @@ in
         (isYes "SERIAL_8250_CONSOLE")
         (isYes "SERIAL_8250")
       ]
-      ++ optionals (cfg.writableStore) [ (isEnabled "OVERLAY_FS") ];
+      ++ optionals (cfg.writableStore) [ (isEnabled "OVERLAY_FS") ]
+    ;
   };
 
   # uses types of services/x11/xserver.nix

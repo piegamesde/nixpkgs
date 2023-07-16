@@ -75,22 +75,28 @@ in
 
     settings =
       let
-        validConfigTypes = with types;
+        validConfigTypes =
+          with types;
           oneOf [
             int
             str
             bool
             float
-          ];
-        collectionTypes = with types;
+          ]
+        ;
+        collectionTypes =
+          with types;
           oneOf [
             validConfigTypes
             (listOf validConfigTypes)
-          ];
+          ]
+        ;
       in
       mkOption {
-        type = with types;
-          attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)));
+        type =
+          with types;
+          attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)))
+        ;
         default = { };
         example = {
           captures = 20;
@@ -139,11 +145,13 @@ in
     services.upower.enable = true;
 
     services.clight.settings = {
-      gamma.temp = with cfg.temperature;
+      gamma.temp =
+        with cfg.temperature;
         mkDefault [
           day
           night
-        ];
+        ]
+      ;
     } // (optionalAttrs (config.location.provider == "manual") {
       daytime.latitude = mkDefault config.location.latitude;
       daytime.longitude = mkDefault config.location.longitude;

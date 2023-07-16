@@ -17,14 +17,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G7Rtv7pQFR9UrzhYXDyBf+FRqtjo5NAXU7m/HeXhI1k=";
   };
 
-  patches = with python3.pkgs;
+  patches =
+    with python3.pkgs;
     [
       (substituteAll {
         src = ./websockify.patch;
         inherit websockify;
       })
     ]
-    ++ [ ./fix-paths.patch ];
+    ++ [ ./fix-paths.patch ]
+  ;
 
   postPatch = ''
     substituteAllInPlace utils/novnc_proxy

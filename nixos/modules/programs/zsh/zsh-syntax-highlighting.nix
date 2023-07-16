@@ -145,7 +145,8 @@ in
       '';
     } ];
 
-    programs.zsh.interactiveShellInit = with pkgs;
+    programs.zsh.interactiveShellInit =
+      with pkgs;
       lib.mkAfter (
         lib.concatStringsSep "\n" (
           [
@@ -170,6 +171,7 @@ in
               cfg.styles
           )
         )
-      );
+      )
+    ;
   };
 }

@@ -291,7 +291,8 @@ let
             finalAttrs.finalPackage
         ;
 
-        meta = with lib;
+        meta =
+          with lib;
           {
             homepage = "https://www.openssl.org/";
             description =
@@ -303,7 +304,8 @@ let
               "openssl"
             ];
             platforms = platforms.all;
-          } // extraMeta;
+          } // extraMeta
+        ;
       }
     )
   ;

@@ -126,7 +126,8 @@ buildPythonApplication {
     ++ lib.optional isQt6 python3Packages.pygments
   ;
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     (
       [
         pyyaml
@@ -145,7 +146,8 @@ buildPythonApplication {
       ]
       ++ lib.optional (pythonOlder "3.9") importlib-resources
       ++ lib.optional stdenv.isLinux qtwayland
-    );
+    )
+  ;
 
   patches = [ ./fix-restart.patch ];
 

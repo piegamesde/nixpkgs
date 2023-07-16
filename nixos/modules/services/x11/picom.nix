@@ -272,7 +272,8 @@ in
     };
 
     vSync = mkOption {
-      type = with types;
+      type =
+        with types;
         either bool (
           enum [
             "none"
@@ -282,7 +283,8 @@ in
             "opengl-swc"
             "opengl-mswc"
           ]
-        );
+        )
+      ;
       default = false;
       apply =
         x:
@@ -303,7 +305,8 @@ in
       '';
     };
 
-    settings = with types;
+    settings =
+      with types;
       let
         scalar = oneOf [
           bool

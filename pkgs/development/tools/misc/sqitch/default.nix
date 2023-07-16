@@ -11,11 +11,13 @@
 
 let
   sqitch = perlPackages.AppSqitch;
-  modules = with perlPackages;
+  modules =
+    with perlPackages;
     [ ]
     ++ lib.optional mysqlSupport DBDmysql
     ++ lib.optional postgresqlSupport DBDPg
-    ++ lib.optional templateToolkitSupport TemplateToolkit;
+    ++ lib.optional templateToolkitSupport TemplateToolkit
+  ;
 in
 
 stdenv.mkDerivation {

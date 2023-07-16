@@ -118,7 +118,8 @@ in
       setgid = true;
     };
 
-    systemd.tmpfiles.rules = with pkgs;
+    systemd.tmpfiles.rules =
+      with pkgs;
       [
         "d /var/lib/x2go/ - x2go x2go - -"
         "d /var/lib/x2go/db - x2go x2go - -"
@@ -171,7 +172,8 @@ in
         "L+ /usr/local/bin/setsid - - - - ${util-linux}/bin/setsid"
         "L+ /usr/local/bin/xrandr - - - - ${xorg.xrandr}/bin/xrandr"
         "L+ /usr/local/bin/xmodmap - - - - ${xorg.xmodmap}/bin/xmodmap"
-      ];
+      ]
+    ;
 
     systemd.services.x2goserver = {
       description = "X2Go Server Daemon";

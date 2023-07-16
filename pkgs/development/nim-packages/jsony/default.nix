@@ -17,10 +17,12 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "A loose, direct to object json parser with hooks";
       license = [ licenses.mit ];
       maintainers = [ maintainers.erdnaxe ];
-    };
+    }
+  ;
 }

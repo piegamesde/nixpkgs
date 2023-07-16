@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.traefik;
-  jsonValue = with types;
+  jsonValue =
+    with types;
     let
       valueType = nullOr (
         oneOf [

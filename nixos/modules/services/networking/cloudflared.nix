@@ -129,13 +129,15 @@ let
     };
 
     proxyType = mkOption {
-      type = with types;
+      type =
+        with types;
         nullOr (
           enum [
             ""
             "socks"
           ]
-        );
+        )
+      ;
       default = null;
       example = "";
       description = lib.mdDoc ''
@@ -218,7 +220,8 @@ in
               };
 
               ingress = mkOption {
-                type = with types;
+                type =
+                  with types;
                   attrsOf (
                     either str (
                       submodule (
@@ -256,7 +259,8 @@ in
                         }
                       )
                     )
-                  );
+                  )
+                ;
                 default = { };
                 description = lib.mdDoc ''
                   Ingress rules.

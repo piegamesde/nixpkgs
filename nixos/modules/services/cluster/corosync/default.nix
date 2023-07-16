@@ -39,7 +39,8 @@ in
     nodelist = mkOption {
       description = lib.mdDoc "Corosync nodelist: all cluster members.";
       default = [ ];
-      type = with types;
+      type =
+        with types;
         listOf (
           submodule {
             options = {
@@ -57,7 +58,8 @@ in
               };
             };
           }
-        );
+        )
+      ;
     };
   };
 

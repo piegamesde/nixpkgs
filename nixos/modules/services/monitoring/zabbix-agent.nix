@@ -122,14 +122,16 @@ in
       };
 
       settings = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               int
               str
               (listOf str)
             ]
-          );
+          )
+        ;
         default = { };
         description = lib.mdDoc ''
           Zabbix Agent configuration. Refer to
@@ -184,12 +186,14 @@ in
       # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
       # > User parameters are commands executed by Zabbix agent.
       # > /bin/sh is used as a command line interpreter under UNIX operating systems.
-      path = with pkgs;
+      path =
+        with pkgs;
         [
           bash
           "/run/wrappers"
         ]
-        ++ cfg.extraPackages;
+        ++ cfg.extraPackages
+      ;
 
       serviceConfig = {
         ExecStart =

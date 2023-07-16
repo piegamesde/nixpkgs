@@ -42,7 +42,8 @@ let
 
   luaPackages = self.pkgs;
 
-  XCFLAGS = with lib;
+  XCFLAGS =
+    with lib;
     optional (!enableFFI) "-DLUAJIT_DISABLE_FFI"
     ++ optional (!enableJIT) "-DLUAJIT_DISABLE_JIT"
     ++ optional enable52Compat "-DLUAJIT_ENABLE_LUA52COMPAT"
@@ -52,7 +53,8 @@ let
     ++ optional enableGDBJITSupport "-DLUAJIT_USE_GDBJIT"
     ++ optional enableAPICheck "-DLUAJIT_USE_APICHECK"
     ++ optional enableVMAssertions "-DLUAJIT_USE_ASSERT"
-    ++ optional deterministicStringIds "-DLUAJIT_SECURITY_STRID=0";
+    ++ optional deterministicStringIds "-DLUAJIT_SECURITY_STRID=0"
+  ;
 
   # LuaJIT requires build for 32bit architectures to be build on x86 not x86_64
   # TODO support also other build architectures. The ideal way would be to use
@@ -156,7 +158,8 @@ stdenv.mkDerivation rec {
     }
   ;
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       description = "High-performance JIT compiler for Lua 5.1";
       homepage = "https://luajit.org/";
@@ -173,5 +176,6 @@ stdenv.mkDerivation rec {
         vcunat
         lblasc
       ];
-    } // extraMeta;
+    } // extraMeta
+  ;
 }

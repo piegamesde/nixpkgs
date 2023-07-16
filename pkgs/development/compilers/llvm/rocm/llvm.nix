@@ -204,12 +204,14 @@ stdenv.mkDerivation (
       description = "ROCm fork of the LLVM compiler infrastructure";
       homepage = "https://github.com/RadeonOpenCompute/llvm-project";
       license = with licenses; [ ncsa ] ++ extraLicenses;
-      maintainers = with maintainers;
+      maintainers =
+        with maintainers;
         [
           acowley
           lovesegfault
         ]
-        ++ teams.rocm.members;
+        ++ teams.rocm.members
+      ;
       platforms = platforms.linux;
       broken = isBroken;
     };

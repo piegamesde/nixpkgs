@@ -48,7 +48,8 @@ python.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python.pkgs; [ mock ];
 
-  propagatedBuildInputs = with python.pkgs;
+  propagatedBuildInputs =
+    with python.pkgs;
     (
       [
         requests
@@ -65,7 +66,8 @@ python.pkgs.buildPythonApplication rec {
       ++ (lib.optionals withEmoji [ emoji ])
       ++ (lib.optionals withPid [ psutil ])
       ++ (lib.optionals withDbus [ dbus-python ])
-    );
+    )
+  ;
 
   patches = [
     # Fix Slack integration no longer working.

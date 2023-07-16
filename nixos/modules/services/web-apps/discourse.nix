@@ -123,7 +123,8 @@ in
       };
 
       backendSettings = lib.mkOption {
-        type = with lib.types;
+        type =
+          with lib.types;
           attrsOf (
             nullOr (
               oneOf [
@@ -133,7 +134,8 @@ in
                 float
               ]
             )
-          );
+          )
+        ;
         default = { };
         example = lib.literalExpression ''
           {
@@ -433,14 +435,16 @@ in
           };
 
           authentication = lib.mkOption {
-            type = with lib.types;
+            type =
+              with lib.types;
               nullOr (
                 enum [
                   "plain"
                   "login"
                   "cram_md5"
                 ]
-              );
+              )
+            ;
             default = null;
             description = lib.mdDoc ''
               Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html

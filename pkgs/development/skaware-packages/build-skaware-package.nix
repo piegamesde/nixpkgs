@@ -123,13 +123,15 @@ stdenv.mkDerivation {
     homepage = "https://skarnet.org/software/${pname}/";
     inherit description platforms;
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers;
+    maintainers =
+      with lib.maintainers;
       [
         pmahoney
         Profpatsch
         qyliss
       ]
-      ++ maintainers;
+      ++ maintainers
+    ;
   };
 
   inherit passthru;

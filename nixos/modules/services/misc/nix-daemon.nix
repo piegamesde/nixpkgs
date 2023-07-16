@@ -124,7 +124,8 @@ let
     systemFeatures = "system-features";
   };
 
-  semanticConfType = with types;
+  semanticConfType =
+    with types;
     let
       confAtom = nullOr (
         oneOf [
@@ -520,7 +521,8 @@ in
         type = types.attrsOf (
           types.submodule (
             let
-              referenceAttrs = with types;
+              referenceAttrs =
+                with types;
                 attrsOf (
                   oneOf [
                     str
@@ -529,7 +531,8 @@ in
                     path
                     package
                   ]
-                );
+                )
+              ;
             in
             {
               config,

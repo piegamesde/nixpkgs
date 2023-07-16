@@ -39,12 +39,14 @@ let
     )).override
       { inherit (cfg) plugins; }
   ;
-  netboxManageScript = with pkgs;
+  netboxManageScript =
+    with pkgs;
     (writeScriptBin "netbox-manage" ''
       #!${stdenv.shell}
       export PYTHONPATH=${pkg.pythonPath}
       sudo -u netbox ${pkg}/bin/netbox "$@"
-    '');
+    '')
+  ;
 in
 {
   options.services.netbox = {

@@ -20,7 +20,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-yx/MO5QAVKnGraQXJitXxaZooLtBqa+L04s73DwiE14=";
   };
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       bottle
       colorama
@@ -42,7 +43,8 @@ python3.pkgs.buildPythonApplication rec {
       idna
       cryptography
       pyopenssl
-    ];
+    ]
+  ;
 
   nativeCheckInputs =
     [

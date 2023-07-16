@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  pythonPath = with python3Packages;
+  pythonPath =
+    with python3Packages;
     requiredPythonModules [
       pycups
       pycurl
@@ -85,7 +86,8 @@ stdenv.mkDerivation rec {
       requests
       pycairo
       pysmbc
-    ];
+    ]
+  ;
 
   preConfigure = ''
     intltoolize --copy --force --automake

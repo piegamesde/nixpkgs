@@ -39,7 +39,8 @@ rec {
     { }:
     {
 
-      type = with lib.types;
+      type =
+        with lib.types;
         let
           valueType = nullOr (
             oneOf [
@@ -106,7 +107,8 @@ rec {
           { }
       ;
 
-      type = with lib.types;
+      type =
+        with lib.types;
         let
           valueType = nullOr (
             oneOf [
@@ -138,7 +140,8 @@ rec {
     }@args:
     assert !listsAsDuplicateKeys || listToValue == null; {
 
-      type = with lib.types;
+      type =
+        with lib.types;
         let
 
           singleIniAtom = nullOr (
@@ -210,7 +213,8 @@ rec {
     }@args:
     assert !listsAsDuplicateKeys || listToValue == null; {
 
-      type = with lib.types;
+      type =
+        with lib.types;
         let
 
           singleAtom = nullOr (
@@ -272,7 +276,8 @@ rec {
     }@args:
     {
 
-      type = with lib.types;
+      type =
+        with lib.types;
         let
 
           iniAtom =
@@ -291,7 +296,8 @@ rec {
   toml =
     { }:
     json { } // {
-      type = with lib.types;
+      type =
+        with lib.types;
         let
           valueType = oneOf [
             bool
@@ -459,7 +465,8 @@ rec {
       ;
     in
     {
-      type = with lib.types;
+      type =
+        with lib.types;
         let
           valueType = nullOr (
             oneOf [
@@ -533,7 +540,8 @@ rec {
              It also reexports standard types, wrapping them so that they can
              also be raw Elixir.
           */
-          types = with lib.types;
+          types =
+            with lib.types;
             let
               isElixirType = type: x: (x._elixirType or "") == type;
 
@@ -599,7 +607,8 @@ rec {
   pythonVars =
     { }:
     {
-      type = with lib.types;
+      type =
+        with lib.types;
         let
           valueType = nullOr (
             oneOf [

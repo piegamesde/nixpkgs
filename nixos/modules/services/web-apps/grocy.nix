@@ -31,14 +31,16 @@ in
     };
 
     phpfpm.settings = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           oneOf [
             int
             str
             bool
           ]
-        );
+        )
+      ;
       default = {
         "pm" = "dynamic";
         "php_admin_value[error_log]" = "stderr";

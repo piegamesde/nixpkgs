@@ -22,7 +22,8 @@
 assert sshSupport -> openssh != null;
 
 let
-  repoName = with lib;
+  repoName =
+    with lib;
     let
       fst = head;
       snd = l: head (tail l);

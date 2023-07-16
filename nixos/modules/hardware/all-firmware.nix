@@ -99,7 +99,8 @@ in
 
   config = mkMerge [
     (mkIf (cfg.enableAllFirmware || cfg.enableRedistributableFirmware) {
-      hardware.firmware = with pkgs;
+      hardware.firmware =
+        with pkgs;
         [
           linux-firmware
           intel2200BGFirmware
@@ -117,7 +118,8 @@ in
         ++
           optionals
             (versionOlder config.boot.kernelPackages.kernel.version "4.13")
-            [ rtl8723bs-firmware ];
+            [ rtl8723bs-firmware ]
+      ;
       hardware.wirelessRegulatoryDatabase = true;
     })
     (mkIf cfg.enableAllFirmware {
@@ -129,7 +131,8 @@ in
             An alternative is to use the hardware.enableRedistributableFirmware option.
         '';
       } ];
-      hardware.firmware = with pkgs;
+      hardware.firmware =
+        with pkgs;
         [
           broadcom-bt-firmware
           b43Firmware_5_1_138
@@ -139,7 +142,8 @@ in
         ++ optionals pkgs.stdenv.hostPlatform.isx86 [
           facetimehd-calibration
           facetimehd-firmware
-        ];
+        ]
+      ;
     })
     (mkIf cfg.wirelessRegulatoryDatabase {
       hardware.firmware = [ pkgs.wireless-regdb ];

@@ -23,7 +23,8 @@ python3.pkgs.buildPythonApplication rec {
     export SEARX_DEBUG="true";
   '';
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       babel
       certifi
@@ -44,7 +45,8 @@ python3.pkgs.buildPythonApplication rec {
       markdown-it-py
     ]
     ++ httpx.optional-dependencies.http2
-    ++ httpx-socks.optional-dependencies.asyncio;
+    ++ httpx-socks.optional-dependencies.asyncio
+  ;
 
   # tests try to connect to network
   doCheck = false;

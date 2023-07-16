@@ -15,7 +15,8 @@
   pname = "CoqEAL";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch
       [
         coq.version
@@ -58,7 +59,8 @@
           out = "1.0.3";
         }
       ]
-      null;
+      null
+  ;
 
   release."1.1.1".sha256 =
     "sha256-ExAdC3WuArNxS+Sa1r4x5aT7ylbCvP/BZXfkdQNAvZ8=";

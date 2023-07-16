@@ -99,7 +99,8 @@ in
         Set of files that have to be linked in {file}`/etc`.
       '';
 
-      type = with types;
+      type =
+        with types;
         attrsOf (
           submodule (
             {
@@ -201,7 +202,8 @@ in
               };
             }
           )
-        );
+        )
+      ;
     };
   };
 

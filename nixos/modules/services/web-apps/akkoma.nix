@@ -29,14 +29,16 @@ let
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
   isSecret = v: isAttrs v && v ? _secret && isAbsolutePath v._secret;
 
-  absolutePath = with types;
+  absolutePath =
+    with types;
     mkOptionType {
       name = "absolutePath";
       description = "absolute path";
       descriptionClass = "noun";
       check = isAbsolutePath;
       inherit (str) merge;
-    };
+    }
+  ;
 
   secret = mkOptionType {
     name = "secret";
@@ -46,18 +48,21 @@ let
     nestedTypes = { _secret = absolutePath; };
   };
 
-  ipAddress = with types;
+  ipAddress =
+    with types;
     mkOptionType {
       name = "ipAddress";
       description = "IPv4 or IPv6 address";
       descriptionClass = "conjunction";
       check = x: str.check x && builtins.match "[.0-9:A-Fa-f]+" x != null;
       inherit (str) merge;
-    };
+    }
+  ;
 
   elixirValue =
     let
-      elixirValue' = with types;
+      elixirValue' =
+        with types;
         nullOr (
           oneOf [
             bool
@@ -69,7 +74,8 @@ let
           ]
         ) // {
           description = "Elixir value";
-        };
+        }
+      ;
     in
     elixirValue'
   ;
@@ -1076,14 +1082,16 @@ in
       };
 
       nginx = mkOption {
-        type = with types;
+        type =
+          with types;
           nullOr (
             submodule (
               import ../web-servers/nginx/vhost-options.nix {
                 inherit config lib;
               }
             )
-          );
+          )
+        ;
         default = null;
         description = mdDoc ''
           Extra configuration for the nginx virtual host of Akkoma.
@@ -1160,13 +1168,15 @@ in
 
     systemd.services.akkoma =
       let
-        runtimeInputs = with pkgs;
+        runtimeInputs =
+          with pkgs;
           [
             coreutils
             gawk
             gnused
           ]
-          ++ cfg.extraPackages;
+          ++ cfg.extraPackages
+        ;
       in
       {
         description = "Akkoma social network";

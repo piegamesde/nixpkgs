@@ -14,13 +14,15 @@ mkCoqDerivation {
   release."1.0".sha256 = "sha256-Qhw5fWFYxUFO2kIWWz/og+4fuy9aYG27szfNk3IglhY=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch [ coq.version ]
       [ {
         cases = [ (range "8.13" "8.17") ];
         out = "1.0";
       } ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs = [ coq-elpi ];
 

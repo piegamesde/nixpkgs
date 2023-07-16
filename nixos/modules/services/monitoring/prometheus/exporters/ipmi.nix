@@ -33,7 +33,8 @@ in
   };
 
   serviceOpts.serviceConfig = {
-    ExecStart = with cfg;
+    ExecStart =
+      with cfg;
       concatStringsSep " " (
         [
           "${pkgs.prometheus-ipmi-exporter}/bin/ipmi_exporter"
@@ -46,7 +47,8 @@ in
           "--config.file ${escapeShellArg cfg.configFile}"
         ]
         ++ extraFlags
-      );
+      )
+    ;
 
     ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
   };

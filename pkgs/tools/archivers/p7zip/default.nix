@@ -85,7 +85,8 @@ stdenv.mkDerivation (
       homepage = "https://github.com/p7zip-project/p7zip";
       description =
         "A new p7zip fork with additional codecs and improvements (forked from https://sourceforge.net/projects/p7zip/)";
-      license = with licenses;
+      license =
+        with licenses;
         # p7zip code is largely lgpl2Plus
         # CPP/7zip/Compress/LzfseDecoder.cpp is bsd3
         [
@@ -95,7 +96,8 @@ stdenv.mkDerivation (
         ++
           # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
           # the unRAR compression code is disabled by default
-          lib.optionals enableUnfree [ unfree ];
+          lib.optionals enableUnfree [ unfree ]
+      ;
       maintainers = with maintainers; [
         raskin
         jk

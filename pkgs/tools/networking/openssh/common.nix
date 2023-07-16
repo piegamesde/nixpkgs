@@ -188,7 +188,8 @@ stdenv.mkDerivation rec {
 
   passthru.tests = { borgbackup-integration = nixosTests.borgbackup; };
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       description = "An implementation of the SSH protocol${extraDesc}";
       homepage = "https://www.openssh.com/";
@@ -205,5 +206,6 @@ stdenv.mkDerivation rec {
         )
       ;
       mainProgram = "ssh";
-    } // extraMeta;
+    } // extraMeta
+  ;
 }

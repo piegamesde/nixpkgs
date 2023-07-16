@@ -8,7 +8,8 @@
 }:
 
 let
-  pythonPath = with python3.pkgs;
+  pythonPath =
+    with python3.pkgs;
     makePythonPath [
       capstone
       future
@@ -19,7 +20,8 @@ let
       pygments
       unicorn
       rpyc
-    ];
+    ]
+  ;
   binPath = lib.makeBinPath (
     [
       python3.pkgs.pwntools # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/wrappers/checksec.py#L8

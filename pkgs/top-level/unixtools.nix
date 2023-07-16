@@ -206,7 +206,8 @@ let
 
   # Compatibility derivations
   # Provided for old usage of these commands.
-  compat = with bins;
+  compat =
+    with bins;
     lib.mapAttrs makeCompat {
       procps = [
         ps
@@ -234,6 +235,7 @@ let
         netstat
         route
       ];
-    };
+    }
+  ;
 in
 bins // compat

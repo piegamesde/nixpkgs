@@ -192,7 +192,8 @@ let
       ;
     };
 
-    stdenvBootstrapTools = with lib;
+    stdenvBootstrapTools =
+      with lib;
       genAttrs systemsWithAnySupport (
         system:
         if hasSuffix "-linux" system then
@@ -219,7 +220,8 @@ let
           }
         else
           abort "No bootstrap implementation for system: ${system}"
-      );
+      )
+    ;
   };
 
   # Do not allow attribute collision between jobs inserted in

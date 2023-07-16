@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     perl
     (buildEnv {
       name = "rt-perl-deps";
-      paths = with perlPackages;
+      paths =
+        with perlPackages;
         (requiredPerlModules [
           ApacheSession
           BusinessHours
@@ -127,7 +128,8 @@ stdenv.mkDerivation rec {
           WebMachine
           XMLRSS
           perlldap
-        ]);
+        ])
+      ;
     })
   ];
 

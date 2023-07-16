@@ -18,7 +18,8 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-MlT8jNUpJMgaUO9ZIYjpv8l3evdFjfEOSvdAdSlOUvg=";
   };
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       commonmark
       aiohttp
@@ -36,7 +37,8 @@ python3.pkgs.buildPythonPackage rec {
       yarl
       zstandard
     ]
-    ++ lib.optional enableSystemd systemd;
+    ++ lib.optional enableSystemd systemd
+  ;
 
   postPatch = ''
     # Drop version limiting so that every dependency update doesn't break this package.

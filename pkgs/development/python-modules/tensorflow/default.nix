@@ -559,7 +559,8 @@ let
       requiredSystemFeatures = [ "big-parallel" ];
     };
 
-    meta = with lib;
+    meta =
+      with lib;
       {
         changelog =
           "https://github.com/tensorflow/tensorflow/releases/tag/v${version}";
@@ -573,7 +574,8 @@ let
       } // lib.optionalAttrs stdenv.isDarwin {
         timeout = 86400; # 24 hours
         maxSilent = 14400; # 4h, double the default of 7200s
-      };
+      }
+    ;
   };
 in
 buildPythonPackage {

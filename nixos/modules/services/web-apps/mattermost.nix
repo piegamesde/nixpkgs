@@ -47,7 +47,8 @@ let
     ''
   ;
 
-  mattermostPluginDerivations = with pkgs;
+  mattermostPluginDerivations =
+    with pkgs;
     map
       (
         plugin:
@@ -64,9 +65,11 @@ let
           preferLocalBuild = true;
         }
       )
-      cfg.plugins;
+      cfg.plugins
+  ;
 
-  mattermostPlugins = with pkgs;
+  mattermostPlugins =
+    with pkgs;
     if mattermostPluginDerivations == [ ] then
       null
     else
@@ -97,7 +100,8 @@ let
         dontConfigure = true;
         dontBuild = true;
         preferLocalBuild = true;
-      };
+      }
+  ;
 
   mattermostConfWithoutPlugins =
     recursiveUpdate

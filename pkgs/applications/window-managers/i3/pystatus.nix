@@ -27,7 +27,8 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs =
+    with python3Packages;
     [
       keyring
       colour
@@ -36,7 +37,8 @@ python3Packages.buildPythonApplication rec {
       basiciw
       pygobject3
     ]
-    ++ extraLibs;
+    ++ extraLibs
+  ;
 
   makeWrapperArgs = [
     # LC_TIME != C results in locale.Error: unsupported locale setting

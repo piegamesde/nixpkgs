@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     speex
   ];
 
-  installPhase = with lib;
+  installPhase =
+    with lib;
     let
       sys = last (splitString "-" stdenv.hostPlatform.system);
       arch = head (splitString "-" stdenv.hostPlatform.system);

@@ -17,7 +17,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Mp8eCVNGokJRwmYiZYCYRwV1QVDV02Uqfh6fGcPgJss=";
   };
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       beautifulsoup4
       cachetools
@@ -26,7 +27,8 @@ python3.pkgs.buildPythonApplication rec {
       youtube-dl
       ytmusicapi
     ]
-    ++ [ mopidy ];
+    ++ [ mopidy ]
+  ;
 
   nativeCheckInputs = with python3.pkgs; [
     vcrpy

@@ -22,7 +22,8 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ setuptools ];
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       dotty-dict
       hid
@@ -45,7 +46,8 @@ python3.pkgs.buildPythonApplication rec {
       pkgsCross.avr.buildPackages.binutils.bintools
       pkgsCross.avr.buildPackages.gcc8
       pkgsCross.avr.libcCross
-    ];
+    ]
+  ;
 
   # no tests implemented
   doCheck = false;

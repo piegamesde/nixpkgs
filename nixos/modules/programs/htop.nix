@@ -39,7 +39,8 @@ in
     enable = mkEnableOption (lib.mdDoc "htop process monitor");
 
     settings = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           oneOf [
             str
@@ -53,7 +54,8 @@ in
               ]
             ))
           ]
-        );
+        )
+      ;
       default = { };
       example = {
         hide_kernel_threads = true;

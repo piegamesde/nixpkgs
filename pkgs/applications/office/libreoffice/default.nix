@@ -576,7 +576,8 @@ in
     pkg-config
   ];
 
-  buildInputs = with xorg;
+  buildInputs =
+    with xorg;
     [
       ArchiveZip
       CoinMP
@@ -676,7 +677,8 @@ in
     ]
     ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [
       libwebp
-    ];
+    ]
+  ;
 
   passthru = {
     inherit srcs;

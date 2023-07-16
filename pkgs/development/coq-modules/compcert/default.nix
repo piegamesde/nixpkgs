@@ -23,7 +23,8 @@ let
     inherit version;
     releaseRev = v: "v${v}";
 
-    defaultVersion = with lib.versions;
+    defaultVersion =
+      with lib.versions;
       lib.switch coq.version
         [
           {
@@ -43,7 +44,8 @@ let
             out = "3.8";
           }
         ]
-        null;
+        null
+    ;
 
     release = {
       "3.8".sha256 = "1gzlyxvw64ca12qql3wnq3bidcx9ygsklv9grjma3ib4hvg7vnr7";
@@ -131,7 +133,8 @@ let
 in
 compcert.overrideAttrs (
   o: {
-    patches = with lib.versions;
+    patches =
+      with lib.versions;
       lib.switch
         [
           coq.version
@@ -233,6 +236,7 @@ compcert.overrideAttrs (
             ];
           }
         ]
-        [ ];
+        [ ]
+    ;
   }
 )

@@ -223,13 +223,15 @@ in
 
       tls = {
         loader = mkOption {
-          type = with types;
+          type =
+            with types;
             nullOr (
               enum [
                 "file"
                 "off"
               ]
-            );
+            )
+          ;
           default = "off";
           description = lib.mdDoc ''
             TLS certificates are obtained by modules called "certificate
@@ -240,7 +242,8 @@ in
         };
 
         certificates = mkOption {
-          type = with types;
+          type =
+            with types;
             listOf (
               submodule {
                 options = {
@@ -260,7 +263,8 @@ in
                   };
                 };
               }
-            );
+            )
+          ;
           default = [ ];
           example = lib.literalExpression ''
             [{

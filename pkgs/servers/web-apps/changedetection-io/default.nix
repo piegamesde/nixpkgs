@@ -26,7 +26,8 @@ python3.pkgs.buildPythonApplication rec {
       --replace "werkzeug~=2.0.0" "werkzeug"
   '';
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       apprise
       beautifulsoup4
@@ -61,7 +62,8 @@ python3.pkgs.buildPythonApplication rec {
       werkzeug
       wtforms
     ]
-    ++ requests.optional-dependencies.socks;
+    ++ requests.optional-dependencies.socks
+  ;
 
   # tests can currently not be run in one pytest invocation and without docker
   doCheck = false;

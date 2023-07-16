@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
     file
   ];
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       gtk2
       fftw
@@ -65,15 +66,18 @@ stdenv.mkDerivation rec {
     ++ optional libwebpSupport libwebp
     ++ optional zlibSupport zlib
     ++ optional libuniqueSupport libunique
-    ++ optional libzipSupport libzip;
+    ++ optional libzipSupport libzip
+  ;
 
-  propagatedBuildInputs = with lib;
+  propagatedBuildInputs =
+    with lib;
     optionals pythonSupport [
       pygtk
       pygobject2
       python
       gnome2.gtksourceview
-    ];
+    ]
+  ;
 
   # This patch corrects problems with python support, but should apply cleanly
   # regardless of whether python support is enabled, and have no effects if

@@ -118,12 +118,14 @@ stdenv.mkDerivation rec {
     updateScript = callPackage ./update-script.nix { inherit generation; };
   };
 
-  meta = with lib;
+  meta =
+    with lib;
     {
       homepage = "https://cassandra.apache.org/";
       description = "A massively scalable open source NoSQL database";
       platforms = platforms.unix;
       license = licenses.asl20;
       maintainers = [ maintainers.roberth ];
-    } // extraMeta;
+    } // extraMeta
+  ;
 }

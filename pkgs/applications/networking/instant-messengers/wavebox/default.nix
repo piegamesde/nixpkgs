@@ -50,7 +50,8 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  buildInputs = with xorg;
+  buildInputs =
+    with xorg;
     [
       libXdmcp
       libXScrnSaver
@@ -60,7 +61,8 @@ stdenv.mkDerivation {
       alsa-lib
       gtk3
       nss
-    ];
+    ]
+  ;
 
   runtimeDependencies = [
     (lib.getLib udev)

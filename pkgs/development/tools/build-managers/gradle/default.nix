@@ -68,7 +68,8 @@ rec {
       ];
       buildInputs = [ java ];
 
-      installPhase = with builtins;
+      installPhase =
+        with builtins;
         let
           toolchain = rec {
             prefix = x: "JAVA_TOOLCHAIN_NIX_${toString x}";

@@ -13,10 +13,12 @@ let
   natural = with types; addCheck int (x: x >= 0);
   natural' = with types; addCheck int (x: x > 0);
 
-  socket = with types;
+  socket =
+    with types;
     addCheck (either (submodule unixSocket) (submodule inetSocket)) (
       x: x ? path || x ? port
-    );
+    )
+  ;
 
   inetSocket = with types; {
     options = {

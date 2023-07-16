@@ -180,7 +180,8 @@ in
     );
 
     services = mkOption {
-      type = with types;
+      type =
+        with types;
         listOf (
           enum [
             "builds"
@@ -194,7 +195,8 @@ in
             "paste"
             "todo"
           ]
-        );
+        )
+      ;
       defaultText = "locally enabled services";
       description = lib.mdDoc ''
         Services that may be displayed as links in the title bar of the Web interface.

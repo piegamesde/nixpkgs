@@ -14,11 +14,13 @@ buildNimPackage rec {
     hash = "sha256-08vvHXVxL1mAcpMzosaHd2FupTJrKJP5JaVcgxN4oYE=";
   };
   doCheck = false; # impure
-  meta = with lib;
+  meta =
+    with lib;
     src.meta // {
       description = "Temporary files and folders";
       license = [ lib.licenses.mit ];
       maintainers = [ maintainers.ehmry ];
       mainProgram = "tempfile_seeder";
-    };
+    }
+  ;
 }

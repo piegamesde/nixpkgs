@@ -222,7 +222,8 @@ in
       };
 
       streams = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule {
               options = {
@@ -292,7 +293,8 @@ in
                 inherit codec;
               };
             }
-          );
+          )
+        ;
         default = { default = { }; };
         description = lib.mdDoc ''
           The definition for an input source.

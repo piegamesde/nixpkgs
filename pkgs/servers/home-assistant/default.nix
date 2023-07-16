@@ -485,7 +485,8 @@ python.pkgs.buildPythonApplication rec {
   # upstream only tests on Linux, so do we.
   doCheck = stdenv.isLinux;
 
-  nativeCheckInputs = with python.pkgs;
+  nativeCheckInputs =
+    with python.pkgs;
     [
       # test infrastructure (selectively from requirement_test.txt)
       freezegun
@@ -515,7 +516,8 @@ python.pkgs.buildPythonApplication rec {
       "hue"
       # for tests/test_config.py::test_merge_id_schema
       "qwikswitch"
-    ];
+    ]
+  ;
 
   pytestFlagsArray = [
     # assign tests grouped by file to workers

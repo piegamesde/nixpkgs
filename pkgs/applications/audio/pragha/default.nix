@@ -67,7 +67,8 @@ mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = with gst_all_1;
+  buildInputs =
+    with gst_all_1;
     [
       dbus-glib
       gstreamer

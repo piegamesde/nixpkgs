@@ -145,7 +145,8 @@ in
           lib.mdDoc
             "Set of btrbk instances. The instance named `btrbk` is the default one."
         ;
-        type = with types;
+        type =
+          with types;
           attrsOf (
             submodule {
               options = {
@@ -191,7 +192,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
         default = { };
       };
       sshAccess = mkOption {
@@ -199,7 +201,8 @@ in
           lib.mdDoc
             "SSH keys that should be able to make or push snapshots on this system remotely with btrbk"
         ;
-        type = with types;
+        type =
+          with types;
           listOf (
             submodule {
               options = {
@@ -234,7 +237,8 @@ in
                 };
               };
             }
-          );
+          )
+        ;
         default = [ ];
       };
     };

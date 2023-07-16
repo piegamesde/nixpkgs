@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     rm version
   '';
 
-  buildInputs = with lib;
+  buildInputs =
+    with lib;
     [
       mecab
       kytea
@@ -49,15 +50,18 @@ stdenv.mkDerivation rec {
       zeromq
       libevent
       msgpack
-    ];
+    ]
+  ;
 
   nativeBuildInputs = [
     autoreconfHook
     pkg-config
   ];
 
-  configureFlags = with lib;
-    optional zlibSupport "--with-zlib" ++ optional lz4Support "--with-lz4";
+  configureFlags =
+    with lib;
+    optional zlibSupport "--with-zlib" ++ optional lz4Support "--with-lz4"
+  ;
 
   doInstallCheck = true;
   installCheckPhase = "$out/bin/groonga --version";

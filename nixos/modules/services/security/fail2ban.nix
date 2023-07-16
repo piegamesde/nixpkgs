@@ -243,14 +243,16 @@ in
       };
 
       extraSettings = mkOption {
-        type = with types;
+        type =
+          with types;
           attrsOf (
             oneOf [
               bool
               ints.positive
               str
             ]
-          );
+          )
+        ;
         default = { };
         description = lib.mdDoc ''
           Extra default configuration for all jails (i.e. `[DEFAULT]`). See

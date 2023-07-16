@@ -23,7 +23,8 @@ python3.pkgs.buildPythonApplication rec {
       --replace "rich==12.6.0" "rich"
   '';
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       aiohttp
       click
@@ -42,7 +43,8 @@ python3.pkgs.buildPythonApplication rec {
       typer
       watchdog
     ]
-    ++ typer.optional-dependencies.all;
+    ++ typer.optional-dependencies.all
+  ;
 
   passthru.optional-dependencies = with python3.pkgs; {
     aws = [ boto3 ];

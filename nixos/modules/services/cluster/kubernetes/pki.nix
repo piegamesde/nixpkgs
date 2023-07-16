@@ -38,15 +38,19 @@ let
   certmgrAPITokenPath = "${top.secretsPath}/${cfsslAPITokenBaseName}";
   cfsslAPITokenLength = 32;
 
-  clusterAdminKubeconfig = with cfg.certs.clusterAdmin;
+  clusterAdminKubeconfig =
+    with cfg.certs.clusterAdmin;
     top.lib.mkKubeConfig "cluster-admin" {
       server = top.apiserverAddress;
       certFile = cert;
       keyFile = key;
-    };
+    }
+  ;
 
-  remote = with config.services;
-    "https://${kubernetes.masterAddress}:${toString cfssl.port}";
+  remote =
+    with config.services;
+    "https://${kubernetes.masterAddress}:${toString cfssl.port}"
+  ;
 in
 {
   ###### interface
@@ -181,7 +185,8 @@ in
         );
       };
 
-      systemd.services.cfssl.preStart = with pkgs;
+      systemd.services.cfssl.preStart =
+        with pkgs;
         with config.services.cfssl;
         mkIf (top.apiserver.enable) (
           concatStringsSep "\n" [
@@ -207,7 +212,8 @@ in
               chown cfssl "${cfsslAPITokenPath}" && chmod 400 "${cfsslAPITokenPath}"
             '')
           ]
-        );
+        )
+      ;
 
       systemd.services.kube-certmgr-bootstrap = {
         description = "Kubernetes certmgr bootstrapper";
@@ -283,17 +289,20 @@ in
       systemd.services.kube-addon-manager = mkIf top.addonManager.enable (
         mkMerge [
           {
-            environment.KUBECONFIG = with cfg.certs.addonManager;
+            environment.KUBECONFIG =
+              with cfg.certs.addonManager;
               top.lib.mkKubeConfig "addon-manager" {
                 server = top.apiserverAddress;
                 certFile = cert;
                 keyFile = key;
-              };
+              }
+            ;
           }
 
           (optionalAttrs (top.addonManager.bootstrapAddons != { }) {
             serviceConfig.PermissionsStartOnly = true;
-            preStart = with pkgs;
+            preStart =
+              with pkgs;
               let
                 files =
                   mapAttrsToList

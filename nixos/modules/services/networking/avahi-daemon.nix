@@ -12,7 +12,8 @@ let
 
   yesNo = yes: if yes then "yes" else "no";
 
-  avahiDaemonConf = with cfg;
+  avahiDaemonConf =
+    with cfg;
     pkgs.writeText "avahi-daemon.conf" ''
       [server]
       ${
@@ -50,7 +51,8 @@ let
       [reflector]
       enable-reflector=${yesNo reflector}
       ${extraConfig}
-    '';
+    ''
+  ;
 in
 {
   imports = [

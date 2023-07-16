@@ -20,7 +20,8 @@ python3.pkgs.buildPythonApplication rec {
     sed -i '/addopts/d' setup.cfg
   '';
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       defusedxml
       passlib
@@ -28,7 +29,8 @@ python3.pkgs.buildPythonApplication rec {
       python-dateutil
       pytz # https://github.com/Kozea/Radicale/issues/816
     ]
-    ++ passlib.optional-dependencies.bcrypt;
+    ++ passlib.optional-dependencies.bcrypt
+  ;
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook

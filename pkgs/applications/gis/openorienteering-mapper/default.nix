@@ -84,13 +84,15 @@ mkDerivation rec {
     ]
   ;
 
-  postInstall = with stdenv;
+  postInstall =
+    with stdenv;
     lib.optionalString isDarwin ''
       mkdir -p $out/Applications
       mv $out/Mapper.app $out/Applications
       mkdir -p $out/bin
       ln -s $out/Applications/Mapper.app/Contents/MacOS/Mapper $out/bin/mapper
-    '';
+    ''
+  ;
 
   meta = with lib; {
     homepage = "https://www.openorienteering.org/apps/mapper/";

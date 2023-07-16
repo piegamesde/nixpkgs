@@ -14,7 +14,8 @@ in
 {
   options.services.github-runners = mkOption {
     default = { };
-    type = with types;
+    type =
+      with types;
       attrsOf (
         submodule {
           options = import ./github-runner/options.nix (
@@ -24,7 +25,8 @@ in
             }
           );
         }
-      );
+      )
+    ;
     example = {
       runner1 = {
         enable = true;

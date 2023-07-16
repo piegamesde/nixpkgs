@@ -880,11 +880,13 @@ stdenv.mkDerivation (
         No matter if they were designed by some standards committee, the community or
         a corporation.
       '';
-      license = with licenses;
+      license =
+        with licenses;
         [ lgpl21Plus ]
         ++ optional withGPL gpl2Plus
         ++ optional withGPLv3 gpl3Plus
-        ++ optional withUnfree unfreeRedistributable;
+        ++ optional withUnfree unfreeRedistributable
+      ;
       pkgConfigModules = [ "libavutil" ];
       platforms = platforms.all;
       maintainers = with maintainers; [ atemu ];

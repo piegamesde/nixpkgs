@@ -22,7 +22,8 @@ let
   configKey = types.strMatching ''
     [^
     	 ]+'';
-  optionType = with types;
+  optionType =
+    with types;
     oneOf [
       str
       path
@@ -30,7 +31,8 @@ let
       int
     ] // {
       description = "string, path, bool, or integer";
-    };
+    }
+  ;
   optionToString =
     v:
     if isBool v then
@@ -58,7 +60,8 @@ let
     mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}")
   ;
 
-  userOptions = with types;
+  userOptions =
+    with types;
     submodule {
       options = {
         password = mkOption {
@@ -116,7 +119,8 @@ let
           '';
         };
       };
-    };
+    }
+  ;
 
   userAsserts =
     prefix: users:
@@ -214,7 +218,8 @@ let
     )
   ;
 
-  authPluginOptions = with types;
+  authPluginOptions =
+    with types;
     submodule {
       options = {
         plugin = mkOption {
@@ -242,7 +247,8 @@ let
           default = { };
         };
       };
-    };
+    }
+  ;
 
   authAsserts =
     prefix: auth:
@@ -295,7 +301,8 @@ let
     use_username_as_clientid = 1;
   };
 
-  listenerOptions = with types;
+  listenerOptions =
+    with types;
     submodule {
       options = {
         port = mkOption {
@@ -368,7 +375,8 @@ let
           default = { };
         };
       };
-    };
+    }
+  ;
 
   listenerAsserts =
     prefix: listener:
@@ -428,7 +436,8 @@ let
     try_private = 1;
   };
 
-  bridgeOptions = with types;
+  bridgeOptions =
+    with types;
     submodule {
       options = {
         addresses = mkOption {
@@ -477,7 +486,8 @@ let
           default = { };
         };
       };
-    };
+    }
+  ;
 
   bridgeAsserts =
     prefix: bridge:

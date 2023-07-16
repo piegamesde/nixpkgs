@@ -186,7 +186,8 @@ in
     };
 
     managerEnvironment = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (
           nullOr (
             oneOf [
@@ -195,7 +196,8 @@ in
               package
             ]
           )
-        );
+        )
+      ;
       default = { };
       example = { SYSTEMD_LOG_LEVEL = "debug"; };
       description = lib.mdDoc ''
@@ -222,13 +224,15 @@ in
       description = lib.mdDoc ''
         Store paths to copy into the initrd as well.
       '';
-      type = with types;
+      type =
+        with types;
         listOf (
           oneOf [
             singleLineStr
             package
           ]
-        );
+        )
+      ;
       default = [ ];
     };
 
@@ -268,11 +272,13 @@ in
     };
 
     emergencyAccess = mkOption {
-      type = with types;
+      type =
+        with types;
         oneOf [
           bool
           (nullOr (passwdEntry str))
-        ];
+        ]
+      ;
       description = lib.mdDoc ''
         Set to true for unauthenticated emergency access, and false for
         no emergency access.

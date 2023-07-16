@@ -78,13 +78,15 @@ in
       description = "containerd - container runtime";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path = with pkgs;
+      path =
+        with pkgs;
         [
           containerd
           runc
           iptables
         ]
-        ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package;
+        ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package
+      ;
       serviceConfig = {
         ExecStart =
           "${pkgs.containerd}/bin/containerd ${

@@ -28,7 +28,8 @@ mkCoqDerivation rec {
     "sha256-eu/dBEFo3y6vnXlJljUD4hds6+qgAPQVvsuspyGHcj8=";
 
   inherit version;
-  defaultVersion = with lib.versions;
+  defaultVersion =
+    with lib.versions;
     lib.switch coq.coq-version
       [
         {
@@ -52,7 +53,8 @@ mkCoqDerivation rec {
           out = "8.6.0";
         }
       ]
-      null;
+      null
+  ;
 
   propagatedBuildInputs = [ zorns-lemma ];
 

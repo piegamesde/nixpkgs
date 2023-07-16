@@ -10,7 +10,8 @@ let
   inherit (config.users) groups;
   rootDir = "/run/freeciv";
   argsFormat = {
-    type = with lib.types;
+    type =
+      with lib.types;
       let
         valueType = nullOr (
           oneOf [
