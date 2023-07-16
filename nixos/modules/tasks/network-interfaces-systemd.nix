@@ -247,7 +247,8 @@ in
           {
             rstp,
             ...
-          }: {
+          }:
+          {
             assertion = !rstp;
             message =
               "networking.bridges.${n}.rstp is not supported by networkd.";
@@ -258,7 +259,8 @@ in
           {
             local,
             ...
-          }: {
+          }:
+          {
             assertion = local == null;
             message =
               "networking.fooOverUDP.${n}.local is not supported by networkd.";

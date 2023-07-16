@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "closer-mop";
   version = "20211209-git";
 

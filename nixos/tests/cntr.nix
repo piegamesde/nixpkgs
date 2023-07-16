@@ -26,7 +26,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             environment.systemPackages = [ pkgs.cntr ];
             virtualisation.oci-containers = {
               inherit backend;
@@ -71,7 +72,8 @@ let
       {
         lib,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.cntr ];
         containers.test = {
           autoStart = true;

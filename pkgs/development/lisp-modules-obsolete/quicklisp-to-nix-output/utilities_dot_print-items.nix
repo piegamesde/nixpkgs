@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "utilities_dot_print-items";
   version = "20210411-git";
 

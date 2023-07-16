@@ -15,7 +15,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       imports = [
         pkgsModule
         ../etc/etc.nix

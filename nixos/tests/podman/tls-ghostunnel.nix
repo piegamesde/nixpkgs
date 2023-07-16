@@ -50,7 +50,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.podman.enable = true;
           virtualisation.podman.dockerSocket.enable = true;
           virtualisation.podman.networkSocket = {
@@ -76,7 +77,8 @@ import ../make-test-python.nix (
       client =
         {
           ...
-        }: {
+        }:
+        {
           environment.systemPackages =
             [
               # Installs the docker _client_ only

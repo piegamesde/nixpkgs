@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "cl-paths-ttf";
   version = "cl-vectors-20180228-git";
 

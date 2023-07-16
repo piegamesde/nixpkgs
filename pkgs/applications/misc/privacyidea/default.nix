@@ -13,7 +13,8 @@ let
     {
       outputs,
       ...
-    }: {
+    }:
+    {
       outputs = lib.filter (x: x != "doc") outputs;
     }
   ;
@@ -128,7 +129,8 @@ let
           {
             meta ? { },
             ...
-          }: {
+          }:
+          {
             meta = meta // { broken = false; };
           }
         );

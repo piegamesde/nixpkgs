@@ -27,7 +27,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           networking.firewall.allowedTCPPorts = [
             80
             2222

@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "cl-svg";
   version = "20180228-git";
 

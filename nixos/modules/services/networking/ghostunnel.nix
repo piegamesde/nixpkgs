@@ -28,7 +28,8 @@ let
       config,
       name,
       ...
-    }: {
+    }:
+    {
       options = {
 
         listen = mkOption {

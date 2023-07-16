@@ -46,7 +46,8 @@ import ../make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = with pkgs; [
           k3s
           gzip

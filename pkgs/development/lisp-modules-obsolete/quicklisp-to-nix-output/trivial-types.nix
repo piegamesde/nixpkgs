@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "trivial-types";
   version = "20120407-git";
 

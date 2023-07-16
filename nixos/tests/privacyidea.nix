@@ -4,14 +4,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: rec {
+  }:
+  rec {
     name = "privacyidea";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         virtualisation.cores = 2;
 
         services.privacyidea = {

@@ -15,7 +15,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         type = mkOption {
           type = types.enum [

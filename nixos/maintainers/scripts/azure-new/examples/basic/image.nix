@@ -7,7 +7,8 @@ let
         {
           config,
           ...
-        }: {
+        }:
+        {
           imports = [ ./system.nix ];
         }
       )

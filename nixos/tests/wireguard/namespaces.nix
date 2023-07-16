@@ -18,7 +18,8 @@ import ../make-test-python.nix (
     lib,
     kernelPackages ? null,
     ...
-  }: {
+  }:
+  {
     name = "wireguard-with-namespaces";
     meta = with pkgs.lib.maintainers; { maintainers = [ asymmetric ]; };
 

@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "dolibarr";
     meta.maintainers = [ lib.maintainers.raitobezarius ];
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.dolibarr = {
           enable = true;
           domain = "localhost";

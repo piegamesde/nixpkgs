@@ -255,7 +255,8 @@ in
             {
               config,
               ...
-            }: {
+            }:
+            {
               options = {
                 recognitionType = mkOption {
                   default = "magic";

@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nested";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ sorki ]; };

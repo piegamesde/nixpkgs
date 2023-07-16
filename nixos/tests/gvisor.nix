@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "gvisor";
     meta = with pkgs.lib.maintainers; { maintainers = [ andrew-d ]; };
 
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.docker = {
             enable = true;
             extraOptions = "--add-runtime runsc=${pkgs.gvisor}/bin/runsc";

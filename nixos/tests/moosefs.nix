@@ -9,7 +9,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         # data base is stored in memory
         # server crashes with default memory size
         virtualisation.memorySize = 1024;
@@ -29,7 +30,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.emptyDiskImages = [ 4096 ];
         boot.initrd.postDeviceCommands = ''
           ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
@@ -57,7 +59,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.moosefs = {
           masterHost = "master";
           metalogger.enable = true;
@@ -69,7 +72,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.moosefs.client.enable = true;
       }
     ;

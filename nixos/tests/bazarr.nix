@@ -17,7 +17,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.bazarr = {
           enable = true;
           listenPort = port;

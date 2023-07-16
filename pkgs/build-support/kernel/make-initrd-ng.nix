@@ -105,7 +105,8 @@ runCommand name
             object,
             symlink,
             ...
-          }: ''
+          }:
+          ''
             ${object}
             ${if symlink == null then "" else symlink}''
         )

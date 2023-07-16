@@ -4,7 +4,8 @@
   tone,
   pname,
   nodejs,
-}: ''
+}:
+''
   #!${stdenv.shell}
 
   port=8000

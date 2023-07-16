@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "Avalonia";
     version = "11.0.999-cibuild0030643-beta";

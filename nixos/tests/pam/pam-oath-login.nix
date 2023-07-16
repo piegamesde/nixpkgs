@@ -27,7 +27,8 @@ import ../make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         security.pam.oath = { enable = true; };
 
         users.users.alice = {

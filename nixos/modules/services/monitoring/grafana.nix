@@ -79,7 +79,8 @@ let
       src,
       dir,
       filename,
-    }: ''
+    }:
+    ''
       if [[ -d "${src}" ]]; then
         pushd $out/${dir} &>/dev/null
           lndir "${src}"

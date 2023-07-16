@@ -22,7 +22,8 @@ import ./make-test-python.nix (
       host =
         {
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.charliecloud ];
           virtualisation.docker.enable = true;
           users.users.alice = {

@@ -18,7 +18,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           networking = {
             interfaces.eth1 = {
               ipv4.addresses = [ {
@@ -68,7 +69,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.curlHTTP3 ];
           networking = {
             interfaces.eth1 = {

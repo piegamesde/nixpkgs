@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   name = "3proxy";
   meta = with lib.maintainers; { maintainers = [ misuzu ]; };
 
@@ -11,7 +12,8 @@
       {
         lib,
         ...
-      }: {
+      }:
+      {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
           ipv4.addresses = [
@@ -32,7 +34,8 @@
       {
         lib,
         ...
-      }: {
+      }:
+      {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
           ipv4.addresses = [
@@ -74,7 +77,8 @@
       {
         lib,
         ...
-      }: {
+      }:
+      {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
           ipv4.addresses = [
@@ -116,7 +120,8 @@
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
           ipv4.addresses = [

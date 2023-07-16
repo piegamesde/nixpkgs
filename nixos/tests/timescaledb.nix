@@ -51,7 +51,8 @@ let
       nodes.machine =
         {
           ...
-        }: {
+        }:
+        {
           services.postgresql = {
             enable = true;
             package = postgresql-package;

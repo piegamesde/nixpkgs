@@ -52,7 +52,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.mysql = {
           enable = true;
           package = pkgs.mariadb;

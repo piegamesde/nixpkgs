@@ -23,7 +23,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           services.target = {
             enable = true;
             config = {
@@ -85,7 +86,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.openiscsi = {
             enable = true;
             enableAutoLoginOut = true;
@@ -114,7 +116,8 @@ import ./make-test-python.nix (
           modulesPath,
           lib,
           ...
-        }: {
+        }:
+        {
           boot.loader.grub.enable = false;
           boot.kernelParams = lib.mkOverride 5 ([
             "boot.shell_on_fail"
@@ -146,7 +149,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         target.start()
         target.wait_for_unit("iscsi-target.service")
 

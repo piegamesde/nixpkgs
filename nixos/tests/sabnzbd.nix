@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "sabnzbd";
     meta = with pkgs.lib; { maintainers = with maintainers; [ jojosch ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.sabnzbd = { enable = true; };
 
         # unrar is unfree

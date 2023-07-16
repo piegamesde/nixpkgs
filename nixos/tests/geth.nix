@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "geth";
     meta = with pkgs.lib; { maintainers = with maintainers; [ bachp ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.geth."mainnet" = {
           enable = true;
           http = { enable = true; };

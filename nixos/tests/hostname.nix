@@ -33,7 +33,8 @@ let
         {
           lib,
           ...
-        }: {
+        }:
+        {
           networking.hostName = hostName;
           networking.domain = domain;
 
@@ -45,7 +46,8 @@ let
         {
           nodes,
           ...
-        }: ''
+        }:
+        ''
           start_all()
 
           machine = ${hostName}

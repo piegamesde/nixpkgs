@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "trivial-macroexpand-all";
   version = "20171023-git";
 

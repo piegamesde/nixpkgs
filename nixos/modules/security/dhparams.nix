@@ -21,7 +21,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options.bits = mkOption {
         type = bitType;
         default = cfg.defaultBitSize;
@@ -179,7 +180,8 @@ in
                       bits,
                       path,
                       ...
-                    }: ''
+                    }:
+                    ''
                       if [ "$file" = ${lib.escapeShellArg path} ] && \
                          ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
                          | head -n 1 | grep "(${

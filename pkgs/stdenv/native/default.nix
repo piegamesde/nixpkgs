@@ -151,7 +151,8 @@ in
 [
 
   (
-    { }: rec {
+    { }:
+    rec {
       __raw = true;
 
       stdenv = makeStdenv {

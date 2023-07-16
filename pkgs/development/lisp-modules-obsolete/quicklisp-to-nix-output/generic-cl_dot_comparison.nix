@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "generic-cl_dot_comparison";
   version = "generic-cl-20211020-git";
 

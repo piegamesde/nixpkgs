@@ -6,7 +6,8 @@ import ./make-test-python.nix {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.dnsutils ];
         services.blocky = {
           enable = true;

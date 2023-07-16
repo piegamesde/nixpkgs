@@ -119,7 +119,8 @@ let
       {
         name,
         port,
-      }: {
+      }:
+      {
         enable = mkEnableOption (lib.mdDoc "the prometheus ${name} exporter");
         port = mkOption {
           type = types.port;
@@ -184,7 +185,8 @@ let
       port,
       extraOpts,
       imports,
-    }: {
+    }:
+    {
       ${name} = mkOption {
         type = types.submodule [
           {

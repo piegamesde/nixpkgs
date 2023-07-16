@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "AtkSharp";
     version = "3.24.24.38";

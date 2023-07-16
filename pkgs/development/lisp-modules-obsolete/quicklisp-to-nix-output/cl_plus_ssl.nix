@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "cl_plus_ssl";
   version = "cl+ssl-20211209-git";
 

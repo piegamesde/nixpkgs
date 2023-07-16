@@ -1,6 +1,7 @@
 {
   lib,
-}: {
+}:
+{
   # Returns the Agda interface file to a given Agda file.
   #
   # Examples:

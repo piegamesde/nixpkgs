@@ -15,7 +15,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           # We'll switch to this once the config is copied into place
           specialisation.running.configuration = {
             services.matrix-synapse = {
@@ -58,7 +59,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.ngircd = {
             enable = true;
             config = ''
@@ -83,7 +85,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.matrix-appservice-irc = {
             enable = true;
             registrationUrl = "http://appservice:8009";
@@ -111,7 +114,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [
             (
               pkgs.writers.writePython3Bin "do_test"

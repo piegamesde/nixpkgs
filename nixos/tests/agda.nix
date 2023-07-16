@@ -26,7 +26,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [
           (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; })
         ];

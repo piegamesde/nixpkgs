@@ -11,7 +11,8 @@ let
   templateSubmodule =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         enable = mkEnableOption (lib.mdDoc "this template");
 

@@ -221,7 +221,8 @@ in
             {
               name,
               ...
-            }: {
+            }:
+            {
               freeformType = with types;
                 attrsOf (
                   nullOr (

@@ -1,7 +1,8 @@
 import ../make-test-python.nix (
   {
     ...
-  }: {
+  }:
+  {
     name = "spark";
 
     nodes = {
@@ -10,7 +11,8 @@ import ../make-test-python.nix (
           nodes,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.spark.worker = {
             enable = true;
             master = "master:7077";
@@ -23,7 +25,8 @@ import ../make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.spark.master = {
             enable = true;
             bind = "0.0.0.0";

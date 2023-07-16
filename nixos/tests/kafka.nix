@@ -19,7 +19,8 @@ let
             zookeeper1 =
               {
                 ...
-              }: {
+              }:
+              {
                 services.zookeeper = { enable = true; };
 
                 networking.firewall.allowedTCPPorts = [ 2181 ];
@@ -28,7 +29,8 @@ let
             kafka =
               {
                 ...
-              }: {
+              }:
+              {
                 services.apache-kafka = {
                   enable = true;
                   extraProperties = ''

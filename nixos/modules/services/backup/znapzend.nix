@@ -73,7 +73,8 @@ let
       {
         name,
         ...
-      }: {
+      }:
+      {
         options = {
 
           label = mkOption {
@@ -144,7 +145,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
 
         enable = mkOption {

@@ -29,7 +29,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             virtualisation.oci-containers = {
               inherit backend;
               containers.nginx = {

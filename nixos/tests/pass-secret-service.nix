@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "pass-secret-service";
     meta.maintainers = [ lib.maintainers.aidalgol ];
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         nodes,
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/user-account.nix ];
 
         services.passSecretService.enable = true;

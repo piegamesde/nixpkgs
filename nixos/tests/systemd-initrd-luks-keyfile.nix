@@ -19,7 +19,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         # Use systemd-boot
         virtualisation = {
           emptyDiskImages = [ 512 ];

@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-hosts";
     meta = { maintainers = with lib.maintainers; [ montag451 ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       {
         lib,
         ...
-      }: {
+      }:
+      {
         virtualisation.vlans = [ ];
 
         networking.bridges.br0.interfaces = [ ];

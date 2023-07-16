@@ -49,7 +49,8 @@ self: super:
         {
           librarySystemDepends ? [ ],
           ...
-        }: {
+        }:
+        {
           librarySystemDepends = librarySystemDepends ++ [ pkgs.wiringpi ];
         }
       )

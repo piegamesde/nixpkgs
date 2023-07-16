@@ -283,7 +283,8 @@ in
             cmdline,
             timeArgs,
             ...
-          }: ''
+          }:
+          ''
             ${timeArgs} ${user} ${cmdline}
           ''
         ;

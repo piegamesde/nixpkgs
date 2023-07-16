@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "apparmor";
     meta = with pkgs.lib.maintainers; { maintainers = [ julm ]; };
 

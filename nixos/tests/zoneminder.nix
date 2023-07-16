@@ -11,7 +11,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.zoneminder = {
           enable = true;
           database.createLocally = true;

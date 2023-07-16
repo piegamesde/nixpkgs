@@ -85,7 +85,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 2 ];
           networking.firewall.enable = false;
           services.httpd.enable = true;

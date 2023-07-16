@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "mtp";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -17,7 +18,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           # DBUS runs only once a user session is created, which means a user has to
           # login. Here, we log in as root. Once logged in, the gvfs-daemon service runs
           # as UID 0 in User-0.service

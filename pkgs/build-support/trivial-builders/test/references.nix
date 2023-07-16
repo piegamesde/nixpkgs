@@ -35,7 +35,8 @@ testers.nixosTest {
   nodes.machine =
     {
       ...
-    }: {
+    }:
+    {
       virtualisation.writableStore = true;
 
       # Test runs without network, so we don't substitute and prepare our deps

@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "connman";
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
     nodes.router =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/profiles/minimal.nix ];
 
         virtualisation.vlans = [ 1 ];
@@ -46,7 +48,8 @@ import ./make-test-python.nix (
     nodes.client =
       {
         ...
-      }: {
+      }:
+      {
         virtualisation.vlans = [ 1 ];
 
         # add a virtual wlan interface

@@ -10,7 +10,8 @@ import ./make-test-python.nix (
       {
         path,
         loop ? false,
-      }: {
+      }:
+      {
         script = ''
           ${pkgs.coreutils}/bin/dd if=/dev/zero of=${path} bs=1K count=100
           ${pkgs.lib.optionalString loop
@@ -31,7 +32,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           # Create some small files of zeros to use as the ndb disks
           ## `vault-pub.disk` is accessible from any IP
           systemd.services.create-pub-file = mkCreateSmallFileService {
@@ -81,7 +83,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           programs.nbd.enable = true;
         }
       ;

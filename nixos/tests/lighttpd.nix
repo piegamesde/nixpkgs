@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "lighttpd";
     meta.maintainers = with lib.maintainers; [ bjornfor ];
 

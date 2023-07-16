@@ -45253,7 +45253,8 @@ with pkgs;
               {
                 lib,
                 ...
-              }: {
+              }:
+              {
                 config.nixpkgs.pkgs = lib.mkDefault pkgs;
                 config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
               }
@@ -45277,7 +45278,8 @@ with pkgs;
       lib,
       options,
       ...
-    }: {
+    }:
+    {
       config =
         if options ? nixpkgs.pkgs then
           {

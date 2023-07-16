@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "Docnet.Core";
     version = "2.3.1";

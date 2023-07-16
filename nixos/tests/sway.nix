@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "sway";
     meta = {
       maintainers = with lib.maintainers; [
@@ -22,7 +23,8 @@ import ./make-test-python.nix (
       {
         config,
         ...
-      }: {
+      }:
+      {
         # Automatically login on tty1 as a normal user:
         imports = [ ./common/user-account.nix ];
         services.getty.autologinUser = "alice";
@@ -94,7 +96,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         import shlex
 
         def swaymsg(command: str, succeed=True):

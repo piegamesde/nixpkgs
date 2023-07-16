@@ -14,7 +14,8 @@ with lib; {
             config,
             extendModules,
             ...
-          }: {
+          }:
+          {
             options.value = mkOption { type = types.int; };
 
             options.specialisation = mkOption {

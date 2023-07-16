@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "minidlna";
 
     nodes = {
       server =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ ../modules/profiles/minimal.nix ];
           services.minidlna.enable = true;
           services.minidlna.openFirewall = true;

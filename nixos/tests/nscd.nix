@@ -22,7 +22,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ common/user-account.nix ];
         networking.extraHosts = ''
           2001:db8::1 somehost.test
@@ -51,14 +52,16 @@ import ./make-test-python.nix (
           withGlibcNscd.configuration =
             {
               ...
-            }: {
+            }:
+            {
               services.nscd.enableNsncd = false;
             }
           ;
           withUnscd.configuration =
             {
               ...
-            }: {
+            }:
+            {
               services.nscd.enableNsncd = false;
               services.nscd.package = pkgs.unscd;
             }

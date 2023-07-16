@@ -39,7 +39,8 @@ import ./make-test-python.nix (
     testScript =
       {
         ...
-      }: ''
+      }:
+      ''
         start_all()
         machine.wait_for_x()
 

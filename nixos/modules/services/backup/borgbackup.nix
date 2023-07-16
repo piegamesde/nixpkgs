@@ -384,7 +384,8 @@ in
           name,
           config,
           ...
-        }: {
+        }:
+        {
           options = {
 
             paths = mkOption {
@@ -792,7 +793,8 @@ in
       types.submodule (
         {
           ...
-        }: {
+        }:
+        {
           options = {
             path = mkOption {
               type = types.path;

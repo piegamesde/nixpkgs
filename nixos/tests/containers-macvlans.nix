@@ -9,7 +9,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-macvlans";
     meta = { maintainers = with lib.maintainers; [ montag451 ]; };
 
@@ -19,7 +20,8 @@ import ./make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
 
           # To be able to ping containers from the host, it is necessary
@@ -69,7 +71,8 @@ import ./make-test-python.nix (
       machine2 =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
         }
       ;

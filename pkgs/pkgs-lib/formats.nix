@@ -1,7 +1,8 @@
 {
   lib,
   pkgs,
-}: rec {
+}:
+rec {
 
   /* Every following entry represents a format for program configuration files
      used for `settings`-style options (see https://github.com/NixOS/rfcs/pull/42).
@@ -35,7 +36,8 @@
   ;
 
   json =
-    { }: {
+    { }:
+    {
 
       type = with lib.types;
         let
@@ -80,7 +82,8 @@
   ;
 
   yaml =
-    { }: {
+    { }:
+    {
 
       generate =
         name: value:
@@ -266,7 +269,8 @@
     {
       listsAsDuplicateKeys ? false,
       ...
-    }@args: {
+    }@args:
+    {
 
       type = with lib.types;
         let
@@ -593,7 +597,8 @@
   # Outputs a succession of Python variable assignments
   # Useful for many Django-based services
   pythonVars =
-    { }: {
+    { }:
+    {
       type = with lib.types;
         let
           valueType = nullOr (

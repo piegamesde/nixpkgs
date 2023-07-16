@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "Castle.Core";
     version = "4.4.0";

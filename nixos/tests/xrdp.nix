@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "xrdp";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           imports = [ ./common/user-account.nix ];
           services.xrdp.enable = true;
           services.xrdp.defaultWindowManager = "${pkgs.xterm}/bin/xterm";
@@ -23,7 +25,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           imports = [
             ./common/x11.nix
             ./common/user-account.nix

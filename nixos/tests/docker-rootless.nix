@@ -5,7 +5,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "docker-rootless";
     meta = with pkgs.lib.maintainers; { maintainers = [ abbradar ]; };
 
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.docker.rootless.enable = true;
 
           users.users.alice = {

@@ -13,7 +13,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "gocd-agent";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -30,7 +31,8 @@ import ./make-test-python.nix (
       agent =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.memorySize = 2046;
           services.gocd-agent = { enable = true; };
           services.gocd-server = { enable = true; };

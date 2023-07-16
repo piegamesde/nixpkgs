@@ -11,7 +11,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/profiles/minimal.nix ];
 
         hardware.ksm.enable = true;

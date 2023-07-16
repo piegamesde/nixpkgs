@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "sympa";
     meta.maintainers = with lib.maintainers; [ mmilata ];
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
 
         services.sympa = {
           enable = true;

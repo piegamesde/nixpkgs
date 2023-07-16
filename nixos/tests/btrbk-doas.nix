@@ -31,7 +31,8 @@ import ./make-test-python.nix (
       archive =
         {
           ...
-        }: {
+        }:
+        {
           security.sudo.enable = false;
           security.doas.enable = true;
           environment.systemPackages = with pkgs; [ btrfs-progs ];
@@ -64,7 +65,8 @@ import ./make-test-python.nix (
       main =
         {
           ...
-        }: {
+        }:
+        {
           security.sudo.enable = false;
           security.doas.enable = true;
           environment.systemPackages = with pkgs; [ btrfs-progs ];

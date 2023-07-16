@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "iolib_dot_asdf";
   version = "iolib-v0.8.4";
 

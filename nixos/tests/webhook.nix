@@ -14,7 +14,8 @@ in
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.forwardPorts = [ {
           host.port = forwardedPort;
           guest.port = internalPort;
@@ -55,7 +56,8 @@ in
     {
       nodes,
       ...
-    }: ''
+    }:
+    ''
       import requests
       webhookMachine.wait_for_unit("webhook")
       webhookMachine.wait_for_open_port(${toString internalPort})

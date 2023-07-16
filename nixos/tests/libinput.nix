@@ -9,7 +9,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         imports = [
           ./common/x11.nix
           ./common/user-account.nix

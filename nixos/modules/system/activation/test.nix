@@ -8,7 +8,8 @@ let
   node-forbiddenDependencies-fail = nixos (
     {
       ...
-    }: {
+    }:
+    {
       system.forbiddenDependenciesRegex = "-dev$";
       environment.etc."dev-dependency" = { text = "${expect.dev}"; };
       documentation.enable = false;
@@ -19,7 +20,8 @@ let
   node-forbiddenDependencies-succeed = nixos (
     {
       ...
-    }: {
+    }:
+    {
       system.forbiddenDependenciesRegex = "-dev$";
       system.extraDependencies = [ expect.dev ];
       documentation.enable = false;

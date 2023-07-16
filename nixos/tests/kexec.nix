@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "kexec";
     meta = with lib.maintainers; {
       maintainers = [
@@ -16,7 +17,8 @@ import ./make-test-python.nix (
       node1 =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ ];
           virtualisation.memorySize = 4 * 1024;
           virtualisation.useBootLoader = true;
@@ -30,7 +32,8 @@ import ./make-test-python.nix (
         {
           modulesPath,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ ];
           environment.systemPackages = [ pkgs.hello ];
           imports = [ "${modulesPath}/installer/netboot/netboot-minimal.nix" ];
@@ -42,7 +45,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         # Test whether reboot via kexec works.
         node1.wait_for_unit("multi-user.target")
         node1.succeed('kexec --load /run/current-system/kernel --initrd /run/current-system/initrd --command-line "$(</proc/cmdline)"')

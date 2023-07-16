@@ -47,7 +47,8 @@ in
             {
               name,
               ...
-            }: {
+            }:
+            {
               freeformType = settingsFormat.type;
               options = {
                 module = mkOption {

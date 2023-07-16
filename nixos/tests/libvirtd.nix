@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "libvirtd";
     meta.maintainers = with pkgs.lib.maintainers; [ fpletz ];
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation = {
             cores = 2;
             memorySize = 2048;

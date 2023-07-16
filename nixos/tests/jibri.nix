@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "jibri";
     meta = with pkgs.lib; { maintainers = teams.jitsi.members; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.memorySize = 5120;
 
         services.jitsi-meet = {

@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
         {
           suffix,
           configureFlags,
-        }: ''
+        }:
+        ''
           install -D ${
             stdenv.mkDerivation {
               name = "mkp224o-${suffix}-${version}";

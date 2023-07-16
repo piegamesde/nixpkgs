@@ -2,7 +2,8 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "test-hocker-fetchdocker";
     meta = with pkgs.lib.maintainers; {
       maintainers = [ ixmatus ];

@@ -1,7 +1,8 @@
 import ./make-test-python.nix (
   {
     ...
-  }: {
+  }:
+  {
     name = "extra-python-packages";
 
     extraPythonPackages = p: [ p.numpy ];

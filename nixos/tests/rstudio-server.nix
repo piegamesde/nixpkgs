@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "rstudio-server-test";
     meta.maintainers = with pkgs.lib.maintainers; [
       jbedo
@@ -15,7 +16,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.rstudio-server.enable = true;
       }
     ;
@@ -26,7 +28,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.rstudio-server = {
           enable = true;
           package = pkgs.rstudioServerWrapper.override {

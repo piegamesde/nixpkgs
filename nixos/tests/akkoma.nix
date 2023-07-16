@@ -75,7 +75,8 @@ import ./make-test-python.nix (
           pkgs,
           config,
           ...
-        }: {
+        }:
+        {
           security.pki.certificateFiles = [ "${tlsCert}/cert.pem" ];
           networking.extraHosts = hosts nodes;
         }
@@ -87,7 +88,8 @@ import ./make-test-python.nix (
           pkgs,
           config,
           ...
-        }: {
+        }:
+        {
           networking.extraHosts = hosts nodes;
           networking.firewall.allowedTCPPorts = [ 443 ];
           environment.systemPackages = with pkgs; [ provisionUser ];
@@ -129,7 +131,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
         akkoma.wait_for_unit('akkoma-initdb.service')
         akkoma.systemctl('restart akkoma-initdb.service')  # test repeated initialisation

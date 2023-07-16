@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "wiki-js";
     meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.memorySize = 2048;
         services.wiki-js = {
           enable = true;

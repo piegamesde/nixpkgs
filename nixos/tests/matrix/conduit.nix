@@ -35,7 +35,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [
             (
               pkgs.writers.writePython3Bin "do_test"

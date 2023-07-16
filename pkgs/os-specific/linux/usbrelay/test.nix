@@ -18,7 +18,8 @@ import ../../../../nixos/tests/make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "usbrelayd";
 
     nodes.machine = {

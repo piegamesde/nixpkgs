@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
       config,
       pkgs,
       ...
-    }: {
+    }:
+    {
       config = {
         # Prerequisites for ZFS and tests.
         boot.supportedFilesystems = [ "zfs" ];

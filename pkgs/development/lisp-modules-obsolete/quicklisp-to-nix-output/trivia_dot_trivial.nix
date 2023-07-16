@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "trivia_dot_trivial";
   version = "trivia-20211020-git";
 

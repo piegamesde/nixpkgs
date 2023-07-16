@@ -72,7 +72,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [
           ./common/x11.nix
           ./common/user-account.nix

@@ -4,7 +4,8 @@
   outputs =
     {
       self,
-    }: {
+    }:
+    {
       lib = import ./.;
     }
   ;

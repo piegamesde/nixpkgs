@@ -3087,7 +3087,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       config = {
         matchConfig = optionalAttrs (config.name != null) {
           Name = config.name;
@@ -3105,7 +3106,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         routeTables = mkOption {
           default = { };
@@ -3583,7 +3585,8 @@ let
                 name,
                 config,
                 ...
-              }: {
+              }:
+              {
                 options =
                   mapAttrs (_: x: x // { internal = true; })
                     concreteUnitOptions

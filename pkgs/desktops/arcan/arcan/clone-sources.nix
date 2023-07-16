@@ -1,7 +1,8 @@
 {
   fetchgit,
   fetchFromGitHub,
-}: {
+}:
+{
   letoram-openal-src = fetchFromGitHub {
     owner = "letoram";
     repo = "openal";

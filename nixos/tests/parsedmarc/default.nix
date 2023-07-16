@@ -66,7 +66,8 @@ in
       {
         nodes,
         ...
-      }: {
+      }:
+      {
         virtualisation.memorySize = 2048;
 
         services.postfix = {
@@ -151,7 +152,8 @@ in
           {
             nodes,
             ...
-          }: {
+          }:
+          {
             virtualisation.memorySize = 2048;
 
             security.pki.certificateFiles = [ certs.ca.cert ];
@@ -181,7 +183,8 @@ in
           {
             nodes,
             ...
-          }: {
+          }:
+          {
             imports = [ ../common/user-account.nix ];
 
             networking.extraHosts = ''

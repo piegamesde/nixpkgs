@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "Autofac";
     version = "6.3.0";

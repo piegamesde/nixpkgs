@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "mod_perl";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.httpd = {
           enable = true;
           adminAddr = "admin@localhost";
@@ -61,7 +63,8 @@ import ./make-test-python.nix (
     testScript =
       {
         ...
-      }: ''
+      }:
+      ''
         machine.wait_for_unit("httpd.service")
         response = machine.succeed("curl -fvvv -s http://127.0.0.1:80/modperl")
         assert "Hello mod_perl!" in response, "/modperl handler did not respond"

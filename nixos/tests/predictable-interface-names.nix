@@ -28,7 +28,8 @@ pkgs.lib.listToAttrs (
         predictable,
         withNetworkd,
         systemdStage1,
-      }: {
+      }:
+      {
         name =
           pkgs.lib.optionalString (!predictable) "un"
           + "predictable"

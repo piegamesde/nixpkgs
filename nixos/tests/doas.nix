@@ -3,14 +3,16 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "doas";
     meta = with lib.maintainers; { maintainers = [ cole-h ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         users.groups = {
           foobar = { };
           barfoo = { };

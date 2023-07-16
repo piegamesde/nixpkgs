@@ -18,7 +18,8 @@ import ./make-test-python.nix (
       master =
         {
           ...
-        }: {
+        }:
+        {
           services.postgresql = {
             enable = true;
             extraPlugins = [

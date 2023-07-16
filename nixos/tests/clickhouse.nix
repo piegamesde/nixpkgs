@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "clickhouse";
     meta.maintainers = with pkgs.lib.maintainers; [ ];
 

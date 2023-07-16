@@ -8,7 +8,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         networking.firewall.allowedTCPPorts = [ 3334 ];
         boot.initrd.postDeviceCommands = ''
           ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
@@ -39,7 +40,8 @@ import ./make-test-python.nix (
       {
         lib,
         ...
-      }: {
+      }:
+      {
         networking.firewall.enable = true;
 
         services.orangefs.client = {

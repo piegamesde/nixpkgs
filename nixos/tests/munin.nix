@@ -5,7 +5,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "munin";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -19,7 +20,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           services = {
             munin-node = {
               enable = true;

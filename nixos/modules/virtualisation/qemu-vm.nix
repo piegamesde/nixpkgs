@@ -32,7 +32,8 @@ let
   driveOpts =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 

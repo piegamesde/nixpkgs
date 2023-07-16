@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "ferm";
     meta = with pkgs.lib.maintainers; { maintainers = [ mic92 ]; };
 

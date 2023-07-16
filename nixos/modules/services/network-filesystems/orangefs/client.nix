@@ -40,7 +40,8 @@ in
             submodule (
               {
                 ...
-              }: {
+              }:
+              {
                 options = {
 
                   mountPoint = mkOption {

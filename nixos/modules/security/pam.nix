@@ -881,7 +881,8 @@ let
             type,
             item,
             value,
-          }: ''
+          }:
+          ''
             ${domain} ${type} ${item} ${toString value}
           ''
         )
@@ -894,7 +895,8 @@ let
       submodule (
         {
           ...
-        }: {
+        }:
+        {
           options = {
             domain = mkOption {
               description =

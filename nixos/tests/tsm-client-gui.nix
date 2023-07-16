@@ -10,7 +10,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "tsm-client";
 
     enableOCR = true;
@@ -19,7 +20,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/x11.nix ];
         programs.tsmClient = {
           enable = true;

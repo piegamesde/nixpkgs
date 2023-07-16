@@ -39,7 +39,8 @@ let
           language,
           sha256,
           installer,
-        }: {
+        }:
+        {
           inherit version lang;
           name =
             "wolfram-engine-${version}"

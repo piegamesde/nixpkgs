@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "swap-partition";
 
     nodes.machine =
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         virtualisation.useDefaultFilesystems = false;
 
         virtualisation.rootDevice = "/dev/vda1";

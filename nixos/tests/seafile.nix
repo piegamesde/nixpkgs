@@ -9,7 +9,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [
           pkgs.seafile-shared
           pkgs.curl
@@ -32,7 +33,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.seafile = {
             enable = true;
             ccnetSettings.General.SERVICE_URL = "http://server";

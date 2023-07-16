@@ -107,7 +107,8 @@ in
               config,
               options,
               ...
-            }: {
+            }:
+            {
               options = {
 
                 enable = mkOption {

@@ -5,7 +5,8 @@
     nullConf =
       {
         ...
-      }: {
+      }:
+      {
         services.adguardhome = { enable = true; };
       }
     ;
@@ -14,7 +15,8 @@
       {
         lib,
         ...
-      }: {
+      }:
+      {
         services.adguardhome = {
           enable = true;
           settings = { };
@@ -25,7 +27,8 @@
     declarativeConf =
       {
         ...
-      }: {
+      }:
+      {
         services.adguardhome = {
           enable = true;
 
@@ -44,7 +47,8 @@
     mixedConf =
       {
         ...
-      }: {
+      }:
+      {
         services.adguardhome = {
           enable = true;
 

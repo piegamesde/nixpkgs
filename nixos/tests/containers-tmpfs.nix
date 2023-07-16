@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-tmpfs";
     meta = { maintainers = with lib.maintainers; [ patryk27 ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/installer/cd-dvd/channel.nix ];
         virtualisation.writableStore = true;
 

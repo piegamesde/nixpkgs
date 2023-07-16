@@ -322,7 +322,8 @@ let
       origSrc,
       filter,
       name,
-    }: {
+    }:
+    {
       _isLibCleanSourceWith = true;
       inherit origSrc filter name;
       outPath = builtins.path {

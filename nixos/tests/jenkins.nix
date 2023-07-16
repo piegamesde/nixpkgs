@@ -8,7 +8,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "jenkins";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -24,7 +25,8 @@ import ./make-test-python.nix (
       master =
         {
           ...
-        }: {
+        }:
+        {
           services.jenkins = {
             enable = true;
             jobBuilder = {
@@ -78,7 +80,8 @@ import ./make-test-python.nix (
       slave =
         {
           ...
-        }: {
+        }:
+        {
           services.jenkinsSlave.enable = true;
 
           users.users.jenkins.extraGroups = [ "users" ];

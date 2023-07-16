@@ -4,7 +4,8 @@
   linkFarm,
   runCommand,
   gnutar,
-}: rec {
+}:
+rec {
   offline_cache = linkFarm "offline" packages;
   packages = [
     {

@@ -89,7 +89,8 @@ in
               config,
               options,
               ...
-            }: {
+            }:
+            {
               options = {
                 keyfile = mkOption {
                   type = types.str;

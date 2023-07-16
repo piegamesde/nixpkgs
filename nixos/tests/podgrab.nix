@@ -6,14 +6,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "podgrab";
 
     nodes = {
       default =
         {
           ...
-        }: {
+        }:
+        {
           services.podgrab.enable = true;
         }
       ;
@@ -21,7 +23,8 @@ import ./make-test-python.nix (
       customized =
         {
           ...
-        }: {
+        }:
+        {
           services.podgrab = {
             enable = true;
             port = customPort;

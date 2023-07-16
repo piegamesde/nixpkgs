@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "airsonic";
     meta = with pkgs.lib.maintainers; { maintainers = [ sumnerevans ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.airsonic = {
           enable = true;
           maxMemory = 800;

@@ -1,14 +1,16 @@
 import ./make-test-python.nix (
   {
     ...
-  }: {
+  }:
+  {
     name = "lldap";
 
     nodes.machine =
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.lldap = {
           enable = true;
           settings = {

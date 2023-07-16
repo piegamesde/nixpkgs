@@ -91,7 +91,8 @@ let
   machineOpts =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 

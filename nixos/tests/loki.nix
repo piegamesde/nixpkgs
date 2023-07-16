@@ -13,7 +13,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.loki = {
           enable = true;
           configFile =

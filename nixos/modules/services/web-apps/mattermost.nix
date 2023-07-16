@@ -23,7 +23,8 @@ let
       localDatabasePassword ? cfg.localDatabasePassword,
       localDatabaseName ? cfg.localDatabaseName,
       useSudo ? true,
-    }: ''
+    }:
+    ''
       if ! test -e ${escapeShellArg "${statePath}/.db-created"}; then
         ${
           lib.optionalString useSudo "${pkgs.sudo}/bin/sudo -u ${

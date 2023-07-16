@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
 
     name = "mxisd";
     meta = with pkgs.lib.maintainers; { maintainers = [ mguentner ]; };

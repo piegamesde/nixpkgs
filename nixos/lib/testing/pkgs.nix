@@ -3,7 +3,8 @@
   lib,
   hostPkgs,
   ...
-}: {
+}:
+{
   config = {
     # default pkgs for use in VMs
     _module.args.pkgs = hostPkgs;

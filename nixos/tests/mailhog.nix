@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "mailhog";
     meta.maintainers = with lib.maintainers; [ jojosch ];
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.mailhog.enable = true;
 
         environment.systemPackages = with pkgs; [ swaks ];

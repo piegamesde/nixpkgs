@@ -24,7 +24,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             environment.systemPackages = [ pkgs."${packageSet}"."${variant}" ];
             virtualisation.diskSize = 800;
           }

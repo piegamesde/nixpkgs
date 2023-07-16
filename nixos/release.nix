@@ -145,7 +145,8 @@ let
           modules = makeModules module (
             {
               ...
-            }: {
+            }:
+            {
               fileSystems."/".device = mkDefault "/dev/sda1";
               boot.loader.grub.device = mkDefault "/dev/sda";
             }
@@ -501,7 +502,8 @@ rec {
               (
                 {
                   ...
-                }: {
+                }:
+                {
                   amazonImage.sizeMB = "auto";
                 }
               )
@@ -575,7 +577,8 @@ rec {
             modules = singleton (
               {
                 ...
-              }: {
+              }:
+              {
                 fileSystems."/".device = mkDefault "/dev/sda1";
                 boot.loader.grub.device = mkDefault "/dev/sda";
                 system.stateVersion = mkDefault "18.03";
@@ -607,7 +610,8 @@ rec {
     smallContainer = makeClosure (
       {
         ...
-      }: {
+      }:
+      {
         boot.isContainer = true;
         services.openssh.enable = true;
       }
@@ -616,7 +620,8 @@ rec {
     tinyContainer = makeClosure (
       {
         ...
-      }: {
+      }:
+      {
         boot.isContainer = true;
         imports = [ modules/profiles/minimal.nix ];
       }
@@ -625,7 +630,8 @@ rec {
     ec2 = makeClosure (
       {
         ...
-      }: {
+      }:
+      {
         imports = [ modules/virtualisation/amazon-image.nix ];
       }
     );
@@ -633,7 +639,8 @@ rec {
     kde = makeClosure (
       {
         ...
-      }: {
+      }:
+      {
         services.xserver.enable = true;
         services.xserver.displayManager.sddm.enable = true;
         services.xserver.desktopManager.plasma5.enable = true;
@@ -643,7 +650,8 @@ rec {
     xfce = makeClosure (
       {
         ...
-      }: {
+      }:
+      {
         services.xserver.enable = true;
         services.xserver.desktopManager.xfce.enable = true;
       }
@@ -652,7 +660,8 @@ rec {
     gnome = makeClosure (
       {
         ...
-      }: {
+      }:
+      {
         services.xserver.enable = true;
         services.xserver.displayManager.gdm.enable = true;
         services.xserver.desktopManager.gnome.enable = true;
@@ -662,7 +671,8 @@ rec {
     pantheon = makeClosure (
       {
         ...
-      }: {
+      }:
+      {
         services.xserver.enable = true;
         services.xserver.desktopManager.pantheon.enable = true;
       }
@@ -673,7 +683,8 @@ rec {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.httpd.enable = true;
         services.httpd.adminAddr = "foo@example.org";
         services.httpd.enablePHP = true;

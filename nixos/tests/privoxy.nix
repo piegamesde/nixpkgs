@@ -40,7 +40,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.nginx.enable = true;
         services.nginx.virtualHosts."example.com" = {
           addSSL = true;

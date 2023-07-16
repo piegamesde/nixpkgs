@@ -51,7 +51,8 @@ import ./make-test-python.nix (
         pkgs,
         config,
         ...
-      }: rec {
+      }:
+      rec {
         environment.systemPackages = [ testPackage ];
         networking = {
           firewall.allowedTCPPorts = [

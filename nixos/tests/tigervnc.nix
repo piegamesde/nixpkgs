@@ -14,7 +14,8 @@ makeTest {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = with pkgs; [
           tigervnc # for Xvnc
           xorg.xwininfo
@@ -28,7 +29,8 @@ makeTest {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/x11.nix ];
         # for vncviewer
         environment.systemPackages = [ pkgs.tigervnc ];

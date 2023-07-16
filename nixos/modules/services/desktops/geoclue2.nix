@@ -26,7 +26,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       options = {
         desktopID = mkOption {
           type = types.str;
@@ -69,7 +70,8 @@ let
       isSystem,
       users,
       ...
-    }: {
+    }:
+    {
       name = desktopID;
       value = {
         allowed = isAllowed;

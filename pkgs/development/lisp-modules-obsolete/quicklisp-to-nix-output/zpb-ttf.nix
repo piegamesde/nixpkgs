@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "zpb-ttf";
   version = "release-1.0.4";
 

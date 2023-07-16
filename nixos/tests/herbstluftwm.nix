@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "herbstluftwm";
 
     meta = { maintainers = with lib.maintainers; [ thibautmarty ]; };
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [
           ./common/x11.nix
           ./common/user-account.nix

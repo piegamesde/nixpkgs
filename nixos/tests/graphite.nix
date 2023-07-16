@@ -2,13 +2,15 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "graphite";
     nodes = {
       one =
         {
           ...
-        }: {
+        }:
+        {
           time.timeZone = "UTC";
           services.graphite = {
             web = {

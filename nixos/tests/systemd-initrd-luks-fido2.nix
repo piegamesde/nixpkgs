@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "systemd-initrd-luks-fido2";
 
     nodes.machine =
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         pkgs,
         config,
         ...
-      }: {
+      }:
+      {
         # Use systemd-boot
         virtualisation = {
           emptyDiskImages = [ 512 ];

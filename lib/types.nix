@@ -175,7 +175,8 @@ let
         # issue deprecation warnings recursively. Can also be used to reuse
         # nested types
         nestedTypes ? { },
-      }: {
+      }:
+      {
         _type = "option-type";
         inherit
           name
@@ -963,7 +964,8 @@ let
                     {
                       value,
                       file,
-                    }: {
+                    }:
+                    {
                       _file = file;
                       # There's no way to merge types directly from the module system,
                       # but we can cheat a bit by just declaring an option with the type

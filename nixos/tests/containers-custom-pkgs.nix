@@ -25,7 +25,8 @@ import ./make-test-python.nix (
       {
         config,
         ...
-      }: {
+      }:
+      {
         assertions =
           let
             helloName =
@@ -47,7 +48,8 @@ import ./make-test-python.nix (
               pkgs,
               config,
               ...
-            }: {
+            }:
+            {
               nixpkgs.pkgs = customPkgs;
               system.extraDependencies = [ pkgs.hello ];
             }

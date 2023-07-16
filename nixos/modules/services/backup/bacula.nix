@@ -130,7 +130,8 @@ let
   directorOptions =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         password = mkOption {
           type = types.str;
@@ -177,7 +178,8 @@ let
   autochangerOptions =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         changerDevice = mkOption {
           type = types.str;
@@ -241,7 +243,8 @@ let
   deviceOptions =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         archiveDevice = mkOption {
           # TODO: required?

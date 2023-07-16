@@ -20,7 +20,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.zookeeper = { enable = true; };
 
           networking.firewall.allowedTCPPorts = [ 2181 ];

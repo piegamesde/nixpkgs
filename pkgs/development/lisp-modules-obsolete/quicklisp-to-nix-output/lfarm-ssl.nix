@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "lfarm-ssl";
   version = "lfarm-20150608-git";
 

@@ -78,7 +78,8 @@ let
         name,
         version,
         biocVersion,
-      }: [
+      }:
+      [
         "mirror://bioc/${biocVersion}/bioc/src/contrib/${name}_${version}.tar.gz"
         "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}/${name}_${version}.tar.gz"
         "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}_${version}.tar.gz"
@@ -98,7 +99,8 @@ let
         name,
         version,
         biocVersion,
-      }: [
+      }:
+      [
         "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz"
       ]
     ;
@@ -117,7 +119,8 @@ let
         name,
         version,
         biocVersion,
-      }: [
+      }:
+      [
         "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz"
       ]
     ;
@@ -135,7 +138,8 @@ let
       {
         name,
         version,
-      }: [
+      }:
+      [
         "mirror://cran/${name}_${version}.tar.gz"
         "mirror://cran/Archive/${name}/${name}_${version}.tar.gz"
       ]

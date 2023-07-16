@@ -14,7 +14,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "shadow";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
@@ -22,7 +23,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.shadow ];
 
         users = {

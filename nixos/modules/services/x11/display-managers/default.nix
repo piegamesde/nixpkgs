@@ -411,7 +411,8 @@ in
             config,
             options,
             ...
-          }: {
+          }:
+          {
             options = {
               enable = mkOption {
                 type = types.bool;

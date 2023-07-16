@@ -20,7 +20,8 @@ in
           types.submodule (
             {
               ...
-            }: {
+            }:
+            {
               options = {
                 enable = mkEnableOption (mdDoc "Coqui TTS server");
 

@@ -151,7 +151,8 @@ in
             name,
             config,
             ...
-          }: {
+          }:
+          {
             options = {
               webHost = mkOption {
                 type = nullOr str;
@@ -374,7 +375,8 @@ in
             name,
             config,
             ...
-          }: {
+          }:
+          {
             options = {
               enable = mkOption {
                 type = bool;

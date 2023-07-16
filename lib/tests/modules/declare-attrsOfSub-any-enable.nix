@@ -7,7 +7,8 @@ let
   submod =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         enable = lib.mkOption {
           default = false;

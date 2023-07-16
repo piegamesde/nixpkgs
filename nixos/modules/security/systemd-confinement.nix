@@ -19,7 +19,8 @@ in
           name,
           config,
           ...
-        }: {
+        }:
+        {
           options.confinement.enable = lib.mkOption {
             type = types.bool;
             default = false;

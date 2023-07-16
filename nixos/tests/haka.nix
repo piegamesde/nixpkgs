@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "haka";
     meta = with pkgs.lib.maintainers; { maintainers = [ tvestelind ]; };
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
       haka =
         {
           ...
-        }: {
+        }:
+        {
           services.haka.enable = true;
         }
       ;

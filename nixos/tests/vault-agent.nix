@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "vault-agent";
 
     nodes.machine =
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.vault-agent.instances.example.settings = {
           vault.address = config.environment.variables.VAULT_ADDR;
 

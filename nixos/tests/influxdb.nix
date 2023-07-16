@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "influxdb";
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
       one =
         {
           ...
-        }: {
+        }:
+        {
           services.influxdb.enable = true;
           environment.systemPackages = [ pkgs.httpie ];
         }

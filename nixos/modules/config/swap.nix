@@ -16,7 +16,8 @@ let
   randomEncryptionOpts =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 
@@ -74,7 +75,8 @@ let
       config,
       options,
       ...
-    }: {
+    }:
+    {
 
       options = {
 

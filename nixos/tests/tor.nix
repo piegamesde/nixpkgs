@@ -13,7 +13,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         boot.kernelParams = [
           "audit=0"
           "apparmor=0"

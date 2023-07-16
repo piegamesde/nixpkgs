@@ -1,7 +1,8 @@
 {
   lib,
   fetchFromGitHub,
-}: rec {
+}:
+rec {
   version = "9.0.1441";
 
   src = fetchFromGitHub {

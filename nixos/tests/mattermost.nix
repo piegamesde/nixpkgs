@@ -15,7 +15,8 @@ import ./make-test-python.nix (
       {
         config,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [
           pkgs.mattermost
           pkgs.curl

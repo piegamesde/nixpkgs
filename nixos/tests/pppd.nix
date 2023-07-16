@@ -14,7 +14,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           config = {
             # Run a PPPoE access concentrator server. It will spawn an
             # appropriate PPP server process when a PPPoE client sets up a
@@ -51,7 +52,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.pppd = {
             enable = true;
             peers.test = {

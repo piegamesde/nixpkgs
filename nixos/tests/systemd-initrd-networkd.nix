@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "systemd-initrd-network";
     meta.maintainers = [ lib.maintainers.elvishjerricco ];
 
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
           flush: script:
           {
             ...
-          }: {
+          }:
+          {
             boot.initrd.systemd.enable = true;
             boot.initrd.network = {
               enable = true;
@@ -41,7 +43,8 @@ import ./make-test-python.nix (
         basic =
           {
             ...
-          }: {
+          }:
+          {
             boot.initrd.network.enable = true;
 
             boot.initrd.systemd = {

@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   options = {
     services.ipp-usb = {
       enable = lib.mkEnableOption (

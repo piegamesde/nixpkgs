@@ -19,7 +19,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             1
             2
@@ -85,7 +86,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             1
             2
@@ -130,7 +132,8 @@ import ./make-test-python.nix (
           modulesPath,
           lib,
           ...
-        }: {
+        }:
+        {
           boot.initrd.network.enable = true;
           boot.loader.grub.enable = false;
 
@@ -189,7 +192,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         target.start()
         target.wait_for_unit("iscsi-target.service")
 

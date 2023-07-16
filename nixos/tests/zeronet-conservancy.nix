@@ -5,7 +5,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "zeronet-conservancy";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.zeronet = {
           enable = true;
           package = pkgs.zeronet-conservancy;

@@ -706,7 +706,8 @@ rec {
           {
             config,
             ...
-          }: {
+          }:
+          {
             imports = [
               pkgs.pkgsModule
               ../../../nixos/modules/system/etc/etc.nix

@@ -16,7 +16,8 @@ rec {
           name,
           config,
           ...
-        }: {
+        }:
+        {
           options = concreteUnitOptions;
           config = {
             unit = mkDefault (systemdUtils.lib.makeUnit name config);
@@ -158,7 +159,8 @@ rec {
         options,
         name,
         ...
-      }: {
+      }:
+      {
         options = {
           enable =
             mkEnableOption (lib.mdDoc "copying of this file and symlinking it")

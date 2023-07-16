@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "mutable-users";
     meta = with pkgs.lib.maintainers; { maintainers = [ gleber ]; };
 
@@ -12,14 +13,16 @@ import ./make-test-python.nix (
       machine =
         {
           ...
-        }: {
+        }:
+        {
           users.mutableUsers = false;
         }
       ;
       mutable =
         {
           ...
-        }: {
+        }:
+        {
           users.mutableUsers = true;
           users.users.dry-test.isNormalUser = true;
         }

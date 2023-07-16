@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "endlessh";
     meta.maintainers = with lib.maintainers; [ azahi ];
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.endlessh = {
             enable = true;
             openFirewall = true;
@@ -29,7 +31,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [
             curl
             netcat

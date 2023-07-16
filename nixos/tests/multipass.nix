@@ -22,7 +22,8 @@ import ./make-test-python.nix (
       {
         lib,
         ...
-      }: {
+      }:
+      {
         virtualisation = {
           cores = 1;
           memorySize = 1024;

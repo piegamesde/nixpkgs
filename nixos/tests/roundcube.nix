@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "roundcube";
     meta = with pkgs.lib.maintainers; { maintainers = [ globin ]; };
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.roundcube = {
             enable = true;
             hostName = "roundcube";

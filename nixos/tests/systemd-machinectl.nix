@@ -37,7 +37,8 @@ import ./make-test-python.nix (
       {
         lib,
         ...
-      }: {
+      }:
+      {
         # use networkd to obtain systemd network setup
         networking.useNetworkd = true;
         networking.useDHCP = false;

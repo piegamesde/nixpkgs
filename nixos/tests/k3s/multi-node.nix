@@ -62,7 +62,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [
             gzip
             jq
@@ -114,7 +115,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [
             gzip
             jq
@@ -164,7 +166,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.memorySize = 1024;
           virtualisation.diskSize = 2048;
           services.k3s = {

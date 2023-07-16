@@ -13,7 +13,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         # Limit VM resource usage.
         virtualisation.memorySize = 1024;
         systemd.oomd.extraConfig.DefaultMemoryPressureDurationSec = "1s";

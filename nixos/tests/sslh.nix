@@ -7,7 +7,8 @@ import ./make-test-python.nix {
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         networking.firewall.allowedTCPPorts = [ 443 ];
         networking.interfaces.eth1.ipv6.addresses = [ {
           address = "fe00:aa:bb:cc::2";
@@ -49,7 +50,8 @@ import ./make-test-python.nix {
     client =
       {
         ...
-      }: {
+      }:
+      {
         networking.interfaces.eth1.ipv6.addresses = [ {
           address = "fe00:aa:bb:cc::1";
           prefixLength = 64;

@@ -15,7 +15,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       options = {
         enable = mkEnableOption (mdDoc "Authelia instance");
 

@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "noto-fonts-cjk-qt";
     meta.maintainers = with lib.maintainers; [ oxalica ];
 

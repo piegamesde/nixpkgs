@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-physical_interfaces";
     meta = { maintainers = with lib.maintainers; [ kampfschlaefer ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
 
           containers.server = {
@@ -31,7 +33,8 @@ import ./make-test-python.nix (
       bridged =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
 
           containers.bridged = {
@@ -53,7 +56,8 @@ import ./make-test-python.nix (
       bonded =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
 
           containers.bonded = {
@@ -78,7 +82,8 @@ import ./make-test-python.nix (
       bridgedbond =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
 
           containers.bridgedbond = {

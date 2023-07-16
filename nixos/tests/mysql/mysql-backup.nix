@@ -27,7 +27,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             services.mysql = {
               inherit package;
               enable = true;

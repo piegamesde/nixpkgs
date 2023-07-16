@@ -22,7 +22,8 @@ rec {
       gemset ? null,
       gemdir ? null,
       ...
-    }: {
+    }:
+    {
       inherit gemdir;
 
       gemfile =
@@ -118,7 +119,8 @@ rec {
       groups,
       binPaths,
       ...
-    }: ''
+    }:
+    ''
       ${ruby}/bin/ruby ${./gen-bin-stubs.rb} \
         "${ruby}/bin/ruby" \
         "${confFiles}/Gemfile" \

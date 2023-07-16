@@ -26,7 +26,8 @@ import ./make-test-python.nix (
             {
               pkgs,
               ...
-            }: {
+            }:
+            {
               # passwordless ssh server
               services.openssh = {
                 enable = true;
@@ -88,7 +89,8 @@ import ./make-test-python.nix (
             {
               pkgs,
               ...
-            }: {
+            }:
+            {
               imports = [ systemConfig ];
               fileSystems."/".device = "/dev/disk/by-label/nixos";
               boot.initrd.availableKernelModules = [
@@ -149,7 +151,8 @@ import ./make-test-python.nix (
         pkgs,
         nodes,
         ...
-      }: {
+      }:
+      {
         # buildsrht needs space
         virtualisation.diskSize = 4 * 1024;
         virtualisation.memorySize = 2 * 1024;

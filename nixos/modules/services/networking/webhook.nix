@@ -17,7 +17,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       freeformType = hookFormat.type;
       options = {
         id = mkOption {

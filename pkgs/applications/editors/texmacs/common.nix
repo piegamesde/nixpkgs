@@ -6,7 +6,8 @@
   chineseFonts,
   japaneseFonts,
   koreanFonts,
-}: rec {
+}:
+rec {
   extraFontsSrc = fetchurl {
     url =
       "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-extra-fonts-1.0-noarch.tar.gz";

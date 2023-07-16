@@ -12,7 +12,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.mailcatcher.enable = true;
 
         programs.msmtp = {

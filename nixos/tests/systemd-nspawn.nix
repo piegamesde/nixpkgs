@@ -63,7 +63,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           networking.firewall.allowedTCPPorts = [ 80 ];
           services.nginx = {
             enable = true;
@@ -75,7 +76,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.etc."systemd/import-pubring.gpg".source =
             "${gpgKeyring}/pubkey.gpg";
         }

@@ -229,7 +229,8 @@ in
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.parted ];
           boot.supportedFilesystems = [ "zfs" ];
           networking.hostId = "00000000";
@@ -256,7 +257,8 @@ in
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
         machine.wait_for_unit("default.target")
         print(machine.succeed('mount'))

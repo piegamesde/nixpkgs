@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "hu_dot_dwim_dot_common-lisp";
   version = "stable-git";
 

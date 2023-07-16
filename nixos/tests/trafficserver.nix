@@ -23,7 +23,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "trafficserver";
     meta = with pkgs.lib.maintainers; { maintainers = [ midchildan ]; };
 
@@ -121,7 +122,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [ curl ];
         }
       ;

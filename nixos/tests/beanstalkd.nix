@@ -35,7 +35,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.beanstalkd.enable = true;
       }
     ;

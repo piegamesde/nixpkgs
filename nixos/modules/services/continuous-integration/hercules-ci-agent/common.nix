@@ -30,7 +30,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       freeformType = format.type;
       options = {
         apiBaseUrl = mkOption {

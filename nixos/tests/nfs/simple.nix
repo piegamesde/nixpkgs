@@ -11,7 +11,8 @@ import ../make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.fileSystems = {
           "/data" = { # nfs4 exports the export with fsid=0 as a virtual root directory
             device = if (version == 4) then "server:/" else "server:/data";
@@ -35,7 +36,8 @@ import ../make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.nfs.server.enable = true;
           services.nfs.server.exports = ''
             /data 192.168.1.0/255.255.255.0(rw,no_root_squash,no_subtree_check,fsid=0)

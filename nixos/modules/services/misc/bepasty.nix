@@ -32,7 +32,8 @@ in
             {
               config,
               ...
-            }: {
+            }:
+            {
 
               options = {
 

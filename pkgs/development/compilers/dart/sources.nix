@@ -3,7 +3,8 @@ let
 in
 {
   fetchurl,
-}: {
+}:
+{
   versionUsed = version;
   "${version}-x86_64-darwin" = fetchurl {
     url =

@@ -34,7 +34,8 @@ let
                   access,
                   target,
                   ...
-                }: ''
+                }:
+                ''
                   ${principal}	${concatStringsSep "," (toList access)}	${target}
                 ''
               )

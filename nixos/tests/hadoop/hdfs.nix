@@ -21,7 +21,8 @@ import ../make-test-python.nix (
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package;
               hdfs = {
@@ -44,7 +45,8 @@ import ../make-test-python.nix (
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package;
               hdfs.datanode = {

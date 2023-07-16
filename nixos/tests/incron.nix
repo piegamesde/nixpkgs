@@ -12,7 +12,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.incron.enable = true;
         services.incron.extraPackages = [ pkgs.coreutils ];
         services.incron.systab = ''

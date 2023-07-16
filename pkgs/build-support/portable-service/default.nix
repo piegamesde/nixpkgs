@@ -88,7 +88,8 @@ let
               {
                 object,
                 symlink,
-              }: ''
+              }:
+              ''
                 mkdir -p $(dirname $out/${symlink});
                 ln -s ${object} $out/${symlink};
               ''

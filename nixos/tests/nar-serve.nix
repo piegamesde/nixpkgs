@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "nar-serve";
     meta.maintainers = [ lib.maintainers.rizary ];
     nodes = {
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.nginx = {
             enable = true;
             virtualHosts.default.root = "/var/www";

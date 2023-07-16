@@ -3,7 +3,8 @@ import ../make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "podman";
     meta = { maintainers = lib.teams.podman.members; };
 
@@ -12,7 +13,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.podman.enable = true;
 
           # hack to ensure that podman built with and without zfs in extraPackages is cached
@@ -24,7 +26,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.podman.enable = true;
 
           users.users.alice = { isNormalUser = true; };
@@ -34,7 +37,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.podman.enable = true;
 
           virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
@@ -46,7 +50,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.podman.enable = true;
 
           virtualisation.podman.dockerSocket.enable = true;

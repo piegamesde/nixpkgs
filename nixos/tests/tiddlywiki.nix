@@ -1,7 +1,8 @@
 import ./make-test-python.nix (
   {
     ...
-  }: {
+  }:
+  {
     name = "tiddlywiki";
     nodes = {
       default = { services.tiddlywiki.enable = true; };

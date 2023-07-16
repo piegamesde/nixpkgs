@@ -3,14 +3,16 @@ import ../make-test-python.nix (
   {
     package,
     ...
-  }: {
+  }:
+  {
     name = "hadoop-yarn";
 
     nodes = {
       resourcemanager =
         {
           ...
-        }: {
+        }:
+        {
           services.hadoop = {
             inherit package;
             yarn.resourcemanager = {
@@ -25,7 +27,8 @@ import ../make-test-python.nix (
           options,
           lib,
           ...
-        }: {
+        }:
+        {
           services.hadoop = {
             inherit package;
             yarn.nodemanager = {

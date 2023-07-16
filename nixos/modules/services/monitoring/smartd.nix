@@ -75,7 +75,8 @@ let
   smartdDeviceOpts =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 

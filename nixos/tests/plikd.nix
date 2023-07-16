@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "plikd";
     meta = with lib.maintainers; { maintainers = [ freezeboy ]; };
 

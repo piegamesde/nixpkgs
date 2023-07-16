@@ -6,7 +6,8 @@ args@{
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "garage-3node-replication";
     meta = { maintainers = with pkgs.lib.maintainers; [ raitobezarius ]; };
 

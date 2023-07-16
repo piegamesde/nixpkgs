@@ -48,7 +48,8 @@ with lib;
         config,
         lib,
         ...
-      }: {
+      }:
+      {
         enableAlias = lib.mkForce false;
       }
     )
@@ -59,7 +60,8 @@ with lib;
         config,
         lib,
         ...
-      }: {
+      }:
+      {
         enable = true;
       }
     )

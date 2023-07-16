@@ -196,7 +196,8 @@ let
         {
           name,
           value,
-        }: ''
+        }:
+        ''
           mkdir -p /mnt${lib.escapeShellArg value.mount}
           mount -t zfs ${name} /mnt${lib.escapeShellArg value.mount}
         ''
@@ -232,7 +233,8 @@ let
         {
           name,
           value,
-        }: ''
+        }:
+        ''
           umount /mnt${lib.escapeShellArg value.mount}
         ''
       ;

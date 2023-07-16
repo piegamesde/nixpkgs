@@ -62,7 +62,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.gitolite = {
             enable = true;
             adminPubkey = adminPublicKey;
@@ -75,7 +76,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.git ];
           programs.ssh.extraConfig = ''
             Host *

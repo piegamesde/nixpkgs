@@ -2,13 +2,15 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "haproxy";
     nodes = {
       machine =
         {
           ...
-        }: {
+        }:
+        {
           services.haproxy = {
             enable = true;
             config = ''

@@ -43,7 +43,8 @@ import ./make-test-python.nix (
       client =
         {
           ...
-        }: {
+        }:
+        {
           services.iodine.clients.testClient = {
             # test that ProtectHome is "read-only"
             passwordFile = "/root/pw";

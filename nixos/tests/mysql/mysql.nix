@@ -36,7 +36,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
 
             users = {
               groups.testusers = { };

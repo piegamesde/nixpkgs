@@ -1,7 +1,8 @@
 {
   lib,
   ...
-}: {
+}:
+{
   options.submodule = lib.mkOption {
     default = { };
     type = lib.types.submoduleWith {
@@ -10,7 +11,8 @@
           {
             options,
             ...
-          }: {
+          }:
+          {
             options.value = lib.mkOption { };
 
             options.internalFiles = lib.mkOption {

@@ -536,7 +536,8 @@ in
               config,
               name,
               ...
-            }: {
+            }:
+            {
               options = {
                 from = mkOption {
                   type = referenceAttrs;

@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "hu_dot_dwim_dot_stefil";
   version = "20200218-darcs";
 

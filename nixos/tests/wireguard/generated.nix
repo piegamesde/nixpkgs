@@ -4,7 +4,8 @@ import ../make-test-python.nix (
     lib,
     kernelPackages ? null,
     ...
-  }: {
+  }:
+  {
     name = "wireguard-generated";
     meta = with pkgs.lib.maintainers; {
       maintainers = [

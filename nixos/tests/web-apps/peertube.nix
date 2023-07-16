@@ -2,7 +2,8 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "peertube";
     meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
 
@@ -49,7 +50,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment = {
             etc = {
               "peertube/secrets-peertube".text = ''

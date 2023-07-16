@@ -20,7 +20,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.step-ca = {
             enable = true;
             address = "0.0.0.0";
@@ -53,7 +54,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           security.acme.defaults.server =
             "https://caserver:8443/acme/acme/directory";
           security.acme.defaults.email = "root@example.org";
@@ -85,7 +87,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           security.pki.certificateFiles = [
             "${test-certificates}/root_ca.crt"
           ];

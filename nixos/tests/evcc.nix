@@ -14,7 +14,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           services.evcc = {
             enable = true;
             settings = {

@@ -10,7 +10,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.emptyDiskImages = [ 2048 ];
         boot.supportedFilesystems = [ "zfs" ];
         environment.systemPackages = [ pkgs.parted ];
@@ -25,7 +26,8 @@ import ./make-test-python.nix (
       source =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ commonConfig ];
           networking.hostId = "daa82e91";
 
@@ -79,7 +81,8 @@ import ./make-test-python.nix (
       target =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ commonConfig ];
           networking.hostId = "dcf39d36";
 

@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "paperless";
     meta.maintainers = with lib.maintainers; [
       erikarvstedt
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = with pkgs; [
           imagemagick
           jq

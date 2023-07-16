@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "coder";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -15,7 +16,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.coder = {
           enable = true;
           accessUrl = "http://localhost:3000";

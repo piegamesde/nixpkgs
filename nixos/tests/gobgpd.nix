@@ -20,7 +20,8 @@ import ./make-test-python.nix (
         {
           nodes,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.gobgp ];
           networking.firewall.allowedTCPPorts = [ 179 ];
           services.gobgpd = {
@@ -46,7 +47,8 @@ import ./make-test-python.nix (
         {
           nodes,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.gobgp ];
           networking.firewall.allowedTCPPorts = [ 179 ];
           services.gobgpd = {

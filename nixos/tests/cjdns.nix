@@ -7,7 +7,8 @@ let
   basicConfig =
     {
       ...
-    }: {
+    }:
+    {
       services.cjdns.enable = true;
 
       # Turning off DHCP isn't very realistic but makes
@@ -24,7 +25,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "cjdns";
     meta = with pkgs.lib.maintainers; { maintainers = [ ehmry ]; };
 
@@ -32,7 +34,8 @@ import ./make-test-python.nix (
       alice =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ basicConfig ];
 
           services.cjdns.ETHInterface.bind = "eth1";
@@ -74,7 +77,8 @@ import ./make-test-python.nix (
       carol =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ basicConfig ];
 
           environment.etc."cjdns.keys".text = ''

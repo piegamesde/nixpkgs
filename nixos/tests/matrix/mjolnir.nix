@@ -40,7 +40,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.matrix-synapse = {
             enable = true;
             settings = {
@@ -99,7 +100,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.mjolnir = {
             enable = true;
             homeserverUrl = "http://homeserver:8448";
@@ -117,7 +119,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [
             (
               pkgs.writers.writePython3Bin

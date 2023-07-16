@@ -182,7 +182,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         package = mkOption {
           type = types.package;

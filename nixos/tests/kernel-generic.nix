@@ -15,7 +15,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             name = "kernel-${linuxPackages.kernel.version}";
             meta = with pkgs.lib.maintainers; {
               maintainers = [
@@ -27,7 +28,8 @@ let
             nodes.machine =
               {
                 ...
-              }: {
+              }:
+              {
                 boot.kernelPackages = linuxPackages;
               }
             ;

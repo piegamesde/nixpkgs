@@ -26,7 +26,8 @@ import ./make-test-python.nix (
       archive =
         {
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [ btrfs-progs ];
           # note: this makes the privateKey world readable.
           # don't do it with real ssh keys.
@@ -57,7 +58,8 @@ import ./make-test-python.nix (
       main =
         {
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [ btrfs-progs ];
           services.openssh = {
             enable = true;

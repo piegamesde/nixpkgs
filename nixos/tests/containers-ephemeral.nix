@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-ephemeral";
     meta = { maintainers = with lib.maintainers; [ patryk27 ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.writableStore = true;
 
         containers.webserver = {

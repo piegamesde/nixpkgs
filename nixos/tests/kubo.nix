@@ -1,7 +1,8 @@
 {
   lib,
   ...
-}: {
+}:
+{
   name = "kubo";
   meta = with lib.maintainers; {
     maintainers = [
@@ -14,7 +15,8 @@
     {
       config,
       ...
-    }: {
+    }:
+    {
       services.kubo = {
         enable = true;
         # Also will add a unix domain socket socket API address, see module.
@@ -33,7 +35,8 @@
     {
       config,
       ...
-    }: {
+    }:
+    {
       services.kubo = {
         enable = true;
         autoMount = true;

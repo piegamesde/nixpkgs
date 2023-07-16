@@ -18,7 +18,8 @@ let
           version,
           sha256,
           rev ? version,
-        }: {
+        }:
+        {
           inherit version;
           src = fetchzip {
             url = "https://github.com/garrigue/labltk/archive/${rev}.tar.gz";

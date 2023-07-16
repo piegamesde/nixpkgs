@@ -35,7 +35,8 @@ let
             nodes,
             pkgs,
             ...
-          }: {
+          }:
+          {
             imports = [ ../../modules/installer/cd-dvd/channel.nix ];
             environment.systemPackages = [ nixopsPkg ];
             nix.settings.substituters = lib.mkForce [ ];
@@ -54,7 +55,8 @@ let
           {
             lib,
             ...
-          }: {
+          }:
+          {
             imports = [ ./legacy/base-configuration.nix ];
           }
         ;

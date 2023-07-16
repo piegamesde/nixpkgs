@@ -16,7 +16,8 @@ let
         {
           config,
           ...
-        }: {
+        }:
+        {
           _file = "nixos/default.nix##vmWithBootLoader";
           virtualisation.useBootLoader = true;
           virtualisation.useEFIBoot =

@@ -28,13 +28,15 @@ lib.recurseIntoAttrs {
       pkgs,
       figlet,
       ...
-    }: {
+    }:
+    {
       name = "nixosTest-test";
       nodes.machine =
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           system.nixos = dummyVersioning;
           environment.systemPackages = [
             pkgs.proof-of-overlay-hello

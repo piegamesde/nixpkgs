@@ -7,7 +7,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "apcupsd";
     meta.maintainers = with lib.maintainers; [ bjornfor ];
 

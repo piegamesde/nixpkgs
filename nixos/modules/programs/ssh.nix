@@ -171,7 +171,8 @@ in
               config,
               options,
               ...
-            }: {
+            }:
+            {
               options = {
                 certAuthority = mkOption {
                   type = types.bool;

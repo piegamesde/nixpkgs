@@ -12,7 +12,8 @@ let
       sha256,
       commit,
       ...
-    }: {
+    }:
+    {
       github =
         self.callPackage
           (

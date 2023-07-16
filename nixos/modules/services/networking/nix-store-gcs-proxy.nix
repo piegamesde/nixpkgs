@@ -13,7 +13,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         enable = mkOption {
           default = true;

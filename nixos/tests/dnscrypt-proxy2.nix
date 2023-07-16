@@ -16,7 +16,8 @@ import ./make-test-python.nix (
       client =
         {
           ...
-        }: {
+        }:
+        {
           security.apparmor.enable = true;
 
           services.dnscrypt-proxy2.enable = true;

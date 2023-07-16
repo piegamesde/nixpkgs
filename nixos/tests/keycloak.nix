@@ -28,7 +28,8 @@ let
           {
             config,
             ...
-          }: {
+          }:
+          {
             security.pki.certificateFiles = [ certs.ca.cert ];
 
             networking.extraHosts = ''

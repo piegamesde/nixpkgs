@@ -21,7 +21,8 @@ let
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.writefreely = {
             enable = true;
             host = "localhost:3000";

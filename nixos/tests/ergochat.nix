@@ -14,7 +14,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "ergochat";
     nodes = {
       "${server}" = {

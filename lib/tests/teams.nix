@@ -13,7 +13,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         shortName = lib.mkOption { type = types.str; };
         scope = lib.mkOption { type = types.str; };

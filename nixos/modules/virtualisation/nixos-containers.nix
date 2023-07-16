@@ -330,7 +330,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
 
       options = {
         mountPoint = mkOption {
@@ -361,7 +362,8 @@ let
   allowedDeviceOpts =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         node = mkOption {
           example = "/dev/net/tun";
@@ -538,7 +540,8 @@ in
             options,
             name,
             ...
-          }: {
+          }:
+          {
             options = {
               config = mkOption {
                 description = lib.mdDoc ''
@@ -559,7 +562,8 @@ in
                                 {
                                   options,
                                   ...
-                                }: {
+                                }:
+                                {
                                   _file =
                                     "module at ${__curPos.file}:${
                                       toString __curPos.line

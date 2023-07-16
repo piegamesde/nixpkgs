@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "non-default-filesystems";
 
     nodes.machine =

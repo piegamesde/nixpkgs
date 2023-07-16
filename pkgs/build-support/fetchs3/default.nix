@@ -21,7 +21,8 @@ let
       access_key_id,
       secret_access_key,
       session_token ? null,
-    }: {
+    }:
+    {
       AWS_ACCESS_KEY_ID = access_key_id;
       AWS_SECRET_ACCESS_KEY = secret_access_key;
       AWS_SESSION_TOKEN = session_token;

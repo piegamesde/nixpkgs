@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "systemd-initrd-modprobe";
 
     nodes.machine =
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         boot.initrd.systemd.enable = true;
         boot.initrd.kernelModules = [ "loop" ]; # Load module in initrd.
         boot.extraModprobeConfig = ''

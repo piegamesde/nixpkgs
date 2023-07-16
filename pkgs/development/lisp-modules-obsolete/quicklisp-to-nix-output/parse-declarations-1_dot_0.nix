@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "parse-declarations-1_dot_0";
   version = "parse-declarations-20101006-darcs";
 

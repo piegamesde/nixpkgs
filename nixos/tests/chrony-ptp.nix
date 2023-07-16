@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "chrony-ptp";
 
     meta = { maintainers = with lib.maintainers; [ gkleen ]; };
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           boot.kernelModules = [ "ptp_kvm" ];
 
           services.chrony = {

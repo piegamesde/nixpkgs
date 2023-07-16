@@ -108,7 +108,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             options = {
               name = mkOption {
                 visible = false;
@@ -150,7 +151,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             options = {
               name = mkOption {
                 visible = false;

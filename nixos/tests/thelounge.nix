@@ -7,7 +7,8 @@ import ./make-test-python.nix {
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.thelounge = {
           enable = true;
           plugins = [ pkgs.theLoungePlugins.themes.solarized ];
@@ -20,7 +21,8 @@ import ./make-test-python.nix {
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.thelounge = {
           enable = true;
           public = true;

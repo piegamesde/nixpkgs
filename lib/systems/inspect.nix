@@ -69,7 +69,8 @@ rec {
           {
             arch,
             ...
-          }: {
+          }:
+          {
             cpu = { inherit arch; };
           }
         )

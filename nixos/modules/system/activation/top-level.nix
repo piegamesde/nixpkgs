@@ -349,7 +349,8 @@ in
         types.submodule (
           {
             ...
-          }: {
+          }:
+          {
             options.original = mkOption {
               type = types.package;
               description = lib.mdDoc "The original package to override.";
@@ -367,7 +368,8 @@ in
           original,
           replacement,
           ...
-        }: {
+        }:
+        {
           oldDependency = original;
           newDependency = replacement;
         }

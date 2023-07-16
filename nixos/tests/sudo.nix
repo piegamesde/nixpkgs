@@ -7,7 +7,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "sudo";
     meta = with pkgs.lib.maintainers; { maintainers = [ lschuermann ]; };
 
@@ -118,7 +119,8 @@ import ./make-test-python.nix (
     nodes.strict =
       {
         ...
-      }: {
+      }:
+      {
         users.users = {
           admin = {
             isNormalUser = true;

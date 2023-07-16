@@ -125,7 +125,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             options = {
               hostName = mkOption {
                 type = str;

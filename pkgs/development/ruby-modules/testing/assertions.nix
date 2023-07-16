@@ -2,7 +2,8 @@
   test,
   lib,
   ...
-}: {
+}:
+{
   equal =
     expected: actual:
     if actual == expected then

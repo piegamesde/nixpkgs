@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "clack-handler-hunchentoot";
   version = "clack-20210411-git";
 

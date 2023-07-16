@@ -63,7 +63,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
 
       options = {
         mountPoint = mkOption {
@@ -121,7 +122,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
 
       options = {
 

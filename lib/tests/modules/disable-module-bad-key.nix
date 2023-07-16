@@ -9,7 +9,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       config = { enable = true; };
     }
   ;

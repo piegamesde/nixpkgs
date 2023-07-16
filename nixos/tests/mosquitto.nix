@@ -78,7 +78,8 @@ import ./make-test-python.nix (
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             environment.systemPackages = with pkgs; [ mosquitto ];
           }
         ;
@@ -88,7 +89,8 @@ import ./make-test-python.nix (
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             networking.firewall.allowedTCPPorts = [
               port
               tlsPort

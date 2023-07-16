@@ -3,7 +3,8 @@ let
     {
       pkgs,
       ...
-    }: {
+    }:
+    {
       networking.firewall.enable = false;
       networking.useDHCP = false;
       # for a host utility with IPv6 support
@@ -15,7 +16,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nsd";
     meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
 
@@ -25,7 +27,8 @@ import ./make-test-python.nix (
           lib,
           nodes,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.nameservers = lib.mkForce [
             (
@@ -45,7 +48,8 @@ import ./make-test-python.nix (
           lib,
           nodes,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.nameservers = lib.mkForce [
             (
@@ -64,7 +68,8 @@ import ./make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.1";

@@ -17,7 +17,8 @@ builtins.listToAttrs (
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             services.nginx = {
               enable = true;
               virtualHosts.localhost.locations."/".return = "200 'foo'";

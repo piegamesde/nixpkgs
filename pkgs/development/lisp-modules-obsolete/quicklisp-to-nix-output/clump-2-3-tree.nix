@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "clump-2-3-tree";
   version = "clump-20160825-git";
 

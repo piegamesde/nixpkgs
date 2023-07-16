@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "envoy";
     meta = with pkgs.lib.maintainers; { maintainers = [ cameronnemo ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.envoy.enable = true;
         services.envoy.settings = {
           admin = {
@@ -33,7 +35,8 @@ import ./make-test-python.nix (
           withoutConfigValidation.configuration =
             {
               ...
-            }: {
+            }:
+            {
               services.envoy = {
                 requireValidConfig = false;
                 settings.admin.access_log_path =

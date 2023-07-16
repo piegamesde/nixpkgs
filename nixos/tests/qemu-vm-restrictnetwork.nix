@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.restrictNetwork = false;
       }
     ;
@@ -17,7 +18,8 @@ import ./make-test-python.nix ({
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.restrictNetwork = true;
       }
     ;

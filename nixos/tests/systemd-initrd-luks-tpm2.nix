@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "systemd-initrd-luks-tpm2";
 
     nodes.machine =
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         # Use systemd-boot
         virtualisation = {
           emptyDiskImages = [ 512 ];

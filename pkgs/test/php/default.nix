@@ -46,9 +46,8 @@ in
             {
               all,
               ...
-            }: [
-              all.imagick
-            ]
+            }:
+            [ all.imagick ]
           )
         }"
         checking "that imagick extension is present when enabled"
@@ -63,9 +62,8 @@ in
           {
             all,
             ...
-          }: [
-            all.imagick
-          ]
+          }:
+          [ all.imagick ]
         )).overrideAttrs
           (
             attrs: {

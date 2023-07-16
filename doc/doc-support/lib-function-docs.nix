@@ -35,7 +35,8 @@ stdenv.mkDerivation {
         {
           name,
           description,
-        }: ''
+        }:
+        ''
           docgen ${name} ${lib.escapeShellArg description}
         ''
       )

@@ -95,7 +95,8 @@ import ../../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.memorySize = 2048;
 
           environment = {
@@ -151,7 +152,8 @@ import ../../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.jq ];
           networking = {
             interfaces.eth1 = {

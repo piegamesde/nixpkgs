@@ -15,7 +15,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       options = {
         name = mkOption {
           type = types.str;
@@ -47,7 +48,8 @@ let
       lib,
       name,
       ...
-    }: {
+    }:
+    {
       options = {
 
         enable = mkEnableOption (lib.mdDoc "Bitcoin daemon");

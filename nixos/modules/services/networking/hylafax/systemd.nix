@@ -47,7 +47,8 @@ let
           name,
           type,
           ...
-        }@modem: ''
+        }@modem:
+        ''
           # check if modem config file exists:
           test -f "${pkgs.hylafaxplus}/spool/config/${type}"
           ln \

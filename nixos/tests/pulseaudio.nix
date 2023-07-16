@@ -78,7 +78,8 @@ let
         testScript =
           {
             ...
-          }: ''
+          }:
+          ''
             machine.wait_until_succeeds("pgrep xterm")
             machine.wait_for_text("alice@machine")
 

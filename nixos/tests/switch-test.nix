@@ -63,7 +63,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [
             pkgs.socat
           ]; # for the socket activation stuff

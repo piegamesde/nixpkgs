@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "timezone";
     meta.maintainers = with pkgs.lib.maintainers; [ lheckemann ];
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           time.timeZone = "Europe/Amsterdam";
         }
       ;
@@ -20,7 +22,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           time.timeZone = null;
         }
       ;
@@ -30,7 +33,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         node_eutz.wait_for_unit("dbus.socket")
 
         with subtest("static - Ensure timezone change gives the correct result"):

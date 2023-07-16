@@ -156,7 +156,8 @@
               {
                 lib,
                 ...
-              }: {
+              }:
+              {
                 config.nixpkgs.pkgs = lib.mkDefault pkgs;
               }
             )

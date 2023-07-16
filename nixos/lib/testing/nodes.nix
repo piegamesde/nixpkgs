@@ -27,7 +27,8 @@ let
           {
             config,
             ...
-          }: {
+          }:
+          {
             virtualisation.qemu.package = testModuleArgs.config.qemu.package;
 
             # Ensure we do not use aliases. Ideally this is only set

@@ -14,7 +14,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.jq ];
         services.polaris = {
           enable = true;

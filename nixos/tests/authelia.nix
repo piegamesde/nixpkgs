@@ -3,7 +3,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "authelia";
     meta.maintainers = with lib.maintainers; [ jk ];
 
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           services.authelia.instances.testing = {
             enable = true;
             secrets.storageEncryptionKeyFile =

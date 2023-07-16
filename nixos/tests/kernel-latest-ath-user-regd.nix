@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "kernel-latest-ath-user-regd";
     meta = with pkgs.lib.maintainers; { maintainers = [ veehaitch ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         boot.kernelPackages = pkgs.linuxPackages_latest;
         networking.wireless.athUserRegulatoryDomain = true;
       }

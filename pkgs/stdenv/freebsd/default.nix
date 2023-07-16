@@ -184,7 +184,8 @@ in
 [
 
   (
-    { }: {
+    { }:
+    {
       __raw = true;
 
       bootstrapTools = derivation (
@@ -223,7 +224,8 @@ in
     {
       bootstrapTools,
       ...
-    }: rec {
+    }:
+    rec {
       __raw = true;
 
       inherit bootstrapTools;

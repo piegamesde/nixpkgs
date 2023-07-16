@@ -154,7 +154,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       options = {
         name = mkOption {
           type = types.strMatching ''[^"]+'';

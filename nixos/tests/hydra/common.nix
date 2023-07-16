@@ -1,7 +1,8 @@
 {
   system,
   ...
-}: {
+}:
+{
   baseConfig =
     {
       pkgs,

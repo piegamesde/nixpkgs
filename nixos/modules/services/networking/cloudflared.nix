@@ -181,7 +181,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             options = {
               inherit originRequest;
 
@@ -224,7 +225,8 @@ in
                         {
                           hostname,
                           ...
-                        }: {
+                        }:
+                        {
                           options = {
                             inherit originRequest;
 

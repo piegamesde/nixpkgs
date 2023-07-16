@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "uwsgi";
     meta = with pkgs.lib.maintainers; { maintainers = [ lnl7 ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         users.users.hello = {
           isSystemUser = true;
           group = "hello";

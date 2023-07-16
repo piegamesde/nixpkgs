@@ -6,7 +6,8 @@ import ./make-test-python.nix {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ common/user-account.nix ];
         networking = {
           firewall.allowedTCPPorts = [ 25 ];
@@ -37,7 +38,8 @@ import ./make-test-python.nix {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ common/user-account.nix ];
         networking = {
           firewall.allowedTCPPorts = [
@@ -74,7 +76,8 @@ import ./make-test-python.nix {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         networking = {
           useDHCP = false;
           interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {

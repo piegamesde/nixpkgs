@@ -12,7 +12,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "systemd-networkd-ipv6-prefix-delegation";
     meta = with lib.maintainers; {
       maintainers = [
@@ -36,7 +37,8 @@ import ./make-test-python.nix (
           lib,
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           networking = {
             useDHCP = false;

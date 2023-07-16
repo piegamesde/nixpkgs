@@ -18,7 +18,8 @@ import ../make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           boot.kernelParams = [
             "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"
           ];
@@ -46,7 +47,8 @@ import ../make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           environment.etc = {
             knownHosts = {
               text = concatStrings [

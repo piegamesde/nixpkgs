@@ -20,7 +20,8 @@ let
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.redmine = {
             enable = true;
             package = pkgs.redmine;

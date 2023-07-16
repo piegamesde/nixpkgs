@@ -60,7 +60,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.etc."openldap/root_password".text = "notapassword";
 
         users.ldap = ldapClientConfig;
@@ -112,14 +113,16 @@ import ./make-test-python.nix (
           declarativeContents.configuration =
             {
               ...
-            }: {
+            }:
+            {
               services.openldap.declarativeContents."dc=example" = dbContents;
             }
           ;
           mutableConfig.configuration =
             {
               ...
-            }: {
+            }:
+            {
               services.openldap = {
                 declarativeContents."dc=example" = dbContents;
                 mutableConfig = true;
@@ -131,7 +134,8 @@ import ./make-test-python.nix (
             configuration =
               {
                 ...
-              }: {
+              }:
+              {
                 users.ldap = ldapClientConfig;
                 services.openldap = {
                   enable = true;

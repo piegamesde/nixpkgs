@@ -17,7 +17,8 @@ with pkgs.lib;
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.rsyslogd.enable = true;
         services.journald.forwardToSyslog = false;
       }
@@ -39,7 +40,8 @@ with pkgs.lib;
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.rsyslogd.enable = true;
       }
     ;

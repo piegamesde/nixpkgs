@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "moonraker";
     meta = with pkgs.lib.maintainers; { maintainers = [ zhaofengli ]; };
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           security.polkit.enable = true;
 
           services.moonraker = {

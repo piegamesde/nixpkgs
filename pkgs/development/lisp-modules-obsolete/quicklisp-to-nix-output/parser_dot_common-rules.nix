@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "parser_dot_common-rules";
   version = "20200715-git";
 

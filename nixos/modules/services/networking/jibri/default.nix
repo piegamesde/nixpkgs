@@ -214,7 +214,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             options = {
               xmppServerHosts = mkOption {
                 type = listOf str;

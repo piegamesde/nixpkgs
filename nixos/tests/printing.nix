@@ -21,7 +21,8 @@ import ./make-test-python.nix (
     nodes.server =
       {
         ...
-      }: {
+      }:
+      {
         services.printing = {
           enable = true;
           stateless = true;
@@ -48,7 +49,8 @@ import ./make-test-python.nix (
     nodes.client =
       {
         ...
-      }: {
+      }:
+      {
         services.printing.enable = true;
         services.printing.startWhenNeeded = socket;
         # Add printer to the client as well, via IPP.

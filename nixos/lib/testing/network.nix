@@ -115,7 +115,8 @@ let
         config,
         name,
         ...
-      }: {
+      }:
+      {
         options = {
           virtualisation.test.nodeName = mkOption {
             internal = true;

@@ -51,7 +51,8 @@ let
           {
             nodes,
             ...
-          }: {
+          }:
+          {
             services.mysql = {
               inherit package;
               enable = true;
@@ -68,7 +69,8 @@ let
           {
             nodes,
             ...
-          }: {
+          }:
+          {
             services.mysql = {
               inherit package;
               enable = true;

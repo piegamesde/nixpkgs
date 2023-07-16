@@ -9,7 +9,8 @@
       lib,
       pkgs,
       ...
-    }: {
+    }:
+    {
       deployment.targetEnv = "none";
       imports = [
         ./base-configuration.nix

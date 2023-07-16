@@ -15,7 +15,8 @@ let
     {
       patches ? [ ],
       ...
-    }: {
+    }:
+    {
       patches =
         patches
         ++ [

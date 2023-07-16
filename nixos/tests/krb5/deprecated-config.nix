@@ -5,14 +5,16 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "krb5-with-deprecated-config";
     meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         krb5 = {
           enable = true;
           defaultRealm = "ATHENA.MIT.EDU";

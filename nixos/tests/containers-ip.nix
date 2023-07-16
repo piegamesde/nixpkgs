@@ -18,7 +18,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-ipv4-ipv6";
     meta = {
       maintainers = with lib.maintainers; [
@@ -33,7 +34,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/installer/cd-dvd/channel.nix ];
         virtualisation = { writableStore = true; };
 
@@ -47,7 +49,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         import time
 
 

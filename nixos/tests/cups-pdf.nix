@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "cups-pdf";
 
     nodes.machine =
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/user-account.nix ];
         environment.systemPackages = [ pkgs.poppler_utils ];
         fonts.fonts = [ pkgs.dejavu_fonts ]; # yields more OCR-able pdf

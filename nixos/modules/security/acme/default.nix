@@ -762,7 +762,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         # user option has been removed
         user = mkOption {

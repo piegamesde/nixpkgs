@@ -40,7 +40,8 @@ import ../make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           inherit krb5 users;
 
           networking.extraHosts = hosts;
@@ -65,7 +66,8 @@ import ../make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           inherit krb5 users;
 
           networking.extraHosts = hosts;

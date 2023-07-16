@@ -173,7 +173,8 @@ let
       testScript =
         {
           ...
-        }: ''
+        }:
+        ''
           start_all()
 
           client.wait_for_unit("network.target")
@@ -240,7 +241,8 @@ let
         {
           lib,
           ...
-        }: {
+        }:
+        {
           # Disable test driver default config
           networking.interfaces = lib.mkForce { };
           networking.useNetworkd = networkd;
@@ -290,7 +292,8 @@ let
       testScript =
         {
           ...
-        }: ''
+        }:
+        ''
           start_all()
 
           client.wait_for_unit("network.target")
@@ -354,7 +357,8 @@ let
       testScript =
         {
           ...
-        }: ''
+        }:
+        ''
           start_all()
 
           with subtest("Wait for networking to come up"):
@@ -423,7 +427,8 @@ let
         testScript =
           {
             ...
-          }: ''
+          }:
+          ''
             start_all()
 
             with subtest("Wait for networking to come up"):
@@ -507,7 +512,8 @@ let
         testScript =
           {
             ...
-          }: ''
+          }:
+          ''
             start_all()
 
             with subtest("Wait for networking to come up"):
@@ -562,7 +568,8 @@ let
       testScript =
         {
           ...
-        }: ''
+        }:
+        ''
           start_all()
 
           with subtest("Wait for networking to come up"):
@@ -600,7 +607,8 @@ let
       nodes.machine =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           networking = {
             useNetworkd = networkd;
@@ -760,7 +768,8 @@ let
         testScript =
           {
             ...
-          }: ''
+          }:
+          ''
             start_all()
 
             with subtest("Wait for networking to be configured"):
@@ -905,7 +914,8 @@ let
         testScript =
           {
             ...
-          }: ''
+          }:
+          ''
             import json
             start_all()
 
@@ -970,7 +980,8 @@ let
         testScript =
           {
             ...
-          }: ''
+          }:
+          ''
             start_all()
 
             with subtest("Wait for networking to be configured"):
@@ -1027,7 +1038,8 @@ let
         testScript =
           {
             ...
-          }: ''
+          }:
+          ''
             start_all()
 
             with subtest("Wait for networking to be configured"):
@@ -1132,7 +1144,8 @@ let
       nodes.router =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
           networking = {
@@ -1201,7 +1214,8 @@ let
       testScript =
         {
           ...
-        }: ''
+        }:
+        ''
           start_all()
 
           client.wait_for_unit("network.target")
@@ -1378,7 +1392,8 @@ let
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           networking = {
             useNetworkd = networkd;
@@ -1410,7 +1425,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             boot.kernelModules = [ "mac80211_hwsim" ];
             networking.wlanInterfaces = {
               wlan0 = { device = "wlan0"; };

@@ -93,7 +93,8 @@ import ./make-test-python.nix (
     nodes.eve =
       {
         ...
-      }: {
+      }:
+      {
         virtualisation.vlans = [
           1
           2

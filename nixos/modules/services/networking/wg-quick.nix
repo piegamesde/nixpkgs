@@ -16,7 +16,8 @@ let
   interfaceOpts =
     {
       ...
-    }: {
+    }:
+    {
       options = {
 
         configFile = mkOption {

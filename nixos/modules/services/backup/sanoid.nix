@@ -171,7 +171,8 @@ in
             config,
             options,
             ...
-          }: {
+          }:
+          {
             freeformType = datasetSettingsType;
             options = commonOptions // datasetOptions;
             config.use_template = modules.mkAliasAndWrapDefsWithPriority id (

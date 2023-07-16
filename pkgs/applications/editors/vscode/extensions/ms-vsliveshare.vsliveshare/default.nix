@@ -54,7 +54,8 @@ in
     {
       buildInputs ? [ ],
       ...
-    }: {
+    }:
+    {
       buildInputs = buildInputs ++ libs;
 
       # Using a patch file won't work, because the file changes too often, causing the patch to fail on most updates.

@@ -40,7 +40,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.minio = {
             enable = true;
             inherit rootCredentialsFile;

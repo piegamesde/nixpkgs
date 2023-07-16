@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "freenet";
     meta = with pkgs.lib.maintainers; { maintainers = [ nagy ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       machine =
         {
           ...
-        }: {
+        }:
+        {
           services.freenet.enable = true;
         }
       ;

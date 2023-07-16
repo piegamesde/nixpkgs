@@ -53,7 +53,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.restic.backups = {
             remotebackup = {
               inherit

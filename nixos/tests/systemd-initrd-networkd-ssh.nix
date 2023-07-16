@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "systemd-initrd-network-ssh";
     meta.maintainers = [ lib.maintainers.elvishjerricco ];
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.cryptsetup ];
           boot.loader.systemd-boot.enable = true;
           boot.loader.timeout = 0;
@@ -50,7 +52,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           environment.etc = {
             knownHosts = {
               text = concatStrings [

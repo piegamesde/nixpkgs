@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "cadvisor";
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       machine =
         {
           ...
-        }: {
+        }:
+        {
           services.cadvisor.enable = true;
         }
       ;

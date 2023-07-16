@@ -214,7 +214,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             freeformType = types.attrsOf iniAtom;
             options.inboxdir = mkOption {
               type = types.str;

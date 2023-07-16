@@ -5,7 +5,8 @@ import ./make-test-python.nix {
     single =
       {
         ...
-      }: {
+      }:
+      {
         virtualisation = { emptyDiskImages = [ 512 ]; };
         zramSwap = {
           enable = true;
@@ -21,7 +22,8 @@ import ./make-test-python.nix {
     machine =
       {
         ...
-      }: {
+      }:
+      {
         zramSwap = {
           enable = true;
           priority = 10;

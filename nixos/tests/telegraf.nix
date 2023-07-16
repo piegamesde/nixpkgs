@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "telegraf";
     meta = with pkgs.lib.maintainers; { maintainers = [ mic92 ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.telegraf.enable = true;
         services.telegraf.environmentFiles = [
           (pkgs.writeText "secrets" ''

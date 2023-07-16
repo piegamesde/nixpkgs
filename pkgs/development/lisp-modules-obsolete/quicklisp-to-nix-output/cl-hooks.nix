@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "cl-hooks";
   version = "architecture.hooks-20181210-git";
 

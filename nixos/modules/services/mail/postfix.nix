@@ -64,7 +64,8 @@ let
       config,
       name,
       ...
-    }: {
+    }:
+    {
       options = {
         name = mkOption {
           type = types.str;
@@ -310,7 +311,8 @@ let
   headerCheckOptions =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         pattern = mkOption {
           type = types.str;

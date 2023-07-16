@@ -12,7 +12,8 @@ import ./make-test-python.nix (
     nodes.base =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/profiles/minimal.nix ];
 
         services.searx = {
@@ -46,7 +47,8 @@ import ./make-test-python.nix (
     nodes.fancy =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/profiles/minimal.nix ];
 
         services.searx = {

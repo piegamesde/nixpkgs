@@ -34,7 +34,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         # Used for test
         environment.systemPackages = [ pkgs.gnupg ];
 

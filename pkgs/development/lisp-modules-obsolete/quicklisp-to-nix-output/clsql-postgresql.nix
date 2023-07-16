@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "clsql-postgresql";
   version = "clsql-20210228-git";
 

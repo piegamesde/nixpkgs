@@ -42,7 +42,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       options = {
         enable = mkEnableOption (lib.mdDoc "this v4l2-relayd instance");
 

@@ -1436,7 +1436,8 @@ rec {
     {
       options,
       ...
-    }: {
+    }:
+    {
       options = setAttrByPath optionName (
         mkOption {
           visible = false;
@@ -1547,7 +1548,8 @@ rec {
       config,
       options,
       ...
-    }: {
+    }:
+    {
       options = foldl' recursiveUpdate { } (
         map
           (

@@ -209,7 +209,8 @@ let
           libraries =
             {
               fetchNuGet,
-            }: [
+            }:
+            [
               (fetchNuGet {
                 pname = "FSharp.SystemTextJson";
                 version = "0.17.4";

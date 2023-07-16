@@ -211,7 +211,8 @@
               {
                 ip,
                 zones,
-              }: ''
+              }:
+              ''
                 ns${toString num}.fakedns. IN A ${ip}
                 ${lib.concatMapStrings
                   (zone: ''

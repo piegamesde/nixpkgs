@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: rec {
+  }:
+  rec {
     name = "pacemaker";
     meta = with pkgs.lib.maintainers; { maintainers = [ astro ]; };
 

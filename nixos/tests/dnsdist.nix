@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "dnsdist";
     meta = with pkgs.lib; { maintainers = with maintainers; [ jojosch ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         services.bind = {
           enable = true;
           extraOptions = "empty-zones-enable no;";

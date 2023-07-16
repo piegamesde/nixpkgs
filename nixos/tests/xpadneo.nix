@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "xpadneo";
     meta.maintainers = with lib.maintainers; [ kira-bruneau ];
 

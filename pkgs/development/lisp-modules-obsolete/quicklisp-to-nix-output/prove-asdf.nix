@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "prove-asdf";
   version = "prove-20200218-git";
 

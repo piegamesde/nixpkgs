@@ -12,7 +12,8 @@ import ./make-test-python.nix (
       invoiceplane_caddy =
         {
           ...
-        }: {
+        }:
+        {
           services.invoiceplane.webserver = "caddy";
           services.invoiceplane.sites = {
             "site1.local" = {

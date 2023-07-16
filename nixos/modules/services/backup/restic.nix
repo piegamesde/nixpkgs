@@ -23,7 +23,8 @@ in
           config,
           name,
           ...
-        }: {
+        }:
+        {
           options = {
             passwordFile = mkOption {
               type = types.str;

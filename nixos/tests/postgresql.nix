@@ -31,7 +31,8 @@ let
       nodes.machine =
         {
           ...
-        }: {
+        }:
+        {
           services.postgresql = {
             enable = true;
             package = postgresql-package;
@@ -152,7 +153,8 @@ let
       nodes.machine =
         {
           ...
-        }: {
+        }:
+        {
           services.postgresql = {
             enable = true;
             package = postgresql-package;

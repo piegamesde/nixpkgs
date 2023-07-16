@@ -32,7 +32,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         name = mkOption {
           type = types.str;
@@ -124,7 +125,8 @@ let
           masters ? [ ],
           allowQuery ? [ ],
           extraConfig ? "",
-        }: ''
+        }:
+        ''
           zone "${name}" {
             type ${if master then "master" else "slave"};
             file "${file}";

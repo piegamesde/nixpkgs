@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   name = "agate";
   meta = with lib.maintainers; { maintainers = [ jk ]; };
 
@@ -11,7 +12,8 @@
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.agate = {
           enable = true;
           hostnames = [ "localhost" ];
@@ -27,7 +29,8 @@
     {
       nodes,
       ...
-    }: ''
+    }:
+    ''
       geminiserver.wait_for_unit("agate")
       geminiserver.wait_for_open_port(1965)
 

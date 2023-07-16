@@ -68,7 +68,8 @@ import ./make-test-python.nix (
       docker =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation = {
             diskSize = 2048;
             docker.enable = true;

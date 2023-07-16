@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "parenscript";
   version = "Parenscript-2.7.1";
 

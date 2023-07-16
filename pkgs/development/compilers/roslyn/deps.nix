@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "Microsoft.AspNetCore.App.Ref";
     version = "3.1.10";

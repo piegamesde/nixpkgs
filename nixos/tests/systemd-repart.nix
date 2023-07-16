@@ -52,7 +52,8 @@ let
       pkgs,
       lib,
       ...
-    }: {
+    }:
+    {
       virtualisation.useDefaultFilesystems = false;
       virtualisation.fileSystems = {
         "/" = {
@@ -97,7 +98,8 @@ in
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
 
         boot.initrd.systemd.enable = true;
@@ -113,7 +115,8 @@ in
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         ${useDiskImage nodes.machine}
 
         machine.start()
@@ -134,7 +137,8 @@ in
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
 
         systemd.repart.enable = true;
@@ -148,7 +152,8 @@ in
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         ${useDiskImage nodes.machine}
 
         machine.start()

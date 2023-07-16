@@ -146,7 +146,8 @@ in
           {
             config,
             ...
-          }: {
+          }:
+          {
             options = {
               enable = mkEnableOption (mdDoc "cgit");
 

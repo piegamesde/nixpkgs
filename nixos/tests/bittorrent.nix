@@ -27,7 +27,8 @@ import ./make-test-python.nix (
     transmissionConfig =
       {
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.transmission ];
         services.transmission = {
           enable = true;
@@ -57,7 +58,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           imports = [ transmissionConfig ];
 
           virtualisation.vlans = [ 1 ];
@@ -86,7 +88,8 @@ import ./make-test-python.nix (
           pkgs,
           nodes,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             1
             2
@@ -121,7 +124,8 @@ import ./make-test-python.nix (
           pkgs,
           nodes,
           ...
-        }: {
+        }:
+        {
           imports = [ transmissionConfig ];
           environment.systemPackages = [ pkgs.miniupnpc ];
 
@@ -140,7 +144,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           imports = [ transmissionConfig ];
 
           virtualisation.vlans = [ 1 ];
@@ -158,7 +163,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
 
         # Wait for network and miniupnpd.

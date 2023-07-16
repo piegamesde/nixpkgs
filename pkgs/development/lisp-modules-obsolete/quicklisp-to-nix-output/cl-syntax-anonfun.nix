@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "cl-syntax-anonfun";
   version = "cl-syntax-20150407-git";
 

@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "freshrss";
     meta.maintainers = with lib.maintainers; [
       etu
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.freshrss = {
           enable = true;
           baseUrl = "http://localhost";

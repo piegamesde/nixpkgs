@@ -2,7 +2,8 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "stratis";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ nickcao ]; };
@@ -11,7 +12,8 @@ import ../make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.stratis.enable = true;
         virtualisation.emptyDiskImages = [
           2048

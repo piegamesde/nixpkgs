@@ -1,6 +1,7 @@
 {
   callPackage,
-}: {
+}:
+{
   "arcmenu@arcmenu.com" = callPackage ./arcmenu { };
   "argos@pew.worldwidemann.com" = callPackage ./argos { };
   "clock-override@gnomeshell.kryogenix.org" = callPackage ./clock-override { };

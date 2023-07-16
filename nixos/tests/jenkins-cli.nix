@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: rec {
+  }:
+  rec {
     name = "jenkins-cli";
     meta = with pkgs.lib.maintainers; { maintainers = [ pamplemousse ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       machine =
         {
           ...
-        }: {
+        }:
+        {
           services.jenkins = {
             enable = true;
             withCLI = true;

@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "nomad";
     nodes = {
       default_server =
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           networking = {
             interfaces.eth1.ipv4.addresses = lib.mkOverride 0 [ {
               address = "192.168.1.1";
@@ -47,7 +49,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           networking = {
             interfaces.eth1.ipv4.addresses = lib.mkOverride 0 [ {
               address = "192.168.1.1";

@@ -10,7 +10,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-bridge";
     meta = {
       maintainers = with lib.maintainers; [
@@ -25,7 +26,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/installer/cd-dvd/channel.nix ];
         virtualisation.writableStore = true;
 

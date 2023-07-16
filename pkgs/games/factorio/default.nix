@@ -116,7 +116,8 @@ let
       url,
       sha256,
       needsAuth,
-    }: {
+    }:
+    {
       inherit version tarDirectory;
       src =
         if !needsAuth then

@@ -16,7 +16,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "hass" ];

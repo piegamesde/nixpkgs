@@ -17,7 +17,8 @@ import ./make-test-python.nix (
       esphomeTcp =
         {
           ...
-        }: {
+        }:
+        {
           services.esphome = {
             enable = true;
             port = testPort;
@@ -30,7 +31,8 @@ import ./make-test-python.nix (
       esphomeUnix =
         {
           ...
-        }: {
+        }:
+        {
           services.esphome = {
             enable = true;
             enableUnixSocket = true;

@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "miriway";
 
     meta = {
@@ -19,7 +20,8 @@ import ./make-test-python.nix (
       {
         config,
         ...
-      }: {
+      }:
+      {
         imports = [
           ./common/auto.nix
           ./common/user-account.nix
@@ -105,7 +107,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
         machine.wait_for_unit("multi-user.target")
 

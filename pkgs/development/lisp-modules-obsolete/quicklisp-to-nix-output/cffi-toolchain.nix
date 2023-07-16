@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "cffi-toolchain";
   version = "cffi_0.24.1";
 

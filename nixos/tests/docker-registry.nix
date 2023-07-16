@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "docker-registry";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -18,7 +19,8 @@ import ./make-test-python.nix (
       registry =
         {
           ...
-        }: {
+        }:
+        {
           services.dockerRegistry.enable = true;
           services.dockerRegistry.enableDelete = true;
           services.dockerRegistry.port = 8080;
@@ -31,7 +33,8 @@ import ./make-test-python.nix (
       client1 =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.docker.enable = true;
           virtualisation.docker.extraOptions =
             "--insecure-registry registry:8080";
@@ -41,7 +44,8 @@ import ./make-test-python.nix (
       client2 =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.docker.enable = true;
           virtualisation.docker.extraOptions =
             "--insecure-registry registry:8080";
