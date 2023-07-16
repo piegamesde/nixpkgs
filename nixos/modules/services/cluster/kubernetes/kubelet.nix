@@ -462,9 +462,8 @@ in
                             "--tls-private-key-file=${cfg.tlsKeyFile}"
                         } \
                         ${
-                          optionalString (cfg.verbosity != null) "--v=${
-                              toString cfg.verbosity
-                            }"
+                          optionalString (cfg.verbosity != null)
+                            "--v=${toString cfg.verbosity}"
                         } \
                         --container-runtime-endpoint=${cfg.containerRuntimeEndpoint} \
                         --cgroup-driver=systemd \

@@ -246,16 +246,16 @@ in
         ${optionalString (cfg.dev != null) ''MatchDevicePath "${cfg.dev}"''}
         Driver "synaptics"
         ${
-          optionalString (cfg.minSpeed != null) ''
-            Option "MinSpeed" "${cfg.minSpeed}"''
+          optionalString (cfg.minSpeed != null)
+            ''Option "MinSpeed" "${cfg.minSpeed}"''
         }
         ${
-          optionalString (cfg.maxSpeed != null) ''
-            Option "MaxSpeed" "${cfg.maxSpeed}"''
+          optionalString (cfg.maxSpeed != null)
+            ''Option "MaxSpeed" "${cfg.maxSpeed}"''
         }
         ${
-          optionalString (cfg.accelFactor != null) ''
-            Option "AccelFactor" "${cfg.accelFactor}"''
+          optionalString (cfg.accelFactor != null)
+            ''Option "AccelFactor" "${cfg.accelFactor}"''
         }
         ${optionalString cfg.tapButtons tapConfig}
         Option "ClickFinger1" "${builtins.elemAt cfg.buttonsMap 0}"
@@ -271,23 +271,24 @@ in
         Option "HorizEdgeScroll" "${if cfg.horizEdgeScroll then "1" else "0"}"
         ${optionalString cfg.palmDetect ''Option "PalmDetect" "1"''}
         ${
-          optionalString (cfg.palmMinWidth != null) ''
-            Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''
+          optionalString (cfg.palmMinWidth != null)
+            ''Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''
         }
         ${
-          optionalString (cfg.palmMinZ != null) ''
-            Option "PalmMinZ" "${toString cfg.palmMinZ}"''
+          optionalString (cfg.palmMinZ != null)
+            ''Option "PalmMinZ" "${toString cfg.palmMinZ}"''
         }
         ${
-          optionalString (cfg.scrollDelta != null) ''
-            Option "VertScrollDelta" "${toString cfg.scrollDelta}"''
+          optionalString (cfg.scrollDelta != null)
+            ''Option "VertScrollDelta" "${toString cfg.scrollDelta}"''
         }
         ${
           if !cfg.horizontalScroll then
             ''Option "HorizScrollDelta" "0"''
           else
-            (optionalString (cfg.scrollDelta != null) ''
-              Option "HorizScrollDelta" "${toString cfg.scrollDelta}"'')
+            (optionalString (cfg.scrollDelta != null)
+              ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"''
+            )
         }
         ${cfg.additionalOptions}
       EndSection

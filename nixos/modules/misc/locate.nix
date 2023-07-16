@@ -311,9 +311,8 @@ in
           let
             toFlags =
               x:
-              optional (cfg.${x} != [ ]) "--${lib.toLower x} '${
-                  concatStringsSep " " cfg.${x}
-                }'"
+              optional (cfg.${x} != [ ])
+                "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'"
             ;
             args = concatLists (
               map toFlags [

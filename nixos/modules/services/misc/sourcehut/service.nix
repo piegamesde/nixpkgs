@@ -332,9 +332,10 @@ in
 
         services.sourcehut.settings = mkMerge [
           {
-            "${srv}.sr.ht".origin = mkDefault "https://${srv}.${
-                  cfg.settings."sr.ht".global-domain
-                }";
+            "${srv}.sr.ht".origin =
+              mkDefault
+                "https://${srv}.${cfg.settings."sr.ht".global-domain}"
+            ;
           }
 
           (mkIf cfg.postgresql.enable {

@@ -138,8 +138,8 @@ let
       $wgDBname = "${cfg.database.name}";
       $wgDBuser = "${cfg.database.user}";
       ${
-        optionalString (cfg.database.passwordFile != null) ''
-          $wgDBpassword = file_get_contents("${cfg.database.passwordFile}");''
+        optionalString (cfg.database.passwordFile != null)
+          ''$wgDBpassword = file_get_contents("${cfg.database.passwordFile}");''
       }
 
       ${

@@ -61,8 +61,10 @@ in
       askPassword = mkOption {
         type = types.str;
         default = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-        defaultText = literalExpression ''
-          "''${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass"'';
+        defaultText =
+          literalExpression
+            ''"''${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass"''
+        ;
         description = lib.mdDoc "Program used by SSH to ask for passwords.";
       };
 
@@ -365,18 +367,14 @@ in
         "PubkeyAcceptedKeyTypes ${
           concatStringsSep "," cfg.pubkeyAcceptedKeyTypes
         }"}
-      ${optionalString (cfg.hostKeyAlgorithms != [ ]) "HostKeyAlgorithms ${
-          concatStringsSep "," cfg.hostKeyAlgorithms
-        }"}
-      ${optionalString (cfg.kexAlgorithms != null) "KexAlgorithms ${
-          concatStringsSep "," cfg.kexAlgorithms
-        }"}
-      ${optionalString (cfg.ciphers != null) "Ciphers ${
-          concatStringsSep "," cfg.ciphers
-        }"}
-      ${optionalString (cfg.macs != null) "MACs ${
-          concatStringsSep "," cfg.macs
-        }"}
+      ${optionalString (cfg.hostKeyAlgorithms != [ ])
+        "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
+      ${optionalString (cfg.kexAlgorithms != null)
+        "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
+      ${optionalString (cfg.ciphers != null)
+        "Ciphers ${concatStringsSep "," cfg.ciphers}"}
+      ${optionalString (cfg.macs != null)
+        "MACs ${concatStringsSep "," cfg.macs}"}
     '';
 
     environment.etc."ssh/ssh_known_hosts".text = knownHostsText;

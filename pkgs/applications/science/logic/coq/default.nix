@@ -238,8 +238,8 @@ let
       UNAME=$(type -tp uname)
       RM=$(type -tp rm)
       substituteInPlace tools/beautify-archive --replace "/bin/rm" "$RM"
-      ${lib.optionalString (!coqAtLeast "8.7") ''
-        substituteInPlace configure.ml --replace "md5 -q" "md5sum"''}
+      ${lib.optionalString (!coqAtLeast "8.7")
+        ''substituteInPlace configure.ml --replace "md5 -q" "md5sum"''}
       ${csdpPatch}
     '';
 

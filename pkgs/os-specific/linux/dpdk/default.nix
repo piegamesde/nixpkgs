@@ -99,9 +99,9 @@ stdenv.mkDerivation rec {
     ++
       lib.optional mod
         "-Dkernel_dir=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ++ lib.optional (withExamples != [ ]) "-Dexamples=${
-          builtins.concatStringsSep "," withExamples
-        }"
+    ++
+      lib.optional (withExamples != [ ])
+        "-Dexamples=${builtins.concatStringsSep "," withExamples}"
   ;
 
   postInstall =

@@ -781,9 +781,8 @@ in
         imap0
           (
             idx: listener:
-            makePasswordFile listener.users "${cfg.dataDir}/passwd-${
-                toString idx
-              }"
+            makePasswordFile listener.users
+              "${cfg.dataDir}/passwd-${toString idx}"
           )
           cfg.listeners
       );

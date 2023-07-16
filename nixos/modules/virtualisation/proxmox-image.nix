@@ -137,8 +137,11 @@ with lib;
       '';
       default =
         if config.proxmox.qemuConf.bios == "seabios" then "legacy" else "efi";
-      defaultText = lib.literalExpression ''
-        if config.proxmox.qemuConf.bios == "seabios" then "legacy" else "efi"'';
+      defaultText =
+        lib.literalExpression
+          ''
+            if config.proxmox.qemuConf.bios == "seabios" then "legacy" else "efi"''
+      ;
       example = "hybrid";
     };
     filenameSuffix = mkOption {

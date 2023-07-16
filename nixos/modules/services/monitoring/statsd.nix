@@ -51,12 +51,12 @@ let
           cfg.backends
       }],
       ${
-        optionalString (cfg.graphiteHost != null) ''
-          graphiteHost: "${cfg.graphiteHost}",''
+        optionalString (cfg.graphiteHost != null)
+          ''graphiteHost: "${cfg.graphiteHost}",''
       }
       ${
-        optionalString (cfg.graphitePort != null) ''
-          graphitePort: "${toString cfg.graphitePort}",''
+        optionalString (cfg.graphitePort != null)
+          ''graphitePort: "${toString cfg.graphitePort}",''
       }
       console: {
         prettyprint: false

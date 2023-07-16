@@ -25,17 +25,14 @@ let
       browse-domains=${concatStringsSep ", " browseDomains}
       use-ipv4=${yesNo ipv4}
       use-ipv6=${yesNo ipv6}
-      ${optionalString (allowInterfaces != null) "allow-interfaces=${
-          concatStringsSep "," allowInterfaces
-        }"}
-      ${optionalString (denyInterfaces != null) "deny-interfaces=${
-          concatStringsSep "," denyInterfaces
-        }"}
+      ${optionalString (allowInterfaces != null)
+        "allow-interfaces=${concatStringsSep "," allowInterfaces}"}
+      ${optionalString (denyInterfaces != null)
+        "deny-interfaces=${concatStringsSep "," denyInterfaces}"}
       ${optionalString (domainName != null) "domain-name=${domainName}"}
       allow-point-to-point=${yesNo allowPointToPoint}
-      ${optionalString (cacheEntriesMax != null) "cache-entries-max=${
-          toString cacheEntriesMax
-        }"}
+      ${optionalString (cacheEntriesMax != null)
+        "cache-entries-max=${toString cacheEntriesMax}"}
 
       [wide-area]
       enable-wide-area=${yesNo wideArea}

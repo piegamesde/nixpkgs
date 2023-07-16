@@ -184,8 +184,8 @@ in
           } \
           ${if rootLogin then "--root-login" else "--no-root-login"} \
           ${
-            optionalString (loginShell != null) ''
-              --login-shell="${loginShell}"''
+            optionalString (loginShell != null)
+              ''--login-shell="${loginShell}"''
           } \
           ${
             if srpKeyExchange then

@@ -132,8 +132,8 @@ stdenv.mkDerivation rec {
         lib.optionalString mercurialSupport "--prefix PATH : ${mercurial}/bin "
       } \
       ${
-        lib.optionalString docutilsSupport ''
-          --prefix PYTHONPATH : "$(toPythonPath ${docutils})" ''
+        lib.optionalString docutilsSupport
+          ''--prefix PYTHONPATH : "$(toPythonPath ${docutils})" ''
       } \
       ${lib.concatMapStrings (x: "--prefix PATH : ${x}/bin ") extraUtils}
     done

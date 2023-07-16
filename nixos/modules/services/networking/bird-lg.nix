@@ -258,8 +258,10 @@ in
           binary = mkOption {
             type = types.str;
             default = "${pkgs.traceroute}/bin/traceroute";
-            defaultText = literalExpression ''
-              "''${pkgs.traceroute}/bin/traceroute"'';
+            defaultText =
+              literalExpression
+                ''"''${pkgs.traceroute}/bin/traceroute"''
+            ;
             description = lib.mdDoc "Traceroute's binary path.";
           };
 

@@ -442,8 +442,8 @@ in
           ];
           deviceSection = ''
             BusID "${igpuBusId}"
-            ${optionalString (syncCfg.enable && igpuDriver != "amdgpu") ''
-              Option "AccelMethod" "none"''}
+            ${optionalString (syncCfg.enable && igpuDriver != "amdgpu")
+              ''Option "AccelMethod" "none"''}
           '';
         }
         ++ singleton {
@@ -452,8 +452,8 @@ in
           display = !offloadCfg.enable;
           deviceSection = optionalString primeEnabled ''
             BusID "${pCfg.nvidiaBusId}"
-            ${optionalString pCfg.allowExternalGpu ''
-              Option "AllowExternalGpus"''}
+            ${optionalString pCfg.allowExternalGpu
+              ''Option "AllowExternalGpus"''}
           '';
           screenSection =
             ''

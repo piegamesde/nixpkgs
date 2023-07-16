@@ -128,10 +128,12 @@ stdenv.mkDerivation rec {
       wavpack
     ]
     ++ lib.optionals raspiCameraSupport [ libraspberrypi ]
-    ++ lib.optionals gtkSupport [
-      # for gtksink
-      gtk3
-    ]
+    ++
+      lib.optionals gtkSupport
+        [
+          # for gtksink
+          gtk3
+        ]
     ++ lib.optionals qt5Support (
       with qt5; [
         qtbase

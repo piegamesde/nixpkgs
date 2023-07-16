@@ -327,9 +327,8 @@ in
 
               [sftpd]
               enabled = ${boolToString settings.sftpd.enable}
-              ${optionalString (settings.sftpd.port != null) "port = ${
-                  toString settings.sftpd.port
-                }"}
+              ${optionalString (settings.sftpd.port != null)
+                "port = ${toString settings.sftpd.port}"}
               ${optionalString (settings.sftpd.hostPublicKeyFile != null)
                 "host_pubkey_file = ${settings.sftpd.hostPublicKeyFile}"}
               ${optionalString (settings.sftpd.hostPrivateKeyFile != null)

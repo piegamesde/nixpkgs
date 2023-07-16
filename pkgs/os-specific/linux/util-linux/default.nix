@@ -72,9 +72,9 @@ stdenv.mkDerivation rec {
       (lib.enableFeature nlsSupport "nls")
       (lib.withFeature ncursesSupport "ncursesw")
       (lib.withFeature systemdSupport "systemd")
-      (lib.withFeatureAs systemdSupport "systemdsystemunitdir" "${
-          placeholder "bin"
-        }/lib/systemd/system/")
+      (lib.withFeatureAs systemdSupport "systemdsystemunitdir"
+        "${placeholder "bin"}/lib/systemd/system/"
+      )
       (lib.enableFeature translateManpages "poman")
       "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
     ]

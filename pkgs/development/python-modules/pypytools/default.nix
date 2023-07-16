@@ -44,10 +44,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pypytools" ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [
-    # https://github.com/antocuni/pypytools/issues/4
-    "test_clonefunc"
-  ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.11")
+      [
+        # https://github.com/antocuni/pypytools/issues/4
+        "test_clonefunc"
+      ]
+  ;
 
   meta = with lib; {
     description = "Collection of tools to use PyPy-specific features";

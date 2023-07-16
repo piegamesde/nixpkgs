@@ -48,10 +48,12 @@ stdenv.mkDerivation (
         dbus-glib
         json-glib
       ]
-      ++ lib.optional (gtkVersion != null) {
-        "2" = gtk2;
-        "3" = gtk3;
-      }
+      ++
+        lib.optional (gtkVersion != null)
+          {
+            "2" = gtk2;
+            "3" = gtk3;
+          }
           .${gtkVersion} or (throw "unknown GTK version ${gtkVersion}")
     ;
 

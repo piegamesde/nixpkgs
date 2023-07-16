@@ -156,9 +156,9 @@ let
         option = thrower.name;
         usedBy =
           assert __trace "Investigate ${thrower.name}" true;
-          reportNewFailures eval.options (evalFun {
-            specialArgs = { config = overrideConfig thrower; };
-          }).options
+          reportNewFailures eval.options
+            (evalFun { specialArgs = { config = overrideConfig thrower; }; })
+            .options
         ;
       })
       introspectionModules

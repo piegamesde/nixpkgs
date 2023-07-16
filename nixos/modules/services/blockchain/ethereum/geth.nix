@@ -273,9 +273,8 @@ in
                       }"
                   } \
                   ${
-                    optionalString (cfg.http.apis != null) "--http.api ${
-                        lib.concatStringsSep "," cfg.http.apis
-                      }"
+                    optionalString (cfg.http.apis != null)
+                      "--http.api ${lib.concatStringsSep "," cfg.http.apis}"
                   } \
                   ${
                     optionalString cfg.websocket.enable
@@ -284,9 +283,8 @@ in
                       }"
                   } \
                   ${
-                    optionalString (cfg.websocket.apis != null) "--ws.api ${
-                        lib.concatStringsSep "," cfg.websocket.apis
-                      }"
+                    optionalString (cfg.websocket.apis != null)
+                      "--ws.api ${lib.concatStringsSep "," cfg.websocket.apis}"
                   } \
                   ${
                     optionalString cfg.metrics.enable

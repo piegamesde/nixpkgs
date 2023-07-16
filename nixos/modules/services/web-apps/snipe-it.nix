@@ -494,7 +494,8 @@ in
                   else
                     hashString "sha256" (builtins.readFile v._secret)
                 else
-                  throw "unsupported type ${typeOf v}: ${
+                  throw
+                    "unsupported type ${typeOf v}: ${
                       (lib.generators.toPretty { }) v
                     }"
               ;

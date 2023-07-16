@@ -17,8 +17,10 @@ let
     cfg: name:
     let
 
-      path = makeBinPath (getAttr "openvpn-${name}" config.systemd.services)
-          .path;
+      path =
+        makeBinPath
+          (getAttr "openvpn-${name}" config.systemd.services).path
+      ;
 
       upScript = ''
         export PATH=${path}
@@ -52,13 +54,12 @@ let
           (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf)
           "script-security 2"}
         ${cfg.config}
-        ${optionalString (cfg.up != "" || cfg.updateResolvConf) "up ${
-            pkgs.writeShellScript "openvpn-${name}-up" upScript
-          }"}
-        ${optionalString (cfg.down != "" || cfg.updateResolvConf) "down ${
-            pkgs.writeShellScript "openvpn-${name}-down" downScript
-          }"}
-        ${optionalString (cfg.authUserPass != null) "auth-user-pass ${
+        ${optionalString (cfg.up != "" || cfg.updateResolvConf)
+          "up ${pkgs.writeShellScript "openvpn-${name}-up" upScript}"}
+        ${optionalString (cfg.down != "" || cfg.updateResolvConf)
+          "down ${pkgs.writeShellScript "openvpn-${name}-down" downScript}"}
+        ${optionalString (cfg.authUserPass != null)
+          "auth-user-pass ${
             pkgs.writeText "openvpn-credentials-${name}" ''
               ${cfg.authUserPass.username}
               ${cfg.authUserPass.password}

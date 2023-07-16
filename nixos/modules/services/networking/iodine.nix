@@ -199,8 +199,8 @@ in
             after = [ "network.target" ];
             wantedBy = [ "multi-user.target" ];
             script = "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${
-                optionalString (cfg.passwordFile != "") ''
-                  < "${builtins.toString cfg.passwordFile}"''
+                optionalString (cfg.passwordFile != "")
+                  ''< "${builtins.toString cfg.passwordFile}"''
               } ${cfg.relay} ${cfg.server}";
             serviceConfig = {
               RestartSec = "30s";
@@ -243,8 +243,8 @@ in
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           script = "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${
-              optionalString (cfg.server.passwordFile != "") ''
-                < "${builtins.toString cfg.server.passwordFile}"''
+              optionalString (cfg.server.passwordFile != "")
+                ''< "${builtins.toString cfg.server.passwordFile}"''
             } ${cfg.server.ip} ${cfg.server.domain}";
           serviceConfig = {
             # Filesystem access

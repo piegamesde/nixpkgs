@@ -284,24 +284,20 @@ in
                   -pid=${cfg.pidFile} \
                   ${optionalString cfg.testnet "-testnet"}\
                   ${
-                    optionalString (cfg.port != null) "-port=${
-                        toString cfg.port
-                      }"
+                    optionalString (cfg.port != null)
+                      "-port=${toString cfg.port}"
                   }\
                   ${
-                    optionalString (cfg.prune != null) "-prune=${
-                        toString cfg.prune
-                      }"
+                    optionalString (cfg.prune != null)
+                      "-prune=${toString cfg.prune}"
                   }\
                   ${
-                    optionalString (cfg.dbCache != null) "-dbcache=${
-                        toString cfg.dbCache
-                      }"
+                    optionalString (cfg.dbCache != null)
+                      "-dbcache=${toString cfg.dbCache}"
                   }\
                   ${
-                    optionalString (cfg.rpc.port != null) "-rpcport=${
-                        toString cfg.rpc.port
-                      }"
+                    optionalString (cfg.rpc.port != null)
+                      "-rpcport=${toString cfg.rpc.port}"
                   }\
                   ${toString cfg.extraCmdlineOptions}
                 '';

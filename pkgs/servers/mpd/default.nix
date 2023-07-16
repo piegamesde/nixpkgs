@@ -188,7 +188,8 @@ let
               unsupported = lib.subtractLists platformFeatures features;
             in
             if (unsupported != [ ]) then
-              throw "Feature(s) ${
+              throw
+                "Feature(s) ${
                   lib.concatStringsSep " " unsupported
                 } are not supported on ${stdenv.hostPlatform.system}"
             else

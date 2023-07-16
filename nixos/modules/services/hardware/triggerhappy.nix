@@ -23,11 +23,12 @@ let
           ...
         }:
         "${concatMapStringsSep "+" (x: "KEY_" + x) keys} ${
-          toString {
-            press = 1;
-            hold = 2;
-            release = 0;
-          }
+          toString
+            {
+              press = 1;
+              hold = 2;
+              release = 0;
+            }
             .${event}
         } ${cmd}"
       )

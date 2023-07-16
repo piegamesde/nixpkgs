@@ -36,10 +36,13 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${pname}-${version}/Quake";
 
-  patches = lib.optionals stdenv.isDarwin [
-    # Makes Darwin Makefile use system libraries instead of ones from app bundle
-    ./quakespasm-darwin-makefile-improvements.patch
-  ];
+  patches =
+    lib.optionals stdenv.isDarwin
+      [
+        # Makes Darwin Makefile use system libraries instead of ones from app bundle
+        ./quakespasm-darwin-makefile-improvements.patch
+      ]
+  ;
 
   nativeBuildInputs = [
     copyDesktopItems

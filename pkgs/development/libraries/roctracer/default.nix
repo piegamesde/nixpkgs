@@ -66,10 +66,13 @@ stdenv.mkDerivation (
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ];
 
-    env.NIX_CFLAGS_COMPILE = toString [
-      # Needed with GCC 12
-      "-Wno-error=array-bounds"
-    ];
+    env.NIX_CFLAGS_COMPILE =
+      toString
+        [
+          # Needed with GCC 12
+          "-Wno-error=array-bounds"
+        ]
+    ;
 
     postPatch =
       ''

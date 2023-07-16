@@ -271,9 +271,12 @@ in
             mapAttrs
               (name: net: {
                 LoadModule = mkDefault net.modules;
-                Server = mkDefault "${net.server} ${
-                      optionalString net.useSSL "+"
-                    }${toString net.port} ${net.password}";
+                Server =
+                  mkDefault
+                    "${net.server} ${optionalString net.useSSL "+"}${
+                      toString net.port
+                    } ${net.password}"
+                ;
                 Chan = optionalAttrs net.hasBitlbeeControlChannel {
                   "&bitlbee" = mkDefault { };
                 } // listToAttrs (

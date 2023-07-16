@@ -107,15 +107,18 @@ stdenv.mkDerivation rec {
       "-DCURL_HAS_TLS_PROXY=1"
       "-DTARGET_ARCH=${host_os}"
     ]
-    ++ lib.optional (apis != [ "*" ]) "-DBUILD_ONLY=${
-          lib.concatStringsSep ";" apis
-        }"
+    ++
+      lib.optional (apis != [ "*" ])
+        "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}"
   ;
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    # openssl 3 generates several deprecation warnings
-    "-Wno-error=deprecated-declarations"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString
+      [
+        # openssl 3 generates several deprecation warnings
+        "-Wno-error=deprecated-declarations"
+      ]
+  ;
 
   # aws-cpp-sdk-core-tests/aws/client/AWSClientTest.cpp
   # seem to have a datarace

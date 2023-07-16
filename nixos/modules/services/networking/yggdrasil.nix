@@ -188,11 +188,12 @@ in
             if settingsProvided || configFileProvided || cfg.persistentKeys then
               "echo "
 
-              + (lib.optionalString settingsProvided "'${
-                  builtins.toJSON cfg.settings
-                }'")
-              + (lib.optionalString configFileProvided ''
-                $(${binHjson} -c "$CREDENTIALS_DIRECTORY/yggdrasil.conf")'')
+              + (lib.optionalString settingsProvided
+                "'${builtins.toJSON cfg.settings}'"
+              )
+              + (lib.optionalString configFileProvided
+                ''$(${binHjson} -c "$CREDENTIALS_DIRECTORY/yggdrasil.conf")''
+              )
               + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
               + " | ${pkgs.jq}/bin/jq -s add | ${binYggdrasil} -normaliseconf -useconf"
             else

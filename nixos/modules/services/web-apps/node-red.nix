@@ -57,8 +57,10 @@ in
     configFile = mkOption {
       type = types.path;
       default = "${cfg.package}/lib/node_modules/node-red/settings.js";
-      defaultText = literalExpression ''
-        "''${package}/lib/node_modules/node-red/settings.js"'';
+      defaultText =
+        literalExpression
+          ''"''${package}/lib/node_modules/node-red/settings.js"''
+      ;
       description = lib.mdDoc ''
         Path to the JavaScript configuration file.
         See <https://github.com/node-red/node-red/blob/master/packages/node_modules/node-red/settings.js>

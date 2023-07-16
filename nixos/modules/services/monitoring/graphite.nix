@@ -295,24 +295,31 @@ in
 
       seyrenUrl = mkOption {
         default = "http://localhost:${toString cfg.seyren.port}/";
-        defaultText = literalExpression ''
-          "http://localhost:''${toString config.${opt.seyren.port}}/"'';
+        defaultText =
+          literalExpression
+            ''"http://localhost:''${toString config.${opt.seyren.port}}/"''
+        ;
         description = lib.mdDoc "Host where seyren is accessible.";
         type = types.str;
       };
 
       graphiteUrl = mkOption {
         default = "http://${cfg.web.listenAddress}:${toString cfg.web.port}";
-        defaultText = literalExpression ''
-          "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
+        defaultText =
+          literalExpression
+            ''
+              "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"''
+        ;
         description = lib.mdDoc "Host where graphite service runs.";
         type = types.str;
       };
 
       mongoUrl = mkOption {
         default = "mongodb://${config.services.mongodb.bind_ip}:27017/seyren";
-        defaultText = literalExpression ''
-          "mongodb://''${config.services.mongodb.bind_ip}:27017/seyren"'';
+        defaultText =
+          literalExpression
+            ''"mongodb://''${config.services.mongodb.bind_ip}:27017/seyren"''
+        ;
         description = lib.mdDoc "Mongodb connection string.";
         type = types.str;
       };

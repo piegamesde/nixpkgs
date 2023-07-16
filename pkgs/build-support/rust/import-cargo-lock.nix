@@ -261,8 +261,8 @@ let
         cat > $out/.cargo-config <<EOF
         [source."${gitParts.url}"]
         git = "${gitParts.url}"
-        ${lib.optionalString (gitParts ? type) ''
-          ${gitParts.type} = "${gitParts.value}"''}
+        ${lib.optionalString (gitParts ? type)
+          ''${gitParts.type} = "${gitParts.value}"''}
         replace-with = "vendored-sources"
         EOF
       ''

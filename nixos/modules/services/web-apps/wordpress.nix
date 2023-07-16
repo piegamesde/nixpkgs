@@ -140,7 +140,8 @@ let
     else if isHasAttr "_raw" then
       v._raw
     else
-      abort "The Wordpress config value ${
+      abort
+        "The Wordpress config value ${
           lib.generators.toPretty { } v
         } can not be encoded."
   ;
@@ -588,9 +589,10 @@ in
                 mkMerge [
                   cfg.virtualHost
                   {
-                    documentRoot = mkForce "${
-                          pkg hostName cfg
-                        }/share/wordpress";
+                    documentRoot =
+                      mkForce
+                        "${pkg hostName cfg}/share/wordpress"
+                    ;
                     extraConfig = ''
                       <Directory "${pkg hostName cfg}/share/wordpress">
                         <FilesMatch "\.php$">

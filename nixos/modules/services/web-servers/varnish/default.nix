@@ -12,7 +12,9 @@ let
 
   commandLine =
     "-f ${pkgs.writeText "default.vcl" cfg.config}"
-    + optionalString (cfg.extraModules != [ ]) " -p vmod_path='${
+    +
+      optionalString (cfg.extraModules != [ ])
+        " -p vmod_path='${
            makeSearchPathOutput "lib" "lib/varnish/vmods" (
              [ cfg.package ] ++ cfg.extraModules
            )
@@ -56,8 +58,10 @@ in
       stateDir = mkOption {
         type = types.path;
         default = "/var/spool/varnish/${config.networking.hostName}";
-        defaultText = literalExpression ''
-          "/var/spool/varnish/''${config.networking.hostName}"'';
+        defaultText =
+          literalExpression
+            ''"/var/spool/varnish/''${config.networking.hostName}"''
+        ;
         description = lib.mdDoc ''
           Directory holding all state for Varnish to run.
         '';

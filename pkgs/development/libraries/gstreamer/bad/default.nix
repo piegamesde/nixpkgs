@@ -330,11 +330,13 @@ stdenv.mkDerivation rec {
       "-Dgtk3=disabled" # Wayland-based GTK sink
       "-Dwayland=disabled"
     ]
-    ++ lib.optionals (!gst-plugins-base.glEnabled) [
-      # `applemedia/videotexturecache.h` requires `gst/gl/gl.h`,
-      # but its meson build system does not declare the dependency.
-      "-Dapplemedia=disabled"
-    ]
+    ++
+      lib.optionals (!gst-plugins-base.glEnabled)
+        [
+          # `applemedia/videotexturecache.h` requires `gst/gl/gl.h`,
+          # but its meson build system does not declare the dependency.
+          "-Dapplemedia=disabled"
+        ]
     ++ (
       if enableGplPlugins then
         [ "-Dgpl=enabled" ]

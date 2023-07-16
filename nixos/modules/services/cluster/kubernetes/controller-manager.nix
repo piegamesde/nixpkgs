@@ -202,9 +202,8 @@ in
                         "--use-service-account-credentials"
                     } \
                     ${
-                      optionalString (cfg.verbosity != null) "--v=${
-                          toString cfg.verbosity
-                        }"
+                      optionalString (cfg.verbosity != null)
+                        "--v=${toString cfg.verbosity}"
                     } \
                     ${cfg.extraOpts}
         '';

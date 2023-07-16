@@ -23,8 +23,10 @@ let
   ifaceSet = toNftSet (map (x: ''"${x}"'') cfg.internalInterfaces);
   ipSet = toNftSet cfg.internalIPs;
   ipv6Set = toNftSet cfg.internalIPv6s;
-  oifExpr = optionalString (cfg.externalInterface != null) ''
-    oifname "${cfg.externalInterface}"'';
+  oifExpr =
+    optionalString (cfg.externalInterface != null)
+      ''oifname "${cfg.externalInterface}"''
+  ;
 
   # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: length (lib.splitString ":" ip) > 2;

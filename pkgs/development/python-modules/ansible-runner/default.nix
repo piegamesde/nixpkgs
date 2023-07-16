@@ -71,11 +71,13 @@ buildPythonPackage rec {
       # Failed: DID NOT RAISE <class 'RuntimeError'>
       "test_validate_pattern"
     ]
-    ++ lib.optionals stdenv.isDarwin [
-      # test_process_isolation_settings is currently broken on Darwin Catalina
-      # https://github.com/ansible/ansible-runner/issues/413
-      "process_isolation_settings"
-    ]
+    ++
+      lib.optionals stdenv.isDarwin
+        [
+          # test_process_isolation_settings is currently broken on Darwin Catalina
+          # https://github.com/ansible/ansible-runner/issues/413
+          "process_isolation_settings"
+        ]
   ;
 
   disabledTestPaths =

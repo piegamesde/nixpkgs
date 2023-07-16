@@ -77,7 +77,8 @@ let
     else if isHasAttr "_raw" then
       v._raw
     else
-      abort "The dokuwiki localConf value ${
+      abort
+        "The dokuwiki localConf value ${
           lib.generators.toPretty { } v
         } can not be encoded."
   ;
@@ -227,11 +228,12 @@ let
       );
       config = mkMerge [
         {
-          warnings = optional fromOpt.isDefined "The option `${
-                showOption fromPath
-              }' defined in ${showFiles fromOpt.files} has been renamed to `${
-                showOption toPath
-              }'.";
+          warnings =
+            optional fromOpt.isDefined
+              "The option `${showOption fromPath}' defined in ${
+                showFiles fromOpt.files
+              } has been renamed to `${showOption toPath}'."
+          ;
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];

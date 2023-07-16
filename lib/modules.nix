@@ -624,7 +624,8 @@ rec {
         ];
       in
       if badAttrs != { } then
-        throw "Module `${key}' has an unsupported attribute `${
+        throw
+          "Module `${key}' has an unsupported attribute `${
             head (attrNames badAttrs)
           }'. This is caused by introducing a top-level `config' or `options' attribute. Add configuration attributes immediately on the top level instead, or move all of them (namely: ${
             toString (attrNames badAttrs)
@@ -994,7 +995,8 @@ rec {
           || bothHave "apply"
           || (bothHave "type" && (!typesMergeable))
         then
-          throw "The option `${
+          throw
+            "The option `${
               showOption loc
             }' in `${opt._file}' is already declared in ${
               showFiles res.declarations
@@ -1055,7 +1057,8 @@ rec {
                 defs'
             ;
           in
-          throw "The option `${
+          throw
+            "The option `${
               showOption loc
             }' is read-only, but it's set multiple times. Definition values:${
               showDefs separateDefs
@@ -1146,7 +1149,8 @@ rec {
             let
               allInvalid = filter (def: !type.check def.value) defsFinal;
             in
-            throw "A definition for option `${
+            throw
+              "A definition for option `${
                 showOption loc
               }' is not of type `${type.description}'. Definition values:${
                 showDefs allInvalid
@@ -1452,7 +1456,8 @@ rec {
           visible = false;
           apply =
             x:
-            throw "The option `${
+            throw
+              "The option `${
                 showOption optionName
               }' can no longer be used since it's been removed. ${replacementInstructions}"
           ;
@@ -1494,9 +1499,12 @@ rec {
       inherit from to;
       visible = false;
       warn = true;
-      use = builtins.trace "Obsolete option `${
-            showOption from
-          }' is used. It was renamed to `${showOption to}'.";
+      use =
+        builtins.trace
+          "Obsolete option `${showOption from}' is used. It was renamed to `${
+            showOption to
+          }'."
+      ;
     }
   ;
 
@@ -1517,9 +1525,12 @@ rec {
       inherit from to;
       visible = false;
       warn = lib.isInOldestRelease sinceRelease;
-      use = lib.warnIf (lib.isInOldestRelease sinceRelease) "Obsolete option `${
-            showOption from
-          }' is used. It was renamed to `${showOption to}'.";
+      use =
+        lib.warnIf (lib.isInOldestRelease sinceRelease)
+          "Obsolete option `${showOption from}' is used. It was renamed to `${
+            showOption to
+          }'."
+      ;
     }
   ;
 
@@ -1583,9 +1594,10 @@ rec {
                 val = getAttrFromPath f config;
                 opt = getAttrFromPath f options;
               in
-              optionalString (val != "_mkMergedOptionModule") "The option `${
-                  showOption f
-                }' defined in ${showFiles opt.files} has been changed to `${
+              optionalString (val != "_mkMergedOptionModule")
+                "The option `${showOption f}' defined in ${
+                  showFiles opt.files
+                } has been changed to `${
                   showOption to
                 }' that has a different type. Please read `${
                   showOption to
@@ -1716,11 +1728,12 @@ rec {
       );
       config = mkMerge [
         (optionalAttrs (options ? warnings) {
-          warnings = optional (warn && fromOpt.isDefined) "The option `${
-                showOption from
-              }' defined in ${showFiles fromOpt.files} has been renamed to `${
-                showOption to
-              }'.";
+          warnings =
+            optional (warn && fromOpt.isDefined)
+              "The option `${showOption from}' defined in ${
+                showFiles fromOpt.files
+              } has been renamed to `${showOption to}'."
+          ;
         })
         (
           if withPriority then

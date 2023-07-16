@@ -66,8 +66,10 @@ in
 
     nameservers = mkOption {
       default = map (n: n + ":53") config.networking.nameservers;
-      defaultText = literalExpression ''
-        map (n: n + ":53") config.networking.nameservers'';
+      defaultText =
+        literalExpression
+          ''map (n: n + ":53") config.networking.nameservers''
+      ;
       type = types.listOf types.str;
       description =
         lib.mdDoc

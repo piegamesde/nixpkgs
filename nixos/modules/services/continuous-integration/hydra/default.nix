@@ -217,8 +217,10 @@ in
           optional (config.nix.buildMachines != [ ])
             "/etc/nix/machines"
         ;
-        defaultText = literalExpression ''
-          optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
+        defaultText =
+          literalExpression
+            ''optional (config.nix.buildMachines != []) "/etc/nix/machines"''
+        ;
         example = [
           "/etc/nix/machines"
           "/var/lib/hydra/provisioner/machines"

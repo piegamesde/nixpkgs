@@ -71,10 +71,13 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    # Needed with GCC 12
-    "-Wno-error=array-bounds"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString
+      [
+        # Needed with GCC 12
+        "-Wno-error=array-bounds"
+      ]
+  ;
 
   hardeningDisable = [ "fortify" ];
 

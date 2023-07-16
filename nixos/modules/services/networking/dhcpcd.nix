@@ -112,9 +112,8 @@ let
     } lo peth* vif* tap* tun* virbr* vnet* vboxnet* sit*
 
     # Use the list of allowed interfaces if specified
-    ${optionalString (allowInterfaces != null) "allowinterfaces ${
-        toString allowInterfaces
-      }"}
+    ${optionalString (allowInterfaces != null)
+      "allowinterfaces ${toString allowInterfaces}"}
 
     # Immediately fork to background if specified, otherwise wait for IP address to be assigned
     ${{

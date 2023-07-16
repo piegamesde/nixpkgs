@@ -38,10 +38,13 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    # provides ical-glib-src-generator that runs during build
-    libical
-  ];
+  depsBuildBuild =
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+      [
+        # provides ical-glib-src-generator that runs during build
+        libical
+      ]
+  ;
 
   nativeBuildInputs =
     [

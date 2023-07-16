@@ -205,8 +205,9 @@ buildPythonApplication {
             "--prefix LD_LIBRARY_PATH : ${libPath}"
         }
         ${
-          lib.optionalString enableWideVine ''
-            --add-flags "--qt-flag widevine-path=${widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so"''
+          lib.optionalString enableWideVine
+            ''
+              --add-flags "--qt-flag widevine-path=${widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so"''
         }
       )
     ''

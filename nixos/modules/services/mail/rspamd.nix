@@ -53,9 +53,8 @@ let
         let
           maybeOption =
             option:
-            optionalString options.${option}.isDefined " ${option}=${
-                 config.${option}
-               }"
+            optionalString options.${option}.isDefined
+              " ${option}=${config.${option}}"
           ;
         in
         if (!(hasPrefix "/" config.socket)) then
@@ -261,15 +260,13 @@ let
             worker "${value.type}" {
               type = "${value.type}";
               ${
-                optionalString (value.enable != null) "enabled = ${
-                    if value.enable != false then "yes" else "no"
-                  };"
+                optionalString (value.enable != null)
+                  "enabled = ${if value.enable != false then "yes" else "no"};"
               }
               ${mkBindSockets value.enable value.bindSockets}
               ${
-                optionalString (value.count != null) "count = ${
-                    toString value.count
-                  };"
+                optionalString (value.count != null)
+                  "count = ${toString value.count};"
               }
               ${
                 concatStringsSep "\n  " (

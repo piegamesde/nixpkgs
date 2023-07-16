@@ -33,8 +33,11 @@ in
     interfaceName = mkOption {
       type = types.str;
       default = "tailscale0";
-      description = lib.mdDoc ''
-        The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
+      description =
+        lib.mdDoc
+          ''
+            The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.''
+      ;
     };
 
     permitCertUid = mkOption {

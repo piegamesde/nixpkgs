@@ -142,10 +142,12 @@ stdenv.mkDerivation rec {
       "Plural/short.lst"
       "Old/factor.tst"
     ]
-    ++ lib.optionals enableGfanlib [
-      # tests that require gfanlib
-      "Short/ok_s.lst"
-    ]
+    ++
+      lib.optionals enableGfanlib
+        [
+          # tests that require gfanlib
+          "Short/ok_s.lst"
+        ]
   ;
 
   # simple test to make sure singular starts and finds its libraries

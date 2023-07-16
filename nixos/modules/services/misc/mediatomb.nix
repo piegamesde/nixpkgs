@@ -292,8 +292,10 @@ in
       dataDir = mkOption {
         type = types.path;
         default = "/var/lib/${name}";
-        defaultText = literalExpression ''
-          "/var/lib/''${config.${opt.package}.pname}"'';
+        defaultText =
+          literalExpression
+            ''"/var/lib/''${config.${opt.package}.pname}"''
+        ;
         description = lib.mdDoc ''
           The directory where Gerbera/Mediatomb stores its state, data, etc.
         '';
@@ -401,9 +403,10 @@ in
         optionalString (cfg.interface != "")
           "--interface ${cfg.interface}"
       ;
-      configFlag = optionalString (!cfg.customCfg) "--config ${
-            pkgs.writeText "config.xml" configText
-          }";
+      configFlag =
+        optionalString (!cfg.customCfg)
+          "--config ${pkgs.writeText "config.xml" configText}"
+      ;
     in
     mkIf cfg.enable {
       systemd.services.mediatomb = {

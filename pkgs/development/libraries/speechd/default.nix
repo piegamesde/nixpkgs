@@ -51,13 +51,15 @@ stdenv.mkDerivation rec {
         utillinux = util-linux;
       })
     ]
-    ++ lib.optionals (withEspeak && espeak.mbrolaSupport) [
-      # Replace FHS paths.
-      (substituteAll {
-        src = ./fix-mbrola-paths.patch;
-        inherit espeak mbrola;
-      })
-    ]
+    ++
+      lib.optionals (withEspeak && espeak.mbrolaSupport)
+        [
+          # Replace FHS paths.
+          (substituteAll {
+            src = ./fix-mbrola-paths.patch;
+            inherit espeak mbrola;
+          })
+        ]
   ;
 
   nativeBuildInputs = [

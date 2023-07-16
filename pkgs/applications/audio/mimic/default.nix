@@ -55,10 +55,13 @@ stdenv.mkDerivation rec {
     ++ lib.optional pulseaudioSupport libpulseaudio
   ;
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    # Needed with GCC 12
-    "-Wno-error=free-nonheap-object"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString
+      [
+        # Needed with GCC 12
+        "-Wno-error=free-nonheap-object"
+      ]
+  ;
 
   postInstall = ''
     wrapProgram $out/bin/mimic \

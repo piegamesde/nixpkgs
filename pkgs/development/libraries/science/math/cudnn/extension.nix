@@ -80,8 +80,10 @@ let
       let
         # The latest release is the first element of the list and will be our default choice
         # latestReleaseName :: String
-        latestReleaseName = computeName (builtins.head supportedReleases)
-            .version;
+        latestReleaseName =
+          computeName
+            (builtins.head supportedReleases).version
+        ;
       in
       allBuilds.${latestReleaseName}
     ;

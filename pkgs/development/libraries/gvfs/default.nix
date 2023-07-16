@@ -145,10 +145,12 @@ stdenv.mkDerivation rec {
       "-Dgoogle=false"
     ]
     ++ lib.optionals (avahi == null) [ "-Ddnssd=false" ]
-    ++ lib.optionals (samba == null) [
-      # Xfce don't want samba
-      "-Dsmb=false"
-    ]
+    ++
+      lib.optionals (samba == null)
+        [
+          # Xfce don't want samba
+          "-Dsmb=false"
+        ]
   ;
 
   doCheck = false; # fails with "ModuleNotFoundError: No module named 'gi'"

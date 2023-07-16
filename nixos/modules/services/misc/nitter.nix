@@ -108,8 +108,10 @@ in
         staticDir = mkOption {
           type = types.path;
           default = "${cfg.package}/share/nitter/public";
-          defaultText = literalExpression ''
-            "''${config.services.nitter.package}/share/nitter/public"'';
+          defaultText =
+            literalExpression
+              ''"''${config.services.nitter.package}/share/nitter/public"''
+          ;
           description = lib.mdDoc "Path to the static files directory.";
         };
 

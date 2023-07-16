@@ -27,8 +27,9 @@ let
   ;
   # GraalVM 21.3.0+ expects musl-gcc as <system>-musl-gcc
   musl-gcc =
-    (writeShellScriptBin "${stdenv.hostPlatform.system}-musl-gcc" ''
-      ${lib.getDev musl}/bin/musl-gcc "$@"'');
+    (writeShellScriptBin "${stdenv.hostPlatform.system}-musl-gcc"
+      ''${lib.getDev musl}/bin/musl-gcc "$@"''
+    );
   binPath = lib.makeBinPath ([ gcc ] ++ lib.optionals useMusl [ musl-gcc ]);
 in
 graalvmCEPackages.buildGraalvmProduct rec {

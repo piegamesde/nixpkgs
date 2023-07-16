@@ -17,8 +17,9 @@ let
     let
       version = pkg.version or "";
     in
-    lib.optionalString (isPvpVersion version) ''
-      "${name}","${version}","http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages.${name}.x86_64-linux"''
+    lib.optionalString (isPvpVersion version)
+      ''
+        "${name}","${version}","http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages.${name}.x86_64-linux"''
   ;
   all-haskellPackages = builtins.toFile "all-haskellPackages" (
     lib.concatStringsSep "\n" (

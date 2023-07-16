@@ -264,12 +264,12 @@ let
         address: "${cfg.smtp.address}",
         port: ${toString cfg.smtp.port},
         ${
-          optionalString (cfg.smtp.username != null) ''
-            user_name: "${cfg.smtp.username}",''
+          optionalString (cfg.smtp.username != null)
+            ''user_name: "${cfg.smtp.username}",''
         }
         ${
-          optionalString (cfg.smtp.passwordFile != null) ''
-            password: "@smtpPassword@",''
+          optionalString (cfg.smtp.passwordFile != null)
+            ''password: "@smtpPassword@",''
         }
         domain: "${cfg.smtp.domain}",
         ${
@@ -919,8 +919,11 @@ in
             pages-root = mkOption {
               type = types.str;
               default = "${gitlabConfig.production.shared.path}/pages";
-              defaultText = literalExpression ''
-                config.${opt.extraConfig}.production.shared.path + "/pages"'';
+              defaultText =
+                literalExpression
+                  ''
+                    config.${opt.extraConfig}.production.shared.path + "/pages"''
+              ;
               description = lib.mdDoc ''
                 The directory where pages are stored.
               '';
@@ -1703,7 +1706,8 @@ in
               else if isSecret v then
                 builtins.hashString "sha256" v._secret
               else
-                throw "unsupported type ${builtins.typeOf v}: ${
+                throw
+                  "unsupported type ${builtins.typeOf v}: ${
                     (lib.generators.toPretty { }) v
                   }"
             ;

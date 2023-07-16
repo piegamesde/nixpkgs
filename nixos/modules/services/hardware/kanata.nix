@@ -79,9 +79,8 @@ let
 
   mkDevices =
     devices:
-    optionalString ((length devices) > 0) "linux-dev ${
-        concatStringsSep ":" devices
-      }"
+    optionalString ((length devices) > 0)
+      "linux-dev ${concatStringsSep ":" devices}"
   ;
 
   mkConfig =
@@ -107,9 +106,8 @@ let
             --cfg ${mkConfig name keyboard} \
             --symlink-path ''${RUNTIME_DIRECTORY}/${name} \
             ${
-              optionalString (keyboard.port != null) "--port ${
-                  toString keyboard.port
-                }"
+              optionalString (keyboard.port != null)
+                "--port ${toString keyboard.port}"
             } \
             ${utils.escapeSystemdExecArgs keyboard.extraArgs}
         '';

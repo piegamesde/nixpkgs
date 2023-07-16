@@ -307,8 +307,10 @@ let
         option = mkOption {
           type = types.str;
           default = "/var/lib/${config.services.prometheus.stateDir}/data";
-          defaultText = literalExpression ''
-            "/var/lib/''${config.services.prometheus.stateDir}/data"'';
+          defaultText =
+            literalExpression
+              ''"/var/lib/''${config.services.prometheus.stateDir}/data"''
+          ;
           description = lib.mdDoc ''
             Data directory of TSDB.
           '';

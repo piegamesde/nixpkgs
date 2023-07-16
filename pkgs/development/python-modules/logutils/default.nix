@@ -30,10 +30,13 @@ buildPythonPackage rec {
       "test_hashandlers"
     ];
 
-  disabledTestPaths = lib.optionals (stdenv.isDarwin) [
-    # Exception: unable to connect to Redis server
-    "tests/test_redis.py"
-  ];
+  disabledTestPaths =
+    lib.optionals (stdenv.isDarwin)
+      [
+        # Exception: unable to connect to Redis server
+        "tests/test_redis.py"
+      ]
+  ;
 
   meta = with lib; {
     description = "Logging utilities";

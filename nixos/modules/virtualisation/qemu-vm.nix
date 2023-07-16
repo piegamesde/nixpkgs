@@ -429,8 +429,10 @@ in
     virtualisation.bootLoaderDevice = mkOption {
       type = types.path;
       default = lookupDriveDeviceName "root" cfg.qemu.drives;
-      defaultText = literalExpression ''
-        lookupDriveDeviceName "root" cfg.qemu.drives'';
+      defaultText =
+        literalExpression
+          ''lookupDriveDeviceName "root" cfg.qemu.drives''
+      ;
       example = "/dev/vda";
       description = lib.mdDoc ''
         The disk to be used for the boot filesystem.
@@ -441,8 +443,10 @@ in
     virtualisation.bootPartition = mkOption {
       type = types.nullOr types.path;
       default = if cfg.useEFIBoot then "${cfg.bootLoaderDevice}1" else null;
-      defaultText = literalExpression ''
-        if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
+      defaultText =
+        literalExpression
+          ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null''
+      ;
       example = "/dev/vda1";
       description = lib.mdDoc ''
         The boot partition to be used to mount /boot filesystem.

@@ -236,8 +236,10 @@ in
 
       customDir = mkOption {
         default = "${cfg.stateDir}/custom";
-        defaultText = literalExpression ''
-          "''${config.${opt.stateDir}}/custom"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.stateDir}}/custom"''
+        ;
         type = types.str;
         description =
           lib.mdDoc
@@ -339,8 +341,10 @@ in
         path = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/data/gitea.db";
-          defaultText = literalExpression ''
-            "''${config.${opt.stateDir}}/data/gitea.db"'';
+          defaultText =
+            literalExpression
+              ''"''${config.${opt.stateDir}}/data/gitea.db"''
+          ;
           description = lib.mdDoc "Path to the sqlite3 database file.";
         };
 
@@ -379,8 +383,10 @@ in
         backupDir = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/dump";
-          defaultText = literalExpression ''
-            "''${config.${opt.stateDir}}/dump"'';
+          defaultText =
+            literalExpression
+              ''"''${config.${opt.stateDir}}/dump"''
+          ;
           description = lib.mdDoc "Path to the dump files.";
         };
 
@@ -422,8 +428,10 @@ in
         contentDir = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/data/lfs";
-          defaultText = literalExpression ''
-            "''${config.${opt.stateDir}}/data/lfs"'';
+          defaultText =
+            literalExpression
+              ''"''${config.${opt.stateDir}}/data/lfs"''
+          ;
           description = lib.mdDoc "Where to store LFS files.";
         };
       };
@@ -437,8 +445,10 @@ in
       repositoryRoot = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/repositories";
-        defaultText = literalExpression ''
-          "''${config.${opt.stateDir}}/repositories"'';
+        defaultText =
+          literalExpression
+            ''"''${config.${opt.stateDir}}/repositories"''
+        ;
         description = lib.mdDoc "Path to the git repositories.";
       };
 
@@ -479,8 +489,10 @@ in
             log = {
               ROOT_PATH = mkOption {
                 default = "${cfg.stateDir}/log";
-                defaultText = literalExpression ''
-                  "''${config.${opt.stateDir}}/log"'';
+                defaultText =
+                  literalExpression
+                    ''"''${config.${opt.stateDir}}/log"''
+                ;
                 type = types.str;
                 description = lib.mdDoc "Root path for log files.";
               };
@@ -508,8 +520,11 @@ in
                   "fcgi+unix"
                 ];
                 default = "http";
-                description = lib.mdDoc ''
-                  Listen protocol. `+unix` means "over unix", not "in addition to."'';
+                description =
+                  lib.mdDoc
+                    ''
+                      Listen protocol. `+unix` means "over unix", not "in addition to."''
+                ;
               };
 
               HTTP_ADDR = mkOption {
@@ -520,8 +535,11 @@ in
                   else
                     "0.0.0.0"
                 ;
-                defaultText = literalExpression ''
-                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
+                defaultText =
+                  literalExpression
+                    ''
+                      if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"''
+                ;
                 description =
                   lib.mdDoc
                     "Listen address. Must be a path when using a unix socket."
@@ -548,8 +566,11 @@ in
                 default = "http://${cfg.settings.server.DOMAIN}:${
                     toString cfg.settings.server.HTTP_PORT
                   }/";
-                defaultText = literalExpression ''
-                  "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
+                defaultText =
+                  literalExpression
+                    ''
+                      "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"''
+                ;
                 description = lib.mdDoc "Full public URL of gitea server.";
               };
 

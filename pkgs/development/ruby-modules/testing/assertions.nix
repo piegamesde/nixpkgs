@@ -21,9 +21,9 @@
     if builtins.isAttrs actual then
       (test.passed "is a set")
     else
-      (test.failed "is not a set, was ${builtins.typeOf actual}: ${
-          toString actual
-        }")
+      (test.failed
+        "is not a set, was ${builtins.typeOf actual}: ${toString actual}"
+      )
   ;
 
   haveKeys =
@@ -34,9 +34,11 @@
     then
       (test.passed "has expected keys")
     else
-      (test.failed "keys differ: expected: [${
+      (test.failed
+        "keys differ: expected: [${
           lib.concatStringsSep ";" expected
-        }] actual: [${lib.concatStringsSep ";" (builtins.attrNames actual)}]")
+        }] actual: [${lib.concatStringsSep ";" (builtins.attrNames actual)}]"
+      )
   ;
 
   havePrefix =

@@ -37,8 +37,10 @@ in
         )
       ;
       default = { };
-      example = lib.literalExpression ''
-        { DefaultMemoryPressureDurationSec = "20s"; }'';
+      example =
+        lib.literalExpression
+          ''{ DefaultMemoryPressureDurationSec = "20s"; }''
+      ;
       description = lib.mdDoc ''
         Extra config options for `systemd-oomd`. See {command}`man oomd.conf`
         for available options.

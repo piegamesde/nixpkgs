@@ -204,9 +204,10 @@ let
               ...
             }:
             mkIf config.openFirewall {
-              firewallFilter = mkDefault "-p tcp -m tcp --dport ${
-                    toString config.port
-                  }";
+              firewallFilter =
+                mkDefault
+                  "-p tcp -m tcp --dport ${toString config.port}"
+              ;
             }
           )
         ];

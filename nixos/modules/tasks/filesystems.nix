@@ -457,9 +457,10 @@ in
 
     # Export for use in other modules
     system.build.fileSystems = fileSystems;
-    system.build.earlyMountScript = makeSpecialMounts (toposort fsBefore (
-      attrValues config.boot.specialFileSystems
-    )).result;
+    system.build.earlyMountScript =
+      makeSpecialMounts
+        (toposort fsBefore (attrValues config.boot.specialFileSystems)).result
+    ;
 
     boot.supportedFilesystems = map (fs: fs.fsType) fileSystems;
 
@@ -482,10 +483,11 @@ in
           concatStringsSep "," (
             sw.options
             ++ optional (sw.priority != null) "pri=${toString sw.priority}"
-            ++ optional (sw.discardPolicy != null) "discard${
-                  optionalString (sw.discardPolicy != "both") "=${
-                      toString sw.discardPolicy
-                    }"
+            ++
+              optional (sw.discardPolicy != null)
+                "discard${
+                  optionalString (sw.discardPolicy != "both")
+                    "=${toString sw.discardPolicy}"
                 }"
           )
         ;

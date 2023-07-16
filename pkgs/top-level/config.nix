@@ -99,8 +99,10 @@ let
       type = types.bool;
       default = false;
       # getEnv part is in check-meta.nix
-      defaultText = literalExpression ''
-        false || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1"'';
+      defaultText =
+        literalExpression
+          ''false || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1"''
+      ;
       description = lib.mdDoc ''
         Whether to allow unfree packages.
 
@@ -112,8 +114,10 @@ let
       type = types.bool;
       default = false;
       # getEnv part is in check-meta.nix
-      defaultText = literalExpression ''
-        false || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1"'';
+      defaultText =
+        literalExpression
+          ''false || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1"''
+      ;
       description = lib.mdDoc ''
         Whether to allow broken packages.
 
@@ -125,8 +129,10 @@ let
       type = types.bool;
       default = false;
       # getEnv part is in check-meta.nix
-      defaultText = literalExpression ''
-        false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"'';
+      defaultText =
+        literalExpression
+          ''false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"''
+      ;
       description = lib.mdDoc ''
         Whether to allow unsupported packages.
 

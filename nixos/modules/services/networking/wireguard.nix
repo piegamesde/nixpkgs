@@ -73,8 +73,10 @@ let
         };
 
         preSetup = mkOption {
-          example = literalExpression ''
-            "''${pkgs.iproute2}/bin/ip netns add foo"'';
+          example =
+            literalExpression
+              ''"''${pkgs.iproute2}/bin/ip netns add foo"''
+          ;
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -97,8 +99,10 @@ let
         };
 
         postShutdown = mkOption {
-          example = literalExpression ''
-            "''${pkgs.openresolv}/bin/resolvconf -d wg0"'';
+          example =
+            literalExpression
+              ''"''${pkgs.openresolv}/bin/resolvconf -d wg0"''
+          ;
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -442,10 +446,12 @@ let
             [ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
             ++ optional (psk != null) ''preshared-key "${psk}"''
             ++ optional (peer.endpoint != null) ''endpoint "${peer.endpoint}"''
-            ++ optional (peer.persistentKeepalive != null) ''
-              persistent-keepalive "${toString peer.persistentKeepalive}"''
-            ++ optional (peer.allowedIPs != [ ]) ''
-              allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
+            ++
+              optional (peer.persistentKeepalive != null)
+                ''persistent-keepalive "${toString peer.persistentKeepalive}"''
+            ++
+              optional (peer.allowedIPs != [ ])
+                ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
           );
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
             concatMapStringsSep "\n"
@@ -561,8 +567,8 @@ let
             && values.interfaceNamespace != values.socketNamespace
           )
           ''${ipPreMove} link set "${name}" netns "${ns}"''}
-        ${optionalString (values.mtu != null) ''
-          ${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
+        ${optionalString (values.mtu != null)
+          ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
 
         ${concatMapStringsSep "\n"
           (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'')
@@ -570,8 +576,9 @@ let
 
         ${concatStringsSep " " (
           [ ''${wg} set "${name}" private-key "${privKey}"'' ]
-          ++ optional (values.listenPort != null) ''
-            listen-port "${toString values.listenPort}"''
+          ++
+            optional (values.listenPort != null)
+              ''listen-port "${toString values.listenPort}"''
           ++ optional (values.fwMark != null) ''fwmark "${values.fwMark}"''
         )}
 

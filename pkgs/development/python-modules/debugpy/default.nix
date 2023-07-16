@@ -52,20 +52,24 @@ buildPythonPackage rec {
       # python.withPackages (ps: with ps; [ debugpy ])
       ./fix-test-pythonpath.patch
     ]
-    ++ lib.optionals stdenv.isLinux [
-      # Hard code GDB path (used to attach to process)
-      (substituteAll {
-        src = ./hardcode-gdb.patch;
-        inherit gdb;
-      })
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      # Hard code LLDB path (used to attach to process)
-      (substituteAll {
-        src = ./hardcode-lldb.patch;
-        inherit (llvmPackages) lldb;
-      })
-    ]
+    ++
+      lib.optionals stdenv.isLinux
+        [
+          # Hard code GDB path (used to attach to process)
+          (substituteAll {
+            src = ./hardcode-gdb.patch;
+            inherit gdb;
+          })
+        ]
+    ++
+      lib.optionals stdenv.isDarwin
+        [
+          # Hard code LLDB path (used to attach to process)
+          (substituteAll {
+            src = ./hardcode-lldb.patch;
+            inherit (llvmPackages) lldb;
+          })
+        ]
   ;
 
   # Remove pre-compiled "attach" libraries and recompile for host platform

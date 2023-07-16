@@ -157,10 +157,12 @@ stdenv.mkDerivation (
             # https://sourceware.org/glibc/wiki/PortStatus
             "--enable-static-pie"
           ]
-      ++ lib.optionals stdenv.hostPlatform.isx86 [
-        # Enable Intel Control-flow Enforcement Technology (CET) support
-        "--enable-cet"
-      ]
+      ++
+        lib.optionals stdenv.hostPlatform.isx86
+          [
+            # Enable Intel Control-flow Enforcement Technology (CET) support
+            "--enable-cet"
+          ]
       ++ lib.optionals withLinuxHeaders [
         "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
       ]
@@ -261,8 +263,9 @@ stdenv.mkDerivation (
 
         configureScript="`pwd`/../$sourceRoot/configure"
 
-        ${lib.optionalString (stdenv.cc.libc != null) ''
-          makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib OBJDUMP=${stdenv.cc.bintools.bintools}/bin/objdump"''}
+        ${lib.optionalString (stdenv.cc.libc != null)
+          ''
+            makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib OBJDUMP=${stdenv.cc.bintools.bintools}/bin/objdump"''}
 
 
       ''

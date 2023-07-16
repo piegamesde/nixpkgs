@@ -115,11 +115,13 @@ stdenv.mkDerivation rec {
           "process_priority"
           "udp_create_early_bad_bind"
         ]
-        ++ lib.optionals stdenv.isAarch32 [
-          # I observe this test failing with some regularity on ARMv7:
-          # https://github.com/libuv/libuv/issues/1871
-          "shutdown_close_pipe"
-        ]
+        ++
+          lib.optionals stdenv.isAarch32
+            [
+              # I observe this test failing with some regularity on ARMv7:
+              # https://github.com/libuv/libuv/issues/1871
+              "shutdown_close_pipe"
+            ]
       ;
       tdRegexp = lib.concatStringsSep "\\|" toDisable;
     in

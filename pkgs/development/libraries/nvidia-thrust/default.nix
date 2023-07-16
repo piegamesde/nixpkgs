@@ -82,11 +82,13 @@ stdenv.mkDerivation {
       cmake
       pkg-config
     ]
-    ++ lib.optionals cudaSupport [
-      # Goes in native build inputs because thrust looks for headers
-      # in a path relative to nvcc...
-      cudaJoined
-    ]
+    ++
+      lib.optionals cudaSupport
+        [
+          # Goes in native build inputs because thrust looks for headers
+          # in a path relative to nvcc...
+          cudaJoined
+        ]
   ;
 
   cmakeFlags =

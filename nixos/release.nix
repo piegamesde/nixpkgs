@@ -138,18 +138,19 @@ let
     forAllSystems (
       system:
       hydraJob (
-        sel (import ./lib/eval-config.nix {
-          inherit system;
-          modules = makeModules module (
-            {
-              ...
-            }:
-            {
-              fileSystems."/".device = mkDefault "/dev/sda1";
-              boot.loader.grub.device = mkDefault "/dev/sda";
-            }
-          );
-        }).config
+        sel
+          (import ./lib/eval-config.nix {
+            inherit system;
+            modules = makeModules module (
+              {
+                ...
+              }:
+              {
+                fileSystems."/".device = mkDefault "/dev/sda1";
+                boot.loader.grub.device = mkDefault "/dev/sda";
+              }
+            );
+          }).config
       )
     )
   ;

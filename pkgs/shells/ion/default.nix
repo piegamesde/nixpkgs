@@ -40,10 +40,13 @@ rustPlatform.buildRustPackage rec {
     darwin.apple_sdk.frameworks.Security
   ];
 
-  checkFlags = lib.optionals stdenv.isDarwin [
-    # test assumes linux
-    "--skip=binary::completer::tests::filename_completion"
-  ];
+  checkFlags =
+    lib.optionals stdenv.isDarwin
+      [
+        # test assumes linux
+        "--skip=binary::completer::tests::filename_completion"
+      ]
+  ;
 
   passthru = { shellPath = "/bin/ion"; };
 

@@ -92,9 +92,8 @@ in
                     --leader-elect=${boolToString cfg.leaderElect} \
                     --secure-port=${toString cfg.port} \
                     ${
-                      optionalString (cfg.verbosity != null) "--v=${
-                          toString cfg.verbosity
-                        }"
+                      optionalString (cfg.verbosity != null)
+                        "--v=${toString cfg.verbosity}"
                     } \
                     ${cfg.extraOpts}
         '';

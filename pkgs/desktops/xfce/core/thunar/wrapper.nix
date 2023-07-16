@@ -47,7 +47,9 @@ symlinkJoin {
 
     description =
       thunar.meta.description
-      + optionalString (0 != length thunarPlugins) " (with plugins: ${
+      +
+        optionalString (0 != length thunarPlugins)
+          " (with plugins: ${
              concatStringsSep ", " (map (x: x.name) thunarPlugins)
            })"
     ;

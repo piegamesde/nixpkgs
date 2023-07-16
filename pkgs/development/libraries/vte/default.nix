@@ -98,10 +98,12 @@ stdenv.mkDerivation rec {
       "-Dgtk3=false"
       "-Dgtk4=true"
     ]
-    ++ lib.optionals stdenv.isDarwin [
-      # -Bsymbolic-functions is not supported on darwin
-      "-D_b_symbolic_functions=false"
-    ]
+    ++
+      lib.optionals stdenv.isDarwin
+        [
+          # -Bsymbolic-functions is not supported on darwin
+          "-D_b_symbolic_functions=false"
+        ]
   ;
 
   # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]

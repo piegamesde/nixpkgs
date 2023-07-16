@@ -593,9 +593,8 @@ in
                               "--token-auth-file=${cfg.tokenAuthFile}"
                           } \
                           ${
-                            optionalString (cfg.verbosity != null) "--v=${
-                                toString cfg.verbosity
-                              }"
+                            optionalString (cfg.verbosity != null)
+                              "--v=${toString cfg.verbosity}"
                           } \
                           ${cfg.extraOpts}
           '';

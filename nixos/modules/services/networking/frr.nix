@@ -232,9 +232,9 @@ in
                 +
                   optionalString (scfg.vtyListenAddress != "")
                     " -A ${scfg.vtyListenAddress}"
-                + optionalString (scfg.vtyListenPort != null) " -P ${
-                       toString scfg.vtyListenPort
-                     }"
+                +
+                  optionalString (scfg.vtyListenPort != null)
+                    " -P ${toString scfg.vtyListenPort}"
                 + " "
                 + (concatStringsSep " " scfg.extraOptions)
               ;

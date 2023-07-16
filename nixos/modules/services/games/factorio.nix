@@ -280,9 +280,9 @@ in
           "--config=${cfg.configFile}"
           "--port=${toString cfg.port}"
           "--bind=${cfg.bind}"
-          (optionalString (!cfg.loadLatestSave) "--start-server=${
-              mkSavePath cfg.saveName
-            }")
+          (optionalString (!cfg.loadLatestSave)
+            "--start-server=${mkSavePath cfg.saveName}"
+          )
           "--server-settings=${serverSettingsFile}"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
           (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")

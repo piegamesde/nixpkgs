@@ -170,9 +170,9 @@ in
               "-f"
               "/etc/bluetooth/main.conf"
             ]
-            ++ optional hasDisabledPlugins "--noplugin=${
-                  concatStringsSep "," cfg.disabledPlugins
-                }"
+            ++
+              optional hasDisabledPlugins
+                "--noplugin=${concatStringsSep "," cfg.disabledPlugins}"
           ;
         in
         {

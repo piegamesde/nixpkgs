@@ -118,8 +118,10 @@ in
         the public and private keys respectively.
       '';
       default = "${config.services.cfssl.dataDir}/ca";
-      defaultText = literalExpression ''
-        "''${config.services.cfssl.dataDir}/ca"'';
+      defaultText =
+        literalExpression
+          ''"''${config.services.cfssl.dataDir}/ca"''
+      ;
       type = str;
     };
 

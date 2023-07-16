@@ -29,9 +29,8 @@ let
             Proxy ${entry}
           '')
           cfg.proxy}
-        ${optionalString (cfg.noproxy != [ ]) "NoProxy ${
-            concatStringsSep ", " cfg.noproxy
-          }"}
+        ${optionalString (cfg.noproxy != [ ])
+          "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
 
         ${concatMapStrings
           (port: ''

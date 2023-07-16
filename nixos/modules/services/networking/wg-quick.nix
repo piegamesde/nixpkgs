@@ -90,8 +90,10 @@ let
         };
 
         preUp = mkOption {
-          example = literalExpression ''
-            "''${pkgs.iproute2}/bin/ip netns add foo"'';
+          example =
+            literalExpression
+              ''"''${pkgs.iproute2}/bin/ip netns add foo"''
+          ;
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -101,8 +103,10 @@ let
         };
 
         preDown = mkOption {
-          example = literalExpression ''
-            "''${pkgs.iproute2}/bin/ip netns del foo"'';
+          example =
+            literalExpression
+              ''"''${pkgs.iproute2}/bin/ip netns del foo"''
+          ;
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -112,8 +116,10 @@ let
         };
 
         postUp = mkOption {
-          example = literalExpression ''
-            "''${pkgs.iproute2}/bin/ip netns add foo"'';
+          example =
+            literalExpression
+              ''"''${pkgs.iproute2}/bin/ip netns add foo"''
+          ;
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -123,8 +129,10 @@ let
         };
 
         postDown = mkOption {
-          example = literalExpression ''
-            "''${pkgs.iproute2}/bin/ip netns del foo"'';
+          example =
+            literalExpression
+              ''"''${pkgs.iproute2}/bin/ip netns del foo"''
+          ;
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;

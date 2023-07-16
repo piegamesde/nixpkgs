@@ -132,8 +132,8 @@ in
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           preStart = ''
-            ${lib.optionalString (cfg.webroot != null) ''
-              ln -sfT "${cfg.webroot}" web''}
+            ${lib.optionalString (cfg.webroot != null)
+              ''ln -sfT "${cfg.webroot}" web''}
             mkdir -p dump
             ${sksPkg}/bin/sks build dump/*.gpg -n 10 -cache 100 || true #*/
             ${sksPkg}/bin/sks cleandb || true

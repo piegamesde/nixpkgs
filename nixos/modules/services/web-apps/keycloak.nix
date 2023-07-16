@@ -238,8 +238,10 @@ in
         useSSL = mkOption {
           type = bool;
           default = cfg.database.host != "localhost";
-          defaultText = literalExpression ''
-            config.${opt.database.host} != "localhost"'';
+          defaultText =
+            literalExpression
+              ''config.${opt.database.host} != "localhost"''
+          ;
           description = lib.mdDoc ''
             Whether the database connection should be secured by SSL /
             TLS.
@@ -562,7 +564,8 @@ in
             else if isSecret v then
               hashString "sha256" v._secret
             else
-              throw "unsupported type ${typeOf v}: ${
+              throw
+                "unsupported type ${typeOf v}: ${
                   (lib.generators.toPretty { }) v
                 }"
           ;

@@ -246,9 +246,10 @@ rec {
     else if all isInt list && all (x: x == head list) list then
       head list
     else
-      throw "Cannot merge definitions of `${
-          showOption loc
-        }'. Definition values:${showDefs defs}"
+      throw
+        "Cannot merge definitions of `${showOption loc}'. Definition values:${
+          showDefs defs
+        }"
   ;
 
   mergeOneOption = mergeUniqueOption { message = ""; };

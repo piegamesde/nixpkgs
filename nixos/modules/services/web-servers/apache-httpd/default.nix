@@ -690,8 +690,10 @@ in
         type = types.path;
         default = confFile;
         defaultText = literalExpression "confFile";
-        example = literalExpression ''
-          pkgs.writeText "httpd.conf" "# my custom config file ..."'';
+        example =
+          literalExpression
+            ''pkgs.writeText "httpd.conf" "# my custom config file ..."''
+        ;
         description = lib.mdDoc ''
           Override the configuration file used by Apache. By default,
           NixOS generates one automatically.

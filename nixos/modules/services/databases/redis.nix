@@ -444,8 +444,10 @@ in
                   port = mkOption {
                     type = types.port;
                     default = if name == "" then 6379 else 0;
-                    defaultText = literalExpression ''
-                      if name == "" then 6379 else 0'';
+                    defaultText =
+                      literalExpression
+                        ''if name == "" then 6379 else 0''
+                    ;
                     description = lib.mdDoc ''
                       The TCP port to accept connections.
                       If port 0 is specified Redis will not listen on a TCP socket.

@@ -44,10 +44,13 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "_python_utils_tests" ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    # Flaky tests on darwin
-    "test_timeout_generator"
-  ];
+  disabledTests =
+    lib.optionals stdenv.isDarwin
+      [
+        # Flaky tests on darwin
+        "test_timeout_generator"
+      ]
+  ;
 
   meta = with lib; {
     description = "Module with some convenient utilities";
