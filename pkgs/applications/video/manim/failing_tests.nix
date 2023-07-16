@@ -49,27 +49,27 @@
 ]
 ++
 
-# reason for failure: tests try to reach network
-[
-  "test_logging_to_file"
-  "test_plugin_function_like"
-  "test_plugin_no_all"
-  "test_plugin_with_all"
-]
+  # reason for failure: tests try to reach network
+  [
+    "test_logging_to_file"
+    "test_plugin_function_like"
+    "test_plugin_no_all"
+    "test_plugin_with_all"
+  ]
 ++
 
-# failing with:
-# E           AssertionError:
-# E           Not equal to tolerance rtol=1e-07, atol=1.01
-# E           Frame no -1. You can use --show_diff to visually show the difference.
-# E           Mismatched elements: 18525 / 1639680 (1.13%)
-# E           Max absolute difference: 255
-# E           Max relative difference: 255.
-[
-  "test_Text2Color"
-  "test_PointCloudDot"
-  "test_Torus"
-]
+  # failing with:
+  # E           AssertionError:
+  # E           Not equal to tolerance rtol=1e-07, atol=1.01
+  # E           Frame no -1. You can use --show_diff to visually show the difference.
+  # E           Mismatched elements: 18525 / 1639680 (1.13%)
+  # E           Max absolute difference: 255
+  # E           Max relative difference: 255.
+  [
+    "test_Text2Color"
+    "test_PointCloudDot"
+    "test_Torus"
+  ]
 ++
 
   # failing with:

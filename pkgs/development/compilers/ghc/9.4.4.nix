@@ -113,24 +113,24 @@ let
       BUILD_SPHINX_PDF = NO
     ''
     +
-    # Note [HADDOCK_DOCS]:
-    # Unfortunately currently `HADDOCK_DOCS` controls both whether the `haddock`
-    # program is built (which we generally always want to have a complete GHC install)
-    # and whether it is run on the GHC sources to generate hyperlinked source code
-    # (which is impossible for cross-compilation); see:
-    # https://gitlab.haskell.org/ghc/ghc/-/issues/20077
-    # This implies that currently a cross-compiled GHC will never have a `haddock`
-    # program, so it can never generate haddocks for any packages.
-    # If this is solved in the future, we'd like to unconditionally
-    # build the haddock program (removing the `enableHaddockProgram` option).
-    ''
-      HADDOCK_DOCS = ${if enableHaddockProgram then "YES" else "NO"}
-      # Build haddocks for boot packages with hyperlinking
-      EXTRA_HADDOCK_OPTS += --hyperlinked-source --quickjump
+      # Note [HADDOCK_DOCS]:
+      # Unfortunately currently `HADDOCK_DOCS` controls both whether the `haddock`
+      # program is built (which we generally always want to have a complete GHC install)
+      # and whether it is run on the GHC sources to generate hyperlinked source code
+      # (which is impossible for cross-compilation); see:
+      # https://gitlab.haskell.org/ghc/ghc/-/issues/20077
+      # This implies that currently a cross-compiled GHC will never have a `haddock`
+      # program, so it can never generate haddocks for any packages.
+      # If this is solved in the future, we'd like to unconditionally
+      # build the haddock program (removing the `enableHaddockProgram` option).
+      ''
+        HADDOCK_DOCS = ${if enableHaddockProgram then "YES" else "NO"}
+        # Build haddocks for boot packages with hyperlinking
+        EXTRA_HADDOCK_OPTS += --hyperlinked-source --quickjump
 
-      DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
-      BIGNUM_BACKEND = ${if enableNativeBignum then "native" else "gmp"}
-    ''
+        DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
+        BIGNUM_BACKEND = ${if enableNativeBignum then "native" else "gmp"}
+      ''
     + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
         if targetPlatform.system == hostPlatform.system then "NO" else "YES"

@@ -108,23 +108,23 @@ let
       BUILD_SPHINX_PDF = NO
     ''
     +
-    # Note [HADDOCK_DOCS]:
-    # Unfortunately currently `HADDOCK_DOCS` controls both whether the `haddock`
-    # program is built (which we generally always want to have a complete GHC install)
-    # and whether it is run on the GHC sources to generate hyperlinked source code
-    # (which is impossible for cross-compilation); see:
-    # https://gitlab.haskell.org/ghc/ghc/-/issues/20077
-    # This implies that currently a cross-compiled GHC will never have a `haddock`
-    # program, so it can never generate haddocks for any packages.
-    # If this is solved in the future, we'd like to unconditionally
-    # build the haddock program (removing the `enableHaddockProgram` option).
-    ''
-      HADDOCK_DOCS = ${if enableHaddockProgram then "YES" else "NO"}
-      DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
-      INTEGER_LIBRARY = ${
-        if enableIntegerSimple then "integer-simple" else "integer-gmp"
-      }
-    ''
+      # Note [HADDOCK_DOCS]:
+      # Unfortunately currently `HADDOCK_DOCS` controls both whether the `haddock`
+      # program is built (which we generally always want to have a complete GHC install)
+      # and whether it is run on the GHC sources to generate hyperlinked source code
+      # (which is impossible for cross-compilation); see:
+      # https://gitlab.haskell.org/ghc/ghc/-/issues/20077
+      # This implies that currently a cross-compiled GHC will never have a `haddock`
+      # program, so it can never generate haddocks for any packages.
+      # If this is solved in the future, we'd like to unconditionally
+      # build the haddock program (removing the `enableHaddockProgram` option).
+      ''
+        HADDOCK_DOCS = ${if enableHaddockProgram then "YES" else "NO"}
+        DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
+        INTEGER_LIBRARY = ${
+          if enableIntegerSimple then "integer-simple" else "integer-gmp"
+        }
+      ''
     # We only need to build stage1 on most cross-compilation because
     # we will be running the compiler on the native system. In some
     # situations, like native Musl compilation, we need the compiler

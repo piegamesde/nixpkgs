@@ -53,4 +53,5 @@ in
 
       platforms = platforms.gnu ++ platforms.linux;
     };
-  })
+  }
+)

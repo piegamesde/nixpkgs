@@ -1617,12 +1617,12 @@ lib.composeManyExtensions [
                 --replace libwayland-client.so.0 ${wayland}/lib/libwayland-client.so.0
             ''
             +
-            # avoid matplotlib trying to download dependencies
-            ''
-              echo "[libs]
-              system_freetype=true
-              system_qhull=true" > mplsetup.cfg
-            ''
+              # avoid matplotlib trying to download dependencies
+              ''
+                echo "[libs]
+                system_freetype=true
+                system_qhull=true" > mplsetup.cfg
+              ''
             ;
         }
       );

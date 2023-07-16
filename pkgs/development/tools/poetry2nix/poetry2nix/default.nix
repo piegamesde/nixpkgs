@@ -417,13 +417,13 @@ lib.makeScope pkgs.newScope (
             # Create poetry2nix layer
             baseOverlay
           ]
-          ++ # User provided overrides
-            (
-              if builtins.typeOf overrides == "list" then
-                overrides
-              else
-                [ overrides ]
-            )
+          # User provided overrides
+          ++ (
+            if builtins.typeOf overrides == "list" then
+              overrides
+            else
+              [ overrides ]
+          )
         );
         packageOverrides =
           lib.foldr lib.composeExtensions (self: super: { })

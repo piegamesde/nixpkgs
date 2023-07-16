@@ -87,14 +87,14 @@ rustPlatform.buildRustPackage rec {
         ln -s $out/lib/libtalpid_openvpn_plugin.so $out/share/mullvad
       ''
     +
-    # Set the directory where Mullvad will look for its resources by default to
-    # `$out/share`, so that we can avoid putting the files in `$out/bin` --
-    # Mullvad defaults to looking inside the directory its binary is located in
-    # for its resources.
-    ''
-      wrapProgram $out/bin/mullvad-daemon \
-        --set-default MULLVAD_RESOURCE_DIR "$out/share/mullvad"
-    ''
+      # Set the directory where Mullvad will look for its resources by default to
+      # `$out/share`, so that we can avoid putting the files in `$out/bin` --
+      # Mullvad defaults to looking inside the directory its binary is located in
+      # for its resources.
+      ''
+        wrapProgram $out/bin/mullvad-daemon \
+          --set-default MULLVAD_RESOURCE_DIR "$out/share/mullvad"
+      ''
     ;
 
   passthru = {

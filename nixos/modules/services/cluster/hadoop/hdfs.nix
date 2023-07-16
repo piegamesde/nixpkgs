@@ -105,7 +105,8 @@ let
           }
           extraConfig
         ]
-      ))
+      )
+    )
     ;
 in
 {

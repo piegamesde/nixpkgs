@@ -147,10 +147,10 @@ stdenv.mkDerivation {
     )
     +
 
-    # Fixup FS rights for the cmake setup-hook in the OPENMSX subsystem
-    ''
-      chmod -R +w ./data/assetpack/openrct2.music.alternative.parkap/musictools
-    ''
+      # Fixup FS rights for the cmake setup-hook in the OPENMSX subsystem
+      ''
+        chmod -R +w ./data/assetpack/openrct2.music.alternative.parkap/musictools
+      ''
     ;
 
   preFixup = "ln -s $out/share/openrct2 $out/bin/data";

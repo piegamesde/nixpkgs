@@ -124,18 +124,18 @@ stdenv.mkDerivation rec {
     ''
     +
 
-    # Some scripts used during the build need to have their shebangs patched
-    ''
-      patchShebangs ghc-${version}/utils/
-      patchShebangs ghc-${version}/configure
-    ''
+      # Some scripts used during the build need to have their shebangs patched
+      ''
+        patchShebangs ghc-${version}/utils/
+        patchShebangs ghc-${version}/configure
+      ''
     +
 
-    # We have to patch the GMP paths for the integer-gmp package.
-    ''
-      find . -name integer-gmp.buildinfo \
-          -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${gmp.out}/lib@" {} \;
-    ''
+      # We have to patch the GMP paths for the integer-gmp package.
+      ''
+        find . -name integer-gmp.buildinfo \
+            -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${gmp.out}/lib@" {} \;
+      ''
     + lib.optionalString stdenv.isDarwin ''
       find . -name base.buildinfo \
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${libiconv}/lib@" {} \;

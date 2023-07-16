@@ -747,8 +747,8 @@ in
               + "${cfgc.package}/bin/sshd "
               + (optionalString cfg.startWhenNeeded "-i ")
               + "-D "
-              + # don't detach into a daemon process
-                "-f /etc/ssh/sshd_config"
+              # don't detach into a daemon process
+              + "-f /etc/ssh/sshd_config"
               ;
             KillMode = "process";
           } // (

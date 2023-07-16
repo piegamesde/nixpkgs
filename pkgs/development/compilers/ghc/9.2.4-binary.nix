@@ -317,25 +317,25 @@ stdenv.mkDerivation rec {
     ''
     +
 
-    # Some scripts used during the build need to have their shebangs patched
-    ''
-      patchShebangs ghc-${version}/utils/
-      patchShebangs ghc-${version}/configure
-    ''
+      # Some scripts used during the build need to have their shebangs patched
+      ''
+        patchShebangs ghc-${version}/utils/
+        patchShebangs ghc-${version}/configure
+      ''
     +
-    # We have to patch the GMP paths for the integer-gmp package.
-    ''
-      find . -name ghc-bignum.buildinfo \
-          -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${
-            lib.getLib gmpUsed
-          }/lib@" {} \;
+      # We have to patch the GMP paths for the integer-gmp package.
+      ''
+        find . -name ghc-bignum.buildinfo \
+            -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${
+              lib.getLib gmpUsed
+            }/lib@" {} \;
 
-      # we need to modify the package db directly for hadrian bindists
-      find . -name 'ghc-bignum*.conf' \
-          -exec sed -e '/^[a-z-]*library-dirs/a \    ${
-            lib.getLib gmpUsed
-          }/lib' -i {} \;
-    ''
+        # we need to modify the package db directly for hadrian bindists
+        find . -name 'ghc-bignum*.conf' \
+            -exec sed -e '/^[a-z-]*library-dirs/a \    ${
+              lib.getLib gmpUsed
+            }/lib' -i {} \;
+      ''
     + lib.optionalString stdenv.isDarwin ''
       # we need to modify the package db directly for hadrian bindists
       # (all darwin bindists are hadrian-based for 9.2.2)

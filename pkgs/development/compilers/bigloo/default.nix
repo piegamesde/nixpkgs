@@ -38,10 +38,10 @@ stdenv.mkDerivation rec {
       export LIBTOOLIZE=libtoolize
     ''
     +
-    # Help libgc's configure.
-    ''
-      export CXXCPP="$CXX -E"
-    ''
+      # Help libgc's configure.
+      ''
+        export CXXCPP="$CXX -E"
+      ''
     ;
 
   patchPhase = ''

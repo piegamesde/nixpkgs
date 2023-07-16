@@ -518,14 +518,14 @@ let
             account sufficient ${config.systemd.package}/lib/security/pam_systemd_home.so
           ''
           +
-          # The required pam_unix.so module has to come after all the sufficient modules
-          # because otherwise, the account lookup will fail if the user does not exist
-          # locally, for example with MySQL- or LDAP-auth.
-          ''
-            account required pam_unix.so
+            # The required pam_unix.so module has to come after all the sufficient modules
+            # because otherwise, the account lookup will fail if the user does not exist
+            # locally, for example with MySQL- or LDAP-auth.
+            ''
+              account required pam_unix.so
 
-            # Authentication management.
-          ''
+              # Authentication management.
+            ''
           + optionalString cfg.googleOsLoginAuthentication ''
             auth [success=done perm_denied=die default=ignore] ${pkgs.google-guest-oslogin}/lib/security/pam_oslogin_login.so
           ''

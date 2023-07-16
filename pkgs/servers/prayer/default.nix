@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
         templates/src/*.pl
       sed -i -e '/<stropts.h>/d' lib/os_linux.h
     ''
-    + # html-tidy updates
-    ''
+    # html-tidy updates
+    + ''
       substituteInPlace ./session/html_secure_tidy.c \
         --replace buffio.h tidybuffio.h
     ''

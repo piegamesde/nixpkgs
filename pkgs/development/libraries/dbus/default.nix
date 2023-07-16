@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
         --replace 'install-data-local:' 'disabled:' \
         --replace 'installcheck-local:' 'disabled:'
     ''
-    + # cleanup of runtime references
-    ''
+    # cleanup of runtime references
+    + ''
       substituteInPlace ./dbus/dbus-sysdeps-unix.c \
         --replace 'DBUS_BINDIR "/dbus-launch"' "\"$lib/bin/dbus-launch\""
       substituteInPlace ./tools/dbus-launch.c \
