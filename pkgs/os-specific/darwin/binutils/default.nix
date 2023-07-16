@@ -113,10 +113,9 @@ stdenv.mkDerivation {
     ''
   ;
 
-  nativeBuildInputs =
-    lib.optionals (stdenv.isAarch64 || dualAs)
-      [ makeWrapper ]
-  ;
+  nativeBuildInputs = lib.optionals (stdenv.isAarch64 || dualAs) [
+    makeWrapper
+  ];
 
   passthru = {
     inherit targetPrefix;

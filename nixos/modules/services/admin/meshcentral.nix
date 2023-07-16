@@ -11,10 +11,9 @@ let
 in
 with lib; {
   options.services.meshcentral = with types; {
-    enable =
-      mkEnableOption
-        (lib.mdDoc "MeshCentral computer management server")
-    ;
+    enable = mkEnableOption (
+      lib.mdDoc "MeshCentral computer management server"
+    );
     package = mkOption {
       description =
         lib.mdDoc

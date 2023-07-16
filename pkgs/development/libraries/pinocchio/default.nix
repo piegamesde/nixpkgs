@@ -44,10 +44,9 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  cmakeFlags =
-    lib.optionals (!pythonSupport)
-      [ "-DBUILD_PYTHON_INTERFACE=OFF" ]
-  ;
+  cmakeFlags = lib.optionals (!pythonSupport) [
+    "-DBUILD_PYTHON_INTERFACE=OFF"
+  ];
 
   meta = with lib; {
     description = "A fast and flexible implementation of Rigid Body Dynamics algorithms and their analytical derivatives";

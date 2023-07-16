@@ -411,10 +411,9 @@ package-set { inherit pkgs lib callPackage; } self // {
   # To reload the Hoogle server automatically on .cabal file changes try
   # this:
   # echo *.cabal | entr -r -- nix-shell --run 'hoogle server --local'
-  hoogleWithPackages =
-    self.callPackage ./hoogle.nix
-      { haskellPackages = self; }
-  ;
+  hoogleWithPackages = self.callPackage ./hoogle.nix {
+    haskellPackages = self;
+  };
   hoogleLocal =
     {
       packages ? [ ],

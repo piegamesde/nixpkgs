@@ -152,10 +152,8 @@ in
       encFile = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/enckey";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.stateDir}}/enckey"''
-        ;
+        defaultText = literalExpression ''
+          "''${config.${opt.stateDir}}/enckey"'';
         description = lib.mdDoc ''
           This is used to encrypt the token data and token passwords
         '';

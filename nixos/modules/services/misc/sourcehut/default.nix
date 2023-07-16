@@ -644,8 +644,7 @@ in
                 toString (cfg.meta.port + 100)
               }";
             defaultText = lib.literalMD ''
-              `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`''
-            ;
+              `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`'';
           };
           webhooks = mkOption {
             description =

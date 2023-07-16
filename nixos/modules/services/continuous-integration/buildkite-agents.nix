@@ -114,10 +114,9 @@ let
         };
 
         tags = mkOption {
-          type =
-            types.attrsOf
-              (types.either types.str (types.listOf types.str))
-          ;
+          type = types.attrsOf (
+            types.either types.str (types.listOf types.str)
+          );
           default = { };
           example = {
             queue = "default";

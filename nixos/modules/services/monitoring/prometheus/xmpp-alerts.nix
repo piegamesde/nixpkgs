@@ -34,10 +34,9 @@ in
   ];
 
   options.services.prometheus.xmpp-alerts = {
-    enable =
-      mkEnableOption
-        (lib.mdDoc "XMPP Web hook service for Alertmanager")
-    ;
+    enable = mkEnableOption (
+      lib.mdDoc "XMPP Web hook service for Alertmanager"
+    );
 
     settings = mkOption {
       type = settingsFormat.type;

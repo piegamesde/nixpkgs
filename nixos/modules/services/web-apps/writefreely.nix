@@ -377,10 +377,9 @@ in
         };
       };
 
-      groups =
-        optionalAttrs (cfg.group == "writefreely")
-          { writefreely = { }; }
-      ;
+      groups = optionalAttrs (cfg.group == "writefreely") {
+        writefreely = { };
+      };
     };
 
     systemd.tmpfiles.rules = [

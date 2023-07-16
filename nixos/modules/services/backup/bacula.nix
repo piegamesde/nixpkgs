@@ -333,10 +333,8 @@ in
 
       name = mkOption {
         default = "${config.networking.hostName}-fd";
-        defaultText =
-          literalExpression
-            ''"''${config.networking.hostName}-fd"''
-        ;
+        defaultText = literalExpression ''
+          "''${config.networking.hostName}-fd"'';
         type = types.str;
         description = lib.mdDoc ''
           The client name that must be used by the Director when connecting.
@@ -399,10 +397,8 @@ in
 
       name = mkOption {
         default = "${config.networking.hostName}-sd";
-        defaultText =
-          literalExpression
-            ''"''${config.networking.hostName}-sd"''
-        ;
+        defaultText = literalExpression ''
+          "''${config.networking.hostName}-sd"'';
         type = types.str;
         description = lib.mdDoc ''
           Specifies the Name of the Storage daemon.

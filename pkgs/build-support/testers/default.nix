@@ -124,10 +124,9 @@
         lib.substring 0 12 (baseNameOf drvPath)
       );
       # New derivation incorporating the original drv hash in the name
-      salted =
-        f
-          (args // { name = "${args.name or "source"}-salted-${salt}"; })
-      ;
+      salted = f (
+        args // { name = "${args.name or "source"}-salted-${salt}"; }
+      );
       # Make sure we did change the derivation. If the fetcher ignores `name`,
       # `invalidateFetcherByDrvHash` doesn't work.
       checked =

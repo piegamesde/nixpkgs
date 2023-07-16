@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
       # We don't have Emacs/GTK/etc. on {Dar,Cyg}win.
       lib.optional
         (
-          !(lib.lists.any (x: stdenv.hostPlatform.system == x)
-            [ "i686-cygwin" ]
-          )
+          !(lib.lists.any (x: stdenv.hostPlatform.system == x) [
+            "i686-cygwin"
+          ])
         )
         emacs
   ;

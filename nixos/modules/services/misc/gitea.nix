@@ -236,10 +236,8 @@ in
 
       customDir = mkOption {
         default = "${cfg.stateDir}/custom";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.stateDir}}/custom"''
-        ;
+        defaultText = literalExpression ''
+          "''${config.${opt.stateDir}}/custom"'';
         type = types.str;
         description =
           lib.mdDoc
@@ -381,10 +379,8 @@ in
         backupDir = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/dump";
-          defaultText =
-            literalExpression
-              ''"''${config.${opt.stateDir}}/dump"''
-          ;
+          defaultText = literalExpression ''
+            "''${config.${opt.stateDir}}/dump"'';
           description = lib.mdDoc "Path to the dump files.";
         };
 
@@ -513,8 +509,7 @@ in
                 ];
                 default = "http";
                 description = lib.mdDoc ''
-                  Listen protocol. `+unix` means "over unix", not "in addition to."''
-                ;
+                  Listen protocol. `+unix` means "over unix", not "in addition to."'';
               };
 
               HTTP_ADDR = mkOption {
@@ -526,8 +521,7 @@ in
                     "0.0.0.0"
                 ;
                 defaultText = literalExpression ''
-                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"''
-                ;
+                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
                 description =
                   lib.mdDoc
                     "Listen address. Must be a path when using a unix socket."
@@ -555,8 +549,7 @@ in
                     toString cfg.settings.server.HTTP_PORT
                   }/";
                 defaultText = literalExpression ''
-                  "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"''
-                ;
+                  "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
                 description = lib.mdDoc "Full public URL of gitea server.";
               };
 

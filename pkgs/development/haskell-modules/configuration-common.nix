@@ -843,10 +843,9 @@ self: super:
   separated = dontCheck super.separated;
   shadowsocks = dontCheck super.shadowsocks;
   shake-language-c = dontCheck super.shake-language-c;
-  snap-core =
-    doJailbreak
-      (dontCheck super.snap-core)
-  ; # attoparsec bound is too strict. This has been fixed on master
+  snap-core = doJailbreak (
+    dontCheck super.snap-core
+  ); # attoparsec bound is too strict. This has been fixed on master
   snap-server = doJailbreak super.snap-server; # attoparsec bound is too strict
   sourcemap = dontCheck super.sourcemap;
   static-resources = dontCheck super.static-resources;

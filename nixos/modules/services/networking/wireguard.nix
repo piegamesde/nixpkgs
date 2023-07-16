@@ -305,8 +305,7 @@ let
                   persistently. For example, if the interface very rarely sends traffic,
                   but it might at anytime receive traffic from a peer, and it is behind
                   NAT, the interface might benefit from having a persistent keepalive
-                  interval of 25 seconds; however, most users will not need this.''
-        ;
+                  interval of 25 seconds; however, most users will not need this.'';
       };
     };
   };

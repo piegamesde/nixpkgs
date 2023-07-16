@@ -199,10 +199,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xinitrc = self.xfce4-session.xinitrc; # added 2019-11-04
 
-    thunar-bare =
-      self.thunar.override
-        { thunarPlugins = [ ]; }
-    ; # added 2019-11-04
+    thunar-bare = self.thunar.override {
+      thunarPlugins = [ ];
+    }; # added 2019-11-04
 
     xfce4-hardware-monitor-plugin =
       throw

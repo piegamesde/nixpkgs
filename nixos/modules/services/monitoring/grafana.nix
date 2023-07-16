@@ -1109,8 +1109,7 @@ in
                   declarativePlugins
               ;
               defaultText = literalExpression ''
-                if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins''
-              ;
+                if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
               type = types.path;
             };
 

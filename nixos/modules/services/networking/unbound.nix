@@ -34,9 +34,9 @@ let
   ;
 
   confNoServer = concatStringsSep "\n" (
-    (mapAttrsToList (toConf "")
-      (builtins.removeAttrs cfg.settings [ "server" ])
-    )
+    (mapAttrsToList (toConf "") (
+      builtins.removeAttrs cfg.settings [ "server" ]
+    ))
     ++ [ "" ]
   );
   confServer = concatStringsSep "\n" (

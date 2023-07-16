@@ -228,10 +228,9 @@ in
         )
       ;
 
-      enabledInstances =
-        attrValues
-          (filterAttrs (n: v: v.enable) cfg.instances)
-      ;
+      enabledInstances = attrValues (
+        filterAttrs (n: v: v.enable) cfg.instances
+      );
     in
     {
 

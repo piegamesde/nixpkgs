@@ -78,10 +78,9 @@ let
     hydraJob (
       (import lib/eval-config.nix {
         inherit system;
-        modules =
-          makeModules module
-            { isoImage.isoBaseName = "nixos-${type}"; }
-        ;
+        modules = makeModules module {
+          isoImage.isoBaseName = "nixos-${type}";
+        };
       }).config.system.build.isoImage
     )
   ;

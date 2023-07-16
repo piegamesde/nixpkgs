@@ -53,10 +53,9 @@ buildLinux (
         # Fix error: option not set correctly: PREEMPT_VOLUNTARY (wanted 'y', got 'n').
         PREEMPT_VOLUNTARY = lib.mkForce no; # PREEMPT_RT deselects it.
         # Fix error: unused option: RT_GROUP_SCHED.
-        RT_GROUP_SCHED =
-          lib.mkForce
-            (option no)
-        ; # Removed by sched-disable-rt-group-sched-on-rt.patch.
+        RT_GROUP_SCHED = lib.mkForce (
+          option no
+        ); # Removed by sched-disable-rt-group-sched-on-rt.patch.
       } // structuredExtraConfig
     ;
 

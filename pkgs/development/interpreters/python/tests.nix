@@ -210,10 +210,9 @@ let
           )
           { }
       ;
-      pythonWithRequests =
-        requests.pythonModule.withPackages
-          (ps: [ requests ])
-      ;
+      pythonWithRequests = requests.pythonModule.withPackages (
+        ps: [ requests ]
+      );
     in
     lib.optionalAttrs stdenv.isLinux {
       condaExamplePackage = runCommand "import-requests" { } ''

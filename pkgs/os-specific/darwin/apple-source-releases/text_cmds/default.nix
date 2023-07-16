@@ -33,10 +33,9 @@ appleDerivation {
     done
   '';
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [ "-Wno-error=format-security" ]
-  ; # hardeningDisable doesn't cut it
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-Wno-error=format-security"
+  ]; # hardeningDisable doesn't cut it
 
   meta = {
     platforms = lib.platforms.darwin;

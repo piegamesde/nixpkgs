@@ -16,8 +16,7 @@ in
     );
   };
 
-  config =
-    mkIf cfg.enable
-      { services.udev.packages = [ pkgs.qmk-udev-rules ]; }
-  ;
+  config = mkIf cfg.enable {
+    services.udev.packages = [ pkgs.qmk-udev-rules ];
+  };
 }

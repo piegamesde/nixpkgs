@@ -969,10 +969,9 @@ in
       };
     };
 
-    services.postgresql =
-      lib.mkIf cfg.database.createLocally
-        { enable = true; }
-    ;
+    services.postgresql = lib.mkIf cfg.database.createLocally {
+      enable = true;
+    };
 
     services.redis.servers.peertube = lib.mkMerge [
       (lib.mkIf cfg.redis.createLocally { enable = true; })

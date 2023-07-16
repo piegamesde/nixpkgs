@@ -1608,10 +1608,9 @@ runTests {
             ...
           }:
           {
-            options.foo =
-              lib.mkOption
-                { type = lib.types.submodule submodule; }
-            ;
+            options.foo = lib.mkOption {
+              type = lib.types.submodule submodule;
+            };
           }
         ;
 

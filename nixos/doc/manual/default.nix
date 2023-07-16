@@ -18,10 +18,9 @@ let
 
   lib = pkgs.lib;
 
-  docbook_xsl_ns =
-    pkgs.docbook-xsl-ns.override
-      { withManOptDedupPatch = true; }
-  ;
+  docbook_xsl_ns = pkgs.docbook-xsl-ns.override {
+    withManOptDedupPatch = true;
+  };
 
   manpageUrls = pkgs.path + "/doc/manpage-urls.json";
 

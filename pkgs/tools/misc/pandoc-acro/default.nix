@@ -36,9 +36,9 @@ buildPythonApplication {
         nativeBuildInputs = [
           pandoc
           pandoc-acro
-          (texlive.combine
-            { inherit (texlive) scheme-tetex acro translations; }
-          )
+          (texlive.combine {
+            inherit (texlive) scheme-tetex acro translations;
+          })
         ];
       };
     in

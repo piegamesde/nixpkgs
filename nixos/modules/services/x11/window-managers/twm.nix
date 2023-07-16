@@ -17,10 +17,9 @@ in
   ###### interface
 
   options = {
-    services.xserver.windowManager.twm.enable =
-      mkEnableOption
-        (lib.mdDoc "twm")
-    ;
+    services.xserver.windowManager.twm.enable = mkEnableOption (
+      lib.mdDoc "twm"
+    );
   };
 
   ###### implementation

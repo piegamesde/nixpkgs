@@ -489,9 +489,9 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven-hello
-      { inherit mavenbuild; }
-    )
+    (callPackage ../development/java-modules/maven-hello {
+      inherit mavenbuild;
+    })
     mavenHello_1_0
     mavenHello_1_1
   ;

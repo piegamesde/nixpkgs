@@ -140,9 +140,9 @@ with pkgs;
 
   defaultPkgConfigPackages =
     # We don't want nix-env -q to enter this, because all of these are aliases.
-    dontRecurseIntoAttrs
-      (import ./pkg-config/defaultPkgConfigPackages.nix pkgs)
-  ;
+    dontRecurseIntoAttrs (
+      import ./pkg-config/defaultPkgConfigPackages.nix pkgs
+    );
 
   ### Nixpkgs maintainer tools
 
@@ -2076,10 +2076,9 @@ with pkgs;
 
   vopono = callPackage ../tools/networking/vopono { };
 
-  winbox =
-    callPackage ../tools/admin/winbox
-      { wine = wineWowPackages.staging; }
-  ;
+  winbox = callPackage ../tools/admin/winbox {
+    wine = wineWowPackages.staging;
+  };
 
   wtwitch = callPackage ../tools/video/wtwitch { };
 
@@ -2408,10 +2407,9 @@ with pkgs;
       { inherit (darwin.apple_sdk.frameworks) Security; }
   ;
 
-  git-lfs =
-    lowPrio
-      (callPackage ../applications/version-management/git-lfs { })
-  ;
+  git-lfs = lowPrio (
+    callPackage ../applications/version-management/git-lfs { }
+  );
 
   git-my = callPackage ../applications/version-management/git-my { };
 
@@ -3797,10 +3795,9 @@ with pkgs;
 
   bic = callPackage ../development/interpreters/bic { };
 
-  binance =
-    callPackage ../applications/misc/binance
-      { electron = electron_13; }
-  ;
+  binance = callPackage ../applications/misc/binance {
+    electron = electron_13;
+  };
 
   biscuit-cli = callPackage ../tools/security/biscuit-cli { };
 
@@ -6924,10 +6921,9 @@ with pkgs;
 
   assh = callPackage ../tools/networking/assh { };
 
-  b2sum =
-    callPackage ../tools/security/b2sum
-      { inherit (llvmPackages) openmp; }
-  ;
+  b2sum = callPackage ../tools/security/b2sum {
+    inherit (llvmPackages) openmp;
+  };
 
   bacula = callPackage ../tools/backup/bacula {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation IOKit;
@@ -7389,10 +7385,9 @@ with pkgs;
 
     mozc = callPackage ../tools/inputmethods/ibus-engines/ibus-mozc {
       stdenv = clangStdenv;
-      protobuf =
-        pkgs.protobuf.overrideDerivation
-          (_: { stdenv = clangStdenv; })
-      ;
+      protobuf = pkgs.protobuf.overrideDerivation (
+        _: { stdenv = clangStdenv; }
+      );
     };
 
     rime = callPackage ../tools/inputmethods/ibus-engines/ibus-rime { };
@@ -7612,10 +7607,9 @@ with pkgs;
 
   createrepo_c = callPackage ../tools/package-management/createrepo_c { };
 
-  cromfs =
-    callPackage ../tools/archivers/cromfs
-      { stdenv = gcc10StdenvCompat; }
-  ;
+  cromfs = callPackage ../tools/archivers/cromfs {
+    stdenv = gcc10StdenvCompat;
+  };
 
   cron = callPackage ../tools/system/cron { };
 
@@ -11482,17 +11476,15 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  moreutils =
-    callPackage ../tools/misc/moreutils
-      { docbook-xsl = docbook_xsl; }
-  ;
+  moreutils = callPackage ../tools/misc/moreutils {
+    docbook-xsl = docbook_xsl;
+  };
 
   mole = callPackage ../tools/networking/mole { };
 
-  morgen =
-    callPackage ../applications/office/morgen
-      { electron = electron_22; }
-  ;
+  morgen = callPackage ../applications/office/morgen {
+    electron = electron_22;
+  };
 
   mosh = callPackage ../tools/networking/mosh { };
 
@@ -16234,10 +16226,9 @@ with pkgs;
 
   ante = callPackage ../development/compilers/ante { };
 
-  armips =
-    callPackage ../development/compilers/armips
-      { stdenv = gcc10Stdenv; }
-  ;
+  armips = callPackage ../development/compilers/armips {
+    stdenv = gcc10Stdenv;
+  };
 
   arachne-pnr = callPackage ../development/compilers/arachne-pnr { };
 
@@ -16319,10 +16310,9 @@ with pkgs;
 
   cdb = callPackage ../development/tools/database/cdb { stdenv = gccStdenv; };
 
-  chez =
-    callPackage ../development/compilers/chez
-      { inherit (darwin) cctools; }
-  ;
+  chez = callPackage ../development/compilers/chez {
+    inherit (darwin) cctools;
+  };
 
   chez-racket = callPackage ../development/compilers/chez-racket { };
 
@@ -16700,10 +16690,9 @@ with pkgs;
   clangMultiStdenv = overrideCC stdenv buildPackages.clang_multi;
   multiStdenv = if stdenv.cc.isClang then clangMultiStdenv else gccMultiStdenv;
 
-  gcc_debug =
-    lowPrio
-      (wrapCC (gcc.cc.overrideAttrs (_: { dontStrip = true; })))
-  ;
+  gcc_debug = lowPrio (
+    wrapCC (gcc.cc.overrideAttrs (_: { dontStrip = true; }))
+  );
 
   gccCrossLibcStdenv = overrideCC stdenv buildPackages.gccCrossStageStatic;
 
@@ -17465,10 +17454,9 @@ with pkgs;
 
   gprolog = callPackage ../development/compilers/gprolog { };
 
-  gwe =
-    callPackage ../tools/misc/gwe
-      { nvidia_x11 = linuxPackages.nvidia_x11; }
-  ;
+  gwe = callPackage ../tools/misc/gwe {
+    nvidia_x11 = linuxPackages.nvidia_x11;
+  };
 
   gwt240 = callPackage ../development/compilers/gwt/2.4.0.nix { };
 
@@ -18195,10 +18183,9 @@ with pkgs;
     rocmlir = rocmlir-rock;
   };
 
-  rccl =
-    callPackage ../development/libraries/rccl
-      { stdenv = rocmClangStdenv; }
-  ;
+  rccl = callPackage ../development/libraries/rccl {
+    stdenv = rocmClangStdenv;
+  };
 
   rocm-cmake = callPackage ../development/tools/build-managers/rocm-cmake {
     stdenv = rocmClangStdenv;
@@ -18329,10 +18316,9 @@ with pkgs;
     inherit (llvmPackages_rocm) clang;
   };
 
-  rtags =
-    callPackage ../development/tools/rtags
-      { inherit (darwin) apple_sdk; }
-  ;
+  rtags = callPackage ../development/tools/rtags {
+    inherit (darwin) apple_sdk;
+  };
 
   rust_1_69 = callPackage ../development/compilers/rust/1_69.nix {
     inherit (darwin.apple_sdk.frameworks)
@@ -22738,10 +22724,9 @@ with pkgs;
     ssl_implementation = mbedtls_2;
   };
 
-  uri =
-    callPackage ../development/libraries/uri
-      { stdenv = gcc10StdenvCompat; }
-  ;
+  uri = callPackage ../development/libraries/uri {
+    stdenv = gcc10StdenvCompat;
+  };
 
   cppcms = callPackage ../development/libraries/cppcms { };
 
@@ -23451,10 +23436,9 @@ with pkgs;
 
   elf-header-real = callPackage ../development/libraries/elf-header { };
 
-  glibc_memusage =
-    callPackage ../development/libraries/glibc
-      { withGd = true; }
-  ;
+  glibc_memusage = callPackage ../development/libraries/glibc {
+    withGd = true;
+  };
 
   # Being redundant to avoid cycles on boot. TODO: find a better way
   glibcCross = callPackage ../development/libraries/glibc {
@@ -23799,10 +23783,9 @@ with pkgs;
       # break dependency cycles
       # these things are only used for tests, they don't get into the closure
       shared-mime-info = shared-mime-info.override { glib = glib-untested; };
-      desktop-file-utils =
-        desktop-file-utils.override
-          { glib = glib-untested; }
-      ;
+      desktop-file-utils = desktop-file-utils.override {
+        glib = glib-untested;
+      };
       dbus = dbus.override { enableSystemd = false; };
     }
   );
@@ -24336,10 +24319,9 @@ with pkgs;
 
   ktextaddons = libsForQt5.callPackage ../development/libraries/ktextaddons { };
 
-  l-smash =
-    callPackage ../development/libraries/l-smash
-      { stdenv = gccStdenv; }
-  ;
+  l-smash = callPackage ../development/libraries/l-smash {
+    stdenv = gccStdenv;
+  };
 
   languageMachines = recurseIntoAttrs (
     import ../development/libraries/languagemachines/packages.nix {
@@ -25785,10 +25767,9 @@ with pkgs;
 
   libv4l = lowPrio (v4l-utils.override { withUtils = false; });
 
-  libva-minimal =
-    callPackage ../development/libraries/libva
-      { minimal = true; }
-  ;
+  libva-minimal = callPackage ../development/libraries/libva {
+    minimal = true;
+  };
   libva = libva-minimal.override { minimal = false; };
   libva-utils = callPackage ../development/libraries/libva/utils.nix { };
 
@@ -26253,10 +26234,9 @@ with pkgs;
 
   nanomq = callPackage ../servers/mqtt/nanomq { };
 
-  mps =
-    callPackage ../development/libraries/mps
-      { stdenv = gcc10StdenvCompat; }
-  ;
+  mps = callPackage ../development/libraries/mps {
+    stdenv = gcc10StdenvCompat;
+  };
 
   libmpeg2 = callPackage ../development/libraries/libmpeg2 { };
 
@@ -26278,10 +26258,9 @@ with pkgs;
 
   libmpc = callPackage ../development/libraries/libmpc { };
 
-  mpich =
-    callPackage ../development/libraries/mpich
-      { ch4backend = libfabric; }
-  ;
+  mpich = callPackage ../development/libraries/mpich {
+    ch4backend = libfabric;
+  };
 
   mstpd = callPackage ../os-specific/linux/mstpd { };
 
@@ -27522,10 +27501,9 @@ with pkgs;
 
   speex = callPackage ../development/libraries/speex { fftw = fftwFloat; };
 
-  speexdsp =
-    callPackage ../development/libraries/speexdsp
-      { fftw = fftwFloat; }
-  ;
+  speexdsp = callPackage ../development/libraries/speexdsp {
+    fftw = fftwFloat;
+  };
 
   sphinx = with python3Packages; toPythonApplication sphinx;
 
@@ -27629,10 +27607,9 @@ with pkgs;
       { }
   ;
 
-  sundials =
-    callPackage ../development/libraries/sundials
-      { python = python3; }
-  ;
+  sundials = callPackage ../development/libraries/sundials {
+    python = python3;
+  };
 
   sutils = callPackage ../tools/misc/sutils { };
 
@@ -31830,10 +31807,9 @@ with pkgs;
 
   swiftdefaultapps = callPackage ../os-specific/darwin/swiftdefaultapps { };
 
-  sysdig =
-    callPackage ../os-specific/linux/sysdig
-      { kernel = null; }
-  ; # sysdig is a client, for a driver look at linuxPackagesFor
+  sysdig = callPackage ../os-specific/linux/sysdig {
+    kernel = null;
+  }; # sysdig is a client, for a driver look at linuxPackagesFor
 
   sysfsutils = callPackage ../os-specific/linux/sysfsutils { };
 
@@ -32438,10 +32414,9 @@ with pkgs;
       { }
   ;
 
-  emojione =
-    callPackage ../data/fonts/emojione
-      { inherit (nodePackages) svgo; }
-  ;
+  emojione = callPackage ../data/fonts/emojione {
+    inherit (nodePackages) svgo;
+  };
 
   emojipick = callPackage ../applications/misc/emojipick { };
 
@@ -36541,10 +36516,9 @@ with pkgs;
     }
   );
 
-  imagemagickBig =
-    lowPrio
-      (imagemagick.override { ghostscriptSupport = true; })
-  ;
+  imagemagickBig = lowPrio (
+    imagemagick.override { ghostscriptSupport = true; }
+  );
 
   imagination = callPackage ../applications/video/imagination { };
 
@@ -36680,10 +36654,9 @@ with pkgs;
 
   jgmenu = callPackage ../applications/misc/jgmenu { };
 
-  jigdo =
-    callPackage ../applications/misc/jigdo
-      { stdenv = gcc10StdenvCompat; }
-  ;
+  jigdo = callPackage ../applications/misc/jigdo {
+    stdenv = gcc10StdenvCompat;
+  };
 
   jitsi = callPackage ../applications/networking/instant-messengers/jitsi { };
 
@@ -40614,10 +40587,9 @@ with pkgs;
       }
   ;
 
-  virtualboxHardened =
-    lowPrio
-      (virtualbox.override { enableHardening = true; })
-  ;
+  virtualboxHardened = lowPrio (
+    virtualbox.override { enableHardening = true; }
+  );
 
   virtualboxHeadless = lowPrio (
     virtualbox.override {
@@ -44789,10 +44761,9 @@ with pkgs;
 
   thepeg = callPackage ../development/libraries/physics/thepeg { };
 
-  yoda =
-    callPackage ../development/libraries/physics/yoda
-      { python = python3; }
-  ;
+  yoda = callPackage ../development/libraries/physics/yoda {
+    python = python3;
+  };
   yoda-with-root = lowPrio (yoda.override { withRootSupport = true; });
 
   qcdnum = callPackage ../development/libraries/physics/qcdnum { };
@@ -46638,10 +46609,9 @@ with pkgs;
 
   NSPlist = callPackage ../development/libraries/NSPlist { };
 
-  PlistCpp =
-    callPackage ../development/libraries/PlistCpp
-      { boost = boost172; }
-  ;
+  PlistCpp = callPackage ../development/libraries/PlistCpp {
+    boost = boost172;
+  };
 
   xib2nib = callPackage ../development/tools/xib2nib { };
 
@@ -46666,10 +46636,9 @@ with pkgs;
 
   openrisk = callPackage ../tools/security/openrisk { };
 
-  openvino =
-    callPackage ../development/libraries/openvino
-      { python = python3; }
-  ;
+  openvino = callPackage ../development/libraries/openvino {
+    python = python3;
+  };
 
   phonetisaurus = callPackage ../development/libraries/phonetisaurus {
     # https://github.com/AdolfVonKleist/Phonetisaurus/issues/70
@@ -46800,10 +46769,9 @@ with pkgs;
     stdenv = crossLibcStdenv;
   };
 
-  newlib-nano =
-    callPackage ../development/misc/newlib
-      { nanoizeNewlib = true; }
-  ;
+  newlib-nano = callPackage ../development/misc/newlib {
+    nanoizeNewlib = true;
+  };
   newlib-nanoCross = callPackage ../development/misc/newlib {
     nanoizeNewlib = true;
     stdenv = crossLibcStdenv;

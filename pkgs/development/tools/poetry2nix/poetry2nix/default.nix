@@ -68,10 +68,9 @@ let
         depSet:
         let
           compat = isCompatible (poetryLib.getPythonVersion py);
-          depAttrs =
-            builtins.map (d: lib.toLower d)
-              (builtins.attrNames depSet)
-          ;
+          depAttrs = builtins.map (d: lib.toLower d) (
+            builtins.attrNames depSet
+          );
         in
         (builtins.map
           (
@@ -226,10 +225,9 @@ lib.makeScope pkgs.newScope (
 
         scripts = pyProject.tool.poetry.scripts or { };
         hasScripts = scripts != { };
-        scriptsPackage =
-          self.mkPoetryScriptsPackage
-            { inherit python scripts; }
-        ;
+        scriptsPackage = self.mkPoetryScriptsPackage {
+          inherit python scripts;
+        };
 
         editablePackageSources' =
           lib.filterAttrs (name: path: path != null)

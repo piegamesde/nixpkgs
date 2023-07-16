@@ -3661,10 +3661,8 @@ mapAliases ({
     throw
       "'qlandkartegt' has been removed from nixpkgs, as it was broken and unmaintained"
   ; # Added 2023-04-17
-  qr-filetransfer =
-    throw
-      ''"qr-filetransfer" has been renamed to "qrcp"''
-  ; # Added 2020-12-02
+  qr-filetransfer = throw ''
+    "qr-filetransfer" has been renamed to "qrcp"''; # Added 2020-12-02
   qshowdiff =
     throw
       "'qshowdiff' (Qt4) is unmaintained and not been updated since its addition in 2010"
@@ -4807,10 +4805,9 @@ mapAliases ({
     throw
       "zimwriterfs is now part of zim-tools"
   ; # Added 2022-06-10.
-  zq =
-    zed.overrideAttrs
-      (old: { meta = old.meta // { mainProgram = "zq"; }; })
-  ; # Added 2023-02-06
+  zq = zed.overrideAttrs (
+    old: { meta = old.meta // { mainProgram = "zq"; }; }
+  ); # Added 2023-02-06
 
   # TODO(ekleog): add ‘wasm’ alias to ‘ocamlPackages.wasm’ after 19.03
   # branch-off

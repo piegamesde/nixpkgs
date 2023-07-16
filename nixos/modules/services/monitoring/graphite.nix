@@ -304,8 +304,7 @@ in
       graphiteUrl = mkOption {
         default = "http://${cfg.web.listenAddress}:${toString cfg.web.port}";
         defaultText = literalExpression ''
-          "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"''
-        ;
+          "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
         description = lib.mdDoc "Host where graphite service runs.";
         type = types.str;
       };

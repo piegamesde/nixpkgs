@@ -37,10 +37,9 @@ let
       gettext
     ];
     enableParallelBuilding = true;
-    env.NIX_CFLAGS_COMPILE =
-      toString
-        [ "-Wno-error=deprecated-declarations" ]
-    ; # Needed with GCC 12
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-Wno-error=deprecated-declarations"
+    ]; # Needed with GCC 12
   };
 
   pypkgs = with python3.pkgs; makePythonPath [ pyparsing ];

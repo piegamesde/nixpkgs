@@ -14,10 +14,9 @@ in
   options.services.onlyoffice = {
     enable = mkEnableOption (lib.mdDoc "OnlyOffice DocumentServer");
 
-    enableExampleServer =
-      mkEnableOption
-        (lib.mdDoc "OnlyOffice example server")
-    ;
+    enableExampleServer = mkEnableOption (
+      lib.mdDoc "OnlyOffice example server"
+    );
 
     hostname = mkOption {
       type = types.str;

@@ -254,10 +254,9 @@ rec {
     drv: { enableSharedExecutables = false; }
   );
 
-  enableSharedLibraries =
-    overrideCabal
-      (drv: { enableSharedLibraries = true; })
-  ;
+  enableSharedLibraries = overrideCabal (
+    drv: { enableSharedLibraries = true; }
+  );
   disableSharedLibraries = overrideCabal (
     drv: { enableSharedLibraries = false; }
   );
@@ -269,10 +268,9 @@ rec {
     drv: { enableDeadCodeElimination = false; }
   );
 
-  enableStaticLibraries =
-    overrideCabal
-      (drv: { enableStaticLibraries = true; })
-  ;
+  enableStaticLibraries = overrideCabal (
+    drv: { enableStaticLibraries = true; }
+  );
   disableStaticLibraries = overrideCabal (
     drv: { enableStaticLibraries = false; }
   );

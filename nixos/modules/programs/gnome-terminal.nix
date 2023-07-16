@@ -36,10 +36,9 @@ in
   ];
 
   options = {
-    programs.gnome-terminal.enable =
-      mkEnableOption
-        (lib.mdDoc "GNOME Terminal")
-    ;
+    programs.gnome-terminal.enable = mkEnableOption (
+      lib.mdDoc "GNOME Terminal"
+    );
   };
 
   config = mkIf cfg.enable {
