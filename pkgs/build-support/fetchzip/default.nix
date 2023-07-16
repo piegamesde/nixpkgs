@@ -12,7 +12,8 @@
   glibcLocalesUtf8,
 }:
 
-{ # Optionally move the contents of the unpacked tree up one level.
+{
+  # Optionally move the contents of the unpacked tree up one level.
   stripRoot ? true,
   url ? "",
   urls ? [ ],
@@ -21,8 +22,8 @@
   name ? "source",
   pname ? "",
   version ? "",
-  nativeBuildInputs ?
-    [ ], # Allows to set the extension for the intermediate downloaded
+  nativeBuildInputs ? [ ],
+  # Allows to set the extension for the intermediate downloaded
   # file. This can be used as a hint for the unpackCmdHooks to select
   # an appropriate unpacking tool.
   extension ? null,

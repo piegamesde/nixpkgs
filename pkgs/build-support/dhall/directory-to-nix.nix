@@ -15,7 +15,8 @@
 # `dhallDirectoryToNix` in Nixpkgs, since the Nixpkgs Hydra doesn't allow IFD.
 
 {
-  src, # The file to import, relative to the src root directory
+  src,
+  # The file to import, relative to the src root directory
   file ? "package.dhall",
 }@args:
 

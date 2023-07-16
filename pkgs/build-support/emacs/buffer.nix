@@ -78,7 +78,8 @@ rec {
     {
       root,
     }:
-    let # The haskell paths.
+    let
+      # The haskell paths.
       haskell-paths = lib.filesystem.haskellPathsInDir project-root;
       # Find the haskell package that the 'root' is in, if any.
       haskell-path-parent =

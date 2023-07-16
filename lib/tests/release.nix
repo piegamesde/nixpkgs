@@ -1,4 +1,5 @@
-{ # The pkgs used for dependencies for the testing itself
+{
+  # The pkgs used for dependencies for the testing itself
   # Don't test properties of pkgs.lib, but rather the lib in the parent directory
   pkgs ? import ../.. { } // {
     lib =

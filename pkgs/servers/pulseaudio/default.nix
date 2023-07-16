@@ -39,10 +39,12 @@
 
   useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
 
-  , # Whether to support the JACK sound system as a backend.
+  ,
+  # Whether to support the JACK sound system as a backend.
   jackaudioSupport ? false
 
-  , # Whether to build the OSS wrapper ("padsp").
+  ,
+  # Whether to build the OSS wrapper ("padsp").
   ossWrapper ? true,
 
   airtunesSupport ? false,
@@ -57,7 +59,8 @@
   alsaSupport ? stdenv.isLinux,
   udevSupport ? stdenv.isLinux
 
-  , # Whether to build only the library.
+  ,
+  # Whether to build only the library.
   libOnly ? false,
 
   AudioUnit,

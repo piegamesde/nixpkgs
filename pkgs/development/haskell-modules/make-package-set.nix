@@ -1,39 +1,48 @@
 # This expression takes a file like `hackage-packages.nix` and constructs
 # a full package set out of that.
 
-{ # package-set used for build tools (all of nixpkgs)
+{
+  # package-set used for build tools (all of nixpkgs)
   buildPackages
 
-  , # A haskell package set for Setup.hs, compiler plugins, and similar
+  ,
+  # A haskell package set for Setup.hs, compiler plugins, and similar
   # build-time uses.
   buildHaskellPackages
 
-  , # package-set used for non-haskell dependencies (all of nixpkgs)
+  ,
+  # package-set used for non-haskell dependencies (all of nixpkgs)
   pkgs
 
-  , # stdenv provides our build and host platforms
+  ,
+  # stdenv provides our build and host platforms
   stdenv
 
-  , # this module provides the list of known licenses and maintainers
+  ,
+  # this module provides the list of known licenses and maintainers
   lib,
 
   # needed for overrideCabal & packageSourceOverrides
   haskellLib
 
-  , # hashes for downloading Hackage packages
+  ,
+  # hashes for downloading Hackage packages
   # This is either a directory or a .tar.gz containing the cabal files and
   # hashes of Hackage as exemplified by this repository:
   # https://github.com/commercialhaskell/all-cabal-hashes/tree/hackage
   all-cabal-hashes
 
-  , # compiler to use
+  ,
+  # compiler to use
   ghc
 
-  , # A function that takes `{ pkgs, lib, callPackage }` as the first arg and
+  ,
+  # A function that takes `{ pkgs, lib, callPackage }` as the first arg and
   # `self` as second, and returns a set of haskell packages
   package-set
 
-  , # The final, fully overridden package set usable with the nixpkgs fixpoint
+  ,
+  # The final, fully overridden package set usable with the nixpkgs fixpoint
   # overriding functionality
   extensible-self,
 }:
@@ -458,12 +467,14 @@ package-set { inherit pkgs lib callPackage; } self // {
   #     bash$ nix-shell --run "cabal new-build all"
   #     bash$ nix-shell --run "python"
   shellFor =
-    { # Packages to create this development shell for.  These are usually
+    {
+      # Packages to create this development shell for.  These are usually
       # your local packages.
-      packages, # Whether or not to generate a Hoogle database for all the
+      packages,
+      # Whether or not to generate a Hoogle database for all the
       # dependencies.
-      withHoogle ?
-        false, # Whether or not to include benchmark dependencies of your local
+      withHoogle ? false,
+      # Whether or not to include benchmark dependencies of your local
       # packages.  You should set this to true if you have benchmarks defined
       # in your local packages that you want to be able to run with cabal benchmark
       doBenchmark ? false,

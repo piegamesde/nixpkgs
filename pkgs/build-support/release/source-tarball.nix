@@ -15,7 +15,8 @@
   stdenv,
   autoconf,
   automake,
-  libtool, # By default, provide all the GNU Build System as input.
+  libtool,
+  # By default, provide all the GNU Build System as input.
   bootstrapBuildInputs ? [
     autoconf
     automake

@@ -4,7 +4,8 @@
 # each bootstrapping stage. See `./booter.nix` for exactly what this list should
 # contain.
 
-{ # Args just for stdenvs' usage
+{
+  # Args just for stdenvs' usage
   lib,
   # Args to pass on to the pkgset builder, too
   localSystem,

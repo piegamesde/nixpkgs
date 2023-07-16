@@ -244,7 +244,8 @@ stdenv.mkDerivation rec {
           ""
       }-gcc"
       (lib.optionalString stdenv.hostPlatform.isCygwin "--enable-static-msvcrt")
-    ] # Experimental features
+    ]
+    # Experimental features
     ++ optional experimentalSpatialSvcSupport "--enable-spatial-svc"
     ++ optional experimentalFpMbStatsSupport "--enable-fp-mb-stats"
     ++ optional experimentalEmulateHardwareSupport "--enable-emulate-hardware"

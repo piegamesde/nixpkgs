@@ -607,7 +607,8 @@ in
           --replace "location = Libv8::Location::Vendor.new" \
                     "location = Libv8::Location::System.new"
       '';
-      meta.broken = true; # At 2023-01-20, errors as:
+      meta.broken = true;
+      # At 2023-01-20, errors as:
       #   "Failed to build gem native extension."
       # Requires Python 2. Project is abandoned.
     }

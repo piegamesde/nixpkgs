@@ -4,7 +4,8 @@
   buildPackages,
   lib,
   fetchpatch,
-  texinfo, # "newlib-nano" is what the official ARM embedded toolchain calls this build
+  texinfo,
+  # "newlib-nano" is what the official ARM embedded toolchain calls this build
   # configuration that prioritizes low space usage. We include it as a preset
   # for embedded projects striving for a similar configuration.
   nanoizeNewlib ? false,

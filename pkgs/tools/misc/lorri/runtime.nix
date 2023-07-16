@@ -3,7 +3,8 @@
   closureInfo,
   runCommand,
   writeText,
-  buildEnv, # Actual dependencies to propagate:
+  buildEnv,
+  # Actual dependencies to propagate:
   bash,
   coreutils,
 }:

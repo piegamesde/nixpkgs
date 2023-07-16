@@ -1,4 +1,5 @@
-{ # GHC source tree to build hadrian from
+{
+  # GHC source tree to build hadrian from
   ghcSrc ? null,
   ghcVersion ? null,
   mkDerivation,

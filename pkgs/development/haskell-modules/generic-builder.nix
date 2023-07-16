@@ -146,14 +146,15 @@ in
   hardeningDisable ? null,
   enableSeparateBinOutput ? false,
   enableSeparateDataOutput ? false,
-  enableSeparateDocOutput ?
-    doHaddock, # Don't fail at configure time if there are multiple versions of the
+  enableSeparateDocOutput ? doHaddock,
+  # Don't fail at configure time if there are multiple versions of the
   # same package in the (recursive) dependencies of the package being
   # built. Will delay failures, if any, to compile time.
   allowInconsistentDependencies ? false,
   maxBuildCores ?
     16 # more cores usually don't improve performance: https://ghc.haskell.org/trac/ghc/ticket/9221
-  , # If set to true, this builds a pre-linked .o file for this Haskell library.
+  ,
+  # If set to true, this builds a pre-linked .o file for this Haskell library.
   # This can make it slightly faster to load this library into GHCi, but takes
   # extra disk space and compile time.
   enableLibraryForGhci ? false,

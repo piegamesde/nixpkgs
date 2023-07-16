@@ -32,11 +32,11 @@ let
   fileSystems' = toposort fsBefore (attrValues config.fileSystems);
 
   fileSystems =
-    if
-      fileSystems' ? result
-    then # use topologically sorted fileSystems everywhere
+    if fileSystems' ? result then
+      # use topologically sorted fileSystems everywhere
       fileSystems'.result
-    else # the assertion below will catch this,
+    else
+      # the assertion below will catch this,
       # but we fall back to the original order
       # anyway so that other modules could check
       # their assertions too

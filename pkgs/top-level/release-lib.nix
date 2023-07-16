@@ -1,8 +1,8 @@
 {
   supportedSystems,
   packageSet ? (import ../..),
-  scrubJobs ?
-    true, # Attributes passed to nixpkgs. Don't build packages marked as unfree.
+  scrubJobs ? true,
+  # Attributes passed to nixpkgs. Don't build packages marked as unfree.
   nixpkgsArgs ? {
     config = {
       allowUnfree = false;

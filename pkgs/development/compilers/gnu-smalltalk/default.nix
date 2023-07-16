@@ -21,7 +21,8 @@
 
 assert emacsSupport -> (emacs != null);
 
-let # The gnu-smalltalk project has a dependency to the libsigsegv library.
+let
+  # The gnu-smalltalk project has a dependency to the libsigsegv library.
   # The project ships with sources for this library, but deprecated this option.
   # Using the vanilla libsigsegv library results in error: "cannot relocate [...]"
   # Adding --enable-static=libsigsegv to the gnu-smalltalk configuration flags

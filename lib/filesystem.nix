@@ -17,7 +17,8 @@ in
   haskellPathsInDir =
     # The directory within to search
     root:
-    let # Files in the root
+    let
+      # Files in the root
       root-files = builtins.attrNames (builtins.readDir root);
       # Files with their full paths
       root-files-with-paths =

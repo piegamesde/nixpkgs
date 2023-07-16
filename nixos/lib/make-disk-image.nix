@@ -84,25 +84,30 @@
   pkgs,
   lib
 
-  , # The NixOS configuration to be installed onto the disk image.
+  ,
+  # The NixOS configuration to be installed onto the disk image.
   config
 
-  , # The size of the disk, in megabytes.
+  ,
+  # The size of the disk, in megabytes.
   # if "auto" size is calculated based on the contents copied to it and
   #   additionalSpace is taken into account.
   diskSize ? "auto"
 
-  , # additional disk space to be added to the image if diskSize "auto"
+  ,
+  # additional disk space to be added to the image if diskSize "auto"
   # is used
   additionalSpace ? "512M"
 
-  , # size of the boot partition, is only used if partitionTableType is
+  ,
+  # size of the boot partition, is only used if partitionTableType is
   # either "efi" or "hybrid"
   # This will be undersized slightly, as this is actually the offset of
   # the end of the partition. Generally it will be 1MiB smaller.
   bootSize ? "256M"
 
-  , # The files and directories to be placed in the target file system.
+  ,
+  # The files and directories to be placed in the target file system.
   # This is a list of attribute sets {source, target, mode, user, group} where
   # `source' is the file system object (regular file or directory) to be
   # grafted in the file system at path `target', `mode' is a string containing
@@ -112,7 +117,8 @@
   # When setting one of `user' or `group', the other needs to be set too.
   contents ? [ ]
 
-  , # Type of partition table to use; either "legacy", "efi", or "none".
+  ,
+  # Type of partition table to use; either "legacy", "efi", or "none".
   # For "efi" images, the GPT partition table is used and a mandatory ESP
   #   partition of reasonable size is created in addition to the root partition.
   # For "legacy", the msdos partition table is used and a single large root
@@ -127,45 +133,57 @@
   #   most likely fails as GRUB will probably refuse to install.
   partitionTableType ? "legacy"
 
-  , # Whether to invoke `switch-to-configuration boot` during image creation
+  ,
+  # Whether to invoke `switch-to-configuration boot` during image creation
   installBootLoader ? true
 
-  , # Whether to output have EFIVARS available in $out/efi-vars.fd and use it during disk creation
+  ,
+  # Whether to output have EFIVARS available in $out/efi-vars.fd and use it during disk creation
   touchEFIVars ? false
 
-  , # OVMF firmware derivation
+  ,
+  # OVMF firmware derivation
   OVMF ? pkgs.OVMF.fd
 
-  , # EFI firmware
+  ,
+  # EFI firmware
   efiFirmware ? OVMF.firmware
 
-  , # EFI variables
+  ,
+  # EFI variables
   efiVariables ? OVMF.variables
 
-  , # The root file system type.
+  ,
+  # The root file system type.
   fsType ? "ext4"
 
-  , # Filesystem label
+  ,
+  # Filesystem label
   label ? if onlyNixStore then "nix-store" else "nixos"
 
-  , # The initial NixOS configuration file to be copied to
+  ,
+  # The initial NixOS configuration file to be copied to
   # /etc/nixos/configuration.nix.
   configFile ? null
 
-  , # Shell code executed after the VM has finished.
+  ,
+  # Shell code executed after the VM has finished.
   postVM ? ""
 
-  , # Guest memory size
+  ,
+  # Guest memory size
   memSize ? 1024
 
-  , # Copy the contents of the Nix store to the root of the image and
+  ,
+  # Copy the contents of the Nix store to the root of the image and
   # skip further setup. Incompatible with `contents`,
   # `installBootLoader` and `configFile`.
   onlyNixStore ? false,
 
   name ? "nixos-disk-image"
 
-  , # Disk image format, one of qcow2, qcow2-compressed, vdi, vpc, raw.
+  ,
+  # Disk image format, one of qcow2, qcow2-compressed, vdi, vpc, raw.
   format ? "raw",
 
   # Whether to fix:
@@ -184,13 +202,15 @@
   # TODO: support other filesystems someday.
   rootFSUID ? (if fsType == "ext4" then rootGPUID else null)
 
-  , # Whether a nix channel based on the current source tree should be
+  ,
+  # Whether a nix channel based on the current source tree should be
   # made available inside the image. Useful for interactive use of nix
   # utils, but changes the hash of the image when the sources are
   # updated.
   copyChannel ? true
 
-  , # Additional store paths to copy to the image's store.
+  ,
+  # Additional store paths to copy to the image's store.
   additionalPaths ? [ ],
 }:
 

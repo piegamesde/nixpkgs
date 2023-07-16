@@ -491,12 +491,14 @@ rec {
             loops = c;
             inherit visited rest;
           }
-        else if length b.right == 0 then # nothing is before us
+        else if length b.right == 0 then
+          # nothing is before us
           {
             minimal = us;
             inherit visited rest;
           }
-        else # grab the first one before us and continue
+        else
+          # grab the first one before us and continue
           dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong)
       ;
     in
@@ -530,22 +532,26 @@ rec {
       dfsthis = listDfs true before list;
       toporest = toposort before (dfsthis.visited ++ dfsthis.rest);
     in
-    if length list < 2 then # finish
-      { result = list; }
-    else if
-      dfsthis ? cycle
-    then # there's a cycle, starting from the current vertex, return it
+    if length list < 2 then
+      # finish
+      {
+        result = list;
+      }
+    else if dfsthis ? cycle then
+      # there's a cycle, starting from the current vertex, return it
       {
         cycle = reverseList ([ dfsthis.cycle ] ++ dfsthis.visited);
         inherit (dfsthis) loops;
       }
-    else if
-      toporest ? cycle
-    then # there's a cycle somewhere else in the graph, return it
+    else if toporest ? cycle then
+      # there's a cycle somewhere else in the graph, return it
       toporest
     # Slow, but short. Can be made a bit faster with an explicit stack.
-    else # there are no cycles
-      { result = [ dfsthis.minimal ] ++ toporest.result; }
+    else
+      # there are no cycles
+      {
+        result = [ dfsthis.minimal ] ++ toporest.result;
+      }
   ;
 
   /* Sort a list based on a comparator function which compares two

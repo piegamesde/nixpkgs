@@ -36,14 +36,15 @@ in
   branchName ? null,
   sparseCheckout ? [ ],
   nonConeMode ? false,
-  name ?
-    urlToName url rev, # Shell code executed after the file has been fetched
+  name ? urlToName url rev,
+  # Shell code executed after the file has been fetched
   # successfully. This can do things like check or transform the file.
   postFetch ? "",
   preferLocalBuild ? true,
-  fetchLFS ? false, # Shell code to build a netrc file for BASIC auth
-  netrcPhase ?
-    null, # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
+  fetchLFS ? false,
+  # Shell code to build a netrc file for BASIC auth
+  netrcPhase ? null,
+  # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
   # needed for netrcPhase
   netrcImpureEnvVars ? [ ],
   meta ? { },

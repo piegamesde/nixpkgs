@@ -18864,7 +18864,8 @@ with pkgs;
 
   wrapCCWith =
     {
-      cc, # This should be the only bintools runtime dep with this sort of logic. The
+      cc,
+      # This should be the only bintools runtime dep with this sort of logic. The
       # Others should instead delegate to the next stage's choice with
       # `targetPackages.stdenv.cc.bintools`. This one is different just to
       # provide the default choice, avoiding infinite recursion.
@@ -18873,8 +18874,8 @@ with pkgs;
       # stdenv where the bintools attribute doesn't exist, but will never actually
       # be evaluated -- callPackage ends up being too eager.
       bintools ? pkgs.bintools,
-      libc ?
-        bintools.libc, # libc++ from the default LLVM version is bound at the top level, but we
+      libc ? bintools.libc,
+      # libc++ from the default LLVM version is bound at the top level, but we
       # want the C++ library to be explicitly chosen by the caller, and null by
       # default.
       libcxx ? null,

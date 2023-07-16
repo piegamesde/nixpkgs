@@ -254,7 +254,8 @@ stdenv.mkDerivation rec {
     ++ optionals (stdenv.isBSD || stdenv.hostPlatform != stdenv.buildPlatform) [
       "--force-target=${stdenv.hostPlatform.parsed.cpu.name}-${kernel}-gcc"
       (lib.optionalString stdenv.hostPlatform.isCygwin "--enable-static-msvcrt")
-    ] # Experimental features
+    ]
+    # Experimental features
     ++ optional experimentalSpatialSvcSupport "--enable-spatial-svc"
     ++ optional experimentalFpMbStatsSupport "--enable-fp-mb-stats"
     ++ optional experimentalEmulateHardwareSupport "--enable-emulate-hardware"

@@ -120,8 +120,8 @@ rec {
       # see doc/functions.xml
       imageDigest,
       sha256,
-      os ?
-        "linux", # Image architecture, defaults to the architecture of the `hostPlatform` when unset
+      os ? "linux",
+      # Image architecture, defaults to the architecture of the `hostPlatform` when unset
       arch ? defaultArchitecture,
       # This is used to set name to the pulled image
       finalImageName ? imageName,
@@ -389,14 +389,16 @@ rec {
   mkPureLayer =
     {
       # Name of the layer
-      name, # JSON containing configuration and metadata for this layer.
-      baseJson, # Files to add to the layer.
-      copyToRoot ?
-        null, # When copying the contents into the image, preserve symlinks to
+      name,
+      # JSON containing configuration and metadata for this layer.
+      baseJson,
+      # Files to add to the layer.
+      copyToRoot ? null,
+      # When copying the contents into the image, preserve symlinks to
       # directories (see `rsync -K`).  Otherwise, transform those symlinks
       # into directories.
-      keepContentsDirlinks ?
-        false, # Additional commands to run on the layer before it is tar'd up.
+      keepContentsDirlinks ? false,
+      # Additional commands to run on the layer before it is tar'd up.
       extraCommands ? "",
       uid ? 0,
       gid ? 0,
@@ -455,24 +457,29 @@ rec {
   mkRootLayer =
     {
       # Name of the image.
-      name, # Script to run as root. Bash.
-      runAsRoot, # Files to add to the layer. If null, an empty layer will be created.
+      name,
+      # Script to run as root. Bash.
+      runAsRoot,
+      # Files to add to the layer. If null, an empty layer will be created.
       # To add packages to /bin, use `buildEnv` or similar.
-      copyToRoot ?
-        null, # When copying the contents into the image, preserve symlinks to
+      copyToRoot ? null,
+      # When copying the contents into the image, preserve symlinks to
       # directories (see `rsync -K`).  Otherwise, transform those symlinks
       # into directories.
-      keepContentsDirlinks ?
-        false, # JSON containing configuration and metadata for this layer.
-      baseJson, # Existing image onto which to append the new layer.
-      fromImage ? null, # Name of the image we're appending onto.
-      fromImageName ? null, # Tag of the image we're appending onto.
-      fromImageTag ?
-        null, # How much disk to allocate for the temporary virtual machine.
-      diskSize ?
-        1024, # How much memory to allocate for the temporary virtual machine.
-      buildVMMemorySize ?
-        512, # Commands (bash) to run on the layer; these do not require sudo.
+      keepContentsDirlinks ? false,
+      # JSON containing configuration and metadata for this layer.
+      baseJson,
+      # Existing image onto which to append the new layer.
+      fromImage ? null,
+      # Name of the image we're appending onto.
+      fromImageName ? null,
+      # Tag of the image we're appending onto.
+      fromImageTag ? null,
+      # How much disk to allocate for the temporary virtual machine.
+      diskSize ? 1024,
+      # How much memory to allocate for the temporary virtual machine.
+      buildVMMemorySize ? 512,
+      # Commands (bash) to run on the layer; these do not require sudo.
       extraCommands ? "",
     }:
     # Generate an executable script from the `runAsRoot` text.
@@ -572,34 +579,38 @@ rec {
   buildImage =
     args@{
       # Image name.
-      name, # Image tag, when null then the nix output hash will be used.
-      tag ? null, # Parent image, to append to.
-      fromImage ?
-        null, # Name of the parent image; will be read from the image otherwise.
-      fromImageName ?
-        null, # Tag of the parent image; will be read from the image otherwise.
-      fromImageTag ?
-        null, # Files to put on the image (a nix store path or list of paths).
-      copyToRoot ?
-        null, # When copying the contents into the image, preserve symlinks to
+      name,
+      # Image tag, when null then the nix output hash will be used.
+      tag ? null,
+      # Parent image, to append to.
+      fromImage ? null,
+      # Name of the parent image; will be read from the image otherwise.
+      fromImageName ? null,
+      # Tag of the parent image; will be read from the image otherwise.
+      fromImageTag ? null,
+      # Files to put on the image (a nix store path or list of paths).
+      copyToRoot ? null,
+      # When copying the contents into the image, preserve symlinks to
       # directories (see `rsync -K`).  Otherwise, transform those symlinks
       # into directories.
-      keepContentsDirlinks ?
-        false, # Docker config; e.g. what command to run on the container.
-      config ?
-        null, # Image architecture, defaults to the architecture of the `hostPlatform` when unset
-      architecture ?
-        defaultArchitecture, # Optional bash script to run on the files prior to fixturizing the layer.
+      keepContentsDirlinks ? false,
+      # Docker config; e.g. what command to run on the container.
+      config ? null,
+      # Image architecture, defaults to the architecture of the `hostPlatform` when unset
+      architecture ? defaultArchitecture,
+      # Optional bash script to run on the files prior to fixturizing the layer.
       extraCommands ? "",
       uid ? 0,
-      gid ?
-        0, # Optional bash script to run as root on the image when provisioning.
-      runAsRoot ?
-        null, # Size of the virtual machine disk to provision when building the image.
-      diskSize ?
-        1024, # Size of the virtual machine memory to provision when building the image.
-      buildVMMemorySize ? 512, # Time of creation of the image.
-      created ? "1970-01-01T00:00:01Z", # Deprecated.
+      gid ? 0,
+      # Optional bash script to run as root on the image when provisioning.
+      runAsRoot ? null,
+      # Size of the virtual machine disk to provision when building the image.
+      diskSize ? 1024,
+      # Size of the virtual machine memory to provision when building the image.
+      buildVMMemorySize ? 512,
+      # Time of creation of the image.
+      created ? "1970-01-01T00:00:01Z",
+      # Deprecated.
       contents ? null,
     }:
 
@@ -949,35 +960,37 @@ rec {
   streamLayeredImage =
     {
       # Image Name
-      name, # Image tag, the Nix's output hash will be used if null
-      tag ? null, # Parent image, to append to.
-      fromImage ?
-        null, # Files to put on the image (a nix store path or list of paths).
-      contents ?
-        [ ], # Docker config; e.g. what command to run on the container.
-      config ?
-        { }, # Image architecture, defaults to the architecture of the `hostPlatform` when unset
-      architecture ?
-        defaultArchitecture, # Time of creation of the image. Passing "now" will make the
+      name,
+      # Image tag, the Nix's output hash will be used if null
+      tag ? null,
+      # Parent image, to append to.
+      fromImage ? null,
+      # Files to put on the image (a nix store path or list of paths).
+      contents ? [ ],
+      # Docker config; e.g. what command to run on the container.
+      config ? { },
+      # Image architecture, defaults to the architecture of the `hostPlatform` when unset
+      architecture ? defaultArchitecture,
+      # Time of creation of the image. Passing "now" will make the
       # created date be the time of building.
-      created ?
-        "1970-01-01T00:00:01Z", # Optional bash script to run on the files prior to fixturizing the layer.
-      extraCommands ?
-        "", # Optional bash script to run inside fakeroot environment.
+      created ? "1970-01-01T00:00:01Z",
+      # Optional bash script to run on the files prior to fixturizing the layer.
+      extraCommands ? "",
+      # Optional bash script to run inside fakeroot environment.
       # Could be used for changing ownership of files in customisation layer.
-      fakeRootCommands ?
-        "", # Whether to run fakeRootCommands in fakechroot as well, so that they
+      fakeRootCommands ? "",
+      # Whether to run fakeRootCommands in fakechroot as well, so that they
       # appear to run inside the image, but have access to the normal Nix store.
       # Perhaps this could be enabled on by default on pkgs.stdenv.buildPlatform.isLinux
-      enableFakechroot ?
-        false, # We pick 100 to ensure there is plenty of room for extension. I
+      enableFakechroot ? false,
+      # We pick 100 to ensure there is plenty of room for extension. I
       # believe the actual maximum is 128.
-      maxLayers ?
-        100, # Whether to include store paths in the image. You generally want to leave
+      maxLayers ? 100,
+      # Whether to include store paths in the image. You generally want to leave
       # this on, but tooling may disable this to insert the store paths more
       # efficiently via other means, such as bind mounting the host store.
-      includeStorePaths ?
-        true, # Passthru arguments for the underlying derivation.
+      includeStorePaths ? true,
+      # Passthru arguments for the underlying derivation.
       passthru ? { },
     }:
     assert (lib.assertMsg (maxLayers > 1)
@@ -1189,22 +1202,25 @@ rec {
 
   # This function streams a docker image that behaves like a nix-shell for a derivation
   streamNixShellImage =
-    { # The derivation whose environment this docker image should be based on
-      drv, # Image Name
-      name ?
-        drv.name
-        + "-env", # Image tag, the Nix's output hash will be used if null
-      tag ?
-        null, # User id to run the container as. Defaults to 1000, because many
+    {
+      # The derivation whose environment this docker image should be based on
+      drv,
+      # Image Name
+      name ? drv.name + "-env",
+      # Image tag, the Nix's output hash will be used if null
+      tag ? null,
+      # User id to run the container as. Defaults to 1000, because many
       # binaries don't like to be run as root
-      uid ? 1000, # Group id to run the container as, see also uid
-      gid ? 1000, # The home directory of the user
-      homeDirectory ?
-        "/build", # The path to the bash binary to use as the shell. See `NIX_BUILD_SHELL` in `man nix-shell`
-      shell ? bashInteractive
-        + "/bin/bash", # Run this command in the environment of the derivation, in an interactive shell. See `--command` in `man nix-shell`
-      command ?
-        null, # Same as `command`, but runs the command in a non-interactive shell instead. See `--run` in `man nix-shell`
+      uid ? 1000,
+      # Group id to run the container as, see also uid
+      gid ? 1000,
+      # The home directory of the user
+      homeDirectory ? "/build",
+      # The path to the bash binary to use as the shell. See `NIX_BUILD_SHELL` in `man nix-shell`
+      shell ? bashInteractive + "/bin/bash",
+      # Run this command in the environment of the derivation, in an interactive shell. See `--command` in `man nix-shell`
+      command ? null,
+      # Same as `command`, but runs the command in a non-interactive shell instead. See `--run` in `man nix-shell`
       run ? null,
     }:
     assert lib.assertMsg (!(drv.drvAttrs.__structuredAttrs or false))

@@ -140,8 +140,8 @@ let
       # Configure Phase
       configureFlags ? [ ],
       cmakeFlags ? [ ],
-      mesonFlags ?
-        [ ], # Target is not included by default because most programs don't care.
+      mesonFlags ? [ ],
+      # Target is not included by default because most programs don't care.
       # Including it then would cause needless mass rebuilds.
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
@@ -163,7 +163,8 @@ let
       # InstallCheck phase
       doInstallCheck ? config.doCheckByDefault or false
 
-      , # TODO(@Ericson2314): Make always true and remove / resolve #178468
+      ,
+      # TODO(@Ericson2314): Make always true and remove / resolve #178468
       strictDeps ? if config.strictDepsByDefault then
         true
       else

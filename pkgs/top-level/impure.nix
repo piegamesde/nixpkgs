@@ -16,7 +16,8 @@ let
   ;
 in
 
-{ # We put legacy `system` into `localSystem`, if `localSystem` was not passed.
+{
+  # We put legacy `system` into `localSystem`, if `localSystem` was not passed.
   # If neither is passed, assume we are building packages on the current
   # (build, in GNU Autotools parlance) platform.
   localSystem ? {
@@ -28,7 +29,8 @@ in
   system ? localSystem.system,
   crossSystem ? localSystem
 
-  , # Fallback: The contents of the configuration file found at $NIXPKGS_CONFIG or
+  ,
+  # Fallback: The contents of the configuration file found at $NIXPKGS_CONFIG or
   # $HOME/.config/nixpkgs/config.nix.
   config ? let
     configFile = builtins.getEnv "NIXPKGS_CONFIG";
@@ -44,7 +46,8 @@ in
   else
     { }
 
-  , # Overlays are used to extend Nixpkgs collection with additional
+  ,
+  # Overlays are used to extend Nixpkgs collection with additional
   # collections of packages.  These collection of packages are part of the
   # fix-point made by Nixpkgs.
   overlays ? let

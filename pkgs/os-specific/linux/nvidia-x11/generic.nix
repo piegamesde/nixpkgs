@@ -33,11 +33,12 @@
   perl,
   nukeReferences,
   which,
-  libarchive, # Whether to build the libraries only (i.e. not the kernel module or
+  libarchive,
+  # Whether to build the libraries only (i.e. not the kernel module or
   # nvidia-settings).  Used to support 32-bit binaries on 64-bit
   # Linux.
-  libsOnly ?
-    false, # don't include the bundled 32-bit libraries on 64-bit platforms,
+  libsOnly ? false,
+  # don't include the bundled 32-bit libraries on 64-bit platforms,
   # even if it’s in downloaded binary
   disable32Bit ? stdenv.hostPlatform.system == "aarch64-linux",
   # 32 bit libs only version of this package

@@ -1,7 +1,8 @@
 {
   lib,
   stdenv,
-  fetchurl, # required for both
+  fetchurl,
+  # required for both
   unzip,
   zlib,
   curl,
@@ -10,7 +11,8 @@
   libvorbis,
   libtheora,
   libogg,
-  libmodplug, # glx
+  libmodplug,
+  # glx
   libX11,
   libGLU,
   libGL,
@@ -18,7 +20,8 @@
   libXext,
   libXxf86vm,
   libXxf86dga,
-  alsa-lib, # sdl
+  alsa-lib,
+  # sdl
   SDL,
 }:
 

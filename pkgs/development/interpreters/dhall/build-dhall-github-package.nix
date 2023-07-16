@@ -6,14 +6,17 @@
 
 # This function is used by `dhall-to-nixpkgs` when given a GitHub repository
 lib.makePackageOverridable (
-  { # Arguments passed through to `buildDhallPackage`
+  {
+    # Arguments passed through to `buildDhallPackage`
     name,
     dependencies ? [ ],
     source ? false
 
-    , # The directory containing the Dhall files, if other than the root of the
+    ,
+    # The directory containing the Dhall files, if other than the root of the
     # repository
-    directory ? "", # The file to import, relative to the above directory
+    directory ? "",
+    # The file to import, relative to the above directory
     file ? "package.dhall",
     # Set to `true` to generate documentation for the package
     document ? false,

@@ -4,9 +4,12 @@
   python27,
   callPackage,
   fetchFromGitHub,
-  makeWrapper, # re2c deps
-  autoreconfHook, # py-yajl deps
-  git, # oil deps
+  makeWrapper,
+  # re2c deps
+  autoreconfHook,
+  # py-yajl deps
+  git,
+  # oil deps
   cmark,
   file,
   glibcLocales,

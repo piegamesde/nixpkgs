@@ -352,25 +352,29 @@ rec {
     vim // {
       # Returns a customized vim that uses the specified vimrc configuration.
       customize =
-        { # The name of the derivation.
-          name ?
-            "vim", # A shell word used to specify the names of the customized executables.
+        {
+          # The name of the derivation.
+          name ? "vim",
+          # A shell word used to specify the names of the customized executables.
           # The shell variable $exe can be used to refer to the wrapped executable's name.
           # Examples: "my-$exe", "$exe-with-plugins", "\${exe/vim/v1m}"
           executableName ? if lib.hasInfix "vim" name then
             lib.replaceStrings [ "vim" ] [ "$exe" ] name
           else
-            "\${exe/vim/${
-              lib.escapeShellArg name
-            }}", # A custom vimrc configuration, treated as an argument to vimrcContent (see the documentation in this file).
-          vimrcConfig ? null, # A custom vimrc file.
-          vimrcFile ? null, # A custom gvimrc file.
-          gvimrcFile ? null, # If set to true, return the *vim wrappers only.
+            "\${exe/vim/${lib.escapeShellArg name}}",
+          # A custom vimrc configuration, treated as an argument to vimrcContent (see the documentation in this file).
+          vimrcConfig ? null,
+          # A custom vimrc file.
+          vimrcFile ? null,
+          # A custom gvimrc file.
+          gvimrcFile ? null,
+          # If set to true, return the *vim wrappers only.
           # If set to false, overlay the wrappers on top of the original vim derivation.
           # This ensures that things like man pages and .desktop files are available.
           standalone ? name != "vim" && wrapManual != true
 
-          , # deprecated arguments (TODO: remove eventually)
+          ,
+          # deprecated arguments (TODO: remove eventually)
           wrapManual ? null,
           wrapGui ? null,
           vimExecutableName ? null,
