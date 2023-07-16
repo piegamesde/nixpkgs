@@ -68,7 +68,12 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [
     msgpack
     packaging
-    (if stdenv.isLinux then pyfuse3 else llfuse)
+    (if
+      stdenv.isLinux
+    then
+      pyfuse3
+    else
+      llfuse)
   ];
 
   makeWrapperArgs = [ ''--prefix PATH ':' "${openssh}/bin"'' ];

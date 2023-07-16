@@ -20,7 +20,9 @@ let
 
   backendsToPackages = let
     mkMap = list: name:
-      if isBuiltinBackend name then
+      if
+        isBuiltinBackend name
+      then
         list
       else
         list ++ [ pkgs.nodePackages.${name} ];
@@ -36,7 +38,9 @@ let
       mgmt_port: "${toString cfg.mgmt_port}",
       backends: [${
         concatMapStringsSep "," (name:
-          if (isBuiltinBackend name) then
+          if
+            (isBuiltinBackend name)
+          then
             ''"./backends/${name}"''
           else
             ''"${name}"'') cfg.backends

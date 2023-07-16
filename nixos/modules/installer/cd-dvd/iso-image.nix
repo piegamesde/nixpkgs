@@ -36,7 +36,9 @@ let
   # Builds the default options.
   buildMenuGrub2 = buildMenuAdditionalParamsGrub2 "";
 
-  targetArch = if config.boot.loader.grub.forcei686 then
+  targetArch = if
+    config.boot.loader.grub.forcei686
+  then
     "ia32"
   else
     pkgs.stdenv.hostPlatform.efiArch;
@@ -77,7 +79,9 @@ let
   # Timeout in syslinux is in units of 1/10 of a second.
   # null means max timeout (35996, just under 1h in 1/10 seconds)
   # 0 means disable timeout
-  syslinuxTimeout = if config.boot.loader.timeout == null then
+  syslinuxTimeout = if
+    config.boot.loader.timeout == null
+  then
     35996
   else
     config.boot.loader.timeout * 10;
@@ -85,7 +89,9 @@ let
   # Timeout in grub is in seconds.
   # null means max timeout (infinity)
   # 0 means disable timeout
-  grubEfiTimeout = if config.boot.loader.timeout == null then
+  grubEfiTimeout = if
+    config.boot.loader.timeout == null
+  then
     -1
   else
     config.boot.loader.timeout;
@@ -169,20 +175,28 @@ let
     ++ optional config.boot.loader.grub.memtest86.enable
     isolinuxMemtest86Entry);
 
-  refindBinary = if targetArch == "x64" || targetArch == "aa64" then
+  refindBinary = if
+    targetArch == "x64" || targetArch == "aa64"
+  then
     "refind_${targetArch}.efi"
   else
     null;
 
   # Setup instructions for rEFInd.
-  refind = if refindBinary != null then ''
+  refind = if
+    refindBinary != null
+  then ''
     # Adds rEFInd to the ISO.
     cp -v ${pkgs.refind}/share/refind/${refindBinary} $out/EFI/boot/
   '' else
     "# No refind for ${targetArch}";
 
-  grubPkgs =
-    if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
+  grubPkgs = if
+    config.boot.loader.grub.forcei686
+  then
+    pkgs.pkgsi686Linux
+  else
+    pkgs;
 
   grubMenuCfg = ''
     #
@@ -235,7 +249,9 @@ let
     fi
 
     ${ # When there is a theme configured, use it, otherwise use the background image.
-    if config.isoImage.grubTheme != null then ''
+    if
+      config.isoImage.grubTheme != null
+    then ''
       # Sets theme.
       set theme=(\$root)/EFI/boot/grub-theme/theme.txt
       # Load theme fonts
@@ -845,7 +861,9 @@ in {
         inherit (config.isoImage) isoName compressImage volumeID contents;
         bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
         bootImage = "/isolinux/isolinux.bin";
-        syslinux = if config.isoImage.makeBiosBootable && canx86BiosBoot then
+        syslinux = if
+          config.isoImage.makeBiosBootable && canx86BiosBoot
+        then
           pkgs.syslinux
         else
           null;

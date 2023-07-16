@@ -19,7 +19,9 @@ let
   urn-rt = buildEnv {
     name = "urn-rt-${version}";
     ignoreCollisions = true;
-    paths = if useLuaJit then [
+    paths = if
+      useLuaJit
+    then [
       luajit
       readline
     ] else [ lua ];

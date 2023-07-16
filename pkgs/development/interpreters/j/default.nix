@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   # emulating build_all.sh configuration variables
-  jplatform = if stdenv.isDarwin then
+  jplatform = if
+    stdenv.isDarwin
+  then
     "darwin"
   else if stdenv.hostPlatform.isAarch then
     "raspberry"
@@ -40,12 +42,24 @@ stdenv.mkDerivation rec {
   else
     "unsupported";
 
-  j64x = if stdenv.is32bit then
+  j64x = if
+    stdenv.is32bit
+  then
     "j32"
   else if stdenv.isx86_64 then
-    if (stdenv.isLinux && avxSupport) then "j64avx" else "j64"
+    if
+      (stdenv.isLinux && avxSupport)
+    then
+      "j64avx"
+    else
+      "j64"
   else if stdenv.isAarch64 then
-    if stdenv.isDarwin then "j64arm" else "j64"
+    if
+      stdenv.isDarwin
+    then
+      "j64arm"
+    else
+      "j64"
   else
     "unsupported";
 

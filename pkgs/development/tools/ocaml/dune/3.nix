@@ -8,7 +8,9 @@
   ocaml-lsp,
 }:
 
-if lib.versionOlder ocaml.version "4.08" then
+if
+  lib.versionOlder ocaml.version "4.08"
+then
   throw "dune 3 is not available for OCaml ${ocaml.version}"
 else
 

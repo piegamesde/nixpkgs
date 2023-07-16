@@ -10,8 +10,13 @@
 let
   inherit (lib.strings) escapeNixIdentifier;
 
-  allTests =
-    lib.mapAttrs (k: v: if v == null then null else makePkgConfigTestMaybe k v)
+  allTests = lib.mapAttrs (k: v:
+    if
+      v == null
+    then
+      null
+    else
+      makePkgConfigTestMaybe k v)
     (builtins.removeAttrs defaultPkgConfigPackages [ "recurseForDerivations" ]);
 
   # nix-build rejects attribute names with periods
@@ -22,7 +27,9 @@ let
     '';
 
   makePkgConfigTestMaybe = moduleName: pkg:
-    if !lib.isDerivation pkg then
+    if
+      !lib.isDerivation pkg
+    then
       throw "pkg-config module `${
         escapeNixIdentifier moduleName
       }` is not defined to be a derivation. Please check the attribute value for `${

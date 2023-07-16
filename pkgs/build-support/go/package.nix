@@ -80,7 +80,9 @@ with builtins;
 let
   dep2src = goDep: {
     inherit (goDep) goPackagePath;
-    src = if goDep.fetch.type == "git" then
+    src = if
+      goDep.fetch.type == "git"
+    then
       fetchgit { inherit (goDep.fetch) url rev sha256; }
     else if goDep.fetch.type == "hg" then
       fetchhg { inherit (goDep.fetch) url rev sha256; }
@@ -97,7 +99,9 @@ let
     }:
     map dep2src (import depsFile);
 
-  goPath = if goDeps != null then
+  goPath = if
+    goDeps != null
+  then
     importGodeps { depsFile = goDeps; } ++ extraSrcs
   else
     extraSrcs;

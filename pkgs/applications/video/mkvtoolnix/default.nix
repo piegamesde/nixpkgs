@@ -124,7 +124,12 @@ in
       description = "Cross-platform tools for Matroska";
       homepage = "https://mkvtoolnix.download/";
       license = licenses.gpl2Only;
-      mainProgram = if withGUI then "mkvtoolnix-gui" else "mkvtoolnix";
+      mainProgram = if
+        withGUI
+      then
+        "mkvtoolnix-gui"
+      else
+        "mkvtoolnix";
       maintainers = with maintainers; [
         codyopel
         rnhmjoj

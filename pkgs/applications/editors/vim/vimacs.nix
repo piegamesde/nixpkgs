@@ -12,7 +12,12 @@
 stdenv.mkDerivation rec {
   pname = "vimacs";
   version = lib.getVersion vimPackage;
-  vimPackage = if useMacvim then macvim else vim-full;
+  vimPackage = if
+    useMacvim
+  then
+    macvim
+  else
+    vim-full;
 
   buildInputs = [
     vimPackage

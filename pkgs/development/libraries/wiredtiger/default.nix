@@ -19,7 +19,9 @@
 
 let
   shouldUsePkg = pkg:
-    if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
+    if
+      pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg
+    then
       pkg
     else
       null;

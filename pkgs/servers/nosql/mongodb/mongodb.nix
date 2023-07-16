@@ -34,7 +34,9 @@ with lib;
 }:
 
 let
-  variants = if versionAtLeast version "6.0" then rec {
+  variants = if
+    versionAtLeast version "6.0"
+  then rec {
     python = scons.python.withPackages (ps:
       with ps; [
         pyyaml
@@ -181,15 +183,21 @@ in
       runHook postInstallCheck
     '';
 
-    installTargets = if (versionAtLeast version "6.0") then
+    installTargets = if
+      (versionAtLeast version "6.0")
+    then
       "install-devcore"
     else if (versionAtLeast version "4.4") then
       "install-core"
     else
       "install";
 
-    prefixKey =
-      if (versionAtLeast version "4.4") then "DESTDIR=" else "--prefix=";
+    prefixKey = if
+      (versionAtLeast version "4.4")
+    then
+      "DESTDIR="
+    else
+      "--prefix=";
 
     enableParallelBuilding = true;
 

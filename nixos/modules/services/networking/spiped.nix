@@ -206,7 +206,12 @@ in {
     environment.etc = mapAttrs' (name: cfg:
       nameValuePair "spiped/${name}.spec" {
         text = concatStringsSep " " [
-          (if cfg.encrypt then "-e" else "-d") # Mode
+          (if
+            cfg.encrypt
+          then
+            "-e"
+          else
+            "-d") # Mode
           "-s ${cfg.source}" # Source
           "-t ${cfg.target}" # Target
           "-k ${cfg.keyfile}" # Keyfile
@@ -215,7 +220,9 @@ in {
           (optionalString cfg.waitForDNS "-D") # Wait for DNS
           (optionalString cfg.weakHandshake "-f") # No PFS
           (optionalString cfg.disableKeepalives "-j") # Keepalives
-          (if cfg.disableReresolution then
+          (if
+            cfg.disableReresolution
+          then
             "-R"
           else
             "-r ${toString cfg.resolveRefresh}")

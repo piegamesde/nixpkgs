@@ -18,7 +18,9 @@ assert csmSupport -> seabios != null;
 
 let
 
-  projectDscPath = if stdenv.isi686 then
+  projectDscPath = if
+    stdenv.isi686
+  then
     "OvmfPkg/OvmfPkgIa32.dsc"
   else if stdenv.isx86_64 then
     "OvmfPkg/OvmfPkgX64.dsc"
@@ -84,7 +86,9 @@ in
       cp ${seabios}/Csm16.bin OvmfPkg/Csm/Csm16/Csm16.bin
     '';
 
-    postFixup = if stdenv.hostPlatform.isAarch then ''
+    postFixup = if
+      stdenv.hostPlatform.isAarch
+    then ''
       mkdir -vp $fd/FV
       mkdir -vp $fd/AAVMF
       mv -v $out/FV/QEMU_{EFI,VARS}.fd $fd/FV

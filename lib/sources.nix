@@ -13,11 +13,21 @@ let
 
   # Returns true if the path exists and is a directory, false otherwise.
   pathIsDirectory = path:
-    if pathExists path then (pathType path) == "directory" else false;
+    if
+      pathExists path
+    then
+      (pathType path) == "directory"
+    else
+      false;
 
   # Returns true if the path exists and is a regular file, false otherwise.
   pathIsRegularFile = path:
-    if pathExists path then (pathType path) == "regular" else false;
+    if
+      pathExists path
+    then
+      (pathType path) == "regular"
+    else
+      false;
 
   /* A basic filter for `cleanSourceWith` that removes
      directories of version control system, backup files (*~)
@@ -91,7 +101,12 @@ let
       fromSourceAttributes {
         inherit (orig) origSrc;
         filter = path: type: filter path type && orig.filter path type;
-        name = if name != null then name else orig.name;
+        name = if
+          name != null
+        then
+          name
+        else
+          orig.name;
       }
   ;
 
@@ -125,7 +140,12 @@ let
   sourceByRegex = src: regexes:
     let
       isFiltered = src ? _isLibCleanSourceWith;
-      origSrc = if isFiltered then src.origSrc else src;
+      origSrc = if
+        isFiltered
+      then
+        src.origSrc
+      else
+        src;
     in
       lib.cleanSourceWith {
         filter = (path: type:
@@ -189,21 +209,28 @@ let
         fileName = path + "/${file}";
         packedRefsName = path + "/packed-refs";
         absolutePath = base: path:
-          if lib.hasPrefix "/" path then
+          if
+            lib.hasPrefix "/" path
+          then
             path
           else
             toString (/. + "${base}/${path}");
-      in if pathIsRegularFile path
-      # Resolve git worktrees. See gitrepository-layout(5)
+      in if
+        pathIsRegularFile path
+        # Resolve git worktrees. See gitrepository-layout(5)
       then
         let
           m = match "^gitdir: (.*)$" (lib.fileContents path);
-        in if m == null then {
+        in if
+          m == null
+        then {
           error = "File contains no gitdir reference: " + path;
         } else
           let
             gitDir = absolutePath (dirOf path) (lib.head m);
-            commonDir'' = if pathIsRegularFile "${gitDir}/commondir" then
+            commonDir'' = if
+              pathIsRegularFile "${gitDir}/commondir"
+            then
               lib.fileContents "${gitDir}/commondir"
             else
               gitDir;
@@ -220,7 +247,9 @@ let
         let
           fileContent = lib.fileContents fileName;
           matchRef = match "^ref: (.*)$" fileContent;
-        in if matchRef == null then {
+        in if
+          matchRef == null
+        then {
           value = fileContent;
         } else
           readCommitFromFile (lib.head matchRef) path
@@ -236,7 +265,9 @@ let
           # there is a bug in libstdc++ leading to stackoverflow for long strings:
           # https://github.com/NixOS/nix/issues/2147#issuecomment-659868795
           refs = filter isRef (split "\n" fileContent);
-        in if refs == [ ] then {
+        in if
+          refs == [ ]
+        then {
           error = "Could not find " + file + " in " + packedRefsName;
         } else {
           value = lib.head (matchRef (lib.head refs));
@@ -270,9 +301,24 @@ let
       isFiltered = src ? _isLibCleanSourceWith;
     in {
       # The original path
-      origSrc = if isFiltered then src.origSrc else src;
-      filter = if isFiltered then src.filter else _: _: true;
-      name = if isFiltered then src.name else "source";
+      origSrc = if
+        isFiltered
+      then
+        src.origSrc
+      else
+        src;
+      filter = if
+        isFiltered
+      then
+        src.filter
+      else
+        _: _: true;
+      name = if
+        isFiltered
+      then
+        src.name
+      else
+        "source";
     } ;
 
   # fromSourceAttributes : SourceAttrs -> Source

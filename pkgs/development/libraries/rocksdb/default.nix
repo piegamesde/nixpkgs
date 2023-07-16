@@ -63,7 +63,14 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DPORTABLE=1"
-    "-DWITH_JEMALLOC=${if enableJemalloc then "1" else "0"}"
+    "-DWITH_JEMALLOC=${
+      if
+        enableJemalloc
+      then
+        "1"
+      else
+        "0"
+    }"
     "-DWITH_JNI=0"
     "-DWITH_BENCHMARK_TOOLS=0"
     "-DWITH_TESTS=1"
@@ -79,7 +86,14 @@ stdenv.mkDerivation rec {
     "-DROCKSDB_INSTALL_ON_WINDOWS=YES" # harmless elsewhere
     (lib.optional sse42Support "-DFORCE_SSE42=1")
     (lib.optional enableLite "-DROCKSDB_LITE=1")
-    "-DFAIL_ON_WARNINGS=${if stdenv.hostPlatform.isMinGW then "NO" else "YES"}"
+    "-DFAIL_ON_WARNINGS=${
+      if
+        stdenv.hostPlatform.isMinGW
+      then
+        "NO"
+      else
+        "YES"
+    }"
   ] ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0";
 
   # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"

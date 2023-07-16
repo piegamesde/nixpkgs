@@ -76,7 +76,14 @@ in
 
     cmakeFlags = [
       "-DNOVERSIONINFOUPDATE=ON"
-      "-DNOSERVER=${if withServer then "OFF" else "ON"}"
+      "-DNOSERVER=${
+        if
+          withServer
+        then
+          "OFF"
+        else
+          "ON"
+      }"
     ];
 
     NIX_LDFLAGS = lib.concatMapStringsSep " " (e: "-rpath ${e}/lib") [

@@ -15,7 +15,12 @@ let
   cfg = config.services.mediawiki;
   fpm = config.services.phpfpm.pools.mediawiki;
   user = "mediawiki";
-  group = if cfg.webserver == "apache" then "apache" else "mediawiki";
+  group = if
+    cfg.webserver == "apache"
+  then
+    "apache"
+  else
+    "mediawiki";
 
   cacheDir = "/var/cache/mediawiki";
   stateDir = "/var/lib/mediawiki";
@@ -38,7 +43,12 @@ let
 
       ${concatStringsSep "\n" (mapAttrsToList (k: v: ''
         ln -s ${
-          if v != null then v else "$src/share/mediawiki/extensions/${k}"
+          if
+            v != null
+          then
+            v
+          else
+            "$src/share/mediawiki/extensions/${k}"
         } $out/share/mediawiki/extensions/${k}
       '') cfg.extensions)}
     '';
@@ -56,7 +66,9 @@ let
     done
   '';
 
-  dbAddr = if cfg.database.socket == null then
+  dbAddr = if
+    cfg.database.socket == null
+  then
     "${cfg.database.host}:${toString cfg.database.port}"
   else if cfg.database.type == "mysql" then
     "${cfg.database.host}:${cfg.database.socket}"
@@ -234,10 +246,14 @@ in {
 
       url = mkOption {
         type = types.str;
-        default = if cfg.webserver == "apache" then
+        default = if
+          cfg.webserver == "apache"
+        then
           "${
-            if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL
-            || cfg.httpd.virtualHost.onlySSL then
+            if
+              cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL
+              || cfg.httpd.virtualHost.onlySSL
+            then
               "https"
             else
               "http"
@@ -272,8 +288,12 @@ in {
 
       passwordSender = mkOption {
         type = types.str;
-        default = if cfg.webserver == "apache" then
-          if cfg.httpd.virtualHost.adminAddr != null then
+        default = if
+          cfg.webserver == "apache"
+        then
+          if
+            cfg.httpd.virtualHost.adminAddr != null
+          then
             cfg.httpd.virtualHost.adminAddr
           else
             config.services.httpd.adminAddr
@@ -349,7 +369,12 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "mysql" then 3306 else 5432;
+          default = if
+            cfg.database.type == "mysql"
+          then
+            3306
+          else
+            5432;
           defaultText = literalExpression "3306";
           description = lib.mdDoc "Database host port.";
         };
@@ -390,14 +415,15 @@ in {
 
         socket = mkOption {
           type = types.nullOr types.path;
-          default =
-            if (cfg.database.type == "mysql" && cfg.database.createLocally) then
-              "/run/mysqld/mysqld.sock"
-            else if (cfg.database.type == "postgres"
-              && cfg.database.createLocally) then
-              "/run/postgresql"
-            else
-              null;
+          default = if
+            (cfg.database.type == "mysql" && cfg.database.createLocally)
+          then
+            "/run/mysqld/mysqld.sock"
+          else if (cfg.database.type == "postgres"
+            && cfg.database.createLocally) then
+            "/run/postgresql"
+          else
+            null;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc "Path to the unix socket file to use for authentication.";
@@ -540,7 +566,9 @@ in {
     services.phpfpm.pools.mediawiki = {
       inherit user group;
       phpEnv.MEDIAWIKI_CONFIG = "${mediawikiConfig}";
-      settings = (if (cfg.webserver == "apache") then {
+      settings = (if
+        (cfg.webserver == "apache")
+      then {
         "listen.owner" = config.services.httpd.user;
         "listen.group" = config.services.httpd.group;
       } else {

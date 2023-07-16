@@ -105,7 +105,9 @@ in {
               + optionalString (options.useCuda) " --use_cuda"
               + (concatMapStringsSep " " escapeShellArgs options.extraArgs);
             CapabilityBoundingSet = "";
-            DeviceAllow = if options.useCuda then [
+            DeviceAllow = if
+              options.useCuda
+            then [
               # https://docs.nvidia.com/dgx/pdf/dgx-os-5-user-guide.pdf
               "/dev/nvidia1"
               "/dev/nvidia2"

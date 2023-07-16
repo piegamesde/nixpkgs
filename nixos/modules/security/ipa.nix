@@ -7,7 +7,13 @@
 with lib;
 let
   cfg = config.security.ipa;
-  pyBool = x: if x then "True" else "False";
+  pyBool = x:
+    if
+      x
+    then
+      "True"
+    else
+      "False";
 
   ldapConf = pkgs.writeText "ldap.conf" ''
     # Turning this off breaks GSSAPI used with krb5 when rdns = false

@@ -91,7 +91,9 @@ let
       crateName = crateArgs.crateName or "nixtestcrate";
       libName = crateArgs.libName or crateName;
 
-      libTestBinary = if !isLib then
+      libTestBinary = if
+        !isLib
+      then
         null
       else
         mkHostCrate {
@@ -106,7 +108,9 @@ let
 
       runCommand "run-buildRustCrate-${crateName}-test" {
         nativeBuildInputs = [ crate ];
-      } (if !hasTests then ''
+      } (if
+        !hasTests
+      then ''
         ${lib.concatMapStringsSep "\n" (binary:
           # Can't actually run the binary when cross-compiling
           (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
@@ -164,7 +168,12 @@ let
     let
       crate =
         mkHostCrate (builtins.removeAttrs crateArgs [ "expectedTestOutput" ]);
-      crateOutput = if output == null then crate else crate."${output}";
+      crateOutput = if
+        output == null
+      then
+        crate
+      else
+        crate."${output}";
       expectedFilesFile = writeTextFile {
         name = "expected-files-${name}";
         text = let
@@ -711,8 +720,9 @@ in rec {
       brotliTest = let
         pkg = brotliCrates.brotli_2_5_0 { };
       in
-        runCommand "run-brotli-test-cmd" { nativeBuildInputs = [ pkg ]; }
-        (if stdenv.hostPlatform == stdenv.buildPlatform then ''
+        runCommand "run-brotli-test-cmd" { nativeBuildInputs = [ pkg ]; } (if
+          stdenv.hostPlatform == stdenv.buildPlatform
+        then ''
           ${pkg}/bin/brotli -c ${pkg}/bin/brotli > /dev/null && touch $out
         '' else ''
           test -x '${pkg}/bin/brotli' && touch $out
@@ -740,8 +750,9 @@ in rec {
       rcgenTest = let
         pkg = rcgenCrates.rootCrate.build;
       in
-        runCommand "run-rcgen-test-cmd" { nativeBuildInputs = [ pkg ]; }
-        (if stdenv.hostPlatform == stdenv.buildPlatform then ''
+        runCommand "run-rcgen-test-cmd" { nativeBuildInputs = [ pkg ]; } (if
+          stdenv.hostPlatform == stdenv.buildPlatform
+        then ''
           ${pkg}/bin/rcgen && touch $out
         '' else ''
           test -x '${pkg}/bin/rcgen' && touch $out

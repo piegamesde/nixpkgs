@@ -86,7 +86,12 @@ in {
           "${pkgs.upterm}/bin/uptermd --ssh-addr ${cfg.listenAddress}:${
             toString cfg.port
           } --private-key ${
-            if cfg.hostKey == null then "ssh_host_ed25519_key" else cfg.hostKey
+            if
+              cfg.hostKey == null
+            then
+              "ssh_host_ed25519_key"
+            else
+              cfg.hostKey
           } ${concatStringsSep " " cfg.extraFlags}";
 
         # Hardening

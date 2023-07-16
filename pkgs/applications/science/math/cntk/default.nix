@@ -98,7 +98,14 @@ in
         "--with-boost=${boost.dev}"
         "--with-protobuf=${protobuf}"
         "--with-mpi=${mpi}"
-        "--cuda=${if cudaSupport then "yes" else "no"}"
+        "--cuda=${
+          if
+            cudaSupport
+          then
+            "yes"
+          else
+            "no"
+        }"
         # FIXME
         "--asgd=no"
       ] ++ lib.optionals cudaSupport [
@@ -147,7 +154,9 @@ in
       meta = with lib; {
         homepage = "https://github.com/Microsoft/CNTK";
         description = "An open source deep-learning toolkit";
-        license = if onebitSGDSupport then
+        license = if
+          onebitSGDSupport
+        then
           licenses.unfreeRedistributable
         else
           licenses.mit;

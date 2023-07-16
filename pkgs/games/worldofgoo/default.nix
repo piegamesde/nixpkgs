@@ -11,7 +11,12 @@
 }:
 
 let
-  arch = if stdenv.system == "x86_64-linux" then "x86_64" else "x86";
+  arch = if
+    stdenv.system == "x86_64-linux"
+  then
+    "x86_64"
+  else
+    "x86";
 
   desktopItem = makeDesktopItem {
     desktopName = "World of Goo";

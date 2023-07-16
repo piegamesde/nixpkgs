@@ -57,7 +57,12 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    (if stdenv.is64bit then "--enable-32-64" else "--enable-32")
+    (if
+      stdenv.is64bit
+    then
+      "--enable-32-64"
+    else
+      "--enable-32")
     "--enable-readline"
   ];
 

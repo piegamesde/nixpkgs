@@ -57,7 +57,9 @@ stdenv.mkDerivation rec {
     Kernel
   ];
 
-  installPhase = if stdenv.isDarwin then ''
+  installPhase = if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/Applications $out/bin
     cp -r MIDIVisualizer.app $out/Applications/
     ln -s ../Applications/MIDIVisualizer.app/Contents/MacOS/MIDIVisualizer $out/bin/

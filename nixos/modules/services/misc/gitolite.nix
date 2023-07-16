@@ -200,7 +200,9 @@ in {
         config.programs.ssh.package
       ];
       script = let
-        rcSetupScriptIfCustomFile = if manageGitoliteRc then ''
+        rcSetupScriptIfCustomFile = if
+          manageGitoliteRc
+        then ''
           cat <<END
           <3>ERROR: NixOS can't apply declarative configuration
           <3>to your .gitolite.rc file, because it seems to be
@@ -216,7 +218,9 @@ in {
         '' else ''
           :
         '';
-        rcSetupScriptIfDefaultFileOrStoreSymlink = if manageGitoliteRc then ''
+        rcSetupScriptIfDefaultFileOrStoreSymlink = if
+          manageGitoliteRc
+        then ''
           ln -sf "${rcDir}/gitolite.rc" "$GITOLITE_RC"
         '' else ''
           [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"

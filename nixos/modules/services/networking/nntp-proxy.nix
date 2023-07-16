@@ -13,7 +13,13 @@ let
 
   cfg = config.services.nntp-proxy;
 
-  configBool = b: if b then "TRUE" else "FALSE";
+  configBool = b:
+    if
+      b
+    then
+      "TRUE"
+    else
+      "FALSE";
 
   confFile = pkgs.writeText "nntp-proxy.conf" ''
     nntp_server:

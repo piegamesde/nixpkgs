@@ -51,7 +51,9 @@
 }:
 
 let
-  arch = if stdenv.hostPlatform.system == "i686-linux" then
+  arch = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
     "i686"
   else if stdenv.hostPlatform.system == "x86_64-linux"
   || stdenv.hostPlatform.system == "x86_64-darwin" then

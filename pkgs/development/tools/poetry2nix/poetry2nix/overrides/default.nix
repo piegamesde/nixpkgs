@@ -11,21 +11,34 @@ let
       extraAttrs ? [ ]
     }:
     let
-      buildSystem = if builtins.isAttrs attr then
+      buildSystem = if
+        builtins.isAttrs attr
+      then
         let
-          fromIsValid = if builtins.hasAttr "from" attr then
+          fromIsValid = if
+            builtins.hasAttr "from" attr
+          then
             lib.versionAtLeast drv.version attr.from
           else
             true;
-          untilIsValid = if builtins.hasAttr "until" attr then
+          untilIsValid = if
+            builtins.hasAttr "until" attr
+          then
             lib.versionOlder drv.version attr.until
           else
             true;
-          intendedBuildSystem = if attr.buildSystem == "cython" then
+          intendedBuildSystem = if
+            attr.buildSystem == "cython"
+          then
             self.python.pythonForBuild.pkgs.cython
           else
             self.${attr.buildSystem};
-        in if fromIsValid && untilIsValid then intendedBuildSystem else null
+        in if
+          fromIsValid && untilIsValid
+        then
+          intendedBuildSystem
+        else
+          null
       else if attr == "cython" then
         self.python.pythonForBuild.pkgs.cython
       else
@@ -33,8 +46,10 @@ let
     in
       (
         # Flit only works on Python3
-        if (attr == "flit-core" || attr == "flit" || attr == "hatchling")
-        && !self.isPy3k then
+        if
+          (attr == "flit-core" || attr == "flit" || attr == "hatchling")
+          && !self.isPy3k
+        then
           drv
         else if drv == null then
           null
@@ -43,7 +58,9 @@ let
         else
           drv.overridePythonAttrs (old:
             # We do not need the build system for wheels.
-            if old ? format && old.format == "wheel" then
+            if
+              old ? format && old.format == "wheel"
+            then
               { }
             else {
               nativeBuildInputs = (old.nativeBuildInputs or [ ])
@@ -165,15 +182,16 @@ in
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.ffmpeg_4 ];
         });
 
-        argon2-cffi =
-          if (lib.versionAtLeast super.argon2-cffi.version "21.2.0") then
-            addBuildSystem {
-              inherit self;
-              drv = super.argon2-cffi;
-              attr = "flit-core";
-            }
-          else
-            super.argon2-cffi;
+        argon2-cffi = if
+          (lib.versionAtLeast super.argon2-cffi.version "21.2.0")
+        then
+          addBuildSystem {
+            inherit self;
+            drv = super.argon2-cffi;
+            attr = "flit-core";
+          }
+        else
+          super.argon2-cffi;
 
         awscrt = super.awscrt.overridePythonAttrs (old: {
           nativeBuildInputs = [ pkgs.cmake ] ++ old.nativeBuildInputs;
@@ -239,7 +257,9 @@ in
 
         cattrs = let
           drv = super.cattrs;
-        in if drv.version == "1.10.0" then
+        in if
+          drv.version == "1.10.0"
+        then
           drv.overridePythonAttrs (old: {
             # 1.10.0 contains a pyproject.toml that requires a pre-release Poetry
             # We can avoid using Poetry and use the generated setup.py
@@ -272,7 +292,9 @@ in
 
         cffi =
           # cffi is bundled with pypy
-          if self.python.implementation == "pypy" then
+          if
+            self.python.implementation == "pypy"
+          then
             null
           else
             (super.cffi.overridePythonAttrs (old: {
@@ -357,7 +379,9 @@ in
               lib.fakeHash);
           sha256 = getCargoHash super.cryptography.version;
           isWheel = lib.hasSuffix ".whl" super.cryptography.src;
-          scrypto = if isWheel then
+          scrypto = if
+            isWheel
+          then
             (super.cryptography.overridePythonAttrs { preferWheel = true; })
           else
             super.cryptography;
@@ -376,7 +400,9 @@ in
                   rust.rustc
                 ]) ++ [ pkg-config ];
               buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libxcrypt ]
-                ++ [ (if lib.versionAtLeast old.version "37" then
+                ++ [ (if
+                  lib.versionAtLeast old.version "37"
+                then
                   pkgs.openssl_3
                 else
                   pkgs.openssl_1_1) ] ++ lib.optionals stdenv.isDarwin [
@@ -451,10 +477,12 @@ in
 
           preConfigure = lib.concatStringsSep "\n" [
             (old.preConfigure or "")
-            (if (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-              && stdenv.isDarwin) then ''
-                MACOSX_DEPLOYMENT_TARGET=10.16
-              '' else
+            (if
+              (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+                && stdenv.isDarwin)
+            then ''
+              MACOSX_DEPLOYMENT_TARGET=10.16
+            '' else
               "")
           ];
 
@@ -541,8 +569,10 @@ in
         });
 
         # Setuptools >= 60 broke build_py_2to3
-        docutils = if lib.versionOlder super.docutils.version "0.16"
-        && lib.versionAtLeast super.setuptools.version "60" then
+        docutils = if
+          lib.versionOlder super.docutils.version "0.16"
+          && lib.versionAtLeast super.setuptools.version "60"
+        then
           (super.docutils.overridePythonAttrs
             (old: { SETUPTOOLS_USE_DISTUTILS = "stdlib"; }))
         else
@@ -557,7 +587,12 @@ in
         });
 
         # Environment markers are not always included (depending on how a dep was defined)
-        enum34 = if self.pythonAtLeast "3.4" then null else super.enum34;
+        enum34 = if
+          self.pythonAtLeast "3.4"
+        then
+          null
+        else
+          super.enum34;
 
         eth-hash = super.eth-hash.overridePythonAttrs {
           preConfigure = ''
@@ -734,7 +769,9 @@ in
         });
 
         h5py = super.h5py.overridePythonAttrs (old:
-          if old.format != "wheel" then
+          if
+            old.format != "wheel"
+          then
             (let
               mpi = pkgs.hdf5.mpi;
               mpiSupport = pkgs.hdf5.mpiSupport;
@@ -750,10 +787,19 @@ in
                   self.mpi4py
                   pkgs.openssh
                 ];
-              preBuild =
-                if mpiSupport then "export CC=${mpi}/bin/mpicc" else "";
+              preBuild = if
+                mpiSupport
+              then
+                "export CC=${mpi}/bin/mpicc"
+              else
+                "";
               HDF5_DIR = "${pkgs.hdf5}";
-              HDF5_MPI = if mpiSupport then "ON" else "OFF";
+              HDF5_MPI = if
+                mpiSupport
+              then
+                "ON"
+              else
+                "OFF";
               # avoid strict pinning of numpy
               postPatch = ''
                 substituteInPlace setup.py \
@@ -941,7 +987,9 @@ in
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.yajl ];
         });
 
-        jsonschema = if lib.versionAtLeast super.jsonschema.version "4.0.0" then
+        jsonschema = if
+          lib.versionAtLeast super.jsonschema.version "4.0.0"
+        then
           super.jsonschema.overridePythonAttrs (old: {
             propagatedBuildInputs = (old.propagatedBuildInputs or [ ])
               ++ [ self.importlib-resources ];
@@ -1019,7 +1067,9 @@ in
 
         llvmlite = super.llvmlite.overridePythonAttrs (old:
           let
-            llvm = if lib.versionAtLeast old.version "0.37.0" then
+            llvm = if
+              lib.versionAtLeast old.version "0.37.0"
+            then
               pkgs.llvmPackages_11.llvm
             else if (lib.versionOlder old.version "0.37.0"
               && lib.versionAtLeast old.version "0.34.0") then
@@ -1065,7 +1115,9 @@ in
             passthru = old.passthru // { llvm = llvm; };
           } );
 
-        lsassy = if super.lsassy.version == "3.1.1" then
+        lsassy = if
+          super.lsassy.version == "3.1.1"
+        then
           super.lsassy.overridePythonAttrs (old: {
             # pyproject.toml contains a constraint `rich = "^10.6.0"` which is not replicated in setup.py
             # hence pypi misses it and poetry pins rich to 11.0.0
@@ -1214,7 +1266,9 @@ in
           buildInputs = (old.buildInputs or [ ]) ++ [ self.pytorch ];
         });
 
-        molecule = if lib.versionOlder super.molecule.version "3.0.0" then
+        molecule = if
+          lib.versionOlder super.molecule.version "3.0.0"
+        then
           (super.molecule.overridePythonAttrs (old: {
             patches = (old.patches or [ ]) ++ [
               # Fix build with more recent setuptools versions
@@ -1347,8 +1401,12 @@ in
             };
           in {
             # fails to build with format=pyproject and setuptools >= 65
-            format =
-              if (old.format == "poetry2nix") then "setuptools" else old.format;
+            format = if
+              (old.format == "poetry2nix")
+            then
+              "setuptools"
+            else
+              old.format;
             nativeBuildInputs = (old.nativeBuildInputs or [ ])
               ++ [ pkgs.gfortran ];
             buildInputs = (old.buildInputs or [ ]) ++ [ blas ];
@@ -1596,7 +1654,9 @@ in
 
         poetry-core = super.poetry-core.overridePythonAttrs (old:
           let
-            initFile = if lib.versionOlder super.poetry-core.version "1.1" then
+            initFile = if
+              lib.versionOlder super.poetry-core.version "1.1"
+            then
               "poetry/__init__.py"
             else
               "./src/poetry/core/__init__.py";
@@ -1673,8 +1733,10 @@ in
           ];
         });
 
-        pyarrow = if (!super.pyarrow.src.isWheel or false)
-        && lib.versionAtLeast super.pyarrow.version "0.16.0" then
+        pyarrow = if
+          (!super.pyarrow.src.isWheel or false)
+          && lib.versionAtLeast super.pyarrow.version "0.16.0"
+        then
           super.pyarrow.overridePythonAttrs (old:
             let
               parseMinor = drv:
@@ -1694,7 +1756,9 @@ in
               pyArrowVersion = parseMinor super.pyarrow;
               errorMessage =
                 "arrow-cpp version (${arrowCppVersion}) mismatches pyarrow version (${pyArrowVersion})";
-            in if arrowCppVersion != pyArrowVersion then
+            in if
+              arrowCppVersion != pyArrowVersion
+            then
               throw errorMessage
             else {
 
@@ -1711,7 +1775,12 @@ in
               inherit ARROW_HOME;
 
               PYARROW_BUILD_TYPE = "release";
-              PYARROW_WITH_FLIGHT = if _arrow-cpp.enableFlight then 1 else 0;
+              PYARROW_WITH_FLIGHT = if
+                _arrow-cpp.enableFlight
+              then
+                1
+              else
+                0;
               PYARROW_WITH_DATASET = 1;
               PYARROW_WITH_PARQUET = 1;
               PYARROW_CMAKE_OPTIONS = [
@@ -1740,8 +1809,14 @@ in
               propagatedBuildInputs = (old.propagatedBuildInputs or [ ])
                 ++ [ pkgs.cairo ];
 
-              mesonFlags =
-                [ "-Dpython=${if self.isPy3k then "python3" else "python"}" ];
+              mesonFlags = [ "-Dpython=${
+                  if
+                    self.isPy3k
+                  then
+                    "python3"
+                  else
+                    "python"
+                }" ];
             })) super.pycairo;
 
         pycocotools = super.pycocotools.overridePythonAttrs
@@ -1878,7 +1953,9 @@ in
             inherit (pkgs) PCSC pcsclite;
             withApplePCSC = stdenv.isDarwin;
           in {
-            postPatch = if withApplePCSC then ''
+            postPatch = if
+              withApplePCSC
+            then ''
               substituteInPlace smartcard/scard/winscarddll.c \
                 --replace "/System/Library/Frameworks/PCSC.framework/PCSC" \
                           "${PCSC}/Library/Frameworks/PCSC.framework/PCSC"
@@ -2162,7 +2239,9 @@ in
         });
 
         scipy = super.scipy.overridePythonAttrs (old:
-          if old.format != "wheel" then {
+          if
+            old.format != "wheel"
+          then {
             nativeBuildInputs = (old.nativeBuildInputs or [ ])
               ++ [ pkgs.gfortran ] ++ lib.optionals
               (lib.versionAtLeast super.scipy.version "1.7.0") [ self.pythran ]
@@ -2356,7 +2435,9 @@ in
             pkg ? super.torch
           }:
           pkg.overrideAttrs (old: {
-            preConfigure = if (!enableCuda) then ''
+            preConfigure = if
+              (!enableCuda)
+            then ''
               export USE_CUDA=0
             '' else ''
               export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${cudatoolkit}/targets/x86_64-linux/lib"
@@ -2390,7 +2471,9 @@ in
             autoPatchelfIgnoreMissingDeps = true;
             buildInputs = (old.buildInputs or [ ]) ++ [ self.torch ]
               ++ lib.optionals enableCuda [ cudatoolkit ];
-            preConfigure = if (enableCuda) then ''
+            preConfigure = if
+              (enableCuda)
+            then ''
               export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${self.torch}/${self.python.sitePackages}/torch/lib:${
                 lib.makeLibraryPath [
                   cudatoolkit
@@ -2434,7 +2517,9 @@ in
 
         # Stop infinite recursion by using bootstrapped pkg from nixpkgs
         bootstrapped-pip = super.bootstrapped-pip.override {
-          wheel = ((if self.python.isPy2 then
+          wheel = ((if
+            self.python.isPy2
+          then
             pkgs.python2
           else
             pkgs.python3).pkgs.override { python = self.python; }).wheel;
@@ -2515,7 +2600,9 @@ in
         }).overrideAttrs
           (old: { inherit (super.wheel) pname name version src; });
 
-        zipp = if super.zipp == null then
+        zipp = if
+          super.zipp == null
+        then
           null
         else
           super.zipp.overridePythonAttrs (old: {
@@ -2527,8 +2614,10 @@ in
           old = super.packaging;
           # From 20.5 until 20.7, packaging used flit for packaging (heh)
           # See https://github.com/pypa/packaging/pull/352 and https://github.com/pypa/packaging/pull/367
-        in if (lib.versionAtLeast old.version "20.5"
-          && lib.versionOlder old.version "20.8") then
+        in if
+          (lib.versionAtLeast old.version "20.5"
+            && lib.versionOlder old.version "20.8")
+        then
           addBuildSystem {
             inherit self;
             drv = old;

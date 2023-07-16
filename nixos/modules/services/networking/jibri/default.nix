@@ -12,7 +12,9 @@ let
 
   # Copied from the jitsi-videobridge.nix file.
   toHOCON = x:
-    if isAttrs x && x ? __hocon_envvar then
+    if
+      isAttrs x && x ? __hocon_envvar
+    then
       ("\${" + x.__hocon_envvar + "}")
     else if isAttrs x then
       "{${
@@ -26,8 +28,13 @@ let
   # We're passing passwords in environment variables that have names generated
   # from an attribute name, which may not be a valid bash identifier.
   toVarName = s:
-    "XMPP_PASSWORD_" + stringAsChars
-    (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s;
+    "XMPP_PASSWORD_" + stringAsChars (c:
+      if
+        builtins.match "[A-Za-z0-9]" c != null
+      then
+        c
+      else
+        "_") s;
 
   defaultJibriConfig = {
     id = "";

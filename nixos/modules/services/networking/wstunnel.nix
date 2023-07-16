@@ -10,9 +10,13 @@ with lib;
 let
   cfg = config.services.wstunnel;
   attrsToArgs = attrs:
-    utils.escapeSystemdExecArgs (mapAttrsToList
-      (name: value: if value == true then "--${name}" else "--${name}=${value}")
-      attrs);
+    utils.escapeSystemdExecArgs (mapAttrsToList (name: value:
+      if
+        value == true
+      then
+        "--${name}"
+      else
+        "--${name}=${value}") attrs);
   hostPortSubmodule = {
     options = {
       host = mkOption {
@@ -109,7 +113,12 @@ let
           type = types.submodule hostPortSubmodule;
           default = {
             address = "0.0.0.0";
-            port = if config.enableHTTPS then 443 else 80;
+            port = if
+              config.enableHTTPS
+            then
+              443
+            else
+              80;
           };
           defaultText = literalExpression ''
             {
@@ -316,11 +325,15 @@ let
         Type = "simple";
         ExecStart = with serverCfg;
           let
-            resolvedTlsCertificate = if useACMEHost != null then
+            resolvedTlsCertificate = if
+              useACMEHost != null
+            then
               "${certConfig.directory}/fullchain.pem"
             else
               tlsCertificate;
-            resolvedTlsKey = if useACMEHost != null then
+            resolvedTlsKey = if
+              useACMEHost != null
+            then
               "${certConfig.directory}/key.pem"
             else
               tlsKey;
@@ -345,10 +358,14 @@ let
               ${optionalString verboseLogging "--verbose"} \
               ${attrsToArgs extraArgs} \
               ${
-                utils.escapeSystemdExecArg
-                "${if enableHTTPS then "wss" else "ws"}://${
-                  hostPortToString listen
-                }"
+                utils.escapeSystemdExecArg "${
+                  if
+                    enableHTTPS
+                  then
+                    "wss"
+                  else
+                    "ws"
+                }://${hostPortToString listen}"
               }
           '' ;
         EnvironmentFile = optional (serverCfg.environmentFile != null)
@@ -429,10 +446,14 @@ let
             ${optionalString verboseLogging "--verbose"} \
             ${attrsToArgs extraArgs} \
             ${
-              utils.escapeSystemdExecArg
-              "${if enableHTTPS then "wss" else "ws"}://${
-                hostPortToString connectTo
-              }"
+              utils.escapeSystemdExecArg "${
+                if
+                  enableHTTPS
+                then
+                  "wss"
+                else
+                  "ws"
+              }://${hostPortToString connectTo}"
             }
         '';
         EnvironmentFile = optional (clientCfg.environmentFile != null)

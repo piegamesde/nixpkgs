@@ -145,10 +145,20 @@ in
       rm $out/bin/install_precompiled_kernels.sh
     '' + lib.optionalString buildDocs ''
       mv ../doc/html $out/share/doc/miopen-${
-        if useOpenCL then "opencl" else "hip"
+        if
+          useOpenCL
+        then
+          "opencl"
+        else
+          "hip"
       }
       mv ../doc/pdf/miopen.pdf $out/share/doc/miopen-${
-        if useOpenCL then "opencl" else "hip"
+        if
+          useOpenCL
+        then
+          "opencl"
+        else
+          "hip"
       }
     '' + lib.optionalString buildTests ''
       mkdir -p $test/bin

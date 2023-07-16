@@ -81,7 +81,9 @@ let
     # The "nixos-fw-refuse" chain rejects or drops packets.
     ip46tables -N nixos-fw-refuse
 
-    ${if cfg.rejectPackets then ''
+    ${if
+      cfg.rejectPackets
+    then ''
       # Send a reset for existing TCP connections that we've
       # somehow forgotten about.  Send ICMP "port unreachable"
       # for everything else.

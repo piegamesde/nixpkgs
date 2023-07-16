@@ -25,7 +25,14 @@ let
   inherit (pkgs) vsftpd;
 
   yesNoOption = nixosName: vsftpdName: default: description: {
-    cfgText = "${vsftpdName}=${if getAttr nixosName cfg then "YES" else "NO"}";
+    cfgText = "${vsftpdName}=${
+        if
+          getAttr nixosName cfg
+        then
+          "YES"
+        else
+          "NO"
+      }";
 
     nixosOption = {
       type = types.bool;
@@ -296,7 +303,9 @@ in {
         group = "vsftpd";
         isSystemUser = true;
         description = "VSFTPD user";
-        home = if cfg.localRoot != null then
+        home = if
+          cfg.localRoot != null
+        then
           cfg.localRoot # <= Necessary for virtual users.
         else
           "/homeless-shelter";

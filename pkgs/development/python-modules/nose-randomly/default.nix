@@ -21,7 +21,9 @@ buildPythonPackage rec {
     nose
   ];
 
-  checkPhase = if stdenv.isDarwin then ''
+  checkPhase = if
+    stdenv.isDarwin
+  then ''
     # Work around "OSError: AF_UNIX path too long"
     TMPDIR="/tmp" nosetests
   '' else ''

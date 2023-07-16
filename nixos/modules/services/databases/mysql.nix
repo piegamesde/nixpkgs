@@ -326,11 +326,12 @@ in {
 
   config = mkIf cfg.enable {
 
-    services.mysql.dataDir = mkDefault
-      (if versionAtLeast config.system.stateVersion "17.09" then
-        "/var/lib/mysql"
-      else
-        "/var/mysql");
+    services.mysql.dataDir = mkDefault (if
+      versionAtLeast config.system.stateVersion "17.09"
+    then
+      "/var/lib/mysql"
+    else
+      "/var/mysql");
 
     services.mysql.settings.mysqld = mkMerge [
       {
@@ -384,7 +385,9 @@ in {
         pkgs.nettools
       ];
 
-      preStart = if isMariaDB then ''
+      preStart = if
+        isMariaDB
+      then ''
         if ! test -e ${cfg.dataDir}/mysql; then
           ${cfg.package}/bin/mysql_install_db --defaults-file=/etc/my.cnf ${mysqldOptions}
           touch ${cfg.dataDir}/mysql_init
@@ -410,7 +413,12 @@ in {
 
       postStart = let
         # The super user account to use on *first* run of MySQL server
-        superUser = if isMariaDB then cfg.user else "root";
+        superUser = if
+          isMariaDB
+        then
+          cfg.user
+        else
+          "root";
       in ''
         ${optionalString (!isMariaDB) ''
           # Wait until the MySQL server is available for use
@@ -434,7 +442,12 @@ in {
             # While MariaDB comes with a 'mysql' super user account since 10.4.x, MySQL does not
             # Since we don't want to run this service as 'root' we need to ensure the account exists on first run
             ( echo "CREATE USER IF NOT EXISTS '${cfg.user}'@'localhost' IDENTIFIED WITH ${
-              if isMariaDB then "unix_socket" else "auth_socket"
+              if
+                isMariaDB
+              then
+                "unix_socket"
+              else
+                "auth_socket"
             };"
               echo "GRANT ALL PRIVILEGES ON *.* TO '${cfg.user}'@'localhost' WITH GRANT OPTION;"
             ) | ${cfg.package}/bin/mysql -u ${superUser} -N
@@ -513,7 +526,12 @@ in {
 
         ${concatMapStrings (user: ''
           ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${
-            if isMariaDB then "unix_socket" else "auth_socket"
+            if
+              isMariaDB
+            then
+              "unix_socket"
+            else
+              "auth_socket"
           };"
             ${
               concatStringsSep "\n" (mapAttrsToList (database: permission: ''
@@ -526,7 +544,12 @@ in {
 
       serviceConfig = mkMerge [
         {
-          Type = if isMariaDB then "notify" else "simple";
+          Type = if
+            isMariaDB
+          then
+            "notify"
+          else
+            "simple";
           Restart = "on-abort";
           RestartSec = "5s";
 

@@ -75,7 +75,9 @@ let
     ]) // {
       name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
       version = mktplcRef.version;
-      src = if (vsix != null) then
+      src = if
+        (vsix != null)
+      then
         vsix
       else
         fetchVsixFromVscodeMarketplace mktplcRef;

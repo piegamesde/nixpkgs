@@ -90,7 +90,9 @@ let
       ...
     }@args:
     let
-      artifactDirectory = if platform == null then
+      artifactDirectory = if
+        platform == null
+      then
         null
       else
         "${platform}${lib.optionalString (variant != null) "-${variant}"}";
@@ -109,7 +111,9 @@ let
               lib.optionalString (platform != null) "/${artifactDirectory}"
             }/${archive}";
           stripRoot = false;
-          hash = (if artifactDirectory == null then
+          hash = (if
+            artifactDirectory == null
+          then
             hashes
           else
             hashes.${artifactDirectory}).${archive};

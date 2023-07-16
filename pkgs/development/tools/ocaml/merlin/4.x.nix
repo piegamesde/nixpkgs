@@ -16,8 +16,12 @@
 }:
 
 let
-  merlinVersion =
-    if lib.versionAtLeast ocaml.version "4.14" then "4.8" else "4.7";
+  merlinVersion = if
+    lib.versionAtLeast ocaml.version "4.14"
+  then
+    "4.8"
+  else
+    "4.7";
 
   hashes = {
     "4.7-412" = "sha256-0U3Ia7EblKULNy8AuXFVKACZvGN0arYJv7BWiBRgT0Y=";
@@ -31,7 +35,9 @@ let
 
   version = "${merlinVersion}-${ocamlVersionShorthand}";
 
-in if !lib.hasAttr version hashes then
+in if
+  !lib.hasAttr version hashes
+then
   builtins.throw
   "merlin ${merlinVersion} is not available for OCaml ${ocaml.version}"
 else
@@ -62,7 +68,12 @@ else
     buildInputs = [
       dot-merlin-reader
       yojson
-      (if lib.versionAtLeast version "4.7-414" then merlin-lib else csexp)
+      (if
+        lib.versionAtLeast version "4.7-414"
+      then
+        merlin-lib
+      else
+        csexp)
       menhirSdk
       menhirLib
     ];

@@ -23,7 +23,9 @@ buildPythonPackage rec {
   buildInputs = [
     rdkafka
     requests
-  ] ++ (if isPy3k then [ avro3k ] else [
+  ] ++ (if
+    isPy3k
+  then [ avro3k ] else [
     enum34
     avro
     futures

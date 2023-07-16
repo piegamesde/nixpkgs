@@ -84,7 +84,9 @@ in
       suitesparse
     ] ++ lib.optionals withMPI [ mpi ];
 
-    preConfigure = if withMPI then ''
+    preConfigure = if
+      withMPI
+    then ''
       cmakeFlagsArray+=(${flagsBase} ${flagsParallel})
     '' else ''
       cmakeFlagsArray+=(${flagsBase})

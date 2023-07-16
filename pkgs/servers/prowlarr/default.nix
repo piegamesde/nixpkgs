@@ -20,7 +20,9 @@ let
   unsupported =
     throw "Unsupported system ${stdenv.hostPlatform.system} for ${pname}";
 
-  os = if stdenv.isDarwin then
+  os = if
+    stdenv.isDarwin
+  then
     "osx"
   else if stdenv.isLinux then
     "linux"

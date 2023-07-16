@@ -36,7 +36,9 @@ buildPythonPackage rec {
 
   prePatch = ''
     substituteInPlace rarfile.py \
-  '' + (if useUnrar then ''
+  '' + (if
+    useUnrar
+  then ''
     --replace 'UNRAR_TOOL = "unrar"' "UNRAR_TOOL = \"${unrar}/bin/unrar\""
   '' else ''
     --replace 'ALT_TOOL = "bsdtar"' "ALT_TOOL = \"${libarchive}/bin/bsdtar\""

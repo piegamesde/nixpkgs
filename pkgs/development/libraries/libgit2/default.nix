@@ -34,7 +34,14 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DUSE_HTTP_PARSER=system"
     "-DUSE_SSH=ON"
-    "-DBUILD_SHARED_LIBS=${if staticBuild then "OFF" else "ON"}"
+    "-DBUILD_SHARED_LIBS=${
+      if
+        staticBuild
+      then
+        "OFF"
+      else
+        "ON"
+    }"
   ];
 
   nativeBuildInputs = [

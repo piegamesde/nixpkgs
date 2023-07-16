@@ -12,7 +12,12 @@
 }:
 
 let
-  examplesOnOff = if withExamples then "ON" else "OFF";
+  examplesOnOff = if
+    withExamples
+  then
+    "ON"
+  else
+    "OFF";
 
 in
   stdenv.mkDerivation rec {

@@ -35,8 +35,11 @@ let
         (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
         merged;
       # If a prefix of the new path is already in the list, do not add it
-      filteredNew =
-        if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
+      filteredNew = if
+        hasPrefixInList filteredPaths newPath
+      then
+        [ ]
+      else [ newPath ];
     in
       filteredPaths ++ filteredNew
   ) [ ];

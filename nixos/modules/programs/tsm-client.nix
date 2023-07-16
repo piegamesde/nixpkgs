@@ -162,7 +162,12 @@ let
         tcpserveraddress = config.server;
         tcpport = builtins.toString config.port;
         nodename = config.node;
-        passwordaccess = if config.genPasswd then "generate" else "prompt";
+        passwordaccess = if
+          config.genPasswd
+        then
+          "generate"
+        else
+          "prompt";
         passworddir = ''"${config.passwdDir}"'';
       } // optionalAttrs (config.includeExclude != "") {
         inclexcl =

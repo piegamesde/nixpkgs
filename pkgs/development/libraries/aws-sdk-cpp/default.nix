@@ -14,7 +14,9 @@
 }:
 
 let
-  host_os = if stdenv.hostPlatform.isDarwin then
+  host_os = if
+    stdenv.hostPlatform.isDarwin
+  then
     "APPLE"
   else if stdenv.hostPlatform.isAndroid then
     "ANDROID"

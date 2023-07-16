@@ -63,7 +63,12 @@ stdenv.mkDerivation rec {
     "-DENABLE_FFMPEG=ON"
     "-DENABLE_OPENGL=ON"
     "-DENABLE_QT6_LIBS=${
-      if lib.versionAtLeast qtbase.version "6.0" then "ON" else "OFF"
+      if
+        lib.versionAtLeast qtbase.version "6.0"
+      then
+        "ON"
+      else
+        "OFF"
     }"
   ];
 

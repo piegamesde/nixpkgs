@@ -48,7 +48,9 @@ buildPythonPackage rec {
   buildInputs = [
     ncurses
     libintl
-  ] ++ (if stdenv.isDarwin then [
+  ] ++ (if
+    stdenv.isDarwin
+  then [
     AudioToolbox
     Carbon
     Cocoa

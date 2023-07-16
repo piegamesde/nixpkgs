@@ -99,7 +99,9 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = let
-        conf = if cfg.configFile == null then
+        conf = if
+          cfg.configFile == null
+        then
           prettyJSON cfg.configuration
         else
           cfg.configFile;

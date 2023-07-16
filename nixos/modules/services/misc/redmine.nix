@@ -20,8 +20,9 @@ let
       adapter: ${cfg.database.type}
       database: ${cfg.database.name}
       host: ${
-        if (cfg.database.type == "postgresql" && cfg.database.socket
-          != null) then
+        if
+          (cfg.database.type == "postgresql" && cfg.database.socket != null)
+        then
           cfg.database.socket
         else
           cfg.database.host
@@ -193,7 +194,12 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "postgresql" then 5432 else 3306;
+          default = if
+            cfg.database.type == "postgresql"
+          then
+            5432
+          else
+            3306;
           defaultText = literalExpression "3306";
           description = lib.mdDoc "Database host port.";
         };
@@ -222,7 +228,9 @@ in {
 
         socket = mkOption {
           type = types.nullOr types.path;
-          default = if mysqlLocal then
+          default = if
+            mysqlLocal
+          then
             "/run/mysqld/mysqld.sock"
           else if pgsqlLocal then
             "/run/postgresql"

@@ -19,11 +19,15 @@ let
     unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
   virtualHosts = mapAttrs (vhostName: vhostConfig:
     let
-      serverName = if vhostConfig.serverName != null then
+      serverName = if
+        vhostConfig.serverName != null
+      then
         vhostConfig.serverName
       else
         vhostName;
-      certName = if vhostConfig.useACMEHost != null then
+      certName = if
+        vhostConfig.useACMEHost != null
+      then
         vhostConfig.useACMEHost
       else
         serverName;
@@ -34,11 +38,12 @@ let
         (vhostConfig.enableACME || vhostConfig.useACMEHost != null) {
           sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
           sslCertificateKey = "${certs.${certName}.directory}/key.pem";
-          sslTrustedCertificate =
-            if vhostConfig.sslTrustedCertificate != null then
-              vhostConfig.sslTrustedCertificate
-            else
-              "${certs.${certName}.directory}/chain.pem";
+          sslTrustedCertificate = if
+            vhostConfig.sslTrustedCertificate != null
+          then
+            vhostConfig.sslTrustedCertificate
+          else
+            "${certs.${certName}.directory}/chain.pem";
         })
   ) cfg.virtualHosts;
   inherit (config.networking) enableIPv6;
@@ -124,7 +129,14 @@ let
           "/var/cache/nginx/${name}"
           "keys_zone=${proxyCachePath.keysZoneName}:${proxyCachePath.keysZoneSize}"
           "levels=${proxyCachePath.levels}"
-          "use_temp_path=${if proxyCachePath.useTempPath then "on" else "off"}"
+          "use_temp_path=${
+            if
+              proxyCachePath.useTempPath
+            then
+              "on"
+            else
+              "off"
+          }"
           "inactive=${proxyCachePath.inactive}"
           "max_size=${proxyCachePath.maxSize}"
         ]
@@ -304,7 +316,14 @@ let
         }
         client_max_body_size ${cfg.clientMaxBodySize};
 
-        server_tokens ${if cfg.serverTokens then "on" else "off"};
+        server_tokens ${
+          if
+            cfg.serverTokens
+          then
+            "on"
+          else
+            "off"
+        };
 
         ${cfg.commonHttpConfig}
 
@@ -352,7 +371,12 @@ let
     ${cfg.appendConfig}
   '';
 
-  configPath = if cfg.enableReload then "/etc/nginx/nginx.conf" else configFile;
+  configPath = if
+    cfg.enableReload
+  then
+    "/etc/nginx/nginx.conf"
+  else
+    configFile;
 
   execCommand = "${cfg.package}/bin/nginx -c '${configPath}'";
 
@@ -361,11 +385,15 @@ let
       onlySSL = vhost.onlySSL || vhost.enableSSL;
       hasSSL = onlySSL || vhost.addSSL || vhost.forceSSL;
 
-      defaultListen = if vhost.listen != [ ] then
+      defaultListen = if
+        vhost.listen != [ ]
+      then
         vhost.listen
       else
         let
-          addrs = if vhost.listenAddresses != [ ] then
+          addrs = if
+            vhost.listenAddresses != [ ]
+          then
             vhost.listenAddresses
           else
             cfg.defaultListenAddresses;
@@ -381,7 +409,9 @@ let
           }) addrs)
       ;
 
-      hostListen = if vhost.forceSSL then
+      hostListen = if
+        vhost.forceSSL
+      then
         filter (x: x.ssl) defaultListen
       else
         defaultListen;
@@ -461,8 +491,22 @@ let
         };
         ${
           optionalString (hasSSL && vhost.quic) ''
-            http3 ${if vhost.http3 then "on" else "off"};
-            http3_hq ${if vhost.http3_hq then "on" else "off"};
+            http3 ${
+              if
+                vhost.http3
+              then
+                "on"
+              else
+                "off"
+            };
+            http3_hq ${
+              if
+                vhost.http3_hq
+              then
+                "on"
+              else
+                "off"
+            };
           ''
         }
         ${acmeLocation}
@@ -562,7 +606,9 @@ let
 
   mkBasicAuth = name: zone:
     optionalString (zone.basicAuthFile != null || zone.basicAuth != { }) (let
-      auth_file = if zone.basicAuthFile != null then
+      auth_file = if
+        zone.basicAuthFile != null
+      then
         zone.basicAuthFile
       else
         mkHtpasswd name zone.basicAuth;
@@ -1428,10 +1474,19 @@ in {
             # if acmeRoot is null inherit config.security.acme
             # Since config.security.acme.certs.<cert>.webroot's own default value
             # should take precedence set priority higher than mkOptionDefault
-            webroot =
-              mkOverride (if hasRoot then 1000 else 2000) vhostConfig.acmeRoot;
+            webroot = mkOverride (if
+              hasRoot
+            then
+              1000
+            else
+              2000) vhostConfig.acmeRoot;
             # Also nudge dnsProvider to null in case it is inherited
-            dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
+            dnsProvider = mkOverride (if
+              hasRoot
+            then
+              1000
+            else
+              2000) null;
             extraDomainNames = vhostConfig.serverAliases;
             # Filter for enableACME-only vhosts. Don't want to create dud certs
           }

@@ -37,7 +37,9 @@
 
 let
   # default value of withWindowSystem
-  withWindowSystem' = if withWindowSystem != null then
+  withWindowSystem' = if
+    withWindowSystem != null
+  then
     withWindowSystem
   else if stdenv.isLinux then
     "all"
@@ -61,7 +63,9 @@ let
   };
 
   backendFlags = builtins.map (b:
-    if builtins.elem b withBackends then
+    if
+      builtins.elem b withBackends
+    then
       "-D${b}=enabled"
     else
       "-D${b}=disabled") (builtins.attrNames backends);

@@ -6,7 +6,9 @@
   coreutils,
 }:
 
-if stdenv.hostPlatform.isStatic then
+if
+  stdenv.hostPlatform.isStatic
+then
   throw ''
     libredirect is not available on static builds.
 
@@ -42,7 +44,9 @@ else
     buildPhase = ''
       runHook preBuild
 
-      ${if stdenv.isDarwin && stdenv.isAarch64 then ''
+      ${if
+        stdenv.isDarwin && stdenv.isAarch64
+      then ''
         # We need the unwrapped binutils and clang:
         # We also want to build a fat library with x86_64, arm64, arm64e in there.
         # Because we use the unwrapped tools, we need to provide -isystem for headers
@@ -94,7 +98,9 @@ else
       # Provide a setup hook that injects our library into every process.
       mkdir -p "$hook/nix-support"
       cat <<SETUP_HOOK > "$hook/nix-support/setup-hook"
-      ${if stdenv.isDarwin then ''
+      ${if
+        stdenv.isDarwin
+      then ''
         export DYLD_INSERT_LIBRARIES="$out/lib/$libName"
       '' else ''
         export LD_PRELOAD="$out/lib/$libName"

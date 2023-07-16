@@ -20,7 +20,14 @@ mkYarnPackage rec {
   packageJSON = ./package.json;
 
   NODE_ENV = "production";
-  ${if baseUrl != null then "REACT_APP_SERVER" else null} = baseUrl;
+  ${
+    if
+      baseUrl != null
+    then
+      "REACT_APP_SERVER"
+    else
+      null
+  } = baseUrl;
 
   # error:0308010C:digital envelope routines::unsupported
   NODE_OPTIONS = "--openssl-legacy-provider";

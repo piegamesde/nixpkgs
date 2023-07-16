@@ -14,7 +14,9 @@
   preferLocalBuild ? true
 }:
 
-if md5 != null then
+if
+  md5 != null
+then
   throw "fetchhg does not support md5 anymore, please use sha256 or hash"
 else if hash != null && sha256 != null then
   throw "Only one of sha256 or hash can be set"
@@ -29,9 +31,16 @@ else
 
     subrepoClause = lib.optionalString fetchSubrepos "S";
 
-    outputHashAlgo = if hash != null then null else "sha256";
+    outputHashAlgo = if
+      hash != null
+    then
+      null
+    else
+      "sha256";
     outputHashMode = "recursive";
-    outputHash = if hash != null then
+    outputHash = if
+      hash != null
+    then
       hash
     else if sha256 != null then
       sha256

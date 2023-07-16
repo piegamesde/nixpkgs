@@ -72,7 +72,9 @@ in
       description =
         "Free multiplayer action game in which you control clonks, small but witty and nimble humanoid beings";
       homepage = "https://www.openclonk.org";
-      license = if enableSoundtrack then
+      license = if
+        enableSoundtrack
+      then
         licenses.unfreeRedistributable
       else
         licenses.isc;

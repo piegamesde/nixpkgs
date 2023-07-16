@@ -93,16 +93,31 @@ rec {
   and = x: y: x && y;
 
   # bitwise “and”
-  bitAnd = builtins.bitAnd or (import ./zip-int-bits.nix
-    (a: b: if a == 1 && b == 1 then 1 else 0));
+  bitAnd = builtins.bitAnd or (import ./zip-int-bits.nix (a: b:
+    if
+      a == 1 && b == 1
+    then
+      1
+    else
+      0));
 
   # bitwise “or”
-  bitOr = builtins.bitOr or (import ./zip-int-bits.nix
-    (a: b: if a == 1 || b == 1 then 1 else 0));
+  bitOr = builtins.bitOr or (import ./zip-int-bits.nix (a: b:
+    if
+      a == 1 || b == 1
+    then
+      1
+    else
+      0));
 
   # bitwise “xor”
-  bitXor = builtins.bitXor or (import ./zip-int-bits.nix
-    (a: b: if a != b then 1 else 0));
+  bitXor = builtins.bitXor or (import ./zip-int-bits.nix (a: b:
+    if
+      a != b
+    then
+      1
+    else
+      0));
 
   # bitwise “not”
   bitNot = builtins.sub (-1);
@@ -115,7 +130,13 @@ rec {
 
      Type: boolToString :: bool -> string
   */
-  boolToString = b: if b then "true" else "false";
+  boolToString = b:
+    if
+      b
+    then
+      "true"
+    else
+      "false";
 
   /* Merge two attribute sets shallowly, right side trumps left
 
@@ -155,7 +176,12 @@ rec {
     f:
     # Argument to check for null before passing it to `f`
     a:
-    if a == null then a else f a;
+    if
+      a == null
+    then
+      a
+    else
+      f a;
 
   # Pull in some builtins not included elsewhere.
   inherit (builtins)
@@ -206,7 +232,9 @@ rec {
   # Returns the current nixpkgs version suffix as string.
   versionSuffix = let
     suffixFile = ../.version-suffix;
-  in if pathExists suffixFile then
+  in if
+    pathExists suffixFile
+  then
     lib.strings.fileContents suffixFile
   else
     "pre-git";
@@ -222,7 +250,9 @@ rec {
     let
       revisionFile = "${toString ./..}/.git-revision";
       gitRepo = "${toString ./..}/.git";
-    in if lib.pathIsGitRepo gitRepo then
+    in if
+      lib.pathIsGitRepo gitRepo
+    then
       lib.commitIdFromGitRepo gitRepo
     else if lib.pathExists revisionFile then
       lib.fileContents revisionFile
@@ -250,10 +280,22 @@ rec {
   ## Integer operations
 
   # Return minimum of two numbers.
-  min = x: y: if x < y then x else y;
+  min = x: y:
+    if
+      x < y
+    then
+      x
+    else
+      y;
 
   # Return maximum of two numbers.
-  max = x: y: if x > y then x else y;
+  max = x: y:
+    if
+      x > y
+    then
+      x
+    else
+      y;
 
   /* Integer modulus
 
@@ -273,7 +315,15 @@ rec {
      a == b, compare a b => 0
      a > b,  compare a b => 1
   */
-  compare = a: b: if a < b then -1 else if a > b then 1 else 0;
+  compare = a: b:
+    if
+      a < b
+    then
+      -1
+    else if a > b then
+      1
+    else
+      0;
 
   /* Split type into two subtypes by predicate `p`, take all elements
      of the first subtype to be less than all the elements of the
@@ -304,7 +354,19 @@ rec {
     a:
     # Second value to compare
     b:
-    if p a then if p b then yes a b else -1 else if p b then 1 else no a b;
+    if
+      p a
+    then
+      if
+        p b
+      then
+        yes a b
+      else
+        -1
+    else if p b then
+      1
+    else
+      no a b;
 
   /* Reads a JSON file.
 
@@ -342,11 +404,13 @@ rec {
 
      Type: string -> a -> a
   */
-  warn = if lib.elem (builtins.getEnv "NIX_ABORT_ON_WARN") [
-    "1"
-    "true"
-    "yes"
-  ] then
+  warn = if
+    lib.elem (builtins.getEnv "NIX_ABORT_ON_WARN") [
+      "1"
+      "true"
+      "yes"
+    ]
+  then
     msg:
     builtins.trace "[1;31mwarning: ${msg}[0m" (abort
       "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors.")
@@ -357,13 +421,25 @@ rec {
 
      Type: bool -> string -> a -> a
   */
-  warnIf = cond: msg: if cond then warn msg else x: x;
+  warnIf = cond: msg:
+    if
+      cond
+    then
+      warn msg
+    else
+      x: x;
 
   /* Like warnIf, but negated (warn if the first argument is `false`).
 
      Type: bool -> string -> a -> a
   */
-  warnIfNot = cond: msg: if cond then x: x else warn msg;
+  warnIfNot = cond: msg:
+    if
+      cond
+    then
+      x: x
+    else
+      warn msg;
 
   /* Like the `assert b; e` expression, but with a custom error message and
      without the semicolon.
@@ -383,13 +459,25 @@ rec {
          lib.foldr (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.") (r: r) overlays
          pkgs
   */
-  throwIfNot = cond: msg: if cond then x: x else throw msg;
+  throwIfNot = cond: msg:
+    if
+      cond
+    then
+      x: x
+    else
+      throw msg;
 
   /* Like throwIfNot, but negated (throw if the first argument is `true`).
 
      Type: bool -> string -> a -> a
   */
-  throwIf = cond: msg: if cond then throw msg else x: x;
+  throwIf = cond: msg:
+    if
+      cond
+    then
+      throw msg
+    else
+      x: x;
 
   /* Check if the elements in a list are valid values from a enum, returning the identity function, or throwing an error message otherwise.
 
@@ -442,7 +530,9 @@ rec {
      setFunctionArgs : (a → b) → Map String Bool.
   */
   functionArgs = f:
-    if f ? __functor then
+    if
+      f ? __functor
+    then
       f.__functionArgs or (lib.functionArgs (f.__functor f))
     else
       builtins.functionArgs f;
@@ -467,7 +557,12 @@ rec {
   toFunction =
     # Any value
     v:
-    if isFunction v then v else k: v;
+    if
+      isFunction v
+    then
+      v
+    else
+      k: v;
 
   /* Convert the given positive integer to a string of its hexadecimal
      representation. For example:
@@ -481,7 +576,9 @@ rec {
   toHexString = i:
     let
       toHexDigit = d:
-        if d < 10 then
+        if
+          d < 10
+        then
           toString d
         else
           {
@@ -508,7 +605,9 @@ rec {
   toBaseDigits = base: i:
     let
       go = i:
-        if i < base then [ i ] else
+        if
+          i < base
+        then [ i ] else
           let
             r = i - ((i / base) * base);
             q = (i - r) / base;

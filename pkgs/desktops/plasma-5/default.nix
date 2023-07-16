@@ -101,7 +101,12 @@ let
             hasBin = lib.elem "bin" outputs;
             hasDev = lib.elem "dev" outputs;
 
-            defaultSetupHook = if hasBin && hasDev then propagateBin else null;
+            defaultSetupHook = if
+              hasBin && hasDev
+            then
+              propagateBin
+            else
+              null;
             setupHook = args.setupHook or defaultSetupHook;
             nativeBuildInputs = (args.nativeBuildInputs or [ ])
               ++ [ libsForQt5.wrapQtAppsHook ];

@@ -70,13 +70,22 @@ in {
         ${config.services.nextcloud.occ}/bin/nextcloud-occ notify_push:setup ${nextcloudUrl}/push
       '';
       script = let
-        dbType = if cfg.dbtype == "pgsql" then "postgresql" else cfg.dbtype;
+        dbType = if
+          cfg.dbtype == "pgsql"
+        then
+          "postgresql"
+        else
+          cfg.dbtype;
         dbUser = lib.optionalString (cfg.dbuser != null) cfg.dbuser;
         dbPass =
           lib.optionalString (cfg.dbpassFile != null) ":$DATABASE_PASSWORD";
         isSocket = lib.hasPrefix "/" (toString cfg.dbhost);
-        dbHost = lib.optionalString (cfg.dbhost != null) (if isSocket then
-          if dbType == "postgresql" then
+        dbHost = lib.optionalString (cfg.dbhost != null) (if
+          isSocket
+        then
+          if
+            dbType == "postgresql"
+          then
             "?host=${cfg.dbhost}"
           else if dbType == "mysql" then
             "?socket=${cfg.dbhost}"

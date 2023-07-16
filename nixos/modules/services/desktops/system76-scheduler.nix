@@ -106,7 +106,12 @@ let
   ;
 
   prioToString = class: prio:
-    if prio == null then ''"${class}"'' else "(${class})${toString prio}";
+    if
+      prio == null
+    then
+      ''"${class}"''
+    else
+      "(${class})${toString prio}";
 
   schedulerProfileToString = name: a: indent:
     concatStringsSep " " ([ "${indent}${name}" ]
@@ -310,21 +315,27 @@ in {
               refresh-rate ${toString ps.refreshInterval}
               assignments {
                 ${
-                  if ps.foregroundBoost.enable then
+                  if
+                    ps.foregroundBoost.enable
+                  then
                     (schedulerProfileToString "foreground"
                       ps.foregroundBoost.foreground "    ")
                   else
                     ""
                 }
                 ${
-                  if ps.foregroundBoost.enable then
+                  if
+                    ps.foregroundBoost.enable
+                  then
                     (schedulerProfileToString "background"
                       ps.foregroundBoost.background "    ")
                   else
                     ""
                 }
                 ${
-                  if ps.pipewireBoost.enable then
+                  if
+                    ps.pipewireBoost.enable
+                  then
                     (schedulerProfileToString "pipewire"
                       ps.pipewireBoost.profile "    ")
                   else

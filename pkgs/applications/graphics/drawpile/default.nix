@@ -68,7 +68,13 @@ let
 
   kisDeps = [ qtx11extras ];
 
-  boolToFlag = bool: if bool then "ON" else "OFF";
+  boolToFlag = bool:
+    if
+      bool
+    then
+      "ON"
+    else
+      "OFF";
 
 in
   mkDerivation rec {

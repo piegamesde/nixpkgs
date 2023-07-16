@@ -36,11 +36,12 @@ in {
 
     services.unifi.jrePackage = mkOption {
       type = types.package;
-      default =
-        if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3") then
-          pkgs.jdk11
-        else
-          pkgs.jre8;
+      default = if
+        (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3")
+      then
+        pkgs.jdk11
+      else
+        pkgs.jre8;
       defaultText = literalExpression ''
         if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8'';
       description = lib.mdDoc ''

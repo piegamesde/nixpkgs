@@ -87,17 +87,32 @@ in
     ];
 
     cmakeFlags = let
-      onOff = val: if val then "ON" else "OFF";
+      onOff = val:
+        if
+          val
+        then
+          "ON"
+        else
+          "OFF";
     in [
       "-DCMAKE_BUILD_TYPE=${
-        if debug then
+        if
+          debug
+        then
           "Debug"
         else if !debug && includeDebugInfo then
           "RelWithDebInfo"
         else
           "MinSizeRel"
       }"
-      "-DKLEE_RUNTIME_BUILD_TYPE=${if debugRuntime then "Debug" else "Release"}"
+      "-DKLEE_RUNTIME_BUILD_TYPE=${
+        if
+          debugRuntime
+        then
+          "Debug"
+        else
+          "Release"
+      }"
       "-DKLEE_ENABLE_TIMESTAMP=${onOff false}"
       "-DENABLE_KLEE_UCLIBC=${onOff true}"
       "-DKLEE_UCLIBC_PATH=${kleeuClibc}"

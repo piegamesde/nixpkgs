@@ -158,9 +158,26 @@ in {
           <debug enable="${toString cfg.debugLevel}" />
           <!-- if activated, requires ofl from hxtools to be present -->
           <logout wait="${toString cfg.logoutWait}" hup="${
-            if cfg.logoutHup then "yes" else "no"
-          }" term="${if cfg.logoutTerm then "yes" else "no"}" kill="${
-            if cfg.logoutKill then "yes" else "no"
+            if
+              cfg.logoutHup
+            then
+              "yes"
+            else
+              "no"
+          }" term="${
+            if
+              cfg.logoutTerm
+            then
+              "yes"
+            else
+              "no"
+          }" kill="${
+            if
+              cfg.logoutKill
+            then
+              "yes"
+            else
+              "no"
           }" />
           <!-- set PATH variable for pam_mount module -->
           <path>${
@@ -168,9 +185,19 @@ in {
           }</path>
           <!-- create mount point if not present -->
           <mkmountpoint enable="${
-            if cfg.createMountPoints then "1" else "0"
+            if
+              cfg.createMountPoints
+            then
+              "1"
+            else
+              "0"
           }" remove="${
-            if cfg.removeCreatedMountPoints then "true" else "false"
+            if
+              cfg.removeCreatedMountPoints
+            then
+              "true"
+            else
+              "false"
           }" />
           <!-- specify the binaries to be called -->
           <fusemount>${pkgs.fuse}/bin/mount.fuse %(VOLUME) %(MNTPT) -o ${

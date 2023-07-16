@@ -23,7 +23,9 @@ let
     };
   };
 
-  mkDerivation = if stdenv.isDarwin then
+  mkDerivation = if
+    stdenv.isDarwin
+  then
     callPackage ./darwin.nix { }
   else
     libsForQt5.callPackage ./linux.nix { };

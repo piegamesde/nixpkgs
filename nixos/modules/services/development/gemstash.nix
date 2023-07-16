@@ -15,7 +15,9 @@ let
   prefixColon = s:
     listToAttrs (map (attrName: {
       name = ":${attrName}";
-      value = if isAttrs s.${attrName} then
+      value = if
+        isAttrs s.${attrName}
+      then
         prefixColon s."${attrName}"
       else
         s."${attrName}";

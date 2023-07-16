@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     gnome.gnome-settings-daemon # schemas needed for settings api (mostly useless now that fonts were moved to g-d-s)
   ];
 
-  configureFlags = if buildPortalsInGnome then [
+  configureFlags = if
+    buildPortalsInGnome
+  then [
     "--enable-wallpaper"
     "--enable-screenshot"
     "--enable-screencast"

@@ -39,7 +39,14 @@ in
       hash = {
         free = "sha256-mp3cFXOEiVptkUdD1+X8XxwoJhBGs+Ns5qk3HBByfLg=";
         unfree = "sha256-OTCYcwxwBCOSr4CJF+dllF3CQ33ueq48/MSWbrkg+8U=";
-      }.${if enableUnfree then "unfree" else "free"};
+      }.${
+          if
+            enableUnfree
+          then
+            "unfree"
+          else
+            "free"
+        };
       downloadToTemp = (!enableUnfree);
       # remove the unRAR related code from the src drv
       # > the license requires that you agree to these use restrictions,

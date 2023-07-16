@@ -26,7 +26,12 @@ let
 
   mkBot = n: c:
     format.generate "${n}.json" (c.settings // {
-      SteamLogin = if c.username == "" then n else c.username;
+      SteamLogin = if
+        c.username == ""
+      then
+        n
+      else
+        c.username;
       SteamPassword = c.passwordFile;
       # sets the password format to file (https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Security#file)
       PasswordFormat = 4;

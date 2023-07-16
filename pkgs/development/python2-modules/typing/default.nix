@@ -10,7 +10,12 @@
 }:
 
 let
-  testDir = if isPy3k then "src" else "python2";
+  testDir = if
+    isPy3k
+  then
+    "src"
+  else
+    "python2";
 
 in
   buildPythonPackage rec {

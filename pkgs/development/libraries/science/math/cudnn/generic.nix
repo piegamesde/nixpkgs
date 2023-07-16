@@ -43,7 +43,12 @@ let
   versionTriple = majorMinorPatch version;
 
   # cudatoolkit_root :: Derivation
-  cudatoolkit_root = if useCudatoolkitRunfile then cudatoolkit else libcublas;
+  cudatoolkit_root = if
+    useCudatoolkitRunfile
+  then
+    cudatoolkit
+  else
+    libcublas;
 in
   backendStdenv.mkDerivation {
     pname = "cudatoolkit-${cudaMajorVersion}-cudnn";

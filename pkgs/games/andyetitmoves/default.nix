@@ -21,15 +21,23 @@ stdenv.mkDerivation rec {
   pname = "andyetitmoves";
   version = "1.2.2";
 
-  src = if stdenv.hostPlatform.system == "i686-linux"
-  || stdenv.hostPlatform.system == "x86_64-linux" then
+  src = if
+    stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system
+    == "x86_64-linux"
+  then
     let
-      postfix =
-        if stdenv.hostPlatform.system == "i686-linux" then "i386" else "x86_64";
+      postfix = if
+        stdenv.hostPlatform.system == "i686-linux"
+      then
+        "i386"
+      else
+        "x86_64";
       commercialName = "${pname}-${version}_${postfix}.tar.gz";
       demoUrl =
         "http://www.andyetitmoves.net/demo/${pname}Demo-${version}_${postfix}.tar.gz";
-    in if commercialVersion then
+    in if
+      commercialVersion
+    then
       requireFile {
         message = ''
           We cannot download the commercial version automatically, as you require a license.
@@ -38,7 +46,9 @@ stdenv.mkDerivation rec {
           directory where yousaved it.
         '';
         name = commercialName;
-        sha256 = if stdenv.hostPlatform.system == "i686-linux" then
+        sha256 = if
+          stdenv.hostPlatform.system == "i686-linux"
+        then
           "15wvzmmidvykwjrbnq70h5jrvnjx1hcrm0357qj85q4aqbzavh01"
         else
           "1v8z16qa9ka8sf7qq45knsxj87s6sipvv3a7xq11pb5xk08fb2ql";
@@ -46,7 +56,9 @@ stdenv.mkDerivation rec {
     else
       fetchurl {
         url = demoUrl;
-        sha256 = if stdenv.hostPlatform.system == "i686-linux" then
+        sha256 = if
+          stdenv.hostPlatform.system == "i686-linux"
+        then
           "0f14vrrbq05hsbdajrb5y9za65fpng1lc8f0adb4aaz27x7sh525"
         else
           "0mg41ya0b27blq3b5498kwl4rj46dj21rcd7qd0rw1kyvr7sx4v4";
@@ -64,7 +76,12 @@ stdenv.mkDerivation rec {
     done
 
     binName=${
-      if commercialVersion then "AndYetItMoves" else "AndYetItMovesDemo"
+      if
+        commercialVersion
+      then
+        "AndYetItMoves"
+      else
+        "AndYetItMovesDemo"
     }
 
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) --set-rpath $fullPath $out/opt/andyetitmoves/lib/$binName

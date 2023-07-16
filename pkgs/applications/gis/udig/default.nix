@@ -86,4 +86,9 @@ let
         --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath ([ gdal ])}
     '';
   };
-in if stdenv.isDarwin then darwin else linux
+in if
+  stdenv.isDarwin
+then
+  darwin
+else
+  linux

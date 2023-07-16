@@ -86,8 +86,9 @@ in
         src/sound/music_fluidsynth_mididevice.cpp
     '';
 
-    cmakeFlags = [ "-DFORCE_INTERNAL_GME=OFF" ]
-      ++ (if serverOnly then [ "-DSERVERONLY=ON" ] else [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]);
+    cmakeFlags = [ "-DFORCE_INTERNAL_GME=OFF" ] ++ (if
+      serverOnly
+    then [ "-DSERVERONLY=ON" ] else [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]);
 
     hardeningDisable = [ "format" ];
 

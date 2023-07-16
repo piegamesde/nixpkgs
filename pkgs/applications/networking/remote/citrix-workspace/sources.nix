@@ -17,10 +17,27 @@ let
     }: {
       inherit homepage;
       version = "${major}.${minor}.${patch}.${
-          if stdenv.is64bit then x64suffix else x86suffix
+          if
+            stdenv.is64bit
+          then
+            x64suffix
+          else
+            x86suffix
         }";
-      prefix = "linuxx${if stdenv.is64bit then "64" else "86"}";
-      hash = if stdenv.is64bit then x64hash else x86hash;
+      prefix = "linuxx${
+          if
+            stdenv.is64bit
+          then
+            "64"
+          else
+            "86"
+        }";
+      hash = if
+        stdenv.is64bit
+      then
+        x64hash
+      else
+        x86hash;
     };
 
   # Attribute-set with all actively supported versions of the Citrix workspace app

@@ -101,7 +101,14 @@ in {
                 attrset or not (refer to [](#opt-services.geoipupdate.settings) for
                 details).
               '';
-              apply = x: if isAttrs x then x else { _secret = x; };
+              apply = x:
+                if
+                  isAttrs x
+                then
+                  x
+                else {
+                  _secret = x;
+                };
             };
 
             DatabaseDirectory = lib.mkOption {
@@ -157,7 +164,9 @@ in {
           geoipupdateKeyValue = lib.generators.toKeyValue {
             mkKeyValue = lib.flip lib.generators.mkKeyValueDefault " " rec {
               mkValueString = v:
-                if isInt v then
+                if
+                  isInt v
+                then
                   toString v
                 else if isString v then
                   v

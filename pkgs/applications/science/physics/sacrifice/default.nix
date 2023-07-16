@@ -42,7 +42,9 @@ stdenv.mkDerivation {
     "--with-pythia=${pythia}"
   ];
 
-  postInstall = if stdenv.isDarwin then ''
+  postInstall = if
+    stdenv.isDarwin
+  then ''
     install_name_tool -add_rpath ${pythia}/lib "$out"/bin/run-pythia
   '' else ''
     wrapProgram $out/bin/run-pythia \

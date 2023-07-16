@@ -36,15 +36,34 @@ assert enableWirelessDistribution -> installURL != null && bundleId != null
 let
   # Set some default values here
 
-  _target = if target == null then name else target;
+  _target = if
+    target == null
+  then
+    name
+  else
+    target;
 
-  _configuration = if configuration == null then
-    if release then "Release" else "Debug"
+  _configuration = if
+    configuration == null
+  then
+    if
+      release
+    then
+      "Release"
+    else
+      "Debug"
   else
     configuration;
 
-  _sdk = if sdk == null then
-    if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion
+  _sdk = if
+    sdk == null
+  then
+    if
+      release
+    then
+      "iphoneos" + sdkVersion
+    else
+      "iphonesimulator" + sdkVersion
   else
     sdk;
 

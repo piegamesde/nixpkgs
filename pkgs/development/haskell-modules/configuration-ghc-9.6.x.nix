@@ -12,7 +12,9 @@ let
     overrideCabal
     (old: { jailbreak = assert old.revision or "0" == toString rev; true; });
   checkAgainAfter = pkg: ver: msg: act:
-    if builtins.compareVersions pkg.version ver <= 0 then
+    if
+      builtins.compareVersions pkg.version ver <= 0
+    then
       act
     else
       builtins.throw
@@ -56,7 +58,9 @@ in
     system-cxx-std-lib = null;
     template-haskell = null;
     # terminfo is not built if GHC is a cross compiler
-    terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+    terminfo = if
+      pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
+    then
       null
     else
       self.terminfo_0_4_1_5;

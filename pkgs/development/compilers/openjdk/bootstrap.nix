@@ -19,8 +19,12 @@ let
       inherit sha256;
     };
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
-    (if version == "10" then
+  src = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
+    (if
+      version == "10"
+    then
       fetchboot "10" "x86_64"
       "08085fsxc1qhqiv3yi38w8lrg3vm7s0m2yvnwr1c92v019806yq2"
     else if version == "8" then
@@ -29,7 +33,9 @@ let
     else
       throw "No bootstrap jdk for version ${version}")
   else if stdenv.hostPlatform.system == "i686-linux" then
-    (if version == "10" then
+    (if
+      version == "10"
+    then
       fetchboot "10" "i686"
       "1blb9gyzp8gfyggxvggqgpcgfcyi00ndnnskipwgdm031qva94p7"
     else if version == "8" then

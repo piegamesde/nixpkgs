@@ -55,7 +55,14 @@ stdenv.mkDerivation rec {
 
   preConfigure = "./autogen.sh";
 
-  configureFlags = [ "--with-mbrola=${if mbrolaSupport then "yes" else "no"}" ];
+  configureFlags = [ "--with-mbrola=${
+      if
+        mbrolaSupport
+      then
+        "yes"
+      else
+        "no"
+    }" ];
 
   # ref https://github.com/void-linux/void-packages/blob/3cf863f894b67b3c93e23ac7830ca46b697d308a/srcpkgs/espeak-ng/template#L29-L31
   postConfigure =

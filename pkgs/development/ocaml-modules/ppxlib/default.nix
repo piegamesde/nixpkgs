@@ -3,9 +3,18 @@
   fetchurl,
   buildDunePackage,
   ocaml,
-  version ? if lib.versionAtLeast ocaml.version "4.07" then
-    if lib.versionAtLeast ocaml.version "4.08" then
-      if lib.versionAtLeast ocaml.version "4.11" then "0.28.0" else "0.24.0"
+  version ? if
+    lib.versionAtLeast ocaml.version "4.07"
+  then
+    if
+      lib.versionAtLeast ocaml.version "4.08"
+    then
+      if
+        lib.versionAtLeast ocaml.version "4.11"
+      then
+        "0.28.0"
+      else
+        "0.24.0"
     else
       "0.15.0"
   else
@@ -68,8 +77,10 @@ let
     };
   }."${version}";
 
-in if param ? max_version && lib.versionAtLeast ocaml.version param.max_version
-|| param ? min_version && lib.versionOlder ocaml.version param.min_version then
+in if
+  param ? max_version && lib.versionAtLeast ocaml.version param.max_version
+  || param ? min_version && lib.versionOlder ocaml.version param.min_version
+then
   throw "ppxlib-${version} is not available for OCaml ${ocaml.version}"
 else
 
@@ -77,7 +88,12 @@ else
     pname = "ppxlib";
     inherit version;
 
-    duneVersion = if param.useDune2 or true then "3" else "1";
+    duneVersion = if
+      param.useDune2 or true
+    then
+      "3"
+    else
+      "1";
 
     src = fetchurl {
       url =
@@ -87,7 +103,9 @@ else
 
     propagatedBuildInputs = [
       ocaml-compiler-libs
-      (if param.useOMP2 or true then
+      (if
+        param.useOMP2 or true
+      then
         ocaml-migrate-parsetree-2
       else
         ocaml-migrate-parsetree)

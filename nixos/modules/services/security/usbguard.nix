@@ -21,7 +21,9 @@ let
   defaultRuleFile = "/var/lib/usbguard/rules.conf";
 
   # decide what file to use for rules
-  ruleFile = if cfg.rules != null then
+  ruleFile = if
+    cfg.rules != null
+  then
     pkgs.writeText "usbguard-rules" cfg.rules
   else
     defaultRuleFile;

@@ -55,7 +55,13 @@ in rec {
   foldr = op: nul: list:
     let
       len = length list;
-      fold' = n: if n == len then nul else op (elemAt list n) (fold' (n + 1));
+      fold' = n:
+        if
+          n == len
+        then
+          nul
+        else
+          op (elemAt list n) (fold' (n + 1));
     in
       fold' 0
   ;
@@ -80,7 +86,13 @@ in rec {
   */
   foldl = op: nul: list:
     let
-      foldl' = n: if n == -1 then nul else op (foldl' (n - 1)) (elemAt list n);
+      foldl' = n:
+        if
+          n == -1
+        then
+          nul
+        else
+          op (foldl' (n - 1)) (elemAt list n);
     in
       foldl' (length list - 1)
   ;
@@ -134,7 +146,12 @@ in rec {
        flatten 1
        => [1]
   */
-  flatten = x: if isList x then concatMap (y: flatten y) x else [ x ];
+  flatten = x:
+    if
+      isList x
+    then
+      concatMap (y: flatten y) x
+    else [ x ];
 
   /* Remove elements equal to 'e' from a list.  Useful for buildInputs.
 
@@ -175,7 +192,14 @@ in rec {
     let
       found = filter pred list;
       len = length found;
-    in if len == 0 then default else if len != 1 then multiple else head found;
+    in if
+      len == 0
+    then
+      default
+    else if len != 1 then
+      multiple
+    else
+      head found;
 
   /* Find the first element in the list matching the specified
      predicate or return `default` if no such element exists.
@@ -197,7 +221,12 @@ in rec {
     list:
     let
       found = filter pred list;
-    in if found == [ ] then default else head found;
+    in if
+      found == [ ]
+    then
+      default
+    else
+      head found;
 
   /* Return true if function `pred` returns true for at least one
      element of `list`.
@@ -210,7 +239,14 @@ in rec {
        any isString [ 1 { } ]
        => false
   */
-  any = builtins.any or (pred: foldr (x: y: if pred x then true else y) false);
+  any = builtins.any or (pred:
+    foldr (x: y:
+      if
+        pred x
+      then
+        true
+      else
+        y) false);
 
   /* Return true if function `pred` returns true for all elements of
      `list`.
@@ -223,7 +259,14 @@ in rec {
        all (x: x < 3) [ 1 2 3 ]
        => false
   */
-  all = builtins.all or (pred: foldr (x: y: if pred x then y else false) true);
+  all = builtins.all or (pred:
+    foldr (x: y:
+      if
+        pred x
+      then
+        y
+      else
+        false) true);
 
   /* Count how many elements of `list` match the supplied predicate
      function.
@@ -237,7 +280,13 @@ in rec {
   count =
     # Predicate
     pred:
-    foldl' (c: x: if pred x then c + 1 else c) 0;
+    foldl' (c: x:
+      if
+        pred x
+      then
+        c + 1
+      else
+        c) 0;
 
   /* Return a singleton list or an empty list, depending on a boolean
      value.  Useful when building lists with optional elements
@@ -268,7 +317,12 @@ in rec {
     cond:
     # List to return if condition is true
     elems:
-    if cond then elems else [ ];
+    if
+      cond
+    then
+      elems
+    else
+      [ ];
 
   /* If argument is a list, return it; else, wrap it in a singleton
      list.  If you're using this, you should almost certainly
@@ -280,7 +334,12 @@ in rec {
        toList "hi"
        => [ "hi "]
   */
-  toList = x: if isList x then x else [ x ];
+  toList = x:
+    if
+      isList x
+    then
+      x
+    else [ x ];
 
   /* Return a list of integers from `first` up to and including `last`.
 
@@ -297,7 +356,12 @@ in rec {
     first:
     # Last integer in the range
     last:
-    if first > last then [ ] else genList (n: first + n) (last - first + 1);
+    if
+      first > last
+    then
+      [ ]
+    else
+      genList (n: first + n) (last - first + 1);
 
   /* Return a list with `n` copies of an element.
 
@@ -322,7 +386,9 @@ in rec {
   */
   partition = builtins.partition or (pred:
     foldr (h: t:
-      if pred h then {
+      if
+        pred h
+      then {
         right = [ h ] ++ t.right;
         wrong = t.wrong;
       } else {
@@ -437,7 +503,9 @@ in rec {
         let
           c = filter (x: before x us) visited;
           b = partition (x: before x us) rest;
-        in if stopOnCycles && (length c > 0) then {
+        in if
+          stopOnCycles && (length c > 0)
+        then {
           cycle = us;
           loops = c;
           inherit visited rest;
@@ -476,7 +544,9 @@ in rec {
     let
       dfsthis = listDfs true before list;
       toporest = toposort before (dfsthis.visited ++ dfsthis.rest);
-    in if length list < 2 then # finish
+    in if
+      length list < 2
+    then # finish
     {
       result = list;
     } else if dfsthis
@@ -514,7 +584,9 @@ in rec {
         let
           el = elemAt list n;
           next = pivot' (n + 1);
-        in if n == len then
+        in if
+          n == len
+        then
           acc
         else if strictLess first el then
           next {
@@ -530,7 +602,9 @@ in rec {
         left = [ ];
         right = [ ];
       };
-    in if len < 2 then
+    in if
+      len < 2
+    then
       list
     else
       (sort strictLess pivot.left) ++ [ first ]
@@ -549,14 +623,26 @@ in rec {
        => -1
   */
   compareLists = cmp: a: b:
-    if a == [ ] then
-      if b == [ ] then 0 else -1
+    if
+      a == [ ]
+    then
+      if
+        b == [ ]
+      then
+        0
+      else
+        -1
     else if b == [ ] then
       1
     else
       let
         rel = cmp (head a) (head b);
-      in if rel == 0 then compareLists cmp (tail a) (tail b) else rel;
+      in if
+        rel == 0
+      then
+        compareLists cmp (tail a) (tail b)
+      else
+        rel;
 
   /* Sort list using "Natural sorting".
      Numeric portions of strings are sorted in numeric order.
@@ -572,8 +658,13 @@ in rec {
   naturalSort = lst:
     let
       vectorise = s:
-        map (x: if isList x then toInt (head x) else x)
-        (builtins.split "(0|[1-9][0-9]*)" s);
+        map (x:
+          if
+            isList x
+          then
+            toInt (head x)
+          else
+            x) (builtins.split "(0|[1-9][0-9]*)" s);
       prepared = map (x: [
         (vectorise x)
         x
@@ -636,7 +727,9 @@ in rec {
     let
       len = length list;
     in
-      genList (n: elemAt list (n + start)) (if start >= len then
+      genList (n: elemAt list (n + start)) (if
+        start >= len
+      then
         0
       else if start + count > len then
         len - start
@@ -690,7 +783,13 @@ in rec {
        unique [ 3 2 3 4 ]
        => [ 3 2 4 ]
   */
-  unique = foldl' (acc: e: if elem e acc then acc else acc ++ [ e ]) [ ];
+  unique = foldl' (acc: e:
+    if
+      elem e acc
+    then
+      acc
+    else
+      acc ++ [ e ]) [ ];
 
   /* Intersects list 'e' and another list. O(nm) complexity.
 

@@ -35,9 +35,23 @@ stdenv.mkDerivation rec {
     # Feel free to create a PR to add CUDA support
     "-DCCTAG_WITH_CUDA=OFF"
 
-    "-DCCTAG_ENABLE_SIMD_AVX2=${if avx2Support then "ON" else "OFF"}"
+    "-DCCTAG_ENABLE_SIMD_AVX2=${
+      if
+        avx2Support
+      then
+        "ON"
+      else
+        "OFF"
+    }"
 
-    "-DCCTAG_BUILD_TESTS=${if doCheck then "ON" else "OFF"}"
+    "-DCCTAG_BUILD_TESTS=${
+      if
+        doCheck
+      then
+        "ON"
+      else
+        "OFF"
+    }"
     "-DCCTAG_BUILD_APPS=OFF"
   ];
 

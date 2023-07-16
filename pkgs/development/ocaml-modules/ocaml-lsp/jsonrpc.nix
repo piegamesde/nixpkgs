@@ -11,7 +11,9 @@
 }:
 
 let
-  params = if lib.versionAtLeast ocaml.version "4.14" then {
+  params = if
+    lib.versionAtLeast ocaml.version "4.14"
+  then {
     name = "lsp";
     version = "1.14.2";
     sha256 = "sha256-1R+HYaGbPLGDs5DMN3jmnrZFMhMmPUHgF+s+yNzIVJQ=";
@@ -42,7 +44,9 @@ in
     duneVersion = "3";
     minimalOCamlVersion = "4.06";
 
-    buildInputs = if lib.versionAtLeast version "1.7.0" then
+    buildInputs = if
+      lib.versionAtLeast version "1.7.0"
+    then
       [ ]
     else [
       yojson
@@ -50,7 +54,9 @@ in
       ocaml-syntax-shims
     ];
 
-    propagatedBuildInputs = if lib.versionAtLeast version "1.7.0" then
+    propagatedBuildInputs = if
+      lib.versionAtLeast version "1.7.0"
+    then
       [ ]
     else [
       ppx_yojson_conv_lib

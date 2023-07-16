@@ -27,7 +27,9 @@ mkDerivation rec {
 
   qmakeFlags = [ "REVISION=${version}" ];
 
-  installPhase = if stdenv.isDarwin then ''
+  installPhase = if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/Applications
     cp -a calaos_installer.app $out/Applications
   '' else ''

@@ -71,7 +71,12 @@ in
     }) ];
 
     # disable tests (broken on darwin)
-    gradleAction = if stdenv.isDarwin then "assemble" else "build";
+    gradleAction = if
+      stdenv.isDarwin
+    then
+      "assemble"
+    else
+      "build";
 
     buildPhase = ''
       runHook preBuild

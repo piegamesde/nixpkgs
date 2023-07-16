@@ -118,7 +118,9 @@ let
                 deps = lib.concatMap
                   (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
                   extensions;
-              in if !(deps == [ ]) then
+              in if
+                !(deps == [ ])
+              then
                 deps ++ (getDepsRecursively deps)
               else
                 deps;

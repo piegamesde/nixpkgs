@@ -74,7 +74,12 @@ stdenv.mkDerivation rec {
           ]);
       in
         basePackage.overrideAttrs (prev: {
-          pname = if builtins.isFunction pname then pname prev else pname;
+          pname = if
+            builtins.isFunction pname
+          then
+            pname prev
+          else
+            pname;
 
           postInstall = prev.postInstall or "" + ''
             ${lib.concatMapStringsSep "\n" (tpl:

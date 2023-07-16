@@ -14,7 +14,13 @@
 }:
 let
   py = python3.withPackages (ps: with ps; [ numpy ]);
-  option = cond: if cond then "1" else "0";
+  option = cond:
+    if
+      cond
+    then
+      "1"
+    else
+      "0";
 in
   stdenv.mkDerivation rec {
     pname = "kissfft-${datatype}${lib.optionalString enableOpenmp "-openmp"}";
@@ -58,7 +64,12 @@ in
 
     nativeCheckInputs = [
       py
-      (if datatype == "float" then fftwFloat else fftw)
+      (if
+        datatype == "float"
+      then
+        fftwFloat
+      else
+        fftw)
     ];
 
     checkFlags = [ "testsingle" ];

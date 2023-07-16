@@ -58,10 +58,25 @@ in
     disabled = pythonAtLeast "3.11";
 
     src = let
-      pyVerNoDot = lib.strings.stringAsChars (x: if x == "." then "" else x)
-        python.pythonVersion;
-      platform = if stdenv.isDarwin then "mac" else "linux";
-      unit = if cudaSupport then "gpu" else "cpu";
+      pyVerNoDot = lib.strings.stringAsChars (x:
+        if
+          x == "."
+        then
+          ""
+        else
+          x) python.pythonVersion;
+      platform = if
+        stdenv.isDarwin
+      then
+        "mac"
+      else
+        "linux";
+      unit = if
+        cudaSupport
+      then
+        "gpu"
+      else
+        "cpu";
       key = "${platform}_py_${pyVerNoDot}_${unit}";
     in
       fetchurl (packages.${key} or { })

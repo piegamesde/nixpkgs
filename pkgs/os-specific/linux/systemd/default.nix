@@ -291,7 +291,13 @@ in
       # To get a list of dynamically loaded libraries issue something like
       # `grep -ri '"lib[a-zA-Z0-9-]*\.so[\.0-9a-zA-z]*"'' $src` and update the below list.
       dlopenLibs = let
-        opt = condition: pkg: if condition then pkg else null;
+        opt = condition: pkg:
+          if
+            condition
+          then
+            pkg
+          else
+            null;
       in [
         # bpf compilation support. We use libbpf 1 now.
         {
@@ -397,7 +403,9 @@ in
       patchDlOpen = dl:
         let
           library = "${lib.makeLibraryPath [ dl.pkg ]}/${dl.name}";
-        in if dl.pkg == null then ''
+        in if
+          dl.pkg == null
+        then ''
           # remove the dependency on the library by replacing it with an invalid path
           for file in $(grep -lr '"${dl.name}"' src); do
             echo "patching dlopen(\"${dl.name}\", …) in $file to an invalid store path ("${builtins.storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-not-implemented/${dl.name}")…"
@@ -857,7 +865,9 @@ in
       tests = {
         inherit (nixosTests) switchTest;
         cross = pkgsCross.${
-            if stdenv.buildPlatform.isAarch64 then
+            if
+              stdenv.buildPlatform.isAarch64
+            then
               "gnu64"
             else
               "aarch64-multiplatform"

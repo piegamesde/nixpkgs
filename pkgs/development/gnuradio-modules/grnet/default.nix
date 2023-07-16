@@ -75,7 +75,9 @@ in
       gmp
       libpcap
       icu
-    ] ++ (if lib.versionAtLeast gnuradio.versionAttr.major "3.9" then
+    ] ++ (if
+      lib.versionAtLeast gnuradio.versionAttr.major "3.9"
+    then
       with python.pkgs; [
         pybind11
         numpy

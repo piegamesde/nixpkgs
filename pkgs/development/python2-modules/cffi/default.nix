@@ -4,7 +4,9 @@
   cffi,
 }:
 
-if cffi == null then
+if
+  cffi == null
+then
   null
 else
   cffi.overridePythonAttrs {

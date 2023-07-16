@@ -94,7 +94,14 @@ in
     '';
 
     cmakeFlags = [
-      "-DGMIC_QT_HOST=${if variant == "standalone" then "none" else variant}"
+      "-DGMIC_QT_HOST=${
+        if
+          variant == "standalone"
+        then
+          "none"
+        else
+          variant
+      }"
       "-DENABLE_SYSTEM_GMIC=ON"
       "-DENABLE_DYNAMIC_LINKING=ON"
     ];

@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
     "SHARED=on" # genereate a shared library (as well as static)
     "NATIVE=off" # don't target code to current hardware (reproducibility, portability)
     "TUNE=${
-      if tune then
+      if
+        tune
+      then
         "auto"
       else if stdenv.targetPlatform.isx86 then
         "x86" # "chooses options that should be well suited for most x86 platforms"

@@ -31,7 +31,12 @@ stdenv.mkDerivation rec {
     copy_agent = arch: ''
       mkdir -p $out/${arch}/qemuagent
       cp guest-agent/${
-        if arch == "x86" then "qemu-ga-x86.msi" else "qemu-ga-x64.msi"
+        if
+          arch == "x86"
+        then
+          "qemu-ga-x86.msi"
+        else
+          "qemu-ga-x64.msi"
       } $out/${arch}/qemuagent/qemu-guest-agent.msi
       (cd $out/${arch}/qemuagent; ${p7zip}/bin/7z x qemu-guest-agent.msi; rm qemu-guest-agent.msi)
     '';

@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    (if static then "--static" else "--dynamic")
+    (if
+      static
+    then
+      "--static"
+    else
+      "--dynamic")
     "--install-dir"
     "$(out)/bin"
     "--install-lib"

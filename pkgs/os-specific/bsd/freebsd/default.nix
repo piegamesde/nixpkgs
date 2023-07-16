@@ -108,7 +108,12 @@ in
 
       mkDerivation = lib.makeOverridable (attrs:
         let
-          stdenv' = if attrs.noCC or false then stdenvNoCC else stdenv;
+          stdenv' = if
+            attrs.noCC or false
+          then
+            stdenvNoCC
+          else
+            stdenv;
         in
           stdenv'.mkDerivation (rec {
             pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
@@ -387,7 +392,9 @@ in
           makeMinimal
           mandoc
           groff
-          (if stdenv.hostPlatform == stdenv.buildPlatform then
+          (if
+            stdenv.hostPlatform == stdenv.buildPlatform
+          then
             boot-install
           else
             install)
@@ -421,7 +428,9 @@ in
             makeMinimal
             mandoc
             groff
-            (if stdenv.hostPlatform == stdenv.buildPlatform then
+            (if
+              stdenv.hostPlatform == stdenv.buildPlatform
+            then
               boot-install
             else
               install)

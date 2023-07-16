@@ -28,7 +28,14 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
-    "-DDISABLE_FRONTEND=${if enableGUI then "OFF" else "ON"}"
+    "-DDISABLE_FRONTEND=${
+      if
+        enableGUI
+      then
+        "OFF"
+      else
+        "ON"
+    }"
     "-DLIBUSB_LIBRARY=${libusb1}"
   ];
 

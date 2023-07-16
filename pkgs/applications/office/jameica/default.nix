@@ -19,7 +19,9 @@ let
   _build = "484";
   version = "${_version}-${_build}";
 
-  swtSystem = if stdenv.hostPlatform.system == "i686-linux" then
+  swtSystem = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
     "linux"
   else if stdenv.hostPlatform.system == "x86_64-linux" then
     "linux64"

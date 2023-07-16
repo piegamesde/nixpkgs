@@ -36,7 +36,12 @@
   sdk ? false
 }:
 let
-  bits = if stdenv.hostPlatform.system == "x86_64-linux" then "x64" else "ia32";
+  bits = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
+    "x64"
+  else
+    "ia32";
 
   nwEnv = buildEnv {
     name = "nwjs-env";
@@ -93,11 +98,15 @@ in
     pname = "nwjs";
     version = "0.54.1";
 
-    src = if sdk then
+    src = if
+      sdk
+    then
       fetchurl {
         url =
           "https://dl.nwjs.io/v${version}/nwjs-sdk-v${version}-linux-${bits}.tar.gz";
-        sha256 = if bits == "x64" then
+        sha256 = if
+          bits == "x64"
+        then
           "sha256-1qeU4+EIki0M7yJPkRuzFwMdswfDOni5gltdmM6A/ds="
         else
           "sha256-wDEGePE9lrKa6OAzeiDLhVj992c0TJgiMHb8lJ4PF80=";
@@ -106,7 +115,9 @@ in
       fetchurl {
         url =
           "https://dl.nwjs.io/v${version}/nwjs-v${version}-linux-${bits}.tar.gz";
-        sha256 = if bits == "x64" then
+        sha256 = if
+          bits == "x64"
+        then
           "sha256-TACEM06K2t6dDXRD44lSW7GRi77yzSW4BZJw8gT+fl4="
         else
           "sha256-yX9knqFV5VQTT3TJDmQoDgt17NqH8fLt+bLQAqKleTU=";

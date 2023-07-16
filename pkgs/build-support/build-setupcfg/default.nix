@@ -15,7 +15,9 @@ lib: pythonPackages:
   doCheck ? true
 }:
 let
-  build = if application then
+  build = if
+    application
+  then
     pythonPackages.buildPythonApplication
   else
     pythonPackages.buildPythonPackage;

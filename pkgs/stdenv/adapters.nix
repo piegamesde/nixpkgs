@@ -73,7 +73,9 @@ in rec {
       {
         mkDerivationFromStdenv = withOldMkDerivation old
           (stdenv: mkDerivationSuper: args:
-            if stdenv.hostPlatform.isDarwin then
+            if
+              stdenv.hostPlatform.isDarwin
+            then
               throw "Cannot build fully static binaries on Darwin/macOS"
             else
               (mkDerivationSuper args).overrideAttrs (finalAttrs:

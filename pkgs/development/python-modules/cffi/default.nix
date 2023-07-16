@@ -12,7 +12,9 @@
   pythonAtLeast,
 }:
 
-if isPyPy then
+if
+  isPyPy
+then
   null
 else
   buildPythonPackage rec {

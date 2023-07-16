@@ -24,7 +24,9 @@ let
   # to appear while listing all the packages available.
   removeRecurseForDerivations = alias:
     with lib;
-    if alias.recurseForDerivations or false then
+    if
+      alias.recurseForDerivations or false
+    then
       removeAttrs alias [ "recurseForDerivations" ]
     else
       alias;
@@ -33,11 +35,18 @@ let
   # sets from building on Hydra.
   removeDistribute = alias:
     with lib;
-    if isDerivation alias then dontDistribute alias else alias;
+    if
+      isDerivation alias
+    then
+      dontDistribute alias
+    else
+      alias;
 
   # Make sure that we are not shadowing something from all-packages.nix.
   checkInPkgs = n: alias:
-    if builtins.hasAttr n super then
+    if
+      builtins.hasAttr n super
+    then
       throw "Alias ${n} is still in all-packages.nix"
     else
       alias;
@@ -837,7 +846,9 @@ in
       "'fuse_exfat' has been renamed to/replaced by 'exfat'"; # Converted to throw 2022-02-22
     fuseki = throw
       "'fuseki' has been renamed to/replaced by 'apache-jena-fuseki'"; # Converted to throw 2022-02-22
-    fuse2fs = if stdenv.isLinux then
+    fuse2fs = if
+      stdenv.isLinux
+    then
       0.0 fsprogs.fuse2fs
     else
       null; # Added 2022-03-27 preserve, reason: convenience, arch has a package named fuse2fs too.
@@ -1324,7 +1335,12 @@ in
       "'libcanberra_gtk3' has been renamed to/replaced by 'libcanberra-gtk3'"; # Converted to throw 2022-02-22
     libcap_manpages = throw
       "'libcap_manpages' has been renamed to/replaced by 'libcap.doc'"; # Converted to throw 2022-02-22
-    libcap_pam = if stdenv.isLinux then libcap.pam else null; # Added 2016-04-29
+    libcap_pam = if
+      stdenv.isLinux
+    then
+      libcap.pam
+    else
+      null; # Added 2016-04-29
     libcap_progs = throw
       "'libcap_progs' has been renamed to/replaced by 'libcap.out'"; # Converted to throw 2022-02-22
     libco-canonical = throw

@@ -29,7 +29,9 @@ in {
           "redshift"
           "latitude"
         ] config;
-      in if value == null then
+      in if
+        value == null
+      then
         throw "services.redshift.latitude is set to null, you can remove this"
       else
         builtins.fromJSON value))
@@ -47,7 +49,9 @@ in {
           "redshift"
           "longitude"
         ] config;
-      in if value == null then
+      in if
+        value == null
+      then
         throw "services.redshift.longitude is set to null, you can remove this"
       else
         builtins.fromJSON value))
@@ -151,7 +155,9 @@ in {
     };
 
     systemd.user.services.redshift = let
-      providerString = if lcfg.provider == "manual" then
+      providerString = if
+        lcfg.provider == "manual"
+      then
         "${toString lcfg.latitude}:${toString lcfg.longitude}"
       else
         lcfg.provider;

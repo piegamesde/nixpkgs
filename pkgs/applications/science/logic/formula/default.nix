@@ -21,7 +21,9 @@ buildDotnetModule rec {
   nugetDeps = ./nuget.nix;
   projectFile = "Src/CommandLine/CommandLine.csproj";
 
-  postFixup = if stdenv.isLinux then ''
+  postFixup = if
+    stdenv.isLinux
+  then ''
     mv $out/bin/CommandLine $out/bin/formula
   '' else
     lib.optionalString stdenv.isDarwin ''

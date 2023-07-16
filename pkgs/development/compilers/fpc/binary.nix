@@ -11,7 +11,9 @@ stdenv.mkDerivation rec {
   pname = "fpc-binary";
   version = "3.2.2";
 
-  src = if stdenv.hostPlatform.system == "i686-linux" then
+  src = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
     fetchurl {
       url =
         "mirror://sourceforge/project/freepascal/Linux/${version}/fpc-${version}.i386-linux.tar";
@@ -48,7 +50,9 @@ stdenv.mkDerivation rec {
     cpio
   ];
 
-  builder = if stdenv.hostPlatform.isLinux then
+  builder = if
+    stdenv.hostPlatform.isLinux
+  then
     ./binary-builder.sh
   else if stdenv.hostPlatform.isDarwin then
     ./binary-builder-darwin.sh

@@ -117,7 +117,14 @@ in
       shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
     in ''
       chmod -R u+w .
-      make config-${if stdenv.cc.isClang or false then "clang" else "gcc"}
+      make config-${
+        if
+          stdenv.cc.isClang or false
+        then
+          "clang"
+        else
+          "gcc"
+      }
       echo 'ABCEXTERNAL = ${abc-verifier}/bin/abc' >> Makefile.conf
 
       if ! grep -q "ABCREV = ${shortAbcRev}" Makefile; then

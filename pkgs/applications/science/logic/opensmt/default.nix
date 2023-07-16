@@ -47,7 +47,12 @@ stdenv.mkDerivation rec {
     description = "A satisfiability modulo theory (SMT) solver";
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux;
-    license = if enableReadline then licenses.gpl2Plus else licenses.mit;
+    license = if
+      enableReadline
+    then
+      licenses.gpl2Plus
+    else
+      licenses.mit;
     homepage = "https://github.com/usi-verification-and-security/opensmt";
   };
 }

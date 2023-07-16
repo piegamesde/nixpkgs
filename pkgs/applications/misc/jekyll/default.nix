@@ -31,7 +31,12 @@ in
     exes = [ "jekyll" ];
 
     inherit ruby;
-    gemdir = if withOptionalDependencies then ./full else ./basic;
+    gemdir = if
+      withOptionalDependencies
+    then
+      ./full
+    else
+      ./basic;
 
     nativeBuildInputs = [ makeWrapper ];
 

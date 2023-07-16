@@ -33,7 +33,12 @@ let
   };
 in
   stdenv.mkDerivation rec {
-    pname = if withGui then "groestlcoin" else "groestlcoind";
+    pname = if
+      withGui
+    then
+      "groestlcoin"
+    else
+      "groestlcoind";
     version = "24.0.1";
 
     src = fetchFromGitHub {

@@ -67,7 +67,12 @@ let
       lz4Enabled = atLeast "14";
       zstdEnabled = atLeast "15";
 
-      stdenv' = if jitSupport then llvmPackages.stdenv else stdenv;
+      stdenv' = if
+        jitSupport
+      then
+        llvmPackages.stdenv
+      else
+        stdenv;
     in
       stdenv'.mkDerivation rec {
         pname = "postgresql";
@@ -132,7 +137,12 @@ let
           "--with-system-tzdata=${tzdata}/share/zoneinfo"
           "--enable-debug"
           (lib.optionalString enableSystemd "--with-systemd")
-          (if stdenv'.isDarwin then "--with-uuid=e2fs" else "--with-ossp-uuid")
+          (if
+            stdenv'.isDarwin
+          then
+            "--with-uuid=e2fs"
+          else
+            "--with-ossp-uuid")
         ] ++ lib.optionals lz4Enabled [ "--with-lz4" ]
           ++ lib.optionals zstdEnabled [ "--with-zstd" ]
           ++ lib.optionals gssSupport [ "--with-gssapi" ] ++ lib.optionals
@@ -145,7 +155,9 @@ let
           ./patches/hardcode-pgxs-path.patch
           ./patches/specify_pkglibdir_at_runtime.patch
           ./patches/findstring.patch
-        ] ++ lib.optionals stdenv'.isLinux [ (if atLeast "13" then
+        ] ++ lib.optionals stdenv'.isLinux [ (if
+          atLeast "13"
+        then
           ./patches/socketdir-in-run-13.patch
         else
           ./patches/socketdir-in-run.patch) ];
@@ -227,7 +239,9 @@ let
           #     ! ERROR:  could not load library "/build/postgresql-11.5/tmp_install/nix/store/...-postgresql-11.5-lib/lib/libpqwalreceiver.so": Error loading shared library libpq.so.5: No such file or directory (needed by /build/postgresql-11.5/tmp_install/nix/store/...-postgresql-11.5-lib/lib/libpqwalreceiver.so)
           # See also here:
           #     https://git.alpinelinux.org/aports/tree/main/postgresql/disable-broken-tests.patch?id=6d7d32c12e073a57a9e5946e55f4c1fbb68bd442
-          if stdenv'.hostPlatform.isMusl then ''
+          if
+            stdenv'.hostPlatform.isMusl
+          then ''
             substituteInPlace src/test/regress/parallel_schedule \
               --replace "subscription" "" \
               --replace "object_address" ""
@@ -247,8 +261,18 @@ let
           {
             inherit readline psqlSchema jitSupport;
 
-            withJIT = if jitSupport then this else jitToggle;
-            withoutJIT = if jitSupport then jitToggle else this;
+            withJIT = if
+              jitSupport
+            then
+              this
+            else
+              jitToggle;
+            withoutJIT = if
+              jitSupport
+            then
+              jitToggle
+            else
+              this;
 
             pkgs = let
               scope = {

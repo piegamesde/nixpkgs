@@ -119,7 +119,9 @@ in
       libjpeg
       libpng
       pcre2
-    ] ++ (if stdenv.isDarwin then [
+    ] ++ (if
+      stdenv.isDarwin
+    then [
       # TODO: move to buildInputs, this should not be propagated.
       AGL
       AppKit
@@ -226,7 +228,9 @@ in
       sed -i 's/-lpthread/-pthread/' mkspecs/common/linux.conf src/corelib/configure.json
 
       patchShebangs ./bin
-    '' + (if stdenv.isDarwin then ''
+    '' + (if
+      stdenv.isDarwin
+    then ''
       sed -i \
           -e 's|/usr/bin/xcode-select|xcode-select|' \
           -e 's|/usr/bin/xcrun|xcrun|' \
@@ -341,7 +345,9 @@ in
     ] ++ lib.optional debugSymbols "-debug" ++ lib.optionals developerBuild [
       "-developer-build"
       "-no-warnings-are-errors"
-    ] ++ (if (!stdenv.hostPlatform.isx86_64) then [ "-no-sse2" ] else [
+    ] ++ (if
+      (!stdenv.hostPlatform.isx86_64)
+    then [ "-no-sse2" ] else [
       "-sse2"
       "${lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"}-sse3"
       "${lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"}-ssse3"
@@ -375,14 +381,30 @@ in
       "-I"
       "${openssl.dev}/include"
       "-system-sqlite"
-      "-${if mysqlSupport then "plugin" else "no"}-sql-mysql"
-      "-${if postgresql != null then "plugin" else "no"}-sql-psql"
+      "-${
+        if
+          mysqlSupport
+        then
+          "plugin"
+        else
+          "no"
+      }-sql-mysql"
+      "-${
+        if
+          postgresql != null
+        then
+          "plugin"
+        else
+          "no"
+      }-sql-psql"
 
       "-make libs"
       "-make tools"
       "-${lib.optionalString (!buildExamples) "no"}make examples"
       "-${lib.optionalString (!buildTests) "no"}make tests"
-    ] ++ (if stdenv.isDarwin then [
+    ] ++ (if
+      stdenv.isDarwin
+    then [
       "-no-fontconfig"
       "-qt-freetype"
       "-qt-libpng"

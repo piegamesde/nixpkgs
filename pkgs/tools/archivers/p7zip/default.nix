@@ -16,7 +16,14 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = {
       free = "sha256-5r7M9BVcAryZNTkqJ/BfHnSSWov1PwoZhUnLBwEbJoA=";
       unfree = "sha256-z3qXgv/TkNRbb85Ew1OcJNxoyssfzHShc0b0/4NZOb0=";
-    }.${if enableUnfree then "unfree" else "free"};
+    }.${
+        if
+          enableUnfree
+        then
+          "unfree"
+        else
+          "free"
+      };
     # remove the unRAR related code from the src drv
     # > the license requires that you agree to these use restrictions,
     # > or you must remove the software (source and binary) from your hard disks

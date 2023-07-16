@@ -66,7 +66,14 @@ mkDerivation rec {
 
   cmakeFlags = [
     "-DSC_WII=OFF"
-    "-DSC_EL=${if useSCEL then "ON" else "OFF"}"
+    "-DSC_EL=${
+      if
+        useSCEL
+      then
+        "ON"
+      else
+        "OFF"
+    }"
   ];
 
   passthru = {

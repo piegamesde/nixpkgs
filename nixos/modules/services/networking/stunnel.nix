@@ -10,7 +10,13 @@ with lib;
 let
 
   cfg = config.services.stunnel;
-  yesNo = val: if val then "yes" else "no";
+  yesNo = val:
+    if
+      val
+    then
+      "yes"
+    else
+      "no";
 
   verifyRequiredField = type: field: n: c: {
     assertion = hasAttr field c;
@@ -27,7 +33,9 @@ let
 
   removeNulls = mapAttrs (_: filterAttrs (_: v: v != null));
   mkValueString = v:
-    if v == true then
+    if
+      v == true
+    then
       "yes"
     else if v == false then
       "no"

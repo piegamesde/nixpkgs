@@ -10,13 +10,17 @@
 let
 
   version = "3";
-  canonicalExtension = if stdenv.hostPlatform.isLinux then
+  canonicalExtension = if
+    stdenv.hostPlatform.isLinux
+  then
     "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}"
   else
     stdenv.hostPlatform.extensions.sharedLibrary;
 
   lapackImplementation = lib.getName lapackProvider;
-  lapackProvider' = if lapackImplementation == "mkl" then
+  lapackProvider' = if
+    lapackImplementation == "mkl"
+  then
     lapackProvider
   else
     lapackProvider.override { blas64 = isILP64; };
@@ -45,7 +49,12 @@ in
     };
 
     # TODO: drop this forced rebuild, as it was needed just once.
-    rebuild_salt = if stdenv.isDarwin && stdenv.isx86_64 then "J4AQ" else null;
+    rebuild_salt = if
+      stdenv.isDarwin && stdenv.isx86_64
+    then
+      "J4AQ"
+    else
+      null;
 
     dontBuild = true;
     dontConfigure = true;

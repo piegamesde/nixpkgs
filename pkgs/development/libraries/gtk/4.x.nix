@@ -155,7 +155,14 @@ in
       # ../docs/tools/shooter.c:4:10: fatal error: 'cairo-xlib.h' file not found
       "-Dgtk_doc=${lib.boolToString x11Support}"
       "-Dbuild-tests=false"
-      "-Dtracker=${if trackerSupport then "enabled" else "disabled"}"
+      "-Dtracker=${
+        if
+          trackerSupport
+        then
+          "enabled"
+        else
+          "disabled"
+      }"
       "-Dbroadway-backend=${lib.boolToString broadwaySupport}"
     ] ++ lib.optionals vulkanSupport [ "-Dvulkan=enabled" ]
       ++ lib.optionals (!cupsSupport) [ "-Dprint-cups=disabled" ]

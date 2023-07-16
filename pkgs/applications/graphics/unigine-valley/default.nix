@@ -27,7 +27,9 @@
 let
   version = "1.0";
 
-  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
+  arch = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     "x64"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "x86"

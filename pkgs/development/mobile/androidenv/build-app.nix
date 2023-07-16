@@ -55,11 +55,25 @@ in
         export NDK_HOST_AWK=${gawk}/bin/gawk
         ${androidsdk}/libexec/android-sdk/ndk-bundle/ndk-build
       ''}
-      ant ${antFlags} ${if release then "release" else "debug"}
+      ant ${antFlags} ${
+        if
+          release
+        then
+          "release"
+        else
+          "debug"
+      }
     '';
     installPhase = ''
       mkdir -p $out
-      mv bin/*-${if release then "release" else "debug"}.apk $out
+      mv bin/*-${
+        if
+          release
+        then
+          "release"
+        else
+          "debug"
+      }.apk $out
 
       mkdir -p $out/nix-support
       echo "file binary-dist \"$(echo $out/*.apk)\"" > $out/nix-support/hydra-build-products

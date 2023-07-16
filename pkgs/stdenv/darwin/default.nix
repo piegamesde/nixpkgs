@@ -8,7 +8,9 @@
   bootstrapLlvmVersion ? "11.1.0"
     # Allow passing in bootstrap files directly so we can test the stdenv bootstrap process when changing the bootstrap tools
   ,
-  bootstrapFiles ? if localSystem.isAarch64 then
+  bootstrapFiles ? if
+    localSystem.isAarch64
+  then
     let
       fetch = {
           file,
@@ -117,8 +119,9 @@ in rec {
     name = "bootstrap-tools";
     builder =
       bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
-    args =
-      if localSystem.isAarch64 then [ ./unpack-bootstrap-tools-aarch64.sh ] else [ ./unpack-bootstrap-tools.sh ];
+    args = if
+      localSystem.isAarch64
+    then [ ./unpack-bootstrap-tools-aarch64.sh ] else [ ./unpack-bootstrap-tools.sh ];
 
     inherit (bootstrapFiles) mkdir bzip2 cpio tarball;
 
@@ -177,7 +180,9 @@ in rec {
           args // (overrides args)
         );
 
-      cc = if last == null then
+      cc = if
+        last == null
+      then
         "/dev/null"
       else
         mkCC ({
@@ -191,7 +196,9 @@ in rec {
             extraBuildCommands = mkExtraBuildCommands cc;
           });
 
-      ccNoLibcxx = if last == null then
+      ccNoLibcxx = if
+        last == null
+      then
         "/dev/null"
       else
         mkCC ({
@@ -220,7 +227,9 @@ in rec {
             last.pkgs.gnu-config
           ];
 
-        allowedRequisites = if allowedRequisites == null then
+        allowedRequisites = if
+          allowedRequisites == null
+        then
           null
         else
           allowedRequisites ++ [
@@ -720,7 +729,9 @@ in rec {
             inherit (darwin) dyld Libsystem libiconv locale darwin-stubs;
 
             # See useAppleSDKLibs in darwin-packages.nix
-            CF = if useAppleSDKLibs then
+            CF = if
+              useAppleSDKLibs
+            then
               super.darwin.CF
             else
               superDarwin.CF.override {

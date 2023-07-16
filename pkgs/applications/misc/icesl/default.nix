@@ -41,7 +41,9 @@ in
     pname = "iceSL";
     version = "2.4.1";
 
-    src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    src = if
+      stdenv.hostPlatform.system == "x86_64-linux"
+    then
       fetchzip {
         url =
           "https://icesl.loria.fr/assets/other/download.php?build=${version}&os=amd64";

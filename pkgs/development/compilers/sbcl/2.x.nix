@@ -78,7 +78,9 @@ stdenv.mkDerivation rec {
     # Fix the tests
     sed -e '5,$d' -i contrib/sb-bsd-sockets/tests.lisp
     sed -e '5,$d' -i contrib/sb-simple-streams/*test*.lisp
-  '' + (if purgeNixReferences then
+  '' + (if
+    purgeNixReferences
+  then
   # This is the default location to look for the core; by default in $out/lib/sbcl
   ''
     sed 's@^\(#define SBCL_HOME\) .*$@\1 "/no-such-path"@' \

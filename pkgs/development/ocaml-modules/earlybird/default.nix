@@ -18,7 +18,9 @@
   gitUpdater,
 }:
 
-if lib.versionAtLeast ocaml.version "4.13" then
+if
+  lib.versionAtLeast ocaml.version "4.13"
+then
   throw "earlybird is not available for OCaml ${ocaml.version}"
 else
 

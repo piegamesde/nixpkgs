@@ -19,7 +19,14 @@ let
         lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null)
         "-${short}";
     in
-      "${if matched == null then base else builtins.head matched}${appendShort}"
+      "${
+        if
+          matched == null
+        then
+          base
+        else
+          builtins.head matched
+      }${appendShort}"
   ;
 in
   {
@@ -73,7 +80,9 @@ in
   assert deepClone -> leaveDotGit;
   assert nonConeMode -> !(sparseCheckout == "" || sparseCheckout == [ ]);
 
-  if md5 != "" then
+  if
+    md5 != ""
+  then
     throw "fetchgit does not support md5 anymore, please use sha256"
   else if hash != "" && sha256 != "" then
     throw "Only one of sha256 or hash can be set"
@@ -88,9 +97,16 @@ in
 
       nativeBuildInputs = [ git ] ++ lib.optionals fetchLFS [ git-lfs ];
 
-      outputHashAlgo = if hash != "" then null else "sha256";
+      outputHashAlgo = if
+        hash != ""
+      then
+        null
+      else
+        "sha256";
       outputHashMode = "recursive";
-      outputHash = if hash != "" then
+      outputHash = if
+        hash != ""
+      then
         hash
       else if sha256 != "" then
         sha256
@@ -100,7 +116,9 @@ in
       # git-sparse-checkout(1) says:
       # > When the --stdin option is provided, the directories or patterns are read
       # > from standard in as a newline-delimited list instead of from the arguments.
-      sparseCheckout = if builtins.isString sparseCheckout then
+      sparseCheckout = if
+        builtins.isString sparseCheckout
+      then
         sparseCheckout
       else
         builtins.concatStringsSep "\n" sparseCheckout;
@@ -108,7 +126,9 @@ in
       inherit url rev leaveDotGit fetchLFS fetchSubmodules deepClone branchName
         nonConeMode postFetch;
 
-      postHook = if netrcPhase == null then
+      postHook = if
+        netrcPhase == null
+      then
         null
       else ''
         ${netrcPhase}

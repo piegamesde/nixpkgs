@@ -137,7 +137,14 @@ stdenv.mkDerivation (finalAttrs: {
       --with-ICU
       ${lib.optionalString enableStrictBarrier "--enable-strict-barrier"}
       ${lib.optionalString enableMemoryProfiling "--enable-memory-profiling"}
-      ${if static then "--enable-R-static-lib" else "--enable-R-shlib"}
+      ${
+        if
+          static
+        then
+          "--enable-R-static-lib"
+        else
+          "--enable-R-shlib"
+      }
       AR=$(type -p ar)
       AWK=$(type -p gawk)
       CC=$(type -p cc)

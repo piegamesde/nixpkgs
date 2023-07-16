@@ -22,8 +22,15 @@ let
   longDescription = ''
     PDF Studio is an easy to use, full-featured PDF editing software. This is the standard/pro edition, which requires a license. For the free PDF Studio Viewer see the package pdfstudioviewer.
   '';
-  pname = if (program == "pdfstudio") then "${program}${year}" else program;
-  desktopName = if (program == "pdfstudio") then
+  pname = if
+    (program == "pdfstudio")
+  then
+    "${program}${year}"
+  else
+    program;
+  desktopName = if
+    (program == "pdfstudio")
+  then
     "PDF Studio ${year}"
   else
     "PDF Studio Viewer";

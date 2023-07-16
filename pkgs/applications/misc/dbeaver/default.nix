@@ -81,7 +81,9 @@
 
     systemPlatform = platformMap.${stdenv.hostPlatform.system} or (throw
       "dbeaver not supported on ${stdenv.hostPlatform.system}");
-  in if stdenv.isDarwin then ''
+  in if
+    stdenv.isDarwin
+  then ''
     runHook preInstall
 
     mkdir -p $out/Applications $out/bin

@@ -36,7 +36,9 @@ let
     $DB['USER'] = '${cfg.database.user}';
     # NOTE: file_get_contents adds newline at the end of returned string
     $DB['PASSWORD'] = ${
-      if cfg.database.passwordFile != null then
+      if
+        cfg.database.passwordFile != null
+      then
         ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")''
       else
         "''"
@@ -101,7 +103,9 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "mysql" then
+          default = if
+            cfg.database.type == "mysql"
+          then
             config.services.mysql.port
           else if cfg.database.type == "pgsql" then
             config.services.postgresql.port

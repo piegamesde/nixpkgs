@@ -9,8 +9,12 @@ with lib;
 
 let
   cfg = config.virtualisation.vmware.guest;
-  open-vm-tools =
-    if cfg.headless then pkgs.open-vm-tools-headless else pkgs.open-vm-tools;
+  open-vm-tools = if
+    cfg.headless
+  then
+    pkgs.open-vm-tools-headless
+  else
+    pkgs.open-vm-tools;
   xf86inputvmmouse = pkgs.xorg.xf86inputvmmouse;
 in {
   imports = [ (mkRenamedOptionModule [

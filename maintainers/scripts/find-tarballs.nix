@@ -41,7 +41,9 @@ let
   });
 
   derivationsIn' = x:
-    if !canEval x then
+    if
+      !canEval x
+    then
       [ ]
     else if isDerivation x then
       optional (canEval x.drvPath) x
@@ -55,7 +57,9 @@ let
       [ ];
 
   keyDrv = drv:
-    if canEval drv.drvPath then {
+    if
+      canEval drv.drvPath
+    then {
       key = drv.drvPath;
       value = drv;
     } else
@@ -68,7 +72,9 @@ let
     ] ++ optionals (drv ? passthru) (attrNames drv.passthru))));
 
   derivationsIn = x:
-    if !canEval x then
+    if
+      !canEval x
+    then
       [ ]
     else if isDerivation x then
       optional (canEval x.drvPath) x

@@ -92,9 +92,15 @@ let
   replaceSec = let
     replaceSec' = { }@args:
       v:
-      if isAttrs v then
-        if v ? _secret then
-          if isAbsolutePath v._secret then
+      if
+        isAttrs v
+      then
+        if
+          v ? _secret
+        then
+          if
+            isAbsolutePath v._secret
+          then
             sha256 v._secret
           else
             abort "Invalid secret path (_secret = ${v._secret})"
@@ -131,7 +137,9 @@ let
         "ip"
       ];
       update = addr:
-        if isAbsolutePath addr then
+        if
+          isAbsolutePath addr
+        then
           format.lib.mkTuple [
             (format.lib.mkAtom ":local")
             addr
@@ -258,7 +266,9 @@ let
       ":"
       "\\"
     ];
-  in if (cfg.initDb.password != null) then
+  in if
+    (cfg.initDb.password != null)
+  then
     pkgs.writeText "pgpass.conf" ''
       *:*:*${esc cfg.initDb.username}:${
         esc (sha256 cfg.initDb.password._secret)
@@ -275,7 +285,9 @@ let
 
     ALTER ROLE ${escapeSqlId db.username}
       LOGIN PASSWORD ${
-        if db ? password then
+        if
+          db ? password
+        then
           "${escapeSqlStr (sha256 db.password._secret)}"
         else
           "NULL"
@@ -290,7 +302,9 @@ let
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
   '';
 
-  dbHost = if db ? socket_dir then
+  dbHost = if
+    db ? socket_dir
+  then
     db.socket_dir
   else if db ? socket then
     db.socket
@@ -402,7 +416,9 @@ let
     '';
   };
 
-  socketScript = if isAbsolutePath web.http.ip then
+  socketScript = if
+    isAbsolutePath web.http.ip
+  then
     writeShell {
       name = "akkoma-socket";
       runtimeInputs = with pkgs; [
@@ -801,7 +817,12 @@ in {
 
                   port = mkOption {
                     type = types.port;
-                    default = if isAbsolutePath web.http.ip then 0 else 4000;
+                    default = if
+                      isAbsolutePath web.http.ip
+                    then
+                      0
+                    else
+                      4000;
                     defaultText = literalExpression ''
                       if isAbsolutePath config.services.akkoma.config.:pleroma"."Pleroma.Web.Endpoint".http.ip
                         then 0
@@ -1214,7 +1235,9 @@ in {
         cfg.nginx
         {
           locations."/" = {
-            proxyPass = if isAbsolutePath web.http.ip then
+            proxyPass = if
+              isAbsolutePath web.http.ip
+            then
               "http://unix:${web.http.ip}"
             else if hasInfix ":" web.http.ip then
               "http://[${web.http.ip}]:${toString web.http.port}"

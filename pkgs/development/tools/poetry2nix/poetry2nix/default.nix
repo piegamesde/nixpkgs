@@ -16,7 +16,12 @@ let
   # Map SPDX identifiers to license names
   spdxLicenses = lib.listToAttrs (lib.filter (pair: pair.name != null)
     (builtins.map (v: {
-      name = if lib.hasAttr "spdxId" v then v.spdxId else null;
+      name = if
+        lib.hasAttr "spdxId" v
+      then
+        v.spdxId
+      else
+        null;
       value = v;
     }) (lib.attrValues lib.licenses)));
   # Get license by id falling back to input string
@@ -57,7 +62,12 @@ let
               pkg = py.pkgs."${normalizePackageName dep}";
               constraints = depSet.${dep}.python or "";
               isCompat = compat constraints;
-            in if isCompat then pkg else null) depAttrs)
+            in if
+              isCompat
+            then
+              pkg
+            else
+              null) depAttrs)
       ;
 
       buildSystemPkgs = poetryLib.getBuildSystemPkgs {
@@ -74,7 +84,9 @@ let
       desiredExtrasDeps = lib.unique
         (lib.concatMap (extra: pyProject.tool.poetry.extras.${extra}) extras);
 
-      allRawDeps = if extras == [ "*" ] then
+      allRawDeps = if
+        extras == [ "*" ]
+      then
         rawDeps
       else
         rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
@@ -85,12 +97,18 @@ let
         (map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
           checkGroups);
     in {
-      buildInputs = mkInput "buildInputs"
-        (if includeBuildSystem then buildSystemPkgs else [ ]);
+      buildInputs = mkInput "buildInputs" (if
+        includeBuildSystem
+      then
+        buildSystemPkgs
+      else
+        [ ]);
       propagatedBuildInputs = mkInput "propagatedBuildInputs"
         (getDeps allRawDeps ++ (
           # >=poetry-1.2.0 dependency groups
-          if pyProject.tool.poetry.group or { } != { } then
+          if
+            pyProject.tool.poetry.group or { } != { }
+          then
             lib.flatten
             (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies)
               groups)
@@ -165,7 +183,12 @@ in
           inherit (python) stdenv;
         };
         getFunctorFn = fn:
-          if builtins.typeOf fn == "set" then fn.__functor else fn;
+          if
+            builtins.typeOf fn == "set"
+          then
+            fn.__functor
+          else
+            fn;
 
         poetryPkg = pkgs.callPackage ./pkgs/poetry {
           inherit python;
@@ -205,7 +228,9 @@ in
         # Filter packages by their PEP508 markers & pyproject interpreter version
         partitions = let
           supportsPythonVersion = pkgMeta:
-            if pkgMeta ? marker then
+            if
+              pkgMeta ? marker
+            then
               (evalPep508 pkgMeta.marker)
             else
               true && isCompatible (poetryLib.getPythonVersion python)
@@ -262,8 +287,10 @@ in
 
           (self: super:
             lib.attrsets.mapAttrs (name: value:
-              if lib.isDerivation value && self.hasPythonModule value
-              && (normalizePackageName name) != name then
+              if
+                lib.isDerivation value && self.hasPythonModule value
+                && (normalizePackageName name) != name
+              then
                 null
               else
                 value) super)
@@ -287,8 +314,10 @@ in
           # Fix infinite recursion in a lot of packages because of checkInputs
           (self: super:
             lib.mapAttrs (name: value:
-              (if lib.isDerivation value
-              && lib.hasAttr "overridePythonAttrs" value then
+              (if
+                lib.isDerivation value
+                && lib.hasAttr "overridePythonAttrs" value
+              then
                 value.overridePythonAttrs (_: { doCheck = false; })
               else
                 value)) super)
@@ -303,7 +332,9 @@ in
           baseOverlay
 
         ] ++ # User provided overrides
-          (if builtins.typeOf overrides == "list" then
+          (if
+            builtins.typeOf overrides == "list"
+          then
             overrides
           else [ overrides ]));
         packageOverrides =
@@ -374,7 +405,9 @@ in
             // (getEditableDeps
               (pyProject.tool.poetry."dev-dependencies" or { })) // (
                 # Poetry>=1.2.0
-                if pyProject.tool.poetry.group or { } != { } then
+                if
+                  pyProject.tool.poetry.group or { } != { }
+                then
                   builtins.foldl' (acc: g:
                     acc // getEditableDeps
                     pyProject.tool.poetry.group.${g}.dependencies) { } groups
@@ -413,7 +446,9 @@ in
         projectDir ? null,
         src ? (
           # Assume that a project which is the result of a derivation is already adequately filtered
-          if lib.isDerivation projectDir then
+          if
+            lib.isDerivation projectDir
+          then
             projectDir
           else
             self.cleanPythonSources { src = projectDir; }),

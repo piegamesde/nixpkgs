@@ -19,7 +19,12 @@ let
         }:
         lib.optionalString (hasAttr path etc)
         "${mode} ${config.environment.etc.${path}.source}${trail},";
-    in if isAttrs arg then go arg else go { path = arg; };
+    in if
+      isAttrs arg
+    then
+      go arg
+    else
+      go { path = arg; };
 in {
   # FIXME: most of the etcRule calls below have been
   # written systematically by converting from apparmor-profiles's profiles

@@ -31,15 +31,28 @@
 }:
 let
   version_ = lib.splitString "-" crateVersion;
-  versionPre = if lib.tail version_ == [ ] then "" else lib.elemAt version_ 1;
+  versionPre = if
+    lib.tail version_ == [ ]
+  then
+    ""
+  else
+    lib.elemAt version_ 1;
   version = lib.splitVersion (lib.head version_);
-  rustcOpts = lib.foldl' (opts: opt: opts + " " + opt)
-    (if release then "-C opt-level=3" else "-C debuginfo=2")
-    ([ "-C codegen-units=${toString codegenUnits}" ]
+  rustcOpts = lib.foldl' (opts: opt: opts + " " + opt) (if
+    release
+  then
+    "-C opt-level=3"
+  else
+    "-C debuginfo=2") ([ "-C codegen-units=${toString codegenUnits}" ]
       ++ extraRustcOptsForBuildRs);
   buildDeps = mkRustcDepArgs buildDependencies crateRenames;
   authors = lib.concatStringsSep ":" crateAuthors;
-  optLevel = if release then 3 else 0;
+  optLevel = if
+    release
+  then
+    3
+  else
+    0;
   completeDepsDir = lib.concatStringsSep " " completeDeps;
   completeBuildDepsDir = lib.concatStringsSep " " completeBuildDeps;
   envFeatures = lib.concatStringsSep " "
@@ -140,15 +153,21 @@ in ''
   export CARGO_CFG_UNIX=1
   export CARGO_CFG_TARGET_ENV="gnu"
   export CARGO_CFG_TARGET_ENDIAN=${
-    if stdenv.hostPlatform.parsed.cpu.significantByte.name
-    == "littleEndian" then
+    if
+      stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian"
+    then
       "little"
     else
       "big"
   }
   export CARGO_CFG_TARGET_POINTER_WIDTH=${
     with stdenv.hostPlatform;
-    toString (if isILP32 then 32 else parsed.cpu.bits)
+    toString (if
+      isILP32
+    then
+      32
+    else
+      parsed.cpu.bits)
   }
   export CARGO_CFG_TARGET_VENDOR=${stdenv.hostPlatform.parsed.vendor.name}
 
@@ -157,7 +176,14 @@ in ''
   export OPT_LEVEL="${toString optLevel}"
   export TARGET="${rust.toRustTargetSpec stdenv.hostPlatform}"
   export HOST="${rust.toRustTargetSpec stdenv.buildPlatform}"
-  export PROFILE=${if release then "release" else "debug"}
+  export PROFILE=${
+    if
+      release
+    then
+      "release"
+    else
+      "debug"
+  }
   export OUT_DIR=$(pwd)/target/build/${crateName}.out
   export CARGO_PKG_VERSION_MAJOR=${lib.elemAt version 0}
   export CARGO_PKG_VERSION_MINOR=${lib.elemAt version 1}

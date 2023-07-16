@@ -106,9 +106,30 @@ stdenv.mkDerivation rec {
 
     ${stdenv.shell} bootStrap.bash \
       --with-core \
-      ${if withQT then "--with-qt" else "--without-qt"} \
-      ${if withCLI then "--with-cli" else "--without-cli"} \
-      ${if withPlugins then "--with-plugins" else "--without-plugins"}
+      ${
+        if
+          withQT
+        then
+          "--with-qt"
+        else
+          "--without-qt"
+      } \
+      ${
+        if
+          withCLI
+        then
+          "--with-cli"
+        else
+          "--without-cli"
+      } \
+      ${
+        if
+          withPlugins
+        then
+          "--with-plugins"
+        else
+          "--without-plugins"
+      }
 
     mkdir $out
     cp -R install/usr/* $out

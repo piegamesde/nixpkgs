@@ -26,7 +26,14 @@ in
     nativeBuildInputs = [ cmake ];
 
     cmakeFlags = [
-      "-DJSON_BuildTests=${if finalAttrs.doCheck then "ON" else "OFF"}"
+      "-DJSON_BuildTests=${
+        if
+          finalAttrs.doCheck
+        then
+          "ON"
+        else
+          "OFF"
+      }"
       "-DJSON_FastTests=ON"
       "-DJSON_MultipleHeaders=ON"
     ] ++ lib.optional finalAttrs.doCheck "-DJSON_TestDataDirectory=${testData}";

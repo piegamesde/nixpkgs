@@ -71,7 +71,9 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dsidplay=disabled" # sidplay / sidplay/player.h isn't packaged in nixpkgs as of writing
     (lib.mesonEnable "doc" enableDocumentation)
-  ] ++ (if enableGplPlugins then [ "-Dgpl=enabled" ] else [
+  ] ++ (if
+    enableGplPlugins
+  then [ "-Dgpl=enabled" ] else [
     "-Da52dec=disabled"
     "-Dcdio=disabled"
     "-Ddvdread=disabled"
@@ -94,8 +96,12 @@ stdenv.mkDerivation rec {
       the plug-ins or the supporting libraries might not be how we'd
       like. The code might be widely known to present patent problems.
     '';
-    license =
-      if enableGplPlugins then licenses.gpl2Plus else licenses.lgpl2Plus;
+    license = if
+      enableGplPlugins
+    then
+      licenses.gpl2Plus
+    else
+      licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ matthewbauer ];
   };

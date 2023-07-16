@@ -14,7 +14,12 @@ let
 
   settingsFile = settingsFormat.generate "starship.toml" cfg.settings;
 
-  initOption = if cfg.interactiveOnly then "promptInit" else "shellInit";
+  initOption = if
+    cfg.interactiveOnly
+  then
+    "promptInit"
+  else
+    "shellInit";
 
 in {
   options.programs.starship = {

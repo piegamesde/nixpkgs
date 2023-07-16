@@ -77,7 +77,9 @@ in
       pkg-config
     ] ++ lib.optionals withCuda [ addOpenGLRunpath ];
 
-    buildInputs = [ hwloc ] ++ (if withCuda then [
+    buildInputs = [ hwloc ] ++ (if
+      withCuda
+    then [
       glibc_multi
       cudatoolkit
     ] else [ glibc.static ]);

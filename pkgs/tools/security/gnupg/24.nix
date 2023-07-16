@@ -93,7 +93,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional withTpm2Tss "--with-tss=intel"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
-  postInstall = if enableMinimal then ''
+  postInstall = if
+    enableMinimal
+  then ''
     rm -r $out/{libexec,sbin,share}
     for f in $(find $out/bin -type f -not -name gpg)
     do

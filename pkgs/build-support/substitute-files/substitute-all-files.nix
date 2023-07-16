@@ -6,7 +6,12 @@
 args:
 
 stdenv.mkDerivation ({
-  name = if args ? name then args.name else baseNameOf (toString args.src);
+  name = if
+    args ? name
+  then
+    args.name
+  else
+    baseNameOf (toString args.src);
   builder = builtins.toFile "builder.sh" ''
     source $stdenv/setup
     set -o pipefail

@@ -18,7 +18,12 @@
 let
   inherit (melpaStablePackages) tree-sitter-langs;
 
-  libSuffix = if stdenv.isDarwin then "dylib" else "so";
+  libSuffix = if
+    stdenv.isDarwin
+  then
+    "dylib"
+  else
+    "so";
   langName = g:
     lib.removeSuffix "-grammar" (lib.removePrefix "tree-sitter-" g.pname);
   soName = g: langName g + "." + libSuffix;

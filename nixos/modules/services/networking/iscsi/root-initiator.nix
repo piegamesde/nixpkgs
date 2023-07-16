@@ -169,7 +169,9 @@ in {
           --portal ${escapeShellArg cfg.discoverPortal} \
           --debug ${toString cfg.logLevel}
 
-        ${if cfg.loginAll then ''
+        ${if
+          cfg.loginAll
+        then ''
           iscsiadm --mode node --loginall all
         '' else ''
           iscsiadm --mode node --targetname ${escapeShellArg cfg.target} --login

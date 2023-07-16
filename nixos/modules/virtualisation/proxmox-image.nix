@@ -96,7 +96,13 @@ with lib;
       };
       agent = mkOption {
         type = types.bool;
-        apply = x: if x then "1" else "0";
+        apply = x:
+          if
+            x
+          then
+            "1"
+          else
+            "0";
         default = true;
         description = lib.mdDoc ''
           Expect guest to have qemu agent running
@@ -131,8 +137,12 @@ with lib;
         Defaults to 'legacy' for 'proxmox.qemuConf.bios="seabios"' (default), other bios values defaults to 'efi'.
         Use 'hybrid' to build grub-based hybrid bios+efi images.
       '';
-      default =
-        if config.proxmox.qemuConf.bios == "seabios" then "legacy" else "efi";
+      default = if
+        config.proxmox.qemuConf.bios == "seabios"
+      then
+        "legacy"
+      else
+        "efi";
       defaultText = lib.literalExpression ''
         if config.proxmox.qemuConf.bios == "seabios" then "legacy" else "efi"'';
       example = "hybrid";
@@ -254,7 +264,9 @@ with lib;
       growPartition = true;
       kernelParams = [ "console=ttyS0" ];
       loader.grub = {
-        device = lib.mkDefault (if (hasNoFsPartition || supportBios) then
+        device = lib.mkDefault (if
+          (hasNoFsPartition || supportBios)
+        then
         # Even if there is a separate no-fs partition ("/dev/disk/by-partlabel/no-fs" i.e. "/dev/vda2"),
         # which will be used the bootloader, do not set it as loader.grub.device.
         # GRUB installation fails, unless the whole disk is selected.

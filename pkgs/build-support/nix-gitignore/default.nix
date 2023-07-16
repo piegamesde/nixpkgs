@@ -63,7 +63,9 @@ in rec {
         escs = "\\*?";
         splitString = let
           recurse = str:
-            [ (substring 0 1 str) ] ++ (if str == "" then
+            [ (substring 0 1 str) ] ++ (if
+              str == ""
+            then
               [ ]
             else
               (recurse (substring 1 (stringLength (str)) str)));
@@ -91,27 +93,46 @@ in rec {
         let
           slightFix = replaceStrings [ "\\]" ] [ "]" ];
         in
-          concatStringsSep ""
-          (map (rl: if isList rl then slightFix (elemAt rl 0) else f rl)
-            (split "(\\[([^\\\\]|\\\\.)+])" r))
+          concatStringsSep "" (map (rl:
+            if
+              isList rl
+            then
+              slightFix (elemAt rl 0)
+            else
+              f rl) (split "(\\[([^\\\\]|\\\\.)+])" r))
       ;
 
       # regex -> regex
       handleSlashPrefix = l:
         let
           split = (match "^(/?)(.*)" l);
-          findSlash = l: if (match ".+/.+" l) != null then "" else l;
+          findSlash = l:
+            if
+              (match ".+/.+" l) != null
+            then
+              ""
+            else
+              l;
           hasSlash = mapAroundCharclass findSlash l != l;
         in
-          (if (elemAt split 0) == "/" || hasSlash then "^" else "(^|.*/)")
-          + (elemAt split 1)
+          (if
+            (elemAt split 0) == "/" || hasSlash
+          then
+            "^"
+          else
+            "(^|.*/)") + (elemAt split 1)
       ;
 
       # regex -> regex
       handleSlashSuffix = l:
         let
           split = (match "^(.*)/$" l);
-        in if split != null then (elemAt split 0) + "($|/.*)" else l;
+        in if
+          split != null
+        then
+          (elemAt split 0) + "($|/.*)"
+        else
+          l;
 
       # (regex -> regex) -> [regex, bool] -> [regex, bool]
       mapPat = f: l: [
@@ -132,7 +153,13 @@ in rec {
   # string|[string|file] (→ [string|file] → [string]) -> string
   gitignoreCompileIgnore = file_str_patterns: root:
     let
-      onPath = f: a: if typeOf a == "path" then f a else a;
+      onPath = f: a:
+        if
+          typeOf a == "path"
+        then
+          f a
+        else
+          a;
       str_patterns = map (onPath readFile) (lib.toList file_str_patterns);
     in
       concatStringsSep "\n" str_patterns
@@ -211,7 +238,9 @@ in rec {
   gitignoreSource = patterns:
     let
       type = typeOf patterns;
-    in if (type == "string" && pathExists patterns) || type == "path" then
+    in if
+      (type == "string" && pathExists patterns) || type == "path"
+    then
       throw "type error in gitignoreSource(patterns -> source -> path), "
       ''use [] or "" if there are no additional patterns''
     else

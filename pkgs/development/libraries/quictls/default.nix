@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
     # This patch disables build-time detection.
     ../openssl/3.0/openssl-disable-kernel-detection.patch
 
-    (if stdenv.hostPlatform.isDarwin then
+    (if
+      stdenv.hostPlatform.isDarwin
+    then
       ../openssl/use-etc-ssl-certs-darwin.patch
     else
       ../openssl/use-etc-ssl-certs.patch)
@@ -80,14 +82,17 @@ stdenv.mkDerivation rec {
     x86_64-linux = "./Configure linux-x86_64";
     x86_64-solaris = "./Configure solaris64-x86_64-gcc";
     riscv64-linux = "./Configure linux64-riscv64";
-    mips64el-linux = if stdenv.hostPlatform.isMips64n64 then
+    mips64el-linux = if
+      stdenv.hostPlatform.isMips64n64
+    then
       "./Configure linux64-mips64"
     else if stdenv.hostPlatform.isMips64n32 then
       "./Configure linux-mips64"
     else
       throw "unsupported ABI for ${stdenv.hostPlatform.system}";
-  }.${stdenv.hostPlatform.system} or (if stdenv.hostPlatform
-  == stdenv.buildPlatform then
+  }.${stdenv.hostPlatform.system} or (if
+    stdenv.hostPlatform == stdenv.buildPlatform
+  then
     "./config"
   else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_64 then
     "./Configure BSD-x86_64"
@@ -143,7 +148,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  postInstall = (if static then ''
+  postInstall = (if
+    static
+  then ''
     # OPENSSLDIR has a reference to self
     ${removeReferencesTo}/bin/remove-references-to -t $out $out/lib/*.a
   '' else ''

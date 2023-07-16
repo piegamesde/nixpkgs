@@ -11,12 +11,14 @@ let
   cfg = config.services.logrotate;
 
   generateLine = n: v:
-    if builtins.elem n [
-      "files"
-      "priority"
-      "enable"
-      "global"
-    ] || v == null then
+    if
+      builtins.elem n [
+        "files"
+        "priority"
+        "enable"
+        "global"
+      ] || v == null
+    then
       null
     else if builtins.elem n [ "frequency" ] then ''
       ${v}
@@ -45,7 +47,9 @@ let
 
   # generateSection includes a final newline hence weird closing brace
   mkConf = settings:
-    if settings.global or false then
+    if
+      settings.global or false
+    then
       generateSection 0 settings
     else ''
       ${

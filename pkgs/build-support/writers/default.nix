@@ -11,8 +11,12 @@
 }:
 
 let
-  aliases =
-    if config.allowAliases then (import ./aliases.nix lib) else prev: { };
+  aliases = if
+    config.allowAliases
+  then
+    (import ./aliases.nix lib)
+  else
+    prev: { };
 
   writers = with lib; rec {
     # Base implementation for non-compiled executables.
@@ -33,7 +37,9 @@ let
         name = last (builtins.split "/" nameOrPath);
 
       in
-        pkgs.runCommandLocal name (if (types.str.check content) then {
+        pkgs.runCommandLocal name (if
+          (types.str.check content)
+        then {
           inherit content interpreter;
           passAsFile = [ "content" ];
         } else {
@@ -95,7 +101,9 @@ let
       let
         name = last (builtins.split "/" nameOrPath);
       in
-        pkgs.runCommand name ((if (types.str.check content) then {
+        pkgs.runCommand name ((if
+          (types.str.check content)
+        then {
           inherit content;
           passAsFile = [ "content" ];
         } else {
@@ -180,8 +188,15 @@ let
       }:
       let
         appendIfNotSet = el: list:
-          if elem el list then list else list ++ [ el ];
-        ghcArgs' = if threadedRuntime then
+          if
+            elem el list
+          then
+            list
+          else
+            list ++ [ el ];
+        ghcArgs' = if
+          threadedRuntime
+        then
           appendIfNotSet "-threaded" ghcArgs
         else
           ghcArgs;
@@ -308,7 +323,9 @@ let
           "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
       in
         makeScriptWriter {
-          interpreter = if libraries == [ ] then
+          interpreter = if
+            libraries == [ ]
+          then
             "${python}/bin/python"
           else
             "${python.withPackages (ps: libraries)}/bin/python";
@@ -380,7 +397,9 @@ let
       nameOrPath:
       let
         fname = last (builtins.split "/" nameOrPath);
-        path = if strings.hasSuffix ".fsx" nameOrPath then
+        path = if
+          strings.hasSuffix ".fsx" nameOrPath
+        then
           nameOrPath
         else
           "${nameOrPath}.fsx";

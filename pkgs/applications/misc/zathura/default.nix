@@ -29,7 +29,12 @@ let
         zathura_djvu
         zathura_ps
         zathura_cb
-        (if useMupdf then zathura_pdf_mupdf else zathura_pdf_poppler)
+        (if
+          useMupdf
+        then
+          zathura_pdf_mupdf
+        else
+          zathura_pdf_poppler)
       ];
     };
   };

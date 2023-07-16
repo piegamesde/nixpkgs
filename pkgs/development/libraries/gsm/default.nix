@@ -24,7 +24,9 @@ in
         --replace "= gcc " "?= gcc "
       # Fix include directory
       sed -e 's,$(GSM_INSTALL_ROOT)/inc,$(GSM_INSTALL_ROOT)/include/gsm,' -i Makefile
-    '' + optionalString (!staticSupport) ((if isDarwin then ''
+    '' + optionalString (!staticSupport) ((if
+      isDarwin
+    then ''
       # Build dylib on Darwin
       sed -e 's,libgsm.a,libgsm.dylib,' -i Makefile
       sed -e 's,$(AR) $(ARFLAGS) $(LIBGSM) $(GSM_OBJECTS),$(LD) -o $(LIBGSM) -dynamiclib -install_name $(GSM_INSTALL_ROOT)/$(LIBGSM) $(GSM_OBJECTS) -lc,' -i Makefile

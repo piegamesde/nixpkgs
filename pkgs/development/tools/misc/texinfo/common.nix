@@ -55,12 +55,18 @@ stdenv.mkDerivation {
 
   # ncurses is required to build `makedoc'
   # this feature is introduced by the ./cross-tools-flags.patch
-  NATIVE_TOOLS_CFLAGS = if crossBuildTools then
+  NATIVE_TOOLS_CFLAGS = if
+    crossBuildTools
+  then
     "-I${getDev buildPackages.ncurses}/include"
   else
     null;
-  NATIVE_TOOLS_LDFLAGS =
-    if crossBuildTools then "-L${getLib buildPackages.ncurses}/lib" else null;
+  NATIVE_TOOLS_LDFLAGS = if
+    crossBuildTools
+  then
+    "-L${getLib buildPackages.ncurses}/lib"
+  else
+    null;
 
   strictDeps = true;
   enableParallelBuilding = true;

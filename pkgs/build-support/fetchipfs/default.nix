@@ -24,7 +24,9 @@ let
   hasHash = (outputHash != "" && outputHashAlgo != "") || md5 != "" || sha1
     != "" || sha256 != "" || sha512 != "";
 
-in if (!hasHash) then
+in if
+  (!hasHash)
+then
   throw "Specify sha for fetchipfs fixed-output derivation"
 else
   stdenv.mkDerivation {
@@ -33,7 +35,9 @@ else
     nativeBuildInputs = [ curl ];
 
     # New-style output content requirements.
-    outputHashAlgo = if outputHashAlgo != "" then
+    outputHashAlgo = if
+      outputHashAlgo != ""
+    then
       outputHashAlgo
     else if sha512 != "" then
       "sha512"
@@ -43,7 +47,9 @@ else
       "sha1"
     else
       "md5";
-    outputHash = if outputHash != "" then
+    outputHash = if
+      outputHash != ""
+    then
       outputHash
     else if sha512 != "" then
       sha512

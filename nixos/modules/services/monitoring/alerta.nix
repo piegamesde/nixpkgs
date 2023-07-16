@@ -20,8 +20,22 @@ let
       CORS_ORIGINS = [ ${
         concatMapStringsSep ", " (s: ''"'' + s + ''"'') cfg.corsOrigins
       } ];
-      AUTH_REQUIRED = ${if cfg.authenticationRequired then "True" else "False"}
-      SIGNUP_ENABLED = ${if cfg.signupEnabled then "True" else "False"}
+      AUTH_REQUIRED = ${
+        if
+          cfg.authenticationRequired
+        then
+          "True"
+        else
+          "False"
+      }
+      SIGNUP_ENABLED = ${
+        if
+          cfg.signupEnabled
+        then
+          "True"
+        else
+          "False"
+      }
       ${cfg.extraConfig}
     '';
   };

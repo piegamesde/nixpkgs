@@ -71,7 +71,9 @@ let
   };
 
   filterDTBs = src:
-    if cfg.filter == null then
+    if
+      cfg.filter == null
+    then
       "${src}/dtbs"
     else
       pkgs.runCommand "dtbs-filtered" { } ''
@@ -108,8 +110,12 @@ let
   withDTBOs = xs:
     flip map xs (o:
       o // {
-        dtboFile = if o.dtboFile == null then
-          if o.dtsFile != null then
+        dtboFile = if
+          o.dtboFile == null
+        then
+          if
+            o.dtsFile != null
+          then
             compileDTS o.name o.dtsFile
           else
             compileDTS o.name (pkgs.writeText "dts" o.dtsText)
@@ -215,7 +221,9 @@ in {
       }
     ;
 
-    hardware.deviceTree.package = if (cfg.overlays != [ ]) then
+    hardware.deviceTree.package = if
+      (cfg.overlays != [ ])
+    then
       pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
     else
       filteredDTBs;

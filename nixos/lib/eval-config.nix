@@ -29,7 +29,11 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
   lib ? import ../../lib,
   extraModules ? let
     e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
-  in if e == "" then [ ] else [ (import e) ]
+  in if
+    e == ""
+  then
+    [ ]
+  else [ (import e) ]
 }:
 
 let
@@ -72,7 +76,9 @@ in let
   allUserModules = let
     # Add the invoking file (or specified modulesLocation) as error message location
     # for modules that don't have their own locations; presumably inline modules.
-    locatedModules = if modulesLocation == null then
+    locatedModules = if
+      modulesLocation == null
+    then
       modules
     else
       map (lib.setDefaultModuleLocation modulesLocation) modules;

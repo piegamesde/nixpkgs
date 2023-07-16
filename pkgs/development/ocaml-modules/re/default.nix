@@ -8,7 +8,9 @@
 }:
 
 let
-  version_sha = if lib.versionAtLeast ocaml.version "4.08" then {
+  version_sha = if
+    lib.versionAtLeast ocaml.version "4.08"
+  then {
     version = "1.10.4";
     sha256 = "sha256-g+s+QwCqmx3HggdJAQ9DYuqDUkdCEwUk14wgzpnKdHw=";
   } else {

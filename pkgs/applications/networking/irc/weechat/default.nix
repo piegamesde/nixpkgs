@@ -119,11 +119,23 @@ in
       [
         "-DENABLE_MAN=ON"
         "-DENABLE_DOC=ON"
-        "-DENABLE_TESTS=${if enableTests then "ON" else "OFF"}"
+        "-DENABLE_TESTS=${
+          if
+            enableTests
+          then
+            "ON"
+          else
+            "OFF"
+        }"
       ] ++ optionals
       stdenv.isDarwin [ "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib" ]
-      ++ map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF"))
-      plugins;
+      ++ map (p:
+        "-D${p.cmakeFlag}=" + (if
+          p.enabled
+        then
+          "ON"
+        else
+          "OFF")) plugins;
 
     nativeBuildInputs = [
       cmake

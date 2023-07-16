@@ -189,7 +189,9 @@ let
   # LTO requires LLVM bintools including ld.lld and llvm-ar.
   buildStdenv = overrideCC llvmPackages.stdenv
     (llvmPackages.stdenv.cc.override {
-      bintools = if ltoSupport then
+      bintools = if
+        ltoSupport
+      then
         buildPackages.rustc.llvmPackages.bintools
       else
         stdenv.cc.bintools;
@@ -447,7 +449,12 @@ in
         (enableFeature sndioSupport "sndio")
         (enableFeature webrtcSupport "webrtc")
         (enableFeature debugBuild "debug")
-        (if debugBuild then "--enable-profiling" else "--enable-optimize")
+        (if
+          debugBuild
+        then
+          "--enable-profiling"
+        else
+          "--enable-optimize")
         # --enable-release adds -ffunction-sections & LTO that require a big amount
         # of RAM, and the 32-bit memory space cannot handle that linking
         (enableFeature (!debugBuild && !stdenv.is32bit) "release")
@@ -495,7 +502,9 @@ in
       xorg.xorgproto
       zip
       zlib
-    ] ++ [ (if (lib.versionAtLeast version "103") then
+    ] ++ [ (if
+      (lib.versionAtLeast version "103")
+    then
       nss_latest
     else
       nss_esr) ] ++ lib.optional alsaSupport alsa-lib

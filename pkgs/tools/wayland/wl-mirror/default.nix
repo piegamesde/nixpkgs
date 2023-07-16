@@ -63,7 +63,12 @@ in
 
     cmakeFlags = [
       "-DINSTALL_EXAMPLE_SCRIPTS=${
-        if installExampleScripts then "ON" else "OFF"
+        if
+          installExampleScripts
+        then
+          "ON"
+        else
+          "OFF"
       }"
       "-DINSTALL_DOCUMENTATION=ON"
     ];

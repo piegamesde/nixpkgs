@@ -65,7 +65,9 @@ in let
   localSystem = lib.systems.elaborate args.localSystem;
 
   # Condition preserves sharing which in turn affects equality.
-  crossSystem = if crossSystem0 == null || crossSystem0 == args.localSystem then
+  crossSystem = if
+    crossSystem0 == null || crossSystem0 == args.localSystem
+  then
     localSystem
   else
     lib.systems.elaborate crossSystem0;
@@ -73,8 +75,12 @@ in let
   # Allow both:
   # { /* the config */ } and
   # { pkgs, ... } : { /* the config */ }
-  config1 =
-    if lib.isFunction config0 then config0 { inherit pkgs; } else config0;
+  config1 = if
+    lib.isFunction config0
+  then
+    config0 { inherit pkgs; }
+  else
+    config0;
 
   configEval = lib.evalModules {
     modules = [

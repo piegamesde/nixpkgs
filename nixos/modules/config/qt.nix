@@ -23,7 +23,9 @@ let
   isLxqt = cfg.platformTheme == "lxqt";
   isKde = cfg.platformTheme == "kde";
 
-  packages = if isQGnome then [
+  packages = if
+    isQGnome
+  then [
     pkgs.qgnomeplatform
     pkgs.adwaita-qt
     pkgs.qgnomeplatform-qt6

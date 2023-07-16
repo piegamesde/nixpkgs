@@ -146,7 +146,12 @@
   fsType ? "ext4"
 
   , # Filesystem label
-  label ? if onlyNixStore then "nix-store" else "nixos"
+  label ? if
+    onlyNixStore
+  then
+    "nix-store"
+  else
+    "nixos"
 
   , # The initial NixOS configuration file to be copied to
   # /etc/nixos/configuration.nix.
@@ -186,7 +191,12 @@
     # When fsType = ext4, this is the root Filesystem Unique Identifier.
     # TODO: support other filesystems someday.
   ,
-  rootFSUID ? (if fsType == "ext4" then rootGPUID else null)
+  rootFSUID ? (if
+    fsType == "ext4"
+  then
+    rootGPUID
+  else
+    null)
 
   , # Whether a nix channel based on the current source tree should be
   # made available inside the image. Useful for interactive use of nix
@@ -229,7 +239,12 @@ let
   format' = format;
 in let
 
-  format = if format' == "qcow2-compressed" then "qcow2" else format';
+  format = if
+    format' == "qcow2-compressed"
+  then
+    "qcow2"
+  else
+    format';
 
   compress = optionalString (format' == "qcow2-compressed") "-c";
 
@@ -445,7 +460,9 @@ in let
     nixos-install --root $root --no-bootloader --no-root-passwd \
       --system ${config.system.build.toplevel} \
       ${
-        if copyChannel then
+        if
+          copyChannel
+        then
           "--channel ${channelSources}"
         else
           "--no-channel-copy"
@@ -460,8 +477,12 @@ in let
 
     diskImage=nixos.raw
 
-    ${if diskSize == "auto" then ''
-      ${if partitionTableType == "efi" || partitionTableType == "hybrid" then ''
+    ${if
+      diskSize == "auto"
+    then ''
+      ${if
+        partitionTableType == "efi" || partitionTableType == "hybrid"
+      then ''
         # Add the GPT at the end
         gptSpace=$(( 512 * 34 * 1 ))
         # Normally we'd need to account for alignment and things, if bootSize
@@ -515,7 +536,9 @@ in let
 
     ${partitionDiskScript}
 
-    ${if partitionTableType != "none" then ''
+    ${if
+      partitionTableType != "none"
+    then ''
       # Get start & length of the root partition in sectors to $START and $SECTORS.
       eval $(partx $diskImage -o START,SECTORS --nr ${rootPartition} --pairs)
 
@@ -535,7 +558,9 @@ in let
   '';
 
   moveOrConvertImage = ''
-    ${if format == "raw" then ''
+    ${if
+      format == "raw"
+    then ''
       mv $diskImage $out/${filename}
     '' else ''
       ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${format} ${compress} $diskImage $out/${filename}
@@ -567,7 +592,9 @@ in let
     export PATH=${binPath}:$PATH
 
     rootDisk=${
-      if partitionTableType != "none" then
+      if
+        partitionTableType != "none"
+      then
         "/dev/vda${rootPartition}"
       else
         "/dev/vda"
@@ -651,7 +678,9 @@ in let
       ${optionalString deterministic "tune2fs -f -T 19700101 $rootDisk"}
     ''}
   '');
-in if onlyNixStore then
+in if
+  onlyNixStore
+then
   pkgs.runCommand name { } (prepareImage + moveOrConvertImage + postVM)
 else
   buildImage

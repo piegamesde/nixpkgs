@@ -7,7 +7,9 @@
 let
   cfg = config.virtualisation.containerd;
 
-  configFile = if cfg.configFile == null then
+  configFile = if
+    cfg.configFile == null
+  then
     settingsFormat.generate "containerd.toml" cfg.settings
   else
     cfg.configFile;

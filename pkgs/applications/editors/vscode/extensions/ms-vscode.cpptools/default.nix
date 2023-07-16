@@ -40,7 +40,12 @@
 */
 
 let
-  gdbDefaultsTo = if gdbUseFixed then "${gdb}/bin/gdb" else "gdb";
+  gdbDefaultsTo = if
+    gdbUseFixed
+  then
+    "${gdb}/bin/gdb"
+  else
+    "gdb";
 in
   vscode-utils.buildVscodeMarketplaceExtension rec {
     mktplcRef = {

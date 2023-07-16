@@ -10,7 +10,13 @@
 assert lzmaSupport -> xz != null;
 
 let
-  mkWith = flag: name: if flag then "--with-${name}" else "--without-${name}";
+  mkWith = flag: name:
+    if
+      flag
+    then
+      "--with-${name}"
+    else
+      "--without-${name}";
 in
   stdenv.mkDerivation rec {
     pname = "xdelta";

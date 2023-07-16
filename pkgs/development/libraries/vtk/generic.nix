@@ -66,7 +66,9 @@ in
     buildInputs = [
       libpng
       libtiff
-    ] ++ optionals enableQt (if lib.versionOlder majorVersion "9" then [
+    ] ++ optionals enableQt (if
+      lib.versionOlder majorVersion "9"
+    then [
       qtbase
       qtx11extras
       qttools
@@ -114,13 +116,17 @@ in
       "-DCMAKE_C_FLAGS=-fPIC"
       "-DCMAKE_CXX_FLAGS=-fPIC"
       "-D${
-        if lib.versionOlder version "9.0" then
+        if
+          lib.versionOlder version "9.0"
+        then
           "VTK_USE_SYSTEM_PNG"
         else
           "VTK_MODULE_USE_EXTERNAL_vtkpng"
       }=ON"
       "-D${
-        if lib.versionOlder version "9.0" then
+        if
+          lib.versionOlder version "9.0"
+        then
           "VTK_USE_SYSTEM_TIFF"
         else
           "VTK_MODULE_USE_EXTERNAL_vtktiff"
@@ -131,7 +137,9 @@ in
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DVTK_VERSIONED_INSTALL=OFF"
     ] ++ optionals enableQt [ "-D${
-        if lib.versionOlder version "9.0" then
+        if
+          lib.versionOlder version "9.0"
+        then
           "VTK_Group_Qt:BOOL=ON"
         else
           "VTK_GROUP_ENABLE_Qt:STRING=YES"

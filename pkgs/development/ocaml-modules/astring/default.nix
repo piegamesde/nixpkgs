@@ -10,7 +10,9 @@
 
 let
   # Use astring 0.8.3 for OCaml < 4.05
-  param = if lib.versionAtLeast ocaml.version "4.05" then {
+  param = if
+    lib.versionAtLeast ocaml.version "4.05"
+  then {
     version = "0.8.5";
     sha256 = "1ykhg9gd3iy7zsgyiy2p9b1wkpqg9irw5pvcqs3sphq71iir4ml6";
   } else {

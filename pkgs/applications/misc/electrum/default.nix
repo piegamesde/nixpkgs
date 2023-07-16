@@ -14,14 +14,18 @@
 let
   version = "4.4.0";
 
-  libsecp256k1_name = if stdenv.isLinux then
+  libsecp256k1_name = if
+    stdenv.isLinux
+  then
     "libsecp256k1.so.0"
   else if stdenv.isDarwin then
     "libsecp256k1.0.dylib"
   else
     "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-  libzbar_name = if stdenv.isLinux then
+  libzbar_name = if
+    stdenv.isLinux
+  then
     "libzbar.so.0"
   else if stdenv.isDarwin then
     "libzbar.0.dylib"
@@ -96,7 +100,9 @@ in
 
       substituteInPlace ./electrum/ecc_fast.py \
         --replace ${libsecp256k1_name} ${secp256k1}/lib/libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}
-    '' + (if enableQt then ''
+    '' + (if
+      enableQt
+    then ''
       substituteInPlace ./electrum/qrscanner.py \
         --replace ${libzbar_name} ${zbar.lib}/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}
     '' else ''

@@ -12,12 +12,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ath9k-htc-blobless-firmware";
-  version = if enableUnstable then "unstable-2022-05-22" else "1.4.0";
+  version = if
+    enableUnstable
+  then
+    "unstable-2022-05-22"
+  else
+    "1.4.0";
 
   src = fetchFromGitHub ({
     owner = "qca";
     repo = "open-ath9k-htc-firmware";
-  } // (if enableUnstable then {
+  } // (if
+    enableUnstable
+  then {
     rev = "d856466a068afe4069335257c0d28295ff777d92";
     hash = "sha256-9OE6qYGABeXjf1r/Depd+811EJ2e8I0Ni5ePHSOh9G4=";
   } else {

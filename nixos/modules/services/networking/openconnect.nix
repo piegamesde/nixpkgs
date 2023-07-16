@@ -98,8 +98,13 @@ let
     };
   };
   generateExtraConfig = extra_cfg:
-    strings.concatStringsSep "\n" (attrsets.mapAttrsToList
-      (name: value: if (value == true) then name else "${name}=${value}")
+    strings.concatStringsSep "\n" (attrsets.mapAttrsToList (name: value:
+      if
+        (value == true)
+      then
+        name
+      else
+        "${name}=${value}")
       (attrsets.filterAttrs (_: value: value != false) extra_cfg));
   generateConfig = name: icfg:
     pkgs.writeText "config" ''

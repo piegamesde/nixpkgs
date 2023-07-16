@@ -12,7 +12,9 @@
 }:
 
 let
-  params = if lib.versionAtLeast ocaml.version "4.08" then {
+  params = if
+    lib.versionAtLeast ocaml.version "4.08"
+  then {
     version = "3.3.1";
     sha256 = "sha256-C124bhdrY+XzL93zzNEbCr+U+7CYBZDm0hlAw+iqat4=";
   } else {
@@ -25,7 +27,12 @@ in
     pname = "lambda-term";
     inherit (params) version;
 
-    duneVersion = if lib.versionAtLeast ocaml.version "4.08" then "3" else "2";
+    duneVersion = if
+      lib.versionAtLeast ocaml.version "4.08"
+    then
+      "3"
+    else
+      "2";
 
     src = fetchFromGitHub {
       owner = "ocaml-community";

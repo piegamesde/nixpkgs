@@ -17,7 +17,12 @@
   xineramaSupport ? stdenv.isLinux,
   cupsSupport ? config.gtk2.cups or stdenv.isLinux,
   cups,
-  gdktarget ? if stdenv.isDarwin then "quartz" else "x11",
+  gdktarget ? if
+    stdenv.isDarwin
+  then
+    "quartz"
+  else
+    "x11",
   AppKit,
   Cocoa,
   fetchpatch,
@@ -93,12 +98,13 @@ in
         Cocoa
       ];
 
-    preConfigure =
-      if (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-        && stdenv.isDarwin) then ''
-          MACOSX_DEPLOYMENT_TARGET=10.16
-        '' else
-        null;
+    preConfigure = if
+      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+        && stdenv.isDarwin)
+    then ''
+      MACOSX_DEPLOYMENT_TARGET=10.16
+    '' else
+      null;
 
     configureFlags = [
       "--sysconfdir=/etc"

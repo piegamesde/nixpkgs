@@ -34,7 +34,9 @@ let
     # This is not a problem for Apple machines, which are all alike.  In
     # addition, `configfsf.guess' would return `i386-apple-darwin10.2.0' on
     # `x86_64-darwin', leading to a 32-bit ABI build, which is undesirable.
-    preConfigure = if !stdenv.isDarwin then
+    preConfigure = if
+      !stdenv.isDarwin
+    then
       "ln -sf configfsf.guess config.guess"
     else
       ''echo "Darwin host is `./config.guess`."'';

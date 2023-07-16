@@ -318,7 +318,9 @@ in
       description = "Print, scan and fax HP drivers for Linux";
       homepage = "https://developers.hp.com/hp-linux-imaging-and-printing";
       downloadPage = "https://sourceforge.net/projects/hplip/files/hplip/";
-      license = if withPlugin then
+      license = if
+        withPlugin
+      then
         licenses.unfree
       else
         with licenses; [

@@ -56,7 +56,13 @@ let
     };
     options.verbosity = mkOption {
       type = types.enum (attrNames logLevels ++ attrValues logLevels);
-      apply = v: if isString v then logLevels.${v} else v;
+      apply = v:
+        if
+          isString v
+        then
+          logLevels.${v}
+        else
+          v;
       default = "info";
       description = lib.mdDoc "Log verbosity (syslog keyword/level).";
     };

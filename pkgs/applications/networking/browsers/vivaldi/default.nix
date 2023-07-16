@@ -63,8 +63,18 @@
 }:
 
 let
-  branch = if isSnapshot then "snapshot" else "stable";
-  vivaldiName = if isSnapshot then "vivaldi-snapshot" else "vivaldi";
+  branch = if
+    isSnapshot
+  then
+    "snapshot"
+  else
+    "stable";
+  vivaldiName = if
+    isSnapshot
+  then
+    "vivaldi-snapshot"
+  else
+    "vivaldi";
 in
   stdenv.mkDerivation rec {
     pname = "vivaldi";

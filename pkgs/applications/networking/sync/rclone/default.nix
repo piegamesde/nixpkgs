@@ -31,8 +31,12 @@ buildGoModule rec {
     "man"
   ];
 
-  buildInputs =
-    lib.optional enableCmount (if stdenv.isDarwin then macfuse-stubs else fuse);
+  buildInputs = lib.optional enableCmount (if
+    stdenv.isDarwin
+  then
+    macfuse-stubs
+  else
+    fuse);
   nativeBuildInputs = [
     installShellFiles
     makeWrapper
@@ -47,7 +51,9 @@ buildGoModule rec {
   ];
 
   postInstall = let
-    rcloneBin = if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
+    rcloneBin = if
+      stdenv.buildPlatform.canExecute stdenv.hostPlatform
+    then
       "$out"
     else
       lib.getBin buildPackages.rclone;

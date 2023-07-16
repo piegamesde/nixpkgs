@@ -76,7 +76,12 @@ stdenv.mkDerivation rec {
 
   # Use "debugoptimized" instead of "debug" so perhaps picom works better in
   # normal usage too, not just temporary debugging.
-  mesonBuildType = if withDebug then "debugoptimized" else "release";
+  mesonBuildType = if
+    withDebug
+  then
+    "debugoptimized"
+  else
+    "release";
   dontStrip = withDebug;
 
   mesonFlags = [ "-Dwith_docs=true" ];

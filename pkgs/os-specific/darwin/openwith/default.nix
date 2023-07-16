@@ -9,7 +9,12 @@
 }:
 
 let
-  arch = if stdenv.isAarch64 then "arm64" else "x86_64";
+  arch = if
+    stdenv.isAarch64
+  then
+    "arm64"
+  else
+    "x86_64";
 in
   stdenv.mkDerivation rec {
     pname = "openwith";

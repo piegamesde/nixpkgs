@@ -21,9 +21,16 @@ with lib;
 
 let
 
-  bitness = if stdenv.is64bit then "64" else "32";
+  bitness = if
+    stdenv.is64bit
+  then
+    "64"
+  else
+    "32";
 
-  libArch = if stdenv.hostPlatform.system == "i686-linux" then
+  libArch = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
     "i386-linux-gnu"
   else if stdenv.hostPlatform.system == "x86_64-linux" then
     "x86_64-linux-gnu"
@@ -48,7 +55,14 @@ in
     postUnpack = ''
       mkdir root
       pushd $sourceRoot
-      for deb in *_all.deb *_${if stdenv.is64bit then "amd64" else "i386"}.deb
+      for deb in *_all.deb *_${
+        if
+          stdenv.is64bit
+        then
+          "amd64"
+        else
+          "i386"
+      }.deb
       do
         ar p $deb data.tar.xz | tar -C ../root -xJ
       done
@@ -176,9 +190,10 @@ in
       runHook postInstall
     '';
 
-    preFixup = (if stdenv.is64bit
-    # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
-    # set in the user session and for Xorg
+    preFixup = (if
+      stdenv.is64bit
+      # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
+      # set in the user session and for Xorg
     then ''
       expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
       expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'

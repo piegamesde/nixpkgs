@@ -7,7 +7,12 @@
   systemdMinimal,
 }:
 let
-  binDirPrefix = if stdenv.isDarwin then "osx_" else "linux_";
+  binDirPrefix = if
+    stdenv.isDarwin
+  then
+    "osx_"
+  else
+    "linux_";
 in
   stdenv.mkDerivation rec {
     pname = "libusbsio";

@@ -432,8 +432,12 @@ let
 
       TMPFS = yes;
       TMPFS_POSIX_ACL = yes;
-      FS_ENCRYPTION =
-        if (versionAtLeast version "5.1") then yes else option module;
+      FS_ENCRYPTION = if
+        (versionAtLeast version "5.1")
+      then
+        yes
+      else
+        option module;
 
       EXT2_FS_XATTR = yes;
       EXT2_FS_POSIX_ACL = yes;
@@ -786,7 +790,9 @@ let
       XZ_DEC_TEST = option no;
     };
 
-    criu = if (versionAtLeast version "4.19") then {
+    criu = if
+      (versionAtLeast version "4.19")
+    then {
       # Unconditionally enabled, because it is required for CRIU and
       # it provides the kcmp() system call that Mesa depends on.
       CHECKPOINT_RESTORE = yes;

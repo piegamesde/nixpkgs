@@ -66,7 +66,9 @@ in
     pname = "ccl";
     version = "1.12";
 
-    src = if cfg.arch == "linuxarm" then
+    src = if
+      cfg.arch == "linuxarm"
+    then
       linuxarm-src
     else
       fetchurl {
@@ -92,7 +94,9 @@ in
       })
     ];
 
-    buildInputs = if stdenv.isDarwin then [
+    buildInputs = if
+      stdenv.isDarwin
+    then [
       bootstrap_cmds
       m4
     ] else [
@@ -103,7 +107,9 @@ in
     CCL_RUNTIME = cfg.runtime;
     CCL_KERNEL = cfg.kernel;
 
-    postPatch = if stdenv.isDarwin then ''
+    postPatch = if
+      stdenv.isDarwin
+    then ''
       substituteInPlace lisp-kernel/${CCL_KERNEL}/Makefile \
         --replace "M4 = gm4"   "M4 = m4" \
         --replace "dtrace"     "/usr/sbin/dtrace" \

@@ -55,7 +55,9 @@ let
       # Item 3 could cover all use cases if the sagemath/sagetrack-mirror repo had
       # release tags, but it requires a sha instead of a release number in "base", which
       # is inconvenient.
-      urls = if squashed then [
+      urls = if
+        squashed
+      then [
         "https://github.com/sagemath/sage/compare/${base}...${rev}.diff"
         "https://github.com/sagemath/sagetrac-mirror/compare/${base}...${rev}.diff"
       ] else [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ];

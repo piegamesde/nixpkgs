@@ -36,8 +36,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}" ]
-    ++ lib.optionals
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=${
+      if
+        static
+      then
+        "OFF"
+      else
+        "ON"
+    }" ] ++ lib.optionals
     (cxxStandard != null) [ "-DCMAKE_CXX_STANDARD=${cxxStandard}" ];
 
   nativeBuildInputs = [ cmake ];

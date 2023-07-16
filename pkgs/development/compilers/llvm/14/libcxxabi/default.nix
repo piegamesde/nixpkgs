@@ -59,7 +59,9 @@ stdenv.mkDerivation rec {
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
 
-  installPhase = if stdenv.isDarwin then ''
+  installPhase = if
+    stdenv.isDarwin
+  then ''
     for file in lib/*.dylib; do
       if [ -L "$file" ]; then continue; fi
 

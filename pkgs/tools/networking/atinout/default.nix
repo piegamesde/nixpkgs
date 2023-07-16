@@ -12,7 +12,12 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (!stdenv.cc.isClang) "-Werror=implicit-fallthrough=0";
-  LANG = if stdenv.isDarwin then "en_US.UTF-8" else "C.UTF-8";
+  LANG = if
+    stdenv.isDarwin
+  then
+    "en_US.UTF-8"
+  else
+    "C.UTF-8";
   nativeBuildInputs = [
     ronn
     mount

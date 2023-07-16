@@ -27,9 +27,12 @@ let
   knownHostsText = (flip (concatMapStringsSep "\n") knownHosts (h:
     assert h.hostNames != [ ];
     optionalString h.certAuthority "@cert-authority "
-    + concatStringsSep "," h.hostNames + " "
-    + (if h.publicKey != null then h.publicKey else readFile h.publicKeyFile)))
-    + "\n";
+    + concatStringsSep "," h.hostNames + " " + (if
+      h.publicKey != null
+    then
+      h.publicKey
+    else
+      readFile h.publicKeyFile))) + "\n";
 
   knownHostsFiles = [ "/etc/ssh/ssh_known_hosts" ]
     ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
@@ -329,14 +332,28 @@ in {
 
       # Generated options from other settings
       Host *
-      AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
+      AddressFamily ${
+        if
+          config.networking.enableIPv6
+        then
+          "any"
+        else
+          "inet"
+      }
       GlobalKnownHostsFile ${concatStringsSep " " knownHostsFiles}
 
       ${optionalString cfg.setXAuthLocation ''
         XAuthLocation ${pkgs.xorg.xauth}/bin/xauth
       ''}
 
-      ForwardX11 ${if cfg.forwardX11 then "yes" else "no"}
+      ForwardX11 ${
+        if
+          cfg.forwardX11
+        then
+          "yes"
+        else
+          "no"
+      }
 
       ${optionalString (cfg.pubkeyAcceptedKeyTypes != [ ])
       "PubkeyAcceptedKeyTypes ${

@@ -124,7 +124,9 @@ in
 
     propagatedBuildInputs = propagatedBuildInputs ++ [ texinfo ];
 
-    preBuild = if preBuild == "" then ''
+    preBuild = if
+      preBuild == ""
+    then ''
       # This trickery is needed because Octave expects a single directory inside
       # at the top-most level of the tarball.
       tar --transform 's,^,${fullLibName}/,' -cz * -f ${fullLibName}.tar.gz

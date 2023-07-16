@@ -168,15 +168,19 @@ in
       # Git does not allow setting a shell separately for building and run-time.
       # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
-      "SHELL_PATH=${stdenv.shell}"
-      ++ (if perlSupport then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ])
-      ++ (if pythonSupport then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ])
+      "SHELL_PATH=${stdenv.shell}" ++ (if
+        perlSupport
+      then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ])
+      ++ (if
+        pythonSupport
+      then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ])
       ++ lib.optionals stdenv.isSunOS [
         "INSTALL=install"
         "NO_INET_NTOP="
         "NO_INET_PTON="
-      ]
-      ++ (if stdenv.isDarwin then [ "NO_APPLE_COMMON_CRYPTO=1" ] else [ "sysconfdir=/etc" ])
+      ] ++ (if
+        stdenv.isDarwin
+      then [ "NO_APPLE_COMMON_CRYPTO=1" ] else [ "sysconfdir=/etc" ])
       ++ lib.optionals stdenv.hostPlatform.isMusl [
         "NO_SYS_POLL_H=1"
         "NO_GETTEXT=YesPlease"
@@ -314,7 +318,9 @@ in
       done
     ''
 
-      + (if svnSupport then ''
+      + (if
+        svnSupport
+      then ''
         # wrap git-svn
         wrapProgram $out/libexec/git-core/git-svn                                                                                \
                      --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
@@ -325,7 +331,9 @@ in
                  notSupported $out/libexec/git-core/git-svn
         '')
 
-      + (if sendEmailSupport then ''
+      + (if
+        sendEmailSupport
+      then ''
         # wrap git-send-email
         wrapProgram $out/libexec/git-core/git-send-email \
                      --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
@@ -341,7 +349,9 @@ in
                make -j $NIX_BUILD_CORES PERL_PATH="${buildPackages.perl}/bin/perl" cmd-list.made install install-html \
                  -C Documentation ''
 
-      + (if guiSupport then ''
+      + (if
+        guiSupport
+      then ''
         # Wrap Tcl/Tk programs
         for prog in bin/gitk libexec/git-core/{git-gui,git-citool,git-gui--askpass}; do
           sed -i -e "s|exec 'wish'|exec '${tk}/bin/wish'|g" \

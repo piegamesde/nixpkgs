@@ -12,7 +12,9 @@ let
 
   # HOCON is a JSON superset that some jitsi-meet components use for configuration
   toHOCON = x:
-    if isAttrs x && x ? __hocon_envvar then
+    if
+      isAttrs x && x ? __hocon_envvar
+    then
       ("\${" + x.__hocon_envvar + "}")
     else if isAttrs x && x ? __hocon_unquoted_string then
       x.__hocon_unquoted_string
@@ -113,8 +115,12 @@ in {
             username = cfg.userName;
             domain = cfg.userDomain;
             password = { __hocon_envvar = "JICOFO_AUTH_PASS"; };
-            xmpp-domain =
-              if cfg.xmppDomain == null then cfg.xmppHost else cfg.xmppDomain;
+            xmpp-domain = if
+              cfg.xmppDomain == null
+            then
+              cfg.xmppHost
+            else
+              cfg.xmppDomain;
           };
           service = client;
         };

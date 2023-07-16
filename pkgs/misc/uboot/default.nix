@@ -45,9 +45,19 @@ let
     stdenv.mkDerivation ({
       pname = "uboot-${defconfig}";
 
-      version = if src == null then defaultVersion else version;
+      version = if
+        src == null
+      then
+        defaultVersion
+      else
+        version;
 
-      src = if src == null then defaultSrc else src;
+      src = if
+        src == null
+      then
+        defaultSrc
+      else
+        src;
 
       patches = [
         ./0001-configs-rpi-allow-for-bigger-kernels.patch

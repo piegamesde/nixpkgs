@@ -10,7 +10,9 @@
 }:
 
 let
-  param = if lib.versionAtLeast ocaml.version "4.03" then rec {
+  param = if
+    lib.versionAtLeast ocaml.version "4.03"
+  then rec {
     version = "0.6.2";
     url =
       "https://github.com/Chris00/ocaml-rope/releases/download/${version}/rope-${version}.tbz";

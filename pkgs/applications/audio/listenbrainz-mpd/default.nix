@@ -26,7 +26,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ sqlite ] ++ (if stdenv.isDarwin then [
+  buildInputs = [ sqlite ] ++ (if
+    stdenv.isDarwin
+  then [
     libiconv
     Security
   ] else [ openssl ]);

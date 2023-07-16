@@ -11,7 +11,9 @@ let
 
   cfg = config.programs.less;
 
-  configText = if (cfg.configFile != null) then
+  configText = if
+    (cfg.configFile != null)
+  then
     (builtins.readFile cfg.configFile)
   else ''
     #command

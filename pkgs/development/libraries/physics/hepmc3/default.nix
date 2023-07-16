@@ -13,7 +13,12 @@ let
     "${major python.version}${minor python.version}";
   withPython = python != null;
   # ensure that root is built with the same python interpreter, as it links against numpy
-  root_py = if withPython then root.override { inherit python; } else root;
+  root_py = if
+    withPython
+  then
+    root.override { inherit python; }
+  else
+    root;
 
 in
   stdenv.mkDerivation rec {
@@ -36,10 +41,22 @@ in
         MACOSX_DEPLOYMENT_TARGET=10.16
       '';
 
-    cmakeFlags =
-      [ "-DHEPMC3_ENABLE_PYTHON=${if withPython then "ON" else "OFF"}" ]
-      ++ lib.optionals withPython [
-        "-DHEPMC3_PYTHON_VERSIONS=${if python.isPy3k then "3.X" else "2.X"}"
+    cmakeFlags = [ "-DHEPMC3_ENABLE_PYTHON=${
+        if
+          withPython
+        then
+          "ON"
+        else
+          "OFF"
+      }" ] ++ lib.optionals withPython [
+        "-DHEPMC3_PYTHON_VERSIONS=${
+          if
+            python.isPy3k
+          then
+            "3.X"
+          else
+            "2.X"
+        }"
         "-DHEPMC3_Python_SITEARCH${pythonVersion}=${
           placeholder "out"
         }/${python.sitePackages}"

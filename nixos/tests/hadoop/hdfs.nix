@@ -66,7 +66,9 @@ import ../make-test-python.nix ({
 
       datanode.wait_for_unit("hdfs-datanode")
       datanode.wait_for_unit("network.target")
-    '' + (if versionAtLeast package.version "3" then ''
+    '' + (if
+      versionAtLeast package.version "3"
+    then ''
       datanode.wait_for_open_port(9864)
       datanode.wait_for_open_port(9866)
       datanode.wait_for_open_port(9867)

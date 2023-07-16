@@ -27,8 +27,15 @@ let
       }) (_: origArgs));
       result = f args;
       overrideWith = newArgs:
-        args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs);
-    in if builtins.isAttrs result then
+        args // (if
+          pkgs.lib.isFunction newArgs
+        then
+          newArgs args
+        else
+          newArgs);
+    in if
+      builtins.isAttrs result
+    then
       result
     else if builtins.isFunction result then {
       overridePythonAttrs = newArgs:
@@ -100,7 +107,13 @@ let
       removePythonPrefix (drv.pname or drv.name)
     } not supported for interpreter ${python.executable}";
 
-  disabledIf = x: drv: if x then disabled drv else drv;
+  disabledIf = x: drv:
+    if
+      x
+    then
+      disabled drv
+    else
+      drv;
 
 in {
 

@@ -48,8 +48,20 @@ let
   blas64_ = blas64;
 
 in let
-  setTarget = x: if target == null then x else target;
-  setDynamicArch = x: if dynamicArch == null then x else dynamicArch;
+  setTarget = x:
+    if
+      target == null
+    then
+      x
+    else
+      target;
+  setDynamicArch = x:
+    if
+      dynamicArch == null
+    then
+      x
+    else
+      dynamicArch;
 
   # To add support for a new platform, add an element to this set.
   configs = {
@@ -133,7 +145,9 @@ in let
     "unsupported system: ${stdenv.hostPlatform.system}");
 
 in let
-  blas64 = if blas64_ != null then
+  blas64 = if
+    blas64_ != null
+  then
     blas64_
   else
     lib.hasPrefix "x86_64" stdenv.hostPlatform.system;
@@ -142,7 +156,14 @@ in let
   # which we need to map {true -> 1, false -> 0}
   # (`toString` produces empty string `""` for false instead of `0`)
   mkMakeFlagValue = val:
-    if !builtins.isBool val then toString val else if val then "1" else "0";
+    if
+      !builtins.isBool val
+    then
+      toString val
+    else if val then
+      "1"
+    else
+      "0";
   mkMakeFlagsFromConfig =
     lib.mapAttrsToList (var: val: "${var}=${mkMakeFlagValue val}");
 
@@ -214,7 +235,12 @@ in
     makeFlags = mkMakeFlagsFromConfig (config // {
       FC = "${stdenv.cc.targetPrefix}gfortran";
       CC = "${stdenv.cc.targetPrefix}${
-          if stdenv.cc.isClang then "clang" else "cc"
+          if
+            stdenv.cc.isClang
+          then
+            "clang"
+          else
+            "cc"
         }";
       PREFIX = placeholder "out";
       OPENBLAS_INCLUDE_DIR = "${placeholder "dev"}/include";
@@ -228,7 +254,9 @@ in
       # This seems to be a bug in the openblas Makefile:
       # on x86_64 it expects NO_BINARY_MODE=
       # but on aarch64 it expects NO_BINARY_MODE=0
-      NO_BINARY_MODE = if stdenv.isx86_64 then
+      NO_BINARY_MODE = if
+        stdenv.isx86_64
+      then
         toString (stdenv.hostPlatform != stdenv.buildPlatform)
       else
         stdenv.hostPlatform != stdenv.buildPlatform;

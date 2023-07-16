@@ -16,7 +16,9 @@ let
   version = "3.37";
   name = "${pname}-${version}";
 
-  executable = fetchurl (if (wine.meta.mainProgram == "wine64") then {
+  executable = fetchurl (if
+    (wine.meta.mainProgram == "wine64")
+  then {
     url = "https://download.mikrotik.com/winbox/${version}/winbox64.exe";
     sha256 = "0fbl0i5ga9afg8mklm9xqidcr388sca00slj401npwh9b3j9drmb";
   } else {

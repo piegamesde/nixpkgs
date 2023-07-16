@@ -43,7 +43,9 @@ in
     # Run Packages
     (buildPackages:
       let
-        adaptStdenv = if crossSystem.isStatic then
+        adaptStdenv = if
+          crossSystem.isStatic
+        then
           buildPackages.stdenvAdapters.makeStatic
         else
           lib.id;
@@ -66,7 +68,9 @@ in
 
           hasCC = !targetPlatform.isGhcjs;
 
-          cc = if crossSystem.useiOSPrebuilt or false then
+          cc = if
+            crossSystem.useiOSPrebuilt or false
+          then
             buildPackages.darwin.iosSdkPkgs.clang
           else if crossSystem.useAndroidPrebuilt or false then
             buildPackages."androidndkPkgs_${crossSystem.ndkVer}".clang

@@ -123,7 +123,9 @@ in
       python3
       perl
       babeltrace
-    ] ++ (if (lib.versionAtLeast kernel.version "5.19") then [
+    ] ++ (if
+      (lib.versionAtLeast kernel.version "5.19")
+    then [
       libbfd
       libopcodes
     ] else [

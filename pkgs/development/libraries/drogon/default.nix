@@ -40,7 +40,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
-    "-DBUILD_TESTING=${if doInstallCheck then "ON" else "OFF"}"
+    "-DBUILD_TESTING=${
+      if
+        doInstallCheck
+      then
+        "ON"
+      else
+        "OFF"
+    }"
     "-DBUILD_EXAMPLES=OFF"
   ];
 

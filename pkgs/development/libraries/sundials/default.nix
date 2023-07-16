@@ -55,7 +55,9 @@ stdenv.mkDerivation rec {
       # Use the correct index type according to lapack and blas used. They are
       # already supposed to be compatible but we check both for extra safety. 64
       # should be the default but we prefer to be explicit, for extra safety.
-      if blas.isILP64 then
+      if
+        blas.isILP64
+      then
         "-DSUNDIALS_INDEX_SIZE=64"
       else
         "-DSUNDIALS_INDEX_SIZE=32") ];

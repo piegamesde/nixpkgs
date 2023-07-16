@@ -54,7 +54,9 @@ in
 
     buildFlags = [
       # interpreter binary
-      (lib.flatten (if enableSingeli then [
+      (lib.flatten (if
+        enableSingeli
+      then [
         "o3n-singeli"
         "f='-mavx2'"
       ] else [ "o3" ]))
@@ -66,7 +68,9 @@ in
     preBuild = ''
       # Purity: avoids git downloading bytecode files
       mkdir -p build/bytecodeLocal/gen
-    '' + (if genBytecode then ''
+    '' + (if
+      genBytecode
+    then ''
       ${bqn-path} ./build/genRuntime ${mbqn-source} build/bytecodeLocal/
     '' else ''
       cp -r ${cbqn-bytecode-submodule}/dev/* build/bytecodeLocal/gen/

@@ -95,7 +95,9 @@ in
 
     checkFlags = [ "--skip=term::test::mock_term" ]; # broken on aarch64
 
-    postInstall = (if stdenv.isDarwin then ''
+    postInstall = (if
+      stdenv.isDarwin
+    then ''
       mkdir $out/Applications
       cp -r extra/osx/Alacritty.app $out/Applications
       ln -s $out/bin $out/Applications/Alacritty.app/Contents/MacOS

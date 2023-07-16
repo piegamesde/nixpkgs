@@ -63,9 +63,21 @@ let
     SDL2_ttf
     SDL2_mixer
   ];
-  sdlDepsBuildonly = if isSDL2 then sdlDeps1 else sdlDeps2;
-  sdlDepsTarget = if isSDL2 then sdlDeps2 else sdlDeps1;
-  sdlMakefileSuffix = if stdenv.hostPlatform.isWindows then
+  sdlDepsBuildonly = if
+    isSDL2
+  then
+    sdlDeps1
+  else
+    sdlDeps2;
+  sdlDepsTarget = if
+    isSDL2
+  then
+    sdlDeps2
+  else
+    sdlDeps1;
+  sdlMakefileSuffix = if
+    stdenv.hostPlatform.isWindows
+  then
     "win"
   else if stdenv.hostPlatform.isDarwin then
     "mac"
@@ -78,18 +90,19 @@ let
     (optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]);
   sdlBins = concatStringsSep " "
     (optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]);
-  x11ConfigureFlags = concatStringsSep " "
-    ((if ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit
-      && enable32Bit)) then [ "--enable-build-all" ] else if enableHAXM then [ "--enable-haxm" ] else if enable32Bit then [ "--enable-ia32" ] else
-      [ ]) ++ optionals (!isSDL2) [
-        "--enable-sdl"
-        "--enable-sdlmixer"
-        "--enable-sdlttf"
+  x11ConfigureFlags = concatStringsSep " " ((if
+    ((enableHAXM && (enable16Bit || enable32Bit))
+      || (enable16Bit && enable32Bit))
+  then [ "--enable-build-all" ] else if enableHAXM then [ "--enable-haxm" ] else if enable32Bit then [ "--enable-ia32" ] else
+    [ ]) ++ optionals (!isSDL2) [
+      "--enable-sdl"
+      "--enable-sdlmixer"
+      "--enable-sdlttf"
 
-        "--enable-sdl2=no"
-        "--enable-sdl2mixer=no"
-        "--enable-sdl2ttf=no"
-      ]);
+      "--enable-sdl2=no"
+      "--enable-sdl2mixer=no"
+      "--enable-sdl2ttf=no"
+    ]);
   x11BuildFlags = concatStringsSep " " [
     "SDL2_CONFIG=sdl2-config"
     "SDL_CONFIG=sdl-config"

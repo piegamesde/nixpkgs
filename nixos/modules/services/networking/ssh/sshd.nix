@@ -13,16 +13,19 @@ let
   # on the derivations likely to be used as `cfgc.package`.
   # This middle-ground solution ensures *an* sshd can do their basic validation
   # on the configuration.
-  validationPackage =
-    if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
-      cfgc.package
-    else
-      pkgs.buildPackages.openssh;
+  validationPackage = if
+    pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform
+  then
+    cfgc.package
+  else
+    pkgs.buildPackages.openssh;
 
   # reports boolean as yes / no
   mkValueStringSshd = with lib;
     v:
-    if isInt v then
+    if
+      isInt v
+    then
       toString v
     else if isString v then
       v
@@ -674,7 +677,9 @@ in {
             + # don't detach into a daemon process
             "-f /etc/ssh/sshd_config";
           KillMode = "process";
-        } // (if cfg.startWhenNeeded then {
+        } // (if
+          cfg.startWhenNeeded
+        then {
           StandardInput = "socket";
           StandardError = "journal";
         } else {
@@ -684,15 +689,25 @@ in {
 
       };
 
-    in if cfg.startWhenNeeded then {
+    in if
+      cfg.startWhenNeeded
+    then {
 
       sockets.sshd = {
         description = "SSH Socket";
         wantedBy = [ "sockets.target" ];
-        socketConfig.ListenStream = if cfg.listenAddresses != [ ] then
-          map
-          (l: "${l.addr}:${toString (if l.port != null then l.port else 22)}")
-          cfg.listenAddresses
+        socketConfig.ListenStream = if
+          cfg.listenAddresses != [ ]
+        then
+          map (l:
+            "${l.addr}:${
+              toString (if
+                l.port != null
+              then
+                l.port
+              else
+                22)
+            }") cfg.listenAddresses
         else
           cfg.ports;
         socketConfig.Accept = true;
@@ -708,8 +723,12 @@ in {
 
     };
 
-    networking.firewall.allowedTCPPorts =
-      if cfg.openFirewall then cfg.ports else [ ];
+    networking.firewall.allowedTCPPorts = if
+      cfg.openFirewall
+    then
+      cfg.ports
+    else
+      [ ];
 
     security.pam.services.sshd = {
       startSession = true;
@@ -729,13 +748,22 @@ in {
       UsePAM yes
 
       Banner ${
-        if cfg.banner == null then
+        if
+          cfg.banner == null
+        then
           "none"
         else
           pkgs.writeText "ssh_banner" cfg.banner
       }
 
-      AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
+      AddressFamily ${
+        if
+          config.networking.enableIPv6
+        then
+          "any"
+        else
+          "inet"
+      }
       ${concatMapStrings (port: ''
         Port ${toString port}
       '') cfg.ports}
@@ -771,8 +799,12 @@ in {
     '';
 
     assertions = [ {
-      assertion =
-        if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
+      assertion = if
+        cfg.settings.X11Forwarding
+      then
+        cfgc.setXAuthLocation
+      else
+        true;
       message = "cannot enable X11 forwarding without setting xauth location";
     } ] ++ forEach cfg.listenAddresses ({
         addr,

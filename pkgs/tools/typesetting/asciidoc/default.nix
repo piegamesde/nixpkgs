@@ -223,7 +223,9 @@ in
         # the odp backend already has that fix. Copy it here until fixed upstream.
         sed -i "s|'/etc/asciidoc/backends/odt/asciidoc.ott'|os.path.dirname(__file__),'asciidoc.ott'|" \
             "$out/etc/asciidoc/backends/odt/a2x-backend.py"
-      '' + (if enableStandardFeatures then ''
+      '' + (if
+        enableStandardFeatures
+      then ''
         sed -e "s|dot|${graphviz}/bin/dot|g" \
             -e "s|neato|${graphviz}/bin/neato|g" \
             -e "s|twopi|${graphviz}/bin/twopi|g" \

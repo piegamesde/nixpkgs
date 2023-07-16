@@ -18,7 +18,9 @@ stdenv.mkDerivation ({
     inherit (ocaml.meta) platforms;
   };
 
-} // (if lib.versionOlder ocaml.version "4.07" then {
+} // (if
+  lib.versionOlder ocaml.version "4.07"
+then {
 
   src = fetchFromGitHub {
     owner = "c-cube";

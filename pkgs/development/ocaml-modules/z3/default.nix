@@ -7,7 +7,9 @@
   z3,
 }:
 
-if lib.versionOlder ocaml.version "4.07" then
+if
+  lib.versionOlder ocaml.version "4.07"
+then
   throw "z3 is not available for OCaml ${ocaml.version}"
 else
 

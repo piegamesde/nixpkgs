@@ -162,7 +162,9 @@
       ...
     }@args:
     let
-      hash_ = if hash != "" then {
+      hash_ = if
+        hash != ""
+      then {
         outputHash = hash;
       } else {
         outputHash = "";

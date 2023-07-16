@@ -377,7 +377,9 @@ import ./make-test-python.nix ({
                   + "| ${pkgs.jq}/bin/jq -r .[].Architecture"
               ).strip()
               == "${
-                if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
+                if
+                  pkgs.stdenv.hostPlatform.system == "aarch64-linux"
+                then
                   "amd64"
                 else
                   "arm64"

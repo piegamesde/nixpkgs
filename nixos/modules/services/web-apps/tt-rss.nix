@@ -11,8 +11,15 @@ let
 
   configVersion = 26;
 
-  dbPort = if cfg.database.port == null then
-    (if cfg.database.type == "pgsql" then 5432 else 3306)
+  dbPort = if
+    cfg.database.port == null
+  then
+    (if
+      cfg.database.type == "pgsql"
+    then
+      5432
+    else
+      3306)
   else
     cfg.database.port;
 
@@ -22,7 +29,9 @@ let
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
   tt-rss-config = let
-    password = if (cfg.database.password != null) then
+    password = if
+      (cfg.database.password != null)
+    then
       "'${
         (escape [
           "'"
@@ -661,7 +670,9 @@ in {
 
         preStart = let
           callSql = e:
-            if cfg.database.type == "pgsql" then ''
+            if
+              cfg.database.type == "pgsql"
+            then ''
               ${
                 optionalString (cfg.database.password != null)
                 "PGPASSWORD=${cfg.database.password}"

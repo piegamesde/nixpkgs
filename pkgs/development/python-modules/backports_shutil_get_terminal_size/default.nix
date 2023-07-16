@@ -6,7 +6,9 @@
   pythonOlder,
 }:
 
-if !(pythonOlder "3.3") then
+if
+  !(pythonOlder "3.3")
+then
   null
 else
   buildPythonPackage {

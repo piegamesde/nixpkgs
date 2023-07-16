@@ -193,7 +193,12 @@ let
     };
   };
 
-  distSetName = if stdenv.hostPlatform.isMusl then "musl" else "defaultLibc";
+  distSetName = if
+    stdenv.hostPlatform.isMusl
+  then
+    "musl"
+  else
+    "defaultLibc";
 
   binDistUsed =
     ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
@@ -380,7 +385,9 @@ in
     #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: �?: symbol not found
     #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: 64-linux-ghc-8.10.5/libHSexceptions-0.10.4-ghc8.10.5.so: symbol not found
     # This is extremely bogus and should be investigated.
-    dontStrip = if stdenv.hostPlatform.isMusl then
+    dontStrip = if
+      stdenv.hostPlatform.isMusl
+    then
       true
     else
       false; # `if` for explicitness
@@ -389,7 +396,9 @@ in
     # find editline/gmp.
     postFixup =
       lib.optionalString (stdenv.isLinux && !(binDistUsed.isStatic or false))
-      (if stdenv.hostPlatform.isAarch64 then
+      (if
+        stdenv.hostPlatform.isAarch64
+      then
       # Keep rpath as small as possible on aarch64 for patchelf#244.  All Elfs
       # are 2 directories deep from $out/lib, so pooling symlinks there makes
       # a short rpath.

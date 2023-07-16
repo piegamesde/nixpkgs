@@ -18,7 +18,9 @@ let
 
   ruby = cfg.packages.gitlab.ruby;
 
-  postgresqlPackage = if config.services.postgresql.enable then
+  postgresqlPackage = if
+    config.services.postgresql.enable
+  then
     config.services.postgresql.package
   else
     pkgs.postgresql_12;
@@ -36,7 +38,9 @@ let
       encoding = "utf8";
       pool = cfg.databasePool;
     } // cfg.extraDatabaseConfig;
-  in if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then {
+  in if
+    lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0"
+  then {
     production.main = val;
   } else {
     production = val;
@@ -430,7 +434,13 @@ in {
           "artifacts"
           "lfs"
         ];
-        apply = x: if isString x then x else concatStringsSep "," x;
+        apply = x:
+          if
+            isString x
+          then
+            x
+          else
+            concatStringsSep "," x;
         description = lib.mdDoc ''
           Directories to exclude from the backup. The example excludes
           CI artifacts and LFS objects from the backups. The
@@ -784,7 +794,13 @@ in {
           options = {
             listen-http = mkOption {
               type = with types; listOf str;
-              apply = x: if x == [ ] then null else lib.concatStringsSep "," x;
+              apply = x:
+                if
+                  x == [ ]
+                then
+                  null
+                else
+                  lib.concatStringsSep "," x;
               default = [ ];
               description = lib.mdDoc ''
                 The address(es) to listen on for HTTP requests.
@@ -793,7 +809,13 @@ in {
 
             listen-https = mkOption {
               type = with types; listOf str;
-              apply = x: if x == [ ] then null else lib.concatStringsSep "," x;
+              apply = x:
+                if
+                  x == [ ]
+                then
+                  null
+                else
+                  lib.concatStringsSep "," x;
               default = [ ];
               description = lib.mdDoc ''
                 The address(es) to listen on for HTTPS requests.
@@ -802,7 +824,13 @@ in {
 
             listen-proxy = mkOption {
               type = with types; listOf str;
-              apply = x: if x == [ ] then null else lib.concatStringsSep "," x;
+              apply = x:
+                if
+                  x == [ ]
+                then
+                  null
+                else
+                  lib.concatStringsSep "," x;
               default = [ "127.0.0.1:8090" ];
               description = lib.mdDoc ''
                 The address(es) to listen on for proxy requests.
@@ -1444,7 +1472,9 @@ in {
             rm -f '${cfg.statePath}/config/database.yml'
 
             ${
-              if cfg.databasePasswordFile != null then ''
+              if
+                cfg.databasePasswordFile != null
+              then ''
                 db_password="$(<'${cfg.databasePasswordFile}')"
                 export db_password
 
@@ -1457,8 +1487,10 @@ in {
                   pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)
                 } \
                    '.${
-                     if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab)
-                     "15.0" then
+                     if
+                       lib.versionAtLeast (lib.getVersion cfg.packages.gitlab)
+                       "15.0"
+                     then
                        "production.main"
                      else
                        "production"
@@ -1618,7 +1650,9 @@ in {
       mkPagesKeyValue = lib.generators.toKeyValue {
         mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" rec {
           mkValueString = v:
-            if isInt v then
+            if
+              isInt v
+            then
               toString v
             else if isString v then
               v

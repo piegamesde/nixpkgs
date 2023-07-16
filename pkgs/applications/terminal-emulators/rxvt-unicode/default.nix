@@ -82,7 +82,9 @@ stdenv.mkDerivation {
     "terminfo"
   ];
 
-  patches = (if emojiSupport then [
+  patches = (if
+    emojiSupport
+  then [
     # the required patches to libXft are in nixpkgs by default, see
     # ../../../servers/x11/xorg/overrides.nix
     (fetchPatchFromAUR {

@@ -55,7 +55,9 @@ in
     '';
 
     preCheck = ''
-      ${if stdenv.isDarwin then
+      ${if
+        stdenv.isDarwin
+      then
         "export DYLD_LIBRARY_PATH=$(pwd)/src/"
       else
         "export LD_LIBRARY_PATH=$(pwd)/src/"}

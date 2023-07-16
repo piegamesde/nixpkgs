@@ -7,14 +7,18 @@
 let
   isAarch64 = pkgs.stdenv.hostPlatform.isAarch64;
 
-  uboot = if version == 0 then
+  uboot = if
+    version == 0
+  then
     pkgs.ubootRaspberryPiZero
   else if version == 1 then
     pkgs.ubootRaspberryPi
   else if version == 2 then
     pkgs.ubootRaspberryPi2
   else if version == 3 then
-    if isAarch64 then
+    if
+      isAarch64
+    then
       pkgs.ubootRaspberryPi3_64bit
     else
       pkgs.ubootRaspberryPi3_32bit

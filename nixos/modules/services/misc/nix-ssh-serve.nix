@@ -7,7 +7,9 @@
 with lib;
 let
   cfg = config.nix.sshServe;
-  command = if cfg.protocol == "ssh" then
+  command = if
+    cfg.protocol == "ssh"
+  then
     "nix-store --serve ${lib.optionalString cfg.write "--write"}"
   else
     "nix-daemon --stdio";

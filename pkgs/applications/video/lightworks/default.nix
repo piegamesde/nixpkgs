@@ -46,7 +46,9 @@ let
     rev = "132926";
     pname = "lightworks";
 
-    src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    src = if
+      stdenv.hostPlatform.system == "x86_64-linux"
+    then
       fetchurl {
         url =
           "https://cdn.lwks.com/releases/${version}/lightworks_${version}_r${rev}.deb";

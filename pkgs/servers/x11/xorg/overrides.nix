@@ -112,7 +112,12 @@ in
       ];
       setupHook = ./imake-setup-hook.sh;
       CFLAGS = "-DIMAKE_COMPILETIME_CPP='\"${
-          if stdenv.isDarwin then "${tradcpp}/bin/cpp" else "gcc"
+          if
+            stdenv.isDarwin
+          then
+            "${tradcpp}/bin/cpp"
+          else
+            "gcc"
         }\"'";
 
       configureFlags = attrs.configureFlags or [ ]
@@ -256,7 +261,9 @@ in
       propagatedBuildInputs = attrs.propagatedBuildInputs or [ ]
         ++ [ xorg.libSM ];
       depsBuildBuild = [ buildPackages.stdenv.cc ];
-      CPP = if stdenv.isDarwin then
+      CPP = if
+        stdenv.isDarwin
+      then
         "clang -E -"
       else
         "${stdenv.cc.targetPrefix}cc -E -";
@@ -901,7 +908,9 @@ in
         # exchange attrs if abiCompat is set
         let
           version = lib.getVersion attrs_passed;
-          attrs = if (abiCompat == null || lib.hasPrefix abiCompat version) then
+          attrs = if
+            (abiCompat == null || lib.hasPrefix abiCompat version)
+          then
             attrs_passed // {
               buildInputs = attrs_passed.buildInputs
                 ++ lib.optional (libdrm != null) libdrm.dev;
@@ -958,7 +967,9 @@ in
               } // lib.optionalAttrs (name != null) {
                 name = name + ".patch";
               });
-          in if (!isDarwin) then {
+          in if
+            (!isDarwin)
+          then {
             outputs = [
               "out"
               "dev"
@@ -1136,7 +1147,12 @@ in
     });
 
     xinit = (super.xinit.override {
-      stdenv = if isDarwin then clangStdenv else stdenv;
+      stdenv = if
+        isDarwin
+      then
+        clangStdenv
+      else
+        stdenv;
     }).overrideAttrs (attrs: {
       nativeBuildInputs = attrs.nativeBuildInputs
         ++ lib.optional isDarwin bootstrap_cmds;

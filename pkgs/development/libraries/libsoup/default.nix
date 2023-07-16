@@ -63,8 +63,22 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dtls_check=false" # glib-networking is a runtime dependency, not a compile-time dependency
     "-Dgssapi=disabled"
-    "-Dvapi=${if withIntrospection then "enabled" else "disabled"}"
-    "-Dintrospection=${if withIntrospection then "enabled" else "disabled"}"
+    "-Dvapi=${
+      if
+        withIntrospection
+      then
+        "enabled"
+      else
+        "disabled"
+    }"
+    "-Dintrospection=${
+      if
+        withIntrospection
+      then
+        "enabled"
+      else
+        "disabled"
+    }"
     "-Dgnome=${lib.boolToString gnomeSupport}"
     "-Dntlm=disabled"
   ] ++ lib.optionals (!stdenv.isLinux) [ "-Dsysprof=disabled" ];

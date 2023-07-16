@@ -9,7 +9,12 @@ with lib;
 
 let
   cfg = config.amazonImage;
-  amiBootMode = if config.ec2.efi then "uefi" else "legacy-bios";
+  amiBootMode = if
+    config.ec2.efi
+  then
+    "uefi"
+  else
+    "legacy-bios";
 
 in {
 
@@ -19,12 +24,12 @@ in {
   # experience, which prior to 4.15 was 255.
   # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nvme-ebs-volumes.html#timeout-nvme-ebs-volumes
   config.boot.kernelParams = let
-    timeout =
-      if pkgs.lib.versionAtLeast config.boot.kernelPackages.kernel.version
-      "4.15" then
-        "4294967295"
-      else
-        "255";
+    timeout = if
+      pkgs.lib.versionAtLeast config.boot.kernelPackages.kernel.version "4.15"
+    then
+      "4294967295"
+    else
+      "255";
   in [ "nvme_core.io_timeout=${timeout}" ] ;
 
   options.amazonImage = {
@@ -145,7 +150,12 @@ in {
       }; # ensure we use the regular qemu-kvm package
 
       fsType = "ext4";
-      partitionTableType = if config.ec2.efi then "efi" else "legacy+gpt";
+      partitionTableType = if
+        config.ec2.efi
+      then
+        "efi"
+      else
+        "legacy+gpt";
 
       diskSize = cfg.sizeMB;
 
@@ -175,5 +185,10 @@ in {
            ' > $out/nix-support/image-info.json
       '';
     };
-  in if config.ec2.zfs.enable then zfsBuilder else extBuilder;
+  in if
+    config.ec2.zfs.enable
+  then
+    zfsBuilder
+  else
+    extBuilder;
 }

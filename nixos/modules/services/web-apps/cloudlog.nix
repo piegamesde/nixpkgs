@@ -10,7 +10,9 @@ with lib;
 let
   cfg = config.services.cloudlog;
   dbFile = let
-    password = if cfg.database.createLocally then
+    password = if
+      cfg.database.createLocally
+    then
       "''"
     else
       "trim(file_get_contents('${cfg.database.passwordFile}'))";

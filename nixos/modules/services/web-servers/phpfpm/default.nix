@@ -13,7 +13,9 @@ let
   runtimeDir = "/run/phpfpm";
 
   toStr = value:
-    if true == value then
+    if
+      true == value
+    then
       "yes"
     else if false == value then
       "no"
@@ -154,7 +156,9 @@ let
       };
 
       config = {
-        socket = if poolOpts.listen == "" then
+        socket = if
+          poolOpts.listen == ""
+        then
           "${runtimeDir}/${name}.sock"
         else
           poolOpts.listen;

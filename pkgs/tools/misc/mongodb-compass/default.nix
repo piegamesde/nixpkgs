@@ -78,7 +78,9 @@ let
     (lib.getLib stdenv.cc.cc)
   ];
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+  src = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     fetchurl {
       url =
         "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";

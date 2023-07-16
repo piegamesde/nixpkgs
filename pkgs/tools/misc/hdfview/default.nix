@@ -36,7 +36,12 @@ stdenv.mkDerivation rec {
   HDF5LIBS = (hdf5.override { javaSupport = true; }).out;
 
   buildPhase = let
-    arch = if stdenv.isx86_64 then "x86_64" else "aarch64";
+    arch = if
+      stdenv.isx86_64
+    then
+      "x86_64"
+    else
+      "aarch64";
   in ''
     runHook preBuild
 

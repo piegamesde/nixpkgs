@@ -163,13 +163,17 @@ let
   ];
 
   version = "3";
-  canonicalExtension = if stdenv.hostPlatform.isLinux then
+  canonicalExtension = if
+    stdenv.hostPlatform.isLinux
+  then
     "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}"
   else
     stdenv.hostPlatform.extensions.sharedLibrary;
 
   blasImplementation = lib.getName blasProvider;
-  blasProvider' = if blasImplementation == "mkl" then
+  blasProvider' = if
+    blasImplementation == "mkl"
+  then
     blasProvider
   else
     blasProvider.override { blas64 = isILP64; };
@@ -221,7 +225,9 @@ in
       cp -L "$libblas" $out/lib/libblas${canonicalExtension}
       chmod +w $out/lib/libblas${canonicalExtension}
 
-    '' + (if stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf" then ''
+    '' + (if
+      stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf"
+    then ''
       patchelf --set-soname libblas${canonicalExtension} $out/lib/libblas${canonicalExtension}
       patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libblas${canonicalExtension}):${
         lib.getLib blasProvider'
@@ -258,8 +264,9 @@ in
           cp -L "$libcblas" $out/lib/libcblas${canonicalExtension}
           chmod +w $out/lib/libcblas${canonicalExtension}
 
-      ''
-      + (if stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf" then ''
+      '' + (if
+        stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf"
+      then ''
         patchelf --set-soname libcblas${canonicalExtension} $out/lib/libcblas${canonicalExtension}
         patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libcblas${canonicalExtension}):${
           lib.getLib blasProvider'

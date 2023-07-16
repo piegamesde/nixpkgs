@@ -96,7 +96,9 @@ stdenv.mkDerivation (finalAttrs: {
   # compatibility links from the the "normal" libraries to the
   # wide-character libraries (e.g. libncurses.so to libncursesw.so).
   postFixup = let
-    abiVersion-extension = if stdenv.isDarwin then
+    abiVersion-extension = if
+      stdenv.isDarwin
+    then
       "${abiVersion}.$dylibtype"
     else
       "$dylibtype.${abiVersion}";

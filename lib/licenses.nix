@@ -15,7 +15,9 @@ lib.mapAttrs (lname: lset:
       let
         applyDefaults = license: defaultLicense // license;
         applySpdx = license:
-          if license ? spdxId then
+          if
+            license ? spdxId
+          then
             license // {
               url = "https://spdx.org/licenses/${license.spdxId}.html";
             }

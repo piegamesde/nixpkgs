@@ -60,7 +60,9 @@ let
       }) cfg.plugins;
 
   mattermostPlugins = with pkgs;
-    if mattermostPluginDerivations == [ ] then
+    if
+      mattermostPluginDerivations == [ ]
+    then
       null
     else
       stdenv.mkDerivation {
@@ -100,12 +102,13 @@ let
     PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
   } cfg.extraConfig;
 
-  mattermostConf = recursiveUpdate mattermostConfWithoutPlugins
-    (if mattermostPlugins == null then
-      { }
-    else {
-      PluginSettings = { Enable = true; };
-    });
+  mattermostConf = recursiveUpdate mattermostConfWithoutPlugins (if
+    mattermostPlugins == null
+  then
+    { }
+  else {
+    PluginSettings = { Enable = true; };
+  });
 
   mattermostConfJSON =
     pkgs.writeText "mattermost-config.json" (builtins.toJSON mattermostConf);

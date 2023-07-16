@@ -59,7 +59,14 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
     "-DD_DSG_APP_DATA_FALLBACK=/var/dsg/appdata"
-    "-DBUILD_WITH_SYSTEMD=${if withSystemd then "ON" else "OFF"}"
+    "-DBUILD_WITH_SYSTEMD=${
+      if
+        withSystemd
+      then
+        "ON"
+      else
+        "OFF"
+    }"
   ];
 
   preConfigure = ''

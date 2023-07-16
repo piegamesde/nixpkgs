@@ -39,7 +39,9 @@ in
       doxygen
       pkg-config
     ];
-    buildInputs = [ freetype ] ++ (if stdenv.isDarwin then [
+    buildInputs = [ freetype ] ++ (if
+      stdenv.isDarwin
+    then [
       OpenGL
       GLUT
     ] else [

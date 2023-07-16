@@ -11,7 +11,12 @@ let
   cfg = config.services.bird-lg;
 
   stringOrConcat = sep: v:
-    if builtins.isString v then v else concatStringsSep sep v;
+    if
+      builtins.isString v
+    then
+      v
+    else
+      concatStringsSep sep v;
 
   frontend_args = let
     fe = cfg.frontend;
@@ -44,7 +49,9 @@ let
   } ;
 
   mkArgValue = value:
-    if isString value then
+    if
+      isString value
+    then
       escapeShellArg value
     else if isBool value then
       boolToString value

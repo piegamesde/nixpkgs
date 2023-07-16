@@ -396,9 +396,21 @@ in {
         users.password_column=${cfg.pam.passwordColumn}
         users.password_crypt=${cfg.pam.passwordCrypt}
         users.disconnect_every_operation=${
-          if cfg.pam.disconnectEveryOperation then "1" else "0"
+          if
+            cfg.pam.disconnectEveryOperation
+          then
+            "1"
+          else
+            "0"
         }
-        verbose=${if cfg.pam.verbose then "1" else "0"}
+        verbose=${
+          if
+            cfg.pam.verbose
+          then
+            "1"
+          else
+            "0"
+        }
       '' + optionalString (cfg.pam.cryptDefault != null) ''
         users.use_${cfg.pam.cryptDefault}=1
       '' + optionalString (cfg.pam.where != null) ''

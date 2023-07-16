@@ -46,7 +46,14 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     "-DCMAKE_C_COMPILER=hipcc"
     "-DCMAKE_CXX_COMPILER=hipcc"
-    "-DBUILD_CLIENTS_SAMPLES=${if buildSamples then "ON" else "OFF"}"
+    "-DBUILD_CLIENTS_SAMPLES=${
+      if
+        buildSamples
+      then
+        "ON"
+      else
+        "OFF"
+    }"
     # Manually define CMAKE_INSTALL_<DIR>
     # See: https://github.com/NixOS/nixpkgs/pull/197838
     "-DCMAKE_INSTALL_BINDIR=bin"

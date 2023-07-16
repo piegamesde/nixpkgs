@@ -33,7 +33,9 @@ let
     defaultconfig = "${configDir}/exhibitor.properties";
     port = toString cfg.port;
     hostname = cfg.hostname;
-    headingtext = if (cfg.headingText != null) then
+    headingtext = if
+      (cfg.headingText != null)
+    then
       (lib.escapeShellArg cfg.headingText)
     else
       null;

@@ -65,11 +65,46 @@ let
       ];
 
       configureFlags = [
-        "--enable-randr=${if withRandr then "yes" else "no"}"
-        "--enable-geoclue2=${if withGeoclue then "yes" else "no"}"
-        "--enable-drm=${if withDrm then "yes" else "no"}"
-        "--enable-quartz=${if withQuartz then "yes" else "no"}"
-        "--enable-corelocation=${if withCoreLocation then "yes" else "no"}"
+        "--enable-randr=${
+          if
+            withRandr
+          then
+            "yes"
+          else
+            "no"
+        }"
+        "--enable-geoclue2=${
+          if
+            withGeoclue
+          then
+            "yes"
+          else
+            "no"
+        }"
+        "--enable-drm=${
+          if
+            withDrm
+          then
+            "yes"
+          else
+            "no"
+        }"
+        "--enable-quartz=${
+          if
+            withQuartz
+          then
+            "yes"
+          else
+            "no"
+        }"
+        "--enable-corelocation=${
+          if
+            withCoreLocation
+          then
+            "yes"
+          else
+            "no"
+        }"
       ] ++ lib.optionals (pname == "gammastep") [
         "--with-systemduserunitdir=${placeholder "out"}/share/systemd/user/"
         "--enable-apparmor"
@@ -86,7 +121,9 @@ let
           CoreLocation
           Foundation
           Cocoa
-        ] ++ lib.optional withAppIndicator (if (pname != "gammastep") then
+        ] ++ lib.optional withAppIndicator (if
+          (pname != "gammastep")
+        then
           libappindicator
         else
           libayatana-appindicator);
@@ -111,7 +148,9 @@ let
 
       # the geoclue agent may inspect these paths and expect them to be
       # valid without having the correct $PATH set
-      postInstall = if (pname == "gammastep") then ''
+      postInstall = if
+        (pname == "gammastep")
+      then ''
         substituteInPlace $out/share/applications/gammastep.desktop \
           --replace 'Exec=gammastep' "Exec=$out/bin/gammastep"
         substituteInPlace $out/share/applications/gammastep-indicator.desktop \

@@ -62,7 +62,14 @@ let
       # Defined in gdk-pixbuf setup hook
       findGdkPixbufLoaders "${librsvg}"
 
-      ${if to then "makeWrapper ${from} ${to}" else "wrapProgram ${from}"} \
+      ${
+        if
+          to
+        then
+          "makeWrapper ${from} ${to}"
+        else
+          "wrapProgram ${from}"
+      } \
         --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
         --argv0 factor \
         --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${

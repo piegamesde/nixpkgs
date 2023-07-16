@@ -67,7 +67,13 @@ stdenv.mkDerivation rec {
       "https://github.com/timescale/timescaledb/raw/${version}/CHANGELOG.md";
     maintainers = with maintainers; [ marsam ];
     platforms = postgresql.meta.platforms;
-    license = with licenses; if enableUnfree then tsl else asl20;
+    license = with licenses;
+      if
+        enableUnfree
+      then
+        tsl
+      else
+        asl20;
     broken = versionOlder postgresql.version "12";
   };
 }

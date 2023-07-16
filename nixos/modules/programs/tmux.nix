@@ -15,7 +15,13 @@ let
   defaultShortcut = "b";
   defaultTerminal = "screen";
 
-  boolToStr = value: if value then "on" else "off";
+  boolToStr = value:
+    if
+      value
+    then
+      "on"
+    else
+      "off";
 
   tmuxConf = ''
     set  -g default-terminal "${cfg.terminal}"
@@ -54,7 +60,14 @@ let
     ''}
 
     setw -g aggressive-resize ${boolToStr cfg.aggressiveResize}
-    setw -g clock-mode-style  ${if cfg.clock24 then "24" else "12"}
+    setw -g clock-mode-style  ${
+      if
+        cfg.clock24
+      then
+        "24"
+      else
+        "12"
+    }
     set  -s escape-time       ${toString cfg.escapeTime}
     set  -g history-limit     ${toString cfg.historyLimit}
 

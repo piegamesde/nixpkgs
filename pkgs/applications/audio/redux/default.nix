@@ -19,7 +19,9 @@ stdenv.mkDerivation rec {
   pname = "redux";
   version = "1.3.2";
 
-  src = if releasePath != null then
+  src = if
+    releasePath != null
+  then
     releasePath
   else
     fetchurl {

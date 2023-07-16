@@ -82,7 +82,9 @@ let
             (output: value.${output});
           # The derivation along with its outputs, which we recur
           # on to splice them together.
-        in if lib.isDerivation defaultValue then
+        in if
+          lib.isDerivation defaultValue
+        then
           augmentedValue // spliceReal {
             pkgsBuildBuild = tryGetOutputs valueBuildBuild;
             pkgsBuildHost = tryGetOutputs valueBuildHost;
@@ -118,7 +120,12 @@ let
       pkgsHostTarget,
       pkgsTargetTarget,
     }@args:
-    if actuallySplice then spliceReal args else pkgsHostTarget;
+    if
+      actuallySplice
+    then
+      spliceReal args
+    else
+      pkgsHostTarget;
 
   splicedPackages = splicePackages {
     inherit (pkgs)

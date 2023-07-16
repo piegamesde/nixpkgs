@@ -10,7 +10,9 @@ stdenv.mkDerivation rec {
   version = "2.6.0";
 
   src = with stdenv;
-    fetchurl (if isx86_64 && isLinux then {
+    fetchurl (if
+      isx86_64 && isLinux
+    then {
       url = "https://nusmv.fbk.eu/distrib/NuSMV-${version}-linux64.tar.gz";
       sha256 = "1370x2vwjndv9ham5q399nn84hvhm1gj1k7pq576qmh4pi12xc8i";
     } else if isx86_32 && isLinux then {

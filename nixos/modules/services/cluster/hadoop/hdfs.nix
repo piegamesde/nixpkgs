@@ -172,7 +172,9 @@ in {
     (hadoopServiceConfig {
       name = "DataNode";
       # port numbers for datanode changed between hadoop 2 and 3
-      allowedTCPPorts = if versionAtLeast cfg.package.version "3" then [
+      allowedTCPPorts = if
+        versionAtLeast cfg.package.version "3"
+      then [
         9864 # datanode.http.address
         9866 # datanode.address
         9867 # datanode.ipc.address

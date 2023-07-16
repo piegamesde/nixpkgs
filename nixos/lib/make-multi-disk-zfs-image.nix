@@ -83,7 +83,12 @@
   includeChannel ? true
 }:
 let
-  formatOpt = if format == "qcow2-compressed" then "qcow2" else format;
+  formatOpt = if
+    format == "qcow2-compressed"
+  then
+    "qcow2"
+  else
+    format;
 
   compress = lib.optionalString (format == "qcow2-compressed") "-c";
 
@@ -229,7 +234,9 @@ let
     ''
   ;
 
-  mergedConfig = if configFile == null then
+  mergedConfig = if
+    configFile == null
+  then
     fileSystemsCfgFile
   else
     pkgs.runCommand "configuration.nix" {
@@ -270,7 +277,9 @@ let
     '';
 
     postVM = ''
-      ${if formatOpt == "raw" then ''
+      ${if
+        formatOpt == "raw"
+      then ''
         mv $bootDiskImage $out/${bootFilename}
         mv $rootDiskImage $out/${rootFilename}
       '' else ''

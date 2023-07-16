@@ -33,8 +33,22 @@ buildPythonPackage {
   '';
 
   setupPyBuildFlags = [
-    "--set USE_SSE4_INSTRUCTIONS=${if sse4Support then "yes" else "no"}"
-    "--set USE_AVX_INSTRUCTIONS=${if avxSupport then "yes" else "no"}"
+    "--set USE_SSE4_INSTRUCTIONS=${
+      if
+        sse4Support
+      then
+        "yes"
+      else
+        "no"
+    }"
+    "--set USE_AVX_INSTRUCTIONS=${
+      if
+        avxSupport
+      then
+        "yes"
+      else
+        "no"
+    }"
   ];
 
   dontUseCmakeConfigure = true;

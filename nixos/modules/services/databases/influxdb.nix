@@ -164,10 +164,19 @@ in {
         Group = cfg.group;
       };
       postStart = let
-        scheme =
-          if configOptions.http.https-enabled then "-k https" else "http";
-        bindAddr = (ba: if hasPrefix ":" ba then "127.0.0.1${ba}" else "${ba}")
-          (toString configOptions.http.bind-address);
+        scheme = if
+          configOptions.http.https-enabled
+        then
+          "-k https"
+        else
+          "http";
+        bindAddr = (ba:
+          if
+            hasPrefix ":" ba
+          then
+            "127.0.0.1${ba}"
+          else
+            "${ba}") (toString configOptions.http.bind-address);
       in
         mkBefore ''
           until ${pkgs.curl.bin}/bin/curl -s -o /dev/null ${scheme}://${bindAddr}/ping; do

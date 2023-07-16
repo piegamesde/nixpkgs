@@ -36,7 +36,13 @@
 }:
 
 let
-  onOffBool = b: if b then "ON" else "OFF";
+  onOffBool = b:
+    if
+      b
+    then
+      "ON"
+    else
+      "OFF";
   inherit (lib) optionals;
   # Later used in pythonEnv generation. Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnvArg = (ps:

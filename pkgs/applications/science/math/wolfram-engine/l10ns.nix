@@ -53,7 +53,9 @@ let
         };
       });
   minVersion = with lib;
-    if majorVersion == null then
+    if
+      majorVersion == null
+    then
       elemAt (builtins.splitVersion (elemAt allVersions 0).version) 0
     else
       majorVersion;

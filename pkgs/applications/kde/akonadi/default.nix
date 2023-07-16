@@ -25,7 +25,12 @@
 
   mysqlSupport ? true,
   postgresSupport ? false,
-  defaultDriver ? if mysqlSupport then "MYSQL" else "POSTGRES",
+  defaultDriver ? if
+    mysqlSupport
+  then
+    "MYSQL"
+  else
+    "POSTGRES",
 }:
 
 assert mysqlSupport || postgresSupport;

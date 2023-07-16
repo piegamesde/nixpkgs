@@ -13,7 +13,9 @@ let
   versionParts = lib.take 2 (lib.splitVersion version);
   # 4.2 -> 402, 3.11 -> 311
   stableVersion = lib.removePrefix "0" (lib.concatMapStrings (p:
-    if (lib.toInt p) < 10 then
+    if
+      (lib.toInt p) < 10
+    then
       (lib.concatStrings [
         "0"
         p
@@ -47,7 +49,9 @@ in
 
       ${lib.concatStringsSep "\n" (map (p:
         let
-          dir = if p.pluginType == "mod" then
+          dir = if
+            p.pluginType == "mod"
+          then
             "mod"
           else if p.pluginType == "theme" then
             "theme"

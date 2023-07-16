@@ -69,8 +69,22 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals enableJava [ openjdk ];
 
   cmakeFlags = [
-    "-DENABLE_STATIC=${if enableStatic then "1" else "0"}"
-    "-DENABLE_SHARED=${if enableShared then "1" else "0"}"
+    "-DENABLE_STATIC=${
+      if
+        enableStatic
+      then
+        "1"
+      else
+        "0"
+    }"
+    "-DENABLE_SHARED=${
+      if
+        enableShared
+      then
+        "1"
+      else
+        "0"
+    }"
   ] ++ lib.optionals enableJava [ "-DWITH_JAVA=1" ]
     ++ lib.optionals enableJpeg7 [ "-DWITH_JPEG7=1" ]
     ++ lib.optionals enableJpeg8 [ "-DWITH_JPEG8=1" ]

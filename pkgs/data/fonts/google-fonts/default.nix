@@ -55,7 +55,9 @@ stdenvNoCC.mkDerivation {
     install -m 444 -Dt $adobeBlankDest ofl/adobeblank/AdobeBlank-Regular.ttf
     rm -r ofl/adobeblank
     dest=$out/share/fonts/truetype
-  '' + (if fonts == [ ] then ''
+  '' + (if
+    fonts == [ ]
+  then ''
     find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
   '' else ''
     for font in $fonts; do

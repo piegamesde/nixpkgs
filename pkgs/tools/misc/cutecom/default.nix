@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  postInstall = if stdenv.isDarwin then ''
+  postInstall = if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/Applications
   '' else ''
     cd ..

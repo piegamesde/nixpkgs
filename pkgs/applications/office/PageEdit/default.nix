@@ -32,7 +32,9 @@ stdenv.mkDerivation rec {
   ];
   cmakeFlags = [ "-DINSTALL_BUNDLED_DICTS=0" ];
 
-  installPhase = if stdenv.isDarwin then ''
+  installPhase = if
+    stdenv.isDarwin
+  then ''
     runHook preInstall
 
     mkdir -p $out/Applications

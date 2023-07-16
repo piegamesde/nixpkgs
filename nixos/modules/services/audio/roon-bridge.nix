@@ -76,7 +76,9 @@ in {
     };
 
     users.groups.${cfg.group} = { };
-    users.users.${cfg.user} = if cfg.user == "roon-bridge" then {
+    users.users.${cfg.user} = if
+      cfg.user == "roon-bridge"
+    then {
       isSystemUser = true;
       description = "Roon Bridge user";
       group = cfg.group;

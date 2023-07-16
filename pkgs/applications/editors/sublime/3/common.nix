@@ -43,12 +43,26 @@ let
   downloadUrl =
     "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
   versionUrl = "https://download.sublimetext.com/latest/${
-      if dev then "dev" else "stable"
+      if
+        dev
+      then
+        "dev"
+      else
+        "stable"
     }";
   versionFile = builtins.toString ./packages.nix;
-  archSha256 =
-    if stdenv.hostPlatform.system == "i686-linux" then x32sha256 else x64sha256;
-  arch = if stdenv.hostPlatform.system == "i686-linux" then "x32" else "x64";
+  archSha256 = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
+    x32sha256
+  else
+    x64sha256;
+  arch = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
+    "x32"
+  else
+    "x64";
 
   libPath = lib.makeLibraryPath [
     xorg.libX11

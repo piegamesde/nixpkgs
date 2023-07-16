@@ -87,7 +87,9 @@ let
     };
   } args.version;
   version = fetched.version;
-  coq-version = args.coq-version or (if version != "dev" then
+  coq-version = args.coq-version or (if
+    version != "dev"
+  then
     versions.majorMinor version
   else
     "dev");
@@ -99,7 +101,9 @@ let
     substituteInPlace plugins/micromega/sos.ml --replace "; csdp" "; ${csdp}/bin/csdp"
     substituteInPlace plugins/micromega/coq_micromega.ml --replace "System.is_in_system_path \"csdp\"" "true"
   '';
-  ocamlPackages = if customOCamlPackages != null then
+  ocamlPackages = if
+    customOCamlPackages != null
+  then
     customOCamlPackages
   else
     with versions;
@@ -196,7 +200,9 @@ let
       ++ optional buildIde copyDesktopItems
       ++ optional (buildIde && coqAtLeast "8.10") wrapGAppsHook
       ++ optional (!coqAtLeast "8.6") gnumake42;
-    buildInputs = [ ncurses ] ++ optionals buildIde (if coqAtLeast "8.10" then [
+    buildInputs = [ ncurses ] ++ optionals buildIde (if
+      coqAtLeast "8.10"
+    then [
       ocamlPackages.lablgtk3-sourceview3
       glib
       gnome.adwaita-icon-theme
@@ -223,7 +229,9 @@ let
       addEnvHooks "$targetOffset" addCoqPath
     '';
 
-    preConfigure = if coqAtLeast "8.10" then ''
+    preConfigure = if
+      coqAtLeast "8.10"
+    then ''
       patchShebangs dev/tools/
     '' else ''
       configureFlagsArray=(
@@ -293,7 +301,9 @@ let
       mainProgram = "coqide";
     };
   };
-in if coqAtLeast "8.17" then
+in if
+  coqAtLeast "8.17"
+then
   self.overrideAttrs (_: {
     buildPhase = ''
       runHook preBuild

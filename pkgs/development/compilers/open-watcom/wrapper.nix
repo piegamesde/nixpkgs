@@ -14,7 +14,9 @@ let
   wrapper = { }:
     let
       archToBindir = with stdenv.hostPlatform;
-        if isx86 then
+        if
+          isx86
+        then
           "bin"
         else if isAarch then
           "arm"
@@ -24,7 +26,9 @@ let
           throw "Don't know where ${system} binaries are located!";
 
       binDirs = with stdenv.hostPlatform;
-        if isWindows then [
+        if
+          isWindows
+        then [
           (lib.optionalString is64bit "${archToBindir}nt64")
           "${archToBindir}nt"
           (lib.optionalString is32bit "${archToBindir}w")

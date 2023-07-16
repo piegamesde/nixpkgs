@@ -37,7 +37,9 @@ let
     let
 
       mkValueString = v:
-        if v == null then
+        if
+          v == null
+        then
           ""
         else if isInt v then
           toString v
@@ -73,31 +75,34 @@ let
           ${mkKeyValuePairs cfg.settings}
           ${cfg.extraOptions}
         '';
-        checkPhase = lib.optionalString cfg.checkConfig
-          (if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then ''
-            echo "Ignoring validation for cross-compilation"
-          '' else ''
-            echo "Validating generated nix.conf"
-            ln -s $out ./nix.conf
-            set -e
-            set +o pipefail
-            NIX_CONF_DIR=$PWD \
-              ${cfg.package}/bin/nix show-config ${
-                optionalString (isNixAtLeast "2.3pre") "--no-net"
+        checkPhase = lib.optionalString cfg.checkConfig (if
+          pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform
+        then ''
+          echo "Ignoring validation for cross-compilation"
+        '' else ''
+          echo "Validating generated nix.conf"
+          ln -s $out ./nix.conf
+          set -e
+          set +o pipefail
+          NIX_CONF_DIR=$PWD \
+            ${cfg.package}/bin/nix show-config ${
+              optionalString (isNixAtLeast "2.3pre") "--no-net"
+            } \
+              ${
+                optionalString (isNixAtLeast "2.4pre")
+                "--option experimental-features nix-command"
               } \
-                ${
-                  optionalString (isNixAtLeast "2.4pre")
-                  "--option experimental-features nix-command"
-                } \
-              |& sed -e 's/^warning:/error:/' \
-              | (! grep '${
-                if cfg.checkAllErrors then
-                  "^error:"
-                else
-                  "^error: unknown setting"
-              }')
-            set -o pipefail
-          '');
+            |& sed -e 's/^warning:/error:/' \
+            | (! grep '${
+              if
+                cfg.checkAllErrors
+              then
+                "^error:"
+              else
+                "^error: unknown setting"
+            }')
+          set -o pipefail
+        '');
       }
   ;
 
@@ -807,29 +812,44 @@ in {
           }${
             optionalString (machine.sshUser != null) "${machine.sshUser}@"
           }${machine.hostName}"
-          (if machine.system != null then
+          (if
+            machine.system != null
+          then
             machine.system
           else if machine.systems != [ ] then
             concatStringsSep "," machine.systems
           else
             "-")
-          (if machine.sshKey != null then machine.sshKey else "-")
+          (if
+            machine.sshKey != null
+          then
+            machine.sshKey
+          else
+            "-")
           (toString machine.maxJobs)
           (toString machine.speedFactor)
           (let
             res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
-          in if (res == [ ]) then "-" else (concatStringsSep "," res))
+          in if
+            (res == [ ])
+          then
+            "-"
+          else
+            (concatStringsSep "," res))
           (let
             res = machine.mandatoryFeatures;
-          in if (res == [ ]) then
+          in if
+            (res == [ ])
+          then
             "-"
           else
             (concatStringsSep "," machine.mandatoryFeatures))
-        ] ++ optional (isNixAtLeast "2.4pre")
-          (if machine.publicHostKey != null then
-            machine.publicHostKey
-          else
-            "-"))) + "\n") cfg.buildMachines;
+        ] ++ optional (isNixAtLeast "2.4pre") (if
+          machine.publicHostKey != null
+        then
+          machine.publicHostKey
+        else
+          "-"))) + "\n") cfg.buildMachines;
     };
 
     assertions = let
@@ -921,12 +941,17 @@ in {
       fi
     '';
 
-    nix.nrBuildUsers = mkDefault
-      (if cfg.settings.auto-allocate-uids or false then
+    nix.nrBuildUsers = mkDefault (if
+      cfg.settings.auto-allocate-uids or false
+    then
+      0
+    else
+      max 32 (if
+        cfg.settings.max-jobs == "auto"
+      then
         0
       else
-        max 32
-        (if cfg.settings.max-jobs == "auto" then 0 else cfg.settings.max-jobs));
+        cfg.settings.max-jobs));
 
     users.users = nixbldUsers;
 

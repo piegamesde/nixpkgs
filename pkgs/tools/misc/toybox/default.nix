@@ -41,7 +41,9 @@ in
 
     configurePhase = ''
       make ${
-        if enableMinimal then
+        if
+          enableMinimal
+        then
           "allnoconfig"
         else if stdenv.isFreeBSD then
           "freebsd_defconfig"

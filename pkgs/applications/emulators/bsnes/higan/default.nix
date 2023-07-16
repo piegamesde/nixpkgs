@@ -83,7 +83,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-  '' + (if stdenv.isDarwin then ''
+  '' + (if
+    stdenv.isDarwin
+  then ''
     mkdir ${placeholder "out"}
     mv higan/out/higan.app ${placeholder "out"}/
     mv icarus/out/icarus.app ${placeholder "out"}/
@@ -124,7 +126,9 @@ stdenv.mkDerivation rec {
     # we create a first-run script to populate
     # $HOME with all the stuff needed at runtime
     let
-      dest = if stdenv.isDarwin then
+      dest = if
+        stdenv.isDarwin
+      then
         "\\$HOME/Library/Application Support/higan"
       else
         "\\$HOME/higan";

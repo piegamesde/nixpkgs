@@ -16,7 +16,9 @@ stdenv.mkDerivation rec {
   pname = "libkrunfw";
   version = "3.11.0";
 
-  src = if stdenv.isLinux then
+  src = if
+    stdenv.isLinux
+  then
     fetchFromGitHub {
       owner = "containers";
       repo = pname;

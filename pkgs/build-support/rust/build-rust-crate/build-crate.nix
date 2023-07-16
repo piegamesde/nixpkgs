@@ -28,7 +28,12 @@
 
 let
   baseRustcOpts = [
-    (if release then "-C opt-level=3" else "-C debuginfo=2")
+    (if
+      release
+    then
+      "-C opt-level=3"
+    else
+      "-C debuginfo=2")
     "-C codegen-units=${toString codegenUnits}"
     "--remap-path-prefix=$NIX_BUILD_TOP=/"
     (mkRustcDepArgs dependencies crateRenames)
@@ -52,7 +57,12 @@ let
 
   binRustcOpts = lib.concatStringsSep " " (baseRustcOpts);
 
-  build_bin = if buildTests then "build_bin_test" else "build_bin";
+  build_bin = if
+    buildTests
+  then
+    "build_bin_test"
+  else
+    "build_bin";
 in ''
   runHook preBuild
 
@@ -80,16 +90,22 @@ in ''
   ${lib.optionalString (lib.length crateBin > 0) (lib.concatMapStringsSep "\n"
     (bin:
       let
-        haveRequiredFeature = if bin ? requiredFeatures then
+        haveRequiredFeature = if
+          bin ? requiredFeatures
+        then
         # Check that all element in requiredFeatures are also present in crateFeatures
           lib.intersectLists bin.requiredFeatures crateFeatures
           == bin.requiredFeatures
         else
           true;
-      in if haveRequiredFeature then ''
+      in if
+        haveRequiredFeature
+      then ''
         mkdir -p target/bin
         BIN_NAME='${bin.name or crateName}'
-        ${if !bin ? path then ''
+        ${if
+          !bin ? path
+        then ''
           BIN_PATH=""
           search_for_bin_path "$BIN_NAME"
         '' else ''

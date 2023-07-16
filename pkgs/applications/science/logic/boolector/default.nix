@@ -51,7 +51,12 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ python3 ];
   doCheck = true;
   preCheck = let
-    var = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+    var = if
+      stdenv.isDarwin
+    then
+      "DYLD_LIBRARY_PATH"
+    else
+      "LD_LIBRARY_PATH";
     # tests modelgen and modelgensmt2 spawn boolector in another processes and
     # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
   in

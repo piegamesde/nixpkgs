@@ -12,8 +12,12 @@ let
   pkg = cfg.package;
 
   # used for initial cluster configuration
-  initialIpAddr =
-    if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
+  initialIpAddr = if
+    (cfg.publicAddress != "auto")
+  then
+    cfg.publicAddress
+  else
+    "127.0.0.1";
 
   fdbServers = n:
     concatStringsSep "\n"

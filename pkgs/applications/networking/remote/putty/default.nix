@@ -38,9 +38,16 @@ stdenv.mkDerivation rec {
   '';
 
   TOOLPATH = stdenv.cc.targetPrefix;
-  makefile = if stdenv.hostPlatform.isWindows then "Makefile.mgw" else null;
+  makefile = if
+    stdenv.hostPlatform.isWindows
+  then
+    "Makefile.mgw"
+  else
+    null;
 
-  installPhase = if stdenv.hostPlatform.isWindows then ''
+  installPhase = if
+    stdenv.hostPlatform.isWindows
+  then ''
     for exe in *.exe; do
        install -D $exe $out/bin/$exe
     done

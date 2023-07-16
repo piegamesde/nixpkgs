@@ -24,7 +24,9 @@ stdenv.mkDerivation {
   inherit patches;
 
   postPatch = let
-    configFile = if lib.isDerivation conf || builtins.isPath conf then
+    configFile = if
+      lib.isDerivation conf || builtins.isPath conf
+    then
       conf
     else
       writeText "blocks.def.h" conf;

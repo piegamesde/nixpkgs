@@ -68,7 +68,13 @@ in
     x11lib = x11env + "/lib";
     x11inc = x11env + "/include";
 
-    fetchpatch' = x: if builtins.isAttrs x then fetchpatch x else x;
+    fetchpatch' = x:
+      if
+        builtins.isAttrs x
+      then
+        fetchpatch x
+      else
+        x;
 
   in
     stdenv.mkDerivation (args // {
@@ -82,7 +88,12 @@ in
       prefixKey = "-prefix ";
       configureFlags = let
         flags = new: old:
-          if lib.versionAtLeast version "4.08" then new else old;
+          if
+            lib.versionAtLeast version "4.08"
+          then
+            new
+          else
+            old;
       in
         optionals useX11 (flags [
           "--x-libraries=${x11lib}"
@@ -140,8 +151,9 @@ in
       # we place nixpkgs-specific targets to a separate file and set
       # sequential order among them as a single rule.
       makefile = ./Makefile.nixpkgs;
-      buildFlags =
-        if useNativeCompilers then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
+      buildFlags = if
+        useNativeCompilers
+      then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
       buildInputs = optional (lib.versionOlder version "4.07") ncurses
         ++ optionals useX11 [
           libX11
@@ -196,8 +208,12 @@ in
         '';
 
         platforms = with platforms; linux ++ darwin;
-        broken = stdenv.isAarch64 && lib.versionOlder version
-          (if stdenv.isDarwin then "4.10" else "4.02");
+        broken = stdenv.isAarch64 && lib.versionOlder version (if
+          stdenv.isDarwin
+        then
+          "4.10"
+        else
+          "4.02");
       };
 
     })

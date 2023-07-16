@@ -38,7 +38,9 @@ in
     nativeBuildInputs = [ makeWrapper ];
     buildInputs = lib.optionals (!stdenv.isDarwin) [ jre ];
 
-    installPhase = if stdenv.isDarwin then ''
+    installPhase = if
+      stdenv.isDarwin
+    then ''
       mkdir -p $out/Applications
       ${unzip}/bin/unzip ${srcs.macosx} 'JOSM.app/*' -d $out/Applications
     '' else ''

@@ -9,8 +9,12 @@ with lib;
 let
   cfg = config.services.openldap;
   openldap = cfg.package;
-  configDir =
-    if cfg.configDir != null then cfg.configDir else "/etc/openldap/slapd.d";
+  configDir = if
+    cfg.configDir != null
+  then
+    cfg.configDir
+  else
+    "/etc/openldap/slapd.d";
 
   ldapValueType = let
     # Can't do types.either with multiple non-overlapping submodules, so define our own
@@ -81,11 +85,20 @@ let
 
   valueToLdif = attr: values:
     let
-      listValues = if lib.isList values then values else lib.singleton values;
+      listValues = if
+        lib.isList values
+      then
+        values
+      else
+        lib.singleton values;
     in
       map (value:
-        if lib.isAttrs value then
-          if lib.hasAttr "path" value then
+        if
+          lib.isAttrs value
+        then
+          if
+            lib.hasAttr "path" value
+          then
             "${attr}:< file://${value.path}"
           else
             "${attr}:: ${value.base64}"
@@ -281,7 +294,14 @@ in {
       if [ ! -e "${configDir}/cn=config.ldif" ]; then
         ${openldap}/bin/slapadd -F ${configDir} -bcn=config -l ${settingsFile}
       fi
-      chmod -R ${if cfg.mutableConfig then "u+rw" else "u+r-w"} ${configDir}
+      chmod -R ${
+        if
+          cfg.mutableConfig
+        then
+          "u+rw"
+        else
+          "u+r-w"
+      } ${configDir}
     '';
 
     contentsFiles = mapAttrs (dn: ldif: pkgs.writeText "${dn}.ldif" ldif)

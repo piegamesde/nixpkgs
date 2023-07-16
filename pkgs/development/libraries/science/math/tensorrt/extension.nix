@@ -31,7 +31,9 @@ let
         supportedVersions;
       # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
       defaultBuild = {
-        "tensorrt" = if allBuilds ? ${computeName tensorRTDefaultVersion} then
+        "tensorrt" = if
+          allBuilds ? ${computeName tensorRTDefaultVersion}
+        then
           allBuilds.${computeName tensorRTDefaultVersion}
         else
           throw

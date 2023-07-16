@@ -18,7 +18,12 @@ let
   };
 
   dataDir = "${dataPath}/share/uvcdynctrl/data";
-  udevDebugVarValue = if udevDebug then "1" else "0";
+  udevDebugVarValue = if
+    udevDebug
+  then
+    "1"
+  else
+    "0";
 
 in
   runCommand "uvcdynctrl-udev-rules-${version}" {

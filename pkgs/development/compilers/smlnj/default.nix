@@ -8,7 +8,12 @@ let
   version = "110.95";
   baseurl = "http://smlnj.cs.uchicago.edu/dist/working/${version}";
 
-  arch = if stdenv.is64bit then "64" else "32";
+  arch = if
+    stdenv.is64bit
+  then
+    "64"
+  else
+    "32";
 
   boot32 = {
     url = "${baseurl}/boot.x86-unix.tgz";
@@ -19,7 +24,12 @@ let
     sha256 = "1zn96a83kb6bn6228yfjsvb58m2qxw9k4j3qz0p9c8za479w4ch6";
   };
 
-  bootBinary = if stdenv.is64bit then boot64 else boot32;
+  bootBinary = if
+    stdenv.is64bit
+  then
+    boot64
+  else
+    boot32;
 
   sources = map fetchurl [
     bootBinary

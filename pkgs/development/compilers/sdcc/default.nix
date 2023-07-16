@@ -64,7 +64,12 @@ in
       '';
       homepage = "https://sdcc.sourceforge.net/";
       license = with licenses;
-        if (gputils == null) then gpl2Plus else unfreeRedistributable;
+        if
+          (gputils == null)
+        then
+          gpl2Plus
+        else
+          unfreeRedistributable;
       maintainers = with maintainers; [
         bjornfor
         yorickvp

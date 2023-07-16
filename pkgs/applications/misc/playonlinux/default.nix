@@ -56,7 +56,9 @@ let
     jq
   ];
 
-  ld32 = if stdenv.hostPlatform.system == "x86_64-linux" then
+  ld32 = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     "${stdenv.cc}/nix-support/dynamic-linker-m32"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "${stdenv.cc}/nix-support/dynamic-linker"
@@ -134,7 +136,9 @@ in
       patchelf --set-interpreter $(cat ${ld32}) --set-rpath ${
         libs pkgsi686Linux
       } $out/share/playonlinux/bin/check_dd_x86
-      ${if stdenv.hostPlatform.system == "x86_64-linux" then ''
+      ${if
+        stdenv.hostPlatform.system == "x86_64-linux"
+      then ''
         bunzip2 $out/share/playonlinux/bin/check_dd_amd64.bz2
         patchelf --set-interpreter $(cat ${ld64}) --set-rpath ${
           libs pkgs

@@ -19,7 +19,9 @@ in {
 
   config = {
     assertions = [ {
-      assertion = if hasAutoLuksConfig then
+      assertion = if
+        hasAutoLuksConfig
+      then
         hasAutoLuksConfig && enableDeprecatedAutoLuks
       else
         true;

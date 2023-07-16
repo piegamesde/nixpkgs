@@ -40,7 +40,12 @@ let
     "stitching"
     "video"
   ] ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ];
-  testRunner = if stdenv.isDarwin then "" else "${lib.getExe xvfb-run} -a ";
+  testRunner = if
+    stdenv.isDarwin
+  then
+    ""
+  else
+    "${lib.getExe xvfb-run} -a ";
   testsPreparation = ''
     touch $out
     # several tests want a write access, so we have to copy files

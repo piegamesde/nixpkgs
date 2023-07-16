@@ -17,7 +17,12 @@
 
 let
   libfm' = libfm.override { inherit withGtk3; };
-  gtk = if withGtk3 then gtk3 else gtk2;
+  gtk = if
+    withGtk3
+  then
+    gtk3
+  else
+    gtk2;
   inherit (lib) optional;
 in
   stdenv.mkDerivation rec {

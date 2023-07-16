@@ -152,7 +152,9 @@ in {
         AmbientCapabilities = [ "cap_net_bind_service" ]
           ++ optional cfg.dhcpNoBind "cap_net_raw";
         ExecStart = let
-          argString = if cfg.mode == "boot" then
+          argString = if
+            cfg.mode == "boot"
+          then
             [
               "boot"
               cfg.kernel

@@ -45,7 +45,9 @@ let
       inherit python;
     }; # pass it so that the same version can be used in hg2git
 
-    cargoDeps = if rustSupport then
+    cargoDeps = if
+      rustSupport
+    then
       rustPlatform.fetchCargoTarball {
         inherit src;
         name = "mercurial-${version}";
@@ -54,7 +56,12 @@ let
       }
     else
       null;
-    cargoRoot = if rustSupport then "rust" else null;
+    cargoRoot = if
+      rustSupport
+    then
+      "rust"
+    else
+      null;
 
     propagatedBuildInputs = lib.optional re2Support fb-re2
       ++ lib.optional gitSupport pygit2

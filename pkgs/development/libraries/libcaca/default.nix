@@ -43,7 +43,12 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  configureFlags = [ (if x11Support then "--enable-x11" else "--disable-x11") ];
+  configureFlags = [ (if
+    x11Support
+  then
+    "--enable-x11"
+  else
+    "--disable-x11") ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (!x11Support) "-DX_DISPLAY_MISSING";

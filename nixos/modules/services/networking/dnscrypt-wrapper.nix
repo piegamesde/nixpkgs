@@ -10,7 +10,13 @@ let
   cfg = config.services.dnscrypt-wrapper;
   dataDir = "/var/lib/dnscrypt-wrapper";
 
-  mkPath = path: default: if path != null then toString path else default;
+  mkPath = path: default:
+    if
+      path != null
+    then
+      toString path
+    else
+      default;
 
   publicKey = mkPath cfg.providerKey.public "${dataDir}/public.key";
   secretKey = mkPath cfg.providerKey.secret "${dataDir}/secret.key";

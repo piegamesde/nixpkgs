@@ -177,7 +177,12 @@ let
     ${optionalString (!config.boot.loader.supportsInitrdSecrets)
     (concatStringsSep "\n" (mapAttrsToList (dest: source:
       let
-        source' = if source == null then dest else source;
+        source' = if
+          source == null
+        then
+          dest
+        else
+          source;
       in ''
         mkdir -p $(dirname "$out/secrets/${dest}")
         # Some programs (e.g. ssh) doesn't like secrets to be
@@ -229,7 +234,9 @@ let
     # Make sure that the patchelf'ed binaries still work.
     echo "testing patched programs..."
     $out/bin/ash -c 'echo hello world' | grep "hello world"
-    ${if zfsRequiresMountHelper then ''
+    ${if
+      zfsRequiresMountHelper
+    then ''
       $out/bin/mount -V 1>&1 | grep -q "mount from util-linux"
       $out/bin/mount.zfs -h 2>&1 | grep -q "Usage: mount.zfs"
     '' else ''
@@ -336,17 +343,23 @@ let
       checkJournalingFS verbose preLVMCommands preDeviceCommands
       postDeviceCommands postMountCommands preFailCommands kernelModules;
 
-    resumeDevices = map
-      (sd: if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}")
-      (filter (sd:
-        hasPrefix "/dev/" sd.device && !sd.randomEncryption.enable
-        # Don't include zram devices
-        && !(hasPrefix "/dev/zram" sd.device)) config.swapDevices);
+    resumeDevices = map (sd:
+      if
+        sd ? device
+      then
+        sd.device
+      else
+        "/dev/disk/by-label/${sd.label}") (filter (sd:
+          hasPrefix "/dev/" sd.device && !sd.randomEncryption.enable
+          # Don't include zram devices
+          && !(hasPrefix "/dev/zram" sd.device)) config.swapDevices);
 
     fsInfo = let
       f = fs: [
         fs.mountPoint
-        (if fs.device != null then
+        (if
+          fs.device != null
+        then
           fs.device
         else
           "/dev/disk/by-label/${fs.label}")
@@ -360,7 +373,9 @@ let
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
-      ${if pkgs.stdenv.isBigEndian then ''
+      ${if
+        pkgs.stdenv.isBigEndian
+      then ''
         echo -ne "\x''${hi:0:2}\x''${hi:2:2}\x''${hi:4:2}\x''${hi:6:2}" > /etc/hostid
       '' else ''
         echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > /etc/hostid
@@ -455,7 +470,12 @@ let
 
       ${lib.concatStringsSep "\n" (mapAttrsToList (dest: source:
         let
-          source' = if source == null then dest else toString source;
+          source' = if
+            source == null
+          then
+            dest
+          else
+            toString source;
         in ''
           mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
           cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
@@ -607,8 +627,9 @@ in {
     };
 
     boot.initrd.compressor = mkOption {
-      default = (if lib.versionAtLeast config.boot.kernelPackages.kernel.version
-      "5.9" then
+      default = (if
+        lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9"
+      then
         "zstd"
       else
         "gzip");

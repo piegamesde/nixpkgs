@@ -16,7 +16,9 @@ let
   # are turned to comments (false values are expected to be overrides e.g.
   # mkForce)
   formatKeyValue = name: value:
-    if value == true then
+    if
+      value == true
+    then
       name
     else if value == false then
       "# setting `${name}` explicitly set to false"
@@ -192,7 +194,12 @@ in {
         PrivateTmp = true;
         ProtectSystem = true;
         ProtectHome = true;
-        Restart = if cfg.alwaysKeepRunning then "always" else "on-failure";
+        Restart = if
+          cfg.alwaysKeepRunning
+        then
+          "always"
+        else
+          "on-failure";
       };
       restartTriggers = [ config.environment.etc.hosts.source ];
     };

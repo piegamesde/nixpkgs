@@ -128,7 +128,9 @@ let
     } + "/ippicv";
     files = let
       name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
-    in if stdenv.hostPlatform.system == "x86_64-linux" then {
+    in if
+      stdenv.hostPlatform.system == "x86_64-linux"
+    then {
       ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607";
     } else if stdenv.hostPlatform.system == "i686-linux" then {
       ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0";
@@ -234,7 +236,13 @@ let
 
   runAccuracyTests = true;
   runPerformanceTests = false;
-  printEnabled = enabled: if enabled then "ON" else "OFF";
+  printEnabled = enabled:
+    if
+      enabled
+    then
+      "ON"
+    else
+      "OFF";
   withOpenblas = (enableBlas && blas.provider.pname == "openblas");
   #multithreaded openblas conflicts with opencv multithreading, which manifest itself in hung tests
   #https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
@@ -495,7 +503,13 @@ in
       description =
         "Open Computer Vision Library with more than 500 algorithms";
       homepage = "https://opencv.org/";
-      license = with licenses; if enableUnfree then unfree else bsd3;
+      license = with licenses;
+        if
+          enableUnfree
+        then
+          unfree
+        else
+          bsd3;
       maintainers = with maintainers; [ basvandijk ];
       platforms = with platforms; linux ++ darwin;
     };

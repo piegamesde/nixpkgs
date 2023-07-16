@@ -11,7 +11,12 @@ let
   cfg = config.services.postfixadmin;
   fpm = config.services.phpfpm.pools.postfixadmin;
   localDB = cfg.database.host == "localhost";
-  user = if localDB then cfg.database.username else "nginx";
+  user = if
+    localDB
+  then
+    cfg.database.username
+  else
+    "nginx";
 in {
   options.services.postfixadmin = {
     enable = mkOption {
@@ -97,12 +102,19 @@ in {
 
       $CONF['database_type'] = 'pgsql';
       $CONF['database_host'] = ${
-        if localDB then "null" else "'${cfg.database.host}'"
+        if
+          localDB
+        then
+          "null"
+        else
+          "'${cfg.database.host}'"
       };
       ${optionalString localDB
       "$CONF['database_user'] = '${cfg.database.username}';"}
       $CONF['database_password'] = ${
-        if localDB then
+        if
+          localDB
+        then
           "'dummy'"
         else
           "file_get_contents('${cfg.database.passwordFile}')"

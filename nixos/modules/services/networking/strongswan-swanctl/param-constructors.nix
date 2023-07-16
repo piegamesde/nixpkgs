@@ -56,7 +56,9 @@ rec {
   };
 
   documentDefault = description: strongswanDefault:
-    if strongswanDefault == null then
+    if
+      strongswanDefault == null
+    then
       mdDoc description
     else
       mdDoc (description + ''
@@ -93,7 +95,13 @@ rec {
       default = null;
       description = documentDefault description strongswanDefault;
     };
-    render = single (b: if b then "yes" else "no");
+    render = single (b:
+      if
+        b
+      then
+        "yes"
+      else
+        "no");
   };
   yes = true;
   no = false;

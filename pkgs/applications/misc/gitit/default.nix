@@ -16,7 +16,9 @@
 
 let
   plain = haskellPackages.gitit;
-  plugins = if pluginSupport then
+  plugins = if
+    pluginSupport
+  then
     plain
   else
     haskell.lib.compose.disableCabalFlag "plugins" plain;

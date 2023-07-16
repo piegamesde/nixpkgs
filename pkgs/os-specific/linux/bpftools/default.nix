@@ -31,7 +31,9 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = (if (lib.versionAtLeast version "5.20") then [
+  buildInputs = (if
+    (lib.versionAtLeast version "5.20")
+  then [
     libopcodes
     libbfd
   ] else [

@@ -29,7 +29,9 @@ in
     defconfig = {
       "1" = "bcmrpi_defconfig";
       "2" = "bcm2709_defconfig";
-      "3" = if stdenv.hostPlatform.isAarch64 then
+      "3" = if
+        stdenv.hostPlatform.isAarch64
+      then
         "bcmrpi3_defconfig"
       else
         "bcm2709_defconfig";
@@ -51,7 +53,9 @@ in
       DRM_AMDGPU n
     '';
 
-    extraMeta = if (rpiVersion < 3) then {
+    extraMeta = if
+      (rpiVersion < 3)
+    then {
       platforms = with lib.platforms; arm;
       hydraPlatforms = [ ];
     } else {
@@ -68,7 +72,14 @@ in
     # Make copies of the DTBs named after the upstream names so that U-Boot finds them.
     # This is ugly as heck, but I don't know a better solution so far.
     postFixup = ''
-      dtbDir=${if stdenv.isAarch64 then "$out/dtbs/broadcom" else "$out/dtbs"}
+      dtbDir=${
+        if
+          stdenv.isAarch64
+        then
+          "$out/dtbs/broadcom"
+        else
+          "$out/dtbs"
+      }
       rm $dtbDir/bcm283*.dtb
       copyDTB() {
         cp -v "$dtbDir/$1" "$dtbDir/$2"

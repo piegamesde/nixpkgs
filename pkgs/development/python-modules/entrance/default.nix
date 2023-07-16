@@ -14,7 +14,9 @@
 let
   # The `routerFeatures` flag optionally brings in some somewhat heavy
   # dependencies, in order to enable interacting with routers
-  opts = if routerFeatures then {
+  opts = if
+    routerFeatures
+  then {
     prePatch = ''
       substituteInPlace ./setup.py --replace "extra_deps = []" "extra_deps = router_feature_deps"
     '';

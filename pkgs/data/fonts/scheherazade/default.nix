@@ -43,7 +43,12 @@ in
         the classic Arabian Nights tale, is designed in a similar style to
         traditional typefaces such as Monotype Naskh, extended to cover the
         Unicode Arabic repertoire through Unicode ${
-          if new then "14.0" else "8.0"
+          if
+            new
+          then
+            "14.0"
+          else
+            "8.0"
         }.
 
         Scheherazade provides a “simplified” rendering of Arabic script, using

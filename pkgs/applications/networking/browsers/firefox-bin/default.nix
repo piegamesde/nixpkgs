@@ -85,7 +85,9 @@ let
 
   defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
 
-  mozLocale = if systemLocale == "ca_ES@valencia" then
+  mozLocale = if
+    systemLocale == "ca_ES@valencia"
+  then
     "ca-valencia"
   else
     lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
@@ -205,7 +207,9 @@ in
     passthru.updateScript = import ./update.nix {
       inherit pname channel lib writeScript xidel coreutils gnused gnugrep gnupg
         curl runtimeShell;
-      baseUrl = if channel == "devedition" then
+      baseUrl = if
+        channel == "devedition"
+      then
         "https://archive.mozilla.org/pub/devedition/releases/"
       else
         "https://archive.mozilla.org/pub/firefox/releases/";

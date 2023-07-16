@@ -145,7 +145,9 @@ let
         toArgs = _opt: path: optionToArgs "tracing.config-file" path;
         option = mkOption {
           type = with types; nullOr str;
-          default = if cfg.tracing.config == null then
+          default = if
+            cfg.tracing.config == null
+          then
             null
           else
             toString (toYAML "tracing.yaml" cfg.tracing.config);
@@ -212,7 +214,9 @@ let
         toArgs = _opt: path: optionToArgs "objstore.config-file" path;
         option = mkOption {
           type = with types; nullOr str;
-          default = if cfg.objstore.config == null then
+          default = if
+            cfg.objstore.config == null
+          then
             null
           else
             toString (toYAML "objstore.yaml" cfg.objstore.config);
@@ -826,8 +830,18 @@ in {
             wantedBy = [ "multi-user.target" ];
             after = [ "network.target" ];
             serviceConfig = {
-              Type = if wait then "simple" else "oneshot";
-              Restart = if wait then "always" else "no";
+              Type = if
+                wait
+              then
+                "simple"
+              else
+                "oneshot";
+              Restart = if
+                wait
+              then
+                "always"
+              else
+                "no";
               DynamicUser = true;
               StateDirectory = cfg.compact.stateDir;
               ExecStart = thanos "compact";

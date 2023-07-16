@@ -24,7 +24,9 @@ let
   parseCpu = platform:
     with platform;
     # Derive a Nim CPU identifier
-    if isAarch32 then
+    if
+      isAarch32
+    then
       "arm"
     else if isAarch64 then
       "arm64"
@@ -56,7 +58,9 @@ let
   parseOs = platform:
     with platform;
     # Derive a Nim OS identifier
-    if isAndroid then
+    if
+      isAndroid
+    then
       "Android"
     else if isDarwin then
       "MacOSX"

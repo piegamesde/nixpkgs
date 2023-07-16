@@ -20,7 +20,12 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  duneVersion = if lib.versionAtLeast ocaml.version "4.12" then "2" else "1";
+  duneVersion = if
+    lib.versionAtLeast ocaml.version "4.12"
+  then
+    "2"
+  else
+    "1";
   postPatch = lib.optionalString (duneVersion != "1") "dune upgrade";
 
   meta = {

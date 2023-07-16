@@ -44,7 +44,9 @@ in
     buildInputs = [
       qtpbfimageplugin
       qtserialport
-    ] ++ (if isQt6 then [
+    ] ++ (if
+      isQt6
+    then [
       qtbase
       qtpositioning
       qtsvg

@@ -164,7 +164,9 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = if config.services.jack.jackd.enable then
+        default = if
+          config.services.jack.jackd.enable
+        then
           pkgs.pulseaudioFull
         else
           pkgs.pulseaudio;

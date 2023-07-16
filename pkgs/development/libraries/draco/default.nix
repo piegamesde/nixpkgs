@@ -14,7 +14,13 @@
 }:
 
 let
-  cmakeBool = b: if b then "ON" else "OFF";
+  cmakeBool = b:
+    if
+      b
+    then
+      "ON"
+    else
+      "OFF";
 in
   stdenv.mkDerivation rec {
     version = "1.5.6";

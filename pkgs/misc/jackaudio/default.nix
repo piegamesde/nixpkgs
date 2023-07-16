@@ -38,17 +38,39 @@
 let
   inherit (python3Packages) python dbus-python;
   shouldUsePkg = pkg:
-    if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
+    if
+      pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg
+    then
       pkg
     else
       null;
 
   libOnly = prefix == "lib";
 
-  optDbus = if stdenv.isDarwin then null else shouldUsePkg dbus;
-  optPythonDBus = if libOnly then null else shouldUsePkg dbus-python;
-  optLibffado = if libOnly then null else shouldUsePkg libffado;
-  optAlsaLib = if libOnly then null else shouldUsePkg alsa-lib;
+  optDbus = if
+    stdenv.isDarwin
+  then
+    null
+  else
+    shouldUsePkg dbus;
+  optPythonDBus = if
+    libOnly
+  then
+    null
+  else
+    shouldUsePkg dbus-python;
+  optLibffado = if
+    libOnly
+  then
+    null
+  else
+    shouldUsePkg libffado;
+  optAlsaLib = if
+    libOnly
+  then
+    null
+  else
+    shouldUsePkg alsa-lib;
   optLibopus = shouldUsePkg libopus;
 in
   stdenv.mkDerivation (finalAttrs: {
@@ -95,12 +117,21 @@ in
     dontAddWafCrossFlags = true;
     wafConfigureFlags = [
       "--classic"
-      "--autostart=${if (optDbus != null) then "dbus" else "classic"}"
+      "--autostart=${
+        if
+          (optDbus != null)
+        then
+          "dbus"
+        else
+          "classic"
+      }"
     ] ++ lib.optional (optDbus != null) "--dbus"
       ++ lib.optional (optLibffado != null) "--firewire"
       ++ lib.optional (optAlsaLib != null) "--alsa";
 
-    postInstall = (if libOnly then ''
+    postInstall = (if
+      libOnly
+    then ''
       rm -rf $out/{bin,share}
       rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
     '' else ''

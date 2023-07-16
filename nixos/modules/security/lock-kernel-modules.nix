@@ -25,8 +25,12 @@ with lib;
 
   config = mkIf config.security.lockKernelModules {
     boot.kernelModules = concatMap (x:
-      if x.device != null then
-        if x.fsType == "vfat" then [
+      if
+        x.device != null
+      then
+        if
+          x.fsType == "vfat"
+        then [
           "vfat"
           "nls-cp437"
           "nls-iso8859-1"

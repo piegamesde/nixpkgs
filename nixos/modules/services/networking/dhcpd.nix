@@ -34,7 +34,9 @@ let
 
   dhcpdService = postfix: cfg:
     let
-      configFile = if cfg.configFile != null then
+      configFile = if
+        cfg.configFile != null
+      then
         cfg.configFile
       else
         writeConfig postfix cfg;

@@ -19,8 +19,12 @@ with pkgs.lib;
 
 let
   discoverTests = val:
-    if isAttrs val then
-      if hasAttr "test" val then
+    if
+      isAttrs val
+    then
+      if
+        hasAttr "test" val
+      then
         callTest val
       else
         mapAttrs (n: s: discoverTests s) val
@@ -35,7 +39,12 @@ let
   handleTest = path: args:
     discoverTests (import path ({ inherit system pkgs; } // args));
   handleTestOn = systems: path: args:
-    if elem system systems then handleTest path args else { };
+    if
+      elem system systems
+    then
+      handleTest path args
+    else
+      { };
 
   nixosLib = import ../lib {
     # Experimental features need testing too, but there's no point in warning
@@ -50,7 +59,9 @@ let
         imports = [ arg ];
       }).config.result;
     findTests = tree:
-      if tree ? recurseForDerivations && tree.recurseForDerivations then
+      if
+        tree ? recurseForDerivations && tree.recurseForDerivations
+      then
         mapAttrs (k: findTests)
         (builtins.removeAttrs tree [ "recurseForDerivations" ])
       else
@@ -62,7 +73,13 @@ let
       in
         findTests r
     ;
-    runTestOn = systems: arg: if elem system systems then runTest arg else { };
+    runTestOn = systems: arg:
+      if
+        elem system systems
+      then
+        runTest arg
+      else
+        { };
   })
     runTest runTestOn;
 

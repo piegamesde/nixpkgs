@@ -107,7 +107,12 @@ stdenv.mkDerivation rec {
     ./kill-legacy-darwin-apis.patch
     (substituteAll {
       src = ./dlopen-absolute-paths.diff;
-      cups = if cups != null then lib.getLib cups else null;
+      cups = if
+        cups != null
+      then
+        lib.getLib cups
+      else
+        null;
       icu = icu.out;
       libXfixes = libXfixes.out;
       glibc = stdenv.cc.libc.out;
@@ -192,12 +197,16 @@ stdenv.mkDerivation rec {
   configurePlatforms = [ ];
   configureFlags = let
     mk = cond: name: "-${lib.optionalString (!cond) "no-"}${name}";
-    platformFlag = if stdenv.hostPlatform != stdenv.buildPlatform then
+    platformFlag = if
+      stdenv.hostPlatform != stdenv.buildPlatform
+    then
       "-xplatform"
     else
       "-platform";
   in
-    (if stdenv.hostPlatform != stdenv.buildPlatform then [
+    (if
+      stdenv.hostPlatform != stdenv.buildPlatform
+    then [
       # I've not tried any case other than i686-pc-mingw32.
       # -nomake tools: it fails linking some asian language symbols
       # -no-svg: it fails to build on mingw64
@@ -236,7 +245,14 @@ stdenv.mkDerivation rec {
       "-dbus-linked"
       "-openssl-linked"
 
-      "-${if libmysqlclient != null then "plugin" else "no"}-sql-mysql"
+      "-${
+        if
+          libmysqlclient != null
+        then
+          "plugin"
+        else
+          "no"
+      }-sql-mysql"
       "-system-sqlite"
 
       "-exceptions"
@@ -253,11 +269,32 @@ stdenv.mkDerivation rec {
       "-no-multimedia"
       "-audio-backend"
     ]) ++ [
-      "-${if demos then "" else "no"}make"
+      "-${
+        if
+          demos
+        then
+          ""
+        else
+          "no"
+      }make"
       "demos"
-      "-${if examples then "" else "no"}make"
+      "-${
+        if
+          examples
+        then
+          ""
+        else
+          "no"
+      }make"
       "examples"
-      "-${if docs then "" else "no"}make"
+      "-${
+        if
+          docs
+        then
+          ""
+        else
+          "no"
+      }make"
       "docs"
     ] ++ lib.optional developerBuild "-developer-build"
     ++ lib.optionals stdenv.hostPlatform.isDarwin [

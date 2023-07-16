@@ -25,7 +25,14 @@ let
       nativeBuildInputs = [ cmake ];
 
       cmakeFlags = [
-        "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
+        "-DBUILD_SHARED_LIBS=${
+          if
+            static
+          then
+            "OFF"
+          else
+            "ON"
+        }"
         "-DBUILD_BENCHMARKS=OFF"
         "-DBUILD_FUZZERS=OFF"
         "-DBUILD_GENERATORS=OFF"

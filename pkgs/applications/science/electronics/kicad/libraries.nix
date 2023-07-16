@@ -20,7 +20,12 @@ let
         platforms = lib.platforms.all;
         # the 3d models are a ~1 GiB download and occupy ~5 GiB in store.
         # this would exceed the hydra output limit
-        hydraPlatforms = if (name == "packages3d") then [ ] else platforms;
+        hydraPlatforms = if
+          (name == "packages3d")
+        then
+          [ ]
+        else
+          platforms;
       };
     };
 in {

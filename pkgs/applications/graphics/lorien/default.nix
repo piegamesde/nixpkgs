@@ -29,7 +29,9 @@
 }:
 
 let
-  preset = if stdenv.isLinux then
+  preset = if
+    stdenv.isLinux
+  then
     "Linux/X11"
   else if stdenv.isDarwin then
     "Mac OSX"

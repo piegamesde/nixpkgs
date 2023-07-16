@@ -35,14 +35,15 @@ let
   ;
 
   # All cudatoolkit redist packages for the current cuda version
-  cudaToolkitRedistPackages =
-    if lib.hasAttr cudaVersion cudaToolkitRedistManifests then
-      buildCudaToolkitRedistPackages {
-        version = cudaVersion;
-        manifest = cudaToolkitRedistManifests.${cudaVersion};
-      }
-    else
-      { };
+  cudaToolkitRedistPackages = if
+    lib.hasAttr cudaVersion cudaToolkitRedistManifests
+  then
+    buildCudaToolkitRedistPackages {
+      version = cudaVersion;
+      manifest = cudaToolkitRedistManifests.${cudaVersion};
+    }
+  else
+    { };
 
 in
   cudaToolkitRedistPackages

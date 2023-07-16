@@ -40,7 +40,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ++ lib.optional waylandSupport extra-cmake-modules;
 
-  buildInputs = if waylandSupport then [
+  buildInputs = if
+    waylandSupport
+  then [
     wayland
     wayland-protocols
     libxkbcommon

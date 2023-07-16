@@ -171,7 +171,9 @@ let
 
       try_empty_passphrase() {
           ${
-            if dev.tryEmptyPassphrase then ''
+            if
+              dev.tryEmptyPassphrase
+            then ''
               echo "Trying empty passphrase!"
               echo "" | ${csopen}
               cs_status=$?
@@ -205,7 +207,9 @@ let
                       IFS= read -t 1 -r passphrase
                       if [ -n "$passphrase" ]; then
                          ${
-                           if luks.reusePassphrases then ''
+                           if
+                             luks.reusePassphrases
+                           then ''
                              # remember it for the next device
                              echo -n "$passphrase" > /crypt-ramfs/passphrase
                            '' else ''
@@ -222,7 +226,9 @@ let
               if [ $? == 0 ]; then
                   echo " - success"
                   ${
-                    if luks.reusePassphrases then ''
+                    if
+                      luks.reusePassphrases
+                    then ''
                       # we don't rm here because we might reuse it for the next device
                     '' else ''
                       rm -f /crypt-ramfs/passphrase
@@ -240,7 +246,9 @@ let
       # LUKS
       open_normally() {
           ${
-            if (dev.keyFile != null) then ''
+            if
+              (dev.keyFile != null)
+            then ''
               if wait_target "key file" ${dev.keyFile}; then
                   ${csopen} --key-file=${dev.keyFile} \
                     ${
@@ -256,7 +264,12 @@ let
                     echo "Key File ${dev.keyFile} failed!"
                     if ! try_empty_passphrase; then
                       ${
-                        if dev.fallbackToPassword then "echo" else "die"
+                        if
+                          dev.fallbackToPassword
+                        then
+                          "echo"
+                        else
+                          "die"
                       } "${dev.keyFile} is unavailable"
                       echo " - failing back to interactive password prompt"
                       do_open_passphrase
@@ -266,7 +279,12 @@ let
                   # If the key file never shows up we should also try the empty passphrase
                   if ! try_empty_passphrase; then
                      ${
-                       if dev.fallbackToPassword then "echo" else "die"
+                       if
+                         dev.fallbackToPassword
+                       then
+                         "echo"
+                       else
+                         "die"
                      } "${dev.keyFile} is unavailable"
                      echo " - failing back to interactive password prompt"
                      do_open_passphrase
@@ -331,7 +349,9 @@ let
                             IFS= read -t 1 -r k_user
                             if [ -n "$k_user" ]; then
                                ${
-                                 if luks.reusePassphrases then ''
+                                 if
+                                   luks.reusePassphrases
+                                 then ''
                                    # Remember it for the next device
                                    echo -n "$k_user" > /crypt-ramfs/passphrase
                                  '' else ''
@@ -361,7 +381,9 @@ let
                 if [ $? == 0 ]; then
                     opened=true
                     ${
-                      if luks.reusePassphrases then ''
+                      if
+                        luks.reusePassphrases
+                      then ''
                         # We don't rm here because we might reuse it for the next device
                       '' else ''
                         rm -f /crypt-ramfs/passphrase
@@ -458,7 +480,9 @@ let
                         IFS= read -t 1 -r pin
                         if [ -n "$pin" ]; then
                            ${
-                             if luks.reusePassphrases then ''
+                             if
+                               luks.reusePassphrases
+                             then ''
                                # remember it for the next device
                                echo -n "$pin" > /crypt-ramfs/passphrase
                              '' else ''
@@ -475,7 +499,9 @@ let
                 if [ $? == 0 ]; then
                     echo " - success"
                     ${
-                      if luks.reusePassphrases then ''
+                      if
+                        luks.reusePassphrases
+                      then ''
                         # we don't rm here because we might reuse it for the next device
                       '' else ''
                         rm -f /crypt-ramfs/passphrase
@@ -508,7 +534,9 @@ let
           local passsphrase
 
             ${
-              if dev.fido2.passwordLess then ''
+              if
+                dev.fido2.passwordLess
+              then ''
                 export passphrase=""
               '' else ''
                 read -rsp "FIDO2 salt for ${dev.device}: " passphrase
@@ -540,9 +568,11 @@ let
       # commands to run right before we mount our device
       ${dev.preOpenCommands}
 
-      ${if (luks.yubikeySupport && (dev.yubikey != null))
-      || (luks.gpgSupport && (dev.gpgCard != null))
-      || (luks.fido2Support && fido2luksCredentials != [ ]) then ''
+      ${if
+        (luks.yubikeySupport && (dev.yubikey != null))
+        || (luks.gpgSupport && (dev.gpgCard != null))
+        || (luks.fido2Support && fido2luksCredentials != [ ])
+      then ''
         open_with_hardware
       '' else ''
         open_normally
@@ -589,9 +619,14 @@ let
           "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
           ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
       in
-        "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${
-          lib.concatStringsSep "," opts
-        }"
+        "${n} ${v.device} ${
+          if
+            v.keyFile == null
+          then
+            "-"
+          else
+            v.keyFile
+        } ${lib.concatStringsSep "," opts}"
     ) luks.devices));
 
 in {

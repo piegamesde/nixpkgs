@@ -32,7 +32,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ installShellFiles ];
 
   makeFlags = let
-    ynf = a: b: a + "=" + (if b then "yes" else "no");
+    ynf = a: b:
+      a + "=" + (if
+        b
+      then
+        "yes"
+      else
+        "no");
   in [
     (ynf "USE_AESNI" aesniSupport)
     (ynf "USE_AVX" avxSupport)

@@ -69,4 +69,9 @@ let
     ${lib.concatStringsSep "\n" missingGithubIds}
     exit 1
   '';
-in if missingGithubIds == [ ] then success else failure
+in if
+  missingGithubIds == [ ]
+then
+  success
+else
+  failure

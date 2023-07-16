@@ -96,7 +96,9 @@ stdenv.mkDerivation rec {
   #     LnxMain.o:/build/pcsxr/gui/Linux.h:42: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  dynarecTarget = if stdenv.isx86_64 then
+  dynarecTarget = if
+    stdenv.isx86_64
+  then
     "x86_64"
   else if stdenv.isi686 then
     "x86"

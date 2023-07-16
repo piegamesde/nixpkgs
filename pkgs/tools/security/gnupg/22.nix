@@ -90,7 +90,9 @@ stdenv.mkDerivation rec {
     "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
-  postInstall = if enableMinimal then ''
+  postInstall = if
+    enableMinimal
+  then ''
     rm -r $out/{libexec,sbin,share}
     for f in $(find $out/bin -type f -not -name gpg)
     do

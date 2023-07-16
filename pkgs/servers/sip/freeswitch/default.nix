@@ -101,8 +101,12 @@ let
       xml_int.scgi
     ] ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ];
 
-  enabledModules =
-    (if modules != null then modules else defaultModules) availableModules;
+  enabledModules = (if
+    modules != null
+  then
+    modules
+  else
+    defaultModules) availableModules;
 
   modulesConf = let
     lst = builtins.map (mod: mod.path) enabledModules;

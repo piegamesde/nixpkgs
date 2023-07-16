@@ -76,7 +76,9 @@ in
     postInstall = ''
       for shell in bash zsh; do
         ${
-          if (stdenv.buildPlatform == stdenv.hostPlatform) then
+          if
+            (stdenv.buildPlatform == stdenv.hostPlatform)
+          then
             "$out/bin/argo"
           else
             "${pkgsBuildBuild.argo}/bin/argo"

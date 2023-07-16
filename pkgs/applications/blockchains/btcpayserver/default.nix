@@ -22,7 +22,12 @@ buildDotnetModule rec {
 
   dotnet-runtime = dotnetCorePackages.aspnetcore_6_0;
 
-  buildType = if altcoinSupport then "Altcoins-Release" else "Release";
+  buildType = if
+    altcoinSupport
+  then
+    "Altcoins-Release"
+  else
+    "Release";
 
   # macOS has a case-insensitive filesystem, so these two can be the same file
   postFixup = ''

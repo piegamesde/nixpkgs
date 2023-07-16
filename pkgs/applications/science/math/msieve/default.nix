@@ -24,7 +24,12 @@ stdenv.mkDerivation rec {
     ecm
   ];
 
-  ECM = if ecm == null then "0" else "1";
+  ECM = if
+    ecm == null
+  then
+    "0"
+  else
+    "1";
 
   # Doesn't hurt Linux but lets clang-based platforms like Darwin work fine too
   makeFlags = [

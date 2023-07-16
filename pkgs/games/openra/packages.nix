@@ -35,14 +35,19 @@ let
       if the attribute name and engine/mod name are equal.
   */
   buildOpenRASet = f: args:
-    builtins.mapAttrs
-    (name: value: if builtins.isFunction value then value name else value) (f ({
-      inherit (pkgs) fetchFromGitHub;
-      postFetch = ''
-        sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
-        $out/thirdparty/fetch-thirdparty-deps.sh
-      '';
-    } // args));
+    builtins.mapAttrs (name: value:
+      if
+        builtins.isFunction value
+      then
+        value name
+      else
+        value) (f ({
+          inherit (pkgs) fetchFromGitHub;
+          postFetch = ''
+            sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
+            $out/thirdparty/fetch-thirdparty-deps.sh
+          '';
+        } // args));
 
 in rec {
   # The whole attribute set is destructered to ensure those (and only those) attributes are given
@@ -62,7 +67,12 @@ in rec {
         pkgs.callPackage ./engine.nix (common // {
           engine = engine // { inherit name installExperimental; };
         });
-    in if name == null then builder else builder name;
+    in if
+      name == null
+    then
+      builder
+    else
+      builder name;
 
   # See `buildOpenRAEngine`.
   buildOpenRAMod = {
@@ -85,7 +95,12 @@ in rec {
             mod = mod // { inherit name; };
             engine = engine // { inherit mods; };
           });
-      in if name == null then builder else builder name) engine;
+      in if
+        name == null
+      then
+        builder
+      else
+        builder name) engine;
 
   # See `buildOpenRASet`.
   engines =

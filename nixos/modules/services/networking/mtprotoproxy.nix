@@ -19,10 +19,17 @@ let
     // cfg.extraConfig;
 
   convertOption = opt:
-    if isString opt || isInt opt then
+    if
+      isString opt || isInt opt
+    then
       builtins.toJSON opt
     else if isBool opt then
-      if opt then "True" else "False"
+      if
+        opt
+      then
+        "True"
+      else
+        "False"
     else if isList opt then
       "[" + concatMapStringsSep "," convertOption opt + "]"
     else if isAttrs opt then

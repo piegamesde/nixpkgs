@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0sww+ppctXvxMouclG3OdXpcNgrrOZJw9z8s2GhJ+IE=";
   };
 
-  assets = if unfree_assets then
+  assets = if
+    unfree_assets
+  then
     requireFile rec {
       name = "keeperrl_data_${version}.tar.gz";
       message = ''

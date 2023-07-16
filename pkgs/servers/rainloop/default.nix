@@ -70,7 +70,13 @@ let
         description = "Simple, modern & fast web-based email client";
         homepage = "https://www.rainloop.net";
         downloadPage = "https://github.com/RainLoop/rainloop-webmail/releases";
-        license = with licenses; if edition == "" then unfree else agpl3;
+        license = with licenses;
+          if
+            edition == ""
+          then
+            unfree
+          else
+            agpl3;
         platforms = platforms.all;
         maintainers = with maintainers; [ das_j ];
       };

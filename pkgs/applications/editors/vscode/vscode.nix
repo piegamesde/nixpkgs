@@ -19,7 +19,12 @@ let
     armv7l-linux = "linux-armhf";
   }.${system} or throwSystem;
 
-  archive_fmt = if stdenv.isDarwin then "zip" else "tar.gz";
+  archive_fmt = if
+    stdenv.isDarwin
+  then
+    "zip"
+  else
+    "tar.gz";
 
   sha256 = {
     x86_64-linux = "11ibgnpcs0qvirgjnk799zkb63zp0nbc8y636l5g9nay6jm8lr8s";

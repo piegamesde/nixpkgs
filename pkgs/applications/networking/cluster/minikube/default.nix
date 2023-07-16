@@ -33,9 +33,10 @@ buildGoModule rec {
     makeWrapper
   ];
 
-  buildInputs =
-    if stdenv.isDarwin then [ vmnet ] else if stdenv.isLinux then [ libvirt ] else
-      null;
+  buildInputs = if
+    stdenv.isDarwin
+  then [ vmnet ] else if stdenv.isLinux then [ libvirt ] else
+    null;
 
   buildPhase = ''
     make COMMIT=${src.rev}

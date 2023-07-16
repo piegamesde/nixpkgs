@@ -9,7 +9,9 @@
 }:
 
 let
-  distutilsCfg = writeText "distutils.cfg" (if overrideCfg != "" then
+  distutilsCfg = writeText "distutils.cfg" (if
+    overrideCfg != ""
+  then
     overrideCfg
   else ''
     [easy_install]

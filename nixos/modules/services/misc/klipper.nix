@@ -10,7 +10,9 @@ let
   format = pkgs.formats.ini {
     # https://github.com/NixOS/nixpkgs/pull/121613#issuecomment-885241996
     listToValue = l:
-      if builtins.length l == 1 then
+      if
+        builtins.length l == 1
+      then
         generators.mkValueStringDefault { } (head l)
       else
         lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
@@ -160,7 +162,9 @@ in {
     ];
 
     environment.etc = mkIf (!cfg.mutableConfig) {
-      "klipper.cfg".source = if cfg.settings != null then
+      "klipper.cfg".source = if
+        cfg.settings != null
+      then
         format.generate "klipper.cfg" cfg.settings
       else
         cfg.configFile;
@@ -175,11 +179,15 @@ in {
       klippyArgs = "--input-tty=${cfg.inputTTY}"
         + optionalString (cfg.apiSocket != null)
         " --api-server=${cfg.apiSocket}";
-      printerConfigPath = if cfg.mutableConfig then
+      printerConfigPath = if
+        cfg.mutableConfig
+      then
         cfg.mutableConfigFolder + "/printer.cfg"
       else
         "/etc/klipper.cfg";
-      printerConfigFile = if cfg.settings != null then
+      printerConfigFile = if
+        cfg.settings != null
+      then
         format.generate "klipper.cfg" cfg.settings
       else
         cfg.configFile;
@@ -211,7 +219,9 @@ in {
         IOSchedulingClass = "realtime";
         IOSchedulingPriority = 0;
         UMask = "0002";
-      } // (if cfg.user != null then {
+      } // (if
+        cfg.user != null
+      then {
         Group = cfg.group;
         User = cfg.user;
       } else {
@@ -222,14 +232,22 @@ in {
 
     environment.systemPackages = with pkgs;
       let
-        default = a: b: if a != null then a else b;
+        default = a: b:
+          if
+            a != null
+          then
+            a
+          else
+            b;
         firmwares = filterAttrs (n: v: v != null) (mapAttrs (mcu:
           {
             enable,
             configFile,
             serial,
           }:
-          if enable then
+          if
+            enable
+          then
             pkgs.klipper-firmware.override {
               mcu = lib.strings.sanitizeDerivationName mcu;
               firmwareConfig = configFile;

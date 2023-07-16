@@ -198,7 +198,9 @@ with prev; {
   });
 
   lmathx = prev.luaLib.overrideLuarocks prev.lmathx (drv:
-    if luaAtLeast "5.1" && luaOlder "5.2" then {
+    if
+      luaAtLeast "5.1" && luaOlder "5.2"
+    then {
       version = "20120430.51-1";
       knownRockspec = (fetchurl {
         url = "https://luarocks.org/lmathx-20120430.51-1.rockspec";
@@ -422,7 +424,14 @@ with prev; {
       "-DBUILD_MODULE=OFF"
       "-DWITH_SHARED_LIBUV=ON"
       "-DLUA_BUILD_TYPE=System"
-      "-DWITH_LUA_ENGINE=${if isLuaJIT then "LuaJit" else "Lua"}"
+      "-DWITH_LUA_ENGINE=${
+        if
+          isLuaJIT
+        then
+          "LuaJit"
+        else
+          "Lua"
+      }"
     ];
 
     # to make sure we dont use bundled deps

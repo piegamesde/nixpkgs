@@ -69,7 +69,12 @@ lib.makeScope pkgs.newScope (self:
           meta = (previousAttrs.meta or { }) // {
             mainProgram = previousAttrs.meta.mainProgram or previousAttrs.pname;
           };
-        }) (if lib.isFunction origArgs then origArgs else (_: origArgs)));
+        }) (if
+          lib.isFunction origArgs
+        then
+          origArgs
+        else
+          (_: origArgs)));
       in
         pkgs.stdenv.mkDerivation args
     ;
@@ -477,8 +482,9 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "openssl";
-          buildInputs = if (lib.versionAtLeast php.version
-            "8.1") then [ openssl ] else [ openssl_1_1 ];
+          buildInputs = if
+            (lib.versionAtLeast php.version "8.1")
+          then [ openssl ] else [ openssl_1_1 ];
           configureFlags = [ "--with-openssl" ];
           doCheck = false;
         }

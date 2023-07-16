@@ -40,7 +40,12 @@ in
     '';
 
     HDF5_DIR = "${hdf5}";
-    HDF5_MPI = if mpiSupport then "ON" else "OFF";
+    HDF5_MPI = if
+      mpiSupport
+    then
+      "ON"
+    else
+      "OFF";
 
     postConfigure = ''
       # Needed to run the tests reliably. See:

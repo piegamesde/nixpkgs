@@ -62,7 +62,9 @@ let
 
   };
 
-  release = if lib.isAttrs dfVersion then
+  release = if
+    lib.isAttrs dfVersion
+  then
     dfVersion
   else if hasAttr dfVersion dfhack-releases then
     getAttr dfVersion dfhack-releases
@@ -74,7 +76,9 @@ let
   # revision of library/xml submodule
   xmlRev = release.xmlRev;
 
-  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
+  arch = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     "64"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "32"

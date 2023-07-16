@@ -48,7 +48,14 @@ stdenv.mkDerivation rec {
   buildInputs = [ geoip ];
 
   mesonFlags = [
-    "-Duse_geoip=${if withGeo then "en" else "dis"}abled"
+    "-Duse_geoip=${
+      if
+        withGeo
+      then
+        "en"
+      else
+        "dis"
+    }abled"
     "-Duse_maxminddb=disabled"
     # runtime linking doesn't work on NixOS anyway
     "-Duse_runtime_linking=disabled"

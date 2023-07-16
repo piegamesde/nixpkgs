@@ -44,7 +44,9 @@ let
     }@args:
     let
 
-      wrapperArgsStr = if lib.isString wrapperArgs then
+      wrapperArgsStr = if
+        lib.isString wrapperArgs
+      then
         wrapperArgs
       else
         lib.escapeShellArgs wrapperArgs;

@@ -148,7 +148,9 @@ in {
       };
       preStart = ''
         mkdir -p ${cfg.dataDir}/.walletwasabi/backend
-        ${if cfg.customConfigFile != null then ''
+        ${if
+          cfg.customConfigFile != null
+        then ''
           cp -v ${cfg.customConfigFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
         '' else ''
           cp -v ${configFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json

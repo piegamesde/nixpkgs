@@ -56,7 +56,9 @@ mkDerivation {
   cmakeFlags =
     [ "-DGUILE_CCACHE_DIR=${placeholder "out"}/lib/guile/3.0/ccache" ];
 
-  postInstall = if stdenv.isDarwin then ''
+  postInstall = if
+    stdenv.isDarwin
+  then ''
     # No rules to install the mac app, so do it manually.
     mkdir -p $out/Applications
     cp -r studio/Studio.app $out/Applications/Studio.app

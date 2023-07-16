@@ -33,7 +33,9 @@ in rec {
     "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
 
   makeUnit = name: unit:
-    if unit.enable then
+    if
+      unit.enable
+    then
       pkgs.runCommand "unit-${mkPathSafeName name}" {
         preferLocalBuild = true;
         allowSubstitutes = false;
@@ -135,26 +137,41 @@ in rec {
       # unit options might contain attributes from mkOverride and mkIf that we need to
       # convert into single values before checking them.
       defs = mapAttrs (const (v:
-        if v._type or "" == "override" then
+        if
+          v._type or "" == "override"
+        then
           v.content
         else if v._type or "" == "if" then
           v.content
         else
           v)) attrs;
       errors = concatMap (c: c group defs) checks;
-    in if errors == [ ] then
+    in if
+      errors == [ ]
+    then
       true
     else
       builtins.trace (concatStringsSep "\n" errors) false;
 
   toOption = x:
-    if x == true then "true" else if x == false then "false" else toString x;
+    if
+      x == true
+    then
+      "true"
+    else if x == false then
+      "false"
+    else
+      toString x;
 
   attrsToSection = as:
     concatStrings (concatLists (mapAttrsToList (name: value:
       map (x: ''
         ${name}=${toOption x}
-      '') (if isList value then value else [ value ])) as));
+      '') (if
+        isList value
+      then
+        value
+      else [ value ])) as));
 
   generateUnits = {
       allowCollisions ? true,
@@ -246,7 +263,9 @@ in rec {
               ln -sfn /dev/null $out/$fn
             else
               ${
-                if allowCollisions then ''
+                if
+                  allowCollisions
+                then ''
                   mkdir -p $out/$fn.d
                   ln -s $i/$fn $out/$fn.d/overrides.conf
                 '' else ''
@@ -442,13 +461,17 @@ in rec {
             '';
             # systemd max line length is now 1MiB
             # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
-          in if stringLength s >= 1048576 then
+          in if
+            stringLength s >= 1048576
+          then
             throw
             "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
           else
             s) (attrNames env)
       }
-      ${if def ? reloadIfChanged && def.reloadIfChanged then ''
+      ${if
+        def ? reloadIfChanged && def.reloadIfChanged
+      then ''
         X-ReloadIfChanged=true
       '' else if (def ? restartIfChanged && !def.restartIfChanged) then ''
         X-RestartIfChanged=false

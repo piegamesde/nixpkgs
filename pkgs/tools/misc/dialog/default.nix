@@ -26,7 +26,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   configureFlags = [
     "--disable-rpath-hacks"
-    "--${if withLibrary then "with" else "without"}-libtool"
+    "--${
+      if
+        withLibrary
+      then
+        "with"
+      else
+        "without"
+    }-libtool"
     "--with-libtool-opts=${lib.optionalString enableShared "-shared"}"
     "--with-ncurses${lib.optionalString unicodeSupport "w"}"
   ];

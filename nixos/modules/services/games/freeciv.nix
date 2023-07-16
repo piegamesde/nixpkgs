@@ -27,7 +27,9 @@ let
     generate = name: value:
       let
         mkParam = k: v:
-          if v == null then
+          if
+            v == null
+          then
             [ ]
           else if isBool v then
             if v then [ ("--" + k) ] else [ ]
@@ -35,7 +37,12 @@ let
             ("--" + k)
             v
           ];
-        mkParams = k: v: map (mkParam k) (if isList v then v else [ v ]);
+        mkParams = k: v:
+          map (mkParam k) (if
+            isList v
+          then
+            v
+          else [ v ]);
       in
         escapeShellArgs
         (concatLists (concatLists (mapAttrsToList mkParams value)))

@@ -13,7 +13,9 @@
 }:
 
 let
-  platformLdLibraryPath = if stdenv.isDarwin then
+  platformLdLibraryPath = if
+    stdenv.isDarwin
+  then
     "DYLD_FALLBACK_LIBRARY_PATH"
   else if (stdenv.isLinux or stdenv.isBSD) then
     "LD_LIBRARY_PATH"

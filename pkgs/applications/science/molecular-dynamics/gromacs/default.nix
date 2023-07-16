@@ -22,7 +22,9 @@ let
   # AUTO None SSE2 SSE4.1 AVX_128_FMA AVX_256 AVX2_256
   # AVX2_128 AVX_512 AVX_512_KNL MIC ARM_NEON ARM_NEON_ASIMD
   SIMD = x:
-    if (cpuAcceleration != null) then
+    if
+      (cpuAcceleration != null)
+    then
       x
     else if stdenv.hostPlatform.system == "i686-linux" then
       "SSE2"
@@ -62,10 +64,14 @@ in
       "-DGMX_SIMD:STRING=${SIMD cpuAcceleration}"
       "-DGMX_OPENMP:BOOL=TRUE"
       "-DBUILD_SHARED_LIBS=ON"
-    ] ++ (if singlePrec then [ "-DGMX_DOUBLE=OFF" ] else [
+    ] ++ (if
+      singlePrec
+    then [ "-DGMX_DOUBLE=OFF" ] else [
       "-DGMX_DOUBLE=ON"
       "-DGMX_DEFAULT_SUFFIX=OFF"
-    ]) ++ (if enableMpi then [
+    ]) ++ (if
+      enableMpi
+    then [
       "-DGMX_MPI:BOOL=TRUE"
       "-DGMX_THREAD_MPI:BOOL=FALSE"
     ] else [ "-DGMX_MPI:BOOL=FALSE" ])

@@ -63,7 +63,9 @@ let
     ("No supported GPU targets specified. Requested GPU targets: "
       + strings.concatStringsSep ", " unsupported) supported;
 
-  gpuTargetString = strings.concatStringsSep "," (if gpuTargets != [ ] then
+  gpuTargetString = strings.concatStringsSep "," (if
+    gpuTargets != [ ]
+  then
   # If gpuTargets is specified, it always takes priority.
     gpuArchWarner supportedCustomGpuTargets unsupportedCustomGpuTargets
   else if rocmSupport then

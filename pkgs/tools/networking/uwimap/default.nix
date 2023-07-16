@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "RANLIB=${stdenv.cc.targetPrefix}ranlib"
-    (if stdenv.isDarwin then "osx" else "lnp") # Linux with PAM modules;
+    (if
+      stdenv.isDarwin
+    then
+      "osx"
+    else
+      "lnp") # Linux with PAM modules;
   ] ++ lib.optional stdenv.isx86_64
     "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
 
@@ -28,7 +33,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     openssl
-    (if stdenv.isDarwin then libkrb5 else pam) # Matches the make target.
+    (if
+      stdenv.isDarwin
+    then
+      libkrb5
+    else
+      pam) # Matches the make target.
   ];
 
   patches = [ (fetchpatch {

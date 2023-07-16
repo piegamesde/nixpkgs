@@ -34,7 +34,9 @@ let
           builtins.substring 0 1 pname
         }/${pname}/${pname}-${version}.${extension}";
 
-      compute = (if format == "wheel" then
+      compute = (if
+        format == "wheel"
+      then
         computeWheelUrl
       else if format == "setuptools" then
         computeSourceUrl

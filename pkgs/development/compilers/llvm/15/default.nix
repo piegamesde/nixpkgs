@@ -24,10 +24,18 @@
   # than the default LLVM verion's, if LLD is the choice. We use these for
   # the `useLLVM` bootstrapping below.
   ,
-  bootBintoolsNoLibc ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
-  bootBintools ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
+  bootBintoolsNoLibc ? if
+    stdenv.targetPlatform.linker == "lld"
+  then
+    null
+  else
+    pkgs.bintoolsNoLibc,
+  bootBintools ? if
+    stdenv.targetPlatform.linker == "lld"
+  then
+    null
+  else
+    pkgs.bintools,
   darwin
   # LLVM release information; specify one of these but not both:
   ,
@@ -61,7 +69,13 @@
 }:
 
 assert let
-  int = a: if a then 1 else 0;
+  int = a:
+    if
+      a
+    then
+      1
+    else
+      0;
   xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
 in
   lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
@@ -71,25 +85,33 @@ in
 let
   monorepoSrc' = monorepoSrc;
 in let
-  releaseInfo = if gitRelease != null then rec {
+  releaseInfo = if
+    gitRelease != null
+  then rec {
     original = gitRelease;
     release_version = original.version;
     version = gitRelease.rev-version;
   } else rec {
     original = officialRelease;
     release_version = original.version;
-    version = if original ? candidate then
+    version = if
+      original ? candidate
+    then
       "${release_version}-${original.candidate}"
     else
       release_version;
   };
 
-  monorepoSrc = if monorepoSrc' != null then
+  monorepoSrc = if
+    monorepoSrc' != null
+  then
     monorepoSrc'
   else
     let
       sha256 = releaseInfo.original.sha256;
-      rev = if gitRelease != null then
+      rev = if
+        gitRelease != null
+      then
         gitRelease.rev
       else
         "llvmorg-${releaseInfo.version}";
@@ -131,11 +153,18 @@ in let
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         '';
 
-      bintoolsNoLibc' = if bootBintoolsNoLibc == null then
+      bintoolsNoLibc' = if
+        bootBintoolsNoLibc == null
+      then
         tools.bintoolsNoLibc
       else
         bootBintoolsNoLibc;
-      bintools' = if bootBintools == null then tools.bintools else bootBintools;
+      bintools' = if
+        bootBintools == null
+      then
+        tools.bintools
+      else
+        bootBintools;
 
     in {
 
@@ -165,7 +194,9 @@ in let
       });
 
       # pick clang appropriate for package set we are targeting
-      clang = if stdenv.targetPlatform.useLLVM or false then
+      clang = if
+        stdenv.targetPlatform.useLLVM or false
+      then
         tools.clangUseLLVM
       else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
         tools.libstdcxxClang
@@ -289,7 +320,9 @@ in let
 
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
+        stdenv = if
+          stdenv.hostPlatform.useLLVM or false
+        then
           overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
         else
           stdenv;
@@ -297,14 +330,18 @@ in let
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
+        stdenv = if
+          stdenv.hostPlatform.useLLVM or false
+        then
           overrideCC stdenv buildLlvmTools.clangNoCompilerRt
         else
           stdenv;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
-      compiler-rt = if stdenv.hostPlatform.isAndroid then
+      compiler-rt = if
+        stdenv.hostPlatform.isAndroid
+      then
         libraries.compiler-rt-libc
       else
         libraries.compiler-rt-no-libc;

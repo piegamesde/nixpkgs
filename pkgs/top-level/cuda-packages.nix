@@ -40,12 +40,18 @@ let
       inherit (final) cudaMajorMinorVersion cudaMajorVersion;
 
       cutensor = buildCuTensorPackage rec {
-        version =
-          if cudaMajorMinorVersion == "10.1" then "1.2.2.5" else "1.5.0.3";
+        version = if
+          cudaMajorMinorVersion == "10.1"
+        then
+          "1.2.2.5"
+        else
+          "1.5.0.3";
         inherit (cuTensorVersions.${version}) hash;
         # This can go into generic.nix
         libPath = "lib/${
-            if cudaMajorVersion == "10" then
+            if
+              cudaMajorVersion == "10"
+            then
               cudaMajorMinorVersion
             else
               cudaMajorVersion

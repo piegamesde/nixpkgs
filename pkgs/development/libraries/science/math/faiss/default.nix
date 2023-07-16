@@ -38,7 +38,12 @@ let
   inherit (cudaPackages) cudaFlags backendStdenv;
   inherit (cudaFlags) cudaCapabilities dropDot;
 
-  stdenv = if cudaSupport then backendStdenv else inputs.stdenv;
+  stdenv = if
+    cudaSupport
+  then
+    backendStdenv
+  else
+    inputs.stdenv;
 
   cudaJoined = symlinkJoin {
     name = "cuda-packages-unsplit";
@@ -92,8 +97,22 @@ in
     passthru.extra-requires.all = [ pythonPackages.numpy ];
 
     cmakeFlags = [
-      "-DFAISS_ENABLE_GPU=${if cudaSupport then "ON" else "OFF"}"
-      "-DFAISS_ENABLE_PYTHON=${if pythonSupport then "ON" else "OFF"}"
+      "-DFAISS_ENABLE_GPU=${
+        if
+          cudaSupport
+        then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DFAISS_ENABLE_PYTHON=${
+        if
+          pythonSupport
+        then
+          "ON"
+        else
+          "OFF"
+      }"
       "-DFAISS_OPT_LEVEL=${optLevel}"
     ] ++ lib.optionals cudaSupport [
       "-DCMAKE_CUDA_ARCHITECTURES=${

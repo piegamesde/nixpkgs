@@ -17,7 +17,9 @@
 }:
 
 let
-  cpuTarget = if stdenv.hostPlatform.system == "x86_64-linux" then
+  cpuTarget = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     "x86_64-linux-user"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "i386-linux-user"

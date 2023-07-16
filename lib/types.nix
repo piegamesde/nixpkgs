@@ -32,7 +32,9 @@ let
         wrapped = f.wrapped.typeMerge f'.wrapped.functor;
         payload = f.binOp f.payload f'.payload;
         # cannot merge different types
-      in if f.name != f'.name then
+      in if
+        f.name != f'.name
+      then
         null
         # simple types
       else if (f.wrapped == null && f'.wrapped == null)
@@ -129,7 +131,12 @@ let
         inherit name check merge emptyValue getSubOptions getSubModules
           substSubModules typeMerge functor deprecationMessage nestedTypes
           descriptionClass;
-        description = if description == null then name else description;
+        description = if
+          description == null
+        then
+          name
+        else
+          description;
       };
 
     # optionDescriptionPhrase :: (str -> bool) -> optionType -> str
@@ -153,7 +160,9 @@ let
     # The description of the `optionType`, with parentheses if there may be an
     # ambiguity.
     optionDescriptionPhrase = unparenthesize: t:
-      if unparenthesize (t.descriptionClass or null) then
+      if
+        unparenthesize (t.descriptionClass or null)
+      then
         t.description
       else
         "(${t.description})";
@@ -178,7 +187,9 @@ let
         merge = loc: defs:
           let
             getType = value:
-              if isAttrs value && isStringLike value then
+              if
+                isAttrs value && isStringLike value
+              then
                 "stringCoercibleSet"
               else
                 builtins.typeOf value;
@@ -186,7 +197,9 @@ let
             # Returns the common type of all definitions, throws an error if they
             # don't have the same type
             commonType = foldl' (type: def:
-              if getType def.value == type then
+              if
+                getType def.value == type
+              then
                 type
               else
                 throw "The option `${
@@ -200,7 +213,9 @@ let
               set = (attrsOf anything).merge;
               # Safe and deterministic behavior for lists is to only accept one definition
               # listOf only used to apply mkIf and co.
-              list = if length defs > 1 then
+              list = if
+                length defs > 1
+              then
                 throw "The option `${
                   showOption loc
                 }' has conflicting definitions, in ${
@@ -389,7 +404,9 @@ let
       separatedString = sep:
         mkOptionType rec {
           name = "separatedString";
-          description = if sep == "" then
+          description = if
+            sep == ""
+          then
             "Concatenated string" # for types.string.
           else
             "strings concatenated with ${builtins.toJSON sep}";
@@ -398,7 +415,13 @@ let
           merge = loc: defs: concatStringsSep sep (getValues defs);
           functor = (defaultFunctor name) // {
             payload = sep;
-            binOp = sepLhs: sepRhs: if sepLhs == sepRhs then sepLhs else null;
+            binOp = sepLhs: sepRhs:
+              if
+                sepLhs == sepRhs
+              then
+                sepLhs
+              else
+                null;
           };
         };
 
@@ -444,8 +467,10 @@ let
         merge = loc: defs:
           let
             res = mergeOneOption loc defs;
-          in if builtins.isPath res
-          || (builtins.isString res && !builtins.hasContext res) then
+          in if
+            builtins.isPath res
+            || (builtins.isString res && !builtins.hasContext res)
+          then
             toDerivation res
           else
             res;
@@ -619,7 +644,9 @@ let
           merge = loc: defs:
             let
               nrNulls = count (def: def.value == null) defs;
-            in if nrNulls == length defs then
+            in if
+              nrNulls == length defs
+            then
               null
             else if nrNulls != 0 then
               throw "The option `${
@@ -706,7 +733,9 @@ let
         descriptionClass = "noun";
         check = value: value._type or null == "option-type";
         merge = loc: defs:
-          if length defs == 1 then
+          if
+            length defs == 1
+          then
             (head defs).value
           else
             let
@@ -744,7 +773,9 @@ let
                 value,
                 file,
               }:
-              if isAttrs value && shorthandOnlyDefinesConfig then {
+              if
+                isAttrs value && shorthandOnlyDefinesConfig
+              then {
                 _file = file;
                 config = value;
               } else {
@@ -781,7 +812,9 @@ let
         in
           mkOptionType {
             inherit name;
-            description = if description != null then
+            description = if
+              description != null
+            then
               description
             else
               freeformType.description or name;
@@ -817,25 +850,30 @@ let
                 specialArgs = let
                   intersecting =
                     builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
-                in if intersecting == { } then
+                in if
+                  intersecting == { }
+                then
                   lhs.specialArgs // rhs.specialArgs
                 else
                   throw ''
                     A submoduleWith option is declared multiple times with the same specialArgs "${
                       toString (attrNames intersecting)
                     }"'';
-                shorthandOnlyDefinesConfig =
-                  if lhs.shorthandOnlyDefinesConfig == null then
-                    rhs.shorthandOnlyDefinesConfig
-                  else if rhs.shorthandOnlyDefinesConfig == null then
-                    lhs.shorthandOnlyDefinesConfig
-                  else if lhs.shorthandOnlyDefinesConfig
-                  == rhs.shorthandOnlyDefinesConfig then
-                    lhs.shorthandOnlyDefinesConfig
-                  else
-                    throw
-                    "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
-                description = if lhs.description == null then
+                shorthandOnlyDefinesConfig = if
+                  lhs.shorthandOnlyDefinesConfig == null
+                then
+                  rhs.shorthandOnlyDefinesConfig
+                else if rhs.shorthandOnlyDefinesConfig == null then
+                  lhs.shorthandOnlyDefinesConfig
+                else if lhs.shorthandOnlyDefinesConfig
+                == rhs.shorthandOnlyDefinesConfig then
+                  lhs.shorthandOnlyDefinesConfig
+                else
+                  throw
+                  "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
+                description = if
+                  lhs.description == null
+                then
                   rhs.description
                 else if rhs.description == null then
                   lhs.description
@@ -854,7 +892,9 @@ let
         let
           inherit (lib.lists) unique;
           show = v:
-            if builtins.isString v then
+            if
+              builtins.isString v
+            then
               ''"${v}"''
             else if builtins.isInt v then
               builtins.toString v
@@ -870,14 +910,20 @@ let
               # where an "interface" module declares an empty enum and other modules
               # provide implementations, each extending the enum with their own
               # identifier.
-              if values == [ ] then
+              if
+                values == [ ]
+              then
                 "impossible (empty enum)"
               else if builtins.length values == 1 then
                 "value ${show (builtins.head values)} (singular enum)"
               else
                 "one of ${concatMapStringsSep ", " show values}";
-            descriptionClass =
-              if builtins.length values < 2 then "noun" else "conjunction";
+            descriptionClass = if
+              builtins.length values < 2
+            then
+              "noun"
+            else
+              "conjunction";
             check = flip elem values;
             merge = mergeEqualOption;
             functor = (defaultFunctor name) // {
@@ -904,7 +950,9 @@ let
           merge = loc: defs:
             let
               defList = map (d: d.value) defs;
-            in if all (x: t1.check x) defList then
+            in if
+              all (x: t1.check x) defList
+            then
               t1.merge loc defs
             else if all (x: t2.check x) defList then
               t2.merge loc defs
@@ -914,7 +962,9 @@ let
             let
               mt1 = t1.typeMerge (elemAt f'.wrapped 0).functor;
               mt2 = t2.typeMerge (elemAt f'.wrapped 1).functor;
-            in if (name == f'.name) && (mt1 != null) && (mt2 != null) then
+            in if
+              (name == f'.name) && (mt1 != null) && (mt2 != null)
+            then
               functor.type mt1 mt2
             else
               null;
@@ -931,7 +981,9 @@ let
       # Any of the types in the given list
       oneOf = ts:
         let
-          head' = if ts == [ ] then
+          head' = if
+            ts == [ ]
+          then
             throw "types.oneOf needs to get at least one type in its argument"
           else
             head ts;
@@ -957,7 +1009,12 @@ let
           merge = loc: defs:
             let
               coerceVal = val:
-                if coercedType.check val then coerceFunc val else val;
+                if
+                  coercedType.check val
+                then
+                  coerceFunc val
+                else
+                  val;
             in
               finalType.merge loc
               (map (def: def // { value = coerceVal def.value; }) defs)

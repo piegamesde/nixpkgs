@@ -157,7 +157,9 @@ in
         ];
       };
     };
-  in if oldVer then
+  in if
+    oldVer
+  then
     libxml.overrideAttrs (attrs: rec {
       version = "2.10.1";
       src = fetchurl {

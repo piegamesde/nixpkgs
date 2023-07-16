@@ -34,7 +34,9 @@ in
       })
     ];
 
-    postPatch = if withApplePCSC then ''
+    postPatch = if
+      withApplePCSC
+    then ''
       substituteInPlace smartcard/scard/winscarddll.c \
         --replace "/System/Library/Frameworks/PCSC.framework/PCSC" \
                   "${PCSC}/Library/Frameworks/PCSC.framework/PCSC"

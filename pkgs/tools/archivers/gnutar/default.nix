@@ -47,7 +47,9 @@ stdenv.mkDerivation rec {
   FORCE_UNSAFE_CONFIGURE = lib.optionalString
     (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.isSunOS) "1";
 
-  preConfigure = if stdenv.isCygwin then ''
+  preConfigure = if
+    stdenv.isCygwin
+  then ''
     sed -i gnu/fpending.h -e 's,include <stdio_ext.h>,,'
   '' else
     null;

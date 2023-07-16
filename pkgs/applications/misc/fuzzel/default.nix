@@ -58,9 +58,30 @@ stdenv.mkDerivation rec {
   mesonBuildType = "release";
 
   mesonFlags = [
-    "-Denable-cairo=${if enableCairo then "enabled" else "disabled"}"
-    "-Dpng-backend=${if pngSupport then "libpng" else "none"}"
-    "-Dsvg-backend=${if svgSupport then "nanosvg" else "none"}"
+    "-Denable-cairo=${
+      if
+        enableCairo
+      then
+        "enabled"
+      else
+        "disabled"
+    }"
+    "-Dpng-backend=${
+      if
+        pngSupport
+      then
+        "libpng"
+      else
+        "none"
+    }"
+    "-Dsvg-backend=${
+      if
+        svgSupport
+      then
+        "nanosvg"
+      else
+        "none"
+    }"
   ];
 
   meta = with lib; {

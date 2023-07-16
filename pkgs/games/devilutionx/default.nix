@@ -109,7 +109,9 @@ in
     installPhase = ''
       runHook preInstall
 
-    '' + (if stdenv.isDarwin then ''
+    '' + (if
+      stdenv.isDarwin
+    then ''
       mkdir -p $out/Applications
       mv devilutionx.app $out/Applications
     '' else ''

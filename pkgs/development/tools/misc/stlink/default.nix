@@ -13,7 +13,9 @@
 
 let
   # The Darwin build of stlink explicitly refers to static libusb.
-  libusb1' = if stdenv.isDarwin then
+  libusb1' = if
+    stdenv.isDarwin
+  then
     libusb1.override { withStatic = true; }
   else
     libusb1;

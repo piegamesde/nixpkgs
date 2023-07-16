@@ -13,12 +13,16 @@ let
   settingsFormat = pkgs.formats.ini {
     listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { });
     mkKeyValue = k: v:
-      if v == null then
+      if
+        v == null
+      then
         ""
       else
         generators.mkKeyValueDefault {
           mkValueString = v:
-            if v == true then
+            if
+              v == true
+            then
               "yes"
             else if v == false then
               "no"
@@ -32,9 +36,10 @@ let
     (filterAttrs (k: v: v != null) (mapAttrs (section: v:
       let
         srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht(::.*)?$" section;
-      in if srvMatch == null # Include sections shared by all services
-      || head srvMatch
-      == srv # Include sections for the service being configured
+      in if
+        srvMatch == null # Include sections shared by all services
+        || head srvMatch
+        == srv # Include sections for the service being configured
       then
         v
         # Enable Web links and integrations between services.

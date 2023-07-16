@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/bin
-  '' + (if buildNativeImage then ''
+  '' + (if
+    buildNativeImage
+  then ''
     mv dapl $out/bin
   '' else ''
     mkdir -p $out/share/${pname}

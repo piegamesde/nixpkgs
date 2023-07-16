@@ -32,7 +32,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = if stdenv.isDarwin then [
+  buildInputs = if
+    stdenv.isDarwin
+  then [
     CoreFoundation
     Cocoa
     AudioToolbox

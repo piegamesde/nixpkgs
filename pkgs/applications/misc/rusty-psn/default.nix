@@ -30,7 +30,9 @@ rustPlatform.buildRustPackage rec {
     copyDesktopItems
   ];
 
-  buildInputs = if withGui then [
+  buildInputs = if
+    withGui
+  then [
     openssl
     xorg.libxcb
     xorg.libX11
@@ -43,7 +45,12 @@ rustPlatform.buildRustPackage rec {
   ] else [ openssl ];
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [ (if withGui then "egui" else "cli") ];
+  buildFeatures = [ (if
+    withGui
+  then
+    "egui"
+  else
+    "cli") ];
 
   postFixup = ''
     patchelf --set-rpath "${lib.makeLibraryPath buildInputs}" $out/bin/rusty-psn

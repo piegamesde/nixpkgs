@@ -113,7 +113,9 @@ let
         ] "" component;
         dependencies = builtins.map (dep: builtins.getAttr dep components)
           component.dependencies;
-        platforms = if component.platform == { } then
+        platforms = if
+          component.platform == { }
+        then
           lib.platforms.all
         else
           builtins.concatMap

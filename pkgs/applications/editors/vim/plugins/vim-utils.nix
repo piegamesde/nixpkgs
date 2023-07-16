@@ -141,7 +141,9 @@ let
   # looked up in knownPlugins.
   pluginToDrv = knownPlugins: plugin:
     let
-      drv = if builtins.isString plugin then
+      drv = if
+        builtins.isString plugin
+      then
       # make sure `pname` is set to that we are able to convert the derivation
       # back to a string.
         (knownPlugins.${plugin} // { pname = plugin; })
@@ -163,7 +165,9 @@ let
     lib.concatMap transitiveClosure plugins;
 
   vamDictToNames = x:
-    if builtins.isString x then [ x ] else
+    if
+      builtins.isString x
+    then [ x ] else
       (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
 
   rtpPath = ".";
@@ -314,7 +318,9 @@ in rec {
             "vim", # A shell word used to specify the names of the customized executables.
           # The shell variable $exe can be used to refer to the wrapped executable's name.
           # Examples: "my-$exe", "$exe-with-plugins", "\${exe/vim/v1m}"
-          executableName ? if lib.hasInfix "vim" name then
+          executableName ? if
+            lib.hasInfix "vim" name
+          then
             lib.replaceStrings [ "vim" ] [ "$exe" ] name
           else
             "\${exe/vim/${
@@ -335,7 +341,9 @@ in rec {
         }:
         lib.warnIf (wrapManual != null) ''
           vim.customize: wrapManual is deprecated: the manual is now included by default if `name == "vim"`.
-          ${if wrapManual == true && name != "vim" then
+          ${if
+            wrapManual == true && name != "vim"
+          then
             "Set `standalone = false` to include the manual."
           else
             lib.optionalString (wrapManual == false && name == "vim")
@@ -345,7 +353,9 @@ in rec {
         lib.throwIfNot (vimExecutableName == null && gvimExecutableName == null)
         "vim.customize: (g)vimExecutableName is deprecated: use executableName instead (see source code for examples)"
         (let
-          vimrc = if vimrcFile != null then
+          vimrc = if
+            vimrcFile != null
+          then
             vimrcFile
           else if vimrcConfig != null then
             mkVimrcFile vimrcConfig
@@ -361,7 +371,9 @@ in rec {
 
               mkdir -p "$out/bin"
               for exe in ${
-                if standalone then
+                if
+                  standalone
+                then
                   "{,g,r,rg,e}vim {,g}vimdiff vi"
                 else
                   "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"
@@ -377,7 +389,9 @@ in rec {
                 fi
               done
             '';
-        in if standalone then
+        in if
+          standalone
+        then
           bin
         else
           buildEnv {

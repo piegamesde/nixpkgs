@@ -29,7 +29,12 @@ stdenv.mkDerivation {
   ];
 
   prePatch = let
-    subdir = if stdenv.isDarwin then "osx" else "linux";
+    subdir = if
+      stdenv.isDarwin
+    then
+      "osx"
+    else
+      "linux";
   in
     "cd ${subdir}"
   ;

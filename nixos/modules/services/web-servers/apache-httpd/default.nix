@@ -31,7 +31,12 @@ let
   phpModuleName = let
     majorVersion = lib.versions.major (lib.getVersion php);
   in
-    (if majorVersion == "8" then "php" else "php${majorVersion}")
+    (if
+      majorVersion == "8"
+    then
+      "php"
+    else
+      "php${majorVersion}")
   ;
 
   mod_perl = pkgs.apacheHttpdPackages.mod_perl.override { apacheHttpd = pkg; };
@@ -41,7 +46,9 @@ let
   # certName is used later on to determine systemd service names.
   acmeEnabledVhosts = map (hostOpts:
     hostOpts // {
-      certName = if hostOpts.useACMEHost != null then
+      certName = if
+        hostOpts.useACMEHost != null
+      then
         hostOpts.useACMEHost
       else
         hostOpts.hostName;
@@ -52,7 +59,9 @@ let
     unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
 
   mkListenInfo = hostOpts:
-    if hostOpts.listen != [ ] then
+    if
+      hostOpts.listen != [ ]
+    then
       hostOpts.listen
     else
       optionals (hostOpts.onlySSL || hostOpts.addSSL || hostOpts.forceSSL) (map
@@ -102,7 +111,9 @@ let
       path = "${mod_perl}/modules/mod_perl.so";
     } ++ cfg.extraModules;
 
-  loggingConf = (if cfg.logFormat != "none" then ''
+  loggingConf = (if
+    cfg.logFormat != "none"
+  then ''
     ErrorLog ${cfg.logDir}/error.log
 
     LogLevel notice
@@ -170,7 +181,9 @@ let
 
   mkVHostConf = hostOpts:
     let
-      adminAddr = if hostOpts.adminAddr != null then
+      adminAddr = if
+        hostOpts.adminAddr != null
+      then
         hostOpts.adminAddr
       else
         cfg.adminAddr;
@@ -178,21 +191,33 @@ let
       listenSSL = filter (listen: listen.ssl) (mkListenInfo hostOpts);
 
       useACME = hostOpts.enableACME || hostOpts.useACMEHost != null;
-      sslCertDir = if hostOpts.enableACME then
+      sslCertDir = if
+        hostOpts.enableACME
+      then
         certs.${hostOpts.hostName}.directory
       else if hostOpts.useACMEHost != null then
         certs.${hostOpts.useACMEHost}.directory
       else
         abort "This case should never happen.";
 
-      sslServerCert = if useACME then
+      sslServerCert = if
+        useACME
+      then
         "${sslCertDir}/fullchain.pem"
       else
         hostOpts.sslServerCert;
-      sslServerKey =
-        if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
-      sslServerChain =
-        if useACME then "${sslCertDir}/chain.pem" else hostOpts.sslServerChain;
+      sslServerKey = if
+        useACME
+      then
+        "${sslCertDir}/key.pem"
+      else
+        hostOpts.sslServerKey;
+      sslServerChain = if
+        useACME
+      then
+        "${sslCertDir}/chain.pem"
+      else
+        hostOpts.sslServerChain;
 
       acmeChallenge = optionalString (useACME && hostOpts.acmeRoot != null) ''
         Alias /.well-known/acme-challenge/ "${hostOpts.acmeRoot}/.well-known/acme-challenge/"
@@ -221,7 +246,9 @@ let
             </IfModule>
             ${acmeChallenge}
             ${
-              if hostOpts.forceSSL then ''
+              if
+                hostOpts.forceSSL
+              then ''
                 <IfModule mod_rewrite.c>
                     RewriteEngine on
                     RewriteCond %{REQUEST_URI} !^/.well-known/acme-challenge [NC]
@@ -260,7 +287,9 @@ let
 
   mkVHostCommonConf = hostOpts:
     let
-      documentRoot = if hostOpts.documentRoot != null then
+      documentRoot = if
+        hostOpts.documentRoot != null
+      then
         hostOpts.documentRoot
       else
         pkgs.emptyDirectory;
@@ -370,7 +399,12 @@ let
     ${let
       toStr = listen:
         "Listen ${listen.ip}:${toString listen.port} ${
-          if listen.ssl then "https" else "http"
+          if
+            listen.ssl
+          then
+            "https"
+          else
+            "http"
         }";
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
     in
@@ -382,7 +416,9 @@ let
 
     ${let
       mkModule = module:
-        if isString module then {
+        if
+          isString module
+        then {
           name = module;
           path = "${pkg}/modules/mod_${module}.so";
         } else if isAttrs module then {
@@ -850,14 +886,25 @@ in {
             # if acmeRoot is null inherit config.security.acme
             # Since config.security.acme.certs.<cert>.webroot's own default value
             # should take precedence set priority higher than mkOptionDefault
-            webroot =
-              mkOverride (if hasRoot then 1000 else 2000) hostOpts.acmeRoot;
+            webroot = mkOverride (if
+              hasRoot
+            then
+              1000
+            else
+              2000) hostOpts.acmeRoot;
             # Also nudge dnsProvider to null in case it is inherited
-            dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
+            dnsProvider = mkOverride (if
+              hasRoot
+            then
+              1000
+            else
+              2000) null;
             extraDomainNames = hostOpts.serverAliases;
             # Use the vhost-specific email address if provided, otherwise let
             # security.acme.email or security.acme.certs.<cert>.email be used.
-            email = mkOverride 2000 (if hostOpts.adminAddr != null then
+            email = mkOverride 2000 (if
+              hostOpts.adminAddr != null
+            then
               hostOpts.adminAddr
             else
               cfg.adminAddr);

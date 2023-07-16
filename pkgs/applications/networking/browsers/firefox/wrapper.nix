@@ -152,14 +152,18 @@ let
 
       # Check that every extension has a unqiue .name attribute
       # and an extid attribute
-      extensions = if nameArray != (lib.unique nameArray) then
+      extensions = if
+        nameArray != (lib.unique nameArray)
+      then
         throw "Firefox addon name needs to be unique"
       else if requiresSigning && !lib.hasSuffix "esr" browser.name then
         throw
         "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
       else
         builtins.map (a:
-          if !(builtins.hasAttr "extid" a) then
+          if
+            !(builtins.hasAttr "extid" a)
+          then
             throw
             "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
           else
@@ -221,7 +225,9 @@ let
           startupNotify = true;
           startupWMClass = wmClass;
           terminal = false;
-        } // (if libName == "thunderbird" then {
+        } // (if
+          libName == "thunderbird"
+        then {
           genericName = "Email Client";
           comment =
             "Read and write e-mails or RSS feeds, or manage tasks on calendars.";

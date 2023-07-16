@@ -26,15 +26,18 @@ let
 
   overriddenUnwrappedGir = gobject-introspection-unwrapped.override args;
   # if we have targetPackages.gobject-introspection then propagate that
-  overridenTargetUnwrappedGir =
-    if targetPackages ? gobject-introspection-unwrapped then
-      targetPackages.gobject-introspection-unwrapped.override argsForTarget
-    else
-      overriddenUnwrappedGir;
+  overridenTargetUnwrappedGir = if
+    targetPackages ? gobject-introspection-unwrapped
+  then
+    targetPackages.gobject-introspection-unwrapped.override argsForTarget
+  else
+    overriddenUnwrappedGir;
 
   # wrap both pkgsCrossX.buildPackages.gobject-introspection and {pkgs,pkgsSomethingExecutableOnBuildSystem).buildPackages.gobject-introspection
-in if (!stdenv.hostPlatform.canExecute stdenv.targetPlatform)
-&& stdenv.targetPlatform.emulatorAvailable buildPackages then
+in if
+  (!stdenv.hostPlatform.canExecute stdenv.targetPlatform)
+  && stdenv.targetPlatform.emulatorAvailable buildPackages
+then
   overriddenUnwrappedGir.overrideAttrs (previousAttrs: {
 
     pname = "gobject-introspection-wrapped";

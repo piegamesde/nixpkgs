@@ -37,7 +37,15 @@
 }:
 
 let
-  mkFlag = optset: flag: "-DENABLE_${flag}=${if optset then "on" else "off"}";
+  mkFlag = optset: flag:
+    "-DENABLE_${flag}=${
+      if
+        optset
+      then
+        "on"
+      else
+        "off"
+    }";
 
   # unclear relationship between test data repo versions and poppler
   # versions, though files don't appear to be updated after they're

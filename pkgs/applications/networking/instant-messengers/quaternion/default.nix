@@ -37,7 +37,9 @@ mkDerivation rec {
     qttools
   ];
 
-  postInstall = if stdenv.isDarwin then ''
+  postInstall = if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/Applications
     mv $out/bin/quaternion.app $out/Applications
     rmdir $out/bin || :

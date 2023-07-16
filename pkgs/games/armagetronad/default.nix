@@ -20,8 +20,12 @@ let
   version = "${versionMajor}.${versionMinor}";
 in
   stdenv.mkDerivation {
-    pname =
-      if dedicatedServer then "armagetronad-dedicated" else "armagetronad";
+    pname = if
+      dedicatedServer
+    then
+      "armagetronad-dedicated"
+    else
+      "armagetronad";
     inherit version;
     src = fetchurl {
       url =

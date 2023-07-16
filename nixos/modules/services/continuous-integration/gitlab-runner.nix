@@ -18,7 +18,9 @@ let
     let
       hash = substring 0 12
         (hashString "md5" (unsafeDiscardStringContext (toJSON service)));
-    in if service ? description && service.description != null then
+    in if
+      service ? description && service.description != null
+    then
       "${hash} ${service.description}"
     else
       "${name}_${config.networking.hostName}_${hash}";
@@ -40,7 +42,9 @@ let
       perl
       python3
     ];
-    text = if (cfg.configFile != null) then ''
+    text = if
+      (cfg.configFile != null)
+    then ''
       cp ${cfg.configFile} ${configPath}
       # make config file readable by service
       chown -R --reference="$HOME" "$(dirname ${configPath})"

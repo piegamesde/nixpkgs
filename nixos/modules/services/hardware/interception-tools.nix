@@ -60,7 +60,9 @@ in {
       serviceConfig = {
         ExecStart = ''
           ${pkgs.interception-tools}/bin/udevmon -c \
-          ${if builtins.typeOf cfg.udevmonConfig == "path" then
+          ${if
+            builtins.typeOf cfg.udevmonConfig == "path"
+          then
             cfg.udevmonConfig
           else
             pkgs.writeText "udevmon.yaml" cfg.udevmonConfig}

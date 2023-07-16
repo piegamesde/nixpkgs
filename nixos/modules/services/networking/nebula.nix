@@ -197,7 +197,9 @@ in {
           };
           tun = {
             disabled = netCfg.tun.disable;
-            dev = if (netCfg.tun.device != null) then
+            dev = if
+              (netCfg.tun.device != null)
+            then
               netCfg.tun.device
             else
               "nebula.${netName}";

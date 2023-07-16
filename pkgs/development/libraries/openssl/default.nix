@@ -106,11 +106,14 @@ let
         x86_64-linux = "./Configure linux-x86_64";
         x86_64-solaris = "./Configure solaris64-x86_64-gcc";
         riscv64-linux = "./Configure linux64-riscv64";
-      }.${stdenv.hostPlatform.system} or (if stdenv.hostPlatform
-      == stdenv.buildPlatform then
+      }.${stdenv.hostPlatform.system} or (if
+        stdenv.hostPlatform == stdenv.buildPlatform
+      then
         "./config"
       else if stdenv.hostPlatform.isBSD then
-        if stdenv.hostPlatform.isx86_64 then
+        if
+          stdenv.hostPlatform.isx86_64
+        then
           "./Configure BSD-x86_64"
         else if stdenv.hostPlatform.isx86_32 then
           "./Configure BSD-x86" + lib.optionalString
@@ -125,7 +128,9 @@ let
           (toString stdenv.hostPlatform.parsed.cpu.bits)
         }"
       else if stdenv.hostPlatform.isLinux then
-        if stdenv.hostPlatform.isx86_64 then
+        if
+          stdenv.hostPlatform.isx86_64
+        then
           "./Configure linux-x86_64"
         else if stdenv.hostPlatform.isMips32 then
           "./Configure linux-mips32"
@@ -148,7 +153,9 @@ let
       configureFlags = [
         "shared" # "shared" builds both shared and static libraries
         "--libdir=lib"
-        (if !static then
+        (if
+          !static
+        then
           "--openssldir=etc/ssl"
         else
         # Move OPENSSLDIR to the 'etc' output for static builds. Prepend '/.'
@@ -188,7 +195,9 @@ let
 
       enableParallelBuilding = true;
 
-      postInstall = (if static then ''
+      postInstall = (if
+        static
+      then ''
         # OPENSSLDIR has a reference to self
         remove-references-to -t $out $out/lib/*.a
       '' else ''
@@ -262,7 +271,9 @@ in {
     patches = [
       ./1.1/nix-ssl-cert-file.patch
 
-      (if stdenv.hostPlatform.isDarwin then
+      (if
+        stdenv.hostPlatform.isDarwin
+      then
         ./use-etc-ssl-certs-darwin.patch
       else
         ./use-etc-ssl-certs.patch)
@@ -280,7 +291,9 @@ in {
       # This patch disables build-time detection.
       ./3.0/openssl-disable-kernel-detection.patch
 
-      (if stdenv.hostPlatform.isDarwin then
+      (if
+        stdenv.hostPlatform.isDarwin
+      then
         ./use-etc-ssl-certs-darwin.patch
       else
         ./use-etc-ssl-certs.patch)

@@ -5,7 +5,9 @@
   isPy3k,
 }:
 
-if isPy3k then
+if
+  isPy3k
+then
   null
 else
   buildPythonPackage rec {

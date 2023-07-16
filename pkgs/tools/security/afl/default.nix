@@ -12,7 +12,9 @@
 
 let
   afl-qemu = callPackage ./qemu.nix { inherit afl; };
-  qemu-exe-name = if stdenv.hostPlatform.system == "x86_64-linux" then
+  qemu-exe-name = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     "qemu-x86_64"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "qemu-i386"

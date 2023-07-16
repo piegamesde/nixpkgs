@@ -14,7 +14,13 @@ in {
   extraOpts = {
     tokenPath = mkOption {
       type = types.nullOr types.path;
-      apply = final: if final == null then null else toString final;
+      apply = final:
+        if
+          final == null
+        then
+          null
+        else
+          toString final;
       description = lib.mdDoc ''
         The token from your Buildkite "Agents" page.
 

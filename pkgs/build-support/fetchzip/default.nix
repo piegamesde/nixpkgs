@@ -33,13 +33,22 @@ lib.warnIf (extraPostFetch != "")
 "use 'postFetch' instead of 'extraPostFetch' with 'fetchzip' and 'fetchFromGitHub'."
 
 (let
-  tmpFilename = if extension != null then
+  tmpFilename = if
+    extension != null
+  then
     "download.${extension}"
   else
-    baseNameOf (if url != "" then url else builtins.head urls);
+    baseNameOf (if
+      url != ""
+    then
+      url
+    else
+      builtins.head urls);
 
 in
-  fetchurl ((if (pname != "" && version != "") then {
+  fetchurl ((if
+    (pname != "" && version != "")
+  then {
     name = "${pname}-${version}";
     inherit pname version;
   } else {
@@ -66,7 +75,9 @@ in
       mv "$downloadedFile" "$renamed"
       unpackFile "$renamed"
       chmod -R +w "$unpackDir"
-    '' + (if stripRoot then ''
+    '' + (if
+      stripRoot
+    then ''
       if [ $(ls -A "$unpackDir" | wc -l) != 1 ]; then
         echo "error: zip file must contain a single file or directory."
         echo "hint: Pass stripRoot=false; to fetchzip to assume flat list of files."

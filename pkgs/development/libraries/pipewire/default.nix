@@ -71,7 +71,13 @@
 }:
 
 let
-  mesonEnableFeature = b: if b then "enabled" else "disabled";
+  mesonEnableFeature = b:
+    if
+      b
+    then
+      "enabled"
+    else
+      "disabled";
 
   self = stdenv.mkDerivation rec {
     pname = "pipewire";

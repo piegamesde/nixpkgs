@@ -14,9 +14,19 @@
 
 let
   # Workaround to cope with utillinux in Nixpkgs 20.09 and util-linux in Nixpkgs master
-  utillinux = if pkgs ? utillinux then pkgs.utillinux else pkgs.util-linux;
+  utillinux = if
+    pkgs ? utillinux
+  then
+    pkgs.utillinux
+  else
+    pkgs.util-linux;
 
-  python = if nodejs ? python then nodejs.python else python2;
+  python = if
+    nodejs ? python
+  then
+    nodejs.python
+  else
+    python2;
 
   # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
   tarWrapper = runCommand "tarWrapper" { } ''
@@ -196,7 +206,12 @@ let
       };
     in ''
       node ${pinpointDependenciesFromPackageJSON} ${
-        if production then "production" else "development"
+        if
+          production
+        then
+          "production"
+        else
+          "development"
       }
 
       ${lib.optionalString (dependencies != [ ]) ''
@@ -452,7 +467,9 @@ let
       production,
     }:
     let
-      forceOfflineFlag = if bypassCache then
+      forceOfflineFlag = if
+        bypassCache
+      then
         "--offline"
       else
         "--registry http://www.example.com";
@@ -550,7 +567,14 @@ let
       ];
     in
       stdenv.mkDerivation ({
-        name = "${name}${if version == null then "" else "-${version}"}";
+        name = "${name}${
+            if
+              version == null
+            then
+              ""
+            else
+              "-${version}"
+          }";
         buildInputs = [
           tarWrapper
           python
@@ -656,7 +680,12 @@ let
     in
       stdenv.mkDerivation ({
         name = "node-dependencies-${name}${
-            if version == null then "" else "-${version}"
+            if
+              version == null
+            then
+              ""
+            else
+              "-${version}"
           }";
 
         buildInputs = [
@@ -749,8 +778,14 @@ let
       ];
     in
       stdenv.mkDerivation ({
-        name =
-          "node-shell-${name}${if version == null then "" else "-${version}"}";
+        name = "node-shell-${name}${
+            if
+              version == null
+            then
+              ""
+            else
+              "-${version}"
+          }";
 
         buildInputs = [
           python

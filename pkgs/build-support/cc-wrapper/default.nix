@@ -37,7 +37,9 @@
 
   # Always add these flags for Clang, because in order to compile (most
   # software) it needs libraries that are shipped and compiled with gcc.
-    if isClang then
+    if
+      isClang
+    then
       true
 
       # Never add these flags for a build!=host cross-compiler or a host!=target
@@ -72,7 +74,12 @@
 
       # the derivation at which the `-B` and `-L` flags added by `useCcForLibs` will point
   ,
-  gccForLibs ? if useCcForLibs then cc else null
+  gccForLibs ? if
+    useCcForLibs
+  then
+    cc
+  else
+    null
 }:
 
 with lib;
@@ -96,14 +103,34 @@ let
   ccVersion = lib.getVersion cc;
   ccName = lib.removePrefix targetPrefix (lib.getName cc);
 
-  libc_bin = if libc == null then "" else getBin libc;
-  libc_dev = if libc == null then "" else getDev libc;
-  libc_lib = if libc == null then "" else getLib libc;
+  libc_bin = if
+    libc == null
+  then
+    ""
+  else
+    getBin libc;
+  libc_dev = if
+    libc == null
+  then
+    ""
+  else
+    getDev libc;
+  libc_lib = if
+    libc == null
+  then
+    ""
+  else
+    getLib libc;
   cc_solib = getLib cc + optionalString (targetPlatform != hostPlatform)
     "/${targetPlatform.config}";
 
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
-  coreutils_bin = if nativeTools then "" else getBin coreutils;
+  coreutils_bin = if
+    nativeTools
+  then
+    ""
+  else
+    getBin coreutils;
 
   # The "suffix salt" is a arbitrary string added in the end of env vars
   # defined by cc-wrapper's hooks so that multiple cc-wrappers can be used
@@ -131,7 +158,9 @@ let
 
   # older compilers (for example bootstrap's GCC 5) fail with -march=too-modern-cpu
   isGccArchSupported = arch:
-    if targetPlatform.isPower then
+    if
+      targetPlatform.isPower
+    then
       false
     else # powerpc does not allow -march=
     if isGNU then
@@ -163,11 +192,12 @@ let
     else
       false;
 
-  darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin
-    (if (targetPlatform.darwinPlatform == "macos" && isGNU) then
-      "macosx"
-    else
-      targetPlatform.darwinPlatform);
+  darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin (if
+    (targetPlatform.darwinPlatform == "macos" && isGNU)
+  then
+    "macosx"
+  else
+    targetPlatform.darwinPlatform);
 
   darwinMinVersion = optionalString stdenv.targetPlatform.isDarwin
     (stdenv.targetPlatform.darwinMinVersion);
@@ -185,8 +215,18 @@ in
   assert nativePrefix == bintools.nativePrefix;
 
   stdenv.mkDerivation {
-    pname = targetPrefix + (if name != "" then name else "${ccName}-wrapper");
-    version = if cc == null then "" else ccVersion;
+    pname = targetPrefix + (if
+      name != ""
+    then
+      name
+    else
+      "${ccName}-wrapper");
+    version = if
+      cc == null
+    then
+      ""
+    else
+      ccVersion;
 
     preferLocalBuild = true;
 
@@ -236,19 +276,38 @@ in
         local wrapper="$2"
         export prog="$3"
         export use_response_file_by_default=${
-          if isClang && !isCcache then "1" else "0"
+          if
+            isClang && !isCcache
+          then
+            "1"
+          else
+            "0"
         }
         substituteAll "$wrapper" "$out/bin/$dst"
         chmod +x "$out/bin/$dst"
       }
     ''
 
-      + (if nativeTools then ''
+      + (if
+        nativeTools
+      then ''
         echo ${
-          if targetPlatform.isDarwin then cc else nativePrefix
+          if
+            targetPlatform.isDarwin
+          then
+            cc
+          else
+            nativePrefix
         } > $out/nix-support/orig-cc
 
-        ccPath="${if targetPlatform.isDarwin then cc else nativePrefix}/bin"
+        ccPath="${
+          if
+            targetPlatform.isDarwin
+          then
+            cc
+          else
+            nativePrefix
+        }/bin"
       '' else ''
         echo $cc > $out/nix-support/orig-cc
 
@@ -565,7 +624,12 @@ in
         echo "-mmode=${targetPlatform.gcc.mode}" >> $out/nix-support/cc-cflags-before
       '' + optionalString (targetPlatform ? gcc.thumb) ''
         echo "-m${
-          if targetPlatform.gcc.thumb then "thumb" else "arm"
+          if
+            targetPlatform.gcc.thumb
+          then
+            "thumb"
+          else
+            "arm"
         }" >> $out/nix-support/cc-cflags-before
       '' + optionalString (targetPlatform ? gcc.tune
         && isGccArchSupported targetPlatform.gcc.tune) ''
@@ -659,10 +723,20 @@ in
       expandResponseParams =
         "${expand-response-params}/bin/expand-response-params";
       shell = getBin shell + shell.shellPath or "";
-      gnugrep_bin = if nativeTools then "" else gnugrep;
+      gnugrep_bin = if
+        nativeTools
+      then
+        ""
+      else
+        gnugrep;
       # stdenv.cc.cc should not be null and we have nothing better for now.
       # if the native impure bootstrap is gotten rid of this can become `inherit cc;` again.
-      cc = if nativeTools then "" else cc;
+      cc = if
+        nativeTools
+      then
+        ""
+      else
+        cc;
       wrapperName = "CC_WRAPPER";
       inherit suffixSalt coreutils_bin bintools;
       inherit libc_bin libc_dev libc_lib;
@@ -670,14 +744,24 @@ in
     };
 
     meta = let
-      cc_ = if cc != null then cc else { };
+      cc_ = if
+        cc != null
+      then
+        cc
+      else
+        { };
     in
-      (if cc_ ? meta then removeAttrs cc.meta [ "priority" ] else { }) // {
-        description = lib.attrByPath [
-          "meta"
-          "description"
-        ] "System C compiler" cc_ + " (wrapper script)";
-        priority = 10;
-      }
+      (if
+        cc_ ? meta
+      then
+        removeAttrs cc.meta [ "priority" ]
+      else
+        { }) // {
+          description = lib.attrByPath [
+            "meta"
+            "description"
+          ] "System C compiler" cc_ + " (wrapper script)";
+          priority = 10;
+        }
     ;
   }

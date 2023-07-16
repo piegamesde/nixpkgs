@@ -16,7 +16,9 @@ let
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
   escapeIfNeccessary = s:
-    if needsEscaping s then
+    if
+      needsEscaping s
+    then
       s
     else
       ''

@@ -46,7 +46,14 @@ stdenv.mkDerivation rec {
     "-Dcrypto-library=openssl"
     "-Dcrypto-library-kdf=disabled"
     "-Ddoc=disabled"
-    "-Dtests=${if doCheck then "enabled" else "disabled"}"
+    "-Dtests=${
+      if
+        doCheck
+      then
+        "enabled"
+      else
+        "disabled"
+    }"
   ];
 
   doCheck = true;

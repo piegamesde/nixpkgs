@@ -91,7 +91,14 @@ in {
         etcdir=/etc/at
 
         install -dm755 -o atd -g atd "$etcdir"
-        spool_and_job_dir_perms=${if cfg.allowEveryone then "1777" else "1770"}
+        spool_and_job_dir_perms=${
+          if
+            cfg.allowEveryone
+          then
+            "1777"
+          else
+            "1770"
+        }
         install -dm"$spool_and_job_dir_perms" -o atd -g atd "$spooldir" "$jobdir"
         if [ ! -f "$etcdir"/at.deny ]; then
             touch "$etcdir"/at.deny

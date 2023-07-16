@@ -15,11 +15,21 @@
 }:
 
 let
-  gtk = if withGtk3 then gtk3 else gtk2;
+  gtk = if
+    withGtk3
+  then
+    gtk3
+  else
+    gtk2;
   inherit (lib) optional optionalString;
 in
   stdenv.mkDerivation rec {
-    pname = if extraOnly then "libfm-extra" else "libfm";
+    pname = if
+      extraOnly
+    then
+      "libfm-extra"
+    else
+      "libfm";
     version = "1.3.2";
 
     src = fetchurl {

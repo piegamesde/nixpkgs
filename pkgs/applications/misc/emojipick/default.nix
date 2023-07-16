@@ -16,7 +16,13 @@
 }:
 
 let
-  boolToInt = b: if b then "1" else "0"; # Convert boolean to integer string
+  boolToInt = b:
+    if
+      b
+    then
+      "1"
+    else
+      "0"; # Convert boolean to integer string
 in
   stdenvNoCC.mkDerivation {
     pname = "emojipick";

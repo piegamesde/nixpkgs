@@ -8,7 +8,12 @@
 }:
 
 let
-  int_t = if blas.isILP64 then "int64_t" else "int32_t";
+  int_t = if
+    blas.isILP64
+  then
+    "int64_t"
+  else
+    "int32_t";
 in
   stdenv.mkDerivation rec {
     version = "4.2.1";

@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
     qtdeclarative
   ];
 
-  installPhase = if stdenv.isDarwin then ''
+  installPhase = if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/Applications
     cp -r DwarfTherapist.app $out/Applications
   '' else

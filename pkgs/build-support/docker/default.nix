@@ -44,8 +44,11 @@ let
 
   mkDbExtraCommand = contents:
     let
-      contentsList =
-        if builtins.isList contents then contents else [ contents ];
+      contentsList = if
+        builtins.isList contents
+      then
+        contents
+      else [ contents ];
     in ''
       echo "Generating the nix database..."
       echo "Warning: only the database of the deepest Nix layer is loaded."
@@ -383,7 +386,12 @@ in rec {
         for item in $contents; do
           echo "Adding $item"
           rsync -a${
-            if keepContentsDirlinks then "K" else "k"
+            if
+              keepContentsDirlinks
+            then
+              "K"
+            else
+              "k"
           } --chown=0:0 $item/ layer/
         done
       else
@@ -456,7 +464,12 @@ in rec {
             }; do
               echo "Adding $item..."
               rsync -a${
-                if keepContentsDirlinks then "K" else "k"
+                if
+                  keepContentsDirlinks
+                then
+                  "K"
+                else
+                  "k"
               } --chown=0:0 $item/ layer/
             done
 
@@ -565,7 +578,12 @@ in rec {
         lib.throwIf (contents != null && copyToRoot != null)
         "in docker image ${name}: You can not specify both contents and copyToRoot.";
 
-      rootContents = if copyToRoot == null then contents else copyToRoot;
+      rootContents = if
+        copyToRoot == null
+      then
+        contents
+      else
+        copyToRoot;
 
       baseName = baseNameOf name;
 
@@ -582,9 +600,16 @@ in rec {
         } ''
           jq ".created = \"$(TZ=utc date --iso-8601="seconds")\"" ${pure} > $out
         '';
-      in if created == "now" then impure else pure;
+      in if
+        created == "now"
+      then
+        impure
+      else
+        pure;
 
-      layer = if runAsRoot == null then
+      layer = if
+        runAsRoot == null
+      then
         mkPureLayer {
           name = baseName;
           inherit baseJson keepContentsDirlinks extraCommands uid gid;
@@ -607,12 +632,19 @@ in rec {
         ];
         # Image name must be lowercase
         imageName = lib.toLower name;
-        imageTag = if tag == null then "" else tag;
+        imageTag = if
+          tag == null
+        then
+          ""
+        else
+          tag;
         inherit fromImage baseJson;
         layerClosure = writeReferencesToFile layer;
         passthru.buildArgs = args;
         passthru.layer = layer;
-        passthru.imageTag = if tag != null then
+        passthru.imageTag = if
+          tag != null
+        then
           tag
         else
           lib.head (lib.strings.splitString "-" (baseNameOf result.outPath));
@@ -905,8 +937,11 @@ in rec {
         os = "linux";
       });
 
-      contentsList =
-        if builtins.isList contents then contents else [ contents ];
+      contentsList = if
+        builtins.isList contents
+      then
+        contents
+      else [ contents ];
 
       # We store the customisation layer as a tarball, to make sure that
       # things like permissions set on 'extraCommands' are not overridden
@@ -969,14 +1004,18 @@ in rec {
         inherit fromImage maxLayers created;
         imageName = lib.toLower name;
         preferLocalBuild = true;
-        passthru.imageTag = if tag != null then
+        passthru.imageTag = if
+          tag != null
+        then
           tag
         else
           lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
         paths = buildPackages.referencesByPopularity overallClosure;
         nativeBuildInputs = [ jq ];
       } ''
-        ${if (tag == null) then ''
+        ${if
+          (tag == null)
+        then ''
           outName="$(basename "$out")"
           outHash=$(echo "$outName" | cut -d - -f 1)
 
@@ -1049,7 +1088,12 @@ in rec {
           }
           ' --arg store_dir "${storeDir}" \
             --argjson from_image ${
-              if fromImage == null then "null" else "'\"${fromImage}\"'"
+              if
+                fromImage == null
+              then
+                "null"
+              else
+                "'\"${fromImage}\"'"
             } \
             --slurpfile store_layers store_layers.json \
             --arg customisation_layer ${customisationLayer} \
@@ -1144,7 +1188,9 @@ in rec {
         # We can't just use `toString` on all derivation attributes because that
         # would not put path literals in the closure. So we explicitly copy
         # those into the store here
-        if builtins.typeOf value == "path" then
+        if
+          builtins.typeOf value == "path"
+        then
           "${value}"
         else if builtins.typeOf value == "list" then
           toString (map stringValue value)
@@ -1155,7 +1201,9 @@ in rec {
       drvEnv = lib.mapAttrs' (name: value:
         let
           str = stringValue value;
-        in if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then
+        in if
+          lib.elem name (drv.drvAttrs.passAsFile or [ ])
+        then
           lib.nameValuePair "${name}Path" (writeText "pass-as-text-${name}" str)
         else
           lib.nameValuePair name str) drv.drvAttrs //
@@ -1243,7 +1291,9 @@ in rec {
         config.Cmd =
           # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L185-L186
           # https://github.com/NixOS/nix/blob/2.8.0/src/nix-build/nix-build.cc#L534-L536
-          if run == null then [
+          if
+            run == null
+          then [
             shell
             "--rcfile"
             rcfile

@@ -10,7 +10,12 @@ let
       name ? ""
     }:
     let
-      targetModule = if name != "" then name else lib.getName pkg;
+      targetModule = if
+        name != ""
+      then
+        name
+      else
+        lib.getName pkg;
     in
       nodePackages.${pkg}.override (oldAttrs: {
         postInstall = ''

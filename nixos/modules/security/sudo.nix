@@ -13,9 +13,20 @@ let
 
   inherit (pkgs) sudo;
 
-  toUserString = user: if (isInt user) then "#${toString user}" else "${user}";
+  toUserString = user:
+    if
+      (isInt user)
+    then
+      "#${toString user}"
+    else
+      "${user}";
   toGroupString = group:
-    if (isInt group) then "%#${toString group}" else "%${group}";
+    if
+      (isInt group)
+    then
+      "%#${toString group}"
+    else
+      "%${group}";
 
   toCommandOptionsString = options:
     "${concatStringsSep ":" options}${
@@ -24,7 +35,9 @@ let
 
   toCommandsString = commands:
     concatStringsSep ", " (map (command:
-      if (isString command) then
+      if
+        (isString command)
+      then
         command
       else
         "${toCommandOptionsString command.options}${command.command}")
@@ -213,7 +226,9 @@ in {
       groups = [ "wheel" ];
       commands = [ {
         command = "ALL";
-        options = (if cfg.wheelNeedsPassword then [ "SETENV" ] else [
+        options = (if
+          cfg.wheelNeedsPassword
+        then [ "SETENV" ] else [
           "NOPASSWD"
           "SETENV"
         ]);
@@ -232,7 +247,9 @@ in {
 
       # extraRules
       ${concatStringsSep "\n" (lists.flatten (map (rule:
-        if (length rule.commands != 0) then [
+        if
+          (length rule.commands != 0)
+        then [
           (map (user:
             "${toUserString user}	${rule.host}=(${rule.runAs})	${
               toCommandsString rule.commands
@@ -249,9 +266,19 @@ in {
 
     security.wrappers = let
       owner = "root";
-      group = if cfg.execWheelOnly then "wheel" else "root";
+      group = if
+        cfg.execWheelOnly
+      then
+        "wheel"
+      else
+        "root";
       setuid = true;
-      permissions = if cfg.execWheelOnly then "u+rx,g+x" else "u+rx,g+x,o+x";
+      permissions = if
+        cfg.execWheelOnly
+      then
+        "u+rx,g+x"
+      else
+        "u+rx,g+x,o+x";
     in {
       sudo = {
         source = "${cfg.package.out}/bin/sudo";

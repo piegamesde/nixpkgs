@@ -82,7 +82,9 @@ let
         # place. Unfortunately mingw doesn’t seem to be able to do linking
         # properly.
         platformFun = pkg:
-          if crossPkgs.hostPlatform.isWindows then
+          if
+            crossPkgs.hostPlatform.isWindows
+          then
             pkgs.buildEnv {
               name = "${pkg.name}-winlinks";
               paths = [ pkg ] ++ pkg.buildInputs;

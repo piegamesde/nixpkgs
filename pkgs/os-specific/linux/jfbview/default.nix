@@ -18,8 +18,15 @@
 }:
 
 let
-  package = if imageSupport then "jfbview" else "jfbpdf";
-  binaries = if imageSupport then [
+  package = if
+    imageSupport
+  then
+    "jfbview"
+  else
+    "jfbpdf";
+  binaries = if
+    imageSupport
+  then [
     "jfbview"
     "jpdfcat"
     "jpdfgrep"

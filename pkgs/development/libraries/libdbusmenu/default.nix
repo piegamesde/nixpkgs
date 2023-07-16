@@ -17,8 +17,14 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname =
-    "libdbusmenu-${if gtkVersion == null then "glib" else "gtk${gtkVersion}"}";
+  pname = "libdbusmenu-${
+      if
+        gtkVersion == null
+      then
+        "glib"
+      else
+        "gtk${gtkVersion}"
+    }";
   version = "16.04.0";
 
   src = let
@@ -66,7 +72,12 @@ stdenv.mkDerivation (finalAttrs: {
     "--sysconfdir=/etc"
     "--localstatedir=/var"
     # TODO use `lib.withFeatureAs`
-    (if gtkVersion == null then "--disable-gtk" else "--with-gtk=${gtkVersion}")
+    (if
+      gtkVersion == null
+    then
+      "--disable-gtk"
+    else
+      "--with-gtk=${gtkVersion}")
     "--disable-scrollkeeper"
   ] ++ lib.optional (gtkVersion != "2") "--disable-dumper";
 

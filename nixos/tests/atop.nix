@@ -30,7 +30,9 @@ let
           assert ver == pkgver, f"Version is `{ver}`, expected `{pkgver}`"
     '';
     atoprc = contents:
-      if builtins.stringLength contents > 0 then ''
+      if
+        builtins.stringLength contents > 0
+      then ''
         with subtest("/etc/atoprc should have the correct contents"):
             f = machine.succeed("cat /etc/atoprc")
             assert f == "${contents}", f"/etc/atoprc contents: '{f}', expected '${contents}'"
@@ -39,7 +41,9 @@ let
             machine.succeed("test ! -e /etc/atoprc")
       '';
     wrapper = present:
-      if present then
+      if
+        present
+      then
         path "atop" "/run/wrappers/bin/atop" + ''
           with subtest("Wrapper should be setuid root"):
               stat = machine.succeed("stat --printf '%a %u' /run/wrappers/bin/atop")
@@ -48,7 +52,9 @@ let
       else
         path "atop" "/run/current-system/sw/bin/atop";
     atopService = present:
-      if present then
+      if
+        present
+      then
         unit "atop.service" "active" + ''
           with subtest("atop.service should write some data to /var/log/atop"):
 
@@ -67,9 +73,16 @@ let
       else
         unit "atop.service" "inactive";
     atopRotateTimer = present:
-      unit "atop-rotate.timer" (if present then "active" else "inactive");
+      unit "atop-rotate.timer" (if
+        present
+      then
+        "active"
+      else
+        "inactive");
     atopacctService = present:
-      if present then
+      if
+        present
+      then
         unit "atopacct.service" "active" + ''
           with subtest("atopacct.service should enable process accounting"):
               machine.wait_until_succeeds("test -f /run/pacct_source")
@@ -91,7 +104,9 @@ let
       else
         unit "atopacct.service" "inactive";
     netatop = present:
-      if present then
+      if
+        present
+      then
         unit "netatop.service" "active" + ''
           with subtest("The netatop kernel module should be loaded"):
               out = machine.succeed("modprobe -n -v netatop")
@@ -102,7 +117,9 @@ let
             machine.fail("modprobe -n -v netatop")
       '';
     atopgpu = present:
-      if present then
+      if
+        present
+      then
         (unit "atopgpu.service" "active")
         + (path "atopgpud" "/run/current-system/sw/bin/atopgpud")
       else

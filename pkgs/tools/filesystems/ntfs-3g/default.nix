@@ -64,7 +64,14 @@ stdenv.mkDerivation rec {
     "--enable-mount-helper"
     "--enable-posix-acls"
     "--enable-xattr-mappings"
-    "--${if crypto then "enable" else "disable"}-crypto"
+    "--${
+      if
+        crypto
+      then
+        "enable"
+      else
+        "disable"
+    }-crypto"
     "--enable-extras"
     "--with-mount-helper=${mount}/bin/mount"
     "--with-umount-helper=${mount}/bin/umount"

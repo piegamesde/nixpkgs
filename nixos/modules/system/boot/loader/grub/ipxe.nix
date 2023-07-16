@@ -23,7 +23,9 @@ let
   scriptFile = name:
     let
       value = builtins.getAttr name config.boot.loader.grub.ipxe;
-    in if builtins.typeOf value == "path" then
+    in if
+      builtins.typeOf value == "path"
+    then
       value
     else
       builtins.toFile "${name}.ipxe" value;
@@ -49,7 +51,9 @@ in {
 
   config = mkIf (builtins.length scripts != 0) {
 
-    boot.loader.grub.extraEntries = if config.boot.loader.grub.version == 2 then
+    boot.loader.grub.extraEntries = if
+      config.boot.loader.grub.version == 2
+    then
       toString (map grubEntry scripts)
     else
       throw "iPXE is not supported with GRUB 1.";

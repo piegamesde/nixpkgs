@@ -13,7 +13,9 @@ let
   baseDirLine = ''BaseDir "${cfg.dataDir}"'';
   unvalidated_conf = pkgs.writeText "collectd-unvalidated.conf" cfg.extraConfig;
 
-  conf = if cfg.validateConfig then
+  conf = if
+    cfg.validateConfig
+  then
     pkgs.runCommand "collectd.conf" { } ''
       echo testing ${unvalidated_conf}
       cp ${unvalidated_conf} collectd.conf
@@ -27,7 +29,12 @@ let
   else
     unvalidated_conf;
 
-  package = if cfg.buildMinimalPackage then minimalPackage else cfg.package;
+  package = if
+    cfg.buildMinimalPackage
+  then
+    minimalPackage
+  else
+    cfg.package;
 
   minimalPackage = cfg.package.override {
     enabledPlugins = [ "syslog" ] ++ builtins.attrNames cfg.plugins;

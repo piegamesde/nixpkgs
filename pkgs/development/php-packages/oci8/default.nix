@@ -6,7 +6,9 @@
 }:
 
 let
-  versionData = if (lib.versionOlder php.version "8.1") then {
+  versionData = if
+    (lib.versionOlder php.version "8.1")
+  then {
     version = "3.0.1";
     sha256 = "108ds92620dih5768z19hi0jxfa7wfg5hdvyyvpapir87c0ap914";
   } else {

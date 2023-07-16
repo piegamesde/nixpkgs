@@ -15,11 +15,17 @@ let
   format = pkgs.formats.ini {
     mkKeyValue = key: value:
       let
-        value' = lib.optionalString (value != null)
-          (if builtins.isBool value then
-            if value == true then "true" else "false"
+        value' = lib.optionalString (value != null) (if
+          builtins.isBool value
+        then
+          if
+            value == true
+          then
+            "true"
           else
-            toString value);
+            "false"
+        else
+          toString value);
       in
         "${key} = ${value'}"
     ;
@@ -31,14 +37,21 @@ let
   isMysql = cfg.database.type == "mysql";
   isMysqlLocal = isMysql && cfg.database.createLocally == true;
 
-  hostProtocol = if cfg.acme.enable then "https" else "http";
+  hostProtocol = if
+    cfg.acme.enable
+  then
+    "https"
+  else
+    "http";
 
   settings = cfg.settings // {
     app = cfg.settings.app or { } // {
       host = cfg.settings.app.host or "${hostProtocol}://${cfg.host}";
     };
 
-    database = if cfg.database.type == "sqlite3" then {
+    database = if
+      cfg.database.type == "sqlite3"
+    then {
       type = "sqlite3";
       filename = cfg.settings.database.filename or "writefreely.db";
       database = cfg.database.name;
@@ -197,7 +210,12 @@ in {
           server = {
             port = mkOption {
               type = types.port;
-              default = if cfg.nginx.enable then 18080 else 80;
+              default = if
+                cfg.nginx.enable
+              then
+                18080
+              else
+                80;
               defaultText = "80";
               description = lib.mdDoc "The port WriteFreely should listen on.";
             };
@@ -224,7 +242,12 @@ in {
 
       user = mkOption {
         type = types.nullOr types.str;
-        default = if cfg.database.type == "mysql" then "writefreely" else null;
+        default = if
+          cfg.database.type == "mysql"
+        then
+          "writefreely"
+        else
+          null;
         defaultText = "writefreely";
         description = lib.mdDoc "The database user to connect as.";
       };

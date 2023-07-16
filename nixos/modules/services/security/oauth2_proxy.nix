@@ -81,7 +81,9 @@ let
     } // (getProviderOptions cfg cfg.provider) // cfg.extraConfig;
 
   mapConfig = key: attr:
-    optionalString (attr != null && attr != [ ]) (if isDerivation attr then
+    optionalString (attr != null && attr != [ ]) (if
+      isDerivation attr
+    then
       mapConfig key (toString attr)
     else if (builtins.typeOf attr) == "set" then
       concatStringsSep " "

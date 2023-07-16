@@ -16,7 +16,9 @@
 }:
 
 let
-  pkgs = import ./../../default.nix (if include-overlays == false then {
+  pkgs = import ./../../default.nix (if
+    include-overlays == false
+  then {
     overlays = [ ];
   } else if include-overlays == true then
     { } # Let Nixpkgs include overlays impurely.
@@ -28,7 +30,9 @@ let
 
   # Remove duplicate elements from the list based on some extracted value. O(n^2) complexity.
   nubOn = f: list:
-    if list == [ ] then
+    if
+      list == [ ]
+    then
       [ ]
     else
       let
@@ -67,19 +71,25 @@ let
 
           dedupResults = lst:
             nubOn somewhatUniqueRepresentant (lib.concatLists lst);
-        in if result.success then
+        in if
+          result.success
+        then
           let
             evaluatedPathContent = result.value;
-          in if lib.isDerivation evaluatedPathContent then
+          in if
+            lib.isDerivation evaluatedPathContent
+          then
             lib.optional (cond path evaluatedPathContent) {
               attrPath = lib.concatStringsSep "." path;
               package = evaluatedPathContent;
             }
           else if lib.isAttrs evaluatedPathContent then
           # If user explicitly points to an attrSet or it is marked for recursion, we recur.
-            if path == rootPath
-            || evaluatedPathContent.recurseForDerivations or false
-            || evaluatedPathContent.recurseForRelease or false then
+            if
+              path == rootPath
+              || evaluatedPathContent.recurseForDerivations or false
+              || evaluatedPathContent.recurseForRelease or false
+            then
               dedupResults (lib.mapAttrsToList
                 (name: elem: packagesWithPathInner (path ++ [ name ]) elem)
                 evaluatedPathContent)
@@ -104,15 +114,21 @@ let
   # Recursively find all packages in `pkgs` with updateScript by given maintainer.
   packagesWithUpdateScriptAndMaintainer = maintainer':
     let
-      maintainer = if !builtins.hasAttr maintainer' lib.maintainers then
+      maintainer = if
+        !builtins.hasAttr maintainer' lib.maintainers
+      then
         builtins.throw
         "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
       else
         builtins.getAttr maintainer' lib.maintainers;
     in
       packagesWithUpdateScriptMatchingPredicate (path: pkg:
-        (if builtins.hasAttr "maintainers" pkg.meta then
-          (if builtins.isList pkg.meta.maintainers then
+        (if
+          builtins.hasAttr "maintainers" pkg.meta
+        then
+          (if
+            builtins.isList pkg.meta.maintainers
+          then
             builtins.elem maintainer pkg.meta.maintainers
           else
             maintainer == pkg.meta.maintainers)
@@ -125,7 +141,9 @@ let
     let
       prefix = lib.splitString "." path;
       pathContent = lib.attrByPath prefix null pkgs;
-    in if pathContent == null then
+    in if
+      pathContent == null
+    then
       builtins.throw "Attribute path `${path}` does not exist."
     else
       packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg)
@@ -135,7 +153,9 @@ let
   packageByName = path: pkgs:
     let
       package = lib.attrByPath (lib.splitString "." path) null pkgs;
-    in if package == null then
+    in if
+      package == null
+    then
       builtins.throw "Package with an attribute name `${path}` does not exist."
     else if !builtins.hasAttr "updateScript" package then
       builtins.throw
@@ -146,19 +166,19 @@ let
     };
 
   # List of packages matched based on the CLI arguments.
-  packages =
-    if package != null then [ (packageByName package pkgs) ] else if predicate
-    != null then
-      packagesWithUpdateScriptMatchingPredicate predicate pkgs
-    else if maintainer != null then
-      packagesWithUpdateScriptAndMaintainer maintainer pkgs
-    else if path != null then
-      packagesWithUpdateScript path pkgs
-    else
-      builtins.throw ''
-        No arguments provided.
+  packages = if
+    package != null
+  then [ (packageByName package pkgs) ] else if predicate != null then
+    packagesWithUpdateScriptMatchingPredicate predicate pkgs
+  else if maintainer != null then
+    packagesWithUpdateScriptAndMaintainer maintainer pkgs
+  else if path != null then
+    packagesWithUpdateScript path pkgs
+  else
+    builtins.throw ''
+      No arguments provided.
 
-        ${helpText}'';
+      ${helpText}'';
 
   helpText = ''
     Please run:

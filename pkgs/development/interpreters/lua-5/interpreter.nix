@@ -27,7 +27,9 @@ let
 
   luaversion = lib.versions.majorMinor version;
 
-  plat = if (stdenv.isLinux && lib.versionOlder self.luaversion "5.4") then
+  plat = if
+    (stdenv.isLinux && lib.versionOlder self.luaversion "5.4")
+  then
     "linux"
   else if (stdenv.isLinux && lib.versionAtLeast self.luaversion "5.4") then
     "linux-readline"
@@ -46,7 +48,9 @@ let
   else
     "generic";
 
-  compatFlags = if (lib.versionOlder self.luaversion "5.3") then
+  compatFlags = if
+    (lib.versionOlder self.luaversion "5.3")
+  then
     " -DLUA_COMPAT_ALL"
   else if (lib.versionOlder self.luaversion "5.4") then
     " -DLUA_COMPAT_5_1 -DLUA_COMPAT_5_2"
@@ -113,7 +117,12 @@ in
       makeFlagsArray+=(CFLAGS='-O2 -fPIC${
         lib.optionalString compat compatFlags
       } $(${
-        if lib.versionAtLeast luaversion "5.2" then "SYSCFLAGS" else "MYCFLAGS"
+        if
+          lib.versionAtLeast luaversion "5.2"
+        then
+          "SYSCFLAGS"
+        else
+          "MYCFLAGS"
       })' )
       makeFlagsArray+=(${lib.optionalString stdenv.isDarwin ''CC="$CC"''}${
         lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
@@ -122,7 +131,9 @@ in
 
       installFlagsArray=( TO_BIN="lua luac" INSTALL_DATA='cp -d' \
         TO_LIB="${
-          if stdenv.isDarwin then
+          if
+            stdenv.isDarwin
+          then
             "liblua.${version}.dylib"
           else
             ("liblua.a" + lib.optionalString (!staticOnly)
@@ -184,7 +195,9 @@ in
         luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
         luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
         luaOnHostForHost = override pkgsHostHost.${luaAttr};
-        luaOnTargetForTarget = if lib.hasAttr luaAttr pkgsTargetTarget then
+        luaOnTargetForTarget = if
+          lib.hasAttr luaAttr pkgsTargetTarget
+        then
           (override pkgsTargetTarget.${luaAttr})
         else
           { };

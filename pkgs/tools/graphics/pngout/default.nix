@@ -27,7 +27,9 @@ let
   };
   platform = platforms."${stdenv.hostPlatform.system}" or (throw
     "Unsupported system: ${stdenv.hostPlatform.system}");
-  download = if stdenv.isDarwin then {
+  download = if
+    stdenv.isDarwin
+  then {
     extension = "macos.zip";
     hash = "sha256-MnL6lH7q/BrACG4fFJNfnvoh0JClVeaJIlX+XIj2aG4=";
   } else {

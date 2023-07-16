@@ -10,8 +10,12 @@ with lib;
 let
   cfg = config.services.node-red;
   defaultUser = "node-red";
-  finalPackage =
-    if cfg.withNpmAndGcc then node-red_withNpmAndGcc else cfg.package;
+  finalPackage = if
+    cfg.withNpmAndGcc
+  then
+    node-red_withNpmAndGcc
+  else
+    cfg.package;
   node-red_withNpmAndGcc =
     pkgs.runCommand "node-red" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
       mkdir -p $out/bin

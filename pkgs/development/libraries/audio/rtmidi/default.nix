@@ -57,9 +57,30 @@ stdenv.mkDerivation rec {
     ];
 
   cmakeFlags = [
-    "-DRTMIDI_API_ALSA=${if alsaSupport then "ON" else "OFF"}"
-    "-DRTMIDI_API_JACK=${if jackSupport then "ON" else "OFF"}"
-    "-DRTMIDI_API_CORE=${if coremidiSupport then "ON" else "OFF"}"
+    "-DRTMIDI_API_ALSA=${
+      if
+        alsaSupport
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DRTMIDI_API_JACK=${
+      if
+        jackSupport
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DRTMIDI_API_CORE=${
+      if
+        coremidiSupport
+      then
+        "ON"
+      else
+        "OFF"
+    }"
   ];
 
   meta = with lib; {

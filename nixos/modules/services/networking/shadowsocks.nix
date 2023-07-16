@@ -162,7 +162,9 @@ in {
           cat ${configFile} | jq --arg password "$(cat "${cfg.passwordFile}")" '. + { password: $password }' > /tmp/shadowsocks.json
         ''}
         exec ss-server -c ${
-          if cfg.passwordFile != null then
+          if
+            cfg.passwordFile != null
+          then
             "/tmp/shadowsocks.json"
           else
             configFile

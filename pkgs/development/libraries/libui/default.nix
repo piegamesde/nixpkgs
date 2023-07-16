@@ -9,7 +9,12 @@
 }:
 
 let
-  backend = if stdenv.isDarwin then "darwin" else "unix";
+  backend = if
+    stdenv.isDarwin
+  then
+    "darwin"
+  else
+    "unix";
 
 in
   stdenv.mkDerivation rec {

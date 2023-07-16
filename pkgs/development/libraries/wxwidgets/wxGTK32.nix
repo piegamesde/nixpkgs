@@ -103,8 +103,18 @@ in
       "--disable-monolithic"
       "--enable-mediactrl"
       "--with-nanosvg"
-      (if compat28 then "--enable-compat28" else "--disable-compat28")
-      (if compat30 then "--enable-compat30" else "--disable-compat30")
+      (if
+        compat28
+      then
+        "--enable-compat28"
+      else
+        "--disable-compat28")
+      (if
+        compat30
+      then
+        "--enable-compat30"
+      else
+        "--disable-compat30")
     ] ++ lib.optional unicode "--enable-unicode"
       ++ lib.optional withMesa "--with-opengl"
       ++ lib.optionals stdenv.isDarwin [

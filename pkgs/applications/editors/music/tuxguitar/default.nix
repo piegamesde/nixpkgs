@@ -14,7 +14,9 @@
 let
   metadata = assert stdenv.hostPlatform.system == "i686-linux"
     || stdenv.hostPlatform.system == "x86_64-linux";
-    if stdenv.hostPlatform.system == "i686-linux" then {
+    if
+      stdenv.hostPlatform.system == "i686-linux"
+    then {
       arch = "x86";
       sha256 = "sha256-k4FQrt72VNb5FdYMzxskcVhKlvx8MZelUlLCItxDB7c=";
     } else {

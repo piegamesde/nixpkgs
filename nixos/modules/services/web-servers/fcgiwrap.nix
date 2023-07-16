@@ -70,14 +70,18 @@ in {
             optionalString (cfg.socketType != "unix")
             "-s ${cfg.socketType}:${cfg.socketAddress}"
           }";
-      } // (if cfg.user != null && cfg.group != null then {
+      } // (if
+        cfg.user != null && cfg.group != null
+      then {
         User = cfg.user;
         Group = cfg.group;
       } else
         { });
     };
 
-    systemd.sockets = if (cfg.socketType == "unix") then {
+    systemd.sockets = if
+      (cfg.socketType == "unix")
+    then {
       fcgiwrap = {
         wantedBy = [ "sockets.target" ];
         socketConfig.ListenStream = cfg.socketAddress;

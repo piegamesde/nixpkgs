@@ -96,14 +96,23 @@ in
 
     installPhase = let
       platformDetails = with stdenv.hostPlatform;
-        if isDarwin then rec {
+        if
+          isDarwin
+        then rec {
           arch = "darwin-x86_64";
           sourceDir = "'Katawa Shoujo'.app";
           installDir = "$out/Applications/'Katawa Shoujo'.app";
           dataDir = "${installDir}/Contents/Resources/autorun";
           bin = "${installDir}/Contents/MacOS/'Katawa Shoujo'";
         } else rec {
-          arch = "linux-${if isx86_64 then "x86_64" else "i686"}";
+          arch = "linux-${
+              if
+                isx86_64
+              then
+                "x86_64"
+              else
+                "i686"
+            }";
           sourceDir = "'Katawa Shoujo'-${version}-linux";
           installDir = "$out/share/katawa-shoujo";
           dataDir = installDir;
@@ -123,7 +132,9 @@ in
       exec \$RENPY_GDB ${libDir}/'Katawa Shoujo' \$RENPY_PYARGS -EO ${dataDir}/'Katawa Shoujo'.py "\$@"
       EOF
 
-    '' + (if stdenv.hostPlatform.isDarwin then ''
+    '' + (if
+      stdenv.hostPlatform.isDarwin
+    then ''
       # No autoPatchelfHook on Darwin
       wrapProgram ${bin} \
         --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs}

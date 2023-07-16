@@ -60,13 +60,17 @@ in {
     };
 
     environment.etc = {
-      "greetd/regreet.css" = if lib.isPath cfg.extraCss then {
+      "greetd/regreet.css" = if
+        lib.isPath cfg.extraCss
+      then {
         source = cfg.extraCss;
       } else {
         text = cfg.extraCss;
       };
 
-      "greetd/regreet.toml".source = if lib.isPath cfg.settings then
+      "greetd/regreet.toml".source = if
+        lib.isPath cfg.settings
+      then
         cfg.settings
       else
         settingsFormat.generate "regreet.toml" cfg.settings;

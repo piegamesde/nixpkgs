@@ -59,7 +59,14 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = lib.optional stdenv.isLinux jemalloc;
 
   env.NIX_CFLAGS_COMPILE = toString [
-    "-DFOLLY_MOBILE=${if follyMobile then "1" else "0"}"
+    "-DFOLLY_MOBILE=${
+      if
+        follyMobile
+      then
+        "1"
+      else
+        "0"
+    }"
     "-fpermissive"
   ];
   cmakeFlags = [
@@ -68,7 +75,12 @@ stdenv.mkDerivation rec {
     # temporary hack until folly builds work on aarch64,
     # see https://github.com/facebook/folly/issues/1880
     "-DCMAKE_LIBRARY_ARCHITECTURE=${
-      if stdenv.isx86_64 then "x86_64" else "dummy"
+      if
+        stdenv.isx86_64
+      then
+        "x86_64"
+      else
+        "dummy"
     }"
   ];
 

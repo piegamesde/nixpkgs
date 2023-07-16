@@ -217,7 +217,12 @@ in {
             ];
           };
           latest = packageAliases.linux_latest.kernel;
-        in if latest.kernelAtLeast testing.baseVersion then latest else testing;
+        in if
+          latest.kernelAtLeast testing.baseVersion
+        then
+          latest
+        else
+          testing;
 
         linux_testing_bcachefs =
           callPackage ../os-specific/linux/kernel/linux-testing-bcachefs.nix {
@@ -381,7 +386,9 @@ in {
 
           dpdk = pkgs.dpdk.override { inherit kernel; };
 
-          exfat-nofuse = if lib.versionOlder kernel.version "5.8" then
+          exfat-nofuse = if
+            lib.versionOlder kernel.version "5.8"
+          then
             callPackage ../os-specific/linux/exfat { }
           else
             null;
@@ -397,12 +404,16 @@ in {
 
           hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
 
-          e1000e = if lib.versionOlder kernel.version "4.10" then
+          e1000e = if
+            lib.versionOlder kernel.version "4.10"
+          then
             callPackage ../os-specific/linux/e1000e { }
           else
             null;
 
-          intel-speed-select = if lib.versionAtLeast kernel.version "5.3" then
+          intel-speed-select = if
+            lib.versionAtLeast kernel.version "5.3"
+          then
             callPackage ../os-specific/linux/intel-speed-select { }
           else
             null;
@@ -501,7 +512,9 @@ in {
           rtw88 = callPackage ../os-specific/linux/rtw88 { };
           rtlwifi_new = rtw88;
 
-          rtw89 = if lib.versionOlder kernel.version "5.16" then
+          rtw89 = if
+            lib.versionOlder kernel.version "5.16"
+          then
             callPackage ../os-specific/linux/rtw89 { }
           else
             null;
@@ -512,7 +525,9 @@ in {
 
           facetimehd = callPackage ../os-specific/linux/facetimehd { };
 
-          tuxedo-keyboard = if lib.versionAtLeast kernel.version "4.14" then
+          tuxedo-keyboard = if
+            lib.versionAtLeast kernel.version "4.14"
+          then
             callPackage ../os-specific/linux/tuxedo-keyboard { }
           else
             null;
@@ -535,7 +550,9 @@ in {
 
           perf = callPackage ../os-specific/linux/kernel/perf { };
 
-          phc-intel = if lib.versionAtLeast kernel.version "4.10" then
+          phc-intel = if
+            lib.versionAtLeast kernel.version "4.10"
+          then
             callPackage ../os-specific/linux/phc-intel { }
           else
             null;
@@ -597,7 +614,9 @@ in {
 
           vmware = callPackage ../os-specific/linux/vmware { };
 
-          wireguard = if lib.versionOlder kernel.version "5.6" then
+          wireguard = if
+            lib.versionOlder kernel.version "5.6"
+          then
             callPackage ../os-specific/linux/wireguard { }
           else
             null;
@@ -605,7 +624,9 @@ in {
           x86_energy_perf_policy =
             callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
-          xone = if lib.versionAtLeast kernel.version "5.4" then
+          xone = if
+            lib.versionAtLeast kernel.version "5.4"
+          then
             callPackage ../os-specific/linux/xone { }
           else
             null;

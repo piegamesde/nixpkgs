@@ -11,8 +11,13 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "https://git.code.sf.net/p/pstreams/code";
     rev = let
-      dot2Underscore =
-        lib.strings.stringAsChars (c: if c == "." then "_" else c);
+      dot2Underscore = lib.strings.stringAsChars (c:
+        if
+          c == "."
+        then
+          "_"
+        else
+          c);
     in
       "RELEASE_${dot2Underscore version}"
     ;

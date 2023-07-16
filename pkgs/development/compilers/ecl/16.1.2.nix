@@ -44,7 +44,12 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    (if threadSupport then "--enable-threads" else "--disable-threads")
+    (if
+      threadSupport
+    then
+      "--enable-threads"
+    else
+      "--disable-threads")
     "--with-gmp-incdir=${lib.getDev gmp}/include"
     "--with-gmp-libdir=${lib.getLib gmp}/lib"
     # -incdir, -libdir doesn't seem to be supported for libffi

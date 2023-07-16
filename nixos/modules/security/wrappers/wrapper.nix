@@ -11,7 +11,9 @@ stdenv.mkDerivation {
   buildInputs = [ linuxHeaders ];
   dontUnpack = true;
   hardeningEnable = [ "pie" ];
-  CFLAGS = [ ''-DWRAPPER_DIR="${parentWrapperDir}"'' ] ++ (if debug then [
+  CFLAGS = [ ''-DWRAPPER_DIR="${parentWrapperDir}"'' ] ++ (if
+    debug
+  then [
     "-Werror"
     "-Og"
     "-g"

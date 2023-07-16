@@ -44,7 +44,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DUSE_SHARED_MBEDTLS_LIBRARY=${
-      if stdenv.hostPlatform.isStatic then "off" else "on"
+      if
+        stdenv.hostPlatform.isStatic
+      then
+        "off"
+      else
+        "on"
     }"
 
     # Avoid a dependency on jsonschema and jinja2 by not generating source code

@@ -95,18 +95,29 @@ let
     ungoogled-chromium = callPackage ./ungoogled.nix { };
   };
 
-  pkgSuffix = if channel == "dev" then
+  pkgSuffix = if
+    channel == "dev"
+  then
     "unstable"
   else
-    (if channel == "ungoogled-chromium" then "stable" else channel);
+    (if
+      channel == "ungoogled-chromium"
+    then
+      "stable"
+    else
+      channel);
   pkgName = "google-chrome-${pkgSuffix}";
   chromeSrc = let
     # Use the latest stable Chrome version if necessary:
-    version = if chromium.upstream-info.sha256bin64 != null then
+    version = if
+      chromium.upstream-info.sha256bin64 != null
+    then
       chromium.upstream-info.version
     else
       (lib.importJSON ./upstream-info.json).stable.version;
-    sha256 = if chromium.upstream-info.sha256bin64 != null then
+    sha256 = if
+      chromium.upstream-info.sha256bin64 != null
+    then
       chromium.upstream-info.sha256bin64
     else
       (lib.importJSON ./upstream-info.json).stable.sha256bin64;
@@ -131,15 +142,16 @@ let
     src = chromeSrc;
 
     unpackCmd = let
-      widevineCdmPath =
-        if (channel == "stable" || channel == "ungoogled-chromium") then
-          "./opt/google/chrome/WidevineCdm"
-        else if channel == "beta" then
-          "./opt/google/chrome-beta/WidevineCdm"
-        else if channel == "dev" then
-          "./opt/google/chrome-unstable/WidevineCdm"
-        else
-          throw "Unknown chromium channel.";
+      widevineCdmPath = if
+        (channel == "stable" || channel == "ungoogled-chromium")
+      then
+        "./opt/google/chrome/WidevineCdm"
+      else if channel == "beta" then
+        "./opt/google/chrome-beta/WidevineCdm"
+      else if channel == "dev" then
+        "./opt/google/chrome-unstable/WidevineCdm"
+      else
+        throw "Unknown chromium channel.";
     in ''
       # Extract just WidevineCdm from upstream's .deb file
       ar p "$src" data.tar.xz | tar xJ "${widevineCdmPath}"
@@ -179,7 +191,9 @@ let
     };
   };
 
-  suffix = if (channel == "stable" || channel == "ungoogled-chromium") then
+  suffix = if
+    (channel == "stable" || channel == "ungoogled-chromium")
+  then
     ""
   else
     "-" + channel;
@@ -193,7 +207,9 @@ let
   # and adds the unfree WidevineCdm.
   chromiumWV = let
     browser = chromium.browser;
-  in if enableWideVine then
+  in if
+    enableWideVine
+  then
     runCommand (browser.name + "-wv") { version = browser.version; } ''
       mkdir -p $out
       cp -a ${browser}/* $out/

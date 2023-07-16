@@ -11,7 +11,13 @@ mkCoqDerivation {
   pname = "relation-algebra";
   owner = "damien-pous";
 
-  releaseRev = v: if lib.versions.isGe "1.7.6" v then "v.${v}" else "v${v}";
+  releaseRev = v:
+    if
+      lib.versions.isGe "1.7.6" v
+    then
+      "v.${v}"
+    else
+      "v${v}";
 
   release."1.7.8".sha256 =
     "sha256-RITFd3G5TjY+rFzW073Ao1AGU+u6OGQyQeGHVodAXnA=";

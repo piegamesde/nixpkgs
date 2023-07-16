@@ -18,7 +18,9 @@
 
 let
   version = "2.16.5.1";
-  src = if stdenv.hostPlatform.system == "i686-linux" then
+  src = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
     fetchurl {
       name = "rescuetime-installer.deb";
       url =

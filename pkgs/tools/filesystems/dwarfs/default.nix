@@ -63,7 +63,12 @@ stdenv.mkDerivation rec {
     # temporary hack until folly builds work on aarch64,
     # see https://github.com/facebook/folly/issues/1880
     "-DCMAKE_LIBRARY_ARCHITECTURE=${
-      if stdenv.isx86_64 then "x86_64" else "dummy"
+      if
+        stdenv.isx86_64
+      then
+        "x86_64"
+      else
+        "dummy"
     }"
   ];
 

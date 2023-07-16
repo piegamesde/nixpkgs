@@ -255,7 +255,9 @@ in
           yayayayaka
           yuka
         ];
-      } // (if gitlabEnterprise then {
+      } // (if
+        gitlabEnterprise
+      then {
         license =
           licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
         description = "GitLab Enterprise Edition";

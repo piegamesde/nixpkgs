@@ -30,7 +30,12 @@ makePythonHook {
           ''"''
           "'\"'\"'"
         ];
-        endQuote = if isSingle then "[^\\\\]${quote}" else quote;
+        endQuote = if
+          isSingle
+        then
+          "[^\\\\]${quote}"
+        else
+          quote;
       in ''
         /^[a-z]?${quote}/ {
           /${quote}${quote}|${quote}.*${endQuote}/{n;br}

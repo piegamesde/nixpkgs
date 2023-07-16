@@ -161,7 +161,9 @@ in {
 
     systemd.tmpfiles.rules = [
       "L+ /run/opengl-driver - - - - ${package}"
-      (if pkgs.stdenv.isi686 then
+      (if
+        pkgs.stdenv.isi686
+      then
         "L+ /run/opengl-driver-32 - - - - opengl-driver"
       else if cfg.driSupport32Bit then
         "L+ /run/opengl-driver-32 - - - - ${package32}"

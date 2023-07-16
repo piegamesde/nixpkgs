@@ -46,7 +46,9 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/bin
 
-  '' + (if buildNativeImage then ''
+  '' + (if
+    buildNativeImage
+  then ''
     mv dbqn $out/bin
   '' else ''
     mkdir -p $out/share/${pname}

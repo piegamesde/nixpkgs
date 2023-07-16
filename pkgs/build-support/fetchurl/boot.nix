@@ -26,7 +26,9 @@ in
       # supports only one URI, use the first listed mirror.
       let
         m = builtins.match "mirror://([a-z]+)/(.*)" url;
-      in if m == null then
+      in if
+        m == null
+      then
         url
       else
         builtins.head (mirrors.${builtins.elemAt m 0}) + (builtins.elemAt m 1);

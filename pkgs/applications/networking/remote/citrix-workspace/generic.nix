@@ -83,7 +83,12 @@ in
       message = ''
         In order to use Citrix Workspace, you need to comply with the Citrix EULA and download
         the ${
-          if stdenv.is64bit then "64-bit" else "32-bit"
+          if
+            stdenv.is64bit
+          then
+            "64-bit"
+          else
+            "32-bit"
         } binaries, .tar.gz from:
 
         ${homepage}
@@ -173,7 +178,9 @@ in
 
     installPhase = let
       icaFlag = program:
-        if (builtins.match "selfservice(.*)" program) != null then
+        if
+          (builtins.match "selfservice(.*)" program) != null
+        then
           "--icaroot"
         else if (lib.versionAtLeast version "21.12"
           && builtins.match "wfica(.*)" program != null) then

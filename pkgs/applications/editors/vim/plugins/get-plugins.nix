@@ -13,7 +13,9 @@ let
       "outputHash"
     ] value;
   getChecksum = name: value:
-    if hasChecksum value then {
+    if
+      hasChecksum value
+    then {
       submodules = value.src.fetchSubmodules or false;
       sha256 = value.src.outputHash;
       rev = value.src.rev;

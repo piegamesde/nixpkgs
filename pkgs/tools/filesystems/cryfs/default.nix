@@ -71,7 +71,14 @@ stdenv.mkDerivation rec {
     "-DDEPENDENCY_CONFIG='../cmake-utils/DependenciesFromLocalSystem.cmake'"
     "-DCRYFS_UPDATE_CHECKS:BOOL=FALSE"
     "-DBoost_USE_STATIC_LIBS:BOOL=FALSE" # this option is case sensitive
-    "-DBUILD_TESTING:BOOL=${if doCheck then "TRUE" else "FALSE"}"
+    "-DBUILD_TESTING:BOOL=${
+      if
+        doCheck
+      then
+        "TRUE"
+      else
+        "FALSE"
+    }"
   ]; # ++ lib.optional doCheck "-DCMAKE_PREFIX_PATH=${gtest.dev}/lib/cmake";
 
   # macFUSE needs to be installed for the test to succeed on Darwin

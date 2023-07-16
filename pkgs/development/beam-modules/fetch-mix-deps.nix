@@ -32,8 +32,18 @@ stdenvNoCC.mkDerivation (attrs // {
   ];
 
   MIX_ENV = mixEnv;
-  MIX_DEBUG = if debug then 1 else 0;
-  DEBUG = if debug then 1 else 0; # for rebar3
+  MIX_DEBUG = if
+    debug
+  then
+    1
+  else
+    0;
+  DEBUG = if
+    debug
+  then
+    1
+  else
+    0; # for rebar3
   # the api with `mix local.rebar rebar path` makes a copy of the binary
   MIX_REBAR = "${rebar}/bin/rebar";
   MIX_REBAR3 = "${rebar3}/bin/rebar3";

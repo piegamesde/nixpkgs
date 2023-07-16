@@ -51,13 +51,17 @@ let
   ];
 
   buildDrvInheritArgs = builtins.foldl' (attrs: arg:
-    if buildDrvArgs ? ${arg} then
+    if
+      buildDrvArgs ? ${arg}
+    then
       attrs // { ${arg} = buildDrvArgs.${arg}; }
     else
       attrs) { } buildDrvInheritArgNames;
 
   drvArgs = buildDrvInheritArgs // (removeAttrs args [ "buildDrvArgs" ]);
-  name = (if drvArgs ? name then
+  name = (if
+    drvArgs ? name
+  then
     drvArgs.name
   else
     "${drvArgs.pname}-${drvArgs.version}");
@@ -156,7 +160,12 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = if vendorHash != "" then vendorHash else lib.fakeSha256;
+    outputHash = if
+      vendorHash != ""
+    then
+      vendorHash
+    else
+      lib.fakeSha256;
   } // (removeAttrs drvArgs [
     "name"
     "pname"

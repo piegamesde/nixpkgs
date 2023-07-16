@@ -137,7 +137,12 @@ in
         runHook preBuild
 
         ${bazelCmd {
-          cmd = if fetchConfigured then "build --nobuild" else "fetch";
+          cmd = if
+            fetchConfigured
+          then
+            "build --nobuild"
+          else
+            "fetch";
           additionalFlags = [
             # We disable multithreading for the fetching phase since it can lead to timeouts with many dependencies/threads:
             # https://github.com/bazelbuild/bazel/issues/6502

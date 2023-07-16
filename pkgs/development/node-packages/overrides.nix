@@ -173,7 +173,12 @@ in
       # The traveling-fastlane-darwin optional dependency aborts build on Linux.
       dependencies = builtins.filter (d:
         d.packageName != "@expo/traveling-fastlane-${
-          if stdenv.isLinux then "darwin" else "linux"
+          if
+            stdenv.isLinux
+          then
+            "darwin"
+          else
+            "linux"
         }") oldAttrs.dependencies;
     });
 
@@ -329,19 +334,20 @@ in
       };
     });
 
-    mermaid-cli = prev."@mermaid-js/mermaid-cli".override
-      (if stdenv.isDarwin then
-        { }
-      else {
-        nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-        prePatch = ''
-          export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-        '';
-        postInstall = ''
-          wrapProgram $out/bin/mmdc \
-          --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium.outPath}/bin/chromium
-        '';
-      });
+    mermaid-cli = prev."@mermaid-js/mermaid-cli".override (if
+      stdenv.isDarwin
+    then
+      { }
+    else {
+      nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
+      prePatch = ''
+        export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+      '';
+      postInstall = ''
+        wrapProgram $out/bin/mmdc \
+        --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium.outPath}/bin/chromium
+      '';
+    });
 
     near-cli = prev.near-cli.override {
       nativeBuildInputs = with pkgs; [

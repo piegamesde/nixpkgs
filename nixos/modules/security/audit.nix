@@ -43,7 +43,14 @@ let
 
     # Enable and configure auditing
     auditctl \
-      -e ${if cfg.enable == "lock" then "2" else "1"} \
+      -e ${
+        if
+          cfg.enable == "lock"
+        then
+          "2"
+        else
+          "1"
+      } \
       -b ${toString cfg.backlogLimit} \
       -f ${toString failureModes.${cfg.failureMode}} \
       -r ${toString cfg.rateLimit}
@@ -131,8 +138,14 @@ in {
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart =
-          "@${if enabled then startScript else disableScript} audit-start";
+        ExecStart = "@${
+            if
+              enabled
+            then
+              startScript
+            else
+              disableScript
+          } audit-start";
         ExecStop = "@${stopScript} audit-stop";
       };
     };

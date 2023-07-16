@@ -45,8 +45,9 @@ in
 
       src = fetchurl {
         url = "https://cairographics.org/${
-            if lib.mod (builtins.fromJSON (lib.versions.minor version)) 2
-            == 0 then
+            if
+              lib.mod (builtins.fromJSON (lib.versions.minor version)) 2 == 0
+            then
               "releases"
             else
               "snapshots"
@@ -144,7 +145,9 @@ in
       ] ++ optional gobjectSupport glib ++ optional glSupport
         libGL; # TODO: maybe liblzo but what would it be for here?
 
-      configureFlags = [ "--enable-tee" ] ++ (if stdenv.isDarwin then [
+      configureFlags = [ "--enable-tee" ] ++ (if
+        stdenv.isDarwin
+      then [
         "--disable-dependency-tracking"
         "--enable-quartz"
         "--enable-quartz-font"

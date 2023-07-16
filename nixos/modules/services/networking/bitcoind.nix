@@ -147,7 +147,13 @@ let
           type = types.nullOr (types.coercedTo (types.enum [
             "disable"
             "manual"
-          ]) (x: if x == "disable" then 0 else 1) types.ints.unsigned);
+          ]) (x:
+            if
+              x == "disable"
+            then
+              0
+            else
+              1) types.ints.unsigned);
           default = null;
           example = 10000;
           description = lib.mdDoc ''
@@ -232,7 +238,9 @@ in {
           ExecStart = ''
             ${cfg.package}/bin/bitcoind \
             ${
-              if (cfg.configFile != null) then
+              if
+                (cfg.configFile != null)
+              then
                 "-conf=${cfg.configFile}"
               else
                 "-conf=${configFile}"

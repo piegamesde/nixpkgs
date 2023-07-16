@@ -31,7 +31,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   cmakeFlags = [
-    (if (stdenv.hostPlatform.isAarch64) then "-DARM64=ON" else "-DARM64=OFF")
+    (if
+      (stdenv.hostPlatform.isAarch64)
+    then
+      "-DARM64=ON"
+    else
+      "-DARM64=OFF")
     "-DVMCS_INSTALL_PREFIX=${placeholder "out"}"
   ];
 

@@ -20,7 +20,13 @@ let
         default = null;
         description = lib.mdDoc description;
         type = types.nullOr types.lines;
-      } // (if example == null then { } else { inherit example; });
+      } // (if
+        example == null
+      then
+        { }
+      else {
+        inherit example;
+      });
     };
   mkHookOptions = hooks: listToAttrs (map mkHookOption hooks);
 
@@ -128,7 +134,13 @@ let
           default = null;
           ## maximum care is taken so that secrets (ssh keys and the CI token)
           ## don't end up in the Nix store.
-          apply = final: if final == null then null else toString final;
+          apply = final:
+            if
+              final == null
+            then
+              null
+            else
+              toString final;
 
           description = lib.mdDoc ''
             OpenSSH private key
@@ -284,7 +296,9 @@ in {
       preStart = let
         sshDir = "${cfg.dataDir}/.ssh";
         tagStr = name: value:
-          if lib.isList value then
+          if
+            lib.isList value
+          then
             lib.concatStringsSep "," (builtins.map (v: "${name}=${v}") value)
           else
             "${name}=${value}";

@@ -33,7 +33,9 @@
   libunwind,
   vulkan-loader,
   glslang,
-  galliumDrivers ? if stdenv.isLinux then
+  galliumDrivers ? if
+    stdenv.isLinux
+  then
     [
       "d3d12" # WSL emulated GPU (aka Dozen)
       "nouveau" # Nvidia
@@ -58,7 +60,9 @@
       "crocus" # Intel legacy, x86 only
     ]
   else [ "auto" ],
-  vulkanDrivers ? if stdenv.isLinux then
+  vulkanDrivers ? if
+    stdenv.isLinux
+  then
     [
       "amd" # AMD (aka RADV)
       "microsoft-experimental" # WSL virtualized GPU (aka DZN/Dozen)
@@ -416,7 +420,12 @@ let
       inherit (libglvnd) driverLink;
       inherit llvmPackages;
 
-      libdrm = if withLibdrm then libdrm else null;
+      libdrm = if
+        withLibdrm
+      then
+        libdrm
+      else
+        null;
 
       tests = lib.optionalAttrs stdenv.isLinux {
         devDoesNotDependOnLLVM = stdenv.mkDerivation {

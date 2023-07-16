@@ -60,11 +60,23 @@ in
       "-DOPEN62541_VERSION=v${finalAttrs.version}"
 
       "-DBUILD_SHARED_LIBS=${
-        if stdenv.hostPlatform.isStatic then "OFF" else "ON"
+        if
+          stdenv.hostPlatform.isStatic
+        then
+          "OFF"
+        else
+          "ON"
       }"
       "-DUA_NAMESPACE_ZERO=FULL"
 
-      "-DUA_BUILD_UNIT_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
+      "-DUA_BUILD_UNIT_TESTS=${
+        if
+          finalAttrs.doCheck
+        then
+          "ON"
+        else
+          "OFF"
+      }"
     ] ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
       ++ lib.optional (withEncryption != false)
       "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"

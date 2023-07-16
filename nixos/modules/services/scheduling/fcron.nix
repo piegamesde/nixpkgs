@@ -11,7 +11,12 @@ let
 
   cfg = config.services.fcron;
 
-  queuelen = if cfg.queuelen == null then "" else "-q ${toString cfg.queuelen}";
+  queuelen = if
+    cfg.queuelen == null
+  then
+    ""
+  else
+    "-q ${toString cfg.queuelen}";
 
   # Duplicate code, also found in cron.nix. Needs deduplication.
   systemCronJobs = ''
@@ -101,7 +106,9 @@ in {
       {
         source = let
           isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
-          sendmailPath = if isSendmailWrapped then
+          sendmailPath = if
+            isSendmailWrapped
+          then
             "/run/wrappers/bin/sendmail"
           else
             "${config.system.path}/bin/sendmail";

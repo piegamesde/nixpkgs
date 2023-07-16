@@ -72,7 +72,14 @@ in
 
       ./install.sh -d $out/share/icons \
         ${lib.optionalString circularFolder "-c"} \
-        ${if allColorVariants then "-a" else builtins.toString colorVariants}
+        ${
+          if
+            allColorVariants
+          then
+            "-a"
+          else
+            builtins.toString colorVariants
+        }
 
       jdupes --quiet --link-soft --recurse $out/share
 

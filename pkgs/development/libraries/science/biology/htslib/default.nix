@@ -29,12 +29,13 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  configureFlags =
-    if !stdenv.hostPlatform.isStatic then [ "--enable-libcurl" ] # optional but strongly recommended
-    else [
-      "--disable-libcurl"
-      "--disable-plugins"
-    ];
+  configureFlags = if
+    !stdenv.hostPlatform.isStatic
+  then [ "--enable-libcurl" ] # optional but strongly recommended
+  else [
+    "--disable-libcurl"
+    "--disable-plugins"
+  ];
 
   # In the case of static builds, we need to replace the build and install phases
   buildPhase = lib.optional stdenv.hostPlatform.isStatic ''

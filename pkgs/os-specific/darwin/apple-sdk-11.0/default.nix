@@ -70,7 +70,9 @@ let
         bintools = stdenv.cc.bintools.override { libc = packages.Libsystem; };
         libc = packages.Libsystem;
       };
-    in if stdenv.isAarch64 then
+    in if
+      stdenv.isAarch64
+    then
       stdenv
     else
       (overrideCC stdenv cc).override {

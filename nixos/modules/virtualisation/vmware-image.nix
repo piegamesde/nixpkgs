@@ -8,7 +8,13 @@
 with lib;
 
 let
-  boolToStr = value: if value then "on" else "off";
+  boolToStr = value:
+    if
+      value
+    then
+      "on"
+    else
+      "off";
   cfg = config.vmware;
 
   subformats = [

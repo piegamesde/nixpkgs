@@ -25,8 +25,18 @@ let
       nativeBuildInputs = [ unzip ];
 
       buildCommand = let
-        prog' = if prog == null then pname else prog;
-        jar' = if jar == null then pname else jar;
+        prog' = if
+          prog == null
+        then
+          pname
+        else
+          prog;
+        jar' = if
+          jar == null
+        then
+          pname
+        else
+          jar;
       in ''
         unzip $src -d $out
         mkdir -p $out/bin $out/share $out/share/java

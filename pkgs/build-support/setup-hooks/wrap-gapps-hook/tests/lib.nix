@@ -12,7 +12,9 @@ rec {
     '';
 
   skip = cond: text:
-    if cond then ''
+    if
+      cond
+    then ''
       echo "Skipping test $name" > /dev/stderr
     '' else
       text;

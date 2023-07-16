@@ -48,8 +48,10 @@ let
     );
 
     $CFG->wwwroot   = '${
-      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL
-      || cfg.virtualHost.onlySSL then
+      if
+        cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL
+        || cfg.virtualHost.onlySSL
+      then
         "https"
       else
         "http"
@@ -185,7 +187,9 @@ in {
 
       socket = mkOption {
         type = types.nullOr types.path;
-        default = if mysqlLocal then
+        default = if
+          mysqlLocal
+        then
           "/run/mysqld/mysqld.sock"
         else if pgsqlLocal then
           "/run/postgresql"

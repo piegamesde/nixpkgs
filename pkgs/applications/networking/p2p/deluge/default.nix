@@ -77,7 +77,9 @@ let
 
       postInstall = ''
         install -Dm444 -t $out/lib/systemd/system packaging/systemd/*.service
-      '' + (if withGUI then ''
+      '' + (if
+        withGUI
+      then ''
         mkdir -p $out/share
         cp -R deluge/ui/data/{icons,pixmaps} $out/share/
         install -Dm444 -t $out/share/applications deluge/ui/data/share/applications/deluge.desktop

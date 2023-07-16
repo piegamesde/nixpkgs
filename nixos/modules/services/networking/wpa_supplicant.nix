@@ -10,7 +10,9 @@
 with lib;
 
 let
-  package = if cfg.allowAuxiliaryImperativeNetworks then
+  package = if
+    cfg.allowAuxiliaryImperativeNetworks
+  then
     pkgs.wpa_supplicant_ro_ssids
   else
     pkgs.wpa_supplicant;
@@ -33,7 +35,12 @@ let
   # Gives a WPA3 network higher priority
   increaseWPA3Priority = opts:
     opts // optionalAttrs (hasMixedWPA opts) {
-      priority = if opts.priority == null then 1 else opts.priority + 1;
+      priority = if
+        opts.priority == null
+      then
+        1
+      else
+        opts.priority + 1;
     };
 
   # Creates a WPA2 fallback network
@@ -47,7 +54,9 @@ let
     mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
 
   # List of all networks (normal + generated fallbacks)
-  allNetworks = if cfg.fallbackToWPA2 then
+  allNetworks = if
+    cfg.fallbackToWPA2
+  then
     map increaseWPA3Priority networkList
     ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
   else
@@ -67,7 +76,9 @@ let
     networks != { } || extraConfig != "" || userControlled.enable;
 
   # the original configuration file
-  configFile = if configIsGenerated then
+  configFile = if
+    configIsGenerated
+  then
     pkgs.writeText "wpa_supplicant.conf" generatedConfig
   else
     "/etc/wpa_supplicant.conf";
@@ -80,11 +91,18 @@ let
       quote = x: ''"${x}"'';
       indent = x: "  " + x;
 
-      pskString = if opts.psk != null then quote opts.psk else opts.pskRaw;
+      pskString = if
+        opts.psk != null
+      then
+        quote opts.psk
+      else
+        opts.pskRaw;
 
       options = [
         "ssid=${quote opts.ssid}"
-        (if pskString != null || opts.auth != null then
+        (if
+          pskString != null || opts.auth != null
+        then
           "key_mgmt=${concatStringsSep " " opts.authProtocols}"
         else
           "key_mgmt=NONE")
@@ -105,7 +123,9 @@ let
     let
       deviceUnit = optional (iface != null)
         "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
-      configStr = if cfg.allowAuxiliaryImperativeNetworks then
+      configStr = if
+        cfg.allowAuxiliaryImperativeNetworks
+      then
         "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
       else
         "-c ${finalConfig}";
@@ -149,7 +169,9 @@ let
           optionalString cfg.dbusControlled "-u"
         } -D${cfg.driver} ${configStr}"
 
-        ${if iface == null then ''
+        ${if
+          iface == null
+        then ''
           # detect interfaces automatically
 
           # check if there are no wireless interfaces
@@ -522,7 +544,9 @@ in {
     }) ++ [ {
       assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
       message = let
-        daemon = if config.networking.networkmanager.enable then
+        daemon = if
+          config.networking.networkmanager.enable
+        then
           "NetworkManager"
         else if config.services.connman.enable then
           "connman"
@@ -546,7 +570,9 @@ in {
     environment.systemPackages = [ package ];
     services.dbus.packages = optional cfg.dbusControlled package;
 
-    systemd.services = if cfg.interfaces == [ ] then {
+    systemd.services = if
+      cfg.interfaces == [ ]
+    then {
       wpa_supplicant = mkUnit null;
     } else
       listToAttrs

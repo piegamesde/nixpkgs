@@ -152,7 +152,9 @@ let
     };
 
   # TODO (roberth, >=2022) remove
-  checkNix = if !cfg.checkNix then
+  checkNix = if
+    !cfg.checkNix
+  then
     ""
   else if lib.versionAtLeast config.nix.package.version "2.3.10" then
     ""
@@ -281,8 +283,10 @@ in {
       tomlFile = format.generate "hercules-ci-agent.toml" cfg.settings;
 
       settings.labels = {
-        agent.source = if options.services.hercules-ci-agent.package.highestPrio
-        == (lib.modules.mkOptionDefault { }).priority then
+        agent.source = if
+          options.services.hercules-ci-agent.package.highestPrio
+          == (lib.modules.mkOptionDefault { }).priority
+        then
           "nixpkgs"
         else
           lib.mkOptionDefault "override";

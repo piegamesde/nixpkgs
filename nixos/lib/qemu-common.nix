@@ -6,7 +6,9 @@
 
 let
   zeroPad = n:
-    lib.optionalString (n < 16) "0" + (if n > 255 then
+    lib.optionalString (n < 16) "0" + (if
+      n > 255
+    then
       throw "Can't have more than 255 nets or nodes!"
     else
       lib.toHexString n);
@@ -24,14 +26,15 @@ in rec {
       }"''
   ];
 
-  qemuSerialDevice =
-    if with pkgs.stdenv.hostPlatform; isx86 || isMips64 || isRiscV then
-      "ttyS0"
-    else if (with pkgs.stdenv.hostPlatform; isAarch || isPower) then
-      "ttyAMA0"
-    else
-      throw
-      "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'";
+  qemuSerialDevice = if
+    with pkgs.stdenv.hostPlatform; isx86 || isMips64 || isRiscV
+  then
+    "ttyS0"
+  else if (with pkgs.stdenv.hostPlatform; isAarch || isPower) then
+    "ttyAMA0"
+  else
+    throw
+    "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'";
 
   qemuBinary = qemuPkg:
     let
@@ -72,7 +75,9 @@ in rec {
         "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${
           lib.concatStringsSep ", " (lib.attrNames guestMap)
         }";
-    in if hostStdenv.isLinux then
+    in if
+      hostStdenv.isLinux
+    then
       linuxHostGuestMatrix.${guestSystem} or "${qemuPkg}/bin/qemu-kvm"
     else
       let

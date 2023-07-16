@@ -199,7 +199,14 @@ in
     '';
 
     preFixup = ''
-      binName=${if stdenv.isLinux then "kotatogram-desktop" else "Kotatogram"}
+      binName=${
+        if
+          stdenv.isLinux
+        then
+          "kotatogram-desktop"
+        else
+          "Kotatogram"
+      }
       remove-references-to -t ${stdenv.cc.cc} $out/bin/$binName
       remove-references-to -t ${microsoft_gsl} $out/bin/$binName
       remove-references-to -t ${tg_owt.dev} $out/bin/$binName

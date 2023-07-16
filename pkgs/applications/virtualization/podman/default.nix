@@ -110,7 +110,9 @@ in
       runHook preBuild
       patchShebangs .
       substituteInPlace Makefile --replace "/bin/bash" "${runtimeShell}"
-      ${if stdenv.isDarwin then ''
+      ${if
+        stdenv.isDarwin
+      then ''
         make podman-remote # podman-mac-helper uses FHS paths
       '' else ''
         make bin/podman bin/rootlessport bin/quadlet
@@ -121,7 +123,9 @@ in
 
     installPhase = ''
       runHook preInstall
-      ${if stdenv.isDarwin then ''
+      ${if
+        stdenv.isDarwin
+      then ''
         install bin/darwin/podman -Dt $out/bin
       '' else ''
         make install.bin install.systemd

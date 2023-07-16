@@ -85,9 +85,13 @@ let
     #   2. Before the shell is initialized, so that config snippets can find the commands they use on the PATH
     builtin status --is-login
     or test -z "$__fish_nixos_env_preinit_sourced" -a -z "$ETC_PROFILE_SOURCED" -a -z "$ETC_ZSHENV_SOURCED"
-    ${if fishEnvPreInit != null then ''
+    ${if
+      fishEnvPreInit != null
+    then ''
       and begin
-      ${lib.removeSuffix "\n" (if lib.isFunction fishEnvPreInit then
+      ${lib.removeSuffix "\n" (if
+        lib.isFunction fishEnvPreInit
+      then
         fishEnvPreInit sourceWithFenv
       else
         fishEnvPreInit)}

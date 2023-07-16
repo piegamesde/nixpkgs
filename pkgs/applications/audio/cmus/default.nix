@@ -87,7 +87,9 @@ assert tremorSupport -> !vorbisSupport;
 let
 
   mkFlag = b: f: dep:
-    if b then {
+    if
+      b
+    then {
       flags = [ f ];
       deps = [ dep ];
     } else {

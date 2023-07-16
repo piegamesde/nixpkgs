@@ -6,7 +6,9 @@
 }:
 
 let
-  arch = if stdenv.isi686 then
+  arch = if
+    stdenv.isi686
+  then
     "i386"
   else if stdenv.isx86_64 then
     "x86_64"

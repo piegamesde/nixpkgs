@@ -20,7 +20,12 @@ let
       ghc ? ghcWithPackages (p: with p; [ ieee754 ])
     }:
     let
-      pkgs' = if builtins.isList pkgs then pkgs else pkgs self;
+      pkgs' = if
+        builtins.isList pkgs
+      then
+        pkgs
+      else
+        pkgs self;
       library-file = writeText "libraries" ''
         ${(concatMapStringsSep "\n" (p: "${p}/${p.libraryFile}") pkgs')}
       '';
@@ -51,7 +56,9 @@ let
   ; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
 
   withPackages = arg:
-    if builtins.isAttrs arg then
+    if
+      builtins.isAttrs arg
+    then
       withPackages' arg
     else
       withPackages' { pkgs = arg; };
@@ -92,7 +99,9 @@ let
 
       buildInputs = buildInputs ++ [ agdaWithArgs ];
 
-      buildPhase = if buildPhase != null then
+      buildPhase = if
+        buildPhase != null
+      then
         buildPhase
       else ''
         runHook preBuild
@@ -100,7 +109,9 @@ let
         runHook postBuild
       '';
 
-      installPhase = if installPhase != null then
+      installPhase = if
+        installPhase != null
+      then
         installPhase
       else ''
         runHook preInstall
@@ -121,7 +132,9 @@ let
       # set this only on non-darwin.
       LC_ALL = lib.optionalString (!stdenv.isDarwin) "C.UTF-8";
 
-      meta = if meta.broken or false then
+      meta = if
+        meta.broken or false
+      then
         meta // { hydraPlatforms = lib.platforms.none; }
       else
         meta;

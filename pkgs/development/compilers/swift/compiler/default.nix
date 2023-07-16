@@ -66,7 +66,9 @@ let
 
   # There are apparently multiple naming conventions on Darwin. Swift uses the
   # xcrun naming convention. See `configure_sdk_darwin` calls in CMake files.
-  swiftOs = if targetPlatform.isDarwin then
+  swiftOs = if
+    targetPlatform.isDarwin
+  then
     {
       "macos" = "macosx";
       "ios" = "iphoneos";
@@ -81,7 +83,9 @@ let
     targetPlatform.parsed.kernel.name;
 
   # Apple Silicon uses a different CPU name in the target triple.
-  swiftArch = if stdenv.isDarwin && stdenv.isAarch64 then
+  swiftArch = if
+    stdenv.isDarwin && stdenv.isAarch64
+  then
     "arm64"
   else
     targetPlatform.parsed.cpu.name;
@@ -91,7 +95,9 @@ let
   # installed to `lib/swift/<OS>/<ARCH>`. Note that our setup-hook also adds
   # `lib/swift` for convenience.
   swiftLibSubdir = "lib/swift/${swiftOs}";
-  swiftModuleSubdir = if hostPlatform.isDarwin then
+  swiftModuleSubdir = if
+    hostPlatform.isDarwin
+  then
     "lib/swift/${swiftOs}"
   else
     "lib/swift/${swiftOs}/${swiftArch}";
@@ -116,7 +122,12 @@ let
     "toolchain-tools"
     "toolchain-dev-tools"
     "license"
-    (if stdenv.isDarwin then "sourcekit-xpc-service" else "sourcekit-inproc")
+    (if
+      stdenv.isDarwin
+    then
+      "sourcekit-xpc-service"
+    else
+      "sourcekit-inproc")
     "swift-remote-mirror"
     "swift-remote-mirror-headers"
   ];
@@ -483,7 +494,12 @@ in
           lib.concatStringsSep ";" swiftInstallComponents
         }
         -DSWIFT_STDLIB_ENABLE_OBJC_INTEROP=${
-          if stdenv.isDarwin then "ON" else "OFF"
+          if
+            stdenv.isDarwin
+          then
+            "ON"
+          else
+            "OFF"
         }
       "
       buildProject swift
@@ -528,7 +544,12 @@ in
         -DLibEdit_INCLUDE_DIRS=${libedit.dev}/include
         -DLibEdit_LIBRARIES=${libedit}/lib/libedit${stdenv.hostPlatform.extensions.sharedLibrary}
         -DCURSES_INCLUDE_DIRS=${
-          if stdenv.isDarwin then "/var/empty" else ncurses.dev
+          if
+            stdenv.isDarwin
+          then
+            "/var/empty"
+          else
+            ncurses.dev
         }/include
         -DCURSES_LIBRARIES=${ncurses}/lib/libncurses${stdenv.hostPlatform.extensions.sharedLibrary}
         -DPANEL_LIBRARIES=${ncurses}/lib/libpanel${stdenv.hostPlatform.extensions.sharedLibrary}

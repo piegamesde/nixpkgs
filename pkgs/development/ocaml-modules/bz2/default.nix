@@ -8,7 +8,9 @@
   autoreconfHook,
 }:
 
-if lib.versionOlder ocaml.version "4.02" then
+if
+  lib.versionOlder ocaml.version "4.02"
+then
   throw "bz2 is not available for OCaml ${ocaml.version}"
 else
 

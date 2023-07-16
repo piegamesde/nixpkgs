@@ -79,9 +79,13 @@ let
 
     builder = ./builder.sh;
 
-    src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    src = if
+      stdenv.hostPlatform.system == "x86_64-linux"
+    then
       fetchurl {
-        urls = if args ? url then [ args.url ] else [
+        urls = if
+          args ? url
+        then [ args.url ] else [
           "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
           "https://download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
         ];
@@ -89,7 +93,9 @@ let
       }
     else if stdenv.hostPlatform.system == "i686-linux" then
       fetchurl {
-        urls = if args ? url then [ args.url ] else [
+        urls = if
+          args ? url
+        then [ args.url ] else [
           "https://us.download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
           "https://download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
         ];
@@ -98,7 +104,9 @@ let
     else if stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64
     != null then
       fetchurl {
-        urls = if args ? url then [ args.url ] else [
+        urls = if
+          args ? url
+        then [ args.url ] else [
           "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
           "https://download.nvidia.com/XFree86/Linux-aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
         ];
@@ -108,7 +116,12 @@ let
       throw
       "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}";
 
-    patches = if libsOnly then null else patches;
+    patches = if
+      libsOnly
+    then
+      null
+    else
+      patches;
     inherit prePatch postPatch;
     inherit version useGLVND useProfiles;
     inherit (stdenv.hostPlatform) system;
@@ -117,10 +130,25 @@ let
     outputs = [ "out" ] ++ optional i686bundled "lib32"
       ++ optional (!libsOnly) "bin"
       ++ optional (!libsOnly && firmware) "firmware";
-    outputDev = if libsOnly then null else "bin";
+    outputDev = if
+      libsOnly
+    then
+      null
+    else
+      "bin";
 
-    kernel = if libsOnly then null else kernel.dev;
-    kernelVersion = if libsOnly then null else kernel.modDirVersion;
+    kernel = if
+      libsOnly
+    then
+      null
+    else
+      kernel.dev;
+    kernelVersion = if
+      libsOnly
+    then
+      null
+    else
+      kernel.modDirVersion;
 
     makeFlags = optionals (!libsOnly) (kernel.makeFlags ++ [
       "IGNORE_PREEMPT_RT_PRESENCE=1"
@@ -156,9 +184,12 @@ let
           nvidia_x11 = self;
           broken = brokenOpen;
         }) openSha256;
-      settings =
-        (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
-        (import ./settings.nix self settingsSha256) {
+      settings = (if
+        settings32Bit
+      then
+        pkgsi686Linux.callPackage
+      else
+        callPackage) (import ./settings.nix self settingsSha256) {
           withGtk2 = preferGtk2;
           withGtk3 = !preferGtk2;
         };

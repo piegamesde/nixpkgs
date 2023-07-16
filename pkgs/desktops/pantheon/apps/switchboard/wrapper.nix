@@ -14,7 +14,9 @@
 }:
 
 let
-  selectedPlugs = if plugs == null then
+  selectedPlugs = if
+    plugs == null
+  then
     switchboardPlugs
   else
     plugs ++ (lib.optionals useDefaultPlugs switchboardPlugs);

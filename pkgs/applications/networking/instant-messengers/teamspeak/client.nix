@@ -29,9 +29,19 @@
 
 let
 
-  arch = if stdenv.is64bit then "amd64" else "x86";
+  arch = if
+    stdenv.is64bit
+  then
+    "amd64"
+  else
+    "x86";
 
-  libDir = if stdenv.is64bit then "lib64" else "lib";
+  libDir = if
+    stdenv.is64bit
+  then
+    "lib64"
+  else
+    "lib";
 
   deps = [
     zlib
@@ -83,7 +93,9 @@ in
     src = fetchurl {
       url =
         "https://files.teamspeak-services.com/releases/client/${version}/TeamSpeak3-Client-linux_${arch}-${version}.run";
-      sha256 = if stdenv.is64bit then
+      sha256 = if
+        stdenv.is64bit
+      then
         "sha256:0hjai1bd4mq3g2dlyi0zkn8s4zlgxd38skw77mb78nc4di5gvgpg"
       else
         "sha256:1y1c65nap91nv9xkvd96fagqbfl56p9n0rl6iac0i29bkysdmija";

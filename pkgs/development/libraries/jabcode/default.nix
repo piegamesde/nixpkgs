@@ -34,7 +34,9 @@ in
 
     preConfigure = "cd src/${subdir}";
 
-    installPhase = if subproject == "library" then ''
+    installPhase = if
+      subproject == "library"
+    then ''
       mkdir -p $out/lib
       cp build/* $out/lib
     '' else ''

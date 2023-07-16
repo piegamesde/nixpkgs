@@ -15,7 +15,9 @@
 let
   pname = "ocaml-freestanding";
 
-in if lib.versionOlder ocaml.version "4.08" then
+in if
+  lib.versionOlder ocaml.version "4.08"
+then
   builtins.throw "${pname} is not available for OCaml ${ocaml.version}"
 else
 

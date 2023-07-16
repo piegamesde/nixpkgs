@@ -72,7 +72,9 @@
         armv7l-linux = import ./bootstrap-files/armv7l.nix;
         aarch64-linux = import ./bootstrap-files/aarch64.nix;
         mipsel-linux = import ./bootstrap-files/mipsel.nix;
-        mips64el-linux = import (if localSystem.isMips64n32 then
+        mips64el-linux = import (if
+          localSystem.isMips64n32
+        then
           ./bootstrap-files/mips64el-n32.nix
         else
           ./bootstrap-files/mips64el.nix);
@@ -90,7 +92,9 @@
     # just try every bootstrap we’ve got and test to see if it is
     # compatible with or current architecture.
     getCompatibleTools = lib.foldl (v: system:
-      if v != null then
+      if
+        v != null
+      then
         v
       else if localSystem.canExecute
       (lib.systems.elaborate { inherit system; }) then
@@ -100,8 +104,9 @@
 
     archLookupTable = table.${localSystem.libc} or (abort
       "unsupported libc for the pure Linux stdenv");
-    files = archLookupTable.${localSystem.system} or (if getCompatibleTools
-    != null then
+    files = archLookupTable.${localSystem.system} or (if
+      getCompatibleTools != null
+    then
       getCompatibleTools
     else
       (abort "unsupported platform for the pure Linux stdenv"));
@@ -149,7 +154,9 @@ let
   # coreutils, GCC, etc.
 
   # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
-  bootstrapTools = (import (if localSystem.libc == "musl" then
+  bootstrapTools = (import (if
+    localSystem.libc == "musl"
+  then
     ./bootstrap-tools-musl
   else
     ./bootstrap-tools) {
@@ -195,7 +202,9 @@ let
         fetchurlBoot =
           import ../../build-support/fetchurl/boot.nix { inherit system; };
 
-        cc = if prevStage.gcc-unwrapped == null then
+        cc = if
+          prevStage.gcc-unwrapped == null
+        then
           null
         else
           (lib.makeOverridable (import ../../build-support/cc-wrapper) {

@@ -8,7 +8,9 @@ stdenv.mkDerivation {
   pname = "clean";
   version = "3.0";
 
-  src = if stdenv.hostPlatform.system == "i686-linux" then
+  src = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
     (fetchurl {
       url = "https://ftp.cs.ru.nl/Clean/Clean30/linux/clean3.0_32_boot.tar.gz";
       sha256 = "0cjxv3vqrg6pz3aicwfdz1zyhk0q650464j3qyl0wzaikh750010";

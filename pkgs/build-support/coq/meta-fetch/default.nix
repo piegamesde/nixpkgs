@@ -20,8 +20,18 @@ let
       ...
     }@args:
     let
-      ext = if args ? sha256 then "zip" else "tar.gz";
-      fmt = if args ? sha256 then "zip" else "tarball";
+      ext = if
+        args ? sha256
+      then
+        "zip"
+      else
+        "tar.gz";
+      fmt = if
+        args ? sha256
+      then
+        "zip"
+      else
+        "tarball";
       pr = match "^#(.*)$" rev;
       url = switch-if [
         {
@@ -46,7 +56,9 @@ let
         }
       ] (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}");
       fetch = x:
-        if args ? sha256 then
+        if
+          args ? sha256
+        then
           fetchzip (x // { inherit sha256; })
         else
           fetchTarball x;
@@ -63,7 +75,9 @@ in
   let
     isVersion = x: isString x && match "^/.*" x == null && release ? ${x};
     shortVersion = x:
-      if (isString x && match "^/.*" x == null) then
+      if
+        (isString x && match "^/.*" x == null)
+      then
         findFirst (v: versions.majorMinor v == x) null
         (sort versionAtLeast (attrNames release))
       else
@@ -91,10 +105,20 @@ in
       {
         case = pred.union isVersion isShortVersion;
         out = let
-          v = if isVersion arg then arg else shortVersion arg;
+          v = if
+            isVersion arg
+          then
+            arg
+          else
+            shortVersion arg;
         in let
           given-sha256 = release.${v}.sha256 or "";
-          sha256 = if given-sha256 == "" then lib.fakeSha256 else given-sha256;
+          sha256 = if
+            given-sha256 == ""
+          then
+            lib.fakeSha256
+          else
+            given-sha256;
           rv = release.${v} // { inherit sha256; };
         in {
           version = rv.version or v;

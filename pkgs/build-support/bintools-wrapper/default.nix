@@ -16,10 +16,14 @@
   gnugrep ? null,
   netbsd ? null,
   netbsdCross ? null,
-  sharedLibraryLoader ? if libc == null then
+  sharedLibraryLoader ? if
+    libc == null
+  then
     null
   else if stdenvNoCC.targetPlatform.isNetBSD then
-    if !(targetPackages ? netbsdCross) then
+    if
+      !(targetPackages ? netbsdCross)
+    then
       netbsd.ld_elf_so
     else if libc != targetPackages.netbsdCross.headers then
       targetPackages.netbsdCross.ld_elf_so
@@ -69,12 +73,37 @@ let
   bintoolsVersion = lib.getVersion bintools;
   bintoolsName = lib.removePrefix targetPrefix (lib.getName bintools);
 
-  libc_bin = if libc == null then "" else getBin libc;
-  libc_dev = if libc == null then "" else getDev libc;
-  libc_lib = if libc == null then "" else getLib libc;
-  bintools_bin = if nativeTools then "" else getBin bintools;
+  libc_bin = if
+    libc == null
+  then
+    ""
+  else
+    getBin libc;
+  libc_dev = if
+    libc == null
+  then
+    ""
+  else
+    getDev libc;
+  libc_lib = if
+    libc == null
+  then
+    ""
+  else
+    getLib libc;
+  bintools_bin = if
+    nativeTools
+  then
+    ""
+  else
+    getBin bintools;
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
-  coreutils_bin = if nativeTools then "" else getBin coreutils;
+  coreutils_bin = if
+    nativeTools
+  then
+    ""
+  else
+    getBin coreutils;
 
   # See description in cc-wrapper.
   suffixSalt = replaceStrings [
@@ -87,7 +116,9 @@ let
 
   # The dynamic linker has different names on different platforms. This is a
   # shell glob that ought to match it.
-  dynamicLinker = if sharedLibraryLoader == null then
+  dynamicLinker = if
+    sharedLibraryLoader == null
+  then
     ""
   else if targetPlatform.libc == "musl" then
     "${sharedLibraryLoader}/lib/ld-musl-*"
@@ -134,9 +165,18 @@ let
 
 in
   stdenv.mkDerivation {
-    pname = targetPrefix
-      + (if name != "" then name else "${bintoolsName}-wrapper");
-    version = if bintools == null then "" else bintoolsVersion;
+    pname = targetPrefix + (if
+      name != ""
+    then
+      name
+    else
+      "${bintoolsName}-wrapper");
+    version = if
+      bintools == null
+    then
+      ""
+    else
+      bintoolsVersion;
 
     preferLocalBuild = true;
 
@@ -175,13 +215,22 @@ in
         local dst="$1"
         local wrapper="$2"
         export prog="$3"
-        export use_response_file_by_default=${if isCCTools then "1" else "0"}
+        export use_response_file_by_default=${
+          if
+            isCCTools
+          then
+            "1"
+          else
+            "0"
+        }
         substituteAll "$wrapper" "$out/bin/$dst"
         chmod +x "$out/bin/$dst"
       }
     ''
 
-      + (if nativeTools then ''
+      + (if
+        nativeTools
+      then ''
         echo ${nativePrefix} > $out/nix-support/orig-bintools
 
         ldPath="${nativePrefix}/bin"
@@ -220,7 +269,9 @@ in
           fi
         done
 
-      '' + (if !useMacosReexportHack then ''
+      '' + (if
+        !useMacosReexportHack
+      then ''
         if [ -e ''${ld:-$ldPath/${targetPrefix}ld} ]; then
           wrap ${targetPrefix}ld ${
             ./ld-wrapper.sh
@@ -287,7 +338,9 @@ in
             echo $dynamicLinker > $out/nix-support/dynamic-linker
 
             ${
-              if targetPlatform.isDarwin then ''
+              if
+                targetPlatform.isDarwin
+              then ''
                 printf "export LD_DYLD_PATH=%q\n" "$dynamicLinker" >> $out/nix-support/setup-hook
               '' else
                 lib.optionalString (sharedLibraryLoader != null) ''
@@ -309,7 +362,12 @@ in
       # binaries of libc).
       + optionalString (!nativeTools) ''
         printWords ${bintools_bin} ${
-          if libc == null then "" else libc_bin
+          if
+            libc == null
+          then
+            ""
+          else
+            libc_bin
         } > $out/nix-support/propagated-user-env-packages
       ''
 
@@ -430,16 +488,28 @@ in
       expandResponseParams =
         "${expand-response-params}/bin/expand-response-params";
       shell = getBin shell + shell.shellPath or "";
-      gnugrep_bin = if nativeTools then "" else gnugrep;
+      gnugrep_bin = if
+        nativeTools
+      then
+        ""
+      else
+        gnugrep;
       wrapperName = "BINTOOLS_WRAPPER";
       inherit dynamicLinker targetPrefix suffixSalt coreutils_bin;
       inherit bintools_bin libc_bin libc_dev libc_lib;
     };
 
     meta = let
-      bintools_ = if bintools != null then bintools else { };
+      bintools_ = if
+        bintools != null
+      then
+        bintools
+      else
+        { };
     in
-      (if bintools_ ? meta then
+      (if
+        bintools_ ? meta
+      then
         removeAttrs bintools.meta [ "priority" ]
       else
         { }) // {

@@ -94,7 +94,13 @@ stdenv.mkDerivation rec {
   patches = [
     # fixes paths to and checks for tools
     (substituteAll (let
-      optionalTool = cond: pkg: if cond then pkg else "/run/current-system/sw";
+      optionalTool = cond: pkg:
+        if
+          cond
+        then
+          pkg
+        else
+          "/run/current-system/sw";
     in {
       src = ./fix-blkdeactivate.patch;
       inherit coreutils;
@@ -130,7 +136,12 @@ stdenv.mkDerivation rec {
 
   installPhase = lib.optionalString onlyLib ''
     install -D -t $out/lib libdm/ioctl/libdevmapper.${
-      if stdenv.hostPlatform.isStatic then "a" else "so"
+      if
+        stdenv.hostPlatform.isStatic
+      then
+        "a"
+      else
+        "so"
     }
     make -C libdm install_include
     make -C libdm install_pkgconfig

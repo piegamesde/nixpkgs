@@ -84,7 +84,14 @@ in {
 
                 [Debug]
                 verbose = ${toString cfg.verbosity}
-                silent = ${if cfg.silent then "1" else "0"}
+                silent = ${
+                  if
+                    cfg.silent
+                  then
+                    "1"
+                  else
+                    "0"
+                }
                 logsize = ${toString cfg.logSize}
               ''
             }";

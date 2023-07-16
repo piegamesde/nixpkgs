@@ -10,7 +10,12 @@ let
   inherit (lib) mkOption types;
   copyChannel = true;
   cfg = config.openstackImage;
-  imageBootMode = if config.openstack.efi then "uefi" else "legacy-bios";
+  imageBootMode = if
+    config.openstack.efi
+  then
+    "uefi"
+  else
+    "legacy-bios";
 in {
   imports = [ ../../../modules/virtualisation/openstack-config.nix ]
     ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);

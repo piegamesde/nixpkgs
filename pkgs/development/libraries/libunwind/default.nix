@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch = if (stdenv.cc.isClang || stdenv.hostPlatform.isStatic) then ''
+  postPatch = if
+    (stdenv.cc.isClang || stdenv.hostPlatform.isStatic)
+  then ''
     substituteInPlace configure.ac --replace "-lgcc_s" ""
   '' else
     lib.optionalString stdenv.hostPlatform.isMusl ''

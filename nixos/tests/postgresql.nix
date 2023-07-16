@@ -42,8 +42,15 @@ let
         };
 
       testScript = let
-        backupName = if backup-all then "all" else "postgres";
-        backupService = if backup-all then
+        backupName = if
+          backup-all
+        then
+          "all"
+        else
+          "postgres";
+        backupService = if
+          backup-all
+        then
           "postgresqlBackup"
         else
           "postgresqlBackup-postgres";

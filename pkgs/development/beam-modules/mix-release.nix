@@ -60,9 +60,19 @@ in
     buildInputs = buildInputs ++ builtins.attrValues mixNixDeps;
 
     MIX_ENV = mixEnv;
-    MIX_DEBUG = if enableDebugInfo then 1 else 0;
+    MIX_DEBUG = if
+      enableDebugInfo
+    then
+      1
+    else
+      0;
     HEX_OFFLINE = 1;
-    DEBUG = if enableDebugInfo then 1 else 0; # for Rebar3 compilation
+    DEBUG = if
+      enableDebugInfo
+    then
+      1
+    else
+      0; # for Rebar3 compilation
     # the api with `mix local.rebar rebar path` makes a copy of the binary
     # some older dependencies still use rebar
     MIX_REBAR = "${rebar}/bin/rebar";

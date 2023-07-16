@@ -299,21 +299,22 @@ in {
         mkdir -p /var/lib/xen # so we create them here unconditionally.
         grep -q control_d /proc/xen/capabilities
       '';
-      serviceConfig =
-        if (builtins.compareVersions cfg.package.version "4.8" < 0) then {
-          ExecStart = ''
-            ${cfg.stored}${
-              optionalString cfg.trace " -T /var/log/xen/xenstored-trace.log"
-            } --no-fork
-          '';
-        } else {
-          ExecStart = ''
-            ${cfg.package}/etc/xen/scripts/launch-xenstore
-          '';
-          Type = "notify";
-          RemainAfterExit = true;
-          NotifyAccess = "all";
-        };
+      serviceConfig = if
+        (builtins.compareVersions cfg.package.version "4.8" < 0)
+      then {
+        ExecStart = ''
+          ${cfg.stored}${
+            optionalString cfg.trace " -T /var/log/xen/xenstored-trace.log"
+          } --no-fork
+        '';
+      } else {
+        ExecStart = ''
+          ${cfg.package}/etc/xen/scripts/launch-xenstore
+        '';
+        Type = "notify";
+        RemainAfterExit = true;
+        NotifyAccess = "all";
+      };
       postStart = ''
         ${optionalString
         (builtins.compareVersions cfg.package.version "4.8" < 0) ''
