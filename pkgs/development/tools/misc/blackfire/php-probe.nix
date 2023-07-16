@@ -64,17 +64,20 @@ let
       phpMajor,
     }:
 
-    let isLinux = builtins.match ".+-linux" system != null;
-    in assert !isLinux -> (phpMajor != null);
-    fetchurl {
-      url =
-        "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
-          if isLinux then "linux" else "darwin"
-        }_${hashes.${system}.system}-php-${
-          builtins.replaceStrings [ "." ] [ "" ] phpMajor
-        }.so";
-      sha256 = hashes.${system}.sha256.${phpMajor};
-    };
+    let
+      isLinux = builtins.match ".+-linux" system != null;
+    in
+      assert !isLinux -> (phpMajor != null);
+      fetchurl {
+        url =
+          "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
+            if isLinux then "linux" else "darwin"
+          }_${hashes.${system}.system}-php-${
+            builtins.replaceStrings [ "." ] [ "" ] phpMajor
+          }.so";
+        sha256 = hashes.${system}.sha256.${phpMajor};
+      }
+  ;
   self = stdenv.mkDerivation rec {
     pname = "php-blackfire";
     extensionName = "blackfire";
@@ -143,7 +146,7 @@ let
             system = builtins.head path;
             phpMajor =
               if builtins.length rest == 0 then null else builtins.head rest;
-          };
+          } ;
 
         createUpdateable = path: _value:
 
@@ -153,10 +156,12 @@ let
         hashesOnly =
           # Filter out all attributes other than hashes.
           lib.filterAttrsRecursive (name: _value: name != "system") hashes;
-      in builtins.listToAttrs
-      # Collect all leaf attributes (containing hashes).
-      (lib.collect (attrs: attrs ? name)
-        (lib.mapAttrsRecursive createUpdateable hashesOnly));
+      in
+        builtins.listToAttrs
+        # Collect all leaf attributes (containing hashes).
+        (lib.collect (attrs: attrs ? name)
+          (lib.mapAttrsRecursive createUpdateable hashesOnly))
+      ;
     };
 
     meta = with lib; {
@@ -174,4 +179,5 @@ let
       ];
     };
   };
-in self
+in
+  self

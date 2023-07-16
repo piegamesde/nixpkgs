@@ -181,4 +181,5 @@ in let
       };
     }; # libavFun
 
-in result
+in
+  result

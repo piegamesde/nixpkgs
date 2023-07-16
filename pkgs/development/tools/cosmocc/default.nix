@@ -33,4 +33,5 @@ let
     install ${cosmopolitan.dist}/tool/scripts/{cosmocc,cosmoc++} $out/bin
     sed 's|/opt/cosmo\([ /]\)|${cosmopolitan.dist}\1|g' -i $out/bin/*
   '';
-in cosmocc
+in
+  cosmocc

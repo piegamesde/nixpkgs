@@ -33,71 +33,72 @@ let
       prosodyctl deluser cthon98@example.com
       prosodyctl deluser azurediamond@example.com
     '';
-in import ../make-test-python.nix {
-  name = "prosody";
-  nodes = {
-    client = {
-        nodes,
-        pkgs,
-        config,
-        ...
-      }: {
-        security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
-        console.keyMap = "fr-bepo";
-        networking.extraHosts = ''
-          ${nodes.server.config.networking.primaryIPAddress} example.com
-          ${nodes.server.config.networking.primaryIPAddress} conference.example.com
-          ${nodes.server.config.networking.primaryIPAddress} uploads.example.com
-        '';
-        environment.systemPackages =
-          [ (pkgs.callPackage ./xmpp-sendmessage.nix {
-            connectTo = "example.com";
-          }) ];
-      };
-    server = {
-        config,
-        pkgs,
-        ...
-      }: {
-        security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
-        console.keyMap = "fr-bepo";
-        networking.extraHosts = ''
-          ${config.networking.primaryIPAddress} example.com
-          ${config.networking.primaryIPAddress} conference.example.com
-          ${config.networking.primaryIPAddress} uploads.example.com
-        '';
-        networking.firewall.enable = false;
-        environment.systemPackages = [
-          (createUsers pkgs)
-          (delUsers pkgs)
-        ];
-        services.prosody = {
-          enable = true;
-          ssl.cert = "${cert pkgs}/cert.pem";
-          ssl.key = "${cert pkgs}/key.pem";
-          virtualHosts.example = {
-            domain = "example.com";
-            enabled = true;
+in
+  import ../make-test-python.nix {
+    name = "prosody";
+    nodes = {
+      client = {
+          nodes,
+          pkgs,
+          config,
+          ...
+        }: {
+          security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+          console.keyMap = "fr-bepo";
+          networking.extraHosts = ''
+            ${nodes.server.config.networking.primaryIPAddress} example.com
+            ${nodes.server.config.networking.primaryIPAddress} conference.example.com
+            ${nodes.server.config.networking.primaryIPAddress} uploads.example.com
+          '';
+          environment.systemPackages =
+            [ (pkgs.callPackage ./xmpp-sendmessage.nix {
+              connectTo = "example.com";
+            }) ];
+        };
+      server = {
+          config,
+          pkgs,
+          ...
+        }: {
+          security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+          console.keyMap = "fr-bepo";
+          networking.extraHosts = ''
+            ${config.networking.primaryIPAddress} example.com
+            ${config.networking.primaryIPAddress} conference.example.com
+            ${config.networking.primaryIPAddress} uploads.example.com
+          '';
+          networking.firewall.enable = false;
+          environment.systemPackages = [
+            (createUsers pkgs)
+            (delUsers pkgs)
+          ];
+          services.prosody = {
+            enable = true;
             ssl.cert = "${cert pkgs}/cert.pem";
             ssl.key = "${cert pkgs}/key.pem";
+            virtualHosts.example = {
+              domain = "example.com";
+              enabled = true;
+              ssl.cert = "${cert pkgs}/cert.pem";
+              ssl.key = "${cert pkgs}/key.pem";
+            };
+            muc = [ { domain = "conference.example.com"; } ];
+            uploadHttp = { domain = "uploads.example.com"; };
           };
-          muc = [ { domain = "conference.example.com"; } ];
-          uploadHttp = { domain = "uploads.example.com"; };
         };
-      };
-  };
+    };
 
-  testScript = {
-      nodes,
-      ...
-    }: ''
-      # Check with sqlite storage
-      start_all()
-      server.wait_for_unit("prosody.service")
-      server.succeed('prosodyctl status | grep "Prosody is running"')
+    testScript = {
+        nodes,
+        ...
+      }: ''
+        # Check with sqlite storage
+        start_all()
+        server.wait_for_unit("prosody.service")
+        server.succeed('prosodyctl status | grep "Prosody is running"')
 
-      server.succeed("create-prosody-users")
-      client.succeed("send-message")
-      server.succeed("delete-prosody-users")
-    '';
-}
+        server.succeed("create-prosody-users")
+        client.succeed("send-message")
+        server.succeed("delete-prosody-users")
+      '';
+  }

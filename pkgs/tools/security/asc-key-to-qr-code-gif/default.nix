@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     ];
   in ''
     substituteInPlace asc-to-gif.sh ${lib.concatStringsSep " " substitutions}
-  '';
+  '' ;
 
   installPhase = ''
     mkdir -p $out/bin

@@ -5,7 +5,8 @@
   pkgs,
   ...
 }:
-let cfg = config.services.ergochat;
+let
+  cfg = config.services.ergochat;
 in {
   options = {
     services.ergochat = {

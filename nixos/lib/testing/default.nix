@@ -27,4 +27,6 @@ let
     ./testScript.nix
   ];
 
-in { inherit evalTest runTest testModules; }
+in {
+  inherit evalTest runTest testModules;
+}

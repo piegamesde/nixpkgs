@@ -114,109 +114,111 @@ let
     meta = baseMeta // { description = "Connection Pool for Psycopg"; };
   };
 
-in buildPythonPackage rec {
-  inherit pname version src;
-  format = "pyproject";
+in
+  buildPythonPackage rec {
+    inherit pname version src;
+    format = "pyproject";
 
-  disabled = pythonOlder "3.7";
+    disabled = pythonOlder "3.7";
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+    outputs = [
+      "out"
+      "doc"
+    ];
 
-  sphinxRoot = "../docs";
+    sphinxRoot = "../docs";
 
-  # Introduce this file necessary for the docs build via environment var
-  LIBPQ_DOCS_FILE = fetchurl {
-    url =
-      "https://raw.githubusercontent.com/postgres/postgres/REL_14_STABLE/doc/src/sgml/libpq.sgml";
-    hash = "sha256-yn09fR9+7zQni8SvTG7BUmYRD7MK7u2arVAznWz2oAw=";
-  };
+    # Introduce this file necessary for the docs build via environment var
+    LIBPQ_DOCS_FILE = fetchurl {
+      url =
+        "https://raw.githubusercontent.com/postgres/postgres/REL_14_STABLE/doc/src/sgml/libpq.sgml";
+      hash = "sha256-yn09fR9+7zQni8SvTG7BUmYRD7MK7u2arVAznWz2oAw=";
+    };
 
-  inherit patches;
+    inherit patches;
 
-  # only move to sourceRoot after patching, makes patching easier
-  postPatch = ''
-    cd psycopg
-  '';
+    # only move to sourceRoot after patching, makes patching easier
+    postPatch = ''
+      cd psycopg
+    '';
 
-  nativeBuildInputs = [
-    furo
-    setuptools
-    shapely
-    sphinx-autodoc-typehints
-    sphinxHook
-  ];
+    nativeBuildInputs = [
+      furo
+      setuptools
+      shapely
+      sphinx-autodoc-typehints
+      sphinxHook
+    ];
 
-  propagatedBuildInputs = [
-    psycopg-c
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+    propagatedBuildInputs = [
+      psycopg-c
+      typing-extensions
+    ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
-  pythonImportsCheck = [
-    "psycopg"
-    "psycopg_c"
-    "psycopg_pool"
-  ];
+    pythonImportsCheck = [
+      "psycopg"
+      "psycopg_c"
+      "psycopg_pool"
+    ];
 
-  passthru.optional-dependencies = {
-    c = [ psycopg-c ];
-    pool = [ psycopg-pool ];
-  };
+    passthru.optional-dependencies = {
+      c = [ psycopg-c ];
+      pool = [ psycopg-pool ];
+    };
 
-  nativeCheckInputs = [
-    anyio
-    pproxy
-    pytest-randomly
-    pytestCheckHook
-    postgresql
-  ] ++ lib.optional (stdenv.isLinux) postgresqlTestHook
-    ++ passthru.optional-dependencies.c ++ passthru.optional-dependencies.pool;
+    nativeCheckInputs = [
+      anyio
+      pproxy
+      pytest-randomly
+      pytestCheckHook
+      postgresql
+    ] ++ lib.optional (stdenv.isLinux) postgresqlTestHook
+      ++ passthru.optional-dependencies.c
+      ++ passthru.optional-dependencies.pool;
 
-  env = {
-    postgresqlEnableTCP = 1;
-    PGUSER = "psycopg";
-  };
+    env = {
+      postgresqlEnableTCP = 1;
+      PGUSER = "psycopg";
+    };
 
-  preCheck = ''
-    cd ..
-  '' + lib.optionalString (stdenv.isLinux) ''
-    export PSYCOPG_TEST_DSN="host=127.0.0.1 user=$PGUSER"
-  '';
+    preCheck = ''
+      cd ..
+    '' + lib.optionalString (stdenv.isLinux) ''
+      export PSYCOPG_TEST_DSN="host=127.0.0.1 user=$PGUSER"
+    '';
 
-  disabledTests = [
-    # don't depend on mypy for tests
-    "test_version"
-    "test_package_version"
-  ];
+    disabledTests = [
+      # don't depend on mypy for tests
+      "test_version"
+      "test_package_version"
+    ];
 
-  disabledTestPaths = [
-    # Network access
-    "tests/test_dns.py"
-    "tests/test_dns_srv.py"
-    # Mypy typing test
-    "tests/test_typing.py"
-    "tests/crdb/test_typing.py"
-  ];
+    disabledTestPaths = [
+      # Network access
+      "tests/test_dns.py"
+      "tests/test_dns_srv.py"
+      # Mypy typing test
+      "tests/test_typing.py"
+      "tests/crdb/test_typing.py"
+    ];
 
-  pytestFlagsArray = [
-    "-o"
-    "cache_dir=$TMPDIR"
-    "-m"
-    "'not timing'"
-  ];
+    pytestFlagsArray = [
+      "-o"
+      "cache_dir=$TMPDIR"
+      "-m"
+      "'not timing'"
+    ];
 
-  postCheck = ''
-    cd ${pname}
-  '';
+    postCheck = ''
+      cd ${pname}
+    '';
 
-  passthru = {
-    c = psycopg-c;
-    pool = psycopg-pool;
-  };
+    passthru = {
+      c = psycopg-c;
+      pool = psycopg-pool;
+    };
 
-  meta = baseMeta // {
-    description = "PostgreSQL database adapter for Python";
-  };
-}
+    meta = baseMeta // {
+      description = "PostgreSQL database adapter for Python";
+    };
+  }

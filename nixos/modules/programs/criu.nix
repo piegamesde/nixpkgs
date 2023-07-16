@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.criu;
+let
+  cfg = config.programs.criu;
 in {
 
   options = {

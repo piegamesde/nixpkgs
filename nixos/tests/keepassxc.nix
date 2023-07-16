@@ -42,7 +42,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let aliceDo = cmd: ''machine.succeed("su - alice -c '${cmd}' >&2 &");'';
+      let
+        aliceDo = cmd: ''machine.succeed("su - alice -c '${cmd}' >&2 &");'';
       in ''
         with subtest("Ensure X starts"):
             start_all()
@@ -79,5 +80,5 @@ import ./make-test-python.nix ({
             machine.send_key("ret")
             # Database is unlocked (doesn't have "[Locked]" in the title anymore)
             machine.wait_for_text("foo.kdbx - KeePassXC")
-      '';
+      '' ;
   })

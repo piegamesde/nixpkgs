@@ -230,5 +230,5 @@ import ./make-test-python.nix ({
                 test(host, "DNSKEY", "example.com", r"DNSSEC key is")
 
         primary.log(primary.succeed("systemd-analyze security knot.service | grep -v '✓'"))
-      '';
-  })
+      '' ;
+  } )

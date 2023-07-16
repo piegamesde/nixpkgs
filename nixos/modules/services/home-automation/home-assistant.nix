@@ -445,8 +445,10 @@ in {
           rm -f "${cfg.configDir}/ui-lovelace.yaml"
           ln -s /etc/home-assistant/ui-lovelace.yaml "${cfg.configDir}/ui-lovelace.yaml"
         '';
-      in (optionalString (cfg.config != null) copyConfig)
-      + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig);
+      in
+        (optionalString (cfg.config != null) copyConfig)
+        + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig)
+      ;
       environment.PYTHONPATH = package.pythonPath;
       serviceConfig = let
         # List of capabilities to equip home-assistant with, depending on configured components
@@ -606,7 +608,9 @@ in {
           ];
           value = attrByPath cfgPath [ ] cfg;
           allowPaths = if isList value then value else singleton value;
-        in [ "${cfg.configDir}" ] ++ allowPaths;
+        in
+          [ "${cfg.configDir}" ] ++ allowPaths
+        ;
         RestrictAddressFamilies = [
           "AF_INET"
           "AF_INET6"
@@ -625,7 +629,7 @@ in {
           "~@privileged"
         ] ++ optionals (any useComponent componentsUsingPing) [ "capset" ];
         UMask = "0077";
-      };
+      } ;
       path = [ "/run/wrappers" # needed for ping
         ];
     };

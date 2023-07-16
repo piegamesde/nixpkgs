@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
       --subst-var-by CMAKE_INSTALL_INCLUDEDIR "include" \
       --subst-var-by TBB_VERSION "${version}" \
       --subst-var-by TBB_LIB_NAME "tbb"
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Intel Thread Building Blocks C++ Library";

@@ -147,9 +147,11 @@ rec {
       };
 
       config = {
-        source = mkIf (config.text != null)
-          (let name' = "initrd-" + baseNameOf name;
-          in mkDerivedConfig options.text (pkgs.writeText name'));
+        source = mkIf (config.text != null) (let
+          name' = "initrd-" + baseNameOf name;
+        in
+          mkDerivedConfig options.text (pkgs.writeText name')
+        );
       };
     }));
 }

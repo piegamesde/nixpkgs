@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.qemuGuest;
+let
+  cfg = config.services.qemuGuest;
 in {
 
   options.services.qemuGuest = {

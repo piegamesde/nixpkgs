@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     ${executablePrefix}/lib/libgphoto2/print-camera-list \
         hwdb version 201 group camera \
         >$out/lib/udev/hwdb.d/20-gphoto.hwdb
-  '';
+  '' ;
 
   meta = {
     homepage = "http://www.gphoto.org/proj/libgphoto2/";

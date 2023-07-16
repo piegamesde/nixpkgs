@@ -6,7 +6,8 @@
 
 with lib;
 
-let cfg = config.programs.fuse;
+let
+  cfg = config.programs.fuse;
 in {
   meta.maintainers = with maintainers; [ primeos ];
 

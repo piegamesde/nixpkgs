@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.mlvwm;
+let
+  cfg = config.services.xserver.windowManager.mlvwm;
 
 in {
 

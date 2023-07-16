@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.collectd;
+let
+  cfg = config.services.prometheus.exporters.collectd;
 in {
   port = 9103;
   extraOpts = {
@@ -93,5 +94,5 @@ in {
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
     };
-  };
+  } ;
 }

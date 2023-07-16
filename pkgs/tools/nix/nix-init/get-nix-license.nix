@@ -49,11 +49,12 @@ let
     (mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'')
       (deprecatedAliases // licenseMap)));
 
-in writeText "get-nix-license.rs" ''
-  pub fn get_nix_license(license: &str) -> Option<&'static str> {
-      match license {
-          ${arms}
-          _ => None,
-      }
-  }
-''
+in
+  writeText "get-nix-license.rs" ''
+    pub fn get_nix_license(license: &str) -> Option<&'static str> {
+        match license {
+            ${arms}
+            _ => None,
+        }
+    }
+  ''

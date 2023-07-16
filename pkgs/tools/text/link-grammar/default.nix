@@ -69,4 +69,5 @@ let
     };
   };
 
-in link-grammar
+in
+  link-grammar

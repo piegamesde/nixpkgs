@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(
       --suffix PATH : ${depsPath}
     )
-  '';
+  '' ;
 
   meta = with lib; {
     description = "A simple web browser based on WebKitGTK";

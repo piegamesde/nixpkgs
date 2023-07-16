@@ -47,7 +47,9 @@ let
         patterns
       ] ++ params);
       formattedSections = lib.concatStringsSep ";" sections;
-    in "backend=${formattedSections}";
+    in
+      "backend=${formattedSections}"
+  ;
 
   # renderFrontend :: FrontendSubmodule -> String
   renderFrontend = frontend:
@@ -62,7 +64,9 @@ let
 
       sections = [ host ] ++ params1;
       formattedSections = lib.concatStringsSep ";" sections;
-    in "frontend=${formattedSections}";
+    in
+      "frontend=${formattedSections}"
+  ;
 
   configurationFile = pkgs.writeText "nghttpx.conf" ''
     ${lib.optionalString (null != cfg.tls) ("private-key-file=" + cfg.tls.key)}

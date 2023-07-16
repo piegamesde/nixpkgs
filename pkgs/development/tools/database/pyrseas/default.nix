@@ -25,31 +25,32 @@ let
     ];
   };
 
-in python3Packages.buildPythonApplication rec {
-  pname = "pyrseas";
-  version = "0.9.1";
+in
+  python3Packages.buildPythonApplication rec {
+    pname = "pyrseas";
+    version = "0.9.1";
 
-  src = fetchFromGitHub {
-    owner = "perseas";
-    repo = "Pyrseas";
-    rev = version;
-    sha256 = "sha256-+MxnxvbLMxK1Ak+qKpKe3GHbzzC+XHO0eR7rl4ON9H4=";
-  };
+    src = fetchFromGitHub {
+      owner = "perseas";
+      repo = "Pyrseas";
+      rev = version;
+      sha256 = "sha256-+MxnxvbLMxK1Ak+qKpKe3GHbzzC+XHO0eR7rl4ON9H4=";
+    };
 
-  propagatedBuildInputs = with python3Packages; [
-    psycopg2
-    pytest
-    pyyaml
-    pgdbconn
-  ];
+    propagatedBuildInputs = with python3Packages; [
+      psycopg2
+      pytest
+      pyyaml
+      pgdbconn
+    ];
 
-  # The tests are impure (they try to access a PostgreSQL server)
-  doCheck = false;
+    # The tests are impure (they try to access a PostgreSQL server)
+    doCheck = false;
 
-  meta = {
-    description = "A declarative language to describe PostgreSQL databases";
-    homepage = "https://perseas.github.io/";
-    license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ pmeunier ];
-  };
-}
+    meta = {
+      description = "A declarative language to describe PostgreSQL databases";
+      homepage = "https://perseas.github.io/";
+      license = lib.licenses.bsd3;
+      maintainers = with lib.maintainers; [ pmeunier ];
+    };
+  }

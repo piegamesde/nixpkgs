@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.infinoted;
+let
+  cfg = config.services.infinoted;
 in {
   options.services.infinoted = {
     enable = mkEnableOption (lib.mdDoc "infinoted");

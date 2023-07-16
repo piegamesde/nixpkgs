@@ -115,7 +115,9 @@ in {
             "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}" // {
               description = "Minecraft UUID";
             };
-        in types.attrsOf minecraftUUID;
+        in
+          types.attrsOf minecraftUUID
+        ;
         default = { };
         description = lib.mdDoc ''
           Whitelisted players, only has an effect when

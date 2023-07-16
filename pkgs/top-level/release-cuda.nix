@@ -52,4 +52,5 @@ let
     python3.pkgs.jaxlib = linux;
   }) // (genAttrs packageSets evalPackageSet));
 
-in jobs
+in
+  jobs

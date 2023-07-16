@@ -52,7 +52,7 @@ import ./make-test-python.nix {
         in [
           pkgs.opensmtpd
           checkMailLanded
-        ];
+        ] ;
       };
   };
 

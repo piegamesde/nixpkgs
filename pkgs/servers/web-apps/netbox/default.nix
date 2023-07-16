@@ -4,7 +4,8 @@
   callPackage,
   fetchpatch,
 }:
-let generic = import ./generic.nix;
+let
+  generic = import ./generic.nix;
 in {
   netbox_3_3 = callPackage generic {
     version = "3.3.10";

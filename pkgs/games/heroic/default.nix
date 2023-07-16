@@ -35,14 +35,15 @@ mkYarnPackage rec {
     rm deps/heroic/node_modules
     ln -s ../../node_modules deps/heroic/
     ${yarnCmd} vite build
-  '';
+  '' ;
 
   # Disable bundling into a tar archive.
   doDist = false;
 
   # --disable-gpu-compositing is to work around upstream bug
   # https://github.com/electron/electron/issues/32317
-  postInstall = let deps = "$out/libexec/heroic/deps/heroic";
+  postInstall = let
+    deps = "$out/libexec/heroic/deps/heroic";
   in ''
     rm -rf "${deps}/public/bin" "${deps}/build/bin"
     mkdir -p "${deps}/build/bin/linux"
@@ -58,7 +59,7 @@ mkYarnPackage rec {
     mkdir -p "$out/share/applications" "$out/share/icons/hicolor/512x512/apps"
     ln -s "${deps}/flatpak/com.heroicgameslauncher.hgl.desktop" "$out/share/applications"
     ln -s "${deps}/flatpak/com.heroicgameslauncher.hgl.png" "$out/share/icons/hicolor/512x512/apps"
-  '';
+  '' ;
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

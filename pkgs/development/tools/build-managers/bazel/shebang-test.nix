@@ -46,4 +46,5 @@ let
     buildInputs = [ unzip ];
   };
 
-in testBazel
+in
+  testBazel

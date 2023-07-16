@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.tautulli;
+let
+  cfg = config.services.tautulli;
 in {
   imports = [ (mkRenamedOptionModule [
     "services"

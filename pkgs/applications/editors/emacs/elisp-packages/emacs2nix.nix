@@ -8,14 +8,15 @@ let
     sha256 = "sha256-qnOYDYHAQ+r5eegKP9GqHz5R2ig96B2W7M+uYa1ti9M=";
     fetchSubmodules = true;
   };
-in pkgs.mkShell {
+in
+  pkgs.mkShell {
 
-  packages = [ pkgs.bash ];
+    packages = [ pkgs.bash ];
 
-  EMACS2NIX = src;
+    EMACS2NIX = src;
 
-  shellHook = ''
-    export PATH=$PATH:${src}
-  '';
+    shellHook = ''
+      export PATH=$PATH:${src}
+    '';
 
-}
+  }

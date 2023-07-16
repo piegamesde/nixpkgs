@@ -40,7 +40,9 @@ in {
           int
           bool
         ];
-      in attrsOf (coercedTo atom toList (listOf atom));
+      in
+        attrsOf (coercedTo atom toList (listOf atom))
+      ;
       example = literalExpression ''
         {
           bind = ":5353 -no-rule -group example";

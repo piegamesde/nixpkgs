@@ -119,4 +119,5 @@ let
         "test_assertEqual"
       ];
     };
-in core
+in
+  core

@@ -263,7 +263,7 @@ in {
           PrivateDevices = "true";
           MemoryDenyWriteExecute = "true";
         };
-      }))) eachBitcoind;
+      } ))) eachBitcoind;
 
     systemd.tmpfiles.rules = flatten (mapAttrsToList
       (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])

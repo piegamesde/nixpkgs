@@ -11,12 +11,13 @@ let
     configure.packages.all.start = [ nvim-treesitter ];
   };
 
-in mkShell {
-  packages = [
-    neovim
-    nurl
-    python3
-  ];
+in
+  mkShell {
+    packages = [
+      neovim
+      nurl
+      python3
+    ];
 
-  NVIM_TREESITTER = nvim-treesitter;
-}
+    NVIM_TREESITTER = nvim-treesitter;
+  }

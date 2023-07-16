@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       ps.lark
       ps.requests
     ]);
-  in [ "--with-python=${pythonEnv}/bin/python3" ];
+  in [ "--with-python=${pythonEnv}/bin/python3" ] ;
 
   preConfigure = ''
     patchShebangs test/

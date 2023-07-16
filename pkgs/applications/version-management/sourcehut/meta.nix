@@ -39,47 +39,48 @@ let
     gqlgenVersion = "0.17.20";
   });
 
-in buildPythonPackage rec {
-  pname = "metasrht";
-  inherit version src;
+in
+  buildPythonPackage rec {
+    pname = "metasrht";
+    inherit version src;
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace "all: api" ""
-  '';
+    postPatch = ''
+      substituteInPlace Makefile \
+        --replace "all: api" ""
+    '';
 
-  propagatedBuildInputs = [
-    pgpy
-    srht
-    redis
-    bcrypt
-    qrcode
-    stripe
-    zxcvbn
-    alembic
-    pystache
-    sshpubkeys
-    weasyprint
-    prometheus-client
-    dnspython
-  ];
+    propagatedBuildInputs = [
+      pgpy
+      srht
+      redis
+      bcrypt
+      qrcode
+      stripe
+      zxcvbn
+      alembic
+      pystache
+      sshpubkeys
+      weasyprint
+      prometheus-client
+      dnspython
+    ];
 
-  preBuild = ''
-    export PKGVER=${version}
-    export SRHT_PATH=${srht}/${python.sitePackages}/srht
-  '';
+    preBuild = ''
+      export PKGVER=${version}
+      export SRHT_PATH=${srht}/${python.sitePackages}/srht
+    '';
 
-  postInstall = ''
-    mkdir -p $out/bin
-    ln -s ${metasrht-api}/bin/api $out/bin/metasrht-api
-  '';
+    postInstall = ''
+      mkdir -p $out/bin
+      ln -s ${metasrht-api}/bin/api $out/bin/metasrht-api
+    '';
 
-  pythonImportsCheck = [ "metasrht" ];
+    pythonImportsCheck = [ "metasrht" ];
 
-  meta = with lib; {
-    homepage = "https://git.sr.ht/~sircmpwn/meta.sr.ht";
-    description = "Account management service for the sr.ht network";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ eadwu ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://git.sr.ht/~sircmpwn/meta.sr.ht";
+      description = "Account management service for the sr.ht network";
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [ eadwu ];
+    };
+  }

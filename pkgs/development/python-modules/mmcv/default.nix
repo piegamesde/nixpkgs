@@ -47,86 +47,87 @@ let
     paths = cuda-common-redist;
   };
 
-in buildPythonPackage rec {
-  pname = "mmcv";
-  version = "1.7.1";
-  format = "setuptools";
+in
+  buildPythonPackage rec {
+    pname = "mmcv";
+    version = "1.7.1";
+    format = "setuptools";
 
-  disabled = pythonOlder "3.6";
+    disabled = pythonOlder "3.6";
 
-  src = fetchFromGitHub {
-    owner = "open-mmlab";
-    repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-b4MLBPNRCcPq1osUvqo71PCWVX7lOjAH+dXttd4ZapU";
-  };
+    src = fetchFromGitHub {
+      owner = "open-mmlab";
+      repo = pname;
+      rev = "refs/tags/v${version}";
+      hash = "sha256-b4MLBPNRCcPq1osUvqo71PCWVX7lOjAH+dXttd4ZapU";
+    };
 
-  preConfigure = ''
-    export MMCV_WITH_OPS=1
-  '' + lib.optionalString cudaSupport ''
-    export CC=${backendStdenv.cc}/bin/cc
-    export CXX=${backendStdenv.cc}/bin/c++
-    export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
-    export FORCE_CUDA=1
-  '';
+    preConfigure = ''
+      export MMCV_WITH_OPS=1
+    '' + lib.optionalString cudaSupport ''
+      export CC=${backendStdenv.cc}/bin/cc
+      export CXX=${backendStdenv.cc}/bin/c++
+      export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
+      export FORCE_CUDA=1
+    '';
 
-  postPatch = ''
-    substituteInPlace setup.py --replace "cpu_use = 4" "cpu_use = $NIX_BUILD_CORES"
-  '';
+    postPatch = ''
+      substituteInPlace setup.py --replace "cpu_use = 4" "cpu_use = $NIX_BUILD_CORES"
+    '';
 
-  preCheck = ''
-    # remove the conflicting source directory
-    rm -rf mmcv
-  '';
+    preCheck = ''
+      # remove the conflicting source directory
+      rm -rf mmcv
+    '';
 
-  # test_cnn test_ops really requires gpus to be useful.
-  # some of the tests take exceedingly long time.
-  # the rest of the tests are disabled due to sandbox env.
-  disabledTests = [
-    "test_cnn"
-    "test_ops"
-    "test_fileclient"
-    "test_load_model_zoo"
-    "test_processing"
-    "test_checkpoint"
-    "test_hub"
-    "test_reader"
-  ];
+    # test_cnn test_ops really requires gpus to be useful.
+    # some of the tests take exceedingly long time.
+    # the rest of the tests are disabled due to sandbox env.
+    disabledTests = [
+      "test_cnn"
+      "test_ops"
+      "test_fileclient"
+      "test_load_model_zoo"
+      "test_processing"
+      "test_checkpoint"
+      "test_hub"
+      "test_reader"
+    ];
 
-  nativeBuildInputs = [
-    ninja
-    which
-  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
+    nativeBuildInputs = [
+      ninja
+      which
+    ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
 
-  buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];
+    buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    torchvision
-    lmdb
-    onnx
-    onnxruntime
-    scipy
-    pyturbojpeg
-    tifffile
-  ];
+    nativeCheckInputs = [
+      pytestCheckHook
+      torchvision
+      lmdb
+      onnx
+      onnxruntime
+      scipy
+      pyturbojpeg
+      tifffile
+    ];
 
-  propagatedBuildInputs = [
-    torch
-    opencv4
-    yapf
-    packaging
-    pillow
-    addict
-  ];
+    propagatedBuildInputs = [
+      torch
+      opencv4
+      yapf
+      packaging
+      pillow
+      addict
+    ];
 
-  pythonImportsCheck = [ "mmcv" ];
+    pythonImportsCheck = [ "mmcv" ];
 
-  meta = with lib; {
-    description = "A Foundational Library for Computer Vision Research";
-    homepage = "https://github.com/open-mmlab/mmcv";
-    changelog = "https://github.com/open-mmlab/mmcv/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ rxiao ];
-  };
-}
+    meta = with lib; {
+      description = "A Foundational Library for Computer Vision Research";
+      homepage = "https://github.com/open-mmlab/mmcv";
+      changelog = "https://github.com/open-mmlab/mmcv/releases/tag/v${version}";
+      license = with licenses; [ asl20 ];
+      maintainers = with maintainers; [ rxiao ];
+    };
+  }

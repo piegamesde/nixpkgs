@@ -407,8 +407,10 @@ in {
       integerSimpleGhcNames =
         pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes)
         (pkgs.lib.attrNames compiler);
-    in pkgs.recurseIntoAttrs (pkgs.lib.genAttrs integerSimpleGhcNames
-      (name: compiler.${name}.override { enableIntegerSimple = true; }));
+    in
+      pkgs.recurseIntoAttrs (pkgs.lib.genAttrs integerSimpleGhcNames
+        (name: compiler.${name}.override { enableIntegerSimple = true; }))
+    ;
 
     # Starting from GHC 9, integer-{simple,gmp} is replaced by ghc-bignum
     # with "native" and "gmp" backends.
@@ -416,15 +418,18 @@ in {
       nativeBignumGhcNames =
         pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes)
         (pkgs.lib.attrNames compiler);
-    in pkgs.recurseIntoAttrs (pkgs.lib.genAttrs nativeBignumGhcNames
-      (name: compiler.${name}.override { enableNativeBignum = true; }));
+    in
+      pkgs.recurseIntoAttrs (pkgs.lib.genAttrs nativeBignumGhcNames
+        (name: compiler.${name}.override { enableNativeBignum = true; }))
+    ;
   };
 
   # Default overrides that are applied to all package sets.
   packageOverrides = self: super: { };
 
   # Always get compilers from `buildPackages`
-  packages = let bh = buildPackages.haskell;
+  packages = let
+    bh = buildPackages.haskell;
   in rec {
 
     ghc865Binary = callPackage ../development/haskell-modules {
@@ -598,23 +603,27 @@ in {
       integerSimpleGhcNames =
         pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes)
         (pkgs.lib.attrNames packages);
-    in pkgs.lib.genAttrs integerSimpleGhcNames (name:
-      packages.${name}.override (oldAttrs: {
-        ghc = bh.compiler.integer-simple.${name};
-        buildHaskellPackages = bh.packages.integer-simple.${name};
-        overrides =
-          pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { }))
-          (_: _: { integer-simple = null; });
-      }));
+    in
+      pkgs.lib.genAttrs integerSimpleGhcNames (name:
+        packages.${name}.override (oldAttrs: {
+          ghc = bh.compiler.integer-simple.${name};
+          buildHaskellPackages = bh.packages.integer-simple.${name};
+          overrides =
+            pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { }))
+            (_: _: { integer-simple = null; });
+        }))
+    ;
 
     native-bignum = let
       nativeBignumGhcNames =
         pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes)
         (pkgs.lib.attrNames compiler);
-    in pkgs.lib.genAttrs nativeBignumGhcNames (name:
-      packages.${name}.override {
-        ghc = bh.compiler.native-bignum.${name};
-        buildHaskellPackages = bh.packages.native-bignum.${name};
-      });
-  };
+    in
+      pkgs.lib.genAttrs nativeBignumGhcNames (name:
+        packages.${name}.override {
+          ghc = bh.compiler.native-bignum.${name};
+          buildHaskellPackages = bh.packages.native-bignum.${name};
+        })
+    ;
+  } ;
 }

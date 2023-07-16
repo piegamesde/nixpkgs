@@ -171,8 +171,8 @@ let
         keycloak.succeed(
             "curl -sSf -H @auth_header '${frontendUrl}/realms/${realm.realm}/protocol/openid-connect/userinfo' | jq -f ${jqCheckUserinfo}"
         )
-      '';
-    });
+      '' ;
+    } );
 in {
   postgres = keycloakTest { databaseType = "postgresql"; };
   mariadb = keycloakTest { databaseType = "mariadb"; };

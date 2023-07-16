@@ -10,12 +10,15 @@ stdenv.mkDerivation rec {
   version = "1.9.19";
   builder = ./builder.sh;
 
-  src = let versionSnakeCase = builtins.replaceStrings [ "." ] [ "_" ] version;
-  in fetchurl {
-    url =
-      "https://github.com/eclipse/org.aspectj/releases/download/V${versionSnakeCase}/aspectj-${version}.jar";
-    sha256 = "sha256-Oujyg05yvtcyfLmqonc++GX9AyFKwfIzITOHDz0px0M=";
-  };
+  src = let
+    versionSnakeCase = builtins.replaceStrings [ "." ] [ "_" ] version;
+  in
+    fetchurl {
+      url =
+        "https://github.com/eclipse/org.aspectj/releases/download/V${versionSnakeCase}/aspectj-${version}.jar";
+      sha256 = "sha256-Oujyg05yvtcyfLmqonc++GX9AyFKwfIzITOHDz0px0M=";
+    }
+  ;
 
   inherit jre;
   buildInputs = [ jre ];

@@ -154,4 +154,4 @@ import ./make-test-python.nix ({
           eve.sleep(1)
           eve.fail("grep rhubarb /tmp/log")
     '';
-  })
+  } )

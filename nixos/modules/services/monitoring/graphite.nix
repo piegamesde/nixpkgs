@@ -60,7 +60,9 @@ let
       cenv = pkgs.python3.buildEnv.override {
         extraLibs = [ pkgs.python3Packages.carbon ];
       };
-    in "${cenv}/${pkgs.python3.sitePackages}";
+    in
+      "${cenv}/${pkgs.python3.sitePackages}"
+    ;
     GRAPHITE_ROOT = dataDir;
     GRAPHITE_CONF_DIR = configDir;
     GRAPHITE_STORAGE_DIR = dataDir;
@@ -300,7 +302,8 @@ in {
 
   config = mkMerge [
     (mkIf cfg.carbon.enableCache {
-      systemd.services.carbonCache = let name = "carbon-cache";
+      systemd.services.carbonCache = let
+        name = "carbon-cache";
       in {
         description = "Graphite Data Storage Backend";
         wantedBy = [ "multi-user.target" ];
@@ -319,11 +322,12 @@ in {
           install -dm0700 -o graphite -g graphite ${cfg.dataDir}
           install -dm0700 -o graphite -g graphite ${cfg.dataDir}/whisper
         '';
-      };
+      } ;
     })
 
     (mkIf cfg.carbon.enableAggregator {
-      systemd.services.carbonAggregator = let name = "carbon-aggregator";
+      systemd.services.carbonAggregator = let
+        name = "carbon-aggregator";
       in {
         enable = cfg.carbon.enableAggregator;
         description = "Carbon Data Aggregator";
@@ -338,11 +342,12 @@ in {
           Group = "graphite";
           PIDFile = "/run/${name}/${name}.pid";
         };
-      };
+      } ;
     })
 
     (mkIf cfg.carbon.enableRelay {
-      systemd.services.carbonRelay = let name = "carbon-relay";
+      systemd.services.carbonRelay = let
+        name = "carbon-relay";
       in {
         description = "Carbon Data Relay";
         wantedBy = [ "multi-user.target" ];
@@ -356,7 +361,7 @@ in {
           Group = "graphite";
           PIDFile = "/run/${name}/${name}.pid";
         };
-      };
+      } ;
     })
 
     (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator
@@ -376,12 +381,14 @@ in {
               extraLibs = [ pkgs.python3Packages.graphite-web ];
             };
             penvPack = "${penv}/${pkgs.python3.sitePackages}";
-          in concatStringsSep ":" [
-            "${graphiteLocalSettingsDir}"
-            "${penvPack}"
-            # explicitly adding pycairo in path because it cannot be imported via buildEnv
-            "${pkgs.python3Packages.pycairo}/${pkgs.python3.sitePackages}"
-          ];
+          in
+            concatStringsSep ":" [
+              "${graphiteLocalSettingsDir}"
+              "${penvPack}"
+              # explicitly adding pycairo in path because it cannot be imported via buildEnv
+              "${pkgs.python3Packages.pycairo}/${pkgs.python3.sitePackages}"
+            ]
+          ;
           DJANGO_SETTINGS_MODULE = "graphite.settings";
           GRAPHITE_SETTINGS_MODULE = "graphite_local_settings";
           GRAPHITE_CONF_DIR = configDir;

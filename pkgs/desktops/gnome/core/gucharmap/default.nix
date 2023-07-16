@@ -44,73 +44,74 @@ let
       unicode-character-database
     ];
   };
-in stdenv.mkDerivation rec {
-  pname = "gucharmap";
-  version = "15.0.4";
+in
+  stdenv.mkDerivation rec {
+    pname = "gucharmap";
+    version = "15.0.4";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "devdoc"
-  ];
+    outputs = [
+      "out"
+      "lib"
+      "dev"
+      "devdoc"
+    ];
 
-  src = fetchFromGitLab {
-    domain = "gitlab.gnome.org";
-    owner = "GNOME";
-    repo = "gucharmap";
-    rev = version;
-    sha256 = "sha256-lfWIaAr5FGWvDkNLOPe19hVQiFarbYVXwM78jZc5FFk=";
-  };
+    src = fetchFromGitLab {
+      domain = "gitlab.gnome.org";
+      owner = "GNOME";
+      repo = "gucharmap";
+      rev = version;
+      sha256 = "sha256-lfWIaAr5FGWvDkNLOPe19hVQiFarbYVXwM78jZc5FFk=";
+    };
 
-  strictDeps = true;
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    wrapGAppsHook
-    unzip
-    intltool
-    itstool
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_412
-    yelp-tools
-    libxml2
-    desktop-file-utils
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+    strictDeps = true;
+    nativeBuildInputs = [
+      meson
+      ninja
+      pkg-config
+      python3
+      wrapGAppsHook
+      unzip
+      intltool
+      itstool
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_412
+      yelp-tools
+      libxml2
+      desktop-file-utils
+      gobject-introspection
+    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+      stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [
-    gtk3
-    glib
-    gsettings-desktop-schemas
-    pcre2
-  ];
+    buildInputs = [
+      gtk3
+      glib
+      gsettings-desktop-schemas
+      pcre2
+    ];
 
-  mesonFlags = [
-    "-Ducd_path=${ucd}/share/unicode"
-    "-Dvapi=false"
-  ];
+    mesonFlags = [
+      "-Ducd_path=${ucd}/share/unicode"
+      "-Dvapi=false"
+    ];
 
-  doCheck = true;
+    doCheck = true;
 
-  postPatch = ''
-    patchShebangs \
-      data/meson_desktopfile.py \
-      gucharmap/gen-guch-unicode-tables.pl
-  '';
+    postPatch = ''
+      patchShebangs \
+        data/meson_desktopfile.py \
+        gucharmap/gen-guch-unicode-tables.pl
+    '';
 
-  passthru = { updateScript = gitUpdater { }; };
+    passthru = { updateScript = gitUpdater { }; };
 
-  meta = with lib; {
-    description =
-      "GNOME Character Map, based on the Unicode Character Database";
-    homepage = "https://wiki.gnome.org/Apps/Gucharmap";
-    license = licenses.gpl3;
-    maintainers = teams.gnome.members;
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description =
+        "GNOME Character Map, based on the Unicode Character Database";
+      homepage = "https://wiki.gnome.org/Apps/Gucharmap";
+      license = licenses.gpl3;
+      maintainers = teams.gnome.members;
+      platforms = platforms.linux;
+    };
+  }

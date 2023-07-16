@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.ratpoison;
+let
+  cfg = config.services.xserver.windowManager.ratpoison;
 in {
   ###### interface
   options = {

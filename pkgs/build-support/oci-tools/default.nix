@@ -120,11 +120,13 @@
             inherit destination type source options;
           }) sysMounts;
       });
-    in runCommand "join" { } ''
-      set -o pipefail
-      mkdir -p $out/rootfs/{dev,proc,sys}
-      cp ${config} $out/config.json
-      xargs tar c < ${writeReferencesToFile args} | tar -xC $out/rootfs/
-    '';
+    in
+      runCommand "join" { } ''
+        set -o pipefail
+        mkdir -p $out/rootfs/{dev,proc,sys}
+        cp ${config} $out/config.json
+        xargs tar c < ${writeReferencesToFile args} | tar -xC $out/rootfs/
+      ''
+  ;
 }
 

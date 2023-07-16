@@ -104,50 +104,51 @@ let
     outputHash = "sha256-syceJMUEknBDCHK8eGs6rUU3IQn+HnQfURfCrDxYPa9=";
   };
 
-in makePackage {
-  pname = "openjfx-modular-sdk";
+in
+  makePackage {
+    pname = "openjfx-modular-sdk";
 
-  gradleProperties = ''
-    COMPILE_MEDIA = ${lib.boolToString withMedia}
-    COMPILE_WEBKIT = ${lib.boolToString withWebKit}
-  '';
+    gradleProperties = ''
+      COMPILE_MEDIA = ${lib.boolToString withMedia}
+      COMPILE_WEBKIT = ${lib.boolToString withWebKit}
+    '';
 
-  preBuild = ''
-    swtJar="$(find ${deps} -name org.eclipse.swt\*.jar)"
-    substituteInPlace build.gradle \
-      --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }' \
-      --replace 'name: SWT_FILE_NAME' "files('$swtJar')"
-  '';
+    preBuild = ''
+      swtJar="$(find ${deps} -name org.eclipse.swt\*.jar)"
+      substituteInPlace build.gradle \
+        --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }' \
+        --replace 'name: SWT_FILE_NAME' "files('$swtJar')"
+    '';
 
-  installPhase = ''
-    cp -r build/modular-sdk $out
-  '';
+    installPhase = ''
+      cp -r build/modular-sdk $out
+    '';
 
-  stripDebugList = [ "." ];
+    stripDebugList = [ "." ];
 
-  postFixup = ''
-    # Remove references to bootstrap.
-    find "$out" -name \*.so | while read lib; do
-      new_refs="$(patchelf --print-rpath "$lib" | sed -E 's,:?${openjdk11-bootstrap}[^:]*,,')"
-      patchelf --set-rpath "$new_refs" "$lib"
-    done
+    postFixup = ''
+      # Remove references to bootstrap.
+      find "$out" -name \*.so | while read lib; do
+        new_refs="$(patchelf --print-rpath "$lib" | sed -E 's,:?${openjdk11-bootstrap}[^:]*,,')"
+        patchelf --set-rpath "$new_refs" "$lib"
+      done
 
-    # Remove licenses, otherwise they may conflict with the ones included in the openjdk
-    rm -rf $out/modules_legal/*
-  '';
+      # Remove licenses, otherwise they may conflict with the ones included in the openjdk
+      rm -rf $out/modules_legal/*
+    '';
 
-  disallowedReferences = [ openjdk11-bootstrap ];
+    disallowedReferences = [ openjdk11-bootstrap ];
 
-  passthru.deps = deps;
+    passthru.deps = deps;
 
-  # Uses a lot of RAM, OOMs otherwise
-  requiredSystemFeatures = [ "big-parallel" ];
+    # Uses a lot of RAM, OOMs otherwise
+    requiredSystemFeatures = [ "big-parallel" ];
 
-  meta = with lib; {
-    homepage = "http://openjdk.java.net/projects/openjfx/";
-    license = licenses.gpl2;
-    description = "The next-generation Java client toolkit";
-    maintainers = with maintainers; [ abbradar ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      homepage = "http://openjdk.java.net/projects/openjfx/";
+      license = licenses.gpl2;
+      description = "The next-generation Java client toolkit";
+      maintainers = with maintainers; [ abbradar ];
+      platforms = [ "x86_64-linux" ];
+    };
+  }

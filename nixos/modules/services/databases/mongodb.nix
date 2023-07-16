@@ -157,42 +157,44 @@ in {
           enableAuth = false;
           bind_ip = "127.0.0.1";
         };
-      in ''
-        rm ${cfg.dbpath}/mongod.lock || true
-        if ! test -e ${cfg.dbpath}; then
-            install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
-            # See postStart!
-            touch ${cfg.dbpath}/.first_startup
-        fi
-        if ! test -e ${cfg.pidFile}; then
-            install -D -o ${cfg.user} /dev/null ${cfg.pidFile}
-        fi '' + lib.optionalString cfg.enableAuth ''
-
-          if ! test -e "${cfg.dbpath}/.auth_setup_complete"; then
-            systemd-run --unit=mongodb-for-setup --uid=${cfg.user} ${mongodb}/bin/mongod --config ${
-              mongoCnf cfg_
-            }
-            # wait for mongodb
-            while ! ${mongodb}/bin/mongo --eval "db.version()" > /dev/null 2>&1; do sleep 0.1; done
-
-          ${mongodb}/bin/mongo <<EOF
-            use admin
-            db.createUser(
-              {
-                user: "root",
-                pwd: "${cfg.initialRootPassword}",
-                roles: [
-                  { role: "userAdminAnyDatabase", db: "admin" },
-                  { role: "dbAdminAnyDatabase", db: "admin" },
-                  { role: "readWriteAnyDatabase", db: "admin" }
-                ]
-              }
-            )
-          EOF
-            touch "${cfg.dbpath}/.auth_setup_complete"
-            systemctl stop mongodb-for-setup
+      in
+        ''
+          rm ${cfg.dbpath}/mongod.lock || true
+          if ! test -e ${cfg.dbpath}; then
+              install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
+              # See postStart!
+              touch ${cfg.dbpath}/.first_startup
           fi
-        '';
+          if ! test -e ${cfg.pidFile}; then
+              install -D -o ${cfg.user} /dev/null ${cfg.pidFile}
+          fi '' + lib.optionalString cfg.enableAuth ''
+
+            if ! test -e "${cfg.dbpath}/.auth_setup_complete"; then
+              systemd-run --unit=mongodb-for-setup --uid=${cfg.user} ${mongodb}/bin/mongod --config ${
+                mongoCnf cfg_
+              }
+              # wait for mongodb
+              while ! ${mongodb}/bin/mongo --eval "db.version()" > /dev/null 2>&1; do sleep 0.1; done
+
+            ${mongodb}/bin/mongo <<EOF
+              use admin
+              db.createUser(
+                {
+                  user: "root",
+                  pwd: "${cfg.initialRootPassword}",
+                  roles: [
+                    { role: "userAdminAnyDatabase", db: "admin" },
+                    { role: "dbAdminAnyDatabase", db: "admin" },
+                    { role: "readWriteAnyDatabase", db: "admin" }
+                  ]
+                }
+              )
+            EOF
+              touch "${cfg.dbpath}/.auth_setup_complete"
+              systemctl stop mongodb-for-setup
+            fi
+          ''
+      ;
       postStart = ''
         if test -e "${cfg.dbpath}/.first_startup"; then
           ${

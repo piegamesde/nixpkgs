@@ -17,33 +17,34 @@ let
     sha256 = "1icz5h6p3pfj7my5gi7wxpflrb8c902dqa17f9w424njilnpyrbk";
   };
 
-in buildDunePackage rec {
-  pname = "ppx_deriving_yojson";
-  inherit (param) version;
+in
+  buildDunePackage rec {
+    pname = "ppx_deriving_yojson";
+    inherit (param) version;
 
-  minimalOCamlVersion = "4.07";
-  duneVersion = "3";
+    minimalOCamlVersion = "4.07";
+    duneVersion = "3";
 
-  src = fetchFromGitHub {
-    owner = "ocaml-ppx";
-    repo = "ppx_deriving_yojson";
-    rev = "v${version}";
-    inherit (param) sha256;
-  };
+    src = fetchFromGitHub {
+      owner = "ocaml-ppx";
+      repo = "ppx_deriving_yojson";
+      rev = "v${version}";
+      inherit (param) sha256;
+    };
 
-  propagatedBuildInputs = [
-    ppxlib
-    ppx_deriving
-    yojson
-  ];
+    propagatedBuildInputs = [
+      ppxlib
+      ppx_deriving
+      yojson
+    ];
 
-  doCheck = true;
-  checkInputs = [ ounit ];
+    doCheck = true;
+    checkInputs = [ ounit ];
 
-  meta = {
-    description = "A Yojson codec generator for OCaml >= 4.04";
-    inherit (src.meta) homepage;
-    license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
-  };
-}
+    meta = {
+      description = "A Yojson codec generator for OCaml >= 4.04";
+      inherit (src.meta) homepage;
+      license = lib.licenses.mit;
+      maintainers = [ lib.maintainers.vbgl ];
+    };
+  }

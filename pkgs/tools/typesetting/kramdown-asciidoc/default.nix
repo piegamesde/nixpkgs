@@ -34,4 +34,5 @@ let
       platforms = platforms.unix;
     };
   };
-in app
+in
+  app

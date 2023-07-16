@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.lirc;
+let
+  cfg = config.services.lirc;
 in {
 
   ###### interface
@@ -95,7 +96,7 @@ in {
         '';
         User = "lirc";
       };
-    };
+    } ;
 
     users.users.lirc = {
       uid = config.ids.uids.lirc;

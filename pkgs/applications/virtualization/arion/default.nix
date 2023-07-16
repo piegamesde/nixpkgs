@@ -79,7 +79,11 @@ let
   build = args@{
       ...
     }:
-    let composition = eval args;
-    in composition.config.out.dockerComposeYaml;
+    let
+      composition = eval args;
+    in
+      composition.config.out.dockerComposeYaml
+  ;
 
-in arion
+in
+  arion

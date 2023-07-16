@@ -30,7 +30,8 @@
   haskellLib,
 }:
 
-let inherit (pkgs) lib;
+let
+  inherit (pkgs) lib;
 
 in with haskellLib;
 
@@ -535,7 +536,9 @@ builtins.intersectAttrs super {
       executableSystemDepends = (drv.executableSystemDepends or [ ])
         ++ [ pkgs.ncurses ];
     }) g;
-  in g';
+  in
+    g'
+  ;
 
   # Tests require `docker` command in PATH
   # Tests require running docker service :on localhost
@@ -878,19 +881,24 @@ builtins.intersectAttrs super {
     spagoWithoutChecks = dontCheck spagoOldAeson;
     # spago doesn't currently build with ghc92.  Top-level spago is pulled from
     # ghc90 and explicitly marked unbroken.
-  in markBroken spagoWithoutChecks;
+  in
+    markBroken spagoWithoutChecks
+  ;
 
   # checks SQL statements at compile time, and so requires a running PostgreSQL
   # database to run it's test suite
   postgresql-typed = dontCheck super.postgresql-typed;
 
   # mplayer-spot uses mplayer at runtime.
-  mplayer-spot = let path = pkgs.lib.makeBinPath [ pkgs.mplayer ];
-  in overrideCabal (oldAttrs: {
-    postInstall = ''
-      wrapProgram $out/bin/mplayer-spot --prefix PATH : "${path}"
-    '';
-  }) (addBuildTool pkgs.buildPackages.makeWrapper super.mplayer-spot);
+  mplayer-spot = let
+    path = pkgs.lib.makeBinPath [ pkgs.mplayer ];
+  in
+    overrideCabal (oldAttrs: {
+      postInstall = ''
+        wrapProgram $out/bin/mplayer-spot --prefix PATH : "${path}"
+      '';
+    }) (addBuildTool pkgs.buildPackages.makeWrapper super.mplayer-spot)
+  ;
 
   # break infinite recursion with base-orphans
   primitive = dontCheck super.primitive;
@@ -901,12 +909,14 @@ builtins.intersectAttrs super {
       pkgs.ffmpeg
       pkgs.youtube-dl
     ];
-  in overrideCabal (_drv: {
-    postInstall = ''
-      wrapProgram $out/bin/cut-the-crap \
-        --prefix PATH : "${path}"
-    '';
-  }) (addBuildTool pkgs.buildPackages.makeWrapper super.cut-the-crap);
+  in
+    overrideCabal (_drv: {
+      postInstall = ''
+        wrapProgram $out/bin/cut-the-crap \
+          --prefix PATH : "${path}"
+      '';
+    }) (addBuildTool pkgs.buildPackages.makeWrapper super.cut-the-crap)
+  ;
 
   # Compiling the readme throws errors and has no purpose in nixpkgs
   aeson-gadt-th =

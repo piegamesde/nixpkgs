@@ -54,4 +54,5 @@ let
       patchelf --set-rpath "${stdenv.cc.libc}/lib:${stdenv.cc.cc.lib}/lib:${zlib}/lib:$LIBDIRS" "$elf" || true
     done
   '';
-in bootstrap
+in
+  bootstrap

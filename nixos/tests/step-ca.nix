@@ -89,4 +89,4 @@ import ./make-test-python.nix ({
       caclient.wait_for_unit("acme-finished-caclient.target")
       catester.succeed("curl https://caclient/ | grep \"Welcome to nginx!\"")
     '';
-  })
+  } )

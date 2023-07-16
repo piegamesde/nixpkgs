@@ -67,4 +67,4 @@ import ./make-test-python.nix ({
       server.wait_for_open_port(2222)
       client.succeed("nc -z server 2222")
     '';
-  })
+  } )

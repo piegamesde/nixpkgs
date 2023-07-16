@@ -339,12 +339,15 @@ let
 
             # cannot test the http server because it needs a localhost port
           '';
-        in runCommand "test-web-config" { } ''
-          HOME=$(mktemp -d)
-          ${fish}/bin/fish ${fishScript} && touch $out
-        '';
+        in
+          runCommand "test-web-config" { } ''
+            HOME=$(mktemp -d)
+            ${fish}/bin/fish ${fishScript} && touch $out
+          ''
+        ;
       };
       updateScript = nix-update-script { };
     };
   };
-in fish
+in
+  fish

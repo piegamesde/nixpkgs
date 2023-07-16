@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.jellyseerr;
+let
+  cfg = config.services.jellyseerr;
 in {
   meta.maintainers = [ maintainers.camillemndn ];
 

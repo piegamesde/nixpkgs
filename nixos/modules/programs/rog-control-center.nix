@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.programs.rog-control-center;
+let
+  cfg = config.programs.rog-control-center;
 in {
   options = {
     programs.rog-control-center = {

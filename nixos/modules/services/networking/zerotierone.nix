@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.zerotierone;
+let
+  cfg = config.services.zerotierone;
 in {
   options.services.zerotierone.enable =
     mkEnableOption (lib.mdDoc "ZeroTierOne");

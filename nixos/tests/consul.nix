@@ -47,7 +47,8 @@ import ./make-test-python.nix ({
         pkgs,
         ...
       }:
-      let ip = builtins.elemAt allConsensusClientHosts index;
+      let
+        ip = builtins.elemAt allConsensusClientHosts index;
       in {
         environment.systemPackages = [ pkgs.consul ];
 
@@ -66,7 +67,7 @@ import ./make-test-python.nix ({
             bind_addr = ip;
           };
         };
-      };
+      } ;
 
     server = index:
       {
@@ -108,7 +109,7 @@ import ./make-test-python.nix ({
               bind_addr = ip;
             };
           };
-      };
+      } ;
   in {
     name = "consul";
 
@@ -257,4 +258,4 @@ import ./make-test-python.nix ({
       print("rolling_restart_test(proper_rolling_procedure=False)")
       rolling_restart_test(proper_rolling_procedure=False)
     '';
-  })
+  } )

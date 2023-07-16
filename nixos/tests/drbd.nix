@@ -95,4 +95,4 @@ import ./make-test-python.nix ({
             "ls /mnt/drbd/hello",
         )
       '';
-  })
+  } )

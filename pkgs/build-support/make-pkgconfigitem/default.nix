@@ -47,7 +47,7 @@ let
     "Cflags" = mustBeAList cflags "cflags";
     "Libs" = mustBeAList libs "libs";
     "Libs.private" = mustBeAList libsPrivate "libsPrivate";
-  };
+  } ;
 
   renderVariable = name: value:
     lib.optionalString (value != "" && value != [ ])
@@ -73,10 +73,11 @@ let
     variablesSectionRendered
     keywordsSectionRendered
   ];
-in writeTextFile {
-  name = "${name}.pc";
-  destination = "/lib/pkgconfig/${name}.pc";
-  text = builtins.concatStringsSep "\n" content;
-  checkPhase = ''
-    ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config --validate "$target"'';
-}
+in
+  writeTextFile {
+    name = "${name}.pc";
+    destination = "/lib/pkgconfig/${name}.pc";
+    text = builtins.concatStringsSep "\n" content;
+    checkPhase = ''
+      ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config --validate "$target"'';
+  }

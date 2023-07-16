@@ -52,4 +52,5 @@ let
         machine.shutdown()
       '';
     };
-in lib.genAttrs packages mkJitTest
+in
+  lib.genAttrs packages mkJitTest

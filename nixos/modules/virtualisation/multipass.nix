@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.virtualisation.multipass;
+let
+  cfg = config.virtualisation.multipass;
 in {
   options = {
     virtualisation.multipass = {

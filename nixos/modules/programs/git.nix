@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.git;
+let
+  cfg = config.programs.git;
 
 in {
   options = {
@@ -24,25 +25,30 @@ in {
 
       config = mkOption {
         type = with types;
-          let gitini = attrsOf (attrsOf anything);
-          in either gitini (listOf gitini) // {
-            merge = loc: defs:
-              let
-                config = foldl' (acc:
-                  {
-                    value,
-                    ...
-                  }@x:
-                  acc // (if isList value then {
-                    ordered = acc.ordered ++ value;
-                  } else {
-                    unordered = acc.unordered ++ [ x ];
-                  })) {
-                    ordered = [ ];
-                    unordered = [ ];
-                  } defs;
-              in [ (gitini.merge loc config.unordered) ] ++ config.ordered;
-          };
+          let
+            gitini = attrsOf (attrsOf anything);
+          in
+            either gitini (listOf gitini) // {
+              merge = loc: defs:
+                let
+                  config = foldl' (acc:
+                    {
+                      value,
+                      ...
+                    }@x:
+                    acc // (if isList value then {
+                      ordered = acc.ordered ++ value;
+                    } else {
+                      unordered = acc.unordered ++ [ x ];
+                    })) {
+                      ordered = [ ];
+                      unordered = [ ];
+                    } defs;
+                in
+                  [ (gitini.merge loc config.unordered) ] ++ config.ordered
+              ;
+            }
+        ;
         default = [ ];
         example = {
           init.defaultBranch = "main";

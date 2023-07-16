@@ -307,25 +307,26 @@ let
     }
   ];
 
-in runCommand "Platforms" { } ''
-  platform=$out/${xcodePlatform}.platform
+in
+  runCommand "Platforms" { } ''
+    platform=$out/${xcodePlatform}.platform
 
-  install -D ${writeText "Info.plist" (toPlist { } Info)} $platform/Info.plist
-  install -D ${
-    writeText "version.plist" (toPlist { } Version)
-  } $platform/version.plist
-  install -D ${
-    writeText "Architectures.xcspec" (toPlist { } Architectures)
-  } $platform/Developer/Library/Xcode/Specifications/Architectures.xcspec
-  install -D ${
-    writeText "PackageTypes.xcspec" (toPlist { } PackageTypes)
-  } $platform/Developer/Library/Xcode/Specifications/PackageTypes.xcspec
-  install -D ${
-    writeText "ProductTypes.xcspec" (toPlist { } ProductTypes)
-  } $platform/Developer/Library/Xcode/Specifications/ProductTypes.xcspec
+    install -D ${writeText "Info.plist" (toPlist { } Info)} $platform/Info.plist
+    install -D ${
+      writeText "version.plist" (toPlist { } Version)
+    } $platform/version.plist
+    install -D ${
+      writeText "Architectures.xcspec" (toPlist { } Architectures)
+    } $platform/Developer/Library/Xcode/Specifications/Architectures.xcspec
+    install -D ${
+      writeText "PackageTypes.xcspec" (toPlist { } PackageTypes)
+    } $platform/Developer/Library/Xcode/Specifications/PackageTypes.xcspec
+    install -D ${
+      writeText "ProductTypes.xcspec" (toPlist { } ProductTypes)
+    } $platform/Developer/Library/Xcode/Specifications/ProductTypes.xcspec
 
-  ln -s $platform $platform/usr
+    ln -s $platform $platform/usr
 
-  mkdir -p $platform/Developer
-  ln -s ${sdks} $platform/Developer/SDKs
-''
+    mkdir -p $platform/Developer
+    ln -s ${sdks} $platform/Developer/SDKs
+  ''

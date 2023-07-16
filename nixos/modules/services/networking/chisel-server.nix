@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.chisel-server;
+let
+  cfg = config.services.chisel-server;
 
 in {
   options = {

@@ -69,7 +69,9 @@ let
       ((pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ]));
     collect = pkg:
       lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
-  in builtins.concatMap collect appRuntimeDeps;
+  in
+    builtins.concatMap collect appRuntimeDeps
+  ;
 
   # Some header files and libraries are not properly located by the Flutter SDK.
   # They must be manually included.
@@ -95,39 +97,40 @@ let
   linkerFlags =
     (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps)
     ++ extraLinkerFlags;
-in (callPackage ./sdk-symlink.nix { }) (runCommandLocal "flutter-wrapped" {
-  nativeBuildInputs = [ makeWrapper ];
+in
+  (callPackage ./sdk-symlink.nix { }) (runCommandLocal "flutter-wrapped" {
+    nativeBuildInputs = [ makeWrapper ];
 
-  passthru = flutter.passthru // {
-    inherit (flutter) version;
-    unwrapped = flutter;
-  };
+    passthru = flutter.passthru // {
+      inherit (flutter) version;
+      unwrapped = flutter;
+    };
 
-  inherit (flutter) meta;
-} ''
-  for path in ${
-    builtins.concatStringsSep " " (builtins.foldl' (paths: pkg:
-      paths ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
-        "lib"
-        "share"
-      ])) [ ] pkgConfigPackages)
-  }; do
-    addToSearchPath FLUTTER_PKG_CONFIG_PATH "$path"
-  done
+    inherit (flutter) meta;
+  } ''
+    for path in ${
+      builtins.concatStringsSep " " (builtins.foldl' (paths: pkg:
+        paths ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
+          "lib"
+          "share"
+        ])) [ ] pkgConfigPackages)
+    }; do
+      addToSearchPath FLUTTER_PKG_CONFIG_PATH "$path"
+    done
 
-  mkdir -p $out/bin
-  makeWrapper '${immutableFlutter}' $out/bin/flutter \
-    --set-default ANDROID_EMULATOR_USE_SYSTEM_LIBS 1 \
-    --prefix PATH : '${lib.makeBinPath (tools ++ buildTools)}' \
-    --prefix PKG_CONFIG_PATH : "$FLUTTER_PKG_CONFIG_PATH" \
-    --prefix LIBRARY_PATH : '${lib.makeLibraryPath appStaticBuildDeps}' \
-    --prefix CXXFLAGS "	" '${
-      builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)
-    }' \
-    --prefix CFLAGS "	" '${
-      builtins.concatStringsSep " " (includeFlags ++ extraCFlags)
-    }' \
-    --prefix LDFLAGS "	" '${
-      builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)
-    }'
-'')
+    mkdir -p $out/bin
+    makeWrapper '${immutableFlutter}' $out/bin/flutter \
+      --set-default ANDROID_EMULATOR_USE_SYSTEM_LIBS 1 \
+      --prefix PATH : '${lib.makeBinPath (tools ++ buildTools)}' \
+      --prefix PKG_CONFIG_PATH : "$FLUTTER_PKG_CONFIG_PATH" \
+      --prefix LIBRARY_PATH : '${lib.makeLibraryPath appStaticBuildDeps}' \
+      --prefix CXXFLAGS "	" '${
+        builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)
+      }' \
+      --prefix CFLAGS "	" '${
+        builtins.concatStringsSep " " (includeFlags ++ extraCFlags)
+      }' \
+      --prefix LDFLAGS "	" '${
+        builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)
+      }'
+  '')

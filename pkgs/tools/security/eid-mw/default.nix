@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
 
     rm $out/bin/about-eid-mw
     wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name"
-  '';
+  '' ;
 
   enableParallelBuilding = true;
 

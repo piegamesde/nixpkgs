@@ -143,6 +143,8 @@ in {
     systemd.services = let
       mkServices = lib.mapAttrs' mkAgentService;
       enabledAgents = lib.filterAttrs (_: agent: agent.enable) cfg.agents;
-    in mkServices enabledAgents;
+    in
+      mkServices enabledAgents
+    ;
   };
 }

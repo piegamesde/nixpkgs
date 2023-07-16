@@ -67,13 +67,17 @@ let
               childName
               "${childToplevel}/${filename}"
             ]) children);
-        in lib.escapeShellArgs [
-          "${pkgs.jq}/bin/jq"
-          "--sort-keys"
-          ''
-            ."org.nixos.specialisation.v1" = ($ARGS.named | map_values(. | first))''
-        ] + " ${lib.concatStringsSep " " specialisationLoader}";
-      in "${toplevelInjector} | ${specialisationInjector} > $out/${filename}";
+        in
+          lib.escapeShellArgs [
+            "${pkgs.jq}/bin/jq"
+            "--sort-keys"
+            ''
+              ."org.nixos.specialisation.v1" = ($ARGS.named | map_values(. | first))''
+          ] + " ${lib.concatStringsSep " " specialisationLoader}"
+        ;
+      in
+        "${toplevelInjector} | ${specialisationInjector} > $out/${filename}"
+      ;
 
       validator = pkgs.writeCueValidator ./bootspec.cue {
         document =

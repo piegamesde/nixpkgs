@@ -39,7 +39,7 @@ symlinkJoin {
       rm -r $out/share/obs/obs-plugins
       # Leave some breadcrumbs
       echo 'Plugins are at ${pluginsJoined}/share/obs/obs-plugins' > $out/share/obs/obs-plugins-README
-    '';
+    '' ;
 
   inherit (obs-studio) meta;
   passthru = obs-studio.passthru // { passthru.unwrapped = obs-studio; };

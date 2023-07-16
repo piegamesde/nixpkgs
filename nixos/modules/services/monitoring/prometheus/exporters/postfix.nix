@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.postfix;
+let
+  cfg = config.services.prometheus.exporters.postfix;
 in {
   port = 9154;
   extraOpts = {

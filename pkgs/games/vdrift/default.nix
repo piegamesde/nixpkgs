@@ -68,12 +68,13 @@ let
     };
   };
   wrappedName = "vdrift-${version}-with-data-${toString data.rev}";
-in (writeShellScriptBin "vdrift" ''
-  export VDRIFT_DATA_DIRECTORY="${data}"
-  exec ${bin}/bin/vdrift "$@"
-'').overrideAttrs (_: {
-  name = wrappedName;
-  meta = bin.meta // { hydraPlatforms = [ ]; };
-  unwrapped = bin;
-  inherit bin data;
-})
+in
+  (writeShellScriptBin "vdrift" ''
+    export VDRIFT_DATA_DIRECTORY="${data}"
+    exec ${bin}/bin/vdrift "$@"
+  '').overrideAttrs (_: {
+    name = wrappedName;
+    meta = bin.meta // { hydraPlatforms = [ ]; };
+    unwrapped = bin;
+    inherit bin data;
+  })

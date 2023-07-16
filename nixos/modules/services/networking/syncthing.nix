@@ -503,22 +503,25 @@ in {
         '';
       };
 
-      configDir = let cond = versionAtLeast config.system.stateVersion "19.03";
-      in mkOption {
-        type = types.path;
-        description = lib.mdDoc ''
-          The path where the settings and keys will exist.
-        '';
-        default = cfg.dataDir + optionalString cond "/.config/syncthing";
-        defaultText = literalMD ''
-          * if `stateVersion >= 19.03`:
+      configDir = let
+        cond = versionAtLeast config.system.stateVersion "19.03";
+      in
+        mkOption {
+          type = types.path;
+          description = lib.mdDoc ''
+            The path where the settings and keys will exist.
+          '';
+          default = cfg.dataDir + optionalString cond "/.config/syncthing";
+          defaultText = literalMD ''
+            * if `stateVersion >= 19.03`:
 
-                config.${opt.dataDir} + "/.config/syncthing"
-          * otherwise:
+                  config.${opt.dataDir} + "/.config/syncthing"
+            * otherwise:
 
-                config.${opt.dataDir}
-        '';
-      };
+                  config.${opt.dataDir}
+          '';
+        }
+      ;
 
       extraFlags = mkOption {
         type = types.listOf types.str;

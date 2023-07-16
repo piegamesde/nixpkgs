@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.hardware.gkraken;
+let
+  cfg = config.hardware.gkraken;
 in {
   options.hardware.gkraken = {
     enable = mkEnableOption

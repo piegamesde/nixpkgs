@@ -37,10 +37,11 @@ let
     '';
   };
   # Mono is required to compile plugin at runtime, after loading.
-in buildEnv {
-  name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
-}
+in
+  buildEnv {
+    name = drv.name;
+    paths = [
+      mono
+      drv
+    ];
+  }

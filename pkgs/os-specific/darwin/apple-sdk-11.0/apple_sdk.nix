@@ -43,7 +43,9 @@ let
       rewrites = depList:
         lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites)
           (lib.filter (dep: dep ? tbdRewrites) depList));
-    in lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)));
+    in
+      lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)))
+  ;
 
   mkFramework = {
       name,
@@ -109,7 +111,9 @@ let
           platforms = platforms.darwin;
         };
       };
-    in self;
+    in
+      self
+  ;
 
   framework = name: deps:
     mkFramework {
@@ -258,7 +262,7 @@ in rec {
         TWAIN = { inherit Carbon; };
         VideoDecodeAcceleration = { inherit CoreVideo; };
         WebKit = { inherit ApplicationServices Carbon libobjc; };
-      };
+      } ;
 
     # Overrides for framework derivations.
     overrides = super: {
@@ -306,5 +310,7 @@ in rec {
         libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
       }));
     # Apply derivation overrides.
-  in bareFrameworks // overrides bareFrameworks;
+  in
+    bareFrameworks // overrides bareFrameworks
+  ;
 }

@@ -31,4 +31,4 @@ import ./make-test-python.nix ({
       assert "${testId}" in config
       assert "guiUser" in config
     '';
-  })
+  } )

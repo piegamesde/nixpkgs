@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(
       --prefix ${libPathEnvVar} ":" "${libPathPrefix}"
     )
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Virtual lighttable and darkroom for photographers";

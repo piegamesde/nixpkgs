@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.sundtek;
+let
+  cfg = config.services.sundtek;
 
 in {
   options.services.sundtek = {

@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let diskSize = "20G";
+let
+  diskSize = "20G";
 in {
   imports = [
     ../profiles/headless.nix

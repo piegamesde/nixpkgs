@@ -50,5 +50,6 @@ let
   # builds :: AttrSet String Derivation
   builds = allBuilds // defaultBuild;
 
-in builds
+in
+  builds
 

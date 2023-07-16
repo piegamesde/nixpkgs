@@ -49,4 +49,4 @@ lib.makeScope newScope (self:
     limesdr =
       callPackage ../development/gnuradio-modules/limesdr/default.nix { };
 
-  })
+  } )

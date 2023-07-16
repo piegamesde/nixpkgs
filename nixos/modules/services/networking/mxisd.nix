@@ -122,24 +122,24 @@ in {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig =
-        let executable = if isMa1sd cfg.package then "ma1sd" else "mxisd";
-        in {
-          Type = "simple";
-          User = "mxisd";
-          Group = "mxisd";
-          EnvironmentFile =
-            mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
-          ExecStart =
-            "${cfg.package}/bin/${executable} -c ${cfg.dataDir}/mxisd-config.yaml";
-          ExecStartPre = "${pkgs.writeShellScript "mxisd-substitute-secrets" ''
-            umask 0077
-            ${pkgs.envsubst}/bin/envsubst -o ${cfg.dataDir}/mxisd-config.yaml \
-              -i ${configFile}
-          ''}";
-          WorkingDirectory = cfg.dataDir;
-          Restart = "on-failure";
-        };
+      serviceConfig = let
+        executable = if isMa1sd cfg.package then "ma1sd" else "mxisd";
+      in {
+        Type = "simple";
+        User = "mxisd";
+        Group = "mxisd";
+        EnvironmentFile =
+          mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        ExecStart =
+          "${cfg.package}/bin/${executable} -c ${cfg.dataDir}/mxisd-config.yaml";
+        ExecStartPre = "${pkgs.writeShellScript "mxisd-substitute-secrets" ''
+          umask 0077
+          ${pkgs.envsubst}/bin/envsubst -o ${cfg.dataDir}/mxisd-config.yaml \
+            -i ${configFile}
+        ''}";
+        WorkingDirectory = cfg.dataDir;
+        Restart = "on-failure";
+      } ;
     };
   };
 }

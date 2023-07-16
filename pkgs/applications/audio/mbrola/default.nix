@@ -72,11 +72,12 @@ let
     };
   };
 
-in symlinkJoin {
-  inherit pname version meta;
-  name = "${pname}-${version}";
-  paths = [
-    bin
-    voices
-  ];
-}
+in
+  symlinkJoin {
+    inherit pname version meta;
+    name = "${pname}-${version}";
+    paths = [
+      bin
+      voices
+    ];
+  }

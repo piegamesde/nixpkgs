@@ -21,13 +21,16 @@ let
   #   tree-sitter-ocaml-interface
   #   tree-sitter-ocaml_interface
   builtGrammars = generatedGrammars // lib.concatMapAttrs (k: v:
-    let replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
-    in {
-      "tree-sitter-${k}" = v;
-    } // lib.optionalAttrs (k != replaced) {
-      ${replaced} = v;
-      "tree-sitter-${replaced}" = v;
-    }) generatedDerivations;
+    let
+      replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
+    in
+      {
+        "tree-sitter-${k}" = v;
+      } // lib.optionalAttrs (k != replaced) {
+        ${replaced} = v;
+        "tree-sitter-${replaced}" = v;
+      }
+  ) generatedDerivations;
 
   grammarToPlugin = grammar:
     let
@@ -42,10 +45,12 @@ let
         (lib.replaceStrings [ "-" ] [ "_" ])
       ];
 
-    in runCommand "nvim-treesitter-grammar-${name}" { } ''
-      mkdir -p $out/parser
-      ln -s ${grammar}/parser $out/parser/${name}.so
-    '';
+    in
+      runCommand "nvim-treesitter-grammar-${name}" { } ''
+        mkdir -p $out/parser
+        ln -s ${grammar}/parser $out/parser/${name}.so
+      ''
+  ;
 
   allGrammars = lib.attrValues generatedDerivations;
 
@@ -75,21 +80,23 @@ in {
     tests.check-queries = let
       nvimWithAllGrammars =
         neovim.override { configure.packages.all.start = [ withAllGrammars ]; };
-    in runCommand "nvim-treesitter-check-queries" {
-      nativeBuildInputs = [ nvimWithAllGrammars ];
-      CI = true;
-    } ''
-      touch $out
-      export HOME=$(mktemp -d)
-      ln -s ${withAllGrammars}/CONTRIBUTING.md .
+    in
+      runCommand "nvim-treesitter-check-queries" {
+        nativeBuildInputs = [ nvimWithAllGrammars ];
+        CI = true;
+      } ''
+        touch $out
+        export HOME=$(mktemp -d)
+        ln -s ${withAllGrammars}/CONTRIBUTING.md .
 
-      nvim --headless "+luafile ${withAllGrammars}/scripts/check-queries.lua" | tee log
+        nvim --headless "+luafile ${withAllGrammars}/scripts/check-queries.lua" | tee log
 
-      if grep -q Warning log; then
-        echo "Error: warnings were emitted by the check"
-        exit 1
-      fi
-    '';
+        if grep -q Warning log; then
+          echo "Error: warnings were emitted by the check"
+          exit 1
+        fi
+      ''
+    ;
   };
 
   meta = with lib;

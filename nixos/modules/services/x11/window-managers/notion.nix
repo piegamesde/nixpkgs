@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.notion;
+let
+  cfg = config.services.xserver.windowManager.notion;
 
 in {
   options = {

@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.gateone;
+let
+  cfg = config.services.gateone;
 in {
   options = {
     services.gateone = {

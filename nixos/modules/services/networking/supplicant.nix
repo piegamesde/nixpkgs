@@ -82,7 +82,7 @@ let
             (if (iface == "DBUS") then "-u" else ifaceArg)
         }";
 
-    };
+    } ;
 
 in {
 

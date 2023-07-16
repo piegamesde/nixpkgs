@@ -821,7 +821,9 @@ in {
           '' + genericErrMsg;
         }
       ];
-    in errors;
+    in
+      errors
+    ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -942,7 +944,7 @@ in {
           ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
           ${v.extraConfig}
       '') cfg.virtualHosts)}
-    '';
+    '' ;
 
     users.users.prosody = mkIf (cfg.user == "prosody") {
       uid = config.ids.uids.prosody;

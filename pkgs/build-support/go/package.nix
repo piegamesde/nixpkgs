@@ -185,7 +185,9 @@ let
       renames = p:
         lib.concatMapStringsSep "\n" (rename p.goPackagePath)
         p.goPackageAliases;
-    in lib.concatMapStringsSep "\n" renames inputsWithAliases);
+    in
+      lib.concatMapStringsSep "\n" renames inputsWithAliases
+    );
 
     buildPhase = args.buildPhase or (''
       runHook preBuild
@@ -325,6 +327,7 @@ let
       platforms = go.meta.platforms or lib.platforms.all;
     } // meta;
   });
-in lib.warnIf (buildFlags != "" || buildFlagsArray != "")
-"Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
-package
+in
+  lib.warnIf (buildFlags != "" || buildFlagsArray != "")
+  "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
+  package

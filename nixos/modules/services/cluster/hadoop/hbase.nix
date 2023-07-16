@@ -183,21 +183,23 @@ in {
           description = mdDoc "web UI port";
         };
       };
-    in mapAttrs hbaseRoleOption {
-      master.initHDFS =
-        mkEnableOption (mdDoc "initialization of the hbase directory on HDFS");
-      regionServer.overrideHosts = mkOption {
-        type = types.bool;
-        default = true;
-        description = mdDoc ''
-          Remove /etc/hosts entries for "127.0.0.2" and "::1" defined in nixos/modules/config/networking.nix
-          Regionservers must be able to resolve their hostnames to their IP addresses, through PTR records
-          or /etc/hosts entries.
-        '';
-      };
-      thrift = ports 9090 9095;
-      rest = ports 8080 8085;
-    });
+    in
+      mapAttrs hbaseRoleOption {
+        master.initHDFS = mkEnableOption
+          (mdDoc "initialization of the hbase directory on HDFS");
+        regionServer.overrideHosts = mkOption {
+          type = types.bool;
+          default = true;
+          description = mdDoc ''
+            Remove /etc/hosts entries for "127.0.0.2" and "::1" defined in nixos/modules/config/networking.nix
+            Regionservers must be able to resolve their hostnames to their IP addresses, through PTR records
+            or /etc/hosts entries.
+          '';
+        };
+        thrift = ports 9090 9095;
+        rest = ports 8080 8085;
+      }
+    );
   };
 
   config = mkMerge ([

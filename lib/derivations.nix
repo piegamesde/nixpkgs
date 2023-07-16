@@ -2,7 +2,8 @@
   lib,
 }:
 
-let inherit (lib) throwIfNot;
+let
+  inherit (lib) throwIfNot;
 in {
   /* Restrict a derivation to a predictable set of attribute names, so
      that the returned attrset is not strict in the actual derivation,
@@ -72,24 +73,26 @@ in {
           derivation.name or "<unknown>"
         } has multiple outputs. This is not supported by lazySimpleDerivation yet. Support could be added, and be useful as long as the set of outputs is known in advance, without evaluating the actual derivation."
         derivation;
-    in {
-      # Hardcoded `type`
-      #
-      # `lazyDerivation` requires its `derivation` argument to be a derivation,
-      # so if it is not, that is a programming error by the caller and not
-      # something that `lazyDerivation` consumers should be able to correct
-      # for after the fact.
-      # So, to improve laziness, we assume correctness here and check it only
-      # when actual derivation values are accessed later.
-      type = "derivation";
+    in
+      {
+        # Hardcoded `type`
+        #
+        # `lazyDerivation` requires its `derivation` argument to be a derivation,
+        # so if it is not, that is a programming error by the caller and not
+        # something that `lazyDerivation` consumers should be able to correct
+        # for after the fact.
+        # So, to improve laziness, we assume correctness here and check it only
+        # when actual derivation values are accessed later.
+        type = "derivation";
 
-      # A fixed set of derivation values, so that `lazyDerivation` can return
-      # its attrset before evaluating `derivation`.
-      # This must only list attributes that are available on _all_ derivations.
-      inherit (checked) outputs out outPath outputName drvPath name system;
+        # A fixed set of derivation values, so that `lazyDerivation` can return
+        # its attrset before evaluating `derivation`.
+        # This must only list attributes that are available on _all_ derivations.
+        inherit (checked) outputs out outPath outputName drvPath name system;
 
-      # The meta attribute can either be taken from the derivation, or if the
-      # `lazyDerivation` caller knew a shortcut, be taken from there.
-      meta = args.meta or checked.meta;
-    } // passthru;
+        # The meta attribute can either be taken from the derivation, or if the
+        # `lazyDerivation` caller knew a shortcut, be taken from there.
+        meta = args.meta or checked.meta;
+      } // passthru
+  ;
 }

@@ -20,43 +20,44 @@ let
     plugs ++ (lib.optionals useDefaultPlugs switchboardPlugs);
 
   testingName = lib.optionalString (testName != null) "${testName}-";
-in stdenv.mkDerivation rec {
-  pname = "${testingName}${switchboard.pname}-with-plugs";
-  inherit (switchboard) version;
+in
+  stdenv.mkDerivation rec {
+    pname = "${testingName}${switchboard.pname}-with-plugs";
+    inherit (switchboard) version;
 
-  src = null;
+    src = null;
 
-  paths = [ switchboard ] ++ selectedPlugs;
+    paths = [ switchboard ] ++ selectedPlugs;
 
-  passAsFile = [ "paths" ];
+    passAsFile = [ "paths" ];
 
-  nativeBuildInputs = [
-    glib
-    wrapGAppsHook
-  ];
+    nativeBuildInputs = [
+      glib
+      wrapGAppsHook
+    ];
 
-  buildInputs = lib.forEach selectedPlugs (x: x.buildInputs) ++ selectedPlugs;
+    buildInputs = lib.forEach selectedPlugs (x: x.buildInputs) ++ selectedPlugs;
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  preferLocalBuild = true;
-  allowSubstitutes = false;
+    preferLocalBuild = true;
+    allowSubstitutes = false;
 
-  installPhase = ''
-    mkdir -p $out
-    for i in $(cat $pathsPath); do
-      ${xorg.lndir}/bin/lndir -silent $i $out
-    done
-  '';
+    installPhase = ''
+      mkdir -p $out
+      for i in $(cat $pathsPath); do
+        ${xorg.lndir}/bin/lndir -silent $i $out
+      done
+    '';
 
-  preFixup = ''
-    gappsWrapperArgs+=(
-      --set SWITCHBOARD_PLUGS_PATH "$out/lib/switchboard"
-    )
-  '';
+    preFixup = ''
+      gappsWrapperArgs+=(
+        --set SWITCHBOARD_PLUGS_PATH "$out/lib/switchboard"
+      )
+    '';
 
-  inherit (switchboard) meta;
-}
+    inherit (switchboard) meta;
+  }
 

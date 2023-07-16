@@ -237,4 +237,4 @@ import ./make-test-python.nix ({
           client.wait_until_succeeds("systemd-inhibit --list | grep -q borgbackup")
           client.systemctl("stop borgbackup-job-sleepInhibited")
     '';
-  })
+  } )

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.corectrl;
+let
+  cfg = config.programs.corectrl;
 in {
   options.programs.corectrl = {
     enable = mkEnableOption (lib.mdDoc ''

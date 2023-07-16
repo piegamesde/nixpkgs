@@ -57,5 +57,5 @@
         } ];
         settings.substituters = [ ];
       };
-    };
+    } ;
 }

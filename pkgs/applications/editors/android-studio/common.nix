@@ -211,51 +211,52 @@ let
       '')
     ];
   };
-in runCommand drvName {
-  startScript = ''
-    #!${bash}/bin/bash
-    ${fhsEnv}/bin/${drvName}-fhs-env ${androidStudio}/bin/studio.sh "$@"
-  '';
-  preferLocalBuild = true;
-  allowSubstitutes = false;
-  passthru = { unwrapped = androidStudio; };
-  meta = with lib; {
-    description = "The Official IDE for Android (${channel} channel)";
-    longDescription = ''
-      Android Studio is the official IDE for Android app development, based on
-      IntelliJ IDEA.
+in
+  runCommand drvName {
+    startScript = ''
+      #!${bash}/bin/bash
+      ${fhsEnv}/bin/${drvName}-fhs-env ${androidStudio}/bin/studio.sh "$@"
     '';
-    homepage = if channel == "stable" then
-      "https://developer.android.com/studio/index.html"
-    else
-      "https://developer.android.com/studio/preview/index.html";
-    license = with licenses; [
-      asl20
-      unfree
-    ]; # The code is under Apache-2.0, but:
-    # If one selects Help -> Licenses in Android Studio, the dialog shows the following:
-    # "Android Studio includes proprietary code subject to separate license,
-    # including JetBrains CLion(R) (www.jetbrains.com/clion) and IntelliJ(R)
-    # IDEA Community Edition (www.jetbrains.com/idea)."
-    # Also: For actual development the Android SDK is required and the Google
-    # binaries are also distributed as proprietary software (unlike the
-    # source-code itself).
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers;
-      rec {
-        stable = [ alapshin ];
-        beta = [ alapshin ];
-        canary = [ alapshin ];
-        dev = canary;
-      }."${channel}";
-    mainProgram = pname;
-  };
-} ''
-  mkdir -p $out/{bin,share/pixmaps}
+    preferLocalBuild = true;
+    allowSubstitutes = false;
+    passthru = { unwrapped = androidStudio; };
+    meta = with lib; {
+      description = "The Official IDE for Android (${channel} channel)";
+      longDescription = ''
+        Android Studio is the official IDE for Android app development, based on
+        IntelliJ IDEA.
+      '';
+      homepage = if channel == "stable" then
+        "https://developer.android.com/studio/index.html"
+      else
+        "https://developer.android.com/studio/preview/index.html";
+      license = with licenses; [
+        asl20
+        unfree
+      ]; # The code is under Apache-2.0, but:
+      # If one selects Help -> Licenses in Android Studio, the dialog shows the following:
+      # "Android Studio includes proprietary code subject to separate license,
+      # including JetBrains CLion(R) (www.jetbrains.com/clion) and IntelliJ(R)
+      # IDEA Community Edition (www.jetbrains.com/idea)."
+      # Also: For actual development the Android SDK is required and the Google
+      # binaries are also distributed as proprietary software (unlike the
+      # source-code itself).
+      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers;
+        rec {
+          stable = [ alapshin ];
+          beta = [ alapshin ];
+          canary = [ alapshin ];
+          dev = canary;
+        }."${channel}";
+      mainProgram = pname;
+    };
+  } ''
+    mkdir -p $out/{bin,share/pixmaps}
 
-  echo -n "$startScript" > $out/bin/${pname}
-  chmod +x $out/bin/${pname}
+    echo -n "$startScript" > $out/bin/${pname}
+    chmod +x $out/bin/${pname}
 
-  ln -s ${androidStudio}/bin/studio.png $out/share/pixmaps/${pname}.png
-  ln -s ${desktopItem}/share/applications $out/share/applications
-''
+    ln -s ${androidStudio}/bin/studio.png $out/share/pixmaps/${pname}.png
+    ln -s ${desktopItem}/share/applications $out/share/applications
+  ''

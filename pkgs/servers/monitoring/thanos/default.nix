@@ -20,14 +20,15 @@ buildGoModule rec {
 
   subPackages = "cmd/thanos";
 
-  ldflags = let t = "github.com/prometheus/common/version";
+  ldflags = let
+    t = "github.com/prometheus/common/version";
   in [
     "-X ${t}.Version=${version}"
     "-X ${t}.Revision=unknown"
     "-X ${t}.Branch=unknown"
     "-X ${t}.BuildUser=nix@nixpkgs"
     "-X ${t}.BuildDate=unknown"
-  ];
+  ] ;
 
   meta = with lib; {
     description =

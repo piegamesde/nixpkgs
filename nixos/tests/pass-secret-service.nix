@@ -73,5 +73,5 @@ import ./make-test-python.nix ({
             machine.wait_for_file("${ready-file}")
             _, output = machine.systemctl("status dbus-org.freedesktop.secrets --no-pager", "alice")
             assert "Active: active (running)" in output
-      '';
+      '' ;
   })

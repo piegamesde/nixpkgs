@@ -27,11 +27,13 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
   check ? true,
   prefix ? [ ],
   lib ? import ../../lib,
-  extraModules ? let e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
+  extraModules ? let
+    e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
   in if e == "" then [ ] else [ (import e) ]
 }:
 
-let pkgs_ = pkgs;
+let
+  pkgs_ = pkgs;
 
 in let
   evalModulesMinimal = (import ./default.nix {
@@ -74,7 +76,9 @@ in let
       modules
     else
       map (lib.setDefaultModuleLocation modulesLocation) modules;
-  in locatedModules ++ legacyModules;
+  in
+    locatedModules ++ legacyModules
+  ;
 
   noUserModules = evalModulesMinimal ({
     inherit prefix specialArgs;
@@ -96,7 +100,8 @@ in let
   nixosWithUserModules =
     noUserModules.extendModules { modules = allUserModules; };
 
-in withWarnings nixosWithUserModules // {
-  inherit extraArgs;
-  inherit (nixosWithUserModules._module.args) pkgs;
-}
+in
+  withWarnings nixosWithUserModules // {
+    inherit extraArgs;
+    inherit (nixosWithUserModules._module.args) pkgs;
+  }

@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.owncast;
+let
+  cfg = config.services.owncast;
 in {
 
   options.services.owncast = {

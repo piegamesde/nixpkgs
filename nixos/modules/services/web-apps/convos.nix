@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.convos;
+let
+  cfg = config.services.convos;
 in {
   options.services.convos = {
     enable = mkEnableOption (lib.mdDoc "Convos");

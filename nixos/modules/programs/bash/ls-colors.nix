@@ -7,7 +7,8 @@
 
 with lib;
 
-let enable = config.programs.bash.enableLsColors;
+let
+  enable = config.programs.bash.enableLsColors;
 in {
   options = {
     programs.bash.enableLsColors =

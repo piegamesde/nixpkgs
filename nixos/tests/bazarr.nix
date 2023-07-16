@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
 
   with lib;
 
-  let port = 42069;
+  let
+    port = 42069;
   in {
     name = "bazarr";
     meta.maintainers = with maintainers; [ d-xo ];
@@ -25,4 +26,4 @@ import ./make-test-python.nix ({
       machine.wait_for_open_port(${toString port})
       machine.succeed("curl --fail http://localhost:${toString port}/")
     '';
-  })
+  } )

@@ -85,19 +85,20 @@ let
     '';
   };
 
-in buildFHSEnv rec {
-  name = pname;
-  targetPkgs = pkgs:
-    [
-      binutils
-      dejavu_fonts
-      flutter
-      gcc
-      go
-      hover
-      pkg-config
-      roboto
-    ] ++ libs;
+in
+  buildFHSEnv rec {
+    name = pname;
+    targetPkgs = pkgs:
+      [
+        binutils
+        dejavu_fonts
+        flutter
+        gcc
+        go
+        hover
+        pkg-config
+        roboto
+      ] ++ libs;
 
-  runScript = "hover";
-}
+    runScript = "hover";
+  }

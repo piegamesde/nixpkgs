@@ -38,4 +38,5 @@ let
       maintainers = teams.kodi.members;
     };
   };
-in toKodiAddon drv
+in
+  toKodiAddon drv

@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.spice-vdagentd;
+let
+  cfg = config.services.spice-vdagentd;
 in {
   options = {
     services.spice-vdagentd = {

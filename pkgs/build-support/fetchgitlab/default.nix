@@ -69,7 +69,8 @@ let
     inherit name;
   };
 
-in fetcher fetcherArgs // {
-  meta.homepage = "${protocol}://${domain}/${slug}/";
-  inherit rev;
-}
+in
+  fetcher fetcherArgs // {
+    meta.homepage = "${protocol}://${domain}/${slug}/";
+    inherit rev;
+  }

@@ -150,5 +150,5 @@ import ./make-test-python.nix ({
 
             # known to fail, unscd doesn't load external NSS modules
             # test_nss_myhostname()
-      '';
-  })
+      '' ;
+  } )

@@ -31,11 +31,13 @@ let
         "level full-speed"
         "level disengaged"
       ];
-    in tuple [
-      (either level special)
-      level
-      level
-    ];
+    in
+      tuple [
+        (either level special)
+        level
+        level
+      ]
+  ;
 
   # sensor or fan config
   sensorType = name:

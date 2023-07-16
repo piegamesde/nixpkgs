@@ -27,7 +27,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-let crossBuildTools = stdenv.hostPlatform != stdenv.buildPlatform;
+let
+  crossBuildTools = stdenv.hostPlatform != stdenv.buildPlatform;
 
 in with lib;
 

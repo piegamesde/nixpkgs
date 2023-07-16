@@ -72,7 +72,7 @@ let
             '';
 
           };
-        })
+        } )
 
       (self: super: {
         cryptography = super.cryptography.overridePythonAttrs (old: {
@@ -112,4 +112,5 @@ let
     # Not strictly necessary, but probably expected somewhere; part of the workaround:
     passthru.tests = tests;
   };
-in pkg
+in
+  pkg

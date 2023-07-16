@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.hardware.hackrf;
+let
+  cfg = config.hardware.hackrf;
 
 in {
   options.hardware.hackrf = {

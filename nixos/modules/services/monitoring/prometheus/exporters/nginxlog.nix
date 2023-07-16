@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.nginxlog;
+let
+  cfg = config.services.prometheus.exporters.nginxlog;
 in {
   port = 9117;
   extraOpts = {
@@ -52,5 +53,5 @@ in {
       Restart = "always";
       ProtectSystem = "full";
     };
-  };
+  } ;
 }

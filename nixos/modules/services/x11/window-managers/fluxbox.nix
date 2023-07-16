@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.fluxbox;
+let
+  cfg = config.services.xserver.windowManager.fluxbox;
 in {
   ###### interface
   options = {

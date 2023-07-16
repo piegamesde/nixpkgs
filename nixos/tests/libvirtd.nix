@@ -62,5 +62,5 @@ import ./make-test-python.nix ({
         virthost.shutdown()
         virthost.wait_for_unit("multi-user.target")
         virthost.wait_until_succeeds("ping -c 1 nixos")
-    '';
+    '' ;
   })

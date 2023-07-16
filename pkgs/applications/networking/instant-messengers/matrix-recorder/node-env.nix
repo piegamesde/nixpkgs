@@ -195,7 +195,7 @@ let
             cd ..
         fi
       ''}
-    '';
+    '' ;
 
   # Recursively traverses all dependencies of a package and pinpoints all
   # dependencies in the package.json file to the versions that are actually
@@ -414,7 +414,7 @@ let
             lib.optionalString production "--production"
           } install
       fi
-    '';
+    '' ;
 
   # Builds and composes an NPM package including all its dependencies
   buildNodePackage = {
@@ -446,63 +446,65 @@ let
         "unpackPhase"
         "buildPhase"
       ];
-    in stdenv.mkDerivation ({
-      name = "node_${name}-${version}";
-      buildInputs = [
-        tarWrapper
-        python
-        nodejs
-      ] ++ lib.optional (stdenv.isLinux) util-linux
-        ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
+    in
+      stdenv.mkDerivation ({
+        name = "node_${name}-${version}";
+        buildInputs = [
+          tarWrapper
+          python
+          nodejs
+        ] ++ lib.optional (stdenv.isLinux) util-linux
+          ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
-      inherit
-        dontStrip; # Stripping may fail a build for some package deployments
-      inherit dontNpmInstall preRebuild unpackPhase buildPhase;
+        inherit
+          dontStrip; # Stripping may fail a build for some package deployments
+        inherit dontNpmInstall preRebuild unpackPhase buildPhase;
 
-      compositionScript = composePackage args;
-      pinpointDependenciesScript = pinpointDependenciesOfPackage args;
+        compositionScript = composePackage args;
+        pinpointDependenciesScript = pinpointDependenciesOfPackage args;
 
-      passAsFile = [
-        "compositionScript"
-        "pinpointDependenciesScript"
-      ];
+        passAsFile = [
+          "compositionScript"
+          "pinpointDependenciesScript"
+        ];
 
-      installPhase = ''
-        # Create and enter a root node_modules/ folder
-        mkdir -p $out/lib/node_modules
-        cd $out/lib/node_modules
+        installPhase = ''
+          # Create and enter a root node_modules/ folder
+          mkdir -p $out/lib/node_modules
+          cd $out/lib/node_modules
 
-        # Compose the package and all its dependencies
-        source $compositionScriptPath
+          # Compose the package and all its dependencies
+          source $compositionScriptPath
 
-        ${prepareAndInvokeNPM {
-          inherit packageName bypassCache reconstructLock npmFlags production;
-        }}
+          ${prepareAndInvokeNPM {
+            inherit packageName bypassCache reconstructLock npmFlags production;
+          }}
 
-        # Create symlink to the deployed executable folder, if applicable
-        if [ -d "$out/lib/node_modules/.bin" ]
-        then
-            ln -s $out/lib/node_modules/.bin $out/bin
-        fi
+          # Create symlink to the deployed executable folder, if applicable
+          if [ -d "$out/lib/node_modules/.bin" ]
+          then
+              ln -s $out/lib/node_modules/.bin $out/bin
+          fi
 
-        # Create symlinks to the deployed manual page folders, if applicable
-        if [ -d "$out/lib/node_modules/${packageName}/man" ]
-        then
-            mkdir -p $out/share
-            for dir in "$out/lib/node_modules/${packageName}/man/"*
-            do
-                mkdir -p $out/share/man/$(basename "$dir")
-                for page in "$dir"/*
-                do
-                    ln -s $page $out/share/man/$(basename "$dir")
-                done
-            done
-        fi
+          # Create symlinks to the deployed manual page folders, if applicable
+          if [ -d "$out/lib/node_modules/${packageName}/man" ]
+          then
+              mkdir -p $out/share
+              for dir in "$out/lib/node_modules/${packageName}/man/"*
+              do
+                  mkdir -p $out/share/man/$(basename "$dir")
+                  for page in "$dir"/*
+                  do
+                      ln -s $page $out/share/man/$(basename "$dir")
+                  done
+              done
+          fi
 
-        # Run post install hook, if provided
-        runHook postInstall
-      '';
-    } // extraArgs);
+          # Run post install hook, if provided
+          runHook postInstall
+        '';
+      } // extraArgs)
+  ;
 
   # Builds a development shell
   buildNodeShell = {
@@ -586,30 +588,32 @@ let
           ln -s $out/lib/node_modules/.bin $out/bin
         '';
       } // extraArgs);
-    in stdenv.mkDerivation {
-      name = "node-shell-${name}-${version}";
+    in
+      stdenv.mkDerivation {
+        name = "node-shell-${name}-${version}";
 
-      buildInputs = [
-        python
-        nodejs
-      ] ++ lib.optional (stdenv.isLinux) util-linux ++ buildInputs;
-      buildCommand = ''
-        mkdir -p $out/bin
-        cat > $out/bin/shell <<EOF
-        #! ${stdenv.shell} -e
-        $shellHook
-        exec ${stdenv.shell}
-        EOF
-        chmod +x $out/bin/shell
-      '';
+        buildInputs = [
+          python
+          nodejs
+        ] ++ lib.optional (stdenv.isLinux) util-linux ++ buildInputs;
+        buildCommand = ''
+          mkdir -p $out/bin
+          cat > $out/bin/shell <<EOF
+          #! ${stdenv.shell} -e
+          $shellHook
+          exec ${stdenv.shell}
+          EOF
+          chmod +x $out/bin/shell
+        '';
 
-      # Provide the dependencies in a development shell through the NODE_PATH environment variable
-      inherit nodeDependencies;
-      shellHook = lib.optionalString (dependencies != [ ]) ''
-        export NODE_PATH=$nodeDependencies/lib/node_modules
-        export PATH="$nodeDependencies/bin:$PATH"
-      '';
-    };
+        # Provide the dependencies in a development shell through the NODE_PATH environment variable
+        inherit nodeDependencies;
+        shellHook = lib.optionalString (dependencies != [ ]) ''
+          export NODE_PATH=$nodeDependencies/lib/node_modules
+          export PATH="$nodeDependencies/bin:$PATH"
+        '';
+      }
+  ;
 in {
   buildNodeSourceDist = lib.makeOverridable buildNodeSourceDist;
   buildNodePackage = lib.makeOverridable buildNodePackage;

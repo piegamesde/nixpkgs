@@ -54,25 +54,27 @@ let
     url = "https://aur.archlinux.org/cgit/aur.git/plain/winbox.png?h=winbox";
     sha256 = "sha256-YD6u2N+1thRnEsXO6AHm138fRda9XEtUX5+EGTg004A=";
   };
-in symlinkJoin {
-  inherit name pname version;
-  paths = [
-    wrapper
-    desktopItem
-  ];
+in
+  symlinkJoin {
+    inherit name pname version;
+    paths = [
+      wrapper
+      desktopItem
+    ];
 
-  postBuild = ''
-    mkdir -p "$out/share/pixmaps"
-    ln -s "${icon}" "$out/share/pixmaps/${pname}.png"
-  '';
+    postBuild = ''
+      mkdir -p "$out/share/pixmaps"
+      ln -s "${icon}" "$out/share/pixmaps/${pname}.png"
+    '';
 
-  meta = with lib; {
-    description = "Graphical configuration utility for RouterOS-based devices";
-    homepage = "https://mikrotik.com";
-    downloadPage = "https://mikrotik.com/download";
-    changelog = "https://wiki.mikrotik.com/wiki/Winbox_changelog";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ yrd ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Graphical configuration utility for RouterOS-based devices";
+      homepage = "https://mikrotik.com";
+      downloadPage = "https://mikrotik.com/download";
+      changelog = "https://wiki.mikrotik.com/wiki/Winbox_changelog";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.unfree;
+      maintainers = with maintainers; [ yrd ];
+    };
+  }

@@ -310,66 +310,66 @@ let
       ];
       wantedBy = optional serverCfg.autoStart "multi-user.target";
 
-      serviceConfig =
-        let certConfig = config.security.acme.certs."${serverCfg.useACMEHost}";
-        in {
-          Type = "simple";
-          ExecStart = with serverCfg;
-            let
-              resolvedTlsCertificate = if useACMEHost != null then
-                "${certConfig.directory}/fullchain.pem"
-              else
-                tlsCertificate;
-              resolvedTlsKey = if useACMEHost != null then
-                "${certConfig.directory}/key.pem"
-              else
-                tlsKey;
-            in ''
-              ${package}/bin/wstunnel \
-                --server \
-                ${
-                  optionalString (restrictTo != null) "--restrictTo=${
-                    utils.escapeSystemdExecArg (hostPortToString restrictTo)
-                  }"
-                } \
-                ${
-                  optionalString (resolvedTlsCertificate != null)
-                  "--tlsCertificate=${
-                    utils.escapeSystemdExecArg resolvedTlsCertificate
-                  }"
-                } \
-                ${
-                  optionalString (resolvedTlsKey != null)
-                  "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
-                } \
-                ${optionalString verboseLogging "--verbose"} \
-                ${attrsToArgs extraArgs} \
-                ${
-                  utils.escapeSystemdExecArg
-                  "${if enableHTTPS then "wss" else "ws"}://${
-                    hostPortToString listen
-                  }"
-                }
-            '';
-          EnvironmentFile = optional (serverCfg.environmentFile != null)
-            serverCfg.environmentFile;
-          DynamicUser = true;
-          SupplementaryGroups =
-            optional (serverCfg.useACMEHost != null) certConfig.group;
-          PrivateTmp = true;
-          AmbientCapabilities =
-            optionals (serverCfg.listen.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-          NoNewPrivileges = true;
-          RestrictNamespaces = "uts ipc pid user cgroup";
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          ProtectKernelTunables = true;
-          ProtectKernelModules = true;
-          ProtectControlGroups = true;
-          PrivateDevices = true;
-          RestrictSUIDSGID = true;
+      serviceConfig = let
+        certConfig = config.security.acme.certs."${serverCfg.useACMEHost}";
+      in {
+        Type = "simple";
+        ExecStart = with serverCfg;
+          let
+            resolvedTlsCertificate = if useACMEHost != null then
+              "${certConfig.directory}/fullchain.pem"
+            else
+              tlsCertificate;
+            resolvedTlsKey = if useACMEHost != null then
+              "${certConfig.directory}/key.pem"
+            else
+              tlsKey;
+          in ''
+            ${package}/bin/wstunnel \
+              --server \
+              ${
+                optionalString (restrictTo != null) "--restrictTo=${
+                  utils.escapeSystemdExecArg (hostPortToString restrictTo)
+                }"
+              } \
+              ${
+                optionalString (resolvedTlsCertificate != null)
+                "--tlsCertificate=${
+                  utils.escapeSystemdExecArg resolvedTlsCertificate
+                }"
+              } \
+              ${
+                optionalString (resolvedTlsKey != null)
+                "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
+              } \
+              ${optionalString verboseLogging "--verbose"} \
+              ${attrsToArgs extraArgs} \
+              ${
+                utils.escapeSystemdExecArg
+                "${if enableHTTPS then "wss" else "ws"}://${
+                  hostPortToString listen
+                }"
+              }
+          '' ;
+        EnvironmentFile = optional (serverCfg.environmentFile != null)
+          serverCfg.environmentFile;
+        DynamicUser = true;
+        SupplementaryGroups =
+          optional (serverCfg.useACMEHost != null) certConfig.group;
+        PrivateTmp = true;
+        AmbientCapabilities =
+          optionals (serverCfg.listen.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        NoNewPrivileges = true;
+        RestrictNamespaces = "uts ipc pid user cgroup";
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectControlGroups = true;
+        PrivateDevices = true;
+        RestrictSUIDSGID = true;
 
-        };
+      } ;
     };
   };
   generateClientUnit = name: clientCfg: {

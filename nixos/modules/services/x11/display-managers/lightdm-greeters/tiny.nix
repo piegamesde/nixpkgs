@@ -71,7 +71,9 @@ in {
         static const char *pass_text = "${cfg.label.pass}";
         static const char *session = "${dmcfg.defaultSession}";
       '';
-    in optionalString (cfg.extraConfig != "") (configHeader + cfg.extraConfig);
+    in
+      optionalString (cfg.extraConfig != "") (configHeader + cfg.extraConfig)
+    ;
 
     services.xserver.displayManager.lightdm.greeter = mkDefault {
       package = pkgs.lightdm-tiny-greeter.xgreeters;

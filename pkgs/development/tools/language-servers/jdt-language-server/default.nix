@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       --add-flags "--add-modules=ALL-SYSTEM" \
       --add-flags "--add-opens java.base/java.util=ALL-UNNAMED" \
       --add-flags "--add-opens java.base/java.lang=ALL-UNNAMED"
-  '';
+  '' ;
 
   meta = with lib; {
     homepage = "https://github.com/eclipse/eclipse.jdt.ls";

@@ -322,10 +322,12 @@ in {
         # for disambiguation with TypeScript files
         recordedFileExtension = lib.mkDefault ".m2ts";
       };
-    in lib.mkMerge [
-      defaultSettings
-      (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
-    ];
+    in
+      lib.mkMerge [
+        defaultSettings
+        (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
+      ]
+    ;
 
     systemd.tmpfiles.rules = [
       "d '/var/lib/epgstation/streamfiles' - ${username} ${groupname} - -"

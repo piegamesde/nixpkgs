@@ -89,7 +89,8 @@ in {
     services.hercules-ci-agent = {
       settings = {
         nixUserIsTrusted = true;
-        labels = let mkIfNotNull = x: mkIf (x != null) x;
+        labels = let
+          mkIfNotNull = x: mkIf (x != null) x;
         in {
           nixos.configurationRevision =
             mkIfNotNull config.system.configurationRevision;
@@ -98,7 +99,7 @@ in {
           nixos.codeName = config.system.nixos.codeName;
           nixos.tags = config.system.nixos.tags;
           nixos.systemName = mkIfNotNull config.system.name;
-        };
+        } ;
       };
     };
 

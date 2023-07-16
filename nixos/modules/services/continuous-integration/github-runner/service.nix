@@ -28,7 +28,8 @@
 
 with lib;
 
-let workDir = if cfg.workDir == null then runtimeDir else cfg.workDir;
+let
+  workDir = if cfg.workDir == null then runtimeDir else cfg.workDir;
 in {
   description = "GitHub Actions runner";
 
@@ -196,18 +197,20 @@ in {
             lib.concatStringsSep "," runnerCredFiles
           }} "$WORK_DIRECTORY/"
         '';
-      in map (x:
-        "${x} ${
-          escapeShellArgs [
-            stateDir
-            workDir
-            logsDir
+      in
+        map (x:
+          "${x} ${
+            escapeShellArgs [
+              stateDir
+              workDir
+              logsDir
+            ]
+          }") [
+            "+${unconfigureRunner}" # runs as root
+            configureRunner
+            setupWorkDir
           ]
-        }") [
-          "+${unconfigureRunner}" # runs as root
-          configureRunner
-          setupWorkDir
-        ];
+      ;
 
       # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)
       # to trigger a fresh registration.

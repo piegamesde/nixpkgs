@@ -10,9 +10,11 @@ let
   include = includedFiles: src:
     builtins.filterSource (path: type:
       lib.lists.any (f:
-        let p = toString (src + ("/" + f));
-        in (path == p) || (type == "directory" && lib.strings.hasPrefix path p))
-      includedFiles) src;
+        let
+          p = toString (src + ("/" + f));
+        in
+          (path == p) || (type == "directory" && lib.strings.hasPrefix path p)
+      ) includedFiles) src;
   updateFeatures = f: up: functions:
     builtins.deepSeq f (lib.lists.foldl' (features: fun: fun features)
       (lib.attrsets.recursiveUpdate f up) functions);

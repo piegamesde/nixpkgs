@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.xwayland;
+let
+  cfg = config.programs.xwayland;
 
 in {
   options.programs.xwayland = {

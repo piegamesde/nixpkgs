@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.programs.turbovnc;
+let
+  cfg = config.programs.turbovnc;
 in {
   options = {
 

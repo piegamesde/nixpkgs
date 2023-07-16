@@ -6,7 +6,8 @@
 
 with lib;
 
-let cfg = config.programs.systemtap;
+let
+  cfg = config.programs.systemtap;
 in {
 
   options = {

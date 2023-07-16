@@ -90,4 +90,5 @@ let
       inherit (vdr.meta) platforms;
     };
   };
-in self
+in
+  self

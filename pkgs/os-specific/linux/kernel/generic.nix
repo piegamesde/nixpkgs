@@ -125,7 +125,9 @@ let
           ...
         }:
         extraConfig) kernelPatches;
-    in lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches);
+    in
+      lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches)
+  ;
 
   configfile = stdenv.mkDerivation {
     inherit ignoreConfigErrors autoModules preferBuiltin kernelArch
@@ -261,9 +263,12 @@ let
             (lib.attrNames (if lib.isAttrs args then args else args { })))
           overridableKernel;
       };
-    in [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ]
-    ++ kernelTests;
+    in
+      [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ]
+      ++ kernelTests
+    ;
   };
 
   finalKernel = lib.extendDerivation true passthru kernel;
-in finalKernel
+in
+  finalKernel

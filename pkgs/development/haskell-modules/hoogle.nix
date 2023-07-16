@@ -41,88 +41,91 @@ let
     # we grab the doc outputs
     (map (lib.getOutput "doc") packages);
 
-in buildPackages.stdenv.mkDerivation {
-  name = "hoogle-with-packages";
-  buildInputs = [
-    ghc
-    hoogle
-  ];
+in
+  buildPackages.stdenv.mkDerivation {
+    name = "hoogle-with-packages";
+    buildInputs = [
+      ghc
+      hoogle
+    ];
 
-  # compiling databases takes less time than copying the results
-  # between machines.
-  preferLocalBuild = true;
+    # compiling databases takes less time than copying the results
+    # between machines.
+    preferLocalBuild = true;
 
-  # we still allow substitutes because a database is relatively small and if it
-  # is already built downloading is probably faster.  The substitution will only
-  # trigger for users who have already cached the database on a substituter and
-  # thus probably intend to substitute it.
-  allowSubstitutes = true;
+    # we still allow substitutes because a database is relatively small and if it
+    # is already built downloading is probably faster.  The substitution will only
+    # trigger for users who have already cached the database on a substituter and
+    # thus probably intend to substitute it.
+    allowSubstitutes = true;
 
-  inherit docPackages;
+    inherit docPackages;
 
-  passAsFile = [ "buildCommand" ];
+    passAsFile = [ "buildCommand" ];
 
-  buildCommand = ''
-    ${let # Filter out nulls here to work around https://github.com/NixOS/nixpkgs/issues/82245
-      # If we don't then grabbing `p.name` here will fail.
-      packages' = lib.filter (p: p != null) packages;
-    in lib.optionalString (packages' != [ ] -> docPackages == [ ])
-    ("echo WARNING: localHoogle package list empty, even though"
-      + " the following were specified: "
-      + lib.concatMapStringsSep ", " (p: p.name) packages')}
-    mkdir -p $out/share/doc/hoogle
+    buildCommand = ''
+      ${let # Filter out nulls here to work around https://github.com/NixOS/nixpkgs/issues/82245
+        # If we don't then grabbing `p.name` here will fail.
+        packages' = lib.filter (p: p != null) packages;
+      in
+        lib.optionalString (packages' != [ ] -> docPackages == [ ])
+        ("echo WARNING: localHoogle package list empty, even though"
+          + " the following were specified: "
+          + lib.concatMapStringsSep ", " (p: p.name) packages')
+      }
+      mkdir -p $out/share/doc/hoogle
 
-    echo importing builtin packages
-    for docdir in ${ghcDocLibDir}"/"*; do
-      name="$(basename $docdir)"
-      ${opts isGhcjs ''docdir="$docdir/html"''}
-      if [[ -d $docdir ]]; then
-        ln -sfn $docdir $out/share/doc/hoogle/$name
-      fi
-    done
+      echo importing builtin packages
+      for docdir in ${ghcDocLibDir}"/"*; do
+        name="$(basename $docdir)"
+        ${opts isGhcjs ''docdir="$docdir/html"''}
+        if [[ -d $docdir ]]; then
+          ln -sfn $docdir $out/share/doc/hoogle/$name
+        fi
+      done
 
-    echo importing other packages
-    ${lib.concatMapStringsSep "\n" (el: ''
-      ln -sfn ${el.haddockDir} "$out/share/doc/hoogle/${el.name}"
-    '') (lib.filter (el: el.haddockDir != null) (builtins.map (p: {
-      haddockDir = if p ? haddockDir then p.haddockDir p else null;
-      name = p.pname;
-    }) docPackages))}
+      echo importing other packages
+      ${lib.concatMapStringsSep "\n" (el: ''
+        ln -sfn ${el.haddockDir} "$out/share/doc/hoogle/${el.name}"
+      '') (lib.filter (el: el.haddockDir != null) (builtins.map (p: {
+        haddockDir = if p ? haddockDir then p.haddockDir p else null;
+        name = p.pname;
+      }) docPackages))}
 
-    echo building hoogle database
-    hoogle generate --database $out/share/doc/hoogle/default.hoo --local=$out/share/doc/hoogle
+      echo building hoogle database
+      hoogle generate --database $out/share/doc/hoogle/default.hoo --local=$out/share/doc/hoogle
 
-    echo building haddock index
-    # adapted from GHC's gen_contents_index
-    cd $out/share/doc/hoogle
+      echo building haddock index
+      # adapted from GHC's gen_contents_index
+      cd $out/share/doc/hoogle
 
-    args=
-    for hdfile in $(ls -1 *"/"*.haddock | grep -v '/ghc\.haddock' | sort); do
-        name_version=`echo "$hdfile" | sed 's#/.*##'`
-        args="$args --read-interface=$name_version,$hdfile"
-    done
+      args=
+      for hdfile in $(ls -1 *"/"*.haddock | grep -v '/ghc\.haddock' | sort); do
+          name_version=`echo "$hdfile" | sed 's#/.*##'`
+          args="$args --read-interface=$name_version,$hdfile"
+      done
 
-    ${ghc}/bin/${haddockExe} --gen-index --gen-contents -o . \
-         -t "Haskell Hierarchical Libraries" \
-         -p ${prologue} \
-         $args
+      ${ghc}/bin/${haddockExe} --gen-index --gen-contents -o . \
+           -t "Haskell Hierarchical Libraries" \
+           -p ${prologue} \
+           $args
 
-    echo finishing up
-    mkdir -p $out/bin
-    substitute ${wrapper} $out/bin/hoogle \
-        --subst-var out --subst-var-by shell ${stdenv.shell} \
-        --subst-var-by hoogle ${hoogle}
-    chmod +x $out/bin/hoogle
-  '';
+      echo finishing up
+      mkdir -p $out/bin
+      substitute ${wrapper} $out/bin/hoogle \
+          --subst-var out --subst-var-by shell ${stdenv.shell} \
+          --subst-var-by hoogle ${hoogle}
+      chmod +x $out/bin/hoogle
+    '';
 
-  passthru = {
-    isHaskellLibrary = false; # for the filter in ./with-packages-wrapper.nix
-  };
+    passthru = {
+      isHaskellLibrary = false; # for the filter in ./with-packages-wrapper.nix
+    };
 
-  meta = {
-    description = "A local Hoogle database";
-    platforms = ghc.meta.platforms;
-    hydraPlatforms = with lib.platforms; none;
-    maintainers = with lib.maintainers; [ ttuegel ];
-  };
-}
+    meta = {
+      description = "A local Hoogle database";
+      platforms = ghc.meta.platforms;
+      hydraPlatforms = with lib.platforms; none;
+      maintainers = with lib.maintainers; [ ttuegel ];
+    };
+  }

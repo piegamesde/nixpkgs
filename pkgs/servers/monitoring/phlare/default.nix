@@ -19,7 +19,8 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-Oz1qV+3sB0pOWGEMtp7mgMR9Ljd0rd9oa6NJO2azTJg=";
 
-  ldflags = let prefix = "github.com/grafana/phlare/pkg/util/build";
+  ldflags = let
+    prefix = "github.com/grafana/phlare/pkg/util/build";
   in [
     "-s"
     "-w"
@@ -29,7 +30,7 @@ buildGoModule rec {
     "-X ${prefix}.Revision=v${version}"
     "-X ${prefix}.BuildUser=nix"
     "-X ${prefix}.BuildDate=1980-01-01T00:00:00Z"
-  ];
+  ] ;
 
   subPackages = [
     "cmd/phlare"

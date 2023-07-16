@@ -12,12 +12,15 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "glu";
   version = "9.0.2";
 
-  src = let inherit (finalAttrs) pname version;
-  in fetchurl {
-    url =
-      "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-bnKA/1hcah2d/N8vykiSUWNLM3e/wzwp5AAkZqONAtQ=";
-  };
+  src = let
+    inherit (finalAttrs) pname version;
+  in
+    fetchurl {
+      url =
+        "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz";
+      sha256 = "sha256-bnKA/1hcah2d/N8vykiSUWNLM3e/wzwp5AAkZqONAtQ=";
+    }
+  ;
 
   nativeBuildInputs = [ pkg-config ];
   propagatedBuildInputs = [ libGL ]

@@ -255,17 +255,18 @@ let
     done
   '';
 
-in stdenv.mkDerivation {
-  name = "${name}-fhs";
-  buildCommand = ''
-    mkdir -p $out
-    cd $out
-    ${setupTargetProfile}
-    cd $out
-    ${extraBuildCommands}
-    cd $out
-    ${lib.optionalString isMultiBuild extraBuildCommandsMulti}
-  '';
-  preferLocalBuild = true;
-  allowSubstitutes = false;
-}
+in
+  stdenv.mkDerivation {
+    name = "${name}-fhs";
+    buildCommand = ''
+      mkdir -p $out
+      cd $out
+      ${setupTargetProfile}
+      cd $out
+      ${extraBuildCommands}
+      cd $out
+      ${lib.optionalString isMultiBuild extraBuildCommandsMulti}
+    '';
+    preferLocalBuild = true;
+    allowSubstitutes = false;
+  }

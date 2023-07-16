@@ -88,7 +88,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.config.users.users.alice;
+      let
+        user = nodes.machine.config.users.users.alice;
       in ''
         machine.wait_for_x()
         machine.wait_for_file("${user.home}/.Xauthority")
@@ -129,5 +130,5 @@ import ./make-test-python.nix ({
         machine.wait_for_file("/tmp/oldXMonad")
         machine.send_key("alt-ctrl-t")
         machine.wait_for_file("/tmp/somefile")
-      '';
-  })
+      '' ;
+  } )

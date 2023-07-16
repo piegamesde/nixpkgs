@@ -32,7 +32,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.config.users.users.alice;
+      let
+        user = nodes.machine.config.users.users.alice;
       in ''
         with subtest("Wait for cage to boot up"):
             start_all()
@@ -42,5 +43,5 @@ import ./make-test-python.nix ({
             machine.wait_until_succeeds("pgrep xterm")
             machine.wait_for_text("alice@machine")
             machine.screenshot("screen")
-      '';
+      '' ;
   })

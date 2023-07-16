@@ -79,22 +79,24 @@ with lib;
         '';
       };
 
-  in mkIf cfg.enable {
-    assertions = [ {
-      assertion = (cfg.configFile == null) != (cfg.config == null);
-      message =
-        "Either but not both `configFile` and `config` should be specified for v2ray.";
-    } ];
+  in
+    mkIf cfg.enable {
+      assertions = [ {
+        assertion = (cfg.configFile == null) != (cfg.config == null);
+        message =
+          "Either but not both `configFile` and `config` should be specified for v2ray.";
+      } ];
 
-    environment.etc."v2ray/config.json".source = configFile;
+      environment.etc."v2ray/config.json".source = configFile;
 
-    systemd.packages = [ cfg.package ];
+      systemd.packages = [ cfg.package ];
 
-    systemd.services.v2ray = {
-      restartTriggers = [ config.environment.etc."v2ray/config.json".source ];
+      systemd.services.v2ray = {
+        restartTriggers = [ config.environment.etc."v2ray/config.json".source ];
 
-      # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
-      wantedBy = [ "multi-user.target" ];
-    };
-  };
+        # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
+        wantedBy = [ "multi-user.target" ];
+      };
+    }
+  ;
 }

@@ -72,5 +72,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit("cfssl.service")
       machine.wait_until_succeeds("${cfsslrequest}")
       machine.succeed("ls /tmp/certificate-key.pem")
-    '';
+    '' ;
   })

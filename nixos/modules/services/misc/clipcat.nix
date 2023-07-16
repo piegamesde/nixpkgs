@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.clipcat;
+let
+  cfg = config.services.clipcat;
 in {
 
   options.services.clipcat = {

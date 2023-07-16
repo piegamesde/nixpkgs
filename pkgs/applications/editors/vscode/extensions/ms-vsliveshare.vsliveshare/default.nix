@@ -38,38 +38,39 @@ let
     util-linux # libuuid
   ];
 
-in ((vscode-utils.override {
-  stdenv = gccStdenv;
-}).buildVscodeMarketplaceExtension {
-  mktplcRef = {
-    name = "vsliveshare";
-    publisher = "ms-vsliveshare";
-    version = "1.0.5834";
-    sha256 = "sha256-+KfivY8W1VtUxhdXuUKI5e1elo6Ert1Tsf4xVXsKB3Y=";
-  };
-}).overrideAttrs ({
-    buildInputs ? [ ],
-    ...
-  }: {
-    buildInputs = buildInputs ++ libs;
-
-    # Using a patch file won't work, because the file changes too often, causing the patch to fail on most updates.
-    # Rather than patching the calls to functions, we modify the functions to return what we want,
-    # which is less likely to break in the future.
-    postPatch = ''
-      substituteInPlace extension.js \
-        --replace "'xsel'" "'${xsel}/bin/xsel'"
-    '';
-
-    meta = {
-      description =
-        "Live Share lets you achieve greater confidence at speed by streamlining collaborative editing, debugging, and more in real-time during development";
-      homepage = "https://aka.ms/vsls-docs";
-      license = lib.licenses.unfree;
-      maintainers = [
-        lib.maintainers.jraygauthier
-        lib.maintainers.V
-      ];
-      platforms = [ "x86_64-linux" ];
+in
+  ((vscode-utils.override {
+    stdenv = gccStdenv;
+  }).buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "vsliveshare";
+      publisher = "ms-vsliveshare";
+      version = "1.0.5834";
+      sha256 = "sha256-+KfivY8W1VtUxhdXuUKI5e1elo6Ert1Tsf4xVXsKB3Y=";
     };
-  })
+  }).overrideAttrs ({
+      buildInputs ? [ ],
+      ...
+    }: {
+      buildInputs = buildInputs ++ libs;
+
+      # Using a patch file won't work, because the file changes too often, causing the patch to fail on most updates.
+      # Rather than patching the calls to functions, we modify the functions to return what we want,
+      # which is less likely to break in the future.
+      postPatch = ''
+        substituteInPlace extension.js \
+          --replace "'xsel'" "'${xsel}/bin/xsel'"
+      '';
+
+      meta = {
+        description =
+          "Live Share lets you achieve greater confidence at speed by streamlining collaborative editing, debugging, and more in real-time during development";
+        homepage = "https://aka.ms/vsls-docs";
+        license = lib.licenses.unfree;
+        maintainers = [
+          lib.maintainers.jraygauthier
+          lib.maintainers.V
+        ];
+        platforms = [ "x86_64-linux" ];
+      };
+    })

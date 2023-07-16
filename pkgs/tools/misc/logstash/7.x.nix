@@ -88,4 +88,5 @@ let
           elk = nixosTests.elk.unfree.ELK-7;
         });
   };
-in this
+in
+  this

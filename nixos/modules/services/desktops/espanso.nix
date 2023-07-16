@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.espanso;
+let
+  cfg = config.services.espanso;
 in {
   meta = { maintainers = with lib.maintainers; [ numkem ]; };
 

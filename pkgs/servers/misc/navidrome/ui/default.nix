@@ -14,18 +14,19 @@ let
     pkgs = buildPackages;
   };
 
-in nodeComposition.package.override {
+in
+  nodeComposition.package.override {
 
-  pname = "navidrome";
-  inherit version;
-  src = "${src}/ui";
+    pname = "navidrome";
+    inherit version;
+    src = "${src}/ui";
 
-  dontNpmInstall = true;
+    dontNpmInstall = true;
 
-  postInstall = ''
-    npm run build
-    cd $out
-    mv lib/node_modules/navidrome-ui/build/* .
-    rm -rf lib
-  '';
-}
+    postInstall = ''
+      npm run build
+      cd $out
+      mv lib/node_modules/navidrome-ui/build/* .
+      rm -rf lib
+    '';
+  }

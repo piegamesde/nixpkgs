@@ -44,7 +44,7 @@ let
           substitute ${opts.desktop} $out/share/applications/$(basename ${opts.desktop}) \
             --replace ${opts.executable} $out/bin/${command}
         ''}
-      '') cfg.wrappedBinaries)}
+      '' ) cfg.wrappedBinaries)}
   '';
 
 in {

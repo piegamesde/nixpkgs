@@ -33,7 +33,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.config.users.users.alice;
+      let
+        user = nodes.machine.config.users.users.alice;
       in ''
         with subtest("Ensure x starts"):
             machine.wait_for_x()
@@ -97,5 +98,5 @@ import ./make-test-python.nix ({
             machine.send_chars("ls --color -alF\n")
             machine.sleep(2)
             machine.screenshot("terminology")
-      '';
+      '' ;
   })

@@ -48,7 +48,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.config.users.users.alice;
+      let
+        user = nodes.machine.config.users.users.alice;
       in ''
         start_all()
         machine.wait_for_x()
@@ -79,5 +80,5 @@ import ./make-test-python.nix ({
         print(machine.succeed(
             "su - alice -c 'sqlcipher ~/.config/Signal/sql/db.sqlite'"
         ))
-      '';
-  })
+      '' ;
+  } )

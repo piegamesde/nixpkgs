@@ -290,7 +290,7 @@ in {
         ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
         Restart = "always";
       };
-    };
+    } ;
 
     users.users.dhcpcd = {
       isSystemUser = true;

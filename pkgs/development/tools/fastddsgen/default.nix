@@ -52,65 +52,66 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-wnnoyaO1QndAYrqmYu1fO6OJrP1NQs8IX4uh37dVntY=";
   };
-in stdenv.mkDerivation {
-  inherit pname src version;
+in
+  stdenv.mkDerivation {
+    inherit pname src version;
 
-  nativeBuildInputs = [
-    gradle
-    openjdk17
-  ];
+    nativeBuildInputs = [
+      gradle
+      openjdk17
+    ];
 
-  # use our offline deps
-  postPatch = ''
-    sed -ie '1i\
-    pluginManagement {\
-      repositories {\
-        maven { url "${deps}" }\
-      }\
-    }' thirdparty/idl-parser/settings.gradle
-    sed -ie "s#mavenCentral()#maven { url '${deps}' }#g" build.gradle
-    sed -ie "s#mavenCentral()#maven { url '${deps}' }#g" thirdparty/idl-parser/build.gradle
-  '';
-
-  buildPhase = ''
-    runHook preBuild
-
-    export GRADLE_USER_HOME=$(mktemp -d)
-
-    # Run gradle with daemon to make installPhase faster
-    gradle --offline -x submodulesUpdate assemble
-
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    gradle --offline -x submodulesUpdate install --install_path=$out
-
-    # Override the default start script to use absolute java path
-    cat  <<EOF >$out/bin/fastddsgen
-    #!${runtimeShell}
-    exec ${openjdk17}/bin/java -jar "$out/share/fastddsgen/java/fastddsgen.jar" "\$@"
-    EOF
-    chmod a+x "$out/bin/fastddsgen"
-
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Fast-DDS IDL code generator tool";
-    homepage = "https://github.com/eProsima/Fast-DDS-Gen";
-    license = licenses.asl20;
-    longDescription = ''
-      eProsima Fast DDS-Gen is a Java application that generates
-      eProsima Fast DDS C++ or Python source code using the data types
-      defined in an IDL (Interface Definition Language) file. This
-      generated source code can be used in any Fast DDS application in
-      order to define the data type of a topic, which will later be
-      used to publish or subscribe.
+    # use our offline deps
+    postPatch = ''
+      sed -ie '1i\
+      pluginManagement {\
+        repositories {\
+          maven { url "${deps}" }\
+        }\
+      }' thirdparty/idl-parser/settings.gradle
+      sed -ie "s#mavenCentral()#maven { url '${deps}' }#g" build.gradle
+      sed -ie "s#mavenCentral()#maven { url '${deps}' }#g" thirdparty/idl-parser/build.gradle
     '';
-    maintainers = with maintainers; [ wentasah ];
-    platforms = openjdk17.meta.platforms;
-  };
-}
+
+    buildPhase = ''
+      runHook preBuild
+
+      export GRADLE_USER_HOME=$(mktemp -d)
+
+      # Run gradle with daemon to make installPhase faster
+      gradle --offline -x submodulesUpdate assemble
+
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      gradle --offline -x submodulesUpdate install --install_path=$out
+
+      # Override the default start script to use absolute java path
+      cat  <<EOF >$out/bin/fastddsgen
+      #!${runtimeShell}
+      exec ${openjdk17}/bin/java -jar "$out/share/fastddsgen/java/fastddsgen.jar" "\$@"
+      EOF
+      chmod a+x "$out/bin/fastddsgen"
+
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description = "Fast-DDS IDL code generator tool";
+      homepage = "https://github.com/eProsima/Fast-DDS-Gen";
+      license = licenses.asl20;
+      longDescription = ''
+        eProsima Fast DDS-Gen is a Java application that generates
+        eProsima Fast DDS C++ or Python source code using the data types
+        defined in an IDL (Interface Definition Language) file. This
+        generated source code can be used in any Fast DDS application in
+        order to define the data type of a topic, which will later be
+        used to publish or subscribe.
+      '';
+      maintainers = with maintainers; [ wentasah ];
+      platforms = openjdk17.meta.platforms;
+    };
+  }

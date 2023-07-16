@@ -80,7 +80,9 @@ let
       (builtins.add 1)
       toString
     ];
-  in { "ghc${headVersion}" = headSet; });
+  in {
+    "ghc${headVersion}" = headSet;
+  } );
 
   setsForFile = fileName:
     let
@@ -98,14 +100,16 @@ let
           (builtins.attrNames packageSetsWithVersionedHead));
 
       defaultSets = [ pkgs.haskellPackages ];
-    in {
-      # use plain haskellPackages for the version-agnostic files
-      # TODO(@sternenseemann): also consider currently selected versioned sets
-      "common" = defaultSets;
-      "nix" = defaultSets;
-      "arm" = defaultSets;
-      "darwin" = defaultSets;
-    }.${configName} or setsForVersion;
+    in
+      {
+        # use plain haskellPackages for the version-agnostic files
+        # TODO(@sternenseemann): also consider currently selected versioned sets
+        "common" = defaultSets;
+        "nix" = defaultSets;
+        "arm" = defaultSets;
+        "darwin" = defaultSets;
+      }.${configName} or setsForVersion
+  ;
 
   # attribute set that has all the attributes of haskellPackages set to null
   availableHaskellPackages = builtins.listToAttrs
@@ -132,7 +136,9 @@ let
       let
         sets = setsForFile fileName;
         attrs = overriddenAttrs fileName;
-      in lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets)
-      files');
+      in
+        lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
+    ) files');
 
-in packages
+in
+  packages

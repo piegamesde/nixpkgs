@@ -28,63 +28,65 @@ let
     aarch64-darwin = "1zmfg1lv6izv1dmhawmnjs108pg99kq37pi6adyqnfw9yssn0ar5";
     armv7l-linux = "10gr9p5vf0wcc9dgyc79p20vip12ja15qas4i3kwdp9lp4hzh1ss";
   }.${system} or throwSystem;
-in callPackage ./generic.nix rec {
-  # Please backport all compatible updates to the stable release.
-  # This is important for the extension ecosystem.
-  version = "1.78.0";
-  pname = "vscode";
+in
+  callPackage ./generic.nix rec {
+    # Please backport all compatible updates to the stable release.
+    # This is important for the extension ecosystem.
+    version = "1.78.0";
+    pname = "vscode";
 
-  executableName = "code" + lib.optionalString isInsiders "-insiders";
-  longName = "Visual Studio Code" + lib.optionalString isInsiders " - Insiders";
-  shortName = "Code" + lib.optionalString isInsiders " - Insiders";
-  inherit commandLineArgs;
+    executableName = "code" + lib.optionalString isInsiders "-insiders";
+    longName = "Visual Studio Code"
+      + lib.optionalString isInsiders " - Insiders";
+    shortName = "Code" + lib.optionalString isInsiders " - Insiders";
+    inherit commandLineArgs;
 
-  src = fetchurl {
-    name = "VSCode_${version}_${plat}.${archive_fmt}";
-    url = "https://update.code.visualstudio.com/${version}/${plat}/stable";
-    inherit sha256;
-  };
+    src = fetchurl {
+      name = "VSCode_${version}_${plat}.${archive_fmt}";
+      url = "https://update.code.visualstudio.com/${version}/${plat}/stable";
+      inherit sha256;
+    };
 
-  # We don't test vscode on CI, instead we test vscodium
-  tests = { };
+    # We don't test vscode on CI, instead we test vscodium
+    tests = { };
 
-  sourceRoot = "";
+    sourceRoot = "";
 
-  updateScript = ./update-vscode.sh;
+    updateScript = ./update-vscode.sh;
 
-  # Editing the `code` binary within the app bundle causes the bundle's signature
-  # to be invalidated, which prevents launching starting with macOS Ventura, because VS Code is notarized.
-  # See https://eclecticlight.co/2022/06/17/app-security-changes-coming-in-ventura/ for more information.
-  dontFixup = stdenv.isDarwin;
+    # Editing the `code` binary within the app bundle causes the bundle's signature
+    # to be invalidated, which prevents launching starting with macOS Ventura, because VS Code is notarized.
+    # See https://eclecticlight.co/2022/06/17/app-security-changes-coming-in-ventura/ for more information.
+    dontFixup = stdenv.isDarwin;
 
-  meta = with lib; {
-    description = ''
-      Open source source code editor developed by Microsoft for Windows,
-      Linux and macOS
-    '';
-    mainProgram = "code";
-    longDescription = ''
-      Open source source code editor developed by Microsoft for Windows,
-      Linux and macOS. It includes support for debugging, embedded Git
-      control, syntax highlighting, intelligent code completion, snippets,
-      and code refactoring. It is also customizable, so users can change the
-      editor's theme, keyboard shortcuts, and preferences
-    '';
-    homepage = "https://code.visualstudio.com/";
-    downloadPage = "https://code.visualstudio.com/Updates";
-    license = licenses.unfree;
-    maintainers = with maintainers; [
-      eadwu
-      synthetica
-      maxeaubrey
-      bobby285271
-    ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-      "aarch64-linux"
-      "armv7l-linux"
-    ];
-  };
-}
+    meta = with lib; {
+      description = ''
+        Open source source code editor developed by Microsoft for Windows,
+        Linux and macOS
+      '';
+      mainProgram = "code";
+      longDescription = ''
+        Open source source code editor developed by Microsoft for Windows,
+        Linux and macOS. It includes support for debugging, embedded Git
+        control, syntax highlighting, intelligent code completion, snippets,
+        and code refactoring. It is also customizable, so users can change the
+        editor's theme, keyboard shortcuts, and preferences
+      '';
+      homepage = "https://code.visualstudio.com/";
+      downloadPage = "https://code.visualstudio.com/Updates";
+      license = licenses.unfree;
+      maintainers = with maintainers; [
+        eadwu
+        synthetica
+        maxeaubrey
+        bobby285271
+      ];
+      platforms = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+        "aarch64-linux"
+        "armv7l-linux"
+      ];
+    };
+  }

@@ -26,20 +26,22 @@ rec {
             "https://github.com/tesseract-ocr/tessdata/raw/${tessdataRev}/${lang}.traineddata";
           inherit hash;
         };
-    in {
-      # Use a simple fixed-output derivation for all languages to increase nix eval performance
-      all = stdenv.mkDerivation {
-        name = "all";
-        buildCommand = ''
-          mkdir $out
-          cd ${tessdataSrc}
-          cp *.traineddata $out
-        '';
-        outputHashMode = "recursive";
-        outputHashAlgo = "sha256";
-        outputHash = all;
-      };
-    } // (lib.mapAttrs languageFile languages);
+    in
+      {
+        # Use a simple fixed-output derivation for all languages to increase nix eval performance
+        all = stdenv.mkDerivation {
+          name = "all";
+          buildCommand = ''
+            mkdir $out
+            cd ${tessdataSrc}
+            cp *.traineddata $out
+          '';
+          outputHashMode = "recursive";
+          outputHashAlgo = "sha256";
+          outputHash = all;
+        };
+      } // (lib.mapAttrs languageFile languages)
+  ;
 
   v3 = makeLanguages {
     tessdataRev = "3cf1e2df1fe1d1da29295c9ef0983796c7958b7d";

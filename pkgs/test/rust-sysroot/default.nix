@@ -63,5 +63,7 @@ in {
         platform = targetContents;
       };
     };
-  in mkBlogOsTest (rust.toRustTargetSpec plat);
+  in
+    mkBlogOsTest (rust.toRustTargetSpec plat)
+  ;
 }

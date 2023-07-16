@@ -7,7 +7,8 @@
   name,
   ...
 }:
-let inherit (lib) literalExpression mkOption types;
+let
+  inherit (lib) literalExpression mkOption types;
 in {
   options = {
 

@@ -7,7 +7,8 @@
 
 with lib;
 
-let enable = config.programs.bash.enableCompletion;
+let
+  enable = config.programs.bash.enableCompletion;
 in {
   options = {
     programs.bash.enableCompletion = mkEnableOption

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.bandwhich;
+let
+  cfg = config.programs.bandwhich;
 in {
   meta.maintainers = with maintainers; [ Br1ght0ne ];
 

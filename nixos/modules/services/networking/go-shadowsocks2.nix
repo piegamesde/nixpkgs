@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.go-shadowsocks2.server;
+let
+  cfg = config.services.go-shadowsocks2.server;
 in {
   options.services.go-shadowsocks2.server = {
     enable = mkEnableOption (lib.mdDoc "go-shadowsocks2 server");

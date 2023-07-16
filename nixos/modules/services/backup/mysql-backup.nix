@@ -103,7 +103,9 @@ in {
         let
           privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
           grant = db: nameValuePair "${db}.*" privs;
-        in listToAttrs (map grant cfg.databases);
+        in
+          listToAttrs (map grant cfg.databases)
+      ;
     } ];
 
     systemd = {

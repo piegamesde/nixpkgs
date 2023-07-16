@@ -28,60 +28,61 @@ let
     ];
   };
 
-in stdenv.mkDerivation rec {
-  inherit pname;
-  version = if isStereo then
-    "2.77" # stereo
-  else
-    "2.76"; # normal
-
-  src = fetchurl {
-    url = "mirror://sourceforge/goattracker2/GoatTracker_${version}${
-        lib.optionalString isStereo "_Stereo"
-      }.zip";
-    sha256 = if isStereo then
-      "1hiig2d152sv9kazwz33i56x1c54h5sh21ipkqnp6qlnwj8x1ksy" # stereo
+in
+  stdenv.mkDerivation rec {
+    inherit pname;
+    version = if isStereo then
+      "2.77" # stereo
     else
-      "0d7a3han4jw4bwiba3j87racswaajgl3pj4sb5lawdqdxicv3dn1"; # normal
-  };
-  sourceRoot = "src";
+      "2.76"; # normal
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    unzip
-    imagemagick
-  ];
-  buildInputs = [ SDL ];
+    src = fetchurl {
+      url = "mirror://sourceforge/goattracker2/GoatTracker_${version}${
+          lib.optionalString isStereo "_Stereo"
+        }.zip";
+      sha256 = if isStereo then
+        "1hiig2d152sv9kazwz33i56x1c54h5sh21ipkqnp6qlnwj8x1ksy" # stereo
+      else
+        "0d7a3han4jw4bwiba3j87racswaajgl3pj4sb5lawdqdxicv3dn1"; # normal
+    };
+    sourceRoot = "src";
 
-  # PREFIX gets treated as BINDIR.
-  makeFlags = [ "PREFIX=$(out)/bin/" ];
+    nativeBuildInputs = [
+      copyDesktopItems
+      unzip
+      imagemagick
+    ];
+    buildInputs = [ SDL ];
 
-  # The zip contains some build artifacts.
-  prePatch = "make clean";
+    # PREFIX gets treated as BINDIR.
+    makeFlags = [ "PREFIX=$(out)/bin/" ];
 
-  # The destination does not get created automatically.
-  preBuild = "mkdir -p $out/bin";
+    # The zip contains some build artifacts.
+    prePatch = "make clean";
 
-  # Other files get installed during the build phase.
-  installPhase = ''
-    runHook preInstall
+    # The destination does not get created automatically.
+    preBuild = "mkdir -p $out/bin";
 
-    convert goattrk2.bmp goattracker.png
-    install -Dm644 goattracker.png $out/share/icons/hicolor/32x32/apps/goattracker.png
+    # Other files get installed during the build phase.
+    installPhase = ''
+      runHook preInstall
 
-    runHook postInstall
-  '';
+      convert goattrk2.bmp goattracker.png
+      install -Dm644 goattracker.png $out/share/icons/hicolor/32x32/apps/goattracker.png
 
-  desktopItems = [ desktopItem ];
+      runHook postInstall
+    '';
 
-  meta = {
-    description =
-      "A crossplatform music editor for creating Commodore 64 music. Uses reSID library by Dag Lem and supports alternatively HardSID & CatWeasel devices"
-      + lib.optionalString isStereo " - Stereo version";
-    homepage = "https://cadaver.github.io/tools.html";
-    downloadPage = "https://sourceforge.net/projects/goattracker2/";
-    license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
-    platforms = lib.platforms.all;
-  };
-}
+    desktopItems = [ desktopItem ];
+
+    meta = {
+      description =
+        "A crossplatform music editor for creating Commodore 64 music. Uses reSID library by Dag Lem and supports alternatively HardSID & CatWeasel devices"
+        + lib.optionalString isStereo " - Stereo version";
+      homepage = "https://cadaver.github.io/tools.html";
+      downloadPage = "https://sourceforge.net/projects/goattracker2/";
+      license = lib.licenses.gpl2Plus;
+      maintainers = with lib.maintainers; [ fgaz ];
+      platforms = lib.platforms.all;
+    };
+  }

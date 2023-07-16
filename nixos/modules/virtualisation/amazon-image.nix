@@ -13,7 +13,8 @@
 
 with lib;
 
-let cfg = config.ec2;
+let
+  cfg = config.ec2;
 
 in {
   imports = [

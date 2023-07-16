@@ -157,7 +157,7 @@ stdenv.mkDerivation (finalAttrs: {
     moveToOutput "bin/captoinfo" "$out"
     moveToOutput "bin/infotocap" "$out"
     moveToOutput "bin/infocmp" "$out"
-  '';
+  '' ;
 
   preFixup =
     lib.optionalString (!stdenv.hostPlatform.isCygwin && !enableStatic) ''
@@ -186,7 +186,9 @@ stdenv.mkDerivation (finalAttrs: {
         "ncurses"
         "panel"
       ] ++ lib.optional withCxx "ncurses++";
-    in base ++ lib.optionals unicodeSupport (map (p: p + "w") base);
+    in
+      base ++ lib.optionals unicodeSupport (map (p: p + "w") base)
+    ;
     platforms = platforms.all;
   };
 

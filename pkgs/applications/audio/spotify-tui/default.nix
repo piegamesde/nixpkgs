@@ -74,7 +74,7 @@ rustPlatform.buildRustPackage rec {
     };
   in ''
     ln -s ${rspotify} ./rspotify-${rspotify.version}
-  '';
+  '' ;
 
   cargoHash = "sha256-aZJ6Q/rvqrv+wvQw2eKFPnSROhI5vXPvr5pu1hwtZKA=";
 

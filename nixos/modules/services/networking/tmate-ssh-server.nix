@@ -87,7 +87,7 @@ in {
         sd -sp '@ed25519_fingerprint@' "$ED25519_SIG" ${tmate-config} | \
           sd -sp '@rsa_fingerprint@' "$RSA_SIG"
       '';
-    }) ];
+    }) ] ;
 
     systemd.services.tmate-ssh-server = {
       description = "tmate SSH Server";

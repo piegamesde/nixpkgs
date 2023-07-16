@@ -1,7 +1,8 @@
 {
   lib,
 }:
-let inherit (lib.attrsets) mapAttrs;
+let
+  inherit (lib.attrsets) mapAttrs;
 
 in rec {
   doubles = import ./doubles.nix { inherit lib; };
@@ -255,16 +256,18 @@ in rec {
           else
             throw "Don't know how to run ${final.config} executables.";
 
-      }) // mapAttrs (n: v: v final.parsed) inspect.predicates
+      } ) // mapAttrs (n: v: v final.parsed) inspect.predicates
         // mapAttrs (n: v: v final.gcc.arch or "default")
         architectures.predicates // args;
-    in assert final.useAndroidPrebuilt -> final.isAndroid;
-    assert lib.foldl (pass:
-      {
-        assertion,
-        message,
-      }:
-      if assertion final then pass else throw message) true
-      (final.parsed.abi.assertions or [ ]);
-    final;
+    in
+      assert final.useAndroidPrebuilt -> final.isAndroid;
+      assert lib.foldl (pass:
+        {
+          assertion,
+          message,
+        }:
+        if assertion final then pass else throw message) true
+        (final.parsed.abi.assertions or [ ]);
+      final
+  ;
 }

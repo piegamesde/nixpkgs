@@ -65,7 +65,9 @@ let
           platforms = platforms.all;
         };
       };
-    in pkg;
+    in
+      pkg
+  ;
 
 in rec {
 

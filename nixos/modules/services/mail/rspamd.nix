@@ -97,7 +97,9 @@ let
             warning = "The option `${from}` defined in ${
                 showFiles files
               } has enum value `proxy` which has been renamed to `rspamd_proxy`";
-          in x: if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
+          in
+            x: if x == "proxy" then traceWarning warning "rspamd_proxy" else x
+          ;
         };
         bindSockets = mkOption {
           type = types.listOf
@@ -164,11 +166,13 @@ let
               owner = cfg.user;
               group = cfg.group;
             };
-          in mkDefault
-          (if name == "normal" then [ (unixSocket "rspamd") ] else if name
-          == "controller" then [ "localhost:11334" ] else if name
-          == "rspamd_proxy" then [ (unixSocket "proxy") ] else
-            [ ]);
+          in
+            mkDefault
+            (if name == "normal" then [ (unixSocket "rspamd") ] else if name
+            == "controller" then [ "localhost:11334" ] else if name
+            == "rspamd_proxy" then [ (unixSocket "proxy") ] else
+              [ ])
+          ;
         };
     };
 
@@ -219,7 +223,7 @@ let
           .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
           .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
         }
-      '') cfg.workers)}
+      '' ) cfg.workers)}
 
     ${optionalString (cfg.extraConfig != "") ''
       .include(priority=10) "$LOCAL_CONFDIR/override.d/extra-config.inc"
@@ -269,9 +273,11 @@ let
         };
       };
       config = {
-        source = mkIf (config.text != null)
-          (let name' = "rspamd-${prefix}-" + baseNameOf name;
-          in mkDefault (pkgs.writeText name' config.text));
+        source = mkIf (config.text != null) (let
+          name' = "rspamd-${prefix}-" + baseNameOf name;
+        in
+          mkDefault (pkgs.writeText name' config.text)
+        );
       };
     };
 

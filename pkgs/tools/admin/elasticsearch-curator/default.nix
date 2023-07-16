@@ -19,70 +19,72 @@ let
       });
     };
   };
-in python.pkgs.buildPythonApplication rec {
-  pname = "elasticsearch-curator";
-  version = "5.8.4";
+in
+  python.pkgs.buildPythonApplication rec {
+    pname = "elasticsearch-curator";
+    version = "5.8.4";
 
-  format = "setuptools";
+    format = "setuptools";
 
-  src = fetchFromGitHub {
-    owner = "elastic";
-    repo = "curator";
-    rev = "v${version}";
-    hash = "sha256-wSfd52jebUkgF5xhjcoUjI7j46eJF33pVb4Wrybq44g=";
-  };
+    src = fetchFromGitHub {
+      owner = "elastic";
+      repo = "curator";
+      rev = "v${version}";
+      hash = "sha256-wSfd52jebUkgF5xhjcoUjI7j46eJF33pVb4Wrybq44g=";
+    };
 
-  postPatch = ''
-    substituteInPlace setup.cfg \
-      --replace "urllib3==1.26.4" "urllib3"
-    substituteInPlace setup.py \
-      --replace "urllib3==1.26.4" "urllib3" \
-      --replace "pyyaml==5.4.1" "pyyaml"
-  '';
+    postPatch = ''
+      substituteInPlace setup.cfg \
+        --replace "urllib3==1.26.4" "urllib3"
+      substituteInPlace setup.py \
+        --replace "urllib3==1.26.4" "urllib3" \
+        --replace "pyyaml==5.4.1" "pyyaml"
+    '';
 
-  propagatedBuildInputs = with python.pkgs; [
-    elasticsearch
-    urllib3
-    requests
-    boto3
-    requests-aws4auth
-    click
-    pyyaml
-    voluptuous
-    certifi
-    six
-  ];
-
-  nativeCheckInputs = with python.pkgs; [
-    mock
-    pytestCheckHook
-  ];
-
-  disabledTestPaths = [ "test/integration" # requires running elasticsearch
+    propagatedBuildInputs = with python.pkgs; [
+      elasticsearch
+      urllib3
+      requests
+      boto3
+      requests-aws4auth
+      click
+      pyyaml
+      voluptuous
+      certifi
+      six
     ];
 
-  disabledTests = [
-    # access network
-    "test_api_key_not_set"
-    "test_api_key_set"
-  ];
+    nativeCheckInputs = with python.pkgs; [
+      mock
+      pytestCheckHook
+    ];
 
-  meta = with lib; {
-    homepage = "https://github.com/elastic/curator";
-    description = "Curate, or manage, your Elasticsearch indices and snapshots";
-    license = licenses.asl20;
-    longDescription = ''
-      Elasticsearch Curator helps you curate, or manage, your Elasticsearch
-      indices and snapshots by:
+    disabledTestPaths = [ "test/integration" # requires running elasticsearch
+      ];
 
-      * Obtaining the full list of indices (or snapshots) from the cluster, as the
-        actionable list
+    disabledTests = [
+      # access network
+      "test_api_key_not_set"
+      "test_api_key_set"
+    ];
 
-      * Iterate through a list of user-defined filters to progressively remove
-        indices (or snapshots) from this actionable list as needed.
+    meta = with lib; {
+      homepage = "https://github.com/elastic/curator";
+      description =
+        "Curate, or manage, your Elasticsearch indices and snapshots";
+      license = licenses.asl20;
+      longDescription = ''
+        Elasticsearch Curator helps you curate, or manage, your Elasticsearch
+        indices and snapshots by:
 
-      * Perform various actions on the items which remain in the actionable list.
-    '';
-    maintainers = with maintainers; [ basvandijk ];
-  };
-}
+        * Obtaining the full list of indices (or snapshots) from the cluster, as the
+          actionable list
+
+        * Iterate through a list of user-defined filters to progressively remove
+          indices (or snapshots) from this actionable list as needed.
+
+        * Perform various actions on the items which remain in the actionable list.
+      '';
+      maintainers = with maintainers; [ basvandijk ];
+    };
+  }

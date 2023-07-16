@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.portunus;
+let
+  cfg = config.services.portunus;
 
 in {
   options.services.portunus = {
@@ -266,7 +267,7 @@ in {
           PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
           PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
           PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
-        }));
+        } ));
       };
     };
 

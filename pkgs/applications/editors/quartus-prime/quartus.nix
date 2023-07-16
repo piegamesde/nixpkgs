@@ -62,60 +62,61 @@ let
         }/ib_installers/${name}";
     };
 
-in stdenv.mkDerivation rec {
-  inherit version;
-  pname = "quartus-prime-lite-unwrapped";
+in
+  stdenv.mkDerivation rec {
+    inherit version;
+    pname = "quartus-prime-lite-unwrapped";
 
-  src = map download ([
-    {
-      name = "QuartusLiteSetup-${version}-linux.run";
-      sha256 = "0mjp1rg312dipr7q95pb4nf4b8fwvxgflnd1vafi3g9cshbb1c3k";
-    }
-    {
-      name = "ModelSimSetup-${version}-linux.run";
-      sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
-    }
-  ] ++ (map (id: {
-    name = "${id}-${version}.qdz";
-    sha256 = lib.getAttr id componentHashes;
-  }) (lib.attrValues supportedDeviceIds)));
+    src = map download ([
+      {
+        name = "QuartusLiteSetup-${version}-linux.run";
+        sha256 = "0mjp1rg312dipr7q95pb4nf4b8fwvxgflnd1vafi3g9cshbb1c3k";
+      }
+      {
+        name = "ModelSimSetup-${version}-linux.run";
+        sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
+      }
+    ] ++ (map (id: {
+      name = "${id}-${version}.qdz";
+      sha256 = lib.getAttr id componentHashes;
+    }) (lib.attrValues supportedDeviceIds)));
 
-  nativeBuildInputs = [ unstick ];
+    nativeBuildInputs = [ unstick ];
 
-  buildCommand = let
-    installers = lib.sublist 0 2 src;
-    components = lib.sublist 2 ((lib.length src) - 2) src;
-    copyInstaller = installer: ''
-      # `$(cat $NIX_CC/nix-support/dynamic-linker) $src[0]` often segfaults, so cp + patchelf
-      cp ${installer} $TEMP/${installer.name}
-      chmod u+w,+x $TEMP/${installer.name}
-      patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
-    '';
-    copyComponent = component: "cp ${component} $TEMP/${component.name}";
-    # leaves enabled: quartus, modelsim_ase, devinfo
-    disabledComponents = [
-      "quartus_help"
-      "quartus_update"
-      # not modelsim_ase
-      "modelsim_ae"
-    ] ++ (lib.attrValues unsupportedDeviceIds);
-  in ''
-    ${lib.concatMapStringsSep "\n" copyInstaller installers}
-    ${lib.concatMapStringsSep "\n" copyComponent components}
+    buildCommand = let
+      installers = lib.sublist 0 2 src;
+      components = lib.sublist 2 ((lib.length src) - 2) src;
+      copyInstaller = installer: ''
+        # `$(cat $NIX_CC/nix-support/dynamic-linker) $src[0]` often segfaults, so cp + patchelf
+        cp ${installer} $TEMP/${installer.name}
+        chmod u+w,+x $TEMP/${installer.name}
+        patchelf --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $TEMP/${installer.name}
+      '';
+      copyComponent = component: "cp ${component} $TEMP/${component.name}";
+      # leaves enabled: quartus, modelsim_ase, devinfo
+      disabledComponents = [
+        "quartus_help"
+        "quartus_update"
+        # not modelsim_ase
+        "modelsim_ae"
+      ] ++ (lib.attrValues unsupportedDeviceIds);
+    in ''
+      ${lib.concatMapStringsSep "\n" copyInstaller installers}
+      ${lib.concatMapStringsSep "\n" copyComponent components}
 
-    unstick $TEMP/${(builtins.head installers).name} \
-      --disable-components ${lib.concatStringsSep "," disabledComponents} \
-      --mode unattended --installdir $out --accept_eula 1
+      unstick $TEMP/${(builtins.head installers).name} \
+        --disable-components ${lib.concatStringsSep "," disabledComponents} \
+        --mode unattended --installdir $out --accept_eula 1
 
-    rm -r $out/uninstall $out/logs
-  '';
+      rm -r $out/uninstall $out/logs
+    '' ;
 
-  meta = with lib; {
-    homepage = "https://fpgasoftware.intel.com";
-    description = "FPGA design and simulation software";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ kwohlfahrt ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://fpgasoftware.intel.com";
+      description = "FPGA design and simulation software";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.unfree;
+      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [ kwohlfahrt ];
+    };
+  }

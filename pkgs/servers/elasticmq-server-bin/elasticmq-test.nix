@@ -41,7 +41,7 @@ in {
     assert len(messages) == 1
     assert messages[0].body == "bazqux"
   '';
-}) ''
+} ) ''
   JAVA_TOOL_OPTIONS="-Dconfig.file=$emqConfig" ${elasticmq-server}/bin/elasticmq-server &
   SERVER_PID=$!
   sleep 10

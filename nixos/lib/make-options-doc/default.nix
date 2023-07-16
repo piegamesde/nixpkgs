@@ -96,8 +96,10 @@ let
           }`pkgs.${name}`](
               https://search.nixos.org/packages?show=${name}&sort=relevance&query=${name}
             )${lib.optionalString (args ? comment) "\n\n  ${args.comment}"}
-        '';
-    in lib.concatMapStrings (p: describe (unpack p)) packages;
+        '' ;
+    in
+      lib.concatMapStrings (p: describe (unpack p)) packages
+  ;
 
   optionsNix = builtins.listToAttrs (map (o: {
     name = o.name;

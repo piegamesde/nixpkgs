@@ -104,151 +104,152 @@ let
 
   policiesJson = writeText "policies.json"
     (builtins.toJSON { policies.DisableAppUpdate = true; });
-in stdenv.mkDerivation rec {
-  pname = "mullvad-browser";
-  inherit version;
+in
+  stdenv.mkDerivation rec {
+    pname = "mullvad-browser";
+    inherit version;
 
-  src = srcs.${stdenv.hostPlatform.system} or (throw
-    "unsupported system: ${stdenv.hostPlatform.system}");
+    src = srcs.${stdenv.hostPlatform.system} or (throw
+      "unsupported system: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
-
-  preferLocalBuild = true;
-  allowSubstitutes = false;
-
-  desktopItems = [ (makeDesktopItem {
-    name = "mullvadbrowser";
-    exec = "mullvad-browser %U";
-    icon = "mullvad-browser";
-    desktopName = "Mullvad Browser";
-    genericName = "Web Browser";
-    comment = meta.description;
-    categories = [
-      "Network"
-      "WebBrowser"
-      "Security"
+    nativeBuildInputs = [
+      copyDesktopItems
+      makeWrapper
     ];
-  }) ];
 
-  buildPhase = ''
-    runHook preBuild
+    preferLocalBuild = true;
+    allowSubstitutes = false;
 
-    # For convenience ...
-    MB_IN_STORE=$out/share/mullvad-browser
+    desktopItems = [ (makeDesktopItem {
+      name = "mullvadbrowser";
+      exec = "mullvad-browser %U";
+      icon = "mullvad-browser";
+      desktopName = "Mullvad Browser";
+      genericName = "Web Browser";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "WebBrowser"
+        "Security"
+      ];
+    }) ];
 
-    # Unpack & enter
-    mkdir -p "$MB_IN_STORE"
-    tar xf "$src" -C "$MB_IN_STORE" --strip-components=2
-    pushd "$MB_IN_STORE"
+    buildPhase = ''
+      runHook preBuild
 
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "mullvadbrowser.real"
+      # For convenience ...
+      MB_IN_STORE=$out/share/mullvad-browser
 
-    # mullvadbrowser is a wrapper that checks for a more recent libstdc++ & appends it to the ld path
-    mv mullvadbrowser.real mullvadbrowser
+      # Unpack & enter
+      mkdir -p "$MB_IN_STORE"
+      tar xf "$src" -C "$MB_IN_STORE" --strip-components=2
+      pushd "$MB_IN_STORE"
 
-    # store state at `~/.mullvad` instead of relative to executable
-    touch "$MB_IN_STORE/system-install"
+      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "mullvadbrowser.real"
 
-    # Add bundled libraries to libPath.
-    libPath=${libPath}:$MB_IN_STORE
+      # mullvadbrowser is a wrapper that checks for a more recent libstdc++ & appends it to the ld path
+      mv mullvadbrowser.real mullvadbrowser
 
-    # apulse uses a non-standard library path.  For now special-case it.
-    ${lib.optionalString (audioSupport && !pulseaudioSupport) ''
-      libPath=${apulse}/lib/apulse:$libPath
-    ''}
+      # store state at `~/.mullvad` instead of relative to executable
+      touch "$MB_IN_STORE/system-install"
 
-    # Prepare for autoconfig.
-    #
-    # See https://developer.mozilla.org/en-US/Firefox/Enterprise_deployment
-    cat >defaults/pref/autoconfig.js <<EOF
-    //
-    pref("general.config.filename", "mozilla.cfg");
-    pref("general.config.obscure_value", 0);
-    EOF
+      # Add bundled libraries to libPath.
+      libPath=${libPath}:$MB_IN_STORE
 
-    # Hard-coded Firefox preferences.
-    cat >mozilla.cfg <<EOF
-    // First line must be a comment
+      # apulse uses a non-standard library path.  For now special-case it.
+      ${lib.optionalString (audioSupport && !pulseaudioSupport) ''
+        libPath=${apulse}/lib/apulse:$libPath
+      ''}
 
-    // Reset pref that captures store paths.
-    clearPref("extensions.xpiState");
+      # Prepare for autoconfig.
+      #
+      # See https://developer.mozilla.org/en-US/Firefox/Enterprise_deployment
+      cat >defaults/pref/autoconfig.js <<EOF
+      //
+      pref("general.config.filename", "mozilla.cfg");
+      pref("general.config.obscure_value", 0);
+      EOF
 
-    // Stop obnoxious first-run redirection.
-    lockPref("noscript.firstRunRedirection", false);
+      # Hard-coded Firefox preferences.
+      cat >mozilla.cfg <<EOF
+      // First line must be a comment
 
-    // Allow sandbox access to sound devices if using ALSA directly
-    ${if (audioSupport && !pulseaudioSupport) then ''
-      pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
-    '' else ''
-      clearPref("security.sandbox.content.write_path_whitelist");
-    ''}
+      // Reset pref that captures store paths.
+      clearPref("extensions.xpiState");
 
-    ${lib.optionalString (extraPrefs != "") ''
-      ${extraPrefs}
-    ''}
-    EOF
+      // Stop obnoxious first-run redirection.
+      lockPref("noscript.firstRunRedirection", false);
 
-    # FONTCONFIG_FILE is required to make fontconfig read the MB
-    # fonts.conf; upstream uses FONTCONFIG_PATH, but FC_DEBUG=1024
-    # indicates the system fonts.conf being used instead.
-    FONTCONFIG_FILE=$MB_IN_STORE/fontconfig/fonts.conf
-    sed -i "$FONTCONFIG_FILE" \
-      -e "s,<dir>fonts</dir>,<dir>$MB_IN_STORE/fonts</dir>,"
+      // Allow sandbox access to sound devices if using ALSA directly
+      ${if (audioSupport && !pulseaudioSupport) then ''
+        pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
+      '' else ''
+        clearPref("security.sandbox.content.write_path_whitelist");
+      ''}
 
-    mkdir -p $out/bin
+      ${lib.optionalString (extraPrefs != "") ''
+        ${extraPrefs}
+      ''}
+      EOF
 
-    makeWrapper "$MB_IN_STORE/mullvadbrowser" "$out/bin/mullvad-browser" \
-      --prefix LD_LIBRARY_PATH : "$libPath" \
-      --set FONTCONFIG_FILE "$FONTCONFIG_FILE" \
-      --set-default MOZ_ENABLE_WAYLAND 1
+      # FONTCONFIG_FILE is required to make fontconfig read the MB
+      # fonts.conf; upstream uses FONTCONFIG_PATH, but FC_DEBUG=1024
+      # indicates the system fonts.conf being used instead.
+      FONTCONFIG_FILE=$MB_IN_STORE/fontconfig/fonts.conf
+      sed -i "$FONTCONFIG_FILE" \
+        -e "s,<dir>fonts</dir>,<dir>$MB_IN_STORE/fonts</dir>,"
 
-    # Easier access to docs
-    mkdir -p $out/share/doc
-    ln -s $MB_IN_STORE/Data/Docs $out/share/doc/mullvad-browser
+      mkdir -p $out/bin
 
-    # Install icons
-    for i in 16 32 48 64 128; do
-      mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps/
-      ln -s $out/share/mullvad-browser/browser/chrome/icons/default/default$i.png $out/share/icons/hicolor/''${i}x''${i}/apps/mullvad-browser.png
-    done
+      makeWrapper "$MB_IN_STORE/mullvadbrowser" "$out/bin/mullvad-browser" \
+        --prefix LD_LIBRARY_PATH : "$libPath" \
+        --set FONTCONFIG_FILE "$FONTCONFIG_FILE" \
+        --set-default MOZ_ENABLE_WAYLAND 1
 
-    # Check installed apps
-    echo "Checking mullvad-browser wrapper ..."
-    $out/bin/mullvad-browser --version >/dev/null
+      # Easier access to docs
+      mkdir -p $out/share/doc
+      ln -s $MB_IN_STORE/Data/Docs $out/share/doc/mullvad-browser
 
-    runHook postBuild
-  '';
+      # Install icons
+      for i in 16 32 48 64 128; do
+        mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps/
+        ln -s $out/share/mullvad-browser/browser/chrome/icons/default/default$i.png $out/share/icons/hicolor/''${i}x''${i}/apps/mullvad-browser.png
+      done
 
-  installPhase = ''
-    runHook preInstall
+      # Check installed apps
+      echo "Checking mullvad-browser wrapper ..."
+      $out/bin/mullvad-browser --version >/dev/null
 
-    # Install distribution customizations
-    install -Dvm644 ${distributionIni} $out/share/mullvad-browser/distribution/distribution.ini
-    install -Dvm644 ${policiesJson} $out/share/mullvad-browser/distribution/policies.json
+      runHook postBuild
+    '';
 
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
 
-  meta = with lib; {
-    description =
-      "Privacy-focused browser made in a collaboration between The Tor Project and Mullvad";
-    homepage = "https://www.mullvad.net/en/browser";
-    changelog =
-      "https://github.com/mullvad/mullvad-browser/releases/tag/${tag}";
-    platforms = attrNames srcs;
-    maintainers = with maintainers; [ felschr ];
-    # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
-    # the compound is "libre" in a strict sense (some components place certain
-    # restrictions on redistribution), it's free enough for our purposes.
-    license = with licenses; [
-      mpl20
-      lgpl21Plus
-      lgpl3Plus
-      free
-    ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-  };
-}
+      # Install distribution customizations
+      install -Dvm644 ${distributionIni} $out/share/mullvad-browser/distribution/distribution.ini
+      install -Dvm644 ${policiesJson} $out/share/mullvad-browser/distribution/policies.json
+
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description =
+        "Privacy-focused browser made in a collaboration between The Tor Project and Mullvad";
+      homepage = "https://www.mullvad.net/en/browser";
+      changelog =
+        "https://github.com/mullvad/mullvad-browser/releases/tag/${tag}";
+      platforms = attrNames srcs;
+      maintainers = with maintainers; [ felschr ];
+      # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
+      # the compound is "libre" in a strict sense (some components place certain
+      # restrictions on redistribution), it's free enough for our purposes.
+      license = with licenses; [
+        mpl20
+        lgpl21Plus
+        lgpl3Plus
+        free
+      ];
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    };
+  }

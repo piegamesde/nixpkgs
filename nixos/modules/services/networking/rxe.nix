@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.networking.rxe;
+let
+  cfg = config.networking.rxe;
 
 in {
   ###### interface

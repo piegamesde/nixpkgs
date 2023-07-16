@@ -20,11 +20,13 @@ let
   vlans = map (m: m.virtualisation.vlans) (lib.attrValues config.nodes);
   vms = map (m: m.system.build.vm) (lib.attrValues config.nodes);
 
-  nodeHostNames =
-    let nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
-    in nodesList
+  nodeHostNames = let
+    nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
+  in
+    nodesList
     ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
-    "machine";
+    "machine"
+  ;
 
   # TODO: This is an implementation error and needs fixing
   # the testing famework cannot legitimately restrict hostnames further

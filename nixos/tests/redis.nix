@@ -34,7 +34,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let inherit (nodes.machine.config.services) redis;
+      let
+        inherit (nodes.machine.config.services) redis;
       in ''
         start_all()
         machine.wait_for_unit("redis")
@@ -57,5 +58,5 @@ import ./make-test-python.nix ({
         machine.succeed("redis-cli -s ${
           redis.servers."test".unixSocket
         } ping | grep PONG")
-      '';
+      '' ;
   })

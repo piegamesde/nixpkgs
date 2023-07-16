@@ -20,7 +20,9 @@ let
             if value == true then "true" else "false"
           else
             toString value);
-      in "${key} = ${value'}";
+      in
+        "${key} = ${value'}"
+    ;
   };
 
   cfg = config.services.writefreely;
@@ -404,15 +406,17 @@ in {
             ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' --create-admin ${cfg.admin.name}:$admin_pass
           fi
         '';
-      in withSqlite ''
-        if ! test -f '${settings.database.filename}'; then
-          ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' db init
-        fi
+      in
+        withSqlite ''
+          if ! test -f '${settings.database.filename}'; then
+            ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' db init
+          fi
 
-        ${migrateDatabase}
+          ${migrateDatabase}
 
-        ${createAdmin}
-      '';
+          ${createAdmin}
+        ''
+      ;
     };
 
     systemd.services.writefreely-mysql-init = mkIf isMysql {
@@ -448,17 +452,19 @@ in {
             ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' --create-admin ${cfg.admin.name}:$admin_pass
           fi
         '';
-      in withMysql ''
-        ${updateUser}
+      in
+        withMysql ''
+          ${updateUser}
 
-        if [[ $(query "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '${cfg.database.name}'") == 0 ]]; then
-          ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' db init
-        fi
+          if [[ $(query "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '${cfg.database.name}'") == 0 ]]; then
+            ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' db init
+          fi
 
-        ${migrateDatabase}
+          ${migrateDatabase}
 
-        ${createAdmin}
-      '';
+          ${createAdmin}
+        ''
+      ;
     };
 
     services.mysql = mkIf isMysqlLocal {

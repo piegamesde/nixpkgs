@@ -110,177 +110,178 @@ let
       }
     }
   '';
-in stdenv.mkDerivation (fBuildAttrs // {
+in
+  stdenv.mkDerivation (fBuildAttrs // {
 
-  deps = stdenv.mkDerivation (fFetchAttrs // {
-    name = "${name}-deps.tar.gz";
+    deps = stdenv.mkDerivation (fFetchAttrs // {
+      name = "${name}-deps.tar.gz";
 
-    impureEnvVars = lib.fetchers.proxyImpureEnvVars
-      ++ fFetchAttrs.impureEnvVars or [ ];
+      impureEnvVars = lib.fetchers.proxyImpureEnvVars
+        ++ fFetchAttrs.impureEnvVars or [ ];
 
-    nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [ ] ++ [ bazel ];
+      nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [ ] ++ [ bazel ];
 
-    preHook = fFetchAttrs.preHook or "" + ''
-      export bazelOut="$(echo ''${NIX_BUILD_TOP}/output | sed -e 's,//,/,g')"
-      export bazelUserRoot="$(echo ''${NIX_BUILD_TOP}/tmp | sed -e 's,//,/,g')"
+      preHook = fFetchAttrs.preHook or "" + ''
+        export bazelOut="$(echo ''${NIX_BUILD_TOP}/output | sed -e 's,//,/,g')"
+        export bazelUserRoot="$(echo ''${NIX_BUILD_TOP}/tmp | sed -e 's,//,/,g')"
+        export HOME="$NIX_BUILD_TOP"
+        export USER="nix"
+        # This is needed for git_repository with https remotes
+        export GIT_SSL_CAINFO="${cacert}/etc/ssl/certs/ca-bundle.crt"
+        # This is needed for Bazel fetchers that are themselves programs (e.g.
+        # rules_go using the go toolchain)
+        export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
+      '';
+
+      buildPhase = fFetchAttrs.buildPhase or ''
+        runHook preBuild
+
+        ${bazelCmd {
+          cmd = if fetchConfigured then "build --nobuild" else "fetch";
+          additionalFlags = [
+            # We disable multithreading for the fetching phase since it can lead to timeouts with many dependencies/threads:
+            # https://github.com/bazelbuild/bazel/issues/6502
+            "--loading_phase_threads=1"
+            "$bazelFetchFlags"
+          ];
+          targets = fFetchAttrs.bazelTargets ++ fFetchAttrs.bazelTestTargets;
+        }}
+
+        runHook postBuild
+      '';
+
+      installPhase = fFetchAttrs.installPhase or (''
+        runHook preInstall
+
+        # Remove all built in external workspaces, Bazel will recreate them when building
+        rm -rf $bazelOut/external/{bazel_tools,\@bazel_tools.marker}
+        ${lib.optionalString removeRulesCC
+        "rm -rf $bazelOut/external/{rules_cc,\\@rules_cc.marker}"}
+        rm -rf $bazelOut/external/{embedded_jdk,\@embedded_jdk.marker}
+        ${lib.optionalString removeLocalConfigCc
+        "rm -rf $bazelOut/external/{local_config_cc,\\@local_config_cc.marker}"}
+        ${lib.optionalString removeLocal
+        "rm -rf $bazelOut/external/{local_*,\\@local_*.marker}"}
+
+        # Clear markers
+        find $bazelOut/external -name '@*\.marker' -exec sh -c 'echo > {}' \;
+
+        # Remove all vcs files
+        rm -rf $(find $bazelOut/external -type d -name .git)
+        rm -rf $(find $bazelOut/external -type d -name .svn)
+        rm -rf $(find $bazelOut/external -type d -name .hg)
+
+        # Removing top-level symlinks along with their markers.
+        # This is needed because they sometimes point to temporary paths (?).
+        # For example, in Tensorflow-gpu build:
+        # platforms -> NIX_BUILD_TOP/tmp/install/35282f5123611afa742331368e9ae529/_embedded_binaries/platforms
+        find $bazelOut/external -maxdepth 1 -type l | while read symlink; do
+          name="$(basename "$symlink")"
+          rm "$symlink"
+          test -f "$bazelOut/external/@$name.marker" && rm "$bazelOut/external/@$name.marker" || true
+        done
+
+        # Patching symlinks to remove build directory reference
+        find $bazelOut/external -type l | while read symlink; do
+          new_target="$(readlink "$symlink" | sed "s,$NIX_BUILD_TOP,NIX_BUILD_TOP,")"
+          rm "$symlink"
+          ln -sf "$new_target" "$symlink"
+      '' + lib.optionalString stdenv.isDarwin ''
+        # on linux symlink permissions cannot be modified, so we modify those on darwin to match the linux ones
+        ${chmodder}/bin/chmodder "$symlink"
+      '' + ''
+        done
+
+        echo '${bazel.name}' > $bazelOut/external/.nix-bazel-version
+
+        (cd $bazelOut/ && tar czf $out --sort=name --mtime='@1' --owner=0 --group=0 --numeric-owner external/)
+
+        runHook postInstall
+      '');
+
+      dontFixup = true;
+      allowedRequisites = [ ];
+
+      outputHashAlgo = "sha256";
+      outputHash = fetchAttrs.sha256;
+    });
+
+    nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [ ]
+      ++ [ (bazel.override { enableNixHacks = true; }) ];
+
+    preHook = fBuildAttrs.preHook or "" + ''
+      export bazelOut="$NIX_BUILD_TOP/output"
+      export bazelUserRoot="$NIX_BUILD_TOP/tmp"
       export HOME="$NIX_BUILD_TOP"
-      export USER="nix"
-      # This is needed for git_repository with https remotes
-      export GIT_SSL_CAINFO="${cacert}/etc/ssl/certs/ca-bundle.crt"
-      # This is needed for Bazel fetchers that are themselves programs (e.g.
-      # rules_go using the go toolchain)
-      export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
     '';
 
-    buildPhase = fFetchAttrs.buildPhase or ''
+    preConfigure = ''
+      mkdir -p "$bazelOut"
+
+      (cd $bazelOut && tar xfz $deps)
+
+      test "${bazel.name}" = "$(<$bazelOut/external/.nix-bazel-version)" || {
+        echo "fixed output derivation was built for a different bazel version" >&2
+        echo "     got: $(<$bazelOut/external/.nix-bazel-version)" >&2
+        echo "expected: ${bazel.name}" >&2
+        exit 1
+      }
+
+      chmod -R +w $bazelOut
+      find $bazelOut -type l | while read symlink; do
+        if [[ $(readlink "$symlink") == *NIX_BUILD_TOP* ]]; then
+          ln -sf $(readlink "$symlink" | sed "s,NIX_BUILD_TOP,$NIX_BUILD_TOP,") "$symlink"
+        fi
+      done
+    '' + fBuildAttrs.preConfigure or "";
+
+    buildPhase = fBuildAttrs.buildPhase or ''
       runHook preBuild
 
-      ${bazelCmd {
-        cmd = if fetchConfigured then "build --nobuild" else "fetch";
-        additionalFlags = [
-          # We disable multithreading for the fetching phase since it can lead to timeouts with many dependencies/threads:
-          # https://github.com/bazelbuild/bazel/issues/6502
-          "--loading_phase_threads=1"
-          "$bazelFetchFlags"
-        ];
-        targets = fFetchAttrs.bazelTargets ++ fFetchAttrs.bazelTestTargets;
-      }}
+      # Bazel sandboxes the execution of the tools it invokes, so even though we are
+      # calling the correct nix wrappers, the values of the environment variables
+      # the wrappers are expecting will not be set. So instead of relying on the
+      # wrappers picking them up, pass them in explicitly via `--copt`, `--linkopt`
+      # and related flags.
 
+      copts=()
+      host_copts=()
+      linkopts=()
+      host_linkopts=()
+      if [ -z "''${dontAddBazelOpts:-}" ]; then
+        for flag in $NIX_CFLAGS_COMPILE; do
+          copts+=( "--copt=$flag" )
+          host_copts+=( "--host_copt=$flag" )
+        done
+        for flag in $NIX_CXXSTDLIB_COMPILE; do
+          copts+=( "--copt=$flag" )
+          host_copts+=( "--host_copt=$flag" )
+        done
+        for flag in $NIX_LDFLAGS; do
+          linkopts+=( "--linkopt=-Wl,$flag" )
+          host_linkopts+=( "--host_linkopt=-Wl,$flag" )
+        done
+      fi
+
+      ${bazelCmd {
+        cmd = "test";
+        additionalFlags = [ "--test_output=errors" ]
+          ++ fBuildAttrs.bazelTestFlags;
+        targets = fBuildAttrs.bazelTestTargets;
+      }}
+      ${bazelCmd {
+        cmd = "build";
+        additionalFlags = fBuildAttrs.bazelBuildFlags;
+        targets = fBuildAttrs.bazelTargets;
+      }}
       runHook postBuild
     '';
+  })
 
-    installPhase = fFetchAttrs.installPhase or (''
-      runHook preInstall
-
-      # Remove all built in external workspaces, Bazel will recreate them when building
-      rm -rf $bazelOut/external/{bazel_tools,\@bazel_tools.marker}
-      ${lib.optionalString removeRulesCC
-      "rm -rf $bazelOut/external/{rules_cc,\\@rules_cc.marker}"}
-      rm -rf $bazelOut/external/{embedded_jdk,\@embedded_jdk.marker}
-      ${lib.optionalString removeLocalConfigCc
-      "rm -rf $bazelOut/external/{local_config_cc,\\@local_config_cc.marker}"}
-      ${lib.optionalString removeLocal
-      "rm -rf $bazelOut/external/{local_*,\\@local_*.marker}"}
-
-      # Clear markers
-      find $bazelOut/external -name '@*\.marker' -exec sh -c 'echo > {}' \;
-
-      # Remove all vcs files
-      rm -rf $(find $bazelOut/external -type d -name .git)
-      rm -rf $(find $bazelOut/external -type d -name .svn)
-      rm -rf $(find $bazelOut/external -type d -name .hg)
-
-      # Removing top-level symlinks along with their markers.
-      # This is needed because they sometimes point to temporary paths (?).
-      # For example, in Tensorflow-gpu build:
-      # platforms -> NIX_BUILD_TOP/tmp/install/35282f5123611afa742331368e9ae529/_embedded_binaries/platforms
-      find $bazelOut/external -maxdepth 1 -type l | while read symlink; do
-        name="$(basename "$symlink")"
-        rm "$symlink"
-        test -f "$bazelOut/external/@$name.marker" && rm "$bazelOut/external/@$name.marker" || true
-      done
-
-      # Patching symlinks to remove build directory reference
-      find $bazelOut/external -type l | while read symlink; do
-        new_target="$(readlink "$symlink" | sed "s,$NIX_BUILD_TOP,NIX_BUILD_TOP,")"
-        rm "$symlink"
-        ln -sf "$new_target" "$symlink"
-    '' + lib.optionalString stdenv.isDarwin ''
-      # on linux symlink permissions cannot be modified, so we modify those on darwin to match the linux ones
-      ${chmodder}/bin/chmodder "$symlink"
-    '' + ''
-      done
-
-      echo '${bazel.name}' > $bazelOut/external/.nix-bazel-version
-
-      (cd $bazelOut/ && tar czf $out --sort=name --mtime='@1' --owner=0 --group=0 --numeric-owner external/)
-
-      runHook postInstall
-    '');
-
-    dontFixup = true;
-    allowedRequisites = [ ];
-
-    outputHashAlgo = "sha256";
-    outputHash = fetchAttrs.sha256;
-  });
-
-  nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [ ]
-    ++ [ (bazel.override { enableNixHacks = true; }) ];
-
-  preHook = fBuildAttrs.preHook or "" + ''
-    export bazelOut="$NIX_BUILD_TOP/output"
-    export bazelUserRoot="$NIX_BUILD_TOP/tmp"
-    export HOME="$NIX_BUILD_TOP"
-  '';
-
-  preConfigure = ''
-    mkdir -p "$bazelOut"
-
-    (cd $bazelOut && tar xfz $deps)
-
-    test "${bazel.name}" = "$(<$bazelOut/external/.nix-bazel-version)" || {
-      echo "fixed output derivation was built for a different bazel version" >&2
-      echo "     got: $(<$bazelOut/external/.nix-bazel-version)" >&2
-      echo "expected: ${bazel.name}" >&2
-      exit 1
-    }
-
-    chmod -R +w $bazelOut
-    find $bazelOut -type l | while read symlink; do
-      if [[ $(readlink "$symlink") == *NIX_BUILD_TOP* ]]; then
-        ln -sf $(readlink "$symlink" | sed "s,NIX_BUILD_TOP,$NIX_BUILD_TOP,") "$symlink"
-      fi
-    done
-  '' + fBuildAttrs.preConfigure or "";
-
-  buildPhase = fBuildAttrs.buildPhase or ''
-    runHook preBuild
-
-    # Bazel sandboxes the execution of the tools it invokes, so even though we are
-    # calling the correct nix wrappers, the values of the environment variables
-    # the wrappers are expecting will not be set. So instead of relying on the
-    # wrappers picking them up, pass them in explicitly via `--copt`, `--linkopt`
-    # and related flags.
-
-    copts=()
-    host_copts=()
-    linkopts=()
-    host_linkopts=()
-    if [ -z "''${dontAddBazelOpts:-}" ]; then
-      for flag in $NIX_CFLAGS_COMPILE; do
-        copts+=( "--copt=$flag" )
-        host_copts+=( "--host_copt=$flag" )
-      done
-      for flag in $NIX_CXXSTDLIB_COMPILE; do
-        copts+=( "--copt=$flag" )
-        host_copts+=( "--host_copt=$flag" )
-      done
-      for flag in $NIX_LDFLAGS; do
-        linkopts+=( "--linkopt=-Wl,$flag" )
-        host_linkopts+=( "--host_linkopt=-Wl,$flag" )
-      done
-    fi
-
-    ${bazelCmd {
-      cmd = "test";
-      additionalFlags = [ "--test_output=errors" ]
-        ++ fBuildAttrs.bazelTestFlags;
-      targets = fBuildAttrs.bazelTestTargets;
-    }}
-    ${bazelCmd {
-      cmd = "build";
-      additionalFlags = fBuildAttrs.bazelBuildFlags;
-      targets = fBuildAttrs.bazelTargets;
-    }}
-    runHook postBuild
-  '';
-})
-
-# [USER and BAZEL_USE_CPP_ONLY_TOOLCHAIN variables]:
-#   Bazel computes the default value of output_user_root before parsing the
-#   flag. The computation of the default value involves getting the $USER
-#   from the environment. Code here :
-#   https://github.com/bazelbuild/bazel/blob/9323c57607d37f9c949b60e293b573584906da46/src/main/cpp/startup_options.cc#L123-L124
-#
-#   On macOS Bazel will use the system installed Xcode or CLT toolchain instead of the one in the PATH unless we pass BAZEL_USE_CPP_ONLY_TOOLCHAIN.
+  # [USER and BAZEL_USE_CPP_ONLY_TOOLCHAIN variables]:
+  #   Bazel computes the default value of output_user_root before parsing the
+  #   flag. The computation of the default value involves getting the $USER
+  #   from the environment. Code here :
+  #   https://github.com/bazelbuild/bazel/blob/9323c57607d37f9c949b60e293b573584906da46/src/main/cpp/startup_options.cc#L123-L124
+  #
+  #   On macOS Bazel will use the system installed Xcode or CLT toolchain instead of the one in the PATH unless we pass BAZEL_USE_CPP_ONLY_TOOLCHAIN.

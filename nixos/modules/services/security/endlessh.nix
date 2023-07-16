@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.endlessh;
+let
+  cfg = config.services.endlessh;
 in {
   options.services.endlessh = {
     enable = mkEnableOption (mdDoc "endlessh service");
@@ -102,7 +103,7 @@ in {
           "~@resources"
           "~@privileged"
         ];
-      };
+      } ;
     };
 
     networking.firewall.allowedTCPPorts = with cfg;

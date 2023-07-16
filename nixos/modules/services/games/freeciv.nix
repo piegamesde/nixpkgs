@@ -21,7 +21,9 @@ let
         ]) // {
           description = "freeciv-server params";
         };
-      in valueType;
+      in
+        valueType
+    ;
     generate = name: value:
       let
         mkParam = k: v:
@@ -34,8 +36,10 @@ let
             v
           ];
         mkParams = k: v: map (mkParam k) (if isList v then v else [ v ]);
-      in escapeShellArgs
-      (concatLists (concatLists (mapAttrsToList mkParams value)));
+      in
+        escapeShellArgs
+        (concatLists (concatLists (mapAttrsToList mkParams value)))
+    ;
   };
 in {
   options = {

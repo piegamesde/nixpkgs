@@ -108,25 +108,26 @@ let
     '';
   };
 
-in symlinkJoin rec {
-  name = "cctools-${version}";
-  version = "${cctools.version}-${ld64.version}";
+in
+  symlinkJoin rec {
+    name = "cctools-${version}";
+    version = "${cctools.version}-${ld64.version}";
 
-  paths = [
-    cctools
-    ld64
-  ];
+    paths = [
+      cctools
+      ld64
+    ];
 
-  # workaround for the fetch-tarballs script
-  passthru = {
-    inherit (cctools) src;
-    ld64_src = ld64.src;
-  };
+    # workaround for the fetch-tarballs script
+    passthru = {
+      inherit (cctools) src;
+      ld64_src = ld64.src;
+    };
 
-  meta = with lib; {
-    description = "MacOS Compiler Tools";
-    homepage = "http://www.opensource.apple.com/source/cctools/";
-    license = licenses.apsl20;
-    platforms = platforms.darwin;
-  };
-}
+    meta = with lib; {
+      description = "MacOS Compiler Tools";
+      homepage = "http://www.opensource.apple.com/source/cctools/";
+      license = licenses.apsl20;
+      platforms = platforms.darwin;
+    };
+  }

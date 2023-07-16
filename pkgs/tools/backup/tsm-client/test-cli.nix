@@ -29,27 +29,30 @@ let
     minor = lib.versions.minor version;
     patch = lib.versions.patch version;
     fixup = lib.lists.elemAt (lib.versions.splitVersion version) 3;
-  in "Client Version ${major}, Release ${minor}, Level ${patch}.${fixup}";
+  in
+    "Client Version ${major}, Release ${minor}, Level ${patch}.${fixup}"
+  ;
 
-in runCommand "${tsm-client.name}-test-cli" env ''
-  set -o nounset
-  set -o pipefail
+in
+  runCommand "${tsm-client.name}-test-cli" env ''
+    set -o nounset
+    set -o pipefail
 
-  export DSM_LOG=$(mktemp -d ./dsm_log.XXXXXXXXXXX)
+    export DSM_LOG=$(mktemp -d ./dsm_log.XXXXXXXXXXX)
 
-  { dsmc -optfile=/dev/null || true; } | tee dsmc-stdout
+    { dsmc -optfile=/dev/null || true; } | tee dsmc-stdout
 
-  # does it report the correct version?
-  grep --fixed-strings '${versionString}' dsmc-stdout
+    # does it report the correct version?
+    grep --fixed-strings '${versionString}' dsmc-stdout
 
-  # does it use the provided dsm.sys config file?
-  # if it does, it states the node's name
-  grep ARBITRARYNODENAME dsmc-stdout
+    # does it use the provided dsm.sys config file?
+    # if it does, it states the node's name
+    grep ARBITRARYNODENAME dsmc-stdout
 
-  # does it try (and fail) to connect to the server?
-  # if it does, it reports the "TCP/IP connection failure" error code
-  grep ANS1017E dsmc-stdout
-  grep ANS1017E $DSM_LOG/dsmerror.log
+    # does it try (and fail) to connect to the server?
+    # if it does, it reports the "TCP/IP connection failure" error code
+    grep ANS1017E dsmc-stdout
+    grep ANS1017E $DSM_LOG/dsmerror.log
 
-  touch $out
-''
+    touch $out
+  ''

@@ -38,61 +38,62 @@ let
     sha256 = "1x2wcvld531kv17a4ks7sh67nhzxzv7nkhpx391n5vj6d12i8g3i";
   };
 
-in stdenv.mkDerivation {
-  # use version number of qxlwddm as qxlwddm is the most important component
-  pname = "win-spice";
-  version = version_qxlwddm;
+in
+  stdenv.mkDerivation {
+    # use version number of qxlwddm as qxlwddm is the most important component
+    pname = "win-spice";
+    version = version_qxlwddm;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    mkdir -p usbdk/x86 usbdk/amd64
-    (cd usbdk/x86; ${p7zip}/bin/7z x -y ${src_usbdk_x86})
-    (cd usbdk/amd64; ${p7zip}/bin/7z x -y ${src_usbdk_amd64})
+      mkdir -p usbdk/x86 usbdk/amd64
+      (cd usbdk/x86; ${p7zip}/bin/7z x -y ${src_usbdk_x86})
+      (cd usbdk/amd64; ${p7zip}/bin/7z x -y ${src_usbdk_amd64})
 
-    mkdir -p vdagent/x86 vdagent/amd64
-    (cd vdagent/x86; ${p7zip}/bin/7z x -y ${src_vdagent_x86}; mv vdagent-win-${version_vdagent}-x86/* .; rm -r vdagent-win-${version_vdagent}-x86)
-    (cd vdagent/amd64; ${p7zip}/bin/7z x -y ${src_vdagent_amd64}; mv vdagent-win-${version_vdagent}-x64/* .; rm -r vdagent-win-${version_vdagent}-x64)
+      mkdir -p vdagent/x86 vdagent/amd64
+      (cd vdagent/x86; ${p7zip}/bin/7z x -y ${src_vdagent_x86}; mv vdagent-win-${version_vdagent}-x86/* .; rm -r vdagent-win-${version_vdagent}-x86)
+      (cd vdagent/amd64; ${p7zip}/bin/7z x -y ${src_vdagent_amd64}; mv vdagent-win-${version_vdagent}-x64/* .; rm -r vdagent-win-${version_vdagent}-x64)
 
-    mkdir -p qxlwddm
-    (cd qxlwddm; ${p7zip}/bin/7z x -y ${src_qxlwddm}; cd w10)
+      mkdir -p qxlwddm
+      (cd qxlwddm; ${p7zip}/bin/7z x -y ${src_qxlwddm}; cd w10)
 
-    runHook postBuild
-  '';
-
-  installPhase = let
-    copy_qxl = arch: version: ''
-      mkdir -p $out/${arch}/qxl; cp qxlwddm/${version}/${arch}/* $out/${arch}/qxl/. 
+      runHook postBuild
     '';
-    copy_usbdk = arch: ''
-      mkdir -p $out/${arch}/usbdk; cp usbdk/${arch}/* $out/${arch}/usbdk/. 
-    '';
-    copy_vdagent = arch: ''
-      mkdir -p $out/${arch}/vdagent; cp vdagent/${arch}/* $out/${arch}/vdagent/. 
-    '';
-    # SPICE needs vioserial
-    # TODO: Link windows version in win-spice (here) to version used in win-virtio.
-    #       That way it would never matter whether vioserial is installed from win-virtio or win-spice.
-    copy_vioserial = arch: ''
-      mkdir -p $out/${arch}/vioserial; cp ${win-virtio}/${arch}/vioserial/* $out/${arch}/vioserial/. 
-    '';
-    copy = arch: version:
-      (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch)
-      + (copy_vioserial arch);
-  in ''
-    runHook preInstall
-    ${(copy "amd64" "w10") + (copy "x86" "w10")}
-    runHook postInstall
-  '';
 
-  meta = with lib; {
-    description = "Windows SPICE Drivers";
-    homepage = "https://www.spice-space.org/";
-    license = [ licenses.asl20 ]; # See https://github.com/vrozenfe/qxl-dod
-    maintainers = [ ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = platforms.linux;
-  };
-}
+    installPhase = let
+      copy_qxl = arch: version: ''
+        mkdir -p $out/${arch}/qxl; cp qxlwddm/${version}/${arch}/* $out/${arch}/qxl/. 
+      '';
+      copy_usbdk = arch: ''
+        mkdir -p $out/${arch}/usbdk; cp usbdk/${arch}/* $out/${arch}/usbdk/. 
+      '';
+      copy_vdagent = arch: ''
+        mkdir -p $out/${arch}/vdagent; cp vdagent/${arch}/* $out/${arch}/vdagent/. 
+      '';
+      # SPICE needs vioserial
+      # TODO: Link windows version in win-spice (here) to version used in win-virtio.
+      #       That way it would never matter whether vioserial is installed from win-virtio or win-spice.
+      copy_vioserial = arch: ''
+        mkdir -p $out/${arch}/vioserial; cp ${win-virtio}/${arch}/vioserial/* $out/${arch}/vioserial/. 
+      '';
+      copy = arch: version:
+        (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch)
+        + (copy_vioserial arch);
+    in ''
+      runHook preInstall
+      ${(copy "amd64" "w10") + (copy "x86" "w10")}
+      runHook postInstall
+    '' ;
+
+    meta = with lib; {
+      description = "Windows SPICE Drivers";
+      homepage = "https://www.spice-space.org/";
+      license = [ licenses.asl20 ]; # See https://github.com/vrozenfe/qxl-dod
+      maintainers = [ ];
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      platforms = platforms.linux;
+    };
+  }

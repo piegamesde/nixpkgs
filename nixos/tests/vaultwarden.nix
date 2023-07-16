@@ -78,90 +78,92 @@ let
 
               sqlite = { };
             };
-          in mkMerge [
-            backendConfig.${backend}
-            {
-              services.vaultwarden = {
-                enable = true;
-                dbBackend = backend;
-                config = {
-                  rocketAddress = "0.0.0.0";
-                  rocketPort = 80;
+          in
+            mkMerge [
+              backendConfig.${backend}
+              {
+                services.vaultwarden = {
+                  enable = true;
+                  dbBackend = backend;
+                  config = {
+                    rocketAddress = "0.0.0.0";
+                    rocketPort = 80;
+                  };
                 };
-              };
 
-              networking.firewall.allowedTCPPorts = [ 80 ];
+                networking.firewall.allowedTCPPorts = [ 80 ];
 
-              environment.systemPackages = let
-                testRunner = pkgs.writers.writePython3Bin "test-runner" {
-                  libraries = [ pkgs.python3Packages.selenium ];
-                  flakeIgnore = [ "E501" ];
-                } ''
+                environment.systemPackages = let
+                  testRunner = pkgs.writers.writePython3Bin "test-runner" {
+                    libraries = [ pkgs.python3Packages.selenium ];
+                    flakeIgnore = [ "E501" ];
+                  } ''
 
-                  from selenium.webdriver.common.by import By
-                  from selenium.webdriver import Firefox
-                  from selenium.webdriver.firefox.options import Options
-                  from selenium.webdriver.support.ui import WebDriverWait
-                  from selenium.webdriver.support import expected_conditions as EC
+                    from selenium.webdriver.common.by import By
+                    from selenium.webdriver import Firefox
+                    from selenium.webdriver.firefox.options import Options
+                    from selenium.webdriver.support.ui import WebDriverWait
+                    from selenium.webdriver.support import expected_conditions as EC
 
-                  options = Options()
-                  options.add_argument('--headless')
-                  driver = Firefox(options=options)
+                    options = Options()
+                    options.add_argument('--headless')
+                    driver = Firefox(options=options)
 
-                  driver.implicitly_wait(20)
-                  driver.get('http://localhost/#/register')
+                    driver.implicitly_wait(20)
+                    driver.get('http://localhost/#/register')
 
-                  wait = WebDriverWait(driver, 10)
+                    wait = WebDriverWait(driver, 10)
 
-                  wait.until(EC.title_contains("Create account"))
+                    wait.until(EC.title_contains("Create account"))
 
-                  driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_email').send_keys(
-                      '${userEmail}'
-                  )
-                  driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_name').send_keys(
-                      'A Cat'
-                  )
-                  driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_master-password').send_keys(
-                      '${userPassword}'
-                  )
-                  driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_confirm-master-password').send_keys(
-                      '${userPassword}'
-                  )
-                  if driver.find_element(By.CSS_SELECTOR, 'input#checkForBreaches').is_selected():
-                      driver.find_element(By.CSS_SELECTOR, 'input#checkForBreaches').click()
+                    driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_email').send_keys(
+                        '${userEmail}'
+                    )
+                    driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_name').send_keys(
+                        'A Cat'
+                    )
+                    driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_master-password').send_keys(
+                        '${userPassword}'
+                    )
+                    driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_confirm-master-password').send_keys(
+                        '${userPassword}'
+                    )
+                    if driver.find_element(By.CSS_SELECTOR, 'input#checkForBreaches').is_selected():
+                        driver.find_element(By.CSS_SELECTOR, 'input#checkForBreaches').click()
 
-                  driver.find_element(By.XPATH, "//button[contains(., 'Create account')]").click()
+                    driver.find_element(By.XPATH, "//button[contains(., 'Create account')]").click()
 
-                  wait.until_not(EC.title_contains("Create account"))
+                    wait.until_not(EC.title_contains("Create account"))
 
-                  driver.find_element(By.XPATH, "//button[contains(., 'Continue')]").click()
+                    driver.find_element(By.XPATH, "//button[contains(., 'Continue')]").click()
 
-                  driver.find_element(By.CSS_SELECTOR, 'input#login_input_master-password').send_keys(
-                      '${userPassword}'
-                  )
-                  driver.find_element(By.XPATH, "//button[contains(., 'Log in')]").click()
+                    driver.find_element(By.CSS_SELECTOR, 'input#login_input_master-password').send_keys(
+                        '${userPassword}'
+                    )
+                    driver.find_element(By.XPATH, "//button[contains(., 'Log in')]").click()
 
-                  wait.until(EC.title_contains("Vaults"))
+                    wait.until(EC.title_contains("Vaults"))
 
-                  driver.find_element(By.XPATH, "//button[contains(., 'New item')]").click()
+                    driver.find_element(By.XPATH, "//button[contains(., 'New item')]").click()
 
-                  driver.find_element(By.CSS_SELECTOR, 'input#name').send_keys(
-                      'secrets'
-                  )
-                  driver.find_element(By.CSS_SELECTOR, 'input#loginPassword').send_keys(
-                      '${storedPassword}'
-                  )
+                    driver.find_element(By.CSS_SELECTOR, 'input#name').send_keys(
+                        'secrets'
+                    )
+                    driver.find_element(By.CSS_SELECTOR, 'input#loginPassword').send_keys(
+                        '${storedPassword}'
+                    )
 
-                  driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
-                '';
-              in [
-                pkgs.firefox-unwrapped
-                pkgs.geckodriver
-                testRunner
-              ];
+                    driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
+                  '';
+                in [
+                  pkgs.firefox-unwrapped
+                  pkgs.geckodriver
+                  testRunner
+                ] ;
 
-            }
-          ];
+              }
+            ]
+        ;
 
         client = {
             pkgs,
@@ -202,7 +204,8 @@ let
             assert password.strip() == "${storedPassword}"
       '';
     };
-in builtins.listToAttrs (map (backend: {
-  name = backend;
-  value = makeVaultwardenTest backend;
-}) backends)
+in
+  builtins.listToAttrs (map (backend: {
+    name = backend;
+    value = makeVaultwardenTest backend;
+  }) backends)

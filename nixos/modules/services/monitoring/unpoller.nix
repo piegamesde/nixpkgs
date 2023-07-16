@@ -306,7 +306,7 @@ in {
         '';
         apply = map (flip removeAttrs [ "_module" ]);
       };
-    };
+    } ;
   };
 
   config = mkIf cfg.enable {

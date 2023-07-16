@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.programs.ccache;
+let
+  cfg = config.programs.ccache;
 in {
   options.programs.ccache = {
     # host configuration

@@ -38,7 +38,7 @@ buildGoModule rec {
     buildFlagsArray+=("-run" "[^(${
       builtins.concatStringsSep "|" skippedTests
     })]")
-  '';
+  '' ;
 
   postInstall = ''
     ln -s $out/bin/mount_gcsfuse $out/bin/mount.gcsfuse

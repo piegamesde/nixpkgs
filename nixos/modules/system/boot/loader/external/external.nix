@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.boot.loader.external;
+let
+  cfg = config.boot.loader.external;
 in {
   meta = {
     maintainers = with maintainers; [

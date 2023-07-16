@@ -99,4 +99,5 @@ let
 
     meta = import ./meta.nix lib version;
   };
-in jdk
+in
+  jdk

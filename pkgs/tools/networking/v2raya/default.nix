@@ -44,43 +44,44 @@ let
     ];
   };
 
-in buildGoModule {
-  inherit pname version;
+in
+  buildGoModule {
+    inherit pname version;
 
-  src = "${src}/service";
-  vendorSha256 = "sha256-vnhqI9G/p+SLLA4sre2wfmg1RKIYZmzeL0pSTbHb+Ck=";
+    src = "${src}/service";
+    vendorSha256 = "sha256-vnhqI9G/p+SLLA4sre2wfmg1RKIYZmzeL0pSTbHb+Ck=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/v2rayA/v2rayA/conf.Version=${version}"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X github.com/v2rayA/v2rayA/conf.Version=${version}"
+    ];
 
-  subPackages = [ "." ];
+    subPackages = [ "." ];
 
-  nativeBuildInputs = [ makeWrapper ];
-  preBuild = ''
-    cp -a ${web} server/router/web
-  '';
+    nativeBuildInputs = [ makeWrapper ];
+    preBuild = ''
+      cp -a ${web} server/router/web
+    '';
 
-  postInstall = ''
-    install -Dm 444 ${src}/install/universal/v2raya.desktop -t $out/share/applications
-    install -Dm 444 ${src}/install/universal/v2raya.png -t $out/share/icons/hicolor/512x512/apps
-    substituteInPlace $out/share/applications/v2raya.desktop \
-      --replace 'Icon=/usr/share/icons/hicolor/512x512/apps/v2raya.png' 'Icon=v2raya'
+    postInstall = ''
+      install -Dm 444 ${src}/install/universal/v2raya.desktop -t $out/share/applications
+      install -Dm 444 ${src}/install/universal/v2raya.png -t $out/share/icons/hicolor/512x512/apps
+      substituteInPlace $out/share/applications/v2raya.desktop \
+        --replace 'Icon=/usr/share/icons/hicolor/512x512/apps/v2raya.png' 'Icon=v2raya'
 
-    wrapProgram $out/bin/v2rayA \
-      --prefix PATH ":" "${lib.makeBinPath [ v2ray ]}" \
-      --prefix XDG_DATA_DIRS ":" ${assetsDir}/share
-  '';
+      wrapProgram $out/bin/v2rayA \
+        --prefix PATH ":" "${lib.makeBinPath [ v2ray ]}" \
+        --prefix XDG_DATA_DIRS ":" ${assetsDir}/share
+    '';
 
-  meta = with lib; {
-    description =
-      "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
-    homepage = "https://github.com/v2rayA/v2rayA";
-    mainProgram = "v2rayA";
-    license = licenses.agpl3Only;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ elliot ];
-  };
-}
+    meta = with lib; {
+      description =
+        "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
+      homepage = "https://github.com/v2rayA/v2rayA";
+      mainProgram = "v2rayA";
+      license = licenses.agpl3Only;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [ elliot ];
+    };
+  }

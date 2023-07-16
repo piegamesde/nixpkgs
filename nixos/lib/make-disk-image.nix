@@ -225,7 +225,8 @@ assert (lib.assertMsg (lib.all
 
 with lib;
 
-let format' = format;
+let
+  format' = format;
 in let
 
   format = if format' == "qcow2-compressed" then "qcow2" else format';

@@ -126,4 +126,4 @@ import ./make-test-python.nix ({
       with subtest("Check whether systemd service can access credential in $CREDENTIALS_DIRECTORY"):
           systemd_run(machine, f"cmp --silent -- $CREDENTIALS_DIRECTORY/{CRED_NAME} {CRED_RAW_FILE}")
     '';
-  })
+  } )

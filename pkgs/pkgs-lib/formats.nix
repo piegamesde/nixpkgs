@@ -48,7 +48,9 @@
         ]) // {
           description = "JSON value";
         };
-      in valueType;
+      in
+        valueType
+    ;
 
     generate = name: value:
       pkgs.callPackage ({
@@ -93,7 +95,9 @@
         ]) // {
           description = "YAML value";
         };
-      in valueType;
+      in
+        valueType
+    ;
 
   };
 
@@ -133,7 +137,9 @@
           else
             singleIniAtom;
 
-        in attrsOf (attrsOf iniAtom);
+        in
+          attrsOf (attrsOf iniAtom)
+      ;
 
       generate = name: value:
         let
@@ -143,9 +149,11 @@
               (key: val: if lib.isList val then listToValue val else val)) value
           else
             value;
-        in pkgs.writeText name
-        (lib.generators.toINI (removeAttrs args [ "listToValue" ])
-          transformedValue);
+        in
+          pkgs.writeText name
+          (lib.generators.toINI (removeAttrs args [ "listToValue" ])
+            transformedValue)
+      ;
 
     };
 
@@ -184,7 +192,9 @@
           else
             singleAtom;
 
-        in attrsOf atom;
+        in
+          attrsOf atom
+      ;
 
       generate = name: value:
         let
@@ -193,9 +203,11 @@
             (key: val: if lib.isList val then listToValue val else val) value
           else
             value;
-        in pkgs.writeText name
-        (lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
-          transformedValue);
+        in
+          pkgs.writeText name
+          (lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
+            transformedValue)
+      ;
 
     };
 
@@ -211,7 +223,9 @@
             .functor.wrapped # attrsOf
             .functor.wrapped;
 
-        in attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)));
+        in
+          attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)))
+      ;
 
       generate = name: value:
         pkgs.writeText name (lib.generators.toGitINI value);
@@ -232,7 +246,9 @@
           ] // {
             description = "TOML value";
           };
-        in valueType;
+        in
+          valueType
+      ;
 
       generate = name: value:
         pkgs.callPackage ({
@@ -319,7 +335,9 @@
           let
             toKeyword = name: value: "${name}: ${toElixir value}";
             keywordList = concatStringsSep ", " (mapAttrsToList toKeyword set);
-          in "[" + keywordList + "]";
+          in
+            "[" + keywordList + "]"
+      ;
 
       listContent = values: concatStringsSep ", " (map toElixir values);
 
@@ -345,7 +363,9 @@
         let
           toEntry = name: value: "${toElixir name} => ${toElixir value}";
           entries = concatStringsSep ", " (mapAttrsToList toEntry set);
-        in "%{${entries}}";
+        in
+          "%{${entries}}"
+      ;
 
       tuple = values: "{${listContent values}}";
 
@@ -360,7 +380,7 @@
           import Config
 
           ${concatStringsSep "\n" rootConfigs}
-        '';
+        '' ;
     in {
       type = with lib.types;
         let
@@ -374,7 +394,9 @@
           ]) // {
             description = "Elixir value";
           };
-        in attrsOf (attrsOf (valueType));
+        in
+          attrsOf (attrsOf (valueType))
+      ;
 
       lib = let
         mkRaw = value: {
@@ -430,30 +452,32 @@
             };
 
             elixirOr = other: either other rawElixir;
-          in {
-            inherit rawElixir elixirOr;
+          in
+            {
+              inherit rawElixir elixirOr;
 
-            atom = elixirOr (mkOptionType {
-              name = "elixirAtom";
-              description = "elixir atom";
-              check = isElixirType "atom";
-            });
+              atom = elixirOr (mkOptionType {
+                name = "elixirAtom";
+                description = "elixir atom";
+                check = isElixirType "atom";
+              });
 
-            tuple = elixirOr (mkOptionType {
-              name = "elixirTuple";
-              description = "elixir tuple";
-              check = isElixirType "tuple";
-            });
+              tuple = elixirOr (mkOptionType {
+                name = "elixirTuple";
+                description = "elixir tuple";
+                check = isElixirType "tuple";
+              });
 
-            map = elixirOr (mkOptionType {
-              name = "elixirMap";
-              description = "elixir map";
-              check = isElixirType "map";
-            });
-            # Wrap standard types, since anything in the Elixir configuration
-            # can be raw Elixir
-          } // lib.mapAttrs (_name: type: elixirOr type) lib.types;
-      };
+              map = elixirOr (mkOptionType {
+                name = "elixirMap";
+                description = "elixir map";
+                check = isElixirType "map";
+              });
+              # Wrap standard types, since anything in the Elixir configuration
+              # can be raw Elixir
+            } // lib.mapAttrs (_name: type: elixirOr type) lib.types
+        ;
+      } ;
 
       generate = name: value:
         pkgs.runCommand name {
@@ -464,7 +488,7 @@
           cp "$valuePath" "$out"
           mix format "$out"
         '';
-    };
+    } ;
 
   # Outputs a succession of Python variable assignments
   # Useful for many Django-based services
@@ -482,7 +506,9 @@
         ]) // {
           description = "Python value";
         };
-      in attrsOf valueType;
+      in
+        attrsOf valueType
+    ;
     generate = name: value:
       pkgs.callPackage ({
           runCommand,

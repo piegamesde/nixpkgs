@@ -162,12 +162,15 @@ let
           cp -rf _build_doc/* .
           rm -r _build_doc
         '';
-        postInstall = let tgt = "$out/share/coq/${coq.coq-version}/";
-        in optionalString withDoc ''
-          mkdir -p ${tgt}
-          cp -r htmldoc ${tgt}
-          cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
-        '';
+        postInstall = let
+          tgt = "$out/share/coq/${coq.coq-version}/";
+        in
+          optionalString withDoc ''
+            mkdir -p ${tgt}
+            cp -r htmldoc ${tgt}
+            cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
+          ''
+        ;
         buildTargets = "doc";
         extraInstallFlags = [ "-f Makefile.coq" ];
       });
@@ -183,5 +186,8 @@ let
           || (o.version != "dev" && versions.isLe "1.7" o.version)) {
             installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
           });
-    in patched-derivation;
-in mathcomp_ (if single then "single" else "all")
+    in
+      patched-derivation
+  ;
+in
+  mathcomp_ (if single then "single" else "all")

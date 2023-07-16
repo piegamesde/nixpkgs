@@ -101,7 +101,7 @@ let
        --set APP_ROOT_PATH "$out/lib/node_modules/epgstation"
 
       popd
-    '';
+    '' ;
 
     # NOTE: this may take a while since it has to update all packages in
     # nixpkgs.nodePackages
@@ -115,14 +115,15 @@ let
     # build process without doing the same for all the other node packages.
     meta = drv.meta // { inherit (nodejs.meta) platforms; };
   });
-in server // {
-  name = "${pname}-${version}";
+in
+  server // {
+    name = "${pname}-${version}";
 
-  meta = with lib;
-    server.meta // {
-      maintainers = with maintainers; [ midchildan ];
+    meta = with lib;
+      server.meta // {
+        maintainers = with maintainers; [ midchildan ];
 
-      # NOTE: updateScript relies on this being correct
-      position = toString ./default.nix + ":1";
-    };
-}
+        # NOTE: updateScript relies on this being correct
+        position = toString ./default.nix + ":1";
+      };
+  }

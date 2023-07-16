@@ -122,5 +122,6 @@ let
       runHook postInstall
     '';
   };
-in stdenv.mkDerivation
-(attrs // (builtins.removeAttrs attrsOrig [ "nativeBuildInputs" ]))
+in
+  stdenv.mkDerivation
+  (attrs // (builtins.removeAttrs attrsOrig [ "nativeBuildInputs" ]))

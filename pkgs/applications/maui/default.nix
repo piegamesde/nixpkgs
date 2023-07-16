@@ -37,20 +37,26 @@ let
           mkDerivation,
         }:
         mkDerivation) { };
-    in mkDerivation (args // {
-      inherit pname version src;
+    in
+      mkDerivation (args // {
+        inherit pname version src;
 
-      outputs = args.outputs or [ "out" ];
+        outputs = args.outputs or [ "out" ];
 
-      meta = let meta = args.meta or { };
-      in meta // {
-        homepage = meta.homepage or "https://mauikit.org/";
-        platforms = meta.platforms or lib.platforms.linux;
-      };
-    });
+        meta = let
+          meta = args.meta or { };
+        in
+          meta // {
+            homepage = meta.homepage or "https://mauikit.org/";
+            platforms = meta.platforms or lib.platforms.linux;
+          }
+        ;
+      })
+  ;
 
   packages = self:
-    let callPackage = self.newScope { inherit mkDerivation; };
+    let
+      callPackage = self.newScope { inherit mkDerivation; };
     in {
       # libraries
       mauikit = callPackage ./mauikit.nix { };
@@ -72,6 +78,7 @@ let
       shelf = callPackage ./shelf.nix { };
       station = callPackage ./station.nix { };
       vvave = callPackage ./vvave.nix { };
-    };
+    } ;
 
-in lib.makeScope libsForQt5.newScope packages
+in
+  lib.makeScope libsForQt5.newScope packages

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.lldpd;
+let
+  cfg = config.services.lldpd;
 
 in {
   options.services.lldpd = {

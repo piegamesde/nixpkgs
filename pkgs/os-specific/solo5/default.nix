@@ -24,92 +24,93 @@ let
     "virtio"
     "xen"
   ];
-in stdenv.mkDerivation {
-  pname = "solo5";
-  inherit version;
+in
+  stdenv.mkDerivation {
+    pname = "solo5";
+    inherit version;
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
-  buildInputs = lib.optional (stdenv.hostPlatform.isLinux) libseccomp;
+    nativeBuildInputs = [
+      makeWrapper
+      pkg-config
+    ];
+    buildInputs = lib.optional (stdenv.hostPlatform.isLinux) libseccomp;
 
-  src = fetchurl {
-    url =
-      "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
-    sha256 = "sha256-t80VOZ8Tr1Dq+mJfRPVLGqYprCaqegcQtDqdoHaSXW0=";
-  };
+    src = fetchurl {
+      url =
+        "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
+      sha256 = "sha256-t80VOZ8Tr1Dq+mJfRPVLGqYprCaqegcQtDqdoHaSXW0=";
+    };
 
-  hardeningEnable = [ "pie" ];
+    hardeningEnable = [ "pie" ];
 
-  configurePhase = ''
-    runHook preConfigure
-    sh configure.sh --prefix=/
-    runHook postConfigure
-  '';
+    configurePhase = ''
+      runHook preConfigure
+      sh configure.sh --prefix=/
+      runHook postConfigure
+    '';
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  separateDebugInfo = true;
-  # debugging requires information for both the unikernel and the tender
+    separateDebugInfo = true;
+    # debugging requires information for both the unikernel and the tender
 
-  installPhase = ''
-    runHook preInstall
-    export DESTDIR=$out
-    export PREFIX=$out
-    make install
+    installPhase = ''
+      runHook preInstall
+      export DESTDIR=$out
+      export PREFIX=$out
+      make install
 
-    substituteInPlace $out/bin/solo5-virtio-mkimage \
-      --replace "/usr/lib/syslinux" "${syslinux}/share/syslinux" \
-      --replace "/usr/share/syslinux" "${syslinux}/share/syslinux" \
-      --replace "cp " "cp --no-preserve=mode "
+      substituteInPlace $out/bin/solo5-virtio-mkimage \
+        --replace "/usr/lib/syslinux" "${syslinux}/share/syslinux" \
+        --replace "/usr/share/syslinux" "${syslinux}/share/syslinux" \
+        --replace "cp " "cp --no-preserve=mode "
 
-    wrapProgram $out/bin/solo5-virtio-mkimage \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          dosfstools
-          mtools
-          parted
-          syslinux
-        ]
-      }
+      wrapProgram $out/bin/solo5-virtio-mkimage \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            dosfstools
+            mtools
+            parted
+            syslinux
+          ]
+        }
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  doCheck = stdenv.hostPlatform.isLinux;
-  nativeCheckInputs = [
-    util-linux
-    qemu
-  ];
-  checkPhase = ''
-    runHook preCheck
-    patchShebangs tests
-    ./tests/bats-core/bats ./tests/tests.bats
-    runHook postCheck
-  '';
+    doCheck = stdenv.hostPlatform.isLinux;
+    nativeCheckInputs = [
+      util-linux
+      qemu
+    ];
+    checkPhase = ''
+      runHook preCheck
+      patchShebangs tests
+      ./tests/bats-core/bats ./tests/tests.bats
+      runHook postCheck
+    '';
 
-  meta = with lib; {
-    description = "Sandboxed execution environment";
-    homepage = "https://github.com/solo5/solo5";
-    license = licenses.isc;
-    maintainers = [ maintainers.ehmry ];
-    platforms = builtins.map ({
-        arch,
-        os,
-      }:
-      "${arch}-${os}") (cartesianProductOfSets {
-        arch = [
-          "aarch64"
-          "x86_64"
-        ];
-        os = [
-          "freebsd"
-          "genode"
-          "linux"
-          "openbsd"
-        ];
-      });
-  };
+    meta = with lib; {
+      description = "Sandboxed execution environment";
+      homepage = "https://github.com/solo5/solo5";
+      license = licenses.isc;
+      maintainers = [ maintainers.ehmry ];
+      platforms = builtins.map ({
+          arch,
+          os,
+        }:
+        "${arch}-${os}") (cartesianProductOfSets {
+          arch = [
+            "aarch64"
+            "x86_64"
+          ];
+          os = [
+            "freebsd"
+            "genode"
+            "linux"
+            "openbsd"
+          ];
+        });
+    };
 
-}
+  }

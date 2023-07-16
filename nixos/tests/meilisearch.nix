@@ -68,4 +68,4 @@ import ./make-test-python.nix ({
           print(response)
           assert len(response["hits"]) >= 1, "no results found"
     '';
-  })
+  } )

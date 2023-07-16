@@ -41,4 +41,5 @@ let
       | tar xf - -C $out
   '';
 
-in nixPath
+in
+  nixPath

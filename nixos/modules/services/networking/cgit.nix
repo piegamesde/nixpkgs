@@ -47,7 +47,9 @@ let
       "v"
       "f"
     ];
-  in replaceStrings special (map (c: "\\${c}") special);
+  in
+    replaceStrings special (map (c: "\\${c}") special)
+  ;
 
   stripLocation = cfg: removeSuffix "/" cfg.nginx.location;
 

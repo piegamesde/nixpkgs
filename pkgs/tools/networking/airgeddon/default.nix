@@ -117,64 +117,65 @@ let
     xorg.xset
     xorg.xdpyinfo
   ];
-in stdenv.mkDerivation rec {
-  pname = "airgeddon";
-  version = "11.11";
+in
+  stdenv.mkDerivation rec {
+    pname = "airgeddon";
+    version = "11.11";
 
-  src = fetchFromGitHub {
-    owner = "v1s1t0r1sh3r3";
-    repo = "airgeddon";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-3Rx1tMRIpSk+IEJGOs+t+kDlvGHYOx1IOSi+663uzrw=";
-  };
+    src = fetchFromGitHub {
+      owner = "v1s1t0r1sh3r3";
+      repo = "airgeddon";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-3Rx1tMRIpSk+IEJGOs+t+kDlvGHYOx1IOSi+663uzrw=";
+    };
 
-  strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
+    strictDeps = true;
+    nativeBuildInputs = [ makeWrapper ];
 
-  # What these replacings do?
-  # - Disable the auto-updates (we'll run from a read-only directory);
-  # - Silence the checks (NixOS will enforce the PATH, it will only see the tools as we listed);
-  # - Use "tmux", we're not patching XTerm commands;
-  # - Remove PWD and $0 references, forcing it to use the paths from store;
-  # - Force our PATH to all tmux sessions.
-  postPatch = ''
-    patchShebangs airgeddon.sh
-    sed -i '
-      s|AIRGEDDON_AUTO_UPDATE=true|AIRGEDDON_AUTO_UPDATE=false|
-      s|AIRGEDDON_SILENT_CHECKS=false|AIRGEDDON_SILENT_CHECKS=true|
-      s|AIRGEDDON_WINDOWS_HANDLING=xterm|AIRGEDDON_WINDOWS_HANDLING=tmux|
-      ' .airgeddonrc
+    # What these replacings do?
+    # - Disable the auto-updates (we'll run from a read-only directory);
+    # - Silence the checks (NixOS will enforce the PATH, it will only see the tools as we listed);
+    # - Use "tmux", we're not patching XTerm commands;
+    # - Remove PWD and $0 references, forcing it to use the paths from store;
+    # - Force our PATH to all tmux sessions.
+    postPatch = ''
+      patchShebangs airgeddon.sh
+      sed -i '
+        s|AIRGEDDON_AUTO_UPDATE=true|AIRGEDDON_AUTO_UPDATE=false|
+        s|AIRGEDDON_SILENT_CHECKS=false|AIRGEDDON_SILENT_CHECKS=true|
+        s|AIRGEDDON_WINDOWS_HANDLING=xterm|AIRGEDDON_WINDOWS_HANDLING=tmux|
+        ' .airgeddonrc
 
-    sed -Ei '
-      s|\$\(pwd\)|${placeholder "out"}/share/airgeddon;scriptfolder=${
-        placeholder "out"
-      }/share/airgeddon/|
-      s|\$\{0\}|${placeholder "out"}/bin/airgeddon|
-      s|tmux send-keys -t "([^"]+)" "|tmux send-keys -t "\1" "export PATH=\\"$PATH\\"; |
-      ' airgeddon.sh
-  '';
+      sed -Ei '
+        s|\$\(pwd\)|${placeholder "out"}/share/airgeddon;scriptfolder=${
+          placeholder "out"
+        }/share/airgeddon/|
+        s|\$\{0\}|${placeholder "out"}/bin/airgeddon|
+        s|tmux send-keys -t "([^"]+)" "|tmux send-keys -t "\1" "export PATH=\\"$PATH\\"; |
+        ' airgeddon.sh
+    '';
 
-  # ATTENTION: No need to chdir around, we're removing the occurrences of "$(pwd)"
-  postInstall = ''
-    wrapProgram $out/bin/airgeddon --prefix PATH : ${lib.makeBinPath deps}
-  '';
+    # ATTENTION: No need to chdir around, we're removing the occurrences of "$(pwd)"
+    postInstall = ''
+      wrapProgram $out/bin/airgeddon --prefix PATH : ${lib.makeBinPath deps}
+    '';
 
-  # Install only the interesting files
-  installPhase = ''
-    runHook preInstall
-    install -Dm 755 airgeddon.sh "$out/bin/airgeddon"
-    install -dm 755 "$out/share/airgeddon"
-    cp -dr .airgeddonrc known_pins.db language_strings.sh plugins/ "$out/share/airgeddon/"
-    runHook postInstall
-  '';
+    # Install only the interesting files
+    installPhase = ''
+      runHook preInstall
+      install -Dm 755 airgeddon.sh "$out/bin/airgeddon"
+      install -dm 755 "$out/share/airgeddon"
+      cp -dr .airgeddonrc known_pins.db language_strings.sh plugins/ "$out/share/airgeddon/"
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Multi-use TUI to audit wireless networks";
-    homepage = "https://github.com/v1s1t0r1sh3r3/airgeddon";
-    changelog =
-      "https://github.com/v1s1t0r1sh3r3/airgeddon/blob/v${version}/CHANGELOG.md";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pedrohlc ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Multi-use TUI to audit wireless networks";
+      homepage = "https://github.com/v1s1t0r1sh3r3/airgeddon";
+      changelog =
+        "https://github.com/v1s1t0r1sh3r3/airgeddon/blob/v${version}/CHANGELOG.md";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [ pedrohlc ];
+      platforms = platforms.linux;
+    };
+  }

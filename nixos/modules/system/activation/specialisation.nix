@@ -67,7 +67,7 @@ in {
             visible = "shallow";
             inherit (extend { modules = [ ./no-clone.nix ]; }) type;
           };
-        }));
+        } ));
     };
 
   };

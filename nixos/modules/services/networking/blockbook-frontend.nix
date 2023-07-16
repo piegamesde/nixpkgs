@@ -288,7 +288,7 @@ in {
           WorkingDirectory = cfg.dataDir;
           LimitNOFILE = 65536;
         };
-      }))) eachBlockbook;
+      } ))) eachBlockbook;
 
     systemd.tmpfiles.rules = flatten (mapAttrsToList (blockbookName: cfg: [
       "d ${cfg.dataDir} 0750 ${cfg.user} ${cfg.group} - -"

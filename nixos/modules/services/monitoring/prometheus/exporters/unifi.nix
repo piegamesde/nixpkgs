@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.unifi;
+let
+  cfg = config.services.prometheus.exporters.unifi;
 in {
   port = 9130;
   extraOpts = {

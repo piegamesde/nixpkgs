@@ -147,7 +147,7 @@ in {
         in {
           BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
           PYTHONPATH = "${penv}/${python.sitePackages}/";
-        };
+        } ;
 
         serviceConfig = {
           Type = "simple";

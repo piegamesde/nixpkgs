@@ -24,22 +24,23 @@ let
   });
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-in appimageTools.wrapType2 {
-  inherit pname version src;
+in
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
-    ln -sf rambox-${version} $out/bin/${pname}
-    install -Dm644 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/rambox*.png $out/share/icons/hicolor/256x256/apps/${pname}.png
-    install -Dm644 ${desktopItem}/share/applications/* $out/share/applications
-  '';
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
+      ln -sf rambox-${version} $out/bin/${pname}
+      install -Dm644 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/rambox*.png $out/share/icons/hicolor/256x256/apps/${pname}.png
+      install -Dm644 ${desktopItem}/share/applications/* $out/share/applications
+    '';
 
-  meta = with lib; {
-    description =
-      "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles";
-    homepage = "https://rambox.app";
-    license = licenses.unfree;
-    maintainers = with maintainers; [ nazarewk ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles";
+      homepage = "https://rambox.app";
+      license = licenses.unfree;
+      maintainers = with maintainers; [ nazarewk ];
+      platforms = [ "x86_64-linux" ];
+    };
+  }

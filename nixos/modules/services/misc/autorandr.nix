@@ -18,9 +18,12 @@ let
       description =
         "${toString n}×${toString m} matrix of ${elemType.description}s";
       check = xss:
-        let listOfSize = l: xs: isList xs && length xs == l;
-        in listOfSize n xss
-        && all (xs: listOfSize m xs && all elemType.check xs) xss;
+        let
+          listOfSize = l: xs: isList xs && length xs == l;
+        in
+          listOfSize n xss
+          && all (xs: listOfSize m xs && all elemType.check xs) xss
+      ;
       merge = mergeOneOption;
       getSubOptions = prefix:
         elemType.getSubOptions (prefix ++ [

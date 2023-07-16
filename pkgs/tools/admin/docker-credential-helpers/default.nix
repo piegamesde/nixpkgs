@@ -46,7 +46,7 @@ buildGoModule rec {
         builtins.toString ldflags
       }" -trimpath -o bin/docker-credential-$cmd ./$cmd/cmd
     done
-  '';
+  '' ;
 
   installPhase = ''
     install -Dm755 -t $out/bin bin/docker-credential-*

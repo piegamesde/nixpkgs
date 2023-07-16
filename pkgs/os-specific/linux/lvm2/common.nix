@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
       mdadm = optionalTool enableMdadm mdadm;
       multipath_tools = optionalTool enableMultipath multipath-tools;
       vdo = optionalTool enableVDO vdo;
-    }))
+    } ))
     # Musl fix from Alpine
     ./fix-stdio-usage.patch
   ] ++ lib.optionals stdenv.hostPlatform.isStatic [ ./no-shared.patch ];

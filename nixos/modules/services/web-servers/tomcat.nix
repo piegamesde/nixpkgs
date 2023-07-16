@@ -290,7 +290,7 @@ in {
               escapeShellArg hostElementsSedString
             } \
                   ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
-          ''}
+          '' }
         ${optionalString (cfg.logDirs != [ ]) ''
           for i in ${toString cfg.logDirs}; do
             mkdir -p ${cfg.baseDir}/logs/$i

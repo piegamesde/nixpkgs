@@ -195,4 +195,4 @@ import ./make-test-python.nix ({
             "cmp ${download-dir}/test.tar.bz2 ${file}"
         )
       '';
-  })
+  } )

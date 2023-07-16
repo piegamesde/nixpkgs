@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.lvm;
+let
+  cfg = config.services.lvm;
 in {
   options.services.lvm = {
     enable = mkEnableOption (lib.mdDoc "lvm2") // { default = true; };

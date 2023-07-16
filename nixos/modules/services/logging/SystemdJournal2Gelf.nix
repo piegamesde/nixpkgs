@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.SystemdJournal2Gelf;
+let
+  cfg = config.services.SystemdJournal2Gelf;
 
 in {
   options = {

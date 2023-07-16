@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     install -Dm555 lib/${processor}/discord_game_sdk${sharedLibrary} $out/lib/discord_game_sdk${sharedLibrary}
 
     runHook postInstall
-  '';
+  '' ;
 
   meta = with lib; {
     homepage = "https://discord.com/developers/docs/game-sdk/sdk-starter-guide";

@@ -223,7 +223,7 @@ let
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
 
-    });
+    } );
 
   libraries = lib.makeExtensible (libraries:
     let
@@ -281,10 +281,12 @@ let
           stdenv = stdenv_;
           headersOnly = true;
         };
-      in callPackage ./libcxxabi {
-        stdenv = stdenv_;
-        inherit llvm_meta cxx-headers;
-      };
+      in
+        callPackage ./libcxxabi {
+          stdenv = stdenv_;
+          inherit llvm_meta cxx-headers;
+        }
+      ;
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;
@@ -292,6 +294,7 @@ let
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    });
+    } );
 
-in { inherit tools libraries release_version; } // libraries // tools
+in
+  { inherit tools libraries release_version; } // libraries // tools

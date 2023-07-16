@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.wavemon;
+let
+  cfg = config.programs.wavemon;
 in {
   options = {
     programs.wavemon = {

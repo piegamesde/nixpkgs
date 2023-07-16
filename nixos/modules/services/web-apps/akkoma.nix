@@ -61,7 +61,9 @@ let
       ]) // {
         description = "Elixir value";
       };
-  in elixirValue';
+  in
+    elixirValue'
+  ;
 
   frontend = {
     options = {
@@ -102,7 +104,9 @@ let
         map (replaceSec' args) v
       else
         v;
-  in replaceSec' { };
+  in
+    replaceSec' { }
+  ;
 
   # Erlang/Elixir uses a somewhat special format for IP addresses
   erlAddr = addr:
@@ -219,7 +223,7 @@ let
               ]
             }
       ''}
-    '';
+    '' ;
   };
 
   configScript = writeShell {
@@ -376,12 +380,14 @@ let
           exec "${cfg.package}/bin/$(basename "$0")" "$@"
       '';
     };
-  in pkgs.runCommandLocal "akkoma-env" { } ''
-    mkdir -p "$out/bin"
+  in
+    pkgs.runCommandLocal "akkoma-env" { } ''
+      mkdir -p "$out/bin"
 
-    ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
-    ln -r -s ${escapeShellArg script} "$out/bin/pleroma_ctl"
-  '';
+      ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
+      ln -r -s ${escapeShellArg script} "$out/bin/pleroma_ctl"
+    ''
+  ;
 
   userWrapper = pkgs.writeShellApplication {
     name = "pleroma_ctl";
@@ -1194,7 +1200,7 @@ in {
         ]);
         SocketBindDeny = mkIf (!hasSmtp) "any";
       };
-    };
+    } ;
 
     systemd.tmpfiles.rules = [
       "d ${uploadDir}  0700 ${cfg.user} ${cfg.group} - -"

@@ -7,69 +7,72 @@
   coreutils,
 }:
 
-let buildFHSEnv = callPackage ./env.nix { };
-
-in args@{
-  name,
-  version ? null,
-  runScript ? "bash",
-  extraInstallCommands ? "",
-  meta ? { },
-  passthru ? { },
-  ...
-}:
-
 let
-  env = buildFHSEnv (removeAttrs args [
-    "version"
-    "runScript"
-    "extraInstallCommands"
-    "meta"
-    "passthru"
-  ]);
+  buildFHSEnv = callPackage ./env.nix { };
 
-  chrootenv = callPackage ./chrootenv { };
+in
+  args@{
+    name,
+    version ? null,
+    runScript ? "bash",
+    extraInstallCommands ? "",
+    meta ? { },
+    passthru ? { },
+    ...
+  }:
 
-  init = run:
-    writeScript "${name}-init" ''
-      #! ${stdenv.shell}
-      for i in ${env}/* /host/*; do
-        path="/''${i##*/}"
-        [ -e "$path" ] || ${coreutils}/bin/ln -s "$i" "$path"
-      done
+  let
+    env = buildFHSEnv (removeAttrs args [
+      "version"
+      "runScript"
+      "extraInstallCommands"
+      "meta"
+      "passthru"
+    ]);
 
-      [ -d "$1" ] && [ -r "$1" ] && cd "$1"
-      shift
+    chrootenv = callPackage ./chrootenv { };
 
-      source /etc/profile
-      exec ${run} "$@"
-    '';
+    init = run:
+      writeScript "${name}-init" ''
+        #! ${stdenv.shell}
+        for i in ${env}/* /host/*; do
+          path="/''${i##*/}"
+          [ -e "$path" ] || ${coreutils}/bin/ln -s "$i" "$path"
+        done
 
-  versionStr = lib.optionalString (version != null) ("-" + version);
+        [ -d "$1" ] && [ -r "$1" ] && cd "$1"
+        shift
 
-  nameAndVersion = name + versionStr;
-
-in runCommandLocal nameAndVersion {
-  inherit meta;
-
-  passthru = passthru // {
-    env = runCommandLocal "${name}-shell-env" {
-      shellHook = ''
-        exec ${chrootenv}/bin/chrootenv ${init runScript} "$(pwd)"
+        source /etc/profile
+        exec ${run} "$@"
       '';
+
+    versionStr = lib.optionalString (version != null) ("-" + version);
+
+    nameAndVersion = name + versionStr;
+
+  in
+    runCommandLocal nameAndVersion {
+      inherit meta;
+
+      passthru = passthru // {
+        env = runCommandLocal "${name}-shell-env" {
+          shellHook = ''
+            exec ${chrootenv}/bin/chrootenv ${init runScript} "$(pwd)"
+          '';
+        } ''
+          echo >&2 ""
+          echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+          echo >&2 ""
+          exit 1
+        '';
+      };
     } ''
-      echo >&2 ""
-      echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-      echo >&2 ""
-      exit 1
-    '';
-  };
-} ''
-  mkdir -p $out/bin
-  cat <<EOF >$out/bin/${name}
-  #! ${stdenv.shell}
-  exec ${chrootenv}/bin/chrootenv ${init runScript} "\$(pwd)" "\$@"
-  EOF
-  chmod +x $out/bin/${name}
-  ${extraInstallCommands}
-''
+      mkdir -p $out/bin
+      cat <<EOF >$out/bin/${name}
+      #! ${stdenv.shell}
+      exec ${chrootenv}/bin/chrootenv ${init runScript} "\$(pwd)" "\$@"
+      EOF
+      chmod +x $out/bin/${name}
+      ${extraInstallCommands}
+    ''

@@ -127,23 +127,27 @@ in {
         f = path: crossSystem: system:
           builtins.toString
           (lib.getAttrFromPath path (pkgsForCross crossSystem system));
-      in assertTrue (f path null system
-        == f ([ "buildPackages" ] ++ path) crossSystem system);
+      in
+        assertTrue (f path null system
+          == f ([ "buildPackages" ] ++ path) crossSystem system)
+    ;
 
     testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
 
     mapTestEqual = lib.mapAttrsRecursive testEqual;
 
-  in mapTestEqual {
-    boehmgc = nativePlatforms;
-    libffi = nativePlatforms;
-    libiconv = nativePlatforms;
-    libtool = nativePlatforms;
-    zlib = nativePlatforms;
-    readline = nativePlatforms;
-    libxml2 = nativePlatforms;
-    guile = nativePlatforms;
-  };
+  in
+    mapTestEqual {
+      boehmgc = nativePlatforms;
+      libffi = nativePlatforms;
+      libiconv = nativePlatforms;
+      libtool = nativePlatforms;
+      zlib = nativePlatforms;
+      readline = nativePlatforms;
+      libxml2 = nativePlatforms;
+      guile = nativePlatforms;
+    }
+  ;
 
   crossIphone64 = mapTestOnCross lib.systems.examples.iphone64 darwinCommon;
 
@@ -256,15 +260,17 @@ in {
     mkBootstrapToolsJob = drv:
       assert lib.elem drv.system supportedSystems;
       hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv);
-  in lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
-  (name: mkBootstrapToolsJob)
-  # The `bootstrapTools.${platform}.bootstrapTools` derivation
-  # *unpacks* the bootstrap-files using their own `busybox` binary,
-  # so it will fail unless buildPlatform.canExecute hostPlatform.
-  # Unfortunately `bootstrapTools` also clobbers its own `system`
-  # attribute, so there is no way to detect this -- we must add it
-  # as a special case.
-  (builtins.removeAttrs tools [ "bootstrapTools" ]);
+  in
+    lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
+    (name: mkBootstrapToolsJob)
+    # The `bootstrapTools.${platform}.bootstrapTools` derivation
+    # *unpacks* the bootstrap-files using their own `busybox` binary,
+    # so it will fail unless buildPlatform.canExecute hostPlatform.
+    # Unfortunately `bootstrapTools` also clobbers its own `system`
+    # attribute, so there is no way to detect this -- we must add it
+    # as a special case.
+    (builtins.removeAttrs tools [ "bootstrapTools" ])
+  ;
 
   # Cross-built nixStatic for platforms for enabled-but-unsupported platforms
   mips64el-nixCrossStatic =

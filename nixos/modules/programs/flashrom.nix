@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.flashrom;
+let
+  cfg = config.programs.flashrom;
 in {
   options.programs.flashrom = {
     enable = mkOption {

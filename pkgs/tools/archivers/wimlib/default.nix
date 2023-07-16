@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     for prog in $out/bin/*; do
       wrapProgram $prog --prefix PATH : ${path}
     done
-  '';
+  '' ;
 
   doCheck = (!stdenv.isDarwin);
 

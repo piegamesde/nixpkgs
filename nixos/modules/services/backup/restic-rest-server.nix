@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.restic.server;
+let
+  cfg = config.services.restic.server;
 in {
   meta.maintainers = [ maintainers.bachp ];
 

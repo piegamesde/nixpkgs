@@ -73,10 +73,11 @@ let
       broken = stdenv.isDarwin;
     };
   };
-in symlinkJoin {
-  name = "packr";
-  paths = [
-    p1
-    p2
-  ];
-}
+in
+  symlinkJoin {
+    name = "packr";
+    paths = [
+      p1
+      p2
+    ];
+  }

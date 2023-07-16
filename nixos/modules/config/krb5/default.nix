@@ -70,11 +70,12 @@ let
       let
         configLines = concatLists
           (map (splitString "\n") (mapAttrsToList mkRelation value));
-      in (concatStringsSep ''
+      in
+        (concatStringsSep ''
 
-        ${indent}'' ([ "{" ] ++ configLines)) + ''
+          ${indent}'' ([ "{" ] ++ configLines)) + ''
 
-          }''
+            }''
     else
       value;
 

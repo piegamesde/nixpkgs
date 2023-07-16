@@ -29,37 +29,38 @@ let
     sha256 = "1ssyazc0yrdng98cypwa9m3nzfisdzpp7hqnx684rqj8f0g3gs6f";
   };
 
-in buildDunePackage rec {
-  pname = "jsonrpc";
-  inherit (params) version;
-  src = fetchurl {
-    url =
-      "https://github.com/ocaml/ocaml-lsp/releases/download/${version}/${params.name}-${version}.tbz";
-    inherit (params) sha256;
-  };
+in
+  buildDunePackage rec {
+    pname = "jsonrpc";
+    inherit (params) version;
+    src = fetchurl {
+      url =
+        "https://github.com/ocaml/ocaml-lsp/releases/download/${version}/${params.name}-${version}.tbz";
+      inherit (params) sha256;
+    };
 
-  duneVersion = "3";
-  minimalOCamlVersion = "4.06";
+    duneVersion = "3";
+    minimalOCamlVersion = "4.06";
 
-  buildInputs = if lib.versionAtLeast version "1.7.0" then
-    [ ]
-  else [
-    yojson
-    stdlib-shims
-    ocaml-syntax-shims
-  ];
+    buildInputs = if lib.versionAtLeast version "1.7.0" then
+      [ ]
+    else [
+      yojson
+      stdlib-shims
+      ocaml-syntax-shims
+    ];
 
-  propagatedBuildInputs = if lib.versionAtLeast version "1.7.0" then
-    [ ]
-  else [
-    ppx_yojson_conv_lib
-    result
-  ];
+    propagatedBuildInputs = if lib.versionAtLeast version "1.7.0" then
+      [ ]
+    else [
+      ppx_yojson_conv_lib
+      result
+    ];
 
-  meta = with lib; {
-    description = "Jsonrpc protocol implementation in OCaml";
-    license = licenses.isc;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ marsam ];
-  };
-}
+    meta = with lib; {
+      description = "Jsonrpc protocol implementation in OCaml";
+      license = licenses.isc;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ marsam ];
+    };
+  }

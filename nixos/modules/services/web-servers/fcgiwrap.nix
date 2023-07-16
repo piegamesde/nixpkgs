@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.fcgiwrap;
+let
+  cfg = config.services.fcgiwrap;
 in {
 
   options = {

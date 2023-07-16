@@ -62,4 +62,5 @@ let
       '';
     };
 
-in mapAttrs makeHydraTest hydraPkgs
+in
+  mapAttrs makeHydraTest hydraPkgs

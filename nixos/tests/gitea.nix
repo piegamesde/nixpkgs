@@ -159,7 +159,8 @@ let
         client1.shutdown()
         client2.shutdown()
         server.shutdown()
-      '';
+      '' ;
     });
 
-in listToAttrs (map makeGiteaTest supportedDbTypes)
+in
+  listToAttrs (map makeGiteaTest supportedDbTypes)

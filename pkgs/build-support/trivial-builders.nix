@@ -8,7 +8,8 @@
   haskell,
 }:
 
-let inherit (lib) optionalAttrs warn;
+let
+  inherit (lib) optionalAttrs warn;
 
 in rec {
 
@@ -73,30 +74,32 @@ in rec {
   runCommandWith = let
     # prevent infinite recursion for the default stdenv value
     defaultStdenv = stdenv;
-  in {
-  # which stdenv to use, defaults to a stdenv with a C compiler, pkgs.stdenv
-    stdenv ? defaultStdenv
-      # whether to build this derivation locally instead of substituting
-    ,
-    runLocal ? false
-      # extra arguments to pass to stdenv.mkDerivation
-    ,
-    derivationArgs ? { }
-      # name of the resulting derivation
-    ,
-    name
-    # TODO(@Artturin): enable strictDeps always
-    ,
-  }:
-  buildCommand:
-  stdenv.mkDerivation ({
-    enableParallelBuilding = true;
-    inherit buildCommand name;
-    passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
-  } // (lib.optionalAttrs runLocal {
-    preferLocalBuild = true;
-    allowSubstitutes = false;
-  }) // builtins.removeAttrs derivationArgs [ "passAsFile" ]);
+  in
+    {
+    # which stdenv to use, defaults to a stdenv with a C compiler, pkgs.stdenv
+      stdenv ? defaultStdenv
+        # whether to build this derivation locally instead of substituting
+      ,
+      runLocal ? false
+        # extra arguments to pass to stdenv.mkDerivation
+      ,
+      derivationArgs ? { }
+        # name of the resulting derivation
+      ,
+      name
+      # TODO(@Artturin): enable strictDeps always
+      ,
+    }:
+    buildCommand:
+    stdenv.mkDerivation ({
+      enableParallelBuilding = true;
+      inherit buildCommand name;
+      passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
+    } // (lib.optionalAttrs runLocal {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+    }) // builtins.removeAttrs derivationArgs [ "passAsFile" ])
+  ;
 
   /* Writes a text file to the nix store.
      The contents of text is added to the file in the store.
@@ -484,13 +487,15 @@ in rec {
         inherit preferLocalBuild allowSubstitutes;
         passAsFile = [ "paths" ];
       }; # pass the defaults
-    in runCommand name args ''
-      mkdir -p $out
-      for i in $(cat $pathsPath); do
-        ${lndir}/bin/lndir -silent $i $out
-      done
-      ${postBuild}
-    '';
+    in
+      runCommand name args ''
+        mkdir -p $out
+        for i in $(cat $pathsPath); do
+          ${lndir}/bin/lndir -silent $i $out
+        done
+        ${postBuild}
+      ''
+  ;
 
   /* Quickly create a set of symlinks to derivations.
 
@@ -532,15 +537,17 @@ in rec {
         mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
         ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
       '') entries';
-    in runCommand name {
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-      passthru.entries = entries';
-    } ''
-      mkdir -p $out
-      cd $out
-      ${lib.concatStrings linkCommands}
-    '';
+    in
+      runCommand name {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+        passthru.entries = entries';
+      } ''
+        mkdir -p $out
+        cd $out
+        ${lib.concatStrings linkCommands}
+      ''
+  ;
 
   /* Easily create a linkFarm from a set of derivations.
 
@@ -566,7 +573,9 @@ in rec {
         name = drv.name;
         path = drv;
       };
-    in linkFarm name (map mkEntryFromDrv drvs);
+    in
+      linkFarm name (map mkEntryFromDrv drvs)
+  ;
 
   # docs in doc/builders/special/makesetuphook.section.md
   makeSetupHook = {
@@ -775,25 +784,27 @@ in rec {
       hash_ =
         if hash != null then hash else if sha256 != null then sha256 else sha1;
       name_ = if name == null then baseNameOf (toString url) else name;
-    in stdenvNoCC.mkDerivation {
-      name = name_;
-      outputHashMode = hashMode;
-      outputHashAlgo = hashAlgo;
-      outputHash = hash_;
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-      builder = writeScript "restrict-message" ''
-        source ${stdenvNoCC}/setup
-        cat <<_EOF_
+    in
+      stdenvNoCC.mkDerivation {
+        name = name_;
+        outputHashMode = hashMode;
+        outputHashAlgo = hashAlgo;
+        outputHash = hash_;
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+        builder = writeScript "restrict-message" ''
+          source ${stdenvNoCC}/setup
+          cat <<_EOF_
 
-        ***
-        ${msg}
-        ***
+          ***
+          ${msg}
+          ***
 
-        _EOF_
-        exit 1
-      '';
-    };
+          _EOF_
+          exit 1
+        '';
+      }
+  ;
 
   /* Copy a path to the Nix store.
      Nix automatically copies files to the store before stringifying paths.

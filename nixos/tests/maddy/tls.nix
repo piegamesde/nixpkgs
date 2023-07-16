@@ -102,4 +102,4 @@ import ../make-test-python.nix ({
       client.succeed("send-testmail")
       client.succeed("test-imap")
     '';
-  })
+  } )

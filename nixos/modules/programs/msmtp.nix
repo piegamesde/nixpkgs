@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.msmtp;
+let
+  cfg = config.programs.msmtp;
 
 in {
   meta.maintainers = with maintainers; [ pacien ];
@@ -108,6 +109,6 @@ in {
       ${concatStringsSep "\n" (mapAttrsToList mkAccountString cfg.accounts)}
 
       ${cfg.extraConfig}
-    '';
+    '' ;
   };
 }

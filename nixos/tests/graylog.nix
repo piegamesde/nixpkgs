@@ -119,5 +119,5 @@ import ./make-test-python.nix ({
           + "-H 'x-requested-by: cli'"
           + ' | jq \'.total_results\' | xargs echo)" = "1"'
       )
-    '';
+    '' ;
   })

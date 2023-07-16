@@ -20,5 +20,5 @@ import ./make-test-python.nix ({
       machine.succeed(
           "curl --fail -g http://0.0.0.0:5000/nar/${pkgHash}.nar -o /tmp/hello.nar"
       )
-    '';
+    '' ;
   })

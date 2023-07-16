@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.nextdns;
+let
+  cfg = config.services.nextdns;
 in {
   options = {
     services.nextdns = {

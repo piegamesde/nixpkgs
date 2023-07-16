@@ -72,5 +72,5 @@ import ./make-test-python.nix ({
             machine.wait_until_succeeds("${wmClass} | grep -q 'true,...Gnome-terminal'")
             machine.sleep(20)
             machine.screenshot("screen")
-      '';
+      '' ;
   })

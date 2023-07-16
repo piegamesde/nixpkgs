@@ -40,10 +40,12 @@ let
           texlive.combined.scheme-tetex
         ];
       };
-    in runCommand "$pandoc-drawio-filter-example-doc.pdf" env ''
-      cp -r ${src}/example/* .
-      pandoc -F pandoc-drawio example.md -T pdf -o $out
-    '';
+    in
+      runCommand "$pandoc-drawio-filter-example-doc.pdf" env ''
+        cp -r ${src}/example/* .
+        pandoc -F pandoc-drawio example.md -T pdf -o $out
+      ''
+    ;
 
     meta = with lib; {
       homepage = "https://github.com/tfc/pandoc-drawio-filter";
@@ -53,4 +55,5 @@ let
     };
   };
 
-in pandoc-drawio-filter
+in
+  pandoc-drawio-filter

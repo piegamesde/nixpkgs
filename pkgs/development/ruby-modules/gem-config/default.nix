@@ -152,7 +152,7 @@ in {
         # Allows to load another bundler version
         sed -i -e "s/activate_bin_path/bin_path/g" $out/bin/bundle
       '';
-    };
+    } ;
 
   cairo = attrs: {
     nativeBuildInputs = [ pkg-config ]
@@ -884,7 +884,7 @@ in {
       in ''
         substituteInPlace ${path} \
           --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
-      '';
+      '' ;
     };
 
   uuid4r = attrs: {

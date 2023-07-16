@@ -77,11 +77,13 @@ in {
     builderArgs = "-g ${toString cfg.configurationLimit} -t ${timeoutStr}"
       + lib.optionalString (dtCfg.name != null) " -n ${dtCfg.name}"
       + lib.optionalString (!cfg.useGenerationDeviceTree) " -r";
-  in mkIf cfg.enable {
-    system.build.installBootLoader = "${builder} ${builderArgs} -c";
-    system.boot.loader.id = "generic-extlinux-compatible";
+  in
+    mkIf cfg.enable {
+      system.build.installBootLoader = "${builder} ${builderArgs} -c";
+      system.boot.loader.id = "generic-extlinux-compatible";
 
-    boot.loader.generic-extlinux-compatible.populateCmd =
-      "${populateBuilder} ${builderArgs}";
-  };
+      boot.loader.generic-extlinux-compatible.populateCmd =
+        "${populateBuilder} ${builderArgs}";
+    }
+  ;
 }

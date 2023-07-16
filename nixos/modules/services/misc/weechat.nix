@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.weechat;
+let
+  cfg = config.services.weechat;
 
 in {
   options.services.weechat = {

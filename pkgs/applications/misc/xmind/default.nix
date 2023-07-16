@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/XMind
 
     ln -s ${jre8} $out/libexec/jre
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Mind-mapping software";

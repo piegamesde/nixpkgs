@@ -249,7 +249,7 @@ in {
           "apparmor/logprof"
         ];
         CacheDirectoryMode = "0700";
-      };
+      } ;
     };
   };
 

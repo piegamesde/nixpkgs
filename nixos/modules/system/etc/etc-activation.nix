@@ -3,7 +3,8 @@
   lib,
   ...
 }:
-let inherit (lib) stringAfter;
+let
+  inherit (lib) stringAfter;
 in {
 
   imports = [ ./etc.nix ];

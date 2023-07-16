@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "sha256-cocgEYKoDMDnGk9VNQDtgoVxMGnnNpdae0hzgUlacOw=")
     (debian-patch "gcc-10.patch"
       "sha256-YNcYGyOOqPUuwpUpXGcR7zsWbepVg8SAqcVKlxENSQk=")
-  ];
+  ] ;
 
   nativeBuildInputs = [
     libtool

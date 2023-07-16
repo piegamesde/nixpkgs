@@ -99,4 +99,4 @@ import ../make-test-python.nix ({
       peer1.succeed("ping -c5 fc00::1")
       peer1.succeed("ping -c5 10.23.42.1")
     '';
-  })
+  } )

@@ -1103,5 +1103,5 @@ import ./make-test-python.nix ({
             assert_lacks(out, "the following new units were started:")
             machine.succeed("systemctl start testservice.service")
             machine.succeed("echo 1 > /proc/sys/vm/panic_on_oom")  # disallow OOMing
-      '';
-  })
+      '' ;
+  } )

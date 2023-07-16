@@ -73,54 +73,55 @@ let
     rev = "7482de6071d21db77a7236155da44c172a7f6c9e";
     hash = "sha256-4+H0IXjAwbL5mAWfsIVhW0BSJhcWjkQx4j2TrzZ3aIo=";
   };
-in stdenv.mkDerivation rec {
-  pname = "mujoco";
-  version = "2.3.0";
+in
+  stdenv.mkDerivation rec {
+    pname = "mujoco";
+    version = "2.3.0";
 
-  src = fetchFromGitHub {
-    owner = "deepmind";
-    repo = pname;
-    rev = version;
-    hash = "sha256-FxMaXl7yfUAyY6LE1sxaw226dBtp1DOCWNnROp0WX2I=";
-  };
+    src = fetchFromGitHub {
+      owner = "deepmind";
+      repo = pname;
+      rev = version;
+      hash = "sha256-FxMaXl7yfUAyY6LE1sxaw226dBtp1DOCWNnROp0WX2I=";
+    };
 
-  patches = [ ./dependencies.patch ];
+    patches = [ ./dependencies.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-  ];
+    nativeBuildInputs = [
+      cmake
+      git
+    ];
 
-  buildInputs = [
-    libGL
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXext
-    xorg.libXi
-    xorg.libXinerama
-    xorg.libXrandr
-  ];
+    buildInputs = [
+      libGL
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXext
+      xorg.libXi
+      xorg.libXinerama
+      xorg.libXrandr
+    ];
 
-  # Move things into place so that cmake doesn't try downloading dependencies.
-  preConfigure = ''
-    mkdir -p build/_deps
-    ln -s ${abseil-cpp} build/_deps/abseil-cpp-src
-    ln -s ${benchmark} build/_deps/benchmark-src
-    ln -s ${ccd} build/_deps/ccd-src
-    ln -s ${eigen3} build/_deps/eigen3-src
-    ln -s ${glfw} build/_deps/glfw-src
-    ln -s ${googletest} build/_deps/googletest-src
-    ln -s ${lodepng} build/_deps/lodepng-src
-    ln -s ${qhull} build/_deps/qhull-src
-    ln -s ${tinyobjloader} build/_deps/tinyobjloader-src
-    ln -s ${tinyxml2} build/_deps/tinyxml2-src
-  '';
+    # Move things into place so that cmake doesn't try downloading dependencies.
+    preConfigure = ''
+      mkdir -p build/_deps
+      ln -s ${abseil-cpp} build/_deps/abseil-cpp-src
+      ln -s ${benchmark} build/_deps/benchmark-src
+      ln -s ${ccd} build/_deps/ccd-src
+      ln -s ${eigen3} build/_deps/eigen3-src
+      ln -s ${glfw} build/_deps/glfw-src
+      ln -s ${googletest} build/_deps/googletest-src
+      ln -s ${lodepng} build/_deps/lodepng-src
+      ln -s ${qhull} build/_deps/qhull-src
+      ln -s ${tinyobjloader} build/_deps/tinyobjloader-src
+      ln -s ${tinyxml2} build/_deps/tinyxml2-src
+    '';
 
-  meta = with lib; {
-    description =
-      "Multi-Joint dynamics with Contact. A general purpose physics simulator.";
-    homepage = "https://mujoco.org/";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Multi-Joint dynamics with Contact. A general purpose physics simulator.";
+      homepage = "https://mujoco.org/";
+      license = licenses.asl20;
+      maintainers = with maintainers; [ samuela ];
+    };
+  }

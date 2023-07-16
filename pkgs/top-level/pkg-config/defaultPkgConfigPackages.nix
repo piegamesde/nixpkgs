@@ -30,4 +30,5 @@ let
     else
       null);
 
-in modulePkgs
+in
+  modulePkgs

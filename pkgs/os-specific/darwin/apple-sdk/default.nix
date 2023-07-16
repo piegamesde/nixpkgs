@@ -82,7 +82,9 @@ let
         x
         deps'."${x}"
       ]) (lib.attrNames deps');
-    in lib.escapeShellArgs substArgs;
+    in
+      lib.escapeShellArgs substArgs
+  ;
 
   framework = name: deps:
     stdenv.mkDerivation {

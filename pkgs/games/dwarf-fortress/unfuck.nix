@@ -71,67 +71,68 @@ let
   else
     throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}";
 
-in stdenv.mkDerivation {
-  pname = "dwarf_fortress_unfuck";
-  version = release.unfuckRelease;
+in
+  stdenv.mkDerivation {
+    pname = "dwarf_fortress_unfuck";
+    version = release.unfuckRelease;
 
-  src = fetchFromGitHub {
-    owner = "svenstaro";
-    repo = "dwarf_fortress_unfuck";
-    rev = release.unfuckRelease;
-    sha256 = release.sha256;
-  };
+    src = fetchFromGitHub {
+      owner = "svenstaro";
+      repo = "dwarf_fortress_unfuck";
+      rev = release.unfuckRelease;
+      sha256 = release.sha256;
+    };
 
-  postPatch = ''
-    # https://github.com/svenstaro/dwarf_fortress_unfuck/pull/27
-    substituteInPlace CMakeLists.txt --replace \''${GLEW_LIBRARIES} GLEW::glew
-  '';
+    postPatch = ''
+      # https://github.com/svenstaro/dwarf_fortress_unfuck/pull/27
+      substituteInPlace CMakeLists.txt --replace \''${GLEW_LIBRARIES} GLEW::glew
+    '';
 
-  cmakeFlags = [
-    "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-2.0/include"
-    "-DGTK2_GDKCONFIG_INCLUDE_DIR=${gtk2.out}/lib/gtk-2.0/include"
-  ];
-
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    libSM
-    SDL
-    SDL_image
-    SDL_ttf
-    glew
-    openalSoft
-    ncurses
-    libsndfile
-    zlib
-    libGL
-  ]
-  # switched to gtk3 in 0.47.05
-    ++ (if lib.versionOlder release.unfuckRelease
-    "0.47.05" then [ gtk2 ] else [ gtk3 ]);
-
-  # Don't strip unused symbols; dfhack hooks into some of them.
-  dontStrip = true;
-
-  installPhase = ''
-    install -D -m755 ../build/libgraphics.so $out/lib/libgraphics.so
-  '';
-
-  # Breaks dfhack because of inlining.
-  hardeningDisable = [ "fortify" ];
-
-  passthru = { inherit dfVersion; };
-
-  meta = with lib; {
-    description = "Unfucked multimedia layer for Dwarf Fortress";
-    homepage = "https://github.com/svenstaro/dwarf_fortress_unfuck";
-    license = licenses.free;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [
-      abbradar
-      numinit
+    cmakeFlags = [
+      "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-2.0/include"
+      "-DGTK2_GDKCONFIG_INCLUDE_DIR=${gtk2.out}/lib/gtk-2.0/include"
     ];
-  };
-}
+
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
+    buildInputs = [
+      libSM
+      SDL
+      SDL_image
+      SDL_ttf
+      glew
+      openalSoft
+      ncurses
+      libsndfile
+      zlib
+      libGL
+    ]
+    # switched to gtk3 in 0.47.05
+      ++ (if lib.versionOlder release.unfuckRelease
+      "0.47.05" then [ gtk2 ] else [ gtk3 ]);
+
+    # Don't strip unused symbols; dfhack hooks into some of them.
+    dontStrip = true;
+
+    installPhase = ''
+      install -D -m755 ../build/libgraphics.so $out/lib/libgraphics.so
+    '';
+
+    # Breaks dfhack because of inlining.
+    hardeningDisable = [ "fortify" ];
+
+    passthru = { inherit dfVersion; };
+
+    meta = with lib; {
+      description = "Unfucked multimedia layer for Dwarf Fortress";
+      homepage = "https://github.com/svenstaro/dwarf_fortress_unfuck";
+      license = licenses.free;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [
+        abbradar
+        numinit
+      ];
+    };
+  }

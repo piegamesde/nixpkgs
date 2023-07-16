@@ -114,4 +114,4 @@ import ./make-test-python.nix ({
         with subtest("Test ICMP"):
             client.wait_until_succeeds("ping -c 3 server >&2")
       '';
-  })
+  } )

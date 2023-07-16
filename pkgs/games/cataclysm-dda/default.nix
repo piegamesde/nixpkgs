@@ -34,4 +34,5 @@ let
     inherit pkgs;
   };
 
-in self
+in
+  self

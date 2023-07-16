@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         "https://github.com/Shizcow/dmenu-rs/commit/1f4b3f8a07d73272f8c6f19bfb6ff3de5e042815.patch";
       sha256 = "sha256-hmXApWg8qngc1vHkHUnB7Lt7wQUOyCSsBmn4HC1j53M=";
     };
-  in [ fix-broken-make-install-patch ];
+  in [ fix-broken-make-install-patch ] ;
 
   # Copy the Cargo.lock stored here in nixpkgs into the build directory.
   postPatch = ''

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.onlyoffice;
+let
+  cfg = config.services.onlyoffice;
 in {
   options.services.onlyoffice = {
     enable = mkEnableOption (lib.mdDoc "OnlyOffice DocumentServer");
@@ -309,7 +310,7 @@ in {
           Type = "simple";
           User = "onlyoffice";
         };
-      };
+      } ;
     };
 
     users.users = {

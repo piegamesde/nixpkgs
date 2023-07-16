@@ -238,7 +238,7 @@ in {
           '';
         };
       };
-    };
+    } ;
 
     users.users = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {

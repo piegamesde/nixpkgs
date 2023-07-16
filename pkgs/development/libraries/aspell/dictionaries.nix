@@ -154,7 +154,9 @@ let
         "sha256"
         "meta"
       ];
-    in buildDict buildArgs;
+    in
+      buildDict buildArgs
+  ;
 
   # Function to compile txt dict files into Aspell dictionaries.
   buildTxtDict = {

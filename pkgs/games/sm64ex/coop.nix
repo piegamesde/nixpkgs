@@ -21,13 +21,13 @@ callPackage ./generic.nix {
 
   extraBuildInputs = [ zlib ];
 
-  postInstall =
-    let sharedLib = stdenvNoCC.hostPlatform.extensions.sharedLibrary;
-    in ''
-      mkdir -p $out/lib
-      cp $src/lib/bass/libbass{,_fx}${sharedLib} $out/lib
-      cp $src/lib/discordsdk/libdiscord_game_sdk${sharedLib} $out/lib
-    '';
+  postInstall = let
+    sharedLib = stdenvNoCC.hostPlatform.extensions.sharedLibrary;
+  in ''
+    mkdir -p $out/lib
+    cp $src/lib/bass/libbass{,_fx}${sharedLib} $out/lib
+    cp $src/lib/discordsdk/libdiscord_game_sdk${sharedLib} $out/lib
+  '' ;
 
   extraMeta = {
     homepage = "https://github.com/djoslin0/sm64ex-coop";

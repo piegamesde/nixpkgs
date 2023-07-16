@@ -159,7 +159,9 @@ in {
           ])) // {
             description = "Traffic Server records value";
           };
-        in valueType;
+        in
+          valueType
+      ;
       default = { };
       example = { proxy.config.proxy_name = "my_server"; };
       description = lib.mdDoc ''

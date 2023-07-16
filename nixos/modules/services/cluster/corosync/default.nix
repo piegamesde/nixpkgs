@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.corosync;
+let
+  cfg = config.services.corosync;
 in {
   # interface
   options.services.corosync = {

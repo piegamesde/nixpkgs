@@ -4,7 +4,8 @@
   ...
 }:
 
-let inherit (lib) concatStringsSep mkOption types optionalString;
+let
+  inherit (lib) concatStringsSep mkOption types optionalString;
 
 in {
 

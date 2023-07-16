@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.desktopManager.xfce;
+let
+  cfg = config.services.xserver.desktopManager.xfce;
 
 in {
   meta = { maintainers = teams.xfce.members; };

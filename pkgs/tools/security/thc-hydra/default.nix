@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       }/include/math.h" \
       --replace "libcurses.so" "libncurses.so" \
       --replace "-lcurses" "-lncurses"
-  '';
+  '' ;
 
   nativeBuildInputs = lib.optionals withGUI [
     pkg-config

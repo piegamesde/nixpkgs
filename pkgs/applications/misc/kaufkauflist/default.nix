@@ -22,39 +22,40 @@ let
         vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
       });
   };
-in buildNpmPackage rec {
-  pname = "kaufkauflist";
-  version = "2.0.0";
+in
+  buildNpmPackage rec {
+    pname = "kaufkauflist";
+    version = "2.0.0";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
-    owner = "annaaurora";
-    repo = "kaufkauflist";
-    rev = "v${version}";
-    hash = "sha256-oXrb6n1oD27bHt/zPWP0REQyCyZXI8BB57pdR/q42gY=";
-  };
+    src = fetchFromGitea {
+      domain = "codeberg.org";
+      owner = "annaaurora";
+      repo = "kaufkauflist";
+      rev = "v${version}";
+      hash = "sha256-oXrb6n1oD27bHt/zPWP0REQyCyZXI8BB57pdR/q42gY=";
+    };
 
-  npmDepsHash = "sha256-lSnGLK7+ac/wEpAxlpkZS/kgr9F+8WK+nRjCzkrPJt0=";
+    npmDepsHash = "sha256-lSnGLK7+ac/wEpAxlpkZS/kgr9F+8WK+nRjCzkrPJt0=";
 
-  ESBUILD_BINARY_PATH = "${lib.getExe esbuild'}";
+    ESBUILD_BINARY_PATH = "${lib.getExe esbuild'}";
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/share/kaufkauflist $out/share/pocketbase
-    cp -vr build/* $out/share/kaufkauflist/
-    cp -v pb_schema.json $out/share/pocketbase/
+      mkdir -p $out/share/kaufkauflist $out/share/pocketbase
+      cp -vr build/* $out/share/kaufkauflist/
+      cp -v pb_schema.json $out/share/pocketbase/
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  # Uncomment this when nix-update-script supports Gitea.
-  #passthru.updateScript = nix-update-script { };
+    # Uncomment this when nix-update-script supports Gitea.
+    #passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
-    homepage = "https://codeberg.org/annaaurora/kaufkauflist";
-    description = "A to-do list for shopping or other use cases";
-    license = licenses.mit;
-    maintainers = with maintainers; [ annaaurora ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://codeberg.org/annaaurora/kaufkauflist";
+      description = "A to-do list for shopping or other use cases";
+      license = licenses.mit;
+      maintainers = with maintainers; [ annaaurora ];
+    };
+  }

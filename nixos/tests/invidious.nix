@@ -41,16 +41,16 @@ import ./make-test-python.nix ({
               after = [ "postgresql.service" ];
               requires = [ "postgresql.service" ];
             };
-            services.postgresql =
-              let inherit (config.services.invidious.settings.db) dbname user;
-              in {
-                enable = true;
-                initialScript = pkgs.writeText "init-postgres-with-password" ''
-                  CREATE USER kemal WITH PASSWORD 'correct horse battery staple';
-                  CREATE DATABASE invidious;
-                  GRANT ALL PRIVILEGES ON DATABASE invidious TO kemal;
-                '';
-              };
+            services.postgresql = let
+              inherit (config.services.invidious.settings.db) dbname user;
+            in {
+              enable = true;
+              initialScript = pkgs.writeText "init-postgres-with-password" ''
+                CREATE USER kemal WITH PASSWORD 'correct horse battery staple';
+                CREATE DATABASE invidious;
+                GRANT ALL PRIVILEGES ON DATABASE invidious TO kemal;
+              '';
+            } ;
           };
         };
       };

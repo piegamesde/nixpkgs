@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.cage;
+let
+  cfg = config.services.cage;
 in {
   options.services.cage.enable =
     mkEnableOption (lib.mdDoc "cage kiosk service");

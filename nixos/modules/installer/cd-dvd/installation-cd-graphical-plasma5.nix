@@ -50,6 +50,6 @@
     ln -sfT ${pkgs.konsole}/share/applications/org.kde.konsole.desktop ${
       desktopDir + "org.kde.konsole.desktop"
     }
-  '';
+  '' ;
 
 }

@@ -21,11 +21,12 @@ let
     echo "Now calling npush"
     exec "${npush}/bin/npush"
   '';
-in symlinkJoin {
-  name = "run-npush-${npush.version}";
+in
+  symlinkJoin {
+    name = "run-npush-${npush.version}";
 
-  paths = [
-    npush
-    runScript
-  ];
-}
+    paths = [
+      npush
+      runScript
+    ];
+  }

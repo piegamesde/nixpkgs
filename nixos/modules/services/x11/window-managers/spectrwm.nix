@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.spectrwm;
+let
+  cfg = config.services.xserver.windowManager.spectrwm;
 
 in {
   options = {

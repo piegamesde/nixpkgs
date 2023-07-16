@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let cfg = config.services.podgrab;
+let
+  cfg = config.services.podgrab;
 in {
   options.services.podgrab = with lib; {
     enable =

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.unclutter;
+let
+  cfg = config.services.unclutter;
 
 in {
   options.services.unclutter = {

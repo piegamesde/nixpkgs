@@ -94,7 +94,9 @@ let
         inherit lib config;
         pkgs = self;
       };
-    in res // { stdenvAdapters = res; };
+    in
+      res // { stdenvAdapters = res; }
+  ;
 
   trivialBuilders = self: super:
     import ../build-support/trivial-builders.nix {
@@ -136,7 +138,7 @@ let
       targetPackages = self.pkgsTargetTarget;
 
       inherit stdenv;
-    };
+    } ;
 
   splice = self: super: import ./splice.nix lib self (adjacentPackages != null);
 
@@ -145,7 +147,9 @@ let
       res =
         import ./all-packages.nix { inherit lib noSysDirs config overlays; } res
         self super;
-    in res;
+    in
+      res
+  ;
 
   aliases = self: super:
     lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super);
@@ -296,4 +300,5 @@ let
   ] ++ overlays ++ [ stdenvOverrides ]);
 
   # Return the complete set of packages.
-in lib.fix toFix
+in
+  lib.fix toFix

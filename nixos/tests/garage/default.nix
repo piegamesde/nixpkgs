@@ -54,15 +54,16 @@ let
       # Garage requires at least 1GiB of free disk space to run.
       virtualisation.diskSize = 2 * 1024;
     };
-in foldl (matrix: ver:
-  matrix // {
-    "basic${toString ver}" = import ./basic.nix {
-      inherit system pkgs;
-      mkNode = mkNode pkgs."garage_${ver}";
-    };
-    "with-3node-replication${toString ver}" =
-      import ./with-3node-replication.nix {
+in
+  foldl (matrix: ver:
+    matrix // {
+      "basic${toString ver}" = import ./basic.nix {
         inherit system pkgs;
         mkNode = mkNode pkgs."garage_${ver}";
       };
-  }) { } [ "0_8" ]
+      "with-3node-replication${toString ver}" =
+        import ./with-3node-replication.nix {
+          inherit system pkgs;
+          mkNode = mkNode pkgs."garage_${ver}";
+        };
+    }) { } [ "0_8" ]

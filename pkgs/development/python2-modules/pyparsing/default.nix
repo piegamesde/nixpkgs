@@ -44,4 +44,5 @@ let
       license = licenses.mit;
     };
   };
-in pyparsing
+in
+  pyparsing

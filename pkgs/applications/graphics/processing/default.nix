@@ -57,78 +57,79 @@ let
     sha256 = "sha256-N4U04znm5tULFzb7Ort28cFdG+P0wTzsbVNkEuI9pgM=";
   };
 
-in stdenv.mkDerivation rec {
-  pname = "processing";
-  version = "4.1.1";
+in
+  stdenv.mkDerivation rec {
+    pname = "processing";
+    version = "4.1.1";
 
-  src = fetchFromGitHub {
-    owner = "processing";
-    repo = "processing4";
-    rev = "processing-${buildNumber}-${version}";
-    sha256 = "sha256-OjTqANxzcW/RrAdqmVYAegrlLPu6w2pjzSyZyvUYIt4=";
-  };
+    src = fetchFromGitHub {
+      owner = "processing";
+      repo = "processing4";
+      rev = "processing-${buildNumber}-${version}";
+      sha256 = "sha256-OjTqANxzcW/RrAdqmVYAegrlLPu6w2pjzSyZyvUYIt4=";
+    };
 
-  nativeBuildInputs = [
-    ant
-    unzip
-    makeWrapper
-    wrapGAppsHook
-  ];
-  buildInputs = [
-    jdk
-    javaPackages.jogl_2_3_2
-    ant
-    rsync
-    ffmpeg
-    batik
-  ];
-
-  dontWrapGApps = true;
-
-  buildPhase = ''
-    echo "tarring jdk"
-    tar --checkpoint=10000 -czf build/linux/jdk-17.0.5-amd64.tgz ${jdk}
-    cp ${ant}/lib/ant/lib/{ant.jar,ant-launcher.jar} app/lib/
-    mkdir -p core/library
-    ln -s ${javaPackages.jogl_2_3_2}/share/java/* core/library/
-    ln -s ${vaqua} app/lib/VAqua9.jar
-    ln -s ${flatlaf} app/lib/flatlaf.jar
-    ln -s ${lsp4j} java/mode/org.eclipse.lsp4j.jar
-    ln -s ${lsp4j-jsonrpc} java/mode/org.eclipse.lsp4j.jsonrpc.jar
-    ln -s ${gson} java/mode/gson.jar
-    unzip -qo ${jna} -d app/lib/
-    mv app/lib/{jna-5.10.0/dist/jna.jar,}
-    mv app/lib/{jna-5.10.0/dist/jna-platform.jar,}
-    ln -sf ${batik}/* java/libraries/svg/library/
-    cp java/libraries/svg/library/lib/batik-all-${batik.version}.jar java/libraries/svg/library/batik.jar
-    echo "tarring ffmpeg"
-    tar --checkpoint=10000 -czf build/shared/tools/MovieMaker/ffmpeg-5.0.1.gz ${ffmpeg}
-    cd build
-    ant build
-    cd ..
-  '';
-
-  installPhase = ''
-    mkdir -p $out/share/
-    cp -dpr build/linux/work $out/share/${pname}
-    rmdir $out/share/${pname}/java
-    ln -s ${jdk} $out/share/${pname}/java
-    makeWrapper $out/share/${pname}/processing $out/bin/processing \
-      ''${gappsWrapperArgs[@]} \
-      --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd
-    makeWrapper $out/share/${pname}/processing-java $out/bin/processing-java \
-      ''${gappsWrapperArgs[@]} \
-      --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd
-  '';
-
-  meta = with lib; {
-    description = "A language and IDE for electronic arts";
-    homepage = "https://processing.org";
-    license = with licenses; [
-      gpl2Only
-      lgpl21Only
+    nativeBuildInputs = [
+      ant
+      unzip
+      makeWrapper
+      wrapGAppsHook
     ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ evan-goode ];
-  };
-}
+    buildInputs = [
+      jdk
+      javaPackages.jogl_2_3_2
+      ant
+      rsync
+      ffmpeg
+      batik
+    ];
+
+    dontWrapGApps = true;
+
+    buildPhase = ''
+      echo "tarring jdk"
+      tar --checkpoint=10000 -czf build/linux/jdk-17.0.5-amd64.tgz ${jdk}
+      cp ${ant}/lib/ant/lib/{ant.jar,ant-launcher.jar} app/lib/
+      mkdir -p core/library
+      ln -s ${javaPackages.jogl_2_3_2}/share/java/* core/library/
+      ln -s ${vaqua} app/lib/VAqua9.jar
+      ln -s ${flatlaf} app/lib/flatlaf.jar
+      ln -s ${lsp4j} java/mode/org.eclipse.lsp4j.jar
+      ln -s ${lsp4j-jsonrpc} java/mode/org.eclipse.lsp4j.jsonrpc.jar
+      ln -s ${gson} java/mode/gson.jar
+      unzip -qo ${jna} -d app/lib/
+      mv app/lib/{jna-5.10.0/dist/jna.jar,}
+      mv app/lib/{jna-5.10.0/dist/jna-platform.jar,}
+      ln -sf ${batik}/* java/libraries/svg/library/
+      cp java/libraries/svg/library/lib/batik-all-${batik.version}.jar java/libraries/svg/library/batik.jar
+      echo "tarring ffmpeg"
+      tar --checkpoint=10000 -czf build/shared/tools/MovieMaker/ffmpeg-5.0.1.gz ${ffmpeg}
+      cd build
+      ant build
+      cd ..
+    '';
+
+    installPhase = ''
+      mkdir -p $out/share/
+      cp -dpr build/linux/work $out/share/${pname}
+      rmdir $out/share/${pname}/java
+      ln -s ${jdk} $out/share/${pname}/java
+      makeWrapper $out/share/${pname}/processing $out/bin/processing \
+        ''${gappsWrapperArgs[@]} \
+        --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd
+      makeWrapper $out/share/${pname}/processing-java $out/bin/processing-java \
+        ''${gappsWrapperArgs[@]} \
+        --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd
+    '';
+
+    meta = with lib; {
+      description = "A language and IDE for electronic arts";
+      homepage = "https://processing.org";
+      license = with licenses; [
+        gpl2Only
+        lgpl21Only
+      ];
+      platforms = platforms.linux;
+      maintainers = with maintainers; [ evan-goode ];
+    };
+  }

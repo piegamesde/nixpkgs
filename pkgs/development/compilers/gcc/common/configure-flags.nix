@@ -280,4 +280,5 @@ let
     ] ++ lib.optionals langJit [ "--enable-host-shared" ]
     ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ];
 
-in configureFlags
+in
+  configureFlags

@@ -346,6 +346,6 @@ in {
         Restart = "always";
         RestartSec = "1s";
       };
-    };
+    } ;
   };
 }

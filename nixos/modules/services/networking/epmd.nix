@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.epmd;
+let
+  cfg = config.services.epmd;
 in {
   ###### interface
   options.services.epmd = {

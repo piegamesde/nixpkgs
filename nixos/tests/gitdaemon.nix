@@ -74,4 +74,4 @@ import ./make-test-python.nix ({
               "sha256sum -c ${hashes}",
           )
     '';
-  })
+  } )

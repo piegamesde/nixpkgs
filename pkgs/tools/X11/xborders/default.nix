@@ -46,7 +46,7 @@ python3Packages.buildPythonPackage rec {
     };
   in ''
     ln -s ${setup} setup.py
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Active window border replacement for window managers";

@@ -28,9 +28,11 @@ stdenv.mkDerivation rec {
       conf
     else
       writeText "config.def.h" conf;
-  in lib.optionalString (conf != null) ''
-    cp ${configFile} config.def.h
-  '';
+  in
+    lib.optionalString (conf != null) ''
+      cp ${configFile} config.def.h
+    ''
+  ;
 
   buildInputs = [
     libinput

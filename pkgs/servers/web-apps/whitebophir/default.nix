@@ -37,4 +37,5 @@ let
       platforms = platforms.unix;
     };
   };
-in combined
+in
+  combined

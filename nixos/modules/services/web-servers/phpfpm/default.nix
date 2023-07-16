@@ -48,7 +48,8 @@ let
       name,
       ...
     }:
-    let poolOpts = cfg.pools.${name};
+    let
+      poolOpts = cfg.pools.${name};
     in {
       options = {
         socket = mkOption {
@@ -166,7 +167,7 @@ let
           group = poolOpts.group;
         };
       };
-    };
+    } ;
 
 in {
   imports = [
@@ -312,7 +313,7 @@ in {
           RuntimeDirectoryPreserve =
             true; # Relevant when multiple processes are running
           Restart = "always";
-        };
+        } ;
       }) cfg.pools;
   };
 }

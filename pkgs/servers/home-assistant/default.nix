@@ -332,202 +332,203 @@ let
   # Don't forget to run parse-requirements.py after updating
   hassVersion = "2023.5.1";
 
-in python.pkgs.buildPythonApplication rec {
-  pname = "homeassistant";
-  version = assert (componentPackages.version == hassVersion); hassVersion;
-  format = "pyproject";
+in
+  python.pkgs.buildPythonApplication rec {
+    pname = "homeassistant";
+    version = assert (componentPackages.version == hassVersion); hassVersion;
+    format = "pyproject";
 
-  # check REQUIRED_PYTHON_VER in homeassistant/const.py
-  disabled = python.pythonOlder "3.10";
+    # check REQUIRED_PYTHON_VER in homeassistant/const.py
+    disabled = python.pythonOlder "3.10";
 
-  # don't try and fail to strip 6600+ python files, it takes minutes!
-  dontStrip = true;
+    # don't try and fail to strip 6600+ python files, it takes minutes!
+    dontStrip = true;
 
-  # Primary source is the pypi sdist, because it contains translations
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-SnNZE2FFL+PVnAoX661d5d4P1drbSPZQsL25mi4TuNI=";
-  };
+    # Primary source is the pypi sdist, because it contains translations
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-SnNZE2FFL+PVnAoX661d5d4P1drbSPZQsL25mi4TuNI=";
+    };
 
-  # Secondary source is git for tests
-  gitSrc = fetchFromGitHub {
-    owner = "home-assistant";
-    repo = "core";
-    rev = "refs/tags/${version}";
-    hash = "sha256-ddD9hBN+UU9Z3zfNsymD7O5Fi5v1Xuh2wMPmfhrsoO8=";
-  };
+    # Secondary source is git for tests
+    gitSrc = fetchFromGitHub {
+      owner = "home-assistant";
+      repo = "core";
+      rev = "refs/tags/${version}";
+      hash = "sha256-ddD9hBN+UU9Z3zfNsymD7O5Fi5v1Xuh2wMPmfhrsoO8=";
+    };
 
-  nativeBuildInputs = with python3.pkgs; [ setuptools ];
+    nativeBuildInputs = with python3.pkgs; [ setuptools ];
 
-  # copy tests early, so patches apply as they would to the git repo
-  prePatch = ''
-    cp --no-preserve=mode --recursive ${gitSrc}/tests ./
-    chmod u+x tests/auth/providers/test_command_line_cmd.sh
-  '';
+    # copy tests early, so patches apply as they would to the git repo
+    prePatch = ''
+      cp --no-preserve=mode --recursive ${gitSrc}/tests ./
+      chmod u+x tests/auth/providers/test_command_line_cmd.sh
+    '';
 
-  # leave this in, so users don't have to constantly update their downstream patch handling
-  patches = [ (substituteAll {
-    src = ./patches/ffmpeg-path.patch;
-    ffmpeg = "${lib.getBin ffmpeg-headless}/bin/ffmpeg";
-  }) ];
+    # leave this in, so users don't have to constantly update their downstream patch handling
+    patches = [ (substituteAll {
+      src = ./patches/ffmpeg-path.patch;
+      ffmpeg = "${lib.getBin ffmpeg-headless}/bin/ffmpeg";
+    }) ];
 
-  postPatch = let
-    relaxedConstraints = [
-      "aiohttp"
-      "attrs"
-      "awesomeversion"
-      "bcrypt"
-      "ciso8601"
-      "cryptography"
-      "home-assistant-bluetooth"
-      "httpx"
-      "ifaddr"
-      "orjson"
-      "pip"
-      "PyJWT"
-      "pyOpenSSL"
-      "requests"
-      "typing-extensions"
-      "voluptuous-serialize"
-      "yarl"
-    ];
-  in ''
-    sed -r -i \
-      ${
-        lib.concatStringsSep "\n"
-        (map (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'')
-          relaxedConstraints)
-      }
-      pyproject.toml
-    substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
-  '';
+    postPatch = let
+      relaxedConstraints = [
+        "aiohttp"
+        "attrs"
+        "awesomeversion"
+        "bcrypt"
+        "ciso8601"
+        "cryptography"
+        "home-assistant-bluetooth"
+        "httpx"
+        "ifaddr"
+        "orjson"
+        "pip"
+        "PyJWT"
+        "pyOpenSSL"
+        "requests"
+        "typing-extensions"
+        "voluptuous-serialize"
+        "yarl"
+      ];
+    in ''
+      sed -r -i \
+        ${
+          lib.concatStringsSep "\n"
+          (map (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'')
+            relaxedConstraints)
+        }
+        pyproject.toml
+      substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
+    '' ;
 
-  propagatedBuildInputs = with python.pkgs; [
-    # Only packages required in pyproject.toml
-    aiohttp
-    astral
-    async-timeout
-    atomicwrites-homeassistant
-    attrs
-    awesomeversion
-    bcrypt
-    certifi
-    ciso8601
-    cryptography
-    httpx
-    home-assistant-bluetooth
-    ifaddr
-    jinja2
-    lru-dict
-    orjson
-    pip
-    pyopenssl
-    pyjwt
-    python-slugify
-    pyyaml
-    requests
-    ulid-transform
-    voluptuous
-    voluptuous-serialize
-    yarl
-    # Implicit dependency via homeassistant/requirements.py
-    setuptools
-  ];
-
-  makeWrapperArgs = lib.optional skipPip "--add-flags --skip-pip";
-
-  # upstream only tests on Linux, so do we.
-  doCheck = stdenv.isLinux;
-
-  nativeCheckInputs = with python.pkgs;
-    [
-      # test infrastructure (selectively from requirement_test.txt)
-      freezegun
-      pytest-asyncio
-      pytest-aiohttp
-      pytest-freezer
-      pytest-mock
-      pytest-rerunfailures
-      pytest-socket
-      pytest-timeout
-      pytest-unordered
-      pytest-xdist
-      pytestCheckHook
-      requests-mock
-      respx
-      stdlib-list
-      syrupy
-      tomli
-      # required through tests/auth/mfa_modules/test_otp.py
-      pyotp
-      # Sneakily imported in tests/conftest.py
-      paho-mqtt
-    ] ++ lib.concatMap (component: getPackages component python.pkgs) [
-      # some components are needed even if tests in tests/components are disabled
-      "default_config"
-      "hue"
-      # for tests/test_config.py::test_merge_id_schema
-      "qwikswitch"
+    propagatedBuildInputs = with python.pkgs; [
+      # Only packages required in pyproject.toml
+      aiohttp
+      astral
+      async-timeout
+      atomicwrites-homeassistant
+      attrs
+      awesomeversion
+      bcrypt
+      certifi
+      ciso8601
+      cryptography
+      httpx
+      home-assistant-bluetooth
+      ifaddr
+      jinja2
+      lru-dict
+      orjson
+      pip
+      pyopenssl
+      pyjwt
+      python-slugify
+      pyyaml
+      requests
+      ulid-transform
+      voluptuous
+      voluptuous-serialize
+      yarl
+      # Implicit dependency via homeassistant/requirements.py
+      setuptools
     ];
 
-  pytestFlagsArray = [
-    # assign tests grouped by file to workers
-    "--dist loadfile"
-    # retry racy tests that end in "RuntimeError: Event loop is closed"
-    "--reruns 3"
-    "--only-rerun RuntimeError"
-    # enable full variable printing on error
-    "--showlocals"
-    # AssertionError: assert 1 == 0
-    "--deselect tests/test_config.py::test_merge"
-    # AssertionError: assert 2 == 1
-    "--deselect=tests/helpers/test_translation.py::test_caching"
-    # tests are located in tests/
-    "tests"
-  ];
+    makeWrapperArgs = lib.optional skipPip "--add-flags --skip-pip";
 
-  disabledTestPaths = [
-    # we neither run nor distribute hassfest
-    "tests/hassfest"
-    # we don't care about code quality
-    "tests/pylint"
-    # don't bulk test all components
-    "tests/components"
-  ];
+    # upstream only tests on Linux, so do we.
+    doCheck = stdenv.isLinux;
 
-  preCheck = ''
-    export HOME="$TEMPDIR"
+    nativeCheckInputs = with python.pkgs;
+      [
+        # test infrastructure (selectively from requirement_test.txt)
+        freezegun
+        pytest-asyncio
+        pytest-aiohttp
+        pytest-freezer
+        pytest-mock
+        pytest-rerunfailures
+        pytest-socket
+        pytest-timeout
+        pytest-unordered
+        pytest-xdist
+        pytestCheckHook
+        requests-mock
+        respx
+        stdlib-list
+        syrupy
+        tomli
+        # required through tests/auth/mfa_modules/test_otp.py
+        pyotp
+        # Sneakily imported in tests/conftest.py
+        paho-mqtt
+      ] ++ lib.concatMap (component: getPackages component python.pkgs) [
+        # some components are needed even if tests in tests/components are disabled
+        "default_config"
+        "hue"
+        # for tests/test_config.py::test_merge_id_schema
+        "qwikswitch"
+      ];
 
-    # the tests require the existance of a media dir
-    mkdir /build/media
+    pytestFlagsArray = [
+      # assign tests grouped by file to workers
+      "--dist loadfile"
+      # retry racy tests that end in "RuntimeError: Event loop is closed"
+      "--reruns 3"
+      "--only-rerun RuntimeError"
+      # enable full variable printing on error
+      "--showlocals"
+      # AssertionError: assert 1 == 0
+      "--deselect tests/test_config.py::test_merge"
+      # AssertionError: assert 2 == 1
+      "--deselect=tests/helpers/test_translation.py::test_caching"
+      # tests are located in tests/
+      "tests"
+    ];
 
-    # put ping binary into PATH, e.g. for wake_on_lan tests
-    export PATH=${inetutils}/bin:$PATH
-  '';
+    disabledTestPaths = [
+      # we neither run nor distribute hassfest
+      "tests/hassfest"
+      # we don't care about code quality
+      "tests/pylint"
+      # don't bulk test all components
+      "tests/components"
+    ];
 
-  passthru = {
-    inherit availableComponents extraComponents getPackages python
-      supportedComponentsWithTests;
-    pythonPath =
-      python3.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
-    frontend = python.pkgs.home-assistant-frontend;
-    intents = python.pkgs.home-assistant-intents;
-    tests = {
-      nixos = nixosTests.home-assistant;
-      components = callPackage ./tests.nix { };
-      version = testers.testVersion {
-        package = home-assistant;
-        command = "hass --version";
+    preCheck = ''
+      export HOME="$TEMPDIR"
+
+      # the tests require the existance of a media dir
+      mkdir /build/media
+
+      # put ping binary into PATH, e.g. for wake_on_lan tests
+      export PATH=${inetutils}/bin:$PATH
+    '';
+
+    passthru = {
+      inherit availableComponents extraComponents getPackages python
+        supportedComponentsWithTests;
+      pythonPath =
+        python3.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
+      frontend = python.pkgs.home-assistant-frontend;
+      intents = python.pkgs.home-assistant-intents;
+      tests = {
+        nixos = nixosTests.home-assistant;
+        components = callPackage ./tests.nix { };
+        version = testers.testVersion {
+          package = home-assistant;
+          command = "hass --version";
+        };
       };
     };
-  };
 
-  meta = with lib; {
-    homepage = "https://home-assistant.io/";
-    description =
-      "Open source home automation that puts local control and privacy first";
-    license = licenses.asl20;
-    maintainers = teams.home-assistant.members;
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      homepage = "https://home-assistant.io/";
+      description =
+        "Open source home automation that puts local control and privacy first";
+      license = licenses.asl20;
+      maintainers = teams.home-assistant.members;
+      platforms = platforms.linux;
+    };
+  }

@@ -112,7 +112,9 @@ let
       # trailing slash in "/sysroot/" in stage 1.
       mountPoint = fs:
         escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
-    in map (x: "${mountPoint x}.mount") (getPoolFilesystems pool);
+    in
+      map (x: "${mountPoint x}.mount") (getPoolFilesystems pool)
+  ;
 
   getKeyLocations = pool:
     if isBool cfgZfs.requestEncryptionCredentials then {
@@ -129,7 +131,7 @@ let
           "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${
             toString keys
           }";
-      };
+      } ;
 
   createImportService = {
       pool,
@@ -156,55 +158,58 @@ let
         RemainAfterExit = true;
       };
       environment.ZFS_FORCE = optionalString force "-f";
-      script = let keyLocations = getKeyLocations pool;
-      in (importLib {
-        # See comments at importLib definition.
-        zpoolCmd = "${cfgZfs.package}/sbin/zpool";
-        awkCmd = "${pkgs.gawk}/bin/awk";
-        inherit cfgZfs;
-      }) + ''
-        poolImported "${pool}" && exit
-        echo -n "importing ZFS pool \"${pool}\"..."
-        # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
-        for trial in `seq 1 60`; do
-          poolReady "${pool}" && poolImport "${pool}" && break
-          sleep 1
-        done
-        poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
-        if poolImported "${pool}"; then
-          ${
-            optionalString keyLocations.hasKeys ''
-              ${keyLocations.command} | while IFS=$'\t' read ds kl ks; do
-                {
-                if [[ "$ks" != unavailable ]]; then
-                  continue
-                fi
-                case "$kl" in
-                  none )
-                    ;;
-                  prompt )
-                    tries=3
-                    success=false
-                    while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
-                      ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
-                        && success=true \
-                        || tries=$((tries - 1))
-                    done
-                    [[ $success = true ]]
-                    ;;
-                  * )
-                    ${cfgZfs.package}/sbin/zfs load-key "$ds"
-                    ;;
-                esac
-                } < /dev/null # To protect while read ds kl in case anything reads stdin
-              done
-            ''
-          }
-          echo "Successfully imported ${pool}"
-        else
-          exit 1
-        fi
-      '';
+      script = let
+        keyLocations = getKeyLocations pool;
+      in
+        (importLib {
+          # See comments at importLib definition.
+          zpoolCmd = "${cfgZfs.package}/sbin/zpool";
+          awkCmd = "${pkgs.gawk}/bin/awk";
+          inherit cfgZfs;
+        }) + ''
+          poolImported "${pool}" && exit
+          echo -n "importing ZFS pool \"${pool}\"..."
+          # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
+          for trial in `seq 1 60`; do
+            poolReady "${pool}" && poolImport "${pool}" && break
+            sleep 1
+          done
+          poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
+          if poolImported "${pool}"; then
+            ${
+              optionalString keyLocations.hasKeys ''
+                ${keyLocations.command} | while IFS=$'\t' read ds kl ks; do
+                  {
+                  if [[ "$ks" != unavailable ]]; then
+                    continue
+                  fi
+                  case "$kl" in
+                    none )
+                      ;;
+                    prompt )
+                      tries=3
+                      success=false
+                      while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
+                        ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
+                          && success=true \
+                          || tries=$((tries - 1))
+                      done
+                      [[ $success = true ]]
+                      ;;
+                    * )
+                      ${cfgZfs.package}/sbin/zfs load-key "$ds"
+                      ;;
+                  esac
+                  } < /dev/null # To protect while read ds kl in case anything reads stdin
+                done
+              ''
+            }
+            echo "Successfully imported ${pool}"
+          else
+            exit 1
+          fi
+        ''
+      ;
     };
 
   zedConf = generators.toKeyValue {
@@ -729,20 +734,22 @@ in {
             wantedBy = [ "zfs.target" ];
           };
 
-      in listToAttrs (map createImportService' dataPools
-        ++ map createSyncService allPools ++ map createZfsService [
-          "zfs-mount"
-          "zfs-share"
-          "zfs-zed"
-        ]);
+      in
+        listToAttrs (map createImportService' dataPools
+          ++ map createSyncService allPools ++ map createZfsService [
+            "zfs-mount"
+            "zfs-share"
+            "zfs-zed"
+          ])
+      ;
 
-      systemd.targets.zfs-import =
-        let services = map (pool: "zfs-import-${pool}.service") dataPools;
-        in {
-          requires = services;
-          after = services;
-          wantedBy = [ "zfs.target" ];
-        };
+      systemd.targets.zfs-import = let
+        services = map (pool: "zfs-import-${pool}.service") dataPools;
+      in {
+        requires = services;
+        after = services;
+        wantedBy = [ "zfs.target" ];
+      } ;
 
       systemd.targets.zfs.wantedBy = [ "multi-user.target" ];
     })
@@ -796,7 +803,7 @@ in {
             systemctl start --no-block "zpool-expand@$pool"
           done
         '';
-      };
+      } ;
     })
 
     (mkIf (cfgZfs.enabled && cfgSnapshots.enable) {
@@ -815,24 +822,27 @@ in {
           else
             throw "unknown snapshot name";
         numSnapshots = name: builtins.getAttr name cfgSnapshots;
-      in builtins.listToAttrs (map (snapName: {
-        name = "zfs-snapshot-${snapName}";
-        value = {
-          description = "ZFS auto-snapshotting every ${descr snapName}";
-          after = [ "zfs-import.target" ];
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
-                toString (numSnapshots snapName)
-              }";
+      in
+        builtins.listToAttrs (map (snapName: {
+          name = "zfs-snapshot-${snapName}";
+          value = {
+            description = "ZFS auto-snapshotting every ${descr snapName}";
+            after = [ "zfs-import.target" ];
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
+                  toString (numSnapshots snapName)
+                }";
+            };
+            restartIfChanged = false;
           };
-          restartIfChanged = false;
-        };
-      }) snapshotNames);
+        }) snapshotNames)
+      ;
 
-      systemd.timers =
-        let timer = name: if name == "frequent" then "*:0,15,30,45" else name;
-        in builtins.listToAttrs (map (snapName: {
+      systemd.timers = let
+        timer = name: if name == "frequent" then "*:0,15,30,45" else name;
+      in
+        builtins.listToAttrs (map (snapName: {
           name = "zfs-snapshot-${snapName}";
           value = {
             wantedBy = [ "timers.target" ];
@@ -841,7 +851,8 @@ in {
               Persistent = "yes";
             };
           };
-        }) snapshotNames);
+        }) snapshotNames)
+      ;
     })
 
     (mkIf (cfgZfs.enabled && cfgScrub.enable) {

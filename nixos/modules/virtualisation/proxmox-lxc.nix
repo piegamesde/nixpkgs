@@ -36,7 +36,8 @@ with lib;
     };
   };
 
-  config = let cfg = config.proxmoxLXC;
+  config = let
+    cfg = config.proxmoxLXC;
   in {
     system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
       storeContents = [ {
@@ -75,5 +76,5 @@ with lib;
       enable = false;
     } ];
 
-  };
+  } ;
 }

@@ -41,7 +41,7 @@ args@{
                 "conf=${davfs2Conf}"
                 "x-systemd.automount"
                 "noauto"
-              ];
+              ] ;
             };
           };
         };
@@ -51,7 +51,8 @@ args@{
           pkgs,
           ...
         }:
-        let cfg = config;
+        let
+          cfg = config;
         in {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
@@ -80,7 +81,7 @@ args@{
           };
 
           environment.systemPackages = [ cfg.services.nextcloud.occ ];
-        };
+        } ;
 
       nextcloudWithoutMagick = args@{
           config,
@@ -157,5 +158,5 @@ args@{
         )
         assert "hi" in client.succeed("cat /mnt/dav/test-shared-file")
         nextcloud.succeed("grep -vE '^HBEGIN:oc_encryption_module' /var/lib/nextcloud-data/data/root/files/test-shared-file")
-      '';
-  })) args
+      '' ;
+  } )) args

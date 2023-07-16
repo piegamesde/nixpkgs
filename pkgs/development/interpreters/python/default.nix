@@ -51,48 +51,54 @@
                 { } value
               else
                 value;
-          in lib.mapAttrs func items;
-      in ensurePythonModules (callPackage
-        # Function that when called
-        # - imports python-packages.nix
-        # - adds spliced package sets to the package set
-        # - applies overrides from `packageOverrides` and `pythonPackagesOverlays`.
-        ({
-            pkgs,
-            stdenv,
-            python,
-            overrides,
-          }:
-          let
-            pythonPackagesFun = import ./python-packages-base.nix {
-              inherit stdenv pkgs lib;
-              python = self;
-            };
-            otherSplices = {
-              selfBuildBuild = pythonOnBuildForBuild.pkgs;
-              selfBuildHost = pythonOnBuildForHost.pkgs;
-              selfBuildTarget = pythonOnBuildForTarget.pkgs;
-              selfHostHost = pythonOnHostForHost.pkgs;
-              selfTargetTarget =
-                pythonOnTargetForTarget.pkgs or { }; # There is no Python TargetTarget.
-            };
-            hooks = import ./hooks/default.nix;
-            keep = lib.extends hooks pythonPackagesFun;
-            extra = _: { };
-            optionalExtensions = cond: as: lib.optionals cond as;
-            pythonExtension = import ../../../top-level/python-packages.nix;
-            python2Extension = import ../../../top-level/python2-packages.nix;
-            extensions = lib.composeManyExtensions ([ pythonExtension ]
-              ++ (optionalExtensions (!self.isPy3k) [ python2Extension ])
-              ++ pythonPackagesExtensions ++ [ overrides ]);
-            aliases = self: super:
-              lib.optionalAttrs config.allowAliases
-              (import ../../../top-level/python-aliases.nix lib self super);
-          in makeScopeWithSplicing otherSplices keep extra
-          (lib.extends (lib.composeExtensions aliases extensions) keep)) {
+          in
+            lib.mapAttrs func items
+        ;
+      in
+        ensurePythonModules (callPackage
+          # Function that when called
+          # - imports python-packages.nix
+          # - adds spliced package sets to the package set
+          # - applies overrides from `packageOverrides` and `pythonPackagesOverlays`.
+          ({
+              pkgs,
+              stdenv,
+              python,
+              overrides,
+            }:
+            let
+              pythonPackagesFun = import ./python-packages-base.nix {
+                inherit stdenv pkgs lib;
+                python = self;
+              };
+              otherSplices = {
+                selfBuildBuild = pythonOnBuildForBuild.pkgs;
+                selfBuildHost = pythonOnBuildForHost.pkgs;
+                selfBuildTarget = pythonOnBuildForTarget.pkgs;
+                selfHostHost = pythonOnHostForHost.pkgs;
+                selfTargetTarget =
+                  pythonOnTargetForTarget.pkgs or { }; # There is no Python TargetTarget.
+              };
+              hooks = import ./hooks/default.nix;
+              keep = lib.extends hooks pythonPackagesFun;
+              extra = _: { };
+              optionalExtensions = cond: as: lib.optionals cond as;
+              pythonExtension = import ../../../top-level/python-packages.nix;
+              python2Extension = import ../../../top-level/python2-packages.nix;
+              extensions = lib.composeManyExtensions ([ pythonExtension ]
+                ++ (optionalExtensions (!self.isPy3k) [ python2Extension ])
+                ++ pythonPackagesExtensions ++ [ overrides ]);
+              aliases = self: super:
+                lib.optionalAttrs config.allowAliases
+                (import ../../../top-level/python-aliases.nix lib self super);
+            in
+              makeScopeWithSplicing otherSplices keep extra
+              (lib.extends (lib.composeExtensions aliases extensions) keep)
+          ) {
             overrides = packageOverrides;
             python = self;
-          });
+          })
+      ;
     in rec {
       isPy27 = pythonVersion == "2.7";
       isPy37 = pythonVersion == "3.7";
@@ -129,7 +135,7 @@
       tests = callPackage ./tests.nix { python = self; };
 
       inherit pythonAttr;
-    };
+    } ;
 
   sources = {
     python310 = {
@@ -333,4 +339,4 @@ in {
     inherit (darwin.apple_sdk_11_0.frameworks) SystemConfiguration;
   };
 
-})
+} )

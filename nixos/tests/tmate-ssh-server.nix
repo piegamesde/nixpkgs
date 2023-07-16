@@ -78,4 +78,4 @@ import ./make-test-python.nix ({
 
       client.wait_for_file("/tmp/client_2")
     '';
-  })
+  } )

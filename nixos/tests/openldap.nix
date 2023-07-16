@@ -184,5 +184,5 @@ import ./make-test-python.nix ({
             pkgs.writeText "rootpw.ldif" changeRootPw
           }')
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w foobar')
-      '';
-  })
+      '' ;
+  } )

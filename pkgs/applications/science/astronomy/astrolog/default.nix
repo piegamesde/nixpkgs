@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/ephemeris
       cp -r ${moonsEphemeris}/*.se1 $out/ephemeris
     ''}
-  '';
+  '' ;
 
   meta = with lib; {
     maintainers = [ maintainers.kmein ];

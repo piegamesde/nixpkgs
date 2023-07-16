@@ -50,7 +50,7 @@ with lib;
         bash
         iproute2
       ]; # required by v2rayA TProxy functionality
-    };
+    } ;
   };
 
   meta.maintainers = with maintainers; [ elliot ];

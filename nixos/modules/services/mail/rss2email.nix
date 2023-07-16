@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.rss2email;
+let
+  cfg = config.services.rss2email;
 in {
 
   ###### interface
@@ -125,7 +126,7 @@ in {
           "${pkgs.rss2email}/bin/r2e -c ${conf} -d /var/rss2email/db.json run";
         User = "rss2email";
       };
-    };
+    } ;
 
     systemd.timers.rss2email = {
       partOf = [ "rss2email.service" ];

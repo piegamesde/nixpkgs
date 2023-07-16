@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.nix-serve;
+let
+  cfg = config.services.nix-serve;
 in {
   options = {
     services.nix-serve = {

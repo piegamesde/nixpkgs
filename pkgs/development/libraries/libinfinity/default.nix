@@ -87,4 +87,5 @@ let
       platforms = with lib.platforms; linux ++ darwin;
     };
   };
-in self
+in
+  self

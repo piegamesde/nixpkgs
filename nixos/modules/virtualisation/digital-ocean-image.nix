@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.virtualisation.digitalOceanImage;
+let
+  cfg = config.virtualisation.digitalOceanImage;
 in {
 
   imports = [ ./digital-ocean-config.nix ];
@@ -61,7 +62,7 @@ in {
         }.${cfg.compressionMethod};
       in ''
         ${compress} $diskImage
-      '';
+      '' ;
       configFile = if cfg.configFile == null then
         config.virtualisation.digitalOcean.defaultConfigFile
       else

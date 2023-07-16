@@ -5,7 +5,8 @@
   options,
 }:
 
-let cfg = config.services.prometheus.exporters.rtl_433;
+let
+  cfg = config.services.prometheus.exporters.rtl_433;
 in {
   port = 9550;
 
@@ -62,7 +63,7 @@ in {
         List of ID matchers to export.
       '';
     };
-  };
+  } ;
 
   serviceOpts = {
     serviceConfig = {
@@ -85,7 +86,7 @@ in {
           -subprocess "${pkgs.rtl_433}/bin/rtl_433 -F json ${cfg.rtl433Flags}" \
           ${lib.concatStringsSep " \\\n  " matchers} \
           ${lib.concatStringsSep " \\\n  " cfg.extraFlags}
-      '';
+      '' ;
     };
   };
 }

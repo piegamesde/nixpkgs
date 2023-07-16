@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     platform = platforms.${system} or (throw "unsupported system: ${system}");
   in ''
     rpmextract $src/${platform}/storcli-00${version}00.0000-1.*.rpm
-  '';
+  '' ;
 
   dontPatch = true;
   dontConfigure = true;

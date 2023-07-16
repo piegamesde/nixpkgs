@@ -42,7 +42,7 @@ let
       firstDevice = head (splitString ":" fs.device);
     in ''
       tryUnlock ${name} ${firstDevice}
-    '';
+    '' ;
 
 in {
   config = mkIf (elem "bcachefs" config.boot.supportedFilesystems) (mkMerge [

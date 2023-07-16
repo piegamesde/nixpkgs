@@ -45,53 +45,55 @@
 let
   engineArtifactDirectory = let
     engineArtifacts = callPackage ./engine-artifacts { inherit engineVersion; };
-  in runCommandLocal "flutter-engine-artifacts-${version}" { } (let
-    mkCommonArtifactLinkCommand = {
-        artifact,
-      }: ''
-        mkdir -p $out/common
-        ${lndir}/bin/lndir -silent ${artifact} $out/common
-      '';
-    mkPlatformArtifactLinkCommand = {
-        artifact,
-        os,
-        architecture,
-        variant ? null
-      }:
-      let
-        artifactDirectory = "${os}-${architecture}${
-            lib.optionalString (variant != null) "-${variant}"
-          }";
-      in ''
-        mkdir -p $out/${artifactDirectory}
-          ${lndir}/bin/lndir -silent ${artifact} $out/${artifactDirectory}
-      '';
-  in ''
-    ${builtins.concatStringsSep "\n" ((map (name:
-      mkCommonArtifactLinkCommand {
-        artifact = engineArtifacts.common.${name};
-      }) (if includedEngineArtifacts ? common then
-        includedEngineArtifacts.common
-      else
-        [ ])) ++ (builtins.foldl' (commands: os:
-          commands ++ (builtins.foldl' (commands: architecture:
-            commands ++ (builtins.foldl' (commands: variant:
-              commands ++ (map (artifact:
-                mkPlatformArtifactLinkCommand {
-                  inherit artifact os architecture variant;
-                })
-                engineArtifacts.platform.${os}.${architecture}.variants.${variant}))
-              (map (artifact:
-                mkPlatformArtifactLinkCommand {
-                  inherit artifact os architecture;
-                }) engineArtifacts.platform.${os}.${architecture}.base)
-              includedEngineArtifacts.platform.${os}.${architecture})) [ ]
-            (builtins.attrNames includedEngineArtifacts.platform.${os}))) [ ]
-          (builtins.attrNames (if includedEngineArtifacts ? platform then
-            includedEngineArtifacts.platform
-          else
-            { }))))}
-  '');
+  in
+    runCommandLocal "flutter-engine-artifacts-${version}" { } (let
+      mkCommonArtifactLinkCommand = {
+          artifact,
+        }: ''
+          mkdir -p $out/common
+          ${lndir}/bin/lndir -silent ${artifact} $out/common
+        '';
+      mkPlatformArtifactLinkCommand = {
+          artifact,
+          os,
+          architecture,
+          variant ? null
+        }:
+        let
+          artifactDirectory = "${os}-${architecture}${
+              lib.optionalString (variant != null) "-${variant}"
+            }";
+        in ''
+          mkdir -p $out/${artifactDirectory}
+            ${lndir}/bin/lndir -silent ${artifact} $out/${artifactDirectory}
+        '' ;
+    in ''
+      ${builtins.concatStringsSep "\n" ((map (name:
+        mkCommonArtifactLinkCommand {
+          artifact = engineArtifacts.common.${name};
+        }) (if includedEngineArtifacts ? common then
+          includedEngineArtifacts.common
+        else
+          [ ])) ++ (builtins.foldl' (commands: os:
+            commands ++ (builtins.foldl' (commands: architecture:
+              commands ++ (builtins.foldl' (commands: variant:
+                commands ++ (map (artifact:
+                  mkPlatformArtifactLinkCommand {
+                    inherit artifact os architecture variant;
+                  })
+                  engineArtifacts.platform.${os}.${architecture}.variants.${variant}))
+                (map (artifact:
+                  mkPlatformArtifactLinkCommand {
+                    inherit artifact os architecture;
+                  }) engineArtifacts.platform.${os}.${architecture}.base)
+                includedEngineArtifacts.platform.${os}.${architecture})) [ ]
+              (builtins.attrNames includedEngineArtifacts.platform.${os}))) [ ]
+            (builtins.attrNames (if includedEngineArtifacts ? platform then
+              includedEngineArtifacts.platform
+            else
+              { }))))}
+    '' )
+  ;
 
   unwrapped = stdenv.mkDerivation {
     name = "flutter-${version}-unwrapped";
@@ -212,4 +214,5 @@ let
       ];
     };
   };
-in unwrapped
+in
+  unwrapped

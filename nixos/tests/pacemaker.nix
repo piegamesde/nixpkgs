@@ -42,7 +42,7 @@ import ./make-test-python.nix ({
       node1 = node 1;
       node2 = node 2;
       node3 = node 3;
-    };
+    } ;
 
     # sets up pacemaker with resources configuration, then crashes a
     # node and waits for service restart on another node
@@ -105,5 +105,5 @@ import ./make-test-python.nix ({
         time.sleep(1)
 
       next_node.log("Service migrated here!")
-    '';
+    '' ;
   })

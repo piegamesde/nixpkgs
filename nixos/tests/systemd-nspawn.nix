@@ -85,4 +85,4 @@ import ./make-test-python.nix ({
           "cmp /var/lib/machines/testimage2/${pkgs.hello}/bin/hello ${pkgs.hello}/bin/hello"
       )
     '';
-  })
+  } )

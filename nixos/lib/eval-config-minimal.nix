@@ -42,4 +42,6 @@ let
       } // specialArgs;
     };
 
-in { inherit evalModules; }
+in {
+  inherit evalModules;
+}

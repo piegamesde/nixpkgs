@@ -118,7 +118,7 @@ let
                 };
               };
             };
-          };
+          } ;
       in {
         galera_01 = mkGaleraNode {
           id = 1;
@@ -150,7 +150,7 @@ let
           method = "rsync";
         };
 
-      };
+      } ;
 
       testScript = ''
         galera_01.start()
@@ -261,5 +261,6 @@ let
         galera_06.succeed("sudo -u testuser mysql -u testuser -e 'use testdb; drop table db1;'")
       '';
     };
-in lib.mapAttrs (_: mariadbPackage: makeGaleraTest { inherit mariadbPackage; })
-mariadbPackages
+in
+  lib.mapAttrs (_: mariadbPackage: makeGaleraTest { inherit mariadbPackage; })
+  mariadbPackages

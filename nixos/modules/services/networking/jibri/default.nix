@@ -310,7 +310,7 @@ in {
           in {
             call.login.username = nick;
             control.muc.nickname = nick;
-          };
+          } ;
         }));
     };
   };

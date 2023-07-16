@@ -64,7 +64,9 @@ in {
                 int
                 bool
               ];
-            in attrsOf (either type (listOf type));
+            in
+              attrsOf (either type (listOf type))
+          ;
 
           options = {
 
@@ -199,7 +201,9 @@ in {
             cp ${geoipupdateConf} /run/geoipupdate/GeoIP.conf
             ${secretReplacements}
           '';
-        in "+${pkgs.writeShellScript "start-pre-full-privileges" script}";
+        in
+          "+${pkgs.writeShellScript "start-pre-full-privileges" script}"
+        ;
         ExecStart =
           "${pkgs.geoipupdate}/bin/geoipupdate -f /run/geoipupdate/GeoIP.conf";
         User = "geoip";

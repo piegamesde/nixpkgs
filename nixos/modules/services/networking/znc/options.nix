@@ -280,7 +280,7 @@ in {
         extraConfig = [ c.passBlock ];
       };
       extraConfig = optional (c.extraZncConf != "") c.extraZncConf;
-    };
+    } ;
   };
 
   imports = [ (mkRemovedOptionModule [

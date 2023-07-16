@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.nethoscope;
+let
+  cfg = config.programs.nethoscope;
 in {
   meta.maintainers = with maintainers; [ _0x4A6F ];
 

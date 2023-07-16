@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.robustirc-bridge;
+let
+  cfg = config.services.robustirc-bridge;
 in {
   options = {
     services.robustirc-bridge = {

@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     bram_interface = testProject "bram_interface";
     blinky = testProject "blinky";
     pipeline_sort = testProject "pipeline_sort";
-  };
+  } ;
 
   meta = with lib; {
     description =

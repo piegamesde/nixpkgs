@@ -14,36 +14,37 @@ let
     '') rubies)}
   '';
 
-in stdenv.mkDerivation rec {
-  pname = "chruby";
+in
+  stdenv.mkDerivation rec {
+    pname = "chruby";
 
-  version = "0.3.9";
+    version = "0.3.9";
 
-  src = fetchFromGitHub {
-    owner = "postmodern";
-    repo = "chruby";
-    rev = "v${version}";
-    sha256 = "1894g6fymr8kra9vwhbmnrcr58l022mcd7g9ans4zd3izla2j3gx";
-  };
+    src = fetchFromGitHub {
+      owner = "postmodern";
+      repo = "chruby";
+      rev = "v${version}";
+      sha256 = "1894g6fymr8kra9vwhbmnrcr58l022mcd7g9ans4zd3izla2j3gx";
+    };
 
-  patches = lib.optionalString (rubies != null) [ ./env.patch ];
+    patches = lib.optionalString (rubies != null) [ ./env.patch ];
 
-  postPatch = lib.optionalString (rubies != null) ''
-    substituteInPlace share/chruby/chruby.sh --replace "@rubiesEnv@" ${rubiesEnv}
-  '';
+    postPatch = lib.optionalString (rubies != null) ''
+      substituteInPlace share/chruby/chruby.sh --replace "@rubiesEnv@" ${rubiesEnv}
+    '';
 
-  installPhase = ''
-    mkdir $out
-    cp -r bin $out
-    cp -r share $out
-  '';
+    installPhase = ''
+      mkdir $out
+      cp -r bin $out
+      cp -r share $out
+    '';
 
-  meta = with lib; {
-    description = "Changes the current Ruby";
-    homepage = "https://github.com/postmodern/chruby";
-    license = licenses.mit;
-    maintainers = with maintainers; [ cstrahan ];
-    mainProgram = "chruby-exec";
-    platforms = platforms.unix;
-  };
-}
+    meta = with lib; {
+      description = "Changes the current Ruby";
+      homepage = "https://github.com/postmodern/chruby";
+      license = licenses.mit;
+      maintainers = with maintainers; [ cstrahan ];
+      mainProgram = "chruby-exec";
+      platforms = platforms.unix;
+    };
+  }

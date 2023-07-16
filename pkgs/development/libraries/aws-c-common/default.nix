@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     cat <<EOW >CTestCustom.cmake
     SET(CTEST_CUSTOM_TESTS_IGNORE ${toString ignoreTests})
     EOW
-  '';
+  '' ;
 
   doCheck = true;
 

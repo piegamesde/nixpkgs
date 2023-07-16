@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let cfg = config.services.clickhouse;
+let
+  cfg = config.services.clickhouse;
 in with lib; {
 
   ###### interface

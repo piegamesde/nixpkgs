@@ -108,80 +108,81 @@ let
 
   # Tests don't currently work for `no_std`, and all custom sysroots are currently built without `std`.
   # See https://os.phil-opp.com/testing/ for more information.
-in assert useSysroot -> !(args.doCheck or true);
+in
+  assert useSysroot -> !(args.doCheck or true);
 
-stdenv.mkDerivation ((removeAttrs args [
-  "depsExtraArgs"
-  "cargoUpdateHook"
-  "cargoLock"
-]) // lib.optionalAttrs useSysroot {
-  RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or "");
-} // {
-  inherit buildAndTestSubdir cargoDeps;
+  stdenv.mkDerivation ((removeAttrs args [
+    "depsExtraArgs"
+    "cargoUpdateHook"
+    "cargoLock"
+  ]) // lib.optionalAttrs useSysroot {
+    RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or "");
+  } // {
+    inherit buildAndTestSubdir cargoDeps;
 
-  cargoBuildType = buildType;
+    cargoBuildType = buildType;
 
-  cargoCheckType = checkType;
+    cargoCheckType = checkType;
 
-  cargoBuildNoDefaultFeatures = buildNoDefaultFeatures;
+    cargoBuildNoDefaultFeatures = buildNoDefaultFeatures;
 
-  cargoCheckNoDefaultFeatures = checkNoDefaultFeatures;
+    cargoCheckNoDefaultFeatures = checkNoDefaultFeatures;
 
-  cargoBuildFeatures = buildFeatures;
+    cargoBuildFeatures = buildFeatures;
 
-  cargoCheckFeatures = checkFeatures;
+    cargoCheckFeatures = checkFeatures;
 
-  patchRegistryDeps = ./patch-registry-deps;
+    patchRegistryDeps = ./patch-registry-deps;
 
-  nativeBuildInputs = nativeBuildInputs ++ lib.optionals
-    auditable [ (buildPackages.cargo-auditable-cargo-wrapper.override {
-      inherit cargo cargo-auditable;
-    }) ] ++ [
-      cargoBuildHook
-      (if useNextest then cargoNextestHook else cargoCheckHook)
-      cargoInstallHook
-      cargoSetupHook
-      rustc
-    ];
+    nativeBuildInputs = nativeBuildInputs ++ lib.optionals
+      auditable [ (buildPackages.cargo-auditable-cargo-wrapper.override {
+        inherit cargo cargo-auditable;
+      }) ] ++ [
+        cargoBuildHook
+        (if useNextest then cargoNextestHook else cargoCheckHook)
+        cargoInstallHook
+        cargoSetupHook
+        rustc
+      ];
 
-  buildInputs = buildInputs
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
-    ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ];
+    buildInputs = buildInputs
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
+      ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ];
 
-  patches = cargoPatches ++ patches;
+    patches = cargoPatches ++ patches;
 
-  PKG_CONFIG_ALLOW_CROSS =
-    if stdenv.buildPlatform != stdenv.hostPlatform then 1 else 0;
+    PKG_CONFIG_ALLOW_CROSS =
+      if stdenv.buildPlatform != stdenv.hostPlatform then 1 else 0;
 
-  postUnpack = ''
-    eval "$cargoDepsHook"
+    postUnpack = ''
+      eval "$cargoDepsHook"
 
-    export RUST_LOG=${logLevel}
-  '' + (args.postUnpack or "");
+      export RUST_LOG=${logLevel}
+    '' + (args.postUnpack or "");
 
-  configurePhase = args.configurePhase or ''
-    runHook preConfigure
-    runHook postConfigure
-  '';
+    configurePhase = args.configurePhase or ''
+      runHook preConfigure
+      runHook postConfigure
+    '';
 
-  doCheck = args.doCheck or true;
+    doCheck = args.doCheck or true;
 
-  strictDeps = true;
+    strictDeps = true;
 
-  meta = {
-    # default to Rust's platforms
-    platforms = rustc.meta.platforms ++ [
-      # Platforms without host tools from
-      # https://doc.rust-lang.org/nightly/rustc/platform-support.html
-      "armv7a-darwin"
-      "armv5tel-linux"
-      "armv6l-linux"
-      "armv7a-linux"
-      "m68k-linux"
-      "riscv32-linux"
-      "armv6l-netbsd"
-      "x86_64-redox"
-      "wasm32-wasi"
-    ];
-  } // meta;
-})
+    meta = {
+      # default to Rust's platforms
+      platforms = rustc.meta.platforms ++ [
+        # Platforms without host tools from
+        # https://doc.rust-lang.org/nightly/rustc/platform-support.html
+        "armv7a-darwin"
+        "armv5tel-linux"
+        "armv6l-linux"
+        "armv7a-linux"
+        "m68k-linux"
+        "riscv32-linux"
+        "armv6l-netbsd"
+        "x86_64-redox"
+        "wasm32-wasi"
+      ];
+    } // meta;
+  })

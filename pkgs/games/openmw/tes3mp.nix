@@ -128,22 +128,23 @@ let
     fi
   '';
 
-in symlinkJoin {
-  name = "openmw-tes3mp-${unwrapped.version}";
-  inherit (unwrapped) version meta;
+in
+  symlinkJoin {
+    name = "openmw-tes3mp-${unwrapped.version}";
+    inherit (unwrapped) version meta;
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [ makeWrapper ];
 
-  paths = [ unwrapped ];
+    paths = [ unwrapped ];
 
-  postBuild = ''
-    mkdir -p $out/bin
+    postBuild = ''
+      mkdir -p $out/bin
 
-    makeWrapper ${unwrapped}/libexec/tes3mp-browser $out/bin/tes3mp-browser \
-      --chdir "$out/bin"
+      makeWrapper ${unwrapped}/libexec/tes3mp-browser $out/bin/tes3mp-browser \
+        --chdir "$out/bin"
 
-    makeWrapper ${unwrapped}/libexec/tes3mp-server $out/bin/tes3mp-server \
-      --run '${tes3mp-server-run}' \
-      --chdir "$out/bin"
-  '';
-}
+      makeWrapper ${unwrapped}/libexec/tes3mp-server $out/bin/tes3mp-server \
+        --run '${tes3mp-server-run}' \
+        --chdir "$out/bin"
+    '';
+  }

@@ -36,13 +36,16 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
     "installedTests";
 
-  src = let inherit (finalAttrs) pname version;
-  in fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
-    sha256 = "7ptsddE7oJaQei48aye2G80X9cfr6rWltDnS8uOf5Es=";
-  };
+  src = let
+    inherit (finalAttrs) pname version;
+  in
+    fetchurl {
+      url = "mirror://gnome/sources/${pname}/${
+          lib.versions.majorMinor version
+        }/${pname}-${version}.tar.xz";
+      sha256 = "7ptsddE7oJaQei48aye2G80X9cfr6rWltDnS8uOf5Es=";
+    }
+  ;
 
   patches = [
     # Move installed tests to a separate output

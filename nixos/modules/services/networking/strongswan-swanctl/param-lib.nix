@@ -23,12 +23,14 @@ rec {
       let
         value = ps.${name};
         indentation = replicate indent " ";
-      in indentation + (if isAttrs value then
-        ''
-          ${name} {
-        '' + mkConf (indent + 2) value + "\n" + indentation + "}"
-      else
-        "${name} = ${value}")) (attrNames ps);
+      in
+        indentation + (if isAttrs value then
+          ''
+            ${name} {
+          '' + mkConf (indent + 2) value + "\n" + indentation + "}"
+        else
+          "${name} = ${value}")
+    ) (attrNames ps);
 
   replicate = n: c: concatStrings (builtins.genList (_x: c) n);
 
@@ -39,13 +41,17 @@ rec {
   # set of strings (rendered parameters).
   paramsToRenderedStrings = cfg: ps:
     filterEmptySets ((mapParamsRecursive (path: name: param:
-      let value = attrByPath path null cfg;
-      in optionalAttrs (value != null) (param.render name value)) ps));
+      let
+        value = attrByPath path null cfg;
+      in
+        optionalAttrs (value != null) (param.render name value)
+    ) ps));
 
   filterEmptySets = set:
     filterAttrs (n: v: (v != null)) (mapAttrs (name: value:
       if isAttrs value then
-        let value' = filterEmptySets value;
+        let
+          value' = filterEmptySets value;
         in if value' == { } then null else value'
       else
         value) set);
@@ -63,8 +69,12 @@ rec {
               ${name} = recurse (path ++ [ name ]) value;
             } else
               f (path ++ [ name ]) name value;
-        in mapAttrs'' g set;
-    in recurse [ ] set;
+        in
+          mapAttrs'' g set
+      ;
+    in
+      recurse [ ] set
+  ;
 
   mapAttrs'' = f: set:
     foldl' (a: b: a // b) { } (map (attr: f attr set.${attr}) (attrNames set));

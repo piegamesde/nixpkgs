@@ -22,7 +22,9 @@ let
         description = "JSON value";
         emptyValue.value = { };
       };
-    in valueType;
+    in
+      valueType
+  ;
   dynamicConfigFile = if cfg.dynamicConfigFile == null then
     pkgs.runCommand "config.toml" {
       buildInputs = [ pkgs.remarshal ];

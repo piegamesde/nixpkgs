@@ -23,7 +23,9 @@ buildPythonPackage rec {
     unsupported = throw "Unsupported system";
     srcs = (import ./binary-hashes.nix
       version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
-  in fetchurl srcs;
+  in
+    fetchurl srcs
+  ;
 
   disabled = (pythonOlder "3.8") || (pythonAtLeast "3.12");
 

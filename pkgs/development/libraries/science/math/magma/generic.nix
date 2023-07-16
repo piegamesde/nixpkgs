@@ -81,7 +81,9 @@ let
     minArch' =
       builtins.head (builtins.sort strings.versionOlder cudaArchitectures);
     # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
-  in "${minArch'}0";
+  in
+    "${minArch'}0"
+  ;
 
   cuda-common-redist = with cudaPackages; [
     libcublas # cublas_v2.h
@@ -108,67 +110,68 @@ let
     paths = cuda-common-redist;
   };
 
-in assert (builtins.match "[^[:space:]]*" gpuTargetString) != null;
+in
+  assert (builtins.match "[^[:space:]]*" gpuTargetString) != null;
 
-stdenv.mkDerivation {
-  pname = "magma";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "magma";
+    inherit version;
 
-  src = fetchurl {
-    name = "magma-${version}.tar.gz";
-    url =
-      "https://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-${version}.tar.gz";
-    inherit hash;
-  };
+    src = fetchurl {
+      name = "magma-${version}.tar.gz";
+      url =
+        "https://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-${version}.tar.gz";
+      inherit hash;
+    };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    gfortran
-  ] ++ lists.optionals cudaSupport [ cuda-native-redist ];
+    nativeBuildInputs = [
+      cmake
+      ninja
+      gfortran
+    ] ++ lists.optionals cudaSupport [ cuda-native-redist ];
 
-  buildInputs = [
-    libpthreadstubs
-    lapack
-    blas
-  ] ++ lists.optionals cudaSupport [ cuda-redist ]
-    ++ lists.optionals rocmSupport [
-      hip
-      hipblas
-      hipsparse
-      openmp
+    buildInputs = [
+      libpthreadstubs
+      lapack
+      blas
+    ] ++ lists.optionals cudaSupport [ cuda-redist ]
+      ++ lists.optionals rocmSupport [
+        hip
+        hipblas
+        hipsparse
+        openmp
+      ];
+
+    cmakeFlags = [ "-DGPU_TARGET=${gpuTargetString}" ]
+      ++ lists.optionals cudaSupport [
+        "-DCMAKE_CUDA_ARCHITECTURES=${cudaArchitecturesString}"
+        "-DMIN_ARCH=${minArch}" # Disarms magma's asserts
+        "-DCMAKE_C_COMPILER=${backendStdenv.cc}/bin/cc"
+        "-DCMAKE_CXX_COMPILER=${backendStdenv.cc}/bin/c++"
+        "-DMAGMA_ENABLE_CUDA=ON"
+      ] ++ lists.optionals rocmSupport [
+        "-DCMAKE_C_COMPILER=${hip}/bin/hipcc"
+        "-DCMAKE_CXX_COMPILER=${hip}/bin/hipcc"
+        "-DMAGMA_ENABLE_HIP=ON"
+      ];
+
+    buildFlags = [
+      "magma"
+      "magma_sparse"
     ];
 
-  cmakeFlags = [ "-DGPU_TARGET=${gpuTargetString}" ]
-    ++ lists.optionals cudaSupport [
-      "-DCMAKE_CUDA_ARCHITECTURES=${cudaArchitecturesString}"
-      "-DMIN_ARCH=${minArch}" # Disarms magma's asserts
-      "-DCMAKE_C_COMPILER=${backendStdenv.cc}/bin/cc"
-      "-DCMAKE_CXX_COMPILER=${backendStdenv.cc}/bin/c++"
-      "-DMAGMA_ENABLE_CUDA=ON"
-    ] ++ lists.optionals rocmSupport [
-      "-DCMAKE_C_COMPILER=${hip}/bin/hipcc"
-      "-DCMAKE_CXX_COMPILER=${hip}/bin/hipcc"
-      "-DMAGMA_ENABLE_HIP=ON"
-    ];
+    doCheck = false;
 
-  buildFlags = [
-    "magma"
-    "magma_sparse"
-  ];
+    passthru = { inherit cudaPackages cudaSupport; };
 
-  doCheck = false;
-
-  passthru = { inherit cudaPackages cudaSupport; };
-
-  meta = with lib; {
-    description = "Matrix Algebra on GPU and Multicore Architectures";
-    license = licenses.bsd3;
-    homepage = "http://icl.cs.utk.edu/magma/index.html";
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ connorbaker ];
-    # CUDA and ROCm are mutually exclusive
-    broken = cudaSupport && rocmSupport || cudaSupport
-      && strings.versionOlder cudaVersion "9";
-  };
-}
+    meta = with lib; {
+      description = "Matrix Algebra on GPU and Multicore Architectures";
+      license = licenses.bsd3;
+      homepage = "http://icl.cs.utk.edu/magma/index.html";
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ connorbaker ];
+      # CUDA and ROCm are mutually exclusive
+      broken = cudaSupport && rocmSupport || cudaSupport
+        && strings.versionOlder cudaVersion "9";
+    };
+  }

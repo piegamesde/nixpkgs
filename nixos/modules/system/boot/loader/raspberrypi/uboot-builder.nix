@@ -25,19 +25,20 @@ let
     import ../generic-extlinux-compatible/extlinux-conf-builder.nix {
       pkgs = pkgs.buildPackages;
     };
-in pkgs.substituteAll {
-  src = ./uboot-builder.sh;
-  isExecutable = true;
-  inherit (pkgs) bash;
-  path = [
-    pkgs.coreutils
-    pkgs.gnused
-    pkgs.gnugrep
-  ];
-  firmware = pkgs.raspberrypifw;
-  inherit uboot;
-  inherit configTxt;
-  inherit extlinuxConfBuilder;
-  inherit version;
-}
+in
+  pkgs.substituteAll {
+    src = ./uboot-builder.sh;
+    isExecutable = true;
+    inherit (pkgs) bash;
+    path = [
+      pkgs.coreutils
+      pkgs.gnused
+      pkgs.gnugrep
+    ];
+    firmware = pkgs.raspberrypifw;
+    inherit uboot;
+    inherit configTxt;
+    inherit extlinuxConfBuilder;
+    inherit version;
+  }
 

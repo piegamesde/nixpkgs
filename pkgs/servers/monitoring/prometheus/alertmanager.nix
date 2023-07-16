@@ -25,7 +25,8 @@ buildGoModule rec {
     "cmd/amtool"
   ];
 
-  ldflags = let t = "github.com/prometheus/common/version";
+  ldflags = let
+    t = "github.com/prometheus/common/version";
   in [
     "-X ${t}.Version=${version}"
     "-X ${t}.Revision=${src.rev}"
@@ -33,7 +34,7 @@ buildGoModule rec {
     "-X ${t}.BuildUser=nix@nixpkgs"
     "-X ${t}.BuildDate=unknown"
     "-X ${t}.GoVersion=${lib.getVersion go}"
-  ];
+  ] ;
 
   nativeBuildInputs = [ installShellFiles ];
 

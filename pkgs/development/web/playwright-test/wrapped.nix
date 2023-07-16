@@ -24,4 +24,5 @@ let
           --prefix NODE_PATH : ${placeholder "out"}/lib/node_modules
     '';
   });
-in playwright-test
+in
+  playwright-test

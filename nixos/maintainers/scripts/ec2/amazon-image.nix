@@ -25,7 +25,7 @@ in {
         "4294967295"
       else
         "255";
-  in [ "nvme_core.io_timeout=${timeout}" ];
+  in [ "nvme_core.io_timeout=${timeout}" ] ;
 
   options.amazonImage = {
     name = mkOption {

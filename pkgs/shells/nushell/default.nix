@@ -89,4 +89,4 @@ in {
     tests.version = testers.testVersion { package = nushell; };
     updateScript = nix-update-script { };
   };
-})
+} )

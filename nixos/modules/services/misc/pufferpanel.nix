@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-let cfg = config.services.pufferpanel;
+let
+  cfg = config.services.pufferpanel;
 in {
   options.services.pufferpanel = {
     enable = lib.mkOption {

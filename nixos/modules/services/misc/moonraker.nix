@@ -150,7 +150,9 @@ in {
         file_manager = { config_path = cfg.configDir; };
       });
       fullConfig = recursiveUpdate cfg.settings forcedConfig;
-    in format.generate "moonraker.cfg" fullConfig;
+    in
+      format.generate "moonraker.cfg" fullConfig
+    ;
 
     systemd.tmpfiles.rules =
       [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ]

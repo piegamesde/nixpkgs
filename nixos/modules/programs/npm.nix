@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.npm;
+let
+  cfg = config.programs.npm;
 
 in {
   ###### interface

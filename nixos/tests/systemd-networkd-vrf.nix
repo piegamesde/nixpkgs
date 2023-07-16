@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
     lib,
     ...
   }:
-  let inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
+  let
+    inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
   in {
     name = "systemd-networkd-vrf";
     meta.maintainers = with lib.maintainers; [ ma27 ];
@@ -254,4 +255,4 @@ import ./make-test-python.nix ({
       node2.shutdown()
       node3.shutdown()
     '';
-  })
+  } )

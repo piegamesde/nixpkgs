@@ -84,7 +84,8 @@ let
     inherit name;
   };
 
-in fetcher fetcherArgs // {
-  meta = newMeta;
-  inherit rev owner repo;
-}
+in
+  fetcher fetcherArgs // {
+    meta = newMeta;
+    inherit rev owner repo;
+  }

@@ -31,5 +31,5 @@ import ./make-test-python.nix ({
       machine.succeed(
           "cat ${selectQuery} | clickhouse-client | grep foo"
       )
-    '';
+    '' ;
   })

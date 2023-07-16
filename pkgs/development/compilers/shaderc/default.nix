@@ -31,55 +31,56 @@ let
     rev = "c214f6f2d1a7253bb0e9f195c2dc5b0659dc99ef";
     hash = "sha256-/9EDOiqN6ZzDhRKP/Kv8D/BT2Cs7G8wyzEsGATLpmrA=";
   };
-in stdenv.mkDerivation rec {
-  pname = "shaderc";
-  version = "2022.4";
+in
+  stdenv.mkDerivation rec {
+    pname = "shaderc";
+    version = "2022.4";
 
-  outputs = [
-    "out"
-    "lib"
-    "bin"
-    "dev"
-    "static"
-  ];
+    outputs = [
+      "out"
+      "lib"
+      "bin"
+      "dev"
+      "static"
+    ];
 
-  src = fetchFromGitHub {
-    owner = "google";
-    repo = "shaderc";
-    rev = "v${version}";
-    hash = "sha256-/p2gJ7Lnh8IfvwBwHPDtmfLJ8j+Rbv+Oxu9lxY6fxfk=";
-  };
+    src = fetchFromGitHub {
+      owner = "google";
+      repo = "shaderc";
+      rev = "v${version}";
+      hash = "sha256-/p2gJ7Lnh8IfvwBwHPDtmfLJ8j+Rbv+Oxu9lxY6fxfk=";
+    };
 
-  patchPhase = ''
-    cp -r --no-preserve=mode ${glslang} third_party/glslang
-    cp -r --no-preserve=mode ${spirv-tools} third_party/spirv-tools
-    ln -s ${spirv-headers} third_party/spirv-tools/external/spirv-headers
-  '';
+    patchPhase = ''
+      cp -r --no-preserve=mode ${glslang} third_party/glslang
+      cp -r --no-preserve=mode ${spirv-tools} third_party/spirv-tools
+      ln -s ${spirv-headers} third_party/spirv-tools/external/spirv-headers
+    '';
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ] ++ lib.optionals stdenv.isDarwin [ cctools ] ++ lib.optionals
-    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+    nativeBuildInputs = [
+      cmake
+      python3
+    ] ++ lib.optionals stdenv.isDarwin [ cctools ] ++ lib.optionals
+      (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
-  postInstall = ''
-    moveToOutput "lib/*.a" $static
-  '';
+    postInstall = ''
+      moveToOutput "lib/*.a" $static
+    '';
 
-  cmakeFlags = [ "-DSHADERC_SKIP_TESTS=ON" ];
+    cmakeFlags = [ "-DSHADERC_SKIP_TESTS=ON" ];
 
-  # Fix the paths in .pc, even though it's unclear if all these .pc are really useful.
-  postFixup = ''
-    substituteInPlace "$dev"/lib/pkgconfig/*.pc \
-      --replace '=''${prefix}//' '=/' \
-      --replace "$dev/$dev/" "$dev/"
-  '';
+    # Fix the paths in .pc, even though it's unclear if all these .pc are really useful.
+    postFixup = ''
+      substituteInPlace "$dev"/lib/pkgconfig/*.pc \
+        --replace '=''${prefix}//' '=/' \
+        --replace "$dev/$dev/" "$dev/"
+    '';
 
-  meta = with lib; {
-    inherit (src.meta) homepage;
-    description =
-      "A collection of tools, libraries and tests for shader compilation";
-    platforms = platforms.all;
-    license = [ licenses.asl20 ];
-  };
-}
+    meta = with lib; {
+      inherit (src.meta) homepage;
+      description =
+        "A collection of tools, libraries and tests for shader compilation";
+      platforms = platforms.all;
+      license = [ licenses.asl20 ];
+    };
+  }

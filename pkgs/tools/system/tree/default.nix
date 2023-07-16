@@ -19,36 +19,37 @@ let
     CFLAGS="-O2 -Wall -fomit-frame-pointer"
     LDFLAGS=-s
   ''; # use linux flags by default
-in stdenv.mkDerivation rec {
-  pname = "tree";
-  version = "2.0.4";
+in
+  stdenv.mkDerivation rec {
+    pname = "tree";
+    version = "2.0.4";
 
-  src = fetchFromGitLab {
-    owner = "OldManProgrammer";
-    repo = "unix-tree";
-    rev = version;
-    sha256 = "sha256-2voXL31JHh09yBBLuHhYyZsUapiPVF/cgRmTU6wSXk4=";
-  };
+    src = fetchFromGitLab {
+      owner = "OldManProgrammer";
+      repo = "unix-tree";
+      rev = version;
+      sha256 = "sha256-2voXL31JHh09yBBLuHhYyZsUapiPVF/cgRmTU6wSXk4=";
+    };
 
-  preConfigure = ''
-    makeFlagsArray+=(${systemFlags})
-  '';
-
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "PREFIX=${placeholder "out"}"
-  ];
-
-  meta = with lib; {
-    homepage = "http://mama.indstate.edu/users/ice/tree/";
-    description = "Command to produce a depth indented directory listing";
-    license = licenses.gpl2;
-    longDescription = ''
-      Tree is a recursive directory listing command that produces a
-      depth indented listing of files, which is colorized ala dircolors if
-      the LS_COLORS environment variable is set and output is to tty.
+    preConfigure = ''
+      makeFlagsArray+=(${systemFlags})
     '';
-    platforms = platforms.all;
-    maintainers = with maintainers; [ SuperSandro2000 ];
-  };
-}
+
+    makeFlags = [
+      "CC=${stdenv.cc.targetPrefix}cc"
+      "PREFIX=${placeholder "out"}"
+    ];
+
+    meta = with lib; {
+      homepage = "http://mama.indstate.edu/users/ice/tree/";
+      description = "Command to produce a depth indented directory listing";
+      license = licenses.gpl2;
+      longDescription = ''
+        Tree is a recursive directory listing command that produces a
+        depth indented listing of files, which is colorized ala dircolors if
+        the LS_COLORS environment variable is set and output is to tty.
+      '';
+      platforms = platforms.all;
+      maintainers = with maintainers; [ SuperSandro2000 ];
+    };
+  }

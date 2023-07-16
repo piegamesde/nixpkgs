@@ -35,11 +35,13 @@ let
       connectionsConf = makeSections "conn" connections;
       caConf = makeSections "ca" ca;
 
-    in builtins.toFile "ipsec.conf" ''
-      ${setupConf}
-      ${connectionsConf}
-      ${caConf}
-    '';
+    in
+      builtins.toFile "ipsec.conf" ''
+        ${setupConf}
+        ${connectionsConf}
+        ${caConf}
+      ''
+  ;
 
   strongswanConf = {
       setup,
@@ -160,37 +162,40 @@ in {
   };
 
   config = with cfg;
-    let secretsFile = ipsecSecrets cfg.secrets;
-    in mkIf enable {
+    let
+      secretsFile = ipsecSecrets cfg.secrets;
+    in
+      mkIf enable {
 
-      # here we should use the default strongswan ipsec.secrets and
-      # append to it (default one is empty so not a pb for now)
-      environment.etc."ipsec.secrets".source = secretsFile;
+        # here we should use the default strongswan ipsec.secrets and
+        # append to it (default one is empty so not a pb for now)
+        environment.etc."ipsec.secrets".source = secretsFile;
 
-      systemd.services.strongswan = {
-        description = "strongSwan IPSec Service";
-        wantedBy = [ "multi-user.target" ];
-        path = with pkgs; [
-          kmod
-          iproute2
-          iptables
-          util-linux
-        ]; # XXX Linux
-        after = [ "network-online.target" ];
-        environment = {
-          STRONGSWAN_CONF = strongswanConf {
-            inherit setup connections ca secretsFile managePlugins
-              enabledPlugins;
+        systemd.services.strongswan = {
+          description = "strongSwan IPSec Service";
+          wantedBy = [ "multi-user.target" ];
+          path = with pkgs; [
+            kmod
+            iproute2
+            iptables
+            util-linux
+          ]; # XXX Linux
+          after = [ "network-online.target" ];
+          environment = {
+            STRONGSWAN_CONF = strongswanConf {
+              inherit setup connections ca secretsFile managePlugins
+                enabledPlugins;
+            };
           };
+          serviceConfig = {
+            ExecStart = "${pkgs.strongswan}/sbin/ipsec start --nofork";
+          };
+          preStart = ''
+            # with 'nopeerdns' setting, ppp writes into this folder
+            mkdir -m 700 -p /etc/ppp
+          '';
         };
-        serviceConfig = {
-          ExecStart = "${pkgs.strongswan}/sbin/ipsec start --nofork";
-        };
-        preStart = ''
-          # with 'nopeerdns' setting, ppp writes into this folder
-          mkdir -m 700 -p /etc/ppp
-        '';
-      };
-    };
+      }
+  ;
 }
 

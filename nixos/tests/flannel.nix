@@ -46,7 +46,7 @@ import ./make-test-python.nix ({
 
       node1 = flannelConfig;
       node2 = flannelConfig;
-    };
+    } ;
 
     testScript = ''
       start_all()

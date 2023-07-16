@@ -57,7 +57,7 @@ buildPythonPackage rec {
   in ''
     rm -r src/h3lib
     substituteInPlace CMakeLists.txt --replace "add_subdirectory(src/h3lib)" "${cmakeCommands}"
-  '';
+  '' ;
 
   # Extra check to make sure we can import it from Python
   pythonImportsCheck = [ "h3" ];

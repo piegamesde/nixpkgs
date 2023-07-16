@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.hail;
+let
+  cfg = config.services.hail;
 in {
 
   ###### interface

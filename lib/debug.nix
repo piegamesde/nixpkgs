@@ -123,8 +123,11 @@ in rec {
           mapAttrs (const (modify (n - 1) fn)) v
         else
           v;
-    in trace
-    (generators.toPretty { allowPrettyValues = true; } (modify depth snip x)) y;
+    in
+      trace
+      (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
+      y
+  ;
 
   /* A combination of `traceVal` and `traceSeq` that applies a
      provided function to the value to be traced after `deepSeq`ing
@@ -165,12 +168,15 @@ in rec {
           => { a.b.c = 3; }
   */
   traceFnSeqN = depth: name: f: v:
-    let res = f v;
-    in lib.traceSeqN (depth + 1) {
-      fn = name;
-      from = v;
-      to = res;
-    } res;
+    let
+      res = f v;
+    in
+      lib.traceSeqN (depth + 1) {
+        fn = name;
+        from = v;
+        to = res;
+      } res
+  ;
 
   # -- TESTING --
 
@@ -236,7 +242,8 @@ in rec {
     # Tests to run
     tests:
     concatLists (attrValues (mapAttrs (name: test:
-      let testsToRun = if tests ? tests then tests.tests else [ ];
+      let
+        testsToRun = if tests ? tests then tests.tests else [ ];
       in if (substring 0 4 name == "test" || elem name testsToRun)
       && ((testsToRun == [ ]) || elem name tests.tests)
       && (test.expr != test.expected)

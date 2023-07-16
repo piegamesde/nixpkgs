@@ -130,7 +130,7 @@ in {
 
         wantedBy = [ "sockets.target" ];
       };
-    };
+    } ;
 
   };
 

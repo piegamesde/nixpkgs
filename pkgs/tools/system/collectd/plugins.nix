@@ -187,4 +187,6 @@ let
     (builtins.attrNames (builtins.removeAttrs plugins [ "xencpu" ]))
   else
     builtins.concatMap pluginBuildInputs enabledPlugins;
-in { inherit configureFlags buildInputs; }
+in {
+  inherit configureFlags buildInputs;
+}

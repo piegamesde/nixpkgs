@@ -337,7 +337,8 @@ in {
         members = [ "turnserver" ];
       };
 
-      systemd.services.coturn = let runConfig = "/run/coturn/turnserver.cfg";
+      systemd.services.coturn = let
+        runConfig = "/run/coturn/turnserver.cfg";
       in {
         description = "coturn TURN server";
         after = [ "network-online.target" ];
@@ -370,7 +371,7 @@ in {
             "cap_net_bind_service";
           Restart = "on-abort";
         };
-      };
+      } ;
       systemd.tmpfiles.rules =
         [ "d  /run/coturn 0700 turnserver turnserver - -" ];
     }

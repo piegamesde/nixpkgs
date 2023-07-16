@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.bitcoin;
+let
+  cfg = config.services.prometheus.exporters.bitcoin;
 in {
   port = 9332;
   extraOpts = {

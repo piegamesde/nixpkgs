@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.nextcloud;
+let
+  cfg = config.services.prometheus.exporters.nextcloud;
 in {
   port = 9205;
   extraOpts = {

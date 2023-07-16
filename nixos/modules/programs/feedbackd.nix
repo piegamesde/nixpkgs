@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.feedbackd;
+let
+  cfg = config.programs.feedbackd;
 in {
   options = {
     programs.feedbackd = {

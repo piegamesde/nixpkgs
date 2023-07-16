@@ -393,7 +393,9 @@ in {
         "smtp"
       ];
       loggerSectionNames = map (n: "logging.${n}") loggerNames;
-    in lib.genAttrs loggerSectionNames (name: { handler = "stderr"; }));
+    in
+      lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
+    );
 
     assertions = let
       inherit (config.services) postfix;
@@ -410,36 +412,38 @@ in {
             "${expected}".
             See <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>.
           '';
-        };
-    in [ {
-      assertion = cfg.webHosts != [ ];
-      message = ''
-        services.mailman.serve.enable requires there to be at least one entry
-        in services.mailman.webHosts.
-      '';
-    } ] ++ (lib.optionals cfg.enablePostfix [
-      {
-        assertion = postfix.enable;
+        } ;
+    in
+      [ {
+        assertion = cfg.webHosts != [ ];
         message = ''
-          Mailman's default NixOS configuration requires Postfix to be enabled.
-
-          If you want to use another MTA, set services.mailman.enablePostfix
-          to false and configure settings in services.mailman.settings.mta.
-
-          Refer to <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>
-          for more info.
+          services.mailman.serve.enable requires there to be at least one entry
+          in services.mailman.webHosts.
         '';
-      }
-      (requirePostfixHash [ "relayDomains" ] "postfix_domains")
-      (requirePostfixHash [
-        "config"
-        "transport_maps"
-      ] "postfix_lmtp")
-      (requirePostfixHash [
-        "config"
-        "local_recipient_maps"
-      ] "postfix_lmtp")
-    ]);
+      } ] ++ (lib.optionals cfg.enablePostfix [
+        {
+          assertion = postfix.enable;
+          message = ''
+            Mailman's default NixOS configuration requires Postfix to be enabled.
+
+            If you want to use another MTA, set services.mailman.enablePostfix
+            to false and configure settings in services.mailman.settings.mta.
+
+            Refer to <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>
+            for more info.
+          '';
+        }
+        (requirePostfixHash [ "relayDomains" ] "postfix_domains")
+        (requirePostfixHash [
+          "config"
+          "transport_maps"
+        ] "postfix_lmtp")
+        (requirePostfixHash [
+          "config"
+          "local_recipient_maps"
+        ] "postfix_lmtp")
+      ])
+    ;
 
     users.users.mailman = {
       description = "GNU Mailman";
@@ -686,7 +690,7 @@ in {
           Group = "mailman";
           RuntimeDirectory = "mailman-uwsgi";
         };
-      });
+      } );
 
       mailman-daily = {
         description = "Trigger daily Mailman events";

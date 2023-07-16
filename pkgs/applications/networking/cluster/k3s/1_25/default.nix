@@ -228,118 +228,120 @@ let
     ];
     ldflags = versionldflags;
   };
-in buildGoModule rec {
-  pname = "k3s";
-  version = k3sVersion;
+in
+  buildGoModule rec {
+    pname = "k3s";
+    version = k3sVersion;
 
-  src = k3sRepo;
-  vendorSha256 = k3sVendorSha256;
+    src = k3sRepo;
+    vendorSha256 = k3sVendorSha256;
 
-  patches = [ ./0001-script-download-strip-downloading-just-package-CRD.patch ];
+    patches =
+      [ ./0001-script-download-strip-downloading-just-package-CRD.patch ];
 
-  postPatch = ''
-    # Nix prefers dynamically linked binaries over static binary.
+    postPatch = ''
+      # Nix prefers dynamically linked binaries over static binary.
 
-    substituteInPlace scripts/package-cli \
-      --replace '"$LDFLAGS $STATIC" -o' \
-                '"$LDFLAGS" -o' \
-      --replace "STATIC=\"-extldflags \'-static\'\"" \
-                ""
+      substituteInPlace scripts/package-cli \
+        --replace '"$LDFLAGS $STATIC" -o' \
+                  '"$LDFLAGS" -o' \
+        --replace "STATIC=\"-extldflags \'-static\'\"" \
+                  ""
 
-    # Upstream codegen fails with trimpath set. Removes "trimpath" for 'go generate':
+      # Upstream codegen fails with trimpath set. Removes "trimpath" for 'go generate':
 
-    substituteInPlace scripts/package-cli \
-      --replace '"''${GO}" generate' \
-                'GOFLAGS="" \
-                 GOOS="${pkgsBuildBuild.go.GOOS}" \
-                 GOARCH="${pkgsBuildBuild.go.GOARCH}" \
-                 CC="${pkgsBuildBuild.stdenv.cc}/bin/cc" \
-                 "''${GO}" generate'
-  '';
+      substituteInPlace scripts/package-cli \
+        --replace '"''${GO}" generate' \
+                  'GOFLAGS="" \
+                   GOOS="${pkgsBuildBuild.go.GOOS}" \
+                   GOARCH="${pkgsBuildBuild.go.GOARCH}" \
+                   CC="${pkgsBuildBuild.stdenv.cc}/bin/cc" \
+                   "''${GO}" generate'
+    '';
 
-  # Important utilities used by the kubelet, see
-  # https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-237202494
-  # Note the list in that issue is stale and some aren't relevant for k3s.
-  k3sRuntimeDeps = [
-    kmod
-    socat
-    iptables
-    iproute2
-    ipset
-    bridge-utils
-    ethtool
-    util-linux # kubelet wants 'nsenter' from util-linux: https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-705994388
-    conntrack-tools
-  ];
+    # Important utilities used by the kubelet, see
+    # https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-237202494
+    # Note the list in that issue is stale and some aren't relevant for k3s.
+    k3sRuntimeDeps = [
+      kmod
+      socat
+      iptables
+      iproute2
+      ipset
+      bridge-utils
+      ethtool
+      util-linux # kubelet wants 'nsenter' from util-linux: https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-705994388
+      conntrack-tools
+    ];
 
-  buildInputs = k3sRuntimeDeps;
+    buildInputs = k3sRuntimeDeps;
 
-  nativeBuildInputs = [
-    makeWrapper
-    rsync
-    yq-go
-    zstd
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      rsync
+      yq-go
+      zstd
+    ];
 
-  # embedded in the final k3s cli
-  propagatedBuildInputs = [
-    k3sCNIPlugins
-    k3sContainerd
-    k3sServer
-    runc
-  ];
+    # embedded in the final k3s cli
+    propagatedBuildInputs = [
+      k3sCNIPlugins
+      k3sContainerd
+      k3sServer
+      runc
+    ];
 
-  # We override most of buildPhase due to peculiarities in k3s's build.
-  # Specifically, it has a 'go generate' which runs part of the package. See
-  # this comment:
-  # https://github.com/NixOS/nixpkgs/pull/158089#discussion_r799965694
-  # So, why do we use buildGoModule at all? For the `vendorSha256` / `go mod download` stuff primarily.
-  buildPhase = ''
-    patchShebangs ./scripts/package-cli ./scripts/download ./scripts/build-upload
+    # We override most of buildPhase due to peculiarities in k3s's build.
+    # Specifically, it has a 'go generate' which runs part of the package. See
+    # this comment:
+    # https://github.com/NixOS/nixpkgs/pull/158089#discussion_r799965694
+    # So, why do we use buildGoModule at all? For the `vendorSha256` / `go mod download` stuff primarily.
+    buildPhase = ''
+      patchShebangs ./scripts/package-cli ./scripts/download ./scripts/build-upload
 
-    # copy needed 'go generate' inputs into place
-    mkdir -p ./bin/aux
-    rsync -a --no-perms ${k3sServer}/bin/ ./bin/
-    ln -vsf ${runc}/bin/runc ./bin/runc
-    ln -vsf ${k3sCNIPlugins}/bin/cni ./bin/cni
-    ln -vsf ${k3sContainerd}/bin/* ./bin/
-    rsync -a --no-perms --chmod u=rwX ${k3sRoot}/etc/ ./etc/
-    mkdir -p ./build/static/charts
-    # Note, upstream's chart has a 00 suffix. This seems to not matter though, so we're ignoring that naming detail.
-    export TRAEFIK_CHART_FILE=${traefikChart}
-    # place the traefik chart using their code since it's complicated
-    # We trim the actual download, see patches
-    ./scripts/download
+      # copy needed 'go generate' inputs into place
+      mkdir -p ./bin/aux
+      rsync -a --no-perms ${k3sServer}/bin/ ./bin/
+      ln -vsf ${runc}/bin/runc ./bin/runc
+      ln -vsf ${k3sCNIPlugins}/bin/cni ./bin/cni
+      ln -vsf ${k3sContainerd}/bin/* ./bin/
+      rsync -a --no-perms --chmod u=rwX ${k3sRoot}/etc/ ./etc/
+      mkdir -p ./build/static/charts
+      # Note, upstream's chart has a 00 suffix. This seems to not matter though, so we're ignoring that naming detail.
+      export TRAEFIK_CHART_FILE=${traefikChart}
+      # place the traefik chart using their code since it's complicated
+      # We trim the actual download, see patches
+      ./scripts/download
 
-    export ARCH=$GOARCH
-    export DRONE_TAG="v${k3sVersion}"
-    export DRONE_COMMIT="${k3sCommit}"
-    # use ./scripts/package-cli to run 'go generate' + 'go build'
+      export ARCH=$GOARCH
+      export DRONE_TAG="v${k3sVersion}"
+      export DRONE_COMMIT="${k3sCommit}"
+      # use ./scripts/package-cli to run 'go generate' + 'go build'
 
-    ./scripts/package-cli
-    mkdir -p $out/bin
-  '';
+      ./scripts/package-cli
+      mkdir -p $out/bin
+    '';
 
-  # Otherwise it depends on 'getGoDirs', which is normally set in buildPhase
-  doCheck = false;
+    # Otherwise it depends on 'getGoDirs', which is normally set in buildPhase
+    doCheck = false;
 
-  installPhase = ''
-    # wildcard to match the arm64 build too
-    install -m 0755 dist/artifacts/k3s* -D $out/bin/k3s
-    wrapProgram $out/bin/k3s \
-      --prefix PATH : ${lib.makeBinPath k3sRuntimeDeps} \
-      --prefix PATH : "$out/bin"
-  '';
+    installPhase = ''
+      # wildcard to match the arm64 build too
+      install -m 0755 dist/artifacts/k3s* -D $out/bin/k3s
+      wrapProgram $out/bin/k3s \
+        --prefix PATH : ${lib.makeBinPath k3sRuntimeDeps} \
+        --prefix PATH : "$out/bin"
+    '';
 
-  doInstallCheck = true;
-  installCheckPhase = ''
-    $out/bin/k3s --version | grep -F "v${k3sVersion}" >/dev/null
-  '';
+    doInstallCheck = true;
+    installCheckPhase = ''
+      $out/bin/k3s --version | grep -F "v${k3sVersion}" >/dev/null
+    '';
 
-  # Fix-Me: Needs to be adapted specifically for 1.25
-  # passthru.updateScript = ./update.sh;
+    # Fix-Me: Needs to be adapted specifically for 1.25
+    # passthru.updateScript = ./update.sh;
 
-  passthru.tests = k3s.passthru.mkTests k3sVersion;
+    passthru.tests = k3s.passthru.mkTests k3sVersion;
 
-  meta = baseMeta;
-}
+    meta = baseMeta;
+  }

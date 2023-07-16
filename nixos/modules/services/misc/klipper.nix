@@ -218,7 +218,7 @@ in {
         DynamicUser = true;
         User = "klipper";
       });
-    };
+    } ;
 
     environment.systemPackages = with pkgs;
       let
@@ -244,7 +244,9 @@ in {
               cfg.settings."${mcu}".serial;
             firmwareConfig = cfg.firmwares."${mcu}".configFile;
           }) firmwares;
-      in [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares;
+      in
+        [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares
+    ;
   };
   meta.maintainers = [ maintainers.cab404 ];
 }

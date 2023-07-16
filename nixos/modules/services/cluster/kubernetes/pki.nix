@@ -250,7 +250,9 @@ in {
             names = [ cert.fields ];
           };
         };
-      in mapAttrs mkSpec cfg.certs;
+      in
+        mapAttrs mkSpec cfg.certs
+      ;
     };
 
     #TODO: Get rid of kube-addon-manager in the future for the following reasons
@@ -281,7 +283,7 @@ in {
               ${top.package}/bin/kubectl apply -f ${
                 concatStringsSep " \\\n -f " files
               }
-            '';
+            '' ;
         })
       ]);
 
@@ -416,7 +418,7 @@ in {
         };
       };
     };
-  });
+  } );
 
   meta.buildDocsInSandbox = false;
 }

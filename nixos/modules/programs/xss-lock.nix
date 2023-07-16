@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.xss-lock;
+let
+  cfg = config.programs.xss-lock;
 in {
   options.programs.xss-lock = {
     enable = mkEnableOption (lib.mdDoc "xss-lock");

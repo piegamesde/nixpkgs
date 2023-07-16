@@ -113,7 +113,8 @@ let
         });
 
         jinx = super.jinx.overrideAttrs (old:
-          let libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
+          let
+            libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
           in {
             dontUnpack = false;
 
@@ -136,7 +137,7 @@ let
             meta = old.meta // {
               maintainers = [ lib.maintainers.DamienCassou ];
             };
-          });
+          } );
 
         plz = super.plz.overrideAttrs (old: {
           dontUnpack = false;
@@ -154,6 +155,9 @@ let
 
       elpaPackages = super // overrides;
 
-    in elpaPackages // { inherit elpaBuild; });
+    in
+      elpaPackages // { inherit elpaBuild; }
+  );
 
-in generateElpa { }
+in
+  generateElpa { }

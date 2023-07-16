@@ -43,37 +43,38 @@ let
     meta.mainProgram = pname;
   };
 
-in stdenv.mkDerivation rec {
-  pname = "keyd";
-  inherit version src;
+in
+  stdenv.mkDerivation rec {
+    pname = "keyd";
+    inherit version src;
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace DESTDIR= DESTDIR=${placeholder "out"} \
-      --replace /usr ""
+    postPatch = ''
+      substituteInPlace Makefile \
+        --replace DESTDIR= DESTDIR=${placeholder "out"} \
+        --replace /usr ""
 
-    substituteInPlace keyd.service \
-      --replace /usr/bin $out/bin
-  '';
+      substituteInPlace keyd.service \
+        --replace /usr/bin $out/bin
+    '';
 
-  buildInputs = [ systemd ];
+    buildInputs = [ systemd ];
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  # post-2.4.2 may need this to unbreak the test
-  # makeFlags = [ "SOCKET_PATH/run/keyd/keyd.socket" ];
+    # post-2.4.2 may need this to unbreak the test
+    # makeFlags = [ "SOCKET_PATH/run/keyd/keyd.socket" ];
 
-  postInstall = ''
-    ln -sf ${lib.getExe appMap} $out/bin/${appMap.pname}
-    rm -rf $out/etc
-  '';
+    postInstall = ''
+      ln -sf ${lib.getExe appMap} $out/bin/${appMap.pname}
+      rm -rf $out/etc
+    '';
 
-  passthru.tests.keyd = nixosTests.keyd;
+    passthru.tests.keyd = nixosTests.keyd;
 
-  meta = with lib; {
-    description = "A key remapping daemon for linux.";
-    license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "A key remapping daemon for linux.";
+      license = licenses.mit;
+      maintainers = with maintainers; [ peterhoeg ];
+      platforms = platforms.linux;
+    };
+  }

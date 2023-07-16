@@ -123,10 +123,12 @@ in {
           "VBoxSDL"
           "VirtualBoxVM"
         ]);
-      in mkIf cfg.enableHardening (builtins.listToAttrs (map (x: {
-        name = x;
-        value = mkSuid x;
-      }) executables));
+      in
+        mkIf cfg.enableHardening (builtins.listToAttrs (map (x: {
+          name = x;
+          value = mkSuid x;
+        }) executables))
+      ;
 
       users.groups.vboxusers.gid = config.ids.gids.vboxusers;
 

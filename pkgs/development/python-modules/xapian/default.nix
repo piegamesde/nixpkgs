@@ -7,43 +7,45 @@
   xapian,
 }:
 
-let pythonSuffix = lib.optionalString python.isPy3k "3";
-in buildPythonPackage rec {
-  pname = "xapian";
-  inherit (xapian) version;
-  format = "other";
+let
+  pythonSuffix = lib.optionalString python.isPy3k "3";
+in
+  buildPythonPackage rec {
+    pname = "xapian";
+    inherit (xapian) version;
+    format = "other";
 
-  src = fetchurl {
-    url =
-      "https://oligarchy.co.uk/xapian/${version}/xapian-bindings-${version}.tar.xz";
-    hash = "sha256-578eSYK5H4QSidGSFAIdiDccoqbHME31kEnX2ni4PO0=";
-  };
+    src = fetchurl {
+      url =
+        "https://oligarchy.co.uk/xapian/${version}/xapian-bindings-${version}.tar.xz";
+      hash = "sha256-578eSYK5H4QSidGSFAIdiDccoqbHME31kEnX2ni4PO0=";
+    };
 
-  configureFlags = [
-    "--with-python${pythonSuffix}"
-    "PYTHON${pythonSuffix}_LIB=${placeholder "out"}/${python.sitePackages}"
-  ];
+    configureFlags = [
+      "--with-python${pythonSuffix}"
+      "PYTHON${pythonSuffix}_LIB=${placeholder "out"}/${python.sitePackages}"
+    ];
 
-  preConfigure = ''
-    export XAPIAN_CONFIG=${xapian}/bin/xapian-config
-  '';
+    preConfigure = ''
+      export XAPIAN_CONFIG=${xapian}/bin/xapian-config
+    '';
 
-  buildInputs = [
-    sphinx
-    xapian
-  ];
+    buildInputs = [
+      sphinx
+      xapian
+    ];
 
-  doCheck = true;
+    doCheck = true;
 
-  checkPhase = ''
-    ${python.interpreter} python${pythonSuffix}/pythontest.py
-  '';
+    checkPhase = ''
+      ${python.interpreter} python${pythonSuffix}/pythontest.py
+    '';
 
-  meta = with lib; {
-    description = "Python Bindings for Xapian";
-    homepage = "https://xapian.org/";
-    changelog = "https://xapian.org/docs/xapian-bindings-${version}/NEWS";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ jonringer ];
-  };
-}
+    meta = with lib; {
+      description = "Python Bindings for Xapian";
+      homepage = "https://xapian.org/";
+      changelog = "https://xapian.org/docs/xapian-bindings-${version}/NEWS";
+      license = licenses.gpl2Plus;
+      maintainers = with maintainers; [ jonringer ];
+    };
+  }

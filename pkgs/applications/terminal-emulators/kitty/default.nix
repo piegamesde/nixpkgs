@@ -172,7 +172,7 @@ buildPythonApplication rec {
       ${python.pythonForBuild.interpreter} setup.py build-launcher
     ''}
     runHook postBuild
-  '';
+  '' ;
 
   nativeCheckInputs = [
     pillow

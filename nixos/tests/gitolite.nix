@@ -136,4 +136,4 @@ import ./make-test-python.nix ({
       with subtest("bob cannot clone alice-project.git"):
           client.fail("sudo -i -u bob git clone gitolite@server:alice-project.git")
     '';
-  })
+  } )

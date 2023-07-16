@@ -85,16 +85,18 @@ mkDerivation rec {
         "claudia-launcher" = "claudia_launcher.py";
         "cadence-session-start" = "cadence_session_start.py";
       };
-  in lib.mapAttrsToList (script: source: ''
-    rm -f ${script}
-    makeQtWrapper ${source} ${script} \
-      --prefix PATH : "${
-        lib.makeBinPath [
-          jack_capture # cadence-render
-          pulseaudioFull # cadence, cadence-session-start
-        ]
-      }"
-  '') scriptAndSource;
+  in
+    lib.mapAttrsToList (script: source: ''
+      rm -f ${script}
+      makeQtWrapper ${source} ${script} \
+        --prefix PATH : "${
+          lib.makeBinPath [
+            jack_capture # cadence-render
+            pulseaudioFull # cadence, cadence-session-start
+          ]
+        }"
+    '') scriptAndSource
+  ;
 
   meta = {
     homepage = "https://github.com/falkTX/Cadence/";

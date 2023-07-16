@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.gollum;
+let
+  cfg = config.services.gollum;
 
 in {
   options.services.gollum = {

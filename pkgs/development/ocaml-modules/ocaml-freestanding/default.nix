@@ -12,7 +12,8 @@
 # but can be built with different compilers, so
 # the ocamlPackages set is very useful.
 
-let pname = "ocaml-freestanding";
+let
+  pname = "ocaml-freestanding";
 
 in if lib.versionOlder ocaml.version "4.08" then
   builtins.throw "${pname} is not available for OCaml ${ocaml.version}"

@@ -103,4 +103,4 @@ import ./make-test-python.nix ({
           machine.log(output)
           assert output[-9:-1] == "SAFE :-}"
     '';
-  })
+  } )

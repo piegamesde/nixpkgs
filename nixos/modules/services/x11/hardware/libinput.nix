@@ -310,12 +310,13 @@ in {
 
     environment.systemPackages = [ pkgs.xorg.xf86inputlibinput ];
 
-    environment.etc = let cfgPath = "X11/xorg.conf.d/40-libinput.conf";
+    environment.etc = let
+      cfgPath = "X11/xorg.conf.d/40-libinput.conf";
     in {
       ${cfgPath} = {
         source = pkgs.xorg.xf86inputlibinput.out + "/share/" + cfgPath;
       };
-    };
+    } ;
 
     services.udev.packages = [ pkgs.libinput.out ];
 

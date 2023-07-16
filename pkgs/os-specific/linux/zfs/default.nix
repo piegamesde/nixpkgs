@@ -247,7 +247,7 @@ let
         for i in $out/libexec/zfs/zpool.d/*; do
           sed -i '2i${path}' $i
         done
-      '';
+      '' ;
 
       outputs = [ "out" ] ++ optionals buildUser [ "dev" ];
 

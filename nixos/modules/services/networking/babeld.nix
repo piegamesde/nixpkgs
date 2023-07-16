@@ -20,10 +20,11 @@ let
     (attrNames params);
 
   interfaceConfig = name:
-    let interface = getAttr name cfg.interfaces;
+    let
+      interface = getAttr name cfg.interfaces;
     in ''
       interface ${name} ${paramsString interface}
-    '';
+    '' ;
 
   configFile = with cfg;
     pkgs.writeText "babeld.conf" (''

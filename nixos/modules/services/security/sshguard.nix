@@ -21,10 +21,12 @@ let
       "sshg-fw-nft-sets"
     else
       "sshg-fw-ipset";
-  in pkgs.writeText "sshguard.conf" ''
-    BACKEND="${pkgs.sshguard}/libexec/${backend}"
-    LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
-  '';
+  in
+    pkgs.writeText "sshguard.conf" ''
+      BACKEND="${pkgs.sshguard}/libexec/${backend}"
+      LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
+    ''
+  ;
 
 in {
 
@@ -171,7 +173,9 @@ in {
             (optionalString (cfg.blacklist_threshold != null)
               "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
           ] ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist));
-        in "${pkgs.sshguard}/bin/sshguard ${args}";
+        in
+          "${pkgs.sshguard}/bin/sshguard ${args}"
+        ;
         Restart = "always";
         ProtectSystem = "strict";
         ProtectHome = "tmpfs";

@@ -274,4 +274,5 @@ let
       inherit gtk3;
     };
   };
-in openjdk
+in
+  openjdk

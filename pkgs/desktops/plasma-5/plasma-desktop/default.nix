@@ -136,7 +136,7 @@ mkDerivation {
   in [
     ''-DNIXPKGS_HWCLOCK=\"${lib.getBin util-linux}/bin/hwclock\"''
     ''-DNIXPKGS_GSETTINGS=\"${gsettings-wrapper}\"''
-  ];
+  ] ;
   postInstall = ''
     # Display ~/Desktop contents on the desktop by default.
     sed -i "''${!outputBin}/share/plasma/shells/org.kde.plasma.desktop/contents/defaults" \

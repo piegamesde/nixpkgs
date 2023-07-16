@@ -40,13 +40,13 @@ let
 
     enableParallelBuilding = true;
 
-    postInstall =
-      let dllExtension = stdenv.hostPlatform.extensions.sharedLibrary;
-      in ''
-        make install-private-headers
-        ln -s $out/bin/tclsh${release} $out/bin/tclsh
-        ln -s $out/lib/libtcl${release}${dllExtension} $out/lib/libtcl${dllExtension}
-      '';
+    postInstall = let
+      dllExtension = stdenv.hostPlatform.extensions.sharedLibrary;
+    in ''
+      make install-private-headers
+      ln -s $out/bin/tclsh${release} $out/bin/tclsh
+      ln -s $out/lib/libtcl${release}${dllExtension} $out/lib/libtcl${dllExtension}
+    '' ;
 
     meta = with lib; {
       description = "The Tcl scripting language";
@@ -72,5 +72,6 @@ let
 
   mkTclDerivation = callPackage ./mk-tcl-derivation.nix { tcl = baseInterp; };
 
-in baseInterp.overrideAttrs
-(self: { passthru = self.passthru // { inherit mkTclDerivation; }; })
+in
+  baseInterp.overrideAttrs
+  (self: { passthru = self.passthru // { inherit mkTclDerivation; }; })

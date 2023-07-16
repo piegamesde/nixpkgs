@@ -43,90 +43,91 @@ let
     (lib.lists.all (lib.attrsets.attrByPath [ "free" ] true))
   ];
 
-in stdenv.mkDerivation {
-  pname = "foomatic-db-ppds";
-  # the effective version is simply the
-  # highest version of all database packages
-  version = lib.trivial.pipe foomatic-db-packages [
-    (lib.lists.map (lib.attrsets.getAttr "version"))
-    (lib.lists.sort lib.strings.versionOlder)
-    lib.lists.reverseList
-    lib.lists.head
-  ];
+in
+  stdenv.mkDerivation {
+    pname = "foomatic-db-ppds";
+    # the effective version is simply the
+    # highest version of all database packages
+    version = lib.trivial.pipe foomatic-db-packages [
+      (lib.lists.map (lib.attrsets.getAttr "version"))
+      (lib.lists.sort lib.strings.versionOlder)
+      lib.lists.reverseList
+      lib.lists.head
+    ];
 
-  buildInputs = [
-    cups-filters
-    ghostscript
-    netpbm
-    perl
-    psutils
-  ];
+    buildInputs = [
+      cups-filters
+      ghostscript
+      netpbm
+      perl
+      psutils
+    ];
 
-  nativeBuildInputs = [
-    foomatic-db-combined
-    foomatic-db-engine
-    patchPpdFilesHook
-  ];
+    nativeBuildInputs = [
+      foomatic-db-combined
+      foomatic-db-engine
+      patchPpdFilesHook
+    ];
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p "${placeholder "out"}/share/cups/model"
-    foomatic-compiledb -j "$NIX_BUILD_CORES" -d "${
-      placeholder "out"
-    }/share/cups/model/foomatic-db-ppds"
-    runHook postInstall
-  '';
-
-  # Comments indicate the respective
-  # package the command is contained in.
-  ppdFileCommands = [
-    "cat"
-    "echo" # coreutils
-    "foomatic-rip" # cups-filters or foomatic-filters
-    "gs" # ghostscript
-    "pnmflip"
-    "pnmgamma"
-    "pnmnoraw" # netpbm
-    "perl" # perl
-    "psresize" # psutils
-    # These commands aren't packaged yet.
-    # ppd files using these likely won't work.
-    #"c2050" "c2070" "cjet" "lm1100"
-    #"pbm2l2030" "pbm2lwxl" "rastertophaser6100"
-  ];
-
-  # compress ppd files
-  postFixup = ''
-    echo 'compressing ppd files'
-    find -H "${
-      placeholder "out"
-    }/share/cups/model/foomatic-db-ppds" -type f -iname '*.ppd' -print0  \
-      | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
-  '';
-
-  meta = {
-    description = "OpenPrinting ppd files";
-    homepage = "https://openprinting.github.io/projects/02-foomatic/";
-    license = if isFree then lib.licenses.free else lib.licenses.unfree;
-    maintainers = [ lib.maintainers.yarny ];
-    # list printer manufacturers here so people
-    # searching for ppd files can find this package
-    longDescription = ''
-      All PPD files available in
-      OpenPrinting's Foomatic database.
-      This package contains about 8,800 PPD files,
-      for printers from
-      Alps, Anitech, Apollo, Apple, Avery, Brother, Canon,
-      Citizen, CItoh, Compaq, DEC, Dell, Dymo-CoStar, Epson,
-      Fujitsu, FujiXerox, Generic, Genicom, Gestetner,
-      Heidelberg, Hitachi, HP, IBM, Imagen, Imagistics,
-      InfoPrint, Infotec, Kodak, KONICAMINOLTA, Kyocera, Lanier,
-      Lexmark, Minolta, MinoltaQMS, Mitsubishi, NEC, NRG, Oce,
-      Oki, Olivetti, Panasonic, PCPI, Pentax, QMS, Raven, Ricoh,
-      Samsung, Savin, Seiko, Sharp, SiPix, Sony, Star, Tally,
-      Tektronix, TexasInstruments, Toshiba, Xante and Xerox.
+    installPhase = ''
+      runHook preInstall
+      mkdir -p "${placeholder "out"}/share/cups/model"
+      foomatic-compiledb -j "$NIX_BUILD_CORES" -d "${
+        placeholder "out"
+      }/share/cups/model/foomatic-db-ppds"
+      runHook postInstall
     '';
-  };
-}
+
+    # Comments indicate the respective
+    # package the command is contained in.
+    ppdFileCommands = [
+      "cat"
+      "echo" # coreutils
+      "foomatic-rip" # cups-filters or foomatic-filters
+      "gs" # ghostscript
+      "pnmflip"
+      "pnmgamma"
+      "pnmnoraw" # netpbm
+      "perl" # perl
+      "psresize" # psutils
+      # These commands aren't packaged yet.
+      # ppd files using these likely won't work.
+      #"c2050" "c2070" "cjet" "lm1100"
+      #"pbm2l2030" "pbm2lwxl" "rastertophaser6100"
+    ];
+
+    # compress ppd files
+    postFixup = ''
+      echo 'compressing ppd files'
+      find -H "${
+        placeholder "out"
+      }/share/cups/model/foomatic-db-ppds" -type f -iname '*.ppd' -print0  \
+        | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
+    '';
+
+    meta = {
+      description = "OpenPrinting ppd files";
+      homepage = "https://openprinting.github.io/projects/02-foomatic/";
+      license = if isFree then lib.licenses.free else lib.licenses.unfree;
+      maintainers = [ lib.maintainers.yarny ];
+      # list printer manufacturers here so people
+      # searching for ppd files can find this package
+      longDescription = ''
+        All PPD files available in
+        OpenPrinting's Foomatic database.
+        This package contains about 8,800 PPD files,
+        for printers from
+        Alps, Anitech, Apollo, Apple, Avery, Brother, Canon,
+        Citizen, CItoh, Compaq, DEC, Dell, Dymo-CoStar, Epson,
+        Fujitsu, FujiXerox, Generic, Genicom, Gestetner,
+        Heidelberg, Hitachi, HP, IBM, Imagen, Imagistics,
+        InfoPrint, Infotec, Kodak, KONICAMINOLTA, Kyocera, Lanier,
+        Lexmark, Minolta, MinoltaQMS, Mitsubishi, NEC, NRG, Oce,
+        Oki, Olivetti, Panasonic, PCPI, Pentax, QMS, Raven, Ricoh,
+        Samsung, Savin, Seiko, Sharp, SiPix, Sony, Star, Tally,
+        Tektronix, TexasInstruments, Toshiba, Xante and Xerox.
+      '';
+    };
+  }

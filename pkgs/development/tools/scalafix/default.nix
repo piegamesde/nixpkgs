@@ -22,36 +22,37 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-lDeg90L484MggtQ2a9OyHv4UcfLPjzG3OJZCaWW2AC8=";
   };
-in stdenv.mkDerivation {
-  pname = baseName;
-  inherit version;
+in
+  stdenv.mkDerivation {
+    pname = baseName;
+    inherit version;
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-    setJavaClassPath
-  ];
-  buildInputs = [ deps ];
+    nativeBuildInputs = [
+      makeWrapper
+      installShellFiles
+      setJavaClassPath
+    ];
+    buildInputs = [ deps ];
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  installPhase = ''
-    makeWrapper ${jre}/bin/java $out/bin/${baseName} \
-      --add-flags "-cp $CLASSPATH scalafix.cli.Cli"
+    installPhase = ''
+      makeWrapper ${jre}/bin/java $out/bin/${baseName} \
+        --add-flags "-cp $CLASSPATH scalafix.cli.Cli"
 
-    installShellCompletion --cmd ${baseName} \
-      --bash <($out/bin/${baseName} --bash) \
-      --zsh  <($out/bin/${baseName} --zsh)
-  '';
+      installShellCompletion --cmd ${baseName} \
+        --bash <($out/bin/${baseName} --bash) \
+        --zsh  <($out/bin/${baseName} --zsh)
+    '';
 
-  installCheckPhase = ''
-    $out/bin/${baseName} --version | grep -q "${version}"
-  '';
+    installCheckPhase = ''
+      $out/bin/${baseName} --version | grep -q "${version}"
+    '';
 
-  meta = with lib; {
-    description = "Refactoring and linting tool for Scala";
-    homepage = "https://scalacenter.github.io/scalafix/";
-    license = licenses.bsd3;
-    maintainers = [ maintainers.tomahna ];
-  };
-}
+    meta = with lib; {
+      description = "Refactoring and linting tool for Scala";
+      homepage = "https://scalacenter.github.io/scalafix/";
+      license = licenses.bsd3;
+      maintainers = [ maintainers.tomahna ];
+    };
+  }

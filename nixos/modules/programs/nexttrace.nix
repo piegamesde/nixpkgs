@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.programs.nexttrace;
+let
+  cfg = config.programs.nexttrace;
 
 in {
   options = {

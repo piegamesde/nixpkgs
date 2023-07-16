@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.services.asusd;
+let
+  cfg = config.services.asusd;
 in {
   options = {
     services.asusd = {
@@ -93,7 +94,7 @@ in {
       "asusd/fan_curves.ron" = maybeConfig "fan_curves.ron" cfg.fanCurvesConfig;
       "asusd/asusd_user_ledmodes.ron" =
         maybeConfig "asusd_user_ledmodes.ron" cfg.userLedModesConfig;
-    };
+    } ;
 
     services.dbus.enable = true;
     systemd.packages = [ pkgs.asusctl ];

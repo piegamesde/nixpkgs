@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.windowmaker;
+let
+  cfg = config.services.xserver.windowManager.windowmaker;
 in {
   ###### interface
   options = {

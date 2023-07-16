@@ -60,55 +60,59 @@ let
 
   isWindows = stdenv.targetPlatform.uname.system == "Windows";
   isCross = stdenv.hostPlatform != stdenv.targetPlatform;
-in stdenv.mkDerivation {
-  pname = "dxvk";
-  inherit (srcs.${dxvkVersion}) version src patches;
+in
+  stdenv.mkDerivation {
+    pname = "dxvk";
+    inherit (srcs.${dxvkVersion}) version src patches;
 
-  nativeBuildInputs = [
-    glslang
-    meson
-    ninja
-  ];
-  buildInputs = lib.optionals isWindows [ windows.pthreads ]
-    ++ lib.optionals isDxvk2 ([
-      spirv-headers
-      vulkan-headers
-    ] ++ lib.optional (!isWindows && sdl2Support) SDL2
-      ++ lib.optional (!isWindows && glfwSupport) glfw);
+    nativeBuildInputs = [
+      glslang
+      meson
+      ninja
+    ];
+    buildInputs = lib.optionals isWindows [ windows.pthreads ]
+      ++ lib.optionals isDxvk2 ([
+        spirv-headers
+        vulkan-headers
+      ] ++ lib.optional (!isWindows && sdl2Support) SDL2
+        ++ lib.optional (!isWindows && glfwSupport) glfw);
 
-  postPatch = lib.optionalString isDxvk2 ''
-    substituteInPlace "subprojects/libdisplay-info/tool/gen-search-table.py" \
-      --replace "/usr/bin/env python3" "${
-        lib.getBin pkgsBuildHost.python3
-      }/bin/python3"
-  '';
+    postPatch = lib.optionalString isDxvk2 ''
+      substituteInPlace "subprojects/libdisplay-info/tool/gen-search-table.py" \
+        --replace "/usr/bin/env python3" "${
+          lib.getBin pkgsBuildHost.python3
+        }/bin/python3"
+    '';
 
-  # Build with the Vulkan SDK in nixpkgs.
-  preConfigure = ''
-    rm -rf include/spirv/include include/vulkan/include
-    mkdir -p include/spirv/include include/vulkan/include
-  '';
+    # Build with the Vulkan SDK in nixpkgs.
+    preConfigure = ''
+      rm -rf include/spirv/include include/vulkan/include
+      mkdir -p include/spirv/include include/vulkan/include
+    '';
 
-  mesonFlags = let arch = if stdenv.is32bit then "32" else "64";
-  in [
-    "--buildtype"
-    "release"
-    "--prefix"
-    "${placeholder "out"}"
-  ] ++ lib.optionals isCross [
-    "--cross-file"
-    "build-win${arch}.txt"
-  ] ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw";
+    mesonFlags = let
+      arch = if stdenv.is32bit then "32" else "64";
+    in
+      [
+        "--buildtype"
+        "release"
+        "--prefix"
+        "${placeholder "out"}"
+      ] ++ lib.optionals isCross [
+        "--cross-file"
+        "build-win${arch}.txt"
+      ] ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw"
+    ;
 
-  doCheck = isDxvk2 && !isCross;
+    doCheck = isDxvk2 && !isCross;
 
-  meta = {
-    description = "A Vulkan-based translation layer for Direct3D 9/10/11";
-    homepage = "https://github.com/doitsujin/dxvk";
-    changelog = "https://github.com/doitsujin/dxvk/releases";
-    maintainers = [ lib.maintainers.reckenrode ];
-    license = lib.licenses.zlib;
-    platforms = lib.platforms.windows
-      ++ lib.optionals isDxvk2 lib.platforms.linux;
-  };
-}
+    meta = {
+      description = "A Vulkan-based translation layer for Direct3D 9/10/11";
+      homepage = "https://github.com/doitsujin/dxvk";
+      changelog = "https://github.com/doitsujin/dxvk/releases";
+      maintainers = [ lib.maintainers.reckenrode ];
+      license = lib.licenses.zlib;
+      platforms = lib.platforms.windows
+        ++ lib.optionals isDxvk2 lib.platforms.linux;
+    };
+  }

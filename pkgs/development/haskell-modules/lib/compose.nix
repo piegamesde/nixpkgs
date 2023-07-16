@@ -55,7 +55,9 @@ rec {
         isPath = x: builtins.substring 0 1 (toString x) == "/";
         generateExprs =
           if isPath src then self.callCabal2nix else self.callHackage;
-      in generateExprs name src { }) overrides;
+      in
+        generateExprs name src { }
+    ) overrides;
 
   /* doCoverage modifies a haskell package to enable the generation
      and installation of a coverage report.
@@ -390,8 +392,10 @@ rec {
             (optional ignoreEmptyImports "--ignore-empty-imports"
               ++ optional ignoreMainModule "--ignore-main-module"
               ++ map (pkg: "--ignore-package ${pkg}") ignorePackages);
-        in "${pkgs.haskellPackages.packunused}/bin/packunused"
-        + optionalString (args != "") " ${args}";
+        in
+          "${pkgs.haskellPackages.packunused}/bin/packunused"
+          + optionalString (args != "") " ${args}"
+      ;
     }) (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv);
 
   buildStackProject = pkgs.callPackage ../generic-stack-builder.nix { };
@@ -445,14 +449,17 @@ rec {
 
   # Some information about which phases should be run.
   controlPhases = ghc:
-    let inherit (ghcInfo ghc) isCross;
-    in {
-      doCheck ? !isCross && (lib.versionOlder "7.4" ghc.version),
-      doBenchmark ? false,
-      ...
-    }: {
-      inherit doCheck doBenchmark;
-    };
+    let
+      inherit (ghcInfo ghc) isCross;
+    in
+      {
+        doCheck ? !isCross && (lib.versionOlder "7.4" ghc.version),
+        doBenchmark ? false,
+        ...
+      }: {
+        inherit doCheck doBenchmark;
+      }
+  ;
 
   # Utility to convert a directory full of `cabal2nix`-generated files into a
   # package override set
@@ -473,7 +480,9 @@ rec {
         value = self.callPackage (directory + "/${file}") { };
       };
 
-    in builtins.listToAttrs (map toKeyVal haskellPaths);
+    in
+      builtins.listToAttrs (map toKeyVal haskellPaths)
+  ;
 
   /* INTERNAL function retained for backwards compatibility, use
      haskell.packages.*.generateOptparseApplicativeCompletions instead!
@@ -556,14 +565,16 @@ rec {
                 val = drv;
               } ]) (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
       });
-  in overrideCabal (old: {
-    benchmarkPkgconfigDepends =
-      propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
-    executablePkgconfigDepends =
-      propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
-    libraryPkgconfigDepends =
-      propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
-    testPkgconfigDepends =
-      propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
-  });
+  in
+    overrideCabal (old: {
+      benchmarkPkgconfigDepends =
+        propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
+      executablePkgconfigDepends =
+        propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
+      libraryPkgconfigDepends =
+        propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
+      testPkgconfigDepends =
+        propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
+    })
+  ;
 }

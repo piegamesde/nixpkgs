@@ -14,30 +14,31 @@ let
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
 
-in appimageTools.wrapType2 {
-  inherit pname version src;
+in
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    mv $out/bin/${pname}-${version} $out/bin/${pname}
+    extraInstallCommands = ''
+      mv $out/bin/${pname}-${version} $out/bin/${pname}
 
-    mkdir -p $out/share/${pname}
-    cp -a ${appimageContents}/locales $out/share/${pname}
-    cp -a ${appimageContents}/resources $out/share/${pname}
+      mkdir -p $out/share/${pname}
+      cp -a ${appimageContents}/locales $out/share/${pname}
+      cp -a ${appimageContents}/resources $out/share/${pname}
 
-    install -m 444 -D ${appimageContents}/raven-reader.desktop -t $out/share/applications
+      install -m 444 -D ${appimageContents}/raven-reader.desktop -t $out/share/applications
 
-    cp -a ${appimageContents}/usr/share/icons $out/share/
+      cp -a ${appimageContents}/usr/share/icons $out/share/
 
-    substituteInPlace $out/share/applications/raven-reader.desktop \
-      --replace 'Exec=AppRun' 'Exec=raven-reader'
-  '';
+      substituteInPlace $out/share/applications/raven-reader.desktop \
+        --replace 'Exec=AppRun' 'Exec=raven-reader'
+    '';
 
-  meta = with lib; {
-    description =
-      "Open source desktop news reader with flexible settings to optimize your experience";
-    homepage = "https://ravenreader.app/";
-    license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Open source desktop news reader with flexible settings to optimize your experience";
+      homepage = "https://ravenreader.app/";
+      license = licenses.mit;
+      maintainers = with maintainers; [ wolfangaukang ];
+      platforms = [ "x86_64-linux" ];
+    };
+  }

@@ -242,7 +242,7 @@ in {
           '';
         };
       };
-    };
+    } ;
 
     systemd.timers.peering-manager-housekeeping = {
       description = "Run Peering Manager housekeeping job";

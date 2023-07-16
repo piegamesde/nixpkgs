@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.sonarr;
+let
+  cfg = config.services.sonarr;
 in {
   options = {
     services.sonarr = {

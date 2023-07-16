@@ -33,35 +33,36 @@ let
     cargoHash = "sha256-MFYMP6eQS0wJbHmTRKaKajSborzaW6dEfshtAZcP+xs=";
   };
 
-in stdenv.mkDerivation {
-  pname = "nixpkgs-hammering";
+in
+  stdenv.mkDerivation {
+    pname = "nixpkgs-hammering";
 
-  inherit version src;
+    inherit version src;
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ python3 ];
+    buildInputs = [ python3 ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    AST_CHECK_NAMES=$(find ${rust-checks}/bin -maxdepth 1 -type f -printf "%f:")
+      AST_CHECK_NAMES=$(find ${rust-checks}/bin -maxdepth 1 -type f -printf "%f:")
 
-    install -Dt $out/bin tools/nixpkgs-hammer
-    wrapProgram $out/bin/nixpkgs-hammer \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          nix
-          rust-checks
-        ]
-      } \
-      --set AST_CHECK_NAMES ''${AST_CHECK_NAMES%:}
+      install -Dt $out/bin tools/nixpkgs-hammer
+      wrapProgram $out/bin/nixpkgs-hammer \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            nix
+            rust-checks
+          ]
+        } \
+        --set AST_CHECK_NAMES ''${AST_CHECK_NAMES%:}
 
-    cp -r lib overlays $out
+      cp -r lib overlays $out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = meta // { mainProgram = "nixpkgs-hammer"; };
-}
+    meta = meta // { mainProgram = "nixpkgs-hammer"; };
+  }
 

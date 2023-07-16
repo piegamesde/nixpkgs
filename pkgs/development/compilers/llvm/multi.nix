@@ -49,4 +49,5 @@ let
     gccForLibs = gcc_multi_sysroot;
   };
 
-in clangMulti
+in
+  clangMulti

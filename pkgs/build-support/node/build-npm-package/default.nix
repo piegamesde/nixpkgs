@@ -58,25 +58,26 @@ let
 
   inherit (npmHooks.override { inherit nodejs; })
     npmConfigHook npmBuildHook npmInstallHook;
-in stdenv.mkDerivation (args // {
-  inherit npmDeps npmBuildScript;
+in
+  stdenv.mkDerivation (args // {
+    inherit npmDeps npmBuildScript;
 
-  nativeBuildInputs = nativeBuildInputs ++ [
-    nodejs
-    npmConfigHook
-    npmBuildHook
-    npmInstallHook
-  ];
-  buildInputs = buildInputs ++ [ nodejs ];
+    nativeBuildInputs = nativeBuildInputs ++ [
+      nodejs
+      npmConfigHook
+      npmBuildHook
+      npmInstallHook
+    ];
+    buildInputs = buildInputs ++ [ nodejs ];
 
-  strictDeps = true;
+    strictDeps = true;
 
-  # Stripping takes way too long with the amount of files required by a typical Node.js project.
-  dontStrip = args.dontStrip or true;
+    # Stripping takes way too long with the amount of files required by a typical Node.js project.
+    dontStrip = args.dontStrip or true;
 
-  passthru = { inherit npmDeps; } // (args.passthru or { });
+    passthru = { inherit npmDeps; } // (args.passthru or { });
 
-  meta = (args.meta or { }) // {
-    platforms = args.meta.platforms or nodejs.meta.platforms;
-  };
-})
+    meta = (args.meta or { }) // {
+      platforms = args.meta.platforms or nodejs.meta.platforms;
+    };
+  })

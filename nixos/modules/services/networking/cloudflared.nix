@@ -307,24 +307,26 @@ in {
         };
         mkConfigFile =
           pkgs.writeText "cloudflared.yml" (builtins.toJSON fullConfig);
-      in nameValuePair "cloudflared-tunnel-${name}" ({
-        after = [
-          "network.target"
-          "network-online.target"
-        ];
-        wants = [
-          "network.target"
-          "network-online.target"
-        ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          User = cfg.user;
-          Group = cfg.group;
-          ExecStart =
-            "${cfg.package}/bin/cloudflared tunnel --config=${mkConfigFile} --no-autoupdate run";
-          Restart = "on-failure";
-        };
-      })) config.services.cloudflared.tunnels;
+      in
+        nameValuePair "cloudflared-tunnel-${name}" ({
+          after = [
+            "network.target"
+            "network-online.target"
+          ];
+          wants = [
+            "network.target"
+            "network-online.target"
+          ];
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            User = cfg.user;
+            Group = cfg.group;
+            ExecStart =
+              "${cfg.package}/bin/cloudflared tunnel --config=${mkConfigFile} --no-autoupdate run";
+            Restart = "on-failure";
+          };
+        })
+    ) config.services.cloudflared.tunnels;
 
     users.users = mkIf (cfg.user == "cloudflared") {
       cloudflared = {

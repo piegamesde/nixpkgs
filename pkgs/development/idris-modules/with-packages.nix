@@ -8,18 +8,20 @@
 }:
 packages:
 
-let paths = lib.closePropagation packages;
-in lib.appendToName "with-packages" (symlinkJoin {
+let
+  paths = lib.closePropagation packages;
+in
+  lib.appendToName "with-packages" (symlinkJoin {
 
-  inherit (idris) name;
+    inherit (idris) name;
 
-  paths = paths ++ [ idris ];
+    paths = paths ++ [ idris ];
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [ makeWrapper ];
 
-  postBuild = ''
-    wrapProgram $out/bin/idris \
-      --set IDRIS_LIBRARY_PATH $out/libs
-  '';
+    postBuild = ''
+      wrapProgram $out/bin/idris \
+        --set IDRIS_LIBRARY_PATH $out/libs
+    '';
 
-})
+  })

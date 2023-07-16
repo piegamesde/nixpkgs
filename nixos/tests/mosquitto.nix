@@ -147,7 +147,7 @@ import ./make-test-python.nix ({
 
       client1 = client;
       client2 = client;
-    };
+    } ;
 
     testScript = ''
       import json
@@ -252,4 +252,4 @@ import ./make-test-python.nix ({
                   }))
               ])
     '';
-  })
+  } )

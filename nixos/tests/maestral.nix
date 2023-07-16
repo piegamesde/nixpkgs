@@ -52,13 +52,14 @@ import ./make-test-python.nix ({
             plasma-powerdevil.enable = false;
           };
         };
-    };
+    } ;
 
     testScript = {
         nodes,
         ...
       }:
-      let user = nodes.cli.config.users.users.alice;
+      let
+        user = nodes.cli.config.users.users.alice;
       in ''
         start_all()
 
@@ -73,5 +74,5 @@ import ./make-test-python.nix ({
           gui.succeed("xauth merge ${user.home}/.Xauthority")
           gui.wait_for_window("^Desktop ")
           gui.wait_for_unit("maestral.service", "${user.name}")
-      '';
+      '' ;
   })

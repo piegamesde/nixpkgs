@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.opentracker;
+let
+  cfg = config.services.opentracker;
 in {
   options.services.opentracker = {
     enable = mkEnableOption (lib.mdDoc "opentracker");

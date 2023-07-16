@@ -33,7 +33,7 @@ import ./make-test-python.nix ({
               modsecurity on;
               modsecurity_rules_file ${modsecurity_conf};
             '';
-          };
+          } ;
         };
       };
     testScript = ''

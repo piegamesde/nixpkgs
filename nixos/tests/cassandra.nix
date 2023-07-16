@@ -149,4 +149,4 @@ import ./make-test-python.nix ({
     '';
 
     passthru = { inherit testPackage; };
-  })
+  } )

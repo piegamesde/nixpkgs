@@ -56,21 +56,23 @@ let
         initrd = "/boot/initrd";
       };
 
-    in menuBuilderGrub2 finalCfg [
-      { class = "installer"; }
-      {
-        class = "nomodeset";
-        params = "nomodeset";
-      }
-      {
-        class = "copytoram";
-        params = "copytoram";
-      }
-      {
-        class = "debug";
-        params = "debug";
-      }
-    ];
+    in
+      menuBuilderGrub2 finalCfg [
+        { class = "installer"; }
+        {
+          class = "nomodeset";
+          params = "nomodeset";
+        }
+        {
+          class = "copytoram";
+          params = "copytoram";
+        }
+        {
+          class = "debug";
+          params = "debug";
+        }
+      ]
+  ;
 
   # Timeout in syslinux is in units of 1/10 of a second.
   # null means max timeout (35996, just under 1h in 1/10 seconds)
@@ -712,7 +714,9 @@ in {
         length = stringLength config.isoImage.volumeID;
         howmany = toString length;
         toomany = toString (length - 32);
-      in "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32.";
+      in
+        "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32."
+      ;
     } ];
 
     boot.loader.grub.version = 2;

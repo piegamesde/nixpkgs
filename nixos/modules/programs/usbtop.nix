@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.usbtop;
+let
+  cfg = config.programs.usbtop;
 in {
   options = {
     programs.usbtop.enable =

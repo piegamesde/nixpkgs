@@ -52,30 +52,31 @@ let
     outputHashAlgo = "sha256";
     outputHash = "sha256-7R6nadWFv7A5Hv14D9egsTD/zcKK5uK9LQlHmwtbKdE=";
   };
-in stdenvNoCC.mkDerivation {
-  pname = "phpactor";
-  inherit src version;
+in
+  stdenvNoCC.mkDerivation {
+    pname = "phpactor";
+    inherit src version;
 
-  buildInputs = [ php ];
+    buildInputs = [ php ];
 
-  dontBuild = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/share/php/phpactor $out/bin
-    cp -r . $out/share/php/phpactor
-    cp -r ${vendor}/vendor $out/share/php/phpactor
-    ln -s $out/share/php/phpactor/bin/phpactor $out/bin/phpactor
+      mkdir -p $out/share/php/phpactor $out/bin
+      cp -r . $out/share/php/phpactor
+      cp -r ${vendor}/vendor $out/share/php/phpactor
+      ln -s $out/share/php/phpactor/bin/phpactor $out/bin/phpactor
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    description = "Mainly a PHP Language Server";
-    homepage = "https://github.com/phpactor/phpactor";
-    license = lib.licenses.mit;
-    maintainers = lib.teams.php.members ++ [ lib.maintainers.ryantm ];
-  };
+    meta = {
+      description = "Mainly a PHP Language Server";
+      homepage = "https://github.com/phpactor/phpactor";
+      license = lib.licenses.mit;
+      maintainers = lib.teams.php.members ++ [ lib.maintainers.ryantm ];
+    };
 
-}
+  }

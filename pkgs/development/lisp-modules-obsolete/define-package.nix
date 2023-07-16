@@ -133,4 +133,5 @@ let
     meta = { inherit description version; } // meta;
   };
   package = basePackage // (overrides basePackage);
-in stdenv.mkDerivation package
+in
+  stdenv.mkDerivation package

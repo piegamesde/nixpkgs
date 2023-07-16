@@ -441,7 +441,7 @@ in {
         # migrate & seed db
         ${pkgs.php}/bin/php artisan key:generate --force
         ${pkgs.php}/bin/php artisan setup:production -v --force
-      '';
+      '' ;
     };
 
     systemd.services.monica-scheduler = {

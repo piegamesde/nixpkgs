@@ -21,7 +21,8 @@ import ./make-test-python.nix ({
         };
       };
 
-    testScript = let port = 8080;
+    testScript = let
+      port = 8080;
     in ''
       machine.wait_for_unit("isso.service")
 
@@ -31,5 +32,5 @@ import ./make-test-python.nix ({
       machine.succeed("curl --fail http://localhost:${
         toString port
       }/js/embed.min.js")
-    '';
+    '' ;
   })

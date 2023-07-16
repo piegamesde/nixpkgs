@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
     ...
   }:
 
-  let configDir = "/var/lib/foobar";
+  let
+    configDir = "/var/lib/foobar";
   in {
     name = "home-assistant";
     meta.maintainers = lib.teams.home-assistant.members;
@@ -119,7 +120,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let system = nodes.hass.system.build.toplevel;
+      let
+        system = nodes.hass.system.build.toplevel;
       in ''
         import json
 
@@ -207,5 +209,5 @@ import ./make-test-python.nix ({
         with subtest("Check systemd unit hardening"):
             hass.log(hass.succeed("systemctl cat home-assistant.service"))
             hass.log(hass.succeed("systemd-analyze security home-assistant.service"))
-      '';
-  })
+      '' ;
+  } )

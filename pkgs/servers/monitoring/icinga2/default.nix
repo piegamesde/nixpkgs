@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     "-DICINGA2_GROUP=icinga2"
     "-DICINGA2_GIT_VERSION_INFO=OFF"
     "-DUSE_SYSTEMD=ON"
-  ];
+  ] ;
 
   outputs = [
     "out"

@@ -66,50 +66,51 @@ let
     dbus
   ];
 
-in stdenv.mkDerivation rec {
-  pname = "chromedriver";
-  version = upstream-info.version;
+in
+  stdenv.mkDerivation rec {
+    pname = "chromedriver";
+    version = upstream-info.version;
 
-  src = fetchurl {
-    url =
-      "https://chromedriver.storage.googleapis.com/${version}/chromedriver_${spec.system}.zip";
-    sha256 = spec.sha256;
-  };
+    src = fetchurl {
+      url =
+        "https://chromedriver.storage.googleapis.com/${version}/chromedriver_${spec.system}.zip";
+      sha256 = spec.sha256;
+    };
 
-  nativeBuildInputs = [
-    unzip
-    makeWrapper
-  ];
-
-  unpackPhase = "unzip $src";
-
-  installPhase = ''
-    install -m755 -D chromedriver $out/bin/chromedriver
-  '' + lib.optionalString (!stdenv.isDarwin) ''
-    patchelf --set-interpreter ${glibc.out}/lib/ld-linux-x86-64.so.2 $out/bin/chromedriver
-    wrapProgram "$out/bin/chromedriver" --prefix LD_LIBRARY_PATH : "${libs}"
-  '';
-
-  passthru.tests.version = testers.testVersion { package = chromedriver; };
-
-  meta = with lib; {
-    homepage = "https://chromedriver.chromium.org/";
-    description = "A WebDriver server for running Selenium tests on Chrome";
-    longDescription = ''
-      WebDriver is an open source tool for automated testing of webapps across
-      many browsers. It provides capabilities for navigating to web pages, user
-      input, JavaScript execution, and more. ChromeDriver is a standalone
-      server that implements the W3C WebDriver standard.
-    '';
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.bsd3;
-    maintainers = with maintainers; [
-      goibhniu
-      marsam
-      primeos
+    nativeBuildInputs = [
+      unzip
+      makeWrapper
     ];
-    # Note from primeos: By updating Chromium I also update Google Chrome and
-    # ChromeDriver.
-    platforms = attrNames allSpecs;
-  };
-}
+
+    unpackPhase = "unzip $src";
+
+    installPhase = ''
+      install -m755 -D chromedriver $out/bin/chromedriver
+    '' + lib.optionalString (!stdenv.isDarwin) ''
+      patchelf --set-interpreter ${glibc.out}/lib/ld-linux-x86-64.so.2 $out/bin/chromedriver
+      wrapProgram "$out/bin/chromedriver" --prefix LD_LIBRARY_PATH : "${libs}"
+    '';
+
+    passthru.tests.version = testers.testVersion { package = chromedriver; };
+
+    meta = with lib; {
+      homepage = "https://chromedriver.chromium.org/";
+      description = "A WebDriver server for running Selenium tests on Chrome";
+      longDescription = ''
+        WebDriver is an open source tool for automated testing of webapps across
+        many browsers. It provides capabilities for navigating to web pages, user
+        input, JavaScript execution, and more. ChromeDriver is a standalone
+        server that implements the W3C WebDriver standard.
+      '';
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.bsd3;
+      maintainers = with maintainers; [
+        goibhniu
+        marsam
+        primeos
+      ];
+      # Note from primeos: By updating Chromium I also update Google Chrome and
+      # ChromeDriver.
+      platforms = attrNames allSpecs;
+    };
+  }

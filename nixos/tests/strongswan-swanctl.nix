@@ -51,7 +51,8 @@ import ./make-test-python.nix ({
           config,
           ...
         }:
-        let strongswan = config.services.strongswan-swanctl.package;
+        let
+          strongswan = config.services.strongswan-swanctl.package;
         in {
           virtualisation.vlans = [
             0
@@ -102,13 +103,14 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        } ;
 
       carol = {
           config,
           ...
         }:
-        let strongswan = config.services.strongswan-swanctl.package;
+        let
+          strongswan = config.services.strongswan-swanctl.package;
         in {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -151,11 +153,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        } ;
 
     };
     testScript = ''
       start_all()
       carol.wait_until_succeeds("ping -c 1 alice")
     '';
-  })
+  } )

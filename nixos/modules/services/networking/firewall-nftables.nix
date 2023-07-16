@@ -157,7 +157,7 @@ in {
                 "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
                 ${optionalString (udpSet != "")
                 "${ifaceExpr} udp dport { ${udpSet} } accept"}
-              '') cfg.allInterfaces)
+              '' ) cfg.allInterfaces)
           }
 
           ${

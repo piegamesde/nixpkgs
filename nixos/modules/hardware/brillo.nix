@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.hardware.brillo;
+let
+  cfg = config.hardware.brillo;
 in {
   options = {
     hardware.brillo = {

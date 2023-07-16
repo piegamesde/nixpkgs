@@ -47,10 +47,12 @@ import ./make-test-python.nix ({
           return EXIT_SUCCESS;
         }
       '';
-    in pkgs.runCommand "mpitest" { } ''
-      mkdir -p $out/bin
-      ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
-    '';
+    in
+      pkgs.runCommand "mpitest" { } ''
+        mkdir -p $out/bin
+        ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
+      ''
+    ;
   in {
     name = "slurm";
 
@@ -85,7 +87,8 @@ import ./make-test-python.nix ({
           pkgs,
           ...
         }:
-        let passFile = pkgs.writeText "dbdpassword" "password123";
+        let
+          passFile = pkgs.writeText "dbdpassword" "password123";
         in {
           networking.firewall.enable = false;
           systemd.tmpfiles.rules =
@@ -113,12 +116,12 @@ import ./make-test-python.nix ({
               innodb_lock_wait_timeout = 900;
             };
           };
-        };
+        } ;
 
       node1 = computeNode;
       node2 = computeNode;
       node3 = computeNode;
-    };
+    } ;
 
     testScript = ''
       start_all()
@@ -160,4 +163,4 @@ import ./make-test-python.nix ({
       with subtest("run_PMIx_mpitest"):
           submit.succeed("srun -N 3 --mpi=pmix mpitest | grep size=3")
     '';
-  })
+  } )

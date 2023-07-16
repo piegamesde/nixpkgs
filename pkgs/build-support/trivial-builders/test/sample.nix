@@ -4,7 +4,8 @@
     overlays = [ ];
   }
 }:
-let inherit (pkgs) figlet zlib hello writeText runCommand;
+let
+  inherit (pkgs) figlet zlib hello writeText runCommand;
 in {
   hello = hello;
   figlet = figlet;

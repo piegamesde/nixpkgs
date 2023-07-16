@@ -2,7 +2,8 @@ import ../make-test-python.nix ({
     pkgs,
     ...
   }:
-  let testdir = pkgs.writeTextDir "www/info.php" "<?php phpinfo();";
+  let
+    testdir = pkgs.writeTextDir "www/info.php" "<?php phpinfo();";
 
   in {
     name = "unit-php-test";
@@ -54,4 +55,4 @@ import ../make-test-python.nix ({
 
       machine.shutdown()
     '';
-  })
+  } )

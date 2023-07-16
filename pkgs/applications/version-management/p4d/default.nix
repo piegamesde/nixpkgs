@@ -27,35 +27,37 @@ let
         "2500a23fe482a303bd400f0de460b7624ad3f940fef45246004b9f956e90ea45";
     };
   };
-in stdenv.mkDerivation {
-  pname = "p4d";
-  version = "2022.1.2305383";
+in
+  stdenv.mkDerivation {
+    pname = "p4d";
+    version = "2022.1.2305383";
 
-  src = assert lib.assertMsg (builtins.hasAttr stdenv.hostPlatform.system srcs)
-    "p4d is not available for ${stdenv.hostPlatform.system}";
-    srcs.${stdenv.hostPlatform.system};
+    src =
+      assert lib.assertMsg (builtins.hasAttr stdenv.hostPlatform.system srcs)
+        "p4d is not available for ${stdenv.hostPlatform.system}";
+      srcs.${stdenv.hostPlatform.system};
 
-  sourceRoot = ".";
+    sourceRoot = ".";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  dontBuild = true;
+    dontBuild = true;
 
-  installPhase = ''
-    install -D -t $out/bin p4broker p4d p4p
-    install -D -t $out/doc/p4d -m 0644 *.txt
-  '';
+    installPhase = ''
+      install -D -t $out/bin p4broker p4d p4p
+      install -D -t $out/doc/p4d -m 0644 *.txt
+    '';
 
-  meta = with lib; {
-    description = "Perforce Helix Core Server";
-    homepage = "https://www.perforce.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    mainProgram = "p4d";
-    platforms = builtins.attrNames srcs;
-    maintainers = with maintainers; [
-      corngood
-      impl
-    ];
-  };
-}
+    meta = with lib; {
+      description = "Perforce Helix Core Server";
+      homepage = "https://www.perforce.com";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.unfree;
+      mainProgram = "p4d";
+      platforms = builtins.attrNames srcs;
+      maintainers = with maintainers; [
+        corngood
+        impl
+      ];
+    };
+  }

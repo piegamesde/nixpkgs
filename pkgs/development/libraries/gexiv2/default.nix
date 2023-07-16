@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  preCheck = let libSuffix = if stdenv.isDarwin then "2.dylib" else "so.2";
+  preCheck = let
+    libSuffix = if stdenv.isDarwin then "2.dylib" else "so.2";
   in ''
     # Our gobject-introspection patches make the shared library paths absolute
     # in the GIR files. When running unit tests, the library is not yet installed,
@@ -66,7 +67,7 @@ stdenv.mkDerivation rec {
     # We are using a symlink that will be overridden during installation.
     mkdir -p $out/lib
     ln -s $PWD/gexiv2/libgexiv2.${libSuffix} $out/lib/libgexiv2.${libSuffix}
-  '';
+  '' ;
 
   passthru = {
     updateScript = gnome.updateScript {

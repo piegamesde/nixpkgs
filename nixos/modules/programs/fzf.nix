@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.programs.fzf;
+let
+  cfg = config.programs.fzf;
 in {
   options = {
     programs.fzf = {

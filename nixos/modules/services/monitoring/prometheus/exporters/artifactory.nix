@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.artifactory;
+let
+  cfg = config.services.prometheus.exporters.artifactory;
 in {
   port = 9531;
   extraOpts = {

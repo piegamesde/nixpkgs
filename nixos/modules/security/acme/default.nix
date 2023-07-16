@@ -136,7 +136,7 @@ let
       # Run the start script as root
       ExecStart = "+" + (pkgs.writeShellScript "acme-fixperms" script);
     };
-  };
+  } ;
 
   certToConfig = cert: data:
     let
@@ -477,7 +477,7 @@ let
           chmod 640 out/*
         '';
       };
-    };
+    } ;
 
   certConfigs = mapAttrs certToConfig cfg.certs;
 
@@ -679,7 +679,7 @@ let
           '';
         };
       };
-    };
+    } ;
 
   certOpts = {
       name,
@@ -939,86 +939,89 @@ in {
         Setting a custom webroot for extra domains is not possible, instead use separate certs.
       '') cfg.certs);
 
-    assertions = let certs = attrValues cfg.certs;
-    in [
-      {
-        assertion = cfg.email != null
-          || all (certOpts: certOpts.email != null) certs;
-        message = ''
-          You must define `security.acme.certs.<name>.email` or
-          `security.acme.email` to register with the CA. Note that using
-          many different addresses for certs may trigger account rate limits.
-        '';
-      }
-      {
-        assertion = cfg.acceptTerms;
-        message = ''
-          You must accept the CA's terms of service before using
-          the ACME module by setting `security.acme.acceptTerms`
-          to `true`. For Let's Encrypt's ToS see https://letsencrypt.org/repository/
-        '';
-      }
-    ] ++ (builtins.concatLists (mapAttrsToList (cert: data: [
-      {
-        assertion = data.user == "_mkRemovedOptionModule";
-        message = ''
-          The option definition `security.acme.certs.${cert}.user' no longer has any effect; Please remove it.
-          Certificate user is now hard coded to the "acme" user. If you would
-          like another user to have access, consider adding them to the
-          "acme" group or changing security.acme.certs.${cert}.group.
-        '';
-      }
-      {
-        assertion = data.allowKeysForGroup == "_mkRemovedOptionModule";
-        message = ''
-          The option definition `security.acme.certs.${cert}.allowKeysForGroup' no longer has any effect; Please remove it.
-          All certs are readable by the configured group. If this is undesired,
-          consider changing security.acme.certs.${cert}.group to an unused group.
-        '';
-      }
-      # * in the cert value breaks building of systemd services, and makes
-      # referencing them as a user quite weird too. Best practice is to use
-      # the domain option.
-      {
-        assertion = !hasInfix "*" cert;
-        message = ''
-          The cert option path `security.acme.certs.${cert}.dnsProvider`
-          cannot contain a * character.
-          Instead, set `security.acme.certs.${cert}.domain = "${cert}";`
-          and remove the wildcard from the path.
-        '';
-      }
-      {
-        assertion = data.dnsProvider == null || data.webroot == null;
-        message = ''
-          Options `security.acme.certs.${cert}.dnsProvider` and
-          `security.acme.certs.${cert}.webroot` are mutually exclusive.
-        '';
-      }
-      {
-        assertion = data.webroot == null || data.listenHTTP == null;
-        message = ''
-          Options `security.acme.certs.${cert}.webroot` and
-          `security.acme.certs.${cert}.listenHTTP` are mutually exclusive.
-        '';
-      }
-      {
-        assertion = data.listenHTTP == null || data.dnsProvider == null;
-        message = ''
-          Options `security.acme.certs.${cert}.listenHTTP` and
-          `security.acme.certs.${cert}.dnsProvider` are mutually exclusive.
-        '';
-      }
-      {
-        assertion = data.dnsProvider != null || data.webroot != null
-          || data.listenHTTP != null;
-        message = ''
-          One of `security.acme.certs.${cert}.dnsProvider`,
-          `security.acme.certs.${cert}.webroot`, or
-          `security.acme.certs.${cert}.listenHTTP` must be provided.
-        '';
-      }
-    ]) cfg.certs));
+    assertions = let
+      certs = attrValues cfg.certs;
+    in
+      [
+        {
+          assertion = cfg.email != null
+            || all (certOpts: certOpts.email != null) certs;
+          message = ''
+            You must define `security.acme.certs.<name>.email` or
+            `security.acme.email` to register with the CA. Note that using
+            many different addresses for certs may trigger account rate limits.
+          '';
+        }
+        {
+          assertion = cfg.acceptTerms;
+          message = ''
+            You must accept the CA's terms of service before using
+            the ACME module by setting `security.acme.acceptTerms`
+            to `true`. For Let's Encrypt's ToS see https://letsencrypt.org/repository/
+          '';
+        }
+      ] ++ (builtins.concatLists (mapAttrsToList (cert: data: [
+        {
+          assertion = data.user == "_mkRemovedOptionModule";
+          message = ''
+            The option definition `security.acme.certs.${cert}.user' no longer has any effect; Please remove it.
+            Certificate user is now hard coded to the "acme" user. If you would
+            like another user to have access, consider adding them to the
+            "acme" group or changing security.acme.certs.${cert}.group.
+          '';
+        }
+        {
+          assertion = data.allowKeysForGroup == "_mkRemovedOptionModule";
+          message = ''
+            The option definition `security.acme.certs.${cert}.allowKeysForGroup' no longer has any effect; Please remove it.
+            All certs are readable by the configured group. If this is undesired,
+            consider changing security.acme.certs.${cert}.group to an unused group.
+          '';
+        }
+        # * in the cert value breaks building of systemd services, and makes
+        # referencing them as a user quite weird too. Best practice is to use
+        # the domain option.
+        {
+          assertion = !hasInfix "*" cert;
+          message = ''
+            The cert option path `security.acme.certs.${cert}.dnsProvider`
+            cannot contain a * character.
+            Instead, set `security.acme.certs.${cert}.domain = "${cert}";`
+            and remove the wildcard from the path.
+          '';
+        }
+        {
+          assertion = data.dnsProvider == null || data.webroot == null;
+          message = ''
+            Options `security.acme.certs.${cert}.dnsProvider` and
+            `security.acme.certs.${cert}.webroot` are mutually exclusive.
+          '';
+        }
+        {
+          assertion = data.webroot == null || data.listenHTTP == null;
+          message = ''
+            Options `security.acme.certs.${cert}.webroot` and
+            `security.acme.certs.${cert}.listenHTTP` are mutually exclusive.
+          '';
+        }
+        {
+          assertion = data.listenHTTP == null || data.dnsProvider == null;
+          message = ''
+            Options `security.acme.certs.${cert}.listenHTTP` and
+            `security.acme.certs.${cert}.dnsProvider` are mutually exclusive.
+          '';
+        }
+        {
+          assertion = data.dnsProvider != null || data.webroot != null
+            || data.listenHTTP != null;
+          message = ''
+            One of `security.acme.certs.${cert}.dnsProvider`,
+            `security.acme.certs.${cert}.webroot`, or
+            `security.acme.certs.${cert}.listenHTTP` must be provided.
+          '';
+        }
+      ]) cfg.certs))
+    ;
 
     users.users.acme = {
       home = "/var/lib/acme";
@@ -1064,13 +1067,17 @@ in {
           leader = "acme-${(builtins.head confs).cert}.service";
           dependantServices =
             map (conf: "acme-${conf.cert}.service") (builtins.tail confs);
-        in nameValuePair "acme-account-${hash}" {
-          requiredBy = dependantServices;
-          before = dependantServices;
-          requires = [ leader ];
-          after = [ leader ];
-        }) (groupBy (conf: conf.accountHash) (attrValues certConfigs));
-    in finishedTargets // accountTargets;
+        in
+          nameValuePair "acme-account-${hash}" {
+            requiredBy = dependantServices;
+            before = dependantServices;
+            requires = [ leader ];
+            after = [ leader ];
+          }
+      ) (groupBy (conf: conf.accountHash) (attrValues certConfigs));
+    in
+      finishedTargets // accountTargets
+    ;
   }) ];
 
   meta = {

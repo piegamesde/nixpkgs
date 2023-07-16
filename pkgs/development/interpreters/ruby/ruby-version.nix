@@ -53,7 +53,8 @@ let
       throw "version ${majMinTiny} is not supported";
 
     # How ruby releases are tagged on github.com/ruby/ruby
-    gitTag = let base = "v${major}_${minor}_${tiny}";
+    gitTag = let
+      base = "v${major}_${minor}_${tiny}";
     in if patchLevel != null then
       "${base}_${patchLevel}"
     else if tail != "" then
@@ -68,4 +69,5 @@ let
       else
         lib.optionalString (self.tail != "") "-${self.tail}");
   };
-in rubyVersion
+in
+  rubyVersion

@@ -172,7 +172,7 @@ in {
         RestartSec = 3;
         Restart = "always";
       };
-    };
+    } ;
   };
 
 }

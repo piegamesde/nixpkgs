@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.neovim;
+let
+  cfg = config.programs.neovim;
 in {
   options.programs.neovim = {
     enable = mkOption {

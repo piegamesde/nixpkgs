@@ -72,4 +72,4 @@ import ./make-test-python.nix ({
       assert "Test from Python" in machine.succeed("mc cat minio/test-bucket/test.txt")
       machine.shutdown()
     '';
-  })
+  } )

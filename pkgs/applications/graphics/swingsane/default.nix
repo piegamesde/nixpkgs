@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     install -v -D -m 644 swingsane_512x512.png $out/share/pixmaps/swingsane.png
 
     cp -v -r ${desktopItem}/share/applications $out/share
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Java GUI for SANE scanner servers (saned)";

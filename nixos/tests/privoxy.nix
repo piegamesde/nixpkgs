@@ -113,4 +113,4 @@ import ./make-test-python.nix ({
           # ...and count again
           machine.succeed("test $(ls /run/privoxy/certs | wc -l) -eq 0")
     '';
-  })
+  } )

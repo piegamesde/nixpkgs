@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.hardware.opentabletdriver;
+let
+  cfg = config.hardware.opentabletdriver;
 in {
   meta.maintainers = with lib.maintainers; [ thiagokokada ];
 

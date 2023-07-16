@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.hypr;
+let
+  cfg = config.services.xserver.windowManager.hypr;
 in {
   ###### interface
   options = {

@@ -44,4 +44,4 @@ import ./make-test-python.nix ({
           "curl 'http://localhost:8080/pgmanage/auth' --data 'action=login&connname=${conn}&username=${role}&password=${password}' --fail"
       )
     '';
-  })
+  } )

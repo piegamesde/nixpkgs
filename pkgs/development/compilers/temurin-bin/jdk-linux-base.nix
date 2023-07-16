@@ -135,4 +135,5 @@ let
       mainProgram = "java";
     };
   };
-in result
+in
+  result

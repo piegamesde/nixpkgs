@@ -82,11 +82,12 @@ let
     EndSection
   '';
 
-in writeScriptBin "xdummy" ''
-  #!${runtimeShell}
-  exec ${xorg.xorgserver.out}/bin/Xorg \
-    -noreset \
-    -logfile /dev/null \
-    "$@" \
-    -config "${xorgConfig}"
-''
+in
+  writeScriptBin "xdummy" ''
+    #!${runtimeShell}
+    exec ${xorg.xorgserver.out}/bin/Xorg \
+      -noreset \
+      -logfile /dev/null \
+      "$@" \
+      -config "${xorgConfig}"
+  ''

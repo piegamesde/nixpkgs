@@ -22,36 +22,37 @@ let
     sha256 = "16yyb37f8mk9saw7ndjs5is67yq7qa6b6y7k0c75ibxi4n9aw1r3";
   };
 
-in buildDunePackage rec {
-  pname = "h2";
+in
+  buildDunePackage rec {
+    pname = "h2";
 
-  inherit (hpack) version src;
+    inherit (hpack) version src;
 
-  duneVersion = "3";
-  minimalOCamlVersion = "4.06";
+    duneVersion = "3";
+    minimalOCamlVersion = "4.06";
 
-  propagatedBuildInputs = [
-    angstrom
-    faraday
-    base64
-    psq
-    hpack
-    httpaf
-  ];
+    propagatedBuildInputs = [
+      angstrom
+      faraday
+      base64
+      psq
+      hpack
+      httpaf
+    ];
 
-  # Tests fail with ≤ 4.07
-  doCheck = lib.versionAtLeast ocaml.version "4.08";
-  preCheck = ''
-    ln -s "${http2-frame-test-case}" lib_test/http2-frame-test-case
-  '';
-  checkInputs = [
-    alcotest
-    yojson
-    hex
-  ];
+    # Tests fail with ≤ 4.07
+    doCheck = lib.versionAtLeast ocaml.version "4.08";
+    preCheck = ''
+      ln -s "${http2-frame-test-case}" lib_test/http2-frame-test-case
+    '';
+    checkInputs = [
+      alcotest
+      yojson
+      hex
+    ];
 
-  meta = hpack.meta // {
-    description =
-      "A high-performance, memory-efficient, and scalable HTTP/2 library for OCaml";
-  };
-}
+    meta = hpack.meta // {
+      description =
+        "A high-performance, memory-efficient, and scalable HTTP/2 library for OCaml";
+    };
+  }

@@ -16,8 +16,9 @@ let
     txt1
     txt2
   ];
-in runCommand "test-concatPaths" { } ''
-  diff -U3 <(cat ${txt1} ${txt2}) ${res}
-  diff -U3 ${concatText "void" [ ]} ${emptyFile}
-  touch $out
-''
+in
+  runCommand "test-concatPaths" { } ''
+    diff -U3 <(cat ${txt1} ${txt2}) ${res}
+    diff -U3 ${concatText "void" [ ]} ${emptyFile}
+    touch $out
+  ''

@@ -4,7 +4,8 @@
 }:
 
 self:
-let inherit (self) callPackage;
+let
+  inherit (self) callPackage;
 in {
   acm = callPackage ./manual-packages/acm { };
 

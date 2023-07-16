@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.pihole;
+let
+  cfg = config.services.prometheus.exporters.pihole;
 in {
   imports = [
     (mkRemovedOptionModule [ "interval" ] "This option has been removed.")

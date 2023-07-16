@@ -41,11 +41,14 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "freetype";
   version = "2.13.0";
 
-  src = let inherit (finalAttrs) pname version;
-  in fetchurl {
-    url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
-  };
+  src = let
+    inherit (finalAttrs) pname version;
+  in
+    fetchurl {
+      url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
+      sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
+    }
+  ;
 
   propagatedBuildInputs = [
     zlib

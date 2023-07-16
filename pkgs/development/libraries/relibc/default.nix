@@ -43,49 +43,50 @@ let
     cargo = bootstrapCrossRust;
   };
 
-in redoxRustPlatform.buildRustPackage rec {
-  pname = "relibc";
-  version = "latest";
+in
+  redoxRustPlatform.buildRustPackage rec {
+    pname = "relibc";
+    version = "latest";
 
-  LD_LIBRARY_PATH = "${buildPackages.zlib}/lib";
+    LD_LIBRARY_PATH = "${buildPackages.zlib}/lib";
 
-  src = buildPackages.fetchgit {
-    url = "https://gitlab.redox-os.org/redox-os/relibc/";
-    rev = "5af8e3ca35ad401014a867ac1a0cc3b08dee682b";
-    sha256 = "1j4wsga9psl453031izkl3clkvm31d1wg4y8f3yqqvhml2aliws5";
-    fetchSubmodules = true;
-  };
-
-  RUSTC_BOOTSTRAP = 1;
-
-  dontInstall = true;
-  dontFixup = true;
-  doCheck = false;
-
-  postBuild = ''
-    mkdir -p $out
-    DESTDIR=$out make install
-  '';
-
-  # TODO: should be hostPlatform
-  TARGET = buildPackages.rust.toRustTargetSpec stdenvNoCC.targetPlatform;
-
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "redox_syscall-0.2.0" =
-        "sha256-nwbJBrhuc01fPbBgd5ShboNu0Nauqp2UjkA+sm9oCeE=";
+    src = buildPackages.fetchgit {
+      url = "https://gitlab.redox-os.org/redox-os/relibc/";
+      rev = "5af8e3ca35ad401014a867ac1a0cc3b08dee682b";
+      sha256 = "1j4wsga9psl453031izkl3clkvm31d1wg4y8f3yqqvhml2aliws5";
+      fetchSubmodules = true;
     };
-  };
 
-  # error: Usage of `RUSTC_WORKSPACE_WRAPPER` requires `-Z unstable-options`
-  auditable = false;
+    RUSTC_BOOTSTRAP = 1;
 
-  meta = with lib; {
-    homepage = "https://gitlab.redox-os.org/redox-os/relibc";
-    description = "C Library in Rust for Redox and Linux";
-    license = licenses.mit;
-    maintainers = [ maintainers.aaronjanse ];
-    platforms = platforms.redox ++ [ "x86_64-linux" ];
-  };
-}
+    dontInstall = true;
+    dontFixup = true;
+    doCheck = false;
+
+    postBuild = ''
+      mkdir -p $out
+      DESTDIR=$out make install
+    '';
+
+    # TODO: should be hostPlatform
+    TARGET = buildPackages.rust.toRustTargetSpec stdenvNoCC.targetPlatform;
+
+    cargoLock = {
+      lockFile = ./Cargo.lock;
+      outputHashes = {
+        "redox_syscall-0.2.0" =
+          "sha256-nwbJBrhuc01fPbBgd5ShboNu0Nauqp2UjkA+sm9oCeE=";
+      };
+    };
+
+    # error: Usage of `RUSTC_WORKSPACE_WRAPPER` requires `-Z unstable-options`
+    auditable = false;
+
+    meta = with lib; {
+      homepage = "https://gitlab.redox-os.org/redox-os/relibc";
+      description = "C Library in Rust for Redox and Linux";
+      license = licenses.mit;
+      maintainers = [ maintainers.aaronjanse ];
+      platforms = platforms.redox ++ [ "x86_64-linux" ];
+    };
+  }

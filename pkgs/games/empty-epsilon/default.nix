@@ -68,58 +68,59 @@ let
     };
   };
 
-in stdenv.mkDerivation {
-  pname = "empty-epsilon";
-  version = version.emptyepsilon;
+in
+  stdenv.mkDerivation {
+    pname = "empty-epsilon";
+    version = version.emptyepsilon;
 
-  src = fetchFromGitHub {
-    owner = "daid";
-    repo = "EmptyEpsilon";
-    rev = "EE-${version.emptyepsilon}";
-    sha256 = "sha256-dc/Ic1/DULTQO6y9xSop2HxFvUh4kN57oSF/HBmbmF4=";
-  };
+    src = fetchFromGitHub {
+      owner = "daid";
+      repo = "EmptyEpsilon";
+      rev = "EE-${version.emptyepsilon}";
+      sha256 = "sha256-dc/Ic1/DULTQO6y9xSop2HxFvUh4kN57oSF/HBmbmF4=";
+    };
 
-  patches = [
-    # Various CMake fixes that can be removed when upgrading to the next release.
-    (fetchpatch {
-      url =
-        "https://github.com/daid/EmptyEpsilon/commit/ee0cd42bfe5fd20b8339e8e02eb7f69766168d57.patch";
-      sha256 = "sha256-8dXtl/izfzqbwHtjuugjH34vYP+d4AobqZhxL2GXTzw=";
-    })
-    (fetchpatch {
-      url =
-        "https://github.com/daid/EmptyEpsilon/commit/69d93e6acdae3259755924f9d35e7e5ae949d377.patch";
-      sha256 = "sha256-30AGo4mi73GrW9GNS3vF3mTOS7J5/41LvjOzNjeFhOg=";
-    })
-  ];
-
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    serious-proton
-    sfml
-    glew
-    libX11
-    python3
-    glm
-  ];
-
-  cmakeFlags = [
-    "-DSERIOUS_PROTON_DIR=${serious-proton.src}"
-    "-DCPACK_PACKAGE_VERSION=${version.emptyepsilon}"
-    "-DCPACK_PACKAGE_VERSION_MAJOR=${major}"
-    "-DCPACK_PACKAGE_VERSION_MINOR=${minor}"
-    "-DCPACK_PACKAGE_VERSION_PATCH=${patch.emptyepsilon}"
-  ];
-
-  meta = with lib; {
-    description = "Open source bridge simulator based on Artemis";
-    homepage = "https://daid.github.io/EmptyEpsilon/";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      fpletz
-      lheckemann
-      ma27
+    patches = [
+      # Various CMake fixes that can be removed when upgrading to the next release.
+      (fetchpatch {
+        url =
+          "https://github.com/daid/EmptyEpsilon/commit/ee0cd42bfe5fd20b8339e8e02eb7f69766168d57.patch";
+        sha256 = "sha256-8dXtl/izfzqbwHtjuugjH34vYP+d4AobqZhxL2GXTzw=";
+      })
+      (fetchpatch {
+        url =
+          "https://github.com/daid/EmptyEpsilon/commit/69d93e6acdae3259755924f9d35e7e5ae949d377.patch";
+        sha256 = "sha256-30AGo4mi73GrW9GNS3vF3mTOS7J5/41LvjOzNjeFhOg=";
+      })
     ];
-    platforms = platforms.linux;
-  };
-}
+
+    nativeBuildInputs = [ cmake ];
+    buildInputs = [
+      serious-proton
+      sfml
+      glew
+      libX11
+      python3
+      glm
+    ];
+
+    cmakeFlags = [
+      "-DSERIOUS_PROTON_DIR=${serious-proton.src}"
+      "-DCPACK_PACKAGE_VERSION=${version.emptyepsilon}"
+      "-DCPACK_PACKAGE_VERSION_MAJOR=${major}"
+      "-DCPACK_PACKAGE_VERSION_MINOR=${minor}"
+      "-DCPACK_PACKAGE_VERSION_PATCH=${patch.emptyepsilon}"
+    ];
+
+    meta = with lib; {
+      description = "Open source bridge simulator based on Artemis";
+      homepage = "https://daid.github.io/EmptyEpsilon/";
+      license = licenses.gpl2Plus;
+      maintainers = with maintainers; [
+        fpletz
+        lheckemann
+        ma27
+      ];
+      platforms = platforms.linux;
+    };
+  }

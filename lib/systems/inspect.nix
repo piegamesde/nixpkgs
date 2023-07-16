@@ -5,7 +5,8 @@ with import ./parse.nix { inherit lib; };
 with lib.attrsets;
 with lib.lists;
 
-let abis_ = abis;
+let
+  abis_ = abis;
 in let
   abis = lib.mapAttrs (_: abi: builtins.removeAttrs abi [ "assertions" ]) abis_;
 

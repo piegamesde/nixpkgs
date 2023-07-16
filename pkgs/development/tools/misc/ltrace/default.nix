@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       fedorapatches="$fedorapatches ${fedora}/$p"
     done
     patches="$fedorapatches $patches"
-  '';
+  '' ;
 
   # Cherry-pick extra patches for recent glibc support in the test suite.
   patches = [

@@ -16,10 +16,11 @@ tcl.mkTclDerivation rec {
   };
 
   # required in order for tclx to properly detect tclx.tcl at runtime
-  postInstall = let majorMinorVersion = lib.versions.majorMinor version;
+  postInstall = let
+    majorMinorVersion = lib.versions.majorMinor version;
   in ''
     ln -s $prefix/lib/tclx${majorMinorVersion} $prefix/lib/tclx${majorMinorVersion}/tclx${majorMinorVersion}
-  '';
+  '' ;
 
   meta = {
     homepage = "https://github.com/flightaware/tclx";

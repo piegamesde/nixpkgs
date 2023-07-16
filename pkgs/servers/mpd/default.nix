@@ -183,11 +183,13 @@ let
       features_ = if (features == null) then
         platformFeatures
       else
-        let unknown = lib.subtractLists knownFeatures features;
+        let
+          unknown = lib.subtractLists knownFeatures features;
         in if (unknown != [ ]) then
           throw "Unknown feature(s): ${lib.concatStringsSep " " unknown}"
         else
-          let unsupported = lib.subtractLists platformFeatures features;
+          let
+            unsupported = lib.subtractLists platformFeatures features;
           in if (unsupported != [ ]) then
             throw "Feature(s) ${
               lib.concatStringsSep " " unsupported
@@ -195,94 +197,96 @@ let
           else
             features;
 
-    in stdenv.mkDerivation rec {
-      pname = "mpd";
-      version = "0.23.12";
+    in
+      stdenv.mkDerivation rec {
+        pname = "mpd";
+        version = "0.23.12";
 
-      src = fetchFromGitHub {
-        owner = "MusicPlayerDaemon";
-        repo = "MPD";
-        rev = "v${version}";
-        sha256 = "sha256-BnEtSkZjUBK0flVttOrjkT4RCQh9F7+MDZGm2+MMrX8=";
-      };
+        src = fetchFromGitHub {
+          owner = "MusicPlayerDaemon";
+          repo = "MPD";
+          rev = "v${version}";
+          sha256 = "sha256-BnEtSkZjUBK0flVttOrjkT4RCQh9F7+MDZGm2+MMrX8=";
+        };
 
-      buildInputs = [
-        glib
-        boost
-        fmt
-        # According to the configurePhase of meson, gtest is considered a
-        # runtime dependency. Quoting:
+        buildInputs = [
+          glib
+          boost
+          fmt
+          # According to the configurePhase of meson, gtest is considered a
+          # runtime dependency. Quoting:
+          #
+          #    Run-time dependency GTest found: YES 1.10.0
+          gtest
+        ] ++ concatAttrVals features_ featureDependencies
+          ++ lib.optionals stdenv.isDarwin [
+            AudioToolbox
+            AudioUnit
+          ];
+
+        nativeBuildInputs = [
+          meson
+          ninja
+          pkg-config
+        ] ++ concatAttrVals features_ nativeFeatureDependencies;
+
+        depsBuildBuild = [ buildPackages.stdenv.cc ];
+
+        postPatch = lib.optionalString (stdenv.isDarwin
+          && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0") ''
+            substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
+              --replace kAudioObjectPropertyElement{Main,Master} \
+              --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
+          '';
+
+        # Otherwise, the meson log says:
         #
-        #    Run-time dependency GTest found: YES 1.10.0
-        gtest
-      ] ++ concatAttrVals features_ featureDependencies
-        ++ lib.optionals stdenv.isDarwin [
-          AudioToolbox
-          AudioUnit
-        ];
+        #    Program zip found: NO
+        nativeCheckInputs = [ zip ];
 
-      nativeBuildInputs = [
-        meson
-        ninja
-        pkg-config
-      ] ++ concatAttrVals features_ nativeFeatureDependencies;
+        doCheck = true;
 
-      depsBuildBuild = [ buildPackages.stdenv.cc ];
+        mesonAutoFeatures = "disabled";
 
-      postPatch = lib.optionalString (stdenv.isDarwin
-        && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0") ''
-          substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
-            --replace kAudioObjectPropertyElement{Main,Master} \
-            --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
-        '';
+        outputs = [
+          "out"
+          "doc"
+        ] ++ lib.optional (builtins.elem "documentation" features_) "man";
 
-      # Otherwise, the meson log says:
-      #
-      #    Program zip found: NO
-      nativeCheckInputs = [ zip ];
+        CXXFLAGS = lib.optionals
+          stdenv.isDarwin [ "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0" ];
 
-      doCheck = true;
+        mesonFlags = [
+          "-Dtest=true"
+          "-Dmanpages=true"
+          "-Dhtml_manual=true"
+        ] ++ map (x: "-D${x}=enabled") features_ ++ map (x: "-D${x}=disabled")
+          (lib.subtractLists features_ knownFeatures)
+          ++ lib.optional (builtins.elem "zeroconf" features_)
+          "-Dzeroconf=avahi" ++ lib.optional (builtins.elem "systemd" features_)
+          "-Dsystemd_system_unit_dir=etc/systemd/system";
 
-      mesonAutoFeatures = "disabled";
+        passthru.tests.nixos = nixosTests.mpd;
 
-      outputs = [
-        "out"
-        "doc"
-      ] ++ lib.optional (builtins.elem "documentation" features_) "man";
+        meta = with lib; {
+          description = "A flexible, powerful daemon for playing music";
+          homepage = "https://www.musicpd.org/";
+          license = licenses.gpl2Only;
+          maintainers = with maintainers; [
+            astsmtl
+            ehmry
+            tobim
+          ];
+          platforms = platforms.unix;
 
-      CXXFLAGS = lib.optionals
-        stdenv.isDarwin [ "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0" ];
-
-      mesonFlags = [
-        "-Dtest=true"
-        "-Dmanpages=true"
-        "-Dhtml_manual=true"
-      ] ++ map (x: "-D${x}=enabled") features_ ++ map (x: "-D${x}=disabled")
-        (lib.subtractLists features_ knownFeatures)
-        ++ lib.optional (builtins.elem "zeroconf" features_) "-Dzeroconf=avahi"
-        ++ lib.optional (builtins.elem "systemd" features_)
-        "-Dsystemd_system_unit_dir=etc/systemd/system";
-
-      passthru.tests.nixos = nixosTests.mpd;
-
-      meta = with lib; {
-        description = "A flexible, powerful daemon for playing music";
-        homepage = "https://www.musicpd.org/";
-        license = licenses.gpl2Only;
-        maintainers = with maintainers; [
-          astsmtl
-          ehmry
-          tobim
-        ];
-        platforms = platforms.unix;
-
-        longDescription = ''
-          Music Player Daemon (MPD) is a flexible, powerful daemon for playing
-          music. Through plugins and libraries it can play a variety of sound
-          files while being controlled by its network protocol.
-        '';
-      };
-    };
+          longDescription = ''
+            Music Player Daemon (MPD) is a flexible, powerful daemon for playing
+            music. Through plugins and libraries it can play a variety of sound
+            files while being controlled by its network protocol.
+          '';
+        };
+      }
+  ;
 in {
   mpd = run { };
   mpd-small = run {

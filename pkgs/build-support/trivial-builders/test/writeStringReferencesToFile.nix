@@ -16,7 +16,8 @@ let
     ((lib.concatMapStringsSep "fillertext" stri (lib.attrValues sample)) + ''
       STORE=${builtins.storeDir};\nsystemctl start bar-foo.service
     '');
-in runCommand "test-writeStringReferencesToFile" { } ''
-  diff -U3 <(sort ${stringReferencesText}) <(sort ${sampleText})
-  touch $out
-''
+in
+  runCommand "test-writeStringReferencesToFile" { } ''
+    diff -U3 <(sort ${stringReferencesText}) <(sort ${sampleText})
+    touch $out
+  ''

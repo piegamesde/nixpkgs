@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.slock;
+let
+  cfg = config.programs.slock;
 
 in {
   options = {

@@ -5,7 +5,8 @@
   arch ? "",
   sha256 ? ""
 }:
-let archurl = (if arch == "" then "" else "?targetPlatform=${arch}");
+let
+  archurl = (if arch == "" then "" else "?targetPlatform=${arch}");
 in {
   url =
     "https://${publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/${publisher}/extension/${name}/${version}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage${archurl}";

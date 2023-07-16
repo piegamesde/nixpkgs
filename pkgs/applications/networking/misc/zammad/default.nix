@@ -98,54 +98,55 @@ let
     packageJSON = ./package.json;
   };
 
-in stdenv.mkDerivation {
-  inherit pname version src;
+in
+  stdenv.mkDerivation {
+    inherit pname version src;
 
-  buildInputs = [
-    rubyEnv
-    rubyEnv.wrappedRuby
-    rubyEnv.bundler
-    yarn
-    nodejs
-    procps
-    cacert
-  ];
-
-  RAILS_ENV = "production";
-
-  buildPhase = ''
-    node_modules=${yarnEnv}/libexec/Zammad/node_modules
-    ${yarn2nix-moretea.linkNodeModulesHook}
-
-    rake DATABASE_URL="nulldb://user:pass@127.0.0.1/dbname" assets:precompile
-  '';
-
-  installPhase = ''
-    cp -R . $out
-    cp ${databaseConfig} $out/config/database.yml
-    cp ${secretsConfig} $out/config/secrets.yml
-    sed -i -e "s|info|debug|" $out/config/environments/production.rb
-  '';
-
-  passthru = {
-    inherit rubyEnv yarnEnv;
-    updateScript = [
-      "${callPackage ./update.nix { }}/bin/update.sh"
-      pname
-      (toString ./.)
+    buildInputs = [
+      rubyEnv
+      rubyEnv.wrappedRuby
+      rubyEnv.bundler
+      yarn
+      nodejs
+      procps
+      cacert
     ];
-  };
 
-  meta = with lib; {
-    description =
-      "Zammad, a web-based, open source user support/ticketing solution.";
-    homepage = "https://zammad.org";
-    license = licenses.agpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      n0emis
-      garbas
-      taeer
-    ];
-  };
-}
+    RAILS_ENV = "production";
+
+    buildPhase = ''
+      node_modules=${yarnEnv}/libexec/Zammad/node_modules
+      ${yarn2nix-moretea.linkNodeModulesHook}
+
+      rake DATABASE_URL="nulldb://user:pass@127.0.0.1/dbname" assets:precompile
+    '';
+
+    installPhase = ''
+      cp -R . $out
+      cp ${databaseConfig} $out/config/database.yml
+      cp ${secretsConfig} $out/config/secrets.yml
+      sed -i -e "s|info|debug|" $out/config/environments/production.rb
+    '';
+
+    passthru = {
+      inherit rubyEnv yarnEnv;
+      updateScript = [
+        "${callPackage ./update.nix { }}/bin/update.sh"
+        pname
+        (toString ./.)
+      ];
+    };
+
+    meta = with lib; {
+      description =
+        "Zammad, a web-based, open source user support/ticketing solution.";
+      homepage = "https://zammad.org";
+      license = licenses.agpl3Plus;
+      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [
+        n0emis
+        garbas
+        taeer
+      ];
+    };
+  }

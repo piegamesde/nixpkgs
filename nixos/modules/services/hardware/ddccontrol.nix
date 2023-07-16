@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.services.ddccontrol;
+let
+  cfg = config.services.ddccontrol;
 
 in {
   ###### interface

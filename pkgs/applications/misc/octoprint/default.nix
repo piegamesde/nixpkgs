@@ -217,7 +217,7 @@ let
                   ignoreVersionConstraints)
               }
               setup.py
-          '';
+          '' ;
 
           dontUseSetuptoolsCheck = true;
 

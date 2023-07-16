@@ -70,5 +70,5 @@ import ./make-test-python.nix ({
       machine.succeed(
           "[[ $(stat -c %s /aux1/.beeshome/beeshash.dat) = $(( 16 * 1024 * 1024)) ]]"
       )
-    '';
+    '' ;
   })

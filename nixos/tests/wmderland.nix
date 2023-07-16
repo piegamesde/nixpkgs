@@ -35,7 +35,7 @@ import ./make-test-python.nix ({
           in ''
             mkdir -p $HOME/.config/wmderland
             cp ${config} $HOME/.config/wmderland/config
-          '';
+          '' ;
         };
       };
 

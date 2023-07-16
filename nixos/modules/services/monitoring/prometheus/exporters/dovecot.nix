@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.dovecot;
+let
+  cfg = config.services.prometheus.exporters.dovecot;
 in {
   port = 9166;
   extraOpts = {

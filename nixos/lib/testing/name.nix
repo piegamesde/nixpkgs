@@ -2,7 +2,8 @@
   lib,
   ...
 }:
-let inherit (lib) mkOption types mdDoc;
+let
+  inherit (lib) mkOption types mdDoc;
 in {
   options.name = mkOption {
     description = mdDoc ''

@@ -51,4 +51,5 @@ let
       mainProgram = "qldb";
     };
   };
-in package
+in
+  package

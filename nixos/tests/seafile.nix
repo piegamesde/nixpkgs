@@ -129,4 +129,4 @@ import ./make-test-python.nix ({
 
           client2.succeed('[ `cat test01/first_file` = "bla" ]')
     '';
-  })
+  } )

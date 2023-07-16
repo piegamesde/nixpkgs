@@ -704,9 +704,10 @@ in {
     # The postgresql module doesn't currently support concepts like
     # objects owners and extensions; for now we tack on what's needed
     # here.
-    systemd.services.discourse-postgresql =
-      let pgsql = config.services.postgresql;
-      in lib.mkIf databaseActuallyCreateLocally {
+    systemd.services.discourse-postgresql = let
+      pgsql = config.services.postgresql;
+    in
+      lib.mkIf databaseActuallyCreateLocally {
         after = [ "postgresql.service" ];
         bindsTo = [ "postgresql.service" ];
         wantedBy = [ "discourse.service" ];
@@ -726,7 +727,8 @@ in {
           Type = "oneshot";
           RemainAfterExit = true;
         };
-      };
+      }
+    ;
 
     systemd.services.discourse = {
       wantedBy = [ "multi-user.target" ];
@@ -827,7 +829,7 @@ in {
 
         discourse-rake themes:update
         discourse-rake uploads:regenerate_missing_optimized
-      '';
+      '' ;
 
       serviceConfig = {
         Type = "simple";
@@ -994,7 +996,7 @@ in {
             internal;
             alias ${cfg.package}/share/discourse/public/;
           '';
-        };
+        } ;
       };
     };
 
@@ -1041,7 +1043,7 @@ in {
           jq <${mail-receiver-json} \
              '.DISCOURSE_API_KEY = $ENV.api_key' \
              >'/run/discourse-mail-receiver/mail-receiver-environment.json'
-        '';
+        '' ;
 
         serviceConfig = {
           Type = "oneshot";
@@ -1052,7 +1054,7 @@ in {
           User = "discourse";
           Group = "discourse";
         };
-      });
+      } );
 
     services.discourse.siteSettings = {
       required = {

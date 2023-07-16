@@ -35,5 +35,6 @@ let
       })
     ];
   }).python.pkgs;
-in pythonPackages.irrd
+in
+  pythonPackages.irrd
 

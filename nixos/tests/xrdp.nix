@@ -35,7 +35,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.client.config.users.users.alice;
+      let
+        user = nodes.client.config.users.users.alice;
       in ''
         start_all()
 
@@ -56,5 +57,5 @@ import ./make-test-python.nix ({
         client.send_chars("xfreerdp /cert-tofu /w:640 /h:480 /v:server /u:${user.name} /p:${user.password}\n")
         client.sleep(5)
         client.screenshot("remoterdp")
-      '';
+      '' ;
   })

@@ -149,7 +149,7 @@ in {
           inherit name;
         } ];
       };
-    });
+    } );
 
     services.kubernetes.pki.certs = {
       addonManager = top.lib.mkCert {

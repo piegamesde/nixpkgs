@@ -151,4 +151,5 @@ let
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in onlyoffice-documentserver
+in
+  onlyoffice-documentserver

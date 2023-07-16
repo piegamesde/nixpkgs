@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.orangefs.client;
+let
+  cfg = config.services.orangefs.client;
 
 in {
   ###### interface

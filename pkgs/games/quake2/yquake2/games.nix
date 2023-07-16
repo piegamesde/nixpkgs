@@ -58,4 +58,5 @@ let
       };
     };
 
-in lib.mapAttrs toDrv games
+in
+  lib.mapAttrs toDrv games

@@ -30,7 +30,8 @@ let
     (lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs);
   mkXmlValues = attrs:
     lib.concatStrings (lib.mapAttrsToList (name: value:
-      let tag = builtins.head (builtins.match "([^:]+).*" name);
+      let
+        tag = builtins.head (builtins.match "([^:]+).*" name);
       in if builtins.typeOf value == "string" then
         "<${tag}>${value}</${tag}>"
       else
@@ -90,63 +91,64 @@ let
       </localPackage>
     </ns2:repository>
   '';
-in stdenv.mkDerivation ({
-  inherit buildInputs;
-  pname = lib.concatMapStringsSep "-" (package: package.name) sortedPackages;
-  version =
-    lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
-  src = map (package:
-    if os != null && builtins.hasAttr os package.archives then
-      package.archives.${os}
-    else
-      package.archives.all) packages;
-  nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
-  preferLocalBuild = true;
+in
+  stdenv.mkDerivation ({
+    inherit buildInputs;
+    pname = lib.concatMapStringsSep "-" (package: package.name) sortedPackages;
+    version =
+      lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
+    src = map (package:
+      if os != null && builtins.hasAttr os package.archives then
+        package.archives.${os}
+      else
+        package.archives.all) packages;
+    nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
+    preferLocalBuild = true;
 
-  unpackPhase = ''
-    buildDir=$PWD
-    i=0
-    for srcArchive in $src; do
-      extractedZip="extractedzip-$i"
-      i=$((i+1))
-      cd "$buildDir"
-      mkdir "$extractedZip"
-      cd "$extractedZip"
-      unpackFile "$srcArchive"
-    done
-  '';
+    unpackPhase = ''
+      buildDir=$PWD
+      i=0
+      for srcArchive in $src; do
+        extractedZip="extractedzip-$i"
+        i=$((i+1))
+        cd "$buildDir"
+        mkdir "$extractedZip"
+        cd "$extractedZip"
+        unpackFile "$srcArchive"
+      done
+    '';
 
-  installPhase = lib.concatStrings (lib.imap0 (i: package: ''
-    cd $buildDir/extractedzip-${toString i}
+    installPhase = lib.concatStrings (lib.imap0 (i: package: ''
+      cd $buildDir/extractedzip-${toString i}
 
-    # Most Android Zip packages have a root folder, but some don't. We unpack
-    # the zip file in a folder and we try to discover whether it has a single root
-    # folder. If this is the case, we adjust the current working folder.
-    if [ "$(find . -mindepth 1 -maxdepth 1 -type d | wc -l)" -eq 1 ]; then
-        cd "$(find . -mindepth 1 -maxdepth 1 -type d)"
-    fi
-    extractedZip="$PWD"
+      # Most Android Zip packages have a root folder, but some don't. We unpack
+      # the zip file in a folder and we try to discover whether it has a single root
+      # folder. If this is the case, we adjust the current working folder.
+      if [ "$(find . -mindepth 1 -maxdepth 1 -type d | wc -l)" -eq 1 ]; then
+          cd "$(find . -mindepth 1 -maxdepth 1 -type d)"
+      fi
+      extractedZip="$PWD"
 
-    packageBaseDir=$out/libexec/android-sdk/${package.path}
-    mkdir -p $packageBaseDir
-    cd $packageBaseDir
-    cp -a $extractedZip/* .
-    ${patchesInstructions.${package.name}}
+      packageBaseDir=$out/libexec/android-sdk/${package.path}
+      mkdir -p $packageBaseDir
+      cd $packageBaseDir
+      cp -a $extractedZip/* .
+      ${patchesInstructions.${package.name}}
 
-    if [ ! -f $packageBaseDir/package.xml ]; then
-      cat << EOF > $packageBaseDir/package.xml
-    ${mkXmlPackage package}
-    EOF
-    fi
-  '') packages);
+      if [ ! -f $packageBaseDir/package.xml ]; then
+        cat << EOF > $packageBaseDir/package.xml
+      ${mkXmlPackage package}
+      EOF
+      fi
+    '') packages);
 
-  # Some executables that have been patched with patchelf may not work any longer after they have been stripped.
-  dontStrip = true;
-  dontPatchELF = true;
-  dontAutoPatchelf = true;
+    # Some executables that have been patched with patchelf may not work any longer after they have been stripped.
+    dontStrip = true;
+    dontPatchELF = true;
+    dontAutoPatchelf = true;
 
-  meta = {
-    description =
-      lib.concatMapStringsSep "\n" (package: package.displayName) packages;
-  } // meta;
-} // extraParams)
+    meta = {
+      description =
+        lib.concatMapStringsSep "\n" (package: package.displayName) packages;
+    } // meta;
+  } // extraParams)

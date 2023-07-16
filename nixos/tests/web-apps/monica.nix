@@ -38,4 +38,4 @@ import ../make-test-python.nix ({
       machine.wait_for_open_port(443)
       machine.succeed("curl -k --fail https://localhost", timeout=10)
     '';
-  })
+  } )

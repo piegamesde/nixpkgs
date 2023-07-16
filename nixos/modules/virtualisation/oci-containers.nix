@@ -337,7 +337,7 @@ let
         Type = "notify";
         NotifyAccess = "all";
       };
-    };
+    } ;
 
 in {
   imports = [ (lib.mkChangedOptionModule [ "docker-containers" ] [

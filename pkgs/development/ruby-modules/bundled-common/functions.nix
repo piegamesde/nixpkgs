@@ -48,8 +48,12 @@ in rec {
         let
           depNames = concatMap (gem: gem.dependencies or [ ]) (attrValues gems);
           deps = getAttrs depNames platformGems;
-        in gems // deps;
-    in converge expandDependencies directlyMatchingGems;
+        in
+          gems // deps
+      ;
+    in
+      converge expandDependencies directlyMatchingGems
+  ;
 
   platformMatches = {
       rubyEngine,
@@ -108,7 +112,9 @@ in rec {
         out = res;
         outputName = "out";
       };
-    in res;
+    in
+      res
+  ;
 
   composeGemAttrs = ruby: gems: name: attrs:
     ((removeAttrs attrs [ "platforms" ]) // {

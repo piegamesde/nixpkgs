@@ -261,7 +261,7 @@ in {
         source = "${cfg.package.out}/bin/sudoedit";
         inherit owner group setuid permissions;
       };
-    };
+    } ;
 
     environment.systemPackages = [ sudo ];
 

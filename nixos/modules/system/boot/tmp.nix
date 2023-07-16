@@ -6,7 +6,8 @@
 
 with lib;
 
-let cfg = config.boot.tmp;
+let
+  cfg = config.boot.tmp;
 in {
   imports = [
     (mkRenamedOptionModule [

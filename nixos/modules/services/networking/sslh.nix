@@ -237,7 +237,7 @@ in {
           ip -6 rule  del fwmark 0x2 lookup 100
           ip -6 route del local ::/0 dev lo table 100
         '';
-      };
+      } ;
     })
   ];
 }

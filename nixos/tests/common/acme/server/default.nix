@@ -105,9 +105,11 @@ in {
 
   config = {
     test-support = {
-      resolver.enable =
-        let isLocalResolver = config.networking.nameservers == [ "127.0.0.1" ];
-        in lib.mkOverride 900 isLocalResolver;
+      resolver.enable = let
+        isLocalResolver = config.networking.nameservers == [ "127.0.0.1" ];
+      in
+        lib.mkOverride 900 isLocalResolver
+      ;
     };
 
     # This has priority 140, because modules/testing/test-instrumentation.nix

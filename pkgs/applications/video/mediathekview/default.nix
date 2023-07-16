@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       --suffix LD_LIBRARY_PATH : "${libraryPath}"
 
     runHook postInstall
-  '';
+  '' ;
 
   meta = with lib; {
     description =

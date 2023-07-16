@@ -12,35 +12,36 @@ let
   else
     "glibc-${libc.version}/elf/elf.h";
 
-in stdenvNoCC.mkDerivation {
-  pname = "elf-header";
-  inherit (libc) version;
+in
+  stdenvNoCC.mkDerivation {
+    pname = "elf-header";
+    inherit (libc) version;
 
-  src = null;
+    src = null;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  dontBuild = true;
+    dontBuild = true;
 
-  installPhase = ''
-    mkdir -p "$out/include";
-    tar -xf \
-        ${lib.escapeShellArg libc.src} \
-        ${lib.escapeShellArg headerPath} \
-        --to-stdout \
-      | sed -e '/features\.h/d' \
-      > "$out/include/elf.h"
-  '';
-
-  meta = libc.meta // {
-    outputsToInstall = [ "out" ];
-    description =
-      "The datastructures of ELF according to the target platform's libc";
-    longDescription = ''
-      The Executable and Linkable Format (ELF, formerly named Extensible Linking
-      Format), is usually defined in a header like this.
+    installPhase = ''
+      mkdir -p "$out/include";
+      tar -xf \
+          ${lib.escapeShellArg libc.src} \
+          ${lib.escapeShellArg headerPath} \
+          --to-stdout \
+        | sed -e '/features\.h/d' \
+        > "$out/include/elf.h"
     '';
-    platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.ericson2314 ];
-  };
-}
+
+    meta = libc.meta // {
+      outputsToInstall = [ "out" ];
+      description =
+        "The datastructures of ELF according to the target platform's libc";
+      longDescription = ''
+        The Executable and Linkable Format (ELF, formerly named Extensible Linking
+        Format), is usually defined in a header like this.
+      '';
+      platforms = lib.platforms.all;
+      maintainers = [ lib.maintainers.ericson2314 ];
+    };
+  }

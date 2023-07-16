@@ -30,12 +30,13 @@ let
           else
             [ ]);
       in if result.success then result.value else [ ]) set));
-in packagesWith (name: pkg:
-  (if builtins.hasAttr "meta" pkg
-  && builtins.hasAttr "maintainers" pkg.meta then
-    (if builtins.isList pkg.meta.maintainers then
-      builtins.elem maintainer_ pkg.meta.maintainers
+in
+  packagesWith (name: pkg:
+    (if builtins.hasAttr "meta" pkg
+    && builtins.hasAttr "maintainers" pkg.meta then
+      (if builtins.isList pkg.meta.maintainers then
+        builtins.elem maintainer_ pkg.meta.maintainers
+      else
+        maintainer_ == pkg.meta.maintainers)
     else
-      maintainer_ == pkg.meta.maintainers)
-  else
-    false)) (name: pkg: pkg) pkgs
+      false)) (name: pkg: pkg) pkgs

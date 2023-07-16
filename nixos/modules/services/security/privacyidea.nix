@@ -413,7 +413,7 @@ in {
             chmod g+r "${cfg.stateDir}/enckey" "${cfg.stateDir}/private.pem"
           fi
           ${pi-manage} db upgrade -d ${penv}/lib/privacyidea/migrations
-        '';
+        '' ;
         serviceConfig = {
           Type = "notify";
           ExecStart = "${uwsgi}/bin/uwsgi --json ${piuwsgi}";
@@ -424,7 +424,7 @@ in {
           NotifyAccess = "main";
           KillSignal = "SIGQUIT";
         };
-      };
+      } ;
 
       users.users.privacyidea = mkIf (cfg.user == "privacyidea") {
         group = cfg.group;
@@ -437,9 +437,12 @@ in {
     (mkIf cfg.ldap-proxy.enable {
 
       assertions = [ {
-        assertion = let xor = a: b: a && !b || !a && b;
-        in xor (cfg.ldap-proxy.settings == { })
-        (cfg.ldap-proxy.configFile == null);
+        assertion = let
+          xor = a: b: a && !b || !a && b;
+        in
+          xor (cfg.ldap-proxy.settings == { })
+          (cfg.ldap-proxy.configFile == null)
+        ;
         message =
           "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
       } ];
@@ -479,10 +482,10 @@ in {
               -g ${cfg.ldap-proxy.group} \
               ldap-proxy \
               -c ${configPath}
-          '';
+          '' ;
           Restart = "always";
         };
-      };
+      } ;
 
       users.users.pi-ldap-proxy =
         mkIf (cfg.ldap-proxy.user == "pi-ldap-proxy") {

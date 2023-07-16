@@ -67,4 +67,4 @@ import ./make-test-python.nix ({
 
       assert output.strip() == "client1"
     '';
-  })
+  } )

@@ -55,57 +55,58 @@ let
       ./0001-handle-outputs-that-arent-in-the-layout.patch
     ];
   });
-in stdenv.mkDerivation rec {
-  pname = "phoc";
-  version = "0.25.0";
+in
+  stdenv.mkDerivation rec {
+    pname = "phoc";
+    version = "0.25.0";
 
-  src = fetchFromGitLab {
-    domain = "gitlab.gnome.org";
-    group = "World";
-    owner = "Phosh";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-1cbv4vzQ+RcRoT1pOT8Q0nxuZzKUlec38KCNMYaceeE=";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitLab {
+      domain = "gitlab.gnome.org";
+      group = "World";
+      owner = "Phosh";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "sha256-1cbv4vzQ+RcRoT1pOT8Q0nxuZzKUlec38KCNMYaceeE=";
+      fetchSubmodules = true;
+    };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    wrapGAppsHook
-  ];
-
-  buildInputs = [
-    libdrm.dev
-    libxkbcommon
-    libinput
-    glib
-    gtk3
-    gnome-desktop
-    # For keybindings settings schemas
-    gnome.mutter
-    wayland
-    phocWlroots
-  ];
-
-  mesonFlags = [ "-Dembed-wlroots=disabled" ];
-
-  postPatch = ''
-    chmod +x build-aux/post_install.py
-    patchShebangs build-aux/post_install.py
-  '';
-
-  meta = with lib; {
-    description = "Wayland compositor for mobile phones like the Librem 5";
-    homepage = "https://gitlab.gnome.org/World/Phosh/phoc";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      masipcat
-      tomfitzhenry
-      zhaofengli
+    nativeBuildInputs = [
+      meson
+      ninja
+      pkg-config
+      python3
+      wrapGAppsHook
     ];
-    platforms = platforms.linux;
-  };
-}
+
+    buildInputs = [
+      libdrm.dev
+      libxkbcommon
+      libinput
+      glib
+      gtk3
+      gnome-desktop
+      # For keybindings settings schemas
+      gnome.mutter
+      wayland
+      phocWlroots
+    ];
+
+    mesonFlags = [ "-Dembed-wlroots=disabled" ];
+
+    postPatch = ''
+      chmod +x build-aux/post_install.py
+      patchShebangs build-aux/post_install.py
+    '';
+
+    meta = with lib; {
+      description = "Wayland compositor for mobile phones like the Librem 5";
+      homepage = "https://gitlab.gnome.org/World/Phosh/phoc";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [
+        masipcat
+        tomfitzhenry
+        zhaofengli
+      ];
+      platforms = platforms.linux;
+    };
+  }

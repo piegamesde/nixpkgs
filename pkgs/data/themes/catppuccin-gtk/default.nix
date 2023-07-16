@@ -48,70 +48,71 @@ let
 
   pname = "catppuccin-gtk";
 
-in lib.checkListOfEnum "${pname}: theme accent" validAccents accents
-lib.checkListOfEnum "${pname}: color variant" validVariants [ variant ]
-lib.checkListOfEnum "${pname}: size variant" validSizes [ size ]
-lib.checkListOfEnum "${pname}: tweaks" validTweaks tweaks
+in
+  lib.checkListOfEnum "${pname}: theme accent" validAccents accents
+  lib.checkListOfEnum "${pname}: color variant" validVariants [ variant ]
+  lib.checkListOfEnum "${pname}: size variant" validSizes [ size ]
+  lib.checkListOfEnum "${pname}: tweaks" validTweaks tweaks
 
-stdenvNoCC.mkDerivation rec {
-  inherit pname;
-  version = "0.4.1";
+  stdenvNoCC.mkDerivation rec {
+    inherit pname;
+    version = "0.4.1";
 
-  src = fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "gtk";
-    rev = "v${version}";
-    sha256 = "sha256-dzRXt9/OdPyiy3mu9pmPYeu69OXCnR+zEqbD1C5BKqM=";
-  };
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "gtk";
+      rev = "v${version}";
+      sha256 = "sha256-dzRXt9/OdPyiy3mu9pmPYeu69OXCnR+zEqbD1C5BKqM=";
+    };
 
-  nativeBuildInputs = [
-    gtk3
-    sassc
-  ];
+    nativeBuildInputs = [
+      gtk3
+      sassc
+    ];
 
-  buildInputs = [
-    gnome-themes-extra
-    (python3.withPackages (ps: [ ps.catppuccin ]))
-  ];
+    buildInputs = [
+      gnome-themes-extra
+      (python3.withPackages (ps: [ ps.catppuccin ]))
+    ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
-  postUnpack = ''
-    rm -rf source/colloid
-    cp -r ${colloid-gtk-theme.src} source/colloid
-    chmod -R +w source/colloid
-  '';
+    postUnpack = ''
+      rm -rf source/colloid
+      cp -r ${colloid-gtk-theme.src} source/colloid
+      chmod -R +w source/colloid
+    '';
 
-  postPatch = ''
-    patchShebangs --build colloid/clean-old-theme.sh colloid/install.sh
-  '';
+    postPatch = ''
+      patchShebangs --build colloid/clean-old-theme.sh colloid/install.sh
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/share/themes
-    export HOME=$(mktemp -d)
+      mkdir -p $out/share/themes
+      export HOME=$(mktemp -d)
 
-    python3 install.py ${variant} \
-      ${
-        lib.optionalString (accents != [ ]) "--accent "
-        + builtins.toString accents
-      } \
-      ${lib.optionalString (size != [ ]) "--size " + size} \
-      ${
-        lib.optionalString (tweaks != [ ]) "--tweaks "
-        + builtins.toString tweaks
-      } \
-      --dest $out/share/themes
+      python3 install.py ${variant} \
+        ${
+          lib.optionalString (accents != [ ]) "--accent "
+          + builtins.toString accents
+        } \
+        ${lib.optionalString (size != [ ]) "--size " + size} \
+        ${
+          lib.optionalString (tweaks != [ ]) "--tweaks "
+          + builtins.toString tweaks
+        } \
+        --dest $out/share/themes
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Soothing pastel theme for GTK";
-    homepage = "https://github.com/catppuccin/gtk";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.fufexan ];
-  };
-}
+    meta = with lib; {
+      description = "Soothing pastel theme for GTK";
+      homepage = "https://github.com/catppuccin/gtk";
+      license = licenses.gpl3Plus;
+      platforms = platforms.linux;
+      maintainers = [ maintainers.fufexan ];
+    };
+  }

@@ -87,7 +87,8 @@ let
       name = "simutrans-${pakName}";
       dontUnpack = true;
       preferLocalBuild = true;
-      installPhase = let src = fetchurl { inherit url sha256; };
+      installPhase = let
+        src = fetchurl { inherit url sha256; };
       in ''
         mkdir -p "$out/share/simutrans/${pakName}"
         cd "$out/share/simutrans/${pakName}"
@@ -100,7 +101,7 @@ let
         mv ./"$toStrip"/* .
         rm -f "$toStrip/.directory" #pak128.german had this
         rmdir -p "$toStrip"
-      '';
+      '' ;
     };
 
   /* The binaries need all data in one directory; the default is directory
@@ -169,7 +170,7 @@ let
       # use -O2 optimization (defaults are -O or -O3)
       sed -i -e '/CFLAGS += -O/d' Makefile
       export CFLAGS+=-O2
-    '';
+    '' ;
 
     enableParallelBuilding = true;
 
@@ -201,4 +202,5 @@ let
     };
   };
 
-in result
+in
+  result

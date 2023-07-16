@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.wshowkeys;
+let
+  cfg = config.programs.wshowkeys;
 in {
   meta.maintainers = with maintainers; [ primeos ];
 

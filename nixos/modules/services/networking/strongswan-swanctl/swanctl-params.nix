@@ -1289,7 +1289,7 @@ in {
       '';
     } "Definition for a private key that's stored on a token/smartcard/TPM.";
 
-  };
+  } ;
 
   pools = mkAttrsOfParams {
     addrs = mkOptionalStrParam ''

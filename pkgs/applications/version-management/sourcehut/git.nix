@@ -54,41 +54,42 @@ let
     vendorSha256 = "sha256-Bc3yPabS2S+qiroHFKrtkII/CfzBDYQ6xWxKHAME+Tc=";
   };
 
-in buildPythonPackage rec {
-  inherit src version;
-  pname = "gitsrht";
+in
+  buildPythonPackage rec {
+    inherit src version;
+    pname = "gitsrht";
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace "all: api gitsrht-dispatch gitsrht-keys gitsrht-shell gitsrht-update-hook" ""
-  '';
+    postPatch = ''
+      substituteInPlace Makefile \
+        --replace "all: api gitsrht-dispatch gitsrht-keys gitsrht-shell gitsrht-update-hook" ""
+    '';
 
-  propagatedBuildInputs = [
-    srht
-    pygit2
-    scmsrht
-  ];
+    propagatedBuildInputs = [
+      srht
+      pygit2
+      scmsrht
+    ];
 
-  preBuild = ''
-    export PKGVER=${version}
-    export SRHT_PATH=${srht}/${python.sitePackages}/srht
-  '';
+    preBuild = ''
+      export PKGVER=${version}
+      export SRHT_PATH=${srht}/${python.sitePackages}/srht
+    '';
 
-  postInstall = ''
-    mkdir -p $out/bin
-    ln -s ${gitApi}/bin/api $out/bin/gitsrht-api
-    ln -s ${gitDispatch}/bin/gitsrht-dispatch $out/bin/gitsrht-dispatch
-    ln -s ${gitKeys}/bin/gitsrht-keys $out/bin/gitsrht-keys
-    ln -s ${gitShell}/bin/gitsrht-shell $out/bin/gitsrht-shell
-    ln -s ${gitUpdateHook}/bin/gitsrht-update-hook $out/bin/gitsrht-update-hook
-  '';
+    postInstall = ''
+      mkdir -p $out/bin
+      ln -s ${gitApi}/bin/api $out/bin/gitsrht-api
+      ln -s ${gitDispatch}/bin/gitsrht-dispatch $out/bin/gitsrht-dispatch
+      ln -s ${gitKeys}/bin/gitsrht-keys $out/bin/gitsrht-keys
+      ln -s ${gitShell}/bin/gitsrht-shell $out/bin/gitsrht-shell
+      ln -s ${gitUpdateHook}/bin/gitsrht-update-hook $out/bin/gitsrht-update-hook
+    '';
 
-  pythonImportsCheck = [ "gitsrht" ];
+    pythonImportsCheck = [ "gitsrht" ];
 
-  meta = with lib; {
-    homepage = "https://git.sr.ht/~sircmpwn/git.sr.ht";
-    description = "Git repository hosting service for the sr.ht network";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ eadwu ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://git.sr.ht/~sircmpwn/git.sr.ht";
+      description = "Git repository hosting service for the sr.ht network";
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [ eadwu ];
+    };
+  }

@@ -170,7 +170,7 @@ import ../make-test-python.nix ({
             inherit package coreSite hdfsSite yarnSite;
           };
         };
-    };
+    } ;
 
     testScript = ''
       start_all()

@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.programs.qdmr;
+let
+  cfg = config.programs.qdmr;
 in {
   meta.maintainers = [ lib.maintainers.janik ];
 

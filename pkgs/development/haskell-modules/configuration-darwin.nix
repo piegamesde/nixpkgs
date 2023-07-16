@@ -5,7 +5,8 @@
   haskellLib,
 }:
 
-let inherit (pkgs) lib darwin;
+let
+  inherit (pkgs) lib darwin;
 
 in with haskellLib;
 

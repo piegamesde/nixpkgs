@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.gitweb;
+let
+  cfg = config.services.gitweb;
 
 in {
 

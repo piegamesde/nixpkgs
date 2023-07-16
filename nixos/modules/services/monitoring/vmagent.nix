@@ -99,7 +99,7 @@ in {
         ExecStart =
           "${cfg.package}/bin/vmagent -remoteWrite.url=${cfg.remoteWriteUrl} -promscrape.config=${prometheusConfig}";
       };
-    };
+    } ;
 
     systemd.tmpfiles.rules =
       [ "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -" ];

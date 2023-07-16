@@ -42,96 +42,97 @@ let
 
   };
 
-in stdenv.mkDerivation rec {
-  pname = "trustedGRUB2";
-  inherit version;
+in
+  stdenv.mkDerivation rec {
+    pname = "trustedGRUB2";
+    inherit version;
 
-  src = fetchFromGitHub {
-    owner = "Sirrix-AG";
-    repo = "TrustedGRUB2";
-    rev = version;
-    sha256 = if for_HP_laptop then
-      "sha256-H1JzT/RgnbHqnW2/FmvXFuI6gnHI2vQU3W1iq2FqwJw="
-    else
-      "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns=";
-  };
+    src = fetchFromGitHub {
+      owner = "Sirrix-AG";
+      repo = "TrustedGRUB2";
+      rev = version;
+      sha256 = if for_HP_laptop then
+        "sha256-H1JzT/RgnbHqnW2/FmvXFuI6gnHI2vQU3W1iq2FqwJw="
+      else
+        "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns=";
+    };
 
-  nativeBuildInputs = [
-    autogen
-    flex
-    bison
-    python2
-    autoconf
-    automake
-  ];
-  buildInputs = [
-    ncurses
-    libusb-compat-0_1
-    freetype
-    gettext
-    lvm2
-  ] ++ lib.optional doCheck qemu;
+    nativeBuildInputs = [
+      autogen
+      flex
+      bison
+      python2
+      autoconf
+      automake
+    ];
+    buildInputs = [
+      ncurses
+      libusb-compat-0_1
+      freetype
+      gettext
+      lvm2
+    ] ++ lib.optional doCheck qemu;
 
-  hardeningDisable = [
-    "stackprotector"
-    "pic"
-  ];
+    hardeningDisable = [
+      "stackprotector"
+      "pic"
+    ];
 
-  env.NIX_CFLAGS_COMPILE = "-Wno-error"; # generated code redefines yyfree
+    env.NIX_CFLAGS_COMPILE = "-Wno-error"; # generated code redefines yyfree
 
-  preConfigure = ''
-    for i in "tests/util/"*.in
-          do
-            sed -i "$i" -e's|/bin/bash|${stdenv.shell}|g'
-          done
+    preConfigure = ''
+      for i in "tests/util/"*.in
+            do
+              sed -i "$i" -e's|/bin/bash|${stdenv.shell}|g'
+            done
 
-          # Apparently, the QEMU executable is no longer called
-          # `qemu-system-i386', even on i386.
-          #
-          # In addition, use `-nodefaults' to avoid errors like:
-          #
-          #  chardev: opening backend "stdio" failed
-          #  qemu: could not open serial device 'stdio': Invalid argument
-          #
-          # See <http://www.mail-archive.com/qemu-devel@nongnu.org/msg22775.html>.
-          sed -i "tests/util/grub-shell.in" \
-              -e's/qemu-system-i386/qemu-system-x86_64 -nodefaults/g'
-  '';
+            # Apparently, the QEMU executable is no longer called
+            # `qemu-system-i386', even on i386.
+            #
+            # In addition, use `-nodefaults' to avoid errors like:
+            #
+            #  chardev: opening backend "stdio" failed
+            #  qemu: could not open serial device 'stdio': Invalid argument
+            #
+            # See <http://www.mail-archive.com/qemu-devel@nongnu.org/msg22775.html>.
+            sed -i "tests/util/grub-shell.in" \
+                -e's/qemu-system-i386/qemu-system-x86_64 -nodefaults/g'
+    '';
 
-  prePatch = ''
-    tar zxf ${po_src} grub-2.02~beta2/po
-          rm -rf po
-          mv grub-2.02~beta2/po po
-          sh autogen.sh
-          gunzip < "${unifont_bdf}" > "unifont.bdf"
-          sed -i "configure" \
-              -e "s|/usr/src/unifont.bdf|$PWD/unifont.bdf|g"
-  '';
+    prePatch = ''
+      tar zxf ${po_src} grub-2.02~beta2/po
+            rm -rf po
+            mv grub-2.02~beta2/po po
+            sh autogen.sh
+            gunzip < "${unifont_bdf}" > "unifont.bdf"
+            sed -i "configure" \
+                -e "s|/usr/src/unifont.bdf|$PWD/unifont.bdf|g"
+    '';
 
-  patches = [
-    ./fix-bash-completion.patch
-    (fetchpatch {
-      # glibc-2.26 and above needs '<sys/sysmacros.h>'
-      url =
-        "https://github.com/Rohde-Schwarz/TrustedGRUB2/commit/7a5b301e3adb8e054288518a325135a1883c1c6c.patch";
-      sha256 = "1jfrrmcrd9a8w7n419kszxgbpshx7888wc05smg5q4jvc1ag3xm7";
-    })
-  ];
+    patches = [
+      ./fix-bash-completion.patch
+      (fetchpatch {
+        # glibc-2.26 and above needs '<sys/sysmacros.h>'
+        url =
+          "https://github.com/Rohde-Schwarz/TrustedGRUB2/commit/7a5b301e3adb8e054288518a325135a1883c1c6c.patch";
+        sha256 = "1jfrrmcrd9a8w7n419kszxgbpshx7888wc05smg5q4jvc1ag3xm7";
+      })
+    ];
 
-  # save target that grub is compiled for
-  grubTarget = lib.optionalString inPCSystems
-    "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
+    # save target that grub is compiled for
+    grubTarget = lib.optionalString inPCSystems
+      "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
 
-  doCheck = false;
-  # On -j16 races with early header creation:
-  #  config.h:38:10: fatal error: ./config-util.h: No such file or directory
-  enableParallelBuilding = false;
+    doCheck = false;
+    # On -j16 races with early header creation:
+    #  config.h:38:10: fatal error: ./config-util.h: No such file or directory
+    enableParallelBuilding = false;
 
-  meta = with lib; {
-    description =
-      "GRUB 2.0 extended with TCG (TPM) support for integrity measured boot process (trusted boot)";
-    homepage = "https://github.com/Sirrix-AG/TrustedGRUB2";
-    license = licenses.gpl3Plus;
-    platforms = platforms.gnu ++ platforms.linux;
-  };
-}
+    meta = with lib; {
+      description =
+        "GRUB 2.0 extended with TCG (TPM) support for integrity measured boot process (trusted boot)";
+      homepage = "https://github.com/Sirrix-AG/TrustedGRUB2";
+      license = licenses.gpl3Plus;
+      platforms = platforms.gnu ++ platforms.linux;
+    };
+  }

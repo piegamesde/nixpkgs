@@ -32,26 +32,27 @@ let
       cp -r dist $out
     '';
   };
-in buildGoModule rec {
-  pname = "memos";
-  inherit version src;
+in
+  buildGoModule rec {
+    pname = "memos";
+    inherit version src;
 
-  # check will unable to access network in sandbox
-  doCheck = false;
-  vendorSha256 = "sha256-P4OnICBiTAs/uaQgoYNKK50yj/PYntyH/bLihdPv88s=";
+    # check will unable to access network in sandbox
+    doCheck = false;
+    vendorSha256 = "sha256-P4OnICBiTAs/uaQgoYNKK50yj/PYntyH/bLihdPv88s=";
 
-  # Inject frontend assets into go embed
-  prePatch = ''
-    rm -rf server/dist
-    cp -r ${frontend} server/dist
-  '';
+    # Inject frontend assets into go embed
+    prePatch = ''
+      rm -rf server/dist
+      cp -r ${frontend} server/dist
+    '';
 
-  passthru = { updateScript = ./update.sh; };
+    passthru = { updateScript = ./update.sh; };
 
-  meta = with lib; {
-    homepage = "https://usememos.com";
-    description = "A lightweight, self-hosted memo hub";
-    maintainers = with maintainers; [ indexyz ];
-    license = licenses.mit;
-  };
-}
+    meta = with lib; {
+      homepage = "https://usememos.com";
+      description = "A lightweight, self-hosted memo hub";
+      maintainers = with maintainers; [ indexyz ];
+      license = licenses.mit;
+    };
+  }

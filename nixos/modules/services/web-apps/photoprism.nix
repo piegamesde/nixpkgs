@@ -18,10 +18,12 @@ let
   manage = let
     setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList
       (name: val: "export ${name}=${lib.escapeShellArg val}") env);
-  in pkgs.writeShellScript "manage" ''
-    ${setupEnv}
-    exec ${cfg.package}/bin/photoprism "$@"
-  '';
+  in
+    pkgs.writeShellScript "manage" ''
+      ${setupEnv}
+      exec ${cfg.package}/bin/photoprism "$@"
+    ''
+  ;
 in {
   meta.maintainers = with lib.maintainers; [ stunkymonkey ];
 

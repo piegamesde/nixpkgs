@@ -32,4 +32,5 @@ let
   } ''
     substituteAll ${./runtime-closure.nix.template} $out
   '';
-in runtimeClosureInfoAsNix
+in
+  runtimeClosureInfoAsNix

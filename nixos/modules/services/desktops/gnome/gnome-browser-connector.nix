@@ -5,7 +5,8 @@
   ...
 }:
 
-let inherit (lib) mdDoc mkEnableOption mkIf mkRenamedOptionModule teams;
+let
+  inherit (lib) mdDoc mkEnableOption mkIf mkRenamedOptionModule teams;
 
 in {
   meta = { maintainers = teams.gnome.members; };

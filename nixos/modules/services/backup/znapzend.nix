@@ -46,12 +46,16 @@ let
   # Type for a string that must contain certain other strings (the list parameter).
   # Note that these would need regex escaping.
   stringContainingStrings = list:
-    let matching = s: map (str: builtins.match ".*${str}.*" s) list;
-    in str // {
-      check = x: str.check x && all isList (matching x);
-      description =
-        "string containing all of the characters ${concatStringsSep ", " list}";
-    };
+    let
+      matching = s: map (str: builtins.match ".*${str}.*" s) list;
+    in
+      str // {
+        check = x: str.check x && all isList (matching x);
+        description = "string containing all of the characters ${
+            concatStringsSep ", " list
+          }";
+      }
+  ;
 
   timestampType = stringContainingStrings [
     "%Y"
@@ -307,11 +311,12 @@ let
     (map mkDestAttrs (builtins.attrValues destinations));
 
   files = mapAttrs' (n: srcCfg:
-    let fileText = attrsToFile (mkSrcAttrs srcCfg);
+    let
+      fileText = attrsToFile (mkSrcAttrs srcCfg);
     in {
       name = srcCfg.dataset;
       value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
-    }) cfg.zetup;
+    } ) cfg.zetup;
 
 in {
   options = {
@@ -492,7 +497,9 @@ in {
               (optionalString (enabledFeatures != [ ])
                 "--features=${concatStringsSep "," enabledFeatures}")
             ];
-          in "${pkgs.znapzend}/bin/znapzend ${args}";
+          in
+            "${pkgs.znapzend}/bin/znapzend ${args}"
+          ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "on-failure";
         };

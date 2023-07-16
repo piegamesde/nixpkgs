@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.services.woodpecker-server;
+let
+  cfg = config.services.woodpecker-server;
 in {
   meta.maintainers = with lib.maintainers; [
     janik

@@ -169,9 +169,11 @@ in {
             KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
           '');
 
-    in script.overrideAttrs (old: {
-      meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
-    });
+    in
+      script.overrideAttrs (old: {
+        meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
+      })
+    ;
 
     system = {
       # To prevent gratuitous rebuilds on each change to Nixpkgs

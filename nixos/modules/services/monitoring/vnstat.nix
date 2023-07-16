@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.vnstat;
+let
+  cfg = config.services.vnstat;
 in {
   options.services.vnstat = {
     enable = mkEnableOption

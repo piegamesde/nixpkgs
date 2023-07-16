@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.hardware;
+let
+  cfg = config.hardware;
 in {
 
   imports = [

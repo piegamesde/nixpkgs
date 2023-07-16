@@ -154,7 +154,7 @@ stdenv.mkDerivation {
   in ''
     echo "Testing whether we can import modules"
     $out/bin/${executable} -c '${imports}'
-  '';
+  '' ;
 
   setupHook = python-setup-hook sitePackages;
 

@@ -28,7 +28,9 @@ let
         packagePython value
       else
         [ ]);
-    in lib.optionals res.success res.value);
+    in
+      lib.optionals res.success res.value
+  );
 
   jobs = {
     lib-tests = import ../../lib/tests/release.nix { inherit pkgs; };
@@ -49,4 +51,5 @@ let
     };
 
   } // (mapTestOn (packagePython pkgs));
-in jobs
+in
+  jobs

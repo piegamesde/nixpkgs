@@ -391,8 +391,9 @@ in {
         "test"
         "batch_size"
       ];
-    in builtins.map deprecationWarning
-    (builtins.filter hasImapOpt movedOptions);
+    in
+      builtins.map deprecationWarning (builtins.filter hasImapOpt movedOptions)
+    ;
 
     services.elasticsearch.enable = lib.mkDefault cfg.provision.elasticsearch;
 
@@ -432,9 +433,10 @@ in {
       provision = {
         enable = cfg.provision.grafana.datasource
           || cfg.provision.grafana.dashboard;
-        datasources.settings.datasources =
-          let esVersion = lib.getVersion config.services.elasticsearch.package;
-          in lib.mkIf cfg.provision.grafana.datasource [
+        datasources.settings.datasources = let
+          esVersion = lib.getVersion config.services.elasticsearch.package;
+        in
+          lib.mkIf cfg.provision.grafana.datasource [
             {
               name = "dmarc-ag";
               type = "elasticsearch";
@@ -455,7 +457,8 @@ in {
                 inherit esVersion;
               };
             }
-          ];
+          ]
+        ;
         dashboards.settings.providers =
           lib.mkIf cfg.provision.grafana.dashboard [ {
             name = "parsedmarc";
@@ -539,10 +542,12 @@ in {
             echo "Setting new randomized password for user '${cfg.provision.localMail.recipientName}'."
             cat <(echo -n "${cfg.provision.localMail.recipientName}:") /run/parsedmarc/dmarc_user_passwd | chpasswd
           '';
-        in "+${
-          pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
-          startPreFullPrivileges
-        }";
+        in
+          "+${
+            pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
+            startPreFullPrivileges
+          }"
+        ;
         Type = "simple";
         User = "parsedmarc";
         Group = "parsedmarc";
@@ -580,7 +585,7 @@ in {
         ExecStart =
           "${pkgs.python3Packages.parsedmarc}/bin/parsedmarc -c /run/parsedmarc/parsedmarc.ini";
       };
-    };
+    } ;
 
     users.users.${cfg.provision.localMail.recipientName} =
       lib.mkIf cfg.provision.localMail.enable {

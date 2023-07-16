@@ -94,22 +94,23 @@ let
   };
 
   # Lightworks expects some files in /usr/share/lightworks
-in buildFHSEnv {
-  name = lightworks.name;
+in
+  buildFHSEnv {
+    name = lightworks.name;
 
-  targetPkgs = pkgs: [ lightworks ];
+    targetPkgs = pkgs: [ lightworks ];
 
-  runScript = "lightworks";
+    runScript = "lightworks";
 
-  meta = {
-    description = "Professional Non-Linear Video Editor";
-    homepage = "https://www.lwks.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [
-      antonxy
-      vojta001
-    ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "Professional Non-Linear Video Editor";
+      homepage = "https://www.lwks.com/";
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [
+        antonxy
+        vojta001
+      ];
+      platforms = [ "x86_64-linux" ];
+    };
+  }

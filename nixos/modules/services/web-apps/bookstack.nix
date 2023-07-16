@@ -455,7 +455,7 @@ in {
 
         # migrate db
         ${pkgs.php}/bin/php artisan migrate --force
-      '';
+      '' ;
     };
 
     systemd.tmpfiles.rules = [

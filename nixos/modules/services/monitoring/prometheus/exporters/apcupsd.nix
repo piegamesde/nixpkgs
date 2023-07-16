@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.apcupsd;
+let
+  cfg = config.services.prometheus.exporters.apcupsd;
 in {
   port = 9162;
   extraOpts = {

@@ -30,7 +30,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.config.users.users.alice;
+      let
+        user = nodes.machine.config.users.users.alice;
       in ''
         with subtest("Wait for login"):
             start_all()
@@ -44,5 +45,5 @@ import ./make-test-python.nix ({
         status, result = machine.systemctl('--no-pager show plasma-plasmashell.service', user='alice')
         assert status == 0, 'Service not found'
         assert 'ActiveState=active' in result.split('\n'), 'Systemd service not active'
-      '';
+      '' ;
   })

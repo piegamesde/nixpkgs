@@ -105,4 +105,4 @@ import ./make-test-python.nix ({
 
         machine.screenshot("MuseScore5")
       '';
-  })
+  } )

@@ -45,80 +45,80 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable)
-    (let cfgFile = format.generate "odoo.cfg" cfg.settings;
-    in {
-      services.nginx = mkIf (cfg.domain != null) {
-        upstreams = {
-          odoo.servers = { "127.0.0.1:8069" = { }; };
+  config = mkIf (cfg.enable) (let
+    cfgFile = format.generate "odoo.cfg" cfg.settings;
+  in {
+    services.nginx = mkIf (cfg.domain != null) {
+      upstreams = {
+        odoo.servers = { "127.0.0.1:8069" = { }; };
 
-          odoochat.servers = { "127.0.0.1:8072" = { }; };
-        };
+        odoochat.servers = { "127.0.0.1:8072" = { }; };
+      };
 
-        virtualHosts."${cfg.domain}" = {
-          extraConfig = ''
-            proxy_read_timeout 720s;
-            proxy_connect_timeout 720s;
-            proxy_send_timeout 720s;
+      virtualHosts."${cfg.domain}" = {
+        extraConfig = ''
+          proxy_read_timeout 720s;
+          proxy_connect_timeout 720s;
+          proxy_send_timeout 720s;
 
-            proxy_set_header X-Forwarded-Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header X-Real-IP $remote_addr;
-          '';
+          proxy_set_header X-Forwarded-Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Real-IP $remote_addr;
+        '';
 
-          locations = {
-            "/longpolling" = { proxyPass = "http://odoochat"; };
+        locations = {
+          "/longpolling" = { proxyPass = "http://odoochat"; };
 
-            "/" = {
-              proxyPass = "http://odoo";
-              extraConfig = ''
-                proxy_redirect off;
-              '';
-            };
+          "/" = {
+            proxyPass = "http://odoo";
+            extraConfig = ''
+              proxy_redirect off;
+            '';
           };
         };
       };
+    };
 
-      services.odoo.settings.options = { proxy_mode = cfg.domain != null; };
+    services.odoo.settings.options = { proxy_mode = cfg.domain != null; };
 
-      users.users.odoo = {
-        isSystemUser = true;
-        group = "odoo";
+    users.users.odoo = {
+      isSystemUser = true;
+      group = "odoo";
+    };
+    users.groups.odoo = { };
+
+    systemd.services.odoo = {
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "network.target"
+        "postgresql.service"
+      ];
+
+      # pg_dump
+      path = [ config.services.postgresql.package ];
+
+      requires = [ "postgresql.service" ];
+      script = "HOME=$STATE_DIRECTORY ${cfg.package}/bin/odoo ${
+          optionalString (cfg.addons != [ ])
+          "--addons-path=${concatMapStringsSep "," escapeShellArg cfg.addons}"
+        } -c ${cfgFile}";
+
+      serviceConfig = {
+        DynamicUser = true;
+        User = "odoo";
+        StateDirectory = "odoo";
       };
-      users.groups.odoo = { };
+    };
 
-      systemd.services.odoo = {
-        wantedBy = [ "multi-user.target" ];
-        after = [
-          "network.target"
-          "postgresql.service"
-        ];
+    services.postgresql = {
+      enable = true;
 
-        # pg_dump
-        path = [ config.services.postgresql.package ];
-
-        requires = [ "postgresql.service" ];
-        script = "HOME=$STATE_DIRECTORY ${cfg.package}/bin/odoo ${
-            optionalString (cfg.addons != [ ])
-            "--addons-path=${concatMapStringsSep "," escapeShellArg cfg.addons}"
-          } -c ${cfgFile}";
-
-        serviceConfig = {
-          DynamicUser = true;
-          User = "odoo";
-          StateDirectory = "odoo";
-        };
-      };
-
-      services.postgresql = {
-        enable = true;
-
-        ensureUsers = [ {
-          name = "odoo";
-          ensurePermissions = { "DATABASE odoo" = "ALL PRIVILEGES"; };
-        } ];
-        ensureDatabases = [ "odoo" ];
-      };
-    });
+      ensureUsers = [ {
+        name = "odoo";
+        ensurePermissions = { "DATABASE odoo" = "ALL PRIVILEGES"; };
+      } ];
+      ensureDatabases = [ "odoo" ];
+    };
+  } );
 }

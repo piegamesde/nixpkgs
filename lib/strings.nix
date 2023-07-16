@@ -271,15 +271,17 @@ in rec {
       lenSuffix = stringLength suffix;
       # Before 23.05, paths would be copied to the store before converting them
       # to strings and comparing. This was surprising and confusing.
-    in warnIf (isPath suffix) ''
-      lib.strings.hasSuffix: The first argument (${
-        toString suffix
-      }) is a path value, but only strings are supported.
-          There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
-          This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.''
-    (lenContent >= lenSuffix
-      && substring (lenContent - lenSuffix) lenContent content == suffix);
+    in
+      warnIf (isPath suffix) ''
+        lib.strings.hasSuffix: The first argument (${
+          toString suffix
+        }) is a path value, but only strings are supported.
+            There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
+            This function also copies the path to the Nix store, which may not be what you want.
+            This behavior is deprecated and will throw an error in the future.''
+      (lenContent >= lenSuffix
+        && substring (lenContent - lenSuffix) lenContent content == suffix)
+  ;
 
   /* Determine whether a string contains the given infix
 
@@ -460,9 +462,11 @@ in rec {
       "~"
     ];
     toEscape = builtins.removeAttrs asciiTable unreserved;
-  in replaceStrings (builtins.attrNames toEscape)
-  (lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
-    toEscape);
+  in
+    replaceStrings (builtins.attrNames toEscape)
+    (lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
+      toEscape)
+  ;
 
   /* Quote string to be used safely within the Bourne shell.
 
@@ -660,7 +664,9 @@ in rec {
     let
       splits = builtins.filter builtins.isString
         (builtins.split (escapeRegex (toString sep)) (toString s));
-    in map (addContextFrom s) splits;
+    in
+      map (addContextFrom s) splits
+  ;
 
   /* Return a string without the specified prefix, if the prefix matches.
 
@@ -759,7 +765,8 @@ in rec {
        => "youtube-dl"
   */
   getName = x:
-    let parse = drv: (parseDrvName drv).name;
+    let
+      parse = drv: (parseDrvName drv).name;
     in if isString x then parse x else x.pname or (parse x.name);
 
   /* This function takes an argument that's either a derivation or a
@@ -773,7 +780,8 @@ in rec {
        => "2016.01.01"
   */
   getVersion = x:
-    let parse = drv: (parseDrvName drv).version;
+    let
+      parse = drv: (parseDrvName drv).version;
     in if isString x then parse x else x.version or (parse x.name);
 
   /* Extract name with version from URL. Ask for separator which is
@@ -790,7 +798,9 @@ in rec {
       components = splitString "/" url;
       filename = lib.last components;
       name = head (splitString sep filename);
-    in assert name != filename; name;
+    in
+      assert name != filename; name
+  ;
 
   /* Create a -D<feature>=<value> string that can be passed to typical Meson
       invocations.
@@ -913,14 +923,16 @@ in rec {
     let
       strw = lib.stringLength str;
       reqWidth = width - (lib.stringLength filler);
-    in assert lib.assertMsg (strw <= width)
-      "fixedWidthString: requested string length (${
-        toString width
-      }) must not be shorter than actual length (${toString strw})";
-    if strw == width then
-      str
-    else
-      filler + fixedWidthString reqWidth filler str;
+    in
+      assert lib.assertMsg (strw <= width)
+        "fixedWidthString: requested string length (${
+          toString width
+        }) must not be shorter than actual length (${toString strw})";
+      if strw == width then
+        str
+      else
+        filler + fixedWidthString reqWidth filler str
+  ;
 
   /* Format a number adding leading zeroes up to fixed width.
 
@@ -944,8 +956,10 @@ in rec {
     let
       result = toString float;
       precise = float == fromJSON result;
-    in lib.warnIf (!precise)
-    "Imprecise conversion from float to string ${result}" result;
+    in
+      lib.warnIf (!precise)
+      "Imprecise conversion from float to string ${result}" result
+  ;
 
   /* Soft-deprecated function. While the original implementation is available as
      isConvertibleWithToString, consider using isStringLike instead, if suitable.
@@ -989,7 +1003,10 @@ in rec {
   */
   isStorePath = x:
     if isStringLike x then
-      let str = toString x; in substring 0 1 str == "/" && dirOf str == storeDir
+      let
+        str = toString x;
+      in
+        substring 0 1 str == "/" && dirOf str == storeDir
     else
       false;
 
@@ -1119,7 +1136,9 @@ in rec {
           lib.filter (line: line != "" && !(lib.hasPrefix "#" line));
         relativePaths = removeComments lines;
         absolutePaths = map (path: rootPath + "/${path}") relativePaths;
-      in absolutePaths);
+      in
+        absolutePaths
+    );
 
   /* Read the contents of a file removing the trailing \n
 
@@ -1145,9 +1164,10 @@ in rec {
        sanitizeDerivationName pkgs.hello
        => "-nix-store-2g75chlbpxlrqn15zlby2dfh8hr9qwbk-hello-2.10"
   */
-  sanitizeDerivationName =
-    let okRegex = match "[[:alnum:]+_?=-][[:alnum:]+._?=-]*";
-    in string:
+  sanitizeDerivationName = let
+    okRegex = match "[[:alnum:]+_?=-][[:alnum:]+._?=-]*";
+  in
+    string:
     # First detect the common case of already valid strings, to speed those up
     if stringLength string <= 207 && okRegex string != null then
       unsafeDiscardStringContext string
@@ -1168,7 +1188,8 @@ in rec {
         (x: substring (lib.max (stringLength x - 207) 0) (-1) x)
         # If the result is empty, replace it with "unknown"
         (x: if stringLength x == 0 then "unknown" else x)
-      ];
+      ]
+  ;
 
   /* Computes the Levenshtein distance between two strings.
      Complexity O(n*m) where n and m are the lengths of the strings.
@@ -1191,7 +1212,8 @@ in rec {
         (stringLength a + 1);
       d = x: y: lib.elemAt (lib.elemAt arr x) y;
       dist = i: j:
-        let c = if substring (i - 1) 1 a == substring (j - 1) 1 b then 0 else 1;
+        let
+          c = if substring (i - 1) 1 a == substring (j - 1) 1 b then 0 else 1;
         in if j == 0 then
           i
         else if i == 0 then
@@ -1199,7 +1221,9 @@ in rec {
         else
           lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1))
           (d (i - 1) (j - 1) + c);
-    in d (stringLength a) (stringLength b);
+    in
+      d (stringLength a) (stringLength b)
+  ;
 
   # Returns the length of the prefix common to both strings.
   commonPrefixLength = a: b:
@@ -1212,7 +1236,9 @@ in rec {
           go (i + 1)
         else
           i;
-    in go 0;
+    in
+      go 0
+  ;
 
   # Returns the length of the suffix common to both strings.
   commonSuffixLength = a: b:
@@ -1226,7 +1252,9 @@ in rec {
           go (i + 1)
         else
           i;
-    in go 0;
+    in
+      go 0
+  ;
 
   /* Returns whether the levenshtein distance between two strings is at most some value
      Complexity is O(min(n,m)) for k <= 2 and O(n*m) otherwise
@@ -1288,31 +1316,34 @@ in rec {
       else
         xinfix == yinfix || xdelr == ydell || xdell == ydelr;
 
-  in k:
-  if k <= 0 then
-    a: b: a == b
-  else
-    let
-      f = a: b:
-        let
-          alen = stringLength a;
-          blen = stringLength b;
-          prelen = commonPrefixLength a b;
-          suflen = commonSuffixLength a b;
-          presuflen = prelen + suflen;
-          ainfix = substring prelen (alen - presuflen) a;
-          binfix = substring prelen (blen - presuflen) b;
-          # Make a be the bigger string
-        in if alen < blen then
-          f b a
-          # If a has over k more characters than b, even with k deletes on a, b can't be reached
-        else if alen - blen > k then
-          false
-        else if k == 1 then
-          infixDifferAtMost1 ainfix binfix
-        else if k == 2 then
-          infixDifferAtMost2 ainfix binfix
-        else
-          levenshtein ainfix binfix <= k;
-    in f;
+  in
+    k:
+    if k <= 0 then
+      a: b: a == b
+    else
+      let
+        f = a: b:
+          let
+            alen = stringLength a;
+            blen = stringLength b;
+            prelen = commonPrefixLength a b;
+            suflen = commonSuffixLength a b;
+            presuflen = prelen + suflen;
+            ainfix = substring prelen (alen - presuflen) a;
+            binfix = substring prelen (blen - presuflen) b;
+            # Make a be the bigger string
+          in if alen < blen then
+            f b a
+            # If a has over k more characters than b, even with k deletes on a, b can't be reached
+          else if alen - blen > k then
+            false
+          else if k == 1 then
+            infixDifferAtMost1 ainfix binfix
+          else if k == 2 then
+            infixDifferAtMost2 ainfix binfix
+          else
+            levenshtein ainfix binfix <= k;
+      in
+        f
+  ;
 }

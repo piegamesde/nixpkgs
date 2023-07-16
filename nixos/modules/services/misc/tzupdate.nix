@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.tzupdate;
+let
+  cfg = config.services.tzupdate;
 in {
   options.services.tzupdate = {
     enable = mkOption {

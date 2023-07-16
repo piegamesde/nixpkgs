@@ -9,7 +9,8 @@
 }:
 
 lib.makeScope newScope (self:
-  let callPackage = self.callPackage;
+  let
+    callPackage = self.callPackage;
   in {
     inherit nim;
     nim_builder = callPackage ../development/nim-packages/nim_builder { };
@@ -144,4 +145,4 @@ lib.makeScope newScope (self:
 
     zippy = callPackage ../development/nim-packages/zippy { };
 
-  })
+  } )

@@ -35,42 +35,43 @@ let
     aarch64-darwin = x86_64-darwin;
   };
   src = srcs.${stdenv.hostPlatform.system};
-in stdenv.mkDerivation {
-  inherit pname version src;
+in
+  stdenv.mkDerivation {
+    inherit pname version src;
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [
-    python3
-    perl
-  ] ++ lib.optionals stdenv.isLinux [
-    zlib
-    bzip2
-    glib
-    libxml2
-  ];
-
-  installPhase = ''
-    runHook preInstall
-
-    install -Dm755 bin/* -t $out/bin
-
-    runHook postInstall
-  '';
-
-  preFixup = ''
-    substituteInPlace $out/bin/get_species_taxids.sh \
-      --replace /bin/rm ${coreutils}/bin/rm
-  '';
-
-  meta = with lib; {
-    inherit (blast.meta) description homepage license;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
+    buildInputs = [
+      python3
+      perl
+    ] ++ lib.optionals stdenv.isLinux [
+      zlib
+      bzip2
+      glib
+      libxml2
     ];
-    maintainers = with maintainers; [ natsukium ];
-  };
-}
+
+    installPhase = ''
+      runHook preInstall
+
+      install -Dm755 bin/* -t $out/bin
+
+      runHook postInstall
+    '';
+
+    preFixup = ''
+      substituteInPlace $out/bin/get_species_taxids.sh \
+        --replace /bin/rm ${coreutils}/bin/rm
+    '';
+
+    meta = with lib; {
+      inherit (blast.meta) description homepage license;
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      maintainers = with maintainers; [ natsukium ];
+    };
+  }

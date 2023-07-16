@@ -235,7 +235,7 @@ in {
         cd "${pythonEnv}/lib/etebase-server";
         daphne ${networking} \
           etebase_server.asgi:application
-      '';
+      '' ;
     };
 
     users = optionalAttrs (cfg.user == defaultUser) {

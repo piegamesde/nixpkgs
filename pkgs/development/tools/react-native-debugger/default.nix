@@ -66,59 +66,60 @@ let
     xorg.libXrender
     xorg.libXScrnSaver
   ];
-in stdenv.mkDerivation rec {
-  pname = "react-native-debugger";
-  version = "0.13.0";
-  src = fetchurl {
-    url =
-      "https://github.com/jhen0409/react-native-debugger/releases/download/v${version}/rn-debugger-linux-x64.zip";
-    sha256 = "sha256-/uVXMVrVS7n4/mqz6IlKkk63hy67fn9KRjZ1wP5MHB0=";
-  };
+in
+  stdenv.mkDerivation rec {
+    pname = "react-native-debugger";
+    version = "0.13.0";
+    src = fetchurl {
+      url =
+        "https://github.com/jhen0409/react-native-debugger/releases/download/v${version}/rn-debugger-linux-x64.zip";
+      sha256 = "sha256-/uVXMVrVS7n4/mqz6IlKkk63hy67fn9KRjZ1wP5MHB0=";
+    };
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ];
-  buildCommand = ''
-    shopt -s extglob
-    mkdir -p $out
-    unzip $src -d $out
-
-    mkdir $out/{lib,bin,share}
-    mv $out/{libEGL,libGLESv2,libvk_swiftshader,libffmpeg}.so $out/lib
-    mv $out/!(lib|share|bin) $out/share
-
-    patchelf \
-      --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      --set-rpath ${rpath}:$out/lib \
-      $out/share/react-native-debugger
-
-    wrapProgram $out/share/react-native-debugger \
-      --add-flags --no-sandbox
-
-    ln -s $out/share/react-native-debugger $out/bin/react-native-debugger
-
-    install -Dm644 "${desktopItem}/share/applications/"* \
-      -t $out/share/applications/
-  '';
-
-  desktopItem = makeDesktopItem {
-    name = "rndebugger";
-    exec = "react-native-debugger";
-    desktopName = "React Native Debugger";
-    genericName = "React Native Debugger";
-    categories = [
-      "Development"
-      "Debugger"
+    nativeBuildInputs = [
+      makeWrapper
+      unzip
     ];
-  };
+    buildCommand = ''
+      shopt -s extglob
+      mkdir -p $out
+      unzip $src -d $out
 
-  meta = with lib; {
-    homepage = "https://github.com/jhen0409/react-native-debugger";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.mit;
-    description =
-      "The standalone app based on official debugger of React Native, and includes React Inspector / Redux DevTools";
-    maintainers = with maintainers; [ ];
-  };
-}
+      mkdir $out/{lib,bin,share}
+      mv $out/{libEGL,libGLESv2,libvk_swiftshader,libffmpeg}.so $out/lib
+      mv $out/!(lib|share|bin) $out/share
+
+      patchelf \
+        --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
+        --set-rpath ${rpath}:$out/lib \
+        $out/share/react-native-debugger
+
+      wrapProgram $out/share/react-native-debugger \
+        --add-flags --no-sandbox
+
+      ln -s $out/share/react-native-debugger $out/bin/react-native-debugger
+
+      install -Dm644 "${desktopItem}/share/applications/"* \
+        -t $out/share/applications/
+    '';
+
+    desktopItem = makeDesktopItem {
+      name = "rndebugger";
+      exec = "react-native-debugger";
+      desktopName = "React Native Debugger";
+      genericName = "React Native Debugger";
+      categories = [
+        "Development"
+        "Debugger"
+      ];
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/jhen0409/react-native-debugger";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.mit;
+      description =
+        "The standalone app based on official debugger of React Native, and includes React Inspector / Redux DevTools";
+      maintainers = with maintainers; [ ];
+    };
+  }

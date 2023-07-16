@@ -58,13 +58,17 @@ let
     let
       addrs = if builtins.typeOf addrIn == "list" then addrIn else [ addrIn ];
       unfilteredResult = map multiaddrToListenStream addrs;
-    in builtins.filter (addr: addr != null) unfilteredResult;
+    in
+      builtins.filter (addr: addr != null) unfilteredResult
+  ;
 
   multiaddrsToListenDatagrams = addrIn:
     let
       addrs = if builtins.typeOf addrIn == "list" then addrIn else [ addrIn ];
       unfilteredResult = map multiaddrToListenDatagram addrs;
-    in builtins.filter (addr: addr != null) unfilteredResult;
+    in
+      builtins.filter (addr: addr != null) unfilteredResult
+  ;
 
   multiaddrToListenStream = addrRaw:
     let

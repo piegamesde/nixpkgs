@@ -71,8 +71,9 @@ let
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
     };
   };
-in jruby.overrideAttrs (oldAttrs: {
-  passthru = oldAttrs.passthru // {
-    devEnv = callPackage ../ruby/dev.nix { ruby = jruby; };
-  };
-})
+in
+  jruby.overrideAttrs (oldAttrs: {
+    passthru = oldAttrs.passthru // {
+      devEnv = callPackage ../ruby/dev.nix { ruby = jruby; };
+    };
+  })

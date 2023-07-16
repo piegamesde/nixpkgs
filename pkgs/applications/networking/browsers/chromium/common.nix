@@ -158,8 +158,9 @@ let
       else
         throw "Unsupported type for GN value `${value}'.";
     toFlag = key: value: "${key}=${sanitize value}";
-  in attrs:
-  lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs));
+  in
+    attrs: lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs))
+  ;
 
   # https://source.chromium.org/chromium/chromium/src/+/master:build/linux/unbundle/replace_gn_files.py
   gnSystemLibraries = [
@@ -457,7 +458,7 @@ let
       runHook preBuild
       ${lib.concatStringsSep "\n" commands}
       runHook postBuild
-    '';
+    '' ;
 
     postFixup = ''
       # Make sure that libGLESv2 and libvulkan are found by dlopen.
@@ -478,10 +479,11 @@ let
   };
 
   # Remove some extraAttrs we supplied to the base attributes already.
-in stdenv.mkDerivation (base // removeAttrs extraAttrs [
-  "name"
-  "gnFlags"
-  "buildTargets"
-] // {
-  passthru = base.passthru // (extraAttrs.passthru or { });
-})
+in
+  stdenv.mkDerivation (base // removeAttrs extraAttrs [
+    "name"
+    "gnFlags"
+    "buildTargets"
+  ] // {
+    passthru = base.passthru // (extraAttrs.passthru or { });
+  })

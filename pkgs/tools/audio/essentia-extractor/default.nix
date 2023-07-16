@@ -18,31 +18,32 @@ let
 
   throwSystem = throw "Unsupported system: ${stdenv.system}";
   arch = arch_table.${stdenv.system} or throwSystem;
-in stdenv.mkDerivation rec {
-  pname = "essentia-extractor";
-  version = "2.1_beta2";
+in
+  stdenv.mkDerivation rec {
+    pname = "essentia-extractor";
+    version = "2.1_beta2";
 
-  src = fetchurl {
-    url =
-      "https://ftp.acousticbrainz.org/pub/acousticbrainz/essentia-extractor-v${version}-${arch}.tar.gz";
-    sha256 = sha_table.${stdenv.system} or throwSystem;
-  };
+    src = fetchurl {
+      url =
+        "https://ftp.acousticbrainz.org/pub/acousticbrainz/essentia-extractor-v${version}-${arch}.tar.gz";
+      sha256 = sha_table.${stdenv.system} or throwSystem;
+    };
 
-  unpackPhase = "unpackFile $src ; export sourceRoot=.";
+    unpackPhase = "unpackFile $src ; export sourceRoot=.";
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cp streaming_extractor_music $out/bin
-  '';
+    installPhase = ''
+      mkdir -p $out/bin
+      cp streaming_extractor_music $out/bin
+    '';
 
-  meta = with lib; {
-    homepage = "https://acousticbrainz.org/download";
-    description = "AcousticBrainz audio feature extractor";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ lovesegfault ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://acousticbrainz.org/download";
+      description = "AcousticBrainz audio feature extractor";
+      license = licenses.agpl3Plus;
+      maintainers = with maintainers; [ lovesegfault ];
+      platforms = [
+        "x86_64-linux"
+        "i686-linux"
+      ];
+    };
+  }

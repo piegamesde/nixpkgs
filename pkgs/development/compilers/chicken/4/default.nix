@@ -21,4 +21,5 @@ let
     egg2nix = callPackage ./egg2nix.nix { };
   };
 
-in lib.recurseIntoAttrs self
+in
+  lib.recurseIntoAttrs self

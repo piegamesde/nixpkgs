@@ -86,4 +86,5 @@ let
         || (stdenv.isLinux && stdenv.isAarch64);
     };
   };
-in self
+in
+  self

@@ -2,7 +2,8 @@
   lib,
   ...
 }:
-let inherit (lib) types;
+let
+  inherit (lib) types;
 in {
   options = {
     name = lib.mkOption { type = types.str; };

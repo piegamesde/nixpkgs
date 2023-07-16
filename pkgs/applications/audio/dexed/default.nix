@@ -82,26 +82,28 @@ stdenv.mkDerivation rec {
     else
       "$out/lib/clap";
     auDir = "$out/Library/Audio/Plug-Ins/Components";
-  in ''
-    runHook preInstall
+  in
+    ''
+      runHook preInstall
 
-  '' + (if stdenv.hostPlatform.isDarwin then ''
-    mkdir -p $out/{Applications,bin}
-    mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
-    ln -s $out/{Applications/Dexed.app/Contents/MacOS,bin}/Dexed
-  '' else ''
-    install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
-  '') + ''
-    mkdir -p ${vst3Dir} ${clapDir}
-    mv Source/Dexed_artefacts/Release/VST3/* ${vst3Dir}
-    mv Source/Dexed_artefacts/Release/CLAP/* ${clapDir}
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    mkdir -p ${auDir}
-    mv Source/Dexed_artefacts/Release/AU/* ${auDir}
-  '' + ''
+    '' + (if stdenv.hostPlatform.isDarwin then ''
+      mkdir -p $out/{Applications,bin}
+      mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
+      ln -s $out/{Applications/Dexed.app/Contents/MacOS,bin}/Dexed
+    '' else ''
+      install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
+    '') + ''
+      mkdir -p ${vst3Dir} ${clapDir}
+      mv Source/Dexed_artefacts/Release/VST3/* ${vst3Dir}
+      mv Source/Dexed_artefacts/Release/CLAP/* ${clapDir}
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p ${auDir}
+      mv Source/Dexed_artefacts/Release/AU/* ${auDir}
+    '' + ''
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    ''
+  ;
 
   meta = with lib; {
     description = "DX7 FM multi platform/multi format plugin";

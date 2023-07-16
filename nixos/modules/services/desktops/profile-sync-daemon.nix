@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.psd;
+let
+  cfg = config.services.psd;
 in {
   options.services.psd = with types; {
     enable = mkOption {

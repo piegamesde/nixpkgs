@@ -56,7 +56,9 @@ let
         #! ${pkgs.runtimeShell} -e
         ${text}
       '';
-    in "${dir}/bin/${name}";
+    in
+      "${dir}/bin/${name}"
+  ;
 
   startScript = writeShScript "firewall-start" ''
     ${helpers}
@@ -162,12 +164,13 @@ let
     # Accept connections to the allowed TCP port ranges.
     ${concatStrings (mapAttrsToList (iface: cfg:
       concatMapStrings (rangeAttr:
-        let range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+        let
+          range = toString rangeAttr.from + ":" + toString rangeAttr.to;
         in ''
           ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
             optionalString (iface != "default") "-i ${iface}"
           }
-        '') cfg.allowedTCPPortRanges) cfg.allInterfaces)}
+        '' ) cfg.allowedTCPPortRanges) cfg.allInterfaces)}
 
     # Accept packets on the allowed UDP ports.
     ${concatStrings (mapAttrsToList (iface: cfg:
@@ -182,12 +185,13 @@ let
     # Accept packets on the allowed UDP port ranges.
     ${concatStrings (mapAttrsToList (iface: cfg:
       concatMapStrings (rangeAttr:
-        let range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+        let
+          range = toString rangeAttr.from + ":" + toString rangeAttr.to;
         in ''
           ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
             optionalString (iface != "default") "-i ${iface}"
           }
-        '') cfg.allowedUDPPortRanges) cfg.allInterfaces)}
+        '' ) cfg.allowedUDPPortRanges) cfg.allInterfaces)}
 
     # Optionally respond to ICMPv4 pings.
     ${optionalString cfg.allowPing ''

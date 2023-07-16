@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.snmp;
+let
+  cfg = config.services.prometheus.exporters.snmp;
 in {
   port = 9116;
   extraOpts = {
@@ -75,5 +76,5 @@ in {
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
     };
-  };
+  } ;
 }

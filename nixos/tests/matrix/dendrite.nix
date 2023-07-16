@@ -100,4 +100,4 @@ import ../make-test-python.nix ({
           client.succeed("do_test")
     '';
 
-  })
+  } )

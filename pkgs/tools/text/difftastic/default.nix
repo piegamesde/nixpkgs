@@ -15,42 +15,43 @@ let
     sha256 = "sha256-DK0LqsVXXiEVQSQCxZ5jyZMg0UJJx9a/WxzCroYSHZc=";
   };
 
-in rustPlatform.buildRustPackage rec {
-  pname = "difftastic";
-  version = "0.46.0";
+in
+  rustPlatform.buildRustPackage rec {
+    pname = "difftastic";
+    version = "0.46.0";
 
-  src = fetchFromGitHub {
-    owner = "wilfred";
-    repo = pname;
-    rev = version;
-    sha256 = "sha256-uXSmEJUpcw/PQ5I9nR1b6N1fcOdCSCM4KF0XnGNJkME=";
-  };
-
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "tree_magic_mini-3.0.2" =
-        "sha256-iIX/DeDbquObDPOx/pctVFN4R8GSkD9bPNkNgOLdUJs=";
+    src = fetchFromGitHub {
+      owner = "wilfred";
+      repo = pname;
+      rev = version;
+      sha256 = "sha256-uXSmEJUpcw/PQ5I9nR1b6N1fcOdCSCM4KF0XnGNJkME=";
     };
-  };
 
-  postPatch = ''
-    patch -d $cargoDepsCopy/libmimalloc-sys-0.1.24/c_src/mimalloc \
-      -p1 < ${mimallocPatch}
-  '';
+    cargoLock = {
+      lockFile = ./Cargo.lock;
+      outputHashes = {
+        "tree_magic_mini-3.0.2" =
+          "sha256-iIX/DeDbquObDPOx/pctVFN4R8GSkD9bPNkNgOLdUJs=";
+      };
+    };
 
-  passthru.tests.version = testers.testVersion { package = difftastic; };
+    postPatch = ''
+      patch -d $cargoDepsCopy/libmimalloc-sys-0.1.24/c_src/mimalloc \
+        -p1 < ${mimallocPatch}
+    '';
 
-  meta = with lib; {
-    description = "A syntax-aware diff";
-    homepage = "https://github.com/Wilfred/difftastic";
-    changelog =
-      "https://github.com/Wilfred/difftastic/blob/${version}/CHANGELOG.md";
-    license = licenses.mit;
-    maintainers = with maintainers; [
-      ethancedwards8
-      figsoda
-    ];
-    mainProgram = "difft";
-  };
-}
+    passthru.tests.version = testers.testVersion { package = difftastic; };
+
+    meta = with lib; {
+      description = "A syntax-aware diff";
+      homepage = "https://github.com/Wilfred/difftastic";
+      changelog =
+        "https://github.com/Wilfred/difftastic/blob/${version}/CHANGELOG.md";
+      license = licenses.mit;
+      maintainers = with maintainers; [
+        ethancedwards8
+        figsoda
+      ];
+      mainProgram = "difft";
+    };
+  }

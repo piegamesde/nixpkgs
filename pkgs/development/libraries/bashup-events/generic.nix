@@ -31,56 +31,57 @@ let
     EOF
   '';
 
-in resholve.mkDerivation rec {
-  # bashup.events doesn't version yet but it has two variants with
-  # differing features/performance characteristics:
-  # - branch master: a variant for bash 3.2+
-  # - branch bash44: a variant for bash 4.4+
-  pname = "bashup-events${variant}-unstable";
-  # should be YYYY-MM-DD
-  inherit version;
-  inherit src;
+in
+  resholve.mkDerivation rec {
+    # bashup.events doesn't version yet but it has two variants with
+    # differing features/performance characteristics:
+    # - branch master: a variant for bash 3.2+
+    # - branch bash44: a variant for bash 4.4+
+    pname = "bashup-events${variant}-unstable";
+    # should be YYYY-MM-DD
+    inherit version;
+    inherit src;
 
-  installPhase = ''
-    runHook preInstall
-    install -Dt $out/bin bashup.events
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      install -Dt $out/bin bashup.events
+      runHook postInstall
+    '';
 
-  inherit doCheck;
-  nativeCheckInputs = [ bash ];
+    inherit doCheck;
+    nativeCheckInputs = [ bash ];
 
-  checkPhase = ''
-    runHook preCheck
-    ${bash}/bin/bash -n ./bashup.events
-    ${bash}/bin/bash ./bashup.events
-    runHook postCheck
-  '';
+    checkPhase = ''
+      runHook preCheck
+      ${bash}/bin/bash -n ./bashup.events
+      ${bash}/bin/bash ./bashup.events
+      runHook postCheck
+    '';
 
-  solutions = {
-    events = {
-      inputs = [ ];
-      interpreter = "none";
-      scripts = [ "bin/bashup.events" ];
-      inherit keep;
-    } // lib.optionalAttrs (lib.isAttrs fake) { inherit fake; };
-  };
+    solutions = {
+      events = {
+        inputs = [ ];
+        interpreter = "none";
+        scripts = [ "bin/bashup.events" ];
+        inherit keep;
+      } // lib.optionalAttrs (lib.isAttrs fake) { inherit fake; };
+    };
 
-  inherit doInstallCheck;
-  nativeInstallCheckInputs = [ bash ];
-  installCheckPhase = ''
-    runHook preInstallCheck
-    ${installCheck "${bash}/bin/bash"}
-    runHook postInstallCheck
-  '';
+    inherit doInstallCheck;
+    nativeInstallCheckInputs = [ bash ];
+    installCheckPhase = ''
+      runHook preInstallCheck
+      ${installCheck "${bash}/bin/bash"}
+      runHook postInstallCheck
+    '';
 
-  meta = with lib; {
-    inherit branch;
-    description =
-      "An event listener/callback API for creating extensible bash programs";
-    homepage = "https://github.com/bashup/events";
-    license = licenses.cc0;
-    maintainers = with maintainers; [ abathur ];
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      inherit branch;
+      description =
+        "An event listener/callback API for creating extensible bash programs";
+      homepage = "https://github.com/bashup/events";
+      license = licenses.cc0;
+      maintainers = with maintainers; [ abathur ];
+      platforms = platforms.all;
+    };
+  }

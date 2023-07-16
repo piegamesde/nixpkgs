@@ -14,7 +14,8 @@
 }:
 assert (builtins.isString runtimeId);
 
-let libraryPath = lib.makeLibraryPath runtimeDeps;
+let
+  libraryPath = lib.makeLibraryPath runtimeDeps;
 in {
   dotnetConfigureHook = callPackage ({ }:
     makeSetupHook {
@@ -47,7 +48,9 @@ in {
             lib.lists.map (n: lib.replaceStrings [ "," ] [ "%2C" ] n)
             disabledTests;
           filters = lib.lists.map (n: "FullyQualifiedName!=${n}") escapedNames;
-        in "${lib.concatStringsSep "&" filters}");
+        in
+          "${lib.concatStringsSep "&" filters}"
+        );
       };
     } ./dotnet-check-hook.sh) { };
 

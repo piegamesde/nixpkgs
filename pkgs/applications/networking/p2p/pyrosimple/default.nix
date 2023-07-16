@@ -49,26 +49,28 @@ let
     tomli-w
   ] ++ lib.optional withInotify inotify;
 
-in buildPythonPackage {
-  inherit pname version src propagatedBuildInputs;
+in
+  buildPythonPackage {
+    inherit pname version src propagatedBuildInputs;
 
-  passthru = {
-    updateScript = nix-update-script { };
-    tests = testers.testVersion {
-      package = pyrosimple;
-      command = "pyroadmin --version";
+    passthru = {
+      updateScript = nix-update-script { };
+      tests = testers.testVersion {
+        package = pyrosimple;
+        command = "pyroadmin --version";
+      };
     };
-  };
 
-  meta = let inherit (lib) licenses platforms maintainers;
-  in {
-    homepage = "https://kannibalox.github.io/pyrosimple/";
-    description = "A rTorrent client and Python 3 fork of the pyrocore tools";
-    license = licenses.gpl3Plus;
-    changelog =
-      "https://github.com/kannibalox/pyrosimple/blob/v${version}/CHANGELOG.md";
-    platforms = platforms.all;
-    maintainers = builtins.attrValues { inherit (maintainers) ne9z; };
-  };
+    meta = let
+      inherit (lib) licenses platforms maintainers;
+    in {
+      homepage = "https://kannibalox.github.io/pyrosimple/";
+      description = "A rTorrent client and Python 3 fork of the pyrocore tools";
+      license = licenses.gpl3Plus;
+      changelog =
+        "https://github.com/kannibalox/pyrosimple/blob/v${version}/CHANGELOG.md";
+      platforms = platforms.all;
+      maintainers = builtins.attrValues { inherit (maintainers) ne9z; };
+    } ;
 
-}
+  }

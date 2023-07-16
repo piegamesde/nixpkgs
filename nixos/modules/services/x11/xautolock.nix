@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.xautolock;
+let
+  cfg = config.services.xserver.xautolock;
 in {
   options = {
     services.xserver.xautolock = {

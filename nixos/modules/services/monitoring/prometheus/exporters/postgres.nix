@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.postgres;
+let
+  cfg = config.services.prometheus.exporters.postgres;
 in {
   port = 9187;
   extraOpts = {

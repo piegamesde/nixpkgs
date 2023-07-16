@@ -45,32 +45,34 @@ let
   hydra-package = let
     makeWrapperArgs = concatStringsSep " "
       (mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv);
-  in pkgs.buildEnv rec {
-    name = "hydra-env";
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    paths = [ cfg.package ];
+  in
+    pkgs.buildEnv rec {
+      name = "hydra-env";
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      paths = [ cfg.package ];
 
-    postBuild = ''
-      if [ -L "$out/bin" ]; then
-          unlink "$out/bin"
-      fi
-      mkdir -p "$out/bin"
-
-      for path in ${concatStringsSep " " paths}; do
-        if [ -d "$path/bin" ]; then
-          cd "$path/bin"
-          for prg in *; do
-            if [ -f "$prg" ]; then
-              rm -f "$out/bin/$prg"
-              if [ -x "$prg" ]; then
-                makeWrapper "$path/bin/$prg" "$out/bin/$prg" ${makeWrapperArgs}
-              fi
-            fi
-          done
+      postBuild = ''
+        if [ -L "$out/bin" ]; then
+            unlink "$out/bin"
         fi
-      done
-    '';
-  };
+        mkdir -p "$out/bin"
+
+        for path in ${concatStringsSep " " paths}; do
+          if [ -d "$path/bin" ]; then
+            cd "$path/bin"
+            for prg in *; do
+              if [ -f "$prg" ]; then
+                rm -f "$out/bin/$prg"
+                if [ -x "$prg" ]; then
+                  makeWrapper "$path/bin/$prg" "$out/bin/$prg" ${makeWrapperArgs}
+                fi
+              fi
+            done
+          fi
+        done
+      '';
+    }
+  ;
 
 in {
   ###### interface

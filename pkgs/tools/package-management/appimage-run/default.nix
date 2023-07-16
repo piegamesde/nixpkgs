@@ -26,17 +26,18 @@ let
       "Utility"
     ];
   };
-in buildFHSEnv (fhsArgs // {
-  inherit name;
+in
+  buildFHSEnv (fhsArgs // {
+    inherit name;
 
-  targetPkgs = pkgs:
-    [ appimageTools.appimage-exec ] ++ fhsArgs.targetPkgs pkgs
-    ++ extraPkgs pkgs;
-  runScript = "appimage-exec.sh";
+    targetPkgs = pkgs:
+      [ appimageTools.appimage-exec ] ++ fhsArgs.targetPkgs pkgs
+      ++ extraPkgs pkgs;
+    runScript = "appimage-exec.sh";
 
-  extraInstallCommands = ''
-    cp --recursive "${desktopItem}/share" "$out/"
-  '';
+    extraInstallCommands = ''
+      cp --recursive "${desktopItem}/share" "$out/"
+    '';
 
-  passthru.tests.appimage-run = appimage-run-tests;
-})
+    passthru.tests.appimage-run = appimage-run-tests;
+  })

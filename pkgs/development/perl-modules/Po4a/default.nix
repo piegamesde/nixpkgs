@@ -61,7 +61,7 @@ buildPerlPackage rec {
       opensp
       kpsewhich-stub
       glibcLocales
-    ];
+    ] ;
   propagatedBuildInputs =
     lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N ++ [
       LocaleGettext

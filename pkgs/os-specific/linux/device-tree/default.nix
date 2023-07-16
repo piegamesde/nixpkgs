@@ -9,7 +9,8 @@ with lib; {
     stdenvNoCC.mkDerivation {
       name = "device-tree-overlays";
       nativeBuildInputs = [ dtc ];
-      buildCommand = let overlays = toList overlays';
+      buildCommand = let
+        overlays = toList overlays';
       in ''
         mkdir -p $out
         cd "${base}"
@@ -48,6 +49,6 @@ with lib; {
           }
 
         done
-      '';
+      '' ;
     });
 }

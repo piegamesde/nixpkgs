@@ -335,94 +335,95 @@ let
   });
 
   # Build the final swiftpm with the bootstrapping swiftpm.
-in stdenv.mkDerivation (commonAttrs // {
-  pname = "swiftpm";
+in
+  stdenv.mkDerivation (commonAttrs // {
+    pname = "swiftpm";
 
-  nativeBuildInputs = commonAttrs.nativeBuildInputs ++ [
-    swift
-    swiftpm-bootstrap
-  ];
-  buildInputs = [
-    ncursesInput
-    sqlite
-    XCTest
-  ] ++ lib.optionals stdenv.isDarwin [
-    CryptoKit
-    LocalAuthentication
-  ];
-
-  configurePhase = generated.configure + ''
-    # Functionality provided by Xcode XCTest, but not available in
-    # swift-corelibs-xctest.
-    swiftpmMakeMutable swift-tools-support-core
-    substituteInPlace .build/checkouts/swift-tools-support-core/Sources/TSCTestSupport/XCTestCasePerf.swift \
-      --replace 'canImport(Darwin)' 'false'
-
-    # Prevent a warning about SDK directories we don't have.
-    swiftpmMakeMutable swift-driver
-    patch -p1 -d .build/checkouts/swift-driver -i ${
-      substituteAll {
-        src = ../swift-driver/patches/prevent-sdk-dirs-warnings.patch;
-        inherit (builtins) storeDir;
-      }
-    }
-  '';
-
-  buildPhase = ''
-    # Required to link with swift-corelibs-xctest on Darwin.
-    export SWIFTTSC_MACOS_DEPLOYMENT_TARGET=10.12
-
-    TERM=dumb swift-build -c release
-  '';
-
-  # TODO: Tests depend on indexstore-db being provided by an existing Swift
-  # toolchain. (ie. looks for `../lib/libIndexStore.so` relative to swiftc.
-  #doCheck = true;
-  #checkPhase = ''
-  #  TERM=dumb swift-test -c release
-  #'';
-
-  # The following is dervied from Utilities/bootstrap, see install_swiftpm.
-  installPhase = ''
-    binPath="$(swift-build --show-bin-path -c release)"
-
-    mkdir -p $out/bin $out/lib/swift
-
-    cp $binPath/swift-package $out/bin/
-    wrapProgram $out/bin/swift-package \
-      --prefix PATH : ${lib.makeBinPath runtimeDeps}
-    for tool in swift-build swift-test swift-run swift-package-collection; do
-      ln -s $out/bin/swift-package $out/bin/$tool
-    done
-
-    installSwiftpmModule() {
-      mkdir -p $out/lib/swift/pm/$2
-      cp $binPath/lib$1${sharedLibraryExt} $out/lib/swift/pm/$2/
-
-      if [[ -f $binPath/$1.swiftinterface ]]; then
-        cp $binPath/$1.swiftinterface $out/lib/swift/pm/$2/
-      else
-        cp -r $binPath/$1.swiftmodule $out/lib/swift/pm/$2/
-      fi
-      cp $binPath/$1.swiftdoc $out/lib/swift/pm/$2/
-    }
-    installSwiftpmModule PackageDescription ManifestAPI
-    installSwiftpmModule PackagePlugin PluginAPI
-  '';
-
-  setupHook = ./setup-hook.sh;
-
-  meta = {
-    description = "The Package Manager for the Swift Programming Language";
-    homepage = "https://github.com/apple/swift-package-manager";
-    platforms = with lib.platforms; linux ++ darwin;
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [
-      dtzWill
-      trepetti
-      dduan
-      trundle
-      stephank
+    nativeBuildInputs = commonAttrs.nativeBuildInputs ++ [
+      swift
+      swiftpm-bootstrap
     ];
-  };
-})
+    buildInputs = [
+      ncursesInput
+      sqlite
+      XCTest
+    ] ++ lib.optionals stdenv.isDarwin [
+      CryptoKit
+      LocalAuthentication
+    ];
+
+    configurePhase = generated.configure + ''
+      # Functionality provided by Xcode XCTest, but not available in
+      # swift-corelibs-xctest.
+      swiftpmMakeMutable swift-tools-support-core
+      substituteInPlace .build/checkouts/swift-tools-support-core/Sources/TSCTestSupport/XCTestCasePerf.swift \
+        --replace 'canImport(Darwin)' 'false'
+
+      # Prevent a warning about SDK directories we don't have.
+      swiftpmMakeMutable swift-driver
+      patch -p1 -d .build/checkouts/swift-driver -i ${
+        substituteAll {
+          src = ../swift-driver/patches/prevent-sdk-dirs-warnings.patch;
+          inherit (builtins) storeDir;
+        }
+      }
+    '';
+
+    buildPhase = ''
+      # Required to link with swift-corelibs-xctest on Darwin.
+      export SWIFTTSC_MACOS_DEPLOYMENT_TARGET=10.12
+
+      TERM=dumb swift-build -c release
+    '';
+
+    # TODO: Tests depend on indexstore-db being provided by an existing Swift
+    # toolchain. (ie. looks for `../lib/libIndexStore.so` relative to swiftc.
+    #doCheck = true;
+    #checkPhase = ''
+    #  TERM=dumb swift-test -c release
+    #'';
+
+    # The following is dervied from Utilities/bootstrap, see install_swiftpm.
+    installPhase = ''
+      binPath="$(swift-build --show-bin-path -c release)"
+
+      mkdir -p $out/bin $out/lib/swift
+
+      cp $binPath/swift-package $out/bin/
+      wrapProgram $out/bin/swift-package \
+        --prefix PATH : ${lib.makeBinPath runtimeDeps}
+      for tool in swift-build swift-test swift-run swift-package-collection; do
+        ln -s $out/bin/swift-package $out/bin/$tool
+      done
+
+      installSwiftpmModule() {
+        mkdir -p $out/lib/swift/pm/$2
+        cp $binPath/lib$1${sharedLibraryExt} $out/lib/swift/pm/$2/
+
+        if [[ -f $binPath/$1.swiftinterface ]]; then
+          cp $binPath/$1.swiftinterface $out/lib/swift/pm/$2/
+        else
+          cp -r $binPath/$1.swiftmodule $out/lib/swift/pm/$2/
+        fi
+        cp $binPath/$1.swiftdoc $out/lib/swift/pm/$2/
+      }
+      installSwiftpmModule PackageDescription ManifestAPI
+      installSwiftpmModule PackagePlugin PluginAPI
+    '';
+
+    setupHook = ./setup-hook.sh;
+
+    meta = {
+      description = "The Package Manager for the Swift Programming Language";
+      homepage = "https://github.com/apple/swift-package-manager";
+      platforms = with lib.platforms; linux ++ darwin;
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [
+        dtzWill
+        trepetti
+        dduan
+        trundle
+        stephank
+      ];
+    };
+  })

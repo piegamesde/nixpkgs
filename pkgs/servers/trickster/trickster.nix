@@ -34,7 +34,7 @@ buildGoModule rec {
       }));
   in ''
     buildFlagsArray+=("-ldflags=${ldflags}")
-  '';
+  '' ;
 
   # Tests are broken.
   doCheck = false;

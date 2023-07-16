@@ -56,67 +56,68 @@ let
     ];
   });
 
-in mkDerivation rec {
-  pname = "openmw";
-  version = "0.47.0";
+in
+  mkDerivation rec {
+    pname = "openmw";
+    version = "0.47.0";
 
-  src = fetchFromGitHub {
-    owner = "OpenMW";
-    repo = "openmw";
-    rev = "${pname}-${version}";
-    sha256 = "sha256-Xq9hDUTCQr79Zzjk0CsiXclVTHK6nrSowukIQqVdrKY=";
-  };
+    src = fetchFromGitHub {
+      owner = "OpenMW";
+      repo = "openmw";
+      rev = "${pname}-${version}";
+      sha256 = "sha256-Xq9hDUTCQr79Zzjk0CsiXclVTHK6nrSowukIQqVdrKY=";
+    };
 
-  patches = [ (fetchpatch {
-    url = "https://gitlab.com/OpenMW/openmw/-/merge_requests/1239.diff";
-    sha256 = "sha256-RhbIGeE6GyqnipisiMTwWjcFnIiR055hUPL8IkjPgZw=";
-  }) ];
+    patches = [ (fetchpatch {
+      url = "https://gitlab.com/OpenMW/openmw/-/merge_requests/1239.diff";
+      sha256 = "sha256-RhbIGeE6GyqnipisiMTwWjcFnIiR055hUPL8IkjPgZw=";
+    }) ];
 
-  postPatch = ''
-    sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
-  '' + lib.optionalString stdenv.isDarwin ''
-    # Don't fix Darwin app bundle
-    sed -i '/fixup_bundle/d' CMakeLists.txt
-  '';
+    postPatch = ''
+      sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
+    '' + lib.optionalString stdenv.isDarwin ''
+      # Don't fix Darwin app bundle
+      sed -i '/fixup_bundle/d' CMakeLists.txt
+    '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
-
-  # If not set, OSG plugin .so files become shell scripts on Darwin.
-  dontWrapQtApps = true;
-
-  buildInputs = [
-    SDL2
-    boost
-    bullet_openmw
-    ffmpeg
-    libXt
-    mygui
-    openal
-    openscenegraph_openmw
-    unshield
-    lz4
-    recastnavigation
-  ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ];
-
-  cmakeFlags = [
-    # as of 0.46, openmw is broken with GLVND
-    "-DOpenGL_GL_PREFERENCE=LEGACY"
-    "-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=1"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DOPENMW_OSX_DEPLOYMENT=ON" ];
-
-  meta = with lib; {
-    description =
-      "An unofficial open source engine reimplementation of the game Morrowind";
-    homepage = "https://openmw.org";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      abbradar
-      marius851000
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      wrapQtAppsHook
     ];
-    platforms = platforms.linux ++ platforms.darwin;
-  };
-}
+
+    # If not set, OSG plugin .so files become shell scripts on Darwin.
+    dontWrapQtApps = true;
+
+    buildInputs = [
+      SDL2
+      boost
+      bullet_openmw
+      ffmpeg
+      libXt
+      mygui
+      openal
+      openscenegraph_openmw
+      unshield
+      lz4
+      recastnavigation
+    ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ];
+
+    cmakeFlags = [
+      # as of 0.46, openmw is broken with GLVND
+      "-DOpenGL_GL_PREFERENCE=LEGACY"
+      "-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=1"
+    ] ++ lib.optionals stdenv.isDarwin [ "-DOPENMW_OSX_DEPLOYMENT=ON" ];
+
+    meta = with lib; {
+      description =
+        "An unofficial open source engine reimplementation of the game Morrowind";
+      homepage = "https://openmw.org";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [
+        abbradar
+        marius851000
+      ];
+      platforms = platforms.linux ++ platforms.darwin;
+    };
+  }

@@ -39,8 +39,11 @@ rec {
   */
   appendToName = suffix:
     updateName (name:
-      let x = builtins.parseDrvName name;
-      in "${x.name}-${suffix}-${x.version}");
+      let
+        x = builtins.parseDrvName name;
+      in
+        "${x.name}-${suffix}-${x.version}"
+    );
 
   # Apply a function to each derivation and only to derivations in an attrset.
   mapDerivationAttrset = f: set:
@@ -88,7 +91,9 @@ rec {
       else {
         parsed = elem;
       };
-    in lib.matchAttrs pattern platform;
+    in
+      lib.matchAttrs pattern platform
+  ;
 
   /* Check if a package is available on a given platform.
 
@@ -127,11 +132,13 @@ rec {
       lib.mapAttrs (id: ls: assert lib.length ls == 1; builtins.head ls)
       (lib.groupBy (l: lib.toLower l.spdxId)
         (lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses)));
-  in licstr:
-  spdxLicenses.${lib.toLower licstr} or (lib.warn
-    "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}" {
-      shortName = licstr;
-    });
+  in
+    licstr:
+    spdxLicenses.${lib.toLower licstr} or (lib.warn
+      "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}" {
+        shortName = licstr;
+      })
+  ;
 
   /* Get the path to the main program of a derivation with either
      meta.mainProgram or pname or name

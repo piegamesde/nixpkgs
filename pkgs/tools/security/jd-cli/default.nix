@@ -42,32 +42,33 @@ let
     outputHash = "sha256-5d3ZLuzoEkPjh01uL/BuhJ6kevLdsm1P4PMLkEWaVUM=";
   };
 
-in stdenv.mkDerivation rec {
-  inherit pname version src;
+in
+  stdenv.mkDerivation rec {
+    inherit pname version src;
 
-  nativeBuildInputs = [
-    maven
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      maven
+      makeWrapper
+    ];
 
-  buildPhase = ''
-    mvn --offline -Dmaven.repo.local=${deps} package;
-  '';
+    buildPhase = ''
+      mvn --offline -Dmaven.repo.local=${deps} package;
+    '';
 
-  installPhase = ''
-    mkdir -p $out/bin $out/share/jd-cli
-    install -Dm644 jd-cli/target/jd-cli.jar $out/share/jd-cli
+    installPhase = ''
+      mkdir -p $out/bin $out/share/jd-cli
+      install -Dm644 jd-cli/target/jd-cli.jar $out/share/jd-cli
 
-    makeWrapper ${jre}/bin/java $out/bin/jd-cli \
-      --add-flags "-jar $out/share/jd-cli/jd-cli.jar"
-  '';
+      makeWrapper ${jre}/bin/java $out/bin/jd-cli \
+        --add-flags "-jar $out/share/jd-cli/jd-cli.jar"
+    '';
 
-  meta = with lib; {
-    description =
-      "Simple command line wrapper around JD Core Java Decompiler project";
-    homepage = "https://github.com/intoolswetrust/jd-cli";
-    license = licenses.gpl3;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ majiir ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Simple command line wrapper around JD Core Java Decompiler project";
+      homepage = "https://github.com/intoolswetrust/jd-cli";
+      license = licenses.gpl3;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ majiir ];
+    };
+  }

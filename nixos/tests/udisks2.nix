@@ -64,4 +64,4 @@ import ./make-test-python.nix ({
       machine.fail("[ -e /dev/sda ]")
     '';
 
-  })
+  } )

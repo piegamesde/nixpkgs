@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.waybar;
+let
+  cfg = config.programs.waybar;
 in {
   options.programs.waybar = {
     enable = mkEnableOption (lib.mdDoc "waybar");

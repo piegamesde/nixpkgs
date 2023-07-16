@@ -448,7 +448,9 @@ in {
           CREATE EXTENSION IF NOT EXISTS pg_trgm;
           CREATE EXTENSION IF NOT EXISTS unaccent;
         '';
-      in "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}";
+      in
+        "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}"
+      ;
 
       serviceConfig = {
         Type = "oneshot";

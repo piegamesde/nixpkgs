@@ -38,9 +38,11 @@ let
       os = val: optionalString (val != null) "${val}";
       os' = prefix: val: optionalString (val != null) (prefix + "${val}");
       flatten = key: value: "&${key}=${value}";
-    in ''--stream.stream="${opt.type}://'' + os opt.location + "?"
-    + os' "name=" name + concatStrings (mapAttrsToList flatten opt.query)
-    + ''"'';
+    in
+      ''--stream.stream="${opt.type}://'' + os opt.location + "?"
+      + os' "name=" name + concatStrings (mapAttrsToList flatten opt.query)
+      + ''"''
+  ;
 
   optionalNull = val: ret: optional (val != null) ret;
 

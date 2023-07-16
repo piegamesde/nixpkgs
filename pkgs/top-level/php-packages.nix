@@ -70,7 +70,9 @@ lib.makeScope pkgs.newScope (self:
             mainProgram = previousAttrs.meta.mainProgram or previousAttrs.pname;
           };
         }) (if lib.isFunction origArgs then origArgs else (_: origArgs)));
-      in pkgs.stdenv.mkDerivation args;
+      in
+        pkgs.stdenv.mkDerivation args
+    ;
 
     # Function to build an extension which is shipped as part of the php
     # source, based on the php version.
@@ -683,5 +685,7 @@ lib.makeScope pkgs.newScope (self:
       }) (builtins.filter (i: i.enable or true) extensionData);
 
       # Produce the final attribute set of all extensions defined.
-    in builtins.listToAttrs namedExtensions);
+    in
+      builtins.listToAttrs namedExtensions
+    );
   })

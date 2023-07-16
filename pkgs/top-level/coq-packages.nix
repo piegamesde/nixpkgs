@@ -14,10 +14,12 @@
   makeWrapper,
   coq2html,
 }@args:
-let lib = import ../build-support/coq/extra-lib.nix { inherit (args) lib; };
+let
+  lib = import ../build-support/coq/extra-lib.nix { inherit (args) lib; };
 in let
   mkCoqPackages' = self: coq:
-    let callPackage = self.callPackage;
+    let
+      callPackage = self.callPackage;
     in {
       inherit coq lib;
       coqPackages = self;
@@ -150,16 +152,19 @@ in let
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
       filterPackages = doesFilter:
         if doesFilter then filterCoqPackages self else self;
-    };
+    } ;
 
   filterCoqPackages = set:
     lib.listToAttrs (lib.concatMap (name:
-      let v = set.${name} or null;
-      in lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name
-        (if lib.isAttrs v && v.recurseForDerivations or false then
-          filterCoqPackages v
-        else
-          v))) (lib.attrNames set));
+      let
+        v = set.${name} or null;
+      in
+        lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name
+          (if lib.isAttrs v && v.recurseForDerivations or false then
+            filterCoqPackages v
+          else
+            v))
+    ) (lib.attrNames set));
   mkCoq = version:
     callPackage ../applications/science/logic/coq {
       inherit version ocamlPackages_4_05 ocamlPackages_4_09 ocamlPackages_4_10
@@ -175,8 +180,11 @@ in rec {
   # rather than building the libraries) this filtering can be disabled by setting
   # a `dontFilter` attribute into the Coq derivation.
   mkCoqPackages = coq:
-    let self = lib.makeScope newScope (lib.flip mkCoqPackages' coq);
-    in self.filterPackages (!coq.dontFilter or false);
+    let
+      self = lib.makeScope newScope (lib.flip mkCoqPackages' coq);
+    in
+      self.filterPackages (!coq.dontFilter or false)
+  ;
 
   coq_8_5 = mkCoq "8.5";
   coq_8_6 = mkCoq "8.6";

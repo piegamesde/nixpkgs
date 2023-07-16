@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let cfg = config.services.ivpn;
+let
+  cfg = config.services.ivpn;
 in with lib; {
   options.services.ivpn = {
     enable = mkOption {

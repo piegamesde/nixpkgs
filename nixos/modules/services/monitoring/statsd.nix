@@ -24,7 +24,9 @@ let
         list
       else
         list ++ [ pkgs.nodePackages.${name} ];
-  in foldl mkMap [ ];
+  in
+    foldl mkMap [ ]
+  ;
 
   configFile = pkgs.writeText "statsd.conf" ''
     {

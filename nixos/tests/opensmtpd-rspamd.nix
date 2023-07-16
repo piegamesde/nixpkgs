@@ -133,7 +133,7 @@ import ./make-test-python.nix {
         in [
           sendTestMail
           checkMailBounced
-        ];
+        ] ;
       };
   };
 

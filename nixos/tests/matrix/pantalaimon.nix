@@ -82,4 +82,4 @@ import ../make-test-python.nix ({
           "curl --fail -L http://localhost:8888/"
       )
     '';
-  })
+  } )

@@ -79,4 +79,5 @@ let
       maintainers = with maintainers; [ dotlambda ];
     };
   };
-in pylama
+in
+  pylama

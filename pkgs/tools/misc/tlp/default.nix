@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
 
     rm -rf $out/var
     rm -rf $out/share/metainfo
-  '';
+  '' ;
 
   meta = with lib; {
     description = "Advanced Power Management for Linux";

@@ -138,4 +138,5 @@ let
       xcbuild = xcodebuild;
     }));
   };
-in packages
+in
+  packages

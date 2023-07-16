@@ -40,14 +40,15 @@ let
         )
       '';
     };
-in lib.flip lib.genAttrs testWithCompressor [
-  "cat"
-  "gzip"
-  "bzip2"
-  "xz"
-  "lzma"
-  "lzop"
-  "pigz"
-  "pixz"
-  "zstd"
-]
+in
+  lib.flip lib.genAttrs testWithCompressor [
+    "cat"
+    "gzip"
+    "bzip2"
+    "xz"
+    "lzma"
+    "lzop"
+    "pigz"
+    "pixz"
+    "zstd"
+  ]

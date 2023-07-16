@@ -271,9 +271,11 @@ in {
               "$extraArgs"
               "${sql.database}"
             ];
-        in optionalString (service == "sql" && sql.driver == "native_pgsql") ''
-          echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
-        '');
+        in
+          optionalString (service == "sql" && sql.driver == "native_pgsql") ''
+            echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
+          ''
+        );
 
       serviceConfig = {
         User = "${cfg.user}";

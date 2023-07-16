@@ -31,7 +31,7 @@ buildGoModule rec {
   in [
     fakeGit
     mage
-  ];
+  ] ;
 
   vendorSha256 = "sha256-TY6xJnz6phIrybZ2Ix7xwuMzGQ1f0xk0KwgPnaTaKYw=";
 

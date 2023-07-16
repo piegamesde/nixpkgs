@@ -23,7 +23,8 @@ buildGoModule rec {
   vendorHash = "sha256-NqsUeTxTYQrVMJ4LYA5NC8A/PpVuy6fnKptxK+ieZAU=";
   proxyVendor = true; # darwin/linux hash mismatch
 
-  ldflags = let prefix = "github.com/grafana/agent/pkg/build";
+  ldflags = let
+    prefix = "github.com/grafana/agent/pkg/build";
   in [
     "-s"
     "-w"
@@ -33,7 +34,7 @@ buildGoModule rec {
     "-X ${prefix}.Revision=v${version}"
     "-X ${prefix}.BuildUser=nix"
     "-X ${prefix}.BuildDate=1980-01-01T00:00:00Z"
-  ];
+  ] ;
 
   tags = [
     "nonetwork"

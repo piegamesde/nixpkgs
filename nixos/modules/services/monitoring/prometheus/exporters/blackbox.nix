@@ -71,5 +71,5 @@ in {
       '';
       ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
     };
-  };
+  } ;
 }

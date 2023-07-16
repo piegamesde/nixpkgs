@@ -77,28 +77,31 @@ let
       conf_gen = c:
         mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});")
         cfg.mergedConfig;
-    in pkgs.writeTextFile {
-      name = "wp-config-${hostName}.php";
-      text = ''
-        <?php
-          $table_prefix  = '${cfg.database.tablePrefix}';
+    in
+      pkgs.writeTextFile {
+        name = "wp-config-${hostName}.php";
+        text = ''
+          <?php
+            $table_prefix  = '${cfg.database.tablePrefix}';
 
-          require_once('${stateDir hostName}/secret-keys.php');
+            require_once('${stateDir hostName}/secret-keys.php');
 
-          ${cfg.extraConfig}
-          ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
+            ${cfg.extraConfig}
+            ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
 
-          if ( !defined('ABSPATH') )
-            define('ABSPATH', dirname(__FILE__) . '/');
+            if ( !defined('ABSPATH') )
+              define('ABSPATH', dirname(__FILE__) . '/');
 
-          require_once(ABSPATH . 'wp-settings.php');
-        ?>
-      '';
-      checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
-    };
+            require_once(ABSPATH . 'wp-settings.php');
+          ?>
+        '';
+        checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
+      }
+  ;
 
   mkPhpValue = v:
-    let isHasAttr = s: isAttrs v && hasAttr s v;
+    let
+      isHasAttr = s: isAttrs v && hasAttr s v;
     in if isString v then
       escapeShellArg v
       # NOTE: If any value contains a , (comma) this will not get escaped

@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.hardware.saleae-logic;
+let
+  cfg = config.hardware.saleae-logic;
 in {
   options.hardware.saleae-logic = {
     enable =

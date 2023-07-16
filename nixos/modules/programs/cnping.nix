@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.cnping;
+let
+  cfg = config.programs.cnping;
 in {
   options = {
     programs.cnping = {

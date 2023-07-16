@@ -128,6 +128,9 @@ let
         in {
           propagatedBuildInputs = o.propagatedBuildInputs
             ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims;
-        });
-    in derivation;
-in metacoq_ (if single then "single" else "all")
+        } );
+    in
+      derivation
+  ;
+in
+  metacoq_ (if single then "single" else "all")

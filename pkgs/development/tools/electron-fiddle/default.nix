@@ -97,81 +97,82 @@ let
     mimeTypes = [ "x-scheme-handler/electron-fiddle" ];
   };
 
-in buildFHSEnv {
-  name = "electron-fiddle";
-  runScript =
-    "${electron}/bin/electron ${unwrapped}/lib/electron-fiddle/resources/app.asar";
+in
+  buildFHSEnv {
+    name = "electron-fiddle";
+    runScript =
+      "${electron}/bin/electron ${unwrapped}/lib/electron-fiddle/resources/app.asar";
 
-  extraInstallCommands = ''
-    mkdir -p "$out/share/icons/hicolor/scalable/apps"
-    ln -s "${unwrapped}/share/icons/hicolor/scalable/apps/electron-fiddle.svg" "$out/share/icons/hicolor/scalable/apps/"
-    mkdir -p "$out/share/applications"
-    cp "${desktopItem}/share/applications"/*.desktop "$out/share/applications/"
-  '';
+    extraInstallCommands = ''
+      mkdir -p "$out/share/icons/hicolor/scalable/apps"
+      ln -s "${unwrapped}/share/icons/hicolor/scalable/apps/electron-fiddle.svg" "$out/share/icons/hicolor/scalable/apps/"
+      mkdir -p "$out/share/applications"
+      cp "${desktopItem}/share/applications"/*.desktop "$out/share/applications/"
+    '';
 
-  targetPkgs = pkgs:
-    with pkgs;
-    map lib.getLib [
-      # for electron-fiddle itself
-      udev
+    targetPkgs = pkgs:
+      with pkgs;
+      map lib.getLib [
+        # for electron-fiddle itself
+        udev
 
-      # for running Electron 22.0.0 inside
-      alsa-lib
-      atk
-      cairo
-      cups
-      dbus
-      expat
-      glib
-      gtk3
-      libdrm
-      libnotify
-      libxkbcommon
-      mesa
-      nspr
-      nss
-      pango
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libxcb
+        # for running Electron 22.0.0 inside
+        alsa-lib
+        atk
+        cairo
+        cups
+        dbus
+        expat
+        glib
+        gtk3
+        libdrm
+        libnotify
+        libxkbcommon
+        mesa
+        nspr
+        nss
+        pango
+        xorg.libX11
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXrandr
+        xorg.libxcb
 
-      # for running Electron before 18.3.5/19.0.5/20.0.0 inside
-      gdk-pixbuf
+        # for running Electron before 18.3.5/19.0.5/20.0.0 inside
+        gdk-pixbuf
 
-      # for running Electron before 16.0.0 inside
-      xorg.libxshmfence
+        # for running Electron before 16.0.0 inside
+        xorg.libxshmfence
 
-      # for running Electron before 11.0.0 inside
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXrender
-      xorg.libXtst
+        # for running Electron before 11.0.0 inside
+        xorg.libXcursor
+        xorg.libXi
+        xorg.libXrender
+        xorg.libXtst
 
-      # for running Electron before 10.0.0 inside
-      xorg.libXScrnSaver
+        # for running Electron before 10.0.0 inside
+        xorg.libXScrnSaver
 
-      # for running Electron before 8.0.0 inside
-      libuuid
+        # for running Electron before 8.0.0 inside
+        libuuid
 
-      # for running Electron before 4.0.0 inside
-      fontconfig
+        # for running Electron before 4.0.0 inside
+        fontconfig
 
-      # for running Electron before 3.0.0 inside
-      gnome2.GConf
+        # for running Electron before 3.0.0 inside
+        gnome2.GConf
 
-      # Electron 2.0.8 is the earliest working version, due to
-      # https://github.com/electron/electron/issues/13972
-    ];
+        # Electron 2.0.8 is the earliest working version, due to
+        # https://github.com/electron/electron/issues/13972
+      ];
 
-  meta = with lib; {
-    description = "The easiest way to get started with Electron";
-    homepage = "https://www.electronjs.org/fiddle";
-    license = licenses.mit;
-    maintainers = with maintainers; [ andersk ];
-    platforms = electron.meta.platforms;
-  };
-}
+    meta = with lib; {
+      description = "The easiest way to get started with Electron";
+      homepage = "https://www.electronjs.org/fiddle";
+      license = licenses.mit;
+      maintainers = with maintainers; [ andersk ];
+      platforms = electron.meta.platforms;
+    };
+  }

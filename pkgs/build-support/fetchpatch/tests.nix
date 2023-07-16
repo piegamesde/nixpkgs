@@ -4,7 +4,8 @@
   ...
 }:
 
-let isFetchpatch2 = fetchpatch.version == 2;
+let
+  isFetchpatch2 = fetchpatch.version == 2;
 
 in {
   simple = testers.invalidateFetcherByDrvHash fetchpatch {

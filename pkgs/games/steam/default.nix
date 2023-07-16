@@ -9,7 +9,8 @@
 
 let
   steamPackagesFun = self:
-    let inherit (self) callPackage;
+    let
+      inherit (self) callPackage;
     in rec {
       steamArch = if stdenv.hostPlatform.system == "x86_64-linux" then
         "amd64"
@@ -33,8 +34,9 @@ let
       steam-fhsenv-small =
         steam-fhsenv.override { withGameSpecificLibraries = false; };
       steamcmd = callPackage ./steamcmd.nix { };
-    };
+    } ;
   keep = self: { };
   extra = spliced0: { };
-in makeScopeWithSplicing (generateSplicesForMkScope "steamPackages") keep extra
-steamPackagesFun
+in
+  makeScopeWithSplicing (generateSplicesForMkScope "steamPackages") keep extra
+  steamPackagesFun

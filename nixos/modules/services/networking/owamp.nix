@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.owamp;
+let
+  cfg = config.services.owamp;
 in {
 
   ###### interface

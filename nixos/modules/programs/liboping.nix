@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.liboping;
+let
+  cfg = config.programs.liboping;
 in {
   options.programs.liboping = {
     enable = mkEnableOption (lib.mdDoc "liboping");

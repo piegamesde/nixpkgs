@@ -269,5 +269,5 @@ import ./make-test-python.nix ({
         initiatorRootDisk.wait_for_unit("iscsid")
         initiatorRootDisk.succeed("test -e /scratch/both-up")
       '';
-  })
+  } )
 

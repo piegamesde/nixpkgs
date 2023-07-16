@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     sed -i \
       '2i export PATH=$PATH''${PATH:+':'}${lib.makeBinPath deps}' \
       "$out/bin/restream"
-  '';
+  '' ;
 
   meta = with lib; {
     description = "reMarkable screen sharing over SSH";

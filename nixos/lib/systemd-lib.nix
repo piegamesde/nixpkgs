@@ -67,12 +67,14 @@ in rec {
       l = reverseList (stringToCharacters s);
       suffix = head l;
       nums = tail l;
-    in elem suffix ([
-      "K"
-      "M"
-      "G"
-      "T"
-    ] ++ digits) && all (num: elem num digits) nums;
+    in
+      elem suffix ([
+        "K"
+        "M"
+        "G"
+        "T"
+      ] ++ digits) && all (num: elem num digits) nums
+  ;
 
   assertByteFormat = name: group: attr:
     optional (attr ? ${name} && !isByteFormat attr.${name})
@@ -116,9 +118,12 @@ in rec {
     }";
 
   assertOnlyFields = fields: group: attr:
-    let badFields = filter (name: !elem name fields) (attrNames attr);
-    in optional (badFields != [ ])
-    "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
+    let
+      badFields = filter (name: !elem name fields) (attrNames attr);
+    in
+      optional (badFields != [ ])
+      "Systemd ${group} has extra fields [${concatStringsSep " " badFields}]."
+  ;
 
   assertInt = name: group: attr:
     optional (attr ? ${name} && !isInt attr.${name})
@@ -167,137 +172,139 @@ in rec {
         user = "user";
         nspawn = "nspawn";
       }).${type};
-    in pkgs.runCommand "${type}-units" {
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-    } ''
-      mkdir -p $out
+    in
+      pkgs.runCommand "${type}-units" {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      } ''
+        mkdir -p $out
 
-      # Copy the upstream systemd units we're interested in.
-      for i in ${toString upstreamUnits}; do
-        fn=${package}/example/systemd/${typeDir}/$i
-        if ! [ -e $fn ]; then echo "missing $fn"; false; fi
-        if [ -L $fn ]; then
-          target="$(readlink "$fn")"
-          if [ ''${target:0:3} = ../ ]; then
-            ln -s "$(readlink -f "$fn")" $out/
-          else
-            cp -pd $fn $out/
-          fi
-        else
-          ln -s $fn $out/
-        fi
-      done
-
-      # Copy .wants links, but only those that point to units that
-      # we're interested in.
-      for i in ${toString upstreamWants}; do
-        fn=${package}/example/systemd/${typeDir}/$i
-        if ! [ -e $fn ]; then echo "missing $fn"; false; fi
-        x=$out/$(basename $fn)
-        mkdir $x
-        for i in $fn/*; do
-          y=$x/$(basename $i)
-          cp -pd $i $y
-          if ! [ -e $y ]; then rm $y; fi
-        done
-      done
-
-      # Symlink all units provided listed in systemd.packages.
-      packages="${toString packages}"
-
-      # Filter duplicate directories
-      declare -A unique_packages
-      for k in $packages ; do unique_packages[$k]=1 ; done
-
-      for i in ''${!unique_packages[@]}; do
-        for fn in $i/etc/systemd/${typeDir}/* $i/lib/systemd/${typeDir}/*; do
-          if ! [[ "$fn" =~ .wants$ ]]; then
-            if [[ -d "$fn" ]]; then
-              targetDir="$out/$(basename "$fn")"
-              mkdir -p "$targetDir"
-              ${lndir} "$fn" "$targetDir"
+        # Copy the upstream systemd units we're interested in.
+        for i in ${toString upstreamUnits}; do
+          fn=${package}/example/systemd/${typeDir}/$i
+          if ! [ -e $fn ]; then echo "missing $fn"; false; fi
+          if [ -L $fn ]; then
+            target="$(readlink "$fn")"
+            if [ ''${target:0:3} = ../ ]; then
+              ln -s "$(readlink -f "$fn")" $out/
             else
-              ln -s $fn $out/
+              cp -pd $fn $out/
             fi
+          else
+            ln -s $fn $out/
           fi
         done
-      done
 
-      # Symlink units defined by systemd.units where override strategy
-      # shall be automatically detected. If these are also provided by
-      # systemd or systemd.packages, then add them as
-      # <unit-name>.d/overrides.conf, which makes them extend the
-      # upstream unit.
-      for i in ${
-        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v:
-          (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v)
-          == "asDropinIfExists") units))
-      }; do
-        fn=$(basename $i/*)
-        if [ -e $out/$fn ]; then
-          if [ "$(readlink -f $i/$fn)" = /dev/null ]; then
-            ln -sfn /dev/null $out/$fn
-          else
-            ${
-              if allowCollisions then ''
-                mkdir -p $out/$fn.d
-                ln -s $i/$fn $out/$fn.d/overrides.conf
-              '' else ''
-                echo "Found multiple derivations configuring $fn!"
-                exit 1
-              ''
-            }
+        # Copy .wants links, but only those that point to units that
+        # we're interested in.
+        for i in ${toString upstreamWants}; do
+          fn=${package}/example/systemd/${typeDir}/$i
+          if ! [ -e $fn ]; then echo "missing $fn"; false; fi
+          x=$out/$(basename $fn)
+          mkdir $x
+          for i in $fn/*; do
+            y=$x/$(basename $i)
+            cp -pd $i $y
+            if ! [ -e $y ]; then rm $y; fi
+          done
+        done
+
+        # Symlink all units provided listed in systemd.packages.
+        packages="${toString packages}"
+
+        # Filter duplicate directories
+        declare -A unique_packages
+        for k in $packages ; do unique_packages[$k]=1 ; done
+
+        for i in ''${!unique_packages[@]}; do
+          for fn in $i/etc/systemd/${typeDir}/* $i/lib/systemd/${typeDir}/*; do
+            if ! [[ "$fn" =~ .wants$ ]]; then
+              if [[ -d "$fn" ]]; then
+                targetDir="$out/$(basename "$fn")"
+                mkdir -p "$targetDir"
+                ${lndir} "$fn" "$targetDir"
+              else
+                ln -s $fn $out/
+              fi
+            fi
+          done
+        done
+
+        # Symlink units defined by systemd.units where override strategy
+        # shall be automatically detected. If these are also provided by
+        # systemd or systemd.packages, then add them as
+        # <unit-name>.d/overrides.conf, which makes them extend the
+        # upstream unit.
+        for i in ${
+          toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v:
+            (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v)
+            == "asDropinIfExists") units))
+        }; do
+          fn=$(basename $i/*)
+          if [ -e $out/$fn ]; then
+            if [ "$(readlink -f $i/$fn)" = /dev/null ]; then
+              ln -sfn /dev/null $out/$fn
+            else
+              ${
+                if allowCollisions then ''
+                  mkdir -p $out/$fn.d
+                  ln -s $i/$fn $out/$fn.d/overrides.conf
+                '' else ''
+                  echo "Found multiple derivations configuring $fn!"
+                  exit 1
+                ''
+              }
+            fi
+         else
+            ln -fs $i/$fn $out/
           fi
-       else
-          ln -fs $i/$fn $out/
-        fi
-      done
+        done
 
-      # Symlink units defined by systemd.units which shall be
-      # treated as drop-in file.
-      for i in ${
-        toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs
-          (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
-          units))
-      }; do
-        fn=$(basename $i/*)
-        mkdir -p $out/$fn.d
-        ln -s $i/$fn $out/$fn.d/overrides.conf
-      done
+        # Symlink units defined by systemd.units which shall be
+        # treated as drop-in file.
+        for i in ${
+          toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs
+            (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
+            units))
+        }; do
+          fn=$(basename $i/*)
+          mkdir -p $out/$fn.d
+          ln -s $i/$fn $out/$fn.d/overrides.conf
+        done
 
-      # Create service aliases from aliases option.
-      ${concatStrings (mapAttrsToList (name: unit:
-        concatMapStrings (name2: ''
-          ln -sfn '${name}' $out/'${name2}'
-        '') (unit.aliases or [ ])) units)}
+        # Create service aliases from aliases option.
+        ${concatStrings (mapAttrsToList (name: unit:
+          concatMapStrings (name2: ''
+            ln -sfn '${name}' $out/'${name2}'
+          '') (unit.aliases or [ ])) units)}
 
-      # Create .wants and .requires symlinks from the wantedBy and
-      # requiredBy options.
-      ${concatStrings (mapAttrsToList (name: unit:
-        concatMapStrings (name2: ''
-          mkdir -p $out/'${name2}.wants'
-          ln -sfn '../${name}' $out/'${name2}.wants'/
-        '') (unit.wantedBy or [ ])) units)}
+        # Create .wants and .requires symlinks from the wantedBy and
+        # requiredBy options.
+        ${concatStrings (mapAttrsToList (name: unit:
+          concatMapStrings (name2: ''
+            mkdir -p $out/'${name2}.wants'
+            ln -sfn '../${name}' $out/'${name2}.wants'/
+          '') (unit.wantedBy or [ ])) units)}
 
-      ${concatStrings (mapAttrsToList (name: unit:
-        concatMapStrings (name2: ''
-          mkdir -p $out/'${name2}.requires'
-          ln -sfn '../${name}' $out/'${name2}.requires'/
-        '') (unit.requiredBy or [ ])) units)}
+        ${concatStrings (mapAttrsToList (name: unit:
+          concatMapStrings (name2: ''
+            mkdir -p $out/'${name2}.requires'
+            ln -sfn '../${name}' $out/'${name2}.requires'/
+          '') (unit.requiredBy or [ ])) units)}
 
-      ${optionalString (type == "system") ''
-        # Stupid misc. symlinks.
-        ln -s ${cfg.defaultUnit} $out/default.target
-        ln -s ${cfg.ctrlAltDelUnit} $out/ctrl-alt-del.target
-        ln -s rescue.target $out/kbrequest.target
+        ${optionalString (type == "system") ''
+          # Stupid misc. symlinks.
+          ln -s ${cfg.defaultUnit} $out/default.target
+          ln -s ${cfg.ctrlAltDelUnit} $out/ctrl-alt-del.target
+          ln -s rescue.target $out/kbrequest.target
 
-        mkdir -p $out/getty.target.wants/
-        ln -s ../autovt@tty1.service $out/getty.target.wants/
+          mkdir -p $out/getty.target.wants/
+          ln -s ../autovt@tty1.service $out/getty.target.wants/
 
-        ln -s ../remote-fs.target $out/multi-user.target.wants/
-      ''}
-    ''; # */
+          ln -s ../remote-fs.target $out/multi-user.target.wants/
+        ''}
+      ''
+  ; # */
 
   makeJobScript = name: text:
     let
@@ -316,7 +323,9 @@ in rec {
         # to keep the script file name short to avoid cluttering logs.
         name = "unit-script-${scriptName}";
       });
-    in "${out}/bin/${scriptName}";
+    in
+      "${out}/bin/${scriptName}"
+  ;
 
   unitConfig = {
       config,
@@ -423,19 +432,22 @@ in rec {
     inherit (def) aliases wantedBy requiredBy enable overrideStrategy;
     text = commonUnitText def + ''
       [Service]
-      ${let env = cfg.globalEnvironment // def.environment;
-      in concatMapStrings (n:
-        let
-          s = optionalString (env.${n} != null) ''
-            Environment=${builtins.toJSON "${n}=${env.${n}}"}
-          '';
-          # systemd max line length is now 1MiB
-          # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
-        in if stringLength s >= 1048576 then
-          throw
-          "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
-        else
-          s) (attrNames env)}
+      ${let
+        env = cfg.globalEnvironment // def.environment;
+      in
+        concatMapStrings (n:
+          let
+            s = optionalString (env.${n} != null) ''
+              Environment=${builtins.toJSON "${n}=${env.${n}}"}
+            '';
+            # systemd max line length is now 1MiB
+            # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
+          in if stringLength s >= 1048576 then
+            throw
+            "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
+          else
+            s) (attrNames env)
+      }
       ${if def ? reloadIfChanged && def.reloadIfChanged then ''
         X-ReloadIfChanged=true
       '' else if (def ? restartIfChanged && !def.restartIfChanged) then ''

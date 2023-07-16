@@ -56,9 +56,10 @@ rec {
       a' = normalise a;
       b' = normalise b;
 
-    in hasPrefix a'.mountPoint b'.device
-    || hasPrefix a'.mountPoint b'.mountPoint
-    || any (hasPrefix a'.mountPoint) b'.depends;
+    in
+      hasPrefix a'.mountPoint b'.device || hasPrefix a'.mountPoint b'.mountPoint
+      || any (hasPrefix a'.mountPoint) b'.depends
+  ;
 
   # Escape a path according to the systemd rules. FIXME: slow
   # The rules are described in systemd.unit(5) as follows:
@@ -70,13 +71,15 @@ rec {
         (if (hasPrefix p s) then r + (removePrefix p s) else s);
       trim = s: removeSuffix "/" (removePrefix "/" s);
       normalizedPath = strings.normalizePath s;
-    in replaceStrings [ "/" ] [ "-" ]
-    (replacePrefix "." (strings.escapeC [ "." ] ".")
-      (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-")
-        (if normalizedPath == "/" then
-          normalizedPath
-        else
-          trim normalizedPath)));
+    in
+      replaceStrings [ "/" ] [ "-" ]
+      (replacePrefix "." (strings.escapeC [ "." ] ".")
+        (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-")
+          (if normalizedPath == "/" then
+            normalizedPath
+          else
+            trim normalizedPath)))
+  ;
 
   # Quotes an argument for use in Exec* service lines.
   # systemd accepts "-quoted strings with escape sequences, toJSON produces
@@ -95,13 +98,15 @@ rec {
         toString arg
       else
         throw "escapeSystemdExecArg only allows strings, paths and numbers";
-    in replaceStrings [
-      "%"
-      "$"
-    ] [
-      "%%"
-      "$$"
-    ] (builtins.toJSON s);
+    in
+      replaceStrings [
+        "%"
+        "$"
+      ] [
+        "%%"
+        "$$"
+      ] (builtins.toJSON s)
+  ;
 
   # Quotes a list of arguments into a single string for use in a Exec*
   # line.
@@ -156,14 +161,17 @@ rec {
                     "\\\\"
                   ] name
                 }"'';
-            in recurse (prefix + "." + escapedName) item.${name})
-          (attrNames item)
+            in
+              recurse (prefix + "." + escapedName) item.${name}
+          ) (attrNames item)
         else if isList item then
           imap0 (index: item: recurse (prefix + "[${toString index}]") item)
           item
         else
           [ ];
-    in listToAttrs (flatten (recurse "" item));
+    in
+      listToAttrs (flatten (recurse "" item))
+  ;
 
   /* Takes an attrset and a file path and generates a bash snippet that
      outputs a JSON file at the file path with all instances of
@@ -219,27 +227,30 @@ rec {
   # Like genJqSecretsReplacementSnippet, but allows the name of the
   # attr which identifies the secret to be changed.
   genJqSecretsReplacementSnippet' = attr: set: output:
-    let secrets = recursiveGetAttrWithJqPrefix set attr;
-    in ''
-      if [[ -h '${output}' ]]; then
-        rm '${output}'
-      fi
+    let
+      secrets = recursiveGetAttrWithJqPrefix set attr;
+    in
+      ''
+        if [[ -h '${output}' ]]; then
+          rm '${output}'
+        fi
 
-      inherit_errexit_enabled=0
-      shopt -pq inherit_errexit && inherit_errexit_enabled=1
-      shopt -s inherit_errexit
-    '' + concatStringsSep "\n" (imap1 (index: name: ''
-      secret${toString index}=$(<'${secrets.${name}}')
-      export secret${toString index}
-    '') (attrNames secrets)) + "\n" + "${pkgs.jq}/bin/jq >'${output}' "
-    + lib.escapeShellArg (concatStringsSep " | "
-      (imap1 (index: name: "${name} = $ENV.secret${toString index}")
-        (attrNames secrets))) + ''
-           <<'EOF'
-          ${builtins.toJSON set}
-          EOF
-          (( ! $inherit_errexit_enabled )) && shopt -u inherit_errexit
-        '';
+        inherit_errexit_enabled=0
+        shopt -pq inherit_errexit && inherit_errexit_enabled=1
+        shopt -s inherit_errexit
+      '' + concatStringsSep "\n" (imap1 (index: name: ''
+        secret${toString index}=$(<'${secrets.${name}}')
+        export secret${toString index}
+      '') (attrNames secrets)) + "\n" + "${pkgs.jq}/bin/jq >'${output}' "
+      + lib.escapeShellArg (concatStringsSep " | "
+        (imap1 (index: name: "${name} = $ENV.secret${toString index}")
+          (attrNames secrets))) + ''
+             <<'EOF'
+            ${builtins.toJSON set}
+            EOF
+            (( ! $inherit_errexit_enabled )) && shopt -u inherit_errexit
+          ''
+  ;
 
   /* Remove packages of packagesToRemove from packages, based on their names.
      Relies on package names and has quadratic complexity so use with caution!
@@ -252,8 +263,11 @@ rec {
        => [ nautilus ]
   */
   removePackagesByName = packages: packagesToRemove:
-    let namesToRemove = map lib.getName packagesToRemove;
-    in lib.filter (x: !(builtins.elem (lib.getName x) namesToRemove)) packages;
+    let
+      namesToRemove = map lib.getName packagesToRemove;
+    in
+      lib.filter (x: !(builtins.elem (lib.getName x) namesToRemove)) packages
+  ;
 
   systemdUtils = {
     lib = import ./systemd-lib.nix { inherit lib config pkgs; };

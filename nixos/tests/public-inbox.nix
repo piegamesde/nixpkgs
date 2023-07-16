@@ -180,7 +180,7 @@ import ./make-test-python.nix ({
           pkgs.openssl
         ];
 
-      };
+      } ;
 
     testScript = ''
       start_all()
@@ -238,4 +238,4 @@ import ./make-test-python.nix ({
       machine.succeed("curl -L https://machine.example.localdomain/inbox/repo1/repo1@root-1/raw | sudo -u public-inbox public-inbox-learn rm --all")
       machine.fail("curl -L https://machine.example.localdomain/inbox/repo1/repo1@root-1/T/#u | grep 'This is a testing mail.'")
     '';
-  })
+  } )

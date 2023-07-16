@@ -141,5 +141,6 @@ let
     };
 
   # Technically, GPLv2 with usage exceptions
-in lib.mapAttrs (mkpkg lib.licenses.gpl2) gplfonts
-// lib.mapAttrs (mkpkg lib.licenses.ofl) fonts
+in
+  lib.mapAttrs (mkpkg lib.licenses.gpl2) gplfonts
+  // lib.mapAttrs (mkpkg lib.licenses.ofl) fonts

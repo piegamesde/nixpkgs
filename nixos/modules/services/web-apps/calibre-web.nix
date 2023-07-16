@@ -150,7 +150,7 @@ in {
         ExecStart = "${calibreWebCmd} -i ${cfg.listen.ip}";
         Restart = "on-failure";
       };
-    };
+    } ;
 
     networking.firewall =
       mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.nbd;
+let
+  cfg = config.programs.nbd;
 in {
   options = {
     programs.nbd = {

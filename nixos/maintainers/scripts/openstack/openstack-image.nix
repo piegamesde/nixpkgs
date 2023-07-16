@@ -6,7 +6,8 @@
   pkgs,
   ...
 }:
-let copyChannel = true;
+let
+  copyChannel = true;
 in {
   imports = [ ../../../modules/virtualisation/openstack-config.nix ]
     ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);

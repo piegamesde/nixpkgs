@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.services.xserver.windowManager.openbox;
+let
+  cfg = config.services.xserver.windowManager.openbox;
 
 in {
   options = {

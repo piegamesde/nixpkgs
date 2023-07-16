@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
           lsb-release
         ]
       } \
-  '';
+  '' ;
 
   meta = with lib; {
     description = "A cross-platform soundboard.";

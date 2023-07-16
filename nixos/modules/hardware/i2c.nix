@@ -6,7 +6,8 @@
 
 with lib;
 
-let cfg = config.hardware.i2c;
+let
+  cfg = config.hardware.i2c;
 
 in {
   options.hardware.i2c = {

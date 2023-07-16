@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.knot;
+let
+  cfg = config.services.prometheus.exporters.knot;
 in {
   port = 9433;
   extraOpts = {

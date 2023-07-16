@@ -17,37 +17,38 @@ let
   };
   whenPatched = lib.optionalString apngSupport;
 
-in stdenv.mkDerivation rec {
-  pname = "libpng" + whenPatched "-apng";
-  version = "1.6.39";
+in
+  stdenv.mkDerivation rec {
+    pname = "libpng" + whenPatched "-apng";
+    version = "1.6.39";
 
-  src = fetchurl {
-    url = "mirror://sourceforge/libpng/libpng-${version}.tar.xz";
-    hash = "sha256-H0aWznC07l+F8eFiPcEimyEAKfpLeu5XPfPiunsDaTc=";
-  };
-  postPatch = whenPatched "gunzip < ${patch_src} | patch -Np1";
+    src = fetchurl {
+      url = "mirror://sourceforge/libpng/libpng-${version}.tar.xz";
+      hash = "sha256-H0aWznC07l+F8eFiPcEimyEAKfpLeu5XPfPiunsDaTc=";
+    };
+    postPatch = whenPatched "gunzip < ${patch_src} | patch -Np1";
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
-  outputBin = "dev";
+    outputs = [
+      "out"
+      "dev"
+      "man"
+    ];
+    outputBin = "dev";
 
-  propagatedBuildInputs = [ zlib ];
+    propagatedBuildInputs = [ zlib ];
 
-  doCheck = true;
+    doCheck = true;
 
-  passthru = { inherit zlib; };
+    passthru = { inherit zlib; };
 
-  meta = with lib; {
-    description =
-      "The official reference implementation for the PNG file format"
-      + whenPatched " with animation patch";
-    homepage = "http://www.libpng.org/pub/png/libpng.html";
-    changelog = "https://github.com/glennrp/libpng/blob/v1.6.39/CHANGES";
-    license = licenses.libpng2;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ vcunat ];
-  };
-}
+    meta = with lib; {
+      description =
+        "The official reference implementation for the PNG file format"
+        + whenPatched " with animation patch";
+      homepage = "http://www.libpng.org/pub/png/libpng.html";
+      changelog = "https://github.com/glennrp/libpng/blob/v1.6.39/CHANGES";
+      license = licenses.libpng2;
+      platforms = platforms.all;
+      maintainers = with maintainers; [ vcunat ];
+    };
+  }

@@ -55,62 +55,63 @@ let
     ++ lib.optional snappySupport snappy.dev ++ lib.optional zlibSupport zlib
     ++ lib.optional zstdSupport zstd ++ lib.optional log4cxxSupport log4cxx;
 
-in stdenv.mkDerivation rec {
-  pname = "libpulsar";
-  version = "2.10.2";
+in
+  stdenv.mkDerivation rec {
+    pname = "libpulsar";
+    version = "2.10.2";
 
-  src = fetchurl {
-    hash = "sha256-IONnsSDbnX2qz+Xya0taHYSViTOiRI36AfcxmY3dNpo=";
-    url =
-      "mirror://apache/pulsar/pulsar-${version}/apache-pulsar-${version}-src.tar.gz";
-  };
+    src = fetchurl {
+      hash = "sha256-IONnsSDbnX2qz+Xya0taHYSViTOiRI36AfcxmY3dNpo=";
+      url =
+        "mirror://apache/pulsar/pulsar-${version}/apache-pulsar-${version}-src.tar.gz";
+    };
 
-  sourceRoot = "apache-pulsar-${version}-src/pulsar-client-cpp";
+    sourceRoot = "apache-pulsar-${version}-src/pulsar-client-cpp";
 
-  # clang-tools needed for clang-format
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    clangTools
-  ] ++ defaultOptionals ++ lib.optional gtestSupport gtest.dev;
+    # clang-tools needed for clang-format
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      clangTools
+    ] ++ defaultOptionals ++ lib.optional gtestSupport gtest.dev;
 
-  buildInputs = [
-    jsoncpp
-    openssl
-    curl
-  ] ++ defaultOptionals;
+    buildInputs = [
+      jsoncpp
+      openssl
+      curl
+    ] ++ defaultOptionals;
 
-  # Needed for GCC on Linux
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=return-type" ];
+    # Needed for GCC on Linux
+    env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=return-type" ];
 
-  cmakeFlags = [
-    "-DBUILD_TESTS=${enableCmakeFeature gtestSupport}"
-    "-DBUILD_PYTHON_WRAPPER=${enableCmakeFeature python3Support}"
-    "-DUSE_LOG4CXX=${enableCmakeFeature log4cxxSupport}"
-    "-DClangTools_PATH=${clangTools}/bin"
-  ];
+    cmakeFlags = [
+      "-DBUILD_TESTS=${enableCmakeFeature gtestSupport}"
+      "-DBUILD_PYTHON_WRAPPER=${enableCmakeFeature python3Support}"
+      "-DUSE_LOG4CXX=${enableCmakeFeature log4cxxSupport}"
+      "-DClangTools_PATH=${clangTools}/bin"
+    ];
 
-  enableParallelBuilding = true;
-  doInstallCheck = true;
-  installCheckPhase = ''
-    echo ${
-      lib.escapeShellArg ''
-        #include <pulsar/Client.h>
-        int main (int argc, char **argv) {
-          pulsar::Client client("pulsar://localhost:6650");
-          return 0;
-        }
-      ''
-    } > test.cc
-    $CXX test.cc -L $out/lib -I $out/include -lpulsar -o test
-  '';
+    enableParallelBuilding = true;
+    doInstallCheck = true;
+    installCheckPhase = ''
+      echo ${
+        lib.escapeShellArg ''
+          #include <pulsar/Client.h>
+          int main (int argc, char **argv) {
+            pulsar::Client client("pulsar://localhost:6650");
+            return 0;
+          }
+        ''
+      } > test.cc
+      $CXX test.cc -L $out/lib -I $out/include -lpulsar -o test
+    '';
 
-  meta = with lib; {
-    homepage = "https://pulsar.apache.org/docs/en/client-libraries-cpp";
-    description = "Apache Pulsar C++ library";
+    meta = with lib; {
+      homepage = "https://pulsar.apache.org/docs/en/client-libraries-cpp";
+      description = "Apache Pulsar C++ library";
 
-    platforms = platforms.all;
-    license = licenses.asl20;
-    maintainers = [ maintainers.corbanr ];
-  };
-}
+      platforms = platforms.all;
+      license = licenses.asl20;
+      maintainers = [ maintainers.corbanr ];
+    };
+  }

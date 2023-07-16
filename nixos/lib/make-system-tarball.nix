@@ -41,21 +41,22 @@ let
   symlinks = map (x: x.symlink) storeContents;
   objects = map (x: x.object) storeContents;
 
-in stdenv.mkDerivation {
-  name = "tarball";
-  builder = ./make-system-tarball.sh;
-  nativeBuildInputs = extraInputs;
+in
+  stdenv.mkDerivation {
+    name = "tarball";
+    builder = ./make-system-tarball.sh;
+    nativeBuildInputs = extraInputs;
 
-  inherit fileName extraArgs extraCommands compressCommand;
+    inherit fileName extraArgs extraCommands compressCommand;
 
-  # !!! should use XML.
-  sources = map (x: x.source) contents;
-  targets = map (x: x.target) contents;
+    # !!! should use XML.
+    sources = map (x: x.source) contents;
+    targets = map (x: x.target) contents;
 
-  # !!! should use XML.
-  inherit symlinks objects;
+    # !!! should use XML.
+    inherit symlinks objects;
 
-  closureInfo = closureInfo { rootPaths = objects; };
+    closureInfo = closureInfo { rootPaths = objects; };
 
-  extension = compressionExtension;
-}
+    extension = compressionExtension;
+  }

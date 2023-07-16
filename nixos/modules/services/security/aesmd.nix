@@ -260,6 +260,6 @@ in {
         RestrictSUIDSGID = true;
         UMask = "0066";
       };
-    };
+    } ;
   };
 }

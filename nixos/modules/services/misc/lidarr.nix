@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.lidarr;
+let
+  cfg = config.services.lidarr;
 in {
   options = {
     services.lidarr = {

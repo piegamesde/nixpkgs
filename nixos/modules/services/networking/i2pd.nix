@@ -208,8 +208,12 @@ let
                               proto.outproxyEnable
                             else
                               [ ]);
-          in (concatStringsSep "\n" protoOpts)));
-  in pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts);
+          in
+            (concatStringsSep "\n" protoOpts)
+        ));
+  in
+    pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
+  ;
 
   tunnelConf = let
     opts = [
@@ -249,7 +253,9 @@ let
                             tun.crypto.tagsToSend
                           else
                             [ ]);
-          in concatStringsSep "\n" outTunOpts))
+          in
+            concatStringsSep "\n" outTunOpts
+        ))
       (flip map (collect (tun: tun ? port && tun ? address) cfg.inTunnels) (tun:
         let
           inTunOpts = [
@@ -269,9 +275,13 @@ let
                 optionalEmptyList "accesslist" tun.accessList
               else
                 [ ]);
-        in concatStringsSep "\n" inTunOpts))
+        in
+          concatStringsSep "\n" inTunOpts
+      ))
     ];
-  in pkgs.writeText "i2pd-tunnels.conf" opts;
+  in
+    pkgs.writeText "i2pd-tunnels.conf" opts
+  ;
 
   i2pdFlags = concatStringsSep " "
     (optional (cfg.address != null) ("--host=" + cfg.address) ++ [

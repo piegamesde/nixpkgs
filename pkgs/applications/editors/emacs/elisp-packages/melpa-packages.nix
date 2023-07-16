@@ -326,7 +326,8 @@ let
         ivy-rtags = fix-rtags super.ivy-rtags;
 
         jinx = super.jinx.overrideAttrs (old:
-          let libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
+          let
+            libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
           in {
             nativeBuildInputs = (old.nativeBuildInputs or [ ])
               ++ [ pkgs.pkg-config ];
@@ -351,7 +352,7 @@ let
             meta = old.meta // {
               maintainers = [ lib.maintainers.DamienCassou ];
             };
-          });
+          } );
 
         sqlite3 = super.sqlite3.overrideAttrs (old: {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
@@ -658,12 +659,13 @@ let
         w3m = super.w3m.override (args: {
           melpaBuild = drv:
             args.melpaBuild (drv // {
-              prePatch = let w3m = "${lib.getBin pkgs.w3m}/bin/w3m";
+              prePatch = let
+                w3m = "${lib.getBin pkgs.w3m}/bin/w3m";
               in ''
                 substituteInPlace w3m.el \
                 --replace 'defcustom w3m-command nil' \
                 'defcustom w3m-command "${w3m}"'
-              '';
+              '' ;
             });
         });
 
@@ -684,7 +686,10 @@ let
         });
       };
 
-    in lib.mapAttrs
-    (n: v: if lib.hasAttr n overrides then overrides.${n} else v) super);
+    in
+      lib.mapAttrs (n: v: if lib.hasAttr n overrides then overrides.${n} else v)
+      super
+  );
 
-in generateMelpa { }
+in
+  generateMelpa { }

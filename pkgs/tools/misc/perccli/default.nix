@@ -40,7 +40,9 @@ stdenvNoCC.mkDerivation rec {
         ln -s perccli64 $out/bin/perccli
       '';
     };
-  in platforms.${system} or (throw "unsupported system: ${system}");
+  in
+    platforms.${system} or (throw "unsupported system: ${system}")
+  ;
 
   # Not needed because the binary is statically linked
   dontFixup = true;

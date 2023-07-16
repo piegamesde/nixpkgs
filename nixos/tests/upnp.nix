@@ -114,4 +114,4 @@ import ./make-test-python.nix ({
         client2.wait_until_succeeds("curl -f http://${externalRouterAddress}:9000/")
       '';
 
-  })
+  } )

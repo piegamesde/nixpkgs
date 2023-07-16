@@ -72,10 +72,14 @@ let
             # Note the cycle -- call-by-need ensures finite fold.
             cur = op pred (builtins.elemAt list n) succ;
             succ = go cur (n + 1);
-          in cur;
+          in
+            cur
+      ;
       lapp = lnul cur;
       cur = go lapp 0;
-    in cur;
+    in
+      cur
+  ;
 
   # Take the list and disallow custom overrides in all but the final stage,
   # and allow it in the final flag. Only defaults this boolean field if it
@@ -124,7 +128,9 @@ let
             pkgsTargetTarget = nextStage;
           };
         });
-    in thisStage;
+    in
+      thisStage
+  ;
 
   # This is a hack for resolving cross-compiled compilers' run-time
   # deps. (That is, compilers that are themselves cross-compiled, as
@@ -150,4 +156,5 @@ let
       buildPackages.stdenv.cc;
   };
 
-in dfold folder postStage (_: { }) withAllowCustomOverrides
+in
+  dfold folder postStage (_: { }) withAllowCustomOverrides

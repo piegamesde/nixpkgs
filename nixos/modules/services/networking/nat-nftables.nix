@@ -35,7 +35,7 @@ let
       IP = if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 0;
       ports =
         if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 1;
-    };
+    } ;
 
   mkTable = {
       ipVer,
@@ -148,7 +148,7 @@ let
           ''
         }
       }
-    '';
+    '' ;
 
 in {
 

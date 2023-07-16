@@ -74,26 +74,27 @@ let
     #
     # Start the server
   '';
-in buildVscodeMarketplaceExtension {
-  mktplcRef = {
-    name = "remote-ssh";
-    publisher = "ms-vscode-remote";
-    version = "0.78.0";
-    sha256 = "sha256-vd+9d86Z8429QpQVCZm8gtiJDcMpD++aiFVwvCrPg5w=";
-  };
+in
+  buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "remote-ssh";
+      publisher = "ms-vscode-remote";
+      version = "0.78.0";
+      sha256 = "sha256-vd+9d86Z8429QpQVCZm8gtiJDcMpD++aiFVwvCrPg5w=";
+    };
 
-  postPatch = ''
-    substituteInPlace "out/extension.js" \
-      --replace '# Start the server\n' '${patch}'
-  '';
+    postPatch = ''
+      substituteInPlace "out/extension.js" \
+        --replace '# Start the server\n' '${patch}'
+    '';
 
-  meta = {
-    description =
-      "Use any remote machine with a SSH server as your development environment.";
-    license = lib.licenses.unfree;
-    maintainers = [
-      lib.maintainers.SuperSandro2000
-      lib.maintainers.tbenst
-    ];
-  };
-}
+    meta = {
+      description =
+        "Use any remote machine with a SSH server as your development environment.";
+      license = lib.licenses.unfree;
+      maintainers = [
+        lib.maintainers.SuperSandro2000
+        lib.maintainers.tbenst
+      ];
+    };
+  }

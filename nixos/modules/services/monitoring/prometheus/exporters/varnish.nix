@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.varnish;
+let
+  cfg = config.services.prometheus.exporters.varnish;
 in {
   port = 9131;
   extraOpts = {

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.herbstluftwm;
+let
+  cfg = config.services.xserver.windowManager.herbstluftwm;
 
 in {
   options = {
@@ -41,7 +42,9 @@ in {
       start = let
         configFileClause =
           optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"'';
-      in "${cfg.package}/bin/herbstluftwm ${configFileClause}";
+      in
+        "${cfg.package}/bin/herbstluftwm ${configFileClause}"
+      ;
     };
     environment.systemPackages = [ cfg.package ];
   };

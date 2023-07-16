@@ -6,20 +6,22 @@
   build-idris-package,
 }:
 pname: deps:
-let inherit (builtins.parseDrvName idris.name) version;
-in build-idris-package {
+let
+  inherit (builtins.parseDrvName idris.name) version;
+in
+  build-idris-package {
 
-  inherit pname version;
-  inherit (idris) src;
+    inherit pname version;
+    inherit (idris) src;
 
-  noPrelude = true;
-  noBase = true;
+    noPrelude = true;
+    noBase = true;
 
-  idrisDeps = deps;
+    idrisDeps = deps;
 
-  postUnpack = ''
-    sourceRoot=$sourceRoot/libs/${pname}
-  '';
+    postUnpack = ''
+      sourceRoot=$sourceRoot/libs/${pname}
+    '';
 
-  meta = idris.meta // { description = "${pname} builtin Idris library"; };
-}
+    meta = idris.meta // { description = "${pname} builtin Idris library"; };
+  }

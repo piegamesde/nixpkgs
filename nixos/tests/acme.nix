@@ -9,16 +9,19 @@ let
   dnsServerIP = nodes: nodes.dnsserver.networking.primaryIPAddress;
 
   dnsScript = nodes:
-    let dnsAddress = dnsServerIP nodes;
-    in pkgs.writeShellScript "dns-hook.sh" ''
-      set -euo pipefail
-      echo '[INFO]' "[$2]" 'dns-hook.sh' $*
-      if [ "$1" = "present" ]; then
-        ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'", "value": "'"$3"'"}' http://${dnsAddress}:8055/set-txt
-      else
-        ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'"}' http://${dnsAddress}:8055/clear-txt
-      fi
-    '';
+    let
+      dnsAddress = dnsServerIP nodes;
+    in
+      pkgs.writeShellScript "dns-hook.sh" ''
+        set -euo pipefail
+        echo '[INFO]' "[$2]" 'dns-hook.sh' $*
+        if [ "$1" = "present" ]; then
+          ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'", "value": "'"$3"'"}' http://${dnsAddress}:8055/set-txt
+        else
+          ${pkgs.curl}/bin/curl --data '{"host": "'"$2"'"}' http://${dnsAddress}:8055/clear-txt
+        fi
+      ''
+  ;
 
   dnsConfig = nodes: {
     dnsProvider = "exec";
@@ -169,7 +172,7 @@ let
             };
           };
         };
-    };
+    } ;
 
 in {
   name = "acme";
@@ -265,24 +268,26 @@ in {
               accountCreateTester = ''
                 test -e accounts/${caDomain}/${email}/account.json || exit 99
               '';
-            in lib.mkMerge [
-              webserverBasicConfig
-              {
-                # Used to test that account creation is collated into one service.
-                # These should not run until after acme-finished-a.example.test.target
-                systemd.services."b.example.test".preStart =
-                  accountCreateTester;
-                systemd.services."c.example.test".preStart =
-                  accountCreateTester;
+            in
+              lib.mkMerge [
+                webserverBasicConfig
+                {
+                  # Used to test that account creation is collated into one service.
+                  # These should not run until after acme-finished-a.example.test.target
+                  systemd.services."b.example.test".preStart =
+                    accountCreateTester;
+                  systemd.services."c.example.test".preStart =
+                    accountCreateTester;
 
-                services.nginx.virtualHosts."b.example.test" = vhostBase // {
-                  enableACME = true;
-                };
-                services.nginx.virtualHosts."c.example.test" = vhostBase // {
-                  enableACME = true;
-                };
-              }
-            ];
+                  services.nginx.virtualHosts."b.example.test" = vhostBase // {
+                    enableACME = true;
+                  };
+                  services.nginx.virtualHosts."c.example.test" = vhostBase // {
+                    enableACME = true;
+                  };
+                }
+              ]
+          ;
 
           # Test OCSP Stapling
           ocsp-stapling.configuration = {
@@ -386,7 +391,7 @@ in {
             ];
 
           # Test compatibility with Nginx
-        }) // (mkServerConfigs {
+        } ) // (mkServerConfigs {
           server = "nginx";
           group = "nginx";
           vhostBaseData = vhostBase;
@@ -743,5 +748,5 @@ in {
               webserver.wait_for_unit(f"acme-finished-{test_domain}.target")
               wait_for_server()
               check_connection_key_bits(client, test_domain, "384")
-    '';
+    '' ;
 }

@@ -52,49 +52,51 @@ let
       repo = "elpi";
     };
   }) version;
-in buildDunePackage rec {
-  pname = "elpi";
-  inherit (fetched) version src;
+in
+  buildDunePackage rec {
+    pname = "elpi";
+    inherit (fetched) version src;
 
-  patches = lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-    ./atd_2_10.patch;
+    patches =
+      lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
+      ./atd_2_10.patch;
 
-  minimalOCamlVersion = "4.04";
-  duneVersion = "3";
+    minimalOCamlVersion = "4.04";
+    duneVersion = "3";
 
-  # atdgen is both a library and executable
-  nativeBuildInputs = [ perl ]
-    ++ [ (if lib.versionAtLeast version "1.15" || version == "dev" then
-      menhir
-    else
-      camlp5) ]
-    ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-    atdgen;
-  buildInputs = [ ncurses ]
-    ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-    atdgen;
+    # atdgen is both a library and executable
+    nativeBuildInputs = [ perl ]
+      ++ [ (if lib.versionAtLeast version "1.15" || version == "dev" then
+        menhir
+      else
+        camlp5) ]
+      ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
+      atdgen;
+    buildInputs = [ ncurses ]
+      ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
+      atdgen;
 
-  propagatedBuildInputs = [
-    re
-    stdlib-shims
-  ] ++ (if lib.versionAtLeast version "1.15" || version
-  == "dev" then [ menhirLib ] else [ camlp5 ])
-    ++ (if lib.versionAtLeast version "1.13" || version == "dev" then [
-      ppxlib
-      ppx_deriving
-    ] else [
-      ppxlib_0_15
-      ppx_deriving_0_15
-    ]);
+    propagatedBuildInputs = [
+      re
+      stdlib-shims
+    ] ++ (if lib.versionAtLeast version "1.15" || version
+    == "dev" then [ menhirLib ] else [ camlp5 ])
+      ++ (if lib.versionAtLeast version "1.13" || version == "dev" then [
+        ppxlib
+        ppx_deriving
+      ] else [
+        ppxlib_0_15
+        ppx_deriving_0_15
+      ]);
 
-  meta = with lib; {
-    description = "Embeddable λProlog Interpreter";
-    license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.vbgl ];
-    homepage = "https://github.com/LPCIC/elpi";
-  };
+    meta = with lib; {
+      description = "Embeddable λProlog Interpreter";
+      license = licenses.lgpl21Plus;
+      maintainers = [ maintainers.vbgl ];
+      homepage = "https://github.com/LPCIC/elpi";
+    };
 
-  postPatch = ''
-    substituteInPlace elpi_REPL.ml --replace "tput cols" "${ncurses}/bin/tput cols"
-  '';
-}
+    postPatch = ''
+      substituteInPlace elpi_REPL.ml --replace "tput cols" "${ncurses}/bin/tput cols"
+    '';
+  }

@@ -339,7 +339,7 @@ in {
           '';
         };
       };
-    };
+    } ;
 
     systemd.timers.netbox-housekeeping = {
       description = "Run NetBox housekeeping job";

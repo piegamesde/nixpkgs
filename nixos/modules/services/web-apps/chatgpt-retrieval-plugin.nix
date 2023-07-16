@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.chatgpt-retrieval-plugin;
+let
+  cfg = config.services.chatgpt-retrieval-plugin;
 in {
   options.services.chatgpt-retrieval-plugin = {
     enable = mkEnableOption (lib.mdDoc "chatgpt-retrieval-plugin service");

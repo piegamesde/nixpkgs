@@ -180,4 +180,5 @@ let
         maintainers = with maintainers; [ thoughtpolice ];
       };
     };
-in makeFdb
+in
+  makeFdb

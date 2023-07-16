@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.virtualisation.lxd;
+let
+  cfg = config.virtualisation.lxd;
 in {
   imports = [ (mkRemovedOptionModule [
     "virtualisation"

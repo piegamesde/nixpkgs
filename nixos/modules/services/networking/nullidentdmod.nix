@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.nullidentdmod;
+let
+  cfg = config.services.nullidentdmod;
 
 in {
   options.services.nullidentdmod = with types; {

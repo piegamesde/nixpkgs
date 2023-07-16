@@ -168,4 +168,4 @@ import ./make-test-python.nix ({
           node1.succeed("etcdctl set /foo/bar 'Hello degraded world'")
           node1.succeed("etcdctl get /foo/bar | grep 'Hello degraded world'")
     '';
-  })
+  } )

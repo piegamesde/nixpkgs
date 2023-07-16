@@ -16,23 +16,24 @@ let
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
-in appimageTools.wrapType2 {
-  inherit name src;
+in
+  appimageTools.wrapType2 {
+    inherit name src;
 
-  extraInstallCommands = ''
-    mv $out/bin/${name} $out/bin/${pname}
+    extraInstallCommands = ''
+      mv $out/bin/${name} $out/bin/${pname}
 
-    install -m 444 -D ${appimageContents}/${pname}.desktop $out/share/applications/${pname}.desktop
-    substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace 'Exec=AppRun' 'Exec=ElectronPlayer'
-    cp -r ${appimageContents}/usr/share/icons $out/share
-  '';
+      install -m 444 -D ${appimageContents}/${pname}.desktop $out/share/applications/${pname}.desktop
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --replace 'Exec=AppRun' 'Exec=ElectronPlayer'
+      cp -r ${appimageContents}/usr/share/icons $out/share
+    '';
 
-  meta = with lib; {
-    description = "An electron based web video services player";
-    homepage = "https://github.com/oscartbeaumont/ElectronPlayer";
-    license = licenses.mit;
-    maintainers = with maintainers; [ extends ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      description = "An electron based web video services player";
+      homepage = "https://github.com/oscartbeaumont/ElectronPlayer";
+      license = licenses.mit;
+      maintainers = with maintainers; [ extends ];
+      platforms = [ "x86_64-linux" ];
+    };
+  }

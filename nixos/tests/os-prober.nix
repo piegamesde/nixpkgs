@@ -139,4 +139,4 @@ import ./make-test-python.nix ({
 
       machine.succeed("egrep 'menuentry.*debian' /boot/grub/grub.cfg")
     '';
-  })
+  } )

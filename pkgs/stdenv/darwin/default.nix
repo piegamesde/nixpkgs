@@ -173,7 +173,9 @@ in rec {
             isClang = true;
             cc = last.pkgs."${finalLlvmPackages}".clang-unwrapped;
           };
-        in args // (overrides args));
+        in
+          args // (overrides args)
+        );
 
       cc = if last == null then
         "/dev/null"
@@ -269,7 +271,7 @@ in rec {
     in {
       inherit config overlays;
       stdenv = thisStdenv;
-    };
+    } ;
 
   stage0 = stageFun 0 null {
     overrides = self: super:
@@ -462,7 +464,9 @@ in rec {
               inherit (pkgs."${finalLlvmPackages}")
                 compiler-rt libcxx libcxxabi;
             });
-          in { inherit tools libraries; } // tools // libraries);
+          in
+            { inherit tools libraries; } // tools // libraries
+          );
 
           darwin = super.darwin.overrideScope (selfDarwin: _: {
             inherit (darwin) rewrite-tbd binutils-unwrapped;
@@ -538,7 +542,9 @@ in rec {
                     standalone = true;
                   });
               });
-          in { inherit tools libraries; } // tools // libraries);
+          in
+            { inherit tools libraries; } // tools // libraries
+          );
 
           darwin = super.darwin.overrideScope (_: _: {
             inherit (darwin)
@@ -609,7 +615,9 @@ in rec {
             libraries = super."${finalLlvmPackages}".libraries.extend (_: _: {
               inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi;
             });
-          in { inherit libraries; } // libraries);
+          in
+            { inherit libraries; } // libraries
+          );
 
           darwin = super.darwin.overrideScope (_: _: {
             inherit (darwin)
@@ -704,7 +712,9 @@ in rec {
                 inherit (pkgs."${finalLlvmPackages}")
                   libcxx libcxxabi compiler-rt;
               });
-          in { inherit tools libraries; } // tools // libraries);
+          in
+            { inherit tools libraries; } // tools // libraries
+          );
 
           darwin = super.darwin.overrideScope (_: superDarwin: {
             inherit (darwin) dyld Libsystem libiconv locale darwin-stubs;
@@ -764,135 +774,139 @@ in rec {
               inherit (pkgs."${finalLlvmPackages}")
                 compiler-rt libcxx libcxxabi;
             });
-          in { inherit tools libraries; } // tools // libraries);
+          in
+            { inherit tools libraries; } // tools // libraries
+          );
 
           inherit binutils binutils-unwrapped;
         };
-    in import ../generic rec {
-      name = "stdenv-darwin";
+    in
+      import ../generic rec {
+        name = "stdenv-darwin";
 
-      inherit config;
-      inherit (pkgs.stdenv) fetchurlBoot;
+        inherit config;
+        inherit (pkgs.stdenv) fetchurlBoot;
 
-      buildPlatform = localSystem;
-      hostPlatform = localSystem;
-      targetPlatform = localSystem;
+        buildPlatform = localSystem;
+        hostPlatform = localSystem;
+        targetPlatform = localSystem;
 
-      preHook = commonPreHook + ''
-        export NIX_COREFOUNDATION_RPATH=${pkgs.darwin.CF}/Library/Frameworks
-        export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
-      '';
+        preHook = commonPreHook + ''
+          export NIX_COREFOUNDATION_RPATH=${pkgs.darwin.CF}/Library/Frameworks
+          export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
+        '';
 
-      __stdenvImpureHostDeps = commonImpureHostDeps;
-      __extraImpureHostDeps = commonImpureHostDeps;
+        __stdenvImpureHostDeps = commonImpureHostDeps;
+        __extraImpureHostDeps = commonImpureHostDeps;
 
-      initialPath = import ../generic/common-path.nix { inherit pkgs; };
-      shell = "${pkgs.bash}/bin/bash";
+        initialPath = import ../generic/common-path.nix { inherit pkgs; };
+        shell = "${pkgs.bash}/bin/bash";
 
-      cc = pkgs."${finalLlvmPackages}".libcxxClang;
+        cc = pkgs."${finalLlvmPackages}".libcxxClang;
 
-      extraNativeBuildInputs = lib.optionals
-        localSystem.isAarch64 [ pkgs.updateAutotoolsGnuConfigScriptsHook ];
+        extraNativeBuildInputs = lib.optionals
+          localSystem.isAarch64 [ pkgs.updateAutotoolsGnuConfigScriptsHook ];
 
-      extraBuildInputs = [ pkgs.darwin.CF ];
+        extraBuildInputs = [ pkgs.darwin.CF ];
 
-      extraAttrs = {
-        libc = pkgs.darwin.Libsystem;
-        shellPackage = pkgs.bash;
-        inherit bootstrapTools;
-      } // lib.optionalAttrs useAppleSDKLibs {
-        # This objc4 will be propagated to all builds using the final stdenv,
-        # and we shouldn't mix different builds, because they would be
-        # conflicting LLVM modules. Export it here so we can grab it later.
-        inherit (pkgs.darwin) objc4;
-      };
+        extraAttrs = {
+          libc = pkgs.darwin.Libsystem;
+          shellPackage = pkgs.bash;
+          inherit bootstrapTools;
+        } // lib.optionalAttrs useAppleSDKLibs {
+          # This objc4 will be propagated to all builds using the final stdenv,
+          # and we shouldn't mix different builds, because they would be
+          # conflicting LLVM modules. Export it here so we can grab it later.
+          inherit (pkgs.darwin) objc4;
+        };
 
-      allowedRequisites = (with pkgs;
-        [
-          xz.out
-          xz.bin
-          gmp.out
-          gnumake
-          findutils
-          bzip2.out
-          bzip2.bin
-          zlib.out
-          zlib.dev
-          libffi.out
-          coreutils
-          ed
-          diffutils
-          gnutar
-          gzip
-          ncurses.out
-          ncurses.dev
-          ncurses.man
-          gnused
-          bash
-          gawk
-          gnugrep
-          patch
-          pcre.out
-          gettext
-          binutils.bintools
-          binutils.bintools.lib
-          darwin.binutils
-          darwin.binutils.bintools
-          curl.out
-          zstd.out
-          libidn2.out
-          libunistring.out
-          openssl.out
-          libssh2.out
-          nghttp2.lib
-          brotli.lib
-          cc.expand-response-params
-          libxml2.out
-          file
-        ] ++ lib.optional haveKRB5 libkrb5
-        ++ lib.optionals localSystem.isAarch64 [
-          pkgs.updateAutotoolsGnuConfigScriptsHook
-          pkgs.gnu-config
-        ]) ++ (with pkgs."${finalLlvmPackages}"; [
-          libcxx
-          libcxx.dev
-          libcxxabi
-          libcxxabi.dev
-          llvm
-          llvm.lib
-          compiler-rt
-          compiler-rt.dev
-          clang-unwrapped
-          libclang.dev
-          libclang.lib
-        ]) ++ (with pkgs.darwin;
+        allowedRequisites = (with pkgs;
           [
-            dyld
-            Libsystem
-            CF
-            cctools
-            ICU
-            libiconv
-            locale
-            libtapi
-          ] ++ lib.optional useAppleSDKLibs objc4 ++ lib.optionals doSign [
-            postLinkSignHook
-            sigtool
-            signingUtils
-          ]);
+            xz.out
+            xz.bin
+            gmp.out
+            gnumake
+            findutils
+            bzip2.out
+            bzip2.bin
+            zlib.out
+            zlib.dev
+            libffi.out
+            coreutils
+            ed
+            diffutils
+            gnutar
+            gzip
+            ncurses.out
+            ncurses.dev
+            ncurses.man
+            gnused
+            bash
+            gawk
+            gnugrep
+            patch
+            pcre.out
+            gettext
+            binutils.bintools
+            binutils.bintools.lib
+            darwin.binutils
+            darwin.binutils.bintools
+            curl.out
+            zstd.out
+            libidn2.out
+            libunistring.out
+            openssl.out
+            libssh2.out
+            nghttp2.lib
+            brotli.lib
+            cc.expand-response-params
+            libxml2.out
+            file
+          ] ++ lib.optional haveKRB5 libkrb5
+          ++ lib.optionals localSystem.isAarch64 [
+            pkgs.updateAutotoolsGnuConfigScriptsHook
+            pkgs.gnu-config
+          ]) ++ (with pkgs."${finalLlvmPackages}"; [
+            libcxx
+            libcxx.dev
+            libcxxabi
+            libcxxabi.dev
+            llvm
+            llvm.lib
+            compiler-rt
+            compiler-rt.dev
+            clang-unwrapped
+            libclang.dev
+            libclang.lib
+          ]) ++ (with pkgs.darwin;
+            [
+              dyld
+              Libsystem
+              CF
+              cctools
+              ICU
+              libiconv
+              locale
+              libtapi
+            ] ++ lib.optional useAppleSDKLibs objc4 ++ lib.optionals doSign [
+              postLinkSignHook
+              sigtool
+              signingUtils
+            ]);
 
-      overrides = lib.composeExtensions persistent (self: super:
-        {
-          darwin = super.darwin.overrideScope (_: superDarwin: {
-            inherit (prevStage.darwin) CF darwin-stubs;
-            xnu = superDarwin.xnu.override { inherit (prevStage) python3; };
+        overrides = lib.composeExtensions persistent (self: super:
+          {
+            darwin = super.darwin.overrideScope (_: superDarwin: {
+              inherit (prevStage.darwin) CF darwin-stubs;
+              xnu = superDarwin.xnu.override { inherit (prevStage) python3; };
+            });
+          } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
+            clang = cc;
+            llvmPackages = super.llvmPackages // { clang = cc; };
+            inherit cc;
           });
-        } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
-          clang = cc;
-          llvmPackages = super.llvmPackages // { clang = cc; };
-          inherit cc;
-        });
-    };
+      }
+  ;
 
   stagesDarwin = [
     ({ }: stage0)

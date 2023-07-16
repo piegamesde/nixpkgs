@@ -43,20 +43,21 @@ let
     "usr/bin"
   ];
 
-in stdenv.mkDerivation {
-  name = "steam-runtime-wrapped";
+in
+  stdenv.mkDerivation {
+    name = "steam-runtime-wrapped";
 
-  nativeBuildInputs = [ perl ];
+    nativeBuildInputs = [ perl ];
 
-  builder = ./build-wrapped.sh;
+    builder = ./build-wrapped.sh;
 
-  passthru = {
-    inherit gnuArch libs bins overridePkgs;
-    arch = steamArch;
-  };
+    passthru = {
+      inherit gnuArch libs bins overridePkgs;
+      arch = steamArch;
+    };
 
-  installPhase = ''
-    buildDir "${toString libs}" "${toString (map lib.getLib allPkgs)}"
-    buildDir "${toString bins}" "${toString (map lib.getBin allPkgs)}"
-  '';
-}
+    installPhase = ''
+      buildDir "${toString libs}" "${toString (map lib.getLib allPkgs)}"
+      buildDir "${toString bins}" "${toString (map lib.getBin allPkgs)}"
+    '';
+  }

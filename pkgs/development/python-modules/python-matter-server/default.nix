@@ -72,7 +72,7 @@ buildPythonPackage rec {
       (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
   in ''
     export PYTHONPATH=${pythonEnv}/${python.sitePackages}
-  '';
+  '' ;
 
   pytestFlagsArray = [
     # Upstream theymselves limit the test scope

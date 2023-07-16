@@ -41,44 +41,45 @@ in let
     sha256 = "sha256-4FwKKBHRE9rkq9gyiEGZo+qNGH7huHLYJAp4ipZUC/0=";
   };
   atLeast31 = lib.versionAtLeast param.version "3.1";
-in buildDunePackage rec {
-  pname = "sedlex";
-  inherit (param) version;
+in
+  buildDunePackage rec {
+    pname = "sedlex";
+    inherit (param) version;
 
-  minimalOCamlVersion = "4.08";
-  duneVersion = "3";
+    minimalOCamlVersion = "4.08";
+    duneVersion = "3";
 
-  src = fetchFromGitHub {
-    owner = "ocaml-community";
-    repo = "sedlex";
-    rev = "v${version}";
-    inherit (param) sha256;
-  };
+    src = fetchFromGitHub {
+      owner = "ocaml-community";
+      repo = "sedlex";
+      rev = "v${version}";
+      inherit (param) sha256;
+    };
 
-  propagatedBuildInputs = [
-    gen
-    ppxlib
-  ] ++ lib.optionals (!atLeast31) [ uchar ];
+    propagatedBuildInputs = [
+      gen
+      ppxlib
+    ] ++ lib.optionals (!atLeast31) [ uchar ];
 
-  preBuild = ''
-    rm src/generator/data/dune
-    ln -s ${DerivedCoreProperties} src/generator/data/DerivedCoreProperties.txt
-    ln -s ${DerivedGeneralCategory} src/generator/data/DerivedGeneralCategory.txt
-    ln -s ${PropList} src/generator/data/PropList.txt
-  '';
+    preBuild = ''
+      rm src/generator/data/dune
+      ln -s ${DerivedCoreProperties} src/generator/data/DerivedCoreProperties.txt
+      ln -s ${DerivedGeneralCategory} src/generator/data/DerivedGeneralCategory.txt
+      ln -s ${PropList} src/generator/data/PropList.txt
+    '';
 
-  checkInputs = lib.optionals atLeast31 [ ppx_expect ];
+    checkInputs = lib.optionals atLeast31 [ ppx_expect ];
 
-  doCheck = true;
+    doCheck = true;
 
-  dontStrip = true;
+    dontStrip = true;
 
-  meta = {
-    homepage = "https://github.com/ocaml-community/sedlex";
-    changelog =
-      "https://github.com/ocaml-community/sedlex/raw/v${version}/CHANGES";
-    description = "An OCaml lexer generator for Unicode";
-    license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.marsam ];
-  };
-}
+    meta = {
+      homepage = "https://github.com/ocaml-community/sedlex";
+      changelog =
+        "https://github.com/ocaml-community/sedlex/raw/v${version}/CHANGES";
+      description = "An OCaml lexer generator for Unicode";
+      license = lib.licenses.mit;
+      maintainers = [ lib.maintainers.marsam ];
+    };
+  }

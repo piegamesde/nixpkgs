@@ -42,4 +42,5 @@ let
       webkitgtk
     ] + ":${libmysqlclient}/lib/mysql";
   };
-in stdenv.mkDerivation self
+in
+  stdenv.mkDerivation self

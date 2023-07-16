@@ -65,7 +65,8 @@ in {
 
     services.nginx.enable = true;
 
-    services.nginx.virtualHosts = let hkpPort = builtins.toString cfg.hkpPort;
+    services.nginx.virtualHosts = let
+      hkpPort = builtins.toString cfg.hkpPort;
     in {
       ${cfg.hostname} = {
         root = webPkg;
@@ -77,6 +78,6 @@ in {
           '';
         };
       };
-    };
+    } ;
   };
 }

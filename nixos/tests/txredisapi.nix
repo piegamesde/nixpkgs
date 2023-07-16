@@ -26,7 +26,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let inherit (nodes.machine.config.services) redis;
+      let
+        inherit (nodes.machine.config.services) redis;
       in ''
         start_all()
         machine.wait_for_unit("redis")
@@ -34,5 +35,5 @@ import ./make-test-python.nix ({
         machine.succeed("ln -s ${redis.servers."".unixSocket} /tmp/redis.sock")
 
         tests = machine.succeed("PYTHONPATH=\"${pkgs.python3Packages.txredisapi.src}\" python -m twisted.trial ${pkgs.python3Packages.txredisapi.src}/tests")
-      '';
+      '' ;
   })

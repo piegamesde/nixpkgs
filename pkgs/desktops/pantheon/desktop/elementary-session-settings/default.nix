@@ -87,69 +87,70 @@ let
     Type=Application
   '';
 
-in stdenv.mkDerivation rec {
-  pname = "elementary-session-settings";
-  version = "6.0.0";
+in
+  stdenv.mkDerivation rec {
+    pname = "elementary-session-settings";
+    version = "6.0.0";
 
-  src = fetchFromGitHub {
-    owner = "elementary";
-    repo = "session-settings";
-    rev = version;
-    sha256 = "1faglpa7q3a4335gnd074a3lnsdspyjdnskgy4bfnf6xmwjx7kjx";
-  };
+    src = fetchFromGitHub {
+      owner = "elementary";
+      repo = "session-settings";
+      rev = version;
+      sha256 = "1faglpa7q3a4335gnd074a3lnsdspyjdnskgy4bfnf6xmwjx7kjx";
+    };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      desktop-file-utils
+      meson
+      ninja
+      pkg-config
+    ];
 
-  buildInputs = [
-    gnome-keyring
-    gnome-settings-daemon
-    onboard
-    orca
-  ];
+    buildInputs = [
+      gnome-keyring
+      gnome-settings-daemon
+      onboard
+      orca
+    ];
 
-  mesonFlags = [
-    "-Dmimeapps-list=false"
-    "-Dfallback-session=GNOME"
-    "-Ddetect-program-prefixes=true"
-    "--sysconfdir=${placeholder "out"}/etc"
-  ];
+    mesonFlags = [
+      "-Dmimeapps-list=false"
+      "-Dfallback-session=GNOME"
+      "-Ddetect-program-prefixes=true"
+      "--sysconfdir=${placeholder "out"}/etc"
+    ];
 
-  postInstall = ''
-    # our mimeapps patched from upstream to exclude:
-    # * evince.desktop -> org.gnome.Evince.desktop
-    mkdir -p $out/share/applications
-    cp -av ${
-      ./pantheon-mimeapps.list
-    } $out/share/applications/pantheon-mimeapps.list
+    postInstall = ''
+      # our mimeapps patched from upstream to exclude:
+      # * evince.desktop -> org.gnome.Evince.desktop
+      mkdir -p $out/share/applications
+      cp -av ${
+        ./pantheon-mimeapps.list
+      } $out/share/applications/pantheon-mimeapps.list
 
-    # instantiates pantheon's dockitems
-    cp "${dockitemAutostart}" $out/etc/xdg/autostart/default-elementary-dockitems.desktop
+      # instantiates pantheon's dockitems
+      cp "${dockitemAutostart}" $out/etc/xdg/autostart/default-elementary-dockitems.desktop
 
-    # script `Exec` to start pantheon
-    mkdir -p $out/libexec
-    substitute ${executable} $out/libexec/pantheon --subst-var out
-    chmod +x $out/libexec/pantheon
+      # script `Exec` to start pantheon
+      mkdir -p $out/libexec
+      substitute ${executable} $out/libexec/pantheon --subst-var out
+      chmod +x $out/libexec/pantheon
 
-    # absolute path patched xsession
-    substitute ${xsession} $out/share/xsessions/pantheon.desktop --subst-var out
-  '';
+      # absolute path patched xsession
+      substitute ${xsession} $out/share/xsessions/pantheon.desktop --subst-var out
+    '';
 
-  passthru = {
-    updateScript = nix-update-script { };
+    passthru = {
+      updateScript = nix-update-script { };
 
-    providedSessions = [ "pantheon" ];
-  };
+      providedSessions = [ "pantheon" ];
+    };
 
-  meta = with lib; {
-    description = "Session settings for elementary";
-    homepage = "https://github.com/elementary/session-settings";
-    license = licenses.gpl2Plus;
-    platforms = platforms.linux;
-    maintainers = teams.pantheon.members;
-  };
-}
+    meta = with lib; {
+      description = "Session settings for elementary";
+      homepage = "https://github.com/elementary/session-settings";
+      license = licenses.gpl2Plus;
+      platforms = platforms.linux;
+      maintainers = teams.pantheon.members;
+    };
+  }

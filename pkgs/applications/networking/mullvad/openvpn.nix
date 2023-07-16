@@ -87,4 +87,4 @@ openvpn.overrideAttrs (oldAttrs:
       homepage = "https://github.com/mullvad/openvpn";
       maintainers = with lib; [ maintainers.cole-h ];
     };
-  })
+  } )

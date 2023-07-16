@@ -163,7 +163,7 @@ in {
         ${genConfigScript}
         chmod 400 config.json
         chown -R engelsystem .
-      '';
+      '' ;
     };
     systemd.services."engelsystem-migrate" = {
       wantedBy = [ "multi-user.target" ];

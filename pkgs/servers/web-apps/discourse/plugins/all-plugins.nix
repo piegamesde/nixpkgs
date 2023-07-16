@@ -4,7 +4,8 @@
   fetchFromGitHub,
   ...
 }@args:
-let callPackage = newScope args;
+let
+  callPackage = newScope args;
 in {
   discourse-assign = callPackage ./discourse-assign { };
   discourse-bbcode-color = callPackage ./discourse-bbcode-color { };

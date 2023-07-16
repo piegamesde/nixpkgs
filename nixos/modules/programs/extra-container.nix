@@ -6,7 +6,8 @@
 }:
 
 with lib;
-let cfg = config.programs.extra-container;
+let
+  cfg = config.programs.extra-container;
 in {
   options = {
     programs.extra-container.enable = mkEnableOption (lib.mdDoc ''

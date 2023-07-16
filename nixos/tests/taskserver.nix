@@ -308,5 +308,5 @@ import ./make-test-python.nix ({
             setup_clients_for("manualOrg", "alice", init_manual_config)
 
             test_sync("alice")
-      '';
-  })
+      '' ;
+  } )

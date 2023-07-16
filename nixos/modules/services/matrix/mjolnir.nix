@@ -68,7 +68,7 @@ let
     ${optionalString (cfg.pantalaimon.passwordFile != null) ''
       ${pkgs.replace-secret}/bin/replace-secret '@PANTALAIMON_PASSWORD@' '${cfg.pantalaimon.passwordFile}' ${cfg.dataPath}/config/default.yaml
     ''}
-  '');
+  '' );
 in {
   options.services.mjolnir = {
     enable = mkEnableOption (lib.mdDoc "Mjolnir, a moderation tool for Matrix");

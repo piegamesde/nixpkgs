@@ -18,39 +18,40 @@ let
     sha256 = "0cmscxcmcxhlshh4jd0lzw5ffzns12x3bj7h27smbc8waxkwffhl";
   };
 
-in stdenv.mkDerivation rec {
-  name = "ocaml${ocaml.version}-${pname}-${version}";
-  inherit (param) version;
+in
+  stdenv.mkDerivation rec {
+    name = "ocaml${ocaml.version}-${pname}-${version}";
+    inherit (param) version;
 
-  src = fetchFromGitHub {
-    owner = "whitequark";
-    repo = pname;
-    rev = "v${version}";
-    inherit (param) sha256;
-  };
+    src = fetchFromGitHub {
+      owner = "whitequark";
+      repo = pname;
+      rev = "v${version}";
+      inherit (param) sha256;
+    };
 
-  createFindlibDestdir = true;
+    createFindlibDestdir = true;
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-    camlp4
-  ];
-  propagatedBuildInputs = [ camlp4 ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+      camlp4
+    ];
+    propagatedBuildInputs = [ camlp4 ];
 
-  strictDeps = true;
+    strictDeps = true;
 
-  buildFlags = [
-    "all"
-    "all.opt"
-  ];
+    buildFlags = [
+      "all"
+      "all.opt"
+    ];
 
-  meta = {
-    inherit (src.meta) homepage;
-    description = "A lexer generator for Unicode and OCaml";
-    license = lib.licenses.mit;
-    inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.roconnor ];
-  };
-}
+    meta = {
+      inherit (src.meta) homepage;
+      description = "A lexer generator for Unicode and OCaml";
+      license = lib.licenses.mit;
+      inherit (ocaml.meta) platforms;
+      maintainers = [ lib.maintainers.roconnor ];
+    };
+  }

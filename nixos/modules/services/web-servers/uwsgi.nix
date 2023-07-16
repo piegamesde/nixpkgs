@@ -66,7 +66,9 @@ let
                   map (x: substring (stringLength "PATH=") (stringLength x) x)
                   envs.right;
                 paths = oldPaths ++ [ "${pythonEnv}/bin" ];
-              in [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong;
+              in
+                [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong
+            ;
           }
         else if isEmperor then
           {
@@ -86,7 +88,9 @@ let
           "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";
       };
 
-    in pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg);
+    in
+      pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg)
+  ;
 
 in {
 
@@ -130,7 +134,9 @@ in {
               description = "Json value or lambda";
               emptyValue.value = { };
             };
-          in valueType;
+          in
+            valueType
+        ;
         default = { type = "normal"; };
         example = literalExpression ''
           {

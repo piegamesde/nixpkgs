@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
       EOF
 
       chmod +x ${placeholder "out"}/bin/higan-init.sh
-    '') + ''
+    '' ) + ''
 
       runHook postInstall
     '';

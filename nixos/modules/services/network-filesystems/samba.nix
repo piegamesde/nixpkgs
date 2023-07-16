@@ -17,10 +17,13 @@ let
   samba = cfg.package;
 
   shareConfig = name:
-    let share = getAttr name cfg.shares;
-    in "[${name}]\n " + (smbToString (map (key: ''
-      ${key} = ${smbToString (getAttr key share)}
-    '') (attrNames share)));
+    let
+      share = getAttr name cfg.shares;
+    in
+      "[${name}]\n " + (smbToString (map (key: ''
+        ${key} = ${smbToString (getAttr key share)}
+      '') (attrNames share)))
+  ;
 
   configFile = pkgs.writeText "smb.conf" (if cfg.configText != null then
     cfg.configText

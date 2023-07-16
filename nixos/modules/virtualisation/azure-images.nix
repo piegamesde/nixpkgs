@@ -5,4 +5,5 @@ let
 
     latest = self."16.09";
   };
-in self
+in
+  self

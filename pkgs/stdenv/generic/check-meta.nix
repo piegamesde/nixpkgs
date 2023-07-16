@@ -23,7 +23,8 @@ let
   allowUnfree = config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE"
     == "1";
 
-  allowNonSource = let envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
+  allowNonSource = let
+    envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
   in if envVar != "" then envVar != "0" else config.allowNonSource or true;
 
   allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [ ];
@@ -233,7 +234,7 @@ let
 
       ${lib.concatStrings
       (builtins.map (output: "  - ${output}\n") missingOutputs)}
-    '';
+    '' ;
 
   handleEvalIssue = {
       meta,
@@ -258,7 +259,9 @@ let
         config.handleEvalIssue reason
       else
         throw;
-    in handler msg;
+    in
+      handler msg
+  ;
 
   handleEvalWarning = {
       meta,
@@ -291,7 +294,9 @@ let
         inherit value;
       } ];
       eval = builtins.tryEval (builtins.deepSeq merged.mergedValue null);
-    in eval.success;
+    in
+      eval.success
+  ;
 
   # TODO make this into a proper module and use the generic option documentation generation?
   metaTypes = with lib.types; rec {
@@ -306,7 +311,9 @@ let
     license = let
       licenseType = either (attrsOf anything)
         str; # TODO disallow `str` licenses, use a module
-    in either licenseType (listOf licenseType);
+    in
+      either licenseType (listOf licenseType)
+    ;
     sourceProvenance = listOf lib.types.attrs;
     maintainers = listOf (attrsOf
       anything); # TODO use the maintainer type from lib/tests/maintainer-module.nix
@@ -390,7 +397,8 @@ let
   checkValidity = attrs:
     # Check meta attribute types first, to make sure it is always called even when there are other issues
     # Note that this is not a full type check and functions below still need to by careful about their inputs!
-    let res = checkMeta (attrs.meta or { });
+    let
+      res = checkMeta (attrs.meta or { });
     in if res != [ ] then {
       valid = "no";
       reason = "unknown-meta";
@@ -492,61 +500,72 @@ let
       pos ? null,
       references ? [ ]
     }:
-    let outputs = attrs.outputs or [ "out" ];
-    in {
-      # `name` derivation attribute includes cross-compilation cruft,
-      # is under assert, and is sanitized.
-      # Let's have a clean always accessible version here.
-      name = attrs.name or "${attrs.pname}-${attrs.version}";
+    let
+      outputs = attrs.outputs or [ "out" ];
+    in
+      {
+        # `name` derivation attribute includes cross-compilation cruft,
+        # is under assert, and is sanitized.
+        # Let's have a clean always accessible version here.
+        name = attrs.name or "${attrs.pname}-${attrs.version}";
 
-      # If the packager hasn't specified `outputsToInstall`, choose a default,
-      # which is the name of `p.bin or p.out or p` along with `p.man` when
-      # present.
-      #
-      # If the packager has specified it, it will be overridden below in
-      # `// meta`.
-      #
-      #   Note: This default probably shouldn't be globally configurable.
-      #   Services and users should specify outputs explicitly,
-      #   unless they are comfortable with this default.
-      outputsToInstall = let hasOutput = out: builtins.elem out outputs;
-      in [ (lib.findFirst hasOutput null ([
-        "bin"
-        "out"
-      ] ++ outputs)) ] ++ lib.optional (hasOutput "man") "man";
-    } // attrs.meta or { }
-    # Fill `meta.position` to identify the source location of the package.
-    // lib.optionalAttrs (pos != null) {
-      position = pos.file + ":" + toString pos.line;
-    } // {
-      # Expose the result of the checks for everyone to see.
-      inherit (validity) unfree broken unsupported insecure;
+        # If the packager hasn't specified `outputsToInstall`, choose a default,
+        # which is the name of `p.bin or p.out or p` along with `p.man` when
+        # present.
+        #
+        # If the packager has specified it, it will be overridden below in
+        # `// meta`.
+        #
+        #   Note: This default probably shouldn't be globally configurable.
+        #   Services and users should specify outputs explicitly,
+        #   unless they are comfortable with this default.
+        outputsToInstall = let
+          hasOutput = out: builtins.elem out outputs;
+        in
+          [ (lib.findFirst hasOutput null ([
+            "bin"
+            "out"
+          ] ++ outputs)) ] ++ lib.optional (hasOutput "man") "man"
+        ;
+      } // attrs.meta or { }
+      # Fill `meta.position` to identify the source location of the package.
+      // lib.optionalAttrs (pos != null) {
+        position = pos.file + ":" + toString pos.line;
+      } // {
+        # Expose the result of the checks for everyone to see.
+        inherit (validity) unfree broken unsupported insecure;
 
-      available = validity.valid != "no"
-        && (if config.checkMetaRecursively or false then
-          lib.all (d: d.meta.available or true) references
-        else
-          true);
-    };
+        available = validity.valid != "no"
+          && (if config.checkMetaRecursively or false then
+            lib.all (d: d.meta.available or true) references
+          else
+            true);
+      }
+  ;
 
   assertValidity = {
       meta,
       attrs,
     }:
-    let validity = checkValidity attrs;
-    in validity // {
-      # Throw an error if trying to evaluate a non-valid derivation
-      # or, alternatively, just output a warning message.
-      handled = {
-        no = handleEvalIssue { inherit meta attrs; } {
-          inherit (validity) reason errormsg;
-        };
-        warn = handleEvalWarning { inherit meta attrs; } {
-          inherit (validity) reason errormsg;
-        };
-        yes = true;
-      }.${validity.valid};
+    let
+      validity = checkValidity attrs;
+    in
+      validity // {
+        # Throw an error if trying to evaluate a non-valid derivation
+        # or, alternatively, just output a warning message.
+        handled = {
+          no = handleEvalIssue { inherit meta attrs; } {
+            inherit (validity) reason errormsg;
+          };
+          warn = handleEvalWarning { inherit meta attrs; } {
+            inherit (validity) reason errormsg;
+          };
+          yes = true;
+        }.${validity.valid};
 
-    };
+      }
+  ;
 
-in { inherit assertValidity commonMeta; }
+in {
+  inherit assertValidity commonMeta;
+}

@@ -221,30 +221,32 @@ in {
         '' else ''
           [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"
         '';
-      in ''
-        if ( [[ ! -e "$GITOLITE_RC" ]] && [[ ! -L "$GITOLITE_RC" ]] ) ||
-           ( [[ -f "$GITOLITE_RC" ]] && diff -q "$GITOLITE_RC" "$GITOLITE_RC_DEFAULT" >/dev/null ) ||
-           ( [[ -L "$GITOLITE_RC" ]] && [[ "$(readlink "$GITOLITE_RC")" =~ ^/nix/store/ ]] )
-        then
-      '' + rcSetupScriptIfDefaultFileOrStoreSymlink + ''
-        else
-      '' + rcSetupScriptIfCustomFile + ''
-        fi
+      in
+        ''
+          if ( [[ ! -e "$GITOLITE_RC" ]] && [[ ! -L "$GITOLITE_RC" ]] ) ||
+             ( [[ -f "$GITOLITE_RC" ]] && diff -q "$GITOLITE_RC" "$GITOLITE_RC_DEFAULT" >/dev/null ) ||
+             ( [[ -L "$GITOLITE_RC" ]] && [[ "$(readlink "$GITOLITE_RC")" =~ ^/nix/store/ ]] )
+          then
+        '' + rcSetupScriptIfDefaultFileOrStoreSymlink + ''
+          else
+        '' + rcSetupScriptIfCustomFile + ''
+          fi
 
-        if [ ! -d repositories ]; then
-          gitolite setup -pk ${pubkeyFile}
-        fi
-        if [ -n "${hooks}" ]; then
-          cp -f ${hooks} .gitolite/hooks/common/
-          chmod +x .gitolite/hooks/common/*
-        fi
-        gitolite setup # Upgrade if needed
-      '';
+          if [ ! -d repositories ]; then
+            gitolite setup -pk ${pubkeyFile}
+          fi
+          if [ -n "${hooks}" ]; then
+            cp -f ${hooks} .gitolite/hooks/common/
+            chmod +x .gitolite/hooks/common/*
+          fi
+          gitolite setup # Upgrade if needed
+        ''
+      ;
     };
 
     environment.systemPackages = [
       pkgs.gitolite
       pkgs.git
     ] ++ optional cfg.enableGitAnnex pkgs.git-annex;
-  });
+  } );
 }

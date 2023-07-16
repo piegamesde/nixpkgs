@@ -53,9 +53,10 @@ in {
     };
   };
 
-  config =
-    let configuration = settingsFormat.generate "server.yml" cfg.settings;
-    in mkIf cfg.enable {
+  config = let
+    configuration = settingsFormat.generate "server.yml" cfg.settings;
+  in
+    mkIf cfg.enable {
       # to configure access control via the cli
       environment = {
         etc."ntfy/server.yml".source = configuration;
@@ -102,5 +103,6 @@ in {
           group = cfg.group;
         };
       };
-    };
+    }
+  ;
 }

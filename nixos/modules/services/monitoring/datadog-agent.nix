@@ -325,7 +325,7 @@ in {
         '';
       });
 
-    };
+    } ;
 
     environment.etc = etcfiles;
   };

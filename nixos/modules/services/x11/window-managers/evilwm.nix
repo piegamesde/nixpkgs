@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.evilwm;
+let
+  cfg = config.services.xserver.windowManager.evilwm;
 in {
   ###### interface
   options = {

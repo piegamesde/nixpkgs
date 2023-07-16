@@ -74,7 +74,9 @@ let
                   fi
               fi
             '';
-        in callPackage setupHook { };
+        in
+          callPackage setupHook { }
+      ;
 
       propagateBin = propagate "bin";
 
@@ -98,16 +100,21 @@ let
             defaultSetupHook = if hasSeparateDev then propagateBin else null;
             setupHook = args.setupHook or defaultSetupHook;
 
-            meta = let meta = args.meta or { };
-            in meta // {
-              homepage = meta.homepage or "https://kde.org";
-              license = meta.license or license;
-              maintainers = (meta.maintainers or [ ]) ++ maintainers;
-              platforms = meta.platforms or lib.platforms.linux;
-            };
+            meta = let
+              meta = args.meta or { };
+            in
+              meta // {
+                homepage = meta.homepage or "https://kde.org";
+                license = meta.license or license;
+                maintainers = (meta.maintainers or [ ]) ++ maintainers;
+                platforms = meta.platforms or lib.platforms.linux;
+              }
+            ;
 
-          in mkDerivation
-          (args // { inherit pname meta outputs setupHook src version; });
+          in
+            mkDerivation
+            (args // { inherit pname meta outputs setupHook src version; })
+        ;
 
       };
 
@@ -205,6 +212,7 @@ let
       kross = callPackage ./kross.nix { };
       kxmlrpcclient = callPackage ./kxmlrpcclient.nix { };
 
-    };
+    } ;
 
-in lib.makeScope libsForQt5.newScope packages
+in
+  lib.makeScope libsForQt5.newScope packages

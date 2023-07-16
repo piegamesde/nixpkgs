@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-let cfg = config.programs.nix-index;
+let
+  cfg = config.programs.nix-index;
 in {
   options.programs.nix-index = with lib; {
     enable =
@@ -42,7 +43,7 @@ in {
     in [
       (checkOpt "enableBashIntegration")
       (checkOpt "enableZshIntegration")
-    ];
+    ] ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -61,10 +62,12 @@ in {
         source ${cfg.package}/etc/profile.d/command-not-found.sh
         command_not_found_handle "$@"
       '';
-    in lib.mkIf cfg.enableFishIntegration ''
-      function __fish_command_not_found_handler --on-event fish_command_not_found
-          ${wrapper} $argv
-      end
-    '';
+    in
+      lib.mkIf cfg.enableFishIntegration ''
+        function __fish_command_not_found_handler --on-event fish_command_not_found
+            ${wrapper} $argv
+        end
+      ''
+    ;
   };
 }

@@ -37,14 +37,16 @@ stdenv.mkDerivation rec {
         hash = "sha256-0kD6hxN8qZ/7/H99aboQx7Qg7ewmYPEexoU6nqczAik=";
       };
     };
-  in sgx-sdk.postUnpack + ''
-    # Make sure we use the correct version of prebuilt DCAP
-    grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
-      || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
+  in
+    sgx-sdk.postUnpack + ''
+      # Make sure we use the correct version of prebuilt DCAP
+      grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
+        || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
 
-    tar -zxf ${ae.prebuilt}   -C $sourceRoot/
-    tar -zxf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration/
-  '';
+      tar -zxf ${ae.prebuilt}   -C $sourceRoot/
+      tar -zxf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration/
+    ''
+  ;
 
   nativeBuildInputs = [
     cmake

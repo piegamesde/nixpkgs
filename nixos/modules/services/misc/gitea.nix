@@ -760,7 +760,7 @@ in {
         then
           ${exe} admin regenerate keys
         fi
-      '';
+      '' ;
 
       serviceConfig = {
         Type = "simple";

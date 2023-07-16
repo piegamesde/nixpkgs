@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
       wrapProgram '${introspectionPy}' \
         --prefix GI_TYPELIB_PATH : "$out/lib/girepository-1.0"
     fi
-  '';
+  '' ;
 
   passthru = {
     tests = { installedTests = nixosTests.installed-tests.graphene; };

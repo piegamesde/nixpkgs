@@ -71,7 +71,7 @@ in {
         NoNewPrivileges = true;
         WorkingDirectory = "/var/lib/mimir";
         StateDirectory = "mimir";
-      };
+      } ;
     };
   };
 }

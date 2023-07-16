@@ -76,7 +76,8 @@ let
       fs-repo-0-to-1
     ];
 
-in symlinkJoin {
-  name = "kubo-migrator-all-fs-repo-migrations-${version}";
-  paths = all-migrations;
-}
+in
+  symlinkJoin {
+    name = "kubo-migrator-all-fs-repo-migrations-${version}";
+    paths = all-migrations;
+  }

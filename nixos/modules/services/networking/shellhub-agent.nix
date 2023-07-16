@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.shellhub-agent;
+let
+  cfg = config.services.shellhub-agent;
 in {
   ###### interface
 

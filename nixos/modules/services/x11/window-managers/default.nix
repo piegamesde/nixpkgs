@@ -6,7 +6,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager;
+let
+  cfg = config.services.xserver.windowManager;
 
 in {
   imports = [

@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
     ln -s "$out/bin/avidemux3_${default}" "$out/bin/avidemux"
 
     fixupPhase
-  '';
+  '' ;
 
   meta = with lib; {
     homepage = "http://fixounet.free.fr/avidemux/";

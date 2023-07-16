@@ -39,4 +39,5 @@ let
       ];
     };
   };
-in jre
+in
+  jre

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.tinywm;
+let
+  cfg = config.services.xserver.windowManager.tinywm;
 in {
   ###### interface
   options = {

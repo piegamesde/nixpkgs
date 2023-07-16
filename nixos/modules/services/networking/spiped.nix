@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.spiped;
+let
+  cfg = config.services.spiped;
 in {
   options = {
     services.spiped = {

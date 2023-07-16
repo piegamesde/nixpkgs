@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.virtualisation.vswitch;
+let
+  cfg = config.virtualisation.vswitch;
 
 in {
 
@@ -137,7 +138,7 @@ in {
       };
     };
 
-  });
+  } );
 
   imports = [ (mkRemovedOptionModule [
     "virtualisation"

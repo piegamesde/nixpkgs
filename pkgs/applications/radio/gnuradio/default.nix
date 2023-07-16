@@ -249,30 +249,33 @@ let
   });
   inherit (shared) hasFeature; # function
 
-in stdenv.mkDerivation {
-  inherit pname;
-  inherit (shared)
-    version src nativeBuildInputs buildInputs cmakeFlags disallowedReferences
-    stripDebugList doCheck dontWrapPythonPrograms dontWrapQtApps meta;
-  patches = [
-    # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
-    ./modtool-newmod-permissions.patch
-  ];
-  passthru = shared.passthru // {
-    # Deps that are potentially overridden and are used inside GR plugins - the same version must
-    inherit boost volk;
-    # Used by many gnuradio modules, the same attribute is present in
-    # previous gnuradio versions where there it's log4cpp.
-    logLib = spdlog;
-  } // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
-    // lib.optionalAttrs (hasFeature "gr-pdu") { inherit libiio libad9361; }
-    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };
+in
+  stdenv.mkDerivation {
+    inherit pname;
+    inherit (shared)
+      version src nativeBuildInputs buildInputs cmakeFlags disallowedReferences
+      stripDebugList doCheck dontWrapPythonPrograms dontWrapQtApps meta;
+    patches = [
+      # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
+      ./modtool-newmod-permissions.patch
+    ];
+    passthru = shared.passthru // {
+      # Deps that are potentially overridden and are used inside GR plugins - the same version must
+      inherit boost volk;
+      # Used by many gnuradio modules, the same attribute is present in
+      # previous gnuradio versions where there it's log4cpp.
+      logLib = spdlog;
+    } // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
+      // lib.optionalAttrs (hasFeature "gr-pdu") { inherit libiio libad9361; }
+      // lib.optionalAttrs (hasFeature "gr-qtgui") {
+        inherit (libsForQt5) qwt;
+      };
 
-  postInstall = shared.postInstall
-    # This is the only python reference worth removing, if needed.
-    + lib.optionalString (!hasFeature "python-support") ''
-      ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
-      ${removeReferencesTo}/bin/remove-references-to -t ${python} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
-      ${removeReferencesTo}/bin/remove-references-to -t ${python.pkgs.pybind11} $out/lib/cmake/gnuradio/gnuradio-runtimeTargets.cmake
-    '';
-}
+    postInstall = shared.postInstall
+      # This is the only python reference worth removing, if needed.
+      + lib.optionalString (!hasFeature "python-support") ''
+        ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
+        ${removeReferencesTo}/bin/remove-references-to -t ${python} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
+        ${removeReferencesTo}/bin/remove-references-to -t ${python.pkgs.pybind11} $out/lib/cmake/gnuradio/gnuradio-runtimeTargets.cmake
+      '';
+  }

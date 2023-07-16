@@ -136,4 +136,4 @@ import ./make-test-python.nix ({
       print(client.succeed("whoami"))
       client.succeed('PYTHONUNBUFFERED=1 selenium-script')
     '';
-  })
+  } )

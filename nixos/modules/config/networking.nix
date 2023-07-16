@@ -177,9 +177,11 @@ in {
         optional (cfg.hostName != "" && cfg.domain != null)
         "${cfg.hostName}.${cfg.domain}" ++ optional (cfg.hostName != "")
         cfg.hostName; # Then the hostname (without the domain)
-    in {
-      "127.0.0.2" = hostnames;
-    } // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; };
+    in
+      {
+        "127.0.0.2" = hostnames;
+      } // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; }
+    ;
 
     networking.hostFiles = let
       # Note: localhostHosts has to appear first in /etc/hosts so that 127.0.0.1
@@ -193,14 +195,18 @@ in {
       stringHosts = let
         oneToString = set: ip: ip + " " + concatStringsSep " " set.${ip} + "\n";
         allToString = set: concatMapStrings (oneToString set) (attrNames set);
-      in pkgs.writeText "string-hosts"
-      (allToString (filterAttrs (_: v: v != [ ]) cfg.hosts));
+      in
+        pkgs.writeText "string-hosts"
+        (allToString (filterAttrs (_: v: v != [ ]) cfg.hosts))
+      ;
       extraHosts = pkgs.writeText "extra-hosts" cfg.extraHosts;
-    in mkBefore [
-      localhostHosts
-      stringHosts
-      extraHosts
-    ];
+    in
+      mkBefore [
+        localhostHosts
+        stringHosts
+        extraHosts
+      ]
+    ;
 
     environment.etc = { # /etc/services: TCP/UDP port assignments.
       services.source = pkgs.iana-etc + "/etc/services";

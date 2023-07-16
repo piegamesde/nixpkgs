@@ -37,7 +37,8 @@ let
   daemonName = service: if service == "zebra" then service else "${service}d";
 
   configFile = service:
-    let scfg = cfg.${service};
+    let
+      scfg = cfg.${service};
     in if scfg.configFile != null then
       scfg.configFile
     else
@@ -87,7 +88,9 @@ let
               neighbor 10.0.0.1 remote-as 65001
           '';
         };
-      in examples.${service} or "";
+      in
+        examples.${service} or ""
+      ;
       description = lib.mdDoc ''
         ${daemonName service} configuration statements.
       '';
@@ -165,10 +168,11 @@ in {
         name = "frr/${service}.conf";
         value.source = configFile service;
       };
-    in (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices)))
-    // {
-      "frr/vtysh.conf".text = "";
-    };
+    in
+      (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices))) // {
+        "frr/vtysh.conf".text = "";
+      }
+    ;
 
     systemd.tmpfiles.rules = [ "d /run/frr 0750 frr frr -" ];
 
@@ -177,45 +181,49 @@ in {
         let
           scfg = cfg.${service};
           daemon = daemonName service;
-        in nameValuePair daemon ({
-          wantedBy = [ "multi-user.target" ];
-          after = [
-            "network-pre.target"
-            "systemd-sysctl.service"
-          ] ++ lib.optionals (service != "zebra") [ "zebra.service" ];
-          bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
-          wants = [ "network.target" ];
+        in
+          nameValuePair daemon ({
+            wantedBy = [ "multi-user.target" ];
+            after = [
+              "network-pre.target"
+              "systemd-sysctl.service"
+            ] ++ lib.optionals (service != "zebra") [ "zebra.service" ];
+            bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
+            wants = [ "network.target" ];
 
-          description = if service == "zebra" then
-            "FRR Zebra routing manager"
-          else
-            "FRR ${toUpper service} routing daemon";
+            description = if service == "zebra" then
+              "FRR Zebra routing manager"
+            else
+              "FRR ${toUpper service} routing daemon";
 
-          unitConfig.Documentation = if service == "zebra" then
-            "man:zebra(8)"
-          else
-            "man:${daemon}(8) man:zebra(8)";
+            unitConfig.Documentation = if service == "zebra" then
+              "man:zebra(8)"
+            else
+              "man:${daemon}(8) man:zebra(8)";
 
-          restartTriggers = [ (configFile service) ];
-          reloadIfChanged = true;
+            restartTriggers = [ (configFile service) ];
+            reloadIfChanged = true;
 
-          serviceConfig = {
-            PIDFile = "frr/${daemon}.pid";
-            ExecStart =
-              "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
-              + optionalString (scfg.vtyListenAddress != "")
-              " -A ${scfg.vtyListenAddress}"
-              + optionalString (scfg.vtyListenPort != null)
-              " -P ${toString scfg.vtyListenPort}" + " "
-              + (concatStringsSep " " scfg.extraOptions);
-            ExecReload =
-              "${pkgs.python3.interpreter} ${pkgs.frr}/libexec/frr/frr-reload.py --reload --daemon ${
-                daemonName service
-              } --bindir ${pkgs.frr}/bin --rundir /run/frr /etc/frr/${service}.conf";
-            Restart = "on-abnormal";
-          };
-        });
-    in listToAttrs (map frrService (filter isEnabled allServices));
+            serviceConfig = {
+              PIDFile = "frr/${daemon}.pid";
+              ExecStart =
+                "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
+                + optionalString (scfg.vtyListenAddress != "")
+                " -A ${scfg.vtyListenAddress}"
+                + optionalString (scfg.vtyListenPort != null)
+                " -P ${toString scfg.vtyListenPort}" + " "
+                + (concatStringsSep " " scfg.extraOptions);
+              ExecReload =
+                "${pkgs.python3.interpreter} ${pkgs.frr}/libexec/frr/frr-reload.py --reload --daemon ${
+                  daemonName service
+                } --bindir ${pkgs.frr}/bin --rundir /run/frr /etc/frr/${service}.conf";
+              Restart = "on-abnormal";
+            };
+          })
+      ;
+    in
+      listToAttrs (map frrService (filter isEnabled allServices))
+    ;
 
   };
 

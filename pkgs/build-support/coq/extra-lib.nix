@@ -8,8 +8,11 @@ recursiveUpdate lib (rec {
   versions = let
     truncate = n: v: concatStringsSep "." (take n (splitVersion v));
     opTruncate = op: v0: v:
-      let n = length (splitVersion v0);
-      in op (truncate n v) (truncate n v0);
+      let
+        n = length (splitVersion v0);
+      in
+        op (truncate n v) (truncate n v0)
+    ;
   in rec {
 
     /* Get string of the first n parts of a version string.
@@ -68,7 +71,7 @@ recursiveUpdate lib (rec {
     isLt = opTruncate versionOlder;
     isEq = opTruncate pred.equal;
     range = low: high: pred.inter (versions.isGe low) (versions.isLe high);
-  };
+  } ;
 
   /* Returns a list of list, splitting it using a predicate.
       This is analoguous to builtins.split sep list,
@@ -96,7 +99,9 @@ recursiveUpdate lib (rec {
             ]) [ ] tl
           else
             loop vv (v ++ [ hd ]) tl);
-    in loop [ ] [ ] l;
+    in
+      loop [ ] [ ] l
+  ;
 
   pred = {
     # Predicate intersection, union, and complement
@@ -163,10 +168,12 @@ recursiveUpdate lib (rec {
           compare cl.case var
         else
           all (equal true) (zipListsWith compare cl.cases var);
-    in switch-if (map (cl: {
-      cond = combine cl var;
-      inherit (cl) out;
-    }) clauses) default;
+    in
+      switch-if (map (cl: {
+        cond = combine cl var;
+        inherit (cl) out;
+      }) clauses) default
+  ;
 
   /* Override arguments to mkCoqDerivation for a Coq library.
 

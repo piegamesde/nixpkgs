@@ -64,10 +64,11 @@ let
       "$@"
   '';
 
-in symlinkJoin {
-  inherit name meta;
-  paths = [
-    script
-    desktopItem
-  ];
-}
+in
+  symlinkJoin {
+    inherit name meta;
+    paths = [
+      script
+      desktopItem
+    ];
+  }

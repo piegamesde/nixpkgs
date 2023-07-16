@@ -29,16 +29,19 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "zlib";
   version = "1.2.13";
 
-  src = let inherit (finalAttrs) version;
-  in fetchurl {
-    urls = [
-      # This URL works for 1.2.13 only; hopefully also for future releases.
-      "https://github.com/madler/zlib/releases/download/v${version}/zlib-${version}.tar.gz"
-      # Stable archive path, but captcha can be encountered, causing hash mismatch.
-      "https://www.zlib.net/fossils/zlib-${version}.tar.gz"
-    ];
-    hash = "sha256-s6JN6XqP28g1uYMxaVAQMLiXcDG8tUs7OsE3QPhGqzA=";
-  };
+  src = let
+    inherit (finalAttrs) version;
+  in
+    fetchurl {
+      urls = [
+        # This URL works for 1.2.13 only; hopefully also for future releases.
+        "https://github.com/madler/zlib/releases/download/v${version}/zlib-${version}.tar.gz"
+        # Stable archive path, but captcha can be encountered, causing hash mismatch.
+        "https://www.zlib.net/fossils/zlib-${version}.tar.gz"
+      ];
+      hash = "sha256-s6JN6XqP28g1uYMxaVAQMLiXcDG8tUs7OsE3QPhGqzA=";
+    }
+  ;
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace configure \

@@ -16,42 +16,44 @@ let
     let
       Family = lib.toUpper (lib.substring 0 1 family)
         + lib.substring 1 (lib.stringLength family) family;
-    in stdenvNoCC.mkDerivation rec {
-      pname = "source-han-${family}";
-      version = lib.removeSuffix "R" rev;
+    in
+      stdenvNoCC.mkDerivation rec {
+        pname = "source-han-${family}";
+        version = lib.removeSuffix "R" rev;
 
-      src = fetchurl {
-        url =
-          "https://github.com/adobe-fonts/source-han-${family}/releases/download/${rev}/SourceHan${Family}.ttc${zip}";
-        inherit hash;
-      };
+        src = fetchurl {
+          url =
+            "https://github.com/adobe-fonts/source-han-${family}/releases/download/${rev}/SourceHan${Family}.ttc${zip}";
+          inherit hash;
+        };
 
-      nativeBuildInputs = lib.optionals (zip == ".zip") [ unzip ];
+        nativeBuildInputs = lib.optionals (zip == ".zip") [ unzip ];
 
-      unpackPhase = lib.optionalString (zip == "") ''
-        cp $src SourceHan${Family}.ttc${zip}
-      '' + lib.optionalString (zip == ".zip") ''
-        unzip $src
-      '';
+        unpackPhase = lib.optionalString (zip == "") ''
+          cp $src SourceHan${Family}.ttc${zip}
+        '' + lib.optionalString (zip == ".zip") ''
+          unzip $src
+        '';
 
-      installPhase = ''
-        runHook preInstall
+        installPhase = ''
+          runHook preInstall
 
-        install -Dm444 *.ttc -t $out/share/fonts/opentype/${pname}
+          install -Dm444 *.ttc -t $out/share/fonts/opentype/${pname}
 
-        runHook postInstall
-      '';
+          runHook postInstall
+        '';
 
-      meta = {
-        description = "An open source Pan-CJK ${description} typeface";
-        homepage = "https://github.com/adobe-fonts/source-han-${family}";
-        license = lib.licenses.ofl;
-        maintainers = with lib.maintainers; [
-          taku0
-          emily
-        ];
-      };
-    };
+        meta = {
+          description = "An open source Pan-CJK ${description} typeface";
+          homepage = "https://github.com/adobe-fonts/source-han-${family}";
+          license = lib.licenses.ofl;
+          maintainers = with lib.maintainers; [
+            taku0
+            emily
+          ];
+        };
+      }
+  ;
 in {
   sans = makePackage {
     family = "sans";

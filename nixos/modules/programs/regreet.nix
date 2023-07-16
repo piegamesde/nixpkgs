@@ -72,11 +72,11 @@ in {
         settingsFormat.generate "regreet.toml" cfg.settings;
     };
 
-    systemd.tmpfiles.rules =
-      let user = config.services.greetd.settings.default_session.user;
-      in [
-        "d /var/log/regreet 0755 greeter ${user} - -"
-        "d /var/cache/regreet 0755 greeter ${user} - -"
-      ];
+    systemd.tmpfiles.rules = let
+      user = config.services.greetd.settings.default_session.user;
+    in [
+      "d /var/log/regreet 0755 greeter ${user} - -"
+      "d /var/cache/regreet 0755 greeter ${user} - -"
+    ] ;
   };
 }

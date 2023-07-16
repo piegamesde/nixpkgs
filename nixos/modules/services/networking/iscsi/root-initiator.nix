@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.boot.iscsi-initiator;
+let
+  cfg = config.boot.iscsi-initiator;
 in {
   # If you're booting entirely off another machine you may want to add
   # this snippet to always boot the latest "system" version. It is not
@@ -177,7 +178,7 @@ in {
         ${cfg.extraIscsiCommands}
 
         pkill -9 iscsid
-      '';
+      '' ;
     };
 
     services.openiscsi = {

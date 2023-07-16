@@ -3,31 +3,33 @@
   python3,
 }:
 
-let inherit (python3.pkgs) buildPythonPackage fetchPypi;
-in buildPythonPackage rec {
-  pname = "meerk40t-camera";
-  version = "0.1.9";
-  format = "setuptools";
+let
+  inherit (python3.pkgs) buildPythonPackage fetchPypi;
+in
+  buildPythonPackage rec {
+    pname = "meerk40t-camera";
+    version = "0.1.9";
+    format = "setuptools";
 
-  src = python3.pkgs.fetchPypi {
-    inherit pname version;
-    hash = "sha256-uGCBHdgWoorVX2XqMCg0YBweb00sQ9ZSbJe8rlGeovs=";
-  };
+    src = python3.pkgs.fetchPypi {
+      inherit pname version;
+      hash = "sha256-uGCBHdgWoorVX2XqMCg0YBweb00sQ9ZSbJe8rlGeovs=";
+    };
 
-  postPatch = ''
-    sed -i '/meerk40t/d' setup.py
-  '';
+    postPatch = ''
+      sed -i '/meerk40t/d' setup.py
+    '';
 
-  propagatedBuildInputs = with python3.pkgs; [ opencv4 ];
+    propagatedBuildInputs = with python3.pkgs; [ opencv4 ];
 
-  pythonImportsCheck = [ "camera" ];
+    pythonImportsCheck = [ "camera" ];
 
-  doCheck = false;
+    doCheck = false;
 
-  meta = with lib; {
-    description = "MeerK40t camera plugin";
-    license = licenses.mit;
-    homepage = "https://github.com/meerk40t/meerk40t-camera";
-    maintainers = with maintainers; [ hexa ];
-  };
-}
+    meta = with lib; {
+      description = "MeerK40t camera plugin";
+      license = licenses.mit;
+      homepage = "https://github.com/meerk40t/meerk40t-camera";
+      maintainers = with maintainers; [ hexa ];
+    };
+  }

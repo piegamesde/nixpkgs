@@ -43,8 +43,10 @@ let
         else
           toString value);
     mkEntry = name: value: "${escape name} =${mkVal value}";
-  in concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
-  + cfg.extraConfig;
+  in
+    concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
+    + cfg.extraConfig
+  ;
 
   masterCfOptions = {
       options,
@@ -192,7 +194,7 @@ let
         wakeup
         (maybeOption toString "maxproc")
         (config.command + " " + concatMapStringsSep " " mkArg config.args)
-      ];
+      ] ;
     };
 
   masterCfContent = let
@@ -225,22 +227,29 @@ let
     # A list of the maximum width of the columns across all lines and labels
     maxWidths = let
       foldLine = line: acc:
-        let columnLengths = map stringLength line;
-        in zipListsWith max acc columnLengths;
+        let
+          columnLengths = map stringLength line;
+        in
+          zipListsWith max acc columnLengths
+      ;
       # We need to handle the last column specially here, because it's
       # open-ended (command + args).
       lines = [
         labels
         labelDefaults
       ] ++ (map (l: init l ++ [ "" ]) masterCf);
-    in foldr foldLine (genList (const 0) (length labels)) lines;
+    in
+      foldr foldLine (genList (const 0) (length labels)) lines
+    ;
 
     # Pad a string with spaces from the right (opposite of fixedWidthString).
     pad = width: str:
       let
         padWidth = width - stringLength str;
         padding = concatStrings (genList (const " ") padWidth);
-      in str + optionalString (padWidth > 0) padding;
+      in
+        str + optionalString (padWidth > 0) padding
+    ;
 
     # It's + 2 here, because that's the amount of spacing between columns.
     fullWidth = foldr (width: acc: acc + width + 2) 0 maxWidths;
@@ -255,10 +264,14 @@ let
         (formatLine labelDefaults)
         sep
       ];
-    in concatStringsSep "\n" lines;
+    in
+      concatStringsSep "\n" lines
+    ;
 
-  in formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf
-  + "\n" + cfg.extraMasterConf;
+  in
+    formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf + "\n"
+    + cfg.extraMasterConf
+  ;
 
   headerCheckOptions = {
       ...
@@ -284,12 +297,15 @@ let
     concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks)
     + cfg.extraHeaderChecks;
 
-  aliases = let separator = optionalString (cfg.aliasMapType == "hash") ":";
-  in optionalString (cfg.postmasterAlias != "") ''
-    postmaster${separator} ${cfg.postmasterAlias}
-  '' + optionalString (cfg.rootAlias != "") ''
-    root${separator} ${cfg.rootAlias}
-  '' + cfg.extraAliases;
+  aliases = let
+    separator = optionalString (cfg.aliasMapType == "hash") ":";
+  in
+    optionalString (cfg.postmasterAlias != "") ''
+      postmaster${separator} ${cfg.postmasterAlias}
+    '' + optionalString (cfg.rootAlias != "") ''
+      root${separator} ${cfg.rootAlias}
+    '' + cfg.extraAliases
+  ;
 
   aliasesFile = pkgs.writeText "postfix-aliases" aliases;
   canonicalFile = pkgs.writeText "postfix-canonical" cfg.canonical;
@@ -998,7 +1014,9 @@ in {
               "-o"
               (opt + "=" + val)
             ];
-          in concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions);
+          in
+            concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
+          ;
         };
       } // optionalAttrs cfg.enableSmtp {
         smtp_inet = {
@@ -1034,7 +1052,9 @@ in {
             } // optionalAttrs adjustSmtpTlsSecurityLevel {
               smtpd_tls_security_level = "encrypt";
             };
-          in concatLists (mapAttrsToList mkKeyVal submissionsOptions);
+          in
+            concatLists (mapAttrsToList mkKeyVal submissionsOptions)
+          ;
         };
       };
     }

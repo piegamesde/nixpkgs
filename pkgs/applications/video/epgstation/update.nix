@@ -54,10 +54,11 @@ let
     printf '\n' >> streaming.json  # rule: insert_final_newline
     popd
   '';
-in _experimental-update-script-combinators.sequence [
-  updateSource
-  [
-    updateLocks
-    ./.
+in
+  _experimental-update-script-combinators.sequence [
+    updateSource
+    [
+      updateLocks
+      ./.
+    ]
   ]
-]

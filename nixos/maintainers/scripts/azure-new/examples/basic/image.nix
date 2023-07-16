@@ -9,4 +9,5 @@ let
         imports = [ ./system.nix ];
       }) ];
   };
-in machine.config.system.build.azureImage
+in
+  machine.config.system.build.azureImage

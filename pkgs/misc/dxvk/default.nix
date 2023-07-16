@@ -59,4 +59,4 @@ stdenvNoCC.mkDerivation (finalAttrs:
         "x86_64-linux"
       ];
     };
-  })
+  } )

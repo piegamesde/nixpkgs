@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.programs.bash.undistractMe;
+let
+  cfg = config.programs.bash.undistractMe;
 in {
   options = {
     programs.bash.undistractMe = {

@@ -160,10 +160,13 @@ in {
               name = "nomad-plugins";
               paths = cfg.extraSettingsPlugins;
             };
-          in "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
-          + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
-          + concatMapStrings (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
-          (lib.attrNames cfg.credentials);
+          in
+            "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
+            + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
+            + concatMapStrings
+            (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
+            (lib.attrNames cfg.credentials)
+          ;
           KillMode = "process";
           KillSignal = "SIGINT";
           LimitNOFILE = 65536;

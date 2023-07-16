@@ -15,27 +15,28 @@ let
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-in appimageTools.wrapType2 {
-  inherit pname version src;
+in
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    mv $out/bin/${pname}-${version} $out/bin/${pname}
+    extraInstallCommands = ''
+      mv $out/bin/${pname}-${version} $out/bin/${pname}
 
-    mkdir -p $out/share/${pname}
-    cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
-    install -Dm 444 ${appimageContents}/${pname}.desktop -t $out/share/applications
-    cp -a ${appimageContents}/usr/share/icons $out/share/
+      mkdir -p $out/share/${pname}
+      cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
+      install -Dm 444 ${appimageContents}/${pname}.desktop -t $out/share/applications
+      cp -a ${appimageContents}/usr/share/icons $out/share/
 
-    substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
-  '';
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --replace 'Exec=AppRun' 'Exec=${pname}'
+    '';
 
-  meta = with lib; {
-    description =
-      "Modern desktop RSS reader built with Electron, React, and Fluent UI";
-    homepage = "https://hyliu.me/fluent-reader";
-    license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ zendo ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Modern desktop RSS reader built with Electron, React, and Fluent UI";
+      homepage = "https://hyliu.me/fluent-reader";
+      license = licenses.bsd3;
+      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [ zendo ];
+    };
+  }

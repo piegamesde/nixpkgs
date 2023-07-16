@@ -6,7 +6,8 @@
   mkfontscale,
 }:
 
-let version = "0.2.20080216.2";
+let
+  version = "0.2.20080216.2";
 in {
   arphic-ukai = stdenvNoCC.mkDerivation rec {
     pname = "arphic-ukai";

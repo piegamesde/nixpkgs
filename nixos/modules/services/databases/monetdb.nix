@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.monetdb;
+let
+  cfg = config.services.monetdb;
 
 in {
   meta.maintainers = with maintainers; [

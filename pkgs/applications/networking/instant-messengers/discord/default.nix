@@ -96,4 +96,5 @@ let
         desktopName = "Discord Canary";
       };
     });
-in packages.${branch}
+in
+  packages.${branch}

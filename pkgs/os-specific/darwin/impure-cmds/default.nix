@@ -33,4 +33,5 @@ let
         ln -s $manpage $out/share/man/man1
       fi
     '';
-in lib.mapAttrs mkImpureDrv commands
+in
+  lib.mapAttrs mkImpureDrv commands

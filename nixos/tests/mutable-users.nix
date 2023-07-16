@@ -78,5 +78,5 @@ import ./make-test-python.nix ({
             for file in files_to_check:
                 assert machine.succeed(f"sha256sum {file}") == expected_hashes[file]
                 assert machine.succeed(f"stat {file}") == expected_stats[file]
-      '';
+      '' ;
   })

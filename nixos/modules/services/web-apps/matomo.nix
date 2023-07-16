@@ -314,7 +314,7 @@ in {
         };
         phpEnv.PIWIK_USER_PATH = dataDir;
       };
-    };
+    } ;
 
     services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
       # References:

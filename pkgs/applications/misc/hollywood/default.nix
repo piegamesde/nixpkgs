@@ -84,7 +84,7 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/hollywood --prefix PATH : ${lib.makeBinPath pathDeps}
 
     runHook postInstall
-  '';
+  '' ;
 
   meta = {
     description = "Fill your console with Hollywood melodrama technobabble";

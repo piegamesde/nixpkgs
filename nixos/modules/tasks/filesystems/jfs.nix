@@ -7,7 +7,8 @@
 
 with lib;
 
-let inInitrd = any (fs: fs == "jfs") config.boot.initrd.supportedFilesystems;
+let
+  inInitrd = any (fs: fs == "jfs") config.boot.initrd.supportedFilesystems;
 in {
   config = mkIf (any (fs: fs == "jfs") config.boot.supportedFilesystems) {
 

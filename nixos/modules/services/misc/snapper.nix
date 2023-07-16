@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.snapper;
+let
+  cfg = config.services.snapper;
 
 in {
   options.services.snapper = {
@@ -192,5 +193,5 @@ in {
       unitConfig.ConditionPathExists = "/etc/snapper/configs/root";
     };
 
-  });
+  } );
 }

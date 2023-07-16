@@ -822,6 +822,6 @@ in {
         # onboarding files:
         WorkingDirectory = "${cfg.package}/share/outline/build";
       };
-    };
+    } ;
   };
 }

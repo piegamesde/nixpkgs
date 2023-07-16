@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.greenclip;
+let
+  cfg = config.services.greenclip;
 in {
 
   options.services.greenclip = {

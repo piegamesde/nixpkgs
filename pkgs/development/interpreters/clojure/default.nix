@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     installManPage clj.1 clojure.1
 
     runHook postInstall
-  '';
+  '' ;
 
   doInstallCheck = true;
 

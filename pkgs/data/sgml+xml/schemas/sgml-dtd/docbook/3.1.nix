@@ -17,21 +17,22 @@ let
     sha256 = "1clrkaqnvc1ja4lj8blr0rdlphngkcda3snm7b9jzvcn76d3br6w";
   };
 
-in stdenv.mkDerivation {
-  name = "docbook-sgml-3.1";
+in
+  stdenv.mkDerivation {
+    name = "docbook-sgml-3.1";
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [ unzip ];
 
-  installPhase = ''
-    o=$out/sgml/dtd/docbook-3.1
-    mkdir -p $o
-    cd $o
-    unzip ${src}
-    unzip ${isoents}
-    sed -e "s/iso-/ISO/" -e "s/.gml//" -i docbook.cat
-  '';
+    installPhase = ''
+      o=$out/sgml/dtd/docbook-3.1
+      mkdir -p $o
+      cd $o
+      unzip ${src}
+      unzip ${isoents}
+      sed -e "s/iso-/ISO/" -e "s/.gml//" -i docbook.cat
+    '';
 
-  meta = { platforms = lib.platforms.unix; };
-}
+    meta = { platforms = lib.platforms.unix; };
+  }

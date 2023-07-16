@@ -24,7 +24,8 @@
   haskellLib,
 }:
 
-let inherit (pkgs) lib;
+let
+  inherit (pkgs) lib;
 
 in with haskellLib;
 

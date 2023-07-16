@@ -89,10 +89,12 @@ let
       assert "0" == machine.succeed("cat /tmp/exitcode").strip(), "non-zero exit code"
     '';
   };
-in {
-  nixos-container = mkContainersTest;
-} // (lib.foldl' (attrs: backend: attrs // { ${backend} = mkOCITest backend; })
-  { } [
-    "docker"
-    "podman"
-  ])
+in
+  {
+    nixos-container = mkContainersTest;
+  }
+  // (lib.foldl' (attrs: backend: attrs // { ${backend} = mkOCITest backend; })
+    { } [
+      "docker"
+      "podman"
+    ])

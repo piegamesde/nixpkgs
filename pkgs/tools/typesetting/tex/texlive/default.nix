@@ -99,7 +99,9 @@ let
       };
     }; # overrides
 
-  in lib.mapAttrs mkTLPkg overridden;
+  in
+    lib.mapAttrs mkTLPkg overridden
+  ;
   # TODO: texlive.infra for web2c config?
 
   # create a TeX package: an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
@@ -112,7 +114,9 @@ let
             sha512 = attrs.sha512.${tlType};
             inherit pname tlType version;
           };
-        in mkPkg pkg;
+        in
+          mkPkg pkg
+      ;
     in {
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
       pkgs =
@@ -129,7 +133,7 @@ let
         }) ] ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; });
-    };
+    } ;
 
   version = {
     # day of the snapshot being taken
@@ -197,28 +201,30 @@ let
         map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz")
         (args.urlPrefixes or urlPrefixes));
 
-    in runCommand "texlive-${tlName}" ({
-      src = fetchurl { inherit urls sha512; };
-      inherit stripPrefix;
-      # metadata for texlive.combine
-      passthru = {
-        inherit pname tlType version;
-      } // lib.optionalAttrs (tlType == "run" && args ? deps) {
-        tlDeps = map (n: tl.${n}) args.deps;
-      } // lib.optionalAttrs (tlType == "run") {
-        hasFormats = args.hasFormats or false;
-        hasHyphens = args.hasHyphens or false;
-      };
-    } // lib.optionalAttrs (fixedHash != null) {
-      outputHash = fixedHash;
-      outputHashAlgo = "sha256";
-      outputHashMode = "recursive";
-    }) (''
-      mkdir "$out"
-      tar -xf "$src" \
-      --strip-components="$stripPrefix" \
-      -C "$out" --anchored --exclude=tlpkg --keep-old-files
-    '' + postUnpack);
+    in
+      runCommand "texlive-${tlName}" ({
+        src = fetchurl { inherit urls sha512; };
+        inherit stripPrefix;
+        # metadata for texlive.combine
+        passthru = {
+          inherit pname tlType version;
+        } // lib.optionalAttrs (tlType == "run" && args ? deps) {
+          tlDeps = map (n: tl.${n}) args.deps;
+        } // lib.optionalAttrs (tlType == "run") {
+          hasFormats = args.hasFormats or false;
+          hasHyphens = args.hasHyphens or false;
+        };
+      } // lib.optionalAttrs (fixedHash != null) {
+        outputHash = fixedHash;
+        outputHashAlgo = "sha256";
+        outputHashMode = "recursive";
+      }) (''
+        mkdir "$out"
+        tar -xf "$src" \
+        --strip-components="$stripPrefix" \
+        -C "$out" --anchored --exclude=tlpkg --keep-old-files
+      '' + postUnpack)
+  ;
 
   # combine a set of TL packages into a single TL meta-package
   combinePkgs = pkgList:
@@ -240,47 +246,50 @@ let
             inherit pkg;
           }) pkgs;
       pkgListToSets = lib.concatMap tlPkgToSets;
-    in builtins.genericClosure {
-      startSet = pkgListToSets pkgList;
-      operator = {
-          pkg,
-          ...
-        }:
-        pkgListToSets (pkg.tlDeps or [ ]);
-    });
+    in
+      builtins.genericClosure {
+        startSet = pkgListToSets pkgList;
+        operator = {
+            pkg,
+            ...
+          }:
+          pkgListToSets (pkg.tlDeps or [ ]);
+      }
+    );
 
   assertions = lib.assertMsg (tlpdbVersion.year == version.texliveYear)
     "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
     && lib.assertMsg (tlpdbVersion.frozen == version.final)
     "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";
 
-in tl // {
+in
+  tl // {
 
-  tlpdb = {
-    # nested in an attribute set to prevent them from appearing in search
-    nix = tlpdbNix;
-    xz = tlpdbxz;
-  };
+    tlpdb = {
+      # nested in an attribute set to prevent them from appearing in search
+      nix = tlpdbNix;
+      xz = tlpdbxz;
+    };
 
-  bin = assert assertions; bin;
-  combine = assert assertions; combine;
+    bin = assert assertions; bin;
+    combine = assert assertions; combine;
 
-  # Pre-defined combined packages for TeX Live schemes,
-  # to make nix-env usage more comfortable and build selected on Hydra.
-  combined = with lib;
-    recurseIntoAttrs (mapAttrs (pname: attrs:
-      addMetaAttrs rec {
-        description = "TeX Live environment for ${pname}";
-        platforms = lib.platforms.all;
-        maintainers = with lib.maintainers; [ veprbl ];
-      } (combine {
-        ${pname} = attrs;
-        extraName = "combined" + lib.removePrefix "scheme" pname;
-        extraVersion = with version;
-          if final then "-final" else ".${year}${month}${day}";
-      })) {
-        inherit (tl)
-          scheme-basic scheme-context scheme-full scheme-gust scheme-infraonly
-          scheme-medium scheme-minimal scheme-small scheme-tetex;
-      });
-}
+    # Pre-defined combined packages for TeX Live schemes,
+    # to make nix-env usage more comfortable and build selected on Hydra.
+    combined = with lib;
+      recurseIntoAttrs (mapAttrs (pname: attrs:
+        addMetaAttrs rec {
+          description = "TeX Live environment for ${pname}";
+          platforms = lib.platforms.all;
+          maintainers = with lib.maintainers; [ veprbl ];
+        } (combine {
+          ${pname} = attrs;
+          extraName = "combined" + lib.removePrefix "scheme" pname;
+          extraVersion = with version;
+            if final then "-final" else ".${year}${month}${day}";
+        })) {
+          inherit (tl)
+            scheme-basic scheme-context scheme-full scheme-gust scheme-infraonly
+            scheme-medium scheme-minimal scheme-small scheme-tetex;
+        });
+  }

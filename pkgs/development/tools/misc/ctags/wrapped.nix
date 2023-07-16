@@ -26,15 +26,18 @@ with pkgs.lib;
         concatStringsSep " " (map escapeShellArg args)
       } "$@"
     '') {
-      args = let x = pkgs.ctagsWrapped;
-      in concatLists [
-        x.defaultArgs
-        x.phpLang
-        x.jsLang
-        x.nixLang
-        x.asLang
-        x.rubyLang
-      ];
+      args = let
+        x = pkgs.ctagsWrapped;
+      in
+        concatLists [
+          x.defaultArgs
+          x.phpLang
+          x.jsLang
+          x.nixLang
+          x.asLang
+          x.rubyLang
+        ]
+      ;
       name = "${ctags.name}-wrapped";
     };
 

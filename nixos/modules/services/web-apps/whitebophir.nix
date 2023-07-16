@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.whitebophir;
+let
+  cfg = config.services.whitebophir;
 in {
   options = {
     services.whitebophir = {

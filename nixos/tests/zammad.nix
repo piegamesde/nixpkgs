@@ -21,7 +21,8 @@ import ./make-test-python.nix ({
           52882ef142066e09ab99ce816ba72522e789505caba224a52d750ec7dc872c2c371b2fd19f16b25dfbdd435a4dd46cb3df9f82eb63fafad715056bdfe25740d6
         '';
 
-        systemd.services.zammad-locale-cheat = let cfg = config.services.zammad;
+        systemd.services.zammad-locale-cheat = let
+          cfg = config.services.zammad;
         in {
           serviceConfig = {
             Type = "simple";
@@ -47,7 +48,7 @@ import ./make-test-python.nix ({
             echo '[{"locale":"en-us","format":"time","source":"date","target":"mm/dd/yyyy","target_initial":"mm/dd/yyyy"},{"locale":"en-us","format":"time","source":"timestamp","target":"mm/dd/yyyy HH:MM","target_initial":"mm/dd/yyyy HH:MM"}]' \
               > ./config/translations/en-us-$VERSION.yml
           '';
-        };
+        } ;
       };
 
     testScript = ''

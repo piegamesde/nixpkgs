@@ -14,7 +14,8 @@
 
 # For quickly running a test, the nixosTests.lvm2.lvm-thinpool-linux-latest attribute is recommended
 let
-  tests = let callTest = p: lib.flip (import p) { inherit system pkgs; };
+  tests = let
+    callTest = p: lib.flip (import p) { inherit system pkgs; };
   in {
     thinpool = {
       test = callTest ./thinpool.nix;
@@ -42,15 +43,20 @@ let
       kernelFilter = lib.filter (v: v == "5.15");
       flavour = "vdo";
     };
-  };
-in lib.listToAttrs (lib.filter (x: x.value != { })
-  (lib.flip lib.concatMap kernelVersionsToTest (version:
-    let v' = lib.replaceStrings [ "." ] [ "_" ] version;
-    in lib.flip lib.mapAttrsToList tests (name: t:
-      lib.nameValuePair "lvm-${name}-linux-${v'}" (lib.optionalAttrs
-        (builtins.elem version (t.kernelFilter kernelVersionsToTest)) (t.test ({
-          kernelPackages = pkgs."linuxPackages_${v'}";
-        } // builtins.removeAttrs t [
-          "test"
-          "kernelFilter"
-        ])))))))
+  } ;
+in
+  lib.listToAttrs (lib.filter (x: x.value != { })
+    (lib.flip lib.concatMap kernelVersionsToTest (version:
+      let
+        v' = lib.replaceStrings [ "." ] [ "_" ] version;
+      in
+        lib.flip lib.mapAttrsToList tests (name: t:
+          lib.nameValuePair "lvm-${name}-linux-${v'}" (lib.optionalAttrs
+            (builtins.elem version (t.kernelFilter kernelVersionsToTest))
+            (t.test ({
+              kernelPackages = pkgs."linuxPackages_${v'}";
+            } // builtins.removeAttrs t [
+              "test"
+              "kernelFilter"
+            ]))))
+    )))

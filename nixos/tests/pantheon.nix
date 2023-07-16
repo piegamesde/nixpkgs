@@ -72,5 +72,5 @@ import ./make-test-python.nix ({
             machine.wait_for_window("io.elementary.terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      '';
+      '' ;
   })

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.virtualisation.hypervGuest;
+let
+  cfg = config.virtualisation.hypervGuest;
 
 in {
   options = {

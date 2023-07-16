@@ -285,6 +285,6 @@ in {
             machine.succeed("test -e /boot/efi/netbootxyz/netboot.xyz.efi")
             machine.succeed("test -e /boot/efi/nixos/.extra-files/loader/entries/o_netbootxyz.conf")
             machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/netbootxyz/netboot.xyz.efi")
-      '';
+      '' ;
   };
 }

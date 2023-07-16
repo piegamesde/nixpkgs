@@ -34,107 +34,113 @@ let
     "_"
   ] targetPlatform.config;
 
-in stdenv.mkDerivation {
-  pname = targetPrefix + pkg-config.pname + "-wrapper";
-  inherit (pkg-config) version;
+in
+  stdenv.mkDerivation {
+    pname = targetPrefix + pkg-config.pname + "-wrapper";
+    inherit (pkg-config) version;
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  preferLocalBuild = true;
+    preferLocalBuild = true;
 
-  outputs = [ "out" ]
-    ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc");
+    outputs = [ "out" ] ++ optionals propagateDoc
+      ([ "man" ] ++ optional (pkg-config ? doc) "doc");
 
-  passthru = {
-    inherit targetPrefix suffixSalt;
-    inherit pkg-config;
-  };
-
-  strictDeps = true;
-  dontBuild = true;
-  dontConfigure = true;
-  dontUnpack = true;
-
-  # Additional flags passed to pkg-config.
-  addFlags = lib.optional stdenv.targetPlatform.isStatic "--static";
-
-  installPhase = ''
-    mkdir -p $out/bin $out/nix-support
-
-    wrap() {
-      local dst="$1"
-      local wrapper="$2"
-      export prog="$3"
-      substituteAll "$wrapper" "$out/bin/$dst"
-      chmod +x "$out/bin/$dst"
-    }
-
-    echo $pkg-config > $out/nix-support/orig-pkg-config
-
-    wrap ${targetPrefix}${baseBinName} ${./pkg-config-wrapper.sh} "${
-      getBin pkg-config
-    }/bin/${baseBinName}"
-  ''
-    # symlink in share for autoconf to find macros
-
-    # TODO(@Ericson2314): in the future just make the unwrapped pkg-config a
-    # propagated dep once we can rely on downstream deps comming first in
-    # search paths. (https://github.com/NixOS/nixpkgs/pull/31414 took a crack
-    # at this.)
-    + ''
-      ln -s ${pkg-config}/share $out/share
-    '';
-
-  setupHooks = [
-    ../setup-hooks/role.bash
-    ./setup-hook.sh
-  ];
-
-  postFixup =
-    ##
-    ## User env support
-    ##
-
-    # Propagate the underling unwrapped pkg-config so that if you
-    # install the wrapper, you get anything else it might provide.
-    ''
-      printWords ${pkg-config} > $out/nix-support/propagated-user-env-packages
-    ''
-
-    ##
-    ## Man page and doc support
-    ##
-    + optionalString propagateDoc (''
-      ln -s ${pkg-config.man} $man
-    '' + optionalString (pkg-config ? doc) ''
-      ln -s ${pkg-config.doc} $doc
-    '')
-
-    + ''
-      substituteAll ${./add-flags.sh} $out/nix-support/add-flags.sh
-      substituteAll ${../wrapper-common/utils.bash} $out/nix-support/utils.bash
-    ''
-
-    ##
-    ## Extra custom steps
-    ##
-    + extraBuildCommands;
-
-  env = {
-    shell = getBin stdenvNoCC.shell + stdenvNoCC.shell.shellPath or "";
-    wrapperName = "PKG_CONFIG_WRAPPER";
-    inherit targetPrefix suffixSalt baseBinName;
-  };
-
-  meta = let pkg-config_ = if pkg-config != null then pkg-config else { };
-  in (if pkg-config_ ? meta then
-    removeAttrs pkg-config.meta [ "priority" ]
-  else
-    { }) // {
-      description = lib.attrByPath [
-        "meta"
-        "description"
-      ] "pkg-config" pkg-config_ + " (wrapper script)";
-      priority = 10;
+    passthru = {
+      inherit targetPrefix suffixSalt;
+      inherit pkg-config;
     };
-}
+
+    strictDeps = true;
+    dontBuild = true;
+    dontConfigure = true;
+    dontUnpack = true;
+
+    # Additional flags passed to pkg-config.
+    addFlags = lib.optional stdenv.targetPlatform.isStatic "--static";
+
+    installPhase = ''
+      mkdir -p $out/bin $out/nix-support
+
+      wrap() {
+        local dst="$1"
+        local wrapper="$2"
+        export prog="$3"
+        substituteAll "$wrapper" "$out/bin/$dst"
+        chmod +x "$out/bin/$dst"
+      }
+
+      echo $pkg-config > $out/nix-support/orig-pkg-config
+
+      wrap ${targetPrefix}${baseBinName} ${./pkg-config-wrapper.sh} "${
+        getBin pkg-config
+      }/bin/${baseBinName}"
+    ''
+      # symlink in share for autoconf to find macros
+
+      # TODO(@Ericson2314): in the future just make the unwrapped pkg-config a
+      # propagated dep once we can rely on downstream deps comming first in
+      # search paths. (https://github.com/NixOS/nixpkgs/pull/31414 took a crack
+      # at this.)
+      + ''
+        ln -s ${pkg-config}/share $out/share
+      '';
+
+    setupHooks = [
+      ../setup-hooks/role.bash
+      ./setup-hook.sh
+    ];
+
+    postFixup =
+      ##
+      ## User env support
+      ##
+
+      # Propagate the underling unwrapped pkg-config so that if you
+      # install the wrapper, you get anything else it might provide.
+      ''
+        printWords ${pkg-config} > $out/nix-support/propagated-user-env-packages
+      ''
+
+      ##
+      ## Man page and doc support
+      ##
+      + optionalString propagateDoc (''
+        ln -s ${pkg-config.man} $man
+      '' + optionalString (pkg-config ? doc) ''
+        ln -s ${pkg-config.doc} $doc
+      '')
+
+      + ''
+        substituteAll ${./add-flags.sh} $out/nix-support/add-flags.sh
+        substituteAll ${
+          ../wrapper-common/utils.bash
+        } $out/nix-support/utils.bash
+      ''
+
+      ##
+      ## Extra custom steps
+      ##
+      + extraBuildCommands;
+
+    env = {
+      shell = getBin stdenvNoCC.shell + stdenvNoCC.shell.shellPath or "";
+      wrapperName = "PKG_CONFIG_WRAPPER";
+      inherit targetPrefix suffixSalt baseBinName;
+    };
+
+    meta = let
+      pkg-config_ = if pkg-config != null then pkg-config else { };
+    in
+      (if pkg-config_ ? meta then
+        removeAttrs pkg-config.meta [ "priority" ]
+      else
+        { }) // {
+          description = lib.attrByPath [
+            "meta"
+            "description"
+          ] "pkg-config" pkg-config_ + " (wrapper script)";
+          priority = 10;
+        }
+    ;
+  }

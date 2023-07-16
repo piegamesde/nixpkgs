@@ -32,7 +32,8 @@ in rec {
   unitOption = mkOptionType {
     name = "systemd option";
     merge = loc: defs:
-      let defs' = filterOverrides defs;
+      let
+        defs' = filterOverrides defs;
       in if isList (head defs').value then
         concatMap (def:
           if builtins.typeOf def.value == "list" then

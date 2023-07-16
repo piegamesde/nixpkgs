@@ -80,4 +80,4 @@ import ./make-test-python.nix ({
               "docker rmi ${hello2.imageName}",
           )
     '';
-  })
+  } )

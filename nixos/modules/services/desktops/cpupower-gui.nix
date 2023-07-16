@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.cpupower-gui;
+let
+  cfg = config.services.cpupower-gui;
 in {
   options = {
     services.cpupower-gui = {

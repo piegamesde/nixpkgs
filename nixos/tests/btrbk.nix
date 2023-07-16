@@ -116,4 +116,4 @@ import ./make-test-python.nix ({
           main.succeed("echo baz > /mnt/to_backup/bar")
           archive.succeed("cat /mnt/*/bar | grep bar")
     '';
-  })
+  } )

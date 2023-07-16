@@ -116,4 +116,4 @@ import ./make-test-python.nix ({
       machine.succeed("chattr -i ${containerRoot}/var/empty");
       machine.succeed("rm -rf ${containerRoot}");
     '';
-  })
+  } )

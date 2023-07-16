@@ -35,4 +35,5 @@ let
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in sortedcontainers
+in
+  sortedcontainers

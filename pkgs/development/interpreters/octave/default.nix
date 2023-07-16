@@ -239,4 +239,5 @@ let
     };
   };
 
-in self
+in
+  self

@@ -110,7 +110,9 @@ let
     usersWithKeys = attrValues (flip filterAttrs config.users.users (n: u:
       length u.openssh.authorizedKeys.keys != 0
       || length u.openssh.authorizedKeys.keyFiles != 0));
-  in listToAttrs (map mkAuthKeyFile usersWithKeys);
+  in
+    listToAttrs (map mkAuthKeyFile usersWithKeys)
+  ;
 
 in {
   imports = [

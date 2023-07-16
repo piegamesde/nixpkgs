@@ -144,8 +144,10 @@ rec {
       let
         prefixedAttrs =
           mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
-      in paramsToRenderedStrings prefixedAttrs
-      (mapAttrs (_n: _v: p) prefixedAttrs);
+      in
+        paramsToRenderedStrings prefixedAttrs
+        (mapAttrs (_n: _v: p) prefixedAttrs)
+    ;
   };
 
   mkPostfixedAttrsOfParams = params: description: {
@@ -160,8 +162,10 @@ rec {
       let
         postfixedAttrs =
           mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
-      in paramsToRenderedStrings postfixedAttrs
-      (mapAttrs (_n: _v: params) postfixedAttrs);
+      in
+        paramsToRenderedStrings postfixedAttrs
+        (mapAttrs (_n: _v: params) postfixedAttrs)
+    ;
   };
 
 }

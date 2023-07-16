@@ -91,4 +91,4 @@ import ./make-test-python.nix ({
           "git clone http://${user}:${password}@server/git/gitolite-admin.git"
       )
     '';
-  })
+  } )

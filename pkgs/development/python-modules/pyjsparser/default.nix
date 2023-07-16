@@ -39,4 +39,5 @@ let
       maintainers = with maintainers; [ onny ];
     };
   };
-in pyjsparser
+in
+  pyjsparser

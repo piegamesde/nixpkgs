@@ -26,8 +26,11 @@ let
   # or an expression "key = { values };"
   mkAttrsString = top:
     mapAttrsToList (k: v:
-      let sep = if (top && isAttrs v) then ":" else "=";
-      in "${escape [ sep ] k}${sep}${mkValueString v};");
+      let
+        sep = if (top && isAttrs v) then ":" else "=";
+      in
+        "${escape [ sep ] k}${sep}${mkValueString v};"
+    );
 
   # This serializes a Nix expression to the libconfig format.
   mkValueString = v:
@@ -305,22 +308,24 @@ in {
           '';
         };
 
-      in mkOption {
-        type = topLevel;
-        default = { };
-        example = literalExpression ''
-          blur =
-            { method = "gaussian";
-              size = 10;
-              deviation = 5.0;
-            };
-        '';
-        description = lib.mdDoc ''
-          Picom settings. Use this option to configure Picom settings not exposed
-          in a NixOS option or to bypass one.  For the available options see the
-          CONFIGURATION FILES section at `picom(1)`.
-        '';
-      };
+      in
+        mkOption {
+          type = topLevel;
+          default = { };
+          example = literalExpression ''
+            blur =
+              { method = "gaussian";
+                size = 10;
+                deviation = 5.0;
+              };
+          '';
+          description = lib.mdDoc ''
+            Picom settings. Use this option to configure Picom settings not exposed
+            in a NixOS option or to bypass one.  For the available options see the
+            CONFIGURATION FILES section at `picom(1)`.
+          '';
+        }
+    ;
   };
 
   config = mkIf cfg.enable {

@@ -234,4 +234,4 @@ import ../make-test-python.nix ({
       for m in machines:
           m.shutdown()
     '';
-  })
+  } )

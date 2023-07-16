@@ -40,4 +40,5 @@ let
       hash = hashes.${repo};
     }) hashes;
 
-in sources // { inherit version; }
+in
+  sources // { inherit version; }

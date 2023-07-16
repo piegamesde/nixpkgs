@@ -6,8 +6,11 @@
 let
 
   testedSystems = lib.filterAttrs (name: value:
-    let platform = lib.systems.elaborate value;
-    in platform.isLinux || platform.isWindows) lib.systems.examples;
+    let
+      platform = lib.systems.elaborate value;
+    in
+      platform.isLinux || platform.isWindows
+  ) lib.systems.examples;
 
   getExecutable = pkgs: pkgFun: exec:
     "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}";
@@ -23,45 +26,47 @@ let
     let
       pkgName = (pkgFun hostPkgs).name;
       args' = lib.concatStringsSep " " args;
-    in crossPkgs.runCommand "test-${pkgName}-${crossPkgs.hostPlatform.config}" {
-      nativeBuildInputs = [ pkgs.dos2unix ];
-    } ''
-      # Just in case we are using wine, get rid of that annoying extra
-      # stuff.
-      export WINEDEBUG=-all
+    in
+      crossPkgs.runCommand "test-${pkgName}-${crossPkgs.hostPlatform.config}" {
+        nativeBuildInputs = [ pkgs.dos2unix ];
+      } ''
+        # Just in case we are using wine, get rid of that annoying extra
+        # stuff.
+        export WINEDEBUG=-all
 
-      HOME=$(pwd)
-      mkdir -p $out
+        HOME=$(pwd)
+        mkdir -p $out
 
-      # We need to remove whitespace, unfortunately
-      # Windows programs use \r but Unix programs use \n
+        # We need to remove whitespace, unfortunately
+        # Windows programs use \r but Unix programs use \n
 
-      echo Running native-built program natively
+        echo Running native-built program natively
 
-      # find expected value natively
-      ${getExecutable hostPkgs pkgFun exec} ${args'} \
-        | dos2unix > $out/expected
+        # find expected value natively
+        ${getExecutable hostPkgs pkgFun exec} ${args'} \
+          | dos2unix > $out/expected
 
-      echo Running cross-built program in emulator
+        echo Running cross-built program in emulator
 
-      # run emulator to get actual value
-      ${emulator} ${getExecutable crossPkgs pkgFun exec} ${args'} \
-        | dos2unix > $out/actual
+        # run emulator to get actual value
+        ${emulator} ${getExecutable crossPkgs pkgFun exec} ${args'} \
+          | dos2unix > $out/actual
 
-      echo Comparing results...
+        echo Comparing results...
 
-      if [ "$(cat $out/actual)" != "$(cat $out/expected)" ]; then
-        echo "${pkgName} did not output expected value:"
-        cat $out/expected
-        echo "instead it output:"
-        cat $out/actual
-        exit 1
-      else
-        echo "${pkgName} test passed"
-        echo "both produced output:"
-        cat $out/actual
-      fi
-    '';
+        if [ "$(cat $out/actual)" != "$(cat $out/expected)" ]; then
+          echo "${pkgName} did not output expected value:"
+          cat $out/expected
+          echo "instead it output:"
+          cat $out/actual
+          exit 1
+        else
+          echo "${pkgName} test passed"
+          echo "both produced output:"
+          cat $out/actual
+        fi
+      ''
+  ;
 
   mapMultiPlatformTest = crossSystemFun: test:
     lib.mapAttrs (name: system:

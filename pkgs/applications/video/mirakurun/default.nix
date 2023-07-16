@@ -77,7 +77,7 @@ stdenvNoCC.mkDerivation rec {
       --add-flags "start" \
       --chdir "${mirakurun}/libexec/mirakurun/node_modules/mirakurun" \
       --prefix PATH : ${lib.makeBinPath runtimeDeps}
-  '';
+  '' ;
 
   passthru.updateScript = import ./update.nix {
     inherit lib;

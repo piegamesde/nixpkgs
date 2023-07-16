@@ -21,35 +21,36 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-iV6tj7pLXWJU0uV0xAk2gJrH5vPIqojDQuCk6NxAAw4=";
   };
-in stdenv.mkDerivation {
-  pname = baseName;
-  inherit version;
+in
+  stdenv.mkDerivation {
+    pname = baseName;
+    inherit version;
 
-  nativeBuildInputs = [
-    makeWrapper
-    setJavaClassPath
-  ];
-  buildInputs = [ deps ];
+    nativeBuildInputs = [
+      makeWrapper
+      setJavaClassPath
+    ];
+    buildInputs = [ deps ];
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    makeWrapper ${jre}/bin/java $out/bin/${baseName} \
-      --add-flags "-cp $CLASSPATH org.scalafmt.cli.Cli"
+      makeWrapper ${jre}/bin/java $out/bin/${baseName} \
+        --add-flags "-cp $CLASSPATH org.scalafmt.cli.Cli"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  installCheckPhase = ''
-    $out/bin/${baseName} --version | grep -q "${version}"
-  '';
+    installCheckPhase = ''
+      $out/bin/${baseName} --version | grep -q "${version}"
+    '';
 
-  meta = with lib; {
-    description = "Opinionated code formatter for Scala";
-    homepage = "http://scalameta.org/scalafmt";
-    license = licenses.asl20;
-    maintainers = [ maintainers.markus1189 ];
-  };
-}
+    meta = with lib; {
+      description = "Opinionated code formatter for Scala";
+      homepage = "http://scalameta.org/scalafmt";
+      license = licenses.asl20;
+      maintainers = [ maintainers.markus1189 ];
+    };
+  }

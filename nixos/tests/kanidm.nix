@@ -91,5 +91,5 @@ import ./make-test-python.nix ({
         assert rv == 0
         client.wait_for_unit("kanidm-unixd.service")
         client.succeed("kanidm_unixd_status | grep working!")
-      '';
-  })
+      '' ;
+  } )

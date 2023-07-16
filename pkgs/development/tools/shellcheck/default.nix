@@ -19,7 +19,9 @@ let
         # copied from the mkDerivation code
         position = pos.file + ":" + toString pos.line;
       };
-    in drv' // { meta = meta' // overrideFn meta'; };
+    in
+      drv' // { meta = meta' // overrideFn meta'; }
+  ;
 
   bin = haskell.lib.compose.justStaticExecutables ShellCheck;
 
@@ -55,14 +57,15 @@ let
     };
   };
 
-in overrideMeta shellcheck (old: {
-  maintainers = with lib.maintainers; [
-    Profpatsch
-    zowoq
-  ];
-  outputsToInstall = [
-    "bin"
-    "man"
-    "doc"
-  ];
-})
+in
+  overrideMeta shellcheck (old: {
+    maintainers = with lib.maintainers; [
+      Profpatsch
+      zowoq
+    ];
+    outputsToInstall = [
+      "bin"
+      "man"
+      "doc"
+    ];
+  })

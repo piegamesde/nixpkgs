@@ -28,28 +28,29 @@ let
     '';
   };
 
-in makeTest {
-  name = "cloud-init-hostname";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [
-      lewo
-      illustris
-    ];
-  };
-
-  nodes.machine2 = {
-      ...
-    }: {
-      virtualisation.qemu.options = [
-        "-cdrom"
-        "${metadataDrive}/metadata.iso"
+in
+  makeTest {
+    name = "cloud-init-hostname";
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        lewo
+        illustris
       ];
-      services.cloud-init.enable = true;
-      networking.hostName = "";
     };
 
-  testScript = ''
-    unnamed.wait_for_unit("cloud-final.service")
-    assert "testhostname" in unnamed.succeed("hostname")
-  '';
-}
+    nodes.machine2 = {
+        ...
+      }: {
+        virtualisation.qemu.options = [
+          "-cdrom"
+          "${metadataDrive}/metadata.iso"
+        ];
+        services.cloud-init.enable = true;
+        networking.hostName = "";
+      };
+
+    testScript = ''
+      unnamed.wait_for_unit("cloud-final.service")
+      assert "testhostname" in unnamed.succeed("hostname")
+    '';
+  }

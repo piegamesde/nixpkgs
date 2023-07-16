@@ -242,187 +242,189 @@ in {
       StateDirectory = "kea";
       UMask = "0077";
     };
-  in mkIf (cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable
-    || cfg.dhcp-ddns.enable) (mkMerge [
-      { environment.systemPackages = [ package ]; }
+  in
+    mkIf (cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable
+      || cfg.dhcp-ddns.enable) (mkMerge [
+        { environment.systemPackages = [ package ]; }
 
-      (mkIf cfg.ctrl-agent.enable {
-        assertions = [ {
-          assertion = xor (cfg.ctrl-agent.settings == null)
-            (cfg.ctrl-agent.configFile == null);
-          message =
-            "Either services.kea.ctrl-agent.settings or services.kea.ctrl-agent.configFile must be set to a non-null value.";
-        } ];
+        (mkIf cfg.ctrl-agent.enable {
+          assertions = [ {
+            assertion = xor (cfg.ctrl-agent.settings == null)
+              (cfg.ctrl-agent.configFile == null);
+            message =
+              "Either services.kea.ctrl-agent.settings or services.kea.ctrl-agent.configFile must be set to a non-null value.";
+          } ];
 
-        environment.etc."kea/ctrl-agent.conf".source = ctrlAgentConfig;
+          environment.etc."kea/ctrl-agent.conf".source = ctrlAgentConfig;
 
-        systemd.services.kea-ctrl-agent = {
-          description = "Kea Control Agent";
-          documentation = [
-            "man:kea-ctrl-agent(8)"
-            "https://kea.readthedocs.io/en/kea-${package.version}/arm/agent.html"
-          ];
-
-          after = [
-            "network-online.target"
-            "time-sync.target"
-          ];
-          wantedBy = [
-            "kea-dhcp4-server.service"
-            "kea-dhcp6-server.service"
-            "kea-dhcp-ddns-server.service"
-          ];
-
-          environment = {
-            KEA_PIDFILE_DIR = "/run/kea";
-            KEA_LOCKFILE_DIR = "/run/kea";
-          };
-
-          restartTriggers = [ ctrlAgentConfig ];
-
-          serviceConfig = {
-            ExecStart =
-              "${package}/bin/kea-ctrl-agent -c /etc/kea/ctrl-agent.conf ${
-                lib.escapeShellArgs cfg.ctrl-agent.extraArgs
-              }";
-            KillMode = "process";
-            Restart = "on-failure";
-          } // commonServiceConfig;
-        };
-      })
-
-      (mkIf cfg.dhcp4.enable {
-        assertions = [ {
-          assertion =
-            xor (cfg.dhcp4.settings == null) (cfg.dhcp4.configFile == null);
-          message =
-            "Either services.kea.dhcp4.settings or services.kea.dhcp4.configFile must be set to a non-null value.";
-        } ];
-
-        environment.etc."kea/dhcp4-server.conf".source = dhcp4Config;
-
-        systemd.services.kea-dhcp4-server = {
-          description = "Kea DHCP4 Server";
-          documentation = [
-            "man:kea-dhcp4(8)"
-            "https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp4-srv.html"
-          ];
-
-          after = [
-            "network-online.target"
-            "time-sync.target"
-          ];
-          wantedBy = [ "multi-user.target" ];
-
-          environment = {
-            KEA_PIDFILE_DIR = "/run/kea";
-            KEA_LOCKFILE_DIR = "/run/kea";
-          };
-
-          restartTriggers = [ dhcp4Config ];
-
-          serviceConfig = {
-            ExecStart =
-              "${package}/bin/kea-dhcp4 -c /etc/kea/dhcp4-server.conf ${
-                lib.escapeShellArgs cfg.dhcp4.extraArgs
-              }";
-            # Kea does not request capabilities by itself
-            AmbientCapabilities = [
-              "CAP_NET_BIND_SERVICE"
-              "CAP_NET_RAW"
+          systemd.services.kea-ctrl-agent = {
+            description = "Kea Control Agent";
+            documentation = [
+              "man:kea-ctrl-agent(8)"
+              "https://kea.readthedocs.io/en/kea-${package.version}/arm/agent.html"
             ];
-            CapabilityBoundingSet = [
-              "CAP_NET_BIND_SERVICE"
-              "CAP_NET_RAW"
+
+            after = [
+              "network-online.target"
+              "time-sync.target"
             ];
-          } // commonServiceConfig;
-        };
-      })
+            wantedBy = [
+              "kea-dhcp4-server.service"
+              "kea-dhcp6-server.service"
+              "kea-dhcp-ddns-server.service"
+            ];
 
-      (mkIf cfg.dhcp6.enable {
-        assertions = [ {
-          assertion =
-            xor (cfg.dhcp6.settings == null) (cfg.dhcp6.configFile == null);
-          message =
-            "Either services.kea.dhcp6.settings or services.kea.dhcp6.configFile must be set to a non-null value.";
-        } ];
+            environment = {
+              KEA_PIDFILE_DIR = "/run/kea";
+              KEA_LOCKFILE_DIR = "/run/kea";
+            };
 
-        environment.etc."kea/dhcp6-server.conf".source = dhcp6Config;
+            restartTriggers = [ ctrlAgentConfig ];
 
-        systemd.services.kea-dhcp6-server = {
-          description = "Kea DHCP6 Server";
-          documentation = [
-            "man:kea-dhcp6(8)"
-            "https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp6-srv.html"
-          ];
-
-          after = [
-            "network-online.target"
-            "time-sync.target"
-          ];
-          wantedBy = [ "multi-user.target" ];
-
-          environment = {
-            KEA_PIDFILE_DIR = "/run/kea";
-            KEA_LOCKFILE_DIR = "/run/kea";
+            serviceConfig = {
+              ExecStart =
+                "${package}/bin/kea-ctrl-agent -c /etc/kea/ctrl-agent.conf ${
+                  lib.escapeShellArgs cfg.ctrl-agent.extraArgs
+                }";
+              KillMode = "process";
+              Restart = "on-failure";
+            } // commonServiceConfig;
           };
+        })
 
-          restartTriggers = [ dhcp6Config ];
+        (mkIf cfg.dhcp4.enable {
+          assertions = [ {
+            assertion =
+              xor (cfg.dhcp4.settings == null) (cfg.dhcp4.configFile == null);
+            message =
+              "Either services.kea.dhcp4.settings or services.kea.dhcp4.configFile must be set to a non-null value.";
+          } ];
 
-          serviceConfig = {
-            ExecStart =
-              "${package}/bin/kea-dhcp6 -c /etc/kea/dhcp6-server.conf ${
-                lib.escapeShellArgs cfg.dhcp6.extraArgs
-              }";
-            # Kea does not request capabilities by itself
-            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-            CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-          } // commonServiceConfig;
-        };
-      })
+          environment.etc."kea/dhcp4-server.conf".source = dhcp4Config;
 
-      (mkIf cfg.dhcp-ddns.enable {
-        assertions = [ {
-          assertion = xor (cfg.dhcp-ddns.settings == null)
-            (cfg.dhcp-ddns.configFile == null);
-          message =
-            "Either services.kea.dhcp-ddns.settings or services.kea.dhcp-ddns.configFile must be set to a non-null value.";
-        } ];
+          systemd.services.kea-dhcp4-server = {
+            description = "Kea DHCP4 Server";
+            documentation = [
+              "man:kea-dhcp4(8)"
+              "https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp4-srv.html"
+            ];
 
-        environment.etc."kea/dhcp-ddns.conf".source = dhcpDdnsConfig;
+            after = [
+              "network-online.target"
+              "time-sync.target"
+            ];
+            wantedBy = [ "multi-user.target" ];
 
-        systemd.services.kea-dhcp-ddns-server = {
-          description = "Kea DHCP-DDNS Server";
-          documentation = [
-            "man:kea-dhcp-ddns(8)"
-            "https://kea.readthedocs.io/en/kea-${package.version}/arm/ddns.html"
-          ];
+            environment = {
+              KEA_PIDFILE_DIR = "/run/kea";
+              KEA_LOCKFILE_DIR = "/run/kea";
+            };
 
-          after = [
-            "network-online.target"
-            "time-sync.target"
-          ];
-          wantedBy = [ "multi-user.target" ];
+            restartTriggers = [ dhcp4Config ];
 
-          environment = {
-            KEA_PIDFILE_DIR = "/run/kea";
-            KEA_LOCKFILE_DIR = "/run/kea";
+            serviceConfig = {
+              ExecStart =
+                "${package}/bin/kea-dhcp4 -c /etc/kea/dhcp4-server.conf ${
+                  lib.escapeShellArgs cfg.dhcp4.extraArgs
+                }";
+              # Kea does not request capabilities by itself
+              AmbientCapabilities = [
+                "CAP_NET_BIND_SERVICE"
+                "CAP_NET_RAW"
+              ];
+              CapabilityBoundingSet = [
+                "CAP_NET_BIND_SERVICE"
+                "CAP_NET_RAW"
+              ];
+            } // commonServiceConfig;
           };
+        })
 
-          restartTriggers = [ dhcpDdnsConfig ];
+        (mkIf cfg.dhcp6.enable {
+          assertions = [ {
+            assertion =
+              xor (cfg.dhcp6.settings == null) (cfg.dhcp6.configFile == null);
+            message =
+              "Either services.kea.dhcp6.settings or services.kea.dhcp6.configFile must be set to a non-null value.";
+          } ];
 
-          serviceConfig = {
-            ExecStart =
-              "${package}/bin/kea-dhcp-ddns -c /etc/kea/dhcp-ddns.conf ${
-                lib.escapeShellArgs cfg.dhcp-ddns.extraArgs
-              }";
-            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-            CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-          } // commonServiceConfig;
-        };
-      })
+          environment.etc."kea/dhcp6-server.conf".source = dhcp6Config;
 
-    ]);
+          systemd.services.kea-dhcp6-server = {
+            description = "Kea DHCP6 Server";
+            documentation = [
+              "man:kea-dhcp6(8)"
+              "https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp6-srv.html"
+            ];
+
+            after = [
+              "network-online.target"
+              "time-sync.target"
+            ];
+            wantedBy = [ "multi-user.target" ];
+
+            environment = {
+              KEA_PIDFILE_DIR = "/run/kea";
+              KEA_LOCKFILE_DIR = "/run/kea";
+            };
+
+            restartTriggers = [ dhcp6Config ];
+
+            serviceConfig = {
+              ExecStart =
+                "${package}/bin/kea-dhcp6 -c /etc/kea/dhcp6-server.conf ${
+                  lib.escapeShellArgs cfg.dhcp6.extraArgs
+                }";
+              # Kea does not request capabilities by itself
+              AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+              CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+            } // commonServiceConfig;
+          };
+        })
+
+        (mkIf cfg.dhcp-ddns.enable {
+          assertions = [ {
+            assertion = xor (cfg.dhcp-ddns.settings == null)
+              (cfg.dhcp-ddns.configFile == null);
+            message =
+              "Either services.kea.dhcp-ddns.settings or services.kea.dhcp-ddns.configFile must be set to a non-null value.";
+          } ];
+
+          environment.etc."kea/dhcp-ddns.conf".source = dhcpDdnsConfig;
+
+          systemd.services.kea-dhcp-ddns-server = {
+            description = "Kea DHCP-DDNS Server";
+            documentation = [
+              "man:kea-dhcp-ddns(8)"
+              "https://kea.readthedocs.io/en/kea-${package.version}/arm/ddns.html"
+            ];
+
+            after = [
+              "network-online.target"
+              "time-sync.target"
+            ];
+            wantedBy = [ "multi-user.target" ];
+
+            environment = {
+              KEA_PIDFILE_DIR = "/run/kea";
+              KEA_LOCKFILE_DIR = "/run/kea";
+            };
+
+            restartTriggers = [ dhcpDdnsConfig ];
+
+            serviceConfig = {
+              ExecStart =
+                "${package}/bin/kea-dhcp-ddns -c /etc/kea/dhcp-ddns.conf ${
+                  lib.escapeShellArgs cfg.dhcp-ddns.extraArgs
+                }";
+              AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+              CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+            } // commonServiceConfig;
+          };
+        })
+
+      ])
+  ;
 
   meta.maintainers = with maintainers; [ hexa ];
   # uses attributes of the linked package

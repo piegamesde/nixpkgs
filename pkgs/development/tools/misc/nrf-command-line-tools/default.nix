@@ -46,44 +46,45 @@ let
       lib.versions.minor version
     }.${lib.versions.patch version}_${platform.name}.tar.gz";
 
-in stdenv.mkDerivation {
-  pname = "nrf-command-line-tools";
-  inherit version;
+in
+  stdenv.mkDerivation {
+    pname = "nrf-command-line-tools";
+    inherit version;
 
-  src = fetchurl {
-    inherit url;
-    inherit (platform) sha256;
-  };
+    src = fetchurl {
+      inherit url;
+      inherit (platform) sha256;
+    };
 
-  runtimeDependencies = [ segger-jlink ];
+    runtimeDependencies = [ segger-jlink ];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [
-    udev
-    libusb1
-  ];
+    nativeBuildInputs = [ autoPatchelfHook ];
+    buildInputs = [
+      udev
+      libusb1
+    ];
 
-  dontConfigure = true;
-  dontBuild = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    rm -rf ./python
-    mkdir -p $out
-    cp -r * $out
+      rm -rf ./python
+      mkdir -p $out
+      cp -r * $out
 
-    chmod +x $out/lib/*
+      chmod +x $out/lib/*
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Nordic Semiconductor nRF Command Line Tools";
-    homepage =
-      "https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools";
-    license = licenses.unfree;
-    platforms = attrNames supported;
-    maintainers = with maintainers; [ stargate01 ];
-  };
-}
+    meta = with lib; {
+      description = "Nordic Semiconductor nRF Command Line Tools";
+      homepage =
+        "https://www.nordicsemi.com/Products/Development-tools/nRF-Command-Line-Tools";
+      license = licenses.unfree;
+      platforms = attrNames supported;
+      maintainers = with maintainers; [ stargate01 ];
+    };
+  }

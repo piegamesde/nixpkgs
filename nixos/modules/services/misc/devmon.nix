@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.devmon;
+let
+  cfg = config.services.devmon;
 
 in {
   options = {

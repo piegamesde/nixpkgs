@@ -29,5 +29,5 @@ import ./make-test-python.nix ({
     in ''
       machine.wait_for_x()
       machine.succeed("${script}")
-    '';
+    '' ;
   })

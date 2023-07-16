@@ -2,7 +2,8 @@ import ./make-test-python.nix ({
     pkgs,
     ...
   }:
-  let port = 81;
+  let
+    port = 81;
   in {
     name = "keter";
     meta = with pkgs.lib.maintainers; { maintainers = [ jappie ]; };
@@ -40,4 +41,4 @@ import ./make-test-python.nix ({
 
       machine.succeed("curl --fail http://localhost:${toString port}/")
     '';
-  })
+  } )

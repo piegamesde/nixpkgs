@@ -7,7 +7,8 @@
   withStatic ? stdenv.hostPlatform.isStatic
 }:
 
-let inherit (lib) optional;
+let
+  inherit (lib) optional;
 
 in let
   self = stdenv.mkDerivation rec {
@@ -92,4 +93,5 @@ in let
       broken = stdenv.isDarwin && stdenv.isAarch64;
     };
   };
-in self
+in
+  self

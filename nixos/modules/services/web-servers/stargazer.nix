@@ -30,7 +30,9 @@ let
       let
         name = section.route;
         params = builtins.removeAttrs section [ "route" ];
-      in genINI { "${name}" = params; } + "\n"))));
+      in
+        genINI { "${name}" = params; } + "\n"
+    ))));
 in {
   options.services.stargazer = {
     enable = lib.mkEnableOption (lib.mdDoc "Stargazer Gemini server");

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.sawfish;
+let
+  cfg = config.services.xserver.windowManager.sawfish;
 in {
   ###### interface
   options = {

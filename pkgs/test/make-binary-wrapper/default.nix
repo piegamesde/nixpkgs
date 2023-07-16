@@ -62,6 +62,7 @@ let
       }.callPackage ./cross.nix { };
   };
 
-in writeText "make-binary-wrapper-tests" ''
-  ${lib.concatStringsSep "\n" (builtins.attrValues tests)}
-'' // tests
+in
+  writeText "make-binary-wrapper-tests" ''
+    ${lib.concatStringsSep "\n" (builtins.attrValues tests)}
+  '' // tests

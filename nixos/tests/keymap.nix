@@ -117,289 +117,290 @@ let
       '';
     };
 
-in pkgs.lib.mapAttrs mkKeyboardTest {
-  azerty = {
-    tests = {
-      azqw.qwerty = [
-        "q"
-        "w"
-      ];
-      azqw.expect = [
-        "a"
-        "z"
-      ];
-      altgr.qwerty = [
-        "alt_r-2"
-        "alt_r-3"
-        "alt_r-4"
-        "alt_r-5"
-        "alt_r-6"
-      ];
-      altgr.expect = [
-        "~"
-        "#"
-        "{"
-        "["
-        "|"
-      ];
+in
+  pkgs.lib.mapAttrs mkKeyboardTest {
+    azerty = {
+      tests = {
+        azqw.qwerty = [
+          "q"
+          "w"
+        ];
+        azqw.expect = [
+          "a"
+          "z"
+        ];
+        altgr.qwerty = [
+          "alt_r-2"
+          "alt_r-3"
+          "alt_r-4"
+          "alt_r-5"
+          "alt_r-6"
+        ];
+        altgr.expect = [
+          "~"
+          "#"
+          "{"
+          "["
+          "|"
+        ];
+      };
+
+      extraConfig.console.keyMap = "fr";
+      extraConfig.services.xserver.layout = "fr";
     };
 
-    extraConfig.console.keyMap = "fr";
-    extraConfig.services.xserver.layout = "fr";
-  };
+    bone = {
+      tests = {
+        layer1.qwerty = [
+          "f"
+          "j"
+        ];
+        layer1.expect = [
+          "e"
+          "n"
+        ];
+        layer2.qwerty = [
+          "shift-f"
+          "shift-j"
+          "shift-6"
+        ];
+        layer2.expect = [
+          "E"
+          "N"
+          "$"
+        ];
+        layer3.qwerty = [
+          "caps_lock-d"
+          "caps_lock-f"
+        ];
+        layer3.expect = [
+          "{"
+          "}"
+        ];
+      };
 
-  bone = {
-    tests = {
-      layer1.qwerty = [
-        "f"
-        "j"
-      ];
-      layer1.expect = [
-        "e"
-        "n"
-      ];
-      layer2.qwerty = [
-        "shift-f"
-        "shift-j"
-        "shift-6"
-      ];
-      layer2.expect = [
-        "E"
-        "N"
-        "$"
-      ];
-      layer3.qwerty = [
-        "caps_lock-d"
-        "caps_lock-f"
-      ];
-      layer3.expect = [
-        "{"
-        "}"
-      ];
+      extraConfig.console.keyMap = "bone";
+      extraConfig.services.xserver.layout = "de";
+      extraConfig.services.xserver.xkbVariant = "bone";
     };
 
-    extraConfig.console.keyMap = "bone";
-    extraConfig.services.xserver.layout = "de";
-    extraConfig.services.xserver.xkbVariant = "bone";
-  };
+    colemak = {
+      tests = {
+        homerow.qwerty = [
+          "a"
+          "s"
+          "d"
+          "f"
+          "j"
+          "k"
+          "l"
+          "semicolon"
+        ];
+        homerow.expect = [
+          "a"
+          "r"
+          "s"
+          "t"
+          "n"
+          "e"
+          "i"
+          "o"
+        ];
+      };
 
-  colemak = {
-    tests = {
-      homerow.qwerty = [
-        "a"
-        "s"
-        "d"
-        "f"
-        "j"
-        "k"
-        "l"
-        "semicolon"
-      ];
-      homerow.expect = [
-        "a"
-        "r"
-        "s"
-        "t"
-        "n"
-        "e"
-        "i"
-        "o"
-      ];
+      extraConfig.console.keyMap = "colemak";
+      extraConfig.services.xserver.layout = "us";
+      extraConfig.services.xserver.xkbVariant = "colemak";
     };
 
-    extraConfig.console.keyMap = "colemak";
-    extraConfig.services.xserver.layout = "us";
-    extraConfig.services.xserver.xkbVariant = "colemak";
-  };
+    dvorak = {
+      tests = {
+        homerow.qwerty = [
+          "a"
+          "s"
+          "d"
+          "f"
+          "j"
+          "k"
+          "l"
+          "semicolon"
+        ];
+        homerow.expect = [
+          "a"
+          "o"
+          "e"
+          "u"
+          "h"
+          "t"
+          "n"
+          "s"
+        ];
+        symbols.qwerty = [
+          "q"
+          "w"
+          "e"
+          "minus"
+          "equal"
+        ];
+        symbols.expect = [
+          "'"
+          ","
+          "."
+          "["
+          "]"
+        ];
+      };
 
-  dvorak = {
-    tests = {
-      homerow.qwerty = [
-        "a"
-        "s"
-        "d"
-        "f"
-        "j"
-        "k"
-        "l"
-        "semicolon"
-      ];
-      homerow.expect = [
-        "a"
-        "o"
-        "e"
-        "u"
-        "h"
-        "t"
-        "n"
-        "s"
-      ];
-      symbols.qwerty = [
-        "q"
-        "w"
-        "e"
-        "minus"
-        "equal"
-      ];
-      symbols.expect = [
-        "'"
-        ","
-        "."
-        "["
-        "]"
-      ];
+      extraConfig.console.keyMap = "dvorak";
+      extraConfig.services.xserver.layout = "us";
+      extraConfig.services.xserver.xkbVariant = "dvorak";
     };
 
-    extraConfig.console.keyMap = "dvorak";
-    extraConfig.services.xserver.layout = "us";
-    extraConfig.services.xserver.xkbVariant = "dvorak";
-  };
+    dvorak-programmer = {
+      tests = {
+        homerow.qwerty = [
+          "a"
+          "s"
+          "d"
+          "f"
+          "j"
+          "k"
+          "l"
+          "semicolon"
+        ];
+        homerow.expect = [
+          "a"
+          "o"
+          "e"
+          "u"
+          "h"
+          "t"
+          "n"
+          "s"
+        ];
+        numbers.qwerty = map (x: "shift-${x}") [
+          "1"
+          "2"
+          "3"
+          "4"
+          "5"
+          "6"
+          "7"
+          "8"
+          "9"
+          "0"
+          "minus"
+        ];
+        numbers.expect = [
+          "%"
+          "7"
+          "5"
+          "3"
+          "1"
+          "9"
+          "0"
+          "2"
+          "4"
+          "6"
+          "8"
+        ];
+        symbols.qwerty = [
+          "1"
+          "2"
+          "3"
+          "4"
+          "5"
+          "6"
+          "7"
+          "8"
+          "9"
+          "0"
+          "minus"
+        ];
+        symbols.expect = [
+          "&"
+          "["
+          "{"
+          "}"
+          "("
+          "="
+          "*"
+          ")"
+          "+"
+          "]"
+          "!"
+        ];
+      };
 
-  dvorak-programmer = {
-    tests = {
-      homerow.qwerty = [
-        "a"
-        "s"
-        "d"
-        "f"
-        "j"
-        "k"
-        "l"
-        "semicolon"
-      ];
-      homerow.expect = [
-        "a"
-        "o"
-        "e"
-        "u"
-        "h"
-        "t"
-        "n"
-        "s"
-      ];
-      numbers.qwerty = map (x: "shift-${x}") [
-        "1"
-        "2"
-        "3"
-        "4"
-        "5"
-        "6"
-        "7"
-        "8"
-        "9"
-        "0"
-        "minus"
-      ];
-      numbers.expect = [
-        "%"
-        "7"
-        "5"
-        "3"
-        "1"
-        "9"
-        "0"
-        "2"
-        "4"
-        "6"
-        "8"
-      ];
-      symbols.qwerty = [
-        "1"
-        "2"
-        "3"
-        "4"
-        "5"
-        "6"
-        "7"
-        "8"
-        "9"
-        "0"
-        "minus"
-      ];
-      symbols.expect = [
-        "&"
-        "["
-        "{"
-        "}"
-        "("
-        "="
-        "*"
-        ")"
-        "+"
-        "]"
-        "!"
-      ];
+      extraConfig.console.keyMap = "dvorak-programmer";
+      extraConfig.services.xserver.layout = "us";
+      extraConfig.services.xserver.xkbVariant = "dvp";
     };
 
-    extraConfig.console.keyMap = "dvorak-programmer";
-    extraConfig.services.xserver.layout = "us";
-    extraConfig.services.xserver.xkbVariant = "dvp";
-  };
+    neo = {
+      tests = {
+        layer1.qwerty = [
+          "f"
+          "j"
+        ];
+        layer1.expect = [
+          "e"
+          "n"
+        ];
+        layer2.qwerty = [
+          "shift-f"
+          "shift-j"
+          "shift-6"
+        ];
+        layer2.expect = [
+          "E"
+          "N"
+          "$"
+        ];
+        layer3.qwerty = [
+          "caps_lock-d"
+          "caps_lock-f"
+        ];
+        layer3.expect = [
+          "{"
+          "}"
+        ];
+      };
 
-  neo = {
-    tests = {
-      layer1.qwerty = [
-        "f"
-        "j"
-      ];
-      layer1.expect = [
-        "e"
-        "n"
-      ];
-      layer2.qwerty = [
-        "shift-f"
-        "shift-j"
-        "shift-6"
-      ];
-      layer2.expect = [
-        "E"
-        "N"
-        "$"
-      ];
-      layer3.qwerty = [
-        "caps_lock-d"
-        "caps_lock-f"
-      ];
-      layer3.expect = [
-        "{"
-        "}"
-      ];
+      extraConfig.console.keyMap = "neo";
+      extraConfig.services.xserver.layout = "de";
+      extraConfig.services.xserver.xkbVariant = "neo";
     };
 
-    extraConfig.console.keyMap = "neo";
-    extraConfig.services.xserver.layout = "de";
-    extraConfig.services.xserver.xkbVariant = "neo";
-  };
+    qwertz = {
+      tests = {
+        zy.qwerty = [
+          "z"
+          "y"
+        ];
+        zy.expect = [
+          "y"
+          "z"
+        ];
+        altgr.qwerty = map (x: "alt_r-${x}") [
+          "q"
+          "less"
+          "7"
+          "8"
+          "9"
+          "0"
+        ];
+        altgr.expect = [
+          "@"
+          "|"
+          "{"
+          "["
+          "]"
+          "}"
+        ];
+      };
 
-  qwertz = {
-    tests = {
-      zy.qwerty = [
-        "z"
-        "y"
-      ];
-      zy.expect = [
-        "y"
-        "z"
-      ];
-      altgr.qwerty = map (x: "alt_r-${x}") [
-        "q"
-        "less"
-        "7"
-        "8"
-        "9"
-        "0"
-      ];
-      altgr.expect = [
-        "@"
-        "|"
-        "{"
-        "["
-        "]"
-        "}"
-      ];
+      extraConfig.console.keyMap = "de";
+      extraConfig.services.xserver.layout = "de";
     };
-
-    extraConfig.console.keyMap = "de";
-    extraConfig.services.xserver.layout = "de";
-  };
-}
+  }

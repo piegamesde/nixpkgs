@@ -106,7 +106,9 @@ let
         "out"
         "bin"
       ])) package.outputs;
-  in lib.genAttrs plugins (output: package.${output});
+  in
+    lib.genAttrs plugins (output: package.${output})
+  ;
 
   # Intended to be used as: (nomad-autoscaler.withPlugins (ps: [ ps.aws_asg ps.nomad_target ])
   withPlugins = f:
@@ -114,4 +116,5 @@ let
       name = "nomad-autoscaler-env";
       paths = [ package.bin ] ++ f plugins;
     };
-in package
+in
+  package

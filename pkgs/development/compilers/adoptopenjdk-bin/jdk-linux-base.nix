@@ -135,4 +135,5 @@ in let
     };
 
   };
-in result
+in
+  result

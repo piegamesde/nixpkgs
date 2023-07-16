@@ -359,8 +359,10 @@ in {
         platforms = with lib.platforms; unix ++ genode;
       };
     };
-  in self // {
-    pkgs = callPackage ../../../top-level/nim-packages.nix { nim = self; };
-  };
+  in
+    self // {
+      pkgs = callPackage ../../../top-level/nim-packages.nix { nim = self; };
+    }
+  ;
 
 }

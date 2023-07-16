@@ -57,4 +57,4 @@ import ./make-test-python.nix ({
         )
         assert http_code.split("\n")[-1] == "200"
       '';
-  })
+  } )

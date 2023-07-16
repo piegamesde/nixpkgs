@@ -13,7 +13,7 @@ import ./make-test-python.nix ({
       in {
         services.plikd.enable = true;
         environment.systemPackages = [ pkgs.plik ];
-      };
+      } ;
 
     testScript = ''
       # Service basic test

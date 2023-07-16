@@ -115,7 +115,7 @@ import ./make-test-python.nix {
         in [
           sendTestMail
           checkMailLanded
-        ];
+        ] ;
       };
   };
 

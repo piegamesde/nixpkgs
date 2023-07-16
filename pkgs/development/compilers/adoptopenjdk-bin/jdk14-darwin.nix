@@ -2,7 +2,8 @@
   lib,
 }:
 
-let sources = lib.importJSON ./sources.json;
+let
+  sources = lib.importJSON ./sources.json;
 in {
   jdk-hotspot = import ./jdk-darwin-base.nix {
     sourcePerArch = sources.openjdk14.mac.jdk.hotspot;

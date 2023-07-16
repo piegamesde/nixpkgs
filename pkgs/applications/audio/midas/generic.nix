@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${libPath}" \
       $out/bin/${pname}
-  '';
+  '' ;
 
   meta = with lib; {
     inherit homepage;

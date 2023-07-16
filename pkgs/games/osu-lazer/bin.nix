@@ -37,15 +37,15 @@ let
 
     extraPkgs = pkgs: with pkgs; [ icu ];
 
-    extraInstallCommands =
-      let contents = appimageTools.extract { inherit pname version src; };
-      in ''
-        mv -v $out/bin/${pname}-${version} $out/bin/osu\!
-        install -m 444 -D ${contents}/osu\!.desktop -t $out/share/applications
-        for i in 16 32 48 64 96 128 256 512 1024; do
-          install -D ${contents}/osu\!.png $out/share/icons/hicolor/''${i}x$i/apps/osu\!.png
-        done
-      '';
+    extraInstallCommands = let
+      contents = appimageTools.extract { inherit pname version src; };
+    in ''
+      mv -v $out/bin/${pname}-${version} $out/bin/osu\!
+      install -m 444 -D ${contents}/osu\!.desktop -t $out/share/applications
+      for i in 16 32 48 64 96 128 256 512 1024; do
+        install -D ${contents}/osu\!.png $out/share/icons/hicolor/''${i}x$i/apps/osu\!.png
+      done
+    '' ;
   };
 
   darwin = stdenv.mkDerivation rec {

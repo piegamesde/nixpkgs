@@ -166,15 +166,18 @@ beamPackages.mixRelease rec {
         in ''
           mkdir config
           cp ${cfgFile} config/config.exs
-        '';
+        '' ;
       };
 
-      crypt = let version = prev.crypt.version;
-      in prev.crypt.override {
-        buildInputs = [ libxcrypt-legacy ];
-        postInstall =
-          "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
-      };
+      crypt = let
+        version = prev.crypt.version;
+      in
+        prev.crypt.override {
+          buildInputs = [ libxcrypt-legacy ];
+          postInstall =
+            "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
+        }
+      ;
     });
   };
 

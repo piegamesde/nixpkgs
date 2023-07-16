@@ -128,4 +128,5 @@ let
       platforms = platforms.unix;
     };
   };
-in self
+in
+  self

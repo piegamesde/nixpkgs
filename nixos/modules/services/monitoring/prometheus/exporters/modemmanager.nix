@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.modemmanager;
+let
+  cfg = config.services.prometheus.exporters.modemmanager;
 in {
   port = 9539;
   extraOpts = {

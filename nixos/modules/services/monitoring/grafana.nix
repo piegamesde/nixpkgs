@@ -1799,38 +1799,45 @@ in {
           regex = "${
               optionalString (defaultValue != null) "^${defaultValue}$|"
             }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
-        in builtins.match regex opt == null;
+        in
+          builtins.match regex opt == null
+      ;
       # Ensure that no custom credentials are leaked into the Nix store. Unless the default value
       # is specified, this can be achieved by using the file/env provider:
       # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
-    in (optional (doesntUseFileProvider cfg.settings.database.password ""
-      || doesntUseFileProvider cfg.settings.security.admin_password "admin") ''
-        Grafana passwords will be stored as plaintext in the Nix store!
-        Use file provider or an env-var instead.
+    in
+      (optional (doesntUseFileProvider cfg.settings.database.password ""
+        || doesntUseFileProvider cfg.settings.security.admin_password
+        "admin") ''
+          Grafana passwords will be stored as plaintext in the Nix store!
+          Use file provider or an env-var instead.
+        '')
+      # Warn about deprecated notifiers.
+      ++ (optional (cfg.provision.notifiers != [ ]) ''
+        Notifiers are deprecated upstream and will be removed in Grafana 10.
+        Use `services.grafana.provision.alerting.contactPoints` instead.
       '')
-    # Warn about deprecated notifiers.
-    ++ (optional (cfg.provision.notifiers != [ ]) ''
-      Notifiers are deprecated upstream and will be removed in Grafana 10.
-      Use `services.grafana.provision.alerting.contactPoints` instead.
-    '')
-    # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
-    # only uses file/env providers.
-    ++ (optional (let
-      datasourcesToCheck =
-        optionals (cfg.provision.datasources.settings != null)
-        cfg.provision.datasources.settings.datasources;
-      declarationUnsafe = {
-          secureJsonData,
-          ...
-        }:
-        secureJsonData != null
-        && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
-    in any declarationUnsafe datasourcesToCheck) ''
-      Declarations in the `secureJsonData`-block of a datasource will be leaked to the
-      Nix store unless a file-provider or an env-var is used!
-    '')
-    ++ (optional (any (x: x.secure_settings != null) cfg.provision.notifiers)
-      "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.");
+      # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
+      # only uses file/env providers.
+      ++ (optional (let
+        datasourcesToCheck =
+          optionals (cfg.provision.datasources.settings != null)
+          cfg.provision.datasources.settings.datasources;
+        declarationUnsafe = {
+            secureJsonData,
+            ...
+          }:
+          secureJsonData != null
+          && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
+      in
+        any declarationUnsafe datasourcesToCheck
+      ) ''
+        Declarations in the `secureJsonData`-block of a datasource will be leaked to the
+        Nix store unless a file-provider or an env-var is used!
+      '')
+      ++ (optional (any (x: x.secure_settings != null) cfg.provision.notifiers)
+        "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.")
+    ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -1849,8 +1856,10 @@ in {
                 ...
               }:
               type == "prometheus" -> access != "direct") opt;
-        in cfg.provision.datasources.settings == null
-        || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
+        in
+          cfg.provision.datasources.settings == null || prometheusIsNotDirect
+          cfg.provision.datasources.settings.datasources
+        ;
         message =
           "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }

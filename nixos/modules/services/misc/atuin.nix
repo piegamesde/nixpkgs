@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.atuin;
+let
+  cfg = config.services.atuin;
 in {
   options = {
     services.atuin = {

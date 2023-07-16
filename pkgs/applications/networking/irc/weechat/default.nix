@@ -97,81 +97,82 @@ let
   ];
   enabledPlugins = builtins.filter (p: p.enabled) plugins;
 
-in assert lib.all (p: p.enabled -> !(builtins.elem null p.buildInputs)) plugins;
-stdenv.mkDerivation rec {
-  version = "3.8";
-  pname = "weechat";
+in
+  assert lib.all (p: p.enabled -> !(builtins.elem null p.buildInputs)) plugins;
+  stdenv.mkDerivation rec {
+    version = "3.8";
+    pname = "weechat";
 
-  hardeningEnable = [ "pie" ];
+    hardeningEnable = [ "pie" ];
 
-  src = fetchurl {
-    url = "https://weechat.org/files/src/weechat-${version}.tar.bz2";
-    hash = "sha256-objxAUGvBhTkbQl4GshDP3RsCkAW4z917L9WyaVoYj4=";
-  };
+    src = fetchurl {
+      url = "https://weechat.org/files/src/weechat-${version}.tar.bz2";
+      hash = "sha256-objxAUGvBhTkbQl4GshDP3RsCkAW4z917L9WyaVoYj4=";
+    };
 
-  outputs = [
-    "out"
-    "man"
-  ] ++ map (p: p.name) enabledPlugins;
+    outputs = [
+      "out"
+      "man"
+    ] ++ map (p: p.name) enabledPlugins;
 
-  cmakeFlags = with lib;
-    [
-      "-DENABLE_MAN=ON"
-      "-DENABLE_DOC=ON"
-      "-DENABLE_TESTS=${if enableTests then "ON" else "OFF"}"
-    ] ++ optionals
-    stdenv.isDarwin [ "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib" ]
-    ++ map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF"))
-    plugins;
+    cmakeFlags = with lib;
+      [
+        "-DENABLE_MAN=ON"
+        "-DENABLE_DOC=ON"
+        "-DENABLE_TESTS=${if enableTests then "ON" else "OFF"}"
+      ] ++ optionals
+      stdenv.isDarwin [ "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib" ]
+      ++ map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF"))
+      plugins;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    asciidoctor
-  ] ++ lib.optional enableTests cpputest;
-  buildInputs = with lib;
-    [
-      ncurses
-      openssl
-      aspell
-      gnutls
-      gettext
-      zlib
-      curl
-      libgcrypt
-    ] ++ optionals stdenv.isDarwin [
-      libobjc
-      libresolv
-    ] ++ concatMap (p: p.buildInputs) enabledPlugins ++ extraBuildInputs;
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      asciidoctor
+    ] ++ lib.optional enableTests cpputest;
+    buildInputs = with lib;
+      [
+        ncurses
+        openssl
+        aspell
+        gnutls
+        gettext
+        zlib
+        curl
+        libgcrypt
+      ] ++ optionals stdenv.isDarwin [
+        libobjc
+        libresolv
+      ] ++ concatMap (p: p.buildInputs) enabledPlugins ++ extraBuildInputs;
 
-  env.NIX_CFLAGS_COMPILE = "-I${python}/include/${python.libPrefix}"
-    # Fix '_res_9_init: undefined symbol' error
-    + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv");
+    env.NIX_CFLAGS_COMPILE = "-I${python}/include/${python.libPrefix}"
+      # Fix '_res_9_init: undefined symbol' error
+      + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv");
 
-  postInstall = with lib; ''
-    for p in ${concatMapStringsSep " " (p: p.name) enabledPlugins}; do
-      from=$out/lib/weechat/plugins/$p.so
-      to=''${!p}/lib/weechat/plugins/$p.so
-      mkdir -p $(dirname $to)
-      mv $from $to
-    done
-  '';
-
-  doInstallCheck = true;
-  installCheckPhase = ''
-    $out/bin/weechat --version
-  '';
-
-  meta = {
-    homepage = "http://www.weechat.org/";
-    description = "A fast, light and extensible chat client";
-    longDescription = ''
-      You can find more documentation as to how to customize this package
-      (eg. adding python modules for scripts that would require them, etc.)
-      on https://nixos.org/nixpkgs/manual/#sec-weechat .
+    postInstall = with lib; ''
+      for p in ${concatMapStringsSep " " (p: p.name) enabledPlugins}; do
+        from=$out/lib/weechat/plugins/$p.so
+        to=''${!p}/lib/weechat/plugins/$p.so
+        mkdir -p $(dirname $to)
+        mv $from $to
+      done
     '';
-    license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ncfavier ];
-    platforms = lib.platforms.unix;
-  };
-}
+
+    doInstallCheck = true;
+    installCheckPhase = ''
+      $out/bin/weechat --version
+    '';
+
+    meta = {
+      homepage = "http://www.weechat.org/";
+      description = "A fast, light and extensible chat client";
+      longDescription = ''
+        You can find more documentation as to how to customize this package
+        (eg. adding python modules for scripts that would require them, etc.)
+        on https://nixos.org/nixpkgs/manual/#sec-weechat .
+      '';
+      license = lib.licenses.gpl3;
+      maintainers = with lib.maintainers; [ ncfavier ];
+      platforms = lib.platforms.unix;
+    };
+  }

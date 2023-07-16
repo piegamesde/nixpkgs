@@ -59,7 +59,7 @@ buildGoModule rec {
 
     substituteInPlace internal/util/shellout_unix.go \
       --replace /bin/sh "${runtimeShell}"
-  '';
+  '' ;
 
   passthru.tests.version = testers.testVersion { package = skeema; };
 

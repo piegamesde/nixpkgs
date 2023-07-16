@@ -227,7 +227,7 @@ in {
           }"
           "${pkgs.writeShellScript "opensearch-start-pre-unprivileged"
           startPreUnprivileged}"
-        ];
+        ] ;
         ExecStartPost = pkgs.writeShellScript "opensearch-start-post" ''
           set -o errexit -o pipefail -o nounset -o errtrace
           shopt -s inherit_errexit

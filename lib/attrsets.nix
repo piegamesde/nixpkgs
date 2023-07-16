@@ -36,7 +36,8 @@ in rec {
     default:
     # The nested attribute set to select values from
     set:
-    let attr = head attrPath;
+    let
+      attr = head attrPath;
     in if attrPath == [ ] then
       set
     else if set ? ${attr} then
@@ -61,7 +62,8 @@ in rec {
     attrPath:
     # The nested attribute set to check
     e:
-    let attr = head attrPath;
+    let
+      attr = head attrPath;
     in if attrPath == [ ] then
       true
     else if e ? ${attr} then
@@ -87,7 +89,9 @@ in rec {
       len = length attrPath;
       atDepth = n:
         if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
-    in atDepth 0;
+    in
+      atDepth 0
+  ;
 
   /* Like `attrByPath`, but without a default value. If it doesn't find the
      path it will throw an error.
@@ -110,7 +114,9 @@ in rec {
     let
       errorMsg = "cannot find attribute `" + concatStringsSep "." attrPath
         + "'";
-    in attrByPath attrPath (abort errorMsg) set;
+    in
+      attrByPath attrPath (abort errorMsg) set
+  ;
 
   /* Map each attribute in the given set and merge them into a new attribute set.
 
@@ -203,11 +209,14 @@ in rec {
             # safe, but only in this branch since `go` could only be called
             # with `hasValue == false` for nested updates, in which case
             # it's also always called with at least one update
-              let updatePath = (head split.right).path;
-              in throw
-              ("updateManyAttrsByPath: Path '${showAttrPath updatePath}' does "
-                + "not exist in the given value, but the first update to this "
-                + "path tries to access the existing value.")
+              let
+                updatePath = (head split.right).path;
+              in
+                throw ("updateManyAttrsByPath: Path '${
+                    showAttrPath updatePath
+                  }' does "
+                  + "not exist in the given value, but the first update to this "
+                  + "path tries to access the existing value.")
           else
           # If there are nested modifications, try to apply them to the value
           if !hasValue then
@@ -222,21 +231,29 @@ in rec {
           else
           # However if it's not an attribute set, we can't apply the nested
           # modifications, throw an error
-            let updatePath = (head split.wrong).path;
-            in throw ("updateManyAttrsByPath: Path '${
-                showAttrPath updatePath
-              }' needs to " + "be updated, but path '${
-                showAttrPath (take prefixLength updatePath)
-              }' " + "of the given value is not an attribute set, so we can't "
-              + "update an attribute inside of it.");
+            let
+              updatePath = (head split.wrong).path;
+            in
+              throw ("updateManyAttrsByPath: Path '${
+                  showAttrPath updatePath
+                }' needs to " + "be updated, but path '${
+                  showAttrPath (take prefixLength updatePath)
+                }' "
+                + "of the given value is not an attribute set, so we can't "
+                + "update an attribute inside of it.")
+        ;
 
         # We get the final result by applying all the updates on this level
         # after having applied all the nested updates
         # We use foldl instead of foldl' so that in case of multiple updates,
         # intermediate values aren't evaluated if not needed
-      in foldl (acc: el: el.update acc) withNestedMods split.right;
+      in
+        foldl (acc: el: el.update acc) withNestedMods split.right
+    ;
 
-  in updates: value: go 0 true value updates;
+  in
+    updates: value: go 0 true value updates
+  ;
 
   /* Return the specified attributes from a set.
 
@@ -312,7 +329,8 @@ in rec {
     # The attribute set to filter
     set:
     listToAttrs (concatMap (name:
-      let v = set.${name};
+      let
+        v = set.${name};
       in if pred name v then [ (nameValuePair name v) ] else [ ])
       (attrNames set));
 
@@ -332,7 +350,8 @@ in rec {
     # The attribute set to filter
     set:
     listToAttrs (concatMap (name:
-      let v = set.${name};
+      let
+        v = set.${name};
       in if pred name v then [ (nameValuePair name
         (if isAttrs v then filterAttrsRecursive pred v else v)) ] else
         [ ]) (attrNames set));
@@ -585,8 +604,12 @@ in rec {
               recurse (path ++ [ name ]) value
             else
               f (path ++ [ name ]) value;
-        in mapAttrs g;
-    in recurse [ ] set;
+        in
+          mapAttrs g
+      ;
+    in
+      recurse [ ] set
+  ;
 
   /* Generate an attribute set by mapping a function over a list of
      attribute names.
@@ -642,7 +665,9 @@ in rec {
         out = res;
         outputName = "out";
       };
-    in res;
+    in
+      res
+  ;
 
   /* If `cond` is true, return the attribute set `as`,
      otherwise an empty attribute set.
@@ -759,16 +784,19 @@ in rec {
     let
       f = attrPath:
         zipAttrsWith (n: values:
-          let here = attrPath ++ [ n ];
+          let
+            here = attrPath ++ [ n ];
           in if length values == 1
           || pred here (elemAt values 1) (head values) then
             head values
           else
             f here values);
-    in f [ ] [
-      rhs
-      lhs
-    ];
+    in
+      f [ ] [
+        rhs
+        lhs
+      ]
+  ;
 
   /* A recursive variant of the update operator ‘//’.  The recursion
      stops when one of the attribute values is not an attribute set,
@@ -995,7 +1023,9 @@ in rec {
         builtins.throw
         "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
         intersection;
-    in (x // y) // mask;
+    in
+      (x // y) // mask
+  ;
 
   # DEPRECATED
   zipWithNames = zipAttrsWithNames;

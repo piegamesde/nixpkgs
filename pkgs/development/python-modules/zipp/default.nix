@@ -44,4 +44,5 @@ let
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in zipp
+in
+  zipp

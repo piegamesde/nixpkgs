@@ -26,39 +26,40 @@ let
     desktop-file-utils
   ];
 
-in appimageTools.wrapType2 rec {
-  inherit name src;
+in
+  appimageTools.wrapType2 rec {
+    inherit name src;
 
-  extraPkgs = pkgs: with pkgs; [ libsecret ];
+    extraPkgs = pkgs: with pkgs; [ libsecret ];
 
-  extraInstallCommands = ''
-    # directory in /nix/store so readonly
-    cd $out
-    chmod -R +w $out
-    mv $out/bin/${name} $out/bin/${pname}
+    extraInstallCommands = ''
+      # directory in /nix/store so readonly
+      cd $out
+      chmod -R +w $out
+      mv $out/bin/${name} $out/bin/${pname}
 
-    # fixup and install desktop file
-    ${desktop-file-utils}/bin/desktop-file-install --dir $out/share/applications \
-      --set-key Exec --set-value ${pname} ${appimageContents}/standard-notes.desktop
-    ln -s ${appimageContents}/usr/share/icons share
-  '';
-
-  passthru.updateScript = callPackage ./update.nix { };
-
-  meta = with lib; {
-    description = "A simple and private notes app";
-    longDescription = ''
-      Standard Notes is a private notes app that features unmatched simplicity,
-      end-to-end encryption, powerful extensions, and open-source applications.
+      # fixup and install desktop file
+      ${desktop-file-utils}/bin/desktop-file-install --dir $out/share/applications \
+        --set-key Exec --set-value ${pname} ${appimageContents}/standard-notes.desktop
+      ln -s ${appimageContents}/usr/share/icons share
     '';
-    homepage = "https://standardnotes.org";
-    license = licenses.agpl3;
-    maintainers = with maintainers; [
-      mgregoire
-      chuangzhu
-      squalus
-    ];
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
-    platforms = builtins.attrNames srcjson.appimage;
-  };
-}
+
+    passthru.updateScript = callPackage ./update.nix { };
+
+    meta = with lib; {
+      description = "A simple and private notes app";
+      longDescription = ''
+        Standard Notes is a private notes app that features unmatched simplicity,
+        end-to-end encryption, powerful extensions, and open-source applications.
+      '';
+      homepage = "https://standardnotes.org";
+      license = licenses.agpl3;
+      maintainers = with maintainers; [
+        mgregoire
+        chuangzhu
+        squalus
+      ];
+      sourceProvenance = [ sourceTypes.binaryNativeCode ];
+      platforms = builtins.attrNames srcjson.appimage;
+    };
+  }

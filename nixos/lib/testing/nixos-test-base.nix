@@ -5,7 +5,8 @@
   lib,
   ...
 }:
-let inherit (lib) mkForce;
+let
+  inherit (lib) mkForce;
 in {
   imports = [
     ../../modules/virtualisation/qemu-vm.nix

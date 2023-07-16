@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.networking.websockify;
+let
+  cfg = config.services.networking.websockify;
 in {
   options = {
     services.networking.websockify = {

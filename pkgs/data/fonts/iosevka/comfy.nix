@@ -35,36 +35,40 @@ let
   };
   privateBuildPlan = src.outPath + "/private-build-plans.toml";
   makeIosevkaFont = set:
-    let superBuildNpmPackage = buildNpmPackage;
-    in (iosevka.override rec {
-      inherit set privateBuildPlan;
-      buildNpmPackage = args:
-        superBuildNpmPackage (args // {
-          inherit version;
+    let
+      superBuildNpmPackage = buildNpmPackage;
+    in
+      (iosevka.override rec {
+        inherit set privateBuildPlan;
+        buildNpmPackage = args:
+          superBuildNpmPackage (args // {
+            inherit version;
 
-          src = fetchFromGitHub {
-            owner = "be5invis";
-            repo = "iosevka";
-            rev = "d3b461432137b36922e41322c2e45a2401e727a5";
-            hash = "sha256-Sm+eG6ovVLmvKvQFEZblQV3jCLQRrc9Gga3pukwteLE=";
-          };
+            src = fetchFromGitHub {
+              owner = "be5invis";
+              repo = "iosevka";
+              rev = "d3b461432137b36922e41322c2e45a2401e727a5";
+              hash = "sha256-Sm+eG6ovVLmvKvQFEZblQV3jCLQRrc9Gga3pukwteLE=";
+            };
 
-          npmDepsHash = "sha256-pikpi9eyo1a+AFLr7BMl1kegy3PgYFjzmE3QJqPXpNM=";
+            npmDepsHash = "sha256-pikpi9eyo1a+AFLr7BMl1kegy3PgYFjzmE3QJqPXpNM=";
 
-          meta = with lib; {
-            inherit (src.meta) homepage;
-            description = ''
-              Customised build of the Iosevka typeface, with a consistent
-              rounded style and overrides for almost all individual glyphs
-              in both roman (upright) and italic (slanted) variants.
-            '';
-            license = licenses.ofl;
-            platforms = iosevka.meta.platforms;
-            maintainers = [ maintainers.DamienCassou ];
-          };
-        });
-    });
-in builtins.listToAttrs (builtins.map (set: {
-  name = set;
-  value = makeIosevkaFont set;
-}) sets)
+            meta = with lib; {
+              inherit (src.meta) homepage;
+              description = ''
+                Customised build of the Iosevka typeface, with a consistent
+                rounded style and overrides for almost all individual glyphs
+                in both roman (upright) and italic (slanted) variants.
+              '';
+              license = licenses.ofl;
+              platforms = iosevka.meta.platforms;
+              maintainers = [ maintainers.DamienCassou ];
+            };
+          });
+      })
+  ;
+in
+  builtins.listToAttrs (builtins.map (set: {
+    name = set;
+    value = makeIosevkaFont set;
+  }) sets)

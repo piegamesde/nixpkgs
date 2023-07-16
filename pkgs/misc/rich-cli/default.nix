@@ -35,42 +35,43 @@ let
     };
   };
 
-in python3.pkgs.buildPythonApplication rec {
-  pname = "rich-cli";
-  version = "1.8.0";
-  format = "pyproject";
+in
+  python3.pkgs.buildPythonApplication rec {
+    pname = "rich-cli";
+    version = "1.8.0";
+    format = "pyproject";
 
-  src = fetchFromGitHub {
-    owner = "Textualize";
-    repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-mV5b/J9wX9niiYtlmAUouaAm9mY2zTtDmex7FNWcezQ=";
-  };
+    src = fetchFromGitHub {
+      owner = "Textualize";
+      repo = pname;
+      rev = "refs/tags/v${version}";
+      hash = "sha256-mV5b/J9wX9niiYtlmAUouaAm9mY2zTtDmex7FNWcezQ=";
+    };
 
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace 'rich = "^12.4.0"' 'rich = "*"' \
-      --replace 'textual = "^0.1.18"' 'textual = "*"'
-  '';
+    postPatch = ''
+      substituteInPlace pyproject.toml \
+        --replace 'rich = "^12.4.0"' 'rich = "*"' \
+        --replace 'textual = "^0.1.18"' 'textual = "*"'
+    '';
 
-  nativeBuildInputs = with py.pkgs; [ poetry-core ];
+    nativeBuildInputs = with py.pkgs; [ poetry-core ];
 
-  propagatedBuildInputs = with py.pkgs; [
-    rich
-    click
-    requests
-    textual
-    rich-rst
-  ];
+    propagatedBuildInputs = with py.pkgs; [
+      rich
+      click
+      requests
+      textual
+      rich-rst
+    ];
 
-  pythonImportsCheck = [ "rich_cli" ];
+    pythonImportsCheck = [ "rich_cli" ];
 
-  meta = with lib; {
-    description = "Command Line Interface to Rich";
-    homepage = "https://github.com/Textualize/rich-cli";
-    changelog =
-      "https://github.com/Textualize/rich-cli/releases/tag/v${version}";
-    license = licenses.mit;
-    maintainers = with maintainers; [ joelkoen ];
-  };
-}
+    meta = with lib; {
+      description = "Command Line Interface to Rich";
+      homepage = "https://github.com/Textualize/rich-cli";
+      changelog =
+        "https://github.com/Textualize/rich-cli/releases/tag/v${version}";
+      license = licenses.mit;
+      maintainers = with maintainers; [ joelkoen ];
+    };
+  }

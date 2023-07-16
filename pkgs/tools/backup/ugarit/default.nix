@@ -4,7 +4,8 @@
   eggDerivation,
   fetchegg,
 }:
-let eggs = import ./eggs.nix { inherit eggDerivation fetchegg; };
+let
+  eggs = import ./eggs.nix { inherit eggDerivation fetchegg; };
 in with pkgs;
 eggDerivation rec {
   pname = "ugarit";

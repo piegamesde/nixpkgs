@@ -30,22 +30,23 @@ let
       wrapLuaPrograms
     '';
   });
-in pkgs.recurseIntoAttrs ({
+in
+  pkgs.recurseIntoAttrs ({
 
-  checkAliases = runTest lua {
-    name = "check-aliases";
-    command = ''
-      generated=$(lua -e 'print(package.path)')
-      golden_LUA_PATH='./share/lua/${lua.luaversion}/?.lua;./?.lua;./?/init.lua'
+    checkAliases = runTest lua {
+      name = "check-aliases";
+      command = ''
+        generated=$(lua -e 'print(package.path)')
+        golden_LUA_PATH='./share/lua/${lua.luaversion}/?.lua;./?.lua;./?/init.lua'
 
-      assertStringEqual "$generated" "$golden_LUA_PATH"
-    '';
-  };
+        assertStringEqual "$generated" "$golden_LUA_PATH"
+      '';
+    };
 
-  checkWrapping = pkgs.runCommandLocal "test-${lua.name}" ({ }) (''
-    grep -- 'LUA_PATH=' ${wrappedHello}/bin/hello
-    touch $out
-  '');
+    checkWrapping = pkgs.runCommandLocal "test-${lua.name}" ({ }) (''
+      grep -- 'LUA_PATH=' ${wrappedHello}/bin/hello
+      touch $out
+    '');
 
-})
+  })
 

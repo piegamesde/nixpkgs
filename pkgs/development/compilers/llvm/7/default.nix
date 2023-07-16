@@ -224,7 +224,7 @@ let
         extraBuildCommands = mkExtraBuildCommands0 cc;
       };
 
-    });
+    } );
 
   libraries = lib.makeExtensible (libraries:
     let
@@ -286,6 +286,7 @@ let
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    });
+    } );
 
-in { inherit tools libraries release_version; } // libraries // tools
+in
+  { inherit tools libraries release_version; } // libraries // tools

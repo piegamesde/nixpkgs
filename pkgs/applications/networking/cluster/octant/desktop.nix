@@ -36,16 +36,16 @@ let
 
     multiPkgs = null; # no 32bit needed
     extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
-    extraInstallCommands =
-      let appimageContents = appimageTools.extractType2 { inherit name src; };
-      in ''
-        mv $out/bin/{${name},${pname}}
-        install -Dm444 ${appimageContents}/octant.desktop -t $out/share/applications
-        substituteInPlace $out/share/applications/octant.desktop \
-          --replace 'Exec=AppRun --no-sandbox' 'Exec=${pname}'
-        install -m 444 -D ${appimageContents}/octant.png \
-          $out/share/icons/hicolor/512x512/apps/octant.png
-      '';
+    extraInstallCommands = let
+      appimageContents = appimageTools.extractType2 { inherit name src; };
+    in ''
+      mv $out/bin/{${name},${pname}}
+      install -Dm444 ${appimageContents}/octant.desktop -t $out/share/applications
+      substituteInPlace $out/share/applications/octant.desktop \
+        --replace 'Exec=AppRun --no-sandbox' 'Exec=${pname}'
+      install -m 444 -D ${appimageContents}/octant.png \
+        $out/share/icons/hicolor/512x512/apps/octant.png
+    '' ;
   };
 
   darwin = stdenv.mkDerivation {

@@ -21,32 +21,33 @@ let
 
   # See http://linux-libre.fsfla.org/pub/linux-libre/releases
   versionPrefix = if linux.kernelOlder "5.14" then "gnu1" else "gnu";
-in linux.override {
-  argsOverride = {
-    modDirVersion = "${linux.modDirVersion}-${versionPrefix}";
-    isLibre = true;
+in
+  linux.override {
+    argsOverride = {
+      modDirVersion = "${linux.modDirVersion}-${versionPrefix}";
+      isLibre = true;
 
-    src = stdenv.mkDerivation {
-      name = "${linux.name}-libre-src";
-      src = linux.src;
-      buildPhase = ''
-        # --force flag to skip empty files after deblobbing
-        ${scripts}/${majorMinor}/deblob-${majorMinor} --force \
-            ${major} ${minor} ${patch}
-      '';
-      checkPhase = ''
-        ${scripts}/deblob-check
-      '';
-      installPhase = ''
-        cp -r . "$out"
-      '';
+      src = stdenv.mkDerivation {
+        name = "${linux.name}-libre-src";
+        src = linux.src;
+        buildPhase = ''
+          # --force flag to skip empty files after deblobbing
+          ${scripts}/${majorMinor}/deblob-${majorMinor} --force \
+              ${major} ${minor} ${patch}
+        '';
+        checkPhase = ''
+          ${scripts}/deblob-check
+        '';
+        installPhase = ''
+          cp -r . "$out"
+        '';
+      };
+
+      passthru.updateScript = ./update-libre.sh;
+
+      maintainers = with lib.maintainers; [
+        qyliss
+        ivar
+      ];
     };
-
-    passthru.updateScript = ./update-libre.sh;
-
-    maintainers = with lib.maintainers; [
-      qyliss
-      ivar
-    ];
-  };
-}
+  }

@@ -5,7 +5,8 @@
   ...
 }:
 with lib;
-let cfg = config.services.sysstat;
+let
+  cfg = config.services.sysstat;
 in {
   options = {
     services.sysstat = {

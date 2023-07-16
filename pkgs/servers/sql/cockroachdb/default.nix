@@ -31,72 +31,73 @@ let
     autoconf
   ];
 
-in buildGoPackage rec {
-  pname = "cockroach";
-  version = "20.1.8";
+in
+  buildGoPackage rec {
+    pname = "cockroach";
+    version = "20.1.8";
 
-  goPackagePath = "github.com/cockroachdb/cockroach";
+    goPackagePath = "github.com/cockroachdb/cockroach";
 
-  src = fetchurl {
-    url = "https://binaries.cockroachdb.com/cockroach-v${version}.src.tgz";
-    sha256 = "0mm3hfr778c7djza8gr1clwa8wca4d3ldh9hlg80avw4x664y5zi";
-  };
+    src = fetchurl {
+      url = "https://binaries.cockroachdb.com/cockroach-v${version}.src.tgz";
+      sha256 = "0mm3hfr778c7djza8gr1clwa8wca4d3ldh9hlg80avw4x664y5zi";
+    };
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
-    "-Wno-error=deprecated-copy"
-    "-Wno-error=redundant-move"
-    "-Wno-error=pessimizing-move"
-  ]);
+    env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
+      "-Wno-error=deprecated-copy"
+      "-Wno-error=redundant-move"
+      "-Wno-error=pessimizing-move"
+    ]);
 
-  inherit nativeBuildInputs buildInputs;
+    inherit nativeBuildInputs buildInputs;
 
-  buildPhase = ''
-    runHook preBuild
-    cd $NIX_BUILD_TOP/go/src/${goPackagePath}
-    patchShebangs .
-    make buildoss
-    cd src/${goPackagePath}
-    for asset in man autocomplete; do
-      ./cockroachoss gen $asset
-    done
-    runHook postBuild
-  '';
+    buildPhase = ''
+      runHook preBuild
+      cd $NIX_BUILD_TOP/go/src/${goPackagePath}
+      patchShebangs .
+      make buildoss
+      cd src/${goPackagePath}
+      for asset in man autocomplete; do
+        ./cockroachoss gen $asset
+      done
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -D cockroachoss $out/bin/cockroach
-    installShellCompletion cockroach.bash
+      install -D cockroachoss $out/bin/cockroach
+      installShellCompletion cockroach.bash
 
-    mkdir -p $man/share/man
-    cp -r man $man/share/man
+      mkdir -p $man/share/man
+      cp -r man $man/share/man
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  outputs = [
-    "out"
-    "man"
-  ];
-
-  # fails with `GOFLAGS=-trimpath`
-  allowGoReference = true;
-  preFixup = ''
-    find $out -type f -exec ${removeReferencesTo}/bin/remove-references-to -t ${go} '{}' +
-  '';
-
-  meta = with lib; {
-    homepage = "https://www.cockroachlabs.com";
-    description = "A scalable, survivable, strongly-consistent SQL database";
-    license = licenses.bsl11;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
+    outputs = [
+      "out"
+      "man"
     ];
-    maintainers = with maintainers; [
-      rushmorem
-      thoughtpolice
-    ];
-  };
-}
+
+    # fails with `GOFLAGS=-trimpath`
+    allowGoReference = true;
+    preFixup = ''
+      find $out -type f -exec ${removeReferencesTo}/bin/remove-references-to -t ${go} '{}' +
+    '';
+
+    meta = with lib; {
+      homepage = "https://www.cockroachlabs.com";
+      description = "A scalable, survivable, strongly-consistent SQL database";
+      license = licenses.bsl11;
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+      ];
+      maintainers = with maintainers; [
+        rushmorem
+        thoughtpolice
+      ];
+    };
+  }

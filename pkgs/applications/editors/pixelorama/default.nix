@@ -13,53 +13,54 @@ let
     "Mac OSX"
   else
     throw "unsupported platform";
-in stdenv.mkDerivation rec {
-  pname = "pixelorama";
-  version = "0.10.3";
+in
+  stdenv.mkDerivation rec {
+    pname = "pixelorama";
+    version = "0.10.3";
 
-  src = fetchFromGitHub {
-    owner = "Orama-Interactive";
-    repo = "Pixelorama";
-    rev = "v${version}";
-    sha256 = "sha256-RFE7K8NMl0COzFEhUqWhhYd5MGBsCDJf0T5daPu/4DI=";
-  };
+    src = fetchFromGitHub {
+      owner = "Orama-Interactive";
+      repo = "Pixelorama";
+      rev = "v${version}";
+      sha256 = "sha256-RFE7K8NMl0COzFEhUqWhhYd5MGBsCDJf0T5daPu/4DI=";
+    };
 
-  nativeBuildInputs = [ godot-headless ];
+    nativeBuildInputs = [ godot-headless ];
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    export HOME=$(mktemp -d)
-    mkdir -p $HOME/.local/share/godot/
-    ln -s "${godot-export-templates}/share/godot/templates" "$HOME/.local/share/godot/templates"
-    mkdir -p build
-    godot-headless -v --export "${preset}" ./build/pixelorama
-    godot-headless -v --export-pack "${preset}" ./build/pixelorama.pck
+      export HOME=$(mktemp -d)
+      mkdir -p $HOME/.local/share/godot/
+      ln -s "${godot-export-templates}/share/godot/templates" "$HOME/.local/share/godot/templates"
+      mkdir -p build
+      godot-headless -v --export "${preset}" ./build/pixelorama
+      godot-headless -v --export-pack "${preset}" ./build/pixelorama.pck
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -D -m 755 -t $out/libexec ./build/pixelorama
-    install -D -m 644 -t $out/libexec ./build/pixelorama.pck
-    install -D -m 644 -t $out/share/applications ./Misc/Linux/com.orama_interactive.Pixelorama.desktop
-    install -d -m 755 $out/bin
-    ln -s $out/libexec/pixelorama $out/bin/pixelorama
+      install -D -m 755 -t $out/libexec ./build/pixelorama
+      install -D -m 644 -t $out/libexec ./build/pixelorama.pck
+      install -D -m 644 -t $out/share/applications ./Misc/Linux/com.orama_interactive.Pixelorama.desktop
+      install -d -m 755 $out/bin
+      ln -s $out/libexec/pixelorama $out/bin/pixelorama
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    homepage = "https://orama-interactive.itch.io/pixelorama";
-    description =
-      "A free & open-source 2D sprite editor, made with the Godot Engine!";
-    license = licenses.mit;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
-    maintainers = with maintainers; [ felschr ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://orama-interactive.itch.io/pixelorama";
+      description =
+        "A free & open-source 2D sprite editor, made with the Godot Engine!";
+      license = licenses.mit;
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+      ];
+      maintainers = with maintainers; [ felschr ];
+    };
+  }

@@ -105,16 +105,18 @@ in {
             "/run/wrappers/bin/sendmail"
           else
             "${config.system.path}/bin/sendmail";
-        in pkgs.writeText "fcron.conf" ''
-          fcrontabs   =       /var/spool/fcron
-          pidfile     =       /run/fcron.pid
-          fifofile    =       /run/fcron.fifo
-          fcronallow  =       /etc/fcron.allow
-          fcrondeny   =       /etc/fcron.deny
-          shell       =       /bin/sh
-          sendmail    =       ${sendmailPath}
-          editor      =       ${pkgs.vim}/bin/vim
-        '';
+        in
+          pkgs.writeText "fcron.conf" ''
+            fcrontabs   =       /var/spool/fcron
+            pidfile     =       /run/fcron.pid
+            fifofile    =       /run/fcron.fifo
+            fcronallow  =       /etc/fcron.allow
+            fcrondeny   =       /etc/fcron.deny
+            shell       =       /bin/sh
+            sendmail    =       ${sendmailPath}
+            editor      =       ${pkgs.vim}/bin/vim
+          ''
+        ;
         target = "fcron.conf";
         gid = config.ids.gids.fcron;
         mode = "0644";

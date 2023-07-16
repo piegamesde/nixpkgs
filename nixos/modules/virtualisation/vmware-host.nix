@@ -18,7 +18,7 @@ let
       (mkVmwareSymlink "pkexec")
       (mkVmwareSymlink "mount")
       (mkVmwareSymlink "umount")
-    ];
+    ] ;
 in {
   options = with lib; {
     virtualisation.vmware.host = {

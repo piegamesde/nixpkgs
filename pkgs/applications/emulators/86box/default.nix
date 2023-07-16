@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/86Box \
       "''${qtWrapperArgs[@]}" \
       --prefix ${libPathVar} : "${libPath}"
-  '';
+  '' ;
 
   # Do not wrap twice.
   dontWrapQtApps = true;

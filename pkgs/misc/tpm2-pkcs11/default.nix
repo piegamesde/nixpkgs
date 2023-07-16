@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
       } \
       --add-needed ${lib.makeLibraryPath [ tpm2-tss ]}/libtss2-tcti-device.so \
       $out/lib/libtpm2_pkcs11.so.0.0.0
-  '';
+  '' ;
 
   postInstall = ''
     mkdir -p $bin/bin/ $bin/share/tpm2_pkcs11/

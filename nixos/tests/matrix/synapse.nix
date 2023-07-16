@@ -67,7 +67,8 @@ import ../make-test-python.nix ({
           nodes,
           ...
         }:
-        let mailserverIP = nodes.mailserver.config.networking.primaryIPAddress;
+        let
+          mailserverIP = nodes.mailserver.config.networking.primaryIPAddress;
         in {
           services.matrix-synapse = {
             enable = true;
@@ -139,20 +140,22 @@ import ../make-test-python.nix ({
               insertEmailForAlice = pkgs.writeText "alice-email.sql" ''
                 INSERT INTO user_threepids (user_id, medium, address, validated_at, added_at) VALUES ('${testUser}@serverpostgres', 'email', '${testEmail}', '1629149927271', '1629149927270');
               '';
-            in pkgs.writeScriptBin "obtain-token-and-register-email" ''
-              #!${pkgs.runtimeShell}
-              set -o errexit
-              set -o pipefail
-              set -o nounset
-              su postgres -c "psql -d matrix-synapse -f ${insertEmailForAlice}"
-              curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
-            '';
+            in
+              pkgs.writeScriptBin "obtain-token-and-register-email" ''
+                #!${pkgs.runtimeShell}
+                set -o errexit
+                set -o pipefail
+                set -o nounset
+                su postgres -c "psql -d matrix-synapse -f ${insertEmailForAlice}"
+                curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
+              ''
+            ;
           in [
             sendTestMailStarttls
             pkgs.matrix-synapse
             obtainTokenAndRegisterEmail
-          ];
-        };
+          ] ;
+        } ;
 
       # test mail delivery
       mailserver = args:
@@ -193,7 +196,7 @@ import ../make-test-python.nix ({
                 "TLSv1.3, TLSv1.2, !TLSv1.1, !TLSv1, !SSLv2, !SSLv3";
             };
           };
-        };
+        } ;
 
       serversqlite = args: {
         services.matrix-synapse = {
@@ -226,4 +229,4 @@ import ../make-test-python.nix ({
       serversqlite.succeed("[ -e /var/lib/matrix-synapse/homeserver.db ]")
     '';
 
-  })
+  } )

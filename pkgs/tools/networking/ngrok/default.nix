@@ -25,44 +25,45 @@ let
   versionInfo = versions."${os}-${arch}";
   inherit (versionInfo) version sha256 url;
 
-in stdenv.mkDerivation {
-  pname = "ngrok";
-  inherit version;
+in
+  stdenv.mkDerivation {
+    pname = "ngrok";
+    inherit version;
 
-  # run ./update
-  src = fetchurl { inherit sha256 url; };
+    # run ./update
+    src = fetchurl { inherit sha256 url; };
 
-  sourceRoot = ".";
+    sourceRoot = ".";
 
-  unpackPhase = "cp $src ngrok";
+    unpackPhase = "cp $src ngrok";
 
-  buildPhase = "chmod a+x ngrok";
+    buildPhase = "chmod a+x ngrok";
 
-  installPhase = ''
-    install -D ngrok $out/bin/ngrok
-  '';
+    installPhase = ''
+      install -D ngrok $out/bin/ngrok
+    '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  # Stripping causes SEGFAULT on x86_64-darwin
-  dontStrip = true;
+    # Stripping causes SEGFAULT on x86_64-darwin
+    dontStrip = true;
 
-  meta = with lib; {
-    description =
-      "Allows you to expose a web server running on your local machine to the internet";
-    homepage = "https://ngrok.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-    maintainers = with maintainers; [
-      bobvanderlinden
-      brodes
-    ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Allows you to expose a web server running on your local machine to the internet";
+      homepage = "https://ngrok.com/";
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.unfree;
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      maintainers = with maintainers; [
+        bobvanderlinden
+        brodes
+      ];
+    };
+  }

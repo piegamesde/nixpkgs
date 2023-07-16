@@ -73,41 +73,42 @@ let
     # and forces dotnet to include binary dependencies in the output (libdbgshim)
     selfContainedBuild = true;
   };
-in stdenv.mkDerivation rec {
-  inherit pname version;
-  # managed brings external binaries (libdbgshim.*)
-  # include source here so that autoPatchelfHook can do it's job
-  src = managed;
+in
+  stdenv.mkDerivation rec {
+    inherit pname version;
+    # managed brings external binaries (libdbgshim.*)
+    # include source here so that autoPatchelfHook can do it's job
+    src = managed;
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
-  buildInputs = lib.optionals stdenv.isLinux [ stdenv.cc.cc.lib ];
-  installPhase = ''
-    mkdir -p $out/share/netcoredbg $out/bin
-    cp ${unmanaged}/* $out/share/netcoredbg
-    cp ./lib/netcoredbg/* $out/share/netcoredbg
-    # darwin won't work unless we link all files
-    ln -s $out/share/netcoredbg/* "$out/bin/"
-  '';
+    nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+    buildInputs = lib.optionals stdenv.isLinux [ stdenv.cc.cc.lib ];
+    installPhase = ''
+      mkdir -p $out/share/netcoredbg $out/bin
+      cp ${unmanaged}/* $out/share/netcoredbg
+      cp ./lib/netcoredbg/* $out/share/netcoredbg
+      # darwin won't work unless we link all files
+      ln -s $out/share/netcoredbg/* "$out/bin/"
+    '';
 
-  passthru = {
-    inherit (managed) fetch-deps;
+    passthru = {
+      inherit (managed) fetch-deps;
 
-    updateScript = [
-      ./update.sh
-      pname
-      version
-      meta.homepage
-    ];
-  };
+      updateScript = [
+        ./update.sh
+        pname
+        version
+        meta.homepage
+      ];
+    };
 
-  meta = with lib; {
-    description = "Managed code debugger with MI interface for CoreCLR";
-    homepage = "https://github.com/Samsung/netcoredbg";
-    license = licenses.mit;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [
-      leo60228
-      konradmalik
-    ];
-  };
-}
+    meta = with lib; {
+      description = "Managed code debugger with MI interface for CoreCLR";
+      homepage = "https://github.com/Samsung/netcoredbg";
+      license = licenses.mit;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [
+        leo60228
+        konradmalik
+      ];
+    };
+  }

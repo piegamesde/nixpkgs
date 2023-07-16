@@ -83,20 +83,21 @@ let
 
   sourceFile = "source.dhall";
 
-in runCommand name { } (''
-  set -eu
+in
+  runCommand name { } (''
+    set -eu
 
-  mkdir -p ${cacheDhall} $out/${cacheDhall}
+    mkdir -p ${cacheDhall} $out/${cacheDhall}
 
-  export XDG_CACHE_HOME=$PWD/${cache}
+    export XDG_CACHE_HOME=$PWD/${cache}
 
-  SHA_HASH="${dhallHash}"
+    SHA_HASH="${dhallHash}"
 
-  HASH_FILE="''${SHA_HASH/sha256:/1220}"
+    HASH_FILE="''${SHA_HASH/sha256:/1220}"
 
-  cp ${downloadedEncodedFile} $out/${cacheDhall}/$HASH_FILE
+    cp ${downloadedEncodedFile} $out/${cacheDhall}/$HASH_FILE
 
-  echo "missing $SHA_HASH" > $out/binary.dhall
-'' + lib.optionalString source ''
-  ${dhallNoHTTP}/bin/dhall decode --file ${downloadedEncodedFile} > $out/${sourceFile}
-'')
+    echo "missing $SHA_HASH" > $out/binary.dhall
+  '' + lib.optionalString source ''
+    ${dhallNoHTTP}/bin/dhall decode --file ${downloadedEncodedFile} > $out/${sourceFile}
+  '')

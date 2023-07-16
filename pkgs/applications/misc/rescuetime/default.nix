@@ -32,67 +32,68 @@ let
         "https://www.rescuetime.com/installers/rescuetime_${version}_amd64.deb";
       sha256 = "09ng0yal66d533vzfv27k9l2va03rqbqmsni43qi3hgx7w9wx5ii";
     };
-in mkDerivation rec {
-  # https://www.rescuetime.com/updates/linux_release_notes.html
-  inherit version;
-  pname = "rescuetime";
-  inherit src;
-  nativeBuildInputs = [ dpkg ];
-  # avoid https://github.com/NixOS/patchelf/issues/99
-  dontStrip = true;
-  unpackPhase = ''
-    mkdir pkg
-    dpkg-deb -x $src pkg
-    sourceRoot=pkg
-  '';
-  installPhase = ''
-    mkdir -p $out/bin
-    cp usr/bin/rescuetime $out/bin
+in
+  mkDerivation rec {
+    # https://www.rescuetime.com/updates/linux_release_notes.html
+    inherit version;
+    pname = "rescuetime";
+    inherit src;
+    nativeBuildInputs = [ dpkg ];
+    # avoid https://github.com/NixOS/patchelf/issues/99
+    dontStrip = true;
+    unpackPhase = ''
+      mkdir pkg
+      dpkg-deb -x $src pkg
+      sourceRoot=pkg
+    '';
+    installPhase = ''
+      mkdir -p $out/bin
+      cp usr/bin/rescuetime $out/bin
 
-    ${patchelf}/bin/patchelf \
-      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${
-        lib.makeLibraryPath [
-          qt5.qtbase
-          libXtst
-          libXext
-          libX11
-          libXScrnSaver
+      ${patchelf}/bin/patchelf \
+        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${
+          lib.makeLibraryPath [
+            qt5.qtbase
+            libXtst
+            libXext
+            libX11
+            libXScrnSaver
+          ]
+        }" \
+        $out/bin/rescuetime
+    '';
+
+    passthru.updateScript = writeScript "${pname}-updater" ''
+      #!${stdenv.shell}
+      set -eu -o pipefail
+      PATH=${
+        lib.makeBinPath [
+          curl
+          pup
+          common-updater-scripts
         ]
-      }" \
-      $out/bin/rescuetime
-  '';
+      }:$PATH
+      latestVersion="$(curl -sS https://www.rescuetime.com/release-notes/linux | pup '.release:first-of-type h2 strong text{}' | tr -d '\n')"
 
-  passthru.updateScript = writeScript "${pname}-updater" ''
-    #!${stdenv.shell}
-    set -eu -o pipefail
-    PATH=${
-      lib.makeBinPath [
-        curl
-        pup
-        common-updater-scripts
-      ]
-    }:$PATH
-    latestVersion="$(curl -sS https://www.rescuetime.com/release-notes/linux | pup '.release:first-of-type h2 strong text{}' | tr -d '\n')"
+      for platform in ${lib.concatStringsSep " " meta.platforms}; do
+        # The script will not perform an update when the version attribute is up to date from previous platform run
+        # We need to clear it before each run
+        update-source-version ${pname} 0 $(yes 0 | head -64 | tr -d "\n") --system=$platform
+        update-source-version ${pname} "$latestVersion" --system=$platform
+      done
+    '';
 
-    for platform in ${lib.concatStringsSep " " meta.platforms}; do
-      # The script will not perform an update when the version attribute is up to date from previous platform run
-      # We need to clear it before each run
-      update-source-version ${pname} 0 $(yes 0 | head -64 | tr -d "\n") --system=$platform
-      update-source-version ${pname} "$latestVersion" --system=$platform
-    done
-  '';
-
-  meta = with lib; {
-    description =
-      "Helps you understand your daily habits so you can focus and be more productive";
-    homepage = "https://www.rescuetime.com";
-    maintainers = with maintainers; [ cstrahan ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
-  };
-}
+    meta = with lib; {
+      description =
+        "Helps you understand your daily habits so you can focus and be more productive";
+      homepage = "https://www.rescuetime.com";
+      maintainers = with maintainers; [ cstrahan ];
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      license = licenses.unfree;
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+      ];
+    };
+  }

@@ -28,43 +28,44 @@ let
     ];
   });
   uri' = uri.override { angstrom = angstrom'; };
-in buildDunePackage rec {
-  pname = "mldoc";
-  version = "1.5.2";
+in
+  buildDunePackage rec {
+    pname = "mldoc";
+    version = "1.5.2";
 
-  minimalOCamlVersion = "4.10";
+    minimalOCamlVersion = "4.10";
 
-  duneVersion = "3";
+    duneVersion = "3";
 
-  src = fetchFromGitHub {
-    owner = "logseq";
-    repo = "mldoc";
-    rev = "v${version}";
-    hash = "sha256-FiBlgTTGL5TQkbhpkOCKtBgDDxDs4S88Ps+XAHcNsJ4=";
-  };
+    src = fetchFromGitHub {
+      owner = "logseq";
+      repo = "mldoc";
+      rev = "v${version}";
+      hash = "sha256-FiBlgTTGL5TQkbhpkOCKtBgDDxDs4S88Ps+XAHcNsJ4=";
+    };
 
-  buildInputs = [
-    cmdliner
-    core
-    core_bench
-    core_unix
-    js_of_ocaml
-    js_of_ocaml-ppx
-    lwt
-  ];
+    buildInputs = [
+      cmdliner
+      core
+      core_bench
+      core_unix
+      js_of_ocaml
+      js_of_ocaml-ppx
+      lwt
+    ];
 
-  propagatedBuildInputs = [
-    angstrom'
-    uri'
-    yojson
-    ppx_deriving_yojson
-    xmlm
-  ];
+    propagatedBuildInputs = [
+      angstrom'
+      uri'
+      yojson
+      ppx_deriving_yojson
+      xmlm
+    ];
 
-  meta = with lib; {
-    homepage = "https://github.com/logseq/mldoc";
-    description = "Another Emacs Org-mode and Markdown parser";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ marsam ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/logseq/mldoc";
+      description = "Another Emacs Org-mode and Markdown parser";
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [ marsam ];
+    };
+  }

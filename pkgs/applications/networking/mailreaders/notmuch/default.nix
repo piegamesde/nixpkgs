@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
   in ''
     mkdir -p test/test-databases
     ln -s ${test-database} test/test-databases/database-v1.tar.xz
-  '';
+  '' ;
 
   doCheck = !stdenv.hostPlatform.isDarwin
     && (lib.versionAtLeast gmime3.version "3.0.3");

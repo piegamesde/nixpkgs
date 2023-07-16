@@ -502,7 +502,7 @@ in {
         if [ ! -e "$invalid_barcode_location" ]; then
             cp ${snipe-it}/share/snipe-it/invalid_barcode.gif "$invalid_barcode_location"
         fi
-      '';
+      '' ;
     };
 
     systemd.tmpfiles.rules = [

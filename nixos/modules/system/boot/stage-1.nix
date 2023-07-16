@@ -176,14 +176,15 @@ let
     # TODO: move out to a separate script; see #85000.
     ${optionalString (!config.boot.loader.supportsInitrdSecrets)
     (concatStringsSep "\n" (mapAttrsToList (dest: source:
-      let source' = if source == null then dest else source;
+      let
+        source' = if source == null then dest else source;
       in ''
         mkdir -p $(dirname "$out/secrets/${dest}")
         # Some programs (e.g. ssh) doesn't like secrets to be
         # symlinks, so we use `cp -L` here to match the
         # behaviour when secrets are natively supported.
         cp -Lr ${source'} "$out/secrets/${dest}"
-      '') config.boot.initrd.secrets))}
+      '' ) config.boot.initrd.secrets))}
 
     ${config.boot.initrd.extraUtilsCommands}
 
@@ -261,7 +262,9 @@ let
     links =
       filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
     files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
-  in concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files));
+  in
+    concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
+  ));
 
   udevRules = pkgs.runCommand "udev-rules" {
     allowedReferences = [ extraUtils ];
@@ -350,8 +353,10 @@ let
         fs.fsType
         (builtins.concatStringsSep "," fs.options)
       ];
-    in pkgs.writeText "initrd-fsinfo"
-    (concatStringsSep "\n" (concatMap f fileSystems));
+    in
+      pkgs.writeText "initrd-fsinfo"
+      (concatStringsSep "\n" (concatMap f fileSystems))
+    ;
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
@@ -415,9 +420,10 @@ let
   };
 
   # Script to add secret files to the initrd at bootloader update time
-  initialRamdiskSecretAppender =
-    let compressorExe = initialRamdisk.compressorExecutableFunction pkgs;
-    in pkgs.writeScriptBin "append-initrd-secrets" ''
+  initialRamdiskSecretAppender = let
+    compressorExe = initialRamdisk.compressorExecutableFunction pkgs;
+  in
+    pkgs.writeScriptBin "append-initrd-secrets" ''
       #!${pkgs.bash}/bin/bash -e
       function usage {
         echo "USAGE: $0 INITRD_FILE" >&2
@@ -448,18 +454,20 @@ let
       tmp=$(mktemp -d ''${TMPDIR:-/tmp}/initrd-secrets.XXXXXXXXXX)
 
       ${lib.concatStringsSep "\n" (mapAttrsToList (dest: source:
-        let source' = if source == null then dest else toString source;
+        let
+          source' = if source == null then dest else toString source;
         in ''
           mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
           cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
-        '') config.boot.initrd.secrets)}
+        '' ) config.boot.initrd.secrets)}
 
       # mindepth 1 so that we don't change the mode of /
       (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
         ${compressorExe} ${
           lib.escapeShellArgs initialRamdisk.compressorArgs
         } >> "$1"
-    '';
+    ''
+  ;
 
 in {
   options = {
@@ -704,8 +712,11 @@ in {
           "The ‘fileSystems’ option does not specify your root file system.";
       }
       {
-        assertion = let inherit (config.boot) resumeDevice;
-        in resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/";
+        assertion = let
+          inherit (config.boot) resumeDevice;
+        in
+          resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/"
+        ;
         message = "boot.resumeDevice has to be an absolute path."
           + " Old \"x:y\" style is no longer supported.";
       }

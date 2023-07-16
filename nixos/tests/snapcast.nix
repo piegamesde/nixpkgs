@@ -98,4 +98,4 @@ import ./make-test-python.nix ({
             toString bufferSize
           }'")
     '';
-  })
+  } )

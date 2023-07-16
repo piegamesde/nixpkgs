@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.distccd;
+let
+  cfg = config.services.distccd;
 in {
   options = {
     services.distccd = {

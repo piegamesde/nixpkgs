@@ -83,13 +83,14 @@ let
     echo 'running vscodeExts2nix to update ${mutableExtensionsFilePath}...'
     ${vscodeExts2nix}/bin/vscodeExts2nix > ${mutableExtensionsFilePath}
   '';
-in buildEnv {
-  name = "vscodeEnv";
-  paths = [
-    code
-    vscodeExts2nix
-    updateSettingsCmd
-    updateLaunchCmd
-    updateKeybindingsCmd
-  ];
-}
+in
+  buildEnv {
+    name = "vscodeEnv";
+    paths = [
+      code
+      vscodeExts2nix
+      updateSettingsCmd
+      updateLaunchCmd
+      updateKeybindingsCmd
+    ];
+  }

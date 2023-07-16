@@ -112,8 +112,10 @@ let
           {
             name = showOption opt.loc;
           } // builtins.tryEval (strict opt.value));
-    in keepNames
-    (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)));
+    in
+      keepNames
+      (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)))
+  ;
 
   # Create a list of modules where each module contains only one failling
   # options.
@@ -124,7 +126,9 @@ let
       config = setAttrByPath path
         (throw "Usage introspection of '${name}' by forced failure.");
     };
-  in map setIntrospection (collect isOption eval.options);
+  in
+    map setIntrospection (collect isOption eval.options)
+  ;
 
   overrideConfig = thrower:
     recursiveUpdateUntil (path: old: new: path == thrower.path) eval.config
@@ -140,11 +144,13 @@ let
   displayOptionsGraph = let
     checkList = if testOption != null then [ testOption ] else testOptions;
     checkAll = checkList == [ ];
-  in flip filter graph ({
-      option,
-      ...
-    }:
-    (checkAll || elem option checkList) && !(elem option excludedTestOptions));
+  in
+    flip filter graph ({
+        option,
+        ...
+      }:
+      (checkAll || elem option checkList) && !(elem option excludedTestOptions))
+  ;
 
   graphToDot = graph: ''
     digraph "Option Usages" {

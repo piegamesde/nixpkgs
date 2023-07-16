@@ -9,26 +9,27 @@
 let
   pname = "crccheck";
   version = "1.3.0";
-in buildPythonPackage {
-  inherit pname version;
-  format = "setuptools";
+in
+  buildPythonPackage {
+    inherit pname version;
+    format = "setuptools";
 
-  disabled = !isPy3k;
+    disabled = !isPy3k;
 
-  src = fetchFromGitHub {
-    owner = "MartinScharrer";
-    repo = "crccheck";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-nujt3RWupvCtk7gORejtSwqqVjW9VwztOVGXBHW9T+k=";
-  };
+    src = fetchFromGitHub {
+      owner = "MartinScharrer";
+      repo = "crccheck";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-nujt3RWupvCtk7gORejtSwqqVjW9VwztOVGXBHW9T+k=";
+    };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+    nativeCheckInputs = [ unittestCheckHook ];
 
-  meta = with lib; {
-    description = "Python library for CRCs and checksums";
-    homepage = "https://github.com/MartinScharrer/crccheck";
-    license = licenses.mit;
-    maintainers = with maintainers; [ ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Python library for CRCs and checksums";
+      homepage = "https://github.com/MartinScharrer/crccheck";
+      license = licenses.mit;
+      maintainers = with maintainers; [ ];
+      platforms = platforms.linux;
+    };
+  }

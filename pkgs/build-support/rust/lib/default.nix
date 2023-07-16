@@ -31,7 +31,8 @@ rec {
       (
         # Since https://github.com/rust-lang/rust/pull/84072
         # `target-family` is a list instead of single value.
-        let f = platform.rustc.platform.target-family;
+        let
+          f = platform.rustc.platform.target-family;
         in if builtins.isList f then f else [ f ])
     else
       lib.optional platform.isUnix "unix"
@@ -39,10 +40,13 @@ rec {
 
   # https://doc.rust-lang.org/reference/conditional-compilation.html#target_vendor
   toTargetVendor = platform:
-    let inherit (platform.parsed) vendor;
-    in platform.rustc.platform.vendor or {
-      "w64" = "pc";
-    }.${vendor.name} or vendor.name;
+    let
+      inherit (platform.parsed) vendor;
+    in
+      platform.rustc.platform.vendor or {
+        "w64" = "pc";
+      }.${vendor.name} or vendor.name
+  ;
 
   # Returns the name of the rust target, even if it is custom. Adjustments are
   # because rust has slightly different naming conventions than we do.
@@ -57,9 +61,11 @@ rec {
         "riscv64" = "riscv64gc";
       }.${cpu.name} or cpu.name;
       vendor_ = toTargetVendor platform;
-    in platform.rustc.config or "${cpu_}-${vendor_}-${kernel.name}${
-      lib.optionalString (abi.name != "unknown") "-${abi.name}"
-    }";
+    in
+      platform.rustc.config or "${cpu_}-${vendor_}-${kernel.name}${
+        lib.optionalString (abi.name != "unknown") "-${abi.name}"
+      }"
+  ;
 
   # Returns the name of the rust target if it is standard, or the json file
   # containing the custom target spec.
@@ -73,11 +79,14 @@ rec {
   # Returns true if the target is no_std
   # https://github.com/rust-lang/rust/blob/2e44c17c12cec45b6a682b1e53a04ac5b5fcc9d2/src/bootstrap/config.rs#L415-L421
   IsNoStdTarget = platform:
-    let rustTarget = toRustTarget platform;
-    in builtins.any (t: lib.hasInfix t rustTarget) [
-      "-none"
-      "nvptx"
-      "switch"
-      "-uefi"
-    ];
+    let
+      rustTarget = toRustTarget platform;
+    in
+      builtins.any (t: lib.hasInfix t rustTarget) [
+        "-none"
+        "nvptx"
+        "switch"
+        "-uefi"
+      ]
+  ;
 }

@@ -1037,17 +1037,19 @@ in {
           description = lib.mdDoc "Configure the SAML integration.";
         };
       };
-    in lib.mkOption {
-      type = lib.types.submodule {
-        freeformType = settingsFormat.type;
-        inherit options;
-      };
-      description = lib.mdDoc ''
-        HedgeDoc configuration, see
-        <https://docs.hedgedoc.org/configuration/>
-        for documentation.
-      '';
-    };
+    in
+      lib.mkOption {
+        type = lib.types.submodule {
+          freeformType = settingsFormat.type;
+          inherit options;
+        };
+        description = lib.mdDoc ''
+          HedgeDoc configuration, see
+          <https://docs.hedgedoc.org/configuration/>
+          for documentation.
+        '';
+      }
+    ;
 
     environmentFile = mkOption {
       type = with types; nullOr path;

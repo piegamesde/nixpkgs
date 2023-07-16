@@ -44,46 +44,47 @@ let
       "https://web.archive.org/web/20210714035406if_/http://download.geonames.org/export/dump/cities1000.zip";
     sha256 = "0cwbfff8gzci5zrahh6d53b9b3bfv1cbwlv0k6076531i1c7md9p";
   };
-in mkDerivation rec {
-  pname = "koko";
+in
+  mkDerivation rec {
+    pname = "koko";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
-
-  buildInputs = [
-    exiv2
-    kconfig
-    kcoreaddons
-    kdeclarative
-    kfilemetadata
-    kguiaddons
-    ki18n
-    kio
-    kirigami2
-    knotifications
-    kpurpose
-    kquickimageedit
-    qtgraphicaleffects
-    qtlocation
-    qtquickcontrols2
-  ];
-
-  prePatch = ''
-    ln -s ${admin1}     src/admin1CodesASCII.txt
-    ln -s ${admin2}     src/admin2Codes.txt
-    ln -s ${cities1000} src/cities1000.zip
-  '';
-
-  meta = with lib; {
-    description = "Image gallery mobile application";
-    homepage = "https://apps.kde.org/koko/";
-    # LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
-    license = [
-      licenses.lgpl3Only
-      licenses.lgpl21Only
+    nativeBuildInputs = [
+      cmake
+      extra-cmake-modules
     ];
-    maintainers = with maintainers; [ samueldr ];
-  };
-}
+
+    buildInputs = [
+      exiv2
+      kconfig
+      kcoreaddons
+      kdeclarative
+      kfilemetadata
+      kguiaddons
+      ki18n
+      kio
+      kirigami2
+      knotifications
+      kpurpose
+      kquickimageedit
+      qtgraphicaleffects
+      qtlocation
+      qtquickcontrols2
+    ];
+
+    prePatch = ''
+      ln -s ${admin1}     src/admin1CodesASCII.txt
+      ln -s ${admin2}     src/admin2Codes.txt
+      ln -s ${cities1000} src/cities1000.zip
+    '';
+
+    meta = with lib; {
+      description = "Image gallery mobile application";
+      homepage = "https://apps.kde.org/koko/";
+      # LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+      license = [
+        licenses.lgpl3Only
+        licenses.lgpl21Only
+      ];
+      maintainers = with maintainers; [ samueldr ];
+    };
+  }

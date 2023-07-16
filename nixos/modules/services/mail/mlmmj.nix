@@ -35,7 +35,8 @@ let
   footer = domain: list:
     "To unsubscribe send a mail to ${list}+unsubscribe@${domain}";
   createList = d: l:
-    let ctlDir = listCtl d l;
+    let
+      ctlDir = listCtl d l;
     in ''
       for DIR in incoming queue queue/discarded archive text subconf unsubconf \
                  bounce control moderation subscribers.d digesters.d requeue \
@@ -53,7 +54,7 @@ let
           echo ${footer d l} > '${ctlDir}/footer'
       [ ! -e ${ctlDir}/prefix ] && \
           echo ${subjectPrefix l} > '${ctlDir}/prefix'
-    '';
+    '' ;
 
 in {
 

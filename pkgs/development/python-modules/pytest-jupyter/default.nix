@@ -76,4 +76,5 @@ let
       maintainers = with maintainers; [ ];
     };
   };
-in self
+in
+  self

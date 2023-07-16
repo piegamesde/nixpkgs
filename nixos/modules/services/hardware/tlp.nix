@@ -93,7 +93,7 @@ in {
       CPU_SCALING_MAX_FREQ_ON_AC = maybeDefault cfg.cpufreq.max;
       CPU_SCALING_MIN_FREQ_ON_BAT = maybeDefault cfg.cpufreq.min;
       CPU_SCALING_MAX_FREQ_ON_BAT = maybeDefault cfg.cpufreq.max;
-    };
+    } ;
 
     services.udev.packages = [ tlp ];
 

@@ -95,7 +95,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib;
-    let interface = if withGtk then "GTK" else "X11";
+    let
+      interface = if withGtk then "GTK" else "X11";
     in {
       homepage = "https://www.snes9x.com";
       description =
@@ -120,5 +121,5 @@ stdenv.mkDerivation rec {
       ];
       platforms = platforms.unix;
       broken = (withGtk && stdenv.isDarwin);
-    };
+    } ;
 }

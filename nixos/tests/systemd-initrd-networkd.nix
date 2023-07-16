@@ -83,7 +83,7 @@ import ./make-test-python.nix ({
           exit 1
         fi
       '';
-    };
+    } ;
 
     testScript = ''
       start_all()

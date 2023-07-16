@@ -45,50 +45,51 @@ let
     }
   ];
 
-in stdenvNoCC.mkDerivation {
+in
+  stdenvNoCC.mkDerivation {
 
-  pname = "facetimehd-calibration";
-  inherit version;
-  src = fetchurl {
-    url = zipUrl;
-    sha256 = "1dzyv457fp6d8ly29sivqn6llwj5ydygx7p8kzvdnsp11zvid2xi";
-    curlOpts = "-r ${zipRange}";
-  };
+    pname = "facetimehd-calibration";
+    inherit version;
+    src = fetchurl {
+      url = zipUrl;
+      sha256 = "1dzyv457fp6d8ly29sivqn6llwj5ydygx7p8kzvdnsp11zvid2xi";
+      curlOpts = "-r ${zipRange}";
+    };
 
-  dontUnpack = true;
-  dontInstall = true;
+    dontUnpack = true;
+    dontInstall = true;
 
-  buildInputs = [ unrar-wrapper ];
+    buildInputs = [ unrar-wrapper ];
 
-  buildPhase = ''
-    { printf '\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x00'
-      cat $src
-      printf '${gzFooter}'
-    } | zcat > AppleCamera64.exe
-    unrar x AppleCamera64.exe AppleCamera.sys
+    buildPhase = ''
+      { printf '\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x00'
+        cat $src
+        printf '${gzFooter}'
+      } | zcat > AppleCamera64.exe
+      unrar x AppleCamera64.exe AppleCamera.sys
 
-    mkdir -p $out/lib/firmware/facetimehd
-  '' + lib.concatMapStrings ({
-      file,
-      offset,
-      size,
-    }: ''
-      dd bs=1 skip=${offset} count=${size} if=AppleCamera.sys of=$out/lib/firmware/facetimehd/${file}
-    '') calibrationFiles;
+      mkdir -p $out/lib/firmware/facetimehd
+    '' + lib.concatMapStrings ({
+        file,
+        offset,
+        size,
+      }: ''
+        dd bs=1 skip=${offset} count=${size} if=AppleCamera.sys of=$out/lib/firmware/facetimehd/${file}
+      '') calibrationFiles;
 
-  meta = with lib; {
-    description = "facetimehd calibration";
-    homepage = "https://support.apple.com/kb/DL1837";
-    license = licenses.unfree;
-    maintainers = with maintainers; [
-      alexshpilkin
-      womfoo
-      grahamc
-    ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
-  };
+    meta = with lib; {
+      description = "facetimehd calibration";
+      homepage = "https://support.apple.com/kb/DL1837";
+      license = licenses.unfree;
+      maintainers = with maintainers; [
+        alexshpilkin
+        womfoo
+        grahamc
+      ];
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+      ];
+    };
 
-}
+  }

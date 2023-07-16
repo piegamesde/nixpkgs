@@ -43,37 +43,38 @@ let
       ''ip="${nd.ip}"''}'';
   addAllNetDev = xs: lib.concatStringsSep "\n" (map addNetDev xs);
 
-in stdenv.mkDerivation {
+in
+  stdenv.mkDerivation {
 
-  name = "brscan5-etc-files";
-  version = "1.2.6-0";
-  src = "${brscan5}/opt/brother/scanner/brscan5";
+    name = "brscan5-etc-files";
+    version = "1.2.6-0";
+    src = "${brscan5}/opt/brother/scanner/brscan5";
 
-  nativeBuildInputs = [ brscan5 ];
+    nativeBuildInputs = [ brscan5 ];
 
-  dontConfigure = true;
+    dontConfigure = true;
 
-  buildPhase = ''
-    TARGET_DIR="$out/etc/opt/brother/scanner/brscan5"
-    mkdir -p "$TARGET_DIR"
-    cp -rp "./models" "$TARGET_DIR"
-    cp -rp "./brscan5.ini" "$TARGET_DIR"
-    cp -rp "./brsanenetdevice.cfg" "$TARGET_DIR"
+    buildPhase = ''
+      TARGET_DIR="$out/etc/opt/brother/scanner/brscan5"
+      mkdir -p "$TARGET_DIR"
+      cp -rp "./models" "$TARGET_DIR"
+      cp -rp "./brscan5.ini" "$TARGET_DIR"
+      cp -rp "./brsanenetdevice.cfg" "$TARGET_DIR"
 
-    export NIX_REDIRECTS="/etc/opt/brother/scanner/brscan5/=$TARGET_DIR/"
+      export NIX_REDIRECTS="/etc/opt/brother/scanner/brscan5/=$TARGET_DIR/"
 
-    printf '${addAllNetDev netDevices}\n'
+      printf '${addAllNetDev netDevices}\n'
 
-    ${addAllNetDev netDevices}
-  '';
+      ${addAllNetDev netDevices}
+    '';
 
-  dontInstall = true;
+    dontInstall = true;
 
-  meta = with lib; {
-    description = "Brother brscan5 sane backend driver etc files";
-    homepage = "https://www.brother.com";
-    platforms = platforms.linux;
-    license = licenses.unfree;
-    maintainers = with maintainers; [ mattchrist ];
-  };
-}
+    meta = with lib; {
+      description = "Brother brscan5 sane backend driver etc files";
+      homepage = "https://www.brother.com";
+      platforms = platforms.linux;
+      license = licenses.unfree;
+      maintainers = with maintainers; [ mattchrist ];
+    };
+  }

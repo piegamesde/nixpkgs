@@ -42,61 +42,62 @@ let
       "3.10" = "sha256-d0hbiJ44lEu8V4XX7JpZVSTQwwykwKPUfiqetRBI6uI=";
     }.${gnuradio.versionAttr.major};
   };
-in mkDerivation {
-  pname = "gr-osmosdr";
-  inherit version src;
-  disabledForGRafter = "3.11";
+in
+  mkDerivation {
+    pname = "gr-osmosdr";
+    inherit version src;
+    disabledForGRafter = "3.11";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
-
-  buildInputs = [
-    logLib
-    mpir
-    boost
-    fftwFloat
-    gmp
-    icu
-    airspy
-    hackrf
-    libbladeRF
-    rtl-sdr
-    soapysdr-with-plugins
-  ] ++ lib.optionals (gnuradio.hasFeature "gr-blocks") [ libsndfile ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [ uhd ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
-      thrift
-      python.pkgs.thrift
-    ] ++ lib.optionals (gnuradio.hasFeature "python-support") [
-      python.pkgs.numpy
-      python.pkgs.pybind11
-    ] ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.IOKit
-      darwin.apple_sdk.frameworks.Security
+    outputs = [
+      "out"
+      "dev"
     ];
-  cmakeFlags = [ (if (gnuradio.hasFeature "python-support") then
-    "-DENABLE_PYTHON=ON"
-  else
-    "-DENABLE_PYTHON=OFF") ];
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    swig
-  ] ++ lib.optionals (gnuradio.hasFeature "python-support") [
-    (if (gnuradio.versionAttr.major == "3.7") then
-      python.pkgs.cheetah
-    else
-      python.pkgs.mako)
-    python
-  ];
 
-  meta = with lib; {
-    description = "Gnuradio block for OsmoSDR and rtl-sdr";
-    homepage = "https://sdr.osmocom.org/trac/wiki/GrOsmoSDR";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bjornfor ];
-    platforms = platforms.unix;
-  };
-}
+    buildInputs = [
+      logLib
+      mpir
+      boost
+      fftwFloat
+      gmp
+      icu
+      airspy
+      hackrf
+      libbladeRF
+      rtl-sdr
+      soapysdr-with-plugins
+    ] ++ lib.optionals (gnuradio.hasFeature "gr-blocks") [ libsndfile ]
+      ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [ uhd ]
+      ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
+        thrift
+        python.pkgs.thrift
+      ] ++ lib.optionals (gnuradio.hasFeature "python-support") [
+        python.pkgs.numpy
+        python.pkgs.pybind11
+      ] ++ lib.optionals stdenv.isDarwin [
+        darwin.apple_sdk.frameworks.IOKit
+        darwin.apple_sdk.frameworks.Security
+      ];
+    cmakeFlags = [ (if (gnuradio.hasFeature "python-support") then
+      "-DENABLE_PYTHON=ON"
+    else
+      "-DENABLE_PYTHON=OFF") ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      swig
+    ] ++ lib.optionals (gnuradio.hasFeature "python-support") [
+      (if (gnuradio.versionAttr.major == "3.7") then
+        python.pkgs.cheetah
+      else
+        python.pkgs.mako)
+      python
+    ];
+
+    meta = with lib; {
+      description = "Gnuradio block for OsmoSDR and rtl-sdr";
+      homepage = "https://sdr.osmocom.org/trac/wiki/GrOsmoSDR";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [ bjornfor ];
+      platforms = platforms.unix;
+    };
+  }

@@ -8,7 +8,8 @@
 
 with lib;
 
-let cfg = config.services.blueman;
+let
+  cfg = config.services.blueman;
 in {
   ###### interface
   options = {

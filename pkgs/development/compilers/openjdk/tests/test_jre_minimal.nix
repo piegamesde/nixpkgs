@@ -10,7 +10,8 @@ let
     jdk = jdk;
     jre = jre_minimal;
   };
-in runCommand "test" { } ''
-  ${hello}/bin/hello | grep "Hello, world!"
-  touch $out
-''
+in
+  runCommand "test" { } ''
+    ${hello}/bin/hello | grep "Hello, world!"
+    touch $out
+  ''

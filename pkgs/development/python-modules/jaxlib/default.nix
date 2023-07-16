@@ -309,47 +309,50 @@ let
   else
     throw "Unsupported target platform: ${stdenv.targetPlatform}";
 
-in buildPythonPackage {
-  inherit meta pname version;
-  format = "wheel";
+in
+  buildPythonPackage {
+    inherit meta pname version;
+    format = "wheel";
 
-  src =
-    let cp = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
-    in "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl";
+    src = let
+      cp = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+    in
+      "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl"
+    ;
 
-  # Note that cudatoolkit is necessary since jaxlib looks for "ptxas" in $PATH.
-  # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for
-  # more info.
-  postInstall = lib.optionalString cudaSupport ''
-    mkdir -p $out/bin
-    ln -s ${cudatoolkit}/bin/ptxas $out/bin/ptxas
+    # Note that cudatoolkit is necessary since jaxlib looks for "ptxas" in $PATH.
+    # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for
+    # more info.
+    postInstall = lib.optionalString cudaSupport ''
+      mkdir -p $out/bin
+      ln -s ${cudatoolkit}/bin/ptxas $out/bin/ptxas
 
-    find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
-      addOpenGLRunpath "$lib"
-      patchelf --set-rpath "${cudatoolkit}/lib:${cudatoolkit.lib}/lib:${cudnn}/lib:${nccl}/lib:$(patchelf --print-rpath "$lib")" "$lib"
-    done
-  '';
+      find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
+        addOpenGLRunpath "$lib"
+        patchelf --set-rpath "${cudatoolkit}/lib:${cudatoolkit.lib}/lib:${cudnn}/lib:${nccl}/lib:$(patchelf --print-rpath "$lib")" "$lib"
+      done
+    '';
 
-  nativeBuildInputs = lib.optional cudaSupport addOpenGLRunpath;
+    nativeBuildInputs = lib.optional cudaSupport addOpenGLRunpath;
 
-  propagatedBuildInputs = [
-    absl-py
-    curl
-    double-conversion
-    flatbuffers
-    giflib
-    grpc
-    jsoncpp
-    libjpeg_turbo
-    numpy
-    scipy
-    six
-    snappy
-  ];
+    propagatedBuildInputs = [
+      absl-py
+      curl
+      double-conversion
+      flatbuffers
+      giflib
+      grpc
+      jsoncpp
+      libjpeg_turbo
+      numpy
+      scipy
+      six
+      snappy
+    ];
 
-  pythonImportsCheck = [ "jaxlib" ];
+    pythonImportsCheck = [ "jaxlib" ];
 
-  # Without it there are complaints about libcudart.so.11.0 not being found
-  # because RPATH path entries added above are stripped.
-  dontPatchELF = cudaSupport;
-}
+    # Without it there are complaints about libcudart.so.11.0 not being found
+    # because RPATH path entries added above are stripped.
+    dontPatchELF = cudaSupport;
+  }

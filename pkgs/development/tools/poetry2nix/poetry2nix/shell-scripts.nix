@@ -25,18 +25,19 @@ let
           sys.exit(${fn}())
       EOF
       chmod +x $out/bin/${bin}
+    '' ;
+in
+  python.pkgs.buildPythonPackage {
+    name = "poetry2nix-env-scripts";
+    dontUnpack = true;
+    dontUseSetuptoolsBuild = true;
+    dontConfigure = true;
+    dontUseSetuptoolsCheck = true;
+
+    format = "poetry2nix";
+
+    installPhase = ''
+      mkdir -p $out/bin
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList mkScript scripts)}
     '';
-in python.pkgs.buildPythonPackage {
-  name = "poetry2nix-env-scripts";
-  dontUnpack = true;
-  dontUseSetuptoolsBuild = true;
-  dontConfigure = true;
-  dontUseSetuptoolsCheck = true;
-
-  format = "poetry2nix";
-
-  installPhase = ''
-    mkdir -p $out/bin
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList mkScript scripts)}
-  '';
-}
+  }

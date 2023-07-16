@@ -290,7 +290,7 @@ in {
         LimitNPROC = 65000;
         LimitNOFILE = 65000;
       };
-    };
+    } ;
 
     environment.etc."jitsi/videobridge/logging.properties".source = mkDefault
       "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal";

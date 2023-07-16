@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.readarr;
+let
+  cfg = config.services.readarr;
 in {
   options = {
     services.readarr = {

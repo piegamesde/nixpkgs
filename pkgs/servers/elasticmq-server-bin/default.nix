@@ -46,8 +46,9 @@ let
       maintainers = with maintainers; [ peterromfeldhk ];
     };
   };
-in elasticmq-server.overrideAttrs (_: {
-  passthru.tests.elasticmqTest = import ./elasticmq-test.nix {
-    inherit elasticmq-server runCommand python3Packages writeText;
-  };
-})
+in
+  elasticmq-server.overrideAttrs (_: {
+    passthru.tests.elasticmqTest = import ./elasticmq-test.nix {
+      inherit elasticmq-server runCommand python3Packages writeText;
+    };
+  })

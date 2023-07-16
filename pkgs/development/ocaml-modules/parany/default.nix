@@ -18,26 +18,27 @@ let
     propagatedBuildInputs = [ cpu ];
   };
 
-in buildDunePackage rec {
-  pname = "parany";
-  inherit (params) version;
+in
+  buildDunePackage rec {
+    pname = "parany";
+    inherit (params) version;
 
-  duneVersion = "3";
-  minimalOCamlVersion = "4.08";
+    duneVersion = "3";
+    minimalOCamlVersion = "4.08";
 
-  src = fetchFromGitHub {
-    owner = "UnixJunkie";
-    repo = pname;
-    rev = "v${version}";
-    inherit (params) hash;
-  };
+    src = fetchFromGitHub {
+      owner = "UnixJunkie";
+      repo = pname;
+      rev = "v${version}";
+      inherit (params) hash;
+    };
 
-  inherit (params) propagatedBuildInputs;
+    inherit (params) propagatedBuildInputs;
 
-  meta = with lib; {
-    inherit (src.meta) homepage;
-    description = "Generalized map/reduce for multicore computing";
-    maintainers = [ maintainers.bcdarwin ];
-    license = licenses.lgpl2;
-  };
-}
+    meta = with lib; {
+      inherit (src.meta) homepage;
+      description = "Generalized map/reduce for multicore computing";
+      maintainers = [ maintainers.bcdarwin ];
+      license = licenses.lgpl2;
+    };
+  }

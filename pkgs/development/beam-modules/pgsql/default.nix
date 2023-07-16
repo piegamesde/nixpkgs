@@ -36,4 +36,5 @@ let
       passthru = { env = shell self; };
 
     };
-in lib.fix pkg
+in
+  lib.fix pkg

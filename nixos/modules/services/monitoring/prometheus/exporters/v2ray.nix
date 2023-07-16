@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.prometheus.exporters.v2ray;
+let
+  cfg = config.services.prometheus.exporters.v2ray;
 in {
   port = 9299;
   extraOpts = {

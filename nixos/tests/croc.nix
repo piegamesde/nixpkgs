@@ -57,4 +57,4 @@ import ./make-test-python.nix ({
       assert "Hello World" in receiver.succeed("cat testfile01.txt")
       assert "Hello Earth" in receiver.succeed("cat testfile02.txt")
     '';
-  })
+  } )

@@ -9,7 +9,8 @@
 
 with lib;
 
-let cfg = config.virtualisation.xen;
+let
+  cfg = config.virtualisation.xen;
 
 in {
   imports = [

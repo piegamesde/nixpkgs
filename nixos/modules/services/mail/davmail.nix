@@ -26,7 +26,8 @@ let
 
   linesForAttrs = attrs:
     concatMap (name:
-      let value = attrs.${name};
+      let
+        value = attrs.${name};
       in if isAttrs value then
         map (line: name + "." + line) (linesForAttrs value)
       else [ "${name}=${toStr value}" ]) (attrNames attrs);

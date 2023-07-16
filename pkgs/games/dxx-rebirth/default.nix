@@ -21,51 +21,52 @@ let
     sha256 = "05mz77vml396mff43dbs50524rlm4fyds6widypagfbh5hc55qdc";
   };
 
-in stdenv.mkDerivation rec {
-  pname = "dxx-rebirth";
-  version = "unstable-2023-03-23";
+in
+  stdenv.mkDerivation rec {
+    pname = "dxx-rebirth";
+    version = "unstable-2023-03-23";
 
-  src = fetchFromGitHub {
-    owner = "dxx-rebirth";
-    repo = "dxx-rebirth";
-    rev = "841ebcc11d249febe48911bc239606ade3bd78b3";
-    hash = "sha256-cr5QdkKO/HNvtc2w4ynJixuLauhPCwtsSC3UEV7+C1A=";
-  };
+    src = fetchFromGitHub {
+      owner = "dxx-rebirth";
+      repo = "dxx-rebirth";
+      rev = "841ebcc11d249febe48911bc239606ade3bd78b3";
+      hash = "sha256-cr5QdkKO/HNvtc2w4ynJixuLauhPCwtsSC3UEV7+C1A=";
+    };
 
-  nativeBuildInputs = [
-    pkg-config
-    scons
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      scons
+    ];
 
-  buildInputs = [
-    libGLU
-    libGL
-    libpng
-    physfs
-    SDL2
-    SDL2_image
-    SDL2_mixer
-  ];
+    buildInputs = [
+      libGLU
+      libGL
+      libpng
+      physfs
+      SDL2
+      SDL2_image
+      SDL2_mixer
+    ];
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  sconsFlags = [ "sdl2=1" ];
+    sconsFlags = [ "sdl2=1" ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-Wno-format-nonliteral"
-    "-Wno-format-truncation"
-  ];
+    env.NIX_CFLAGS_COMPILE = toString [
+      "-Wno-format-nonliteral"
+      "-Wno-format-truncation"
+    ];
 
-  postInstall = ''
-    install -Dm644 ${music} $out/share/games/dxx-rebirth/${music.name}
-    install -Dm644 -t $out/share/doc/dxx-rebirth *.txt
-  '';
+    postInstall = ''
+      install -Dm644 ${music} $out/share/games/dxx-rebirth/${music.name}
+      install -Dm644 -t $out/share/doc/dxx-rebirth *.txt
+    '';
 
-  meta = with lib; {
-    description = "Source Port of the Descent 1 and 2 engines";
-    homepage = "https://www.dxx-rebirth.com/";
-    license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
-    platforms = with platforms; linux;
-  };
-}
+    meta = with lib; {
+      description = "Source Port of the Descent 1 and 2 engines";
+      homepage = "https://www.dxx-rebirth.com/";
+      license = licenses.gpl3;
+      maintainers = with maintainers; [ peterhoeg ];
+      platforms = with platforms; linux;
+    };
+  }

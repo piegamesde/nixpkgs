@@ -20,31 +20,32 @@
 let
   pname = "findpython";
   version = "0.2.4";
-in buildPythonPackage {
-  inherit pname version;
-  format = "pyproject";
-
-  disabled = pythonOlder "3.7";
-
-  src = fetchPypi {
+in
+  buildPythonPackage {
     inherit pname version;
-    hash = "sha256-YfF2jN2EPcL4pFlxJyxYwlZBpQsZ2pEwLiSS4ypmc2I=";
-  };
+    format = "pyproject";
 
-  nativeBuildInputs = [ pdm-pep517 ];
+    disabled = pythonOlder "3.7";
 
-  propagatedBuildInputs = [ packaging ];
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-YfF2jN2EPcL4pFlxJyxYwlZBpQsZ2pEwLiSS4ypmc2I=";
+    };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+    nativeBuildInputs = [ pdm-pep517 ];
 
-  pythonImportsCheck = [ "findpython" ];
+    propagatedBuildInputs = [ packaging ];
 
-  meta = with lib; {
-    description = "A utility to find python versions on your system";
-    homepage = "https://github.com/frostming/findpython";
-    changelog =
-      "https://github.com/frostming/findpython/releases/tag/${version}";
-    license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
-  };
-}
+    nativeCheckInputs = [ pytestCheckHook ];
+
+    pythonImportsCheck = [ "findpython" ];
+
+    meta = with lib; {
+      description = "A utility to find python versions on your system";
+      homepage = "https://github.com/frostming/findpython";
+      changelog =
+        "https://github.com/frostming/findpython/releases/tag/${version}";
+      license = licenses.mit;
+      maintainers = with maintainers; [ hexa ];
+    };
+  }

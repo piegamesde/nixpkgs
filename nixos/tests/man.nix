@@ -99,4 +99,4 @@ import ./make-test-python.nix ({
           if not match_man_k(page, section, matches):
             raise Exception(f"{page}({section}) missing in matches: {matches}")
     '') machineNames;
-  })
+  } )

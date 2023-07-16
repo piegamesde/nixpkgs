@@ -24,11 +24,13 @@ stdenv.mkDerivation rec {
       x86_64-darwin = "sha256-ZXz0y6GvoCpeKcPJXV0t828fBBfeFAO+zmUAqCIOysU=";
       aarch64-darwin = "sha256-4xnM7k5i4XssQQ6Y0h2hq9s4TLnuazhqXiGQMhR4HNU=";
     };
-  in fetchzip {
-    url =
-      "https://releases.hashicorp.com/boundary/${version}/boundary_${version}_${suffix}.zip";
-    inherit sha256;
-  };
+  in
+    fetchzip {
+      url =
+        "https://releases.hashicorp.com/boundary/${version}/boundary_${version}_${suffix}.zip";
+      inherit sha256;
+    }
+  ;
 
   dontConfigure = true;
   dontBuild = true;

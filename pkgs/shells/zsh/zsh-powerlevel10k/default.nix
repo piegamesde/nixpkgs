@@ -23,40 +23,41 @@ let
       hash = "sha256-mVfB3HWjvk4X8bmLEC/U8SKBRytTh/gjjuReqzN5qTk=";
     };
   });
-in stdenv.mkDerivation rec {
-  pname = "powerlevel10k";
-  version = "1.18.0";
+in
+  stdenv.mkDerivation rec {
+    pname = "powerlevel10k";
+    version = "1.18.0";
 
-  src = fetchFromGitHub {
-    owner = "romkatv";
-    repo = "powerlevel10k";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-IiMYGefF+p4bUueO/9/mJ4mHMyJYiq+67GgNdGJ6Eew=";
-  };
+    src = fetchFromGitHub {
+      owner = "romkatv";
+      repo = "powerlevel10k";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-IiMYGefF+p4bUueO/9/mJ4mHMyJYiq+67GgNdGJ6Eew=";
+    };
 
-  strictDeps = true;
-  buildInputs = [ bash ];
+    strictDeps = true;
+    buildInputs = [ bash ];
 
-  patches = [ (substituteAll {
-    src = ./gitstatusd.patch;
-    gitstatusdPath = "${gitstatus}/bin/gitstatusd";
-  }) ];
+    patches = [ (substituteAll {
+      src = ./gitstatusd.patch;
+      gitstatusdPath = "${gitstatus}/bin/gitstatusd";
+    }) ];
 
-  installPhase = ''
-    install -D powerlevel10k.zsh-theme --target-directory=$out/share/zsh-powerlevel10k
-    install -D powerlevel9k.zsh-theme --target-directory=$out/share/zsh-powerlevel10k
-    install -D config/* --target-directory=$out/share/zsh-powerlevel10k/config
-    install -D internal/* --target-directory=$out/share/zsh-powerlevel10k/internal
-    cp -R gitstatus $out/share/zsh-powerlevel10k/gitstatus
-  '';
+    installPhase = ''
+      install -D powerlevel10k.zsh-theme --target-directory=$out/share/zsh-powerlevel10k
+      install -D powerlevel9k.zsh-theme --target-directory=$out/share/zsh-powerlevel10k
+      install -D config/* --target-directory=$out/share/zsh-powerlevel10k/config
+      install -D internal/* --target-directory=$out/share/zsh-powerlevel10k/internal
+      cp -R gitstatus $out/share/zsh-powerlevel10k/gitstatus
+    '';
 
-  meta = {
-    changelog =
-      "https://github.com/romkatv/powerlevel10k/releases/tag/v${version}";
-    description = "A fast reimplementation of Powerlevel9k ZSH theme";
-    homepage = "https://github.com/romkatv/powerlevel10k";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ hexa ];
-  };
-}
+    meta = {
+      changelog =
+        "https://github.com/romkatv/powerlevel10k/releases/tag/v${version}";
+      description = "A fast reimplementation of Powerlevel9k ZSH theme";
+      homepage = "https://github.com/romkatv/powerlevel10k";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.unix;
+      maintainers = with lib.maintainers; [ hexa ];
+    };
+  }

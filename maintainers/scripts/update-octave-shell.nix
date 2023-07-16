@@ -10,9 +10,10 @@ let
       toolz
       pyyaml
     ]);
-in mkShell {
-  packages = [
-    pyEnv
-    nix-prefetch-scripts
-  ];
-}
+in
+  mkShell {
+    packages = [
+      pyEnv
+      nix-prefetch-scripts
+    ];
+  }

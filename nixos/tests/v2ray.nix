@@ -94,4 +94,4 @@ import ./make-test-python.nix ({
           "curl --fail --max-time 10 --proxy http://localhost:1080 http://localhost"
       )
     '';
-  })
+  } )

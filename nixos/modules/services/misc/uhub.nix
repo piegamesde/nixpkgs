@@ -105,11 +105,12 @@ in {
       in {
         name = "uhub/${name}.conf";
         value.source = settingsFormat.generate "uhub-${name}.conf" settings';
-      }) hubs;
+      } ) hubs;
 
     systemd.services = lib.attrsets.mapAttrs' (name: cfg: {
       name = "uhub-${name}";
-      value = let pkg = pkgs.uhub.override { tlsSupport = cfg.enableTLS; };
+      value = let
+        pkg = pkgs.uhub.override { tlsSupport = cfg.enableTLS; };
       in {
         description = "high performance peer-to-peer hub for the ADC network";
         after = [ "network.target" ];
@@ -124,8 +125,8 @@ in {
           AmbientCapabilities = "CAP_NET_BIND_SERVICE";
           CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
         };
-      };
+      } ;
     }) hubs;
-  };
+  } ;
 
 }

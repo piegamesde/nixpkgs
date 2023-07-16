@@ -22,34 +22,36 @@
 let
   pname = "cu2qu";
   version = "1.6.7.post2";
-in buildPythonPackage rec {
-  inherit pname version;
-  format = "pyproject";
-
-  src = fetchPypi {
+in
+  buildPythonPackage rec {
     inherit pname version;
-    hash = "sha256-HfVi2ZvWBZImCI9ENwK/Uc/djMY2I/IxN0WaeNe/WAg=";
-    extension = "zip";
-  };
+    format = "pyproject";
 
-  nativeBuildInputs = [
-    cython
-    setuptools
-    setuptools-scm
-  ];
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-HfVi2ZvWBZImCI9ENwK/Uc/djMY2I/IxN0WaeNe/WAg=";
+      extension = "zip";
+    };
 
-  propagatedBuildInputs = [
-    defcon
-    fonttools
-  ] ++ fonttools.optional-dependencies.ufo;
+    nativeBuildInputs = [
+      cython
+      setuptools
+      setuptools-scm
+    ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+    propagatedBuildInputs = [
+      defcon
+      fonttools
+    ] ++ fonttools.optional-dependencies.ufo;
 
-  meta = with lib; {
-    changelog = "https://github.com/googlefonts/cu2qu/releases/tag/v${version}";
-    description = "Cubic-to-quadratic bezier curve conversion";
-    homepage = "https://github.com/googlefonts/cu2qu";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ ];
-  };
-}
+    nativeCheckInputs = [ pytestCheckHook ];
+
+    meta = with lib; {
+      changelog =
+        "https://github.com/googlefonts/cu2qu/releases/tag/v${version}";
+      description = "Cubic-to-quadratic bezier curve conversion";
+      homepage = "https://github.com/googlefonts/cu2qu";
+      license = licenses.asl20;
+      maintainers = with maintainers; [ ];
+    };
+  }

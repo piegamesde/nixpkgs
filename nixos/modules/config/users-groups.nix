@@ -500,8 +500,11 @@ let
     groups = attrValues cfg.groups;
   });
 
-  systemShells = let shells = mapAttrsToList (_: u: u.shell) cfg.users;
-  in filter types.shellPackage.check shells;
+  systemShells = let
+    shells = mapAttrsToList (_: u: u.shell) cfg.users;
+  in
+    filter types.shellPackage.check shells
+  ;
 
 in {
   imports = [
@@ -786,9 +789,11 @@ in {
               uid,
               group,
             }:
-            let g = config.boot.initrd.systemd.groups.${group};
-            in "${n}:x:${toString uid}:${toString g.gid}::/var/empty:")
-            config.boot.initrd.systemd.users)}
+            let
+              g = config.boot.initrd.systemd.groups.${group};
+            in
+              "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
+          ) config.boot.initrd.systemd.users)}
         '';
         "/etc/group".text = ''
           ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n:
@@ -875,7 +880,9 @@ in {
             xor = a: b: a && !b || b && !a;
             isEffectivelySystemUser = user.isSystemUser
               || (user.uid != null && user.uid < 1000);
-          in xor isEffectivelySystemUser user.isNormalUser;
+          in
+            xor isEffectivelySystemUser user.isNormalUser
+          ;
           message = ''
             Exactly one of users.users.${user.name}.isSystemUser and users.users.${user.name}.isNormalUser must be set.
           '';
@@ -934,6 +941,6 @@ in {
             check the value of option `users.users."${user.name}".hashedPassword`.'' else
           null));
 
-  };
+  } ;
 
 }

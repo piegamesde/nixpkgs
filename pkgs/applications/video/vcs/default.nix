@@ -28,32 +28,35 @@ let
     mplayer
     gopt
   ];
-in stdenv.mkDerivation {
-  pname = "vcs";
-  inherit version;
-  src = fetchurl {
-    url = "http://p.outlyer.net/files/vcs/vcs-${version}.bash";
-    sha256 = "0nhwcpffp3skz24kdfg4445i6j37ks6a0qsbpfd3dbi4vnpa60a0";
-  };
+in
+  stdenv.mkDerivation {
+    pname = "vcs";
+    inherit version;
+    src = fetchurl {
+      url = "http://p.outlyer.net/files/vcs/vcs-${version}.bash";
+      sha256 = "0nhwcpffp3skz24kdfg4445i6j37ks6a0qsbpfd3dbi4vnpa60a0";
+    };
 
-  unpackCmd = "mkdir src; cp $curSrc src/vcs";
-  patches = [ ./fonts.patch ];
-  nativeBuildInputs = [ makeWrapper ];
+    unpackCmd = "mkdir src; cp $curSrc src/vcs";
+    patches = [ ./fonts.patch ];
+    nativeBuildInputs = [ makeWrapper ];
 
-  inherit dejavu_fonts;
-  installPhase = ''
-    mkdir -p $out/bin
-    mv vcs $out/bin/vcs
-    substituteAllInPlace $out/bin/vcs
-    chmod +x $out/bin/vcs
-    wrapProgram $out/bin/vcs --argv0 vcs --set PATH "${makeBinPath runtimeDeps}"
-  '';
+    inherit dejavu_fonts;
+    installPhase = ''
+      mkdir -p $out/bin
+      mv vcs $out/bin/vcs
+      substituteAllInPlace $out/bin/vcs
+      chmod +x $out/bin/vcs
+      wrapProgram $out/bin/vcs --argv0 vcs --set PATH "${
+        makeBinPath runtimeDeps
+      }"
+    '';
 
-  meta = {
-    description = "Generates contact sheets from video files";
-    homepage = "http://p.outlyer.net/vcs";
-    license = licenses.cc-by-nc-sa-30;
-    maintainers = with maintainers; [ elitak ];
-    platforms = with platforms; unix;
-  };
-}
+    meta = {
+      description = "Generates contact sheets from video files";
+      homepage = "http://p.outlyer.net/vcs";
+      license = licenses.cc-by-nc-sa-30;
+      maintainers = with maintainers; [ elitak ];
+      platforms = with platforms; unix;
+    };
+  }

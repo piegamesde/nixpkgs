@@ -43,16 +43,19 @@ let
       rules,
       user ? null
     }:
-    let suffix = if user == null then "" else "-${user}";
-    in pkgs.writeTextFile {
-      name = "nixos-user-tmpfiles.d${suffix}";
-      destination = "/etc/xdg/user-tmpfiles.d/00-nixos${suffix}.conf";
-      text = ''
-        # This file is created automatically and should not be modified.
-        # Please change the options ‘systemd.user.tmpfiles’ instead.
-        ${concatStringsSep "\n" rules}
-      '';
-    };
+    let
+      suffix = if user == null then "" else "-${user}";
+    in
+      pkgs.writeTextFile {
+        name = "nixos-user-tmpfiles.d${suffix}";
+        destination = "/etc/xdg/user-tmpfiles.d/00-nixos${suffix}.conf";
+        text = ''
+          # This file is created automatically and should not be modified.
+          # Please change the options ‘systemd.user.tmpfiles’ instead.
+          ${concatStringsSep "\n" rules}
+        '';
+      }
+  ;
 in {
   options = {
     systemd.user.extraConfig = mkOption {

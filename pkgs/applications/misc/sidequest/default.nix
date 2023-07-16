@@ -63,41 +63,42 @@ let
         "$out/lib/SideQuest/sidequest"
     '';
   };
-in buildFHSEnv {
-  name = "SideQuest";
+in
+  buildFHSEnv {
+    name = "SideQuest";
 
-  passthru = {
-    inherit pname version;
+    passthru = {
+      inherit pname version;
 
-    meta = with lib; {
-      description =
-        "An open app store and side-loading tool for Android-based VR devices such as the Oculus Go, Oculus Quest or Moverio BT 300";
-      homepage = "https://github.com/SideQuestVR/SideQuest";
-      downloadPage = "https://github.com/SideQuestVR/SideQuest/releases";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.mit;
-      maintainers = with maintainers; [
-        joepie91
-        rvolosatovs
-      ];
-      platforms = [ "x86_64-linux" ];
+      meta = with lib; {
+        description =
+          "An open app store and side-loading tool for Android-based VR devices such as the Oculus Go, Oculus Quest or Moverio BT 300";
+        homepage = "https://github.com/SideQuestVR/SideQuest";
+        downloadPage = "https://github.com/SideQuestVR/SideQuest/releases";
+        sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+        license = licenses.mit;
+        maintainers = with maintainers; [
+          joepie91
+          rvolosatovs
+        ];
+        platforms = [ "x86_64-linux" ];
+      };
     };
-  };
 
-  targetPkgs = pkgs: [
-    sidequest
-    # Needed in the environment on runtime, to make QuestSaberPatch work
-    icu
-    openssl
-    zlib
-    libxkbcommon
-    libxshmfence
-  ];
+    targetPkgs = pkgs: [
+      sidequest
+      # Needed in the environment on runtime, to make QuestSaberPatch work
+      icu
+      openssl
+      zlib
+      libxkbcommon
+      libxshmfence
+    ];
 
-  extraInstallCommands = ''
-    mkdir -p "$out/share/applications"
-    ln -s ${desktopItem}/share/applications/* "$out/share/applications"
-  '';
+    extraInstallCommands = ''
+      mkdir -p "$out/share/applications"
+      ln -s ${desktopItem}/share/applications/* "$out/share/applications"
+    '';
 
-  runScript = "sidequest";
-}
+    runScript = "sidequest";
+  }

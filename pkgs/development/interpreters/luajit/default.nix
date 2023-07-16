@@ -63,96 +63,103 @@ let
   else
     buildPackages.stdenv;
 
-in stdenv.mkDerivation rec {
-  pname = "luajit";
-  inherit version src;
+in
+  stdenv.mkDerivation rec {
+    pname = "luajit";
+    inherit version src;
 
-  luaversion = "5.1";
+    luaversion = "5.1";
 
-  postPatch = ''
-    substituteInPlace Makefile --replace ldconfig :
-    if test -n "''${dontStrip-}"; then
-      # CCDEBUG must be non-empty or everything will be stripped, -g being
-      # passed by nixpkgs CC wrapper is insufficient on its own
-      substituteInPlace src/Makefile --replace "#CCDEBUG= -g" "CCDEBUG= -g"
-    fi
+    postPatch = ''
+      substituteInPlace Makefile --replace ldconfig :
+      if test -n "''${dontStrip-}"; then
+        # CCDEBUG must be non-empty or everything will be stripped, -g being
+        # passed by nixpkgs CC wrapper is insufficient on its own
+        substituteInPlace src/Makefile --replace "#CCDEBUG= -g" "CCDEBUG= -g"
+      fi
 
-    {
-      echo -e '
-        #undef  LUA_PATH_DEFAULT
-        #define LUA_PATH_DEFAULT "./share/lua/${luaversion}/?.lua;./?.lua;./?/init.lua"
-        #undef  LUA_CPATH_DEFAULT
-        #define LUA_CPATH_DEFAULT "./lib/lua/${luaversion}/?.so;./?.so;./lib/lua/${luaversion}/loadall.so"
-      '
-    } >> src/luaconf.h
-  '';
+      {
+        echo -e '
+          #undef  LUA_PATH_DEFAULT
+          #define LUA_PATH_DEFAULT "./share/lua/${luaversion}/?.lua;./?.lua;./?/init.lua"
+          #undef  LUA_CPATH_DEFAULT
+          #define LUA_CPATH_DEFAULT "./lib/lua/${luaversion}/?.so;./?.so;./lib/lua/${luaversion}/loadall.so"
+        '
+      } >> src/luaconf.h
+    '';
 
-  dontConfigure = true;
+    dontConfigure = true;
 
-  buildInputs = lib.optional enableValgrindSupport valgrind;
+    buildInputs = lib.optional enableValgrindSupport valgrind;
 
-  buildFlags = [ "amalg" # Build highly optimized version
-    ];
-  makeFlags = [
-    "PREFIX=$(out)"
-    "DEFAULT_CC=cc"
-    "CROSS=${stdenv.cc.targetPrefix}"
-    "HOST_CC=${buildStdenv.cc}/bin/cc"
-  ] ++ lib.optional enableJITDebugModule "INSTALL_LJLIBD=$(INSTALL_LMOD)";
-  enableParallelBuilding = true;
-  env.NIX_CFLAGS_COMPILE = toString XCFLAGS;
-
-  postInstall = ''
-    ( cd "$out/include"; ln -s luajit-*/* . )
-    ln -s "$out"/bin/luajit-* "$out"/bin/lua
-    if [[ ! -e "$out"/bin/luajit ]]; then
-      ln -s "$out"/bin/luajit* "$out"/bin/luajit
-    fi
-  '';
-
-  LuaPathSearchPaths = luaPackages.luaLib.luaPathList;
-  LuaCPathSearchPaths = luaPackages.luaLib.luaCPathList;
-
-  setupHook = luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList
-    luaPackages.luaLib.luaCPathList;
-
-  # copied from python
-  passthru = let
-    # When we override the interpreter we also need to override the spliced versions of the interpreter
-    inputs' =
-      lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
-    override = attr:
-      let lua = attr.override (inputs' // { self = lua; });
-      in lua;
-  in passthruFun rec {
-    inherit self luaversion packageOverrides luaAttr;
-    executable = "lua";
-    luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
-    luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
-    luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
-    luaOnHostForHost = override pkgsHostHost.${luaAttr};
-    luaOnTargetForTarget = if lib.hasAttr luaAttr pkgsTargetTarget then
-      (override pkgsTargetTarget.${luaAttr})
-    else
-      { };
-  };
-
-  meta = with lib;
-    {
-      description = "High-performance JIT compiler for Lua 5.1";
-      homepage = "https://luajit.org/";
-      license = licenses.mit;
-      platforms = platforms.linux ++ platforms.darwin;
-      badPlatforms = [
-        "riscv64-linux"
-        "riscv64-linux" # See https://github.com/LuaJIT/LuaJIT/issues/628
-        "powerpc64le-linux" # `#error "No support for PPC64"`
+    buildFlags = [ "amalg" # Build highly optimized version
       ];
-      maintainers = with maintainers; [
-        thoughtpolice
-        smironov
-        vcunat
-        lblasc
-      ];
-    } // extraMeta;
-}
+    makeFlags = [
+      "PREFIX=$(out)"
+      "DEFAULT_CC=cc"
+      "CROSS=${stdenv.cc.targetPrefix}"
+      "HOST_CC=${buildStdenv.cc}/bin/cc"
+    ] ++ lib.optional enableJITDebugModule "INSTALL_LJLIBD=$(INSTALL_LMOD)";
+    enableParallelBuilding = true;
+    env.NIX_CFLAGS_COMPILE = toString XCFLAGS;
+
+    postInstall = ''
+      ( cd "$out/include"; ln -s luajit-*/* . )
+      ln -s "$out"/bin/luajit-* "$out"/bin/lua
+      if [[ ! -e "$out"/bin/luajit ]]; then
+        ln -s "$out"/bin/luajit* "$out"/bin/luajit
+      fi
+    '';
+
+    LuaPathSearchPaths = luaPackages.luaLib.luaPathList;
+    LuaCPathSearchPaths = luaPackages.luaLib.luaCPathList;
+
+    setupHook = luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList
+      luaPackages.luaLib.luaCPathList;
+
+    # copied from python
+    passthru = let
+      # When we override the interpreter we also need to override the spliced versions of the interpreter
+      inputs' =
+        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
+        inputs;
+      override = attr:
+        let
+          lua = attr.override (inputs' // { self = lua; });
+        in
+          lua
+      ;
+    in
+      passthruFun rec {
+        inherit self luaversion packageOverrides luaAttr;
+        executable = "lua";
+        luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
+        luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
+        luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
+        luaOnHostForHost = override pkgsHostHost.${luaAttr};
+        luaOnTargetForTarget = if lib.hasAttr luaAttr pkgsTargetTarget then
+          (override pkgsTargetTarget.${luaAttr})
+        else
+          { };
+      }
+    ;
+
+    meta = with lib;
+      {
+        description = "High-performance JIT compiler for Lua 5.1";
+        homepage = "https://luajit.org/";
+        license = licenses.mit;
+        platforms = platforms.linux ++ platforms.darwin;
+        badPlatforms = [
+          "riscv64-linux"
+          "riscv64-linux" # See https://github.com/LuaJIT/LuaJIT/issues/628
+          "powerpc64le-linux" # `#error "No support for PPC64"`
+        ];
+        maintainers = with maintainers; [
+          thoughtpolice
+          smironov
+          vcunat
+          lblasc
+        ];
+      } // extraMeta;
+  }

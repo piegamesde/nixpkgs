@@ -50,4 +50,6 @@ let
   # The lifespans of Citrix products can be found here:
   # https://www.citrix.com/support/product-lifecycle/milestones/receiver.html
   unsupportedVersions = [ ];
-in { inherit supportedVersions unsupportedVersions; }
+in {
+  inherit supportedVersions unsupportedVersions;
+}

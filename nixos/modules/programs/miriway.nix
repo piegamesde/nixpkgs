@@ -5,7 +5,8 @@
   ...
 }:
 
-let cfg = config.programs.miriway;
+let
+  cfg = config.programs.miriway;
 in {
   options.programs.miriway = {
     enable = lib.mkEnableOption (lib.mdDoc ''

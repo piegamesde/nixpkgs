@@ -38,22 +38,23 @@ let
   else
     throw "Unknown Dwarf Fortress version: ${dfVersion}";
   dwarf-therapist = dwarf-fortress.dwarf-therapist;
-in buildEnv {
-  name = "dwarf-fortress-full";
-  paths = [ (dwarf-fortress.override {
-    inherit enableDFHack enableTWBT enableSoundSense enableStoneSense theme
-      enableIntro enableTruetype enableFPS enableTextMode enableSound;
-  }) ] ++ lib.optional enableDwarfTherapist dwarf-therapist
-    ++ lib.optional enableLegendsBrowser legends-browser;
+in
+  buildEnv {
+    name = "dwarf-fortress-full";
+    paths = [ (dwarf-fortress.override {
+      inherit enableDFHack enableTWBT enableSoundSense enableStoneSense theme
+        enableIntro enableTruetype enableFPS enableTextMode enableSound;
+    }) ] ++ lib.optional enableDwarfTherapist dwarf-therapist
+      ++ lib.optional enableLegendsBrowser legends-browser;
 
-  meta = with lib; {
-    description = "An opinionated wrapper for Dwarf Fortress";
-    maintainers = with maintainers; [
-      Baughn
-      numinit
-    ];
-    license = licenses.mit;
-    platforms = platforms.all;
-    homepage = "https://github.com/NixOS/nixpkgs/";
-  };
-}
+    meta = with lib; {
+      description = "An opinionated wrapper for Dwarf Fortress";
+      maintainers = with maintainers; [
+        Baughn
+        numinit
+      ];
+      license = licenses.mit;
+      platforms = platforms.all;
+      homepage = "https://github.com/NixOS/nixpkgs/";
+    };
+  }

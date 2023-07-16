@@ -2,7 +2,8 @@
   fetchurl,
   fetchFromGitLab,
 }:
-let src = builtins.fromJSON (builtins.readFile ./src.json);
+let
+  src = builtins.fromJSON (builtins.readFile ./src.json);
 in {
   inherit (src) packageVersion;
   source = fetchFromGitLab {

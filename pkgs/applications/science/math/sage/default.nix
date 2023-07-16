@@ -186,8 +186,9 @@ let
     ];
   };
   # A wrapper around sage that makes sure sage finds its docs (if they were build).
-in callPackage ./sage.nix {
-  inherit sage-tests sage-with-env sagedoc jupyter-kernel-definition
-    jupyter-kernel-specs;
-  inherit withDoc requireSageTests;
-}
+in
+  callPackage ./sage.nix {
+    inherit sage-tests sage-with-env sagedoc jupyter-kernel-definition
+      jupyter-kernel-specs;
+    inherit withDoc requireSageTests;
+  }

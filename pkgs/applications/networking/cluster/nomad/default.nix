@@ -21,39 +21,41 @@ let
         "sha256"
         "vendorSha256"
       ];
-    in buildGoModule (rec {
-      pname = "nomad";
-      inherit version vendorSha256;
+    in
+      buildGoModule (rec {
+        pname = "nomad";
+        inherit version vendorSha256;
 
-      subPackages = [ "." ];
+        subPackages = [ "." ];
 
-      src = fetchFromGitHub {
-        owner = "hashicorp";
-        repo = pname;
-        rev = "v${version}";
-        inherit sha256;
-      };
+        src = fetchFromGitHub {
+          owner = "hashicorp";
+          repo = pname;
+          rev = "v${version}";
+          inherit sha256;
+        };
 
-      # ui:
-      #  Nomad release commits include the compiled version of the UI, but the file
-      #  is only included if we build with the ui tag.
-      tags = [ "ui" ];
+        # ui:
+        #  Nomad release commits include the compiled version of the UI, but the file
+        #  is only included if we build with the ui tag.
+        tags = [ "ui" ];
 
-      meta = with lib; {
-        homepage = "https://www.nomadproject.io/";
-        description =
-          "A Distributed, Highly Available, Datacenter-Aware Scheduler";
-        platforms = platforms.unix;
-        license = licenses.mpl20;
-        maintainers = with maintainers; [
-          rushmorem
-          pradeepchhetri
-          endocrimes
-          maxeaubrey
-          techknowlogick
-        ];
-      };
-    } // attrs');
+        meta = with lib; {
+          homepage = "https://www.nomadproject.io/";
+          description =
+            "A Distributed, Highly Available, Datacenter-Aware Scheduler";
+          platforms = platforms.unix;
+          license = licenses.mpl20;
+          maintainers = with maintainers; [
+            rushmorem
+            pradeepchhetri
+            endocrimes
+            maxeaubrey
+            techknowlogick
+          ];
+        };
+      } // attrs')
+  ;
 in rec {
   # Nomad never updates major go versions within a release series and is unsupported
   # on Go versions that it did not ship with. Due to historic bugs when compiled

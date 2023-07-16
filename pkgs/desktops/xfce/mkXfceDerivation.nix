@@ -75,8 +75,9 @@ let
     "sha256"
   ];
 
-in stdenv.mkDerivation (recursiveUpdate template publicArgs // concatAttrLists [
-  template
-  args
-])
-# TODO [ AndersonTorres ]: verify if it allows using hash attribute as an option to sha256
+in
+  stdenv.mkDerivation (recursiveUpdate template publicArgs // concatAttrLists [
+    template
+    args
+  ])
+  # TODO [ AndersonTorres ]: verify if it allows using hash attribute as an option to sha256

@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.services.xserver.windowManager.oroborus;
+let
+  cfg = config.services.xserver.windowManager.oroborus;
 in {
   ###### interface
   options = {

@@ -90,111 +90,114 @@ let
       stdenv = (stdenv-overridable argsStdenv);
 
       # The stdenv that we are producing.
-    in derivation (lib.optionalAttrs (allowedRequisites != null) {
-      allowedRequisites = allowedRequisites ++ defaultNativeBuildInputs
-        ++ defaultBuildInputs;
-    } // lib.optionalAttrs config.contentAddressedByDefault {
-      __contentAddressed = true;
-      outputHashAlgo = "sha256";
-      outputHashMode = "recursive";
-    } // {
-      inherit name;
-      inherit disallowedRequisites;
+    in
+      derivation (lib.optionalAttrs (allowedRequisites != null) {
+        allowedRequisites = allowedRequisites ++ defaultNativeBuildInputs
+          ++ defaultBuildInputs;
+      } // lib.optionalAttrs config.contentAddressedByDefault {
+        __contentAddressed = true;
+        outputHashAlgo = "sha256";
+        outputHashMode = "recursive";
+      } // {
+        inherit name;
+        inherit disallowedRequisites;
 
-      # Nix itself uses the `system` field of a derivation to decide where to
-      # build it. This is a bit confusing for cross compilation.
-      inherit (buildPlatform) system;
+        # Nix itself uses the `system` field of a derivation to decide where to
+        # build it. This is a bit confusing for cross compilation.
+        inherit (buildPlatform) system;
 
-      builder = shell;
+        builder = shell;
 
-      args = [
-        "-e"
-        ./builder.sh
-      ];
+        args = [
+          "-e"
+          ./builder.sh
+        ];
 
-      setup = setupScript;
+        setup = setupScript;
 
-      # We pretty much never need rpaths on Darwin, since all library path references
-      # are absolute unless we go out of our way to make them relative (like with CF)
-      # TODO: This really wants to be in stdenv/darwin but we don't have hostPlatform
-      # there (yet?) so it goes here until then.
-      preHook = preHook + lib.optionalString buildPlatform.isDarwin ''
-        export NIX_DONT_SET_RPATH_FOR_BUILD=1
-      '' + lib.optionalString (hostPlatform.isDarwin
-        || (hostPlatform.parsed.kernel.execFormat
-          != lib.systems.parse.execFormats.elf
-          && hostPlatform.parsed.kernel.execFormat
-          != lib.systems.parse.execFormats.macho)) ''
-            export NIX_DONT_SET_RPATH=1
-            export NIX_NO_SELF_RPATH=1
+        # We pretty much never need rpaths on Darwin, since all library path references
+        # are absolute unless we go out of our way to make them relative (like with CF)
+        # TODO: This really wants to be in stdenv/darwin but we don't have hostPlatform
+        # there (yet?) so it goes here until then.
+        preHook = preHook + lib.optionalString buildPlatform.isDarwin ''
+          export NIX_DONT_SET_RPATH_FOR_BUILD=1
+        '' + lib.optionalString (hostPlatform.isDarwin
+          || (hostPlatform.parsed.kernel.execFormat
+            != lib.systems.parse.execFormats.elf
+            && hostPlatform.parsed.kernel.execFormat
+            != lib.systems.parse.execFormats.macho)) ''
+              export NIX_DONT_SET_RPATH=1
+              export NIX_NO_SELF_RPATH=1
+            '' + lib.optionalString
+          (hostPlatform.isDarwin && hostPlatform.isMacOS) ''
+            export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
           ''
-        + lib.optionalString (hostPlatform.isDarwin && hostPlatform.isMacOS) ''
-          export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
-        ''
-        # TODO this should be uncommented, but it causes stupid mass rebuilds. I
-        # think the best solution would just be to fixup linux RPATHs so we don't
-        # need to set `-rpath` anywhere.
-        # + lib.optionalString targetPlatform.isDarwin ''
-        #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
-        # ''
-      ;
+          # TODO this should be uncommented, but it causes stupid mass rebuilds. I
+          # think the best solution would just be to fixup linux RPATHs so we don't
+          # need to set `-rpath` anywhere.
+          # + lib.optionalString targetPlatform.isDarwin ''
+          #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
+          # ''
+        ;
 
-      inherit initialPath shell defaultNativeBuildInputs defaultBuildInputs;
-    } // lib.optionalAttrs buildPlatform.isDarwin {
-      __sandboxProfile = stdenvSandboxProfile;
-      __impureHostDeps = __stdenvImpureHostDeps;
-    })
+        inherit initialPath shell defaultNativeBuildInputs defaultBuildInputs;
+      } // lib.optionalAttrs buildPlatform.isDarwin {
+        __sandboxProfile = stdenvSandboxProfile;
+        __impureHostDeps = __stdenvImpureHostDeps;
+      })
 
-    // {
+      // {
 
-      meta = {
-        description =
-          "The default build environment for Unix packages in Nixpkgs";
-        platforms = lib.platforms.all;
-      };
+        meta = {
+          description =
+            "The default build environment for Unix packages in Nixpkgs";
+          platforms = lib.platforms.all;
+        };
 
-      inherit buildPlatform hostPlatform targetPlatform;
+        inherit buildPlatform hostPlatform targetPlatform;
 
-      inherit extraNativeBuildInputs extraBuildInputs __extraImpureHostDeps
-        extraSandboxProfile;
+        inherit extraNativeBuildInputs extraBuildInputs __extraImpureHostDeps
+          extraSandboxProfile;
 
-      # Utility flags to test the type of platform.
-      inherit (hostPlatform)
-        isDarwin isLinux isSunOS isCygwin isBSD isFreeBSD isOpenBSD isi686
-        isx86_32 isx86_64 is32bit is64bit isAarch32 isAarch64 isMips
-        isBigEndian;
+        # Utility flags to test the type of platform.
+        inherit (hostPlatform)
+          isDarwin isLinux isSunOS isCygwin isBSD isFreeBSD isOpenBSD isi686
+          isx86_32 isx86_64 is32bit is64bit isAarch32 isAarch64 isMips
+          isBigEndian;
 
-      # Override `system` so that packages can get the system of the host
-      # platform through `stdenv.system`. `system` is originally set to the
-      # build platform within the derivation above so that Nix directs the build
-      # to correct type of machine.
-      inherit (hostPlatform) system;
+        # Override `system` so that packages can get the system of the host
+        # platform through `stdenv.system`. `system` is originally set to the
+        # build platform within the derivation above so that Nix directs the build
+        # to correct type of machine.
+        inherit (hostPlatform) system;
 
-      mkDerivation = mkDerivationFromStdenv stdenv;
+        mkDerivation = mkDerivationFromStdenv stdenv;
 
-      inherit fetchurlBoot;
+        inherit fetchurlBoot;
 
-      inherit overrides;
+        inherit overrides;
 
-      inherit cc hasCC;
+        inherit cc hasCC;
 
-      # Convenience for doing some very basic shell syntax checking by parsing a script
-      # without running any commands. Because this will also skip `shopt -s extglob`
-      # commands and extglob affects the Bash parser, we enable extglob always.
-      shellDryRun = "${stdenv.shell} -n -O extglob";
+        # Convenience for doing some very basic shell syntax checking by parsing a script
+        # without running any commands. Because this will also skip `shopt -s extglob`
+        # commands and extglob affects the Bash parser, we enable extglob always.
+        shellDryRun = "${stdenv.shell} -n -O extglob";
 
-      tests = {
-        succeedOnFailure =
-          import ../tests/succeedOnFailure.nix { inherit stdenv; };
-      };
-      passthru.tests = lib.warn
-        "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail."
-        stdenv.tests;
-    }
+        tests = {
+          succeedOnFailure =
+            import ../tests/succeedOnFailure.nix { inherit stdenv; };
+        };
+        passthru.tests = lib.warn
+          "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail."
+          stdenv.tests;
+      }
 
-    # Propagate any extra attributes.  For instance, we use this to
-    # "lift" packages like curl from the final stdenv for Linux to
-    # all-packages.nix for that platform (meaning that it has a line
-    # like curl = if stdenv ? curl then stdenv.curl else ...).
-    // extraAttrs);
-in stdenv-overridable
+      # Propagate any extra attributes.  For instance, we use this to
+      # "lift" packages like curl from the final stdenv for Linux to
+      # all-packages.nix for that platform (meaning that it has a line
+      # like curl = if stdenv ? curl then stdenv.curl else ...).
+      // extraAttrs
+  );
+in
+  stdenv-overridable

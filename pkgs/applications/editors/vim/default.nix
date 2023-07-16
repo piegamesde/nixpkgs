@@ -22,73 +22,75 @@
   Cocoa,
 }:
 
-let common = callPackage ./common.nix { };
-in stdenv.mkDerivation {
-  pname = "vim";
+let
+  common = callPackage ./common.nix { };
+in
+  stdenv.mkDerivation {
+    pname = "vim";
 
-  inherit (common)
-    version src postPatch hardeningDisable enableParallelBuilding
-    enableParallelInstalling meta;
+    inherit (common)
+      version src postPatch hardeningDisable enableParallelBuilding
+      enableParallelInstalling meta;
 
-  nativeBuildInputs = [
-    gettext
-    pkg-config
-  ];
-  buildInputs = [
-    ncurses
-    bash
-    gawk
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Carbon
-    Cocoa
-  ];
+    nativeBuildInputs = [
+      gettext
+      pkg-config
+    ];
+    buildInputs = [
+      ncurses
+      bash
+      gawk
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Carbon
+      Cocoa
+    ];
 
-  strictDeps = true;
+    strictDeps = true;
 
-  configureFlags = [
-    "--enable-multibyte"
-    "--enable-nls"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "vim_cv_toupper_broken=no"
-    "--with-tlib=ncurses"
-    "vim_cv_terminfo=yes"
-    "vim_cv_tgetent=zero" # it does on native anyway
-    "vim_cv_timer_create=yes"
-    "vim_cv_tty_group=tty"
-    "vim_cv_tty_mode=0660"
-    "vim_cv_getcwd_broken=no"
-    "vim_cv_stat_ignores_slash=yes"
-    "vim_cv_memmove_handles_overlap=yes"
-  ];
+    configureFlags = [
+      "--enable-multibyte"
+      "--enable-nls"
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "vim_cv_toupper_broken=no"
+      "--with-tlib=ncurses"
+      "vim_cv_terminfo=yes"
+      "vim_cv_tgetent=zero" # it does on native anyway
+      "vim_cv_timer_create=yes"
+      "vim_cv_tty_group=tty"
+      "vim_cv_tty_mode=0660"
+      "vim_cv_getcwd_broken=no"
+      "vim_cv_stat_ignores_slash=yes"
+      "vim_cv_memmove_handles_overlap=yes"
+    ];
 
-  # which.sh is used to for vim's own shebang patching, so make it find
-  # binaries for the host platform.
-  preConfigure = ''
-    export HOST_PATH
-    substituteInPlace src/which.sh --replace '$PATH' '$HOST_PATH'
-  '';
+    # which.sh is used to for vim's own shebang patching, so make it find
+    # binaries for the host platform.
+    preConfigure = ''
+      export HOST_PATH
+      substituteInPlace src/which.sh --replace '$PATH' '$HOST_PATH'
+    '';
 
-  postInstall = ''
-    ln -s $out/bin/vim $out/bin/vi
-    mkdir -p $out/share/vim
-    cp "${vimrc}" $out/share/vim/vimrc
+    postInstall = ''
+      ln -s $out/bin/vim $out/bin/vi
+      mkdir -p $out/share/vim
+      cp "${vimrc}" $out/share/vim/vimrc
 
-    # Prevent bugs in the upstream makefile from silently failing and missing outputs.
-    # Some of those are build-time requirements for other packages.
-    for tool in ex xxd vi view vimdiff; do
-      if [ ! -e "$out/bin/$tool" ]; then
-        echo "ERROR: install phase did not install '$tool'."
-        exit 1
-      fi
-    done
-  '';
+      # Prevent bugs in the upstream makefile from silently failing and missing outputs.
+      # Some of those are build-time requirements for other packages.
+      for tool in ex xxd vi view vimdiff; do
+        if [ ! -e "$out/bin/$tool" ]; then
+          echo "ERROR: install phase did not install '$tool'."
+          exit 1
+        fi
+      done
+    '';
 
-  __impureHostDeps = [ "/dev/ptmx" ];
+    __impureHostDeps = [ "/dev/ptmx" ];
 
-  # To fix the trouble in vim73, that it cannot cross-build with this patch
-  # to bypass a configure script check that cannot be done cross-building.
-  # http://groups.google.com/group/vim_dev/browse_thread/thread/66c02efd1523554b?pli=1
-  # patchPhase = ''
-  #   sed -i -e 's/as_fn_error.*int32.*/:/' src/auto/configure
-  # '';
-}
+    # To fix the trouble in vim73, that it cannot cross-build with this patch
+    # to bypass a configure script check that cannot be done cross-building.
+    # http://groups.google.com/group/vim_dev/browse_thread/thread/66c02efd1523554b?pli=1
+    # patchPhase = ''
+    #   sed -i -e 's/as_fn_error.*int32.*/:/' src/auto/configure
+    # '';
+  }

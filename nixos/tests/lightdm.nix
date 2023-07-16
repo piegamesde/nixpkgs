@@ -21,7 +21,8 @@ import ./make-test-python.nix ({
         nodes,
         ...
       }:
-      let user = nodes.machine.config.users.users.alice;
+      let
+        user = nodes.machine.config.users.users.alice;
       in ''
         start_all()
         machine.wait_for_text("${user.description}")
@@ -30,5 +31,5 @@ import ./make-test-python.nix ({
         machine.wait_for_file("${user.home}/.Xauthority")
         machine.succeed("xauth merge ${user.home}/.Xauthority")
         machine.wait_for_window("^IceWM ")
-      '';
+      '' ;
   })

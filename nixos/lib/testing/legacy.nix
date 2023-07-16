@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-let inherit (lib) mkIf mkOption types;
+let
+  inherit (lib) mkIf mkOption types;
 in {
   # This needs options.warnings and options.assertions, which we don't have (yet?).
   # imports = [

@@ -2,7 +2,8 @@
   lib,
   ...
 }:
-let inherit (lib) mkOption types;
+let
+  inherit (lib) mkOption types;
 in {
   options.bare-submodule.deep = mkOption {
     type = types.int;

@@ -5,7 +5,8 @@
   fetchpatch,
 }:
 
-let mkSSHFS = args: callPackage (import ./common.nix args) { };
+let
+  mkSSHFS = args: callPackage (import ./common.nix args) { };
 in if stdenv.isDarwin then
   mkSSHFS {
     version = "2.10"; # macFUSE isn't yet compatible with libfuse 3.x

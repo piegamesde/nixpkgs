@@ -7,7 +7,8 @@
 
 with lib;
 
-let cfg = config.users.mysql;
+let
+  cfg = config.users.mysql;
 in {
   options = {
     users.mysql = {

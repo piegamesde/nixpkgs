@@ -42,6 +42,7 @@ let
         callPackage ../development/dhall-modules/dhall-kubernetes.nix { };
 
       Prelude = callPackage ../development/dhall-modules/Prelude.nix { };
-    };
+    } ;
 
-in lib.fix' (lib.extends overrides packages)
+in
+  lib.fix' (lib.extends overrides packages)

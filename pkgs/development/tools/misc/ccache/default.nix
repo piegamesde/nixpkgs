@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     export HOME=$(mktemp -d)
     ctest --output-on-failure -E '^(${lib.concatStringsSep "|" badTests})$'
     runHook postCheck
-  '';
+  '' ;
 
   passthru = {
     # A derivation that provides gcc and g++ commands, but that

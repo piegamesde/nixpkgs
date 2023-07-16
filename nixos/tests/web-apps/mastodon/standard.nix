@@ -101,4 +101,4 @@ import ../../make-test-python.nix ({
         server.wait_for_open_port(5432)
       '';
     };
-  })
+  } )
