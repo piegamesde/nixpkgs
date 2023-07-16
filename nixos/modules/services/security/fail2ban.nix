@@ -313,8 +313,9 @@ in {
     } ];
 
     warnings = mkIf (!config.networking.firewall.enable
-      && !config.networking.nftables.enable) [ "fail2ban can not be used without a firewall" ]
-      ;
+      && !config.networking.nftables.enable) [
+        "fail2ban can not be used without a firewall"
+      ];
 
     environment.systemPackages = [ cfg.package ];
 

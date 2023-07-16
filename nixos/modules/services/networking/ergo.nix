@@ -131,7 +131,9 @@ in {
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
+    systemd.tmpfiles.rules = [
+        "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
+      ];
 
     systemd.services.ergo = {
       description = "ergo server";

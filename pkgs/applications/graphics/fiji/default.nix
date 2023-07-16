@@ -28,23 +28,25 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ stdenv.cc.cc.lib ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "fiji";
-    exec = "fiji %F";
-    tryExec = "fiji";
-    icon = "fiji";
-    mimeTypes = [ "image/*" ];
-    comment = "Scientific Image Analysis";
-    desktopName = "Fiji Is Just ImageJ";
-    genericName = "Fiji Is Just ImageJ";
-    categories = [
-      "Education"
-      "Science"
-      "ImageProcessing"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "fiji";
+        exec = "fiji %F";
+        tryExec = "fiji";
+        icon = "fiji";
+        mimeTypes = [ "image/*" ];
+        comment = "Scientific Image Analysis";
+        desktopName = "Fiji Is Just ImageJ";
+        genericName = "Fiji Is Just ImageJ";
+        categories = [
+          "Education"
+          "Science"
+          "ImageProcessing"
+        ];
+        startupNotify = true;
+        startupWMClass = "fiji-Main";
+      })
     ];
-    startupNotify = true;
-    startupWMClass = "fiji-Main";
-  }) ];
 
   installPhase = ''
     runHook preInstall

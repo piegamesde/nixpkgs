@@ -63,7 +63,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nongnu.org/libunwind";
     description =
       "A portable and efficient API to determine the call-chain of a program";
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [
+        orivej
+      ];
       # https://github.com/libunwind/libunwind#libunwind
     platforms = [
       "aarch64-linux"

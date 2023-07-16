@@ -43,11 +43,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QsdzdF2EuhS8HPHExvRgYUiAOlzTN5QcY5ZHlfPFnUI=";
   };
 
-  patches = lib.optionals stdenv.isLinux [ (substituteAll {
-    src = ./bubblewrap-paths.patch;
-    bubblewrap_bin = "${bubblewrap}/bin/bwrap";
-    inherit (builtins) storeDir;
-  }) ];
+  patches = lib.optionals stdenv.isLinux [
+      (substituteAll {
+        src = ./bubblewrap-paths.patch;
+        bubblewrap_bin = "${bubblewrap}/bin/bwrap";
+        inherit (builtins) storeDir;
+      })
+    ];
 
   nativeBuildInputs = [
     pkg-config

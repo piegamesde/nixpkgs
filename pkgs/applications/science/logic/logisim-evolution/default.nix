@@ -27,14 +27,16 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    desktopName = "Logisim-evolution";
-    exec = "logisim-evolution";
-    icon = "logisim-evolution";
-    comment = meta.description;
-    categories = [ "Education" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        desktopName = "Logisim-evolution";
+        exec = "logisim-evolution";
+        icon = "logisim-evolution";
+        comment = meta.description;
+        categories = [ "Education" ];
+      })
+    ];
 
   installPhase = ''
     runHook preInstall

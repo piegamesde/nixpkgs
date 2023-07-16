@@ -59,14 +59,16 @@ mkDerivation rec {
     "QMAKE_LUPDATE=${qttools.dev}/bin/lupdate"
   ];
 
-  qtWrapperArgs = [ "--suffix PATH : ${
-      lib.makeBinPath [
-        git
-        gnupg
-        pass
-        pwgen
-      ]
-    }" ];
+  qtWrapperArgs = [
+      "--suffix PATH : ${
+        lib.makeBinPath [
+          git
+          gnupg
+          pass
+          pwgen
+        ]
+      }"
+    ];
 
   postInstall = ''
     install -D qtpass.desktop -t $out/share/applications

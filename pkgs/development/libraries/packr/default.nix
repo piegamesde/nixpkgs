@@ -29,7 +29,9 @@ let
         "The simple and easy way to embed static files into Go binaries";
       homepage = "https://github.com/gobuffalo/packr";
       license = licenses.mit;
-      maintainers = with maintainers; [ mmahut ];
+      maintainers = with maintainers; [
+          mmahut
+        ];
 
         # golang.org/x/sys needs to be updated due to:
         #
@@ -62,7 +64,9 @@ let
         "The simple and easy way to embed static files into Go binaries";
       homepage = "https://github.com/gobuffalo/packr";
       license = licenses.mit;
-      maintainers = with maintainers; [ mmahut ];
+      maintainers = with maintainers; [
+          mmahut
+        ];
 
         # golang.org/x/sys needs to be updated due to:
         #

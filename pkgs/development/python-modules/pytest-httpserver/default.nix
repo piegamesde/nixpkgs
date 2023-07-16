@@ -36,7 +36,8 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  disabledTests = [ "test_wait_raise_assertion_false" # racy
+  disabledTests = [
+      "test_wait_raise_assertion_false" # racy
     ];
 
   pythonImportsCheck = [ "pytest_httpserver" ];

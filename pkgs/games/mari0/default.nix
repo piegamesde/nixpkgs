@@ -26,14 +26,16 @@ stdenv.mkDerivation rec {
     zip
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "mari0";
-    exec = pname;
-    comment = "Crossover between Super Mario Bros. and Portal";
-    desktopName = "mari0";
-    genericName = "mari0";
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "mari0";
+        exec = pname;
+        comment = "Crossover between Super Mario Bros. and Portal";
+        desktopName = "mari0";
+        genericName = "mari0";
+        categories = [ "Game" ];
+      })
+    ];
 
   installPhase = ''
     runHook preInstall

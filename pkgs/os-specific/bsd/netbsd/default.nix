@@ -35,15 +35,17 @@ let
   netbsdSetupHook =
     makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
 
-  defaultMakeFlags = [ "MKSOFTFLOAT=${
-      if
-        stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
-        == "soft"
-      then
-        "yes"
-      else
-        "no"
-    }" ];
+  defaultMakeFlags = [
+      "MKSOFTFLOAT=${
+        if
+          stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
+          == "soft"
+        then
+          "yes"
+        else
+          "no"
+      }"
+    ];
 
 in
 makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
@@ -526,8 +528,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
-      extraPaths = [ (fetchNetBSD "share/mk" "9.2"
-        "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy") ];
+      extraPaths = [
+          (fetchNetBSD "share/mk" "9.2"
+            "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy")
+        ];
     };
 
     mtree = mkDerivation {
@@ -873,8 +877,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       postInstall = ''
         make -C $BSDSRCDIR/share/terminfo $makeFlags BINDIR=$out/share install
       '';
-      extraPaths = with self; [ (fetchNetBSD "share/terminfo" "9.2"
-        "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7") ];
+      extraPaths = with self; [
+          (fetchNetBSD "share/terminfo" "9.2"
+            "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7")
+        ];
     };
 
     libcurses = mkDerivation {
@@ -1077,8 +1083,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       USE_FORT = "yes";
       MKPROFILE = "no";
       extraPaths = with self;
-        _mainLibcExtraPaths ++ [ (fetchNetBSD "external/bsd/jemalloc" "9.2"
-          "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb") ];
+        _mainLibcExtraPaths ++ [
+          (fetchNetBSD "external/bsd/jemalloc" "9.2"
+            "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb")
+        ];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook

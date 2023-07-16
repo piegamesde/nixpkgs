@@ -10,16 +10,18 @@ with lib;
 let
   cfg = config.programs.zsh.autosuggestions;
 in {
-  imports = [ (mkRenamedOptionModule [
-    "programs"
-    "zsh"
-    "enableAutosuggestions"
-  ] [
-    "programs"
-    "zsh"
-    "autosuggestions"
-    "enable"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "programs"
+        "zsh"
+        "enableAutosuggestions"
+      ] [
+        "programs"
+        "zsh"
+        "autosuggestions"
+        "enable"
+      ])
+    ];
 
   options.programs.zsh.autosuggestions = {
 

@@ -477,7 +477,9 @@ in {
         services.xserver.desktopManager.plasma5.enable = true;
       '' ];
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-workspace ];
+      services.xserver.displayManager.sessionPackages = [
+          pkgs.libsForQt5.plasma5.plasma-workspace
+        ];
         # Default to be `plasma` (X11) instead of `plasmawayland`, since plasma wayland currently has
         # many tiny bugs.
         # See: https://github.com/NixOS/nixpkgs/issues/143272
@@ -618,7 +620,9 @@ in {
         };
       };
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-mobile ];
+      services.xserver.displayManager.sessionPackages = [
+          pkgs.libsForQt5.plasma5.plasma-mobile
+        ];
     })
 
     # Plasma Bigscreen
@@ -637,7 +641,9 @@ in {
         kdeconnect-kde
       ];
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-bigscreen ];
+      services.xserver.displayManager.sessionPackages = [
+          pkgs.plasma5Packages.plasma-bigscreen
+        ];
 
         # required for plasma-remotecontrollers to work correctly
       hardware.uinput.enable = true;

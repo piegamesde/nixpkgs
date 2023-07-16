@@ -50,12 +50,14 @@ let
     hash = "sha256-yRb6yRpX1vDmXpYu4O50MYMpP2j75aSqhXCWMF1xVH0=";
   };
 
-  patches = [ (substituteAll {
-    src = ./ctypes.patch;
-    libpq =
-      "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}";
-    libc = "${stdenv.cc.libc}/lib/libc.so.6";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./ctypes.patch;
+        libpq =
+          "${postgresql.lib}/lib/libpq${stdenv.hostPlatform.extensions.sharedLibrary}";
+        libc = "${stdenv.cc.libc}/lib/libc.so.6";
+      })
+    ];
 
   baseMeta = {
     changelog =

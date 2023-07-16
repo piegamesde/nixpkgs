@@ -55,8 +55,9 @@ stdenv.mkDerivation (finalAttrs: {
       gfortran
       openmp
       amd-blis
-    ] ++ lib.optionals
-    (buildTensile || buildTests || buildBenchmarks) [ python3Packages.pyyaml ];
+    ] ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [
+      python3Packages.pyyaml
+    ];
 
   cmakeFlags = [
     "-DCMAKE_C_COMPILER=hipcc"
@@ -95,8 +96,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DTensile_LIBRARY_FORMAT=${tensileLibFormat}"
   ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-    ++ lib.optionals (buildTests
-      || buildBenchmarks) [ "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis" ];
+    ++ lib.optionals (buildTests || buildBenchmarks) [
+      "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"
+    ];
 
     # Tensile REALLY wants to write to the nix directory if we include it normally
   postPatch = lib.optionalString buildTensile ''

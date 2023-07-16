@@ -23,11 +23,13 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.02.3";
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
-    dune = "${dune_2}/bin/dune";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        dot_merlin_reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
+        dune = "${dune_2}/bin/dune";
+      })
+    ];
 
   strictDeps = true;
 

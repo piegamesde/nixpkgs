@@ -33,11 +33,12 @@
   extraBuildInputs ? [ ],
   extraCMakeFlags ? [ ],
   extraPostPatch ? "",
-  checkTargets ? [ (lib.optionalString buildTests
-    (if targetDir == "runtimes" then
+  checkTargets ? [
+    (lib.optionalString buildTests (if targetDir == "runtimes" then
       "check-runtimes"
     else
-      "check-all")) ],
+      "check-all"))
+  ],
   extraPostInstall ? "",
   extraLicenses ? [ ],
   isBroken ? false
@@ -109,16 +110,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/${targetDir}";
 
-  cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=${
-      builtins.concatStringsSep ";" llvmTargetsToBuild'
-    }" ] ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects
-      != [ ]) [ "-DLLVM_ENABLE_PROJECTS=${
-      lib.concatStringsSep ";" targetProjects
-    }" ] ++ lib.optionals
-    ((finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes
-      != [ ]) [ "-DLLVM_ENABLE_RUNTIMES=${
-      lib.concatStringsSep ";" targetRuntimes
-    }" ] ++ lib.optionals
+  cmakeFlags = [
+      "-DLLVM_TARGETS_TO_BUILD=${
+        builtins.concatStringsSep ";" llvmTargetsToBuild'
+      }"
+    ] ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
+      "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
+    ] ++ lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
+      && targetRuntimes != [ ]) [
+      "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}"
+    ] ++ lib.optionals
     (finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang) [
       "-DLLVM_ENABLE_RTTI=ON"
       "-DLLVM_ENABLE_EH=ON"
@@ -134,9 +135,9 @@ stdenv.mkDerivation (finalAttrs: {
     ] ++ lib.optionals buildTests [
       "-DLLVM_INCLUDE_TESTS=ON"
       "-DLLVM_BUILD_TESTS=ON"
-    ] ++ lib.optionals (buildTests
-      && !finalAttrs.passthru.isLLVM) [ "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped" ]
-    ++ extraCMakeFlags;
+    ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [
+      "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
+    ] ++ extraCMakeFlags;
 
   postPatch = lib.optionalString finalAttrs.passthru.isLLVM ''
     patchShebangs lib/OffloadArch/make_generated_offload_arch_h.sh

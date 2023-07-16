@@ -49,10 +49,12 @@ let
           int = [ "${name} = ${toString value}" ];
 
             # extraConfig should be inserted verbatim
-          string = [ (if name == "extraConfig" then
-            value
-          else
-            "${name} = ${value}") ];
+          string = [
+              (if name == "extraConfig" then
+                value
+              else
+                "${name} = ${value}")
+            ];
 
             # Values like `Foo = [ "bar" "baz" ];` should be transformed into
             #   Foo=bar

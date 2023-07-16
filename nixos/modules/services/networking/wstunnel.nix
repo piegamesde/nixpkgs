@@ -398,8 +398,9 @@ let
             SupplementaryGroups =
               optional (serverCfg.useACMEHost != null) certConfig.group;
             PrivateTmp = true;
-            AmbientCapabilities = optionals
-              (serverCfg.listen.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+            AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [
+                "CAP_NET_BIND_SERVICE"
+              ];
             NoNewPrivileges = true;
             RestrictNamespaces = "uts ipc pid user cgroup";
             ProtectSystem = "strict";
@@ -488,8 +489,9 @@ let
           AmbientCapabilities =
             (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
             ++ (optionals ((clientCfg.dynamicToRemote.port or 1024) < 1024
-              || (any (x: x.local.port < 1024)
-                clientCfg.localToRemote)) [ "CAP_NET_BIND_SERVICE" ]);
+              || (any (x: x.local.port < 1024) clientCfg.localToRemote)) [
+                "CAP_NET_BIND_SERVICE"
+              ]);
           NoNewPrivileges = true;
           RestrictNamespaces = "uts ipc pid user cgroup";
           ProtectSystem = "strict";

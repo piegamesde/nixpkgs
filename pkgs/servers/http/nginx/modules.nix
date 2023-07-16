@@ -91,16 +91,18 @@ in let
         sha256 = "sha256-h2LgMhreCgod+H/bNQzY9BvqG9ezkwikwWB3T6gHH04=";
       };
 
-      inputs = [ (arpa2common.overrideAttrs (old: rec {
-        version = "0.7.1";
+      inputs = [
+          (arpa2common.overrideAttrs (old: rec {
+            version = "0.7.1";
 
-        src = fetchFromGitLab {
-          owner = "arpa2";
-          repo = "arpa2common";
-          rev = "v${version}";
-          sha256 = "sha256-8zVsAlGtmya9EK4OkGUMu2FKJRn2Q3bg2QWGjqcii64=";
-        };
-      })) ];
+            src = fetchFromGitLab {
+              owner = "arpa2";
+              repo = "arpa2common";
+              rev = "v${version}";
+              sha256 = "sha256-8zVsAlGtmya9EK4OkGUMu2FKJRn2Q3bg2QWGjqcii64=";
+            };
+          }))
+        ];
 
       meta = with lib; {
         description = "Integrate ARPA2 Resource ACLs into nginx";

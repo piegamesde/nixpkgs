@@ -45,7 +45,8 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = rec {
     array-types = enp;
-    eapp = [ absl-py # FIXME package simple-parsing
+    eapp = [
+        absl-py # FIXME package simple-parsing
       ] ++ epy;
     ecolab = [
       jupyter
@@ -83,7 +84,8 @@ buildPythonPackage rec {
     yapf
   ] ++ passthru.optional-dependencies.all;
 
-  disabledTests = [ "test_public_access" # requires network access
+  disabledTests = [
+      "test_public_access" # requires network access
     ];
 
   doCheck = false; # error: infinite recursion encountered

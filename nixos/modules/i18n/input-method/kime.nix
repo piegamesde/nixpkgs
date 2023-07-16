@@ -8,12 +8,14 @@
 let
   imcfg = config.i18n.inputMethod;
 in {
-  imports = [ (lib.mkRemovedOptionModule [
-    "i18n"
-    "inputMethod"
-    "kime"
-    "config"
-  ] "Use i18n.inputMethod.kime.* instead") ];
+  imports = [
+      (lib.mkRemovedOptionModule [
+        "i18n"
+        "inputMethod"
+        "kime"
+        "config"
+      ] "Use i18n.inputMethod.kime.* instead")
+    ];
 
   options.i18n.inputMethod.kime = {
     daemonModules = lib.mkOption {

@@ -22,10 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-R1LKW8wOBRLkG4zE0ngKwv07PqvQO36VClWUwGID38Q=";
   };
 
-  patches = [ (substituteAll {
-    src = ./hardcode-graphviz-path.patch;
-    graphviz = graphvizPkgs;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./hardcode-graphviz-path.patch;
+        graphviz = graphvizPkgs;
+      })
+    ];
 
   propagatedBuildInputs = [ graphviz ];
 

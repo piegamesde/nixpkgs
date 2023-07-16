@@ -259,9 +259,12 @@ let
     [
       cuda_cccl # <thrust/*>
       libnpp # npp.h
-    ] ++ lib.optionals enableCublas [ libcublas # cublas_v2.h
-    ] ++ lib.optionals enableCudnn [ cudnn # cudnn.h
-    ] ++ lib.optionals enableCufft [ libcufft # cufft.h
+    ] ++ lib.optionals enableCublas [
+      libcublas # cublas_v2.h
+    ] ++ lib.optionals enableCudnn [
+      cudnn # cudnn.h
+    ] ++ lib.optionals enableCufft [
+      libcufft # cufft.h
     ];
 
   cuda-native-redist = symlinkJoin {
@@ -439,9 +442,9 @@ stdenv.mkDerivation {
   ] ++ lib.optionals stdenv.isDarwin [
     "-DWITH_OPENCL=OFF"
     "-DWITH_LAPACK=OFF"
-  ] ++ lib.optionals
-    (!stdenv.isDarwin) [ "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so" ]
-    ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+      "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
+    ] ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ];
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen

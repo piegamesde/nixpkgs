@@ -475,7 +475,9 @@ in {
               '') cfg.networks)}
           '';
         };
-      in [ cli-wrappers ]
+      in [
+        cli-wrappers
+      ]
       ;
 
     users.users = flip mapAttrs' cfg.networks (network: _:

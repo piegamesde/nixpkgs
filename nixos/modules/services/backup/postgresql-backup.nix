@@ -72,14 +72,16 @@ let
 
 in {
 
-  imports = [ (mkRemovedOptionModule [
-    "services"
-    "postgresqlBackup"
-    "period"
-  ] ''
-    A systemd timer is now used instead of cron.
-    The starting time can be configured via <literal>services.postgresqlBackup.startAt</literal>.
-  '') ];
+  imports = [
+      (mkRemovedOptionModule [
+        "services"
+        "postgresqlBackup"
+        "period"
+      ] ''
+        A systemd timer is now used instead of cron.
+        The starting time can be configured via <literal>services.postgresqlBackup.startAt</literal>.
+      '')
+    ];
 
   options = {
     services.postgresqlBackup = {

@@ -182,7 +182,8 @@ import ./make-test-python.nix ({
             address = "fd21::3";
             prefixLength = 64;
           } ];
-          networking.firewall.allowedTCPPorts = [ 53 # regular DNS
+          networking.firewall.allowedTCPPorts = [
+              53 # regular DNS
             ];
           networking.firewall.allowedUDPPorts = [ 53 ];
 

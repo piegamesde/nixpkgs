@@ -152,9 +152,9 @@ mkDerivation {
     "dev"
   ];
 
-  cmakeFlags = [ "-DNIXPKGS_BREEZE_WALLPAPERS=${
-      getBin breeze-qt5
-    }/share/wallpapers" ];
+  cmakeFlags = [
+      "-DNIXPKGS_BREEZE_WALLPAPERS=${getBin breeze-qt5}/share/wallpapers"
+    ];
 
   patches = [
     ./0001-startkde.patch

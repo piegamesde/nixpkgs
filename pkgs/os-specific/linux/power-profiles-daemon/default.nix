@@ -63,9 +63,9 @@ stdenv.mkDerivation rec {
         dbus-python
         python-dbusmock
       ]))
-  ] ++ lib.optionals
-    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ;
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     libgudev

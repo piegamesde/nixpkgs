@@ -127,9 +127,9 @@ stdenv.mkDerivation rec {
     "-DBUILD_TESTING:BOOL=ON"
     "-DGOOGLE_CLOUD_CPP_ENABLE_EXAMPLES:BOOL=OFF"
     "-DCMAKE_CXX_STANDARD=${grpc.cxxStandard}"
-  ] ++ lib.optionals (apis != [ "*" ]) [ "-DGOOGLE_CLOUD_CPP_ENABLE=${
-      lib.concatStringsSep ";" apis
-    }" ];
+  ] ++ lib.optionals (apis != [ "*" ]) [
+      "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"
+    ];
 
   meta = with lib; {
     license = with licenses; [ asl20 ];

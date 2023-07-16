@@ -48,8 +48,10 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [ libarchive ];
 
-  mesonFlags = [ "-Denable-test=false" ] ++ lib.optionals (stdenv.buildPlatform
-    != stdenv.hostPlatform) [ "-Ddisable-introspection=true" ];
+  mesonFlags = [ "-Denable-test=false" ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "-Ddisable-introspection=true"
+    ];
 
   passthru = {
     updateScript = gnome.updateScript {

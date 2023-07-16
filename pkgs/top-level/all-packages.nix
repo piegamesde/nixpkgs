@@ -24782,8 +24782,9 @@ with pkgs;
     name = "nvidia-docker";
     containerRuntimePath = "${docker}/libexec/docker/runc";
     configTemplate = ../applications/virtualization/nvidia-docker/config.toml;
-    additionalPaths = [ (callPackage
-      ../applications/virtualization/nvidia-docker { }) ];
+    additionalPaths = [
+        (callPackage ../applications/virtualization/nvidia-docker { })
+      ];
   };
 
   nvidia-podman = mkNvidiaContainerPkg {
@@ -42038,13 +42039,15 @@ with pkgs;
     configuration:
     let
       c = import (path + "/nixos/lib/eval-config.nix") {
-        modules = [ ({
-            lib,
-            ...
-          }: {
-            config.nixpkgs.pkgs = lib.mkDefault pkgs;
-            config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
-          }) ] ++ (if builtins.isList configuration then
+        modules = [
+            ({
+                lib,
+                ...
+              }: {
+                config.nixpkgs.pkgs = lib.mkDefault pkgs;
+                config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
+              })
+          ] ++ (if builtins.isList configuration then
             configuration
           else
             [ configuration ]);

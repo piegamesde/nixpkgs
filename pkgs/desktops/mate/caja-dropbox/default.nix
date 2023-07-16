@@ -27,10 +27,12 @@ stdenv.mkDerivation rec {
     sha256 = "16w4r0zjps12lmzwiwpb9qnmbvd0p391q97296sxa8k88b1x14wn";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-cli-paths.patch;
-    inherit dropboxd;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-cli-paths.patch;
+        inherit dropboxd;
+      })
+    ];
 
   strictDeps = true;
 
@@ -51,7 +53,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  configureFlags = [ "--with-caja-extension-dir=$$out/lib/caja/extensions-2.0" ];
+  configureFlags = [
+      "--with-caja-extension-dir=$$out/lib/caja/extensions-2.0"
+    ];
 
   enableParallelBuilding = true;
 

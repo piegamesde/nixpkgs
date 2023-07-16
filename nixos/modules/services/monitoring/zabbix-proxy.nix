@@ -43,11 +43,13 @@ let
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
 in {
-  imports = [ (lib.mkRemovedOptionModule [
-    "services"
-    "zabbixProxy"
-    "extraConfig"
-  ] "Use services.zabbixProxy.settings instead.") ];
+  imports = [
+      (lib.mkRemovedOptionModule [
+        "services"
+        "zabbixProxy"
+        "extraConfig"
+      ] "Use services.zabbixProxy.settings instead.")
+    ];
 
     # interface
 

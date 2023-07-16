@@ -98,7 +98,9 @@ let
     # work.
   extraUtils = pkgs.runCommand "extra-utils" {
     nativeBuildInputs = [ pkgs.buildPackages.nukeReferences ];
-    allowedReferences = [ "out" ]; # prevent accidents like glibc being included in the initrd
+    allowedReferences = [
+        "out"
+      ]; # prevent accidents like glibc being included in the initrd
   } ''
     set +o pipefail
 
@@ -789,15 +791,17 @@ in {
     boot.initrd.supportedFilesystems = map (fs: fs.fsType) fileSystems;
   };
 
-  imports = [ (mkRenamedOptionModule [
-    "boot"
-    "initrd"
-    "mdadmConf"
-  ] [
-    "boot"
-    "initrd"
-    "services"
-    "swraid"
-    "mdadmConf"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "boot"
+        "initrd"
+        "mdadmConf"
+      ] [
+        "boot"
+        "initrd"
+        "services"
+        "swraid"
+        "mdadmConf"
+      ])
+    ];
 }

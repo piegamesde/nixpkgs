@@ -70,13 +70,15 @@ let
   vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };
 
 in {
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "bitwarden_rs"
-  ] [
-    "services"
-    "vaultwarden"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "bitwarden_rs"
+      ] [
+        "services"
+        "vaultwarden"
+      ])
+    ];
 
   options.services.vaultwarden = with types; {
     enable = mkEnableOption (lib.mdDoc "vaultwarden");
@@ -259,7 +261,9 @@ in {
         DATA_FOLDER = "/var/lib/bitwarden_rs";
         BACKUP_FOLDER = cfg.backupDir;
       };
-      path = with pkgs; [ sqlite ];
+      path = with pkgs; [
+          sqlite
+        ];
         # if both services are started at the same time, vaultwarden fails with "database is locked"
       before = [ "vaultwarden.service" ];
       serviceConfig = {

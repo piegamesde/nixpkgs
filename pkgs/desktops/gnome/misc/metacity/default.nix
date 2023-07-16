@@ -29,10 +29,12 @@ stdenv.mkDerivation rec {
     sha256 = "ALpJ92EgiPKzuuynnEXrKjBCPC5Ke+pAFYcr6uJd1sU=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit zenity;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit zenity;
+      })
+    ];
 
   nativeBuildInputs = [
     gettext

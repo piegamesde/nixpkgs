@@ -34,11 +34,13 @@ buildGoModule rec {
   };
   vendorSha256 = "sha256-D8b/pvmBGCnaRuf92FYgRcSSbN59Yu0CHKxAybdYjS4=";
 
-  patches = [ (substituteAll {
-    src = ./fix-paths-keybase.patch;
-    gpg = "${gnupg}/bin/gpg";
-    gpg2 = "${gnupg}/bin/gpg2";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths-keybase.patch;
+        gpg = "${gnupg}/bin/gpg";
+        gpg2 = "${gnupg}/bin/gpg2";
+      })
+    ];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     AVFoundation

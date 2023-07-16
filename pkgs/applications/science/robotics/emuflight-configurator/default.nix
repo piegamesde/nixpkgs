@@ -41,14 +41,16 @@ stdenv.mkDerivation rec {
     makeWrapper ${nwjs}/bin/nw $out/bin/${pname} --add-flags $out/share/${pname}
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = pname;
-    icon = pname;
-    comment = "Emuflight configuration tool";
-    desktopName = "Emuflight Configurator";
-    genericName = "Flight controller configuration tool";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = pname;
+        icon = pname;
+        comment = "Emuflight configuration tool";
+        desktopName = "Emuflight Configurator";
+        genericName = "Flight controller configuration tool";
+      })
+    ];
 
   meta = with lib; {
     description = "The Emuflight flight control system configuration tool";

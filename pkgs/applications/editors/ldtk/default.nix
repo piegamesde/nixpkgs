@@ -48,16 +48,18 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "ldtk";
-    exec = "ldtk";
-    icon = "ldtk";
-    terminal = false;
-    desktopName = "LDtk";
-    comment = "2D level editor";
-    categories = [ "Utility" ];
-    mimeTypes = [ "application/json" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "ldtk";
+        exec = "ldtk";
+        icon = "ldtk";
+        terminal = false;
+        desktopName = "LDtk";
+        comment = "2D level editor";
+        categories = [ "Utility" ];
+        mimeTypes = [ "application/json" ];
+      })
+    ];
 
   meta = with lib; {
     description = "Modern, lightweight and efficient 2D level editor";

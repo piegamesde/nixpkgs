@@ -96,8 +96,9 @@ stdenv.mkDerivation rec {
         (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)
       }'
     '';
-  in [ "--cross-file=${crossFile}" ] )
-    ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ];
+  in [
+    "--cross-file=${crossFile}"
+  ] ) ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ];
 
   doCheck =
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/397

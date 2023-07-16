@@ -1103,7 +1103,9 @@ in {
             # Allow nginx access to buildlogs
             users.users.${nginx.user}.extraGroups = [ cfg.builds.group ];
             systemd.services.nginx = {
-              serviceConfig.BindReadOnlyPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ];
+              serviceConfig.BindReadOnlyPaths = [
+                  cfg.settings."builds.sr.ht::worker".buildlogs
+                ];
             };
             services.nginx.virtualHosts."logs.${domain}" = mkMerge [
               {
@@ -1126,9 +1128,9 @@ in {
     (import ./service.nix "git" (let
       baseService = {
         path = [ cfg.git.package ];
-        serviceConfig.BindPaths = [ "${
-            cfg.settings."git.sr.ht".repos
-          }:/var/lib/sourcehut/gitsrht/repos" ];
+        serviceConfig.BindPaths = [
+            "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"
+          ];
       };
     in {
       inherit configIniOfService;
@@ -1226,9 +1228,11 @@ in {
           ExecStartPre = mkForce [ ];
           User = null;
           DynamicUser = true;
-          BindReadOnlyPaths = [ "${
-              cfg.settings."git.sr.ht".repos
-            }:/var/lib/sourcehut/gitsrht/repos" ];
+          BindReadOnlyPaths = [
+              "${
+                cfg.settings."git.sr.ht".repos
+              }:/var/lib/sourcehut/gitsrht/repos"
+            ];
           IPAddressDeny = "any";
           InaccessiblePaths = [
             "-+/run/postgresql"
@@ -1253,9 +1257,9 @@ in {
     (import ./service.nix "hg" (let
       baseService = {
         path = [ cfg.hg.package ];
-        serviceConfig.BindPaths = [ "${
-            cfg.settings."hg.sr.ht".repos
-          }:/var/lib/sourcehut/hgsrht/repos" ];
+        serviceConfig.BindPaths = [
+            "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"
+          ];
       };
     in {
       inherit configIniOfService;
@@ -1323,9 +1327,9 @@ in {
             };
           };
           systemd.services.nginx = {
-            serviceConfig.BindReadOnlyPaths = [ "${
-                cfg.settings."hg.sr.ht".repos
-              }:/var/lib/nginx/hgsrht/repos" ];
+            serviceConfig.BindReadOnlyPaths = [
+                "${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos"
+              ];
           };
         })
       ];

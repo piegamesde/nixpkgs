@@ -26,9 +26,10 @@ import ./make-test-python.nix ({
           ...
         }: {
           imports = [ common ];
-          networking.nameservers = lib.mkForce [ (lib.head
-            nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address ]
-            ;
+          networking.nameservers = lib.mkForce [
+              (lib.head
+                nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address
+            ];
           networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.2";
             prefixLength = 24;
@@ -43,9 +44,10 @@ import ./make-test-python.nix ({
           ...
         }: {
           imports = [ common ];
-          networking.nameservers = lib.mkForce [ (lib.head
-            nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address ]
-            ;
+          networking.nameservers = lib.mkForce [
+              (lib.head
+                nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address
+            ];
           networking.interfaces.eth1.ipv4.addresses = [ {
             address = "dead:beef::2";
             prefixLength = 24;
@@ -85,7 +87,9 @@ import ./make-test-python.nix ({
             ns A 192.168.0.1
             ns AAAA dead:beef::1
           '';
-          services.nsd.zones."example.com.".provideXFR = [ "0.0.0.0 tsig.example.com." ];
+          services.nsd.zones."example.com.".provideXFR = [
+              "0.0.0.0 tsig.example.com."
+            ];
           services.nsd.zones."deleg.example.com.".data = ''
             @ SOA ns.example.com noc.example.com 666 7200 3600 1209600 3600
             @ A 9.8.7.6

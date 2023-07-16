@@ -75,12 +75,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-er02UBjihnne9gpezTBJ2w+4XebaSaltrdIfuo2wAuc=";
   };
 
-  patches = [ (substituteAll {
-    src = ./paths.patch;
-    gcm = gnome-color-manager;
-    inherit glibc libgnomekbd tzdata shadow;
-    inherit cups networkmanagerapplet;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./paths.patch;
+        gcm = gnome-color-manager;
+        inherit glibc libgnomekbd tzdata shadow;
+        inherit cups networkmanagerapplet;
+      })
+    ];
 
   nativeBuildInputs = [
     docbook-xsl-nons

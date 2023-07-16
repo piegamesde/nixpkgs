@@ -23,10 +23,12 @@ python3Packages.buildPythonApplication rec {
     pyxdg
   ];
 
-  patches = [ (substituteAll {
-    src = ./mpv.patch;
-    inherit mpv;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./mpv.patch;
+        inherit mpv;
+      })
+    ];
 
     # No tests
   doCheck = false;

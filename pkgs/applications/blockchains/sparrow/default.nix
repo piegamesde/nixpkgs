@@ -176,25 +176,27 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "Sparrow";
-    exec = pname;
-    icon = pname;
-    desktopName = "Sparrow Bitcoin Wallet";
-    genericName = "Bitcoin Wallet";
-    categories = [
-      "Finance"
-      "Network"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "Sparrow";
+        exec = pname;
+        icon = pname;
+        desktopName = "Sparrow Bitcoin Wallet";
+        genericName = "Bitcoin Wallet";
+        categories = [
+          "Finance"
+          "Network"
+        ];
+        mimeTypes = [
+          "application/psbt"
+          "application/bitcoin-transaction"
+          "x-scheme-handler/bitcoin"
+          "x-scheme-handler/auth47"
+          "x-scheme-handler/lightning"
+        ];
+        startupWMClass = "Sparrow";
+      })
     ];
-    mimeTypes = [
-      "application/psbt"
-      "application/bitcoin-transaction"
-      "x-scheme-handler/bitcoin"
-      "x-scheme-handler/auth47"
-      "x-scheme-handler/lightning"
-    ];
-    startupWMClass = "Sparrow";
-  }) ];
 
   sparrow-icons = stdenv.mkDerivation {
     inherit version src;

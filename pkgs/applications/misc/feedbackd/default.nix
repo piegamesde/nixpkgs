@@ -49,10 +49,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [ (fetchpatch2 {
-    url = "https://source.puri.sm/Librem5/feedbackd/-/merge_requests/109.patch";
-    hash = "sha256-z3Ud6P2GHYOaGA2vJDD3Sz47+M8p0VcYZ5gbYcGydMk=";
-  }) ];
+  patches = [
+      (fetchpatch2 {
+        url =
+          "https://source.puri.sm/Librem5/feedbackd/-/merge_requests/109.patch";
+        hash = "sha256-z3Ud6P2GHYOaGA2vJDD3Sz47+M8p0VcYZ5gbYcGydMk=";
+      })
+    ];
 
   depsBuildBuild = [ pkg-config ];
 

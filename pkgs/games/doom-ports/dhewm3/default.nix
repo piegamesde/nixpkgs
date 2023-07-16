@@ -52,12 +52,14 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "dhewm3";
-    exec = "dhewm3";
-    desktopName = "Doom 3";
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "dhewm3";
+        exec = "dhewm3";
+        desktopName = "Doom 3";
+        categories = [ "Game" ];
+      })
+    ];
 
   hardeningDisable = [ "format" ];
 

@@ -165,9 +165,9 @@ in {
             Restart = "on-failure";
           };
         };
-        tmpfiles.rules = mkIf
-          defaultStateDir [ "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -" ]
-          ;
+        tmpfiles.rules = mkIf defaultStateDir [
+            "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
+          ];
       }
       ;
 

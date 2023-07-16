@@ -17,10 +17,12 @@ let
 
   configFile = pkgs.runCommand "matrix-appservice-irc.yml" {
     # Because this program will be run at build time, we need `nativeBuildInputs`
-    nativeBuildInputs = [ (pkgs.python3.withPackages (ps: [
-      ps.pyyaml
-      ps.jsonschema
-    ])) ];
+    nativeBuildInputs = [
+        (pkgs.python3.withPackages (ps: [
+          ps.pyyaml
+          ps.jsonschema
+        ]))
+      ];
     preferLocalBuild = true;
 
     config = builtins.toJSON cfg.settings;
@@ -165,9 +167,12 @@ in {
   config = mkIf cfg.enable {
     systemd.services.matrix-appservice-irc = {
       description = "Matrix-IRC bridge";
-      before = [ "matrix-synapse.service" ]; # So the registration can be used by Synapse
-      after = lib.optionals
-        (cfg.settings.database.engine == "postgres") [ "postgresql.service" ];
+      before = [
+          "matrix-synapse.service"
+        ]; # So the registration can be used by Synapse
+      after = lib.optionals (cfg.settings.database.engine == "postgres") [
+          "postgresql.service"
+        ];
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''

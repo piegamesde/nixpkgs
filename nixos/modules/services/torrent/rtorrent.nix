@@ -225,7 +225,9 @@ in {
           ;
       };
 
-      tmpfiles.rules = [ "d '${cfg.dataDir}' ${cfg.dataPermissions} ${cfg.user} ${cfg.group} -" ];
+      tmpfiles.rules = [
+          "d '${cfg.dataDir}' ${cfg.dataPermissions} ${cfg.user} ${cfg.group} -"
+        ];
     };
   };
 }

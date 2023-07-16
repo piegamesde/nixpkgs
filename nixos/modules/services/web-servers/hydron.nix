@@ -171,15 +171,17 @@ in with lib; {
     };
   };
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "hydron"
-    "baseDir"
-  ] [
-    "services"
-    "hydron"
-    "dataDir"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "hydron"
+        "baseDir"
+      ] [
+        "services"
+        "hydron"
+        "dataDir"
+      ])
+    ];
 
   meta.maintainers = with maintainers; [ Madouura ];
 }

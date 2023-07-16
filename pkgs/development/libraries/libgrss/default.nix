@@ -35,13 +35,15 @@ stdenv.mkDerivation rec {
     sha256 = "1nalslgyglvhpva3px06fj6lv5zgfg0qmj0sbxyyl5d963vc02b7";
   };
 
-  patches = [ (fetchpatch {
-    name = "CVE-2016-20011.patch";
-      # https://gitlab.gnome.org/GNOME/libgrss/-/merge_requests/7, not yet merged!
-    url =
-      "https://gitlab.gnome.org/GNOME/libgrss/-/commit/2c6ea642663e2a44efc8583fae7c54b7b98f72b3.patch";
-    sha256 = "1ijvq2jl97vphcvrbrqxvszdmv6yyjfygdca9vyaijpafwyzzb18";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "CVE-2016-20011.patch";
+          # https://gitlab.gnome.org/GNOME/libgrss/-/merge_requests/7, not yet merged!
+        url =
+          "https://gitlab.gnome.org/GNOME/libgrss/-/commit/2c6ea642663e2a44efc8583fae7c54b7b98f72b3.patch";
+        sha256 = "1ijvq2jl97vphcvrbrqxvszdmv6yyjfygdca9vyaijpafwyzzb18";
+      })
+    ];
 
   nativeBuildInputs = [
     pkg-config
@@ -61,10 +63,11 @@ stdenv.mkDerivation rec {
     AppKit
   ];
 
-  configureFlags =
-    [ "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config" ]
-    ++ lib.optionals
-    (stdenv.buildPlatform == stdenv.hostPlatform) [ "--enable-gtk-doc" ];
+  configureFlags = [
+      "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
+    ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+      "--enable-gtk-doc"
+    ];
 
   doCheck = true;
 

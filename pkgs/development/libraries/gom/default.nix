@@ -45,9 +45,11 @@ stdenv.mkDerivation rec {
     python3.pkgs.pygobject3
   ];
 
-  mesonFlags = [ "-Dpygobject-override-dir=${
-      placeholder "py"
-    }/${python3.sitePackages}/gi/overrides" ];
+  mesonFlags = [
+      "-Dpygobject-override-dir=${
+        placeholder "py"
+      }/${python3.sitePackages}/gi/overrides"
+    ];
 
     # Success is more likely on x86_64
   doCheck = stdenv.isx86_64;

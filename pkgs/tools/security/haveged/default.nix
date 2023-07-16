@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     patchShebangs ent # test shebang
   '';
 
-  installFlags = [ "sbindir=$(out)/bin" # no reason for us to have a $out/sbin, its just a symlink to $out/bin
+  installFlags = [
+      "sbindir=$(out)/bin" # no reason for us to have a $out/sbin, its just a symlink to $out/bin
     ];
 
   doCheck = true;

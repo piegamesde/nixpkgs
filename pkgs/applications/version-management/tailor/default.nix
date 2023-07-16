@@ -14,7 +14,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Bdf8ZCRsbCsFz1GRxyQxxndXSsm8oOL2738m9UxOTVc=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ future ];
+  propagatedBuildInputs = with python3.pkgs; [
+      future
+    ];
 
     # AssertionError: Tailor Darcs repository not found!
   doCheck = false;

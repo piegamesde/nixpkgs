@@ -161,7 +161,9 @@ import ./make-test-python.nix ({
                   smtp.send_message(reply)
                   smtp.quit()
             '';
-          in [ replyToEmail ]
+          in [
+            replyToEmail
+          ]
           ;
 
         networking.firewall.allowedTCPPorts = [ 25 ];

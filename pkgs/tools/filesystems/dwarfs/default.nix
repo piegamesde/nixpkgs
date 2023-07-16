@@ -38,18 +38,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fA/3AooDndqYiK215cu/zTqCqeccHnwIX2CfJ9sC+Fc=";
   };
 
-  patches = with lib.versions; [ (substituteAll {
-    src = ./version_info.patch;
+  patches = with lib.versions; [
+      (substituteAll {
+        src = ./version_info.patch;
 
-    gitRev = "v${version}";
-    gitDesc = "v${version}";
-    gitBranch = "v${version}";
-    gitId = "v${version}"; # displayed as version number
+        gitRev = "v${version}";
+        gitDesc = "v${version}";
+        gitBranch = "v${version}";
+        gitId = "v${version}"; # displayed as version number
 
-    versionMajor = major version;
-    versionMinor = minor version;
-    versionPatch = patch version;
-  }) ];
+        versionMajor = major version;
+        versionMinor = minor version;
+        versionPatch = patch version;
+      })
+    ];
 
   cmakeFlags = [
     "-DPREFER_SYSTEM_ZSTD=ON"

@@ -347,14 +347,15 @@ stdenv.mkDerivation (rec {
     != "glibc" && !targetPlatform.isWindows) [
       "--with-iconv-includes=${libiconv}/include"
       "--with-iconv-libraries=${libiconv}/lib"
-    ] ++ lib.optionals (targetPlatform
-      != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
-    ++ lib.optionals useLdGold [
+    ] ++ lib.optionals (targetPlatform != hostPlatform) [
+      "--enable-bootstrap-with-devel-snapshot"
+    ] ++ lib.optionals useLdGold [
       "CFLAGS=-fuse-ld=gold"
       "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
       "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
-    ] ++ lib.optionals
-    (disableLargeAddressSpace) [ "--disable-large-address-space" ];
+    ] ++ lib.optionals (disableLargeAddressSpace) [
+      "--disable-large-address-space"
+    ];
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
   strictDeps = true;
@@ -393,7 +394,9 @@ stdenv.mkDerivation (rec {
 
   checkTarget = "test";
 
-  hardeningDisable = [ "format" ]
+  hardeningDisable = [
+      "format"
+    ]
     # In nixpkgs, musl based builds currently enable `pie` hardening by default
     # (see `defaultHardeningFlags` in `make-derivation.nix`).
     # But GHC cannot currently produce outputs that are ready for `-pie` linking.

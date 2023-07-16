@@ -44,7 +44,9 @@ import ./make-test-python.nix ({
         nix.settings.substituters = lib.mkForce [ ];
 
           # auto-start container
-        systemd.targets.machines.wants = [ "systemd-nspawn@${containerName}.service" ];
+        systemd.targets.machines.wants = [
+            "systemd-nspawn@${containerName}.service"
+          ];
 
         virtualisation.additionalPaths = [ containerSystem ];
 

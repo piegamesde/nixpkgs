@@ -234,14 +234,16 @@ let
   };
 
 in {
-  imports = [ (lib.mkRenamedOptionModule [
-    "boot"
-    "binfmtMiscRegistrations"
-  ] [
-    "boot"
-    "binfmt"
-    "registrations"
-  ]) ];
+  imports = [
+      (lib.mkRenamedOptionModule [
+        "boot"
+        "binfmtMiscRegistrations"
+      ] [
+        "boot"
+        "binfmt"
+        "registrations"
+      ])
+    ];
 
   options = {
     boot.binfmt = {
@@ -451,8 +453,9 @@ in {
         "proc-sys-fs-binfmt_misc.mount"
         "systemd-binfmt.service"
       ];
-      services.systemd-binfmt.restartTriggers = [ (builtins.toJSON
-        config.boot.binfmt.registrations) ];
+      services.systemd-binfmt.restartTriggers = [
+          (builtins.toJSON config.boot.binfmt.registrations)
+        ];
     };
   };
 }

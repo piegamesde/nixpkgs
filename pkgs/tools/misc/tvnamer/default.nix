@@ -17,7 +17,9 @@ let
               sha256 = "sha256-gTAjJpaGBF+OAeIonMHn6a5asi3dHihJqQk6s6tycOs=";
             };
 
-            nativeBuildInputs = with final; [ setuptools ];
+            nativeBuildInputs = with final; [
+                setuptools
+              ];
 
               # too many changes have been made to requests-cache based on version 0.6 so
               # simply disable tests
@@ -39,7 +41,9 @@ pypkgs.buildPythonApplication rec {
     sha256 = "dc2ea8188df6ac56439343630466b874c57756dd0b2538dd8e7905048f425f04";
   };
 
-  propagatedBuildInputs = with pypkgs; [ tvdb_api ];
+  propagatedBuildInputs = with pypkgs; [
+      tvdb_api
+    ];
 
     # no tests from pypi
   doCheck = false;

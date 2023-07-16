@@ -358,7 +358,9 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-ddD9hBN+UU9Z3zfNsymD7O5Fi5v1Xuh2wMPmfhrsoO8=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ setuptools ];
+  nativeBuildInputs = with python3.pkgs; [
+      setuptools
+    ];
 
     # copy tests early, so patches apply as they would to the git repo
   prePatch = ''
@@ -367,10 +369,12 @@ python.pkgs.buildPythonApplication rec {
   '';
 
     # leave this in, so users don't have to constantly update their downstream patch handling
-  patches = [ (substituteAll {
-    src = ./patches/ffmpeg-path.patch;
-    ffmpeg = "${lib.getBin ffmpeg-headless}/bin/ffmpeg";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./patches/ffmpeg-path.patch;
+        ffmpeg = "${lib.getBin ffmpeg-headless}/bin/ffmpeg";
+      })
+    ];
 
   postPatch =
     let

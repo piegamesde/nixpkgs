@@ -102,14 +102,16 @@ buildDotnetModule rec {
     install -Dm644 ./usr/lib/udev/rules.d/99-opentabletdriver.rules -t $out/lib/udev/rules.d
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    desktopName = "OpenTabletDriver";
-    name = "OpenTabletDriver";
-    exec = "otd-gui";
-    icon = "otd";
-    comment = meta.description;
-    categories = [ "Utility" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        desktopName = "OpenTabletDriver";
+        name = "OpenTabletDriver";
+        exec = "otd-gui";
+        icon = "otd";
+        comment = meta.description;
+        categories = [ "Utility" ];
+      })
+    ];
 
   passthru = {
     updateScript = ./update.sh;

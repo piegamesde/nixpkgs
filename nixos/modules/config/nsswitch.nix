@@ -94,14 +94,16 @@ with lib;
     };
   };
 
-  imports = [ (mkRenamedOptionModule [
-    "system"
-    "nssHosts"
-  ] [
-    "system"
-    "nssDatabases"
-    "hosts"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "system"
+        "nssHosts"
+      ] [
+        "system"
+        "nssDatabases"
+        "hosts"
+      ])
+    ];
 
   config = {
     assertions = [ {

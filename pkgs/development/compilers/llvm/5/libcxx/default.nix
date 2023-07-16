@@ -33,8 +33,10 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  patches = [ ./gnu-install-dirs.patch ] ++ lib.optionals
-    stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
+  patches = [ ./gnu-install-dirs.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      ../../libcxx-0001-musl-hacks.patch
+    ];
 
   prePatch = ''
     substituteInPlace lib/CMakeLists.txt --replace "/usr/lib/libc++" "\''${LIBCXX_LIBCXXABI_LIB_PATH}/libc++"

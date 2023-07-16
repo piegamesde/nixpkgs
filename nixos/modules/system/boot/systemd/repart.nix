@@ -88,13 +88,16 @@ in {
     boot.initrd.systemd = lib.mkIf initrdCfg.enable {
       additionalUpstreamUnits = [ "systemd-repart.service" ];
 
-      storePaths = [ "${config.boot.initrd.systemd.package}/bin/systemd-repart" ];
+      storePaths = [
+          "${config.boot.initrd.systemd.package}/bin/systemd-repart"
+        ];
 
         # Override defaults in upstream unit.
       services.systemd-repart = {
         # Unset the conditions as they cannot be met before activation because
         # the definition files are not stored in the expected locations.
-        unitConfig.ConditionDirectoryNotEmpty = [ " " # required to unset the previous value.
+        unitConfig.ConditionDirectoryNotEmpty = [
+            " " # required to unset the previous value.
           ];
         serviceConfig = {
           # systemd-repart runs before the activation script. Thus we cannot

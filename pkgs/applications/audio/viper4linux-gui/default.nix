@@ -34,19 +34,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5YlLCF598i/sldczPEgCB+1KJDA7jqM964QDSNjgTKM=";
   };
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = "viper-gui";
-    icon = "viper";
-    desktopName = "viper4linux";
-    genericName = "Equalizer";
-    comment = meta.description;
-    categories = [
-      "AudioVideo"
-      "Audio"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = "viper-gui";
+        icon = "viper";
+        desktopName = "viper4linux";
+        genericName = "Equalizer";
+        comment = meta.description;
+        categories = [
+          "AudioVideo"
+          "Audio"
+        ];
+        startupNotify = false;
+      })
     ];
-    startupNotify = false;
-  }) ];
 
   nativeBuildInputs = [
     qmake

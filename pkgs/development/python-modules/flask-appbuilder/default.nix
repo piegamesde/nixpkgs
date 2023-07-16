@@ -81,7 +81,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/dpgaspar/Flask-AppBuilder/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [
+        costrouc
+      ];
       # Support for flask-sqlalchemy >= 3.0 is missing, https://github.com/dpgaspar/Flask-AppBuilder/pull/1940
     broken = true;
   };

@@ -28,12 +28,14 @@ stdenv.mkDerivation {
   ] ++ lib.optional stdenv.isDarwin utmp;
   nativeBuildInputs = [ qmake ];
 
-  patches = [ (fetchpatch {
-    name = "fix-missing-includes.patch";
-    url =
-      "https://github.com/Swordfish90/qmltermwidget/pull/27/commits/485f8d6d841b607ba49e55a791f7f587e4e193bc.diff";
-    sha256 = "186s8pv3642vr4lxsds919h0y2vrkl61r7wqq9mc4a5zk5vprinj";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "fix-missing-includes.patch";
+        url =
+          "https://github.com/Swordfish90/qmltermwidget/pull/27/commits/485f8d6d841b607ba49e55a791f7f587e4e193bc.diff";
+        sha256 = "186s8pv3642vr4lxsds919h0y2vrkl61r7wqq9mc4a5zk5vprinj";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace qmltermwidget.pro \

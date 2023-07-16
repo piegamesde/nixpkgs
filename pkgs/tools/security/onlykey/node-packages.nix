@@ -6745,9 +6745,11 @@ in {
         sources."chardet-0.7.0"
         sources."check-error-1.0.2"
         (sources."chokidar-2.1.8" // {
-          dependencies = [ (sources."glob-parent-3.1.0" // {
-            dependencies = [ sources."is-glob-3.1.0" ];
-          }) ];
+          dependencies = [
+              (sources."glob-parent-3.1.0" // {
+                dependencies = [ sources."is-glob-3.1.0" ];
+              })
+            ];
         })
         (sources."class-utils-0.3.6" // {
           dependencies = [

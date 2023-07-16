@@ -125,8 +125,10 @@ pkgs.recurseIntoAttrs (rec {
   nvim_with_plug = neovim.override {
     extraName = "-with-plug";
     configure.packages.plugins = with pkgs.vimPlugins; {
-      start = [ (base16-vim.overrideAttrs
-        (old: { pname = old.pname + "-unique-for-tests-please-dont-use"; })) ];
+      start = [
+          (base16-vim.overrideAttrs
+            (old: { pname = old.pname + "-unique-for-tests-please-dont-use"; }))
+        ];
     };
     configure.customRC = ''
       color base16-tomorrow-night
@@ -241,9 +243,11 @@ pkgs.recurseIntoAttrs (rec {
   nvim_with_opt_plugin = neovim.override {
     extraName = "-with-opt-plugin";
     configure.packages.opt-plugins = with pkgs.vimPlugins; {
-      opt = [ (dashboard-nvim.overrideAttrs (old: {
-        pname = old.pname + "-unique-for-tests-please-dont-use-opt";
-      })) ];
+      opt = [
+          (dashboard-nvim.overrideAttrs (old: {
+            pname = old.pname + "-unique-for-tests-please-dont-use-opt";
+          }))
+        ];
     };
     configure.customRC = ''
       " Load all autoloaded plugins

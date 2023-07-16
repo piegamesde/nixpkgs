@@ -55,8 +55,9 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  mesonFlags = lib.optionals
-    (stdenv.buildPlatform != stdenv.hostPlatform) [ "-Dintrospection=false" ];
+  mesonFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "-Dintrospection=false"
+    ];
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Videos";

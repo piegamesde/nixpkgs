@@ -45,8 +45,9 @@
 let
   # We don't check if `python-support` feature is on, as it's unlikely someone
   # may wish to wrap GR without python support.
-  pythonPkgs = extraPythonPackages
-    ++ [ (unwrapped.python.pkgs.toPythonModule unwrapped) ]
+  pythonPkgs = extraPythonPackages ++ [
+      (unwrapped.python.pkgs.toPythonModule unwrapped)
+    ]
     # Add the extraPackages as python modules as well
     ++ (builtins.map unwrapped.python.pkgs.toPythonModule extraPackages)
     ++ lib.flatten (lib.mapAttrsToList (feat: info:

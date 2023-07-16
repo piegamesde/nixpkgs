@@ -55,8 +55,10 @@ let
       };
       doCheck = true;
 
-      nativeBuildInputs = [ makeWrapper ] ++ optionals (stdenv.isLinux
-        && (nativeLibs != [ ] || libPatches != "")) [ autoPatchelfHook ];
+      nativeBuildInputs = [ makeWrapper ] ++ optionals
+        (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [
+          autoPatchelfHook
+        ];
       buildInputs = [ openssl ] ++ nativeLibs;
 
       installPhase = ''

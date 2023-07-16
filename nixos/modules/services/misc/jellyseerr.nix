@@ -43,7 +43,9 @@ in {
           "${pkgs.jellyseerr}/libexec/jellyseerr/deps/jellyseerr";
         DynamicUser = true;
         ExecStart = "${pkgs.jellyseerr}/bin/jellyseerr";
-        BindPaths = [ "/var/lib/jellyseerr/:${pkgs.jellyseerr}/libexec/jellyseerr/deps/jellyseerr/config/" ];
+        BindPaths = [
+            "/var/lib/jellyseerr/:${pkgs.jellyseerr}/libexec/jellyseerr/deps/jellyseerr/config/"
+          ];
         Restart = "on-failure";
         ProtectHome = true;
         ProtectSystem = "strict";

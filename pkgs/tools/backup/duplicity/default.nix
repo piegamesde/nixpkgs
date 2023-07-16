@@ -86,7 +86,8 @@ pythonPackages.buildPythonApplication rec {
     gnutar # Add 'tar' to PATH.
     librsync # Add 'rdiff' to PATH.
     par2cmdline # Add 'par2' to PATH.
-  ] ++ lib.optionals stdenv.isLinux [ util-linux # Add 'setsid' to PATH.
+  ] ++ lib.optionals stdenv.isLinux [
+      util-linux # Add 'setsid' to PATH.
     ] ++ (with pythonPackages; [
       lockfile
       mock

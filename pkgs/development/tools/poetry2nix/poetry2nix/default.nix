@@ -53,7 +53,9 @@ let
       includeBuildSystem ? true,
       groups ? [ ],
       checkGroups ? [ "dev" ],
-      extras ? [ "*" ] # * means all extras, otherwise include the dependencies for a given extra
+      extras ? [
+        "*"
+      ] # * means all extras, otherwise include the dependencies for a given extra
     }:
     let
       getInputs =
@@ -628,7 +630,9 @@ lib.makeScope pkgs.newScope (self: {
   overrides = {
     # Returns the specified overlay in a list
     withoutDefaults =
-      overlay: [ overlay ]
+      overlay: [
+        overlay
+      ]
       ;
 
       /* Returns the specified overlay and returns a list

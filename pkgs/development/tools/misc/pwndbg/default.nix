@@ -20,12 +20,12 @@ let
       unicorn
       rpyc
     ];
-  binPath = lib.makeBinPath
-    ([ python3.pkgs.pwntools # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/wrappers/checksec.py#L8
-      ] ++ lib.optionals stdenv.isLinux [
-        python3.pkgs.ropper # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/ropper.py#L30
-        python3.pkgs.ropgadget # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/rop.py#L32
-      ]);
+  binPath = lib.makeBinPath ([
+      python3.pkgs.pwntools # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/wrappers/checksec.py#L8
+    ] ++ lib.optionals stdenv.isLinux [
+      python3.pkgs.ropper # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/ropper.py#L30
+      python3.pkgs.ropgadget # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/rop.py#L32
+    ]);
 
 in
 stdenv.mkDerivation rec {

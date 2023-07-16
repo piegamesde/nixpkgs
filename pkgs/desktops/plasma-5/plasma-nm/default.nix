@@ -72,8 +72,10 @@ mkDerivation {
 
   cmakeFlags = [ "-DBUILD_MOBILE=ON" ];
 
-  patches = [ (substituteAll {
-    src = ./0002-openvpn-binary-path.patch;
-    inherit openvpn;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./0002-openvpn-binary-path.patch;
+        inherit openvpn;
+      })
+    ];
 }

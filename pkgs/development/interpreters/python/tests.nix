@@ -29,7 +29,9 @@ let
               python.withPackages (ps: with ps; [ virtualenv ])
             else
               python.buildEnv.override {
-                extraLibs = with python.pkgs; [ virtualenv ];
+                extraLibs = with python.pkgs; [
+                    virtualenv
+                  ];
                   # Collisions because of namespaces __init__.py
                 ignoreCollisions = true;
               }
@@ -154,10 +156,9 @@ let
       test-pythonPackagesExtensions =
         let
           pkgs_ = pkgs.extend (final: prev: {
-            pythonPackagesExtensions = prev.pythonPackagesExtensions
-              ++ [ (python-final: python-prev: {
-                foo = python-prev.setuptools;
-              }) ];
+            pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+                (python-final: python-prev: { foo = python-prev.setuptools; })
+              ];
           });
         in
         pkgs_.${python.pythonAttr}.pkgs.foo

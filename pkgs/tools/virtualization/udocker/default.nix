@@ -24,11 +24,13 @@ python3Packages.buildPythonApplication rec {
     pycurl
   ]);
 
-  patches = [ (fetchpatch {
-    url =
-      "https://github.com/indigo-dc/udocker/commit/9f7d6c5f9a3925bf87d000603c5b306d73bb0fa3.patch";
-    sha256 = "sha256-fiqvVqfdVIlILbSs6oDWmbWU9piZEI2oiAKUcmecx9Q=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://github.com/indigo-dc/udocker/commit/9f7d6c5f9a3925bf87d000603c5b306d73bb0fa3.patch";
+        sha256 = "sha256-fiqvVqfdVIlILbSs6oDWmbWU9piZEI2oiAKUcmecx9Q=";
+      })
+    ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

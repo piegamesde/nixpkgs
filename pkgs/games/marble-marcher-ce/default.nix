@@ -53,14 +53,16 @@ stdenv.mkDerivation rec {
     ln -s $out/share/MMCE/images/MarbleMarcher.png $out/share/icons/${pname}.png
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    exec = pname;
-    icon = pname;
-    desktopName = pname;
-    comment = meta.description;
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = pname;
+        icon = pname;
+        desktopName = pname;
+        comment = meta.description;
+        categories = [ "Game" ];
+      })
+    ];
 
   meta = with lib; {
     description = "A fractal physics game.";

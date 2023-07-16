@@ -50,7 +50,9 @@ stdenv.mkDerivation rec {
     texinfo
   ] ++ lib.optional enablePython swig;
 
-  buildInputs = [ pcre2 ] ++ lib.optionals enablePython [ python ]
+  buildInputs = [ pcre2 ] ++ lib.optionals enablePython [
+      python
+    ]
     # configurePhase fails with python 3 when ncurses is missing
     ++ lib.optional isPython3 ncurses;
 

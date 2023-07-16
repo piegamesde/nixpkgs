@@ -39,8 +39,9 @@ stdenv.mkDerivation rec {
     asciidoctor
   ];
 
-  buildInputs = [ perl
-    # perlPackages.Po4a used by ja documentation
+  buildInputs = [
+      perl
+      # perlPackages.Po4a used by ja documentation
     ];
 
   configureFlags = [

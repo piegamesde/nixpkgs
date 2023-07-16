@@ -125,21 +125,24 @@ stdenv.mkDerivation rec {
   pname = "VCV-Rack";
   version = "2.2.1";
 
-  desktopItems = [ (makeDesktopItem {
-    type = "Application";
-    name = pname;
-    desktopName = "VCV Rack";
-    genericName = "Eurorack simulator";
-    comment = "Create music by patching together virtual synthesizer modules";
-    exec = "Rack";
-    icon = "Rack";
-    categories = [
-      "AudioVideo"
-      "AudioVideoEditing"
-      "Audio"
+  desktopItems = [
+      (makeDesktopItem {
+        type = "Application";
+        name = pname;
+        desktopName = "VCV Rack";
+        genericName = "Eurorack simulator";
+        comment =
+          "Create music by patching together virtual synthesizer modules";
+        exec = "Rack";
+        icon = "Rack";
+        categories = [
+          "AudioVideo"
+          "AudioVideoEditing"
+          "Audio"
+        ];
+        keywords = [ "music" ];
+      })
     ];
-    keywords = [ "music" ];
-  }) ];
 
   src = fetchFromGitHub {
     owner = "VCVRack";
@@ -211,8 +214,9 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  makeFlags = lib.optionals (stdenv.buildPlatform
-    != stdenv.hostPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ] ++ [
+  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+    ] ++ [
       "all"
       "plugins"
     ];

@@ -74,7 +74,9 @@ mkDerivation rec {
     unix
   ];
 
-  executableHaskellDepends = with haskellPackages; [ base ];
+  executableHaskellDepends = with haskellPackages; [
+      base
+    ];
 
     # Test suite does nothing.
   doCheck = false;

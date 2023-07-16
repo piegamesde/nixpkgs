@@ -25,7 +25,9 @@ buildPythonPackage rec {
       "Python library to use Shapely or GeoJSON objects as matplotlib paths";
     homepage = "https://bitbucket.org/sgillies/descartes/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [
+        knedlsepp
+      ];
       # all tests are failing
     broken = true;
   };

@@ -79,14 +79,16 @@ let
             enabled = true;
             realm = "test-realm";
             clients = [ client ];
-            users = [ (user // {
-              enabled = true;
-              credentials = [ {
-                type = "password";
-                temporary = false;
-                value = password;
-              } ];
-            }) ];
+            users = [
+                (user // {
+                  enabled = true;
+                  credentials = [ {
+                    type = "password";
+                    temporary = false;
+                    value = password;
+                  } ];
+                })
+              ];
           };
 
           realmDataJson =

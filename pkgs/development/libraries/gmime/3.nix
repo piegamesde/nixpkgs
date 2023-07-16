@@ -44,8 +44,9 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-introspection=yes"
     "--enable-vala=yes"
-  ] ++ lib.optionals (stdenv.buildPlatform
-    != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "ac_cv_have_iconv_detect_h=yes"
+    ];
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \

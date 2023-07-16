@@ -48,10 +48,12 @@ let
         inherit sha256;
       };
 
-      nativeBuildInputs = [ wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
+      nativeBuildInputs = [
+          wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
         ];
 
-      buildInputs = [ gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
+      buildInputs = [
+          gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
         ];
 
       dontBuild = true;

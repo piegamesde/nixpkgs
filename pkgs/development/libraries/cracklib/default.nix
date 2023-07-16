@@ -8,11 +8,13 @@ in
   fetchurl,
   zlib,
   gettext,
-  wordlists ? [ (fetchurl {
-    url =
-      "https://github.com/cracklib/cracklib/releases/download/v${version}/cracklib-words-${version}.gz";
-    hash = "sha256-WLOCTIDdO6kIsMytUdbhZx4woj/u1gf7jmORR2i8T4U=";
-  }) ]
+  wordlists ? [
+    (fetchurl {
+      url =
+        "https://github.com/cracklib/cracklib/releases/download/v${version}/cracklib-words-${version}.gz";
+      hash = "sha256-WLOCTIDdO6kIsMytUdbhZx4woj/u1gf7jmORR2i8T4U=";
+    })
+  ]
 }:
 
 stdenv.mkDerivation rec {

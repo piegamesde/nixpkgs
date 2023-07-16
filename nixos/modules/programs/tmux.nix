@@ -246,13 +246,15 @@ in {
     };
   };
 
-  imports = [ (lib.mkRenamedOptionModule [
-    "programs"
-    "tmux"
-    "extraTmuxConf"
-  ] [
-    "programs"
-    "tmux"
-    "extraConfig"
-  ]) ];
+  imports = [
+      (lib.mkRenamedOptionModule [
+        "programs"
+        "tmux"
+        "extraTmuxConf"
+      ] [
+        "programs"
+        "tmux"
+        "extraConfig"
+      ])
+    ];
 }

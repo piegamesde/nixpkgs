@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ texlive.combined.scheme-full ]; # scheme-full needed for ucs package
+  nativeBuildInputs = [
+      texlive.combined.scheme-full
+    ]; # scheme-full needed for ucs package
   buildInputs = [ xercesc ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   buildFlags = [ "doc" ] ++ (if stdenv.isDarwin then

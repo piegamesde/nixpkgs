@@ -16,7 +16,9 @@ buildPythonPackage rec {
     sha256 = "528999da55ad630e540a39c0eaeacd19c58c36f49d65d24ea9704d0781e18c90";
   };
 
-  propagatedBuildInputs = [ tkinter ]
+  propagatedBuildInputs = [
+      tkinter
+    ]
     # we currently build SuperCollider only on Linux
     # but FoxDot is totally usable on macOS with the official SuperCollider binary
     ++ lib.optionals stdenv.isLinux [ supercollider ];

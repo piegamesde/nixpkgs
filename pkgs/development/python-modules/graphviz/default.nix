@@ -29,11 +29,13 @@ buildPythonPackage rec {
     hash = "sha256-plhWG9mE9DoTMg7mWCvFLAgtBx01LAgJ0gQ/mqBU3yc=";
   };
 
-  patches = [ (substituteAll {
-    src = ./paths.patch;
-    inherit graphviz;
-    xdgutils = xdg-utils;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./paths.patch;
+        inherit graphviz;
+        xdgutils = xdg-utils;
+      })
+    ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg

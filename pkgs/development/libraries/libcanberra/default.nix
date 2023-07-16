@@ -53,25 +53,28 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-oss" ];
 
-  patches = [ (fetchpatch {
-    name = "0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch";
-    url =
-      "http://git.0pointer.net/libcanberra.git/patch/?id=c0620e432650e81062c1967cc669829dbd29b310";
-    sha256 = "0rc7zwn39yxzxp37qh329g7375r5ywcqcaak8ryd0dgvg8m5hcx9";
-  }) ] ++ lib.optionals stdenv.isDarwin [
-    (fetchpatch {
-      url =
-        "https://github.com/macports/macports-ports/raw/5a7965dfea7727d1ceedee46c7b0ccee9cb23468/audio/libcanberra/files/patch-configure.diff";
-      sha256 = "sha256-pEJy1krciUEg5BFIS8FJ4BubjfS/nt9aqi6BLnS1+4M=";
-      extraPrefix = "";
-    })
-    (fetchpatch {
-      url =
-        "https://github.com/macports/macports-ports/raw/5a7965dfea7727d1ceedee46c7b0ccee9cb23468/audio/libcanberra/files/dynamic_lookup-11.patch";
-      sha256 = "sha256-nUjha2pKh5VZl0ZZzcr9NTo1TVuMqF4OcLiztxW+ofQ=";
-      extraPrefix = "";
-    })
-  ];
+  patches = [
+      (fetchpatch {
+        name =
+          "0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch";
+        url =
+          "http://git.0pointer.net/libcanberra.git/patch/?id=c0620e432650e81062c1967cc669829dbd29b310";
+        sha256 = "0rc7zwn39yxzxp37qh329g7375r5ywcqcaak8ryd0dgvg8m5hcx9";
+      })
+    ] ++ lib.optionals stdenv.isDarwin [
+      (fetchpatch {
+        url =
+          "https://github.com/macports/macports-ports/raw/5a7965dfea7727d1ceedee46c7b0ccee9cb23468/audio/libcanberra/files/patch-configure.diff";
+        sha256 = "sha256-pEJy1krciUEg5BFIS8FJ4BubjfS/nt9aqi6BLnS1+4M=";
+        extraPrefix = "";
+      })
+      (fetchpatch {
+        url =
+          "https://github.com/macports/macports-ports/raw/5a7965dfea7727d1ceedee46c7b0ccee9cb23468/audio/libcanberra/files/dynamic_lookup-11.patch";
+        sha256 = "sha256-nUjha2pKh5VZl0ZZzcr9NTo1TVuMqF4OcLiztxW+ofQ=";
+        extraPrefix = "";
+      })
+    ];
 
   postInstall = ''
     for f in $out/lib/*.la; do

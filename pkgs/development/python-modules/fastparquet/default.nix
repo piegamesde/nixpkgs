@@ -36,10 +36,12 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  patches = [ (substituteAll {
-    src = ./version.patch;
-    inherit version;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./version.patch;
+        inherit version;
+      })
+    ];
 
   postPatch = ''
     substituteInPlace setup.py \

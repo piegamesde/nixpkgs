@@ -15,10 +15,11 @@ import ../make-test-python.nix ({
             ${nodes.server.config.networking.primaryIPAddress} example.com
           '';
 
-          environment.systemPackages = [ (pkgs.callPackage
-            ./xmpp-sendmessage.nix {
-              connectTo = nodes.server.config.networking.primaryIPAddress;
-            }) ];
+          environment.systemPackages = [
+              (pkgs.callPackage ./xmpp-sendmessage.nix {
+                connectTo = nodes.server.config.networking.primaryIPAddress;
+              })
+            ];
         }
         ;
       server =

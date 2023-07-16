@@ -51,7 +51,9 @@ let
         }: {
           imports = [ testConfig ] ++ optional withX11 ../common/x11.nix;
 
-          environment.systemPackages = with pkgs; [ gnome-desktop-testing ];
+          environment.systemPackages = with pkgs; [
+              gnome-desktop-testing
+            ];
 
             # The installed tests need to be added to the test VM’s closure.
             # Otherwise, their dependencies might not actually be registered

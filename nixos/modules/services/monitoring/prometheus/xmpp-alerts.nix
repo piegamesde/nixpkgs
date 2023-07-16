@@ -13,17 +13,19 @@ let
   configFile =
     settingsFormat.generate "prometheus-xmpp-alerts.yml" cfg.settings;
 in {
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "prometheus"
-    "xmpp-alerts"
-    "configuration"
-  ] [
-    "services"
-    "prometheus"
-    "xmpp-alerts"
-    "settings"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "prometheus"
+        "xmpp-alerts"
+        "configuration"
+      ] [
+        "services"
+        "prometheus"
+        "xmpp-alerts"
+        "settings"
+      ])
+    ];
 
   options.services.prometheus.xmpp-alerts = {
     enable =

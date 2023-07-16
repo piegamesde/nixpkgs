@@ -49,7 +49,9 @@ buildNpmPackage rec {
     changelog =
       "https://github.com/louislam/uptime-kuma/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ julienmalka ];
+    maintainers = with maintainers; [
+        julienmalka
+      ];
       # FileNotFoundError: [Errno 2] No such file or directory: 'xcrun'
     broken = stdenv.isDarwin;
   };

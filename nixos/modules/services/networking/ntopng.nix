@@ -39,15 +39,17 @@ let
 
 in {
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "ntopng"
-    "http-port"
-  ] [
-    "services"
-    "ntopng"
-    "httpPort"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "ntopng"
+        "http-port"
+      ] [
+        "services"
+        "ntopng"
+        "httpPort"
+      ])
+    ];
 
   options = {
 

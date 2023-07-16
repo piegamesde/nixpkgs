@@ -31,12 +31,14 @@ mkDerivation rec {
   '';
 
     # Remove on next release
-  patches = [ (fetchpatch {
-    name = "sfxr-qr-missing-qpainterpath-include";
-    url =
-      "https://github.com/agateau/sfxr-qt/commit/ef051f473654052112b647df987eb263e38faf47.patch";
-    sha256 = "sha256-bqMnxHUzdS5oG/2hfr5MvkpwrtZW+GTN5fS2WpV2W2c=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "sfxr-qr-missing-qpainterpath-include";
+        url =
+          "https://github.com/agateau/sfxr-qt/commit/ef051f473654052112b647df987eb263e38faf47.patch";
+        sha256 = "sha256-bqMnxHUzdS5oG/2hfr5MvkpwrtZW+GTN5fS2WpV2W2c=";
+      })
+    ];
 
   nativeBuildInputs = [
     cmake

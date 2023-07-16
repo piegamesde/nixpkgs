@@ -97,17 +97,19 @@ stdenv.mkDerivation (finalAttrs: {
     }"
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    desktopName = "PPSSPP";
-    name = "ppsspp";
-    exec = "ppsspp";
-    icon = "ppsspp";
-    comment = "Play PSP games on your computer";
-    categories = [
-      "Game"
-      "Emulator"
+  desktopItems = [
+      (makeDesktopItem {
+        desktopName = "PPSSPP";
+        name = "ppsspp";
+        exec = "ppsspp";
+        icon = "ppsspp";
+        comment = "Play PSP games on your computer";
+        categories = [
+          "Game"
+          "Emulator"
+        ];
+      })
     ];
-  }) ];
 
   installPhase =
     let

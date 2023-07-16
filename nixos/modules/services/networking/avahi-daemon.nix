@@ -54,15 +54,17 @@ let
       ${extraConfig}
     '';
 in {
-  imports = [ (lib.mkRenamedOptionModule [
-    "services"
-    "avahi"
-    "interfaces"
-  ] [
-    "services"
-    "avahi"
-    "allowInterfaces"
-  ]) ];
+  imports = [
+      (lib.mkRenamedOptionModule [
+        "services"
+        "avahi"
+        "interfaces"
+      ] [
+        "services"
+        "avahi"
+        "allowInterfaces"
+      ])
+    ];
 
   options.services.avahi = {
     enable = mkOption {

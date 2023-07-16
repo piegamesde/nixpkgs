@@ -113,9 +113,11 @@ buildGoModule rec {
         bash
         criu
         attr
-      ] ++ [ (writeShellScriptBin "apparmor_parser" ''
-        exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
-      '') ])
+      ] ++ [
+          (writeShellScriptBin "apparmor_parser" ''
+            exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
+          '')
+        ])
     }
 
     installShellCompletion --bash --name lxd ./scripts/bash/lxd-client

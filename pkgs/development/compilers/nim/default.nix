@@ -237,8 +237,9 @@ in {
           # 'std/sysrand' module.
         depsTargetTargetPropagated = lib.optional stdenv.isDarwin Security;
 
-        patches = [ ./nim.cfg.patch
-          # Remove configurations that clash with ours
+        patches = [
+            ./nim.cfg.patch
+            # Remove configurations that clash with ours
           ];
 
         unpackPhase = ''

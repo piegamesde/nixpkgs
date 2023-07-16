@@ -73,8 +73,9 @@ stdenv.mkDerivation rec {
     "--enable-extras"
     "--with-mount-helper=${mount}/bin/mount"
     "--with-umount-helper=${mount}/bin/umount"
-  ] ++ lib.optionals
-    stdenv.isLinux [ "--with-modprobe-helper=${kmod}/bin/modprobe" ];
+  ] ++ lib.optionals stdenv.isLinux [
+      "--with-modprobe-helper=${kmod}/bin/modprobe"
+    ];
 
   postInstall = ''
     # Prefer ntfs-3g over the ntfs driver in the kernel.

@@ -34,12 +34,11 @@ in {
         ];
         fromOpt = lib.getAttrFromPath from options;
       in {
-        warnings = lib.mkIf config.xdg.portal.gtkUsePortal [ "The option `${
-            lib.showOption from
-          }' defined in ${
-            lib.showFiles fromOpt.files
-          } has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforseen side-effects." ]
-          ;
+        warnings = lib.mkIf config.xdg.portal.gtkUsePortal [
+            "The option `${lib.showOption from}' defined in ${
+              lib.showFiles fromOpt.files
+            } has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforseen side-effects."
+          ];
       } )
   ];
 

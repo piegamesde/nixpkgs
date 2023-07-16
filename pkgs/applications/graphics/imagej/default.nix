@@ -34,17 +34,19 @@ stdenv.mkDerivation rec {
   buildInputs = [ glib ];
   dontWrapGApps = true;
 
-  desktopItems = lib.optionals stdenv.isLinux [ (makeDesktopItem {
-    name = "ImageJ";
-    desktopName = "ImageJ";
-    icon = "imagej";
-    categories = [
-      "Science"
-      "Utility"
-      "Graphics"
+  desktopItems = lib.optionals stdenv.isLinux [
+      (makeDesktopItem {
+        name = "ImageJ";
+        desktopName = "ImageJ";
+        icon = "imagej";
+        categories = [
+          "Science"
+          "Utility"
+          "Graphics"
+        ];
+        exec = "imagej";
+      })
     ];
-    exec = "imagej";
-  }) ];
 
   passthru = { inherit jre; };
 

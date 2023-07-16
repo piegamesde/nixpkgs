@@ -155,7 +155,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           # Since STRIP below is the flag
         STRIPBIN = "${stdenv.cc.bintools.targetPrefix}strip";
 
-        makeFlags = [ "STRIP=-s" # flag to install, not command
+        makeFlags = [
+            "STRIP=-s" # flag to install, not command
           ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no";
 
           # amd64 not x86_64 for this on unlike NetBSD
@@ -398,9 +399,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         else
           install)
       ];
-      patches = lib.optionals
-        (!stdenv.hostPlatform.isFreeBSD) [ ./libnetbsd-do-install.patch
-        #./libnetbsd-define-__va_list.patch
+      patches = lib.optionals (!stdenv.hostPlatform.isFreeBSD) [
+          ./libnetbsd-do-install.patch
+          #./libnetbsd-define-__va_list.patch
         ];
       makeFlags = [
         "STRIP=-s" # flag to install, not command

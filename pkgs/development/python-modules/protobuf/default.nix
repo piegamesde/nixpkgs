@@ -31,13 +31,15 @@ buildPythonPackage {
 
   sourceRoot = "source/python";
 
-  patches = lib.optionals (pythonAtLeast "3.11") [ (fetchpatch {
-    url =
-      "https://github.com/protocolbuffers/protobuf/commit/da973aff2adab60a9e516d3202c111dbdde1a50f.patch";
-    stripLen = 2;
-    extraPrefix = "";
-    hash = "sha256-a/12C6yIe1tEKjsMxcfDAQ4JHolA8CzkN7sNG8ZspPs=";
-  }) ];
+  patches = lib.optionals (pythonAtLeast "3.11") [
+      (fetchpatch {
+        url =
+          "https://github.com/protocolbuffers/protobuf/commit/da973aff2adab60a9e516d3202c111dbdde1a50f.patch";
+        stripLen = 2;
+        extraPrefix = "";
+        hash = "sha256-a/12C6yIe1tEKjsMxcfDAQ4JHolA8CzkN7sNG8ZspPs=";
+      })
+    ];
 
   prePatch = ''
     if [[ "$(<../version.json)" != *'"python": "'"$version"'"'* ]]; then

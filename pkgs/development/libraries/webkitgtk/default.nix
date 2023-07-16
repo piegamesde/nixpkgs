@@ -140,7 +140,8 @@ stdenv.mkDerivation (finalAttrs: {
     gi-docgen
     glib # for gdbus-codegen
     unifdef
-  ] ++ lib.optionals stdenv.isLinux [ wayland # for wayland-scanner
+  ] ++ lib.optionals stdenv.isLinux [
+      wayland # for wayland-scanner
     ];
 
   buildInputs = [

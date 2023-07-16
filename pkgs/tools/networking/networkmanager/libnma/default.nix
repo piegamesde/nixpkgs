@@ -61,9 +61,9 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
     libxml2
     vala
-  ] ++ lib.optionals
-    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ;
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     gtk3

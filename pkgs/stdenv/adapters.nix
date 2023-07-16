@@ -95,8 +95,8 @@ in rec {
                     toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
                 } // lib.optionalAttrs
                 (!(finalAttrs.dontAddStaticConfigureFlags or false)) {
-                  configureFlags = (finalAttrs.configureFlags or [ ])
-                    ++ [ "--disable-shared" # brrr...
+                  configureFlags = (finalAttrs.configureFlags or [ ]) ++ [
+                      "--disable-shared" # brrr...
                     ];
                 }));
       } // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
@@ -136,13 +136,14 @@ in rec {
       mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
         NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "")
           + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc";
-        nativeBuildInputs = (args.nativeBuildInputs or [ ])
-          ++ [ (pkgs.buildPackages.makeSetupHook {
-            name = "darwin-portable-libSystem-hook";
-            substitutions = {
-              libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
-            };
-          } ./darwin/portable-libsystem.sh) ];
+        nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+            (pkgs.buildPackages.makeSetupHook {
+              name = "darwin-portable-libSystem-hook";
+              substitutions = {
+                libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
+              };
+            } ./darwin/portable-libsystem.sh)
+          ];
       });
     })
     ;

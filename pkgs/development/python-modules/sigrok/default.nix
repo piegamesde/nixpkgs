@@ -34,8 +34,8 @@ toPythonModule ((libsigrok.override { inherit python; }).overrideAttrs (orig: {
     pythonCatchConflictsHook
   ];
 
-  buildInputs = orig.buildInputs or [ ]
-    ++ [ pygobject3 # makes headers available the configure script checks for
+  buildInputs = orig.buildInputs or [ ] ++ [
+      pygobject3 # makes headers available the configure script checks for
     ];
 
   propagatedBuildInputs = orig.propagatedBuildInputs or [ ] ++ [

@@ -77,12 +77,14 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.fftw.org/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.spwhitt ];
-    pkgConfigModules = [ {
-      "single" = "fftw3f";
-      "double" = "fftw3";
-      "long-double" = "fftw3l";
-      "quad-precision" = "fftw3q";
-    }.${precision} ];
+    pkgConfigModules = [
+        {
+          "single" = "fftw3f";
+          "double" = "fftw3";
+          "long-double" = "fftw3l";
+          "quad-precision" = "fftw3q";
+        }.${precision}
+      ];
     platforms = platforms.unix;
   };
 })

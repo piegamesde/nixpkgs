@@ -34,12 +34,14 @@ let
 
       nativeBuildInputs = [ cmake ];
 
-      cmakeFlags = [ "-DBUILD_SHARED_LIBS=${
-          if enableShared then
-            "ON"
-          else
-            "OFF"
-        }" ];
+      cmakeFlags = [
+          "-DBUILD_SHARED_LIBS=${
+            if enableShared then
+              "ON"
+            else
+              "OFF"
+          }"
+        ];
 
       doCheck = true;
 

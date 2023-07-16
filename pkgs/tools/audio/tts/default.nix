@@ -22,13 +22,15 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-3t4JYEwQ+puGLhGl3nn93qsL8IeOwlYtHXTrnZ5Cf+w=";
   };
 
-  patches = [ (fetchpatch {
-    # upgrade librosa to 0.10.0
-    url =
-      "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch";
-    hash = "sha256-QP9AnMbdEpGJywiZBreojHUjq29ihqy6HxvUtS5OKvQ=";
-    excludes = [ "requirements.txt" ];
-  }) ];
+  patches = [
+      (fetchpatch {
+        # upgrade librosa to 0.10.0
+        url =
+          "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch";
+        hash = "sha256-QP9AnMbdEpGJywiZBreojHUjq29ihqy6HxvUtS5OKvQ=";
+        excludes = [ "requirements.txt" ];
+      })
+    ];
 
   postPatch =
     let

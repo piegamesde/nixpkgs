@@ -11,13 +11,15 @@ let
     "/usr/bin" = {
       device = "none";
       fsType = "envfs";
-      options = [ "fallback-path=${
-          pkgs.runCommand "fallback-path" { } (''
-            mkdir -p $out
-            ln -s ${config.environment.usrbinenv} $out/env
-            ln -s ${config.environment.binsh} $out/sh
-          '' + cfg.extraFallbackPathCommands)
-        }" ];
+      options = [
+          "fallback-path=${
+            pkgs.runCommand "fallback-path" { } (''
+              mkdir -p $out
+              ln -s ${config.environment.usrbinenv} $out/env
+              ln -s ${config.environment.binsh} $out/sh
+            '' + cfg.extraFallbackPathCommands)
+          }"
+        ];
     };
     "/bin" = {
       device = "/usr/bin";

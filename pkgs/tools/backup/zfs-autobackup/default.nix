@@ -21,7 +21,9 @@ pythonPackages.buildPythonApplication rec {
     substituteInPlace setup.py --replace "argparse" ""
   '';
 
-  propagatedBuildInputs = with pythonPackages; [ colorama ];
+  propagatedBuildInputs = with pythonPackages; [
+      colorama
+    ];
 
     # tests need zfs filesystem
   doCheck = false;

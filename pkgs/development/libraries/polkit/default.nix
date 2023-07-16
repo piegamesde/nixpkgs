@@ -86,8 +86,10 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals withIntrospection [
     gobject-introspection
     gtk-doc
-  ] ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (withIntrospection
+    && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     expat
@@ -102,7 +104,8 @@ stdenv.mkDerivation rec {
       elogind)
   ];
 
-  propagatedBuildInputs = [ glib # in .pc Requires
+  propagatedBuildInputs = [
+      glib # in .pc Requires
     ];
 
   nativeCheckInputs = [
@@ -127,12 +130,14 @@ stdenv.mkDerivation rec {
     "-Dtests=${lib.boolToString doCheck}"
     "-Dgtk_doc=${lib.boolToString withIntrospection}"
     "-Dman=true"
-  ] ++ lib.optionals stdenv.isLinux [ "-Dsession_tracking=${
-      if useSystemd then
-        "libsystemd-login"
-      else
-        "libelogind"
-    }" ];
+  ] ++ lib.optionals stdenv.isLinux [
+      "-Dsession_tracking=${
+        if useSystemd then
+          "libsystemd-login"
+        else
+          "libelogind"
+      }"
+    ];
 
     # HACK: We want to install policy files files to $out/share but polkit
     # should read them from /run/current-system/sw/share on a NixOS system.

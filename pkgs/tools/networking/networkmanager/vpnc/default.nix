@@ -30,10 +30,12 @@ stdenv.mkDerivation rec {
     sha256 = "1l4xqlPI/cP95++EpNqpeaYFwj/THO/2R79+qqma+8w=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit vpnc kmod;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit vpnc kmod;
+      })
+    ];
 
   nativeBuildInputs = [
     intltool

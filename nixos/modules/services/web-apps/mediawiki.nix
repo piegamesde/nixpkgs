@@ -501,16 +501,18 @@ in {
     };
   };
 
-  imports = [ (lib.mkRenamedOptionModule [
-    "services"
-    "mediawiki"
-    "virtualHost"
-  ] [
-    "services"
-    "mediawiki"
-    "httpd"
-    "virtualHost"
-  ]) ];
+  imports = [
+      (lib.mkRenamedOptionModule [
+        "services"
+        "mediawiki"
+        "virtualHost"
+      ] [
+        "services"
+        "mediawiki"
+        "httpd"
+        "virtualHost"
+      ])
+    ];
 
     # implementation
   config = mkIf cfg.enable {

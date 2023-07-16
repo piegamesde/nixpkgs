@@ -55,7 +55,9 @@ let
     version:
     let
       packages = getPackages version;
-    in [ "haskell-language-server-${packages.ghc.version}" ]
+    in [
+      "haskell-language-server-${packages.ghc.version}"
+    ]
     ;
   makeSymlinks =
     version:

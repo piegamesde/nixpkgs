@@ -28,11 +28,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-M2vAH1YAvNOhDsz+BWxvteR8YX89FHtbUcQZr1uVoCs=";
   };
 
-  patches = [ (substituteAll {
-    # See https://github.com/NixOS/nixpkgs/issues/86054
-    src = ./fix-qttranslations-path.patch;
-    inherit qttranslations;
-  }) ];
+  patches = [
+      (substituteAll {
+        # See https://github.com/NixOS/nixpkgs/issues/86054
+        src = ./fix-qttranslations-path.patch;
+        inherit qttranslations;
+      })
+    ];
 
   postPatch = ''
     substituteInPlace data/io.crow_translate.CrowTranslate.desktop \

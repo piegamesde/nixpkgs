@@ -65,12 +65,14 @@ stdenv.mkDerivation (finalAttrs: {
     # says that one should not free members of it manually (in both
     # the openssl-1.0 and openssl-1.1 man pages).
     # https://bugs.gentoo.org/592540
-  patches = [ (fetchpatch {
-    name = "gnome-vfs-2.24.4-openssl-1.1.patch";
-    url = "https://bugs.gentoo.org/attachment.cgi?id=535944";
-    sha256 = "1q4icapvmwmd5rjah7rr0bqazzk5cg36znmjlpra20n9y27nz040";
-    extraPrefix = "";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "gnome-vfs-2.24.4-openssl-1.1.patch";
+        url = "https://bugs.gentoo.org/attachment.cgi?id=535944";
+        sha256 = "1q4icapvmwmd5rjah7rr0bqazzk5cg36znmjlpra20n9y27nz040";
+        extraPrefix = "";
+      })
+    ];
 
   postPatch =
     "find . -name Makefile.in | xargs sed 's/-DG_DISABLE_DEPRECATED//g' -i ";

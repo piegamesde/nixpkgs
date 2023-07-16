@@ -53,7 +53,9 @@ python3.pkgs.buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = with python3.pkgs; [ pyelftools ];
+  nativeCheckInputs = with python3.pkgs; [
+      pyelftools
+    ];
 
     # tests mentioned in `.github/workflows/test_esptool.yml`
   checkPhase = ''

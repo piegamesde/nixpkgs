@@ -226,8 +226,10 @@ in {
   config = mkIf (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable
     || cfg.chunkserver.enable) {
 
-      warnings = [ (mkIf (!cfg.runAsUser)
-        "Running moosefs services as root is not recommended.") ];
+      warnings = [
+          (mkIf (!cfg.runAsUser)
+            "Running moosefs services as root is not recommended.")
+        ];
 
         # Service settings
       services.moosefs = {

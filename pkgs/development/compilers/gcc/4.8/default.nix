@@ -93,14 +93,15 @@ let
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional langFortran ../gfortran-driving.patch
-    ++ optional hostPlatform.isDarwin ../gfortran-darwin-NXConstStr.patch
-    ++ [ (fetchpatch {
-      name = "libc_name_p.diff"; # needed to build with gcc6
-      url =
-        "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=ec1cc0263f1";
-      sha256 = "01jd7pdarh54ki498g6sz64ijl9a1l5f9v8q2696aaxalvh2vwzl";
-      excludes = [ "gcc/cp/ChangeLog" ];
-    }) ] ++ [ # glibc-2.26
+    ++ optional hostPlatform.isDarwin ../gfortran-darwin-NXConstStr.patch ++ [
+      (fetchpatch {
+        name = "libc_name_p.diff"; # needed to build with gcc6
+        url =
+          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=ec1cc0263f1";
+        sha256 = "01jd7pdarh54ki498g6sz64ijl9a1l5f9v8q2696aaxalvh2vwzl";
+        excludes = [ "gcc/cp/ChangeLog" ];
+      })
+    ] ++ [ # glibc-2.26
       ../struct-ucontext-4.8.patch
       ../sigsegv-not-declared.patch
       ../res_state-not-declared.patch

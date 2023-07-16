@@ -177,20 +177,22 @@ let
       ++ lib.optionals (!atLeast24) [
         # option was removed in 2.4
         "--disable-init-state"
-      ] ++ lib.optionals atLeast214 [ "CXXFLAGS=-I${
-        lib.getDev rapidcheck
-      }/extras/gtest/include" ] ++ lib.optionals
-      stdenv.isLinux [ "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox" ]
-      ++ lib.optionals (atLeast210 && stdenv.isLinux
-        && stdenv.hostPlatform.isStatic) [ "--enable-embedded-sandbox-shell" ]
-      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
+      ] ++ lib.optionals atLeast214 [
+        "CXXFLAGS=-I${lib.getDev rapidcheck}/extras/gtest/include"
+      ] ++ lib.optionals stdenv.isLinux [
+        "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox"
+      ] ++ lib.optionals
+      (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic) [
+        "--enable-embedded-sandbox-shell"
+      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
         && stdenv.hostPlatform ? nix && stdenv.hostPlatform.nix
         ? system) [ "--with-system=${stdenv.hostPlatform.nix.system}" ]
       ++ lib.optionals (!withLibseccomp) [
         # RISC-V support in progress https://github.com/seccomp/libseccomp/pull/50
         "--disable-seccomp-sandboxing"
-      ] ++ lib.optionals
-      (atLeast210 && stdenv.cc.isGNU && !enableStatic) [ "--enable-lto" ];
+      ] ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic) [
+        "--enable-lto"
+      ];
 
     makeFlags = [
       # gcc runs multi-threaded LTO using make and does not yet detect the new fifo:/path style

@@ -14,10 +14,12 @@ args@{
   meta ? { },
   overrides ? (x: { }),
   propagatedBuildInputs ? [ ],
-  asdFilesToKeep ? [ (builtins.concatStringsSep "" [
-    packageName
-    ".asd"
-  ]) ]
+  asdFilesToKeep ? [
+    (builtins.concatStringsSep "" [
+      packageName
+      ".asd"
+    ])
+  ]
 }:
 let
   deployConfigScript = ''

@@ -317,12 +317,14 @@ in {
 
       serviceConfig = {
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
-        ExecStartPre = [ ("+" + pkgs.writeShellScript "transmission-prestart" ''
-          set -eu${lib.optionalString (cfg.settings.message-level >= 3) "x"}
-          ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
-          install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
-           '${cfg.home}/${settingsDir}/settings.json'
-        '') ];
+        ExecStartPre = [
+            ("+" + pkgs.writeShellScript "transmission-prestart" ''
+              set -eu${lib.optionalString (cfg.settings.message-level >= 3) "x"}
+              ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
+              install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
+               '${cfg.home}/${settingsDir}/settings.json'
+            '')
+          ];
         ExecStart =
           "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${
             escapeShellArgs cfg.extraFlags

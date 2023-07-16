@@ -44,7 +44,8 @@ let
     + concatMapStrings (mkListen "tls") cfg.listenTLS
     + concatMapStrings (mkListen "doh2") cfg.listenDoH + cfg.extraConfig);
 in {
-  meta.maintainers = [ maintainers.vcunat # upstream developer
+  meta.maintainers = [
+      maintainers.vcunat # upstream developer
     ];
 
   imports = [
@@ -171,7 +172,9 @@ in {
     };
     users.groups.knot-resolver.gid = null;
 
-    systemd.packages = [ cfg.package ]; # the units are patched inside the package a bit
+    systemd.packages = [
+        cfg.package
+      ]; # the units are patched inside the package a bit
 
     systemd.targets.kresd = { # configure units started by default
       wantedBy = [ "multi-user.target" ];

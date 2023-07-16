@@ -30,7 +30,9 @@ import ./make-test-python.nix {
           '';
         };
         services.openssh.enable = true;
-        users.users.root.openssh.authorizedKeys.keyFiles = [ ./initrd-network-ssh/id_ed25519.pub ];
+        users.users.root.openssh.authorizedKeys.keyFiles = [
+            ./initrd-network-ssh/id_ed25519.pub
+          ];
         services.nginx = {
           enable = true;
           virtualHosts."localhost" = {

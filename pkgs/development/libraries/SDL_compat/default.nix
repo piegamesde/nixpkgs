@@ -33,8 +33,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ optionals
-    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+  ] ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      autoSignDarwinBinariesHook
+    ];
 
   propagatedBuildInputs = [ SDL2 ] ++ optionals stdenv.hostPlatform.isDarwin [
     libiconv

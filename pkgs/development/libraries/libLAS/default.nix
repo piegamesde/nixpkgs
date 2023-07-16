@@ -21,12 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "0xjfxb3ydvr2258ji3spzyf81g9caap19ql2pk91wiivqsc4mnws";
   };
 
-  patches = [ (fetchpatch {
-    name = "aarch64-darwin.patch";
-    url =
-      "https://github.com/libLAS/libLAS/commit/ded463732db1f9baf461be6f3fe5b8bb683c41cd.patch";
-    sha256 = "sha256-aWMpazeefDHE9OzuLR3FJ8+oXeGhEsk1igEm6j2DUnw=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "aarch64-darwin.patch";
+        url =
+          "https://github.com/libLAS/libLAS/commit/ded463732db1f9baf461be6f3fe5b8bb683c41cd.patch";
+        sha256 = "sha256-aWMpazeefDHE9OzuLR3FJ8+oXeGhEsk1igEm6j2DUnw=";
+      })
+    ];
 
   nativeBuildInputs =
     [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;

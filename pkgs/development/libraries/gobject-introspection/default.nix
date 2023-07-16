@@ -90,12 +90,14 @@ stdenv.mkDerivation (finalAttrs: {
     (buildPackages.python3.withPackages pythonModules)
     finalAttrs.setupHook # move .gir files
     # can't use canExecute, we need prebuilt when cross
-  ] ++ lib.optionals (stdenv.buildPlatform
-    != stdenv.hostPlatform) [ gobject-introspection-unwrapped ];
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      gobject-introspection-unwrapped
+    ];
 
   buildInputs = [ (python3.withPackages pythonModules) ];
 
-  nativeCheckInputs = lib.optionals stdenv.isDarwin [ cctools # for otool
+  nativeCheckInputs = lib.optionals stdenv.isDarwin [
+      cctools # for otool
     ];
 
   propagatedBuildInputs = [
@@ -121,8 +123,9 @@ stdenv.mkDerivation (finalAttrs: {
     }"
     "-Dgi_cross_binary_wrapper=${stdenv.hostPlatform.emulator buildPackages}"
     # can't use canExecute, we need prebuilt when cross
-  ] ++ lib.optionals (stdenv.buildPlatform
-    != stdenv.hostPlatform) [ "-Dgi_cross_use_prebuilt_gi=true" ];
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "-Dgi_cross_use_prebuilt_gi=true"
+    ];
 
   doCheck = !stdenv.isAarch64;
 

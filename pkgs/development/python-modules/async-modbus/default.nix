@@ -25,12 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-OTt/rUa3KLVSFOIUyMNHnqHvPtISxTposNFAgoixRfk=";
   };
 
-  patches = [ (fetchpatch {
-    # Fix tests; https://github.com/tiagocoutinho/async_modbus/pull/13
-    url =
-      "https://github.com/tiagocoutinho/async_modbus/commit/d81d8ffe94870f0f505e0c8a0694768c98053ecc.patch";
-    hash = "sha256-mG3XO2nAFYitatkswU7er29BJc/A0IL1rL2Zu4daZ7k=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        # Fix tests; https://github.com/tiagocoutinho/async_modbus/pull/13
+        url =
+          "https://github.com/tiagocoutinho/async_modbus/commit/d81d8ffe94870f0f505e0c8a0694768c98053ecc.patch";
+        hash = "sha256-mG3XO2nAFYitatkswU7er29BJc/A0IL1rL2Zu4daZ7k=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

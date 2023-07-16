@@ -48,7 +48,8 @@ in {
       ];
       wantedBy = [ "multi-user.target" ];
       environment.HOME = "/var/lib/evcc";
-      path = with pkgs; [ glibc # requires getent
+      path = with pkgs; [
+          glibc # requires getent
         ];
       serviceConfig = {
         ExecStart = "${package}/bin/evcc --config ${configFile} ${

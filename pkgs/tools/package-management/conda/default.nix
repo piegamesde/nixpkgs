@@ -53,7 +53,8 @@ let
     sha256 = "sha256-TunDqlMynNemO0mHfAurtJsZt+WvKYB7eTp2vbHTYrQ=";
   };
   conda = (let
-    libPath = lib.makeLibraryPath [ zlib # libz.so.1
+    libPath = lib.makeLibraryPath [
+        zlib # libz.so.1
       ];
   in
   runCommand "conda-install" {

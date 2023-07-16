@@ -60,15 +60,17 @@ stdenv.mkDerivation rec {
 
   executable-name = "KeY";
 
-  desktopItems = [ (makeDesktopItem {
-    name = "KeY";
-    exec = executable-name;
-    icon = "key";
-    comment = meta.description;
-    desktopName = "KeY";
-    genericName = "KeY";
-    categories = [ "Science" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "KeY";
+        exec = executable-name;
+        icon = "key";
+        comment = meta.description;
+        desktopName = "KeY";
+        genericName = "KeY";
+        categories = [ "Science" ];
+      })
+    ];
 
     # disable tests (broken on darwin)
   gradleAction =

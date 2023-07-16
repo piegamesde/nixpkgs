@@ -57,10 +57,11 @@ import ../make-test-python.nix {
           ${nodes.server.config.networking.primaryIPAddress} conference.example.com
           ${nodes.server.config.networking.primaryIPAddress} uploads.example.com
         '';
-        environment.systemPackages = [ (pkgs.callPackage
-          ./xmpp-sendmessage.nix {
-            connectTo = nodes.server.config.networking.primaryIPAddress;
-          }) ];
+        environment.systemPackages = [
+            (pkgs.callPackage ./xmpp-sendmessage.nix {
+              connectTo = nodes.server.config.networking.primaryIPAddress;
+            })
+          ];
       }
       ;
     server =
@@ -69,11 +70,13 @@ import ../make-test-python.nix {
         pkgs,
         ...
       }: {
-        nixpkgs.overlays = [ (self: super: {
-          prosody = super.prosody.override {
-            withExtraLuaPackages = p: [ p.luadbi-mysql ];
-          };
-        }) ];
+        nixpkgs.overlays = [
+            (self: super: {
+              prosody = super.prosody.override {
+                withExtraLuaPackages = p: [ p.luadbi-mysql ];
+              };
+            })
+          ];
         security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
         console.keyMap = "fr-bepo";
         networking.extraHosts = ''

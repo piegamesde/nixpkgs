@@ -61,9 +61,11 @@ stdenv.mkDerivation {
     intltoolize
   '';
 
-  configureFlags = [ "--with-pygi-overrides-dir=${
-      placeholder "py"
-    }/${python3.sitePackages}/gi/overrides" ];
+  configureFlags = [
+      "--with-pygi-overrides-dir=${
+        placeholder "py"
+      }/${python3.sitePackages}/gi/overrides"
+    ];
 
   meta = with lib; {
     description =

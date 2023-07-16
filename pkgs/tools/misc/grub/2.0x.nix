@@ -513,7 +513,8 @@ in
            substituteInPlace ./configure --replace '/usr/share/fonts/unifont' '${unifont}/share/fonts'
     '';
 
-    configureFlags = [ "--enable-grub-mount" # dep of os-prober
+    configureFlags = [
+        "--enable-grub-mount" # dep of os-prober
       ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         # grub doesn't do cross-compilation as usual and tries to use unprefixed
         # tools to target the host. Provide toolchain information explicitly for

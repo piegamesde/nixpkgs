@@ -226,7 +226,9 @@ let
       !(zone ? children) || zone.children == null || zone.children == { }
       # leaf -> actual zone
     then
-      listToAttrs [ (nameValuePair name (parent // zone)) ]
+      listToAttrs [
+        (nameValuePair name (parent // zone))
+      ]
 
       # fork -> pattern
     else

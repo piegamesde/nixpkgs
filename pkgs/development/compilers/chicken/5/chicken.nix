@@ -48,8 +48,10 @@ stdenv.mkDerivation rec {
     "POSTINSTALL_PROGRAM=install_name_tool"
   ]);
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals
-    (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      darwin.autoSignDarwinBinariesHook
+    ];
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 

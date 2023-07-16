@@ -98,7 +98,9 @@ let
         name,
         version,
         biocVersion,
-      }: [ "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz" ]
+      }: [
+        "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz"
+      ]
       ;
     hydraPlatforms = [ ];
   };
@@ -115,7 +117,9 @@ let
         name,
         version,
         biocVersion,
-      }: [ "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz" ]
+      }: [
+        "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz"
+      ]
       ;
     hydraPlatforms = [ ];
   };

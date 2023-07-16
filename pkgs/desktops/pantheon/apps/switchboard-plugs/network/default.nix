@@ -28,10 +28,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-g62+DF84eEI+TvUr1OkeqLnCLz/b7e+xwuTNZS0WJQA=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit networkmanagerapplet;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit networkmanagerapplet;
+      })
+    ];
 
   nativeBuildInputs = [
     meson

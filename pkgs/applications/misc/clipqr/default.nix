@@ -54,15 +54,17 @@ buildGoModule rec {
     install -Dm644 icon.svg $out/share/icons/hicolor/scalable/apps/clipqr.svg
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "ClipQR";
-    desktopName = "ClipQR";
-    exec = "clipqr";
-    categories = [ "Utility" ];
-    icon = "clipqr";
-    comment = "Scan QR codes on screen and from camera";
-    genericName = "ClipQR";
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "ClipQR";
+        desktopName = "ClipQR";
+        exec = "clipqr";
+        categories = [ "Utility" ];
+        icon = "clipqr";
+        comment = "Scan QR codes on screen and from camera";
+        genericName = "ClipQR";
+      })
+    ];
 
   meta = with lib; {
     description =

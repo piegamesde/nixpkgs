@@ -56,7 +56,8 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "--durations=10" ];
 
-  disabledTests = [ "test_two_qubit_reduction" # failure cause unclear
+  disabledTests = [
+      "test_two_qubit_reduction" # failure cause unclear
     ];
 
   meta = with lib; {

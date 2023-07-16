@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
     }" # gtk-doc does do some gobject introspection, which doesn't yet cross-compile.
   ] ++ lib.optional isCross "-Dvapi=false";
 
-  nativeCheckInputs = [ dbus # for dbus-daemon
+  nativeCheckInputs = [
+      dbus # for dbus-daemon
     ];
 
   doCheck = !stdenv.isAarch32 && !stdenv.isAarch64 && !stdenv.isDarwin;

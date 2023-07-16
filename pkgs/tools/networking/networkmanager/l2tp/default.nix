@@ -32,10 +32,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-EfWvh4uSzWFadZAHTqsKa3un2FQ6WUbHLoHo9gSS7bE=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit strongswan xl2tpd;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit strongswan xl2tpd;
+      })
+    ];
 
   nativeBuildInputs = [
     autoreconfHook

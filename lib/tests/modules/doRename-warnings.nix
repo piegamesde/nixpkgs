@@ -3,20 +3,22 @@
   config,
   ...
 }: {
-  imports = [ (lib.doRename {
-    from = [
-      "a"
-      "b"
+  imports = [
+      (lib.doRename {
+        from = [
+          "a"
+          "b"
+        ];
+        to = [
+          "c"
+          "d"
+          "e"
+        ];
+        warn = true;
+        use = x: x;
+        visible = true;
+      })
     ];
-    to = [
-      "c"
-      "d"
-      "e"
-    ];
-    warn = true;
-    use = x: x;
-    visible = true;
-  }) ];
   options = {
     warnings = lib.mkOption { type = lib.types.listOf lib.types.str; };
     c.d.e = lib.mkOption { };

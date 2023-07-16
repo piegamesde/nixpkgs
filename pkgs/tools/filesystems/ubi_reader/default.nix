@@ -16,7 +16,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-tjQs1F9kcFrC9FDkfdnax0C8O8Bg7blkpL7GU56eeWU=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ python-lzo ];
+  propagatedBuildInputs = with python3.pkgs; [
+      python-lzo
+    ];
 
     # There are no tests in the source
   doCheck = false;

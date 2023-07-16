@@ -455,15 +455,19 @@ in {
     system.nssModules = [ cfg.package.out ];
     system.nssDatabases = {
       hosts = (mkMerge [
-        (mkOrder
-          400 [ "mymachines" ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
-        (mkOrder
-          999 [ "myhostname" ]) # after files (which is 998), but before regular nss modules
+        (mkOrder 400 [
+            "mymachines"
+          ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
+        (mkOrder 999 [
+            "myhostname"
+          ]) # after files (which is 998), but before regular nss modules
       ]);
       passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
-      group =
-        (mkMerge [ (mkAfter [ "[success=merge] systemd" ]) # need merge so that NSS won't stop at file-based groups
-          ]);
+      group = (mkMerge [
+          (mkAfter [
+              "[success=merge] systemd"
+            ]) # need merge so that NSS won't stop at file-based groups
+        ]);
     };
 
     environment.systemPackages = [ cfg.package ];
@@ -646,7 +650,9 @@ in {
     systemd.targets.remote-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
     systemd.services.systemd-importd.environment = proxy_env;
-    systemd.services.systemd-pstore.wantedBy = [ "sysinit.target" ]; # see #81138
+    systemd.services.systemd-pstore.wantedBy = [
+        "sysinit.target"
+      ]; # see #81138
 
       # NixOS has kernel modules in a different location, so override that here.
     systemd.services.kmod-static-nodes.unitConfig.ConditionFileNotEmpty = [

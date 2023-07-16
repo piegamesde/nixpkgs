@@ -40,10 +40,12 @@ buildPythonPackage rec {
     hash = "sha256-qQCELjRFeRCT1k1CBc3netRtFvt+an/EbkrgnmiX/mc=";
   };
 
-  patches = [ (substituteAll {
-    src = ./ffmpeg-path.patch;
-    inherit ffmpeg;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./ffmpeg-path.patch;
+        inherit ffmpeg;
+      })
+    ];
 
   propagatedBuildInputs = [
     numpy

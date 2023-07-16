@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
       publicDomain
     ];
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [
+        AndersonTorres
+      ];
       # fatal error: 'sys/epoll.h' file not found
     broken = stdenv.isDarwin;
   };

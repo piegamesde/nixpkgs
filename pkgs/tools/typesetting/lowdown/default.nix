@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  makeFlags = [ "bins" # prevents shared object from being built unnecessarily
+  makeFlags = [
+      "bins" # prevents shared object from being built unnecessarily
     ];
 
   installTargets = [ "install" ]

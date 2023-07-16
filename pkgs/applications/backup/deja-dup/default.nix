@@ -34,10 +34,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dIH6VPgzJxvXEUtPAYQzpQ8I9R9MwsfeylV25ASfW/k=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit coreutils;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit coreutils;
+      })
+    ];
 
   nativeBuildInputs = [
     meson

@@ -46,7 +46,8 @@ buildPythonPackage rec {
     "test/test_snapshot.py"
   ];
 
-  pytestFlagsArray = [ ''-m "not slow"'' # skip tests marked slow
+  pytestFlagsArray = [
+      ''-m "not slow"'' # skip tests marked slow
     ];
 
   __darwinAllowLocalNetworking = true;

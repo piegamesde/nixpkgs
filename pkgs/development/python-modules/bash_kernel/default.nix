@@ -21,11 +21,13 @@ buildPythonPackage rec {
     sha256 = "sha256-BCPwUS72+DplThQ5o2lxiJmjjyeUj+IbZlst8dvzp8c=";
   };
 
-  patches = [ (fetchpatch {
-    url =
-      "https://patch-diff.githubusercontent.com/raw/takluyver/bash_kernel/pull/69.diff";
-    sha256 = "1qd7qjjmcph4dk6j0bl31h2fdmfiyyazvrc9xqqj8y21ki2sl33j";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://patch-diff.githubusercontent.com/raw/takluyver/bash_kernel/pull/69.diff";
+        sha256 = "1qd7qjjmcph4dk6j0bl31h2fdmfiyyazvrc9xqqj8y21ki2sl33j";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace bash_kernel/kernel.py \

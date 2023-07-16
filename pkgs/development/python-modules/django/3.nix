@@ -26,15 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-CCCN/okutk//BzynQ7O5UjERBPk55/ba6VT+ctzFM7o=";
   };
 
-  patches = [ (substituteAll {
-    src = ./django_3_set_zoneinfo_dir.patch;
-    zoneinfo = tzdata + "/share/zoneinfo";
-  }) ] ++ lib.optional withGdal (substituteAll {
-    src = ./django_3_set_geos_gdal_lib.patch;
-    inherit geos39;
-    inherit gdal;
-    extension = stdenv.hostPlatform.extensions.sharedLibrary;
-  });
+  patches = [
+      (substituteAll {
+        src = ./django_3_set_zoneinfo_dir.patch;
+        zoneinfo = tzdata + "/share/zoneinfo";
+      })
+    ] ++ lib.optional withGdal (substituteAll {
+      src = ./django_3_set_geos_gdal_lib.patch;
+      inherit geos39;
+      inherit gdal;
+      extension = stdenv.hostPlatform.extensions.sharedLibrary;
+    });
 
   propagatedBuildInputs = [
     asgiref

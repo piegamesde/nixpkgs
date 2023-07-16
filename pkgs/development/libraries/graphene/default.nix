@@ -27,8 +27,9 @@ stdenv.mkDerivation rec {
     "out"
     "dev"
     "devdoc"
-  ] ++ lib.optionals
-    (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
+  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
+      "installedTests"
+    ];
 
   src = fetchFromGitHub {
     owner = "ebassi";
@@ -64,9 +65,9 @@ stdenv.mkDerivation rec {
     gobject-introspection
     python3
     makeWrapper
-  ] ++ lib.optionals
-    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ;
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [ glib ];
 

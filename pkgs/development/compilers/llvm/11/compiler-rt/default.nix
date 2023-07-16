@@ -35,23 +35,24 @@ stdenv.mkDerivation {
     libllvm.dev
   ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
 
-  env.NIX_CFLAGS_COMPILE =
-    toString [ "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0" ]
-    ;
+  env.NIX_CFLAGS_COMPILE = toString [
+      "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
+    ];
 
   cmakeFlags = [
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
     "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
     "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-  ] ++ lib.optionals (haveLibc
-    && stdenv.hostPlatform.isGnu) [ "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include" ]
+  ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu) [
+      "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
+    ]
     ++ lib.optionals (useLLVM || bareMetal || isMusl || isNewDarwinBootstrap) [
       "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
       "-DCOMPILER_RT_BUILD_XRAY=OFF"
       "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
-    ] ++ lib.optionals
-    (useLLVM || bareMetal) [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
-    ++ lib.optionals (!haveLibc || bareMetal) [
+    ] ++ lib.optionals (useLLVM || bareMetal) [
+      "-DCOMPILER_RT_BUILD_PROFILE=OFF"
+    ] ++ lib.optionals (!haveLibc || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
       "-DCOMPILER_RT_BAREMETAL_BUILD=ON"

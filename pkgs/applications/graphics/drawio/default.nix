@@ -79,19 +79,21 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "drawio";
-    exec = "drawio %U";
-    icon = "drawio";
-    desktopName = "drawio";
-    comment = "draw.io desktop";
-    mimeTypes = [
-      "application/vnd.jgraph.mxfile"
-      "application/vnd.visio"
+  desktopItems = [
+      (makeDesktopItem {
+        name = "drawio";
+        exec = "drawio %U";
+        icon = "drawio";
+        desktopName = "drawio";
+        comment = "draw.io desktop";
+        mimeTypes = [
+          "application/vnd.jgraph.mxfile"
+          "application/vnd.visio"
+        ];
+        categories = [ "Graphics" ];
+        startupWMClass = "drawio";
+      })
     ];
-    categories = [ "Graphics" ];
-    startupWMClass = "drawio";
-  }) ];
 
   meta = with lib; {
     description = "A desktop application for creating diagrams";

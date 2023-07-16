@@ -52,9 +52,10 @@ buildPythonPackage rec {
     export CMAKE_ARGS="-DCMAKE_CXX_COMPILER_AR=$AR -DCMAKE_CXX_COMPILER_RANLIB=$RANLIB"
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isClang
-    && stdenv.isDarwin) [ "-fno-lto" # work around https://github.com/NixOS/nixpkgs/issues/19098
-    ]);
+  env.NIX_CFLAGS_COMPILE = toString
+    (lib.optionals (stdenv.cc.isClang && stdenv.isDarwin) [
+        "-fno-lto" # work around https://github.com/NixOS/nixpkgs/issues/19098
+      ]);
 
   propagatedBuildInputs = [ numpy ];
 

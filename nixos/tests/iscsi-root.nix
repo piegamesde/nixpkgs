@@ -92,7 +92,9 @@ import ./make-test-python.nix ({
 
           environment.systemPackages = with pkgs; [ xfsprogs ];
 
-          system.extraDependencies = [ nodes.initiatorRootDisk.config.system.build.toplevel ];
+          system.extraDependencies = [
+              nodes.initiatorRootDisk.config.system.build.toplevel
+            ];
 
           nix.settings = {
             substituters = lib.mkForce [ ];

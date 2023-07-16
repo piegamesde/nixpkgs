@@ -53,20 +53,22 @@ stdenv.mkDerivation rec {
     targets
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    desktopName = "AssaultCube";
-    comment =
-      "A multiplayer, first-person shooter game, based on the CUBE engine. Fast, arcade gameplay.";
-    genericName = "First-person shooter";
-    categories = [
-      "Game"
-      "ActionGame"
-      "Shooter"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        desktopName = "AssaultCube";
+        comment =
+          "A multiplayer, first-person shooter game, based on the CUBE engine. Fast, arcade gameplay.";
+        genericName = "First-person shooter";
+        categories = [
+          "Game"
+          "ActionGame"
+          "Shooter"
+        ];
+        icon = "assaultcube";
+        exec = pname;
+      })
     ];
-    icon = "assaultcube";
-    exec = pname;
-  }) ];
 
   gamedatadir = "/share/games/${pname}";
 

@@ -51,10 +51,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-NnQ7KF979HnsEc4X/Wf1YOfUvByHvVIdTAcJyUjhsp8=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    zenity = gnome.zenity;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        zenity = gnome.zenity;
+      })
+    ];
 
   nativeBuildInputs = [
     desktop-file-utils

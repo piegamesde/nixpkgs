@@ -75,7 +75,9 @@ buildPythonPackage rec {
     description = "Python Kaldi speech recognition";
     homepage = "https://github.com/daanzu/kaldi-active-grammar";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ ckie ];
+    maintainers = with maintainers; [
+        ckie
+      ];
       # Other platforms are supported upstream.
     platforms = platforms.linux;
   };

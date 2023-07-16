@@ -31,10 +31,12 @@ resholve.mkDerivation {
     coreutils
   ];
 
-  checkInputs = [ (bats.withLibraries (p: [
-    p.bats-support
-    p.bats-assert
-  ])) ];
+  checkInputs = [
+      (bats.withLibraries (p: [
+        p.bats-support
+        p.bats-assert
+      ]))
+    ];
 
   doCheck = true;
 

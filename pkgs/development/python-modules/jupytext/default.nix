@@ -33,11 +33,13 @@ buildPythonPackage rec {
     hash = "sha256-DDF4aTLkhEl4xViYh/E0/y6swcwZ9KbeS0qKm+HdFz8=";
   };
 
-  patches = [ (fetchpatch {
-    url =
-      "https://github.com/mwouts/jupytext/commit/be9b65b03600227b737b5f10ea259a7cdb762b76.patch";
-    hash = "sha256-3klx8I+T560EVfsKe/FlrSjF6JzdKSCt6uhAW2cSwtc=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://github.com/mwouts/jupytext/commit/be9b65b03600227b737b5f10ea259a7cdb762b76.patch";
+        hash = "sha256-3klx8I+T560EVfsKe/FlrSjF6JzdKSCt6uhAW2cSwtc=";
+      })
+    ];
 
   buildInputs = [
     jupyter-packaging
@@ -70,8 +72,8 @@ buildPythonPackage rec {
     "--ignore-glob='tests/test_pre_commit_*.py'"
   ];
 
-  disabledTests =
-    [ "test_apply_black_through_jupytext" # we can't do anything about ill-formatted notebooks
+  disabledTests = [
+      "test_apply_black_through_jupytext" # we can't do anything about ill-formatted notebooks
     ] ++ lib.optionals stdenv.isDarwin [
       # requires access to trash
       "test_load_save_rename"

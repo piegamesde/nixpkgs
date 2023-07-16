@@ -46,10 +46,12 @@ stdenv.mkDerivation rec {
     pkg-config
     lit
   ];
-  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then
-    llvm
-  else
-    targetLlvm) ];
+  buildInputs = [
+      (if stdenv.buildPlatform == stdenv.hostPlatform then
+        llvm
+      else
+        targetLlvm)
+    ];
 
   nativeCheckInputs = lib.optional stdenv.hostPlatform.isDarwin xcbuild.xcrun;
 

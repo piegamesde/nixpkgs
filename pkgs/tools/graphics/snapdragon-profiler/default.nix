@@ -74,19 +74,21 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    desktopName = "Snapdragon Profiler";
-    exec = "snapdragon-profiler";
-    icon = "snapdragon-profiler";
-    comment = meta.description;
-    categories = [
-      "Development"
-      "Debugger"
-      "Graphics"
-      "3DGraphics"
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        desktopName = "Snapdragon Profiler";
+        exec = "snapdragon-profiler";
+        icon = "snapdragon-profiler";
+        comment = meta.description;
+        categories = [
+          "Development"
+          "Debugger"
+          "Graphics"
+          "3DGraphics"
+        ];
+      })
     ];
-  }) ];
 
   dontStrip = true; # Always needed on Mono
   dontPatchELF =

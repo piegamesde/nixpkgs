@@ -78,12 +78,14 @@ stdenv.mkDerivation rec {
     "-DDYN_OPENAL=OFF"
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "gzdoom";
-    exec = "gzdoom";
-    desktopName = "GZDoom";
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "gzdoom";
+        exec = "gzdoom";
+        desktopName = "GZDoom";
+        categories = [ "Game" ];
+      })
+    ];
 
   postInstall = ''
     mv $out/bin/gzdoom $out/share/games/doom/gzdoom

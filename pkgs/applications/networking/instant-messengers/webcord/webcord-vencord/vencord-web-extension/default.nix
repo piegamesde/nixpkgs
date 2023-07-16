@@ -44,10 +44,12 @@ buildNpmPackage rec {
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  patches = [ (substituteAll {
-    src = ./replace-git.patch;
-    inherit version;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./replace-git.patch;
+        inherit version;
+      })
+    ];
 
   installPhase = ''
     cp -r dist/extension-unpacked $out

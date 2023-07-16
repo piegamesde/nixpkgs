@@ -21,13 +21,15 @@ let
   enableIwd = cfg.wifi.backend == "iwd";
 in {
 
-  imports = [ (mkRenamedOptionModule [
-    "networking"
-    "connman"
-  ] [
-    "services"
-    "connman"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "networking"
+        "connman"
+      ] [
+        "services"
+        "connman"
+      ])
+    ];
 
     ###### interface
 

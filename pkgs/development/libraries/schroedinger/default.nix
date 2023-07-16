@@ -32,11 +32,13 @@ stdenv.mkDerivation rec {
   doCheck = (!stdenv.isDarwin);
 
   patchFlags = [ "-p0" ];
-  patches = [ (fetchpatch {
-    url =
-      "https://raw.githubusercontent.com/macports/macports-ports/master/multimedia/schroedinger/files/patch-testsuite-Makefile.am.diff";
-    sha256 = "0cc8ymvgjgwy7ghca2dd8m8pxpinf27s2i8krf2m3fzv2ckq09v3";
-  }) ];
+  patches = [
+      (fetchpatch {
+        url =
+          "https://raw.githubusercontent.com/macports/macports-ports/master/multimedia/schroedinger/files/patch-testsuite-Makefile.am.diff";
+        sha256 = "0cc8ymvgjgwy7ghca2dd8m8pxpinf27s2i8krf2m3fzv2ckq09v3";
+      })
+    ];
 
   meta = with lib; {
     description = "An implementation of the Dirac video codec in ANSI C";

@@ -37,19 +37,21 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "pyspread" ];
 
-  desktopItems = [ (makeDesktopItem rec {
-    name = pname;
-    exec = name;
-    icon = name;
-    desktopName = "Pyspread";
-    genericName = "Spreadsheet";
-    comment = meta.description;
-    categories = [
-      "Office"
-      "Development"
-      "Spreadsheet"
+  desktopItems = [
+      (makeDesktopItem rec {
+        name = pname;
+        exec = name;
+        icon = name;
+        desktopName = "Pyspread";
+        genericName = "Spreadsheet";
+        comment = meta.description;
+        categories = [
+          "Office"
+          "Development"
+          "Spreadsheet"
+        ];
+      })
     ];
-  }) ];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")

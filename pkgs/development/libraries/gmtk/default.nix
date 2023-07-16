@@ -35,10 +35,12 @@ stdenv.mkDerivation rec {
     libpulseaudio
   ];
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    mplayer = "${mplayer}/bin/mplayer";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        mplayer = "${mplayer}/bin/mplayer";
+      })
+    ];
 
   meta = with lib; {
     description = "Common functions for gnome-mplayer and gecko-mediaplayer";

@@ -13,7 +13,9 @@ python3Packages.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [ python3Packages.setuptools-scm ];
-  pythonPath = with python3Packages; [ i3ipc ];
+  pythonPath = with python3Packages; [
+      i3ipc
+    ];
 
     # no tests
   doCheck = false;

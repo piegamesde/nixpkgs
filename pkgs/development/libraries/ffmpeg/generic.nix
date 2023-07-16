@@ -652,26 +652,28 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
     # TODO This was always in buildInputs before, why?
-  buildInputs = optionals withFullDeps [ libdc1394 ] ++ optionals (withFullDeps
-    && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
-    ++ optionals (withNvdec || withNvenc) [ (if
-      (lib.versionAtLeast version "6")
-    then
-      nv-codec-headers-11
-    else
-      nv-codec-headers) ] ++ optionals withAlsa [ alsa-lib ]
-    ++ optionals withAom [ libaom ] ++ optionals withAss [ libass ]
-    ++ optionals withBluray [ libbluray ] ++ optionals withBs2b [ libbs2b ]
-    ++ optionals withBzlib [ bzip2 ] ++ optionals withCaca [ libcaca ]
-    ++ optionals withCelt [ celt ] ++ optionals withCudaLLVM [ clang ]
-    ++ optionals withDav1d [ dav1d ] ++ optionals withDrm [ libdrm ]
-    ++ optionals withFdkAac [ fdk_aac ]
+  buildInputs = optionals withFullDeps [ libdc1394 ]
+    ++ optionals (withFullDeps && !stdenv.isDarwin) [
+      libraw1394
+    ] # TODO where does this belong to
+    ++ optionals (withNvdec || withNvenc) [
+      (if (lib.versionAtLeast version "6") then
+        nv-codec-headers-11
+      else
+        nv-codec-headers)
+    ] ++ optionals withAlsa [ alsa-lib ] ++ optionals withAom [ libaom ]
+    ++ optionals withAss [ libass ] ++ optionals withBluray [ libbluray ]
+    ++ optionals withBs2b [ libbs2b ] ++ optionals withBzlib [ bzip2 ]
+    ++ optionals withCaca [ libcaca ] ++ optionals withCelt [ celt ]
+    ++ optionals withCudaLLVM [ clang ] ++ optionals withDav1d [ dav1d ]
+    ++ optionals withDrm [ libdrm ] ++ optionals withFdkAac [ fdk_aac ]
     ++ optionals withFontconfig [ fontconfig ]
     ++ optionals withFreetype [ freetype ] ++ optionals withFrei0r [ frei0r ]
     ++ optionals withFribidi [ fribidi ] ++ optionals withGlslang [ glslang ]
     ++ optionals withGme [ game-music-emu ] ++ optionals withGnutls [ gnutls ]
-    ++ optionals withGsm [ gsm ] ++ optionals
-    withIconv [ libiconv ] # On Linux this should be in libc, do we really need it?
+    ++ optionals withGsm [ gsm ] ++ optionals withIconv [
+      libiconv
+    ] # On Linux this should be in libc, do we really need it?
     ++ optionals withJack [ libjack2 ] ++ optionals withLadspa [ ladspaH ]
     ++ optionals withLibplacebo [
       libplacebo
@@ -694,11 +696,13 @@ stdenv.mkDerivation (finalAttrs: {
     ++ optionals withSpeex [ speex ] ++ optionals withSrt [ srt ]
     ++ optionals withSsh [ libssh ] ++ optionals withSvg [ librsvg ]
     ++ optionals withSvtav1 [ svt-av1 ] ++ optionals withTheora [ libtheora ]
-    ++ optionals withVaapi [ (if withSmallDeps then
-      libva
-    else
-      libva-minimal) ] ++ optionals withVdpau [ libvdpau ]
-    ++ optionals withVidStab [ vid-stab ] ++ optionals withVmaf [ libvmaf ]
+    ++ optionals withVaapi [
+      (if withSmallDeps then
+        libva
+      else
+        libva-minimal)
+    ] ++ optionals withVdpau [ libvdpau ] ++ optionals withVidStab [ vid-stab ]
+    ++ optionals withVmaf [ libvmaf ]
     ++ optionals withVoAmrwbenc [ vo-amrwbenc ]
     ++ optionals withVorbis [ libvorbis ] ++ optionals withVpx [ libvpx ]
     ++ optionals withV4l2 [ libv4l ] ++ optionals withVulkan [
@@ -754,8 +758,9 @@ stdenv.mkDerivation (finalAttrs: {
     ''
     ;
 
-  outputs = optionals
-    withBin [ "bin" ] # The first output is the one that gets symlinked by default!
+  outputs = optionals withBin [
+      "bin"
+    ] # The first output is the one that gets symlinked by default!
     ++ optionals withLib [
       "lib"
       "dev"

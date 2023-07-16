@@ -45,14 +45,16 @@ stdenv.mkDerivation rec {
     "LIBDIR=${placeholder "out"}/lib"
   ];
 
-  desktopItems = [ (makeDesktopItem {
-    name = "dirdiff";
-    exec = "dirdiff";
-    desktopName = "Dirdiff";
-    genericName = "Directory Diff Viewer";
-    comment = "Diff and merge directory trees";
-    categories = [ "Development" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "dirdiff";
+        exec = "dirdiff";
+        desktopName = "Dirdiff";
+        genericName = "Directory Diff Viewer";
+        comment = "Diff and merge directory trees";
+        categories = [ "Development" ];
+      })
+    ];
 
   meta = with lib; {
     description = "Graphical directory tree diff and merge tool";

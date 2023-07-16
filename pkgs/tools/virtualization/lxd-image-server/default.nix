@@ -33,13 +33,15 @@ python3.pkgs.buildPythonApplication rec {
     python-pidfile
   ];
 
-  makeWrapperArgs = [ ''
-    --prefix PATH ':' "${
-      lib.makeBinPath [
-        openssl
-        rsync
-      ]
-    }"'' ];
+  makeWrapperArgs = [
+      ''
+        --prefix PATH ':' "${
+          lib.makeBinPath [
+            openssl
+            rsync
+          ]
+        }"''
+    ];
 
   doCheck = false;
 

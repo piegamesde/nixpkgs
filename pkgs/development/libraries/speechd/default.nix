@@ -45,16 +45,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-i0ZJkl5oy+GntMCge7BBznc4s1yQamAr+CmG2xqg82Q=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    utillinux = util-linux;
-  }) ] ++ lib.optionals (withEspeak && espeak.mbrolaSupport) [
-    # Replace FHS paths.
-    (substituteAll {
-      src = ./fix-mbrola-paths.patch;
-      inherit espeak mbrola;
-    })
-  ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        utillinux = util-linux;
+      })
+    ] ++ lib.optionals (withEspeak && espeak.mbrolaSupport) [
+      # Replace FHS paths.
+      (substituteAll {
+        src = ./fix-mbrola-paths.patch;
+        inherit espeak mbrola;
+      })
+    ];
 
   nativeBuildInputs = [
     pkg-config

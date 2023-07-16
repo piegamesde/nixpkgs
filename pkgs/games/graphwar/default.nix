@@ -51,12 +51,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "graphwar";
-    exec = "graphwar";
-    desktopName = "Graphwar";
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "graphwar";
+        exec = "graphwar";
+        desktopName = "Graphwar";
+        categories = [ "Game" ];
+      })
+    ];
 
   meta = with lib; {
     homepage = "http://www.graphwar.com/";

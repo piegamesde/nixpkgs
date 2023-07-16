@@ -41,12 +41,14 @@ stdenv.mkDerivation rec {
       MACOSX_DEPLOYMENT_TARGET=10.16
     '';
 
-  cmakeFlags = [ "-DHEPMC3_ENABLE_PYTHON=${
-      if withPython then
-        "ON"
-      else
-        "OFF"
-    }" ] ++ lib.optionals withPython [
+  cmakeFlags = [
+      "-DHEPMC3_ENABLE_PYTHON=${
+        if withPython then
+          "ON"
+        else
+          "OFF"
+      }"
+    ] ++ lib.optionals withPython [
       "-DHEPMC3_PYTHON_VERSIONS=${
         if python.isPy3k then
           "3.X"

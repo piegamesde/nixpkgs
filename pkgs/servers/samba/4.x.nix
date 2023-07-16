@@ -172,14 +172,15 @@ stdenv.mkDerivation rec {
     ++ optionals (!enableLDAP) [
       "--without-ldap"
       "--without-ads"
-    ] ++ optionals (!enableLDAP
-      && stdenv.isLinux) [ "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb" ]
-    ++ optional enableLibunwind "--with-libunwind"
+    ] ++ optionals (!enableLDAP && stdenv.isLinux) [
+      "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
+    ] ++ optional enableLibunwind "--with-libunwind"
     ++ optional enableProfiling "--with-profiling-data"
     ++ optional (!enableAcl) "--without-acl-support"
-    ++ optional (!enablePam) "--without-pam" ++ optionals (stdenv.hostPlatform
-      != stdenv.buildPlatform) [ "--bundled-libraries=!asn1_compile,!compile_et" ]
-    ++ optionals stdenv.isAarch32 [
+    ++ optional (!enablePam) "--without-pam"
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "--bundled-libraries=!asn1_compile,!compile_et"
+    ] ++ optionals stdenv.isAarch32 [
       # https://bugs.gentoo.org/683148
       "--jobs 1"
     ];
@@ -241,8 +242,10 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  disallowedReferences = lib.optionals (buildPackages.python3Packages.python
-    != python3Packages.python) [ buildPackages.python3Packages.python ];
+  disallowedReferences = lib.optionals
+    (buildPackages.python3Packages.python != python3Packages.python) [
+      buildPackages.python3Packages.python
+    ];
 
   passthru = { tests.samba = nixosTests.samba; };
 

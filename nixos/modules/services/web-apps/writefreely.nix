@@ -378,7 +378,9 @@ in {
         optionalAttrs (cfg.group == "writefreely") { writefreely = { }; };
     };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = [
+        "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
+      ];
 
     systemd.services.writefreely = {
       after = [ "network.target" ]

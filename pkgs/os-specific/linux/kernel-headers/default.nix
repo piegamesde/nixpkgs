@@ -71,8 +71,10 @@ let
           darwin-byteswap-h
         ];
 
-      extraIncludeDirs = lib.optionals (with stdenvNoCC.hostPlatform;
-        isPower && is32bit && isBigEndian) [ "ppc" ];
+      extraIncludeDirs = lib.optionals
+        (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian) [
+          "ppc"
+        ];
 
       inherit patches;
 
@@ -146,7 +148,8 @@ in {
           }.x/linux-${version}.tar.xz";
         hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";
       };
-      patches = [ ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
+      patches = [
+          ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
         ];
     }
     ;

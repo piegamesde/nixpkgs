@@ -94,7 +94,9 @@ let
                 "--enable-double-precision"
               ];
             });
-          in [ ode' ]
+          in [
+            ode'
+          ]
           ;
       }
       ;
@@ -117,7 +119,9 @@ let
     "cl-sat.glucose" =
       pkg: {
         propagatedBuildInputs = [ pkgs.glucose ];
-        patches = [ ./patches/cl-sat.glucose-binary-from-PATH-if-present.patch ];
+        patches = [
+            ./patches/cl-sat.glucose-binary-from-PATH-if-present.patch
+          ];
 
       }
       ;

@@ -61,7 +61,8 @@ python.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [ "test/integration" # requires running elasticsearch
+  disabledTestPaths = [
+      "test/integration" # requires running elasticsearch
     ];
 
   disabledTests = [

@@ -48,7 +48,8 @@ buildPythonPackage rec {
     which
   ];
 
-  disabledTests = [ "test_listdir" # accesses /usr/bin
+  disabledTests = [
+      "test_listdir" # accesses /usr/bin
     ];
 
   meta = with lib; {

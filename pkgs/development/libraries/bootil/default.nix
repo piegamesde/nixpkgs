@@ -38,7 +38,9 @@ stdenv.mkDerivation {
     homepage = "https://github.com/garrynewman/bootil";
       # License unsure - see https://github.com/garrynewman/bootil/issues/21
     license = licenses.free;
-    maintainers = with maintainers; [ abigailbuccaneer ];
+    maintainers = with maintainers; [
+        abigailbuccaneer
+      ];
       # Build uses `-msse` and `-mfpmath=sse`
     platforms = platforms.all;
     badPlatforms = [ "aarch64-linux" ];

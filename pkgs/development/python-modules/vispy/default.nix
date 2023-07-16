@@ -28,13 +28,15 @@ buildPythonPackage rec {
     hash = "sha256-FBwt3MwRWFVbyJ8JAQxLHXVEh+gWNXMz8x55WnFGoCQ=";
   };
 
-  patches = [ (substituteAll {
-    src = ./library-paths.patch;
-    fontconfig =
-      "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
-    gl =
-      "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./library-paths.patch;
+        fontconfig =
+          "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
+        gl =
+          "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   nativeBuildInputs = [
     cython

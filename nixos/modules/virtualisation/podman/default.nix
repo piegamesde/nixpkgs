@@ -193,10 +193,12 @@ in {
         network.network_backend = "netavark";
       } // lib.optionalAttrs cfg.enableNvidia {
         engine = {
-          conmon_env_vars = [ "PATH=${
-              lib.makeBinPath [ pkgs.nvidia-podman ]
-            }" ];
-          runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
+          conmon_env_vars = [
+              "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}"
+            ];
+          runtimes.nvidia = [
+              "${pkgs.nvidia-podman}/bin/nvidia-container-runtime"
+            ];
         };
       };
     };
@@ -238,9 +240,9 @@ in {
       '')
     ];
 
-    systemd.tmpfiles.rules = lib.optionals
-      cfg.dockerSocket.enable [ "L! /run/docker.sock - - - - /run/podman/podman.sock" ]
-      ;
+    systemd.tmpfiles.rules = lib.optionals cfg.dockerSocket.enable [
+        "L! /run/docker.sock - - - - /run/podman/podman.sock"
+      ];
 
     users.groups.podman = { };
 

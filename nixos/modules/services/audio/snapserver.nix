@@ -72,16 +72,18 @@ let
     ''--http.doc_root="${toString cfg.http.docRoot}"'');
 
 in {
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "snapserver"
-    "controlPort"
-  ] [
-    "services"
-    "snapserver"
-    "tcp"
-    "port"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "snapserver"
+        "controlPort"
+      ] [
+        "services"
+        "snapserver"
+        "tcp"
+        "port"
+      ])
+    ];
 
     ###### interface
 

@@ -120,7 +120,9 @@ stdenv.mkDerivation rec {
       libX11
     ];
 
-  cmakeFlags = [ "-DGuiModule=${guiModule}" ]
+  cmakeFlags = [
+      "-DGuiModule=${guiModule}"
+    ]
     # OSS library is included in glibc.
     # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
@@ -139,7 +141,9 @@ stdenv.mkDerivation rec {
       disabledTests =
         # PortChecker test fails when lashSupport is enabled because
         # zynaddsubfx takes to long to start trying to connect to lash
-        lib.optionals lashSupport [ "PortChecker" ]
+        lib.optionals lashSupport [
+          "PortChecker"
+        ]
 
         # Tests fail on aarch64
         ++ lib.optionals stdenv.isAarch64 [

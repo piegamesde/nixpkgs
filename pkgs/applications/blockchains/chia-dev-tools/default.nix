@@ -16,10 +16,12 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-qWWLQ+SkoRu5cLytwwrslqsKORy+4ebO8brULEFGaF0=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit chia;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit chia;
+      })
+    ];
 
   postPatch = ''
     substituteInPlace setup.py \

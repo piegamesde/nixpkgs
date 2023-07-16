@@ -145,10 +145,11 @@ stdenv.mkDerivation ((removeAttrs args [
 
   patchRegistryDeps = ./patch-registry-deps;
 
-  nativeBuildInputs = nativeBuildInputs ++ lib.optionals
-    auditable [ (buildPackages.cargo-auditable-cargo-wrapper.override {
-      inherit cargo cargo-auditable;
-    }) ] ++ [
+  nativeBuildInputs = nativeBuildInputs ++ lib.optionals auditable [
+      (buildPackages.cargo-auditable-cargo-wrapper.override {
+        inherit cargo cargo-auditable;
+      })
+    ] ++ [
       cargoBuildHook
       (if useNextest then
         cargoNextestHook

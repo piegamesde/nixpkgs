@@ -156,9 +156,9 @@ let
     ++ lib.optional needUserConfig "--user-config=user-config.jam"
     ++ lib.optional
     (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux) "pch=off"
-    ++ lib.optionals
-    (stdenv.hostPlatform.libc == "msvcrt") [ "threadapi=win32" ] ++ extraB2Args)
-    ;
+    ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
+      "threadapi=win32"
+    ] ++ extraB2Args);
 
 in
 stdenv.mkDerivation {
@@ -303,11 +303,12 @@ stdenv.mkDerivation {
     "--includedir=$(dev)/include"
     "--libdir=$(out)/lib"
     "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
-  ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}"
-    ++ [ (if enableIcu then
-      "--with-icu=${icu.dev}"
-    else
-      "--without-icu") ];
+  ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}" ++ [
+      (if enableIcu then
+        "--with-icu=${icu.dev}"
+      else
+        "--without-icu")
+    ];
 
   buildPhase = ''
     runHook preBuild

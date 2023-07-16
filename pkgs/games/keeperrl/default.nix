@@ -93,7 +93,9 @@ stdenv.mkDerivation rec {
     description = "A dungeon management rogue-like";
     homepage = "https://keeperrl.com/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [
+        onny
+      ];
       # TODO: Add OS X
     platforms = [
       "i686-linux"

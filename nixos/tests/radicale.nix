@@ -51,7 +51,9 @@ import ./make-test-python.nix ({
         };
         systemd.services.radicale.path = [ pkgs.git ];
         environment.systemPackages = [ pkgs.git ];
-        systemd.tmpfiles.rules = [ "d ${filesystem_folder} 0750 radicale radicale -" ];
+        systemd.tmpfiles.rules = [
+            "d ${filesystem_folder} 0750 radicale radicale -"
+          ];
           # WARNING: DON'T DO THIS IN PRODUCTION!
           # This puts unhashed secrets directly into the Nix store for ease of testing.
         environment.etc."radicale/users".source =

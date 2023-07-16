@@ -21,11 +21,13 @@ let
 in {
   ###### interface
 
-  imports = [ (mkRemovedOptionModule [
-    "services"
-    "mailhog"
-    "user"
-  ] "") ];
+  imports = [
+      (mkRemovedOptionModule [
+        "services"
+        "mailhog"
+        "user"
+      ] "")
+    ];
 
   options = {
 

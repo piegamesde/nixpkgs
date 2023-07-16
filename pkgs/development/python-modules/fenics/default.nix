@@ -168,12 +168,14 @@ let
         "https://bitbucket.org/fenics-project/dolfin/downloads/dolfin-${version}.tar.gz";
       sha256 = "0kbyi4x5f6j4zpasch0swh0ch81w2h92rqm1nfp3ydi4a93vky33";
     };
-    patches = [ (fetchpatch {
-      name = "fix-double-prefix.patch";
-      url =
-        "https://bitbucket.org/josef_kemetmueller/dolfin/commits/328e94acd426ebaf2243c072b806be3379fd4340/raw";
-      sha256 = "1zj7k3y7vsx0hz3gwwlxhq6gdqamqpcw90d4ishwx5ps5ckcsb9r";
-    }) ];
+    patches = [
+        (fetchpatch {
+          name = "fix-double-prefix.patch";
+          url =
+            "https://bitbucket.org/josef_kemetmueller/dolfin/commits/328e94acd426ebaf2243c072b806be3379fd4340/raw";
+          sha256 = "1zj7k3y7vsx0hz3gwwlxhq6gdqamqpcw90d4ishwx5ps5ckcsb9r";
+        })
+      ];
     propagatedBuildInputs = [
       dijitso
       fiat

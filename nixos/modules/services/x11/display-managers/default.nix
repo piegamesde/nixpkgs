@@ -571,7 +571,9 @@ in {
 
       # Make xsessions and wayland sessions available in XDG_DATA_DIRS
       # as some programs have behavior that depends on them being present
-    environment.sessionVariables.XDG_DATA_DIRS = [ "${cfg.displayManager.sessionData.desktops}/share" ];
+    environment.sessionVariables.XDG_DATA_DIRS = [
+        "${cfg.displayManager.sessionData.desktops}/share"
+      ];
   };
 
   imports = [

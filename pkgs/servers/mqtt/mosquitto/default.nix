@@ -31,14 +31,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-H2oaTphx5wvwXWDDaf9lLSVfHWmb2rMlxQmyRB4k5eg=";
   };
 
-  patches = lib.optionals stdenv.isDarwin [ (fetchpatch {
-    name =
-      "revert-cmake-shared-to-module.patch"; # See https://github.com/eclipse/mosquitto/issues/2277
-    url =
-      "https://github.com/eclipse/mosquitto/commit/e21eaeca37196439b3e89bb8fd2eb1903ef94845.patch";
-    sha256 = "14syi2c1rks8sl2aw09my276w45yq1iasvzkqcrqwy4drdqrf069";
-    revert = true;
-  }) ];
+  patches = lib.optionals stdenv.isDarwin [
+      (fetchpatch {
+        name =
+          "revert-cmake-shared-to-module.patch"; # See https://github.com/eclipse/mosquitto/issues/2277
+        url =
+          "https://github.com/eclipse/mosquitto/commit/e21eaeca37196439b3e89bb8fd2eb1903ef94845.patch";
+        sha256 = "14syi2c1rks8sl2aw09my276w45yq1iasvzkqcrqwy4drdqrf069";
+        revert = true;
+      })
+    ];
 
   postPatch = ''
     for f in html manpage ; do

@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     SDL_gfx
   ]);
 
-  patches = [ ./parse.patch # Fixes compilation error by avoiding redundant definitions.
+  patches = [
+      ./parse.patch # Fixes compilation error by avoiding redundant definitions.
     ];
 
   meta = with lib; {

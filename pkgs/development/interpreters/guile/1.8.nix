@@ -29,7 +29,9 @@ stdenv.mkDerivation rec {
   setOutputFlags = false; # $dev gets into the library otherwise
 
     # GCC 4.6 raises a number of set-but-unused warnings.
-  configureFlags = [ "--disable-error-on-warning" ]
+  configureFlags = [
+      "--disable-error-on-warning"
+    ]
     # Guile needs patching to preset results for the configure tests about
     # pthreads, which work only in native builds.
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)

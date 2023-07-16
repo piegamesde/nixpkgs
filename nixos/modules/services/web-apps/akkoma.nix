@@ -988,10 +988,12 @@ in {
               ":backends" = mkOption {
                 type = types.listOf elixirValue;
                 visible = false;
-                default = with format.lib; [ (mkTuple [
-                  (mkRaw "ExSyslogger")
-                  (mkAtom ":ex_syslogger")
-                ]) ];
+                default = with format.lib; [
+                    (mkTuple [
+                      (mkRaw "ExSyslogger")
+                      (mkAtom ":ex_syslogger")
+                    ])
+                  ];
               };
 
               ":ex_syslogger" = {
@@ -1150,8 +1152,9 @@ in {
 
           BindPaths = [ "${uploadDir}:${uploadDir}:norbind" ];
           BindReadOnlyPaths = mkMerge [
-            (mkIf
-              (!isStorePath staticDir) [ "${staticDir}:${staticDir}:norbind" ])
+            (mkIf (!isStorePath staticDir) [
+                "${staticDir}:${staticDir}:norbind"
+              ])
             (mkIf isConfined (mkMerge [
               [
                 "/etc/hosts"
@@ -1161,8 +1164,9 @@ in {
                 (splitString "\n" (readFile
                   ((pkgs.closureInfo { rootPaths = staticDir; })
                     + "/store-paths")))))
-              (mkIf (db
-                ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
+              (mkIf (db ? socket_dir) [
+                  "${db.socket_dir}:${db.socket_dir}:norbind"
+                ])
               (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
             ]))
           ];

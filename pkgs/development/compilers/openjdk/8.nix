@@ -114,8 +114,9 @@ let
       ./read-truststore-from-env-jdk8.patch
       ./currency-date-range-jdk8.patch
       ./fix-library-path-jdk8.patch
-    ] ++ lib.optionals
-      (!headless && enableGnome2) [ ./swing-use-gtk-jdk8.patch ];
+    ] ++ lib.optionals (!headless && enableGnome2) [
+        ./swing-use-gtk-jdk8.patch
+      ];
 
       # Hotspot cares about the host(!) version otherwise
     DISABLE_HOTSPOT_OS_VERSION_CHECK = "ok";

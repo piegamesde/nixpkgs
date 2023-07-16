@@ -471,15 +471,17 @@ in {
 
   };
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "udev"
-    "initrdRules"
-  ] [
-    "boot"
-    "initrd"
-    "services"
-    "udev"
-    "rules"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "udev"
+        "initrdRules"
+      ] [
+        "boot"
+        "initrd"
+        "services"
+        "udev"
+        "rules"
+      ])
+    ];
 }

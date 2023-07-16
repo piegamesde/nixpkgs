@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     db
     groff
   ]; # (Yes, 'groff' is both native and build input)
-  nativeCheckInputs = [ libiconv # for 'iconv' binary
+  nativeCheckInputs = [
+      libiconv # for 'iconv' binary
     ];
 
   patches = [ ./systemwide-man-db-conf.patch ];
@@ -94,8 +95,10 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  disallowedReferences = lib.optionals
-    (stdenv.hostPlatform != stdenv.buildPlatform) [ buildPackages.groff ];
+  disallowedReferences =
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      buildPackages.groff
+    ];
 
   enableParallelBuilding = true;
 

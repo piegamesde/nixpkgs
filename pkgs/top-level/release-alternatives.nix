@@ -162,26 +162,28 @@ in {
         pkgs = pkgsFun {
           config = { inherit allowUnfree; };
           system = system';
-          overlays = [ (self: super: {
-            lapack = super.lapack.override {
-              lapackProvider =
-                if provider == "mkl64" then
-                  super.mkl
-                else
-                  builtins.getAttr provider super
-                ;
-              inherit isILP64;
-            };
-            blas = super.blas.override {
-              blasProvider =
-                if provider == "mkl64" then
-                  super.mkl
-                else
-                  builtins.getAttr provider super
-                ;
-              inherit isILP64;
-            };
-          }) ];
+          overlays = [
+              (self: super: {
+                lapack = super.lapack.override {
+                  lapackProvider =
+                    if provider == "mkl64" then
+                      super.mkl
+                    else
+                      builtins.getAttr provider super
+                    ;
+                  inherit isILP64;
+                };
+                blas = super.blas.override {
+                  blasProvider =
+                    if provider == "mkl64" then
+                      super.mkl
+                    else
+                      builtins.getAttr provider super
+                    ;
+                  inherit isILP64;
+                };
+              })
+            ];
         };
       in
       mapListToAttrs (if builtins.elem provider blas64Providers then

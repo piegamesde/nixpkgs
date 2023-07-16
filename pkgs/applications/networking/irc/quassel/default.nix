@@ -49,10 +49,12 @@ assert !buildClient -> !withKDE; # KDE is used by the client only
 
 let
   edf =
-    flag: feature: [ ("-D" + feature + (if flag then
-      "=ON"
-    else
-      "=OFF")) ]
+    flag: feature: [
+      ("-D" + feature + (if flag then
+        "=ON"
+      else
+        "=OFF"))
+    ]
     ;
 
 in

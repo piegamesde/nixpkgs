@@ -32,7 +32,8 @@ buildPythonPackage rec {
 
   buildAndTestSubdir = "wheel";
 
-  nativeBuildInputs = [ perl # used by openssl-sys to configure
+  nativeBuildInputs = [
+      perl # used by openssl-sys to configure
     ] ++ (with rustPlatform; [
       cargoSetupHook
       maturinBuildHook

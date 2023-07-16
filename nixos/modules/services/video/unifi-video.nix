@@ -203,7 +203,8 @@ in {
         7447 # RTSP via the controller
         7442 # Camera management from cameras to NVR over WAN
       ];
-      allowedUDPPorts = [ 6666 # Inbound camera streams sent over WAN
+      allowedUDPPorts = [
+          6666 # Inbound camera streams sent over WAN
         ];
     };
 
@@ -281,15 +282,17 @@ in {
     };
   };
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "unifi-video"
-    "openPorts"
-  ] [
-    "services"
-    "unifi-video"
-    "openFirewall"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "unifi-video"
+        "openPorts"
+      ] [
+        "services"
+        "unifi-video"
+        "openFirewall"
+      ])
+    ];
 
   meta.maintainers = with lib.maintainers; [ rsynnest ];
 }

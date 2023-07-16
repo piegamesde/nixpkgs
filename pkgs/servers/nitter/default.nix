@@ -17,18 +17,20 @@ nimPackages.buildNimPackage rec {
     hash = "sha256-d4KYBCcYbfvEtOqa1umcXmYsBRvhLgpHVoCUfY0XdXI=";
   };
 
-  patches = [ (substituteAll {
-    src = ./nitter-version.patch;
-    inherit version;
-    inherit (src) rev;
-    url = builtins.replaceStrings [
-      "archive"
-      ".tar.gz"
-    ] [
-      "commit"
-      ""
-    ] src.url;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./nitter-version.patch;
+        inherit version;
+        inherit (src) rev;
+        url = builtins.replaceStrings [
+          "archive"
+          ".tar.gz"
+        ] [
+          "commit"
+          ""
+        ] src.url;
+      })
+    ];
 
   buildInputs = with nimPackages; [
     flatty

@@ -78,7 +78,8 @@ stdenv.mkDerivation rec {
     description = "General-purpose cryptographic library";
     license = licenses.lgpl2Plus;
     platforms = platforms.all;
-    knownVulnerabilities = [ "CVE-2018-12437" # CVE is about LibTomCrypt
+    knownVulnerabilities = [
+        "CVE-2018-12437" # CVE is about LibTomCrypt
       ];
   };
 }

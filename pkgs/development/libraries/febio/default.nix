@@ -24,10 +24,12 @@ stdenv.mkDerivation rec {
     sha256 = "187s4lyzr806xla3smq3lsvj3f6wxlhfkban89w0fnyfmfb8w9am";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-cmake.patch; # cannot find mkl libraries without this
-    so = stdenv.hostPlatform.extensions.sharedLibrary;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-cmake.patch; # cannot find mkl libraries without this
+        so = stdenv.hostPlatform.extensions.sharedLibrary;
+      })
+    ];
 
   cmakeFlags = lib.optional mklSupport "-DUSE_MKL=On"
     ++ lib.optional mklSupport "-DMKLROOT=${mkl}";

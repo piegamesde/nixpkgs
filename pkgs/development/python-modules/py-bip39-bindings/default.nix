@@ -24,12 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-3/KBPUFVFkJifunGWJeAHLnY08KVTb8BHCFzDqKWH18=";
   };
 
-  patches = [ (fetchpatch {
-    name = "update-to-latest-maturin-and-pyo3.patch";
-    url =
-      "https://github.com/polkascan/py-bip39-bindings/commit/f05cced028b43b59cfa67e17fbf0f337bdd3aa8d.patch";
-    hash = "sha256-/pFNSFtYyKiOoIDVqEWdZCbQxFZ7FIcvAHY2m5STlEc=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        name = "update-to-latest-maturin-and-pyo3.patch";
+        url =
+          "https://github.com/polkascan/py-bip39-bindings/commit/f05cced028b43b59cfa67e17fbf0f337bdd3aa8d.patch";
+        hash = "sha256-/pFNSFtYyKiOoIDVqEWdZCbQxFZ7FIcvAHY2m5STlEc=";
+      })
+    ];
 
   cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 

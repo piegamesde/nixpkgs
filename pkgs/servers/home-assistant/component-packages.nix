@@ -753,7 +753,9 @@
       ;
     "eddystone_temperature" =
       ps:
-      with ps; [ construct ]
+      with ps; [
+        construct
+      ]
       ; # missing inputs: beacontools
     "edimax" = ps: with ps; [ pyedimax ];
     "edl21" = ps: with ps; [ pysml ];
@@ -2323,7 +2325,9 @@
     "nsw_fuel_station" = ps: with ps; [ ]; # missing inputs: nsw-fuel-api-client
     "nsw_rural_fire_service_feed" =
       ps:
-      with ps; [ aio-geojson-nsw-rfs-incidents ]
+      with ps; [
+        aio-geojson-nsw-rfs-incidents
+      ]
       ;
     "nuheat" = ps: with ps; [ nuheat ];
     "nuki" =
@@ -3230,7 +3234,9 @@
       ;
     "stiebel_eltron" =
       ps:
-      with ps; [ pymodbus ]
+      with ps; [
+        pymodbus
+      ]
       ; # missing inputs: pystiebeleltron
     "stookalert" = ps: with ps; [ stookalert ];
     "stookwijzer" = ps: with ps; [ ]; # missing inputs: stookwijzer
@@ -3430,7 +3436,9 @@
       ;
     "thermoworks_smoke" =
       ps:
-      with ps; [ stringcase ]
+      with ps; [
+        stringcase
+      ]
       ; # missing inputs: thermoworks_smoke
     "thethingsnetwork" = ps: with ps; [ ];
     "thingspeak" = ps: with ps; [ ]; # missing inputs: thingspeak

@@ -26,9 +26,10 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     lib.optionals stdenv.hostPlatform.isDarwin [ "-DWITH_PROCPS=OFF" ]
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin
-      || !stdenv.hostPlatform.isx86) [ "-DWITH_SUPERCOP=OFF" ]
-    ++ lib.optionals (!stdenv.hostPlatform.isx86) [ "-DCURVE=ALT_BN128" ];
+    ++ lib.optionals
+    (stdenv.hostPlatform.isDarwin || !stdenv.hostPlatform.isx86) [
+      "-DWITH_SUPERCOP=OFF"
+    ] ++ lib.optionals (!stdenv.hostPlatform.isx86) [ "-DCURVE=ALT_BN128" ];
 
   src = fetchFromGitHub {
     rev = "9e6b19ff15bc19fba5da1707ba18e7f160e5ed07";

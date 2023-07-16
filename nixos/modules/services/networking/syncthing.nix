@@ -562,32 +562,34 @@ in {
     };
   };
 
-  imports = [ (mkRemovedOptionModule [
-    "services"
-    "syncthing"
-    "useInotify"
-  ] ''
-    This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
-    It can be enabled on a per-folder basis through the web interface.
-  '') ] ++ map (o:
-    mkRenamedOptionModule [
-      "services"
-      "syncthing"
-      "declarative"
-      o
-    ] [
-      "services"
-      "syncthing"
-      o
-    ]) [
-      "cert"
-      "key"
-      "devices"
-      "folders"
-      "overrideDevices"
-      "overrideFolders"
-      "extraOptions"
-    ];
+  imports = [
+      (mkRemovedOptionModule [
+        "services"
+        "syncthing"
+        "useInotify"
+      ] ''
+        This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
+        It can be enabled on a per-folder basis through the web interface.
+      '')
+    ] ++ map (o:
+      mkRenamedOptionModule [
+        "services"
+        "syncthing"
+        "declarative"
+        o
+      ] [
+        "services"
+        "syncthing"
+        o
+      ]) [
+        "cert"
+        "key"
+        "devices"
+        "folders"
+        "overrideDevices"
+        "overrideFolders"
+        "extraOptions"
+      ];
 
     ###### implementation
 

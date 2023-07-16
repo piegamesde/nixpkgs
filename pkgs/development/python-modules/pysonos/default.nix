@@ -40,7 +40,8 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  disabledTests = [ "test_desc_from_uri" # test requires network access
+  disabledTests = [
+      "test_desc_from_uri" # test requires network access
     ];
 
   meta = with lib; {

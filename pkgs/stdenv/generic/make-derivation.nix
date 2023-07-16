@@ -354,8 +354,10 @@ let
             (map (drv: drv.__spliced.hostTarget or drv)
               (checkDependencyList "buildInputs" buildInputs'))
           ]
-          [ (map (drv: drv.__spliced.targetTarget or drv)
-            (checkDependencyList "depsTargetTarget" depsTargetTarget)) ]
+          [
+            (map (drv: drv.__spliced.targetTarget or drv)
+              (checkDependencyList "depsTargetTarget" depsTargetTarget))
+          ]
         ];
         propagatedDependencies = map (map lib.chooseDevOutputs) [
           [
@@ -377,9 +379,11 @@ let
               (checkDependencyList "propagatedBuildInputs"
                 propagatedBuildInputs))
           ]
-          [ (map (drv: drv.__spliced.targetTarget or drv)
-            (checkDependencyList "depsTargetTargetPropagated"
-              depsTargetTargetPropagated)) ]
+          [
+            (map (drv: drv.__spliced.targetTarget or drv)
+              (checkDependencyList "depsTargetTargetPropagated"
+                depsTargetTargetPropagated))
+          ]
         ];
 
         computedSandboxProfile =
@@ -530,23 +534,30 @@ let
                       cmakeFlags
                     ;
 
-                  crossFlags = [ "-DCMAKE_SYSTEM_NAME=${
-                      lib.findFirst lib.isString "Generic"
-                      (lib.optional (!stdenv.hostPlatform.isRedox)
-                        stdenv.hostPlatform.uname.system)
-                    }" ] ++ lib.optionals (stdenv.hostPlatform.uname.processor
-                      != null) [ "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}" ]
-                    ++ lib.optionals (stdenv.hostPlatform.uname.release
-                      != null) [ "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}" ]
-                    ++ lib.optionals
-                    (stdenv.hostPlatform.isDarwin) [ "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}" ]
-                    ++ lib.optionals (stdenv.buildPlatform.uname.system
-                      != null) [ "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}" ]
-                    ++ lib.optionals (stdenv.buildPlatform.uname.processor
-                      != null) [ "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}" ]
-                    ++ lib.optionals (stdenv.buildPlatform.uname.release
-                      != null) [ "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}" ]
-                    ;
+                  crossFlags = [
+                      "-DCMAKE_SYSTEM_NAME=${
+                        lib.findFirst lib.isString "Generic"
+                        (lib.optional (!stdenv.hostPlatform.isRedox)
+                          stdenv.hostPlatform.uname.system)
+                      }"
+                    ] ++ lib.optionals
+                    (stdenv.hostPlatform.uname.processor != null) [
+                      "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
+                    ] ++ lib.optionals
+                    (stdenv.hostPlatform.uname.release != null) [
+                      "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
+                    ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
+                      "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
+                    ] ++ lib.optionals
+                    (stdenv.buildPlatform.uname.system != null) [
+                      "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
+                    ] ++ lib.optionals
+                    (stdenv.buildPlatform.uname.processor != null) [
+                      "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
+                    ] ++ lib.optionals
+                    (stdenv.buildPlatform.uname.release != null) [
+                      "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
+                    ];
                 in
                 explicitFlags
                 ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
@@ -603,8 +614,10 @@ let
                     [binaries]
                     llvm-config = 'llvm-config-native'
                   '';
-                  crossFlags = lib.optionals (stdenv.hostPlatform
-                    != stdenv.buildPlatform) [ "--cross-file=${crossFile}" ];
+                  crossFlags = lib.optionals
+                    (stdenv.hostPlatform != stdenv.buildPlatform) [
+                      "--cross-file=${crossFile}"
+                    ];
                 in
                 crossFlags ++ explicitFlags
                 ;

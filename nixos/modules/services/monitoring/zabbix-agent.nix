@@ -30,11 +30,13 @@ let
     (toKeyValue { listsAsDuplicateKeys = true; } cfg.settings);
 
 in {
-  imports = [ (lib.mkRemovedOptionModule [
-    "services"
-    "zabbixAgent"
-    "extraConfig"
-  ] "Use services.zabbixAgent.settings instead.") ];
+  imports = [
+      (lib.mkRemovedOptionModule [
+        "services"
+        "zabbixAgent"
+        "extraConfig"
+      ] "Use services.zabbixAgent.settings instead.")
+    ];
 
     # interface
 

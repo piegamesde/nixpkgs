@@ -79,17 +79,20 @@ let
       autoreconfHook
     ];
 
-    buildInputs = lib.optionals pythonSupport [ python ] ++ lib.optionals
-      (pythonSupport && python ? isPy2 && python.isPy2) [ gettext ]
-      ++ lib.optionals
-      (pythonSupport && python ? isPy3 && python.isPy3) [ ncurses ]
-      ++ lib.optionals (stdenv.isDarwin && pythonSupport && python ? isPy2
-        && python.isPy2) [ libintl ] ++ lib.optionals stdenv.isFreeBSD [
-          # Libxml2 has an optional dependency on liblzma.  However, on impure
-          # platforms, it may end up using that from /usr/lib, and thus lack a
-          # RUNPATH for that, leading to undefined references for its users.
-          xz
-        ];
+    buildInputs = lib.optionals pythonSupport [ python ]
+      ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [
+        gettext
+      ] ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [
+        ncurses
+      ] ++ lib.optionals
+      (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2) [
+        libintl
+      ] ++ lib.optionals stdenv.isFreeBSD [
+        # Libxml2 has an optional dependency on liblzma.  However, on impure
+        # platforms, it may end up using that from /usr/lib, and thus lack a
+        # RUNPATH for that, leading to undefined references for its users.
+        xz
+      ];
 
     propagatedBuildInputs = [
       zlib

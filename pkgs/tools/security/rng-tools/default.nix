@@ -62,9 +62,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "AR:=$(AR)" # For cross-compilation
-    ] ++ lib.optionals
-    withPkcs11 [ "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
+  makeFlags = [
+      "AR:=$(AR)" # For cross-compilation
+    ] ++ lib.optionals withPkcs11 [
+      "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
     ];
 
   doCheck = true;

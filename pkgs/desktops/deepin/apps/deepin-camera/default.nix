@@ -81,18 +81,20 @@ stdenv.mkDerivation rec {
     "-I${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0"
   ];
 
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [
-        ffmpeg
-        ffmpegthumbnailer
-        gst_all_1.gstreamer
-        gst_all_1.gst-plugins-base
-        libusb1
-        libv4l
-        portaudio
-        systemd
-      ]
-    }" ];
+  qtWrapperArgs = [
+      "--prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          ffmpeg
+          ffmpegthumbnailer
+          gst_all_1.gstreamer
+          gst_all_1.gst-plugins-base
+          libusb1
+          libv4l
+          portaudio
+          systemd
+        ]
+      }"
+    ];
 
   preFixup = ''
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")

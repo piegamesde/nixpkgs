@@ -107,13 +107,15 @@ in {
     Flakebi
   ];
 
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "paperless-ng"
-  ] [
-    "services"
-    "paperless"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "paperless-ng"
+      ] [
+        "services"
+        "paperless"
+      ])
+    ];
 
   options.services.paperless = {
     enable = mkOption {

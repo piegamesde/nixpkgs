@@ -93,7 +93,9 @@ mkDerivation rec {
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [
+        lovesegfault
+      ];
       # src link returns 403
     broken = true;
   };

@@ -73,14 +73,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = pname;
-    desktopName = "Subtitle Edit";
-    exec = "subtitleedit";
-    icon = "subtitleedit";
-    comment = meta.description;
-    categories = [ "Video" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        desktopName = "Subtitle Edit";
+        exec = "subtitleedit";
+        icon = "subtitleedit";
+        comment = meta.description;
+        categories = [ "Video" ];
+      })
+    ];
 
   passthru.updateScript = nix-update-script { };
 

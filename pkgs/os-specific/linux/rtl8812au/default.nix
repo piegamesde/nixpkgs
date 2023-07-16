@@ -44,8 +44,9 @@ stdenv.mkDerivation rec {
       "y"
     else
       "n"))
-  ] ++ lib.optionals (stdenv.hostPlatform
-    != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+    ];
 
   preInstall = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"

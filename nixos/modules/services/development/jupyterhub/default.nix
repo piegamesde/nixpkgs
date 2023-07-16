@@ -190,21 +190,23 @@ in {
     };
   };
 
-  config = mkMerge [ (mkIf cfg.enable {
-    systemd.services.jupyterhub = {
-      description = "Jupyterhub development server";
+  config = mkMerge [
+      (mkIf cfg.enable {
+        systemd.services.jupyterhub = {
+          description = "Jupyterhub development server";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = {
-        Restart = "always";
-        ExecStart =
-          "${cfg.jupyterhubEnv}/bin/jupyterhub --config ${jupyterhubConfig}";
-        User = "root";
-        StateDirectory = cfg.stateDirectory;
-        WorkingDirectory = "/var/lib/${cfg.stateDirectory}";
-      };
-    };
-  }) ];
+          serviceConfig = {
+            Restart = "always";
+            ExecStart =
+              "${cfg.jupyterhubEnv}/bin/jupyterhub --config ${jupyterhubConfig}";
+            User = "root";
+            StateDirectory = cfg.stateDirectory;
+            WorkingDirectory = "/var/lib/${cfg.stateDirectory}";
+          };
+        };
+      })
+    ];
 }

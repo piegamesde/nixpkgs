@@ -51,14 +51,16 @@ stdenv.mkDerivation rec {
       "-DENABLE_KLU=ON"
       "-DKLU_INCLUDE_DIR=${suitesparse.dev}/include"
       "-DKLU_LIBRARY_DIR=${suitesparse}/lib"
-    ] ++ [ (
-      # Use the correct index type according to lapack and blas used. They are
-      # already supposed to be compatible but we check both for extra safety. 64
-      # should be the default but we prefer to be explicit, for extra safety.
-      if blas.isILP64 then
-        "-DSUNDIALS_INDEX_SIZE=64"
-      else
-        "-DSUNDIALS_INDEX_SIZE=32") ];
+    ] ++ [
+      (
+        # Use the correct index type according to lapack and blas used. They are
+        # already supposed to be compatible but we check both for extra safety. 64
+        # should be the default but we prefer to be explicit, for extra safety.
+        if blas.isILP64 then
+          "-DSUNDIALS_INDEX_SIZE=64"
+        else
+          "-DSUNDIALS_INDEX_SIZE=32")
+    ];
 
   doCheck = true;
   checkTarget = "test";

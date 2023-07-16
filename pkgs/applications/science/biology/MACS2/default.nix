@@ -19,7 +19,9 @@ python3.pkgs.buildPythonPackage rec {
       --replace 'if float(sys.version[:3])<3.6:' 'if False:'
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [ numpy ];
+  propagatedBuildInputs = with python3.pkgs; [
+      numpy
+    ];
 
     # To prevent ERROR: diffpeak_cmd (unittest.loader._FailedTest) for obsolete
     # function (ImportError: Failed to import test module: diffpeak_cmd)

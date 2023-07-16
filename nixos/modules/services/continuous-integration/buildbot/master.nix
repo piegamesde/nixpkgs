@@ -80,7 +80,9 @@ in {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Change Sources.";
         default = [ ];
-        example = [ "changes.GitPoller('https://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)" ];
+        example = [
+            "changes.GitPoller('https://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)"
+          ];
       };
 
       enable = mkOption {
@@ -118,7 +120,9 @@ in {
       builders = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Builders.";
-        default = [ "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)" ];
+        default = [
+            "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)"
+          ];
       };
 
       workers = mkOption {

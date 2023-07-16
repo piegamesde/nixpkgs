@@ -18,14 +18,16 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-FNlEHzuy89RuFUwZPmVA+4AmpQHGD+18BguGC6qBdBM=";
   };
 
-  patches = [ (fetchpatch {
-    # patch setup.py to generate $out/bin/mautrix-googlechat
-    # https://github.com/mautrix/googlechat/pull/81
-    name = "mautrix-googlechat-entry-point.patch";
-    url =
-      "https://github.com/mautrix/googlechat/pull/81/commits/112fa3d27bc6f89a02321cb80d219de149e00df8.patch";
-    sha256 = "sha256-DsITDNLsIgBIqN6sD5JHaFW0LToxVUTzWc7mE2L09IQ=";
-  }) ];
+  patches = [
+      (fetchpatch {
+        # patch setup.py to generate $out/bin/mautrix-googlechat
+        # https://github.com/mautrix/googlechat/pull/81
+        name = "mautrix-googlechat-entry-point.patch";
+        url =
+          "https://github.com/mautrix/googlechat/pull/81/commits/112fa3d27bc6f89a02321cb80d219de149e00df8.patch";
+        sha256 = "sha256-DsITDNLsIgBIqN6sD5JHaFW0LToxVUTzWc7mE2L09IQ=";
+      })
+    ];
 
   baseConfigPath = "share/mautrix-googlechat/example-config.yaml";
   postInstall = ''

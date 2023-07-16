@@ -67,8 +67,9 @@ in {
       rustfmt
     ];
 
-    buildInputs = [ openssl ] ++ lib.optionals
-      stdenv.isDarwin [ darwin.apple_sdk.frameworks.SystemConfiguration ];
+    buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+        darwin.apple_sdk.frameworks.SystemConfiguration
+      ];
 
     passthru.updateScript = updateScript;
 

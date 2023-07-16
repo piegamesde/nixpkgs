@@ -58,16 +58,18 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DBUNDLE_DEPENDENCIES=OFF" ]
     ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON";
 
-  desktopItems = [ (makeDesktopItem {
-    type = "Application";
-    name = "VVVVVV";
-    desktopName = "VVVVVV";
-    comment = meta.description;
-    exec = pname;
-    icon = "VVVVVV";
-    terminal = false;
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        type = "Application";
+        name = "VVVVVV";
+        desktopName = "VVVVVV";
+        comment = meta.description;
+        exec = pname;
+        icon = "VVVVVV";
+        terminal = false;
+        categories = [ "Game" ];
+      })
+    ];
 
   installPhase = ''
     runHook preInstall

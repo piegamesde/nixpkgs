@@ -81,10 +81,11 @@ stdenv.mkDerivation rec {
       else
         "False"
     }"
-  ] ++ lib.optionals (stdenv.hostPlatform
-    != stdenv.buildPlatform) [ "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${
-      lib.getDev pkgsBuildBuild.libical
-    }/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake" ];
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${
+        lib.getDev pkgsBuildBuild.libical
+      }/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
+    ];
 
   patches = [
     # Will appear in 3.1.0

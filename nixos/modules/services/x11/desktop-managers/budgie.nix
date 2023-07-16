@@ -117,7 +117,9 @@ in {
       };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ];
+    services.xserver.desktopManager.budgie.sessionPath = [
+        pkgs.budgie.budgie-desktop-view
+      ];
 
     environment.extraInit = ''
       ${concatMapStrings (p: ''
@@ -193,7 +195,8 @@ in {
       platformTheme = mkDefault "gtk2";
     };
 
-    environment.pathsToLink = [ "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+    environment.pathsToLink = [
+        "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
       ];
 
       # GSettings overrides.
@@ -224,8 +227,8 @@ in {
       mkDefault true; # for Budgie's Status Indicator and BCC's Sound panel.
 
     xdg.portal.enable = mkDefault true; # for BCC's Applications panel.
-    xdg.portal.extraPortals =
-      with pkgs; [ xdg-desktop-portal-gtk # provides a XDG Portals implementation.
+    xdg.portal.extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk # provides a XDG Portals implementation.
       ];
 
     services.geoclue2.enable =
@@ -261,7 +264,9 @@ in {
     services.gvfs.enable = mkDefault true;
 
       # Register packages for DBus.
-    services.dbus.packages = with pkgs; [ budgie.budgie-control-center ];
+    services.dbus.packages = with pkgs; [
+        budgie.budgie-control-center
+      ];
 
       # Shell integration for MATE Terminal.
     programs.bash.vteIntegration = true;

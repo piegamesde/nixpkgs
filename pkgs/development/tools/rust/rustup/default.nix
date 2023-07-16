@@ -17,7 +17,8 @@
 }:
 
 let
-  libPath = lib.makeLibraryPath [ zlib # libz.so.1
+  libPath = lib.makeLibraryPath [
+      zlib # libz.so.1
     ];
 
 in
@@ -58,18 +59,19 @@ rustPlatform.buildRustPackage rec {
 
   checkFeatures = [ ];
 
-  patches = lib.optionals stdenv.isLinux [ (runCommand
-    "0001-dynamically-patchelf-binaries.patch" {
-      CC = stdenv.cc;
-      patchelf = patchelf;
-      libPath = "$ORIGIN/../lib:${libPath}";
-    } ''
-      export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
-      substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
-        --subst-var patchelf \
-        --subst-var dynamicLinker \
-        --subst-var libPath
-    '') ];
+  patches = lib.optionals stdenv.isLinux [
+      (runCommand "0001-dynamically-patchelf-binaries.patch" {
+        CC = stdenv.cc;
+        patchelf = patchelf;
+        libPath = "$ORIGIN/../lib:${libPath}";
+      } ''
+        export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
+        substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
+          --subst-var patchelf \
+          --subst-var dynamicLinker \
+          --subst-var libPath
+      '')
+    ];
 
   doCheck = !stdenv.isAarch64 && !stdenv.isDarwin;
 

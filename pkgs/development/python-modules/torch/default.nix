@@ -363,7 +363,9 @@ buildPythonPackage rec {
     # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
     # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
   env.NIX_CFLAGS_COMPILE = toString
-    ((lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
+    ((lib.optionals (blas.implementation == "mkl") [
+        "-Wno-error=array-bounds"
+      ]
       # Suppress gcc regression: avx512 math function raises uninitialized variable warning
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
@@ -375,8 +377,10 @@ buildPythonPackage rec {
       # Since pytorch 2.0:
       # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
       # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-      ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version
-        == "12") [ "-Wno-error=free-nonheap-object" ]));
+      ++ lib.optionals
+      (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
+        "-Wno-error=free-nonheap-object"
+      ]));
 
   nativeBuildInputs = [
     cmake
@@ -393,8 +397,9 @@ buildPythonPackage rec {
     blas
     blas.provider
     pybind11
-  ] ++ lib.optionals
-    stdenv.isLinux [ linuxHeaders_5_19 ] # TMP: avoid "flexible array member" errors for now
+  ] ++ lib.optionals stdenv.isLinux [
+      linuxHeaders_5_19
+    ] # TMP: avoid "flexible array member" errors for now
     ++ lib.optionals cudaSupport [
       cudnn
       nccl
@@ -426,8 +431,9 @@ buildPythonPackage rec {
     future
     tensorboard
     protobuf
-  ] ++ lib.optionals MPISupport [ mpi ]
-    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
+  ] ++ lib.optionals MPISupport [ mpi ] ++ lib.optionals rocmSupport [
+      rocmtoolkit_joined
+    ]
     # rocm build requires openai-triton;
     # openai-triton currently requires cuda_nvcc,
     # so not including it in the cpu-only build;

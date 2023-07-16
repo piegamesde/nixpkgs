@@ -79,7 +79,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.poedit.net/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dasj19 ];
+    maintainers = with maintainers; [
+        dasj19
+      ];
       # configure: error: GTK+ build of wxWidgets is required
     broken = stdenv.isDarwin;
   };

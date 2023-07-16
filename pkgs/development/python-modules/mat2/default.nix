@@ -51,10 +51,12 @@ buildPythonPackage rec {
     ./executable-name.patch
     # hardcode path to mat2 executable
     ./tests.patch
-  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [ (substituteAll {
-    src = ./bubblewrap-path.patch;
-    bwrap = "${bubblewrap}/bin/bwrap";
-  }) ];
+  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [
+      (substituteAll {
+        src = ./bubblewrap-path.patch;
+        bwrap = "${bubblewrap}/bin/bwrap";
+      })
+    ];
 
   postPatch = ''
     rm pyproject.toml

@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gRMoLzCAXByLVtzYAZnhmbgbfsav6CkbP3ZE0NDdlMw=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook # to fully work with gnome also needs programs.dconf.enable = true in your configuration.nix
+  nativeBuildInputs = [
+      wrapGAppsHook # to fully work with gnome also needs programs.dconf.enable = true in your configuration.nix
     ];
 
   buildInputs = with pkgs; [

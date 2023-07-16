@@ -25,11 +25,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2DwIH6GNsK2XwaVxzPvN1qt4XRSi5fCQDwltBCBg4gI=";
   };
 
-  patches = [ (substituteAll {
-    # Disable automatic download of dependencies
-    src = ./build.xml.patch;
-    inherit version;
-  }) ];
+  patches = [
+      (substituteAll {
+        # Disable automatic download of dependencies
+        src = ./build.xml.patch;
+        inherit version;
+      })
+    ];
 
   postPatch = with deps;
     ''

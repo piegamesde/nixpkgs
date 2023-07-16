@@ -13,17 +13,19 @@ let
   otop = options.services.kubernetes;
   cfg = top.proxy;
 in {
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "kubernetes"
-    "proxy"
-    "address"
-  ] [
-    "services"
-    "kubernetes"
-    "proxy"
-    "bindAddress"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "kubernetes"
+        "proxy"
+        "address"
+      ] [
+        "services"
+        "kubernetes"
+        "proxy"
+        "bindAddress"
+      ])
+    ];
 
     ###### interface
   options.services.kubernetes.proxy = with lib.types; {

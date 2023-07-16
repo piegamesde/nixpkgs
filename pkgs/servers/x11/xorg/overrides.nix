@@ -148,9 +148,10 @@ self: super:
       "man"
     ];
     configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    depsBuildBuild = [ buildPackages.stdenv.cc ] ++ lib.optionals
-      stdenv.hostPlatform.isStatic [ (xorg.buildPackages.stdenv.cc.libc.static or null) ]
-      ;
+    depsBuildBuild = [ buildPackages.stdenv.cc ]
+      ++ lib.optionals stdenv.hostPlatform.isStatic [
+        (xorg.buildPackages.stdenv.cc.libc.static or null)
+      ];
     preConfigure = ''
       sed 's,^as_dummy.*,as_dummy="\$PATH",' -i configure
     '';
@@ -367,9 +368,10 @@ self: super:
       xorg.libXfixes
       xorg.libXext
     ];
-    configureFlags = lib.optionals (stdenv.hostPlatform
-      != stdenv.buildPlatform) [ "xorg_cv_malloc0_returns_null=no" ]
-      ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared";
+    configureFlags =
+      lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        "xorg_cv_malloc0_returns_null=no"
+      ] ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared";
   });
 
   libXinerama = super.libXinerama.overrideAttrs (attrs: {
@@ -690,11 +692,13 @@ self: super:
   xf86videoati = super.xf86videoati.overrideAttrs (attrs: {
     nativeBuildInputs = attrs.nativeBuildInputs ++ [ autoreconfHook ];
     buildInputs = attrs.buildInputs ++ [ xorg.utilmacros ];
-    patches = [ (fetchpatch {
-      url =
-        "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/commit/e0511968d04b42abf11bc0ffb387f143582bc144.patch";
-      sha256 = "sha256-79nqKuJRgMYXDEMB8IWxdmbxtI/m+Oca1wSLYeGMuEk=";
-    }) ];
+    patches = [
+        (fetchpatch {
+          url =
+            "https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati/-/commit/e0511968d04b42abf11bc0ffb387f143582bc144.patch";
+          sha256 = "sha256-79nqKuJRgMYXDEMB8IWxdmbxtI/m+Oca1wSLYeGMuEk=";
+        })
+      ];
   });
 
   xf86videonouveau = super.xf86videonouveau.overrideAttrs (attrs: {
@@ -764,7 +768,9 @@ self: super:
     (attrs: { buildInputs = attrs.buildInputs ++ [ xorg.libXext ]; });
 
   xkbcomp = super.xkbcomp.overrideAttrs (attrs: {
-    configureFlags = [ "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb" ];
+    configureFlags = [
+        "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb"
+      ];
   });
 
   xkeyboardconfig = super.xkeyboardconfig.overrideAttrs (attrs: {
@@ -1246,12 +1252,14 @@ self: super:
   });
 
   xorgcffiles = super.xorgcffiles.overrideAttrs (attrs: {
-    patches = [ (fetchpatch {
-      name = "add-aarch64-darwin-support.patch";
-      url =
-        "https://gitlab.freedesktop.org/xorg/util/cf/-/commit/8d88c559b177e832b581c8ac0aa383b6cf79e0d0.patch";
-      sha256 = "sha256-wCijdmlUtVgOh9Rp/LJrg1ObYm4OPTke5Xwu0xC0ap4=";
-    }) ];
+    patches = [
+        (fetchpatch {
+          name = "add-aarch64-darwin-support.patch";
+          url =
+            "https://gitlab.freedesktop.org/xorg/util/cf/-/commit/8d88c559b177e832b581c8ac0aa383b6cf79e0d0.patch";
+          sha256 = "sha256-wCijdmlUtVgOh9Rp/LJrg1ObYm4OPTke5Xwu0xC0ap4=";
+        })
+      ];
     postInstall = lib.optionalString stdenv.isDarwin ''
       substituteInPlace $out/lib/X11/config/darwin.cf --replace "/usr/bin/" ""
     '';

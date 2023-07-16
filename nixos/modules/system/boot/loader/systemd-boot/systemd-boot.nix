@@ -96,17 +96,19 @@ let
   '';
 in {
 
-  imports = [ (mkRenamedOptionModule [
-    "boot"
-    "loader"
-    "gummiboot"
-    "enable"
-  ] [
-    "boot"
-    "loader"
-    "systemd-boot"
-    "enable"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "boot"
+        "loader"
+        "gummiboot"
+        "enable"
+      ] [
+        "boot"
+        "loader"
+        "systemd-boot"
+        "enable"
+      ])
+    ];
 
   options.boot.loader.systemd-boot = {
     enable = mkOption {

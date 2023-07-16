@@ -55,7 +55,9 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  configureFlags = [ "--localstatedir=/var/lib" ]
+  configureFlags = [
+      "--localstatedir=/var/lib"
+    ]
     # krb5's ./configure does not allow passing --enable-shared and --enable-static at the same time.
     # See https://bbs.archlinux.org/viewtopic.php?pid=1576737#p1576737
     ++ lib.optionals staticOnly [

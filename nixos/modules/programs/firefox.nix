@@ -227,14 +227,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ (cfg.package.override {
-      extraPrefs = cfg.autoConfig;
-      extraNativeMessagingHosts = with pkgs;
-        optionals nmh.ff2mpv [ ff2mpv ] ++ optionals nmh.euwebid [ web-eid-app ]
-        ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
-        ++ optionals nmh.jabref [ jabref ]
-        ++ optionals nmh.passff [ passff-host ];
-    }) ];
+    environment.systemPackages = [
+        (cfg.package.override {
+          extraPrefs = cfg.autoConfig;
+          extraNativeMessagingHosts = with pkgs;
+            optionals nmh.ff2mpv [ ff2mpv ]
+            ++ optionals nmh.euwebid [ web-eid-app ]
+            ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
+            ++ optionals nmh.jabref [ jabref ]
+            ++ optionals nmh.passff [ passff-host ];
+        })
+      ];
 
     nixpkgs.config.firefox = {
       enableBrowserpass = nmh.browserpass;

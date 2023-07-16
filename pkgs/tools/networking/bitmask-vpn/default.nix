@@ -169,7 +169,9 @@ buildGoModule rec {
     '';
     homepage = "https://bitmask.net";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ julm ];
+    maintainers = with lib.maintainers; [
+        julm
+      ];
       # darwin requires apple_sdk >= 10.13
     platforms = lib.platforms.linux;
   };

@@ -1306,9 +1306,11 @@ in rec {
           # https://github.com/NixOS/nix/blob/ffe155abd36366a870482625543f9bf924a58281/src/libstore/build/local-derivation-goal.cc#L906-L910
           # Slightly differs however: We use the passed-in homeDirectory instead of sandboxBuildDir.
           # We're doing this because it's arguably a bug in Nix that sandboxBuildDir is used here: https://github.com/NixOS/nix/issues/6379
-          extraPasswdLines = [ "nixbld:x:${toString uid}:${
-              toString gid
-            }:Build user:${homeDirectory}:/noshell" ];
+          extraPasswdLines = [
+              "nixbld:x:${toString uid}:${
+                toString gid
+              }:Build user:${homeDirectory}:/noshell"
+            ];
           extraGroupLines = [ "nixbld:!:${toString gid}:" ];
         })
       ];

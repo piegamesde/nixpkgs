@@ -30,14 +30,16 @@ stdenv.mkDerivation rec {
     ln -s $out/games/Maelstrom/Maelstrom $out/bin/maelstrom
   '';
 
-  desktopItems = [ (makeDesktopItem {
-    name = "maelstrom";
-    exec = "maelstrom";
-    desktopName = "Maelstrom";
-    genericName = "Maelstrom";
-    comment = "An arcade-style game resembling Asteroids";
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "maelstrom";
+        exec = "maelstrom";
+        desktopName = "Maelstrom";
+        genericName = "Maelstrom";
+        comment = "An arcade-style game resembling Asteroids";
+        categories = [ "Game" ];
+      })
+    ];
 
   meta = with lib; {
     description = "An arcade-style game resembling Asteroids";

@@ -66,12 +66,14 @@ buildPythonPackage rec {
     # make sure the tests don't remove packages from our pythonpath
     # and disable failing tests
     ./django_4_tests.patch
-  ] ++ lib.optionals withGdal [ (substituteAll {
-    src = ./django_4_set_geos_gdal_lib.patch;
-    geos = geos;
-    gdal = gdal;
-    extension = stdenv.hostPlatform.extensions.sharedLibrary;
-  }) ];
+  ] ++ lib.optionals withGdal [
+      (substituteAll {
+        src = ./django_4_set_geos_gdal_lib.patch;
+        geos = geos;
+        gdal = gdal;
+        extension = stdenv.hostPlatform.extensions.sharedLibrary;
+      })
+    ];
 
   postPatch = ''
     substituteInPlace tests/utils_tests/test_autoreload.py \

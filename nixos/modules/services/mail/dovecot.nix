@@ -190,11 +190,13 @@ let
     }
     ;
 in {
-  imports = [ (mkRemovedOptionModule [
-    "services"
-    "dovecot2"
-    "package"
-  ] "") ];
+  imports = [
+      (mkRemovedOptionModule [
+        "services"
+        "dovecot2"
+        "package"
+      ] "")
+    ];
 
   options.services.dovecot2 = {
     enable = mkEnableOption (lib.mdDoc "the dovecot 2.x POP3/IMAP server");
@@ -509,9 +511,10 @@ in {
 
     environment.systemPackages = [ dovecotPkg ];
 
-    warnings = mkIf (any isList
-      options.services.dovecot2.mailboxes.definitions) [ "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration." ]
-      ;
+    warnings =
+      mkIf (any isList options.services.dovecot2.mailboxes.definitions) [
+        "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration."
+      ];
 
     assertions = [
       {

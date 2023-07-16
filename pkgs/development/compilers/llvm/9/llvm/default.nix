@@ -256,9 +256,9 @@ stdenv.mkDerivation (rec {
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_OUTPUT_HTML=OFF"
       "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ optionals
-    (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
-    ++ optionals (isDarwin) [
+    ] ++ optionals (enableGoldPlugin) [
+      "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+    ] ++ optionals (isDarwin) [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DCAN_TARGET_i386=false"
     ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

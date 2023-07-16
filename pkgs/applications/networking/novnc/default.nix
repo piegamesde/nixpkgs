@@ -18,10 +18,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = with python3.pkgs;
-    [ (substituteAll {
-      src = ./websockify.patch;
-      inherit websockify;
-    }) ] ++ [ ./fix-paths.patch ];
+    [
+      (substituteAll {
+        src = ./websockify.patch;
+        inherit websockify;
+      })
+    ] ++ [ ./fix-paths.patch ];
 
   postPatch = ''
     substituteAllInPlace utils/novnc_proxy

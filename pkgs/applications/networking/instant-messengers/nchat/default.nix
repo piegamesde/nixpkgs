@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
     Foundation
   ];
 
-  cmakeFlags = [ "-DHAS_WHATSAPP=OFF" # go module build required
+  cmakeFlags = [
+      "-DHAS_WHATSAPP=OFF" # go module build required
     ];
 
   meta = with lib; {

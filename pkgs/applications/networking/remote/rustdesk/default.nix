@@ -128,15 +128,17 @@ rustPlatform.buildRustPackage rec {
     # Checks require an active X display.
   doCheck = false;
 
-  desktopItems = [ (makeDesktopItem {
-    name = "rustdesk";
-    exec = meta.mainProgram;
-    icon = "rustdesk";
-    desktopName = "RustDesk";
-    comment = meta.description;
-    genericName = "Remote Desktop";
-    categories = [ "Network" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "rustdesk";
+        exec = meta.mainProgram;
+        icon = "rustdesk";
+        desktopName = "RustDesk";
+        comment = meta.description;
+        genericName = "Remote Desktop";
+        categories = [ "Network" ];
+      })
+    ];
 
   postPatch = ''
     rm Cargo.lock

@@ -89,14 +89,16 @@ in
 let
   extras = {
     # GPLv2 compatible
-    argon2 = [ (libargon2 // {
-      meta = libargon2.meta // {
-        # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
-        # updating this here is important that meta.license is accurate
-        # libargon2 is licensed under either ASL20 or CC0.
-        license = lib.licenses.cc0;
-      };
-    }) ];
+    argon2 = [
+        (libargon2 // {
+          meta = libargon2.meta // {
+            # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
+            # updating this here is important that meta.license is accurate
+            # libargon2 is licensed under either ASL20 or CC0.
+            license = lib.licenses.cc0;
+          };
+        })
+      ];
     ldap = [ openldap ];
     mysql = [ libmysqlclient ];
     pgsql = [ postgresql ];

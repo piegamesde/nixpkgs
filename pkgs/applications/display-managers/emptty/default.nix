@@ -29,7 +29,9 @@ buildGoModule rec {
     description = "Dead simple CLI Display Manager on TTY";
     homepage = "https://github.com/tvrzna/emptty";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [
+        urandom
+      ];
       # many undefined functions
     broken = stdenv.isDarwin;
   };

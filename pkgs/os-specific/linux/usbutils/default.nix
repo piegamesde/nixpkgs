@@ -19,10 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w7RRux9P+fY1bKxaaVaprI6F2BZRr1ainmiflPpv2m4=";
   };
 
-  patches = [ (substituteAll {
-    src = ./fix-paths.patch;
-    inherit hwdata;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit hwdata;
+      })
+    ];
 
   nativeBuildInputs = [
     autoreconfHook

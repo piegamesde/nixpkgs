@@ -74,9 +74,9 @@ mkDerivation rec {
   installFlags =
     [ "INSTALL_ROOT=$(out)" ] ++ lib.optional withDocumentation "install_docs";
 
-  qtWrapperArgs = [ "--set-default PERFPROFILER_PARSER_FILEPATH ${
-      lib.getBin perf
-    }/bin" ];
+  qtWrapperArgs = [
+      "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
+    ];
 
   preConfigure = ''
     substituteInPlace src/plugins/plugins.pro \

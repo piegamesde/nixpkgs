@@ -64,8 +64,10 @@ in {
         "AF_UNIX"
       ];
     };
-  } ] ++ [ (mkIf config.services.unbound.enable {
-    after = [ "unbound.service" ];
-    requires = [ "unbound.service" ];
-  }) ]);
+  } ] ++ [
+      (mkIf config.services.unbound.enable {
+        after = [ "unbound.service" ];
+        requires = [ "unbound.service" ];
+      })
+    ]);
 }

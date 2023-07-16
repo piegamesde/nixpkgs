@@ -1015,8 +1015,10 @@ in {
           --generate-keys
       '';
       environment = {
-        PYTHONPATH = makeSearchPathOutput "lib"
-          cfg.package.python.sitePackages [ pluginsEnv ];
+        PYTHONPATH =
+          makeSearchPathOutput "lib" cfg.package.python.sitePackages [
+            pluginsEnv
+          ];
       } // optionalAttrs (cfg.withJemalloc) {
         LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
       };
@@ -1025,11 +1027,12 @@ in {
         User = "matrix-synapse";
         Group = "matrix-synapse";
         WorkingDirectory = cfg.dataDir;
-        ExecStartPre = [ ("+"
-          + (pkgs.writeShellScript "matrix-synapse-fix-permissions" ''
-            chown matrix-synapse:matrix-synapse ${cfg.settings.signing_key_path}
-            chmod 0600 ${cfg.settings.signing_key_path}
-          '')) ];
+        ExecStartPre = [
+            ("+" + (pkgs.writeShellScript "matrix-synapse-fix-permissions" ''
+              chown matrix-synapse:matrix-synapse ${cfg.settings.signing_key_path}
+              chmod 0600 ${cfg.settings.signing_key_path}
+            ''))
+          ];
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \
             ${

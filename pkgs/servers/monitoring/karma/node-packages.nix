@@ -20634,9 +20634,11 @@ let
           })
           sources."has-flag-4.0.0"
           (sources."html-minifier-terser-5.1.1" // {
-            dependencies = [ (sources."terser-4.8.1" // {
-              dependencies = [ sources."commander-2.20.3" ];
-            }) ];
+            dependencies = [
+                (sources."terser-4.8.1" // {
+                  dependencies = [ sources."commander-2.20.3" ];
+                })
+              ];
           })
           (sources."html-webpack-plugin-4.5.2" // {
             dependencies = [ sources."loader-utils-1.4.0" ];
@@ -20915,9 +20917,11 @@ let
           sources."find-cache-dir-3.3.2"
           sources."has-flag-4.0.0"
           (sources."html-minifier-terser-5.1.1" // {
-            dependencies = [ (sources."terser-4.8.1" // {
-              dependencies = [ sources."commander-2.20.3" ];
-            }) ];
+            dependencies = [
+                (sources."terser-4.8.1" // {
+                  dependencies = [ sources."commander-2.20.3" ];
+                })
+              ];
           })
           (sources."html-webpack-plugin-4.5.2" // {
             dependencies = [ sources."loader-utils-1.4.0" ];
@@ -21349,7 +21353,9 @@ let
       sources."babel-plugin-named-exports-order-0.0.2"
       sources."babel-plugin-polyfill-corejs2-0.3.2"
       (sources."babel-plugin-polyfill-corejs3-0.1.7" // {
-        dependencies = [ sources."@babel/helper-define-polyfill-provider-0.1.5" ];
+        dependencies = [
+            sources."@babel/helper-define-polyfill-provider-0.1.5"
+          ];
       })
       sources."babel-plugin-polyfill-regenerator-0.4.0"
       sources."babel-plugin-react-docgen-4.2.1"

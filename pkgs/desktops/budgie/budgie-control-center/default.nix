@@ -69,13 +69,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-z9apestNLEUKzrCMNo0BNAWeyE6FsUCAzcHIom8LcUs=";
   };
 
-  patches = [ (substituteAll {
-    src = ./paths.patch;
-    budgie_desktop = budgie-desktop;
-    gcm = gnome.gnome-color-manager;
-    inherit cups glibc libgnomekbd shadow;
-    inherit networkmanagerapplet tzdata;
-  }) ];
+  patches = [
+      (substituteAll {
+        src = ./paths.patch;
+        budgie_desktop = budgie-desktop;
+        gcm = gnome.gnome-color-manager;
+        inherit cups glibc libgnomekbd shadow;
+        inherit networkmanagerapplet tzdata;
+      })
+    ];
 
   nativeBuildInputs = [
     docbook-xsl-nons

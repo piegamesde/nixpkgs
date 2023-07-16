@@ -160,7 +160,8 @@ in {
 
   config = mkIf (any isEnabled allServices) {
 
-    environment.systemPackages = [ pkgs.frr # for the vtysh tool
+    environment.systemPackages = [
+        pkgs.frr # for the vtysh tool
       ];
 
     users.users.frr = {

@@ -60,8 +60,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     python3
-  ] ++ lib.optionals stdenv.isDarwin [ cctools ] ++ lib.optionals
-    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+  ] ++ lib.optionals stdenv.isDarwin [ cctools ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      autoSignDarwinBinariesHook
+    ];
 
   postInstall = ''
     moveToOutput "lib/*.a" $static

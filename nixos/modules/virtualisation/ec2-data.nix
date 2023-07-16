@@ -12,10 +12,12 @@
 with lib;
 
 {
-  imports = [ (mkRemovedOptionModule [
-    "ec2"
-    "metadata"
-  ] "") ];
+  imports = [
+      (mkRemovedOptionModule [
+        "ec2"
+        "metadata"
+      ] "")
+    ];
 
   config = {
 

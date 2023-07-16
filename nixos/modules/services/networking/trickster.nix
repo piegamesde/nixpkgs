@@ -10,15 +10,17 @@ with lib;
 let
   cfg = config.services.trickster;
 in {
-  imports = [ (mkRenamedOptionModule [
-    "services"
-    "trickster"
-    "origin"
-  ] [
-    "services"
-    "trickster"
-    "origin-url"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "services"
+        "trickster"
+        "origin"
+      ] [
+        "services"
+        "trickster"
+        "origin-url"
+      ])
+    ];
 
   options = {
     services.trickster = {

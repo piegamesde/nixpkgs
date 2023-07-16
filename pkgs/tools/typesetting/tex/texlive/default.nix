@@ -139,17 +139,19 @@ let
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
       pkgs =
         # tarball of a collection/scheme itself only contains a tlobj file
-        [ (if (attrs.hasRunfiles or false) then
-          mkPkgV "run"
-          # the fake derivations are used for filtering of hyphenation patterns and formats
-        else
-          {
-            inherit pname version;
-            tlType = "run";
-            hasFormats = attrs.hasFormats or false;
-            hasHyphens = attrs.hasHyphens or false;
-            tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
-          }) ] ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
+        [
+          (if (attrs.hasRunfiles or false) then
+            mkPkgV "run"
+            # the fake derivations are used for filtering of hyphenation patterns and formats
+          else
+            {
+              inherit pname version;
+              tlType = "run";
+              hasFormats = attrs.hasFormats or false;
+              hasHyphens = attrs.hasHyphens or false;
+              tlDeps = map (n: tl.${n}) (attrs.deps or [ ]);
+            })
+        ] ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; });
     }

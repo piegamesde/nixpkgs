@@ -844,16 +844,18 @@ let
 
 in {
 
-  imports = [ (mkRenamedOptionModule [
-    "security"
-    "pam"
-    "enableU2F"
-  ] [
-    "security"
-    "pam"
-    "u2f"
-    "enable"
-  ]) ];
+  imports = [
+      (mkRenamedOptionModule [
+        "security"
+        "pam"
+        "enableU2F"
+      ] [
+        "security"
+        "pam"
+        "u2f"
+        "enable"
+      ])
+    ];
 
     ###### interface
 
@@ -1320,9 +1322,10 @@ in {
         pam_ccreds
       ] ++ optionals config.security.pam.enableOTPW [ pkgs.otpw ]
       ++ optionals config.security.pam.oath.enable [ pkgs.oath-toolkit ]
-      ++ optionals config.security.pam.p11.enable [ pkgs.pam_p11 ] ++ optionals
-      config.security.pam.enableFscrypt [ pkgs.fscrypt-experimental ]
-      ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ];
+      ++ optionals config.security.pam.p11.enable [ pkgs.pam_p11 ]
+      ++ optionals config.security.pam.enableFscrypt [
+        pkgs.fscrypt-experimental
+      ] ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ];
 
     boot.supportedFilesystems =
       optionals config.security.pam.enableEcryptfs [ "ecryptfs" ];

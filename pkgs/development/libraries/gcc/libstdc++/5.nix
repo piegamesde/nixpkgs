@@ -133,7 +133,9 @@ stdenv.mkDerivation rec {
     description =
       "GNU Compiler Collection, version ${version} -- C++ standard library";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [
+        abbradar
+      ];
       # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };

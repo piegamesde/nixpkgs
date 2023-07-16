@@ -26,8 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3boPoq/wm0af0DqEWcUCUyCmVFopVMitRHJI1xsjAWM=";
   };
 
-  depsBuildBuild = optionals
-    (stdenv.hostPlatform != stdenv.buildPlatform) [ buildPackages.stdenv.cc ];
+  depsBuildBuild = optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      buildPackages.stdenv.cc
+    ];
   buildInputs = [ libxcrypt ] ++ optionals stdenv.isDarwin [ libiconv ]
     ++ optionals (enableStatic && stdenv.cc.libc ? static) [
       stdenv.cc.libc
@@ -66,7 +67,9 @@ stdenv.mkDerivation rec {
     # ...this is fixed in latest git, so doCheck can likely be enabled for next release
     # see https://github.com/landley/toybox/commit/b928ec480cd73fd83511c0f5ca786d1b9f3167c3
     #doCheck = true;
-  nativeCheckInputs = [ which ]; # used for tests with checkFlags = [ "DEBUG=true" ];
+  nativeCheckInputs = [
+      which
+    ]; # used for tests with checkFlags = [ "DEBUG=true" ];
   checkTarget = "tests";
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";

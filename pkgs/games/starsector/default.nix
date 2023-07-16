@@ -33,15 +33,17 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  desktopItems = [ (makeDesktopItem {
-    name = "starsector";
-    exec = "starsector";
-    icon = "starsector";
-    comment = meta.description;
-    genericName = "starsector";
-    desktopName = "Starsector";
-    categories = [ "Game" ];
-  }) ];
+  desktopItems = [
+      (makeDesktopItem {
+        name = "starsector";
+        exec = "starsector";
+        icon = "starsector";
+        comment = meta.description;
+        genericName = "starsector";
+        desktopName = "Starsector";
+        categories = [ "Game" ];
+      })
+    ];
 
     # need to cd into $out in order for classpath to pick up correct jar files
   installPhase = ''

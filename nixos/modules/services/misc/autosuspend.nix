@@ -229,7 +229,9 @@ in {
   config = mkIf cfg.enable {
     systemd.services.autosuspend = {
       description = "A daemon to suspend your server in case of inactivity";
-      documentation = [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ];
+      documentation = [
+          "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html"
+        ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       path = flatten
@@ -242,7 +244,9 @@ in {
 
     systemd.services.autosuspend-detect-suspend = {
       description = "Notifies autosuspend about suspension";
-      documentation = [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ];
+      documentation = [
+          "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html"
+        ];
       wantedBy = [ "sleep.target" ];
       after = [ "sleep.target" ];
       serviceConfig = {

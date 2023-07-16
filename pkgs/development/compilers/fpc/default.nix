@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
   glibc = stdenv.cc.libc.out;
 
     # Patch paths for linux systems. Other platforms will need their own patches.
-  patches =
-    [ ./mark-paths.patch # mark paths for later substitution in postPatch
+  patches = [
+      ./mark-paths.patch # mark paths for later substitution in postPatch
     ] ++ lib.optional stdenv.isAarch64 (fetchpatch {
       # backport upstream patch for aarch64 glibc 2.34
       url =

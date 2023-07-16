@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ perl # needed for patchShebangs
+  buildInputs = [
+      perl # needed for patchShebangs
     ];
 
   dontBuild = true;

@@ -142,9 +142,11 @@ in {
         before = [ "acme-finished-${cfg.useACMEHost}.target" ];
         after = [ "acme-${cfg.useACMEHost}.service" ];
           # Block reloading if not all certs exist yet.
-        unitConfig.ConditionPathExists = [ "${
-            config.security.acme.certs.${cfg.useACMEHost}.directory
-          }/fullchain.pem" ];
+        unitConfig.ConditionPathExists = [
+            "${
+              config.security.acme.certs.${cfg.useACMEHost}.directory
+            }/fullchain.pem"
+          ];
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;

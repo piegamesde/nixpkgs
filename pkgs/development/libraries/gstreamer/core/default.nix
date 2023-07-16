@@ -62,7 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     bash-completion
     gobject-introspection
-  ] ++ lib.optionals stdenv.isLinux [ libcap # for setcap binary
+  ] ++ lib.optionals stdenv.isLinux [
+      libcap # for setcap binary
     ] ++ lib.optionals enableDocumentation [ hotdoc ];
 
   buildInputs = [
